@@ -1,0 +1,1495 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.DataFormContext
+  commentId: T:Tripous.Desktop.DataFormContext
+  id: DataFormContext
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.DataFormContext.Create(System.String,Avalonia.Controls.Control)
+  - Tripous.Desktop.DataFormContext.Create(System.String,System.String,Avalonia.Controls.Control)
+  - Tripous.Desktop.DataFormContext.Create(System.String,Tripous.Data.DataModule,Avalonia.Controls.Control)
+  - Tripous.Desktop.DataFormContext.CreateForm
+  - Tripous.Desktop.DataFormContext.DataForm
+  - Tripous.Desktop.DataFormContext.FormDef
+  - Tripous.Desktop.DataFormContext.InvalidActions
+  - Tripous.Desktop.DataFormContext.Module
+  - Tripous.Desktop.DataFormContext.ModuleDef
+  - Tripous.Desktop.DataFormContext.RegistryName
+  - Tripous.Desktop.DataFormContext.RowId
+  - Tripous.Desktop.DataFormContext.ShowFormModal(System.String,Tripous.Desktop.DataFormAction,System.Object,Avalonia.Controls.Control)
+  - Tripous.Desktop.DataFormContext.StartAction
+  langs:
+  - csharp
+  - vb
+  name: DataFormContext
+  nameWithType: DataFormContext
+  fullName: Tripous.Desktop.DataFormContext
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataFormContext
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Holds the created objects and result data of a form opening operation.
+  example: []
+  syntax:
+    content: 'public class DataFormContext : FormContext'
+    content.vb: Public Class DataFormContext Inherits FormContext
+  inheritance:
+  - System.Object
+  - Tripous.Desktop.FormContext
+  inheritedMembers:
+  - Tripous.Desktop.FormContext.fFormId
+  - Tripous.Desktop.FormContext.fTitle
+  - Tripous.Desktop.FormContext.Create(System.Type,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  - Tripous.Desktop.FormContext.Create(System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  - Tripous.Desktop.FormContext.Create(System.String,System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  - Tripous.Desktop.FormContext.FormId
+  - Tripous.Desktop.FormContext.ClassName
+  - Tripous.Desktop.FormContext.DisplayMode
+  - Tripous.Desktop.FormContext.Caller
+  - Tripous.Desktop.FormContext.ParentControl
+  - Tripous.Desktop.FormContext.Form
+  - Tripous.Desktop.FormContext.Title
+  - Tripous.Desktop.FormContext.ModalResult
+  - Tripous.Desktop.FormContext.Result
+  - Tripous.Desktop.FormContext.ResultData
+  - Tripous.Desktop.FormContext.Options
+  - Tripous.Desktop.FormContext.Params
+  - Tripous.Desktop.FormContext.Tag
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.DataFormContext.Create(System.String,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.DataFormContext.Create(System.String,Avalonia.Controls.Control)
+  id: Create(System.String,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: Create(string, Control)
+  nameWithType: DataFormContext.Create(string, Control)
+  fullName: Tripous.Desktop.DataFormContext.Create(string, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 57
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a data form context.
+  example: []
+  syntax:
+    content: public static DataFormContext Create(string FormRegistryName, Control Caller = null)
+    parameters:
+    - id: FormRegistryName
+      type: System.String
+      description: The form registry name.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    return:
+      type: Tripous.Desktop.DataFormContext
+      description: The created data form context.
+    content.vb: Public Shared Function Create(FormRegistryName As String, Caller As Control = Nothing) As DataFormContext
+  overload: Tripous.Desktop.DataFormContext.Create*
+  nameWithType.vb: DataFormContext.Create(String, Control)
+  fullName.vb: Tripous.Desktop.DataFormContext.Create(String, Avalonia.Controls.Control)
+  name.vb: Create(String, Control)
+- uid: Tripous.Desktop.DataFormContext.Create(System.String,Tripous.Data.DataModule,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.DataFormContext.Create(System.String,Tripous.Data.DataModule,Avalonia.Controls.Control)
+  id: Create(System.String,Tripous.Data.DataModule,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: Create(string, DataModule, Control)
+  nameWithType: DataFormContext.Create(string, DataModule, Control)
+  fullName: Tripous.Desktop.DataFormContext.Create(string, Tripous.Data.DataModule, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a data form context.
+  example: []
+  syntax:
+    content: public static DataFormContext Create(string FormRegistryName, DataModule Module, Control Caller = null)
+    parameters:
+    - id: FormRegistryName
+      type: System.String
+      description: The form registry name.
+    - id: Module
+      type: Tripous.Data.DataModule
+      description: The data module to use.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    return:
+      type: Tripous.Desktop.DataFormContext
+      description: The created data form context.
+    content.vb: Public Shared Function Create(FormRegistryName As String, [Module] As DataModule, Caller As Control = Nothing) As DataFormContext
+  overload: Tripous.Desktop.DataFormContext.Create*
+  nameWithType.vb: DataFormContext.Create(String, DataModule, Control)
+  fullName.vb: Tripous.Desktop.DataFormContext.Create(String, Tripous.Data.DataModule, Avalonia.Controls.Control)
+  name.vb: Create(String, DataModule, Control)
+- uid: Tripous.Desktop.DataFormContext.Create(System.String,System.String,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.DataFormContext.Create(System.String,System.String,Avalonia.Controls.Control)
+  id: Create(System.String,System.String,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: Create(string, string, Control)
+  nameWithType: DataFormContext.Create(string, string, Control)
+  fullName: Tripous.Desktop.DataFormContext.Create(string, string, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a data form context.
+  example: []
+  syntax:
+    content: public static DataFormContext Create(string FormId, string FormRegistryName, Control Caller = null)
+    parameters:
+    - id: FormId
+      type: System.String
+      description: The form identifier.
+    - id: FormRegistryName
+      type: System.String
+      description: The form registry name.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    return:
+      type: Tripous.Desktop.DataFormContext
+      description: The created data form context.
+    content.vb: Public Shared Function Create(FormId As String, FormRegistryName As String, Caller As Control = Nothing) As DataFormContext
+  overload: Tripous.Desktop.DataFormContext.Create*
+  nameWithType.vb: DataFormContext.Create(String, String, Control)
+  fullName.vb: Tripous.Desktop.DataFormContext.Create(String, String, Avalonia.Controls.Control)
+  name.vb: Create(String, String, Control)
+- uid: Tripous.Desktop.DataFormContext.CreateForm
+  commentId: M:Tripous.Desktop.DataFormContext.CreateForm
+  id: CreateForm
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: CreateForm()
+  nameWithType: DataFormContext.CreateForm()
+  fullName: Tripous.Desktop.DataFormContext.CreateForm()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateForm
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 91
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates or returns the form instance.
+  example: []
+  syntax:
+    content: public override AppForm CreateForm()
+    return:
+      type: Tripous.Desktop.AppForm
+      description: The created or existing form instance.
+    content.vb: Public Overrides Function CreateForm() As AppForm
+  overridden: Tripous.Desktop.FormContext.CreateForm
+  overload: Tripous.Desktop.DataFormContext.CreateForm*
+- uid: Tripous.Desktop.DataFormContext.ShowFormModal(System.String,Tripous.Desktop.DataFormAction,System.Object,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.DataFormContext.ShowFormModal(System.String,Tripous.Desktop.DataFormAction,System.Object,Avalonia.Controls.Control)
+  id: ShowFormModal(System.String,Tripous.Desktop.DataFormAction,System.Object,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: ShowFormModal(string, DataFormAction, object, Control)
+  nameWithType: DataFormContext.ShowFormModal(string, DataFormAction, object, Control)
+  fullName: Tripous.Desktop.DataFormContext.ShowFormModal(string, Tripous.Desktop.DataFormAction, object, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowFormModal
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 105
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows a data form in a modal dialog.
+  example: []
+  syntax:
+    content: public static Task<DataFormContext> ShowFormModal(string FormRegistryName, DataFormAction StartAction = DataFormAction.List, object RowId = null, Control Caller = null)
+    parameters:
+    - id: FormRegistryName
+      type: System.String
+      description: The form registry name.
+    - id: StartAction
+      type: Tripous.Desktop.DataFormAction
+      description: The first action the form should execute.
+    - id: RowId
+      type: System.Object
+      description: The optional row identifier.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    return:
+      type: System.Threading.Tasks.Task{Tripous.Desktop.DataFormContext}
+      description: The data form context after the modal dialog is closed.
+    content.vb: Public Shared Function ShowFormModal(FormRegistryName As String, StartAction As DataFormAction = DataFormAction.List, RowId As Object = Nothing, Caller As Control = Nothing) As Task(Of DataFormContext)
+  overload: Tripous.Desktop.DataFormContext.ShowFormModal*
+  nameWithType.vb: DataFormContext.ShowFormModal(String, DataFormAction, Object, Control)
+  fullName.vb: Tripous.Desktop.DataFormContext.ShowFormModal(String, Tripous.Desktop.DataFormAction, Object, Avalonia.Controls.Control)
+  name.vb: ShowFormModal(String, DataFormAction, Object, Control)
+- uid: Tripous.Desktop.DataFormContext.RegistryName
+  commentId: P:Tripous.Desktop.DataFormContext.RegistryName
+  id: RegistryName
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: RegistryName
+  nameWithType: DataFormContext.RegistryName
+  fullName: Tripous.Desktop.DataFormContext.RegistryName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RegistryName
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 121
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The form registration key.
+  example: []
+  syntax:
+    content: public string RegistryName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property RegistryName As String
+  overload: Tripous.Desktop.DataFormContext.RegistryName*
+- uid: Tripous.Desktop.DataFormContext.FormDef
+  commentId: P:Tripous.Desktop.DataFormContext.FormDef
+  id: FormDef
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: FormDef
+  nameWithType: DataFormContext.FormDef
+  fullName: Tripous.Desktop.DataFormContext.FormDef
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormDef
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 125
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The form definition.
+  example: []
+  syntax:
+    content: public FormDef FormDef { get; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.FormDef
+    content.vb: Public Property FormDef As FormDef
+  overload: Tripous.Desktop.DataFormContext.FormDef*
+- uid: Tripous.Desktop.DataFormContext.ModuleDef
+  commentId: P:Tripous.Desktop.DataFormContext.ModuleDef
+  id: ModuleDef
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: ModuleDef
+  nameWithType: DataFormContext.ModuleDef
+  fullName: Tripous.Desktop.DataFormContext.ModuleDef
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleDef
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 129
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The module definition
+  example: []
+  syntax:
+    content: public ModuleDef ModuleDef { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Property ModuleDef As ModuleDef
+  overload: Tripous.Desktop.DataFormContext.ModuleDef*
+- uid: Tripous.Desktop.DataFormContext.Module
+  commentId: P:Tripous.Desktop.DataFormContext.Module
+  id: Module
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: Module
+  nameWithType: DataFormContext.Module
+  fullName: Tripous.Desktop.DataFormContext.Module
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Module
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 133
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The created module instance.
+  example: []
+  syntax:
+    content: public DataModule Module { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DataModule
+    content.vb: Public Property [Module] As DataModule
+  overload: Tripous.Desktop.DataFormContext.Module*
+- uid: Tripous.Desktop.DataFormContext.DataForm
+  commentId: P:Tripous.Desktop.DataFormContext.DataForm
+  id: DataForm
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: DataForm
+  nameWithType: DataFormContext.DataForm
+  fullName: Tripous.Desktop.DataFormContext.DataForm
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataForm
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 137
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The created form instance.
+  example: []
+  syntax:
+    content: public DataForm DataForm { get; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.DataForm
+    content.vb: Public ReadOnly Property DataForm As DataForm
+  overload: Tripous.Desktop.DataFormContext.DataForm*
+- uid: Tripous.Desktop.DataFormContext.StartAction
+  commentId: P:Tripous.Desktop.DataFormContext.StartAction
+  id: StartAction
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: StartAction
+  nameWithType: DataFormContext.StartAction
+  fullName: Tripous.Desktop.DataFormContext.StartAction
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StartAction
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 142
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The first action the form should execute after initialization.
+  example: []
+  syntax:
+    content: public DataFormAction StartAction { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.DataFormAction
+    content.vb: Public Property StartAction As DataFormAction
+  overload: Tripous.Desktop.DataFormContext.StartAction*
+- uid: Tripous.Desktop.DataFormContext.InvalidActions
+  commentId: P:Tripous.Desktop.DataFormContext.InvalidActions
+  id: InvalidActions
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: InvalidActions
+  nameWithType: DataFormContext.InvalidActions
+  fullName: Tripous.Desktop.DataFormContext.InvalidActions
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InvalidActions
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 146
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Form actions the form is not allowed to execute.
+  example: []
+  syntax:
+    content: public DataFormAction InvalidActions { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.DataFormAction
+    content.vb: Public Property InvalidActions As DataFormAction
+  overload: Tripous.Desktop.DataFormContext.InvalidActions*
+- uid: Tripous.Desktop.DataFormContext.RowId
+  commentId: P:Tripous.Desktop.DataFormContext.RowId
+  id: RowId
+  parent: Tripous.Desktop.DataFormContext
+  langs:
+  - csharp
+  - vb
+  name: RowId
+  nameWithType: DataFormContext.RowId
+  fullName: Tripous.Desktop.DataFormContext.RowId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataFormContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowId
+    path: ../Tripous.Desktop/DataFormContext.cs
+    startLine: 150
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: An optional row id, used mainly when the start action is Edit or Delete.
+  example: []
+  syntax:
+    content: public object RowId { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property RowId As Object
+  overload: Tripous.Desktop.DataFormContext.RowId*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.Desktop.FormContext
+  commentId: T:Tripous.Desktop.FormContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.FormContext.html
+  name: FormContext
+  nameWithType: FormContext
+  fullName: Tripous.Desktop.FormContext
+- uid: Tripous.Desktop.FormContext.fFormId
+  commentId: F:Tripous.Desktop.FormContext.fFormId
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_fFormId
+  name: fFormId
+  nameWithType: FormContext.fFormId
+  fullName: Tripous.Desktop.FormContext.fFormId
+- uid: Tripous.Desktop.FormContext.fTitle
+  commentId: F:Tripous.Desktop.FormContext.fTitle
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_fTitle
+  name: fTitle
+  nameWithType: FormContext.fTitle
+  fullName: Tripous.Desktop.FormContext.fTitle
+- uid: Tripous.Desktop.FormContext.Create(System.Type,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  commentId: M:Tripous.Desktop.FormContext.Create(System.Type,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  parent: Tripous.Desktop.FormContext
+  isExternal: true
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_Type_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  name: Create(Type, FormDisplayMode, Control, object)
+  nameWithType: FormContext.Create(Type, FormDisplayMode, Control, object)
+  fullName: Tripous.Desktop.FormContext.Create(System.Type, Tripous.Desktop.FormDisplayMode, Avalonia.Controls.Control, object)
+  nameWithType.vb: FormContext.Create(Type, FormDisplayMode, Control, Object)
+  fullName.vb: Tripous.Desktop.FormContext.Create(System.Type, Tripous.Desktop.FormDisplayMode, Avalonia.Controls.Control, Object)
+  name.vb: Create(Type, FormDisplayMode, Control, Object)
+  spec.csharp:
+  - uid: Tripous.Desktop.FormContext.Create(System.Type,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+    name: Create
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_Type_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.FormContext.Create(System.Type,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+    name: Create
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_Type_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Desktop.FormContext.Create(System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  commentId: M:Tripous.Desktop.FormContext.Create(System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  parent: Tripous.Desktop.FormContext
+  isExternal: true
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_String_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  name: Create(string, FormDisplayMode, Control, object)
+  nameWithType: FormContext.Create(string, FormDisplayMode, Control, object)
+  fullName: Tripous.Desktop.FormContext.Create(string, Tripous.Desktop.FormDisplayMode, Avalonia.Controls.Control, object)
+  nameWithType.vb: FormContext.Create(String, FormDisplayMode, Control, Object)
+  fullName.vb: Tripous.Desktop.FormContext.Create(String, Tripous.Desktop.FormDisplayMode, Avalonia.Controls.Control, Object)
+  name.vb: Create(String, FormDisplayMode, Control, Object)
+  spec.csharp:
+  - uid: Tripous.Desktop.FormContext.Create(System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+    name: Create
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_String_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.FormContext.Create(System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+    name: Create
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_String_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Desktop.FormContext.Create(System.String,System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  commentId: M:Tripous.Desktop.FormContext.Create(System.String,System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+  parent: Tripous.Desktop.FormContext
+  isExternal: true
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_String_System_String_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  name: Create(string, string, FormDisplayMode, Control, object)
+  nameWithType: FormContext.Create(string, string, FormDisplayMode, Control, object)
+  fullName: Tripous.Desktop.FormContext.Create(string, string, Tripous.Desktop.FormDisplayMode, Avalonia.Controls.Control, object)
+  nameWithType.vb: FormContext.Create(String, String, FormDisplayMode, Control, Object)
+  fullName.vb: Tripous.Desktop.FormContext.Create(String, String, Tripous.Desktop.FormDisplayMode, Avalonia.Controls.Control, Object)
+  name.vb: Create(String, String, FormDisplayMode, Control, Object)
+  spec.csharp:
+  - uid: Tripous.Desktop.FormContext.Create(System.String,System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+    name: Create
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_String_System_String_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.FormContext.Create(System.String,System.String,Tripous.Desktop.FormDisplayMode,Avalonia.Controls.Control,System.Object)
+    name: Create
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Create_System_String_System_String_Tripous_Desktop_FormDisplayMode_Avalonia_Controls_Control_System_Object_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Desktop.FormContext.FormId
+  commentId: P:Tripous.Desktop.FormContext.FormId
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_FormId
+  name: FormId
+  nameWithType: FormContext.FormId
+  fullName: Tripous.Desktop.FormContext.FormId
+- uid: Tripous.Desktop.FormContext.ClassName
+  commentId: P:Tripous.Desktop.FormContext.ClassName
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_ClassName
+  name: ClassName
+  nameWithType: FormContext.ClassName
+  fullName: Tripous.Desktop.FormContext.ClassName
+- uid: Tripous.Desktop.FormContext.DisplayMode
+  commentId: P:Tripous.Desktop.FormContext.DisplayMode
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_DisplayMode
+  name: DisplayMode
+  nameWithType: FormContext.DisplayMode
+  fullName: Tripous.Desktop.FormContext.DisplayMode
+- uid: Tripous.Desktop.FormContext.Caller
+  commentId: P:Tripous.Desktop.FormContext.Caller
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Caller
+  name: Caller
+  nameWithType: FormContext.Caller
+  fullName: Tripous.Desktop.FormContext.Caller
+- uid: Tripous.Desktop.FormContext.ParentControl
+  commentId: P:Tripous.Desktop.FormContext.ParentControl
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_ParentControl
+  name: ParentControl
+  nameWithType: FormContext.ParentControl
+  fullName: Tripous.Desktop.FormContext.ParentControl
+- uid: Tripous.Desktop.FormContext.Form
+  commentId: P:Tripous.Desktop.FormContext.Form
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Form
+  name: Form
+  nameWithType: FormContext.Form
+  fullName: Tripous.Desktop.FormContext.Form
+- uid: Tripous.Desktop.FormContext.Title
+  commentId: P:Tripous.Desktop.FormContext.Title
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Title
+  name: Title
+  nameWithType: FormContext.Title
+  fullName: Tripous.Desktop.FormContext.Title
+- uid: Tripous.Desktop.FormContext.ModalResult
+  commentId: P:Tripous.Desktop.FormContext.ModalResult
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_ModalResult
+  name: ModalResult
+  nameWithType: FormContext.ModalResult
+  fullName: Tripous.Desktop.FormContext.ModalResult
+- uid: Tripous.Desktop.FormContext.Result
+  commentId: P:Tripous.Desktop.FormContext.Result
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Result
+  name: Result
+  nameWithType: FormContext.Result
+  fullName: Tripous.Desktop.FormContext.Result
+- uid: Tripous.Desktop.FormContext.ResultData
+  commentId: P:Tripous.Desktop.FormContext.ResultData
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_ResultData
+  name: ResultData
+  nameWithType: FormContext.ResultData
+  fullName: Tripous.Desktop.FormContext.ResultData
+- uid: Tripous.Desktop.FormContext.Options
+  commentId: P:Tripous.Desktop.FormContext.Options
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Options
+  name: Options
+  nameWithType: FormContext.Options
+  fullName: Tripous.Desktop.FormContext.Options
+- uid: Tripous.Desktop.FormContext.Params
+  commentId: P:Tripous.Desktop.FormContext.Params
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Params
+  name: Params
+  nameWithType: FormContext.Params
+  fullName: Tripous.Desktop.FormContext.Params
+- uid: Tripous.Desktop.FormContext.Tag
+  commentId: P:Tripous.Desktop.FormContext.Tag
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_Tag
+  name: Tag
+  nameWithType: FormContext.Tag
+  fullName: Tripous.Desktop.FormContext.Tag
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.DataFormContext.Create*
+  commentId: Overload:Tripous.Desktop.DataFormContext.Create
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_Create_System_String_Avalonia_Controls_Control_
+  name: Create
+  nameWithType: DataFormContext.Create
+  fullName: Tripous.Desktop.DataFormContext.Create
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.Control
+  commentId: T:Avalonia.Controls.Control
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Control
+  nameWithType: Control
+  fullName: Avalonia.Controls.Control
+- uid: Tripous.Desktop.DataFormContext
+  commentId: T:Tripous.Desktop.DataFormContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataFormContext.html
+  name: DataFormContext
+  nameWithType: DataFormContext
+  fullName: Tripous.Desktop.DataFormContext
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: Tripous.Data.DataModule
+  commentId: T:Tripous.Data.DataModule
+  parent: Tripous.Data
+  href: Tripous.Data.DataModule.html
+  name: DataModule
+  nameWithType: DataModule
+  fullName: Tripous.Data.DataModule
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: Tripous.Desktop.FormContext.CreateForm
+  commentId: M:Tripous.Desktop.FormContext.CreateForm
+  parent: Tripous.Desktop.FormContext
+  href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_CreateForm
+  name: CreateForm()
+  nameWithType: FormContext.CreateForm()
+  fullName: Tripous.Desktop.FormContext.CreateForm()
+  spec.csharp:
+  - uid: Tripous.Desktop.FormContext.CreateForm
+    name: CreateForm
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_CreateForm
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Desktop.FormContext.CreateForm
+    name: CreateForm
+    href: Tripous.Desktop.FormContext.html#Tripous_Desktop_FormContext_CreateForm
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.DataFormContext.CreateForm*
+  commentId: Overload:Tripous.Desktop.DataFormContext.CreateForm
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_CreateForm
+  name: CreateForm
+  nameWithType: DataFormContext.CreateForm
+  fullName: Tripous.Desktop.DataFormContext.CreateForm
+- uid: Tripous.Desktop.AppForm
+  commentId: T:Tripous.Desktop.AppForm
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.AppForm.html
+  name: AppForm
+  nameWithType: AppForm
+  fullName: Tripous.Desktop.AppForm
+- uid: Tripous.Desktop.DataFormContext.ShowFormModal*
+  commentId: Overload:Tripous.Desktop.DataFormContext.ShowFormModal
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_ShowFormModal_System_String_Tripous_Desktop_DataFormAction_System_Object_Avalonia_Controls_Control_
+  name: ShowFormModal
+  nameWithType: DataFormContext.ShowFormModal
+  fullName: Tripous.Desktop.DataFormContext.ShowFormModal
+- uid: Tripous.Desktop.DataFormAction
+  commentId: T:Tripous.Desktop.DataFormAction
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataFormAction.html
+  name: DataFormAction
+  nameWithType: DataFormAction
+  fullName: Tripous.Desktop.DataFormAction
+- uid: System.Threading.Tasks.Task{Tripous.Desktop.DataFormContext}
+  commentId: T:System.Threading.Tasks.Task{Tripous.Desktop.DataFormContext}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<DataFormContext>
+  nameWithType: Task<DataFormContext>
+  fullName: System.Threading.Tasks.Task<Tripous.Desktop.DataFormContext>
+  nameWithType.vb: Task(Of DataFormContext)
+  fullName.vb: System.Threading.Tasks.Task(Of Tripous.Desktop.DataFormContext)
+  name.vb: Task(Of DataFormContext)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Tripous.Desktop.DataFormContext
+    name: DataFormContext
+    href: Tripous.Desktop.DataFormContext.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormContext
+    name: DataFormContext
+    href: Tripous.Desktop.DataFormContext.html
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Tripous.Desktop.DataFormContext.RegistryName*
+  commentId: Overload:Tripous.Desktop.DataFormContext.RegistryName
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_RegistryName
+  name: RegistryName
+  nameWithType: DataFormContext.RegistryName
+  fullName: Tripous.Desktop.DataFormContext.RegistryName
+- uid: Tripous.Desktop.DataFormContext.FormDef*
+  commentId: Overload:Tripous.Desktop.DataFormContext.FormDef
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_FormDef
+  name: FormDef
+  nameWithType: DataFormContext.FormDef
+  fullName: Tripous.Desktop.DataFormContext.FormDef
+- uid: Tripous.Desktop.FormDef
+  commentId: T:Tripous.Desktop.FormDef
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.FormDef.html
+  name: FormDef
+  nameWithType: FormDef
+  fullName: Tripous.Desktop.FormDef
+- uid: Tripous.Desktop.DataFormContext.ModuleDef*
+  commentId: Overload:Tripous.Desktop.DataFormContext.ModuleDef
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_ModuleDef
+  name: ModuleDef
+  nameWithType: DataFormContext.ModuleDef
+  fullName: Tripous.Desktop.DataFormContext.ModuleDef
+- uid: Tripous.Data.ModuleDef
+  commentId: T:Tripous.Data.ModuleDef
+  parent: Tripous.Data
+  href: Tripous.Data.ModuleDef.html
+  name: ModuleDef
+  nameWithType: ModuleDef
+  fullName: Tripous.Data.ModuleDef
+- uid: Tripous.Desktop.DataFormContext.Module*
+  commentId: Overload:Tripous.Desktop.DataFormContext.Module
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_Module
+  name: Module
+  nameWithType: DataFormContext.Module
+  fullName: Tripous.Desktop.DataFormContext.Module
+- uid: Tripous.Desktop.DataFormContext.DataForm*
+  commentId: Overload:Tripous.Desktop.DataFormContext.DataForm
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_DataForm
+  name: DataForm
+  nameWithType: DataFormContext.DataForm
+  fullName: Tripous.Desktop.DataFormContext.DataForm
+- uid: Tripous.Desktop.DataForm
+  commentId: T:Tripous.Desktop.DataForm
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataForm.html
+  name: DataForm
+  nameWithType: DataForm
+  fullName: Tripous.Desktop.DataForm
+- uid: Tripous.Desktop.DataFormContext.StartAction*
+  commentId: Overload:Tripous.Desktop.DataFormContext.StartAction
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_StartAction
+  name: StartAction
+  nameWithType: DataFormContext.StartAction
+  fullName: Tripous.Desktop.DataFormContext.StartAction
+- uid: Tripous.Desktop.DataFormContext.InvalidActions*
+  commentId: Overload:Tripous.Desktop.DataFormContext.InvalidActions
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_InvalidActions
+  name: InvalidActions
+  nameWithType: DataFormContext.InvalidActions
+  fullName: Tripous.Desktop.DataFormContext.InvalidActions
+- uid: Tripous.Desktop.DataFormContext.RowId*
+  commentId: Overload:Tripous.Desktop.DataFormContext.RowId
+  href: Tripous.Desktop.DataFormContext.html#Tripous_Desktop_DataFormContext_RowId
+  name: RowId
+  nameWithType: DataFormContext.RowId
+  fullName: Tripous.Desktop.DataFormContext.RowId

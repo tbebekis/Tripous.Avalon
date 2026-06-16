@@ -55,24 +55,20 @@ static public class Sec
     {
         byte[] Key = DeriveKey(PasswordPlainText, SaltBase64, Iterations);
         byte[] PlainBytes = Encoding.UTF8.GetBytes(PlainText);
+        byte[] NonceBytes = RandomNumberGenerator.GetBytes(12);
+        byte[] TagBytes = new byte[16];
+        byte[] CipherBytes = new byte[PlainBytes.Length];
 
-        using (Aes AesCipher = Aes.Create())
+        using (AesGcm AesCipher = new AesGcm(Key, TagBytes.Length))
         {
-            AesCipher.Key = Key;
-            AesCipher.GenerateIV();
-
-            using (ICryptoTransform Encryptor = AesCipher.CreateEncryptor(AesCipher.Key, AesCipher.IV))
-            {
-                byte[] CipherBytes = Encryptor.TransformFinalBlock(PlainBytes, 0, PlainBytes.Length);
-
-                byte[] ResultBytes = new byte[AesCipher.IV.Length + CipherBytes.Length];
-
-                Buffer.BlockCopy(AesCipher.IV, 0, ResultBytes, 0, AesCipher.IV.Length);
-                Buffer.BlockCopy(CipherBytes, 0, ResultBytes, AesCipher.IV.Length, CipherBytes.Length);
-
-                return Convert.ToBase64String(ResultBytes);
-            }
+            AesCipher.Encrypt(NonceBytes, PlainBytes, CipherBytes, TagBytes);
         }
+
+        byte[] ResultBytes = new byte[NonceBytes.Length + TagBytes.Length + CipherBytes.Length];
+        Buffer.BlockCopy(NonceBytes, 0, ResultBytes, 0, NonceBytes.Length);
+        Buffer.BlockCopy(TagBytes, 0, ResultBytes, NonceBytes.Length, TagBytes.Length);
+        Buffer.BlockCopy(CipherBytes, 0, ResultBytes, NonceBytes.Length + TagBytes.Length, CipherBytes.Length);
+        return Convert.ToBase64String(ResultBytes);
     }
     /// <summary>
     /// Decrypts a Base64 encoded encrypted string and returns the original plain text.
@@ -80,27 +76,27 @@ static public class Sec
     static public string Decrypt(string CipherTextBase64, string PasswordPlainText, string SaltBase64, int Iterations)
     {
         byte[] Key = DeriveKey(PasswordPlainText, SaltBase64, Iterations);
-        byte[] FullCipherBytes = Convert.FromBase64String(CipherTextBase64);
+        byte[] SourceBytes = Convert.FromBase64String(CipherTextBase64);
+        const int NonceLength = 12;
+        const int TagLength = 16;
 
-        using (Aes AesCipher = Aes.Create())
+        if (SourceBytes.Length < NonceLength + TagLength)
+            throw new CryptographicException("Invalid encrypted payload.");
+
+        byte[] NonceBytes = new byte[NonceLength];
+        byte[] TagBytes = new byte[TagLength];
+        byte[] CipherBytes = new byte[SourceBytes.Length - NonceLength - TagLength];
+        byte[] PlainBytes = new byte[CipherBytes.Length];
+
+        Buffer.BlockCopy(SourceBytes, 0, NonceBytes, 0, NonceBytes.Length);
+        Buffer.BlockCopy(SourceBytes, NonceBytes.Length, TagBytes, 0, TagBytes.Length);
+        Buffer.BlockCopy(SourceBytes, NonceBytes.Length + TagBytes.Length, CipherBytes, 0, CipherBytes.Length);
+
+        using (AesGcm AesCipher = new AesGcm(Key, TagBytes.Length))
         {
-            AesCipher.Key = Key;
-
-            int IvLength = AesCipher.BlockSize / 8;
-
-            byte[] IvBytes = new byte[IvLength];
-            byte[] CipherBytes = new byte[FullCipherBytes.Length - IvLength];
-
-            Buffer.BlockCopy(FullCipherBytes, 0, IvBytes, 0, IvLength);
-            Buffer.BlockCopy(FullCipherBytes, IvLength, CipherBytes, 0, CipherBytes.Length);
-
-            AesCipher.IV = IvBytes;
-
-            using (ICryptoTransform Decryptor = AesCipher.CreateDecryptor(AesCipher.Key, AesCipher.IV))
-            {
-                byte[] PlainBytes = Decryptor.TransformFinalBlock(CipherBytes, 0, CipherBytes.Length);
-                return Encoding.UTF8.GetString(PlainBytes);
-            }
+            AesCipher.Decrypt(NonceBytes, CipherBytes, TagBytes, PlainBytes);
         }
+
+        return Encoding.UTF8.GetString(PlainBytes);
     }
 }

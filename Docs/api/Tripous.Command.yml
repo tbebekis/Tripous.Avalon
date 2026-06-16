@@ -1,0 +1,2092 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Command
+  commentId: T:Tripous.Command
+  id: Command
+  parent: Tripous
+  children:
+  - Tripous.Command.#ctor
+  - Tripous.Command.#ctor(System.String)
+  - Tripous.Command.CanAccess(Tripous.AppUser)
+  - Tripous.Command.CanExecute
+  - Tripous.Command.CanExecuteFunc
+  - Tripous.Command.Commands
+  - Tripous.Command.Create(System.String,System.Func{Tripous.Command,System.Object},System.String,System.String,System.String)
+  - Tripous.Command.Create(System.String,System.String,System.Func{Tripous.Command,System.Object},System.String)
+  - Tripous.Command.Create(System.String,System.String,System.String)
+  - Tripous.Command.CreateAsync(System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String,System.String,System.String)
+  - Tripous.Command.CreateAsync(System.String,System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String)
+  - Tripous.Command.CreateForm(System.String,System.String,System.String,System.String)
+  - Tripous.Command.Execute
+  - Tripous.Command.ExecuteAsync
+  - Tripous.Command.ExecuteAsyncFunc
+  - Tripous.Command.ExecuteFunc
+  - Tripous.Command.Form
+  - Tripous.Command.HasChildren
+  - Tripous.Command.ImageFileName
+  - Tripous.Command.IsAsync
+  - Tripous.Command.IsSerializable
+  - Tripous.Command.IsSync
+  - Tripous.Command.IsToggle
+  - Tripous.Command.SecurityLevel
+  langs:
+  - csharp
+  - vb
+  name: Command
+  nameWithType: Command
+  fullName: Tripous.Command
+  type: Class
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Command
+    path: ../Tripous/Registry/Command.cs
+    startLine: 16
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Represents a named application command.
+
+
+    A command may execute a synchronous or asynchronous callback,
+
+    open a form, or act as a container for child commands.
+  example: []
+  syntax:
+    content: 'public class Command : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
+    content.vb: Public Class Command Inherits BaseDef Implements IDef, IJsonLoadable, INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.BaseDef
+  implements:
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.BaseDef.fTitleKey
+  - Tripous.BaseDef.fName
+  - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.GetTitleKey
+  - Tripous.BaseDef.ToString
+  - Tripous.BaseDef.UpdateReferences
+  - Tripous.BaseDef.JsonLoaded
+  - Tripous.BaseDef.CreateNew
+  - Tripous.BaseDef.CheckDescriptor
+  - Tripous.BaseDef.Assign(Tripous.IDef)
+  - Tripous.BaseDef.Clone
+  - Tripous.BaseDef.Clear
+  - Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  - Tripous.BaseDef.Name
+  - Tripous.BaseDef.TitleKey
+  - Tripous.BaseDef.IsTitleKeyEmpty
+  - Tripous.BaseDef.Title
+  - Tripous.BaseDef.Tag
+  - Tripous.BaseDef.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Command.Create(System.String,System.String,System.String)
+  commentId: M:Tripous.Command.Create(System.String,System.String,System.String)
+  id: Create(System.String,System.String,System.String)
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Create(string, string, string)
+  nameWithType: Command.Create(string, string, string)
+  fullName: Tripous.Command.Create(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous/Registry/Command.cs
+    startLine: 42
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates a command with a name, image file name and optional title key.
+  example: []
+  syntax:
+    content: public static Command Create(string Name, string ImageFileName, string TitleKey = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ImageFileName
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function Create(Name As String, ImageFileName As String, TitleKey As String = Nothing) As Command
+  overload: Tripous.Command.Create*
+  nameWithType.vb: Command.Create(String, String, String)
+  fullName.vb: Tripous.Command.Create(String, String, String)
+  name.vb: Create(String, String, String)
+- uid: Tripous.Command.Create(System.String,System.String,System.Func{Tripous.Command,System.Object},System.String)
+  commentId: M:Tripous.Command.Create(System.String,System.String,System.Func{Tripous.Command,System.Object},System.String)
+  id: Create(System.String,System.String,System.Func{Tripous.Command,System.Object},System.String)
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Create(string, string, Func<Command, object>, string)
+  nameWithType: Command.Create(string, string, Func<Command, object>, string)
+  fullName: Tripous.Command.Create(string, string, System.Func<Tripous.Command, object>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous/Registry/Command.cs
+    startLine: 51
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Creates a synchronous command with a name, image file name,
+
+    callback and optional title key.
+  example: []
+  syntax:
+    content: public static Command Create(string Name, string ImageFileName, Func<Command, object> ExecuteFunc, string TitleKey = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ImageFileName
+      type: System.String
+    - id: ExecuteFunc
+      type: System.Func{Tripous.Command,System.Object}
+    - id: TitleKey
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function Create(Name As String, ImageFileName As String, ExecuteFunc As Func(Of Command, Object), TitleKey As String = Nothing) As Command
+  overload: Tripous.Command.Create*
+  nameWithType.vb: Command.Create(String, String, Func(Of Command, Object), String)
+  fullName.vb: Tripous.Command.Create(String, String, System.Func(Of Tripous.Command, Object), String)
+  name.vb: Create(String, String, Func(Of Command, Object), String)
+- uid: Tripous.Command.CreateAsync(System.String,System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String)
+  commentId: M:Tripous.Command.CreateAsync(System.String,System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String)
+  id: CreateAsync(System.String,System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String)
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: CreateAsync(string, string, Func<Command, Task<object>>, string)
+  nameWithType: Command.CreateAsync(string, string, Func<Command, Task<object>>, string)
+  fullName: Tripous.Command.CreateAsync(string, string, System.Func<Tripous.Command, System.Threading.Tasks.Task<object>>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateAsync
+    path: ../Tripous/Registry/Command.cs
+    startLine: 60
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Creates an asynchronous command with a name, image file name,
+
+    callback and optional title key.
+  example: []
+  syntax:
+    content: public static Command CreateAsync(string Name, string ImageFileName, Func<Command, Task<object>> ExecuteAsyncFunc, string TitleKey = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ImageFileName
+      type: System.String
+    - id: ExecuteAsyncFunc
+      type: System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}}
+    - id: TitleKey
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function CreateAsync(Name As String, ImageFileName As String, ExecuteAsyncFunc As Func(Of Command, Task(Of Object)), TitleKey As String = Nothing) As Command
+  overload: Tripous.Command.CreateAsync*
+  nameWithType.vb: Command.CreateAsync(String, String, Func(Of Command, Task(Of Object)), String)
+  fullName.vb: Tripous.Command.CreateAsync(String, String, System.Func(Of Tripous.Command, System.Threading.Tasks.Task(Of Object)), String)
+  name.vb: CreateAsync(String, String, Func(Of Command, Task(Of Object)), String)
+- uid: Tripous.Command.Create(System.String,System.Func{Tripous.Command,System.Object},System.String,System.String,System.String)
+  commentId: M:Tripous.Command.Create(System.String,System.Func{Tripous.Command,System.Object},System.String,System.String,System.String)
+  id: Create(System.String,System.Func{Tripous.Command,System.Object},System.String,System.String,System.String)
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Create(string, Func<Command, object>, string, string, string)
+  nameWithType: Command.Create(string, Func<Command, object>, string, string, string)
+  fullName: Tripous.Command.Create(string, System.Func<Tripous.Command, object>, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous/Registry/Command.cs
+    startLine: 68
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates a synchronous command with optional form, title key and image file name.
+  example: []
+  syntax:
+    content: public static Command Create(string Name, Func<Command, object> ExecuteFunc, string Form = null, string TitleKey = null, string ImageFileName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ExecuteFunc
+      type: System.Func{Tripous.Command,System.Object}
+    - id: Form
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: ImageFileName
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function Create(Name As String, ExecuteFunc As Func(Of Command, Object), Form As String = Nothing, TitleKey As String = Nothing, ImageFileName As String = Nothing) As Command
+  overload: Tripous.Command.Create*
+  nameWithType.vb: Command.Create(String, Func(Of Command, Object), String, String, String)
+  fullName.vb: Tripous.Command.Create(String, System.Func(Of Tripous.Command, Object), String, String, String)
+  name.vb: Create(String, Func(Of Command, Object), String, String, String)
+- uid: Tripous.Command.CreateAsync(System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String,System.String,System.String)
+  commentId: M:Tripous.Command.CreateAsync(System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String,System.String,System.String)
+  id: CreateAsync(System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String,System.String,System.String)
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: CreateAsync(string, Func<Command, Task<object>>, string, string, string)
+  nameWithType: Command.CreateAsync(string, Func<Command, Task<object>>, string, string, string)
+  fullName: Tripous.Command.CreateAsync(string, System.Func<Tripous.Command, System.Threading.Tasks.Task<object>>, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateAsync
+    path: ../Tripous/Registry/Command.cs
+    startLine: 76
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates an asynchronous command with optional form, title key and image file name.
+  example: []
+  syntax:
+    content: public static Command CreateAsync(string Name, Func<Command, Task<object>> ExecuteAsyncFunc, string Form = null, string TitleKey = null, string ImageFileName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ExecuteAsyncFunc
+      type: System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}}
+    - id: Form
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: ImageFileName
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function CreateAsync(Name As String, ExecuteAsyncFunc As Func(Of Command, Task(Of Object)), Form As String = Nothing, TitleKey As String = Nothing, ImageFileName As String = Nothing) As Command
+  overload: Tripous.Command.CreateAsync*
+  nameWithType.vb: Command.CreateAsync(String, Func(Of Command, Task(Of Object)), String, String, String)
+  fullName.vb: Tripous.Command.CreateAsync(String, System.Func(Of Tripous.Command, System.Threading.Tasks.Task(Of Object)), String, String, String)
+  name.vb: CreateAsync(String, Func(Of Command, Task(Of Object)), String, String, String)
+- uid: Tripous.Command.CreateForm(System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Command.CreateForm(System.String,System.String,System.String,System.String)
+  id: CreateForm(System.String,System.String,System.String,System.String)
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: CreateForm(string, string, string, string)
+  nameWithType: Command.CreateForm(string, string, string, string)
+  fullName: Tripous.Command.CreateForm(string, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateForm
+    path: ../Tripous/Registry/Command.cs
+    startLine: 84
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates a command that opens a form.
+  example: []
+  syntax:
+    content: public static Command CreateForm(string Name, string Form, string TitleKey = null, string ImageFileName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Form
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: ImageFileName
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function CreateForm(Name As String, Form As String, TitleKey As String = Nothing, ImageFileName As String = Nothing) As Command
+  overload: Tripous.Command.CreateForm*
+  nameWithType.vb: Command.CreateForm(String, String, String, String)
+  fullName.vb: Tripous.Command.CreateForm(String, String, String, String)
+  name.vb: CreateForm(String, String, String, String)
+- uid: Tripous.Command.#ctor
+  commentId: M:Tripous.Command.#ctor
+  id: '#ctor'
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Command()
+  nameWithType: Command.Command()
+  fullName: Tripous.Command.Command()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/Registry/Command.cs
+    startLine: 92
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public Command()
+    content.vb: Public Sub New()
+  overload: Tripous.Command.#ctor*
+  nameWithType.vb: Command.New()
+  fullName.vb: Tripous.Command.New()
+  name.vb: New()
+- uid: Tripous.Command.#ctor(System.String)
+  commentId: M:Tripous.Command.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Command(string)
+  nameWithType: Command.Command(string)
+  fullName: Tripous.Command.Command(string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/Registry/Command.cs
+    startLine: 98
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructs a command with the specified name.
+  example: []
+  syntax:
+    content: public Command(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    content.vb: Public Sub New(Name As String)
+  overload: Tripous.Command.#ctor*
+  nameWithType.vb: Command.New(String)
+  fullName.vb: Tripous.Command.New(String)
+  name.vb: New(String)
+- uid: Tripous.Command.CanExecute
+  commentId: M:Tripous.Command.CanExecute
+  id: CanExecute
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: CanExecute()
+  nameWithType: Command.CanExecute()
+  fullName: Tripous.Command.CanExecute()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanExecute
+    path: ../Tripous/Registry/Command.cs
+    startLine: 107
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true when this command can execute.
+  example: []
+  syntax:
+    content: public bool CanExecute()
+    return:
+      type: System.Boolean
+    content.vb: Public Function CanExecute() As Boolean
+  overload: Tripous.Command.CanExecute*
+- uid: Tripous.Command.Execute
+  commentId: M:Tripous.Command.Execute
+  id: Execute
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Execute()
+  nameWithType: Command.Execute()
+  fullName: Tripous.Command.Execute()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Execute
+    path: ../Tripous/Registry/Command.cs
+    startLine: 111
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Executes this command synchronously.
+  example: []
+  syntax:
+    content: public object Execute()
+    return:
+      type: System.Object
+    content.vb: Public Function Execute() As Object
+  overload: Tripous.Command.Execute*
+- uid: Tripous.Command.ExecuteAsync
+  commentId: M:Tripous.Command.ExecuteAsync
+  id: ExecuteAsync
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync()
+  nameWithType: Command.ExecuteAsync()
+  fullName: Tripous.Command.ExecuteAsync()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecuteAsync
+    path: ../Tripous/Registry/Command.cs
+    startLine: 121
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Executes this command asynchronously.
+  example: []
+  syntax:
+    content: public Task<object> ExecuteAsync()
+    return:
+      type: System.Threading.Tasks.Task{System.Object}
+    content.vb: Public Function ExecuteAsync() As Task(Of Object)
+  overload: Tripous.Command.ExecuteAsync*
+- uid: Tripous.Command.CanAccess(Tripous.AppUser)
+  commentId: M:Tripous.Command.CanAccess(Tripous.AppUser)
+  id: CanAccess(Tripous.AppUser)
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: CanAccess(AppUser)
+  nameWithType: Command.CanAccess(AppUser)
+  fullName: Tripous.Command.CanAccess(Tripous.AppUser)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanAccess
+    path: ../Tripous/Registry/Command.cs
+    startLine: 134
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true when the specified user may see or execute this command.
+  example: []
+  syntax:
+    content: public bool CanAccess(AppUser User)
+    parameters:
+    - id: User
+      type: Tripous.AppUser
+    return:
+      type: System.Boolean
+    content.vb: Public Function CanAccess(User As AppUser) As Boolean
+  overload: Tripous.Command.CanAccess*
+- uid: Tripous.Command.ImageFileName
+  commentId: P:Tripous.Command.ImageFileName
+  id: ImageFileName
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: ImageFileName
+  nameWithType: Command.ImageFileName
+  fullName: Tripous.Command.ImageFileName
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ImageFileName
+    path: ../Tripous/Registry/Command.cs
+    startLine: 145
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Gets the file name of the image used when this command
+
+    is displayed in menus, toolbars or tree views.
+  example: []
+  syntax:
+    content: public string ImageFileName { get; init; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ImageFileName As String
+  overload: Tripous.Command.ImageFileName*
+- uid: Tripous.Command.Form
+  commentId: P:Tripous.Command.Form
+  id: Form
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Form
+  nameWithType: Command.Form
+  fullName: Tripous.Command.Form
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Form
+    path: ../Tripous/Registry/Command.cs
+    startLine: 153
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the form name opened by this command.
+  example: []
+  syntax:
+    content: public string Form { get; init; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Form As String
+  overload: Tripous.Command.Form*
+- uid: Tripous.Command.Commands
+  commentId: P:Tripous.Command.Commands
+  id: Commands
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: Commands
+  nameWithType: Command.Commands
+  fullName: Tripous.Command.Commands
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Commands
+    path: ../Tripous/Registry/Command.cs
+    startLine: 161
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the child commands of this command.
+  example: []
+  syntax:
+    content: public DefList<Command> Commands { get; init; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Command}
+    content.vb: Public Property Commands As DefList(Of Command)
+  overload: Tripous.Command.Commands*
+- uid: Tripous.Command.IsSync
+  commentId: P:Tripous.Command.IsSync
+  id: IsSync
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: IsSync
+  nameWithType: Command.IsSync
+  fullName: Tripous.Command.IsSync
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSync
+    path: ../Tripous/Registry/Command.cs
+    startLine: 169
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets a value indicating whether this command has a synchronous callback.
+  example: []
+  syntax:
+    content: public bool IsSync { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsSync As Boolean
+  overload: Tripous.Command.IsSync*
+- uid: Tripous.Command.IsAsync
+  commentId: P:Tripous.Command.IsAsync
+  id: IsAsync
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: IsAsync
+  nameWithType: Command.IsAsync
+  fullName: Tripous.Command.IsAsync
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsAsync
+    path: ../Tripous/Registry/Command.cs
+    startLine: 173
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets a value indicating whether this command has an asynchronous callback.
+  example: []
+  syntax:
+    content: public bool IsAsync { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsAsync As Boolean
+  overload: Tripous.Command.IsAsync*
+- uid: Tripous.Command.IsToggle
+  commentId: P:Tripous.Command.IsToggle
+  id: IsToggle
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: IsToggle
+  nameWithType: Command.IsToggle
+  fullName: Tripous.Command.IsToggle
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsToggle
+    path: ../Tripous/Registry/Command.cs
+    startLine: 177
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets a value indicating whether this command toggles a Boolean value.
+  example: []
+  syntax:
+    content: public bool IsToggle { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsToggle As Boolean
+  overload: Tripous.Command.IsToggle*
+- uid: Tripous.Command.SecurityLevel
+  commentId: P:Tripous.Command.SecurityLevel
+  id: SecurityLevel
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: SecurityLevel
+  nameWithType: Command.SecurityLevel
+  fullName: Tripous.Command.SecurityLevel
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SecurityLevel
+    path: ../Tripous/Registry/Command.cs
+    startLine: 181
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets the minimum user level required to view or execute this command.
+  example: []
+  syntax:
+    content: public UserLevel SecurityLevel { get; set; }
+    parameters: []
+    return:
+      type: Tripous.UserLevel
+    content.vb: Public Property SecurityLevel As UserLevel
+  overload: Tripous.Command.SecurityLevel*
+- uid: Tripous.Command.CanExecuteFunc
+  commentId: P:Tripous.Command.CanExecuteFunc
+  id: CanExecuteFunc
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: CanExecuteFunc
+  nameWithType: Command.CanExecuteFunc
+  fullName: Tripous.Command.CanExecuteFunc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanExecuteFunc
+    path: ../Tripous/Registry/Command.cs
+    startLine: 185
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets the callback that determines whether this command can execute.
+  example: []
+  syntax:
+    content: public Func<Command, bool> CanExecuteFunc { get; set; }
+    parameters: []
+    return:
+      type: System.Func{Tripous.Command,System.Boolean}
+    content.vb: Public Property CanExecuteFunc As Func(Of Command, Boolean)
+  overload: Tripous.Command.CanExecuteFunc*
+- uid: Tripous.Command.ExecuteFunc
+  commentId: P:Tripous.Command.ExecuteFunc
+  id: ExecuteFunc
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: ExecuteFunc
+  nameWithType: Command.ExecuteFunc
+  fullName: Tripous.Command.ExecuteFunc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecuteFunc
+    path: ../Tripous/Registry/Command.cs
+    startLine: 189
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets the synchronous callback that executes this command.
+  example: []
+  syntax:
+    content: public Func<Command, object> ExecuteFunc { get; set; }
+    parameters: []
+    return:
+      type: System.Func{Tripous.Command,System.Object}
+    content.vb: Public Property ExecuteFunc As Func(Of Command, Object)
+  overload: Tripous.Command.ExecuteFunc*
+- uid: Tripous.Command.ExecuteAsyncFunc
+  commentId: P:Tripous.Command.ExecuteAsyncFunc
+  id: ExecuteAsyncFunc
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsyncFunc
+  nameWithType: Command.ExecuteAsyncFunc
+  fullName: Tripous.Command.ExecuteAsyncFunc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecuteAsyncFunc
+    path: ../Tripous/Registry/Command.cs
+    startLine: 193
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets the asynchronous callback that executes this command.
+  example: []
+  syntax:
+    content: public Func<Command, Task<object>> ExecuteAsyncFunc { get; set; }
+    parameters: []
+    return:
+      type: System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}}
+    content.vb: Public Property ExecuteAsyncFunc As Func(Of Command, Task(Of Object))
+  overload: Tripous.Command.ExecuteAsyncFunc*
+- uid: Tripous.Command.HasChildren
+  commentId: P:Tripous.Command.HasChildren
+  id: HasChildren
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: HasChildren
+  nameWithType: Command.HasChildren
+  fullName: Tripous.Command.HasChildren
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasChildren
+    path: ../Tripous/Registry/Command.cs
+    startLine: 197
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets a value indicating whether this command contains child commands.
+  example: []
+  syntax:
+    content: public bool HasChildren { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property HasChildren As Boolean
+  overload: Tripous.Command.HasChildren*
+- uid: Tripous.Command.IsSerializable
+  commentId: P:Tripous.Command.IsSerializable
+  id: IsSerializable
+  parent: Tripous.Command
+  langs:
+  - csharp
+  - vb
+  name: IsSerializable
+  nameWithType: Command.IsSerializable
+  fullName: Tripous.Command.IsSerializable
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/Command.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSerializable
+    path: ../Tripous/Registry/Command.cs
+    startLine: 201
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets a value indicating whether this command should be serialized.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public override bool IsSerializable { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Overrides ReadOnly Property IsSerializable As Boolean
+  overridden: Tripous.BaseDef.IsSerializable
+  overload: Tripous.Command.IsSerializable*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.BaseDef.fTitleKey
+  commentId: F:Tripous.BaseDef.fTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey
+  name: fTitleKey
+  nameWithType: BaseDef.fTitleKey
+  fullName: Tripous.BaseDef.fTitleKey
+- uid: Tripous.BaseDef.fName
+  commentId: F:Tripous.BaseDef.fName
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fName
+  name: fName
+  nameWithType: BaseDef.fName
+  fullName: Tripous.BaseDef.fName
+- uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  commentId: M:Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  parent: Tripous.BaseDef
+  isExternal: true
+  href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  name: NotifyPropertyChanged(string)
+  nameWithType: BaseDef.NotifyPropertyChanged(string)
+  fullName: Tripous.BaseDef.NotifyPropertyChanged(string)
+  nameWithType.vb: BaseDef.NotifyPropertyChanged(String)
+  fullName.vb: Tripous.BaseDef.NotifyPropertyChanged(String)
+  name.vb: NotifyPropertyChanged(String)
+  spec.csharp:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.ToString
+  commentId: M:Tripous.BaseDef.ToString
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  name: ToString()
+  nameWithType: BaseDef.ToString()
+  fullName: Tripous.BaseDef.ToString()
+  spec.csharp:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.UpdateReferences
+  commentId: M:Tripous.BaseDef.UpdateReferences
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  name: UpdateReferences()
+  nameWithType: BaseDef.UpdateReferences()
+  fullName: Tripous.BaseDef.UpdateReferences()
+  spec.csharp:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.JsonLoaded
+  commentId: M:Tripous.BaseDef.JsonLoaded
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  name: JsonLoaded()
+  nameWithType: BaseDef.JsonLoaded()
+  fullName: Tripous.BaseDef.JsonLoaded()
+  spec.csharp:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CreateNew
+  commentId: M:Tripous.BaseDef.CreateNew
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  name: CreateNew()
+  nameWithType: BaseDef.CreateNew()
+  fullName: Tripous.BaseDef.CreateNew()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CheckDescriptor
+  commentId: M:Tripous.BaseDef.CheckDescriptor
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  name: CheckDescriptor()
+  nameWithType: BaseDef.CheckDescriptor()
+  fullName: Tripous.BaseDef.CheckDescriptor()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.BaseDef.Assign(Tripous.IDef)
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  name: Assign(IDef)
+  nameWithType: BaseDef.Assign(IDef)
+  fullName: Tripous.BaseDef.Assign(Tripous.IDef)
+  spec.csharp:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+- uid: Tripous.BaseDef.Clone
+  commentId: M:Tripous.BaseDef.Clone
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  name: Clone()
+  nameWithType: BaseDef.Clone()
+  fullName: Tripous.BaseDef.Clone()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Clear
+  commentId: M:Tripous.BaseDef.Clear
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  name: Clear()
+  nameWithType: BaseDef.Clear()
+  fullName: Tripous.BaseDef.Clear()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  commentId: M:Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  name: SplitTitleKeyToWordsWithPluralEnding()
+  nameWithType: BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  fullName: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  spec.csharp:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
+- uid: Tripous.BaseDef.TitleKey
+  commentId: P:Tripous.BaseDef.TitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_TitleKey
+  name: TitleKey
+  nameWithType: BaseDef.TitleKey
+  fullName: Tripous.BaseDef.TitleKey
+- uid: Tripous.BaseDef.IsTitleKeyEmpty
+  commentId: P:Tripous.BaseDef.IsTitleKeyEmpty
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty
+  name: IsTitleKeyEmpty
+  nameWithType: BaseDef.IsTitleKeyEmpty
+  fullName: Tripous.BaseDef.IsTitleKeyEmpty
+- uid: Tripous.BaseDef.Title
+  commentId: P:Tripous.BaseDef.Title
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Title
+  name: Title
+  nameWithType: BaseDef.Title
+  fullName: Tripous.BaseDef.Title
+- uid: Tripous.BaseDef.Tag
+  commentId: P:Tripous.BaseDef.Tag
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Tag
+  name: Tag
+  nameWithType: BaseDef.Tag
+  fullName: Tripous.BaseDef.Tag
+- uid: Tripous.BaseDef.PropertyChanged
+  commentId: E:Tripous.BaseDef.PropertyChanged
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged
+  name: PropertyChanged
+  nameWithType: BaseDef.PropertyChanged
+  fullName: Tripous.BaseDef.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.Command.Create*
+  commentId: Overload:Tripous.Command.Create
+  href: Tripous.Command.html#Tripous_Command_Create_System_String_System_String_System_String_
+  name: Create
+  nameWithType: Command.Create
+  fullName: Tripous.Command.Create
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Command
+  commentId: T:Tripous.Command
+  parent: Tripous
+  href: Tripous.Command.html
+  name: Command
+  nameWithType: Command
+  fullName: Tripous.Command
+- uid: System.Func{Tripous.Command,System.Object}
+  commentId: T:System.Func{Tripous.Command,System.Object}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<Command, object>
+  nameWithType: Func<Command, object>
+  fullName: System.Func<Tripous.Command, object>
+  nameWithType.vb: Func(Of Command, Object)
+  fullName.vb: System.Func(Of Tripous.Command, Object)
+  name.vb: Func(Of Command, Object)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Tripous.Command.CreateAsync*
+  commentId: Overload:Tripous.Command.CreateAsync
+  href: Tripous.Command.html#Tripous_Command_CreateAsync_System_String_System_String_System_Func_Tripous_Command_System_Threading_Tasks_Task_System_Object___System_String_
+  name: CreateAsync
+  nameWithType: Command.CreateAsync
+  fullName: Tripous.Command.CreateAsync
+- uid: System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}}
+  commentId: T:System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<Command, Task<object>>
+  nameWithType: Func<Command, Task<object>>
+  fullName: System.Func<Tripous.Command, System.Threading.Tasks.Task<object>>
+  nameWithType.vb: Func(Of Command, Task(Of Object))
+  fullName.vb: System.Func(Of Tripous.Command, System.Threading.Tasks.Task(Of Object))
+  name.vb: Func(Of Command, Task(Of Object))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: ','
+  - name: " "
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  - name: )
+- uid: Tripous.Command.CreateForm*
+  commentId: Overload:Tripous.Command.CreateForm
+  href: Tripous.Command.html#Tripous_Command_CreateForm_System_String_System_String_System_String_System_String_
+  name: CreateForm
+  nameWithType: Command.CreateForm
+  fullName: Tripous.Command.CreateForm
+- uid: Tripous.Command.#ctor*
+  commentId: Overload:Tripous.Command.#ctor
+  href: Tripous.Command.html#Tripous_Command__ctor
+  name: Command
+  nameWithType: Command.Command
+  fullName: Tripous.Command.Command
+  nameWithType.vb: Command.New
+  fullName.vb: Tripous.Command.New
+  name.vb: New
+- uid: Tripous.Command.CanExecute*
+  commentId: Overload:Tripous.Command.CanExecute
+  href: Tripous.Command.html#Tripous_Command_CanExecute
+  name: CanExecute
+  nameWithType: Command.CanExecute
+  fullName: Tripous.Command.CanExecute
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Command.Execute*
+  commentId: Overload:Tripous.Command.Execute
+  href: Tripous.Command.html#Tripous_Command_Execute
+  name: Execute
+  nameWithType: Command.Execute
+  fullName: Tripous.Command.Execute
+- uid: Tripous.Command.ExecuteAsync*
+  commentId: Overload:Tripous.Command.ExecuteAsync
+  href: Tripous.Command.html#Tripous_Command_ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: Command.ExecuteAsync
+  fullName: Tripous.Command.ExecuteAsync
+- uid: System.Threading.Tasks.Task{System.Object}
+  commentId: T:System.Threading.Tasks.Task{System.Object}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<object>
+  nameWithType: Task<object>
+  fullName: System.Threading.Tasks.Task<object>
+  nameWithType.vb: Task(Of Object)
+  fullName.vb: System.Threading.Tasks.Task(Of Object)
+  name.vb: Task(Of Object)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Tripous.Command.CanAccess*
+  commentId: Overload:Tripous.Command.CanAccess
+  href: Tripous.Command.html#Tripous_Command_CanAccess_Tripous_AppUser_
+  name: CanAccess
+  nameWithType: Command.CanAccess
+  fullName: Tripous.Command.CanAccess
+- uid: Tripous.AppUser
+  commentId: T:Tripous.AppUser
+  parent: Tripous
+  href: Tripous.AppUser.html
+  name: AppUser
+  nameWithType: AppUser
+  fullName: Tripous.AppUser
+- uid: Tripous.Command.ImageFileName*
+  commentId: Overload:Tripous.Command.ImageFileName
+  href: Tripous.Command.html#Tripous_Command_ImageFileName
+  name: ImageFileName
+  nameWithType: Command.ImageFileName
+  fullName: Tripous.Command.ImageFileName
+- uid: Tripous.Command.Form*
+  commentId: Overload:Tripous.Command.Form
+  href: Tripous.Command.html#Tripous_Command_Form
+  name: Form
+  nameWithType: Command.Form
+  fullName: Tripous.Command.Form
+- uid: Tripous.Command.Commands*
+  commentId: Overload:Tripous.Command.Commands
+  href: Tripous.Command.html#Tripous_Command_Commands
+  name: Commands
+  nameWithType: Command.Commands
+  fullName: Tripous.Command.Commands
+- uid: Tripous.DefList{Tripous.Command}
+  commentId: T:Tripous.DefList{Tripous.Command}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<Command>
+  nameWithType: DefList<Command>
+  fullName: Tripous.DefList<Tripous.Command>
+  nameWithType.vb: DefList(Of Command)
+  fullName.vb: Tripous.DefList(Of Tripous.Command)
+  name.vb: DefList(Of Command)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: )
+- uid: Tripous.DefList`1
+  commentId: T:Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<T>
+  nameWithType: DefList<T>
+  fullName: Tripous.DefList<T>
+  nameWithType.vb: DefList(Of T)
+  fullName.vb: Tripous.DefList(Of T)
+  name.vb: DefList(Of T)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Command.IsSync*
+  commentId: Overload:Tripous.Command.IsSync
+  href: Tripous.Command.html#Tripous_Command_IsSync
+  name: IsSync
+  nameWithType: Command.IsSync
+  fullName: Tripous.Command.IsSync
+- uid: Tripous.Command.IsAsync*
+  commentId: Overload:Tripous.Command.IsAsync
+  href: Tripous.Command.html#Tripous_Command_IsAsync
+  name: IsAsync
+  nameWithType: Command.IsAsync
+  fullName: Tripous.Command.IsAsync
+- uid: Tripous.Command.IsToggle*
+  commentId: Overload:Tripous.Command.IsToggle
+  href: Tripous.Command.html#Tripous_Command_IsToggle
+  name: IsToggle
+  nameWithType: Command.IsToggle
+  fullName: Tripous.Command.IsToggle
+- uid: Tripous.Command.SecurityLevel*
+  commentId: Overload:Tripous.Command.SecurityLevel
+  href: Tripous.Command.html#Tripous_Command_SecurityLevel
+  name: SecurityLevel
+  nameWithType: Command.SecurityLevel
+  fullName: Tripous.Command.SecurityLevel
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  parent: Tripous
+  href: Tripous.UserLevel.html
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel
+- uid: Tripous.Command.CanExecuteFunc*
+  commentId: Overload:Tripous.Command.CanExecuteFunc
+  href: Tripous.Command.html#Tripous_Command_CanExecuteFunc
+  name: CanExecuteFunc
+  nameWithType: Command.CanExecuteFunc
+  fullName: Tripous.Command.CanExecuteFunc
+- uid: System.Func{Tripous.Command,System.Boolean}
+  commentId: T:System.Func{Tripous.Command,System.Boolean}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<Command, bool>
+  nameWithType: Func<Command, bool>
+  fullName: System.Func<Tripous.Command, bool>
+  nameWithType.vb: Func(Of Command, Boolean)
+  fullName.vb: System.Func(Of Tripous.Command, Boolean)
+  name.vb: Func(Of Command, Boolean)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Command.ExecuteFunc*
+  commentId: Overload:Tripous.Command.ExecuteFunc
+  href: Tripous.Command.html#Tripous_Command_ExecuteFunc
+  name: ExecuteFunc
+  nameWithType: Command.ExecuteFunc
+  fullName: Tripous.Command.ExecuteFunc
+- uid: Tripous.Command.ExecuteAsyncFunc*
+  commentId: Overload:Tripous.Command.ExecuteAsyncFunc
+  href: Tripous.Command.html#Tripous_Command_ExecuteAsyncFunc
+  name: ExecuteAsyncFunc
+  nameWithType: Command.ExecuteAsyncFunc
+  fullName: Tripous.Command.ExecuteAsyncFunc
+- uid: Tripous.Command.HasChildren*
+  commentId: Overload:Tripous.Command.HasChildren
+  href: Tripous.Command.html#Tripous_Command_HasChildren
+  name: HasChildren
+  nameWithType: Command.HasChildren
+  fullName: Tripous.Command.HasChildren
+- uid: Tripous.BaseDef.IsSerializable
+  commentId: P:Tripous.BaseDef.IsSerializable
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable
+  name: IsSerializable
+  nameWithType: BaseDef.IsSerializable
+  fullName: Tripous.BaseDef.IsSerializable
+- uid: Tripous.Command.IsSerializable*
+  commentId: Overload:Tripous.Command.IsSerializable
+  href: Tripous.Command.html#Tripous_Command_IsSerializable
+  name: IsSerializable
+  nameWithType: Command.IsSerializable
+  fullName: Tripous.Command.IsSerializable

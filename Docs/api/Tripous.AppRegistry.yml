@@ -1,0 +1,712 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.AppRegistry
+  commentId: T:Tripous.AppRegistry
+  id: AppRegistry
+  parent: Tripous
+  children:
+  - Tripous.AppRegistry.CommandExists(System.String)
+  - Tripous.AppRegistry.FindCommand(System.String)
+  - Tripous.AppRegistry.GetCommand(System.String)
+  - Tripous.AppRegistry.GetCommandsAll
+  - Tripous.AppRegistry.MenuCommands
+  - Tripous.AppRegistry.ToolBarCommands
+  langs:
+  - csharp
+  - vb
+  name: AppRegistry
+  nameWithType: AppRegistry
+  fullName: Tripous.AppRegistry
+  type: Class
+  source:
+    remote:
+      path: Tripous/Registry/AppRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AppRegistry
+    path: ../Tripous/Registry/AppRegistry.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Provides global access to application commands.
+  example: []
+  syntax:
+    content: public static class AppRegistry
+    content.vb: Public Module AppRegistry
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.AppRegistry.GetCommandsAll
+  commentId: M:Tripous.AppRegistry.GetCommandsAll
+  id: GetCommandsAll
+  parent: Tripous.AppRegistry
+  langs:
+  - csharp
+  - vb
+  name: GetCommandsAll()
+  nameWithType: AppRegistry.GetCommandsAll()
+  fullName: Tripous.AppRegistry.GetCommandsAll()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/AppRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCommandsAll
+    path: ../Tripous/Registry/AppRegistry.cs
+    startLine: 19
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns all registered commands, including child commands.
+  example: []
+  syntax:
+    content: public static List<Command> GetCommandsAll()
+    return:
+      type: System.Collections.Generic.List{Tripous.Command}
+    content.vb: Public Shared Function GetCommandsAll() As List(Of Command)
+  overload: Tripous.AppRegistry.GetCommandsAll*
+- uid: Tripous.AppRegistry.CommandExists(System.String)
+  commentId: M:Tripous.AppRegistry.CommandExists(System.String)
+  id: CommandExists(System.String)
+  parent: Tripous.AppRegistry
+  langs:
+  - csharp
+  - vb
+  name: CommandExists(string)
+  nameWithType: AppRegistry.CommandExists(string)
+  fullName: Tripous.AppRegistry.CommandExists(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/AppRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CommandExists
+    path: ../Tripous/Registry/AppRegistry.cs
+    startLine: 46
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true when a command with the specified name exists.
+  example: []
+  syntax:
+    content: public static bool CommandExists(string CommandName)
+    parameters:
+    - id: CommandName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function CommandExists(CommandName As String) As Boolean
+  overload: Tripous.AppRegistry.CommandExists*
+  nameWithType.vb: AppRegistry.CommandExists(String)
+  fullName.vb: Tripous.AppRegistry.CommandExists(String)
+  name.vb: CommandExists(String)
+- uid: Tripous.AppRegistry.FindCommand(System.String)
+  commentId: M:Tripous.AppRegistry.FindCommand(System.String)
+  id: FindCommand(System.String)
+  parent: Tripous.AppRegistry
+  langs:
+  - csharp
+  - vb
+  name: FindCommand(string)
+  nameWithType: AppRegistry.FindCommand(string)
+  fullName: Tripous.AppRegistry.FindCommand(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/AppRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindCommand
+    path: ../Tripous/Registry/AppRegistry.cs
+    startLine: 50
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Finds and returns a command by name, if any; otherwise returns null.
+  example: []
+  syntax:
+    content: public static Command FindCommand(string CommandName)
+    parameters:
+    - id: CommandName
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function FindCommand(CommandName As String) As Command
+  overload: Tripous.AppRegistry.FindCommand*
+  nameWithType.vb: AppRegistry.FindCommand(String)
+  fullName.vb: Tripous.AppRegistry.FindCommand(String)
+  name.vb: FindCommand(String)
+- uid: Tripous.AppRegistry.GetCommand(System.String)
+  commentId: M:Tripous.AppRegistry.GetCommand(System.String)
+  id: GetCommand(System.String)
+  parent: Tripous.AppRegistry
+  langs:
+  - csharp
+  - vb
+  name: GetCommand(string)
+  nameWithType: AppRegistry.GetCommand(string)
+  fullName: Tripous.AppRegistry.GetCommand(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/AppRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCommand
+    path: ../Tripous/Registry/AppRegistry.cs
+    startLine: 55
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns a command by name.
+
+    Throws an exception when the command is not found.
+  example: []
+  syntax:
+    content: public static Command GetCommand(string CommandName)
+    parameters:
+    - id: CommandName
+      type: System.String
+    return:
+      type: Tripous.Command
+    content.vb: Public Shared Function GetCommand(CommandName As String) As Command
+  overload: Tripous.AppRegistry.GetCommand*
+  nameWithType.vb: AppRegistry.GetCommand(String)
+  fullName.vb: Tripous.AppRegistry.GetCommand(String)
+  name.vb: GetCommand(String)
+- uid: Tripous.AppRegistry.MenuCommands
+  commentId: P:Tripous.AppRegistry.MenuCommands
+  id: MenuCommands
+  parent: Tripous.AppRegistry
+  langs:
+  - csharp
+  - vb
+  name: MenuCommands
+  nameWithType: AppRegistry.MenuCommands
+  fullName: Tripous.AppRegistry.MenuCommands
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/AppRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MenuCommands
+    path: ../Tripous/Registry/AppRegistry.cs
+    startLine: 67
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the registered menu commands.
+  example: []
+  syntax:
+    content: public static DefList<Command> MenuCommands { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Command}
+    content.vb: Public Shared ReadOnly Property MenuCommands As DefList(Of Command)
+  overload: Tripous.AppRegistry.MenuCommands*
+- uid: Tripous.AppRegistry.ToolBarCommands
+  commentId: P:Tripous.AppRegistry.ToolBarCommands
+  id: ToolBarCommands
+  parent: Tripous.AppRegistry
+  langs:
+  - csharp
+  - vb
+  name: ToolBarCommands
+  nameWithType: AppRegistry.ToolBarCommands
+  fullName: Tripous.AppRegistry.ToolBarCommands
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/AppRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToolBarCommands
+    path: ../Tripous/Registry/AppRegistry.cs
+    startLine: 71
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the registered toolbar commands.
+  example: []
+  syntax:
+    content: public static DefList<Command> ToolBarCommands { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Command}
+    content.vb: Public Shared ReadOnly Property ToolBarCommands As DefList(Of Command)
+  overload: Tripous.AppRegistry.ToolBarCommands*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.AppRegistry.GetCommandsAll*
+  commentId: Overload:Tripous.AppRegistry.GetCommandsAll
+  href: Tripous.AppRegistry.html#Tripous_AppRegistry_GetCommandsAll
+  name: GetCommandsAll
+  nameWithType: AppRegistry.GetCommandsAll
+  fullName: Tripous.AppRegistry.GetCommandsAll
+- uid: System.Collections.Generic.List{Tripous.Command}
+  commentId: T:System.Collections.Generic.List{Tripous.Command}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Command>
+  nameWithType: List<Command>
+  fullName: System.Collections.Generic.List<Tripous.Command>
+  nameWithType.vb: List(Of Command)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Command)
+  name.vb: List(Of Command)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.AppRegistry.CommandExists*
+  commentId: Overload:Tripous.AppRegistry.CommandExists
+  href: Tripous.AppRegistry.html#Tripous_AppRegistry_CommandExists_System_String_
+  name: CommandExists
+  nameWithType: AppRegistry.CommandExists
+  fullName: Tripous.AppRegistry.CommandExists
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.AppRegistry.FindCommand*
+  commentId: Overload:Tripous.AppRegistry.FindCommand
+  href: Tripous.AppRegistry.html#Tripous_AppRegistry_FindCommand_System_String_
+  name: FindCommand
+  nameWithType: AppRegistry.FindCommand
+  fullName: Tripous.AppRegistry.FindCommand
+- uid: Tripous.Command
+  commentId: T:Tripous.Command
+  parent: Tripous
+  href: Tripous.Command.html
+  name: Command
+  nameWithType: Command
+  fullName: Tripous.Command
+- uid: Tripous.AppRegistry.GetCommand*
+  commentId: Overload:Tripous.AppRegistry.GetCommand
+  href: Tripous.AppRegistry.html#Tripous_AppRegistry_GetCommand_System_String_
+  name: GetCommand
+  nameWithType: AppRegistry.GetCommand
+  fullName: Tripous.AppRegistry.GetCommand
+- uid: Tripous.AppRegistry.MenuCommands*
+  commentId: Overload:Tripous.AppRegistry.MenuCommands
+  href: Tripous.AppRegistry.html#Tripous_AppRegistry_MenuCommands
+  name: MenuCommands
+  nameWithType: AppRegistry.MenuCommands
+  fullName: Tripous.AppRegistry.MenuCommands
+- uid: Tripous.DefList{Tripous.Command}
+  commentId: T:Tripous.DefList{Tripous.Command}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<Command>
+  nameWithType: DefList<Command>
+  fullName: Tripous.DefList<Tripous.Command>
+  nameWithType.vb: DefList(Of Command)
+  fullName.vb: Tripous.DefList(Of Tripous.Command)
+  name.vb: DefList(Of Command)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Command
+    name: Command
+    href: Tripous.Command.html
+  - name: )
+- uid: Tripous.DefList`1
+  commentId: T:Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<T>
+  nameWithType: DefList<T>
+  fullName: Tripous.DefList<T>
+  nameWithType.vb: DefList(Of T)
+  fullName.vb: Tripous.DefList(Of T)
+  name.vb: DefList(Of T)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.AppRegistry.ToolBarCommands*
+  commentId: Overload:Tripous.AppRegistry.ToolBarCommands
+  href: Tripous.AppRegistry.html#Tripous_AppRegistry_ToolBarCommands
+  name: ToolBarCommands
+  nameWithType: AppRegistry.ToolBarCommands
+  fullName: Tripous.AppRegistry.ToolBarCommands

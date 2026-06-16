@@ -1,0 +1,1790 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.TableSet
+  commentId: T:Tripous.Data.TableSet
+  id: TableSet
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.TableSet.#ctor(System.String,Tripous.Data.SqlStore,Tripous.Data.MemTable,Tripous.Data.MemTable,System.Collections.Generic.List{Tripous.Data.MemTable},Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSet.AcceptChanges
+  - Tripous.Data.TableSet.Commit(System.Boolean)
+  - Tripous.Data.TableSet.CommitBatch(Tripous.Data.BatchCommitArgs)
+  - Tripous.Data.TableSet.Delete(System.Object)
+  - Tripous.Data.TableSet.HasChanges
+  - Tripous.Data.TableSet.HideUntitledDisplayLabels
+  - Tripous.Data.TableSet.LastCommitedId
+  - Tripous.Data.TableSet.ListCancel
+  - Tripous.Data.TableSet.ListCancel(Tripous.Data.MemTable)
+  - Tripous.Data.TableSet.ListSave
+  - Tripous.Data.TableSet.ListSave(Tripous.Data.MemTable)
+  - Tripous.Data.TableSet.ListSelect(System.String)
+  - Tripous.Data.TableSet.ListSelect(Tripous.Data.MemTable,System.String)
+  - Tripous.Data.TableSet.Load(System.Object)
+  - Tripous.Data.TableSet.ModuleName
+  - Tripous.Data.TableSet.PostChanges
+  - Tripous.Data.TableSet.ProcessCancel
+  - Tripous.Data.TableSet.ProcessEmpty
+  - Tripous.Data.TableSet.ProcessInsert
+  - Tripous.Data.TableSet.RejectChanges
+  - Tripous.Data.TableSet.Store
+  - Tripous.Data.TableSet.Transaction
+  - Tripous.Data.TableSet.TransactionStageCommit
+  - Tripous.Data.TableSet.TransactionStageDelete
+  langs:
+  - csharp
+  - vb
+  name: TableSet
+  nameWithType: TableSet
+  fullName: Tripous.Data.TableSet
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableSet
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents a set of tables that are related to each other.
+  example: []
+  syntax:
+    content: public class TableSet
+    content.vb: Public Class TableSet
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.TableSet.#ctor(System.String,Tripous.Data.SqlStore,Tripous.Data.MemTable,Tripous.Data.MemTable,System.Collections.Generic.List{Tripous.Data.MemTable},Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.Data.TableSet.#ctor(System.String,Tripous.Data.SqlStore,Tripous.Data.MemTable,Tripous.Data.MemTable,System.Collections.Generic.List{Tripous.Data.MemTable},Tripous.Data.TableSetFlags)
+  id: '#ctor(System.String,Tripous.Data.SqlStore,Tripous.Data.MemTable,Tripous.Data.MemTable,System.Collections.Generic.List{Tripous.Data.MemTable},Tripous.Data.TableSetFlags)'
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: TableSet(string, SqlStore, MemTable, MemTable, List<MemTable>, TableSetFlags)
+  nameWithType: TableSet.TableSet(string, SqlStore, MemTable, MemTable, List<MemTable>, TableSetFlags)
+  fullName: Tripous.Data.TableSet.TableSet(string, Tripous.Data.SqlStore, Tripous.Data.MemTable, Tripous.Data.MemTable, System.Collections.Generic.List<Tripous.Data.MemTable>, Tripous.Data.TableSetFlags)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 244
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public TableSet(string ModuleName, SqlStore Store, MemTable ListTable, MemTable ItemTable, List<MemTable> Stocks, TableSetFlags Flags = TableSetFlags.GenerateSql)
+    parameters:
+    - id: ModuleName
+      type: System.String
+    - id: Store
+      type: Tripous.Data.SqlStore
+    - id: ListTable
+      type: Tripous.Data.MemTable
+    - id: ItemTable
+      type: Tripous.Data.MemTable
+    - id: Stocks
+      type: System.Collections.Generic.List{Tripous.Data.MemTable}
+    - id: Flags
+      type: Tripous.Data.TableSetFlags
+    content.vb: Public Sub New(ModuleName As String, Store As SqlStore, ListTable As MemTable, ItemTable As MemTable, Stocks As List(Of MemTable), Flags As TableSetFlags = TableSetFlags.GenerateSql)
+  overload: Tripous.Data.TableSet.#ctor*
+  nameWithType.vb: TableSet.New(String, SqlStore, MemTable, MemTable, List(Of MemTable), TableSetFlags)
+  fullName.vb: Tripous.Data.TableSet.New(String, Tripous.Data.SqlStore, Tripous.Data.MemTable, Tripous.Data.MemTable, System.Collections.Generic.List(Of Tripous.Data.MemTable), Tripous.Data.TableSetFlags)
+  name.vb: New(String, SqlStore, MemTable, MemTable, List(Of MemTable), TableSetFlags)
+- uid: Tripous.Data.TableSet.ListSelect(System.String)
+  commentId: M:Tripous.Data.TableSet.ListSelect(System.String)
+  id: ListSelect(System.String)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ListSelect(string)
+  nameWithType: TableSet.ListSelect(string)
+  fullName: Tripous.Data.TableSet.ListSelect(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListSelect
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 273
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes the SELECT SqlText and puts the returned data rows to the ListTable.
+  example: []
+  syntax:
+    content: public int ListSelect(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Function ListSelect(SqlText As String) As Integer
+  overload: Tripous.Data.TableSet.ListSelect*
+  nameWithType.vb: TableSet.ListSelect(String)
+  fullName.vb: Tripous.Data.TableSet.ListSelect(String)
+  name.vb: ListSelect(String)
+- uid: Tripous.Data.TableSet.ListSelect(Tripous.Data.MemTable,System.String)
+  commentId: M:Tripous.Data.TableSet.ListSelect(Tripous.Data.MemTable,System.String)
+  id: ListSelect(Tripous.Data.MemTable,System.String)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ListSelect(MemTable, string)
+  nameWithType: TableSet.ListSelect(MemTable, string)
+  fullName: Tripous.Data.TableSet.ListSelect(Tripous.Data.MemTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListSelect
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 279
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Executes the SELECT SqlText and puts the returned data rows to the Table.
+
+
+    <p>It is used when selecting for the List (browser) part of a data form.</p>
+
+    <p>Normally the Table passed to this method is not part of the table tree of the TableSet.</p>
+  example: []
+  syntax:
+    content: public int ListSelect(MemTable Table, string SqlText)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Function ListSelect(Table As MemTable, SqlText As String) As Integer
+  overload: Tripous.Data.TableSet.ListSelect*
+  nameWithType.vb: TableSet.ListSelect(MemTable, String)
+  fullName.vb: Tripous.Data.TableSet.ListSelect(Tripous.Data.MemTable, String)
+  name.vb: ListSelect(MemTable, String)
+- uid: Tripous.Data.TableSet.ListSave
+  commentId: M:Tripous.Data.TableSet.ListSave
+  id: ListSave
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ListSave()
+  nameWithType: TableSet.ListSave()
+  fullName: Tripous.Data.TableSet.ListSave()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListSave
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 310
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Saves the ListTable to the database.
+  example: []
+  syntax:
+    content: public void ListSave()
+    content.vb: Public Sub ListSave()
+  overload: Tripous.Data.TableSet.ListSave*
+- uid: Tripous.Data.TableSet.ListSave(Tripous.Data.MemTable)
+  commentId: M:Tripous.Data.TableSet.ListSave(Tripous.Data.MemTable)
+  id: ListSave(Tripous.Data.MemTable)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ListSave(MemTable)
+  nameWithType: TableSet.ListSave(MemTable)
+  fullName: Tripous.Data.TableSet.ListSave(Tripous.Data.MemTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListSave
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 314
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Saves the Table to the database.
+  example: []
+  syntax:
+    content: public void ListSave(MemTable Table)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    content.vb: Public Sub ListSave(Table As MemTable)
+  overload: Tripous.Data.TableSet.ListSave*
+- uid: Tripous.Data.TableSet.ListCancel
+  commentId: M:Tripous.Data.TableSet.ListCancel
+  id: ListCancel
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ListCancel()
+  nameWithType: TableSet.ListCancel()
+  fullName: Tripous.Data.TableSet.ListCancel()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListCancel
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 323
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Cancel any pending edit operation in the ListTable.
+  example: []
+  syntax:
+    content: public void ListCancel()
+    content.vb: Public Sub ListCancel()
+  overload: Tripous.Data.TableSet.ListCancel*
+- uid: Tripous.Data.TableSet.ListCancel(Tripous.Data.MemTable)
+  commentId: M:Tripous.Data.TableSet.ListCancel(Tripous.Data.MemTable)
+  id: ListCancel(Tripous.Data.MemTable)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ListCancel(MemTable)
+  nameWithType: TableSet.ListCancel(MemTable)
+  fullName: Tripous.Data.TableSet.ListCancel(Tripous.Data.MemTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListCancel
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 327
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Cancel any pending edit operation in the Table.
+  example: []
+  syntax:
+    content: public void ListCancel(MemTable Table)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    content.vb: Public Sub ListCancel(Table As MemTable)
+  overload: Tripous.Data.TableSet.ListCancel*
+- uid: Tripous.Data.TableSet.Load(System.Object)
+  commentId: M:Tripous.Data.TableSet.Load(System.Object)
+  id: Load(System.Object)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: Load(object)
+  nameWithType: TableSet.Load(object)
+  fullName: Tripous.Data.TableSet.Load(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Load
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 334
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Selects the whole table tree from the database starting from the top table (which is a single-row table).
+
+
+    <p>RowId could be string or integer and is the primary key value of the top table.</p>
+  example: []
+  syntax:
+    content: public bool Load(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Function Load(RowId As Object) As Boolean
+  overload: Tripous.Data.TableSet.Load*
+  nameWithType.vb: TableSet.Load(Object)
+  fullName.vb: Tripous.Data.TableSet.Load(Object)
+  name.vb: Load(Object)
+- uid: Tripous.Data.TableSet.Delete(System.Object)
+  commentId: M:Tripous.Data.TableSet.Delete(System.Object)
+  id: Delete(System.Object)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: Delete(object)
+  nameWithType: TableSet.Delete(object)
+  fullName: Tripous.Data.TableSet.Delete(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Delete
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 378
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Deletes the whole table tree to the database. The way this method process table deletes, depends on the cascadeDeletes flag.
+
+
+    <p>RowId could be string or integer and is the primary key value of the top table.</p>
+  example: []
+  syntax:
+    content: public void Delete(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Public Sub Delete(RowId As Object)
+  overload: Tripous.Data.TableSet.Delete*
+  nameWithType.vb: TableSet.Delete(Object)
+  fullName.vb: Tripous.Data.TableSet.Delete(Object)
+  name.vb: Delete(Object)
+- uid: Tripous.Data.TableSet.Commit(System.Boolean)
+  commentId: M:Tripous.Data.TableSet.Commit(System.Boolean)
+  id: Commit(System.Boolean)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: Commit(bool)
+  nameWithType: TableSet.Commit(bool)
+  fullName: Tripous.Data.TableSet.Commit(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Commit
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 436
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Commits the whole table tree to the database. It can be either an insert or an update.
+  example: []
+  syntax:
+    content: public object Commit(bool Reselect)
+    parameters:
+    - id: Reselect
+      type: System.Boolean
+    return:
+      type: System.Object
+    content.vb: Public Function Commit(Reselect As Boolean) As Object
+  overload: Tripous.Data.TableSet.Commit*
+  nameWithType.vb: TableSet.Commit(Boolean)
+  fullName.vb: Tripous.Data.TableSet.Commit(Boolean)
+  name.vb: Commit(Boolean)
+- uid: Tripous.Data.TableSet.AcceptChanges
+  commentId: M:Tripous.Data.TableSet.AcceptChanges
+  id: AcceptChanges
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: AcceptChanges()
+  nameWithType: TableSet.AcceptChanges()
+  fullName: Tripous.Data.TableSet.AcceptChanges()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AcceptChanges
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 492
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Cancels any pending edit operation in the whole table tree.
+  example: []
+  syntax:
+    content: public void AcceptChanges()
+    content.vb: Public Sub AcceptChanges()
+  overload: Tripous.Data.TableSet.AcceptChanges*
+- uid: Tripous.Data.TableSet.RejectChanges
+  commentId: M:Tripous.Data.TableSet.RejectChanges
+  id: RejectChanges
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: RejectChanges()
+  nameWithType: TableSet.RejectChanges()
+  fullName: Tripous.Data.TableSet.RejectChanges()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RejectChanges
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 496
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Rejects any pending edit operation in the whole table tree.
+  example: []
+  syntax:
+    content: public void RejectChanges()
+    content.vb: Public Sub RejectChanges()
+  overload: Tripous.Data.TableSet.RejectChanges*
+- uid: Tripous.Data.TableSet.HasChanges
+  commentId: M:Tripous.Data.TableSet.HasChanges
+  id: HasChanges
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: HasChanges()
+  nameWithType: TableSet.HasChanges()
+  fullName: Tripous.Data.TableSet.HasChanges()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasChanges
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 500
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if ItemTable table, or any of its details, in any depth, has changes.
+  example: []
+  syntax:
+    content: public bool HasChanges()
+    return:
+      type: System.Boolean
+    content.vb: Public Function HasChanges() As Boolean
+  overload: Tripous.Data.TableSet.HasChanges*
+- uid: Tripous.Data.TableSet.PostChanges
+  commentId: M:Tripous.Data.TableSet.PostChanges
+  id: PostChanges
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: PostChanges()
+  nameWithType: TableSet.PostChanges()
+  fullName: Tripous.Data.TableSet.PostChanges()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PostChanges
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 505
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Posts any changes (deletes, updates, inserts) to the database
+
+
+    <p><b>WARNING:</b> Does <b>NOT</b> call <xref href="Tripous.Data.MemTable.AcceptChangesAll" data-throw-if-not-resolved="false"></xref> on item table. </p>
+  example: []
+  syntax:
+    content: public void PostChanges()
+    content.vb: Public Sub PostChanges()
+  overload: Tripous.Data.TableSet.PostChanges*
+- uid: Tripous.Data.TableSet.ProcessEmpty
+  commentId: M:Tripous.Data.TableSet.ProcessEmpty
+  id: ProcessEmpty
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ProcessEmpty()
+  nameWithType: TableSet.ProcessEmpty()
+  fullName: Tripous.Data.TableSet.ProcessEmpty()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ProcessEmpty
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 516
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Removes all data rows from all tables in the tableTree
+
+
+    <p><b>WARNING:</b> Does <b>NOT</b> call <xref href="Tripous.Data.MemTable.AcceptChangesAll" data-throw-if-not-resolved="false"></xref> on item table. </p>
+  example: []
+  syntax:
+    content: public void ProcessEmpty()
+    content.vb: Public Sub ProcessEmpty()
+  overload: Tripous.Data.TableSet.ProcessEmpty*
+- uid: Tripous.Data.TableSet.ProcessInsert
+  commentId: M:Tripous.Data.TableSet.ProcessInsert
+  id: ProcessInsert
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ProcessInsert()
+  nameWithType: TableSet.ProcessInsert()
+  fullName: Tripous.Data.TableSet.ProcessInsert()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ProcessInsert
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 539
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Prepares the TableSet for an insert operation (in the tables, NOT the database)
+
+
+    <p><b>WARNING:</b> Does <b>NOT</b> call <xref href="Tripous.Data.MemTable.AcceptChangesAll" data-throw-if-not-resolved="false"></xref> on item table. </p>
+  example: []
+  syntax:
+    content: public void ProcessInsert()
+    content.vb: Public Sub ProcessInsert()
+  overload: Tripous.Data.TableSet.ProcessInsert*
+- uid: Tripous.Data.TableSet.ProcessCancel
+  commentId: M:Tripous.Data.TableSet.ProcessCancel
+  id: ProcessCancel
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ProcessCancel()
+  nameWithType: TableSet.ProcessCancel()
+  fullName: Tripous.Data.TableSet.ProcessCancel()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ProcessCancel
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 566
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Cancels an edit operation and re-initializes the table tree.
+
+
+    <p><b>WARNING:</b> Does <b>NOT</b> call <xref href="Tripous.Data.MemTable.AcceptChangesAll" data-throw-if-not-resolved="false"></xref> on item table. </p>
+  example: []
+  syntax:
+    content: public void ProcessCancel()
+    content.vb: Public Sub ProcessCancel()
+  overload: Tripous.Data.TableSet.ProcessCancel*
+- uid: Tripous.Data.TableSet.CommitBatch(Tripous.Data.BatchCommitArgs)
+  commentId: M:Tripous.Data.TableSet.CommitBatch(Tripous.Data.BatchCommitArgs)
+  id: CommitBatch(Tripous.Data.BatchCommitArgs)
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: CommitBatch(BatchCommitArgs)
+  nameWithType: TableSet.CommitBatch(BatchCommitArgs)
+  fullName: Tripous.Data.TableSet.CommitBatch(Tripous.Data.BatchCommitArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CommitBatch
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 581
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A Commit() version for batch operations.
+
+
+    <p>Starts a transaction and keeps on calling <xref href="Tripous.Data.BatchCommitArgs.BeforeFunc" data-throw-if-not-resolved="false"></xref> while <xref href="Tripous.Data.BatchCommitArgs.AfterFunc" data-throw-if-not-resolved="false"></xref>  returns true.</p>
+
+    <p>Commits the transaction each time the <xref href="Tripous.Data.BatchCommitArgs.TransLimit" data-throw-if-not-resolved="false"></xref> is reached.</p>
+
+    <p>NOTE: <xref href="Tripous.Data.BatchCommitArgs.BeforeFunc" data-throw-if-not-resolved="false"></xref> and <xref href="Tripous.Data.BatchCommitArgs.AfterFunc" data-throw-if-not-resolved="false"></xref> are optional.</p>
+  example: []
+  syntax:
+    content: public void CommitBatch(BatchCommitArgs Args)
+    parameters:
+    - id: Args
+      type: Tripous.Data.BatchCommitArgs
+    content.vb: Public Sub CommitBatch(Args As BatchCommitArgs)
+  overload: Tripous.Data.TableSet.CommitBatch*
+- uid: Tripous.Data.TableSet.ModuleName
+  commentId: P:Tripous.Data.TableSet.ModuleName
+  id: ModuleName
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: ModuleName
+  nameWithType: TableSet.ModuleName
+  fullName: Tripous.Data.TableSet.ModuleName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleName
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 689
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    <p><b>WARNING:</b> The <xref href="Tripous.Data.TableSet.ModuleName" data-throw-if-not-resolved="false"></xref> and a TableName are used in constructing a unique StatementName.</p>
+
+    <p>The StatementName is used with the <xref href="Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String%2cSystem.String)" data-throw-if-not-resolved="false"></xref>
+
+    so the <code>ModuleName.TableName</code> must construct a unique name because schema DataTables are stored in the <xref href="Tripous.Data.SqlCache" data-throw-if-not-resolved="false"></xref> under that unique name. </p>
+  example: []
+  syntax:
+    content: public string ModuleName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property ModuleName As String
+  overload: Tripous.Data.TableSet.ModuleName*
+- uid: Tripous.Data.TableSet.Store
+  commentId: P:Tripous.Data.TableSet.Store
+  id: Store
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: Store
+  nameWithType: TableSet.Store
+  fullName: Tripous.Data.TableSet.Store
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Store
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 693
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the executor
+  example: []
+  syntax:
+    content: public SqlStore Store { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SqlStore
+    content.vb: Public Property Store As SqlStore
+  overload: Tripous.Data.TableSet.Store*
+- uid: Tripous.Data.TableSet.Transaction
+  commentId: P:Tripous.Data.TableSet.Transaction
+  id: Transaction
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: Transaction
+  nameWithType: TableSet.Transaction
+  fullName: Tripous.Data.TableSet.Transaction
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Transaction
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 697
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the current Transaction
+  example: []
+  syntax:
+    content: public DbTransaction Transaction { get; }
+    parameters: []
+    return:
+      type: System.Data.Common.DbTransaction
+    content.vb: Public Property Transaction As DbTransaction
+  overload: Tripous.Data.TableSet.Transaction*
+- uid: Tripous.Data.TableSet.LastCommitedId
+  commentId: P:Tripous.Data.TableSet.LastCommitedId
+  id: LastCommitedId
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: LastCommitedId
+  nameWithType: TableSet.LastCommitedId
+  fullName: Tripous.Data.TableSet.LastCommitedId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastCommitedId
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 702
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Id of the last commit
+  example: []
+  syntax:
+    content: public object LastCommitedId { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property LastCommitedId As Object
+  overload: Tripous.Data.TableSet.LastCommitedId*
+- uid: Tripous.Data.TableSet.HideUntitledDisplayLabels
+  commentId: P:Tripous.Data.TableSet.HideUntitledDisplayLabels
+  id: HideUntitledDisplayLabels
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: HideUntitledDisplayLabels
+  nameWithType: TableSet.HideUntitledDisplayLabels
+  fullName: Tripous.Data.TableSet.HideUntitledDisplayLabels
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HideUntitledDisplayLabels
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 706
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: If true, then when SELECTing to a MemTable, hides any column not found in the table's Sqls.DisplayLabels.
+  example: []
+  syntax:
+    content: public bool HideUntitledDisplayLabels { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property HideUntitledDisplayLabels As Boolean
+  overload: Tripous.Data.TableSet.HideUntitledDisplayLabels*
+- uid: Tripous.Data.TableSet.TransactionStageDelete
+  commentId: E:Tripous.Data.TableSet.TransactionStageDelete
+  id: TransactionStageDelete
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: TransactionStageDelete
+  nameWithType: TableSet.TransactionStageDelete
+  fullName: Tripous.Data.TableSet.TransactionStageDelete
+  type: Event
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TransactionStageDelete
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 712
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Occurs when <xref href="Tripous.Data.TableSet.Delete(System.Object)" data-throw-if-not-resolved="false"></xref>(object RowId) method is called.
+  example: []
+  syntax:
+    content: public event EventHandler<TransactionEventArgs> TransactionStageDelete
+    return:
+      type: System.EventHandler{Tripous.Data.TransactionEventArgs}
+    content.vb: Public Event TransactionStageDelete As EventHandler(Of TransactionEventArgs)
+- uid: Tripous.Data.TableSet.TransactionStageCommit
+  commentId: E:Tripous.Data.TableSet.TransactionStageCommit
+  id: TransactionStageCommit
+  parent: Tripous.Data.TableSet
+  langs:
+  - csharp
+  - vb
+  name: TransactionStageCommit
+  nameWithType: TableSet.TransactionStageCommit
+  fullName: Tripous.Data.TableSet.TransactionStageCommit
+  type: Event
+  source:
+    remote:
+      path: Tripous.Data/TableSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TransactionStageCommit
+    path: ../Tripous.Data/TableSet.cs
+    startLine: 716
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Occurs when <xref href="Tripous.Data.TableSet.Commit(System.Boolean)" data-throw-if-not-resolved="false"></xref>() method is called.
+  example: []
+  syntax:
+    content: public event EventHandler<TransactionEventArgs> TransactionStageCommit
+    return:
+      type: System.EventHandler{Tripous.Data.TransactionEventArgs}
+    content.vb: Public Event TransactionStageCommit As EventHandler(Of TransactionEventArgs)
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.TableSet.#ctor*
+  commentId: Overload:Tripous.Data.TableSet.#ctor
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet__ctor_System_String_Tripous_Data_SqlStore_Tripous_Data_MemTable_Tripous_Data_MemTable_System_Collections_Generic_List_Tripous_Data_MemTable__Tripous_Data_TableSetFlags_
+  name: TableSet
+  nameWithType: TableSet.TableSet
+  fullName: Tripous.Data.TableSet.TableSet
+  nameWithType.vb: TableSet.New
+  fullName.vb: Tripous.Data.TableSet.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: System.Collections.Generic.List{Tripous.Data.MemTable}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.MemTable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<MemTable>
+  nameWithType: List<MemTable>
+  fullName: System.Collections.Generic.List<Tripous.Data.MemTable>
+  nameWithType.vb: List(Of MemTable)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.MemTable)
+  name.vb: List(Of MemTable)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags
+  commentId: T:Tripous.Data.TableSetFlags
+  parent: Tripous.Data
+  href: Tripous.Data.TableSetFlags.html
+  name: TableSetFlags
+  nameWithType: TableSetFlags
+  fullName: Tripous.Data.TableSetFlags
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.TableSet.ListSelect*
+  commentId: Overload:Tripous.Data.TableSet.ListSelect
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ListSelect_System_String_
+  name: ListSelect
+  nameWithType: TableSet.ListSelect
+  fullName: Tripous.Data.TableSet.ListSelect
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.TableSet.ListSave*
+  commentId: Overload:Tripous.Data.TableSet.ListSave
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ListSave
+  name: ListSave
+  nameWithType: TableSet.ListSave
+  fullName: Tripous.Data.TableSet.ListSave
+- uid: Tripous.Data.TableSet.ListCancel*
+  commentId: Overload:Tripous.Data.TableSet.ListCancel
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ListCancel
+  name: ListCancel
+  nameWithType: TableSet.ListCancel
+  fullName: Tripous.Data.TableSet.ListCancel
+- uid: Tripous.Data.TableSet.Load*
+  commentId: Overload:Tripous.Data.TableSet.Load
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Load_System_Object_
+  name: Load
+  nameWithType: TableSet.Load
+  fullName: Tripous.Data.TableSet.Load
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.TableSet.Delete*
+  commentId: Overload:Tripous.Data.TableSet.Delete
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Delete_System_Object_
+  name: Delete
+  nameWithType: TableSet.Delete
+  fullName: Tripous.Data.TableSet.Delete
+- uid: Tripous.Data.TableSet.Commit*
+  commentId: Overload:Tripous.Data.TableSet.Commit
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Commit_System_Boolean_
+  name: Commit
+  nameWithType: TableSet.Commit
+  fullName: Tripous.Data.TableSet.Commit
+- uid: Tripous.Data.TableSet.AcceptChanges*
+  commentId: Overload:Tripous.Data.TableSet.AcceptChanges
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_AcceptChanges
+  name: AcceptChanges
+  nameWithType: TableSet.AcceptChanges
+  fullName: Tripous.Data.TableSet.AcceptChanges
+- uid: Tripous.Data.TableSet.RejectChanges*
+  commentId: Overload:Tripous.Data.TableSet.RejectChanges
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_RejectChanges
+  name: RejectChanges
+  nameWithType: TableSet.RejectChanges
+  fullName: Tripous.Data.TableSet.RejectChanges
+- uid: Tripous.Data.TableSet.HasChanges*
+  commentId: Overload:Tripous.Data.TableSet.HasChanges
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_HasChanges
+  name: HasChanges
+  nameWithType: TableSet.HasChanges
+  fullName: Tripous.Data.TableSet.HasChanges
+- uid: Tripous.Data.MemTable.AcceptChangesAll
+  commentId: M:Tripous.Data.MemTable.AcceptChangesAll
+  href: Tripous.Data.MemTable.html#Tripous_Data_MemTable_AcceptChangesAll
+  name: AcceptChangesAll()
+  nameWithType: MemTable.AcceptChangesAll()
+  fullName: Tripous.Data.MemTable.AcceptChangesAll()
+  spec.csharp:
+  - uid: Tripous.Data.MemTable.AcceptChangesAll
+    name: AcceptChangesAll
+    href: Tripous.Data.MemTable.html#Tripous_Data_MemTable_AcceptChangesAll
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.MemTable.AcceptChangesAll
+    name: AcceptChangesAll
+    href: Tripous.Data.MemTable.html#Tripous_Data_MemTable_AcceptChangesAll
+  - name: (
+  - name: )
+- uid: Tripous.Data.TableSet.PostChanges*
+  commentId: Overload:Tripous.Data.TableSet.PostChanges
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_PostChanges
+  name: PostChanges
+  nameWithType: TableSet.PostChanges
+  fullName: Tripous.Data.TableSet.PostChanges
+- uid: Tripous.Data.TableSet.ProcessEmpty*
+  commentId: Overload:Tripous.Data.TableSet.ProcessEmpty
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ProcessEmpty
+  name: ProcessEmpty
+  nameWithType: TableSet.ProcessEmpty
+  fullName: Tripous.Data.TableSet.ProcessEmpty
+- uid: Tripous.Data.TableSet.ProcessInsert*
+  commentId: Overload:Tripous.Data.TableSet.ProcessInsert
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ProcessInsert
+  name: ProcessInsert
+  nameWithType: TableSet.ProcessInsert
+  fullName: Tripous.Data.TableSet.ProcessInsert
+- uid: Tripous.Data.TableSet.ProcessCancel*
+  commentId: Overload:Tripous.Data.TableSet.ProcessCancel
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ProcessCancel
+  name: ProcessCancel
+  nameWithType: TableSet.ProcessCancel
+  fullName: Tripous.Data.TableSet.ProcessCancel
+- uid: Tripous.Data.BatchCommitArgs.BeforeFunc
+  commentId: P:Tripous.Data.BatchCommitArgs.BeforeFunc
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_BeforeFunc
+  name: BeforeFunc
+  nameWithType: BatchCommitArgs.BeforeFunc
+  fullName: Tripous.Data.BatchCommitArgs.BeforeFunc
+- uid: Tripous.Data.BatchCommitArgs.AfterFunc
+  commentId: P:Tripous.Data.BatchCommitArgs.AfterFunc
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_AfterFunc
+  name: AfterFunc
+  nameWithType: BatchCommitArgs.AfterFunc
+  fullName: Tripous.Data.BatchCommitArgs.AfterFunc
+- uid: Tripous.Data.BatchCommitArgs.TransLimit
+  commentId: P:Tripous.Data.BatchCommitArgs.TransLimit
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_TransLimit
+  name: TransLimit
+  nameWithType: BatchCommitArgs.TransLimit
+  fullName: Tripous.Data.BatchCommitArgs.TransLimit
+- uid: Tripous.Data.TableSet.CommitBatch*
+  commentId: Overload:Tripous.Data.TableSet.CommitBatch
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_CommitBatch_Tripous_Data_BatchCommitArgs_
+  name: CommitBatch
+  nameWithType: TableSet.CommitBatch
+  fullName: Tripous.Data.TableSet.CommitBatch
+- uid: Tripous.Data.BatchCommitArgs
+  commentId: T:Tripous.Data.BatchCommitArgs
+  parent: Tripous.Data
+  href: Tripous.Data.BatchCommitArgs.html
+  name: BatchCommitArgs
+  nameWithType: BatchCommitArgs
+  fullName: Tripous.Data.BatchCommitArgs
+- uid: Tripous.Data.TableSet.ModuleName
+  commentId: P:Tripous.Data.TableSet.ModuleName
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ModuleName
+  name: ModuleName
+  nameWithType: TableSet.ModuleName
+  fullName: Tripous.Data.TableSet.ModuleName
+- uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+  commentId: M:Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+  isExternal: true
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_
+  name: GetNativeSchemaFromTableName(string, string)
+  nameWithType: SqlStore.GetNativeSchemaFromTableName(string, string)
+  fullName: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(string, string)
+  nameWithType.vb: SqlStore.GetNativeSchemaFromTableName(String, String)
+  fullName.vb: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(String, String)
+  name.vb: GetNativeSchemaFromTableName(String, String)
+  spec.csharp:
+  - uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+    name: GetNativeSchemaFromTableName
+    href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+    name: GetNativeSchemaFromTableName
+    href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.SqlCache
+  commentId: T:Tripous.Data.SqlCache
+  href: Tripous.Data.SqlCache.html
+  name: SqlCache
+  nameWithType: SqlCache
+  fullName: Tripous.Data.SqlCache
+- uid: Tripous.Data.TableSet.ModuleName*
+  commentId: Overload:Tripous.Data.TableSet.ModuleName
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_ModuleName
+  name: ModuleName
+  nameWithType: TableSet.ModuleName
+  fullName: Tripous.Data.TableSet.ModuleName
+- uid: Tripous.Data.TableSet.Store*
+  commentId: Overload:Tripous.Data.TableSet.Store
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Store
+  name: Store
+  nameWithType: TableSet.Store
+  fullName: Tripous.Data.TableSet.Store
+- uid: Tripous.Data.TableSet.Transaction*
+  commentId: Overload:Tripous.Data.TableSet.Transaction
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Transaction
+  name: Transaction
+  nameWithType: TableSet.Transaction
+  fullName: Tripous.Data.TableSet.Transaction
+- uid: System.Data.Common.DbTransaction
+  commentId: T:System.Data.Common.DbTransaction
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  name: DbTransaction
+  nameWithType: DbTransaction
+  fullName: System.Data.Common.DbTransaction
+- uid: System.Data.Common
+  commentId: N:System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data.Common
+  nameWithType: System.Data.Common
+  fullName: System.Data.Common
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+- uid: Tripous.Data.TableSet.LastCommitedId*
+  commentId: Overload:Tripous.Data.TableSet.LastCommitedId
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_LastCommitedId
+  name: LastCommitedId
+  nameWithType: TableSet.LastCommitedId
+  fullName: Tripous.Data.TableSet.LastCommitedId
+- uid: Tripous.Data.TableSet.HideUntitledDisplayLabels*
+  commentId: Overload:Tripous.Data.TableSet.HideUntitledDisplayLabels
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_HideUntitledDisplayLabels
+  name: HideUntitledDisplayLabels
+  nameWithType: TableSet.HideUntitledDisplayLabels
+  fullName: Tripous.Data.TableSet.HideUntitledDisplayLabels
+- uid: Tripous.Data.TableSet.Delete(System.Object)
+  commentId: M:Tripous.Data.TableSet.Delete(System.Object)
+  isExternal: true
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Delete_System_Object_
+  name: Delete(object)
+  nameWithType: TableSet.Delete(object)
+  fullName: Tripous.Data.TableSet.Delete(object)
+  nameWithType.vb: TableSet.Delete(Object)
+  fullName.vb: Tripous.Data.TableSet.Delete(Object)
+  name.vb: Delete(Object)
+  spec.csharp:
+  - uid: Tripous.Data.TableSet.Delete(System.Object)
+    name: Delete
+    href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Delete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.TableSet.Delete(System.Object)
+    name: Delete
+    href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Delete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.EventHandler{Tripous.Data.TransactionEventArgs}
+  commentId: T:System.EventHandler{Tripous.Data.TransactionEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<TransactionEventArgs>
+  nameWithType: EventHandler<TransactionEventArgs>
+  fullName: System.EventHandler<Tripous.Data.TransactionEventArgs>
+  nameWithType.vb: EventHandler(Of TransactionEventArgs)
+  fullName.vb: System.EventHandler(Of Tripous.Data.TransactionEventArgs)
+  name.vb: EventHandler(Of TransactionEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - uid: Tripous.Data.TransactionEventArgs
+    name: TransactionEventArgs
+    href: Tripous.Data.TransactionEventArgs.html
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TransactionEventArgs
+    name: TransactionEventArgs
+    href: Tripous.Data.TransactionEventArgs.html
+  - name: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+- uid: Tripous.Data.TableSet.Commit(System.Boolean)
+  commentId: M:Tripous.Data.TableSet.Commit(System.Boolean)
+  isExternal: true
+  href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Commit_System_Boolean_
+  name: Commit(bool)
+  nameWithType: TableSet.Commit(bool)
+  fullName: Tripous.Data.TableSet.Commit(bool)
+  nameWithType.vb: TableSet.Commit(Boolean)
+  fullName.vb: Tripous.Data.TableSet.Commit(Boolean)
+  name.vb: Commit(Boolean)
+  spec.csharp:
+  - uid: Tripous.Data.TableSet.Commit(System.Boolean)
+    name: Commit
+    href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Commit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.TableSet.Commit(System.Boolean)
+    name: Commit
+    href: Tripous.Data.TableSet.html#Tripous_Data_TableSet_Commit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )

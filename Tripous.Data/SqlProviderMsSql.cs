@@ -96,7 +96,7 @@ public class SqlProviderMsSql : SqlProvider
     /// </summary>
     public override DateTime GetServerDateTime(string ConnectionString)
     {
-        string SqlText = "SELECT CURRENT_TIMESTAM";
+        string SqlText = "SELECT CURRENT_TIMESTAMP";
         DateTime Default = DateTime.Now.ToUniversalTime();
         object Value =  SelectResult(ConnectionString, SqlText, Default);
         DateTime Result = Convert.ToDateTime(Value);

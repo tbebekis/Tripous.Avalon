@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BaseDef | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BaseDef | Tripous Framework Documentation ">
+      
+      <meta name="description" content="Base class for all descriptor classes.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/tbebekis/Tripous.Avalon/new/main/apiSpec/new?filename=Tripous_BaseDef.md&amp;value=---%0Auid%3A%20Tripous.BaseDef%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.BaseDef">
+
+
+
+  <h1 id="Tripous_BaseDef" data-uid="Tripous.BaseDef" class="text-break">
+Class BaseDef  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Base class for all descriptor classes.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BaseDef : IDef, IJsonLoadable, INotifyPropertyChanged</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">BaseDef</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Tripous.IDef.html">IDef</a></div>
+      <div><a class="xref" href="Tripous.IJsonLoadable.html">IJsonLoadable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Tripous.Command.html">Command</a></div>
+      <div><a class="xref" href="Tripous.Data.CodeProviderDef.html">CodeProviderDef</a></div>
+      <div><a class="xref" href="Tripous.Data.ConfigPropertyDef.html">ConfigPropertyDef</a></div>
+      <div><a class="xref" href="Tripous.Data.DocumentHandlerDef.html">DocumentHandlerDef</a></div>
+      <div><a class="xref" href="Tripous.Data.FieldDef.html">FieldDef</a></div>
+      <div><a class="xref" href="Tripous.Data.LocatorDef.html">LocatorDef</a></div>
+      <div><a class="xref" href="Tripous.Data.LocatorFieldDef.html">LocatorFieldDef</a></div>
+      <div><a class="xref" href="Tripous.Data.LookupDef.html">LookupDef</a></div>
+      <div><a class="xref" href="Tripous.Data.ModuleDef.html">ModuleDef</a></div>
+      <div><a class="xref" href="Tripous.Data.SchemaVersionDef.html">SchemaVersionDef</a></div>
+      <div><a class="xref" href="Tripous.Data.SelectDef.html">SelectDef</a></div>
+      <div><a class="xref" href="Tripous.Data.SelectSql.html">SelectSql</a></div>
+      <div><a class="xref" href="Tripous.Data.SqlFilterDef.html">SqlFilterDef</a></div>
+      <div><a class="xref" href="Tripous.Data.TableDef.html">TableDef</a></div>
+      <div><a class="xref" href="Tripous.Desktop.FormDef.html">FormDef</a></div>
+      <div><a class="xref" href="Tripous.Desktop.GridColumnDef.html">GridColumnDef</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_">TypeExtensions.InheritsFrom(object, Type)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Tripous_BaseDef__ctor_" data-uid="Tripous.BaseDef.#ctor*"></a>
+
+  <h3 id="Tripous_BaseDef__ctor" data-uid="Tripous.BaseDef.#ctor">
+  BaseDef()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BaseDef()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Tripous_BaseDef_fName" data-uid="Tripous.BaseDef.fName">
+  fName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string fName</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_BaseDef_fTitleKey" data-uid="Tripous.BaseDef.fTitleKey">
+  fTitleKey
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string fTitleKey</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Tripous_BaseDef_IsSerializable_" data-uid="Tripous.BaseDef.IsSerializable*"></a>
+
+  <h3 id="Tripous_BaseDef_IsSerializable" data-uid="Tripous.BaseDef.IsSerializable">
+  IsSerializable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this descriptor should be serialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public virtual bool IsSerializable { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_IsTitleKeyEmpty_" data-uid="Tripous.BaseDef.IsTitleKeyEmpty*"></a>
+
+  <h3 id="Tripous_BaseDef_IsTitleKeyEmpty" data-uid="Tripous.BaseDef.IsTitleKeyEmpty">
+  IsTitleKeyEmpty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L142"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the title key is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public virtual bool IsTitleKeyEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_Name_" data-uid="Tripous.BaseDef.Name*"></a>
+
+  <h3 id="Tripous_BaseDef_Name" data-uid="Tripous.BaseDef.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the descriptor name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string Name { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_Tag_" data-uid="Tripous.BaseDef.Tag*"></a>
+
+  <h3 id="Tripous_BaseDef_Tag" data-uid="Tripous.BaseDef.Tag">
+  Tag
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets a user-defined value associated with this descriptor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public virtual object Tag { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_Title_" data-uid="Tripous.BaseDef.Title*"></a>
+
+  <h3 id="Tripous_BaseDef_Title" data-uid="Tripous.BaseDef.Title">
+  Title
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the localized descriptor title.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public virtual string Title { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_TitleKey_" data-uid="Tripous.BaseDef.TitleKey*"></a>
+
+  <h3 id="Tripous_BaseDef_TitleKey" data-uid="Tripous.BaseDef.TitleKey">
+  TitleKey
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the localization key used for the descriptor title.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string TitleKey { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_BaseDef_Assign_" data-uid="Tripous.BaseDef.Assign*"></a>
+
+  <h3 id="Tripous_BaseDef_Assign_Tripous_IDef_" data-uid="Tripous.BaseDef.Assign(Tripous.IDef)">
+  Assign(IDef)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Assigns property values from a source descriptor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Assign(IDef Source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Source</code> <a class="xref" href="Tripous.IDef.html">IDef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_CheckDescriptor_" data-uid="Tripous.BaseDef.CheckDescriptor*"></a>
+
+  <h3 id="Tripous_BaseDef_CheckDescriptor" data-uid="Tripous.BaseDef.CheckDescriptor">
+  CheckDescriptor()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks whether this descriptor is fully defined.
+Throws an exception when required values are missing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void CheckDescriptor()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_Clear_" data-uid="Tripous.BaseDef.Clear*"></a>
+
+  <h3 id="Tripous_BaseDef_Clear" data-uid="Tripous.BaseDef.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears this descriptor by assigning values from a new empty instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_Clone_" data-uid="Tripous.BaseDef.Clone*"></a>
+
+  <h3 id="Tripous_BaseDef_Clone" data-uid="Tripous.BaseDef.Clone">
+  Clone()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a clone of this descriptor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IDef Clone()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.IDef.html">IDef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_CreateNew_" data-uid="Tripous.BaseDef.CreateNew*"></a>
+
+  <h3 id="Tripous_BaseDef_CreateNew" data-uid="Tripous.BaseDef.CreateNew">
+  CreateNew()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a new instance of the same descriptor type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual BaseDef CreateNew()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.BaseDef.html">BaseDef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_GetTitleKey_" data-uid="Tripous.BaseDef.GetTitleKey*"></a>
+
+  <h3 id="Tripous_BaseDef_GetTitleKey" data-uid="Tripous.BaseDef.GetTitleKey">
+  GetTitleKey()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the effective title key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string GetTitleKey()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_JsonLoaded_" data-uid="Tripous.BaseDef.JsonLoaded*"></a>
+
+  <h3 id="Tripous_BaseDef_JsonLoaded" data-uid="Tripous.BaseDef.JsonLoaded">
+  JsonLoaded()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called after this instance is loaded from JSON.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void JsonLoaded()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_NotifyPropertyChanged_" data-uid="Tripous.BaseDef.NotifyPropertyChanged*"></a>
+
+  <h3 id="Tripous_BaseDef_NotifyPropertyChanged_System_String_" data-uid="Tripous.BaseDef.NotifyPropertyChanged(System.String)">
+  NotifyPropertyChanged(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raises the PropertyChanged event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void NotifyPropertyChanged(string PropertyName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>PropertyName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding_" data-uid="Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding*"></a>
+
+  <h3 id="Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding" data-uid="Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding">
+  SplitTitleKeyToWordsWithPluralEnding()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Converts the title key to a plural, word-split form and returns it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string SplitTitleKeyToWordsWithPluralEnding()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_ToString_" data-uid="Tripous.BaseDef.ToString*"></a>
+
+  <h3 id="Tripous_BaseDef_ToString" data-uid="Tripous.BaseDef.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the descriptor name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_BaseDef_UpdateReferences_" data-uid="Tripous.BaseDef.UpdateReferences*"></a>
+
+  <h3 id="Tripous_BaseDef_UpdateReferences" data-uid="Tripous.BaseDef.UpdateReferences">
+  UpdateReferences()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates internal references after loading or assignment.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void UpdateReferences()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="Tripous_BaseDef_PropertyChanged" data-uid="Tripous.BaseDef.PropertyChanged">
+  PropertyChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Occurs when a property value changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event PropertyChangedEventHandler PropertyChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.propertychangedeventhandler">PropertyChangedEventHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/BaseDef.cs/#L14" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

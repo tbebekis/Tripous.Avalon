@@ -1,0 +1,1185 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.StringExtensions
+  commentId: T:Tripous.StringExtensions
+  id: StringExtensions
+  parent: Tripous
+  children:
+  - Tripous.StringExtensions.ContainsText(System.String,System.String)
+  - Tripous.StringExtensions.EndsWithText(System.String,System.String)
+  - Tripous.StringExtensions.IsNumeric(System.String)
+  - Tripous.StringExtensions.IsSameText(System.String,System.String)
+  - Tripous.StringExtensions.IsVowel(System.Char)
+  - Tripous.StringExtensions.QS(System.String)
+  - Tripous.StringExtensions.Quote(System.String)
+  - Tripous.StringExtensions.QuotePath(System.String)
+  - Tripous.StringExtensions.RemoveDiacritics(System.String)
+  - Tripous.StringExtensions.SplitCamelCase(System.String)
+  - Tripous.StringExtensions.SplitToWordList(System.String)
+  - Tripous.StringExtensions.SplitToWords(System.String)
+  - Tripous.StringExtensions.StartsWithText(System.String,System.String)
+  - Tripous.StringExtensions.ToIntOrDefault(System.String,System.Int32)
+  - Tripous.StringExtensions.ToLines(System.String)
+  - Tripous.StringExtensions.ToPlural(System.String)
+  langs:
+  - csharp
+  - vb
+  name: StringExtensions
+  nameWithType: StringExtensions
+  fullName: Tripous.StringExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StringExtensions
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 17
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Extensions
+  example: []
+  syntax:
+    content: public static class StringExtensions
+    content.vb: Public Module StringExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.StringExtensions.IsSameText(System.String,System.String)
+  commentId: M:Tripous.StringExtensions.IsSameText(System.String,System.String)
+  id: IsSameText(System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsSameText(string, string)
+  nameWithType: StringExtensions.IsSameText(string, string)
+  fullName: Tripous.StringExtensions.IsSameText(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSameText
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 23
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Case insensitive string equality.
+
+
+    <p>Returns true if 1. both are null, 2. both are empty string or 3. they are the same string </p>
+  example: []
+  syntax:
+    content: public static bool IsSameText(this string A, string B)
+    parameters:
+    - id: A
+      type: System.String
+    - id: B
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsSameText(A As String, B As String) As Boolean
+  overload: Tripous.StringExtensions.IsSameText*
+  nameWithType.vb: StringExtensions.IsSameText(String, String)
+  fullName.vb: Tripous.StringExtensions.IsSameText(String, String)
+  name.vb: IsSameText(String, String)
+- uid: Tripous.StringExtensions.ContainsText(System.String,System.String)
+  commentId: M:Tripous.StringExtensions.ContainsText(System.String,System.String)
+  id: ContainsText(System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: ContainsText(string, string)
+  nameWithType: StringExtensions.ContainsText(string, string)
+  fullName: Tripous.StringExtensions.ContainsText(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ContainsText
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 34
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns true if Value is contained in the Instance.
+
+    Performs a case-insensitive check using the invariant culture.
+  example: []
+  syntax:
+    content: public static bool ContainsText(this string Instance, string Value)
+    parameters:
+    - id: Instance
+      type: System.String
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function ContainsText(Instance As String, Value As String) As Boolean
+  overload: Tripous.StringExtensions.ContainsText*
+  nameWithType.vb: StringExtensions.ContainsText(String, String)
+  fullName.vb: Tripous.StringExtensions.ContainsText(String, String)
+  name.vb: ContainsText(String, String)
+- uid: Tripous.StringExtensions.StartsWithText(System.String,System.String)
+  commentId: M:Tripous.StringExtensions.StartsWithText(System.String,System.String)
+  id: StartsWithText(System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: StartsWithText(string, string)
+  nameWithType: StringExtensions.StartsWithText(string, string)
+  fullName: Tripous.StringExtensions.StartsWithText(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StartsWithText
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 47
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns true if Instance starts with Value.
+
+    Performs a case-insensitive check using the invariant culture.
+  example: []
+  syntax:
+    content: public static bool StartsWithText(this string Instance, string Value)
+    parameters:
+    - id: Instance
+      type: System.String
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function StartsWithText(Instance As String, Value As String) As Boolean
+  overload: Tripous.StringExtensions.StartsWithText*
+  nameWithType.vb: StringExtensions.StartsWithText(String, String)
+  fullName.vb: Tripous.StringExtensions.StartsWithText(String, String)
+  name.vb: StartsWithText(String, String)
+- uid: Tripous.StringExtensions.EndsWithText(System.String,System.String)
+  commentId: M:Tripous.StringExtensions.EndsWithText(System.String,System.String)
+  id: EndsWithText(System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: EndsWithText(string, string)
+  nameWithType: StringExtensions.EndsWithText(string, string)
+  fullName: Tripous.StringExtensions.EndsWithText(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EndsWithText
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 52
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns true if Instance ends with Value.
+
+    Performs a case-insensitive check using the invariant culture.
+  example: []
+  syntax:
+    content: public static bool EndsWithText(this string Instance, string Value)
+    parameters:
+    - id: Instance
+      type: System.String
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function EndsWithText(Instance As String, Value As String) As Boolean
+  overload: Tripous.StringExtensions.EndsWithText*
+  nameWithType.vb: StringExtensions.EndsWithText(String, String)
+  fullName.vb: Tripous.StringExtensions.EndsWithText(String, String)
+  name.vb: EndsWithText(String, String)
+- uid: Tripous.StringExtensions.IsVowel(System.Char)
+  commentId: M:Tripous.StringExtensions.IsVowel(System.Char)
+  id: IsVowel(System.Char)
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsVowel(char)
+  nameWithType: StringExtensions.IsVowel(char)
+  fullName: Tripous.StringExtensions.IsVowel(char)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsVowel
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 60
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if C is a vowel.
+  example: []
+  syntax:
+    content: public static bool IsVowel(char C)
+    parameters:
+    - id: C
+      type: System.Char
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsVowel(C As Char) As Boolean
+  overload: Tripous.StringExtensions.IsVowel*
+  nameWithType.vb: StringExtensions.IsVowel(Char)
+  fullName.vb: Tripous.StringExtensions.IsVowel(Char)
+  name.vb: IsVowel(Char)
+- uid: Tripous.StringExtensions.ToLines(System.String)
+  commentId: M:Tripous.StringExtensions.ToLines(System.String)
+  id: ToLines(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: ToLines(string)
+  nameWithType: StringExtensions.ToLines(string)
+  fullName: Tripous.StringExtensions.ToLines(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToLines
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 69
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Splits the specified text into lines using common line separators.
+  example: []
+  syntax:
+    content: public static string[] ToLines(this string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.String[]
+    content.vb: Public Shared Function ToLines(Text As String) As String()
+  overload: Tripous.StringExtensions.ToLines*
+  nameWithType.vb: StringExtensions.ToLines(String)
+  fullName.vb: Tripous.StringExtensions.ToLines(String)
+  name.vb: ToLines(String)
+- uid: Tripous.StringExtensions.Quote(System.String)
+  commentId: M:Tripous.StringExtensions.Quote(System.String)
+  id: Quote(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: Quote(string)
+  nameWithType: StringExtensions.Quote(string)
+  fullName: Tripous.StringExtensions.Quote(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Quote
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 81
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Quotes S, that is returns S surrounded by ' (single quotes)
+  example: []
+  syntax:
+    content: public static string Quote(this string S)
+    parameters:
+    - id: S
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function Quote(S As String) As String
+  overload: Tripous.StringExtensions.Quote*
+  nameWithType.vb: StringExtensions.Quote(String)
+  fullName.vb: Tripous.StringExtensions.Quote(String)
+  name.vb: Quote(String)
+- uid: Tripous.StringExtensions.QS(System.String)
+  commentId: M:Tripous.StringExtensions.QS(System.String)
+  id: QS(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: QS(string)
+  nameWithType: StringExtensions.QS(string)
+  fullName: Tripous.StringExtensions.QS(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: QS
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 96
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Quotes S, that is returns S surrounded by ' (single quotes)
+  example: []
+  syntax:
+    content: public static string QS(this string S)
+    parameters:
+    - id: S
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function QS(S As String) As String
+  overload: Tripous.StringExtensions.QS*
+  nameWithType.vb: StringExtensions.QS(String)
+  fullName.vb: Tripous.StringExtensions.QS(String)
+  name.vb: QS(String)
+- uid: Tripous.StringExtensions.QuotePath(System.String)
+  commentId: M:Tripous.StringExtensions.QuotePath(System.String)
+  id: QuotePath(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: QuotePath(string)
+  nameWithType: StringExtensions.QuotePath(string)
+  fullName: Tripous.StringExtensions.QuotePath(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: QuotePath
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 104
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Quotes a path if it is not already quoted.
+  example: []
+  syntax:
+    content: public static string QuotePath(this string Path)
+    parameters:
+    - id: Path
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function QuotePath(Path As String) As String
+  overload: Tripous.StringExtensions.QuotePath*
+  nameWithType.vb: StringExtensions.QuotePath(String)
+  fullName.vb: Tripous.StringExtensions.QuotePath(String)
+  name.vb: QuotePath(String)
+- uid: Tripous.StringExtensions.ToIntOrDefault(System.String,System.Int32)
+  commentId: M:Tripous.StringExtensions.ToIntOrDefault(System.String,System.Int32)
+  id: ToIntOrDefault(System.String,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: ToIntOrDefault(string, int)
+  nameWithType: StringExtensions.ToIntOrDefault(string, int)
+  fullName: Tripous.StringExtensions.ToIntOrDefault(string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToIntOrDefault
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 122
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Tries to convert S to an int.
+  example: []
+  syntax:
+    content: public static int ToIntOrDefault(this string S, int DefaultValue = 0)
+    parameters:
+    - id: S
+      type: System.String
+    - id: DefaultValue
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function ToIntOrDefault(S As String, DefaultValue As Integer = 0) As Integer
+  overload: Tripous.StringExtensions.ToIntOrDefault*
+  nameWithType.vb: StringExtensions.ToIntOrDefault(String, Integer)
+  fullName.vb: Tripous.StringExtensions.ToIntOrDefault(String, Integer)
+  name.vb: ToIntOrDefault(String, Integer)
+- uid: Tripous.StringExtensions.IsNumeric(System.String)
+  commentId: M:Tripous.StringExtensions.IsNumeric(System.String)
+  id: IsNumeric(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsNumeric(string)
+  nameWithType: StringExtensions.IsNumeric(string)
+  fullName: Tripous.StringExtensions.IsNumeric(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNumeric
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 127
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a specified string is made up of numeric digits.
+  example: []
+  syntax:
+    content: public static bool IsNumeric(this string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsNumeric(Value As String) As Boolean
+  overload: Tripous.StringExtensions.IsNumeric*
+  nameWithType.vb: StringExtensions.IsNumeric(String)
+  fullName.vb: Tripous.StringExtensions.IsNumeric(String)
+  name.vb: IsNumeric(String)
+- uid: Tripous.StringExtensions.RemoveDiacritics(System.String)
+  commentId: M:Tripous.StringExtensions.RemoveDiacritics(System.String)
+  id: RemoveDiacritics(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: RemoveDiacritics(string)
+  nameWithType: StringExtensions.RemoveDiacritics(string)
+  fullName: Tripous.StringExtensions.RemoveDiacritics(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemoveDiacritics
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 142
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Converts accented characters of the specified Text into non-accented characters
+
+
+    <p>From: http://stackoverflow.com/questions/359827/ignoring-accented-letters-in-string-comparison</p>
+  example: []
+  syntax:
+    content: public static string RemoveDiacritics(this string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function RemoveDiacritics(Text As String) As String
+  overload: Tripous.StringExtensions.RemoveDiacritics*
+  nameWithType.vb: StringExtensions.RemoveDiacritics(String)
+  fullName.vb: Tripous.StringExtensions.RemoveDiacritics(String)
+  name.vb: RemoveDiacritics(String)
+- uid: Tripous.StringExtensions.SplitCamelCase(System.String)
+  commentId: M:Tripous.StringExtensions.SplitCamelCase(System.String)
+  id: SplitCamelCase(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: SplitCamelCase(string)
+  nameWithType: StringExtensions.SplitCamelCase(string)
+  fullName: Tripous.StringExtensions.SplitCamelCase(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SplitCamelCase
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 158
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Splits a camel case string by adding spaces between words.
+
+
+    <p>It handles acronyms too, i.e. ABCamelDECase</p>
+  example: []
+  syntax:
+    content: public static string SplitCamelCase(this string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function SplitCamelCase(Text As String) As String
+  overload: Tripous.StringExtensions.SplitCamelCase*
+  nameWithType.vb: StringExtensions.SplitCamelCase(String)
+  fullName.vb: Tripous.StringExtensions.SplitCamelCase(String)
+  name.vb: SplitCamelCase(String)
+- uid: Tripous.StringExtensions.SplitToWordList(System.String)
+  commentId: M:Tripous.StringExtensions.SplitToWordList(System.String)
+  id: SplitToWordList(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: SplitToWordList(string)
+  nameWithType: StringExtensions.SplitToWordList(string)
+  fullName: Tripous.StringExtensions.SplitToWordList(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SplitToWordList
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 165
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Splits a string into words at each uppercase letter.
+  example: []
+  syntax:
+    content: public static List<string> SplitToWordList(this string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Shared Function SplitToWordList(Text As String) As List(Of String)
+  overload: Tripous.StringExtensions.SplitToWordList*
+  nameWithType.vb: StringExtensions.SplitToWordList(String)
+  fullName.vb: Tripous.StringExtensions.SplitToWordList(String)
+  name.vb: SplitToWordList(String)
+- uid: Tripous.StringExtensions.SplitToWords(System.String)
+  commentId: M:Tripous.StringExtensions.SplitToWords(System.String)
+  id: SplitToWords(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: SplitToWords(string)
+  nameWithType: StringExtensions.SplitToWords(string)
+  fullName: Tripous.StringExtensions.SplitToWords(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SplitToWords
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 205
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Splits a string into acronym-aware words.
+  example: []
+  syntax:
+    content: public static string SplitToWords(this string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function SplitToWords(Text As String) As String
+  overload: Tripous.StringExtensions.SplitToWords*
+  nameWithType.vb: StringExtensions.SplitToWords(String)
+  fullName.vb: Tripous.StringExtensions.SplitToWords(String)
+  name.vb: SplitToWords(String)
+- uid: Tripous.StringExtensions.ToPlural(System.String)
+  commentId: M:Tripous.StringExtensions.ToPlural(System.String)
+  id: ToPlural(System.String)
+  isExtensionMethod: true
+  parent: Tripous.StringExtensions
+  langs:
+  - csharp
+  - vb
+  name: ToPlural(string)
+  nameWithType: StringExtensions.ToPlural(string)
+  fullName: Tripous.StringExtensions.ToPlural(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/StringExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToPlural
+    path: ../Tripous/Extensions/StringExtensions.cs
+    startLine: 212
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a word to its plural form.
+  example: []
+  syntax:
+    content: public static string ToPlural(this string Word)
+    parameters:
+    - id: Word
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function ToPlural(Word As String) As String
+  overload: Tripous.StringExtensions.ToPlural*
+  nameWithType.vb: StringExtensions.ToPlural(String)
+  fullName.vb: Tripous.StringExtensions.ToPlural(String)
+  name.vb: ToPlural(String)
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.StringExtensions.IsSameText*
+  commentId: Overload:Tripous.StringExtensions.IsSameText
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_IsSameText_System_String_System_String_
+  name: IsSameText
+  nameWithType: StringExtensions.IsSameText
+  fullName: Tripous.StringExtensions.IsSameText
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.StringExtensions.ContainsText*
+  commentId: Overload:Tripous.StringExtensions.ContainsText
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_ContainsText_System_String_System_String_
+  name: ContainsText
+  nameWithType: StringExtensions.ContainsText
+  fullName: Tripous.StringExtensions.ContainsText
+- uid: Tripous.StringExtensions.StartsWithText*
+  commentId: Overload:Tripous.StringExtensions.StartsWithText
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_StartsWithText_System_String_System_String_
+  name: StartsWithText
+  nameWithType: StringExtensions.StartsWithText
+  fullName: Tripous.StringExtensions.StartsWithText
+- uid: Tripous.StringExtensions.EndsWithText*
+  commentId: Overload:Tripous.StringExtensions.EndsWithText
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_EndsWithText_System_String_System_String_
+  name: EndsWithText
+  nameWithType: StringExtensions.EndsWithText
+  fullName: Tripous.StringExtensions.EndsWithText
+- uid: Tripous.StringExtensions.IsVowel*
+  commentId: Overload:Tripous.StringExtensions.IsVowel
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_IsVowel_System_Char_
+  name: IsVowel
+  nameWithType: StringExtensions.IsVowel
+  fullName: Tripous.StringExtensions.IsVowel
+- uid: System.Char
+  commentId: T:System.Char
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.char
+  name: char
+  nameWithType: char
+  fullName: char
+  nameWithType.vb: Char
+  fullName.vb: Char
+  name.vb: Char
+- uid: Tripous.StringExtensions.ToLines*
+  commentId: Overload:Tripous.StringExtensions.ToLines
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_ToLines_System_String_
+  name: ToLines
+  nameWithType: StringExtensions.ToLines
+  fullName: Tripous.StringExtensions.ToLines
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: Tripous.StringExtensions.Quote*
+  commentId: Overload:Tripous.StringExtensions.Quote
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_Quote_System_String_
+  name: Quote
+  nameWithType: StringExtensions.Quote
+  fullName: Tripous.StringExtensions.Quote
+- uid: Tripous.StringExtensions.QS*
+  commentId: Overload:Tripous.StringExtensions.QS
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_QS_System_String_
+  name: QS
+  nameWithType: StringExtensions.QS
+  fullName: Tripous.StringExtensions.QS
+- uid: Tripous.StringExtensions.QuotePath*
+  commentId: Overload:Tripous.StringExtensions.QuotePath
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_QuotePath_System_String_
+  name: QuotePath
+  nameWithType: StringExtensions.QuotePath
+  fullName: Tripous.StringExtensions.QuotePath
+- uid: Tripous.StringExtensions.ToIntOrDefault*
+  commentId: Overload:Tripous.StringExtensions.ToIntOrDefault
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_ToIntOrDefault_System_String_System_Int32_
+  name: ToIntOrDefault
+  nameWithType: StringExtensions.ToIntOrDefault
+  fullName: Tripous.StringExtensions.ToIntOrDefault
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.StringExtensions.IsNumeric*
+  commentId: Overload:Tripous.StringExtensions.IsNumeric
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_IsNumeric_System_String_
+  name: IsNumeric
+  nameWithType: StringExtensions.IsNumeric
+  fullName: Tripous.StringExtensions.IsNumeric
+- uid: Tripous.StringExtensions.RemoveDiacritics*
+  commentId: Overload:Tripous.StringExtensions.RemoveDiacritics
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_RemoveDiacritics_System_String_
+  name: RemoveDiacritics
+  nameWithType: StringExtensions.RemoveDiacritics
+  fullName: Tripous.StringExtensions.RemoveDiacritics
+- uid: Tripous.StringExtensions.SplitCamelCase*
+  commentId: Overload:Tripous.StringExtensions.SplitCamelCase
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_SplitCamelCase_System_String_
+  name: SplitCamelCase
+  nameWithType: StringExtensions.SplitCamelCase
+  fullName: Tripous.StringExtensions.SplitCamelCase
+- uid: Tripous.StringExtensions.SplitToWordList*
+  commentId: Overload:Tripous.StringExtensions.SplitToWordList
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_SplitToWordList_System_String_
+  name: SplitToWordList
+  nameWithType: StringExtensions.SplitToWordList
+  fullName: Tripous.StringExtensions.SplitToWordList
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.StringExtensions.SplitToWords*
+  commentId: Overload:Tripous.StringExtensions.SplitToWords
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_SplitToWords_System_String_
+  name: SplitToWords
+  nameWithType: StringExtensions.SplitToWords
+  fullName: Tripous.StringExtensions.SplitToWords
+- uid: Tripous.StringExtensions.ToPlural*
+  commentId: Overload:Tripous.StringExtensions.ToPlural
+  href: Tripous.StringExtensions.html#Tripous_StringExtensions_ToPlural_System_String_
+  name: ToPlural
+  nameWithType: StringExtensions.ToPlural
+  fullName: Tripous.StringExtensions.ToPlural

@@ -10,7 +10,9 @@ namespace Tripous.Data;
 
 /// <summary>
 /// A simple SELECT Sql parser. It parses a SELECT statement into its constituents parts.
-/// The SELECT statement can contain nested sub-SELECTs or column names in double quotes or angle brackets.
+/// <para>NOTE: This is not a full SQL parser.</para>
+/// <para>It supports nested SELECT statements inside parentheses because it ignores clause keywords while inside parentheses.</para>
+/// <para>It also skips string literals, comments, double quoted identifiers, bracketed identifiers, and backtick quoted identifiers.</para>
 /// </summary>
 public class SelectSqlParser
 {

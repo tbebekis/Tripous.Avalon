@@ -1,0 +1,898 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbConnectionInfo
+  commentId: T:Tripous.Data.DbConnectionInfo
+  id: DbConnectionInfo
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbConnectionInfo.#ctor
+  - Tripous.Data.DbConnectionInfo.AutoCreateGenerators
+  - Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds
+  - Tripous.Data.DbConnectionInfo.ConnectionString
+  - Tripous.Data.DbConnectionInfo.DbServerType
+  - Tripous.Data.DbConnectionInfo.GetProviderInvariantName
+  - Tripous.Data.DbConnectionInfo.GetSqlProvider
+  - Tripous.Data.DbConnectionInfo.Name
+  - Tripous.Data.DbConnectionInfo.Schema
+  - Tripous.Data.DbConnectionInfo.Tag
+  - Tripous.Data.DbConnectionInfo.ToString
+  langs:
+  - csharp
+  - vb
+  name: DbConnectionInfo
+  nameWithType: DbConnectionInfo
+  fullName: Tripous.Data.DbConnectionInfo
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbConnectionInfo
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Information about a connection to a database.
+  example: []
+  syntax:
+    content: public class DbConnectionInfo
+    content.vb: Public Class DbConnectionInfo
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.DbConnectionInfo.#ctor
+  commentId: M:Tripous.Data.DbConnectionInfo.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: DbConnectionInfo()
+  nameWithType: DbConnectionInfo.DbConnectionInfo()
+  fullName: Tripous.Data.DbConnectionInfo.DbConnectionInfo()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public DbConnectionInfo()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.DbConnectionInfo.#ctor*
+  nameWithType.vb: DbConnectionInfo.New()
+  fullName.vb: Tripous.Data.DbConnectionInfo.New()
+  name.vb: New()
+- uid: Tripous.Data.DbConnectionInfo.ToString
+  commentId: M:Tripous.Data.DbConnectionInfo.ToString
+  id: ToString
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: DbConnectionInfo.ToString()
+  fullName: Tripous.Data.DbConnectionInfo.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Name if not empty, otherwise the base.ToString()
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Data.DbConnectionInfo.ToString*
+- uid: Tripous.Data.DbConnectionInfo.GetProviderInvariantName
+  commentId: M:Tripous.Data.DbConnectionInfo.GetProviderInvariantName
+  id: GetProviderInvariantName
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: GetProviderInvariantName()
+  nameWithType: DbConnectionInfo.GetProviderInvariantName()
+  fullName: Tripous.Data.DbConnectionInfo.GetProviderInvariantName()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetProviderInvariantName
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the provider invariant name.
+  example: []
+  syntax:
+    content: public string GetProviderInvariantName()
+    return:
+      type: System.String
+    content.vb: Public Function GetProviderInvariantName() As String
+  overload: Tripous.Data.DbConnectionInfo.GetProviderInvariantName*
+- uid: Tripous.Data.DbConnectionInfo.GetSqlProvider
+  commentId: M:Tripous.Data.DbConnectionInfo.GetSqlProvider
+  id: GetSqlProvider
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: GetSqlProvider()
+  nameWithType: DbConnectionInfo.GetSqlProvider()
+  fullName: Tripous.Data.DbConnectionInfo.GetSqlProvider()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSqlProvider
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the <xref href="Tripous.Data.SqlProvider" data-throw-if-not-resolved="false"></xref> of this connection string. If the provider is not registered with <xref href="Tripous.Data.SqlProviders" data-throw-if-not-resolved="false"></xref> an exception is thrown.
+  example: []
+  syntax:
+    content: public SqlProvider GetSqlProvider()
+    return:
+      type: Tripous.Data.SqlProvider
+    content.vb: Public Function GetSqlProvider() As SqlProvider
+  overload: Tripous.Data.DbConnectionInfo.GetSqlProvider*
+- uid: Tripous.Data.DbConnectionInfo.Name
+  commentId: P:Tripous.Data.DbConnectionInfo.Name
+  id: Name
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: DbConnectionInfo.Name
+  fullName: Tripous.Data.DbConnectionInfo.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A unique name among all connections
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.Data.DbConnectionInfo.Name*
+- uid: Tripous.Data.DbConnectionInfo.DbServerType
+  commentId: P:Tripous.Data.DbConnectionInfo.DbServerType
+  id: DbServerType
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: DbServerType
+  nameWithType: DbConnectionInfo.DbServerType
+  fullName: Tripous.Data.DbConnectionInfo.DbServerType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbServerType
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The type of the RDBMs
+  example: []
+  syntax:
+    content: public DbServerType DbServerType { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbServerType
+    content.vb: Public Property DbServerType As DbServerType
+  overload: Tripous.Data.DbConnectionInfo.DbServerType*
+- uid: Tripous.Data.DbConnectionInfo.ConnectionString
+  commentId: P:Tripous.Data.DbConnectionInfo.ConnectionString
+  id: ConnectionString
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: ConnectionString
+  nameWithType: DbConnectionInfo.ConnectionString
+  fullName: Tripous.Data.DbConnectionInfo.ConnectionString
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionString
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The connection string
+  example: []
+  syntax:
+    content: public string ConnectionString { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ConnectionString As String
+  overload: Tripous.Data.DbConnectionInfo.ConnectionString*
+- uid: Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds
+  commentId: P:Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds
+  id: CommandTimeoutSeconds
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: CommandTimeoutSeconds
+  nameWithType: DbConnectionInfo.CommandTimeoutSeconds
+  fullName: Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CommandTimeoutSeconds
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The time in seconds to wait for an SELECT/INSERT/UPDATE/DELETE/CREATE TABLE ect. command to execute. Zero means the default timeout.
+  example: []
+  syntax:
+    content: public int CommandTimeoutSeconds { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property CommandTimeoutSeconds As Integer
+  overload: Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds*
+- uid: Tripous.Data.DbConnectionInfo.AutoCreateGenerators
+  commentId: P:Tripous.Data.DbConnectionInfo.AutoCreateGenerators
+  id: AutoCreateGenerators
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: AutoCreateGenerators
+  nameWithType: DbConnectionInfo.AutoCreateGenerators
+  fullName: Tripous.Data.DbConnectionInfo.AutoCreateGenerators
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AutoCreateGenerators
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True to autocreate generators/sequencers
+  example: []
+  syntax:
+    content: public bool AutoCreateGenerators { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property AutoCreateGenerators As Boolean
+  overload: Tripous.Data.DbConnectionInfo.AutoCreateGenerators*
+- uid: Tripous.Data.DbConnectionInfo.Schema
+  commentId: P:Tripous.Data.DbConnectionInfo.Schema
+  id: Schema
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: Schema
+  nameWithType: DbConnectionInfo.Schema
+  fullName: Tripous.Data.DbConnectionInfo.Schema
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Schema
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The <xref href="Tripous.Data.DbSchema" data-throw-if-not-resolved="false"></xref> associated to this connection
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public DbSchema Schema { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbSchema
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Schema As DbSchema
+  overload: Tripous.Data.DbConnectionInfo.Schema*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.DbConnectionInfo.Tag
+  commentId: P:Tripous.Data.DbConnectionInfo.Tag
+  id: Tag
+  parent: Tripous.Data.DbConnectionInfo
+  langs:
+  - csharp
+  - vb
+  name: Tag
+  nameWithType: DbConnectionInfo.Tag
+  fullName: Tripous.Data.DbConnectionInfo.Tag
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/DbConnectionInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tag
+    path: ../Tripous.Data/DbConnections/DbConnectionInfo.cs
+    startLine: 83
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A user defined information object.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public object Tag { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Tag As Object
+  overload: Tripous.Data.DbConnectionInfo.Tag*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbConnectionInfo.#ctor*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.#ctor
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo__ctor
+  name: DbConnectionInfo
+  nameWithType: DbConnectionInfo.DbConnectionInfo
+  fullName: Tripous.Data.DbConnectionInfo.DbConnectionInfo
+  nameWithType.vb: DbConnectionInfo.New
+  fullName.vb: Tripous.Data.DbConnectionInfo.New
+  name.vb: New
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Data.DbConnectionInfo.ToString*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.ToString
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_ToString
+  name: ToString
+  nameWithType: DbConnectionInfo.ToString
+  fullName: Tripous.Data.DbConnectionInfo.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DbConnectionInfo.GetProviderInvariantName*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.GetProviderInvariantName
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_GetProviderInvariantName
+  name: GetProviderInvariantName
+  nameWithType: DbConnectionInfo.GetProviderInvariantName
+  fullName: Tripous.Data.DbConnectionInfo.GetProviderInvariantName
+- uid: Tripous.Data.SqlProvider
+  commentId: T:Tripous.Data.SqlProvider
+  parent: Tripous.Data
+  href: Tripous.Data.SqlProvider.html
+  name: SqlProvider
+  nameWithType: SqlProvider
+  fullName: Tripous.Data.SqlProvider
+- uid: Tripous.Data.SqlProviders
+  commentId: T:Tripous.Data.SqlProviders
+  href: Tripous.Data.SqlProviders.html
+  name: SqlProviders
+  nameWithType: SqlProviders
+  fullName: Tripous.Data.SqlProviders
+- uid: Tripous.Data.DbConnectionInfo.GetSqlProvider*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.GetSqlProvider
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_GetSqlProvider
+  name: GetSqlProvider
+  nameWithType: DbConnectionInfo.GetSqlProvider
+  fullName: Tripous.Data.DbConnectionInfo.GetSqlProvider
+- uid: Tripous.Data.DbConnectionInfo.Name*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.Name
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_Name
+  name: Name
+  nameWithType: DbConnectionInfo.Name
+  fullName: Tripous.Data.DbConnectionInfo.Name
+- uid: Tripous.Data.DbConnectionInfo.DbServerType*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.DbServerType
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_DbServerType
+  name: DbServerType
+  nameWithType: DbConnectionInfo.DbServerType
+  fullName: Tripous.Data.DbConnectionInfo.DbServerType
+- uid: Tripous.Data.DbServerType
+  commentId: T:Tripous.Data.DbServerType
+  parent: Tripous.Data
+  href: Tripous.Data.DbServerType.html
+  name: DbServerType
+  nameWithType: DbServerType
+  fullName: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbConnectionInfo.ConnectionString*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.ConnectionString
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_ConnectionString
+  name: ConnectionString
+  nameWithType: DbConnectionInfo.ConnectionString
+  fullName: Tripous.Data.DbConnectionInfo.ConnectionString
+- uid: Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_CommandTimeoutSeconds
+  name: CommandTimeoutSeconds
+  nameWithType: DbConnectionInfo.CommandTimeoutSeconds
+  fullName: Tripous.Data.DbConnectionInfo.CommandTimeoutSeconds
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DbConnectionInfo.AutoCreateGenerators*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.AutoCreateGenerators
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_AutoCreateGenerators
+  name: AutoCreateGenerators
+  nameWithType: DbConnectionInfo.AutoCreateGenerators
+  fullName: Tripous.Data.DbConnectionInfo.AutoCreateGenerators
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DbSchema
+  commentId: T:Tripous.Data.DbSchema
+  parent: Tripous.Data
+  href: Tripous.Data.DbSchema.html
+  name: DbSchema
+  nameWithType: DbSchema
+  fullName: Tripous.Data.DbSchema
+- uid: Tripous.Data.DbConnectionInfo.Schema*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.Schema
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_Schema
+  name: Schema
+  nameWithType: DbConnectionInfo.Schema
+  fullName: Tripous.Data.DbConnectionInfo.Schema
+- uid: Tripous.Data.DbConnectionInfo.Tag*
+  commentId: Overload:Tripous.Data.DbConnectionInfo.Tag
+  href: Tripous.Data.DbConnectionInfo.html#Tripous_Data_DbConnectionInfo_Tag
+  name: Tag
+  nameWithType: DbConnectionInfo.Tag
+  fullName: Tripous.Data.DbConnectionInfo.Tag

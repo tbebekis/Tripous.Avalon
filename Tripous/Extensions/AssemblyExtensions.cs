@@ -57,6 +57,10 @@ namespace Tripous
                 if (A != null)
                     return A.GetTypes();
             }
+            catch (ReflectionTypeLoadException Ex)
+            {
+                return Ex.Types.Where(x => x != null).ToArray();
+            }
             catch
             {
             }

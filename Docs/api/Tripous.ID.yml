@@ -1,0 +1,1513 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.ID
+  commentId: T:Tripous.ID
+  id: ID
+  parent: Tripous
+  children:
+  - Tripous.ID.#ctor
+  - Tripous.ID.#ctor(System.Object)
+  - Tripous.ID.AreEqual(System.Object,System.Object)
+  - Tripous.ID.AsInt
+  - Tripous.ID.AsString
+  - Tripous.ID.Equals(System.Object)
+  - Tripous.ID.GenId
+  - Tripous.ID.GenId(System.Boolean)
+  - Tripous.ID.Get
+  - Tripous.ID.GetHashCode
+  - Tripous.ID.IsEmpty
+  - Tripous.ID.IsEmpty(System.Object)
+  - Tripous.ID.IsEmptyOrValue(System.Object,System.Object)
+  - Tripous.ID.IsInt
+  - Tripous.ID.IsNull
+  - Tripous.ID.IsNumber(System.String)
+  - Tripous.ID.IsString
+  - Tripous.ID.Set(System.Object)
+  - Tripous.ID.ToString
+  - Tripous.ID.op_Equality(Tripous.ID,Tripous.ID)
+  - Tripous.ID.op_Implicit(System.Int16)~Tripous.ID
+  - Tripous.ID.op_Implicit(System.Int32)~Tripous.ID
+  - Tripous.ID.op_Implicit(System.String)~Tripous.ID
+  - Tripous.ID.op_Implicit(Tripous.ID)~System.Int16
+  - Tripous.ID.op_Implicit(Tripous.ID)~System.Int32
+  - Tripous.ID.op_Implicit(Tripous.ID)~System.String
+  - Tripous.ID.op_Inequality(Tripous.ID,Tripous.ID)
+  langs:
+  - csharp
+  - vb
+  name: ID
+  nameWithType: ID
+  fullName: Tripous.ID
+  type: Struct
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ID
+    path: ../Tripous/ID.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A type to be used with Ids when the exact type is not known.
+  example: []
+  syntax:
+    content: >-
+      [JsonConverter(typeof(IDJsonConverter))]
+
+      public struct ID
+    content.vb: >-
+      <JsonConverter(GetType(IDJsonConverter))>
+
+      Public Structure ID
+  inheritedMembers:
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  attributes:
+  - type: System.Text.Json.Serialization.JsonConverterAttribute
+    ctor: System.Text.Json.Serialization.JsonConverterAttribute.#ctor(System.Type)
+    arguments:
+    - type: System.Type
+      value: Tripous.IDJsonConverter
+- uid: Tripous.ID.#ctor
+  commentId: M:Tripous.ID.#ctor
+  id: '#ctor'
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: ID()
+  nameWithType: ID.ID()
+  fullName: Tripous.ID.ID()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/ID.cs
+    startLine: 22
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public ID()
+    content.vb: Public Sub New()
+  overload: Tripous.ID.#ctor*
+  nameWithType.vb: ID.New()
+  fullName.vb: Tripous.ID.New()
+  name.vb: New()
+- uid: Tripous.ID.#ctor(System.Object)
+  commentId: M:Tripous.ID.#ctor(System.Object)
+  id: '#ctor(System.Object)'
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: ID(object)
+  nameWithType: ID.ID(object)
+  fullName: Tripous.ID.ID(object)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/ID.cs
+    startLine: 28
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public ID(object Source)
+    parameters:
+    - id: Source
+      type: System.Object
+    content.vb: Public Sub New(Source As Object)
+  overload: Tripous.ID.#ctor*
+  nameWithType.vb: ID.New(Object)
+  fullName.vb: Tripous.ID.New(Object)
+  name.vb: New(Object)
+- uid: Tripous.ID.Equals(System.Object)
+  commentId: M:Tripous.ID.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: Equals(object)
+  nameWithType: ID.Equals(object)
+  fullName: Tripous.ID.Equals(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Equals
+    path: ../Tripous/ID.cs
+    startLine: 37
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Determines whether a specified object is equal to this object.
+  example: []
+  syntax:
+    content: public override bool Equals(object obj)
+    parameters:
+    - id: obj
+      type: System.Object
+      attributes:
+      - type: System.Diagnostics.CodeAnalysis.NotNullWhenAttribute
+        ctor: System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)
+        arguments:
+        - type: System.Boolean
+          value: true
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.ValueType.Equals(System.Object)
+  overload: Tripous.ID.Equals*
+  nameWithType.vb: ID.Equals(Object)
+  fullName.vb: Tripous.ID.Equals(Object)
+  name.vb: Equals(Object)
+- uid: Tripous.ID.GetHashCode
+  commentId: M:Tripous.ID.GetHashCode
+  id: GetHashCode
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: ID.GetHashCode()
+  fullName: Tripous.ID.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetHashCode
+    path: ../Tripous/ID.cs
+    startLine: 67
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the hash code for this instance.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.ValueType.GetHashCode
+  overload: Tripous.ID.GetHashCode*
+- uid: Tripous.ID.ToString
+  commentId: M:Tripous.ID.ToString
+  id: ToString
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: ID.ToString()
+  fullName: Tripous.ID.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous/ID.cs
+    startLine: 78
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns a string representation of this instance.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.ValueType.ToString
+  overload: Tripous.ID.ToString*
+- uid: Tripous.ID.Set(System.Object)
+  commentId: M:Tripous.ID.Set(System.Object)
+  id: Set(System.Object)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: Set(object)
+  nameWithType: ID.Set(object)
+  fullName: Tripous.ID.Set(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Set
+    path: ../Tripous/ID.cs
+    startLine: 86
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Sets the internal value. The source should be string, integer or short integer.
+  example: []
+  syntax:
+    content: public void Set(object Source)
+    parameters:
+    - id: Source
+      type: System.Object
+    content.vb: Public Sub [Set](Source As Object)
+  overload: Tripous.ID.Set*
+  nameWithType.vb: ID.Set(Object)
+  fullName.vb: Tripous.ID.Set(Object)
+  name.vb: Set(Object)
+- uid: Tripous.ID.Get
+  commentId: M:Tripous.ID.Get
+  id: Get
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: Get()
+  nameWithType: ID.Get()
+  fullName: Tripous.ID.Get()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Get
+    path: ../Tripous/ID.cs
+    startLine: 117
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the internal value.
+  example: []
+  syntax:
+    content: public object Get()
+    return:
+      type: System.Object
+    content.vb: Public Function [Get]() As Object
+  overload: Tripous.ID.Get*
+- uid: Tripous.ID.AsString
+  commentId: M:Tripous.ID.AsString
+  id: AsString
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: AsString()
+  nameWithType: ID.AsString()
+  fullName: Tripous.ID.AsString()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous/ID.cs
+    startLine: 121
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the internal value as string.
+  example: []
+  syntax:
+    content: public string AsString()
+    return:
+      type: System.String
+    content.vb: Public Function AsString() As String
+  overload: Tripous.ID.AsString*
+- uid: Tripous.ID.AsInt
+  commentId: M:Tripous.ID.AsInt
+  id: AsInt
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: AsInt()
+  nameWithType: ID.AsInt()
+  fullName: Tripous.ID.AsInt()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInt
+    path: ../Tripous/ID.cs
+    startLine: 125
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the internal value as integer, if the internal value is a number or looks like a number.
+  example: []
+  syntax:
+    content: public int AsInt()
+    return:
+      type: System.Int32
+    content.vb: Public Function AsInt() As Integer
+  overload: Tripous.ID.AsInt*
+- uid: Tripous.ID.IsNull
+  commentId: M:Tripous.ID.IsNull
+  id: IsNull
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: IsNull()
+  nameWithType: ID.IsNull()
+  fullName: Tripous.ID.IsNull()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNull
+    path: ../Tripous/ID.cs
+    startLine: 130
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when the internal value is null.
+  example: []
+  syntax:
+    content: public bool IsNull()
+    return:
+      type: System.Boolean
+    content.vb: Public Function IsNull() As Boolean
+  overload: Tripous.ID.IsNull*
+- uid: Tripous.ID.IsInt
+  commentId: M:Tripous.ID.IsInt
+  id: IsInt
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: IsInt()
+  nameWithType: ID.IsInt()
+  fullName: Tripous.ID.IsInt()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsInt
+    path: ../Tripous/ID.cs
+    startLine: 134
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when the internal value is int or short.
+  example: []
+  syntax:
+    content: public bool IsInt()
+    return:
+      type: System.Boolean
+    content.vb: Public Function IsInt() As Boolean
+  overload: Tripous.ID.IsInt*
+- uid: Tripous.ID.IsString
+  commentId: M:Tripous.ID.IsString
+  id: IsString
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: IsString()
+  nameWithType: ID.IsString()
+  fullName: Tripous.ID.IsString()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsString
+    path: ../Tripous/ID.cs
+    startLine: 138
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when the internal value is string.
+  example: []
+  syntax:
+    content: public bool IsString()
+    return:
+      type: System.Boolean
+    content.vb: Public Function IsString() As Boolean
+  overload: Tripous.ID.IsString*
+- uid: Tripous.ID.IsEmpty
+  commentId: M:Tripous.ID.IsEmpty
+  id: IsEmpty
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: IsEmpty()
+  nameWithType: ID.IsEmpty()
+  fullName: Tripous.ID.IsEmpty()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsEmpty
+    path: ../Tripous/ID.cs
+    startLine: 143
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when is null or empty string.
+  example: []
+  syntax:
+    content: public bool IsEmpty()
+    return:
+      type: System.Boolean
+    content.vb: Public Function IsEmpty() As Boolean
+  overload: Tripous.ID.IsEmpty*
+- uid: Tripous.ID.IsNumber(System.String)
+  commentId: M:Tripous.ID.IsNumber(System.String)
+  id: IsNumber(System.String)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: IsNumber(string)
+  nameWithType: ID.IsNumber(string)
+  fullName: Tripous.ID.IsNumber(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNumber
+    path: ../Tripous/ID.cs
+    startLine: 149
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when a specified string value consists of digits.
+  example: []
+  syntax:
+    content: public static bool IsNumber(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsNumber(Value As String) As Boolean
+  overload: Tripous.ID.IsNumber*
+  nameWithType.vb: ID.IsNumber(String)
+  fullName.vb: Tripous.ID.IsNumber(String)
+  name.vb: IsNumber(String)
+- uid: Tripous.ID.AreEqual(System.Object,System.Object)
+  commentId: M:Tripous.ID.AreEqual(System.Object,System.Object)
+  id: AreEqual(System.Object,System.Object)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: AreEqual(object, object)
+  nameWithType: ID.AreEqual(object, object)
+  fullName: Tripous.ID.AreEqual(object, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AreEqual
+    path: ../Tripous/ID.cs
+    startLine: 166
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns true if two specified Ids are equal.
+
+
+    <p>The specified Ids can be of any integer type or string.</p>
+
+    <p>String Ids are compared case-sensitively.</p>
+  example: []
+  syntax:
+    content: public static bool AreEqual(object A, object B)
+    parameters:
+    - id: A
+      type: System.Object
+    - id: B
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AreEqual(A As Object, B As Object) As Boolean
+  overload: Tripous.ID.AreEqual*
+  nameWithType.vb: ID.AreEqual(Object, Object)
+  fullName.vb: Tripous.ID.AreEqual(Object, Object)
+  name.vb: AreEqual(Object, Object)
+- uid: Tripous.ID.IsEmpty(System.Object)
+  commentId: M:Tripous.ID.IsEmpty(System.Object)
+  id: IsEmpty(System.Object)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: IsEmpty(object)
+  nameWithType: ID.IsEmpty(object)
+  fullName: Tripous.ID.IsEmpty(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsEmpty
+    path: ../Tripous/ID.cs
+    startLine: 176
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true when a specified Id is null or empty string.
+  example: []
+  syntax:
+    content: public static bool IsEmpty(object Id)
+    parameters:
+    - id: Id
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsEmpty(Id As Object) As Boolean
+  overload: Tripous.ID.IsEmpty*
+  nameWithType.vb: ID.IsEmpty(Object)
+  fullName.vb: Tripous.ID.IsEmpty(Object)
+  name.vb: IsEmpty(Object)
+- uid: Tripous.ID.IsEmptyOrValue(System.Object,System.Object)
+  commentId: M:Tripous.ID.IsEmptyOrValue(System.Object,System.Object)
+  id: IsEmptyOrValue(System.Object,System.Object)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: IsEmptyOrValue(object, object)
+  nameWithType: ID.IsEmptyOrValue(object, object)
+  fullName: Tripous.ID.IsEmptyOrValue(object, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsEmptyOrValue
+    path: ../Tripous/ID.cs
+    startLine: 184
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a specified object Id is null, empty string, or equals to a value, such as the  <code>-</code>
+  example: []
+  syntax:
+    content: public static bool IsEmptyOrValue(object Id, object Value)
+    parameters:
+    - id: Id
+      type: System.Object
+    - id: Value
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsEmptyOrValue(Id As Object, Value As Object) As Boolean
+  overload: Tripous.ID.IsEmptyOrValue*
+  nameWithType.vb: ID.IsEmptyOrValue(Object, Object)
+  fullName.vb: Tripous.ID.IsEmptyOrValue(Object, Object)
+  name.vb: IsEmptyOrValue(Object, Object)
+- uid: Tripous.ID.GenId(System.Boolean)
+  commentId: M:Tripous.ID.GenId(System.Boolean)
+  id: GenId(System.Boolean)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: GenId(bool)
+  nameWithType: ID.GenId(bool)
+  fullName: Tripous.ID.GenId(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GenId
+    path: ../Tripous/ID.cs
+    startLine: 198
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Creates and returns a new Guid string.
+
+
+    <p>If UseBrackets is true, the new guid is surrounded by {}</p>
+  example: []
+  syntax:
+    content: public static string GenId(bool UseBrackets)
+    parameters:
+    - id: UseBrackets
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function GenId(UseBrackets As Boolean) As String
+  overload: Tripous.ID.GenId*
+  nameWithType.vb: ID.GenId(Boolean)
+  fullName.vb: Tripous.ID.GenId(Boolean)
+  name.vb: GenId(Boolean)
+- uid: Tripous.ID.GenId
+  commentId: M:Tripous.ID.GenId
+  id: GenId
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: GenId()
+  nameWithType: ID.GenId()
+  fullName: Tripous.ID.GenId()
+  type: Method
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GenId
+    path: ../Tripous/ID.cs
+    startLine: 206
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates and returns a new Guid string WITHOUT surrounding brackets, i.e. {}
+  example: []
+  syntax:
+    content: public static string GenId()
+    return:
+      type: System.String
+    content.vb: Public Shared Function GenId() As String
+  overload: Tripous.ID.GenId*
+- uid: Tripous.ID.op_Equality(Tripous.ID,Tripous.ID)
+  commentId: M:Tripous.ID.op_Equality(Tripous.ID,Tripous.ID)
+  id: op_Equality(Tripous.ID,Tripous.ID)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: operator ==(ID, ID)
+  nameWithType: ID.operator ==(ID, ID)
+  fullName: Tripous.ID.operator ==(Tripous.ID, Tripous.ID)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Equality
+    path: ../Tripous/ID.cs
+    startLine: 215
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Operator ==
+  example: []
+  syntax:
+    content: public static bool operator ==(ID left, ID right)
+    parameters:
+    - id: left
+      type: Tripous.ID
+    - id: right
+      type: Tripous.ID
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator =(left As ID, right As ID) As Boolean
+  overload: Tripous.ID.op_Equality*
+  nameWithType.vb: ID.=(ID, ID)
+  fullName.vb: Tripous.ID.=(Tripous.ID, Tripous.ID)
+  name.vb: =(ID, ID)
+- uid: Tripous.ID.op_Inequality(Tripous.ID,Tripous.ID)
+  commentId: M:Tripous.ID.op_Inequality(Tripous.ID,Tripous.ID)
+  id: op_Inequality(Tripous.ID,Tripous.ID)
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: operator !=(ID, ID)
+  nameWithType: ID.operator !=(ID, ID)
+  fullName: Tripous.ID.operator !=(Tripous.ID, Tripous.ID)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Inequality
+    path: ../Tripous/ID.cs
+    startLine: 219
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Operator !=
+  example: []
+  syntax:
+    content: public static bool operator !=(ID left, ID right)
+    parameters:
+    - id: left
+      type: Tripous.ID
+    - id: right
+      type: Tripous.ID
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator <>(left As ID, right As ID) As Boolean
+  overload: Tripous.ID.op_Inequality*
+  nameWithType.vb: ID.<>(ID, ID)
+  fullName.vb: Tripous.ID.<>(Tripous.ID, Tripous.ID)
+  name.vb: <>(ID, ID)
+- uid: Tripous.ID.op_Implicit(System.String)~Tripous.ID
+  commentId: M:Tripous.ID.op_Implicit(System.String)~Tripous.ID
+  id: op_Implicit(System.String)~Tripous.ID
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: implicit operator ID(string)
+  nameWithType: ID.implicit operator ID(string)
+  fullName: Tripous.ID.implicit operator Tripous.ID(string)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Implicit
+    path: ../Tripous/ID.cs
+    startLine: 224
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Implicit conversion from string, short and int to ID.
+  example: []
+  syntax:
+    content: public static implicit operator ID(string Source)
+    parameters:
+    - id: Source
+      type: System.String
+    return:
+      type: Tripous.ID
+    content.vb: Public Shared Widening Operator CType(Source As String) As ID
+  overload: Tripous.ID.op_Implicit*
+  nameWithType.vb: ID.CType(String)
+  fullName.vb: Tripous.ID.CType(String)
+  name.vb: CType(String)
+- uid: Tripous.ID.op_Implicit(System.Int16)~Tripous.ID
+  commentId: M:Tripous.ID.op_Implicit(System.Int16)~Tripous.ID
+  id: op_Implicit(System.Int16)~Tripous.ID
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: implicit operator ID(short)
+  nameWithType: ID.implicit operator ID(short)
+  fullName: Tripous.ID.implicit operator Tripous.ID(short)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Implicit
+    path: ../Tripous/ID.cs
+    startLine: 228
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Implicit conversion from short and int to ID.
+  example: []
+  syntax:
+    content: public static implicit operator ID(short Source)
+    parameters:
+    - id: Source
+      type: System.Int16
+    return:
+      type: Tripous.ID
+    content.vb: Public Shared Widening Operator CType(Source As Short) As ID
+  overload: Tripous.ID.op_Implicit*
+  nameWithType.vb: ID.CType(Short)
+  fullName.vb: Tripous.ID.CType(Short)
+  name.vb: CType(Short)
+- uid: Tripous.ID.op_Implicit(System.Int32)~Tripous.ID
+  commentId: M:Tripous.ID.op_Implicit(System.Int32)~Tripous.ID
+  id: op_Implicit(System.Int32)~Tripous.ID
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: implicit operator ID(int)
+  nameWithType: ID.implicit operator ID(int)
+  fullName: Tripous.ID.implicit operator Tripous.ID(int)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Implicit
+    path: ../Tripous/ID.cs
+    startLine: 232
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Implicit conversion from short and int to ID.
+  example: []
+  syntax:
+    content: public static implicit operator ID(int Source)
+    parameters:
+    - id: Source
+      type: System.Int32
+    return:
+      type: Tripous.ID
+    content.vb: Public Shared Widening Operator CType(Source As Integer) As ID
+  overload: Tripous.ID.op_Implicit*
+  nameWithType.vb: ID.CType(Integer)
+  fullName.vb: Tripous.ID.CType(Integer)
+  name.vb: CType(Integer)
+- uid: Tripous.ID.op_Implicit(Tripous.ID)~System.String
+  commentId: M:Tripous.ID.op_Implicit(Tripous.ID)~System.String
+  id: op_Implicit(Tripous.ID)~System.String
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: implicit operator string(ID)
+  nameWithType: ID.implicit operator string(ID)
+  fullName: Tripous.ID.implicit operator string(Tripous.ID)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Implicit
+    path: ../Tripous/ID.cs
+    startLine: 237
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Implicit conversion from ID to string, short and int.
+  example: []
+  syntax:
+    content: public static implicit operator string(ID Source)
+    parameters:
+    - id: Source
+      type: Tripous.ID
+    return:
+      type: System.String
+    content.vb: Public Shared Widening Operator CType(Source As ID) As String
+  overload: Tripous.ID.op_Implicit*
+  nameWithType.vb: ID.CType(ID)
+  fullName.vb: Tripous.ID.CType(Tripous.ID)
+  name.vb: CType(ID)
+- uid: Tripous.ID.op_Implicit(Tripous.ID)~System.Int16
+  commentId: M:Tripous.ID.op_Implicit(Tripous.ID)~System.Int16
+  id: op_Implicit(Tripous.ID)~System.Int16
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: implicit operator short(ID)
+  nameWithType: ID.implicit operator short(ID)
+  fullName: Tripous.ID.implicit operator short(Tripous.ID)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Implicit
+    path: ../Tripous/ID.cs
+    startLine: 241
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Implicit conversion from ID to short and int.
+  example: []
+  syntax:
+    content: public static implicit operator short(ID Source)
+    parameters:
+    - id: Source
+      type: Tripous.ID
+    return:
+      type: System.Int16
+    content.vb: Public Shared Widening Operator CType(Source As ID) As Short
+  overload: Tripous.ID.op_Implicit*
+  nameWithType.vb: ID.CType(ID)
+  fullName.vb: Tripous.ID.CType(Tripous.ID)
+  name.vb: CType(ID)
+- uid: Tripous.ID.op_Implicit(Tripous.ID)~System.Int32
+  commentId: M:Tripous.ID.op_Implicit(Tripous.ID)~System.Int32
+  id: op_Implicit(Tripous.ID)~System.Int32
+  parent: Tripous.ID
+  langs:
+  - csharp
+  - vb
+  name: implicit operator int(ID)
+  nameWithType: ID.implicit operator int(ID)
+  fullName: Tripous.ID.implicit operator int(Tripous.ID)
+  type: Operator
+  source:
+    remote:
+      path: Tripous/ID.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Implicit
+    path: ../Tripous/ID.cs
+    startLine: 245
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Implicit conversion from ID to short and int.
+  example: []
+  syntax:
+    content: public static implicit operator int(ID Source)
+    parameters:
+    - id: Source
+      type: Tripous.ID
+    return:
+      type: System.Int32
+    content.vb: Public Shared Widening Operator CType(Source As ID) As Integer
+  overload: Tripous.ID.op_Implicit*
+  nameWithType.vb: ID.CType(ID)
+  fullName.vb: Tripous.ID.CType(Tripous.ID)
+  name.vb: CType(ID)
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.ID.#ctor*
+  commentId: Overload:Tripous.ID.#ctor
+  href: Tripous.ID.html#Tripous_ID__ctor
+  name: ID
+  nameWithType: ID.ID
+  fullName: Tripous.ID.ID
+  nameWithType.vb: ID.New
+  fullName.vb: Tripous.ID.New
+  name.vb: New
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.ID.Equals*
+  commentId: Overload:Tripous.ID.Equals
+  href: Tripous.ID.html#Tripous_ID_Equals_System_Object_
+  name: Equals
+  nameWithType: ID.Equals
+  fullName: Tripous.ID.Equals
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.ValueType
+  commentId: T:System.ValueType
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype
+  name: ValueType
+  nameWithType: ValueType
+  fullName: System.ValueType
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: Tripous.ID.GetHashCode*
+  commentId: Overload:Tripous.ID.GetHashCode
+  href: Tripous.ID.html#Tripous_ID_GetHashCode
+  name: GetHashCode
+  nameWithType: ID.GetHashCode
+  fullName: Tripous.ID.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.ValueType.ToString
+  commentId: M:System.ValueType.ToString
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  name: ToString()
+  nameWithType: ValueType.ToString()
+  fullName: System.ValueType.ToString()
+  spec.csharp:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+- uid: Tripous.ID.ToString*
+  commentId: Overload:Tripous.ID.ToString
+  href: Tripous.ID.html#Tripous_ID_ToString
+  name: ToString
+  nameWithType: ID.ToString
+  fullName: Tripous.ID.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.ID.Set*
+  commentId: Overload:Tripous.ID.Set
+  href: Tripous.ID.html#Tripous_ID_Set_System_Object_
+  name: Set
+  nameWithType: ID.Set
+  fullName: Tripous.ID.Set
+- uid: Tripous.ID.Get*
+  commentId: Overload:Tripous.ID.Get
+  href: Tripous.ID.html#Tripous_ID_Get
+  name: Get
+  nameWithType: ID.Get
+  fullName: Tripous.ID.Get
+- uid: Tripous.ID.AsString*
+  commentId: Overload:Tripous.ID.AsString
+  href: Tripous.ID.html#Tripous_ID_AsString
+  name: AsString
+  nameWithType: ID.AsString
+  fullName: Tripous.ID.AsString
+- uid: Tripous.ID.AsInt*
+  commentId: Overload:Tripous.ID.AsInt
+  href: Tripous.ID.html#Tripous_ID_AsInt
+  name: AsInt
+  nameWithType: ID.AsInt
+  fullName: Tripous.ID.AsInt
+- uid: Tripous.ID.IsNull*
+  commentId: Overload:Tripous.ID.IsNull
+  href: Tripous.ID.html#Tripous_ID_IsNull
+  name: IsNull
+  nameWithType: ID.IsNull
+  fullName: Tripous.ID.IsNull
+- uid: Tripous.ID.IsInt*
+  commentId: Overload:Tripous.ID.IsInt
+  href: Tripous.ID.html#Tripous_ID_IsInt
+  name: IsInt
+  nameWithType: ID.IsInt
+  fullName: Tripous.ID.IsInt
+- uid: Tripous.ID.IsString*
+  commentId: Overload:Tripous.ID.IsString
+  href: Tripous.ID.html#Tripous_ID_IsString
+  name: IsString
+  nameWithType: ID.IsString
+  fullName: Tripous.ID.IsString
+- uid: Tripous.ID.IsEmpty*
+  commentId: Overload:Tripous.ID.IsEmpty
+  href: Tripous.ID.html#Tripous_ID_IsEmpty
+  name: IsEmpty
+  nameWithType: ID.IsEmpty
+  fullName: Tripous.ID.IsEmpty
+- uid: Tripous.ID.IsNumber*
+  commentId: Overload:Tripous.ID.IsNumber
+  href: Tripous.ID.html#Tripous_ID_IsNumber_System_String_
+  name: IsNumber
+  nameWithType: ID.IsNumber
+  fullName: Tripous.ID.IsNumber
+- uid: Tripous.ID.AreEqual*
+  commentId: Overload:Tripous.ID.AreEqual
+  href: Tripous.ID.html#Tripous_ID_AreEqual_System_Object_System_Object_
+  name: AreEqual
+  nameWithType: ID.AreEqual
+  fullName: Tripous.ID.AreEqual
+- uid: Tripous.ID.IsEmptyOrValue*
+  commentId: Overload:Tripous.ID.IsEmptyOrValue
+  href: Tripous.ID.html#Tripous_ID_IsEmptyOrValue_System_Object_System_Object_
+  name: IsEmptyOrValue
+  nameWithType: ID.IsEmptyOrValue
+  fullName: Tripous.ID.IsEmptyOrValue
+- uid: Tripous.ID.GenId*
+  commentId: Overload:Tripous.ID.GenId
+  href: Tripous.ID.html#Tripous_ID_GenId_System_Boolean_
+  name: GenId
+  nameWithType: ID.GenId
+  fullName: Tripous.ID.GenId
+- uid: Tripous.ID.op_Equality*
+  commentId: Overload:Tripous.ID.op_Equality
+  href: Tripous.ID.html#Tripous_ID_op_Equality_Tripous_ID_Tripous_ID_
+  name: operator ==
+  nameWithType: ID.operator ==
+  fullName: Tripous.ID.operator ==
+  nameWithType.vb: ID.=
+  fullName.vb: Tripous.ID.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: Tripous.ID.op_Equality*
+    name: ==
+    href: Tripous.ID.html#Tripous_ID_op_Equality_Tripous_ID_Tripous_ID_
+- uid: Tripous.ID
+  commentId: T:Tripous.ID
+  parent: Tripous
+  href: Tripous.ID.html
+  name: ID
+  nameWithType: ID
+  fullName: Tripous.ID
+- uid: Tripous.ID.op_Inequality*
+  commentId: Overload:Tripous.ID.op_Inequality
+  href: Tripous.ID.html#Tripous_ID_op_Inequality_Tripous_ID_Tripous_ID_
+  name: operator !=
+  nameWithType: ID.operator !=
+  fullName: Tripous.ID.operator !=
+  nameWithType.vb: ID.<>
+  fullName.vb: Tripous.ID.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: Tripous.ID.op_Inequality*
+    name: '!='
+    href: Tripous.ID.html#Tripous_ID_op_Inequality_Tripous_ID_Tripous_ID_
+- uid: Tripous.ID.op_Implicit*
+  commentId: Overload:Tripous.ID.op_Implicit
+  name: implicit operator
+  nameWithType: ID.implicit operator
+  fullName: Tripous.ID.implicit operator
+  nameWithType.vb: ID.CType
+  fullName.vb: Tripous.ID.CType
+  name.vb: CType
+  spec.csharp:
+  - name: implicit
+  - name: " "
+  - name: operator
+- uid: System.Int16
+  commentId: T:System.Int16
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int16
+  name: short
+  nameWithType: short
+  fullName: short
+  nameWithType.vb: Short
+  fullName.vb: Short
+  name.vb: Short

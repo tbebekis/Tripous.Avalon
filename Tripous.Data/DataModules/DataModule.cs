@@ -36,6 +36,10 @@ public class DataModule
     /// <summary>
     /// Field
     /// </summary>
+    protected List<MemTable> fStocks;
+    /// <summary>
+    /// Field
+    /// </summary>
     protected Dictionary<string, object> fVariables;
     /// <summary>
     /// Field
@@ -547,7 +551,6 @@ public class DataModule
                 if (string.IsNullOrWhiteSpace(StockDef.SqlText))
                     StockDef.SqlText = $"select * from {StockDef.Name}";
                     
-                Table = GetTable(StockDef.Name);
                 Table = new MemTable(StockDef.Name);
                 DataSet.Tables.Add(Table);
                 this.Stocks.Add(Table);
@@ -608,18 +611,19 @@ public class DataModule
     /// </summary>
     public virtual void Insert()
     {
+        CheckCanInsert();
+        
         IsInserting = true;
         try
         {
-            CheckCanInsert();
             Inserting();
             TableSet.ProcessInsert();
             SetDefaultValues();
             Inserted();
+            State = DataMode.Insert;
         }
         finally
         {
-            State = DataMode.Insert;
             IsInserting = false;
         }
     }
@@ -637,10 +641,10 @@ public class DataModule
             TableSet.Load(RowId);
             LastEditedId = RowId;
             Edited(RowId);
+            State = DataMode.Edit;
         }
         finally
         {
-            State = DataMode.Edit;
             IsEditing = false;
         }
     }
@@ -658,10 +662,10 @@ public class DataModule
             TableSet.Delete(RowId);
             LastDeletedId = RowId;
             Deleted(RowId);
+            State = DataMode.None;
         }
         finally
         {
-            State = DataMode.None;
             IsDeleting = false;
         }
     }
@@ -687,10 +691,10 @@ public class DataModule
             Result = TableSet.Commit(Reselect);
             LastCommitedId = Result;
             Commited(Reselect, Result);
+            State = DataMode.Edit;
         }
         finally
         {
-            State = DataMode.Edit;
             IsCommiting = false;
         }
 
@@ -701,8 +705,9 @@ public class DataModule
     /// </summary>
     public virtual void Cancel()
     {
+        DataMode PreviousState = State;
         TableSet.RejectChanges();
-        State = DataMode.Edit;
+        State = PreviousState == DataMode.Insert ? DataMode.None : DataMode.Edit;
     }
     /// <summary>
     /// Returns true if <see cref="TableSet.ItemTable"/> table, or any of its details, in any depth, has changes.
@@ -880,7 +885,7 @@ public class DataModule
     /// <summary>
     /// The stock tables.
     /// </summary>
-    public List<MemTable> Stocks => new();
+    public List<MemTable> Stocks => fStocks ??= new();
     /// <summary>
     /// The name of this module
     /// </summary>

@@ -1,0 +1,1180 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SchemaVersionDef
+  commentId: T:Tripous.Data.SchemaVersionDef
+  id: SchemaVersionDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SchemaVersionDef.#ctor
+  - Tripous.Data.SchemaVersionDef.ConnectionName
+  - Tripous.Data.SchemaVersionDef.Domain
+  - Tripous.Data.SchemaVersionDef.IsRegistered
+  - Tripous.Data.SchemaVersionDef.IsSerializable
+  - Tripous.Data.SchemaVersionDef.Register
+  - Tripous.Data.SchemaVersionDef.RegisterInternal
+  - Tripous.Data.SchemaVersionDef.Schema
+  - Tripous.Data.SchemaVersionDef.Version
+  - Tripous.Data.SchemaVersionDef.VersionNumber
+  langs:
+  - csharp
+  - vb
+  name: SchemaVersionDef
+  nameWithType: SchemaVersionDef
+  fullName: Tripous.Data.SchemaVersionDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SchemaVersionDef
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents the baseline schema version definition and component registration entry.
+  example: []
+  syntax:
+    content: 'public class SchemaVersionDef : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
+    content.vb: Public Class SchemaVersionDef Inherits BaseDef Implements IDef, IJsonLoadable, INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.BaseDef
+  implements:
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.BaseDef.fTitleKey
+  - Tripous.BaseDef.fName
+  - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.GetTitleKey
+  - Tripous.BaseDef.ToString
+  - Tripous.BaseDef.UpdateReferences
+  - Tripous.BaseDef.JsonLoaded
+  - Tripous.BaseDef.CreateNew
+  - Tripous.BaseDef.CheckDescriptor
+  - Tripous.BaseDef.Assign(Tripous.IDef)
+  - Tripous.BaseDef.Clone
+  - Tripous.BaseDef.Clear
+  - Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  - Tripous.BaseDef.Name
+  - Tripous.BaseDef.TitleKey
+  - Tripous.BaseDef.IsTitleKeyEmpty
+  - Tripous.BaseDef.Title
+  - Tripous.BaseDef.Tag
+  - Tripous.BaseDef.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.SchemaVersionDef.RegisterInternal
+  commentId: M:Tripous.Data.SchemaVersionDef.RegisterInternal
+  id: RegisterInternal
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: RegisterInternal()
+  nameWithType: SchemaVersionDef.RegisterInternal()
+  fullName: Tripous.Data.SchemaVersionDef.RegisterInternal()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RegisterInternal
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes internal structural schema scripts and entity updates configuration adjustments during assembly registration.
+  example: []
+  syntax:
+    content: protected virtual void RegisterInternal()
+    content.vb: Protected Overridable Sub RegisterInternal()
+  overload: Tripous.Data.SchemaVersionDef.RegisterInternal*
+- uid: Tripous.Data.SchemaVersionDef.#ctor
+  commentId: M:Tripous.Data.SchemaVersionDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: SchemaVersionDef()
+  nameWithType: SchemaVersionDef.SchemaVersionDef()
+  fullName: Tripous.Data.SchemaVersionDef.SchemaVersionDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes a new instance of the SchemaVersionDef class.
+  example: []
+  syntax:
+    content: public SchemaVersionDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.SchemaVersionDef.#ctor*
+  nameWithType.vb: SchemaVersionDef.New()
+  fullName.vb: Tripous.Data.SchemaVersionDef.New()
+  name.vb: New()
+- uid: Tripous.Data.SchemaVersionDef.Register
+  commentId: M:Tripous.Data.SchemaVersionDef.Register
+  id: Register
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: Register()
+  nameWithType: SchemaVersionDef.Register()
+  fullName: Tripous.Data.SchemaVersionDef.Register()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Register
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Validates system preconditions and commits structural registration descriptors directly to target tracking schema version layers.
+  example: []
+  syntax:
+    content: public void Register()
+    content.vb: Public Sub Register()
+  overload: Tripous.Data.SchemaVersionDef.Register*
+- uid: Tripous.Data.SchemaVersionDef.IsRegistered
+  commentId: P:Tripous.Data.SchemaVersionDef.IsRegistered
+  id: IsRegistered
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: IsRegistered
+  nameWithType: SchemaVersionDef.IsRegistered
+  fullName: Tripous.Data.SchemaVersionDef.IsRegistered
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsRegistered
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 66
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a value indicating whether this version configuration has been processed and integrated.
+  example: []
+  syntax:
+    content: public bool IsRegistered { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsRegistered As Boolean
+  overload: Tripous.Data.SchemaVersionDef.IsRegistered*
+- uid: Tripous.Data.SchemaVersionDef.Schema
+  commentId: P:Tripous.Data.SchemaVersionDef.Schema
+  id: Schema
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: Schema
+  nameWithType: SchemaVersionDef.Schema
+  fullName: Tripous.Data.SchemaVersionDef.Schema
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Schema
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the structural schema descriptor instance mapping the target domain environment.
+  example: []
+  syntax:
+    content: public Schema Schema { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.Schema
+    content.vb: Public Property Schema As Schema
+  overload: Tripous.Data.SchemaVersionDef.Schema*
+- uid: Tripous.Data.SchemaVersionDef.Version
+  commentId: P:Tripous.Data.SchemaVersionDef.Version
+  id: Version
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: Version
+  nameWithType: SchemaVersionDef.Version
+  fullName: Tripous.Data.SchemaVersionDef.Version
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Version
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the specific version release context container belonging to this database definition tracking line.
+  example: []
+  syntax:
+    content: public SchemaVersion Version { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SchemaVersion
+    content.vb: Public Property Version As SchemaVersion
+  overload: Tripous.Data.SchemaVersionDef.Version*
+- uid: Tripous.Data.SchemaVersionDef.Domain
+  commentId: P:Tripous.Data.SchemaVersionDef.Domain
+  id: Domain
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: Domain
+  nameWithType: SchemaVersionDef.Domain
+  fullName: Tripous.Data.SchemaVersionDef.Domain
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Domain
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the global subsystem category or application group context identifier.
+  example: []
+  syntax:
+    content: public virtual string Domain { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Overridable ReadOnly Property Domain As String
+  overload: Tripous.Data.SchemaVersionDef.Domain*
+- uid: Tripous.Data.SchemaVersionDef.ConnectionName
+  commentId: P:Tripous.Data.SchemaVersionDef.ConnectionName
+  id: ConnectionName
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: ConnectionName
+  nameWithType: SchemaVersionDef.ConnectionName
+  fullName: Tripous.Data.SchemaVersionDef.ConnectionName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionName
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the unique targeting backend key moniker identifier layout used for data source connection definitions lookup.
+  example: []
+  syntax:
+    content: public virtual string ConnectionName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Overridable ReadOnly Property ConnectionName As String
+  overload: Tripous.Data.SchemaVersionDef.ConnectionName*
+- uid: Tripous.Data.SchemaVersionDef.VersionNumber
+  commentId: P:Tripous.Data.SchemaVersionDef.VersionNumber
+  id: VersionNumber
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: VersionNumber
+  nameWithType: SchemaVersionDef.VersionNumber
+  fullName: Tripous.Data.SchemaVersionDef.VersionNumber
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VersionNumber
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 86
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the sequence tracker index key numbering layout signifying database state migrations levels.
+  example: []
+  syntax:
+    content: public virtual int VersionNumber { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Overridable ReadOnly Property VersionNumber As Integer
+  overload: Tripous.Data.SchemaVersionDef.VersionNumber*
+- uid: Tripous.Data.SchemaVersionDef.IsSerializable
+  commentId: P:Tripous.Data.SchemaVersionDef.IsSerializable
+  id: IsSerializable
+  parent: Tripous.Data.SchemaVersionDef
+  langs:
+  - csharp
+  - vb
+  name: IsSerializable
+  nameWithType: SchemaVersionDef.IsSerializable
+  fullName: Tripous.Data.SchemaVersionDef.IsSerializable
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaVersionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSerializable
+    path: ../Tripous.Data/Registry/SchemaVersionDef.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a value indicating whether the definition schema layout can be automatically serialized into files.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public override bool IsSerializable { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Overrides ReadOnly Property IsSerializable As Boolean
+  overridden: Tripous.BaseDef.IsSerializable
+  overload: Tripous.Data.SchemaVersionDef.IsSerializable*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.BaseDef.fTitleKey
+  commentId: F:Tripous.BaseDef.fTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey
+  name: fTitleKey
+  nameWithType: BaseDef.fTitleKey
+  fullName: Tripous.BaseDef.fTitleKey
+- uid: Tripous.BaseDef.fName
+  commentId: F:Tripous.BaseDef.fName
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fName
+  name: fName
+  nameWithType: BaseDef.fName
+  fullName: Tripous.BaseDef.fName
+- uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  commentId: M:Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  parent: Tripous.BaseDef
+  isExternal: true
+  href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  name: NotifyPropertyChanged(string)
+  nameWithType: BaseDef.NotifyPropertyChanged(string)
+  fullName: Tripous.BaseDef.NotifyPropertyChanged(string)
+  nameWithType.vb: BaseDef.NotifyPropertyChanged(String)
+  fullName.vb: Tripous.BaseDef.NotifyPropertyChanged(String)
+  name.vb: NotifyPropertyChanged(String)
+  spec.csharp:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.ToString
+  commentId: M:Tripous.BaseDef.ToString
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  name: ToString()
+  nameWithType: BaseDef.ToString()
+  fullName: Tripous.BaseDef.ToString()
+  spec.csharp:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.UpdateReferences
+  commentId: M:Tripous.BaseDef.UpdateReferences
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  name: UpdateReferences()
+  nameWithType: BaseDef.UpdateReferences()
+  fullName: Tripous.BaseDef.UpdateReferences()
+  spec.csharp:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.JsonLoaded
+  commentId: M:Tripous.BaseDef.JsonLoaded
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  name: JsonLoaded()
+  nameWithType: BaseDef.JsonLoaded()
+  fullName: Tripous.BaseDef.JsonLoaded()
+  spec.csharp:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CreateNew
+  commentId: M:Tripous.BaseDef.CreateNew
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  name: CreateNew()
+  nameWithType: BaseDef.CreateNew()
+  fullName: Tripous.BaseDef.CreateNew()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CheckDescriptor
+  commentId: M:Tripous.BaseDef.CheckDescriptor
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  name: CheckDescriptor()
+  nameWithType: BaseDef.CheckDescriptor()
+  fullName: Tripous.BaseDef.CheckDescriptor()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.BaseDef.Assign(Tripous.IDef)
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  name: Assign(IDef)
+  nameWithType: BaseDef.Assign(IDef)
+  fullName: Tripous.BaseDef.Assign(Tripous.IDef)
+  spec.csharp:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+- uid: Tripous.BaseDef.Clone
+  commentId: M:Tripous.BaseDef.Clone
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  name: Clone()
+  nameWithType: BaseDef.Clone()
+  fullName: Tripous.BaseDef.Clone()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Clear
+  commentId: M:Tripous.BaseDef.Clear
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  name: Clear()
+  nameWithType: BaseDef.Clear()
+  fullName: Tripous.BaseDef.Clear()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  commentId: M:Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  name: SplitTitleKeyToWordsWithPluralEnding()
+  nameWithType: BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  fullName: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  spec.csharp:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
+- uid: Tripous.BaseDef.TitleKey
+  commentId: P:Tripous.BaseDef.TitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_TitleKey
+  name: TitleKey
+  nameWithType: BaseDef.TitleKey
+  fullName: Tripous.BaseDef.TitleKey
+- uid: Tripous.BaseDef.IsTitleKeyEmpty
+  commentId: P:Tripous.BaseDef.IsTitleKeyEmpty
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty
+  name: IsTitleKeyEmpty
+  nameWithType: BaseDef.IsTitleKeyEmpty
+  fullName: Tripous.BaseDef.IsTitleKeyEmpty
+- uid: Tripous.BaseDef.Title
+  commentId: P:Tripous.BaseDef.Title
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Title
+  name: Title
+  nameWithType: BaseDef.Title
+  fullName: Tripous.BaseDef.Title
+- uid: Tripous.BaseDef.Tag
+  commentId: P:Tripous.BaseDef.Tag
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Tag
+  name: Tag
+  nameWithType: BaseDef.Tag
+  fullName: Tripous.BaseDef.Tag
+- uid: Tripous.BaseDef.PropertyChanged
+  commentId: E:Tripous.BaseDef.PropertyChanged
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged
+  name: PropertyChanged
+  nameWithType: BaseDef.PropertyChanged
+  fullName: Tripous.BaseDef.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.Data.SchemaVersionDef.RegisterInternal*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.RegisterInternal
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_RegisterInternal
+  name: RegisterInternal
+  nameWithType: SchemaVersionDef.RegisterInternal
+  fullName: Tripous.Data.SchemaVersionDef.RegisterInternal
+- uid: Tripous.Data.SchemaVersionDef.#ctor*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.#ctor
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef__ctor
+  name: SchemaVersionDef
+  nameWithType: SchemaVersionDef.SchemaVersionDef
+  fullName: Tripous.Data.SchemaVersionDef.SchemaVersionDef
+  nameWithType.vb: SchemaVersionDef.New
+  fullName.vb: Tripous.Data.SchemaVersionDef.New
+  name.vb: New
+- uid: Tripous.Data.SchemaVersionDef.Register*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.Register
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_Register
+  name: Register
+  nameWithType: SchemaVersionDef.Register
+  fullName: Tripous.Data.SchemaVersionDef.Register
+- uid: Tripous.Data.SchemaVersionDef.IsRegistered*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.IsRegistered
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_IsRegistered
+  name: IsRegistered
+  nameWithType: SchemaVersionDef.IsRegistered
+  fullName: Tripous.Data.SchemaVersionDef.IsRegistered
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.SchemaVersionDef.Schema*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.Schema
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_Schema
+  name: Schema
+  nameWithType: SchemaVersionDef.Schema
+  fullName: Tripous.Data.SchemaVersionDef.Schema
+- uid: Tripous.Data.Schema
+  commentId: T:Tripous.Data.Schema
+  parent: Tripous.Data
+  href: Tripous.Data.Schema.html
+  name: Schema
+  nameWithType: Schema
+  fullName: Tripous.Data.Schema
+- uid: Tripous.Data.SchemaVersionDef.Version*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.Version
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_Version
+  name: Version
+  nameWithType: SchemaVersionDef.Version
+  fullName: Tripous.Data.SchemaVersionDef.Version
+- uid: Tripous.Data.SchemaVersion
+  commentId: T:Tripous.Data.SchemaVersion
+  parent: Tripous.Data
+  href: Tripous.Data.SchemaVersion.html
+  name: SchemaVersion
+  nameWithType: SchemaVersion
+  fullName: Tripous.Data.SchemaVersion
+- uid: Tripous.Data.SchemaVersionDef.Domain*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.Domain
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_Domain
+  name: Domain
+  nameWithType: SchemaVersionDef.Domain
+  fullName: Tripous.Data.SchemaVersionDef.Domain
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SchemaVersionDef.ConnectionName*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.ConnectionName
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_ConnectionName
+  name: ConnectionName
+  nameWithType: SchemaVersionDef.ConnectionName
+  fullName: Tripous.Data.SchemaVersionDef.ConnectionName
+- uid: Tripous.Data.SchemaVersionDef.VersionNumber*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.VersionNumber
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_VersionNumber
+  name: VersionNumber
+  nameWithType: SchemaVersionDef.VersionNumber
+  fullName: Tripous.Data.SchemaVersionDef.VersionNumber
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.BaseDef.IsSerializable
+  commentId: P:Tripous.BaseDef.IsSerializable
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable
+  name: IsSerializable
+  nameWithType: BaseDef.IsSerializable
+  fullName: Tripous.BaseDef.IsSerializable
+- uid: Tripous.Data.SchemaVersionDef.IsSerializable*
+  commentId: Overload:Tripous.Data.SchemaVersionDef.IsSerializable
+  href: Tripous.Data.SchemaVersionDef.html#Tripous_Data_SchemaVersionDef_IsSerializable
+  name: IsSerializable
+  nameWithType: SchemaVersionDef.IsSerializable
+  fullName: Tripous.Data.SchemaVersionDef.IsSerializable

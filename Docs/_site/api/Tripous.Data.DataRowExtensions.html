@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class DataRowExtensions | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DataRowExtensions | Tripous Framework Documentation ">
+      
+      <meta name="description" content="A helper class for returning typed values from a DataRow in a safe manner">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/tbebekis/Tripous.Avalon/new/main/apiSpec/new?filename=Tripous_Data_DataRowExtensions.md&amp;value=---%0Auid%3A%20Tripous.Data.DataRowExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.Data.DataRowExtensions">
+
+
+
+  <h1 id="Tripous_Data_DataRowExtensions" data-uid="Tripous.Data.DataRowExtensions" class="text-break">
+Class DataRowExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a>.<a class="xref" href="Tripous.Data.html">Data</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.Data.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A helper class for returning typed values from a DataRow in a safe manner</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class DataRowExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">DataRowExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_Data_DataRowExtensions_AppendTo_" data-uid="Tripous.Data.DataRowExtensions.AppendTo*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AppendTo_System_Data_DataRow_System_Data_DataTable_" data-uid="Tripous.Data.DataRowExtensions.AppendTo(System.Data.DataRow,System.Data.DataTable)">
+  AppendTo(DataRow, DataTable)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L369"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Copies, using a safe copy, and appends Source DataRow to DestTable</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DataRow AppendTo(this DataRow Source, DataTable DestTable)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>DestTable</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datatable">DataTable</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsBoolean_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsBoolean_System_Data_DataRow_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean(System.Data.DataRow,System.Int32)">
+  AsBoolean(DataRow, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L291"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AsBoolean(this DataRow row, int ColumnIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsBoolean_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsBoolean_System_Data_DataRow_System_Int32_System_Boolean_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean(System.Data.DataRow,System.Int32,System.Boolean)">
+  AsBoolean(DataRow, int, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L265"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AsBoolean(this DataRow row, int ColumnIndex, bool Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsBoolean_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsBoolean_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean(System.Data.DataRow,System.String)">
+  AsBoolean(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AsBoolean(this DataRow row, string ColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsBoolean_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsBoolean_System_Data_DataRow_System_String_System_Boolean_" data-uid="Tripous.Data.DataRowExtensions.AsBoolean(System.Data.DataRow,System.String,System.Boolean)">
+  AsBoolean(DataRow, string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool AsBoolean(this DataRow row, string ColumnName, bool Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDateTime_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDateTime_System_Data_DataRow_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime(System.Data.DataRow,System.Int32)">
+  AsDateTime(DataRow, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L325"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTime AsDateTime(this DataRow row, int ColumnIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDateTime_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDateTime_System_Data_DataRow_System_Int32_System_DateTime_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime(System.Data.DataRow,System.Int32,System.DateTime)">
+  AsDateTime(DataRow, int, DateTime)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L298"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTime AsDateTime(this DataRow row, int ColumnIndex, DateTime Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDateTime_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDateTime_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime(System.Data.DataRow,System.String)">
+  AsDateTime(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTime AsDateTime(this DataRow row, string ColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDateTime_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDateTime_System_Data_DataRow_System_String_System_DateTime_" data-uid="Tripous.Data.DataRowExtensions.AsDateTime(System.Data.DataRow,System.String,System.DateTime)">
+  AsDateTime(DataRow, string, DateTime)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DateTime AsDateTime(this DataRow row, string ColumnName, DateTime Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDecimal_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDecimal_System_Data_DataRow_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal(System.Data.DataRow,System.Int32)">
+  AsDecimal(DataRow, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L258"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static decimal AsDecimal(this DataRow row, int ColumnIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDecimal_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDecimal_System_Data_DataRow_System_Int32_System_Decimal_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal(System.Data.DataRow,System.Int32,System.Decimal)">
+  AsDecimal(DataRow, int, decimal)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L232"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static decimal AsDecimal(this DataRow row, int ColumnIndex, decimal Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDecimal_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDecimal_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal(System.Data.DataRow,System.String)">
+  AsDecimal(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static decimal AsDecimal(this DataRow row, string ColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDecimal_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDecimal_System_Data_DataRow_System_String_System_Decimal_" data-uid="Tripous.Data.DataRowExtensions.AsDecimal(System.Data.DataRow,System.String,System.Decimal)">
+  AsDecimal(DataRow, string, decimal)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L73"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static decimal AsDecimal(this DataRow row, string ColumnName, decimal Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDouble_" data-uid="Tripous.Data.DataRowExtensions.AsDouble*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDouble_System_Data_DataRow_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsDouble(System.Data.DataRow,System.Int32)">
+  AsDouble(DataRow, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L225"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static double AsDouble(this DataRow row, int ColumnIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDouble_" data-uid="Tripous.Data.DataRowExtensions.AsDouble*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDouble_System_Data_DataRow_System_Int32_System_Double_" data-uid="Tripous.Data.DataRowExtensions.AsDouble(System.Data.DataRow,System.Int32,System.Double)">
+  AsDouble(DataRow, int, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L199"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static double AsDouble(this DataRow row, int ColumnIndex, double Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDouble_" data-uid="Tripous.Data.DataRowExtensions.AsDouble*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDouble_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsDouble(System.Data.DataRow,System.String)">
+  AsDouble(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static double AsDouble(this DataRow row, string ColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsDouble_" data-uid="Tripous.Data.DataRowExtensions.AsDouble*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsDouble_System_Data_DataRow_System_String_System_Double_" data-uid="Tripous.Data.DataRowExtensions.AsDouble(System.Data.DataRow,System.String,System.Double)">
+  AsDouble(DataRow, string, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static double AsDouble(this DataRow row, string ColumnName, double Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsInteger_" data-uid="Tripous.Data.DataRowExtensions.AsInteger*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsInteger_System_Data_DataRow_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsInteger(System.Data.DataRow,System.Int32)">
+  AsInteger(DataRow, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int AsInteger(this DataRow row, int ColumnIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsInteger_" data-uid="Tripous.Data.DataRowExtensions.AsInteger*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsInteger_System_Data_DataRow_System_Int32_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsInteger(System.Data.DataRow,System.Int32,System.Int32)">
+  AsInteger(DataRow, int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L138"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int AsInteger(this DataRow row, int ColumnIndex, int Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsInteger_" data-uid="Tripous.Data.DataRowExtensions.AsInteger*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsInteger_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsInteger(System.Data.DataRow,System.String)">
+  AsInteger(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int AsInteger(this DataRow row, string ColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsInteger_" data-uid="Tripous.Data.DataRowExtensions.AsInteger*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsInteger_System_Data_DataRow_System_String_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsInteger(System.Data.DataRow,System.String,System.Int32)">
+  AsInteger(DataRow, string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int AsInteger(this DataRow row, string ColumnName, int Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsObject_" data-uid="Tripous.Data.DataRowExtensions.AsObject*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsObject_System_Data_DataRow_System_Int32_System_Object_" data-uid="Tripous.Data.DataRowExtensions.AsObject(System.Data.DataRow,System.Int32,System.Object)">
+  AsObject(DataRow, int, object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static object AsObject(this DataRow row, int ColumnIndex, object Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsObject_" data-uid="Tripous.Data.DataRowExtensions.AsObject*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsObject_System_Data_DataRow_System_String_System_Object_" data-uid="Tripous.Data.DataRowExtensions.AsObject(System.Data.DataRow,System.String,System.Object)">
+  AsObject(DataRow, string, object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static object AsObject(this DataRow row, string ColumnName, object Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsString_" data-uid="Tripous.Data.DataRowExtensions.AsString*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsString_System_Data_DataRow_System_Int32_" data-uid="Tripous.Data.DataRowExtensions.AsString(System.Data.DataRow,System.Int32)">
+  AsString(DataRow, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L192"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string AsString(this DataRow row, int ColumnIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsString_" data-uid="Tripous.Data.DataRowExtensions.AsString*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsString_System_Data_DataRow_System_Int32_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsString(System.Data.DataRow,System.Int32,System.String)">
+  AsString(DataRow, int, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnIndex of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string AsString(this DataRow row, int ColumnIndex, string Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsString_" data-uid="Tripous.Data.DataRowExtensions.AsString*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsString_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsString(System.Data.DataRow,System.String)">
+  AsString(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string AsString(this DataRow row, string ColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_AsString_" data-uid="Tripous.Data.DataRowExtensions.AsString*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_AsString_System_Data_DataRow_System_String_System_String_" data-uid="Tripous.Data.DataRowExtensions.AsString(System.Data.DataRow,System.String,System.String)">
+  AsString(DataRow, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L45"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of the field by ColumnName of row, if any, else Default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string AsString(this DataRow row, string ColumnName, string Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_BlobToStream_" data-uid="Tripous.Data.DataRowExtensions.BlobToStream*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_BlobToStream_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.BlobToStream(System.Data.DataRow,System.String)">
+  BlobToStream(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L433"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If the specified FieldName field is of type byte[] or object, then it returns
+the field contents as a MemoryStream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MemoryStream BlobToStream(this DataRow Row, string FieldName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>FieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.memorystream">MemoryStream</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_BlobToStream_" data-uid="Tripous.Data.DataRowExtensions.BlobToStream*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_BlobToStream_System_Data_DataRow_System_String_System_IO_Stream_" data-uid="Tripous.Data.DataRowExtensions.BlobToStream(System.Data.DataRow,System.String,System.IO.Stream)">
+  BlobToStream(DataRow, string, Stream)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L403"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Saves FieldName field of Row, if field is of type byte[] or object, to Stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void BlobToStream(this DataRow Row, string FieldName, Stream Stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>FieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_BlobToString_" data-uid="Tripous.Data.DataRowExtensions.BlobToString*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_BlobToString_System_Data_DataRow_System_String_" data-uid="Tripous.Data.DataRowExtensions.BlobToString(System.Data.DataRow,System.String)">
+  BlobToString(DataRow, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L480"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reads and returns a string value stored in the BlobFieldName blob field of the specified Row</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string BlobToString(this DataRow Row, string BlobFieldName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>BlobFieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_CopyTo_" data-uid="Tripous.Data.DataRowExtensions.CopyTo*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_CopyTo_System_Data_DataRow_System_Data_DataRow_" data-uid="Tripous.Data.DataRowExtensions.CopyTo(System.Data.DataRow,System.Data.DataRow)">
+  CopyTo(DataRow, DataRow)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L350"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Copies Source to Dest.</p>
+<p>WARNING: Assumes that Source and Dest are identical in schema.</p>
+<p>WARNING: Dest columns that do not exist in Source remain untouched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CopyTo(this DataRow Source, DataRow Dest)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>Dest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_GetDataRowView_" data-uid="Tripous.Data.DataRowExtensions.GetDataRowView*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_GetDataRowView_System_Data_DataRow_System_Data_DataView_" data-uid="Tripous.Data.DataRowExtensions.GetDataRowView(System.Data.DataRow,System.Data.DataView)">
+  GetDataRowView(DataRow, DataView)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L520"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the DataRowView of the specified DataRow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DataRowView GetDataRowView(this DataRow Row, DataView DataView)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>DataView</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.dataview">DataView</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarowview">DataRowView</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_LoadFromStream_" data-uid="Tripous.Data.DataRowExtensions.LoadFromStream*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_LoadFromStream_System_Data_DataRow_System_String_System_IO_Stream_" data-uid="Tripous.Data.DataRowExtensions.LoadFromStream(System.Data.DataRow,System.String,System.IO.Stream)">
+  LoadFromStream(DataRow, string, Stream)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L443"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Loads FieldName field of Row, if field is of type byte[] or object using the content of Stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadFromStream(this DataRow Row, string BlobFieldName, Stream Stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>BlobFieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_SafeCopyTo_" data-uid="Tripous.Data.DataRowExtensions.SafeCopyTo*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_SafeCopyTo_System_Data_DataRow_System_Data_DataRow_" data-uid="Tripous.Data.DataRowExtensions.SafeCopyTo(System.Data.DataRow,System.Data.DataRow)">
+  SafeCopyTo(DataRow, DataRow)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L360"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Copies Source to Dest.</p>
+<p>WARNING: Only data from columns with identical names to both DataRows are copied.</p>
+<p>WARNING: Dest columns that do not exist in Source remain untouched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SafeCopyTo(this DataRow Source, DataRow Dest)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>Dest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_SaveToStream_" data-uid="Tripous.Data.DataRowExtensions.SaveToStream*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_SaveToStream_System_Data_DataRow_System_String_System_IO_Stream_" data-uid="Tripous.Data.DataRowExtensions.SaveToStream(System.Data.DataRow,System.String,System.IO.Stream)">
+  SaveToStream(DataRow, string, Stream)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L450"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Saves FieldName field of Row, if field is of type byte[] or object, to Stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SaveToStream(this DataRow Row, string BlobFieldName, Stream Stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>BlobFieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_SetValue_" data-uid="Tripous.Data.DataRowExtensions.SetValue*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_SetValue_System_Data_DataRow_System_String_System_Object_" data-uid="Tripous.Data.DataRowExtensions.SetValue(System.Data.DataRow,System.String,System.Object)">
+  SetValue(DataRow, string, object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L333"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets a value to the specified field of the specified row in a safe manner, i.e. only if the field exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool SetValue(this DataRow Row, string FieldName, object Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>FieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_StreamToBlob_" data-uid="Tripous.Data.DataRowExtensions.StreamToBlob*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_StreamToBlob_System_Data_DataRow_System_String_System_IO_Stream_" data-uid="Tripous.Data.DataRowExtensions.StreamToBlob(System.Data.DataRow,System.String,System.IO.Stream)">
+  StreamToBlob(DataRow, string, Stream)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L381"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Loads FielName field of Row, if field is of type byte[] or object using the content of Stream</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void StreamToBlob(this DataRow Row, string FieldName, Stream Stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>FieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_StringToBlob_" data-uid="Tripous.Data.DataRowExtensions.StringToBlob*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_StringToBlob_System_Data_DataRow_System_String_System_String_" data-uid="Tripous.Data.DataRowExtensions.StringToBlob(System.Data.DataRow,System.String,System.String)">
+  StringToBlob(DataRow, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L461"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes Value to the BlobFieldName blob field of the specified Row</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void StringToBlob(this DataRow Row, string BlobFieldName, string Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>BlobFieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_DataRowExtensions_TryGetValue_" data-uid="Tripous.Data.DataRowExtensions.TryGetValue*"></a>
+
+  <h3 id="Tripous_Data_DataRowExtensions_TryGetValue_System_Data_DataRow_System_String_System_Object__" data-uid="Tripous.Data.DataRowExtensions.TryGetValue(System.Data.DataRow,System.String,System.Object@)">
+  TryGetValue(DataRow, string, out object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L504"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the value of a column specified by name and true on success.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetValue(this DataRow Row, string FieldName, out object Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Row</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+    <dt><code>FieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/Extensions/DataRowExtensions.cs/#L14" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

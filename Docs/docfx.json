@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+        "src": [
+        {
+            "src": "../",
+            "files": [
+            "Tripous/Tripous.csproj",
+            "Tripous.Data/Tripous.Data.csproj",
+            "Tripous.Logging/Tripous.Logging.csproj",
+            "Tripous.Desktop/Tripous.Desktop.csproj"
+            ]
+        }
+        ],
+        "dest": "api"
+    }
+    ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "Tripous Framework Documentation",
+      "_appTitle": "Tripous Framework Documentation",
+      "_enableSearch": true,
+      "pdf": false
+    }
+  }
+}

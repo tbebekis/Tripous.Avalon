@@ -1,0 +1,816 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.UiFactory
+  commentId: T:Tripous.Desktop.UiFactory
+  id: UiFactory
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.UiFactory.AddChild(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  - Tripous.Desktop.UiFactory.CreateExpander(Avalonia.Controls.Control,System.String)
+  - Tripous.Desktop.UiFactory.CreateFieldLabel(Tripous.Data.FieldDef)
+  - Tripous.Desktop.UiFactory.CreateImageControl(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  - Tripous.Desktop.UiFactory.CreateLargeMemoEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  - Tripous.Desktop.UiFactory.CreateScrollViewer
+  - Tripous.Desktop.UiFactory.CreateStackPanel
+  - Tripous.Desktop.UiFactory.CreateTabControl
+  - Tripous.Desktop.UiFactory.CreateToolBarBorder
+  - Tripous.Desktop.UiFactory.CreateToolBarPanel
+  langs:
+  - csharp
+  - vb
+  name: UiFactory
+  nameWithType: UiFactory
+  fullName: Tripous.Desktop.UiFactory
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UiFactory
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates reusable controls used by item page layouts and field editors.
+  example: []
+  syntax:
+    content: public static class UiFactory
+    content.vb: Public Module UiFactory
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Desktop.UiFactory.AddChild(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.UiFactory.AddChild(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  id: AddChild(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: AddChild(Control, Control)
+  nameWithType: UiFactory.AddChild(Control, Control)
+  fullName: Tripous.Desktop.UiFactory.AddChild(Avalonia.Controls.Control, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddChild
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a child control to a panel or assigns it as the content of a content control.
+  example: []
+  syntax:
+    content: public static void AddChild(Control ParentControl, Control Child)
+    parameters:
+    - id: ParentControl
+      type: Avalonia.Controls.Control
+    - id: Child
+      type: Avalonia.Controls.Control
+    content.vb: Public Shared Sub AddChild(ParentControl As Control, Child As Control)
+  overload: Tripous.Desktop.UiFactory.AddChild*
+- uid: Tripous.Desktop.UiFactory.CreateScrollViewer
+  commentId: M:Tripous.Desktop.UiFactory.CreateScrollViewer
+  id: CreateScrollViewer
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateScrollViewer()
+  nameWithType: UiFactory.CreateScrollViewer()
+  fullName: Tripous.Desktop.UiFactory.CreateScrollViewer()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateScrollViewer
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 36
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the root scroll viewer.
+  example: []
+  syntax:
+    content: public static ScrollViewer CreateScrollViewer()
+    return:
+      type: Avalonia.Controls.ScrollViewer
+    content.vb: Public Shared Function CreateScrollViewer() As ScrollViewer
+  overload: Tripous.Desktop.UiFactory.CreateScrollViewer*
+- uid: Tripous.Desktop.UiFactory.CreateStackPanel
+  commentId: M:Tripous.Desktop.UiFactory.CreateStackPanel
+  id: CreateStackPanel
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateStackPanel()
+  nameWithType: UiFactory.CreateStackPanel()
+  fullName: Tripous.Desktop.UiFactory.CreateStackPanel()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateStackPanel
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a vertical stack panel.
+  example: []
+  syntax:
+    content: public static StackPanel CreateStackPanel()
+    return:
+      type: Avalonia.Controls.StackPanel
+    content.vb: Public Shared Function CreateStackPanel() As StackPanel
+  overload: Tripous.Desktop.UiFactory.CreateStackPanel*
+- uid: Tripous.Desktop.UiFactory.CreateToolBarPanel
+  commentId: M:Tripous.Desktop.UiFactory.CreateToolBarPanel
+  id: CreateToolBarPanel
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateToolBarPanel()
+  nameWithType: UiFactory.CreateToolBarPanel()
+  fullName: Tripous.Desktop.UiFactory.CreateToolBarPanel()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateToolBarPanel
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 58
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a horizontal stack panel.
+  example: []
+  syntax:
+    content: public static StackPanel CreateToolBarPanel()
+    return:
+      type: Avalonia.Controls.StackPanel
+    content.vb: Public Shared Function CreateToolBarPanel() As StackPanel
+  overload: Tripous.Desktop.UiFactory.CreateToolBarPanel*
+- uid: Tripous.Desktop.UiFactory.CreateToolBarBorder
+  commentId: M:Tripous.Desktop.UiFactory.CreateToolBarBorder
+  id: CreateToolBarBorder
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateToolBarBorder()
+  nameWithType: UiFactory.CreateToolBarBorder()
+  fullName: Tripous.Desktop.UiFactory.CreateToolBarBorder()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateToolBarBorder
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a border for a toolbar.
+  example: []
+  syntax:
+    content: public static Border CreateToolBarBorder()
+    return:
+      type: Avalonia.Controls.Border
+    content.vb: Public Shared Function CreateToolBarBorder() As Border
+  overload: Tripous.Desktop.UiFactory.CreateToolBarBorder*
+- uid: Tripous.Desktop.UiFactory.CreateExpander(Avalonia.Controls.Control,System.String)
+  commentId: M:Tripous.Desktop.UiFactory.CreateExpander(Avalonia.Controls.Control,System.String)
+  id: CreateExpander(Avalonia.Controls.Control,System.String)
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateExpander(Control, string)
+  nameWithType: UiFactory.CreateExpander(Control, string)
+  fullName: Tripous.Desktop.UiFactory.CreateExpander(Avalonia.Controls.Control, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateExpander
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates an expander.
+  example: []
+  syntax:
+    content: public static Expander CreateExpander(Control ParentControl, string Caption)
+    parameters:
+    - id: ParentControl
+      type: Avalonia.Controls.Control
+    - id: Caption
+      type: System.String
+    return:
+      type: Avalonia.Controls.Expander
+    content.vb: Public Shared Function CreateExpander(ParentControl As Control, Caption As String) As Expander
+  overload: Tripous.Desktop.UiFactory.CreateExpander*
+  nameWithType.vb: UiFactory.CreateExpander(Control, String)
+  fullName.vb: Tripous.Desktop.UiFactory.CreateExpander(Avalonia.Controls.Control, String)
+  name.vb: CreateExpander(Control, String)
+- uid: Tripous.Desktop.UiFactory.CreateTabControl
+  commentId: M:Tripous.Desktop.UiFactory.CreateTabControl
+  id: CreateTabControl
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateTabControl()
+  nameWithType: UiFactory.CreateTabControl()
+  fullName: Tripous.Desktop.UiFactory.CreateTabControl()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateTabControl
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 97
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a tab control.
+  example: []
+  syntax:
+    content: public static TabControl CreateTabControl()
+    return:
+      type: Avalonia.Controls.TabControl
+    content.vb: Public Shared Function CreateTabControl() As TabControl
+  overload: Tripous.Desktop.UiFactory.CreateTabControl*
+- uid: Tripous.Desktop.UiFactory.CreateFieldLabel(Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.UiFactory.CreateFieldLabel(Tripous.Data.FieldDef)
+  id: CreateFieldLabel(Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateFieldLabel(FieldDef)
+  nameWithType: UiFactory.CreateFieldLabel(FieldDef)
+  fullName: Tripous.Desktop.UiFactory.CreateFieldLabel(Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFieldLabel
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 111
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Creates the label used next to a field editor.
+
+
+    <p>Lookup labels ending in "Id" are displayed without that suffix.</p>
+  example: []
+  syntax:
+    content: public static TextBlock CreateFieldLabel(FieldDef Field)
+    parameters:
+    - id: Field
+      type: Tripous.Data.FieldDef
+    return:
+      type: Avalonia.Controls.TextBlock
+    content.vb: Public Shared Function CreateFieldLabel(Field As FieldDef) As TextBlock
+  overload: Tripous.Desktop.UiFactory.CreateFieldLabel*
+- uid: Tripous.Desktop.UiFactory.CreateLargeMemoEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  commentId: M:Tripous.Desktop.UiFactory.CreateLargeMemoEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  id: CreateLargeMemoEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateLargeMemoEditor(FieldDef, ItemBinder)
+  nameWithType: UiFactory.CreateLargeMemoEditor(FieldDef, ItemBinder)
+  fullName: Tripous.Desktop.UiFactory.CreateLargeMemoEditor(Tripous.Data.FieldDef, Tripous.Desktop.ItemBinder)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLargeMemoEditor
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 134
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates and binds the editor used for a large memo field.
+  example: []
+  syntax:
+    content: public static Control CreateLargeMemoEditor(FieldDef Field, ItemBinder Binder)
+    parameters:
+    - id: Field
+      type: Tripous.Data.FieldDef
+    - id: Binder
+      type: Tripous.Desktop.ItemBinder
+    return:
+      type: Avalonia.Controls.Control
+    content.vb: Public Shared Function CreateLargeMemoEditor(Field As FieldDef, Binder As ItemBinder) As Control
+  overload: Tripous.Desktop.UiFactory.CreateLargeMemoEditor*
+- uid: Tripous.Desktop.UiFactory.CreateImageControl(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  commentId: M:Tripous.Desktop.UiFactory.CreateImageControl(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  id: CreateImageControl(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)
+  parent: Tripous.Desktop.UiFactory
+  langs:
+  - csharp
+  - vb
+  name: CreateImageControl(FieldDef, ItemBinder)
+  nameWithType: UiFactory.CreateImageControl(FieldDef, ItemBinder)
+  fullName: Tripous.Desktop.UiFactory.CreateImageControl(Tripous.Data.FieldDef, Tripous.Desktop.ItemBinder)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiFactory.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateImageControl
+    path: ../Tripous.Desktop/ItemUi/UiFactory.cs
+    startLine: 151
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the placeholder control used for image fields.
+  example: []
+  syntax:
+    content: public static Control CreateImageControl(FieldDef Field, ItemBinder Binder)
+    parameters:
+    - id: Field
+      type: Tripous.Data.FieldDef
+    - id: Binder
+      type: Tripous.Desktop.ItemBinder
+    return:
+      type: Avalonia.Controls.Control
+    content.vb: Public Shared Function CreateImageControl(Field As FieldDef, Binder As ItemBinder) As Control
+  overload: Tripous.Desktop.UiFactory.CreateImageControl*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Desktop.UiFactory.AddChild*
+  commentId: Overload:Tripous.Desktop.UiFactory.AddChild
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_AddChild_Avalonia_Controls_Control_Avalonia_Controls_Control_
+  name: AddChild
+  nameWithType: UiFactory.AddChild
+  fullName: Tripous.Desktop.UiFactory.AddChild
+- uid: Avalonia.Controls.Control
+  commentId: T:Avalonia.Controls.Control
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Control
+  nameWithType: Control
+  fullName: Avalonia.Controls.Control
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: Tripous.Desktop.UiFactory.CreateScrollViewer*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateScrollViewer
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateScrollViewer
+  name: CreateScrollViewer
+  nameWithType: UiFactory.CreateScrollViewer
+  fullName: Tripous.Desktop.UiFactory.CreateScrollViewer
+- uid: Avalonia.Controls.ScrollViewer
+  commentId: T:Avalonia.Controls.ScrollViewer
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ScrollViewer
+  nameWithType: ScrollViewer
+  fullName: Avalonia.Controls.ScrollViewer
+- uid: Tripous.Desktop.UiFactory.CreateStackPanel*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateStackPanel
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateStackPanel
+  name: CreateStackPanel
+  nameWithType: UiFactory.CreateStackPanel
+  fullName: Tripous.Desktop.UiFactory.CreateStackPanel
+- uid: Avalonia.Controls.StackPanel
+  commentId: T:Avalonia.Controls.StackPanel
+  parent: Avalonia.Controls
+  isExternal: true
+  name: StackPanel
+  nameWithType: StackPanel
+  fullName: Avalonia.Controls.StackPanel
+- uid: Tripous.Desktop.UiFactory.CreateToolBarPanel*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateToolBarPanel
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateToolBarPanel
+  name: CreateToolBarPanel
+  nameWithType: UiFactory.CreateToolBarPanel
+  fullName: Tripous.Desktop.UiFactory.CreateToolBarPanel
+- uid: Tripous.Desktop.UiFactory.CreateToolBarBorder*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateToolBarBorder
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateToolBarBorder
+  name: CreateToolBarBorder
+  nameWithType: UiFactory.CreateToolBarBorder
+  fullName: Tripous.Desktop.UiFactory.CreateToolBarBorder
+- uid: Avalonia.Controls.Border
+  commentId: T:Avalonia.Controls.Border
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Border
+  nameWithType: Border
+  fullName: Avalonia.Controls.Border
+- uid: Tripous.Desktop.UiFactory.CreateExpander*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateExpander
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateExpander_Avalonia_Controls_Control_System_String_
+  name: CreateExpander
+  nameWithType: UiFactory.CreateExpander
+  fullName: Tripous.Desktop.UiFactory.CreateExpander
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.Expander
+  commentId: T:Avalonia.Controls.Expander
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Expander
+  nameWithType: Expander
+  fullName: Avalonia.Controls.Expander
+- uid: Tripous.Desktop.UiFactory.CreateTabControl*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateTabControl
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateTabControl
+  name: CreateTabControl
+  nameWithType: UiFactory.CreateTabControl
+  fullName: Tripous.Desktop.UiFactory.CreateTabControl
+- uid: Avalonia.Controls.TabControl
+  commentId: T:Avalonia.Controls.TabControl
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TabControl
+  nameWithType: TabControl
+  fullName: Avalonia.Controls.TabControl
+- uid: Tripous.Desktop.UiFactory.CreateFieldLabel*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateFieldLabel
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateFieldLabel_Tripous_Data_FieldDef_
+  name: CreateFieldLabel
+  nameWithType: UiFactory.CreateFieldLabel
+  fullName: Tripous.Desktop.UiFactory.CreateFieldLabel
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+- uid: Avalonia.Controls.TextBlock
+  commentId: T:Avalonia.Controls.TextBlock
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TextBlock
+  nameWithType: TextBlock
+  fullName: Avalonia.Controls.TextBlock
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: Tripous.Desktop.UiFactory.CreateLargeMemoEditor*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateLargeMemoEditor
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateLargeMemoEditor_Tripous_Data_FieldDef_Tripous_Desktop_ItemBinder_
+  name: CreateLargeMemoEditor
+  nameWithType: UiFactory.CreateLargeMemoEditor
+  fullName: Tripous.Desktop.UiFactory.CreateLargeMemoEditor
+- uid: Tripous.Desktop.ItemBinder
+  commentId: T:Tripous.Desktop.ItemBinder
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ItemBinder.html
+  name: ItemBinder
+  nameWithType: ItemBinder
+  fullName: Tripous.Desktop.ItemBinder
+- uid: Tripous.Desktop.UiFactory.CreateImageControl*
+  commentId: Overload:Tripous.Desktop.UiFactory.CreateImageControl
+  href: Tripous.Desktop.UiFactory.html#Tripous_Desktop_UiFactory_CreateImageControl_Tripous_Data_FieldDef_Tripous_Desktop_ItemBinder_
+  name: CreateImageControl
+  nameWithType: UiFactory.CreateImageControl
+  fullName: Tripous.Desktop.UiFactory.CreateImageControl

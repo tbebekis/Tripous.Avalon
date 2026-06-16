@@ -51,7 +51,7 @@ public class UniqueConstraintDef
     public string GetDefText()
     { 
         string sName = DataTableDef.EnsureIdentifierValidLength(this.Name);
-        string Result = $"constraint {sName} unique ({this.Name})";
+        string Result = $"constraint {sName} unique ({this.FieldNames})";
         return Result;
     }
 }

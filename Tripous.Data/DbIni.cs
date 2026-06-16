@@ -17,8 +17,8 @@ public class DbIni
     SqlStore Store = null;
 
     string TableName = DbConfig.SysDbIniTableName;
-    string ValueField = DbConfig.SysDbIniEntryField;
-    string EntryField = DbConfig.SysDbIniValueField;
+    string EntryField = DbConfig.SysDbIniEntryField;
+    string ValueField = DbConfig.SysDbIniValueField;
     string BlobField = DbConfig.SysDbIniBlobField;
     
 
@@ -41,6 +41,33 @@ create table {TableName} (
             Store.CreateTable(CreateTableSql);
         }
     }
+    /// <summary>
+    /// Executes a select statement with or without a transaction.
+    /// </summary>
+    private DataRow SelectResults(DbTransaction Transaction, string SqlText)
+    {
+        return Transaction != null ? Store.SelectResults(Transaction, SqlText) : Store.SelectResults(SqlText);
+    }
+    /// <summary>
+    /// Executes a statement with or without a transaction.
+    /// </summary>
+    private void ExecSql(DbTransaction Transaction, string SqlText)
+    {
+        if (Transaction != null)
+            Store.ExecSql(Transaction, SqlText);
+        else
+            Store.ExecSql(SqlText);
+    }
+    /// <summary>
+    /// Executes a statement with parameters, with or without a transaction.
+    /// </summary>
+    private void ExecSql(DbTransaction Transaction, string SqlText, params object[] Params)
+    {
+        if (Transaction != null)
+            Store.ExecSql(Transaction, SqlText, Params);
+        else
+            Store.ExecSql(SqlText, Params);
+    }
 
     /* construction */ 
     /// <summary>
@@ -57,10 +84,14 @@ create table {TableName} (
     /// <summary>
     /// Returns true if Entry exists in table
     /// </summary>
-    public bool Exists(string Entry)
+    public bool Exists(string Entry) => Exists((DbTransaction)null, Entry);
+    /// <summary>
+    /// Returns true if Entry exists in table, using the specified transaction.
+    /// </summary>
+    public bool Exists(DbTransaction Transaction, string Entry)
     {
         string SqlText = string.Format("select {0} from {1} where {0} = '{2}' ", EntryField, TableName, Entry);
-        DataRow Row = Store.SelectResults(SqlText);
+        DataRow Row = SelectResults(Transaction, SqlText);
         return (Row != null);
     }
     /// <summary>
@@ -75,16 +106,20 @@ create table {TableName} (
     /// <summary>
     /// Writes the Value to the Entry. If the Entry does not exist, it created.
     /// </summary>
-    public void WriteString(string Entry, string Value)
+    public void WriteString(string Entry, string Value) => WriteString((DbTransaction)null, Entry, Value);
+    /// <summary>
+    /// Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+    /// </summary>
+    public void WriteString(DbTransaction Transaction, string Entry, string Value)
     {
         string SqlText;
 
-        if (Exists(Entry))
+        if (Exists(Transaction, Entry))
             SqlText = string.Format("update {0} set {1} = '{2}'  where {3} = '{4}'  ", TableName, ValueField, Value, EntryField, Entry);
         else
             SqlText = string.Format("insert into {0} ({1}, {2}) values ('{3}', '{4}')", TableName, EntryField, ValueField, Entry, Value);
 
-        Store.ExecSql(SqlText);
+        ExecSql(Transaction, SqlText);
     }
     /// <summary>
     /// Returns the Value of the Entry, if exists, else Default
@@ -102,10 +137,11 @@ create table {TableName} (
     /// <summary>
     /// Writes the Value to the Entry. If the Entry does not exist, it created.
     /// </summary>
-    public void WriteInteger(string Entry, int Value)
-    {
-        WriteString(Entry, Value.ToString());
-    }
+    public void WriteInteger(string Entry, int Value) => WriteInteger((DbTransaction)null, Entry, Value);
+    /// <summary>
+    /// Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+    /// </summary>
+    public void WriteInteger(DbTransaction Transaction, string Entry, int Value) => WriteString(Transaction, Entry, Value.ToString());
     /// <summary>
     /// Returns the Value of the Entry, if exists, else Default
     /// </summary>
@@ -117,10 +153,11 @@ create table {TableName} (
     /// <summary>
     /// Writes the Value to the Entry. If the Entry does not exist, it created.
     /// </summary>
-    public void WriteFloat(string Entry, double Value)
-    {
-        WriteString(Entry, Sys.DoubleToStr(Value));
-    }
+    public void WriteFloat(string Entry, double Value) => WriteFloat((DbTransaction)null, Entry, Value);
+    /// <summary>
+    /// Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+    /// </summary>
+    public void WriteFloat(DbTransaction Transaction, string Entry, double Value) => WriteString(Transaction, Entry, Sys.DoubleToStr(Value));
     /// <summary>
     /// Returns the Value of the Entry, if exists, else Default
     /// </summary>
@@ -132,10 +169,11 @@ create table {TableName} (
     /// <summary>
     /// Writes the Value to the Entry. If the Entry does not exist, it created.
     /// </summary>
-    public void WriteBool(string Entry, bool Value)
-    {
-        WriteString(Entry, Value.ToString());
-    }
+    public void WriteBool(string Entry, bool Value) => WriteBool((DbTransaction)null, Entry, Value);
+    /// <summary>
+    /// Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+    /// </summary>
+    public void WriteBool(DbTransaction Transaction, string Entry, bool Value) => WriteString(Transaction, Entry, Value.ToString());
     /// <summary>
     /// Returns the Value of the Entry, if exists, else Default
     /// </summary>
@@ -147,10 +185,11 @@ create table {TableName} (
     /// <summary>
     /// Writes the Value to the Entry. If the Entry does not exist, it created.
     /// </summary>
-    public void WriteDateTime(string Entry, DateTime Value)
-    {
-        WriteString(Entry, Sys.DateTimeToStr(Value, false));
-    }
+    public void WriteDateTime(string Entry, DateTime Value) => WriteDateTime((DbTransaction)null, Entry, Value);
+    /// <summary>
+    /// Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+    /// </summary>
+    public void WriteDateTime(DbTransaction Transaction, string Entry, DateTime Value) => WriteString(Transaction, Entry, Sys.DateTimeToStr(Value, false));
     /// <summary>
     /// Returns the Value of the Entry, if exists, else Default
     /// </summary>
@@ -162,7 +201,11 @@ create table {TableName} (
     /// <summary>
     /// Writes the Value and Stream to the Entry. If the Entry does not exist, it created.
     /// </summary>
-    public void WriteBlob(string Entry, Stream Stream, string Value)
+    public void WriteBlob(string Entry, Stream Stream, string Value) => WriteBlob((DbTransaction)null, Entry, Stream, Value);
+    /// <summary>
+    /// Writes the Value and Stream to the Entry inside a transaction. If the Entry does not exist, it created.
+    /// </summary>
+    public void WriteBlob(DbTransaction Transaction, string Entry, Stream Stream, string Value)
     {
         DataTable Table = new DataTable();
         Table.Columns.Add(BlobField, typeof(byte[]));
@@ -176,7 +219,7 @@ create table {TableName} (
         string SqlText;
 
 
-        if (Exists(Entry))
+        if (Exists(Transaction, Entry))
         {
             SqlText = string.Format("update {0} set {1} = '{2}', {3} = :{3} where {4} = '{5}' ",
                 TableName, ValueField, Value, BlobField, EntryField, Entry);
@@ -188,15 +231,16 @@ create table {TableName} (
         }
 
 
-        Store.ExecSql(SqlText, Table.Rows[0]);
+        ExecSql(Transaction, SqlText, Table.Rows[0]);
     }
     /// <summary>
     /// Writes the Stream to the Entry. If the Entry does not exist, it created.
     /// </summary>
-    public void WriteBlob(string Entry, Stream Stream)
-    {
-        WriteBlob(Entry, Stream, "");
-    }
+    public void WriteBlob(string Entry, Stream Stream) => WriteBlob((DbTransaction)null, Entry, Stream, "");
+    /// <summary>
+    /// Writes the Stream to the Entry inside a transaction. If the Entry does not exist, it created.
+    /// </summary>
+    public void WriteBlob(DbTransaction Transaction, string Entry, Stream Stream) => WriteBlob(Transaction, Entry, Stream, "");
     /// <summary>
     /// Reads the Entry to the Stream and Value. Returns true if the Entry exists.
     /// </summary>
@@ -267,7 +311,11 @@ create table {TableName} (
     /// <summary>
     /// Saves Instance to a DbIni blob
     /// </summary>
-    public void WriteInstance(string Entry, object Instance)
+    public void WriteInstance(string Entry, object Instance) => WriteInstance((DbTransaction)null, Entry, Instance);
+    /// <summary>
+    /// Saves Instance to a DbIni blob inside a transaction.
+    /// </summary>
+    public void WriteInstance(DbTransaction Transaction, string Entry, object Instance)
     {
         // save to db ini
         string JsonText = Json.Serialize(Instance);
@@ -277,7 +325,7 @@ create table {TableName} (
         {
             MS.Write(Buffer, 0, Buffer.Length);
             MS.Position = 0;
-            WriteBlob(Entry, MS);
+            WriteBlob(Transaction, Entry, MS);
         }
     }
 

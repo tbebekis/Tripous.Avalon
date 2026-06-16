@@ -1,0 +1,1170 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.ExecTime
+  commentId: T:Tripous.ExecTime
+  id: ExecTime
+  parent: Tripous
+  children:
+  - Tripous.ExecTime.After
+  - Tripous.ExecTime.Before
+  - Tripous.ExecTime.During
+  - Tripous.ExecTime.None
+  langs:
+  - csharp
+  - vb
+  name: ExecTime
+  nameWithType: ExecTime
+  fullName: Tripous.ExecTime
+  type: Enum
+  source:
+    remote:
+      path: Tripous/Enums/ExecTime.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecTime
+    path: ../Tripous/Enums/ExecTime.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Indicates the time of execution of a sub-operation relative to a main operation
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum ExecTime
+    content.vb: >-
+      <Flags>
+
+      Public Enum ExecTime
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.ExecTime.Tripous.BitFields.Add``1(Tripous.ExecTime)
+  - Tripous.ExecTime.Tripous.BitFields.HasAny``1(Tripous.ExecTime)
+  - Tripous.ExecTime.Tripous.BitFields.HasNone``1(Tripous.ExecTime)
+  - Tripous.ExecTime.Tripous.BitFields.Has``1(Tripous.ExecTime)
+  - Tripous.ExecTime.Tripous.BitFields.In``1(Tripous.ExecTime)
+  - Tripous.ExecTime.Tripous.BitFields.IsExactly``1(Tripous.ExecTime)
+  - Tripous.ExecTime.Tripous.BitFields.IsZero``1
+  - Tripous.ExecTime.Tripous.BitFields.Remove``1(Tripous.ExecTime)
+  - Tripous.ExecTime.Tripous.BitFields.Set``1(Tripous.ExecTime,System.Boolean)
+  - Tripous.ExecTime.Tripous.BitFields.Toggle``1(Tripous.ExecTime)
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: Tripous.ExecTime.None
+  commentId: F:Tripous.ExecTime.None
+  id: None
+  parent: Tripous.ExecTime
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: ExecTime.None
+  fullName: Tripous.ExecTime.None
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/ExecTime.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous/Enums/ExecTime.cs
+    startLine: 19
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: None of the flags
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.ExecTime
+- uid: Tripous.ExecTime.Before
+  commentId: F:Tripous.ExecTime.Before
+  id: Before
+  parent: Tripous.ExecTime
+  langs:
+  - csharp
+  - vb
+  name: Before
+  nameWithType: ExecTime.Before
+  fullName: Tripous.ExecTime.Before
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/ExecTime.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Before
+    path: ../Tripous/Enums/ExecTime.cs
+    startLine: 23
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Before the execution of the main operation
+  example: []
+  syntax:
+    content: Before = 1
+    return:
+      type: Tripous.ExecTime
+- uid: Tripous.ExecTime.During
+  commentId: F:Tripous.ExecTime.During
+  id: During
+  parent: Tripous.ExecTime
+  langs:
+  - csharp
+  - vb
+  name: During
+  nameWithType: ExecTime.During
+  fullName: Tripous.ExecTime.During
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/ExecTime.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: During
+    path: ../Tripous/Enums/ExecTime.cs
+    startLine: 27
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: During the execution of the main operation
+  example: []
+  syntax:
+    content: During = 2
+    return:
+      type: Tripous.ExecTime
+- uid: Tripous.ExecTime.After
+  commentId: F:Tripous.ExecTime.After
+  id: After
+  parent: Tripous.ExecTime
+  langs:
+  - csharp
+  - vb
+  name: After
+  nameWithType: ExecTime.After
+  fullName: Tripous.ExecTime.After
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/ExecTime.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: After
+    path: ../Tripous/Enums/ExecTime.cs
+    startLine: 31
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: After the execution of the main operation
+  example: []
+  syntax:
+    content: After = 4
+    return:
+      type: Tripous.ExecTime
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.Add``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.Add<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.Add<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.Add(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: Add(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.HasAny``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.HasAny<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.HasAny<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.HasAny(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: HasAny(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.HasNone``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.HasNone<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.HasNone<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.HasNone(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: HasNone(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.Has``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.Has<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.Has<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.Has(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: Has(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.In``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.In<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.In<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.In(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: In(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.IsExactly``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.IsExactly<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.IsExactly<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.IsExactly(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: IsExactly(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ExecTime>(ExecTime)
+  nameWithType: BitFields.IsZero<ExecTime>(ExecTime)
+  fullName: Tripous.BitFields.IsZero<Tripous.ExecTime>(Tripous.ExecTime)
+  nameWithType.vb: BitFields.IsZero(Of ExecTime)(ExecTime)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.ExecTime)(Tripous.ExecTime)
+  name.vb: IsZero(Of ExecTime)(ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.ExecTime)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.ExecTime)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.Remove``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.Remove<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.Remove<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.Remove(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: Remove(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.Set``1(Tripous.ExecTime,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ExecTime>(ExecTime, ExecTime, bool)
+  nameWithType: BitFields.Set<ExecTime>(ExecTime, ExecTime, bool)
+  fullName: Tripous.BitFields.Set<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime, bool)
+  nameWithType.vb: BitFields.Set(Of ExecTime)(ExecTime, ExecTime, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime, Boolean)
+  name.vb: Set(Of ExecTime)(ExecTime, ExecTime, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.ExecTime,Tripous.ExecTime,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.ExecTime,Tripous.ExecTime,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.ExecTime.Tripous.BitFields.Toggle``1(Tripous.ExecTime)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ExecTime>(ExecTime, ExecTime)
+  nameWithType: BitFields.Toggle<ExecTime>(ExecTime, ExecTime)
+  fullName: Tripous.BitFields.Toggle<Tripous.ExecTime>(Tripous.ExecTime, Tripous.ExecTime)
+  nameWithType.vb: BitFields.Toggle(Of ExecTime)(ExecTime, ExecTime)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.ExecTime)(Tripous.ExecTime, Tripous.ExecTime)
+  name.vb: Toggle(Of ExecTime)(ExecTime, ExecTime)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.ExecTime,Tripous.ExecTime)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+  - name: (
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    href: Tripous.ExecTime.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.ExecTime
+  commentId: T:Tripous.ExecTime
+  parent: Tripous
+  href: Tripous.ExecTime.html
+  name: ExecTime
+  nameWithType: ExecTime
+  fullName: Tripous.ExecTime

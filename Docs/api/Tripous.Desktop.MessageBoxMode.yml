@@ -1,0 +1,1153 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.MessageBoxMode
+  commentId: T:Tripous.Desktop.MessageBoxMode
+  id: MessageBoxMode
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.MessageBoxMode.Error
+  - Tripous.Desktop.MessageBoxMode.Info
+  - Tripous.Desktop.MessageBoxMode.Question
+  langs:
+  - csharp
+  - vb
+  name: MessageBoxMode
+  nameWithType: MessageBoxMode
+  fullName: Tripous.Desktop.MessageBoxMode
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MessageBoxMode
+    path: ../Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Defines the display mode of a message box.
+  example: []
+  syntax:
+    content: public enum MessageBoxMode
+    content.vb: Public Enum MessageBoxMode
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Add``1(Tripous.Desktop.MessageBoxMode)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.HasAny``1(Tripous.Desktop.MessageBoxMode)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.HasNone``1(Tripous.Desktop.MessageBoxMode)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Has``1(Tripous.Desktop.MessageBoxMode)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.In``1(Tripous.Desktop.MessageBoxMode)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.IsExactly``1(Tripous.Desktop.MessageBoxMode)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.IsZero``1
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Remove``1(Tripous.Desktop.MessageBoxMode)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Set``1(Tripous.Desktop.MessageBoxMode,System.Boolean)
+  - Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Toggle``1(Tripous.Desktop.MessageBoxMode)
+- uid: Tripous.Desktop.MessageBoxMode.Info
+  commentId: F:Tripous.Desktop.MessageBoxMode.Info
+  id: Info
+  parent: Tripous.Desktop.MessageBoxMode
+  langs:
+  - csharp
+  - vb
+  name: Info
+  nameWithType: MessageBoxMode.Info
+  fullName: Tripous.Desktop.MessageBoxMode.Info
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Info
+    path: ../Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+    startLine: 24
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Information message.
+  example: []
+  syntax:
+    content: Info = 0
+    return:
+      type: Tripous.Desktop.MessageBoxMode
+- uid: Tripous.Desktop.MessageBoxMode.Error
+  commentId: F:Tripous.Desktop.MessageBoxMode.Error
+  id: Error
+  parent: Tripous.Desktop.MessageBoxMode
+  langs:
+  - csharp
+  - vb
+  name: Error
+  nameWithType: MessageBoxMode.Error
+  fullName: Tripous.Desktop.MessageBoxMode.Error
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Error
+    path: ../Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+    startLine: 28
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Error message.
+  example: []
+  syntax:
+    content: Error = 1
+    return:
+      type: Tripous.Desktop.MessageBoxMode
+- uid: Tripous.Desktop.MessageBoxMode.Question
+  commentId: F:Tripous.Desktop.MessageBoxMode.Question
+  id: Question
+  parent: Tripous.Desktop.MessageBoxMode
+  langs:
+  - csharp
+  - vb
+  name: Question
+  nameWithType: MessageBoxMode.Question
+  fullName: Tripous.Desktop.MessageBoxMode.Question
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Question
+    path: ../Tripous.Desktop/Dialogs/MessageBox.axaml.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Question message.
+  example: []
+  syntax:
+    content: Question = 2
+    return:
+      type: Tripous.Desktop.MessageBoxMode
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Add``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.Add<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.Add<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.Add(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: Add(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.HasAny``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.HasAny<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.HasAny<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.HasAny(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: HasAny(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.HasNone``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.HasNone<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.HasNone<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.HasNone(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: HasNone(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Has``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.Has<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.Has<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.Has(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: Has(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.In``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.In<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.In<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.In(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: In(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.IsExactly``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.IsExactly<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.IsExactly(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: IsExactly(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<MessageBoxMode>(MessageBoxMode)
+  nameWithType: BitFields.IsZero<MessageBoxMode>(MessageBoxMode)
+  fullName: Tripous.BitFields.IsZero<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.IsZero(Of MessageBoxMode)(MessageBoxMode)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode)
+  name.vb: IsZero(Of MessageBoxMode)(MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.MessageBoxMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.MessageBoxMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Remove``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.Remove<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.Remove<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.Remove(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: Remove(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Set``1(Tripous.Desktop.MessageBoxMode,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<MessageBoxMode>(MessageBoxMode, MessageBoxMode, bool)
+  nameWithType: BitFields.Set<MessageBoxMode>(MessageBoxMode, MessageBoxMode, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode, bool)
+  nameWithType.vb: BitFields.Set(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode, Boolean)
+  name.vb: Set(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Desktop.MessageBoxMode.Tripous.BitFields.Toggle``1(Tripous.Desktop.MessageBoxMode)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  nameWithType: BitFields.Toggle<MessageBoxMode>(MessageBoxMode, MessageBoxMode)
+  fullName: Tripous.BitFields.Toggle<Tripous.Desktop.MessageBoxMode>(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  nameWithType.vb: BitFields.Toggle(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Desktop.MessageBoxMode)(Tripous.Desktop.MessageBoxMode, Tripous.Desktop.MessageBoxMode)
+  name.vb: Toggle(Of MessageBoxMode)(MessageBoxMode, MessageBoxMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.MessageBoxMode,Tripous.Desktop.MessageBoxMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    href: Tripous.Desktop.MessageBoxMode.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.MessageBoxMode
+  commentId: T:Tripous.Desktop.MessageBoxMode
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.MessageBoxMode.html
+  name: MessageBoxMode
+  nameWithType: MessageBoxMode
+  fullName: Tripous.Desktop.MessageBoxMode

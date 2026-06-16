@@ -1,0 +1,450 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SchemaVersionExtensions
+  commentId: T:Tripous.Data.SchemaVersionExtensions
+  id: SchemaVersionExtensions
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SchemaVersionExtensions.AddLookup(Tripous.Data.SchemaVersion,System.String)
+  - Tripous.Data.SchemaVersionExtensions.AddLookupWithCode(Tripous.Data.SchemaVersion,System.String)
+  - Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive(Tripous.Data.SchemaVersion,System.String)
+  langs:
+  - csharp
+  - vb
+  name: SchemaVersionExtensions
+  nameWithType: SchemaVersionExtensions
+  fullName: Tripous.Data.SchemaVersionExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Schema/SchemaVersionExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SchemaVersionExtensions
+    path: ../Tripous.Data/Schema/SchemaVersionExtensions.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Extension methods for <xref href="Tripous.Data.SchemaVersion" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public static class SchemaVersionExtensions
+    content.vb: Public Module SchemaVersionExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.SchemaVersionExtensions.AddLookup(Tripous.Data.SchemaVersion,System.String)
+  commentId: M:Tripous.Data.SchemaVersionExtensions.AddLookup(Tripous.Data.SchemaVersion,System.String)
+  id: AddLookup(Tripous.Data.SchemaVersion,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.SchemaVersionExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddLookup(SchemaVersion, string)
+  nameWithType: SchemaVersionExtensions.AddLookup(SchemaVersion, string)
+  fullName: Tripous.Data.SchemaVersionExtensions.AddLookup(Tripous.Data.SchemaVersion, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/SchemaVersionExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookup
+    path: ../Tripous.Data/Schema/SchemaVersionExtensions.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds a CREATE TABLE for a lookup table, with Id and Name columns.
+  example: []
+  syntax:
+    content: public static void AddLookup(this SchemaVersion SV, string TableName)
+    parameters:
+    - id: SV
+      type: Tripous.Data.SchemaVersion
+    - id: TableName
+      type: System.String
+    content.vb: Public Shared Sub AddLookup(SV As SchemaVersion, TableName As String)
+  overload: Tripous.Data.SchemaVersionExtensions.AddLookup*
+  nameWithType.vb: SchemaVersionExtensions.AddLookup(SchemaVersion, String)
+  fullName.vb: Tripous.Data.SchemaVersionExtensions.AddLookup(Tripous.Data.SchemaVersion, String)
+  name.vb: AddLookup(SchemaVersion, String)
+- uid: Tripous.Data.SchemaVersionExtensions.AddLookupWithCode(Tripous.Data.SchemaVersion,System.String)
+  commentId: M:Tripous.Data.SchemaVersionExtensions.AddLookupWithCode(Tripous.Data.SchemaVersion,System.String)
+  id: AddLookupWithCode(Tripous.Data.SchemaVersion,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.SchemaVersionExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddLookupWithCode(SchemaVersion, string)
+  nameWithType: SchemaVersionExtensions.AddLookupWithCode(SchemaVersion, string)
+  fullName: Tripous.Data.SchemaVersionExtensions.AddLookupWithCode(Tripous.Data.SchemaVersion, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/SchemaVersionExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupWithCode
+    path: ../Tripous.Data/Schema/SchemaVersionExtensions.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds a CREATE TABLE for a lookup table, with Id, Name and Code columns.
+  example: []
+  syntax:
+    content: public static void AddLookupWithCode(this SchemaVersion SV, string TableName)
+    parameters:
+    - id: SV
+      type: Tripous.Data.SchemaVersion
+    - id: TableName
+      type: System.String
+    content.vb: Public Shared Sub AddLookupWithCode(SV As SchemaVersion, TableName As String)
+  overload: Tripous.Data.SchemaVersionExtensions.AddLookupWithCode*
+  nameWithType.vb: SchemaVersionExtensions.AddLookupWithCode(SchemaVersion, String)
+  fullName.vb: Tripous.Data.SchemaVersionExtensions.AddLookupWithCode(Tripous.Data.SchemaVersion, String)
+  name.vb: AddLookupWithCode(SchemaVersion, String)
+- uid: Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive(Tripous.Data.SchemaVersion,System.String)
+  commentId: M:Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive(Tripous.Data.SchemaVersion,System.String)
+  id: AddLookupWithCodeAndIsActive(Tripous.Data.SchemaVersion,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.SchemaVersionExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddLookupWithCodeAndIsActive(SchemaVersion, string)
+  nameWithType: SchemaVersionExtensions.AddLookupWithCodeAndIsActive(SchemaVersion, string)
+  fullName: Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive(Tripous.Data.SchemaVersion, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/SchemaVersionExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupWithCodeAndIsActive
+    path: ../Tripous.Data/Schema/SchemaVersionExtensions.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds a CREATE TABLE for a lookup table, with Id, Name, Code and IsActive columns.
+  example: []
+  syntax:
+    content: public static void AddLookupWithCodeAndIsActive(this SchemaVersion SV, string TableName)
+    parameters:
+    - id: SV
+      type: Tripous.Data.SchemaVersion
+    - id: TableName
+      type: System.String
+    content.vb: Public Shared Sub AddLookupWithCodeAndIsActive(SV As SchemaVersion, TableName As String)
+  overload: Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive*
+  nameWithType.vb: SchemaVersionExtensions.AddLookupWithCodeAndIsActive(SchemaVersion, String)
+  fullName.vb: Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive(Tripous.Data.SchemaVersion, String)
+  name.vb: AddLookupWithCodeAndIsActive(SchemaVersion, String)
+references:
+- uid: Tripous.Data.SchemaVersion
+  commentId: T:Tripous.Data.SchemaVersion
+  parent: Tripous.Data
+  href: Tripous.Data.SchemaVersion.html
+  name: SchemaVersion
+  nameWithType: SchemaVersion
+  fullName: Tripous.Data.SchemaVersion
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.SchemaVersionExtensions.AddLookup*
+  commentId: Overload:Tripous.Data.SchemaVersionExtensions.AddLookup
+  href: Tripous.Data.SchemaVersionExtensions.html#Tripous_Data_SchemaVersionExtensions_AddLookup_Tripous_Data_SchemaVersion_System_String_
+  name: AddLookup
+  nameWithType: SchemaVersionExtensions.AddLookup
+  fullName: Tripous.Data.SchemaVersionExtensions.AddLookup
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SchemaVersionExtensions.AddLookupWithCode*
+  commentId: Overload:Tripous.Data.SchemaVersionExtensions.AddLookupWithCode
+  href: Tripous.Data.SchemaVersionExtensions.html#Tripous_Data_SchemaVersionExtensions_AddLookupWithCode_Tripous_Data_SchemaVersion_System_String_
+  name: AddLookupWithCode
+  nameWithType: SchemaVersionExtensions.AddLookupWithCode
+  fullName: Tripous.Data.SchemaVersionExtensions.AddLookupWithCode
+- uid: Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive*
+  commentId: Overload:Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive
+  href: Tripous.Data.SchemaVersionExtensions.html#Tripous_Data_SchemaVersionExtensions_AddLookupWithCodeAndIsActive_Tripous_Data_SchemaVersion_System_String_
+  name: AddLookupWithCodeAndIsActive
+  nameWithType: SchemaVersionExtensions.AddLookupWithCodeAndIsActive
+  fullName: Tripous.Data.SchemaVersionExtensions.AddLookupWithCodeAndIsActive

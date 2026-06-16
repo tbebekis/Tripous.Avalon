@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Command | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Command | Tripous Framework Documentation ">
+      
+      <meta name="description" content="Represents a named application command. A command may execute a synchronous or asynchronous callback, open a form, or act as a container for child commands.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/tbebekis/Tripous.Avalon/new/main/apiSpec/new?filename=Tripous_Command.md&amp;value=---%0Auid%3A%20Tripous.Command%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.Command">
+
+
+
+  <h1 id="Tripous_Command" data-uid="Tripous.Command" class="text-break">
+Class Command  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a named application command.</p>
+<p>A command may execute a synchronous or asynchronous callback,
+open a form, or act as a container for child commands.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Command : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Tripous.BaseDef.html">BaseDef</a></div>
+      <div><span class="xref">Command</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Tripous.IDef.html">IDef</a></div>
+      <div><a class="xref" href="Tripous.IJsonLoadable.html">IJsonLoadable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey">BaseDef.fTitleKey</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_fName">BaseDef.fName</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_">BaseDef.NotifyPropertyChanged(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey">BaseDef.GetTitleKey()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_ToString">BaseDef.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences">BaseDef.UpdateReferences()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded">BaseDef.JsonLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_CreateNew">BaseDef.CreateNew()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor">BaseDef.CheckDescriptor()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_">BaseDef.Assign(IDef)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Clone">BaseDef.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Clear">BaseDef.Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding">BaseDef.SplitTitleKeyToWordsWithPluralEnding()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Name">BaseDef.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_TitleKey">BaseDef.TitleKey</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty">BaseDef.IsTitleKeyEmpty</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Title">BaseDef.Title</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Tag">BaseDef.Tag</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged">BaseDef.PropertyChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_">TypeExtensions.InheritsFrom(object, Type)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Tripous_Command__ctor_" data-uid="Tripous.Command.#ctor*"></a>
+
+  <h3 id="Tripous_Command__ctor" data-uid="Tripous.Command.#ctor">
+  Command()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Command()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command__ctor_" data-uid="Tripous.Command.#ctor*"></a>
+
+  <h3 id="Tripous_Command__ctor_System_String_" data-uid="Tripous.Command.#ctor(System.String)">
+  Command(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a command with the specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Command(string Name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Tripous_Command_CanExecuteFunc_" data-uid="Tripous.Command.CanExecuteFunc*"></a>
+
+  <h3 id="Tripous_Command_CanExecuteFunc" data-uid="Tripous.Command.CanExecuteFunc">
+  CanExecuteFunc
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the callback that determines whether this command can execute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;Command, bool&gt; CanExecuteFunc { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_Commands_" data-uid="Tripous.Command.Commands*"></a>
+
+  <h3 id="Tripous_Command_Commands" data-uid="Tripous.Command.Commands">
+  Commands
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L162"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the child commands of this command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DefList&lt;Command&gt; Commands { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.DefList-1.html">DefList</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_ExecuteAsyncFunc_" data-uid="Tripous.Command.ExecuteAsyncFunc*"></a>
+
+  <h3 id="Tripous_Command_ExecuteAsyncFunc" data-uid="Tripous.Command.ExecuteAsyncFunc">
+  ExecuteAsyncFunc
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the asynchronous callback that executes this command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;Command, Task&lt;object&gt;&gt; ExecuteAsyncFunc { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_ExecuteFunc_" data-uid="Tripous.Command.ExecuteFunc*"></a>
+
+  <h3 id="Tripous_Command_ExecuteFunc" data-uid="Tripous.Command.ExecuteFunc">
+  ExecuteFunc
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the synchronous callback that executes this command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;Command, object&gt; ExecuteFunc { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_Form_" data-uid="Tripous.Command.Form*"></a>
+
+  <h3 id="Tripous_Command_Form" data-uid="Tripous.Command.Form">
+  Form
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the form name opened by this command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Form { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_HasChildren_" data-uid="Tripous.Command.HasChildren*"></a>
+
+  <h3 id="Tripous_Command_HasChildren" data-uid="Tripous.Command.HasChildren">
+  HasChildren
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L198"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this command contains child commands.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasChildren { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_ImageFileName_" data-uid="Tripous.Command.ImageFileName*"></a>
+
+  <h3 id="Tripous_Command_ImageFileName" data-uid="Tripous.Command.ImageFileName">
+  ImageFileName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the file name of the image used when this command
+is displayed in menus, toolbars or tree views.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ImageFileName { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_IsAsync_" data-uid="Tripous.Command.IsAsync*"></a>
+
+  <h3 id="Tripous_Command_IsAsync" data-uid="Tripous.Command.IsAsync">
+  IsAsync
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this command has an asynchronous callback.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsAsync { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_IsSerializable_" data-uid="Tripous.Command.IsSerializable*"></a>
+
+  <h3 id="Tripous_Command_IsSerializable" data-uid="Tripous.Command.IsSerializable">
+  IsSerializable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L202"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this command should be serialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public override bool IsSerializable { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_IsSync_" data-uid="Tripous.Command.IsSync*"></a>
+
+  <h3 id="Tripous_Command_IsSync" data-uid="Tripous.Command.IsSync">
+  IsSync
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this command has a synchronous callback.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSync { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_IsToggle_" data-uid="Tripous.Command.IsToggle*"></a>
+
+  <h3 id="Tripous_Command_IsToggle" data-uid="Tripous.Command.IsToggle">
+  IsToggle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this command toggles a Boolean value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsToggle { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_SecurityLevel_" data-uid="Tripous.Command.SecurityLevel*"></a>
+
+  <h3 id="Tripous_Command_SecurityLevel" data-uid="Tripous.Command.SecurityLevel">
+  SecurityLevel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the minimum user level required to view or execute this command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UserLevel SecurityLevel { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.UserLevel.html">UserLevel</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_Command_CanAccess_" data-uid="Tripous.Command.CanAccess*"></a>
+
+  <h3 id="Tripous_Command_CanAccess_Tripous_AppUser_" data-uid="Tripous.Command.CanAccess(Tripous.AppUser)">
+  CanAccess(AppUser)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true when the specified user may see or execute this command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanAccess(AppUser User)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>User</code> <a class="xref" href="Tripous.AppUser.html">AppUser</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_CanExecute_" data-uid="Tripous.Command.CanExecute*"></a>
+
+  <h3 id="Tripous_Command_CanExecute" data-uid="Tripous.Command.CanExecute">
+  CanExecute()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true when this command can execute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanExecute()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_Create_" data-uid="Tripous.Command.Create*"></a>
+
+  <h3 id="Tripous_Command_Create_System_String_System_Func_Tripous_Command_System_Object__System_String_System_String_System_String_" data-uid="Tripous.Command.Create(System.String,System.Func{Tripous.Command,System.Object},System.String,System.String,System.String)">
+  Create(string, Func&lt;Command, object&gt;, string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a synchronous command with optional form, title key and image file name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Command Create(string Name, Func&lt;Command, object&gt; ExecuteFunc, string Form = null, string TitleKey = null, string ImageFileName = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ExecuteFunc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>Form</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>TitleKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ImageFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Command.html">Command</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_Create_" data-uid="Tripous.Command.Create*"></a>
+
+  <h3 id="Tripous_Command_Create_System_String_System_String_System_Func_Tripous_Command_System_Object__System_String_" data-uid="Tripous.Command.Create(System.String,System.String,System.Func{Tripous.Command,System.Object},System.String)">
+  Create(string, string, Func&lt;Command, object&gt;, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a synchronous command with a name, image file name,
+callback and optional title key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Command Create(string Name, string ImageFileName, Func&lt;Command, object&gt; ExecuteFunc, string TitleKey = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ImageFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ExecuteFunc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>TitleKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Command.html">Command</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_Create_" data-uid="Tripous.Command.Create*"></a>
+
+  <h3 id="Tripous_Command_Create_System_String_System_String_System_String_" data-uid="Tripous.Command.Create(System.String,System.String,System.String)">
+  Create(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a command with a name, image file name and optional title key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Command Create(string Name, string ImageFileName, string TitleKey = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ImageFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>TitleKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Command.html">Command</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_CreateAsync_" data-uid="Tripous.Command.CreateAsync*"></a>
+
+  <h3 id="Tripous_Command_CreateAsync_System_String_System_Func_Tripous_Command_System_Threading_Tasks_Task_System_Object___System_String_System_String_System_String_" data-uid="Tripous.Command.CreateAsync(System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String,System.String,System.String)">
+  CreateAsync(string, Func&lt;Command, Task&lt;object&gt;&gt;, string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an asynchronous command with optional form, title key and image file name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Command CreateAsync(string Name, Func&lt;Command, Task&lt;object&gt;&gt; ExecuteAsyncFunc, string Form = null, string TitleKey = null, string ImageFileName = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ExecuteAsyncFunc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;</dt>
+    <dd></dd>
+    <dt><code>Form</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>TitleKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ImageFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Command.html">Command</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_CreateAsync_" data-uid="Tripous.Command.CreateAsync*"></a>
+
+  <h3 id="Tripous_Command_CreateAsync_System_String_System_String_System_Func_Tripous_Command_System_Threading_Tasks_Task_System_Object___System_String_" data-uid="Tripous.Command.CreateAsync(System.String,System.String,System.Func{Tripous.Command,System.Threading.Tasks.Task{System.Object}},System.String)">
+  CreateAsync(string, string, Func&lt;Command, Task&lt;object&gt;&gt;, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an asynchronous command with a name, image file name,
+callback and optional title key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Command CreateAsync(string Name, string ImageFileName, Func&lt;Command, Task&lt;object&gt;&gt; ExecuteAsyncFunc, string TitleKey = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ImageFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ExecuteAsyncFunc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Tripous.Command.html">Command</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;&gt;</dt>
+    <dd></dd>
+    <dt><code>TitleKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Command.html">Command</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_CreateForm_" data-uid="Tripous.Command.CreateForm*"></a>
+
+  <h3 id="Tripous_Command_CreateForm_System_String_System_String_System_String_System_String_" data-uid="Tripous.Command.CreateForm(System.String,System.String,System.String,System.String)">
+  CreateForm(string, string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a command that opens a form.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Command CreateForm(string Name, string Form, string TitleKey = null, string ImageFileName = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Form</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>TitleKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ImageFileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Command.html">Command</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_Execute_" data-uid="Tripous.Command.Execute*"></a>
+
+  <h3 id="Tripous_Command_Execute" data-uid="Tripous.Command.Execute">
+  Execute()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes this command synchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Execute()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Command_ExecuteAsync_" data-uid="Tripous.Command.ExecuteAsync*"></a>
+
+  <h3 id="Tripous_Command_ExecuteAsync" data-uid="Tripous.Command.ExecuteAsync">
+  ExecuteAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes this command asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;object&gt; ExecuteAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous/Registry/Command.cs/#L17" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

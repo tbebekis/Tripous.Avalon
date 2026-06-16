@@ -9,22 +9,26 @@
         DbConnectionInfo ConnectionInfo;
         SqlStore Store;
         DbTransaction transaction;
+        Action<DbTransaction> AfterExecute;
 
         List<string> TableNamesList;
+        List<string> ViewNamesList;
         List<string> IndexNamesList;
 
         /* construction */
-        private SchemaExecutor(DbConnectionInfo ConnectionInfo, SchemaVersion SchemaVersion)
+        private SchemaExecutor(DbConnectionInfo ConnectionInfo, SchemaVersion SchemaVersion, Action<DbTransaction> AfterExecute)
         {
             this.ConnectionInfo = ConnectionInfo;
             this.Store = SqlStores.CreateSqlStore(ConnectionInfo);
             this.Schema = SchemaVersion;
+            this.AfterExecute = AfterExecute;
         }
 
         /* execution */
         void Execute()
         {
             TableNamesList = new List<string>(Store.GetTableNames());
+            ViewNamesList = new List<string>(Store.GetViewNames());
             IndexNamesList = new List<string>(Store.GetIndexNames());
 
             /* start a transaction */
@@ -56,7 +60,11 @@
             }
 
 
-            /* inserts, alter table add-drop-rename column, etc. etc. after the database is created */
+            /*
+             * Keep schema execution in two transaction phases.
+             * Phase 2 runs inserts, alter table add-drop-rename column, etc. after the database objects of phase 1 are committed.
+             * This preserves old RDBMS compatibility and avoids changing long-standing schema execution behavior.
+             */
             /* start a transaction */
             using (transaction = Store.BeginTransaction())
             {
@@ -65,6 +73,8 @@
                     /* database statements -after */
                     foreach (string SqlText in Schema.StatementsAfter)
                         DoStatement(SqlText);
+
+                    AfterExecute?.Invoke(transaction);
 
                     /* commit the transaction */
                     transaction.Commit();
@@ -107,7 +117,7 @@
         }
         void DoView(SchemaItem View)
         {
-            if (!TableNamesList.ContainsText(View.Name))
+            if (!ViewNamesList.ContainsText(View.Name))
                 Process(View.SqlText);
         }
         void DoStatement(string SqlText)
@@ -162,10 +172,17 @@
         /// </summary>
         static internal void Execute(SchemaVersion SchemaVersion, DbConnectionInfo ConnectionInfo = null)
         {
+            Execute(SchemaVersion, ConnectionInfo, null);
+        }
+        /// <summary>
+        /// Executes the schema and invokes AfterExecute inside the final transaction before commit.
+        /// </summary>
+        static internal void Execute(SchemaVersion SchemaVersion, DbConnectionInfo ConnectionInfo, Action<DbTransaction> AfterExecute)
+        {
             if (ConnectionInfo == null)
                 ConnectionInfo = Db.GetDefaultConnectionInfo();
 
-            new SchemaExecutor(ConnectionInfo, SchemaVersion).Execute();
+            new SchemaExecutor(ConnectionInfo, SchemaVersion, AfterExecute).Execute();
         }
     }
 

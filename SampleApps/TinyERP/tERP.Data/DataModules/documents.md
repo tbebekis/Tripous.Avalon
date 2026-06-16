@@ -8,6 +8,13 @@ The current implementation covers sales, purchases, stock documents, manual jour
 
 Data modules do not show UI, modal dialogs, message boxes, or wait for user interaction. They may be used from services or other non-UI callers. UI feedback belongs to forms and other desktop-layer classes.
 
+## Current Status
+
+- The main tERP document cycle is complete for the current checkpoint.
+- Sales, Purchases, Stock Trade, Journal Entries, partner finance movements, Payments, Payment Cancellations, and Payment Settlements are implemented.
+- Build and all known unit tests succeeded at the previous checkpoint.
+- Remaining work is tester guide, release documentation, supporting-module smoke tests, and future extensions.
+
 ## Data Module Hierarchy
 
 ```text

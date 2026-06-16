@@ -298,9 +298,9 @@ public class SqlHelper
     static public string DateTimeToStr(DateTime Value, bool Quoted)
     {
         if (Quoted)
-            return Value.ToString("yyyy-MM-dd HH:mm").QS();
+            return Value.ToString("yyyy-MM-dd HH:mm:ss").QS();
         else
-            return Value.ToString("yyyy-MM-dd HH:mm");
+            return Value.ToString("yyyy-MM-dd HH:mm:ss");
     }
 
     /// <summary>
@@ -320,7 +320,7 @@ public class SqlHelper
                 return Value.ToString();
 
             if (simpleType.IsFloat())
-                return FloatSQL((double)Value);
+                return FloatSql(Convert.ToString(Value, CultureInfo.InvariantCulture));
 
             if (simpleType.IsDateTime())
                 return DateTimeToStr((DateTime)Value, true);
@@ -348,8 +348,8 @@ public class SqlHelper
         string S = Id.ToString();
 
         /* int */
-        int Num;
-        if (int.TryParse(S, out Num))
+        long Num;
+        if (long.TryParse(S, NumberStyles.Integer, CultureInfo.InvariantCulture, out Num))
         {
             return S;
         }

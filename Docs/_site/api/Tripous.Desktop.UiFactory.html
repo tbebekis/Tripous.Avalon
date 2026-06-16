@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class UiFactory | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class UiFactory | Tripous Framework Documentation ">
+      
+      <meta name="description" content="Creates reusable controls used by item page layouts and field editors.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/tbebekis/Tripous.Avalon/new/main/apiSpec/new?filename=Tripous_Desktop_UiFactory.md&amp;value=---%0Auid%3A%20Tripous.Desktop.UiFactory%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.Desktop.UiFactory">
+
+
+
+  <h1 id="Tripous_Desktop_UiFactory" data-uid="Tripous.Desktop.UiFactory" class="text-break">
+Class UiFactory  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a>.<a class="xref" href="Tripous.Desktop.html">Desktop</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.Desktop.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Creates reusable controls used by item page layouts and field editors.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class UiFactory</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">UiFactory</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_Desktop_UiFactory_AddChild_" data-uid="Tripous.Desktop.UiFactory.AddChild*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_AddChild_Avalonia_Controls_Control_Avalonia_Controls_Control_" data-uid="Tripous.Desktop.UiFactory.AddChild(Avalonia.Controls.Control,Avalonia.Controls.Control)">
+  AddChild(Control, Control)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a child control to a panel or assigns it as the content of a content control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddChild(Control ParentControl, Control Child)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ParentControl</code> <span class="xref">Control</span></dt>
+    <dd></dd>
+    <dt><code>Child</code> <span class="xref">Control</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateExpander_" data-uid="Tripous.Desktop.UiFactory.CreateExpander*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateExpander_Avalonia_Controls_Control_System_String_" data-uid="Tripous.Desktop.UiFactory.CreateExpander(Avalonia.Controls.Control,System.String)">
+  CreateExpander(Control, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an expander.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Expander CreateExpander(Control ParentControl, string Caption)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ParentControl</code> <span class="xref">Control</span></dt>
+    <dd></dd>
+    <dt><code>Caption</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Expander</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateFieldLabel_" data-uid="Tripous.Desktop.UiFactory.CreateFieldLabel*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateFieldLabel_Tripous_Data_FieldDef_" data-uid="Tripous.Desktop.UiFactory.CreateFieldLabel(Tripous.Data.FieldDef)">
+  CreateFieldLabel(FieldDef)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the label used next to a field editor.</p>
+<p>Lookup labels ending in "Id" are displayed without that suffix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TextBlock CreateFieldLabel(FieldDef Field)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Field</code> <a class="xref" href="Tripous.Data.FieldDef.html">FieldDef</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TextBlock</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateImageControl_" data-uid="Tripous.Desktop.UiFactory.CreateImageControl*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateImageControl_Tripous_Data_FieldDef_Tripous_Desktop_ItemBinder_" data-uid="Tripous.Desktop.UiFactory.CreateImageControl(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)">
+  CreateImageControl(FieldDef, ItemBinder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L152"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the placeholder control used for image fields.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Control CreateImageControl(FieldDef Field, ItemBinder Binder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Field</code> <a class="xref" href="Tripous.Data.FieldDef.html">FieldDef</a></dt>
+    <dd></dd>
+    <dt><code>Binder</code> <a class="xref" href="Tripous.Desktop.ItemBinder.html">ItemBinder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Control</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateLargeMemoEditor_" data-uid="Tripous.Desktop.UiFactory.CreateLargeMemoEditor*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateLargeMemoEditor_Tripous_Data_FieldDef_Tripous_Desktop_ItemBinder_" data-uid="Tripous.Desktop.UiFactory.CreateLargeMemoEditor(Tripous.Data.FieldDef,Tripous.Desktop.ItemBinder)">
+  CreateLargeMemoEditor(FieldDef, ItemBinder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L135"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates and binds the editor used for a large memo field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Control CreateLargeMemoEditor(FieldDef Field, ItemBinder Binder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Field</code> <a class="xref" href="Tripous.Data.FieldDef.html">FieldDef</a></dt>
+    <dd></dd>
+    <dt><code>Binder</code> <a class="xref" href="Tripous.Desktop.ItemBinder.html">ItemBinder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Control</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateScrollViewer_" data-uid="Tripous.Desktop.UiFactory.CreateScrollViewer*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateScrollViewer" data-uid="Tripous.Desktop.UiFactory.CreateScrollViewer">
+  CreateScrollViewer()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the root scroll viewer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ScrollViewer CreateScrollViewer()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ScrollViewer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateStackPanel_" data-uid="Tripous.Desktop.UiFactory.CreateStackPanel*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateStackPanel" data-uid="Tripous.Desktop.UiFactory.CreateStackPanel">
+  CreateStackPanel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a vertical stack panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static StackPanel CreateStackPanel()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">StackPanel</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateTabControl_" data-uid="Tripous.Desktop.UiFactory.CreateTabControl*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateTabControl" data-uid="Tripous.Desktop.UiFactory.CreateTabControl">
+  CreateTabControl()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a tab control.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TabControl CreateTabControl()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TabControl</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateToolBarBorder_" data-uid="Tripous.Desktop.UiFactory.CreateToolBarBorder*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateToolBarBorder" data-uid="Tripous.Desktop.UiFactory.CreateToolBarBorder">
+  CreateToolBarBorder()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a border for a toolbar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Border CreateToolBarBorder()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Border</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_UiFactory_CreateToolBarPanel_" data-uid="Tripous.Desktop.UiFactory.CreateToolBarPanel*"></a>
+
+  <h3 id="Tripous_Desktop_UiFactory_CreateToolBarPanel" data-uid="Tripous.Desktop.UiFactory.CreateToolBarPanel">
+  CreateToolBarPanel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a horizontal stack panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static StackPanel CreateToolBarPanel()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">StackPanel</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/ItemUi/UiFactory.cs/#L14" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

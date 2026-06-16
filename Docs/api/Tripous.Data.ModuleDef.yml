@@ -1,0 +1,1769 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.ModuleDef
+  commentId: T:Tripous.Data.ModuleDef
+  id: ModuleDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.ModuleDef.CanAccess(Tripous.AppUser)
+  - Tripous.Data.ModuleDef.CascadeDeletes
+  - Tripous.Data.ModuleDef.CheckDescriptor
+  - Tripous.Data.ModuleDef.ClassName
+  - Tripous.Data.ModuleDef.ConnectionName
+  - Tripous.Data.ModuleDef.Create(System.Boolean)
+  - Tripous.Data.ModuleDef.Description
+  - Tripous.Data.ModuleDef.DetailOrder
+  - Tripous.Data.ModuleDef.GetTables
+  - Tripous.Data.ModuleDef.Group
+  - Tripous.Data.ModuleDef.GuidOids
+  - Tripous.Data.ModuleDef.IsSingleSelect
+  - Tripous.Data.ModuleDef.ItemCaptionField
+  - Tripous.Data.ModuleDef.SecurityLevel
+  - Tripous.Data.ModuleDef.SelectList
+  - Tripous.Data.ModuleDef.Stocks
+  - Tripous.Data.ModuleDef.Table
+  - Tripous.Data.ModuleDef.UpdateReferences
+  - Tripous.Data.ModuleDef.UseFilters
+  langs:
+  - csharp
+  - vb
+  name: ModuleDef
+  nameWithType: ModuleDef
+  fullName: Tripous.Data.ModuleDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleDef
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Describes a <xref href="Tripous.Data.DataMode" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: 'public class ModuleDef : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
+    content.vb: Public Class ModuleDef Inherits BaseDef Implements IDef, IJsonLoadable, INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.BaseDef
+  implements:
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.BaseDef.fTitleKey
+  - Tripous.BaseDef.fName
+  - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.GetTitleKey
+  - Tripous.BaseDef.ToString
+  - Tripous.BaseDef.JsonLoaded
+  - Tripous.BaseDef.CreateNew
+  - Tripous.BaseDef.Assign(Tripous.IDef)
+  - Tripous.BaseDef.Clone
+  - Tripous.BaseDef.Clear
+  - Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  - Tripous.BaseDef.Name
+  - Tripous.BaseDef.TitleKey
+  - Tripous.BaseDef.IsTitleKeyEmpty
+  - Tripous.BaseDef.Title
+  - Tripous.BaseDef.Tag
+  - Tripous.BaseDef.IsSerializable
+  - Tripous.BaseDef.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.ModuleDef.Create(System.Boolean)
+  commentId: M:Tripous.Data.ModuleDef.Create(System.Boolean)
+  id: Create(System.Boolean)
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: Create(bool)
+  nameWithType: ModuleDef.Create(bool)
+  fullName: Tripous.Data.ModuleDef.Create(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates, initializes and returns a <xref href="Tripous.Data.DataModule" data-throw-if-not-resolved="false"></xref> associated with this definition.
+  example: []
+  syntax:
+    content: public DataModule Create(bool InitializeToo = true)
+    parameters:
+    - id: InitializeToo
+      type: System.Boolean
+    return:
+      type: Tripous.Data.DataModule
+    content.vb: Public Function Create(InitializeToo As Boolean = True) As DataModule
+  overload: Tripous.Data.ModuleDef.Create*
+  nameWithType.vb: ModuleDef.Create(Boolean)
+  fullName.vb: Tripous.Data.ModuleDef.Create(Boolean)
+  name.vb: Create(Boolean)
+- uid: Tripous.Data.ModuleDef.CheckDescriptor
+  commentId: M:Tripous.Data.ModuleDef.CheckDescriptor
+  id: CheckDescriptor
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: CheckDescriptor()
+  nameWithType: ModuleDef.CheckDescriptor()
+  fullName: Tripous.Data.ModuleDef.CheckDescriptor()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckDescriptor
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 79
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Throws an exception if this descriptor is not fully defined
+  example: []
+  syntax:
+    content: public override void CheckDescriptor()
+    content.vb: Public Overrides Sub CheckDescriptor()
+  overridden: Tripous.BaseDef.CheckDescriptor
+  overload: Tripous.Data.ModuleDef.CheckDescriptor*
+- uid: Tripous.Data.ModuleDef.UpdateReferences
+  commentId: M:Tripous.Data.ModuleDef.UpdateReferences
+  id: UpdateReferences
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: UpdateReferences()
+  nameWithType: ModuleDef.UpdateReferences()
+  fullName: Tripous.Data.ModuleDef.UpdateReferences()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateReferences
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 92
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Updates references such as when an instance has references to other instances, e.g. tables of a module definition.
+  example: []
+  syntax:
+    content: public override void UpdateReferences()
+    content.vb: Public Overrides Sub UpdateReferences()
+  overridden: Tripous.BaseDef.UpdateReferences
+  overload: Tripous.Data.ModuleDef.UpdateReferences*
+- uid: Tripous.Data.ModuleDef.GetTables
+  commentId: M:Tripous.Data.ModuleDef.GetTables
+  id: GetTables
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: GetTables()
+  nameWithType: ModuleDef.GetTables()
+  fullName: Tripous.Data.ModuleDef.GetTables()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetTables
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 106
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns all tables in a flat list
+  example: []
+  syntax:
+    content: public List<TableDef> GetTables()
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.TableDef}
+    content.vb: Public Function GetTables() As List(Of TableDef)
+  overload: Tripous.Data.ModuleDef.GetTables*
+- uid: Tripous.Data.ModuleDef.CanAccess(Tripous.AppUser)
+  commentId: M:Tripous.Data.ModuleDef.CanAccess(Tripous.AppUser)
+  id: CanAccess(Tripous.AppUser)
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: CanAccess(AppUser)
+  nameWithType: ModuleDef.CanAccess(AppUser)
+  fullName: Tripous.Data.ModuleDef.CanAccess(Tripous.AppUser)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanAccess
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 130
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the specified user may access this module.
+  example: []
+  syntax:
+    content: public bool CanAccess(AppUser User)
+    parameters:
+    - id: User
+      type: Tripous.AppUser
+    return:
+      type: System.Boolean
+    content.vb: Public Function CanAccess(User As AppUser) As Boolean
+  overload: Tripous.Data.ModuleDef.CanAccess*
+- uid: Tripous.Data.ModuleDef.Group
+  commentId: P:Tripous.Data.ModuleDef.Group
+  id: Group
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: Group
+  nameWithType: ModuleDef.Group
+  fullName: Tripous.Data.ModuleDef.Group
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Group
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 140
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The group this module belongs to, e.g. Sales, Purchaces, etc.
+  example: []
+  syntax:
+    content: public string Group { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Group As String
+  overload: Tripous.Data.ModuleDef.Group*
+- uid: Tripous.Data.ModuleDef.ClassName
+  commentId: P:Tripous.Data.ModuleDef.ClassName
+  id: ClassName
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: ClassName
+  nameWithType: ModuleDef.ClassName
+  fullName: Tripous.Data.ModuleDef.ClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ClassName
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 154
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The class name of the <xref href="System.Type" data-throw-if-not-resolved="false"></xref> this descriptor describes.
+
+
+    <p>NOTE: The value of this property may be a string returned by the <xref href="System.Type.AssemblyQualifiedName" data-throw-if-not-resolved="false"></xref> property of the type. </p>
+
+    <p>In that case, it consists of the type name, including its namespace, followed by a comma, followed by the display name of the assembly
+
+    the type belongs to. It might looks like the following</p>
+
+    <p><code>Tripous.Data.DataModule, Tripous, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</code></p>
+
+    <p>Otherwise it can be a full type name <xref href="System.Type.FullName" data-throw-if-not-resolved="false"></xref>, e.g. </p>
+
+    <p><code>Tripous.Data.DataModule</code></p>
+  example: []
+  syntax:
+    content: public string ClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ClassName As String
+  overload: Tripous.Data.ModuleDef.ClassName*
+- uid: Tripous.Data.ModuleDef.ConnectionName
+  commentId: P:Tripous.Data.ModuleDef.ConnectionName
+  id: ConnectionName
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: ConnectionName
+  nameWithType: ModuleDef.ConnectionName
+  fullName: Tripous.Data.ModuleDef.ConnectionName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionName
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 162
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the connection name (database)
+  example: []
+  syntax:
+    content: public string ConnectionName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ConnectionName As String
+  overload: Tripous.Data.ModuleDef.ConnectionName*
+- uid: Tripous.Data.ModuleDef.Description
+  commentId: P:Tripous.Data.ModuleDef.Description
+  id: Description
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: Description
+  nameWithType: ModuleDef.Description
+  fullName: Tripous.Data.ModuleDef.Description
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Description
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 170
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An optional description
+  example: []
+  syntax:
+    content: public string Description { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Description As String
+  overload: Tripous.Data.ModuleDef.Description*
+- uid: Tripous.Data.ModuleDef.IsSingleSelect
+  commentId: P:Tripous.Data.ModuleDef.IsSingleSelect
+  id: IsSingleSelect
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: IsSingleSelect
+  nameWithType: ModuleDef.IsSingleSelect
+  fullName: Tripous.Data.ModuleDef.IsSingleSelect
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSingleSelect
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 178
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When true then this is a module with a fixed single select.
+  example: []
+  syntax:
+    content: public bool IsSingleSelect { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsSingleSelect As Boolean
+  overload: Tripous.Data.ModuleDef.IsSingleSelect*
+- uid: Tripous.Data.ModuleDef.UseFilters
+  commentId: P:Tripous.Data.ModuleDef.UseFilters
+  id: UseFilters
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: UseFilters
+  nameWithType: ModuleDef.UseFilters
+  fullName: Tripous.Data.ModuleDef.UseFilters
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UseFilters
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 186
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When true, the default, the filter panel in UI forms should be visible.
+  example: []
+  syntax:
+    content: public bool UseFilters { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property UseFilters As Boolean
+  overload: Tripous.Data.ModuleDef.UseFilters*
+- uid: Tripous.Data.ModuleDef.SecurityLevel
+  commentId: P:Tripous.Data.ModuleDef.SecurityLevel
+  id: SecurityLevel
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: SecurityLevel
+  nameWithType: ModuleDef.SecurityLevel
+  fullName: Tripous.Data.ModuleDef.SecurityLevel
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SecurityLevel
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 194
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the minimum user level required to access this module.
+  example: []
+  syntax:
+    content: public UserLevel SecurityLevel { get; set; }
+    parameters: []
+    return:
+      type: Tripous.UserLevel
+    content.vb: Public Property SecurityLevel As UserLevel
+  overload: Tripous.Data.ModuleDef.SecurityLevel*
+- uid: Tripous.Data.ModuleDef.GuidOids
+  commentId: P:Tripous.Data.ModuleDef.GuidOids
+  id: GuidOids
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: GuidOids
+  nameWithType: ModuleDef.GuidOids
+  fullName: Tripous.Data.ModuleDef.GuidOids
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GuidOids
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 202
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When is true indicates that the OID is a Guid string.
+  example: []
+  syntax:
+    content: public bool GuidOids { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property GuidOids As Boolean
+  overload: Tripous.Data.ModuleDef.GuidOids*
+- uid: Tripous.Data.ModuleDef.CascadeDeletes
+  commentId: P:Tripous.Data.ModuleDef.CascadeDeletes
+  id: CascadeDeletes
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: CascadeDeletes
+  nameWithType: ModuleDef.CascadeDeletes
+  fullName: Tripous.Data.ModuleDef.CascadeDeletes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CascadeDeletes
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 212
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    When true indicates that deletes should happen bottom to top, i.e. starting from the bottom table.
+
+    When false indicates that deletes should happen top to bottom, so if any database foreign constraint exists, then let
+
+    an exception to be thrown. Defaults to true.
+  example: []
+  syntax:
+    content: public bool CascadeDeletes { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CascadeDeletes As Boolean
+  overload: Tripous.Data.ModuleDef.CascadeDeletes*
+- uid: Tripous.Data.ModuleDef.ItemCaptionField
+  commentId: P:Tripous.Data.ModuleDef.ItemCaptionField
+  id: ItemCaptionField
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: ItemCaptionField
+  nameWithType: ModuleDef.ItemCaptionField
+  fullName: Tripous.Data.ModuleDef.ItemCaptionField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemCaptionField
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 219
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A field name of a field used in providing the item caption/title.
+  example: []
+  syntax:
+    content: public string ItemCaptionField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ItemCaptionField As String
+  overload: Tripous.Data.ModuleDef.ItemCaptionField*
+- uid: Tripous.Data.ModuleDef.DetailOrder
+  commentId: P:Tripous.Data.ModuleDef.DetailOrder
+  id: DetailOrder
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: DetailOrder
+  nameWithType: ModuleDef.DetailOrder
+  fullName: Tripous.Data.ModuleDef.DetailOrder
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailOrder
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 227
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The preferred display order of direct child detail tables, keyed by parent table name.
+  example: []
+  syntax:
+    content: public Dictionary<string, List<string>> DetailOrder { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}}
+    content.vb: Public Property DetailOrder As Dictionary(Of String, List(Of String))
+  overload: Tripous.Data.ModuleDef.DetailOrder*
+- uid: Tripous.Data.ModuleDef.Table
+  commentId: P:Tripous.Data.ModuleDef.Table
+  id: Table
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: Table
+  nameWithType: ModuleDef.Table
+  fullName: Tripous.Data.ModuleDef.Table
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Table
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 237
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The top table of the module, the one with the single data row.
+  example: []
+  syntax:
+    content: public TableDef Table { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: Public Property Table As TableDef
+  overload: Tripous.Data.ModuleDef.Table*
+- uid: Tripous.Data.ModuleDef.SelectList
+  commentId: P:Tripous.Data.ModuleDef.SelectList
+  id: SelectList
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: SelectList
+  nameWithType: ModuleDef.SelectList
+  fullName: Tripous.Data.ModuleDef.SelectList
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectList
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 245
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A list of named SELECT Sql statements. Used in the List part and List SELECTs of the module.
+  example: []
+  syntax:
+    content: public SelectDefs SelectList { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.SelectDefs
+    content.vb: Public Property SelectList As SelectDefs
+  overload: Tripous.Data.ModuleDef.SelectList*
+- uid: Tripous.Data.ModuleDef.Stocks
+  commentId: P:Tripous.Data.ModuleDef.Stocks
+  id: Stocks
+  parent: Tripous.Data.ModuleDef
+  langs:
+  - csharp
+  - vb
+  name: Stocks
+  nameWithType: ModuleDef.Stocks
+  fullName: Tripous.Data.ModuleDef.Stocks
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/ModuleDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Stocks
+    path: ../Tripous.Data/Registry/ModuleDef.cs
+    startLine: 254
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A list of named SELECT Sql statements that executed once at the initialization of the module and may be used
+
+    in various situations, i.e. Locators
+  example: []
+  syntax:
+    content: public SelectDefs Stocks { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.SelectDefs
+    content.vb: Public Property Stocks As SelectDefs
+  overload: Tripous.Data.ModuleDef.Stocks*
+references:
+- uid: Tripous.Data.DataMode
+  commentId: T:Tripous.Data.DataMode
+  parent: Tripous.Data
+  href: Tripous.Data.DataMode.html
+  name: DataMode
+  nameWithType: DataMode
+  fullName: Tripous.Data.DataMode
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.BaseDef.fTitleKey
+  commentId: F:Tripous.BaseDef.fTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey
+  name: fTitleKey
+  nameWithType: BaseDef.fTitleKey
+  fullName: Tripous.BaseDef.fTitleKey
+- uid: Tripous.BaseDef.fName
+  commentId: F:Tripous.BaseDef.fName
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fName
+  name: fName
+  nameWithType: BaseDef.fName
+  fullName: Tripous.BaseDef.fName
+- uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  commentId: M:Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  parent: Tripous.BaseDef
+  isExternal: true
+  href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  name: NotifyPropertyChanged(string)
+  nameWithType: BaseDef.NotifyPropertyChanged(string)
+  fullName: Tripous.BaseDef.NotifyPropertyChanged(string)
+  nameWithType.vb: BaseDef.NotifyPropertyChanged(String)
+  fullName.vb: Tripous.BaseDef.NotifyPropertyChanged(String)
+  name.vb: NotifyPropertyChanged(String)
+  spec.csharp:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.ToString
+  commentId: M:Tripous.BaseDef.ToString
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  name: ToString()
+  nameWithType: BaseDef.ToString()
+  fullName: Tripous.BaseDef.ToString()
+  spec.csharp:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.JsonLoaded
+  commentId: M:Tripous.BaseDef.JsonLoaded
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  name: JsonLoaded()
+  nameWithType: BaseDef.JsonLoaded()
+  fullName: Tripous.BaseDef.JsonLoaded()
+  spec.csharp:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CreateNew
+  commentId: M:Tripous.BaseDef.CreateNew
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  name: CreateNew()
+  nameWithType: BaseDef.CreateNew()
+  fullName: Tripous.BaseDef.CreateNew()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.BaseDef.Assign(Tripous.IDef)
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  name: Assign(IDef)
+  nameWithType: BaseDef.Assign(IDef)
+  fullName: Tripous.BaseDef.Assign(Tripous.IDef)
+  spec.csharp:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+- uid: Tripous.BaseDef.Clone
+  commentId: M:Tripous.BaseDef.Clone
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  name: Clone()
+  nameWithType: BaseDef.Clone()
+  fullName: Tripous.BaseDef.Clone()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Clear
+  commentId: M:Tripous.BaseDef.Clear
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  name: Clear()
+  nameWithType: BaseDef.Clear()
+  fullName: Tripous.BaseDef.Clear()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  commentId: M:Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  name: SplitTitleKeyToWordsWithPluralEnding()
+  nameWithType: BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  fullName: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  spec.csharp:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
+- uid: Tripous.BaseDef.TitleKey
+  commentId: P:Tripous.BaseDef.TitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_TitleKey
+  name: TitleKey
+  nameWithType: BaseDef.TitleKey
+  fullName: Tripous.BaseDef.TitleKey
+- uid: Tripous.BaseDef.IsTitleKeyEmpty
+  commentId: P:Tripous.BaseDef.IsTitleKeyEmpty
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty
+  name: IsTitleKeyEmpty
+  nameWithType: BaseDef.IsTitleKeyEmpty
+  fullName: Tripous.BaseDef.IsTitleKeyEmpty
+- uid: Tripous.BaseDef.Title
+  commentId: P:Tripous.BaseDef.Title
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Title
+  name: Title
+  nameWithType: BaseDef.Title
+  fullName: Tripous.BaseDef.Title
+- uid: Tripous.BaseDef.Tag
+  commentId: P:Tripous.BaseDef.Tag
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Tag
+  name: Tag
+  nameWithType: BaseDef.Tag
+  fullName: Tripous.BaseDef.Tag
+- uid: Tripous.BaseDef.IsSerializable
+  commentId: P:Tripous.BaseDef.IsSerializable
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable
+  name: IsSerializable
+  nameWithType: BaseDef.IsSerializable
+  fullName: Tripous.BaseDef.IsSerializable
+- uid: Tripous.BaseDef.PropertyChanged
+  commentId: E:Tripous.BaseDef.PropertyChanged
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged
+  name: PropertyChanged
+  nameWithType: BaseDef.PropertyChanged
+  fullName: Tripous.BaseDef.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.Data.DataModule
+  commentId: T:Tripous.Data.DataModule
+  parent: Tripous.Data
+  href: Tripous.Data.DataModule.html
+  name: DataModule
+  nameWithType: DataModule
+  fullName: Tripous.Data.DataModule
+- uid: Tripous.Data.ModuleDef.Create*
+  commentId: Overload:Tripous.Data.ModuleDef.Create
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_Create_System_Boolean_
+  name: Create
+  nameWithType: ModuleDef.Create
+  fullName: Tripous.Data.ModuleDef.Create
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.BaseDef.CheckDescriptor
+  commentId: M:Tripous.BaseDef.CheckDescriptor
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  name: CheckDescriptor()
+  nameWithType: BaseDef.CheckDescriptor()
+  fullName: Tripous.BaseDef.CheckDescriptor()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+- uid: Tripous.Data.ModuleDef.CheckDescriptor*
+  commentId: Overload:Tripous.Data.ModuleDef.CheckDescriptor
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_CheckDescriptor
+  name: CheckDescriptor
+  nameWithType: ModuleDef.CheckDescriptor
+  fullName: Tripous.Data.ModuleDef.CheckDescriptor
+- uid: Tripous.BaseDef.UpdateReferences
+  commentId: M:Tripous.BaseDef.UpdateReferences
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  name: UpdateReferences()
+  nameWithType: BaseDef.UpdateReferences()
+  fullName: Tripous.BaseDef.UpdateReferences()
+  spec.csharp:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+- uid: Tripous.Data.ModuleDef.UpdateReferences*
+  commentId: Overload:Tripous.Data.ModuleDef.UpdateReferences
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_UpdateReferences
+  name: UpdateReferences
+  nameWithType: ModuleDef.UpdateReferences
+  fullName: Tripous.Data.ModuleDef.UpdateReferences
+- uid: Tripous.Data.ModuleDef.GetTables*
+  commentId: Overload:Tripous.Data.ModuleDef.GetTables
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_GetTables
+  name: GetTables
+  nameWithType: ModuleDef.GetTables
+  fullName: Tripous.Data.ModuleDef.GetTables
+- uid: System.Collections.Generic.List{Tripous.Data.TableDef}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.TableDef}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<TableDef>
+  nameWithType: List<TableDef>
+  fullName: System.Collections.Generic.List<Tripous.Data.TableDef>
+  nameWithType.vb: List(Of TableDef)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.TableDef)
+  name.vb: List(Of TableDef)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.ModuleDef.CanAccess*
+  commentId: Overload:Tripous.Data.ModuleDef.CanAccess
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_CanAccess_Tripous_AppUser_
+  name: CanAccess
+  nameWithType: ModuleDef.CanAccess
+  fullName: Tripous.Data.ModuleDef.CanAccess
+- uid: Tripous.AppUser
+  commentId: T:Tripous.AppUser
+  parent: Tripous
+  href: Tripous.AppUser.html
+  name: AppUser
+  nameWithType: AppUser
+  fullName: Tripous.AppUser
+- uid: Tripous.Data.ModuleDef.Group*
+  commentId: Overload:Tripous.Data.ModuleDef.Group
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_Group
+  name: Group
+  nameWithType: ModuleDef.Group
+  fullName: Tripous.Data.ModuleDef.Group
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: System.Type.AssemblyQualifiedName
+  commentId: P:System.Type.AssemblyQualifiedName
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type.assemblyqualifiedname
+  name: AssemblyQualifiedName
+  nameWithType: Type.AssemblyQualifiedName
+  fullName: System.Type.AssemblyQualifiedName
+- uid: System.Type.FullName
+  commentId: P:System.Type.FullName
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type.fullname
+  name: FullName
+  nameWithType: Type.FullName
+  fullName: System.Type.FullName
+- uid: Tripous.Data.ModuleDef.ClassName*
+  commentId: Overload:Tripous.Data.ModuleDef.ClassName
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_ClassName
+  name: ClassName
+  nameWithType: ModuleDef.ClassName
+  fullName: Tripous.Data.ModuleDef.ClassName
+- uid: Tripous.Data.ModuleDef.ConnectionName*
+  commentId: Overload:Tripous.Data.ModuleDef.ConnectionName
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_ConnectionName
+  name: ConnectionName
+  nameWithType: ModuleDef.ConnectionName
+  fullName: Tripous.Data.ModuleDef.ConnectionName
+- uid: Tripous.Data.ModuleDef.Description*
+  commentId: Overload:Tripous.Data.ModuleDef.Description
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_Description
+  name: Description
+  nameWithType: ModuleDef.Description
+  fullName: Tripous.Data.ModuleDef.Description
+- uid: Tripous.Data.ModuleDef.IsSingleSelect*
+  commentId: Overload:Tripous.Data.ModuleDef.IsSingleSelect
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_IsSingleSelect
+  name: IsSingleSelect
+  nameWithType: ModuleDef.IsSingleSelect
+  fullName: Tripous.Data.ModuleDef.IsSingleSelect
+- uid: Tripous.Data.ModuleDef.UseFilters*
+  commentId: Overload:Tripous.Data.ModuleDef.UseFilters
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_UseFilters
+  name: UseFilters
+  nameWithType: ModuleDef.UseFilters
+  fullName: Tripous.Data.ModuleDef.UseFilters
+- uid: Tripous.Data.ModuleDef.SecurityLevel*
+  commentId: Overload:Tripous.Data.ModuleDef.SecurityLevel
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_SecurityLevel
+  name: SecurityLevel
+  nameWithType: ModuleDef.SecurityLevel
+  fullName: Tripous.Data.ModuleDef.SecurityLevel
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  parent: Tripous
+  href: Tripous.UserLevel.html
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel
+- uid: Tripous.Data.ModuleDef.GuidOids*
+  commentId: Overload:Tripous.Data.ModuleDef.GuidOids
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_GuidOids
+  name: GuidOids
+  nameWithType: ModuleDef.GuidOids
+  fullName: Tripous.Data.ModuleDef.GuidOids
+- uid: Tripous.Data.ModuleDef.CascadeDeletes*
+  commentId: Overload:Tripous.Data.ModuleDef.CascadeDeletes
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_CascadeDeletes
+  name: CascadeDeletes
+  nameWithType: ModuleDef.CascadeDeletes
+  fullName: Tripous.Data.ModuleDef.CascadeDeletes
+- uid: Tripous.Data.ModuleDef.ItemCaptionField*
+  commentId: Overload:Tripous.Data.ModuleDef.ItemCaptionField
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_ItemCaptionField
+  name: ItemCaptionField
+  nameWithType: ModuleDef.ItemCaptionField
+  fullName: Tripous.Data.ModuleDef.ItemCaptionField
+- uid: Tripous.Data.ModuleDef.DetailOrder*
+  commentId: Overload:Tripous.Data.ModuleDef.DetailOrder
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_DetailOrder
+  name: DetailOrder
+  nameWithType: ModuleDef.DetailOrder
+  fullName: Tripous.Data.ModuleDef.DetailOrder
+- uid: System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, List<string>>
+  nameWithType: Dictionary<string, List<string>>
+  fullName: System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<string>>
+  nameWithType.vb: Dictionary(Of String, List(Of String))
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.List(Of String))
+  name.vb: Dictionary(Of String, List(Of String))
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Tripous.Data.ModuleDef.Table*
+  commentId: Overload:Tripous.Data.ModuleDef.Table
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_Table
+  name: Table
+  nameWithType: ModuleDef.Table
+  fullName: Tripous.Data.ModuleDef.Table
+- uid: Tripous.Data.TableDef
+  commentId: T:Tripous.Data.TableDef
+  parent: Tripous.Data
+  href: Tripous.Data.TableDef.html
+  name: TableDef
+  nameWithType: TableDef
+  fullName: Tripous.Data.TableDef
+- uid: Tripous.Data.ModuleDef.SelectList*
+  commentId: Overload:Tripous.Data.ModuleDef.SelectList
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_SelectList
+  name: SelectList
+  nameWithType: ModuleDef.SelectList
+  fullName: Tripous.Data.ModuleDef.SelectList
+- uid: Tripous.Data.SelectDefs
+  commentId: T:Tripous.Data.SelectDefs
+  parent: Tripous.Data
+  href: Tripous.Data.SelectDefs.html
+  name: SelectDefs
+  nameWithType: SelectDefs
+  fullName: Tripous.Data.SelectDefs
+- uid: Tripous.Data.ModuleDef.Stocks*
+  commentId: Overload:Tripous.Data.ModuleDef.Stocks
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_Stocks
+  name: Stocks
+  nameWithType: ModuleDef.Stocks
+  fullName: Tripous.Data.ModuleDef.Stocks

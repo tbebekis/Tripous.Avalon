@@ -1,0 +1,2356 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.ToolBar
+  commentId: T:Tripous.Desktop.ToolBar
+  id: ToolBar
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.ToolBar.#ctor
+  - Tripous.Desktop.ToolBar.Add(Tripous.Command)
+  - Tripous.Desktop.ToolBar.AddButton
+  - Tripous.Desktop.ToolBar.AddButton(System.String)
+  - Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.Action)
+  - Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  - Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.Func{System.Threading.Tasks.Task})
+  - Tripous.Desktop.ToolBar.AddCheckBox(System.String,System.Nullable{System.Boolean})
+  - Tripous.Desktop.ToolBar.AddComboBox(System.Collections.IEnumerable,System.Int32,System.Double)
+  - Tripous.Desktop.ToolBar.AddDropDownButton(System.String,System.String,Avalonia.Controls.ContextMenu,System.ComponentModel.CancelEventHandler)
+  - Tripous.Desktop.ToolBar.AddLabel(System.String)
+  - Tripous.Desktop.ToolBar.AddRange(System.Collections.Generic.IEnumerable{Tripous.Command})
+  - Tripous.Desktop.ToolBar.AddSeparator(System.String)
+  - Tripous.Desktop.ToolBar.AddTextBlock(System.String)
+  - Tripous.Desktop.ToolBar.AddTextBox(System.String,System.Double)
+  - Tripous.Desktop.ToolBar.AddToggleButton(System.String,System.String,System.Action)
+  - Tripous.Desktop.ToolBar.AddToggleButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  - Tripous.Desktop.ToolBar.Container
+  - Tripous.Desktop.ToolBar.GetButtons
+  - Tripous.Desktop.ToolBar.GetControls
+  - Tripous.Desktop.ToolBar.IsVisible
+  - Tripous.Desktop.ToolBar.Panel
+  - Tripous.Desktop.ToolBar.PanelChanged
+  - Tripous.Desktop.ToolBar.PanelChanging
+  - Tripous.Desktop.ToolBar.PlaceControlAfter(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  - Tripous.Desktop.ToolBar.PlaceControlBefore(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  - Tripous.Desktop.ToolBar.PlaceSeparatorAfter(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  - Tripous.Desktop.ToolBar.PlaceSeparatorBefore(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  - Tripous.Desktop.ToolBar.RemoveAll
+  - Tripous.Desktop.ToolBar.RemovedAll
+  - Tripous.Desktop.ToolBar.RemovingAll
+  - Tripous.Desktop.ToolBar.SetupButton(Avalonia.Controls.Button,System.String,System.String)
+  - Tripous.Desktop.ToolBar.fPanel
+  langs:
+  - csharp
+  - vb
+  name: ToolBar
+  nameWithType: ToolBar
+  fullName: Tripous.Desktop.ToolBar
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToolBar
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Helper class for creating and managing toolbar controls.
+  example: []
+  syntax:
+    content: public class ToolBar
+    content.vb: Public Class ToolBar
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.ToolBar.fPanel
+  commentId: F:Tripous.Desktop.ToolBar.fPanel
+  id: fPanel
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: fPanel
+  nameWithType: ToolBar.fPanel
+  fullName: Tripous.Desktop.ToolBar.fPanel
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fPanel
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The panel hosting toolbar controls.
+  example: []
+  syntax:
+    content: protected StackPanel fPanel
+    return:
+      type: Avalonia.Controls.StackPanel
+    content.vb: Protected fPanel As StackPanel
+- uid: Tripous.Desktop.ToolBar.SetupButton(Avalonia.Controls.Button,System.String,System.String)
+  commentId: M:Tripous.Desktop.ToolBar.SetupButton(Avalonia.Controls.Button,System.String,System.String)
+  id: SetupButton(Avalonia.Controls.Button,System.String,System.String)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: SetupButton(Button, string, string)
+  nameWithType: ToolBar.SetupButton(Button, string, string)
+  fullName: Tripous.Desktop.ToolBar.SetupButton(Avalonia.Controls.Button, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetupButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 28
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Configures a toolbar button.
+  example: []
+  syntax:
+    content: protected virtual void SetupButton(Button Button, string ImageFileName = null, string ToolTipText = null)
+    parameters:
+    - id: Button
+      type: Avalonia.Controls.Button
+      description: The button to configure.
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    - id: ToolTipText
+      type: System.String
+      description: The tooltip text.
+    content.vb: Protected Overridable Sub SetupButton(Button As Button, ImageFileName As String = Nothing, ToolTipText As String = Nothing)
+  overload: Tripous.Desktop.ToolBar.SetupButton*
+  nameWithType.vb: ToolBar.SetupButton(Button, String, String)
+  fullName.vb: Tripous.Desktop.ToolBar.SetupButton(Avalonia.Controls.Button, String, String)
+  name.vb: SetupButton(Button, String, String)
+- uid: Tripous.Desktop.ToolBar.PanelChanging
+  commentId: M:Tripous.Desktop.ToolBar.PanelChanging
+  id: PanelChanging
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: PanelChanging()
+  nameWithType: ToolBar.PanelChanging()
+  fullName: Tripous.Desktop.ToolBar.PanelChanging()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PanelChanging
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Called before the panel changes.
+  example: []
+  syntax:
+    content: protected virtual void PanelChanging()
+    content.vb: Protected Overridable Sub PanelChanging()
+  overload: Tripous.Desktop.ToolBar.PanelChanging*
+- uid: Tripous.Desktop.ToolBar.PanelChanged
+  commentId: M:Tripous.Desktop.ToolBar.PanelChanged
+  id: PanelChanged
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: PanelChanged()
+  nameWithType: ToolBar.PanelChanged()
+  fullName: Tripous.Desktop.ToolBar.PanelChanged()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PanelChanged
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Called after the panel changes.
+  example: []
+  syntax:
+    content: protected virtual void PanelChanged()
+    content.vb: Protected Overridable Sub PanelChanged()
+  overload: Tripous.Desktop.ToolBar.PanelChanged*
+- uid: Tripous.Desktop.ToolBar.RemovingAll
+  commentId: M:Tripous.Desktop.ToolBar.RemovingAll
+  id: RemovingAll
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: RemovingAll()
+  nameWithType: ToolBar.RemovingAll()
+  fullName: Tripous.Desktop.ToolBar.RemovingAll()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemovingAll
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Called before all toolbar controls are removed.
+  example: []
+  syntax:
+    content: protected virtual void RemovingAll()
+    content.vb: Protected Overridable Sub RemovingAll()
+  overload: Tripous.Desktop.ToolBar.RemovingAll*
+- uid: Tripous.Desktop.ToolBar.RemovedAll
+  commentId: M:Tripous.Desktop.ToolBar.RemovedAll
+  id: RemovedAll
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: RemovedAll()
+  nameWithType: ToolBar.RemovedAll()
+  fullName: Tripous.Desktop.ToolBar.RemovedAll()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemovedAll
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Called after all toolbar controls are removed.
+  example: []
+  syntax:
+    content: protected virtual void RemovedAll()
+    content.vb: Protected Overridable Sub RemovedAll()
+  overload: Tripous.Desktop.ToolBar.RemovedAll*
+- uid: Tripous.Desktop.ToolBar.#ctor
+  commentId: M:Tripous.Desktop.ToolBar.#ctor
+  id: '#ctor'
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: ToolBar()
+  nameWithType: ToolBar.ToolBar()
+  fullName: Tripous.Desktop.ToolBar.ToolBar()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Initializes a new instance of the <xref href="Tripous.Desktop.ToolBar" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public ToolBar()
+    content.vb: Public Sub New()
+  overload: Tripous.Desktop.ToolBar.#ctor*
+  nameWithType.vb: ToolBar.New()
+  fullName.vb: Tripous.Desktop.ToolBar.New()
+  name.vb: New()
+- uid: Tripous.Desktop.ToolBar.RemoveAll
+  commentId: M:Tripous.Desktop.ToolBar.RemoveAll
+  id: RemoveAll
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: RemoveAll()
+  nameWithType: ToolBar.RemoveAll()
+  fullName: Tripous.Desktop.ToolBar.RemoveAll()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemoveAll
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Removes all toolbar controls.
+  example: []
+  syntax:
+    content: public virtual void RemoveAll()
+    content.vb: Public Overridable Sub RemoveAll()
+  overload: Tripous.Desktop.ToolBar.RemoveAll*
+- uid: Tripous.Desktop.ToolBar.AddSeparator(System.String)
+  commentId: M:Tripous.Desktop.ToolBar.AddSeparator(System.String)
+  id: AddSeparator(System.String)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddSeparator(string)
+  nameWithType: ToolBar.AddSeparator(string)
+  fullName: Tripous.Desktop.ToolBar.AddSeparator(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddSeparator
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 93
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a separator to the toolbar.
+  example: []
+  syntax:
+    content: public Border AddSeparator(string Name = null)
+    parameters:
+    - id: Name
+      type: System.String
+      description: The separator name.
+    return:
+      type: Avalonia.Controls.Border
+      description: The created separator.
+    content.vb: Public Function AddSeparator(Name As String = Nothing) As Border
+  overload: Tripous.Desktop.ToolBar.AddSeparator*
+  nameWithType.vb: ToolBar.AddSeparator(String)
+  fullName.vb: Tripous.Desktop.ToolBar.AddSeparator(String)
+  name.vb: AddSeparator(String)
+- uid: Tripous.Desktop.ToolBar.AddButton
+  commentId: M:Tripous.Desktop.ToolBar.AddButton
+  id: AddButton
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddButton()
+  nameWithType: ToolBar.AddButton()
+  fullName: Tripous.Desktop.ToolBar.AddButton()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 114
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a button to the toolbar.
+  example: []
+  syntax:
+    content: public Button AddButton()
+    return:
+      type: Avalonia.Controls.Button
+      description: The created button.
+    content.vb: Public Function AddButton() As Button
+  overload: Tripous.Desktop.ToolBar.AddButton*
+- uid: Tripous.Desktop.ToolBar.AddButton(System.String)
+  commentId: M:Tripous.Desktop.ToolBar.AddButton(System.String)
+  id: AddButton(System.String)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddButton(string)
+  nameWithType: ToolBar.AddButton(string)
+  fullName: Tripous.Desktop.ToolBar.AddButton(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 126
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a button to the toolbar.
+  example: []
+  syntax:
+    content: public Button AddButton(string ImageFileName)
+    parameters:
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    return:
+      type: Avalonia.Controls.Button
+      description: The created button.
+    content.vb: Public Function AddButton(ImageFileName As String) As Button
+  overload: Tripous.Desktop.ToolBar.AddButton*
+  nameWithType.vb: ToolBar.AddButton(String)
+  fullName.vb: Tripous.Desktop.ToolBar.AddButton(String)
+  name.vb: AddButton(String)
+- uid: Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  commentId: M:Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  id: AddButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddButton(string, string, EventHandler<RoutedEventArgs>)
+  nameWithType: ToolBar.AddButton(string, string, EventHandler<RoutedEventArgs>)
+  fullName: Tripous.Desktop.ToolBar.AddButton(string, string, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 139
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a button to the toolbar.
+  example: []
+  syntax:
+    content: public Button AddButton(string ImageFileName, string ToolTipText, EventHandler<RoutedEventArgs> OnClick)
+    parameters:
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    - id: ToolTipText
+      type: System.String
+      description: The tooltip text.
+    - id: OnClick
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The click event handler.
+    return:
+      type: Avalonia.Controls.Button
+      description: The created button.
+    content.vb: Public Function AddButton(ImageFileName As String, ToolTipText As String, OnClick As EventHandler(Of RoutedEventArgs)) As Button
+  overload: Tripous.Desktop.ToolBar.AddButton*
+  nameWithType.vb: ToolBar.AddButton(String, String, EventHandler(Of RoutedEventArgs))
+  fullName.vb: Tripous.Desktop.ToolBar.AddButton(String, String, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs))
+  name.vb: AddButton(String, String, EventHandler(Of RoutedEventArgs))
+- uid: Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.Func{System.Threading.Tasks.Task})
+  commentId: M:Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.Func{System.Threading.Tasks.Task})
+  id: AddButton(System.String,System.String,System.Func{System.Threading.Tasks.Task})
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddButton(string, string, Func<Task>)
+  nameWithType: ToolBar.AddButton(string, string, Func<Task>)
+  fullName: Tripous.Desktop.ToolBar.AddButton(string, string, System.Func<System.Threading.Tasks.Task>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 159
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a button to the toolbar.
+  example: []
+  syntax:
+    content: public Button AddButton(string ImageFileName, string ToolTipText, Func<Task> Action)
+    parameters:
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    - id: ToolTipText
+      type: System.String
+      description: The tooltip text.
+    - id: Action
+      type: System.Func{System.Threading.Tasks.Task}
+      description: The asynchronous click action.
+    return:
+      type: Avalonia.Controls.Button
+      description: The created button.
+    content.vb: Public Function AddButton(ImageFileName As String, ToolTipText As String, Action As Func(Of Task)) As Button
+  overload: Tripous.Desktop.ToolBar.AddButton*
+  nameWithType.vb: ToolBar.AddButton(String, String, Func(Of Task))
+  fullName.vb: Tripous.Desktop.ToolBar.AddButton(String, String, System.Func(Of System.Threading.Tasks.Task))
+  name.vb: AddButton(String, String, Func(Of Task))
+- uid: Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.Action)
+  commentId: M:Tripous.Desktop.ToolBar.AddButton(System.String,System.String,System.Action)
+  id: AddButton(System.String,System.String,System.Action)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddButton(string, string, Action)
+  nameWithType: ToolBar.AddButton(string, string, Action)
+  fullName: Tripous.Desktop.ToolBar.AddButton(string, string, System.Action)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 179
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a button to the toolbar.
+  example: []
+  syntax:
+    content: public Button AddButton(string ImageFileName, string ToolTipText, Action Action)
+    parameters:
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    - id: ToolTipText
+      type: System.String
+      description: The tooltip text.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    return:
+      type: Avalonia.Controls.Button
+      description: The created button.
+    content.vb: Public Function AddButton(ImageFileName As String, ToolTipText As String, Action As Action) As Button
+  overload: Tripous.Desktop.ToolBar.AddButton*
+  nameWithType.vb: ToolBar.AddButton(String, String, Action)
+  fullName.vb: Tripous.Desktop.ToolBar.AddButton(String, String, System.Action)
+  name.vb: AddButton(String, String, Action)
+- uid: Tripous.Desktop.ToolBar.AddDropDownButton(System.String,System.String,Avalonia.Controls.ContextMenu,System.ComponentModel.CancelEventHandler)
+  commentId: M:Tripous.Desktop.ToolBar.AddDropDownButton(System.String,System.String,Avalonia.Controls.ContextMenu,System.ComponentModel.CancelEventHandler)
+  id: AddDropDownButton(System.String,System.String,Avalonia.Controls.ContextMenu,System.ComponentModel.CancelEventHandler)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddDropDownButton(string, string, ContextMenu, CancelEventHandler)
+  nameWithType: ToolBar.AddDropDownButton(string, string, ContextMenu, CancelEventHandler)
+  fullName: Tripous.Desktop.ToolBar.AddDropDownButton(string, string, Avalonia.Controls.ContextMenu, System.ComponentModel.CancelEventHandler)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddDropDownButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 201
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a drop-down button to the toolbar.
+  example: []
+  syntax:
+    content: public Button AddDropDownButton(string ImageFileName = null, string ToolTipText = null, ContextMenu Menu = null, CancelEventHandler OnOpening = null)
+    parameters:
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    - id: ToolTipText
+      type: System.String
+      description: The tooltip text.
+    - id: Menu
+      type: Avalonia.Controls.ContextMenu
+      description: The context menu.
+    - id: OnOpening
+      type: System.ComponentModel.CancelEventHandler
+      description: The menu opening handler.
+    return:
+      type: Avalonia.Controls.Button
+      description: The created button.
+    content.vb: Public Function AddDropDownButton(ImageFileName As String = Nothing, ToolTipText As String = Nothing, Menu As ContextMenu = Nothing, OnOpening As CancelEventHandler = Nothing) As Button
+  overload: Tripous.Desktop.ToolBar.AddDropDownButton*
+  nameWithType.vb: ToolBar.AddDropDownButton(String, String, ContextMenu, CancelEventHandler)
+  fullName.vb: Tripous.Desktop.ToolBar.AddDropDownButton(String, String, Avalonia.Controls.ContextMenu, System.ComponentModel.CancelEventHandler)
+  name.vb: AddDropDownButton(String, String, ContextMenu, CancelEventHandler)
+- uid: Tripous.Desktop.ToolBar.AddToggleButton(System.String,System.String,System.Action)
+  commentId: M:Tripous.Desktop.ToolBar.AddToggleButton(System.String,System.String,System.Action)
+  id: AddToggleButton(System.String,System.String,System.Action)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddToggleButton(string, string, Action)
+  nameWithType: ToolBar.AddToggleButton(string, string, Action)
+  fullName: Tripous.Desktop.ToolBar.AddToggleButton(string, string, System.Action)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddToggleButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 236
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a toggle button to the toolbar.
+  example: []
+  syntax:
+    content: public ToggleButton AddToggleButton(string ImageFileName, string ToolTipText, Action Action)
+    parameters:
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    - id: ToolTipText
+      type: System.String
+      description: The tooltip text.
+    - id: Action
+      type: System.Action
+      description: The checked changed action.
+    return:
+      type: Avalonia.Controls.Primitives.ToggleButton
+      description: The created toggle button.
+    content.vb: Public Function AddToggleButton(ImageFileName As String, ToolTipText As String, Action As Action) As ToggleButton
+  overload: Tripous.Desktop.ToolBar.AddToggleButton*
+  nameWithType.vb: ToolBar.AddToggleButton(String, String, Action)
+  fullName.vb: Tripous.Desktop.ToolBar.AddToggleButton(String, String, System.Action)
+  name.vb: AddToggleButton(String, String, Action)
+- uid: Tripous.Desktop.ToolBar.AddToggleButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  commentId: M:Tripous.Desktop.ToolBar.AddToggleButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  id: AddToggleButton(System.String,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddToggleButton(string, string, EventHandler<RoutedEventArgs>)
+  nameWithType: ToolBar.AddToggleButton(string, string, EventHandler<RoutedEventArgs>)
+  fullName: Tripous.Desktop.ToolBar.AddToggleButton(string, string, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddToggleButton
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 256
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a toggle button to the toolbar.
+  example: []
+  syntax:
+    content: public ToggleButton AddToggleButton(string ImageFileName = null, string ToolTipText = null, EventHandler<RoutedEventArgs> OnCheckedChanged = null)
+    parameters:
+    - id: ImageFileName
+      type: System.String
+      description: The image file name.
+    - id: ToolTipText
+      type: System.String
+      description: The tooltip text.
+    - id: OnCheckedChanged
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The checked changed event handler.
+    return:
+      type: Avalonia.Controls.Primitives.ToggleButton
+      description: The created toggle button.
+    content.vb: Public Function AddToggleButton(ImageFileName As String = Nothing, ToolTipText As String = Nothing, OnCheckedChanged As EventHandler(Of RoutedEventArgs) = Nothing) As ToggleButton
+  overload: Tripous.Desktop.ToolBar.AddToggleButton*
+  nameWithType.vb: ToolBar.AddToggleButton(String, String, EventHandler(Of RoutedEventArgs))
+  fullName.vb: Tripous.Desktop.ToolBar.AddToggleButton(String, String, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs))
+  name.vb: AddToggleButton(String, String, EventHandler(Of RoutedEventArgs))
+- uid: Tripous.Desktop.ToolBar.AddTextBox(System.String,System.Double)
+  commentId: M:Tripous.Desktop.ToolBar.AddTextBox(System.String,System.Double)
+  id: AddTextBox(System.String,System.Double)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddTextBox(string, double)
+  nameWithType: ToolBar.AddTextBox(string, double)
+  fullName: Tripous.Desktop.ToolBar.AddTextBox(string, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddTextBox
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 275
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a text box to the toolbar.
+  example: []
+  syntax:
+    content: public TextBox AddTextBox(string Text = null, double Width = NaN)
+    parameters:
+    - id: Text
+      type: System.String
+      description: The initial text.
+    - id: Width
+      type: System.Double
+      description: The text box width.
+    return:
+      type: Avalonia.Controls.TextBox
+      description: The created text box.
+    content.vb: Public Function AddTextBox(Text As String = Nothing, Width As Double = NaN) As TextBox
+  overload: Tripous.Desktop.ToolBar.AddTextBox*
+  nameWithType.vb: ToolBar.AddTextBox(String, Double)
+  fullName.vb: Tripous.Desktop.ToolBar.AddTextBox(String, Double)
+  name.vb: AddTextBox(String, Double)
+- uid: Tripous.Desktop.ToolBar.AddTextBlock(System.String)
+  commentId: M:Tripous.Desktop.ToolBar.AddTextBlock(System.String)
+  id: AddTextBlock(System.String)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddTextBlock(string)
+  nameWithType: ToolBar.AddTextBlock(string)
+  fullName: Tripous.Desktop.ToolBar.AddTextBlock(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddTextBlock
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 294
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a text block to the toolbar.
+  example: []
+  syntax:
+    content: public TextBlock AddTextBlock(string Text = null)
+    parameters:
+    - id: Text
+      type: System.String
+      description: The text.
+    return:
+      type: Avalonia.Controls.TextBlock
+      description: The created text block.
+    content.vb: Public Function AddTextBlock(Text As String = Nothing) As TextBlock
+  overload: Tripous.Desktop.ToolBar.AddTextBlock*
+  nameWithType.vb: ToolBar.AddTextBlock(String)
+  fullName.vb: Tripous.Desktop.ToolBar.AddTextBlock(String)
+  name.vb: AddTextBlock(String)
+- uid: Tripous.Desktop.ToolBar.AddLabel(System.String)
+  commentId: M:Tripous.Desktop.ToolBar.AddLabel(System.String)
+  id: AddLabel(System.String)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddLabel(string)
+  nameWithType: ToolBar.AddLabel(string)
+  fullName: Tripous.Desktop.ToolBar.AddLabel(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLabel
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 310
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a label to the toolbar.
+  example: []
+  syntax:
+    content: public Label AddLabel(string Text = null)
+    parameters:
+    - id: Text
+      type: System.String
+      description: The label text.
+    return:
+      type: Avalonia.Controls.Label
+      description: The created label.
+    content.vb: Public Function AddLabel(Text As String = Nothing) As Label
+  overload: Tripous.Desktop.ToolBar.AddLabel*
+  nameWithType.vb: ToolBar.AddLabel(String)
+  fullName.vb: Tripous.Desktop.ToolBar.AddLabel(String)
+  name.vb: AddLabel(String)
+- uid: Tripous.Desktop.ToolBar.AddComboBox(System.Collections.IEnumerable,System.Int32,System.Double)
+  commentId: M:Tripous.Desktop.ToolBar.AddComboBox(System.Collections.IEnumerable,System.Int32,System.Double)
+  id: AddComboBox(System.Collections.IEnumerable,System.Int32,System.Double)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddComboBox(IEnumerable, int, double)
+  nameWithType: ToolBar.AddComboBox(IEnumerable, int, double)
+  fullName: Tripous.Desktop.ToolBar.AddComboBox(System.Collections.IEnumerable, int, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddComboBox
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 328
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a combo box to the toolbar.
+  example: []
+  syntax:
+    content: public ComboBox AddComboBox(IEnumerable ItemsSource = null, int ItemIndex = 0, double Width = NaN)
+    parameters:
+    - id: ItemsSource
+      type: System.Collections.IEnumerable
+      description: The items source.
+    - id: ItemIndex
+      type: System.Int32
+      description: The selected item index.
+    - id: Width
+      type: System.Double
+      description: The combo box width.
+    return:
+      type: Avalonia.Controls.ComboBox
+      description: The created combo box.
+    content.vb: Public Function AddComboBox(ItemsSource As IEnumerable = Nothing, ItemIndex As Integer = 0, Width As Double = NaN) As ComboBox
+  overload: Tripous.Desktop.ToolBar.AddComboBox*
+  nameWithType.vb: ToolBar.AddComboBox(IEnumerable, Integer, Double)
+  fullName.vb: Tripous.Desktop.ToolBar.AddComboBox(System.Collections.IEnumerable, Integer, Double)
+  name.vb: AddComboBox(IEnumerable, Integer, Double)
+- uid: Tripous.Desktop.ToolBar.AddCheckBox(System.String,System.Nullable{System.Boolean})
+  commentId: M:Tripous.Desktop.ToolBar.AddCheckBox(System.String,System.Nullable{System.Boolean})
+  id: AddCheckBox(System.String,System.Nullable{System.Boolean})
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBox(string, bool?)
+  nameWithType: ToolBar.AddCheckBox(string, bool?)
+  fullName: Tripous.Desktop.ToolBar.AddCheckBox(string, bool?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBox
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 351
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box to the toolbar.
+  example: []
+  syntax:
+    content: public CheckBox AddCheckBox(string Text = null, bool? IsChecked = null)
+    parameters:
+    - id: Text
+      type: System.String
+      description: The check box text.
+    - id: IsChecked
+      type: System.Nullable{System.Boolean}
+      description: The checked value.
+    return:
+      type: Avalonia.Controls.CheckBox
+      description: The created check box.
+    content.vb: Public Function AddCheckBox(Text As String = Nothing, IsChecked As Boolean? = Nothing) As CheckBox
+  overload: Tripous.Desktop.ToolBar.AddCheckBox*
+  nameWithType.vb: ToolBar.AddCheckBox(String, Boolean?)
+  fullName.vb: Tripous.Desktop.ToolBar.AddCheckBox(String, Boolean?)
+  name.vb: AddCheckBox(String, Boolean?)
+- uid: Tripous.Desktop.ToolBar.Add(Tripous.Command)
+  commentId: M:Tripous.Desktop.ToolBar.Add(Tripous.Command)
+  id: Add(Tripous.Command)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: Add(Command)
+  nameWithType: ToolBar.Add(Command)
+  fullName: Tripous.Desktop.ToolBar.Add(Tripous.Command)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Add
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 371
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a command button to the toolbar.
+  example: []
+  syntax:
+    content: public Button Add(Command Cmd)
+    parameters:
+    - id: Cmd
+      type: Tripous.Command
+      description: The command.
+    return:
+      type: Avalonia.Controls.Button
+      description: The created button.
+    content.vb: Public Function Add(Cmd As Command) As Button
+  overload: Tripous.Desktop.ToolBar.Add*
+- uid: Tripous.Desktop.ToolBar.AddRange(System.Collections.Generic.IEnumerable{Tripous.Command})
+  commentId: M:Tripous.Desktop.ToolBar.AddRange(System.Collections.Generic.IEnumerable{Tripous.Command})
+  id: AddRange(System.Collections.Generic.IEnumerable{Tripous.Command})
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: AddRange(IEnumerable<Command>)
+  nameWithType: ToolBar.AddRange(IEnumerable<Command>)
+  fullName: Tripous.Desktop.ToolBar.AddRange(System.Collections.Generic.IEnumerable<Tripous.Command>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddRange
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 403
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds command buttons to the toolbar.
+  example: []
+  syntax:
+    content: public void AddRange(IEnumerable<Command> Commands)
+    parameters:
+    - id: Commands
+      type: System.Collections.Generic.IEnumerable{Tripous.Command}
+      description: The commands.
+    content.vb: Public Sub AddRange(Commands As IEnumerable(Of Command))
+  overload: Tripous.Desktop.ToolBar.AddRange*
+  nameWithType.vb: ToolBar.AddRange(IEnumerable(Of Command))
+  fullName.vb: Tripous.Desktop.ToolBar.AddRange(System.Collections.Generic.IEnumerable(Of Tripous.Command))
+  name.vb: AddRange(IEnumerable(Of Command))
+- uid: Tripous.Desktop.ToolBar.PlaceControlAfter(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.ToolBar.PlaceControlAfter(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  id: PlaceControlAfter(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: PlaceControlAfter(Control, Control)
+  nameWithType: ToolBar.PlaceControlAfter(Control, Control)
+  fullName: Tripous.Desktop.ToolBar.PlaceControlAfter(Avalonia.Controls.Control, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PlaceControlAfter
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 416
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Places a toolbar control after another toolbar control.
+  example: []
+  syntax:
+    content: public void PlaceControlAfter(Control PivotItem, Control Item)
+    parameters:
+    - id: PivotItem
+      type: Avalonia.Controls.Control
+      description: The pivot control.
+    - id: Item
+      type: Avalonia.Controls.Control
+      description: The control to move.
+    content.vb: Public Sub PlaceControlAfter(PivotItem As Control, Item As Control)
+  overload: Tripous.Desktop.ToolBar.PlaceControlAfter*
+- uid: Tripous.Desktop.ToolBar.PlaceControlBefore(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.ToolBar.PlaceControlBefore(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  id: PlaceControlBefore(Avalonia.Controls.Control,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: PlaceControlBefore(Control, Control)
+  nameWithType: ToolBar.PlaceControlBefore(Control, Control)
+  fullName: Tripous.Desktop.ToolBar.PlaceControlBefore(Avalonia.Controls.Control, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PlaceControlBefore
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 438
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Places a toolbar control before another toolbar control.
+  example: []
+  syntax:
+    content: public void PlaceControlBefore(Control PivotItem, Control Item)
+    parameters:
+    - id: PivotItem
+      type: Avalonia.Controls.Control
+      description: The pivot control.
+    - id: Item
+      type: Avalonia.Controls.Control
+      description: The control to move.
+    content.vb: Public Sub PlaceControlBefore(PivotItem As Control, Item As Control)
+  overload: Tripous.Desktop.ToolBar.PlaceControlBefore*
+- uid: Tripous.Desktop.ToolBar.PlaceSeparatorAfter(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  commentId: M:Tripous.Desktop.ToolBar.PlaceSeparatorAfter(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  id: PlaceSeparatorAfter(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: PlaceSeparatorAfter(Control, Border)
+  nameWithType: ToolBar.PlaceSeparatorAfter(Control, Border)
+  fullName: Tripous.Desktop.ToolBar.PlaceSeparatorAfter(Avalonia.Controls.Control, Avalonia.Controls.Border)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PlaceSeparatorAfter
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 460
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Places a separator after a toolbar control.
+  example: []
+  syntax:
+    content: public void PlaceSeparatorAfter(Control PivotItem, Border Separator)
+    parameters:
+    - id: PivotItem
+      type: Avalonia.Controls.Control
+      description: The pivot control.
+    - id: Separator
+      type: Avalonia.Controls.Border
+      description: The separator to move.
+    content.vb: Public Sub PlaceSeparatorAfter(PivotItem As Control, Separator As Border)
+  overload: Tripous.Desktop.ToolBar.PlaceSeparatorAfter*
+- uid: Tripous.Desktop.ToolBar.PlaceSeparatorBefore(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  commentId: M:Tripous.Desktop.ToolBar.PlaceSeparatorBefore(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  id: PlaceSeparatorBefore(Avalonia.Controls.Control,Avalonia.Controls.Border)
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: PlaceSeparatorBefore(Control, Border)
+  nameWithType: ToolBar.PlaceSeparatorBefore(Control, Border)
+  fullName: Tripous.Desktop.ToolBar.PlaceSeparatorBefore(Avalonia.Controls.Control, Avalonia.Controls.Border)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PlaceSeparatorBefore
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 469
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Places a separator before a toolbar control.
+  example: []
+  syntax:
+    content: public void PlaceSeparatorBefore(Control PivotItem, Border Separator)
+    parameters:
+    - id: PivotItem
+      type: Avalonia.Controls.Control
+      description: The pivot control.
+    - id: Separator
+      type: Avalonia.Controls.Border
+      description: The separator to move.
+    content.vb: Public Sub PlaceSeparatorBefore(PivotItem As Control, Separator As Border)
+  overload: Tripous.Desktop.ToolBar.PlaceSeparatorBefore*
+- uid: Tripous.Desktop.ToolBar.GetButtons
+  commentId: M:Tripous.Desktop.ToolBar.GetButtons
+  id: GetButtons
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: GetButtons()
+  nameWithType: ToolBar.GetButtons()
+  fullName: Tripous.Desktop.ToolBar.GetButtons()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetButtons
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 478
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns all toolbar buttons.
+  example: []
+  syntax:
+    content: public Button[] GetButtons()
+    return:
+      type: Avalonia.Controls.Button[]
+      description: The toolbar buttons.
+    content.vb: Public Function GetButtons() As Button()
+  overload: Tripous.Desktop.ToolBar.GetButtons*
+- uid: Tripous.Desktop.ToolBar.GetControls
+  commentId: M:Tripous.Desktop.ToolBar.GetControls
+  id: GetControls
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: GetControls()
+  nameWithType: ToolBar.GetControls()
+  fullName: Tripous.Desktop.ToolBar.GetControls()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetControls
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 483
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns all toolbar controls.
+  example: []
+  syntax:
+    content: public Control[] GetControls()
+    return:
+      type: Avalonia.Controls.Control[]
+      description: The toolbar controls.
+    content.vb: Public Function GetControls() As Control()
+  overload: Tripous.Desktop.ToolBar.GetControls*
+- uid: Tripous.Desktop.ToolBar.Panel
+  commentId: P:Tripous.Desktop.ToolBar.Panel
+  id: Panel
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: Panel
+  nameWithType: ToolBar.Panel
+  fullName: Tripous.Desktop.ToolBar.Panel
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Panel
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 489
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the panel hosting toolbar controls.
+  example: []
+  syntax:
+    content: public virtual StackPanel Panel { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.StackPanel
+    content.vb: Public Overridable Property Panel As StackPanel
+  overload: Tripous.Desktop.ToolBar.Panel*
+- uid: Tripous.Desktop.ToolBar.Container
+  commentId: P:Tripous.Desktop.ToolBar.Container
+  id: Container
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: Container
+  nameWithType: ToolBar.Container
+  fullName: Tripous.Desktop.ToolBar.Container
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Container
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 506
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the toolbar container.
+  example: []
+  syntax:
+    content: public virtual Border Container { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.Border
+    content.vb: Public Overridable Property Container As Border
+  overload: Tripous.Desktop.ToolBar.Container*
+- uid: Tripous.Desktop.ToolBar.IsVisible
+  commentId: P:Tripous.Desktop.ToolBar.IsVisible
+  id: IsVisible
+  parent: Tripous.Desktop.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: IsVisible
+  nameWithType: ToolBar.IsVisible
+  fullName: Tripous.Desktop.ToolBar.IsVisible
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/ToolBar.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsVisible
+    path: ../Tripous.Desktop/ToolBar.cs
+    startLine: 510
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the toolbar visibility.
+  example: []
+  syntax:
+    content: public bool IsVisible { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsVisible As Boolean
+  overload: Tripous.Desktop.ToolBar.IsVisible*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.StackPanel
+  commentId: T:Avalonia.Controls.StackPanel
+  parent: Avalonia.Controls
+  isExternal: true
+  name: StackPanel
+  nameWithType: StackPanel
+  fullName: Avalonia.Controls.StackPanel
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: Tripous.Desktop.ToolBar.SetupButton*
+  commentId: Overload:Tripous.Desktop.ToolBar.SetupButton
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_SetupButton_Avalonia_Controls_Button_System_String_System_String_
+  name: SetupButton
+  nameWithType: ToolBar.SetupButton
+  fullName: Tripous.Desktop.ToolBar.SetupButton
+- uid: Avalonia.Controls.Button
+  commentId: T:Avalonia.Controls.Button
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Button
+  nameWithType: Button
+  fullName: Avalonia.Controls.Button
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.ToolBar.PanelChanging*
+  commentId: Overload:Tripous.Desktop.ToolBar.PanelChanging
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_PanelChanging
+  name: PanelChanging
+  nameWithType: ToolBar.PanelChanging
+  fullName: Tripous.Desktop.ToolBar.PanelChanging
+- uid: Tripous.Desktop.ToolBar.PanelChanged*
+  commentId: Overload:Tripous.Desktop.ToolBar.PanelChanged
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_PanelChanged
+  name: PanelChanged
+  nameWithType: ToolBar.PanelChanged
+  fullName: Tripous.Desktop.ToolBar.PanelChanged
+- uid: Tripous.Desktop.ToolBar.RemovingAll*
+  commentId: Overload:Tripous.Desktop.ToolBar.RemovingAll
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_RemovingAll
+  name: RemovingAll
+  nameWithType: ToolBar.RemovingAll
+  fullName: Tripous.Desktop.ToolBar.RemovingAll
+- uid: Tripous.Desktop.ToolBar.RemovedAll*
+  commentId: Overload:Tripous.Desktop.ToolBar.RemovedAll
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_RemovedAll
+  name: RemovedAll
+  nameWithType: ToolBar.RemovedAll
+  fullName: Tripous.Desktop.ToolBar.RemovedAll
+- uid: Tripous.Desktop.ToolBar
+  commentId: T:Tripous.Desktop.ToolBar
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ToolBar.html
+  name: ToolBar
+  nameWithType: ToolBar
+  fullName: Tripous.Desktop.ToolBar
+- uid: Tripous.Desktop.ToolBar.#ctor*
+  commentId: Overload:Tripous.Desktop.ToolBar.#ctor
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar__ctor
+  name: ToolBar
+  nameWithType: ToolBar.ToolBar
+  fullName: Tripous.Desktop.ToolBar.ToolBar
+  nameWithType.vb: ToolBar.New
+  fullName.vb: Tripous.Desktop.ToolBar.New
+  name.vb: New
+- uid: Tripous.Desktop.ToolBar.RemoveAll*
+  commentId: Overload:Tripous.Desktop.ToolBar.RemoveAll
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_RemoveAll
+  name: RemoveAll
+  nameWithType: ToolBar.RemoveAll
+  fullName: Tripous.Desktop.ToolBar.RemoveAll
+- uid: Tripous.Desktop.ToolBar.AddSeparator*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddSeparator
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddSeparator_System_String_
+  name: AddSeparator
+  nameWithType: ToolBar.AddSeparator
+  fullName: Tripous.Desktop.ToolBar.AddSeparator
+- uid: Avalonia.Controls.Border
+  commentId: T:Avalonia.Controls.Border
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Border
+  nameWithType: Border
+  fullName: Avalonia.Controls.Border
+- uid: Tripous.Desktop.ToolBar.AddButton*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddButton
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddButton
+  name: AddButton
+  nameWithType: ToolBar.AddButton
+  fullName: Tripous.Desktop.ToolBar.AddButton
+- uid: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+  commentId: T:System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<RoutedEventArgs>
+  nameWithType: EventHandler<RoutedEventArgs>
+  fullName: System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>
+  nameWithType.vb: EventHandler(Of RoutedEventArgs)
+  fullName.vb: System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs)
+  name.vb: EventHandler(Of RoutedEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - uid: Avalonia.Interactivity.RoutedEventArgs
+    name: RoutedEventArgs
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Interactivity.RoutedEventArgs
+    name: RoutedEventArgs
+    isExternal: true
+  - name: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+- uid: System.Func{System.Threading.Tasks.Task}
+  commentId: T:System.Func{System.Threading.Tasks.Task}
+  parent: System
+  definition: System.Func`1
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<Task>
+  nameWithType: Func<Task>
+  fullName: System.Func<System.Threading.Tasks.Task>
+  nameWithType.vb: Func(Of Task)
+  fullName.vb: System.Func(Of System.Threading.Tasks.Task)
+  name.vb: Func(Of Task)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: )
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Action
+  commentId: T:System.Action
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action
+  name: Action
+  nameWithType: Action
+  fullName: System.Action
+- uid: Tripous.Desktop.ToolBar.AddDropDownButton*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddDropDownButton
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddDropDownButton_System_String_System_String_Avalonia_Controls_ContextMenu_System_ComponentModel_CancelEventHandler_
+  name: AddDropDownButton
+  nameWithType: ToolBar.AddDropDownButton
+  fullName: Tripous.Desktop.ToolBar.AddDropDownButton
+- uid: Avalonia.Controls.ContextMenu
+  commentId: T:Avalonia.Controls.ContextMenu
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ContextMenu
+  nameWithType: ContextMenu
+  fullName: Avalonia.Controls.ContextMenu
+- uid: System.ComponentModel.CancelEventHandler
+  commentId: T:System.ComponentModel.CancelEventHandler
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.canceleventhandler
+  name: CancelEventHandler
+  nameWithType: CancelEventHandler
+  fullName: System.ComponentModel.CancelEventHandler
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.Desktop.ToolBar.AddToggleButton*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddToggleButton
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddToggleButton_System_String_System_String_System_Action_
+  name: AddToggleButton
+  nameWithType: ToolBar.AddToggleButton
+  fullName: Tripous.Desktop.ToolBar.AddToggleButton
+- uid: Avalonia.Controls.Primitives.ToggleButton
+  commentId: T:Avalonia.Controls.Primitives.ToggleButton
+  parent: Avalonia.Controls.Primitives
+  isExternal: true
+  name: ToggleButton
+  nameWithType: ToggleButton
+  fullName: Avalonia.Controls.Primitives.ToggleButton
+- uid: Avalonia.Controls.Primitives
+  commentId: N:Avalonia.Controls.Primitives
+  isExternal: true
+  name: Avalonia.Controls.Primitives
+  nameWithType: Avalonia.Controls.Primitives
+  fullName: Avalonia.Controls.Primitives
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls.Primitives
+    name: Primitives
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls.Primitives
+    name: Primitives
+    isExternal: true
+- uid: Tripous.Desktop.ToolBar.AddTextBox*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddTextBox
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddTextBox_System_String_System_Double_
+  name: AddTextBox
+  nameWithType: ToolBar.AddTextBox
+  fullName: Tripous.Desktop.ToolBar.AddTextBox
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Avalonia.Controls.TextBox
+  commentId: T:Avalonia.Controls.TextBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TextBox
+  nameWithType: TextBox
+  fullName: Avalonia.Controls.TextBox
+- uid: Tripous.Desktop.ToolBar.AddTextBlock*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddTextBlock
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddTextBlock_System_String_
+  name: AddTextBlock
+  nameWithType: ToolBar.AddTextBlock
+  fullName: Tripous.Desktop.ToolBar.AddTextBlock
+- uid: Avalonia.Controls.TextBlock
+  commentId: T:Avalonia.Controls.TextBlock
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TextBlock
+  nameWithType: TextBlock
+  fullName: Avalonia.Controls.TextBlock
+- uid: Tripous.Desktop.ToolBar.AddLabel*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddLabel
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddLabel_System_String_
+  name: AddLabel
+  nameWithType: ToolBar.AddLabel
+  fullName: Tripous.Desktop.ToolBar.AddLabel
+- uid: Avalonia.Controls.Label
+  commentId: T:Avalonia.Controls.Label
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Label
+  nameWithType: Label
+  fullName: Avalonia.Controls.Label
+- uid: Tripous.Desktop.ToolBar.AddComboBox*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddComboBox
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddComboBox_System_Collections_IEnumerable_System_Int32_System_Double_
+  name: AddComboBox
+  nameWithType: ToolBar.AddComboBox
+  fullName: Tripous.Desktop.ToolBar.AddComboBox
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Avalonia.Controls.ComboBox
+  commentId: T:Avalonia.Controls.ComboBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ComboBox
+  nameWithType: ComboBox
+  fullName: Avalonia.Controls.ComboBox
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: Tripous.Desktop.ToolBar.AddCheckBox*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddCheckBox
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddCheckBox_System_String_System_Nullable_System_Boolean__
+  name: AddCheckBox
+  nameWithType: ToolBar.AddCheckBox
+  fullName: Tripous.Desktop.ToolBar.AddCheckBox
+- uid: System.Nullable{System.Boolean}
+  commentId: T:System.Nullable{System.Boolean}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool?
+  nameWithType: bool?
+  fullName: bool?
+  nameWithType.vb: Boolean?
+  fullName.vb: Boolean?
+  name.vb: Boolean?
+  spec.csharp:
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '?'
+  spec.vb:
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '?'
+- uid: Avalonia.Controls.CheckBox
+  commentId: T:Avalonia.Controls.CheckBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: CheckBox
+  nameWithType: CheckBox
+  fullName: Avalonia.Controls.CheckBox
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Desktop.ToolBar.Add*
+  commentId: Overload:Tripous.Desktop.ToolBar.Add
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_Add_Tripous_Command_
+  name: Add
+  nameWithType: ToolBar.Add
+  fullName: Tripous.Desktop.ToolBar.Add
+- uid: Tripous.Command
+  commentId: T:Tripous.Command
+  parent: Tripous
+  href: Tripous.Command.html
+  name: Command
+  nameWithType: Command
+  fullName: Tripous.Command
+- uid: Tripous.Desktop.ToolBar.AddRange*
+  commentId: Overload:Tripous.Desktop.ToolBar.AddRange
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_AddRange_System_Collections_Generic_IEnumerable_Tripous_Command__
+  name: AddRange
+  nameWithType: ToolBar.AddRange
+  fullName: Tripous.Desktop.ToolBar.AddRange
+- uid: System.Collections.Generic.IEnumerable{Tripous.Command}
+  commentId: T:System.Collections.Generic.IEnumerable{Tripous.Command}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<Command>
+  nameWithType: IEnumerable<Command>
+  fullName: System.Collections.Generic.IEnumerable<Tripous.Command>
+  nameWithType.vb: IEnumerable(Of Command)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Tripous.Command)
+  name.vb: IEnumerable(Of Command)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Tripous.Command
+    name: Command
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Command
+    name: Command
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Desktop.ToolBar.PlaceControlAfter*
+  commentId: Overload:Tripous.Desktop.ToolBar.PlaceControlAfter
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_PlaceControlAfter_Avalonia_Controls_Control_Avalonia_Controls_Control_
+  name: PlaceControlAfter
+  nameWithType: ToolBar.PlaceControlAfter
+  fullName: Tripous.Desktop.ToolBar.PlaceControlAfter
+- uid: Avalonia.Controls.Control
+  commentId: T:Avalonia.Controls.Control
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Control
+  nameWithType: Control
+  fullName: Avalonia.Controls.Control
+- uid: Tripous.Desktop.ToolBar.PlaceControlBefore*
+  commentId: Overload:Tripous.Desktop.ToolBar.PlaceControlBefore
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_PlaceControlBefore_Avalonia_Controls_Control_Avalonia_Controls_Control_
+  name: PlaceControlBefore
+  nameWithType: ToolBar.PlaceControlBefore
+  fullName: Tripous.Desktop.ToolBar.PlaceControlBefore
+- uid: Tripous.Desktop.ToolBar.PlaceSeparatorAfter*
+  commentId: Overload:Tripous.Desktop.ToolBar.PlaceSeparatorAfter
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_PlaceSeparatorAfter_Avalonia_Controls_Control_Avalonia_Controls_Border_
+  name: PlaceSeparatorAfter
+  nameWithType: ToolBar.PlaceSeparatorAfter
+  fullName: Tripous.Desktop.ToolBar.PlaceSeparatorAfter
+- uid: Tripous.Desktop.ToolBar.PlaceSeparatorBefore*
+  commentId: Overload:Tripous.Desktop.ToolBar.PlaceSeparatorBefore
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_PlaceSeparatorBefore_Avalonia_Controls_Control_Avalonia_Controls_Border_
+  name: PlaceSeparatorBefore
+  nameWithType: ToolBar.PlaceSeparatorBefore
+  fullName: Tripous.Desktop.ToolBar.PlaceSeparatorBefore
+- uid: Tripous.Desktop.ToolBar.GetButtons*
+  commentId: Overload:Tripous.Desktop.ToolBar.GetButtons
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_GetButtons
+  name: GetButtons
+  nameWithType: ToolBar.GetButtons
+  fullName: Tripous.Desktop.ToolBar.GetButtons
+- uid: Avalonia.Controls.Button[]
+  isExternal: true
+  name: Button[]
+  nameWithType: Button[]
+  fullName: Avalonia.Controls.Button[]
+  nameWithType.vb: Button()
+  fullName.vb: Avalonia.Controls.Button()
+  name.vb: Button()
+  spec.csharp:
+  - uid: Avalonia.Controls.Button
+    name: Button
+    isExternal: true
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Avalonia.Controls.Button
+    name: Button
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.ToolBar.GetControls*
+  commentId: Overload:Tripous.Desktop.ToolBar.GetControls
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_GetControls
+  name: GetControls
+  nameWithType: ToolBar.GetControls
+  fullName: Tripous.Desktop.ToolBar.GetControls
+- uid: Avalonia.Controls.Control[]
+  isExternal: true
+  name: Control[]
+  nameWithType: Control[]
+  fullName: Avalonia.Controls.Control[]
+  nameWithType.vb: Control()
+  fullName.vb: Avalonia.Controls.Control()
+  name.vb: Control()
+  spec.csharp:
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Avalonia.Controls.Control
+    name: Control
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.ToolBar.Panel*
+  commentId: Overload:Tripous.Desktop.ToolBar.Panel
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_Panel
+  name: Panel
+  nameWithType: ToolBar.Panel
+  fullName: Tripous.Desktop.ToolBar.Panel
+- uid: Tripous.Desktop.ToolBar.Container*
+  commentId: Overload:Tripous.Desktop.ToolBar.Container
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_Container
+  name: Container
+  nameWithType: ToolBar.Container
+  fullName: Tripous.Desktop.ToolBar.Container
+- uid: Tripous.Desktop.ToolBar.IsVisible*
+  commentId: Overload:Tripous.Desktop.ToolBar.IsVisible
+  href: Tripous.Desktop.ToolBar.html#Tripous_Desktop_ToolBar_IsVisible
+  name: IsVisible
+  nameWithType: ToolBar.IsVisible
+  fullName: Tripous.Desktop.ToolBar.IsVisible
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

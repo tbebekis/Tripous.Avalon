@@ -1,0 +1,4085 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DataModule
+  commentId: T:Tripous.Data.DataModule
+  id: DataModule
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DataModule.#ctor
+  - Tripous.Data.DataModule.AssignCodeProviderDef
+  - Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  - Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  - Tripous.Data.DataModule.Cancel
+  - Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+  - Tripous.Data.DataModule.CheckCanDelete(System.Object)
+  - Tripous.Data.DataModule.CheckCanEdit(System.Object)
+  - Tripous.Data.DataModule.CheckCanInsert
+  - Tripous.Data.DataModule.CodeProviderDef
+  - Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  - Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  - Tripous.Data.DataModule.Commit(System.Boolean)
+  - Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  - Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+  - Tripous.Data.DataModule.Commiting(System.Boolean)
+  - Tripous.Data.DataModule.CurrentRow
+  - Tripous.Data.DataModule.DataSet
+  - Tripous.Data.DataModule.Delete(System.Object)
+  - Tripous.Data.DataModule.Deleted(System.Object)
+  - Tripous.Data.DataModule.Deleting(System.Object)
+  - Tripous.Data.DataModule.DetailsActive
+  - Tripous.Data.DataModule.Edit(System.Object)
+  - Tripous.Data.DataModule.Edited(System.Object)
+  - Tripous.Data.DataModule.Editing(System.Object)
+  - Tripous.Data.DataModule.EndEdit
+  - Tripous.Data.DataModule.FindTable(System.String)
+  - Tripous.Data.DataModule.GetCodeProviderDef
+  - Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  - Tripous.Data.DataModule.GetTable(System.String)
+  - Tripous.Data.DataModule.HasChanges
+  - Tripous.Data.DataModule.Id
+  - Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  - Tripous.Data.DataModule.Insert
+  - Tripous.Data.DataModule.Inserted
+  - Tripous.Data.DataModule.Inserting
+  - Tripous.Data.DataModule.IsCommiting
+  - Tripous.Data.DataModule.IsDeleting
+  - Tripous.Data.DataModule.IsEditing
+  - Tripous.Data.DataModule.IsInitialized
+  - Tripous.Data.DataModule.IsInserting
+  - Tripous.Data.DataModule.Item(System.String)
+  - Tripous.Data.DataModule.ItemTables
+  - Tripous.Data.DataModule.LastCommitedId
+  - Tripous.Data.DataModule.LastDeletedId
+  - Tripous.Data.DataModule.LastEditedId
+  - Tripous.Data.DataModule.ListCancel
+  - Tripous.Data.DataModule.ListSave
+  - Tripous.Data.DataModule.ListSelect(System.String)
+  - Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  - Tripous.Data.DataModule.LoadDefaultValues
+  - Tripous.Data.DataModule.ModuleDef
+  - Tripous.Data.DataModule.MustReselectAfterCommit
+  - Tripous.Data.DataModule.Name
+  - Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  - Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  - Tripous.Data.DataModule.RowProviderHost
+  - Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetDefaultValues
+  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.State
+  - Tripous.Data.DataModule.Stocks
+  - Tripous.Data.DataModule.Store
+  - Tripous.Data.DataModule.TableExists(System.String)
+  - Tripous.Data.DataModule.TableSet
+  - Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+  - Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+  - Tripous.Data.DataModule.Tables
+  - Tripous.Data.DataModule.ToString
+  - Tripous.Data.DataModule.UpdateTableSchema
+  - Tripous.Data.DataModule.Variables
+  - Tripous.Data.DataModule.fIsCommiting
+  - Tripous.Data.DataModule.fIsDeleting
+  - Tripous.Data.DataModule.fIsEditing
+  - Tripous.Data.DataModule.fIsInserting
+  - Tripous.Data.DataModule.fVariables
+  - Tripous.Data.DataModule.tblItem
+  - Tripous.Data.DataModule.tblList
+  langs:
+  - csharp
+  - vb
+  name: DataModule
+  nameWithType: DataModule
+  fullName: Tripous.Data.DataModule
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataModule
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Base class for all data modules.
+
+
+    <p>A data module represents a table tree, such as SalesOrder along with a list SELECT table.</p>
+  example: []
+  syntax:
+    content: >-
+      [TypeStore]
+
+      public class DataModule
+    content.vb: >-
+      <TypeStore>
+
+      Public Class DataModule
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Tripous.Data.CodeProviderModule
+  - Tripous.Data.LogDataModule
+  - Tripous.Data.SysConfigModule
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  attributes:
+  - type: Tripous.TypeStoreAttribute
+    ctor: Tripous.TypeStoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.DataModule.fIsInserting
+  commentId: F:Tripous.Data.DataModule.fIsInserting
+  id: fIsInserting
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: fIsInserting
+  nameWithType: DataModule.fIsInserting
+  fullName: Tripous.Data.DataModule.fIsInserting
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fIsInserting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Field
+  example: []
+  syntax:
+    content: protected int fIsInserting
+    return:
+      type: System.Int32
+    content.vb: Protected fIsInserting As Integer
+- uid: Tripous.Data.DataModule.fIsEditing
+  commentId: F:Tripous.Data.DataModule.fIsEditing
+  id: fIsEditing
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: fIsEditing
+  nameWithType: DataModule.fIsEditing
+  fullName: Tripous.Data.DataModule.fIsEditing
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fIsEditing
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Field
+  example: []
+  syntax:
+    content: protected int fIsEditing
+    return:
+      type: System.Int32
+    content.vb: Protected fIsEditing As Integer
+- uid: Tripous.Data.DataModule.fIsDeleting
+  commentId: F:Tripous.Data.DataModule.fIsDeleting
+  id: fIsDeleting
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: fIsDeleting
+  nameWithType: DataModule.fIsDeleting
+  fullName: Tripous.Data.DataModule.fIsDeleting
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fIsDeleting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Field
+  example: []
+  syntax:
+    content: protected int fIsDeleting
+    return:
+      type: System.Int32
+    content.vb: Protected fIsDeleting As Integer
+- uid: Tripous.Data.DataModule.fIsCommiting
+  commentId: F:Tripous.Data.DataModule.fIsCommiting
+  id: fIsCommiting
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: fIsCommiting
+  nameWithType: DataModule.fIsCommiting
+  fullName: Tripous.Data.DataModule.fIsCommiting
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fIsCommiting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Field
+  example: []
+  syntax:
+    content: protected int fIsCommiting
+    return:
+      type: System.Int32
+    content.vb: Protected fIsCommiting As Integer
+- uid: Tripous.Data.DataModule.fVariables
+  commentId: F:Tripous.Data.DataModule.fVariables
+  id: fVariables
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: fVariables
+  nameWithType: DataModule.fVariables
+  fullName: Tripous.Data.DataModule.fVariables
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fVariables
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Field
+  example: []
+  syntax:
+    content: protected Dictionary<string, object> fVariables
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Protected fVariables As Dictionary(Of String, Object)
+- uid: Tripous.Data.DataModule.TableSet
+  commentId: F:Tripous.Data.DataModule.TableSet
+  id: TableSet
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: TableSet
+  nameWithType: DataModule.TableSet
+  fullName: Tripous.Data.DataModule.TableSet
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableSet
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Field
+  example: []
+  syntax:
+    content: protected TableSet TableSet
+    return:
+      type: Tripous.Data.TableSet
+    content.vb: Protected TableSet As TableSet
+- uid: Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+  commentId: M:Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+  id: TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: TableSet_TransactionStageDelete(object, TransactionEventArgs)
+  nameWithType: DataModule.TableSet_TransactionStageDelete(object, TransactionEventArgs)
+  fullName: Tripous.Data.DataModule.TableSet_TransactionStageDelete(object, Tripous.Data.TransactionEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableSet_TransactionStageDelete
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a notification from the TableSet when deleting
+  example: []
+  syntax:
+    content: protected virtual void TableSet_TransactionStageDelete(object sender, TransactionEventArgs e)
+    parameters:
+    - id: sender
+      type: System.Object
+    - id: e
+      type: Tripous.Data.TransactionEventArgs
+    content.vb: Protected Overridable Sub TableSet_TransactionStageDelete(sender As Object, e As TransactionEventArgs)
+  overload: Tripous.Data.DataModule.TableSet_TransactionStageDelete*
+  nameWithType.vb: DataModule.TableSet_TransactionStageDelete(Object, TransactionEventArgs)
+  fullName.vb: Tripous.Data.DataModule.TableSet_TransactionStageDelete(Object, Tripous.Data.TransactionEventArgs)
+  name.vb: TableSet_TransactionStageDelete(Object, TransactionEventArgs)
+- uid: Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+  commentId: M:Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+  id: TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: TableSet_TransactionStageCommit(object, TransactionEventArgs)
+  nameWithType: DataModule.TableSet_TransactionStageCommit(object, TransactionEventArgs)
+  fullName: Tripous.Data.DataModule.TableSet_TransactionStageCommit(object, Tripous.Data.TransactionEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableSet_TransactionStageCommit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 54
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a notification from the TableSet during commit transaction stages.
+  example: []
+  syntax:
+    content: protected virtual void TableSet_TransactionStageCommit(object sender, TransactionEventArgs e)
+    parameters:
+    - id: sender
+      type: System.Object
+    - id: e
+      type: Tripous.Data.TransactionEventArgs
+    content.vb: Protected Overridable Sub TableSet_TransactionStageCommit(sender As Object, e As TransactionEventArgs)
+  overload: Tripous.Data.DataModule.TableSet_TransactionStageCommit*
+  nameWithType.vb: DataModule.TableSet_TransactionStageCommit(Object, TransactionEventArgs)
+  fullName.vb: Tripous.Data.DataModule.TableSet_TransactionStageCommit(Object, Tripous.Data.TransactionEventArgs)
+  name.vb: TableSet_TransactionStageCommit(Object, TransactionEventArgs)
+- uid: Tripous.Data.DataModule.GetCodeProviderDef
+  commentId: M:Tripous.Data.DataModule.GetCodeProviderDef
+  id: GetCodeProviderDef
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: GetCodeProviderDef()
+  nameWithType: DataModule.GetCodeProviderDef()
+  fullName: Tripous.Data.DataModule.GetCodeProviderDef()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCodeProviderDef
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 69
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the <xref href="Tripous.Data.DataModule.CodeProviderDef" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: protected virtual CodeProviderDef GetCodeProviderDef()
+    return:
+      type: Tripous.Data.CodeProviderDef
+    content.vb: Protected Overridable Function GetCodeProviderDef() As CodeProviderDef
+  overload: Tripous.Data.DataModule.GetCodeProviderDef*
+- uid: Tripous.Data.DataModule.AssignCodeProviderDef
+  commentId: M:Tripous.Data.DataModule.AssignCodeProviderDef
+  id: AssignCodeProviderDef
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: AssignCodeProviderDef()
+  nameWithType: DataModule.AssignCodeProviderDef()
+  fullName: Tripous.Data.DataModule.AssignCodeProviderDef()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AssignCodeProviderDef
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Assigns the <xref href="Tripous.Data.DataModule.CodeProviderDef" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: protected virtual void AssignCodeProviderDef()
+    content.vb: Protected Overridable Sub AssignCodeProviderDef()
+  overload: Tripous.Data.DataModule.AssignCodeProviderDef*
+- uid: Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  commentId: M:Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  id: GetNextCodeLocked(System.Data.Common.DbTransaction)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: GetNextCodeLocked(DbTransaction)
+  nameWithType: DataModule.GetNextCodeLocked(DbTransaction)
+  fullName: Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetNextCodeLocked
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 85
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the next number using an atomic locked increment.
+
+    Handles reset safely inside the same transaction.
+  example: []
+  syntax:
+    content: public virtual string GetNextCodeLocked(DbTransaction Transaction)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    return:
+      type: System.String
+    content.vb: Public Overridable Function GetNextCodeLocked(Transaction As DbTransaction) As String
+  overload: Tripous.Data.DataModule.GetNextCodeLocked*
+- uid: Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  commentId: M:Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  id: AssignCodeValue(System.Data.Common.DbTransaction)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: AssignCodeValue(DbTransaction)
+  nameWithType: DataModule.AssignCodeValue(DbTransaction)
+  fullName: Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AssignCodeValue
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 152
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Called from inside a commit transaction in order to assign the Code column
+  example: []
+  syntax:
+    content: protected virtual void AssignCodeValue(DbTransaction Transaction)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    content.vb: Protected Overridable Sub AssignCodeValue(Transaction As DbTransaction)
+  overload: Tripous.Data.DataModule.AssignCodeValue*
+- uid: Tripous.Data.DataModule.LoadDefaultValues
+  commentId: M:Tripous.Data.DataModule.LoadDefaultValues
+  id: LoadDefaultValues
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: LoadDefaultValues()
+  nameWithType: DataModule.LoadDefaultValues()
+  fullName: Tripous.Data.DataModule.LoadDefaultValues()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoadDefaultValues
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 175
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Loads the default values, such as the default values for fields like CompanyId, CurrencyId, etc.
+  example: []
+  syntax:
+    content: protected virtual void LoadDefaultValues()
+    content.vb: Protected Overridable Sub LoadDefaultValues()
+  overload: Tripous.Data.DataModule.LoadDefaultValues*
+- uid: Tripous.Data.DataModule.SetDefaultValues
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues
+  id: SetDefaultValues
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: SetDefaultValues()
+  nameWithType: DataModule.SetDefaultValues()
+  fullName: Tripous.Data.DataModule.SetDefaultValues()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetDefaultValues
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 183
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets default values for all Tables.
+
+
+    <p>It is called by the DoInsertAfter() and DoCommitBefore() </p>
+  example: []
+  syntax:
+    content: protected virtual void SetDefaultValues()
+    content.vb: Protected Overridable Sub SetDefaultValues()
+  overload: Tripous.Data.DataModule.SetDefaultValues*
+- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  id: SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: SetDefaultValues(DataTable, TableDef)
+  nameWithType: DataModule.SetDefaultValues(DataTable, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, Tripous.Data.TableDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetDefaultValues
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 203
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets default values to the Table. It is called when a commit operation starts.
+  example: []
+  syntax:
+    content: protected virtual void SetDefaultValues(DataTable Table, TableDef TableDef)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: TableDef
+      type: Tripous.Data.TableDef
+    content.vb: Protected Overridable Sub SetDefaultValues(Table As DataTable, TableDef As TableDef)
+  overload: Tripous.Data.DataModule.SetDefaultValues*
+- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  id: SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: SetDefaultValues(DataTable, DataRow, TableDef)
+  nameWithType: DataModule.SetDefaultValues(DataTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetDefaultValues
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 214
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets default values to the Row. It is called when a commit operation starts.
+  example: []
+  syntax:
+    content: protected virtual void SetDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: Row
+      type: System.Data.DataRow
+    - id: TableDef
+      type: Tripous.Data.TableDef
+    content.vb: Protected Overridable Sub SetDefaultValues(Table As DataTable, Row As DataRow, TableDef As TableDef)
+  overload: Tripous.Data.DataModule.SetDefaultValues*
+- uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  id: SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: SetAuditDefaultValues(DataTable, DataRow, TableDef)
+  nameWithType: DataModule.SetAuditDefaultValues(DataTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetAuditDefaultValues
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 277
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets default values to the Row. It is called when a commit operation starts.
+
+
+    <p>NOTE: This method is called only for the <xref href="Tripous.Data.DataModule.tblItem" data-throw-if-not-resolved="false"></xref> table.</p>
+
+    <p>NOTE: This method sets the <code>CreatedBy, CreatedAt, ModifiedBy, ModifiedAt</code> field values, if they exist in the <xref href="Tripous.Data.DataModule.tblItem" data-throw-if-not-resolved="false"></xref>.</p>
+  example: []
+  syntax:
+    content: protected virtual void SetAuditDefaultValues(DataTable Table, DataRow Row, TableDef TableDef)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: Row
+      type: System.Data.DataRow
+    - id: TableDef
+      type: Tripous.Data.TableDef
+    content.vb: Protected Overridable Sub SetAuditDefaultValues(Table As DataTable, Row As DataRow, TableDef As TableDef)
+  overload: Tripous.Data.DataModule.SetAuditDefaultValues*
+- uid: Tripous.Data.DataModule.EndEdit
+  commentId: M:Tripous.Data.DataModule.EndEdit
+  id: EndEdit
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: EndEdit()
+  nameWithType: DataModule.EndEdit()
+  fullName: Tripous.Data.DataModule.EndEdit()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EndEdit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 299
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Called from inside <xref href="Tripous.Data.DataModule.Commit(System.Boolean)" data-throw-if-not-resolved="false"></xref>.
+
+
+    <p>NOTE: It looks like, in some cases, we have to call EndEdit() for the DataRow(s) to post the changes.</p>
+  example: []
+  syntax:
+    content: protected virtual void EndEdit()
+    content.vb: Protected Overridable Sub EndEdit()
+  overload: Tripous.Data.DataModule.EndEdit*
+- uid: Tripous.Data.DataModule.UpdateTableSchema
+  commentId: M:Tripous.Data.DataModule.UpdateTableSchema
+  id: UpdateTableSchema
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: UpdateTableSchema()
+  nameWithType: DataModule.UpdateTableSchema()
+  fullName: Tripous.Data.DataModule.UpdateTableSchema()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateTableSchema
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 316
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ensures that any TableDef is updated with the actual table schema from the database.
+  example: []
+  syntax:
+    content: protected virtual void UpdateTableSchema()
+    content.vb: Protected Overridable Sub UpdateTableSchema()
+  overload: Tripous.Data.DataModule.UpdateTableSchema*
+- uid: Tripous.Data.DataModule.Inserting
+  commentId: M:Tripous.Data.DataModule.Inserting
+  id: Inserting
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Inserting()
+  nameWithType: DataModule.Inserting()
+  fullName: Tripous.Data.DataModule.Inserting()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Inserting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 337
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Inserting()
+    content.vb: Protected Overridable Sub Inserting()
+  overload: Tripous.Data.DataModule.Inserting*
+- uid: Tripous.Data.DataModule.Inserted
+  commentId: M:Tripous.Data.DataModule.Inserted
+  id: Inserted
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Inserted()
+  nameWithType: DataModule.Inserted()
+  fullName: Tripous.Data.DataModule.Inserted()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Inserted
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 343
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Inserted()
+    content.vb: Protected Overridable Sub Inserted()
+  overload: Tripous.Data.DataModule.Inserted*
+- uid: Tripous.Data.DataModule.Editing(System.Object)
+  commentId: M:Tripous.Data.DataModule.Editing(System.Object)
+  id: Editing(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Editing(object)
+  nameWithType: DataModule.Editing(object)
+  fullName: Tripous.Data.DataModule.Editing(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Editing
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 349
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Editing(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Protected Overridable Sub Editing(RowId As Object)
+  overload: Tripous.Data.DataModule.Editing*
+  nameWithType.vb: DataModule.Editing(Object)
+  fullName.vb: Tripous.Data.DataModule.Editing(Object)
+  name.vb: Editing(Object)
+- uid: Tripous.Data.DataModule.Edited(System.Object)
+  commentId: M:Tripous.Data.DataModule.Edited(System.Object)
+  id: Edited(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Edited(object)
+  nameWithType: DataModule.Edited(object)
+  fullName: Tripous.Data.DataModule.Edited(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Edited
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 355
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Edited(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Protected Overridable Sub Edited(RowId As Object)
+  overload: Tripous.Data.DataModule.Edited*
+  nameWithType.vb: DataModule.Edited(Object)
+  fullName.vb: Tripous.Data.DataModule.Edited(Object)
+  name.vb: Edited(Object)
+- uid: Tripous.Data.DataModule.Deleting(System.Object)
+  commentId: M:Tripous.Data.DataModule.Deleting(System.Object)
+  id: Deleting(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Deleting(object)
+  nameWithType: DataModule.Deleting(object)
+  fullName: Tripous.Data.DataModule.Deleting(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Deleting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 361
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Deleting(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Protected Overridable Sub Deleting(RowId As Object)
+  overload: Tripous.Data.DataModule.Deleting*
+  nameWithType.vb: DataModule.Deleting(Object)
+  fullName.vb: Tripous.Data.DataModule.Deleting(Object)
+  name.vb: Deleting(Object)
+- uid: Tripous.Data.DataModule.Deleted(System.Object)
+  commentId: M:Tripous.Data.DataModule.Deleted(System.Object)
+  id: Deleted(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Deleted(object)
+  nameWithType: DataModule.Deleted(object)
+  fullName: Tripous.Data.DataModule.Deleted(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Deleted
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 367
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Deleted(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Protected Overridable Sub Deleted(RowId As Object)
+  overload: Tripous.Data.DataModule.Deleted*
+  nameWithType.vb: DataModule.Deleted(Object)
+  fullName.vb: Tripous.Data.DataModule.Deleted(Object)
+  name.vb: Deleted(Object)
+- uid: Tripous.Data.DataModule.Commiting(System.Boolean)
+  commentId: M:Tripous.Data.DataModule.Commiting(System.Boolean)
+  id: Commiting(System.Boolean)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Commiting(bool)
+  nameWithType: DataModule.Commiting(bool)
+  fullName: Tripous.Data.DataModule.Commiting(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Commiting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 373
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Commiting(bool Reselect)
+    parameters:
+    - id: Reselect
+      type: System.Boolean
+    content.vb: Protected Overridable Sub Commiting(Reselect As Boolean)
+  overload: Tripous.Data.DataModule.Commiting*
+  nameWithType.vb: DataModule.Commiting(Boolean)
+  fullName.vb: Tripous.Data.DataModule.Commiting(Boolean)
+  name.vb: Commiting(Boolean)
+- uid: Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+  commentId: M:Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+  id: Commited(System.Boolean,System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Commited(bool, object)
+  nameWithType: DataModule.Commited(bool, object)
+  fullName: Tripous.Data.DataModule.Commited(bool, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Commited
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 379
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual void Commited(bool Reselect, object RowId)
+    parameters:
+    - id: Reselect
+      type: System.Boolean
+    - id: RowId
+      type: System.Object
+    content.vb: Protected Overridable Sub Commited(Reselect As Boolean, RowId As Object)
+  overload: Tripous.Data.DataModule.Commited*
+  nameWithType.vb: DataModule.Commited(Boolean, Object)
+  fullName.vb: Tripous.Data.DataModule.Commited(Boolean, Object)
+  name.vb: Commited(Boolean, Object)
+- uid: Tripous.Data.DataModule.MustReselectAfterCommit
+  commentId: M:Tripous.Data.DataModule.MustReselectAfterCommit
+  id: MustReselectAfterCommit
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: MustReselectAfterCommit()
+  nameWithType: DataModule.MustReselectAfterCommit()
+  fullName: Tripous.Data.DataModule.MustReselectAfterCommit()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MustReselectAfterCommit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 385
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Notification method
+  example: []
+  syntax:
+    content: protected virtual bool MustReselectAfterCommit()
+    return:
+      type: System.Boolean
+    content.vb: Protected Overridable Function MustReselectAfterCommit() As Boolean
+  overload: Tripous.Data.DataModule.MustReselectAfterCommit*
+- uid: Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  commentId: M:Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  id: ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ColumnChanging(MemTable, DataColumnChangeEventArgs)
+  nameWithType: DataModule.ColumnChanging(MemTable, DataColumnChangeEventArgs)
+  fullName: Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable, System.Data.DataColumnChangeEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnChanging
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 390
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Event handler
+  example: []
+  syntax:
+    content: protected virtual void ColumnChanging(MemTable Table, DataColumnChangeEventArgs ea)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: ea
+      type: System.Data.DataColumnChangeEventArgs
+    content.vb: Protected Overridable Sub ColumnChanging(Table As MemTable, ea As DataColumnChangeEventArgs)
+  overload: Tripous.Data.DataModule.ColumnChanging*
+- uid: Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  commentId: M:Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  id: ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ColumnChanged(MemTable, DataColumnChangeEventArgs)
+  nameWithType: DataModule.ColumnChanged(MemTable, DataColumnChangeEventArgs)
+  fullName: Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable, System.Data.DataColumnChangeEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnChanged
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 396
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Event handler
+  example: []
+  syntax:
+    content: protected virtual void ColumnChanged(MemTable Table, DataColumnChangeEventArgs ea)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: ea
+      type: System.Data.DataColumnChangeEventArgs
+    content.vb: Protected Overridable Sub ColumnChanged(Table As MemTable, ea As DataColumnChangeEventArgs)
+  overload: Tripous.Data.DataModule.ColumnChanged*
+- uid: Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  commentId: M:Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  id: NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: NewRowAdding(MemTable, DataTableNewRowEventArgs)
+  nameWithType: DataModule.NewRowAdding(MemTable, DataTableNewRowEventArgs)
+  fullName: Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable, System.Data.DataTableNewRowEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NewRowAdding
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 403
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Event handler
+
+    WARNING: the new row is not in rows yet
+  example: []
+  syntax:
+    content: protected virtual void NewRowAdding(MemTable Table, DataTableNewRowEventArgs ea)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: ea
+      type: System.Data.DataTableNewRowEventArgs
+    content.vb: Protected Overridable Sub NewRowAdding(Table As MemTable, ea As DataTableNewRowEventArgs)
+  overload: Tripous.Data.DataModule.NewRowAdding*
+- uid: Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  commentId: M:Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  id: NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: NewRowAdded(MemTable, DataTableNewRowEventArgs)
+  nameWithType: DataModule.NewRowAdded(MemTable, DataTableNewRowEventArgs)
+  fullName: Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable, System.Data.DataTableNewRowEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NewRowAdded
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 409
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Event handler
+  example: []
+  syntax:
+    content: protected virtual void NewRowAdded(MemTable Table, DataTableNewRowEventArgs ea)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: ea
+      type: System.Data.DataTableNewRowEventArgs
+    content.vb: Protected Overridable Sub NewRowAdded(Table As MemTable, ea As DataTableNewRowEventArgs)
+  overload: Tripous.Data.DataModule.NewRowAdded*
+- uid: Tripous.Data.DataModule.#ctor
+  commentId: M:Tripous.Data.DataModule.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: DataModule()
+  nameWithType: DataModule.DataModule()
+  fullName: Tripous.Data.DataModule.DataModule()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 418
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public DataModule()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.DataModule.#ctor*
+  nameWithType.vb: DataModule.New()
+  fullName.vb: Tripous.Data.DataModule.New()
+  name.vb: New()
+- uid: Tripous.Data.DataModule.ToString
+  commentId: M:Tripous.Data.DataModule.ToString
+  id: ToString
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: DataModule.ToString()
+  fullName: Tripous.Data.DataModule.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 425
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string representation of this instance.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Data.DataModule.ToString*
+- uid: Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  commentId: M:Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  id: Initialize(Tripous.Data.ModuleDef)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Initialize(ModuleDef)
+  nameWithType: DataModule.Initialize(ModuleDef)
+  fullName: Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Initialize
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 432
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes this instance.
+  example: []
+  syntax:
+    content: public virtual void Initialize(ModuleDef ModuleDef)
+    parameters:
+    - id: ModuleDef
+      type: Tripous.Data.ModuleDef
+      description: ''
+    content.vb: Public Overridable Sub Initialize(ModuleDef As ModuleDef)
+  overload: Tripous.Data.DataModule.Initialize*
+- uid: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  commentId: M:Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  id: ListSelect(Tripous.Data.SelectDef)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ListSelect(SelectDef)
+  nameWithType: DataModule.ListSelect(SelectDef)
+  fullName: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListSelect
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 582
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Selects the list table.
+  example: []
+  syntax:
+    content: public virtual void ListSelect(SelectDef SelectDef)
+    parameters:
+    - id: SelectDef
+      type: Tripous.Data.SelectDef
+    content.vb: Public Overridable Sub ListSelect(SelectDef As SelectDef)
+  overload: Tripous.Data.DataModule.ListSelect*
+- uid: Tripous.Data.DataModule.ListSelect(System.String)
+  commentId: M:Tripous.Data.DataModule.ListSelect(System.String)
+  id: ListSelect(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ListSelect(string)
+  nameWithType: DataModule.ListSelect(string)
+  fullName: Tripous.Data.DataModule.ListSelect(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListSelect
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 590
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Selects the list table.
+  example: []
+  syntax:
+    content: public virtual void ListSelect(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+    content.vb: Public Overridable Sub ListSelect(SqlText As String)
+  overload: Tripous.Data.DataModule.ListSelect*
+  nameWithType.vb: DataModule.ListSelect(String)
+  fullName.vb: Tripous.Data.DataModule.ListSelect(String)
+  name.vb: ListSelect(String)
+- uid: Tripous.Data.DataModule.ListSave
+  commentId: M:Tripous.Data.DataModule.ListSave
+  id: ListSave
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ListSave()
+  nameWithType: DataModule.ListSave()
+  fullName: Tripous.Data.DataModule.ListSave()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListSave
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 598
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Saves the list table.
+  example: []
+  syntax:
+    content: public virtual void ListSave()
+    content.vb: Public Overridable Sub ListSave()
+  overload: Tripous.Data.DataModule.ListSave*
+- uid: Tripous.Data.DataModule.ListCancel
+  commentId: M:Tripous.Data.DataModule.ListCancel
+  id: ListCancel
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ListCancel()
+  nameWithType: DataModule.ListCancel()
+  fullName: Tripous.Data.DataModule.ListCancel()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListCancel
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 602
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Rejects the changes in the list table.
+  example: []
+  syntax:
+    content: public virtual void ListCancel()
+    content.vb: Public Overridable Sub ListCancel()
+  overload: Tripous.Data.DataModule.ListCancel*
+- uid: Tripous.Data.DataModule.Insert
+  commentId: M:Tripous.Data.DataModule.Insert
+  id: Insert
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Insert()
+  nameWithType: DataModule.Insert()
+  fullName: Tripous.Data.DataModule.Insert()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Insert
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 608
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Starts an insert operation. Valid with master modules only.
+  example: []
+  syntax:
+    content: public virtual void Insert()
+    content.vb: Public Overridable Sub Insert()
+  overload: Tripous.Data.DataModule.Insert*
+- uid: Tripous.Data.DataModule.Edit(System.Object)
+  commentId: M:Tripous.Data.DataModule.Edit(System.Object)
+  id: Edit(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Edit(object)
+  nameWithType: DataModule.Edit(object)
+  fullName: Tripous.Data.DataModule.Edit(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Edit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 628
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Starts an edit operation. Valid with master modules only.
+  example: []
+  syntax:
+    content: public virtual void Edit(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Public Overridable Sub Edit(RowId As Object)
+  overload: Tripous.Data.DataModule.Edit*
+  nameWithType.vb: DataModule.Edit(Object)
+  fullName.vb: Tripous.Data.DataModule.Edit(Object)
+  name.vb: Edit(Object)
+- uid: Tripous.Data.DataModule.Delete(System.Object)
+  commentId: M:Tripous.Data.DataModule.Delete(System.Object)
+  id: Delete(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Delete(object)
+  nameWithType: DataModule.Delete(object)
+  fullName: Tripous.Data.DataModule.Delete(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Delete
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 649
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Deletes a row. Valid with master modules only.
+  example: []
+  syntax:
+    content: public virtual void Delete(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Public Overridable Sub Delete(RowId As Object)
+  overload: Tripous.Data.DataModule.Delete*
+  nameWithType.vb: DataModule.Delete(Object)
+  fullName.vb: Tripous.Data.DataModule.Delete(Object)
+  name.vb: Delete(Object)
+- uid: Tripous.Data.DataModule.Commit(System.Boolean)
+  commentId: M:Tripous.Data.DataModule.Commit(System.Boolean)
+  id: Commit(System.Boolean)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Commit(bool)
+  nameWithType: DataModule.Commit(bool)
+  fullName: Tripous.Data.DataModule.Commit(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Commit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 671
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Commits changes after an insert or edit. Valid with master modules only.
+
+
+    <p>Returns the row id of the tblItem commited row.</p>
+  example: []
+  syntax:
+    content: public virtual object Commit(bool Reselect = false)
+    parameters:
+    - id: Reselect
+      type: System.Boolean
+    return:
+      type: System.Object
+    content.vb: Public Overridable Function Commit(Reselect As Boolean = False) As Object
+  overload: Tripous.Data.DataModule.Commit*
+  nameWithType.vb: DataModule.Commit(Boolean)
+  fullName.vb: Tripous.Data.DataModule.Commit(Boolean)
+  name.vb: Commit(Boolean)
+- uid: Tripous.Data.DataModule.Cancel
+  commentId: M:Tripous.Data.DataModule.Cancel
+  id: Cancel
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Cancel()
+  nameWithType: DataModule.Cancel()
+  fullName: Tripous.Data.DataModule.Cancel()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Cancel
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 701
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Rejects the changes after an insert or edit. Valid with master modules only.
+  example: []
+  syntax:
+    content: public virtual void Cancel()
+    content.vb: Public Overridable Sub Cancel()
+  overload: Tripous.Data.DataModule.Cancel*
+- uid: Tripous.Data.DataModule.HasChanges
+  commentId: M:Tripous.Data.DataModule.HasChanges
+  id: HasChanges
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: HasChanges()
+  nameWithType: DataModule.HasChanges()
+  fullName: Tripous.Data.DataModule.HasChanges()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasChanges
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 709
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if <xref href="Tripous.Data.TableSet.ItemTable" data-throw-if-not-resolved="false"></xref> table, or any of its details, in any depth, has changes.
+  example: []
+  syntax:
+    content: public virtual bool HasChanges()
+    return:
+      type: System.Boolean
+    content.vb: Public Overridable Function HasChanges() As Boolean
+  overload: Tripous.Data.DataModule.HasChanges*
+- uid: Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  commentId: M:Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  id: CommitBatch(Tripous.Data.BatchCommitArgs)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CommitBatch(BatchCommitArgs)
+  nameWithType: DataModule.CommitBatch(BatchCommitArgs)
+  fullName: Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CommitBatch
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 717
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A Commit() version for batch operations.
+
+
+    <p>Starts a transaction and keeps on calling <xref href="Tripous.Data.BatchCommitArgs.BeforeFunc" data-throw-if-not-resolved="false"></xref> while <xref href="Tripous.Data.BatchCommitArgs.AfterFunc" data-throw-if-not-resolved="false"></xref>  returns true.</p>
+
+    <p>Commits the transaction each time the <xref href="Tripous.Data.BatchCommitArgs.TransLimit" data-throw-if-not-resolved="false"></xref> is reached.</p>
+
+    <p>NOTE: <xref href="Tripous.Data.BatchCommitArgs.BeforeFunc" data-throw-if-not-resolved="false"></xref> and <xref href="Tripous.Data.BatchCommitArgs.AfterFunc" data-throw-if-not-resolved="false"></xref> are optional.</p>
+  example: []
+  syntax:
+    content: public virtual void CommitBatch(BatchCommitArgs Args)
+    parameters:
+    - id: Args
+      type: Tripous.Data.BatchCommitArgs
+    content.vb: Public Overridable Sub CommitBatch(Args As BatchCommitArgs)
+  overload: Tripous.Data.DataModule.CommitBatch*
+- uid: Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  id: BatchInsert(System.Data.DataTable)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: BatchInsert(DataTable)
+  nameWithType: DataModule.BatchInsert(DataTable)
+  fullName: Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BatchInsert
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 722
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Inserts rows from a source table using batch commit.
+  example: []
+  syntax:
+    content: public virtual void BatchInsert(DataTable tblSource)
+    parameters:
+    - id: tblSource
+      type: System.Data.DataTable
+    content.vb: Public Overridable Sub BatchInsert(tblSource As DataTable)
+  overload: Tripous.Data.DataModule.BatchInsert*
+- uid: Tripous.Data.DataModule.CheckCanInsert
+  commentId: M:Tripous.Data.DataModule.CheckCanInsert
+  id: CheckCanInsert
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CheckCanInsert()
+  nameWithType: DataModule.CheckCanInsert()
+  fullName: Tripous.Data.DataModule.CheckCanInsert()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckCanInsert
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 787
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Called by the <xref href="Tripous.Data.DataModule.Insert" data-throw-if-not-resolved="false"></xref> and throws an exception if, for some reason,
+
+    starting an insert operation is considered invalid.
+  example: []
+  syntax:
+    content: public virtual void CheckCanInsert()
+    content.vb: Public Overridable Sub CheckCanInsert()
+  overload: Tripous.Data.DataModule.CheckCanInsert*
+- uid: Tripous.Data.DataModule.CheckCanEdit(System.Object)
+  commentId: M:Tripous.Data.DataModule.CheckCanEdit(System.Object)
+  id: CheckCanEdit(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CheckCanEdit(object)
+  nameWithType: DataModule.CheckCanEdit(object)
+  fullName: Tripous.Data.DataModule.CheckCanEdit(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckCanEdit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 794
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Called by the <xref href="Tripous.Data.DataModule.Edit(System.Object)" data-throw-if-not-resolved="false"></xref> and throws an exception if, for some reason,
+
+    starting an edit operation is considered invalid.
+  example: []
+  syntax:
+    content: public virtual void CheckCanEdit(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Public Overridable Sub CheckCanEdit(RowId As Object)
+  overload: Tripous.Data.DataModule.CheckCanEdit*
+  nameWithType.vb: DataModule.CheckCanEdit(Object)
+  fullName.vb: Tripous.Data.DataModule.CheckCanEdit(Object)
+  name.vb: CheckCanEdit(Object)
+- uid: Tripous.Data.DataModule.CheckCanDelete(System.Object)
+  commentId: M:Tripous.Data.DataModule.CheckCanDelete(System.Object)
+  id: CheckCanDelete(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CheckCanDelete(object)
+  nameWithType: DataModule.CheckCanDelete(object)
+  fullName: Tripous.Data.DataModule.CheckCanDelete(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckCanDelete
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 803
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Called by the <xref href="Tripous.Data.DataModule.Delete(System.Object)" data-throw-if-not-resolved="false"></xref> and throws an exception if, for some reason,
+
+    deleting the row in the database is considered invalid.
+  example: []
+  syntax:
+    content: public virtual void CheckCanDelete(object RowId)
+    parameters:
+    - id: RowId
+      type: System.Object
+    content.vb: Public Overridable Sub CheckCanDelete(RowId As Object)
+  overload: Tripous.Data.DataModule.CheckCanDelete*
+  nameWithType.vb: DataModule.CheckCanDelete(Object)
+  fullName.vb: Tripous.Data.DataModule.CheckCanDelete(Object)
+  name.vb: CheckCanDelete(Object)
+- uid: Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+  commentId: M:Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+  id: CheckCanCommit(System.Boolean)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CheckCanCommit(bool)
+  nameWithType: DataModule.CheckCanCommit(bool)
+  fullName: Tripous.Data.DataModule.CheckCanCommit(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckCanCommit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 812
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Called by the <xref href="Tripous.Data.DataModule.Commit(System.Boolean)" data-throw-if-not-resolved="false"></xref> and throws an exception if, for some reason,
+
+    commiting item is considered invalid.
+  example: []
+  syntax:
+    content: public virtual void CheckCanCommit(bool Reselect)
+    parameters:
+    - id: Reselect
+      type: System.Boolean
+    content.vb: Public Overridable Sub CheckCanCommit(Reselect As Boolean)
+  overload: Tripous.Data.DataModule.CheckCanCommit*
+  nameWithType.vb: DataModule.CheckCanCommit(Boolean)
+  fullName.vb: Tripous.Data.DataModule.CheckCanCommit(Boolean)
+  name.vb: CheckCanCommit(Boolean)
+- uid: Tripous.Data.DataModule.TableExists(System.String)
+  commentId: M:Tripous.Data.DataModule.TableExists(System.String)
+  id: TableExists(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: TableExists(string)
+  nameWithType: DataModule.TableExists(string)
+  fullName: Tripous.Data.DataModule.TableExists(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableExists
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 819
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True if a table exists, by name.
+  example: []
+  syntax:
+    content: public bool TableExists(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function TableExists(TableName As String) As Boolean
+  overload: Tripous.Data.DataModule.TableExists*
+  nameWithType.vb: DataModule.TableExists(String)
+  fullName.vb: Tripous.Data.DataModule.TableExists(String)
+  name.vb: TableExists(String)
+- uid: Tripous.Data.DataModule.FindTable(System.String)
+  commentId: M:Tripous.Data.DataModule.FindTable(System.String)
+  id: FindTable(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: FindTable(string)
+  nameWithType: DataModule.FindTable(string)
+  fullName: Tripous.Data.DataModule.FindTable(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindTable
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 823
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Finds a table by name, if any, else null.
+  example: []
+  syntax:
+    content: public MemTable FindTable(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Function FindTable(TableName As String) As MemTable
+  overload: Tripous.Data.DataModule.FindTable*
+  nameWithType.vb: DataModule.FindTable(String)
+  fullName.vb: Tripous.Data.DataModule.FindTable(String)
+  name.vb: FindTable(String)
+- uid: Tripous.Data.DataModule.GetTable(System.String)
+  commentId: M:Tripous.Data.DataModule.GetTable(System.String)
+  id: GetTable(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: GetTable(string)
+  nameWithType: DataModule.GetTable(string)
+  fullName: Tripous.Data.DataModule.GetTable(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetTable
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 827
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a table by name, if any, else exception.
+  example: []
+  syntax:
+    content: public MemTable GetTable(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Function GetTable(TableName As String) As MemTable
+  overload: Tripous.Data.DataModule.GetTable*
+  nameWithType.vb: DataModule.GetTable(String)
+  fullName.vb: Tripous.Data.DataModule.GetTable(String)
+  name.vb: GetTable(String)
+- uid: Tripous.Data.DataModule.IsInitialized
+  commentId: P:Tripous.Data.DataModule.IsInitialized
+  id: IsInitialized
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: IsInitialized
+  nameWithType: DataModule.IsInitialized
+  fullName: Tripous.Data.DataModule.IsInitialized
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsInitialized
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 841
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True if the module is initialized.
+  example: []
+  syntax:
+    content: public bool IsInitialized { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsInitialized As Boolean
+  overload: Tripous.Data.DataModule.IsInitialized*
+- uid: Tripous.Data.DataModule.ModuleDef
+  commentId: P:Tripous.Data.DataModule.ModuleDef
+  id: ModuleDef
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ModuleDef
+  nameWithType: DataModule.ModuleDef
+  fullName: Tripous.Data.DataModule.ModuleDef
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleDef
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 845
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module definition.
+  example: []
+  syntax:
+    content: public ModuleDef ModuleDef { get; protected set; }
+    parameters: []
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Property ModuleDef As ModuleDef
+  overload: Tripous.Data.DataModule.ModuleDef*
+- uid: Tripous.Data.DataModule.CodeProviderDef
+  commentId: P:Tripous.Data.DataModule.CodeProviderDef
+  id: CodeProviderDef
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CodeProviderDef
+  nameWithType: DataModule.CodeProviderDef
+  fullName: Tripous.Data.DataModule.CodeProviderDef
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CodeProviderDef
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 849
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The code provider definition.
+  example: []
+  syntax:
+    content: public CodeProviderDef CodeProviderDef { get; protected set; }
+    parameters: []
+    return:
+      type: Tripous.Data.CodeProviderDef
+    content.vb: Public Property CodeProviderDef As CodeProviderDef
+  overload: Tripous.Data.DataModule.CodeProviderDef*
+- uid: Tripous.Data.DataModule.Store
+  commentId: P:Tripous.Data.DataModule.Store
+  id: Store
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Store
+  nameWithType: DataModule.Store
+  fullName: Tripous.Data.DataModule.Store
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Store
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 853
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The <xref href="Tripous.Data.SqlStore" data-throw-if-not-resolved="false"></xref> instance."/&gt;
+  example: []
+  syntax:
+    content: public SqlStore Store { get; protected set; }
+    parameters: []
+    return:
+      type: Tripous.Data.SqlStore
+    content.vb: Public Property Store As SqlStore
+  overload: Tripous.Data.DataModule.Store*
+- uid: Tripous.Data.DataModule.Item(System.String)
+  commentId: P:Tripous.Data.DataModule.Item(System.String)
+  id: Item(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: this[string]
+  nameWithType: DataModule.this[string]
+  fullName: Tripous.Data.DataModule.this[string]
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: this[]
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 858
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An indexer with all tables
+  example: []
+  syntax:
+    content: public MemTable this[string TableName] { get; }
+    parameters:
+    - id: TableName
+      type: System.String
+      description: ''
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public ReadOnly Default Property this[](TableName As String) As MemTable
+  overload: Tripous.Data.DataModule.Item*
+  nameWithType.vb: DataModule.this[](String)
+  fullName.vb: Tripous.Data.DataModule.this[](String)
+  name.vb: this[](String)
+- uid: Tripous.Data.DataModule.DataSet
+  commentId: P:Tripous.Data.DataModule.DataSet
+  id: DataSet
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: DataSet
+  nameWithType: DataModule.DataSet
+  fullName: Tripous.Data.DataModule.DataSet
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataSet
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 862
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The DataSet of the module.
+  example: []
+  syntax:
+    content: public DataSet DataSet { get; protected set; }
+    parameters: []
+    return:
+      type: System.Data.DataSet
+    content.vb: Public Property DataSet As DataSet
+  overload: Tripous.Data.DataModule.DataSet*
+- uid: Tripous.Data.DataModule.tblList
+  commentId: P:Tripous.Data.DataModule.tblList
+  id: tblList
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: tblList
+  nameWithType: DataModule.tblList
+  fullName: Tripous.Data.DataModule.tblList
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: tblList
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 866
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list table, the one that has the list SELECT data
+  example: []
+  syntax:
+    content: public MemTable tblList { get; protected set; }
+    parameters: []
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Property tblList As MemTable
+  overload: Tripous.Data.DataModule.tblList*
+- uid: Tripous.Data.DataModule.tblItem
+  commentId: P:Tripous.Data.DataModule.tblItem
+  id: tblItem
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: tblItem
+  nameWithType: DataModule.tblItem
+  fullName: Tripous.Data.DataModule.tblItem
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: tblItem
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 870
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The top table of the table tree. Is always a single-row table.
+  example: []
+  syntax:
+    content: public MemTable tblItem { get; protected set; }
+    parameters: []
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Property tblItem As MemTable
+  overload: Tripous.Data.DataModule.tblItem*
+- uid: Tripous.Data.DataModule.Tables
+  commentId: P:Tripous.Data.DataModule.Tables
+  id: Tables
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Tables
+  nameWithType: DataModule.Tables
+  fullName: Tripous.Data.DataModule.Tables
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tables
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 874
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: All tables, <xref href="Tripous.Data.DataModule.tblList" data-throw-if-not-resolved="false"></xref> included.
+  example: []
+  syntax:
+    content: public IEnumerable<MemTable> Tables { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEnumerable{Tripous.Data.MemTable}
+    content.vb: Public ReadOnly Property Tables As IEnumerable(Of MemTable)
+  overload: Tripous.Data.DataModule.Tables*
+- uid: Tripous.Data.DataModule.ItemTables
+  commentId: F:Tripous.Data.DataModule.ItemTables
+  id: ItemTables
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ItemTables
+  nameWithType: DataModule.ItemTables
+  fullName: Tripous.Data.DataModule.ItemTables
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemTables
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 878
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The item tables only. <xref href="Tripous.Data.DataModule.tblList" data-throw-if-not-resolved="false"></xref> is not included."
+  example: []
+  syntax:
+    content: public List<MemTable> ItemTables
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.MemTable}
+    content.vb: Public ItemTables As List(Of MemTable)
+- uid: Tripous.Data.DataModule.Stocks
+  commentId: P:Tripous.Data.DataModule.Stocks
+  id: Stocks
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Stocks
+  nameWithType: DataModule.Stocks
+  fullName: Tripous.Data.DataModule.Stocks
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Stocks
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 882
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The stock tables.
+  example: []
+  syntax:
+    content: public List<MemTable> Stocks { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.MemTable}
+    content.vb: Public ReadOnly Property Stocks As List(Of MemTable)
+  overload: Tripous.Data.DataModule.Stocks*
+- uid: Tripous.Data.DataModule.Name
+  commentId: P:Tripous.Data.DataModule.Name
+  id: Name
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: DataModule.Name
+  fullName: Tripous.Data.DataModule.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 886
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The name of this module
+  example: []
+  syntax:
+    content: public string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Name As String
+  overload: Tripous.Data.DataModule.Name*
+- uid: Tripous.Data.DataModule.DetailsActive
+  commentId: P:Tripous.Data.DataModule.DetailsActive
+  id: DetailsActive
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: DetailsActive
+  nameWithType: DataModule.DetailsActive
+  fullName: Tripous.Data.DataModule.DetailsActive
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailsActive
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 890
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When true then detail relationships are active.
+  example: []
+  syntax:
+    content: public bool DetailsActive { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property DetailsActive As Boolean
+  overload: Tripous.Data.DataModule.DetailsActive*
+- uid: Tripous.Data.DataModule.RowProviderHost
+  commentId: P:Tripous.Data.DataModule.RowProviderHost
+  id: RowProviderHost
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: RowProviderHost
+  nameWithType: DataModule.RowProviderHost
+  fullName: Tripous.Data.DataModule.RowProviderHost
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowProviderHost
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 898
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The row provider host of this module. Typically the <xref href="Tripous.Data.DataModule.tblItem" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public IRowProviderHost RowProviderHost { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.IRowProviderHost
+    content.vb: Public ReadOnly Property RowProviderHost As IRowProviderHost
+  overload: Tripous.Data.DataModule.RowProviderHost*
+- uid: Tripous.Data.DataModule.State
+  commentId: P:Tripous.Data.DataModule.State
+  id: State
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: State
+  nameWithType: DataModule.State
+  fullName: Tripous.Data.DataModule.State
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: State
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 906
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the "data State" of the module. It could be Insert, Edit or None.
+
+
+    <p>The State remains Insert or Edit after the Insert() or Edit() is called. 
+
+    A call to Commit() sets the State to Edit. </p>
+  example: []
+  syntax:
+    content: public DataMode State { get; protected set; }
+    parameters: []
+    return:
+      type: Tripous.Data.DataMode
+    content.vb: Public Property State As DataMode
+  overload: Tripous.Data.DataModule.State*
+- uid: Tripous.Data.DataModule.IsInserting
+  commentId: P:Tripous.Data.DataModule.IsInserting
+  id: IsInserting
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: IsInserting
+  nameWithType: DataModule.IsInserting
+  fullName: Tripous.Data.DataModule.IsInserting
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsInserting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 910
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True while inserting, that is while Insert() executes.
+  example: []
+  syntax:
+    content: public bool IsInserting { get; protected set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsInserting As Boolean
+  overload: Tripous.Data.DataModule.IsInserting*
+- uid: Tripous.Data.DataModule.IsEditing
+  commentId: P:Tripous.Data.DataModule.IsEditing
+  id: IsEditing
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: IsEditing
+  nameWithType: DataModule.IsEditing
+  fullName: Tripous.Data.DataModule.IsEditing
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsEditing
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 927
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True while loading, that is while Edit() executes.
+  example: []
+  syntax:
+    content: public bool IsEditing { get; protected set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsEditing As Boolean
+  overload: Tripous.Data.DataModule.IsEditing*
+- uid: Tripous.Data.DataModule.IsDeleting
+  commentId: P:Tripous.Data.DataModule.IsDeleting
+  id: IsDeleting
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: IsDeleting
+  nameWithType: DataModule.IsDeleting
+  fullName: Tripous.Data.DataModule.IsDeleting
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDeleting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 944
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True while deleting, that is while Delete() executes.
+  example: []
+  syntax:
+    content: public bool IsDeleting { get; protected set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsDeleting As Boolean
+  overload: Tripous.Data.DataModule.IsDeleting*
+- uid: Tripous.Data.DataModule.IsCommiting
+  commentId: P:Tripous.Data.DataModule.IsCommiting
+  id: IsCommiting
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: IsCommiting
+  nameWithType: DataModule.IsCommiting
+  fullName: Tripous.Data.DataModule.IsCommiting
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsCommiting
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 961
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True while commiting, that is while Commit() executes.
+  example: []
+  syntax:
+    content: public bool IsCommiting { get; protected set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsCommiting As Boolean
+  overload: Tripous.Data.DataModule.IsCommiting*
+- uid: Tripous.Data.DataModule.Variables
+  commentId: P:Tripous.Data.DataModule.Variables
+  id: Variables
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Variables
+  nameWithType: DataModule.Variables
+  fullName: Tripous.Data.DataModule.Variables
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Variables
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 979
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the variables of the module.
+  example: []
+  syntax:
+    content: public Dictionary<string, object> Variables { get; protected set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Property Variables As Dictionary(Of String, Object)
+  overload: Tripous.Data.DataModule.Variables*
+- uid: Tripous.Data.DataModule.CurrentRow
+  commentId: P:Tripous.Data.DataModule.CurrentRow
+  id: CurrentRow
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CurrentRow
+  nameWithType: DataModule.CurrentRow
+  fullName: Tripous.Data.DataModule.CurrentRow
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CurrentRow
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 989
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the first row of the tblItem.
+
+
+    <p>WARNING: Valid only in insert and edit mode.</p>
+  example: []
+  syntax:
+    content: public virtual DataRow CurrentRow { get; }
+    parameters: []
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Overridable ReadOnly Property CurrentRow As DataRow
+  overload: Tripous.Data.DataModule.CurrentRow*
+- uid: Tripous.Data.DataModule.Id
+  commentId: P:Tripous.Data.DataModule.Id
+  id: Id
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: DataModule.Id
+  fullName: Tripous.Data.DataModule.Id
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Id
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 993
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the Id field of the tblItem
+  example: []
+  syntax:
+    content: public virtual object Id { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Overridable ReadOnly Property Id As Object
+  overload: Tripous.Data.DataModule.Id*
+- uid: Tripous.Data.DataModule.LastEditedId
+  commentId: P:Tripous.Data.DataModule.LastEditedId
+  id: LastEditedId
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: LastEditedId
+  nameWithType: DataModule.LastEditedId
+  fullName: Tripous.Data.DataModule.LastEditedId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastEditedId
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 997
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the id of the item the last Edit() operation has loaded
+  example: []
+  syntax:
+    content: public object LastEditedId { get; protected set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property LastEditedId As Object
+  overload: Tripous.Data.DataModule.LastEditedId*
+- uid: Tripous.Data.DataModule.LastCommitedId
+  commentId: P:Tripous.Data.DataModule.LastCommitedId
+  id: LastCommitedId
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: LastCommitedId
+  nameWithType: DataModule.LastCommitedId
+  fullName: Tripous.Data.DataModule.LastCommitedId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastCommitedId
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1001
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Id of the last commit
+  example: []
+  syntax:
+    content: public object LastCommitedId { get; protected set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property LastCommitedId As Object
+  overload: Tripous.Data.DataModule.LastCommitedId*
+- uid: Tripous.Data.DataModule.LastDeletedId
+  commentId: P:Tripous.Data.DataModule.LastDeletedId
+  id: LastDeletedId
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: LastDeletedId
+  nameWithType: DataModule.LastDeletedId
+  fullName: Tripous.Data.DataModule.LastDeletedId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastDeletedId
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1005
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Id of the last delete
+  example: []
+  syntax:
+    content: public object LastDeletedId { get; protected set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property LastDeletedId As Object
+  overload: Tripous.Data.DataModule.LastDeletedId*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.TableSet
+  commentId: T:Tripous.Data.TableSet
+  parent: Tripous.Data
+  href: Tripous.Data.TableSet.html
+  name: TableSet
+  nameWithType: TableSet
+  fullName: Tripous.Data.TableSet
+- uid: Tripous.Data.DataModule.TableSet_TransactionStageDelete*
+  commentId: Overload:Tripous.Data.DataModule.TableSet_TransactionStageDelete
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageDelete_System_Object_Tripous_Data_TransactionEventArgs_
+  name: TableSet_TransactionStageDelete
+  nameWithType: DataModule.TableSet_TransactionStageDelete
+  fullName: Tripous.Data.DataModule.TableSet_TransactionStageDelete
+- uid: Tripous.Data.TransactionEventArgs
+  commentId: T:Tripous.Data.TransactionEventArgs
+  parent: Tripous.Data
+  href: Tripous.Data.TransactionEventArgs.html
+  name: TransactionEventArgs
+  nameWithType: TransactionEventArgs
+  fullName: Tripous.Data.TransactionEventArgs
+- uid: Tripous.Data.DataModule.TableSet_TransactionStageCommit*
+  commentId: Overload:Tripous.Data.DataModule.TableSet_TransactionStageCommit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageCommit_System_Object_Tripous_Data_TransactionEventArgs_
+  name: TableSet_TransactionStageCommit
+  nameWithType: DataModule.TableSet_TransactionStageCommit
+  fullName: Tripous.Data.DataModule.TableSet_TransactionStageCommit
+- uid: Tripous.Data.DataModule.CodeProviderDef
+  commentId: P:Tripous.Data.DataModule.CodeProviderDef
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CodeProviderDef
+  name: CodeProviderDef
+  nameWithType: DataModule.CodeProviderDef
+  fullName: Tripous.Data.DataModule.CodeProviderDef
+- uid: Tripous.Data.DataModule.GetCodeProviderDef*
+  commentId: Overload:Tripous.Data.DataModule.GetCodeProviderDef
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetCodeProviderDef
+  name: GetCodeProviderDef
+  nameWithType: DataModule.GetCodeProviderDef
+  fullName: Tripous.Data.DataModule.GetCodeProviderDef
+- uid: Tripous.Data.CodeProviderDef
+  commentId: T:Tripous.Data.CodeProviderDef
+  parent: Tripous.Data
+  href: Tripous.Data.CodeProviderDef.html
+  name: CodeProviderDef
+  nameWithType: CodeProviderDef
+  fullName: Tripous.Data.CodeProviderDef
+- uid: Tripous.Data.DataModule
+  commentId: T:Tripous.Data.DataModule
+  parent: Tripous.Data
+  href: Tripous.Data.DataModule.html
+  name: DataModule
+  nameWithType: DataModule
+  fullName: Tripous.Data.DataModule
+- uid: Tripous.Data.DataModule.AssignCodeProviderDef*
+  commentId: Overload:Tripous.Data.DataModule.AssignCodeProviderDef
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeProviderDef
+  name: AssignCodeProviderDef
+  nameWithType: DataModule.AssignCodeProviderDef
+  fullName: Tripous.Data.DataModule.AssignCodeProviderDef
+- uid: Tripous.Data.DataModule.GetNextCodeLocked*
+  commentId: Overload:Tripous.Data.DataModule.GetNextCodeLocked
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetNextCodeLocked_System_Data_Common_DbTransaction_
+  name: GetNextCodeLocked
+  nameWithType: DataModule.GetNextCodeLocked
+  fullName: Tripous.Data.DataModule.GetNextCodeLocked
+- uid: System.Data.Common.DbTransaction
+  commentId: T:System.Data.Common.DbTransaction
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  name: DbTransaction
+  nameWithType: DbTransaction
+  fullName: System.Data.Common.DbTransaction
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Data.Common
+  commentId: N:System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data.Common
+  nameWithType: System.Data.Common
+  fullName: System.Data.Common
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+- uid: Tripous.Data.DataModule.AssignCodeValue*
+  commentId: Overload:Tripous.Data.DataModule.AssignCodeValue
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeValue_System_Data_Common_DbTransaction_
+  name: AssignCodeValue
+  nameWithType: DataModule.AssignCodeValue
+  fullName: Tripous.Data.DataModule.AssignCodeValue
+- uid: Tripous.Data.DataModule.LoadDefaultValues*
+  commentId: Overload:Tripous.Data.DataModule.LoadDefaultValues
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LoadDefaultValues
+  name: LoadDefaultValues
+  nameWithType: DataModule.LoadDefaultValues
+  fullName: Tripous.Data.DataModule.LoadDefaultValues
+- uid: Tripous.Data.DataModule.SetDefaultValues*
+  commentId: Overload:Tripous.Data.DataModule.SetDefaultValues
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues
+  name: SetDefaultValues
+  nameWithType: DataModule.SetDefaultValues
+  fullName: Tripous.Data.DataModule.SetDefaultValues
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: Tripous.Data.TableDef
+  commentId: T:Tripous.Data.TableDef
+  parent: Tripous.Data
+  href: Tripous.Data.TableDef.html
+  name: TableDef
+  nameWithType: TableDef
+  fullName: Tripous.Data.TableDef
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: Tripous.Data.DataModule.tblItem
+  commentId: P:Tripous.Data.DataModule.tblItem
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_tblItem
+  name: tblItem
+  nameWithType: DataModule.tblItem
+  fullName: Tripous.Data.DataModule.tblItem
+- uid: Tripous.Data.DataModule.SetAuditDefaultValues*
+  commentId: Overload:Tripous.Data.DataModule.SetAuditDefaultValues
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  name: SetAuditDefaultValues
+  nameWithType: DataModule.SetAuditDefaultValues
+  fullName: Tripous.Data.DataModule.SetAuditDefaultValues
+- uid: Tripous.Data.DataModule.Commit(System.Boolean)
+  commentId: M:Tripous.Data.DataModule.Commit(System.Boolean)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commit_System_Boolean_
+  name: Commit(bool)
+  nameWithType: DataModule.Commit(bool)
+  fullName: Tripous.Data.DataModule.Commit(bool)
+  nameWithType.vb: DataModule.Commit(Boolean)
+  fullName.vb: Tripous.Data.DataModule.Commit(Boolean)
+  name.vb: Commit(Boolean)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Commit(System.Boolean)
+    name: Commit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Commit(System.Boolean)
+    name: Commit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.DataModule.EndEdit*
+  commentId: Overload:Tripous.Data.DataModule.EndEdit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_EndEdit
+  name: EndEdit
+  nameWithType: DataModule.EndEdit
+  fullName: Tripous.Data.DataModule.EndEdit
+- uid: Tripous.Data.DataModule.UpdateTableSchema*
+  commentId: Overload:Tripous.Data.DataModule.UpdateTableSchema
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_UpdateTableSchema
+  name: UpdateTableSchema
+  nameWithType: DataModule.UpdateTableSchema
+  fullName: Tripous.Data.DataModule.UpdateTableSchema
+- uid: Tripous.Data.DataModule.Inserting*
+  commentId: Overload:Tripous.Data.DataModule.Inserting
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserting
+  name: Inserting
+  nameWithType: DataModule.Inserting
+  fullName: Tripous.Data.DataModule.Inserting
+- uid: Tripous.Data.DataModule.Inserted*
+  commentId: Overload:Tripous.Data.DataModule.Inserted
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserted
+  name: Inserted
+  nameWithType: DataModule.Inserted
+  fullName: Tripous.Data.DataModule.Inserted
+- uid: Tripous.Data.DataModule.Editing*
+  commentId: Overload:Tripous.Data.DataModule.Editing
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Editing_System_Object_
+  name: Editing
+  nameWithType: DataModule.Editing
+  fullName: Tripous.Data.DataModule.Editing
+- uid: Tripous.Data.DataModule.Edited*
+  commentId: Overload:Tripous.Data.DataModule.Edited
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edited_System_Object_
+  name: Edited
+  nameWithType: DataModule.Edited
+  fullName: Tripous.Data.DataModule.Edited
+- uid: Tripous.Data.DataModule.Deleting*
+  commentId: Overload:Tripous.Data.DataModule.Deleting
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleting_System_Object_
+  name: Deleting
+  nameWithType: DataModule.Deleting
+  fullName: Tripous.Data.DataModule.Deleting
+- uid: Tripous.Data.DataModule.Deleted*
+  commentId: Overload:Tripous.Data.DataModule.Deleted
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleted_System_Object_
+  name: Deleted
+  nameWithType: DataModule.Deleted
+  fullName: Tripous.Data.DataModule.Deleted
+- uid: Tripous.Data.DataModule.Commiting*
+  commentId: Overload:Tripous.Data.DataModule.Commiting
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commiting_System_Boolean_
+  name: Commiting
+  nameWithType: DataModule.Commiting
+  fullName: Tripous.Data.DataModule.Commiting
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DataModule.Commited*
+  commentId: Overload:Tripous.Data.DataModule.Commited
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commited_System_Boolean_System_Object_
+  name: Commited
+  nameWithType: DataModule.Commited
+  fullName: Tripous.Data.DataModule.Commited
+- uid: Tripous.Data.DataModule.MustReselectAfterCommit*
+  commentId: Overload:Tripous.Data.DataModule.MustReselectAfterCommit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_MustReselectAfterCommit
+  name: MustReselectAfterCommit
+  nameWithType: DataModule.MustReselectAfterCommit
+  fullName: Tripous.Data.DataModule.MustReselectAfterCommit
+- uid: Tripous.Data.DataModule.ColumnChanging*
+  commentId: Overload:Tripous.Data.DataModule.ColumnChanging
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanging_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  name: ColumnChanging
+  nameWithType: DataModule.ColumnChanging
+  fullName: Tripous.Data.DataModule.ColumnChanging
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: System.Data.DataColumnChangeEventArgs
+  commentId: T:System.Data.DataColumnChangeEventArgs
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumnchangeeventargs
+  name: DataColumnChangeEventArgs
+  nameWithType: DataColumnChangeEventArgs
+  fullName: System.Data.DataColumnChangeEventArgs
+- uid: Tripous.Data.DataModule.ColumnChanged*
+  commentId: Overload:Tripous.Data.DataModule.ColumnChanged
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanged_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  name: ColumnChanged
+  nameWithType: DataModule.ColumnChanged
+  fullName: Tripous.Data.DataModule.ColumnChanged
+- uid: Tripous.Data.DataModule.NewRowAdding*
+  commentId: Overload:Tripous.Data.DataModule.NewRowAdding
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdding_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  name: NewRowAdding
+  nameWithType: DataModule.NewRowAdding
+  fullName: Tripous.Data.DataModule.NewRowAdding
+- uid: System.Data.DataTableNewRowEventArgs
+  commentId: T:System.Data.DataTableNewRowEventArgs
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatablenewroweventargs
+  name: DataTableNewRowEventArgs
+  nameWithType: DataTableNewRowEventArgs
+  fullName: System.Data.DataTableNewRowEventArgs
+- uid: Tripous.Data.DataModule.NewRowAdded*
+  commentId: Overload:Tripous.Data.DataModule.NewRowAdded
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdded_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  name: NewRowAdded
+  nameWithType: DataModule.NewRowAdded
+  fullName: Tripous.Data.DataModule.NewRowAdded
+- uid: Tripous.Data.DataModule.#ctor*
+  commentId: Overload:Tripous.Data.DataModule.#ctor
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule__ctor
+  name: DataModule
+  nameWithType: DataModule.DataModule
+  fullName: Tripous.Data.DataModule.DataModule
+  nameWithType.vb: DataModule.New
+  fullName.vb: Tripous.Data.DataModule.New
+  name.vb: New
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.ToString*
+  commentId: Overload:Tripous.Data.DataModule.ToString
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ToString
+  name: ToString
+  nameWithType: DataModule.ToString
+  fullName: Tripous.Data.DataModule.ToString
+- uid: Tripous.Data.DataModule.Initialize*
+  commentId: Overload:Tripous.Data.DataModule.Initialize
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Initialize_Tripous_Data_ModuleDef_
+  name: Initialize
+  nameWithType: DataModule.Initialize
+  fullName: Tripous.Data.DataModule.Initialize
+- uid: Tripous.Data.ModuleDef
+  commentId: T:Tripous.Data.ModuleDef
+  parent: Tripous.Data
+  href: Tripous.Data.ModuleDef.html
+  name: ModuleDef
+  nameWithType: ModuleDef
+  fullName: Tripous.Data.ModuleDef
+- uid: Tripous.Data.DataModule.ListSelect*
+  commentId: Overload:Tripous.Data.DataModule.ListSelect
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_Tripous_Data_SelectDef_
+  name: ListSelect
+  nameWithType: DataModule.ListSelect
+  fullName: Tripous.Data.DataModule.ListSelect
+- uid: Tripous.Data.SelectDef
+  commentId: T:Tripous.Data.SelectDef
+  parent: Tripous.Data
+  href: Tripous.Data.SelectDef.html
+  name: SelectDef
+  nameWithType: SelectDef
+  fullName: Tripous.Data.SelectDef
+- uid: Tripous.Data.DataModule.ListSave*
+  commentId: Overload:Tripous.Data.DataModule.ListSave
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSave
+  name: ListSave
+  nameWithType: DataModule.ListSave
+  fullName: Tripous.Data.DataModule.ListSave
+- uid: Tripous.Data.DataModule.ListCancel*
+  commentId: Overload:Tripous.Data.DataModule.ListCancel
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListCancel
+  name: ListCancel
+  nameWithType: DataModule.ListCancel
+  fullName: Tripous.Data.DataModule.ListCancel
+- uid: Tripous.Data.DataModule.Insert*
+  commentId: Overload:Tripous.Data.DataModule.Insert
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Insert
+  name: Insert
+  nameWithType: DataModule.Insert
+  fullName: Tripous.Data.DataModule.Insert
+- uid: Tripous.Data.DataModule.Edit*
+  commentId: Overload:Tripous.Data.DataModule.Edit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edit_System_Object_
+  name: Edit
+  nameWithType: DataModule.Edit
+  fullName: Tripous.Data.DataModule.Edit
+- uid: Tripous.Data.DataModule.Delete*
+  commentId: Overload:Tripous.Data.DataModule.Delete
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Delete_System_Object_
+  name: Delete
+  nameWithType: DataModule.Delete
+  fullName: Tripous.Data.DataModule.Delete
+- uid: Tripous.Data.DataModule.Commit*
+  commentId: Overload:Tripous.Data.DataModule.Commit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commit_System_Boolean_
+  name: Commit
+  nameWithType: DataModule.Commit
+  fullName: Tripous.Data.DataModule.Commit
+- uid: Tripous.Data.DataModule.Cancel*
+  commentId: Overload:Tripous.Data.DataModule.Cancel
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Cancel
+  name: Cancel
+  nameWithType: DataModule.Cancel
+  fullName: Tripous.Data.DataModule.Cancel
+- uid: Tripous.Data.TableSet.ItemTable
+  commentId: F:Tripous.Data.TableSet.ItemTable
+  name: ItemTable
+  nameWithType: TableSet.ItemTable
+  fullName: Tripous.Data.TableSet.ItemTable
+- uid: Tripous.Data.DataModule.HasChanges*
+  commentId: Overload:Tripous.Data.DataModule.HasChanges
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_HasChanges
+  name: HasChanges
+  nameWithType: DataModule.HasChanges
+  fullName: Tripous.Data.DataModule.HasChanges
+- uid: Tripous.Data.BatchCommitArgs.BeforeFunc
+  commentId: P:Tripous.Data.BatchCommitArgs.BeforeFunc
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_BeforeFunc
+  name: BeforeFunc
+  nameWithType: BatchCommitArgs.BeforeFunc
+  fullName: Tripous.Data.BatchCommitArgs.BeforeFunc
+- uid: Tripous.Data.BatchCommitArgs.AfterFunc
+  commentId: P:Tripous.Data.BatchCommitArgs.AfterFunc
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_AfterFunc
+  name: AfterFunc
+  nameWithType: BatchCommitArgs.AfterFunc
+  fullName: Tripous.Data.BatchCommitArgs.AfterFunc
+- uid: Tripous.Data.BatchCommitArgs.TransLimit
+  commentId: P:Tripous.Data.BatchCommitArgs.TransLimit
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_TransLimit
+  name: TransLimit
+  nameWithType: BatchCommitArgs.TransLimit
+  fullName: Tripous.Data.BatchCommitArgs.TransLimit
+- uid: Tripous.Data.DataModule.CommitBatch*
+  commentId: Overload:Tripous.Data.DataModule.CommitBatch
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CommitBatch_Tripous_Data_BatchCommitArgs_
+  name: CommitBatch
+  nameWithType: DataModule.CommitBatch
+  fullName: Tripous.Data.DataModule.CommitBatch
+- uid: Tripous.Data.BatchCommitArgs
+  commentId: T:Tripous.Data.BatchCommitArgs
+  parent: Tripous.Data
+  href: Tripous.Data.BatchCommitArgs.html
+  name: BatchCommitArgs
+  nameWithType: BatchCommitArgs
+  fullName: Tripous.Data.BatchCommitArgs
+- uid: Tripous.Data.DataModule.BatchInsert*
+  commentId: Overload:Tripous.Data.DataModule.BatchInsert
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BatchInsert_System_Data_DataTable_
+  name: BatchInsert
+  nameWithType: DataModule.BatchInsert
+  fullName: Tripous.Data.DataModule.BatchInsert
+- uid: Tripous.Data.DataModule.Insert
+  commentId: M:Tripous.Data.DataModule.Insert
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Insert
+  name: Insert()
+  nameWithType: DataModule.Insert()
+  fullName: Tripous.Data.DataModule.Insert()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Insert
+    name: Insert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Insert
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Insert
+    name: Insert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Insert
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.CheckCanInsert*
+  commentId: Overload:Tripous.Data.DataModule.CheckCanInsert
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanInsert
+  name: CheckCanInsert
+  nameWithType: DataModule.CheckCanInsert
+  fullName: Tripous.Data.DataModule.CheckCanInsert
+- uid: Tripous.Data.DataModule.Edit(System.Object)
+  commentId: M:Tripous.Data.DataModule.Edit(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edit_System_Object_
+  name: Edit(object)
+  nameWithType: DataModule.Edit(object)
+  fullName: Tripous.Data.DataModule.Edit(object)
+  nameWithType.vb: DataModule.Edit(Object)
+  fullName.vb: Tripous.Data.DataModule.Edit(Object)
+  name.vb: Edit(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Edit(System.Object)
+    name: Edit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edit_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Edit(System.Object)
+    name: Edit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edit_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.CheckCanEdit*
+  commentId: Overload:Tripous.Data.DataModule.CheckCanEdit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanEdit_System_Object_
+  name: CheckCanEdit
+  nameWithType: DataModule.CheckCanEdit
+  fullName: Tripous.Data.DataModule.CheckCanEdit
+- uid: Tripous.Data.DataModule.Delete(System.Object)
+  commentId: M:Tripous.Data.DataModule.Delete(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Delete_System_Object_
+  name: Delete(object)
+  nameWithType: DataModule.Delete(object)
+  fullName: Tripous.Data.DataModule.Delete(object)
+  nameWithType.vb: DataModule.Delete(Object)
+  fullName.vb: Tripous.Data.DataModule.Delete(Object)
+  name.vb: Delete(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Delete(System.Object)
+    name: Delete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Delete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Delete(System.Object)
+    name: Delete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Delete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.CheckCanDelete*
+  commentId: Overload:Tripous.Data.DataModule.CheckCanDelete
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanDelete_System_Object_
+  name: CheckCanDelete
+  nameWithType: DataModule.CheckCanDelete
+  fullName: Tripous.Data.DataModule.CheckCanDelete
+- uid: Tripous.Data.DataModule.CheckCanCommit*
+  commentId: Overload:Tripous.Data.DataModule.CheckCanCommit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanCommit_System_Boolean_
+  name: CheckCanCommit
+  nameWithType: DataModule.CheckCanCommit
+  fullName: Tripous.Data.DataModule.CheckCanCommit
+- uid: Tripous.Data.DataModule.TableExists*
+  commentId: Overload:Tripous.Data.DataModule.TableExists
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableExists_System_String_
+  name: TableExists
+  nameWithType: DataModule.TableExists
+  fullName: Tripous.Data.DataModule.TableExists
+- uid: Tripous.Data.DataModule.FindTable*
+  commentId: Overload:Tripous.Data.DataModule.FindTable
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_FindTable_System_String_
+  name: FindTable
+  nameWithType: DataModule.FindTable
+  fullName: Tripous.Data.DataModule.FindTable
+- uid: Tripous.Data.DataModule.GetTable*
+  commentId: Overload:Tripous.Data.DataModule.GetTable
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetTable_System_String_
+  name: GetTable
+  nameWithType: DataModule.GetTable
+  fullName: Tripous.Data.DataModule.GetTable
+- uid: Tripous.Data.DataModule.IsInitialized*
+  commentId: Overload:Tripous.Data.DataModule.IsInitialized
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsInitialized
+  name: IsInitialized
+  nameWithType: DataModule.IsInitialized
+  fullName: Tripous.Data.DataModule.IsInitialized
+- uid: Tripous.Data.DataModule.ModuleDef*
+  commentId: Overload:Tripous.Data.DataModule.ModuleDef
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ModuleDef
+  name: ModuleDef
+  nameWithType: DataModule.ModuleDef
+  fullName: Tripous.Data.DataModule.ModuleDef
+- uid: Tripous.Data.DataModule.CodeProviderDef*
+  commentId: Overload:Tripous.Data.DataModule.CodeProviderDef
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CodeProviderDef
+  name: CodeProviderDef
+  nameWithType: DataModule.CodeProviderDef
+  fullName: Tripous.Data.DataModule.CodeProviderDef
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.DataModule.Store*
+  commentId: Overload:Tripous.Data.DataModule.Store
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Store
+  name: Store
+  nameWithType: DataModule.Store
+  fullName: Tripous.Data.DataModule.Store
+- uid: Tripous.Data.DataModule.Item*
+  commentId: Overload:Tripous.Data.DataModule.Item
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Item_System_String_
+  name: this
+  nameWithType: DataModule.this
+  fullName: Tripous.Data.DataModule.this
+  nameWithType.vb: DataModule.this[]
+  fullName.vb: Tripous.Data.DataModule.this[]
+  name.vb: this[]
+- uid: Tripous.Data.DataModule.DataSet*
+  commentId: Overload:Tripous.Data.DataModule.DataSet
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_DataSet
+  name: DataSet
+  nameWithType: DataModule.DataSet
+  fullName: Tripous.Data.DataModule.DataSet
+- uid: System.Data.DataSet
+  commentId: T:System.Data.DataSet
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataset
+  name: DataSet
+  nameWithType: DataSet
+  fullName: System.Data.DataSet
+- uid: Tripous.Data.DataModule.tblList*
+  commentId: Overload:Tripous.Data.DataModule.tblList
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_tblList
+  name: tblList
+  nameWithType: DataModule.tblList
+  fullName: Tripous.Data.DataModule.tblList
+- uid: Tripous.Data.DataModule.tblItem*
+  commentId: Overload:Tripous.Data.DataModule.tblItem
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_tblItem
+  name: tblItem
+  nameWithType: DataModule.tblItem
+  fullName: Tripous.Data.DataModule.tblItem
+- uid: Tripous.Data.DataModule.tblList
+  commentId: P:Tripous.Data.DataModule.tblList
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_tblList
+  name: tblList
+  nameWithType: DataModule.tblList
+  fullName: Tripous.Data.DataModule.tblList
+- uid: Tripous.Data.DataModule.Tables*
+  commentId: Overload:Tripous.Data.DataModule.Tables
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Tables
+  name: Tables
+  nameWithType: DataModule.Tables
+  fullName: Tripous.Data.DataModule.Tables
+- uid: System.Collections.Generic.IEnumerable{Tripous.Data.MemTable}
+  commentId: T:System.Collections.Generic.IEnumerable{Tripous.Data.MemTable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<MemTable>
+  nameWithType: IEnumerable<MemTable>
+  fullName: System.Collections.Generic.IEnumerable<Tripous.Data.MemTable>
+  nameWithType.vb: IEnumerable(Of MemTable)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Tripous.Data.MemTable)
+  name.vb: IEnumerable(Of MemTable)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.List{Tripous.Data.MemTable}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.MemTable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<MemTable>
+  nameWithType: List<MemTable>
+  fullName: System.Collections.Generic.List<Tripous.Data.MemTable>
+  nameWithType.vb: List(Of MemTable)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.MemTable)
+  name.vb: List(Of MemTable)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.DataModule.Stocks*
+  commentId: Overload:Tripous.Data.DataModule.Stocks
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Stocks
+  name: Stocks
+  nameWithType: DataModule.Stocks
+  fullName: Tripous.Data.DataModule.Stocks
+- uid: Tripous.Data.DataModule.Name*
+  commentId: Overload:Tripous.Data.DataModule.Name
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Name
+  name: Name
+  nameWithType: DataModule.Name
+  fullName: Tripous.Data.DataModule.Name
+- uid: Tripous.Data.DataModule.DetailsActive*
+  commentId: Overload:Tripous.Data.DataModule.DetailsActive
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_DetailsActive
+  name: DetailsActive
+  nameWithType: DataModule.DetailsActive
+  fullName: Tripous.Data.DataModule.DetailsActive
+- uid: Tripous.Data.DataModule.RowProviderHost*
+  commentId: Overload:Tripous.Data.DataModule.RowProviderHost
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_RowProviderHost
+  name: RowProviderHost
+  nameWithType: DataModule.RowProviderHost
+  fullName: Tripous.Data.DataModule.RowProviderHost
+- uid: Tripous.Data.IRowProviderHost
+  commentId: T:Tripous.Data.IRowProviderHost
+  parent: Tripous.Data
+  href: Tripous.Data.IRowProviderHost.html
+  name: IRowProviderHost
+  nameWithType: IRowProviderHost
+  fullName: Tripous.Data.IRowProviderHost
+- uid: Tripous.Data.DataModule.State*
+  commentId: Overload:Tripous.Data.DataModule.State
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_State
+  name: State
+  nameWithType: DataModule.State
+  fullName: Tripous.Data.DataModule.State
+- uid: Tripous.Data.DataMode
+  commentId: T:Tripous.Data.DataMode
+  parent: Tripous.Data
+  href: Tripous.Data.DataMode.html
+  name: DataMode
+  nameWithType: DataMode
+  fullName: Tripous.Data.DataMode
+- uid: Tripous.Data.DataModule.IsInserting*
+  commentId: Overload:Tripous.Data.DataModule.IsInserting
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsInserting
+  name: IsInserting
+  nameWithType: DataModule.IsInserting
+  fullName: Tripous.Data.DataModule.IsInserting
+- uid: Tripous.Data.DataModule.IsEditing*
+  commentId: Overload:Tripous.Data.DataModule.IsEditing
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsEditing
+  name: IsEditing
+  nameWithType: DataModule.IsEditing
+  fullName: Tripous.Data.DataModule.IsEditing
+- uid: Tripous.Data.DataModule.IsDeleting*
+  commentId: Overload:Tripous.Data.DataModule.IsDeleting
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsDeleting
+  name: IsDeleting
+  nameWithType: DataModule.IsDeleting
+  fullName: Tripous.Data.DataModule.IsDeleting
+- uid: Tripous.Data.DataModule.IsCommiting*
+  commentId: Overload:Tripous.Data.DataModule.IsCommiting
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsCommiting
+  name: IsCommiting
+  nameWithType: DataModule.IsCommiting
+  fullName: Tripous.Data.DataModule.IsCommiting
+- uid: Tripous.Data.DataModule.Variables*
+  commentId: Overload:Tripous.Data.DataModule.Variables
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Variables
+  name: Variables
+  nameWithType: DataModule.Variables
+  fullName: Tripous.Data.DataModule.Variables
+- uid: Tripous.Data.DataModule.CurrentRow*
+  commentId: Overload:Tripous.Data.DataModule.CurrentRow
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CurrentRow
+  name: CurrentRow
+  nameWithType: DataModule.CurrentRow
+  fullName: Tripous.Data.DataModule.CurrentRow
+- uid: Tripous.Data.DataModule.Id*
+  commentId: Overload:Tripous.Data.DataModule.Id
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Id
+  name: Id
+  nameWithType: DataModule.Id
+  fullName: Tripous.Data.DataModule.Id
+- uid: Tripous.Data.DataModule.LastEditedId*
+  commentId: Overload:Tripous.Data.DataModule.LastEditedId
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LastEditedId
+  name: LastEditedId
+  nameWithType: DataModule.LastEditedId
+  fullName: Tripous.Data.DataModule.LastEditedId
+- uid: Tripous.Data.DataModule.LastCommitedId*
+  commentId: Overload:Tripous.Data.DataModule.LastCommitedId
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LastCommitedId
+  name: LastCommitedId
+  nameWithType: DataModule.LastCommitedId
+  fullName: Tripous.Data.DataModule.LastCommitedId
+- uid: Tripous.Data.DataModule.LastDeletedId*
+  commentId: Overload:Tripous.Data.DataModule.LastDeletedId
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LastDeletedId
+  name: LastDeletedId
+  nameWithType: DataModule.LastDeletedId
+  fullName: Tripous.Data.DataModule.LastDeletedId

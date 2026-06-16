@@ -32,7 +32,7 @@ public partial class MainWindow : Window
             AppHost.InitializeUi(SideBarHandler, ContentHandler);  
             
             Command cmdTest = AppRegistry.ToolBarCommands.Find("Test"); // a command for just calling the Test() method
-            cmdTest.ExecuteCommand += (sender, args) => Test();
+            cmdTest.ExecuteFunc = Cmd => { Test(); return null; };
             
             Ui.Post(async () => await CheckForSampleData());
 

@@ -1,0 +1,1268 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  id: UserLevel
+  parent: Tripous
+  children:
+  - Tripous.UserLevel.Admin
+  - Tripous.UserLevel.ClientApp
+  - Tripous.UserLevel.God
+  - Tripous.UserLevel.Guest
+  - Tripous.UserLevel.None
+  - Tripous.UserLevel.Service
+  - Tripous.UserLevel.User
+  langs:
+  - csharp
+  - vb
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel
+  type: Enum
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UserLevel
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 6
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    The level of a user, i.e. Guest, Admin, User, etc.
+
+
+    <p>CAUTION: Do NOT change the numbers. This type is used in systems, such as BC, where Options or Enums are zero-based.</p>
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      [TypeStore]
+
+      public enum UserLevel
+    content.vb: >-
+      <Flags>
+
+      <TypeStore>
+
+      Public Enum UserLevel
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.UserLevel.Tripous.BitFields.Add``1(Tripous.UserLevel)
+  - Tripous.UserLevel.Tripous.BitFields.HasAny``1(Tripous.UserLevel)
+  - Tripous.UserLevel.Tripous.BitFields.HasNone``1(Tripous.UserLevel)
+  - Tripous.UserLevel.Tripous.BitFields.Has``1(Tripous.UserLevel)
+  - Tripous.UserLevel.Tripous.BitFields.In``1(Tripous.UserLevel)
+  - Tripous.UserLevel.Tripous.BitFields.IsExactly``1(Tripous.UserLevel)
+  - Tripous.UserLevel.Tripous.BitFields.IsZero``1
+  - Tripous.UserLevel.Tripous.BitFields.Remove``1(Tripous.UserLevel)
+  - Tripous.UserLevel.Tripous.BitFields.Set``1(Tripous.UserLevel,System.Boolean)
+  - Tripous.UserLevel.Tripous.BitFields.Toggle``1(Tripous.UserLevel)
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+  - type: Tripous.TypeStoreAttribute
+    ctor: Tripous.TypeStoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.UserLevel.None
+  commentId: F:Tripous.UserLevel.None
+  id: None
+  parent: Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: UserLevel.None
+  fullName: Tripous.UserLevel.None
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 12
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: None
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.UserLevel
+- uid: Tripous.UserLevel.Guest
+  commentId: F:Tripous.UserLevel.Guest
+  id: Guest
+  parent: Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: Guest
+  nameWithType: UserLevel.Guest
+  fullName: Tripous.UserLevel.Guest
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Guest
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 16
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A guest user
+  example: []
+  syntax:
+    content: Guest = 1
+    return:
+      type: Tripous.UserLevel
+- uid: Tripous.UserLevel.User
+  commentId: F:Tripous.UserLevel.User
+  id: User
+  parent: Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: UserLevel.User
+  fullName: Tripous.UserLevel.User
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: User
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 20
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A normal user
+  example: []
+  syntax:
+    content: User = 2
+    return:
+      type: Tripous.UserLevel
+- uid: Tripous.UserLevel.Admin
+  commentId: F:Tripous.UserLevel.Admin
+  id: Admin
+  parent: Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: Admin
+  nameWithType: UserLevel.Admin
+  fullName: Tripous.UserLevel.Admin
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Admin
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 24
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A system administrator
+  example: []
+  syntax:
+    content: Admin = 4
+    return:
+      type: Tripous.UserLevel
+- uid: Tripous.UserLevel.ClientApp
+  commentId: F:Tripous.UserLevel.ClientApp
+  id: ClientApp
+  parent: Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: ClientApp
+  nameWithType: UserLevel.ClientApp
+  fullName: Tripous.UserLevel.ClientApp
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ClientApp
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 28
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A client application making API calls
+  example: []
+  syntax:
+    content: ClientApp = 8
+    return:
+      type: Tripous.UserLevel
+- uid: Tripous.UserLevel.Service
+  commentId: F:Tripous.UserLevel.Service
+  id: Service
+  parent: Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: Service
+  nameWithType: UserLevel.Service
+  fullName: Tripous.UserLevel.Service
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Service
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 32
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A service application
+  example: []
+  syntax:
+    content: Service = 256
+    return:
+      type: Tripous.UserLevel
+- uid: Tripous.UserLevel.God
+  commentId: F:Tripous.UserLevel.God
+  id: God
+  parent: Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: God
+  nameWithType: UserLevel.God
+  fullName: Tripous.UserLevel.God
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/UserLevel.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: God
+    path: ../Tripous/Enums/UserLevel.cs
+    startLine: 36
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Above admin privileges
+  example: []
+  syntax:
+    content: God = 4096
+    return:
+      type: Tripous.UserLevel
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.Add``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.Add<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.Add<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.Add(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: Add(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.HasAny``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.HasAny<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.HasAny<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.HasAny(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: HasAny(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.HasNone``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.HasNone<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.HasNone<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.HasNone(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: HasNone(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.Has``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.Has<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.Has<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.Has(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: Has(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.In``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.In<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.In<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.In(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: In(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.IsExactly``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.IsExactly<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.IsExactly<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.IsExactly(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: IsExactly(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<UserLevel>(UserLevel)
+  nameWithType: BitFields.IsZero<UserLevel>(UserLevel)
+  fullName: Tripous.BitFields.IsZero<Tripous.UserLevel>(Tripous.UserLevel)
+  nameWithType.vb: BitFields.IsZero(Of UserLevel)(UserLevel)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.UserLevel)(Tripous.UserLevel)
+  name.vb: IsZero(Of UserLevel)(UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.UserLevel)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.UserLevel)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.Remove``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.Remove<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.Remove<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.Remove(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: Remove(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.Set``1(Tripous.UserLevel,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<UserLevel>(UserLevel, UserLevel, bool)
+  nameWithType: BitFields.Set<UserLevel>(UserLevel, UserLevel, bool)
+  fullName: Tripous.BitFields.Set<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel, bool)
+  nameWithType.vb: BitFields.Set(Of UserLevel)(UserLevel, UserLevel, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel, Boolean)
+  name.vb: Set(Of UserLevel)(UserLevel, UserLevel, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.UserLevel,Tripous.UserLevel,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.UserLevel,Tripous.UserLevel,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.UserLevel.Tripous.BitFields.Toggle``1(Tripous.UserLevel)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<UserLevel>(UserLevel, UserLevel)
+  nameWithType: BitFields.Toggle<UserLevel>(UserLevel, UserLevel)
+  fullName: Tripous.BitFields.Toggle<Tripous.UserLevel>(Tripous.UserLevel, Tripous.UserLevel)
+  nameWithType.vb: BitFields.Toggle(Of UserLevel)(UserLevel, UserLevel)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.UserLevel)(Tripous.UserLevel, Tripous.UserLevel)
+  name.vb: Toggle(Of UserLevel)(UserLevel, UserLevel)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.UserLevel,Tripous.UserLevel)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+  - name: (
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    href: Tripous.UserLevel.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  parent: Tripous
+  href: Tripous.UserLevel.html
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel

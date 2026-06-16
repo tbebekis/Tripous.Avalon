@@ -1,0 +1,2232 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Json
+  commentId: T:Tripous.Json
+  id: Json
+  parent: Tripous
+  children:
+  - Tripous.Json.AssignObject``2(``0,``1)
+  - Tripous.Json.CloneObject``1(``0)
+  - Tripous.Json.CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  - Tripous.Json.CreateOptionsFunc
+  - Tripous.Json.DefaultDecimals
+  - Tripous.Json.DefaultSerializerOptions
+  - Tripous.Json.Deserialize(System.String,System.Type,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.DeserializeFromStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.DeserializeFromStream(System.Type,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.Deserialize``1(System.String,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.Format(System.String)
+  - Tripous.Json.GetRequestDic(System.IO.Stream)
+  - Tripous.Json.JsonTextToStream(System.String,System.IO.Stream)
+  - Tripous.Json.LoadFromFile(System.Object,System.String,System.String)
+  - Tripous.Json.LoadFromFile(System.Type,System.String,System.String)
+  - Tripous.Json.ObjectToJsonNode(System.Object)
+  - Tripous.Json.PopulateObject(System.Object,System.String,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.SaveToFile(System.Object,System.String,System.String)
+  - Tripous.Json.Serialize(System.Object)
+  - Tripous.Json.Serialize(System.Object,System.Boolean,System.Boolean)
+  - Tripous.Json.Serialize(System.Object,System.String[])
+  - Tripous.Json.Serialize(System.Object,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.SerializeToStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.SerializeToStream(System.Object,System.Text.Json.JsonSerializerOptions)
+  - Tripous.Json.SerializerOptions
+  - Tripous.Json.SetupJsonOptions(System.Text.Json.JsonSerializerOptions,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  - Tripous.Json.StreamToJsonText(System.IO.Stream)
+  - Tripous.Json.ToDictionary(System.String)
+  - Tripous.Json.ToDynamic(System.String)
+  langs:
+  - csharp
+  - vb
+  name: Json
+  nameWithType: Json
+  fullName: Tripous.Json
+  type: Class
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Json
+    path: ../Tripous/Json.cs
+    startLine: 14
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Helper json static class
+
+
+    <p>SEE: https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview </p>
+  example: []
+  syntax:
+    content: public static class Json
+    content.vb: Public Module Json
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Json.CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  commentId: M:Tripous.Json.CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  id: CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: CreateJsonOptions(bool, bool, bool, int, string[])
+  nameWithType: Json.CreateJsonOptions(bool, bool, bool, int, string[])
+  fullName: Tripous.Json.CreateJsonOptions(bool, bool, bool, int, string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateJsonOptions
+    path: ../Tripous/Json.cs
+    startLine: 33
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates and returns json serialization options
+  example: []
+  syntax:
+    content: public static JsonSerializerOptions CreateJsonOptions(bool CameCase = false, bool Formatted = true, bool CaseInsensitiveProperties = true, int Decimals = 0, string[] ExcludeProperties = null)
+    parameters:
+    - id: CameCase
+      type: System.Boolean
+    - id: Formatted
+      type: System.Boolean
+    - id: CaseInsensitiveProperties
+      type: System.Boolean
+    - id: Decimals
+      type: System.Int32
+    - id: ExcludeProperties
+      type: System.String[]
+    return:
+      type: System.Text.Json.JsonSerializerOptions
+    content.vb: Public Shared Function CreateJsonOptions(CameCase As Boolean = False, Formatted As Boolean = True, CaseInsensitiveProperties As Boolean = True, Decimals As Integer = 0, ExcludeProperties As String() = Nothing) As JsonSerializerOptions
+  overload: Tripous.Json.CreateJsonOptions*
+  nameWithType.vb: Json.CreateJsonOptions(Boolean, Boolean, Boolean, Integer, String())
+  fullName.vb: Tripous.Json.CreateJsonOptions(Boolean, Boolean, Boolean, Integer, String())
+  name.vb: CreateJsonOptions(Boolean, Boolean, Boolean, Integer, String())
+- uid: Tripous.Json.SetupJsonOptions(System.Text.Json.JsonSerializerOptions,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  commentId: M:Tripous.Json.SetupJsonOptions(System.Text.Json.JsonSerializerOptions,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  id: SetupJsonOptions(System.Text.Json.JsonSerializerOptions,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: SetupJsonOptions(JsonSerializerOptions, bool, bool, bool, int, string[])
+  nameWithType: Json.SetupJsonOptions(JsonSerializerOptions, bool, bool, bool, int, string[])
+  fullName: Tripous.Json.SetupJsonOptions(System.Text.Json.JsonSerializerOptions, bool, bool, bool, int, string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetupJsonOptions
+    path: ../Tripous/Json.cs
+    startLine: 51
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Sets up the specified <xref href="System.Text.Json.JsonSerializerOptions" data-throw-if-not-resolved="false"></xref> instance.
+  example: []
+  syntax:
+    content: public static void SetupJsonOptions(JsonSerializerOptions JsonOptions, bool CameCase = false, bool Formatted = true, bool CaseInsensitiveProperties = true, int Decimals = 0, string[] ExcludeProperties = null)
+    parameters:
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    - id: CameCase
+      type: System.Boolean
+    - id: Formatted
+      type: System.Boolean
+    - id: CaseInsensitiveProperties
+      type: System.Boolean
+    - id: Decimals
+      type: System.Int32
+    - id: ExcludeProperties
+      type: System.String[]
+    content.vb: Public Shared Sub SetupJsonOptions(JsonOptions As JsonSerializerOptions, CameCase As Boolean = False, Formatted As Boolean = True, CaseInsensitiveProperties As Boolean = True, Decimals As Integer = 0, ExcludeProperties As String() = Nothing)
+  overload: Tripous.Json.SetupJsonOptions*
+  nameWithType.vb: Json.SetupJsonOptions(JsonSerializerOptions, Boolean, Boolean, Boolean, Integer, String())
+  fullName.vb: Tripous.Json.SetupJsonOptions(System.Text.Json.JsonSerializerOptions, Boolean, Boolean, Boolean, Integer, String())
+  name.vb: SetupJsonOptions(JsonSerializerOptions, Boolean, Boolean, Boolean, Integer, String())
+- uid: Tripous.Json.Serialize(System.Object,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.Serialize(System.Object,System.Text.Json.JsonSerializerOptions)
+  id: Serialize(System.Object,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: Serialize(object, JsonSerializerOptions)
+  nameWithType: Json.Serialize(object, JsonSerializerOptions)
+  fullName: Tripous.Json.Serialize(object, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Serialize
+    path: ../Tripous/Json.cs
+    startLine: 90
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Serializes a specified instance.
+  example: []
+  syntax:
+    content: public static string Serialize(object Instance, JsonSerializerOptions JsonOptions)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    return:
+      type: System.String
+    content.vb: Public Shared Function Serialize(Instance As Object, JsonOptions As JsonSerializerOptions) As String
+  overload: Tripous.Json.Serialize*
+  nameWithType.vb: Json.Serialize(Object, JsonSerializerOptions)
+  fullName.vb: Tripous.Json.Serialize(Object, System.Text.Json.JsonSerializerOptions)
+  name.vb: Serialize(Object, JsonSerializerOptions)
+- uid: Tripous.Json.Serialize(System.Object,System.Boolean,System.Boolean)
+  commentId: M:Tripous.Json.Serialize(System.Object,System.Boolean,System.Boolean)
+  id: Serialize(System.Object,System.Boolean,System.Boolean)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: Serialize(object, bool, bool)
+  nameWithType: Json.Serialize(object, bool, bool)
+  fullName: Tripous.Json.Serialize(object, bool, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Serialize
+    path: ../Tripous/Json.cs
+    startLine: 99
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Serializes a specified instance.
+  example: []
+  syntax:
+    content: public static string Serialize(object Instance, bool Formatted, bool CameCase = false)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: Formatted
+      type: System.Boolean
+    - id: CameCase
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function Serialize(Instance As Object, Formatted As Boolean, CameCase As Boolean = False) As String
+  overload: Tripous.Json.Serialize*
+  nameWithType.vb: Json.Serialize(Object, Boolean, Boolean)
+  fullName.vb: Tripous.Json.Serialize(Object, Boolean, Boolean)
+  name.vb: Serialize(Object, Boolean, Boolean)
+- uid: Tripous.Json.Serialize(System.Object)
+  commentId: M:Tripous.Json.Serialize(System.Object)
+  id: Serialize(System.Object)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: Serialize(object)
+  nameWithType: Json.Serialize(object)
+  fullName: Tripous.Json.Serialize(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Serialize
+    path: ../Tripous/Json.cs
+    startLine: 107
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Serializes a specified instance.
+  example: []
+  syntax:
+    content: public static string Serialize(object Instance)
+    parameters:
+    - id: Instance
+      type: System.Object
+    return:
+      type: System.String
+    content.vb: Public Shared Function Serialize(Instance As Object) As String
+  overload: Tripous.Json.Serialize*
+  nameWithType.vb: Json.Serialize(Object)
+  fullName.vb: Tripous.Json.Serialize(Object)
+  name.vb: Serialize(Object)
+- uid: Tripous.Json.Serialize(System.Object,System.String[])
+  commentId: M:Tripous.Json.Serialize(System.Object,System.String[])
+  id: Serialize(System.Object,System.String[])
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: Serialize(object, string[])
+  nameWithType: Json.Serialize(object, string[])
+  fullName: Tripous.Json.Serialize(object, string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Serialize
+    path: ../Tripous/Json.cs
+    startLine: 114
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Serializes a specified instance.
+  example: []
+  syntax:
+    content: public static string Serialize(object Instance, string[] ExcludeProperties)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: ExcludeProperties
+      type: System.String[]
+    return:
+      type: System.String
+    content.vb: Public Shared Function Serialize(Instance As Object, ExcludeProperties As String()) As String
+  overload: Tripous.Json.Serialize*
+  nameWithType.vb: Json.Serialize(Object, String())
+  fullName.vb: Tripous.Json.Serialize(Object, String())
+  name.vb: Serialize(Object, String())
+- uid: Tripous.Json.Deserialize(System.String,System.Type,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.Deserialize(System.String,System.Type,System.Text.Json.JsonSerializerOptions)
+  id: Deserialize(System.String,System.Type,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: Deserialize(string, Type, JsonSerializerOptions)
+  nameWithType: Json.Deserialize(string, Type, JsonSerializerOptions)
+  fullName: Tripous.Json.Deserialize(string, System.Type, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Deserialize
+    path: ../Tripous/Json.cs
+    startLine: 125
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Deserializes (creates) an object of a specified type by deserializing a specified json text.
+
+
+    <p>If no options specified then it uses the <xref href="Tripous.Json.SerializerOptions" data-throw-if-not-resolved="false"></xref> options</p>
+  example: []
+  syntax:
+    content: public static object Deserialize(string JsonText, Type ReturnType, JsonSerializerOptions JsonOptions = null)
+    parameters:
+    - id: JsonText
+      type: System.String
+    - id: ReturnType
+      type: System.Type
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    return:
+      type: System.Object
+    content.vb: Public Shared Function Deserialize(JsonText As String, ReturnType As Type, JsonOptions As JsonSerializerOptions = Nothing) As Object
+  overload: Tripous.Json.Deserialize*
+  nameWithType.vb: Json.Deserialize(String, Type, JsonSerializerOptions)
+  fullName.vb: Tripous.Json.Deserialize(String, System.Type, System.Text.Json.JsonSerializerOptions)
+  name.vb: Deserialize(String, Type, JsonSerializerOptions)
+- uid: Tripous.Json.Deserialize``1(System.String,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.Deserialize``1(System.String,System.Text.Json.JsonSerializerOptions)
+  id: Deserialize``1(System.String,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: Deserialize<T>(string, JsonSerializerOptions)
+  nameWithType: Json.Deserialize<T>(string, JsonSerializerOptions)
+  fullName: Tripous.Json.Deserialize<T>(string, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Deserialize
+    path: ../Tripous/Json.cs
+    startLine: 136
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Deserializes (creates) an object of a specified type by deserializing a specified json text.
+
+
+    <p>If no options specified then it uses the <xref href="Tripous.Json.SerializerOptions" data-throw-if-not-resolved="false"></xref> options</p>
+  example: []
+  syntax:
+    content: public static T Deserialize<T>(string JsonText, JsonSerializerOptions JsonOptions = null)
+    parameters:
+    - id: JsonText
+      type: System.String
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function Deserialize(Of T)(JsonText As String, JsonOptions As JsonSerializerOptions = Nothing) As T
+  overload: Tripous.Json.Deserialize*
+  nameWithType.vb: Json.Deserialize(Of T)(String, JsonSerializerOptions)
+  fullName.vb: Tripous.Json.Deserialize(Of T)(String, System.Text.Json.JsonSerializerOptions)
+  name.vb: Deserialize(Of T)(String, JsonSerializerOptions)
+- uid: Tripous.Json.PopulateObject(System.Object,System.String,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.PopulateObject(System.Object,System.String,System.Text.Json.JsonSerializerOptions)
+  id: PopulateObject(System.Object,System.String,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: PopulateObject(object, string, JsonSerializerOptions)
+  nameWithType: Json.PopulateObject(object, string, JsonSerializerOptions)
+  fullName: Tripous.Json.PopulateObject(object, string, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PopulateObject
+    path: ../Tripous/Json.cs
+    startLine: 147
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Loads an object's properties from a specified json text.
+
+
+    <p>If no options specified then it uses the <xref href="Tripous.Json.SerializerOptions" data-throw-if-not-resolved="false"></xref> options</p>
+  example: []
+  syntax:
+    content: public static void PopulateObject(object Instance, string JsonText, JsonSerializerOptions JsonOptions = null)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: JsonText
+      type: System.String
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    content.vb: Public Shared Sub PopulateObject(Instance As Object, JsonText As String, JsonOptions As JsonSerializerOptions = Nothing)
+  overload: Tripous.Json.PopulateObject*
+  nameWithType.vb: Json.PopulateObject(Object, String, JsonSerializerOptions)
+  fullName.vb: Tripous.Json.PopulateObject(Object, String, System.Text.Json.JsonSerializerOptions)
+  name.vb: PopulateObject(Object, String, JsonSerializerOptions)
+- uid: Tripous.Json.Format(System.String)
+  commentId: M:Tripous.Json.Format(System.String)
+  id: Format(System.String)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: Format(string)
+  nameWithType: Json.Format(string)
+  fullName: Tripous.Json.Format(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Format
+    path: ../Tripous/Json.cs
+    startLine: 161
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns a specified json text as formatted for readability.
+  example: []
+  syntax:
+    content: public static string Format(string JsonText)
+    parameters:
+    - id: JsonText
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function Format(JsonText As String) As String
+  overload: Tripous.Json.Format*
+  nameWithType.vb: Json.Format(String)
+  fullName.vb: Tripous.Json.Format(String)
+  name.vb: Format(String)
+- uid: Tripous.Json.ObjectToJsonNode(System.Object)
+  commentId: M:Tripous.Json.ObjectToJsonNode(System.Object)
+  id: ObjectToJsonNode(System.Object)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: ObjectToJsonNode(object)
+  nameWithType: Json.ObjectToJsonNode(object)
+  fullName: Tripous.Json.ObjectToJsonNode(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ObjectToJsonNode
+    path: ../Tripous/Json.cs
+    startLine: 177
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts an object to JsonNode
+  example: []
+  syntax:
+    content: public static JsonNode ObjectToJsonNode(object Instance)
+    parameters:
+    - id: Instance
+      type: System.Object
+    return:
+      type: System.Text.Json.Nodes.JsonNode
+    content.vb: Public Shared Function ObjectToJsonNode(Instance As Object) As JsonNode
+  overload: Tripous.Json.ObjectToJsonNode*
+  nameWithType.vb: Json.ObjectToJsonNode(Object)
+  fullName.vb: Tripous.Json.ObjectToJsonNode(Object)
+  name.vb: ObjectToJsonNode(Object)
+- uid: Tripous.Json.ToDictionary(System.String)
+  commentId: M:Tripous.Json.ToDictionary(System.String)
+  id: ToDictionary(System.String)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: ToDictionary(string)
+  nameWithType: Json.ToDictionary(string)
+  fullName: Tripous.Json.ToDictionary(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToDictionary
+    path: ../Tripous/Json.cs
+    startLine: 189
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a json text to a Dictionary instance.
+  example: []
+  syntax:
+    content: public static Dictionary<string, string> ToDictionary(string JsonText)
+    parameters:
+    - id: JsonText
+      type: System.String
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+    content.vb: Public Shared Function ToDictionary(JsonText As String) As Dictionary(Of String, String)
+  overload: Tripous.Json.ToDictionary*
+  nameWithType.vb: Json.ToDictionary(String)
+  fullName.vb: Tripous.Json.ToDictionary(String)
+  name.vb: ToDictionary(String)
+- uid: Tripous.Json.ToDynamic(System.String)
+  commentId: M:Tripous.Json.ToDynamic(System.String)
+  id: ToDynamic(System.String)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: ToDynamic(string)
+  nameWithType: Json.ToDynamic(string)
+  fullName: Tripous.Json.ToDynamic(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToDynamic
+    path: ../Tripous/Json.cs
+    startLine: 196
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts json text to a dynamic object which actually is a <xref href="System.Text.Json.Nodes.JsonObject" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public static dynamic ToDynamic(string JsonText)
+    parameters:
+    - id: JsonText
+      type: System.String
+    return:
+      type: dynamic
+    content.vb: Public Shared Function ToDynamic(JsonText As String) As Object
+  overload: Tripous.Json.ToDynamic*
+  nameWithType.vb: Json.ToDynamic(String)
+  fullName.vb: Tripous.Json.ToDynamic(String)
+  name.vb: ToDynamic(String)
+- uid: Tripous.Json.SaveToFile(System.Object,System.String,System.String)
+  commentId: M:Tripous.Json.SaveToFile(System.Object,System.String,System.String)
+  id: SaveToFile(System.Object,System.String,System.String)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: SaveToFile(object, string, string)
+  nameWithType: Json.SaveToFile(object, string, string)
+  fullName: Tripous.Json.SaveToFile(object, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SaveToFile
+    path: ../Tripous/Json.cs
+    startLine: 208
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Saves an instance as json text in a specified file.
+  example: []
+  syntax:
+    content: public static void SaveToFile(object Instance, string FilePath, string Encoding = "utf-8")
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: FilePath
+      type: System.String
+    - id: Encoding
+      type: System.String
+    content.vb: Public Shared Sub SaveToFile(Instance As Object, FilePath As String, Encoding As String = "utf-8")
+  overload: Tripous.Json.SaveToFile*
+  nameWithType.vb: Json.SaveToFile(Object, String, String)
+  fullName.vb: Tripous.Json.SaveToFile(Object, String, String)
+  name.vb: SaveToFile(Object, String, String)
+- uid: Tripous.Json.LoadFromFile(System.Object,System.String,System.String)
+  commentId: M:Tripous.Json.LoadFromFile(System.Object,System.String,System.String)
+  id: LoadFromFile(System.Object,System.String,System.String)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: LoadFromFile(object, string, string)
+  nameWithType: Json.LoadFromFile(object, string, string)
+  fullName: Tripous.Json.LoadFromFile(object, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoadFromFile
+    path: ../Tripous/Json.cs
+    startLine: 220
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Loads the properties of an instance by reading the json text of a specified file.
+  example: []
+  syntax:
+    content: public static void LoadFromFile(object Instance, string FilePath, string Encoding = "utf-8")
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: FilePath
+      type: System.String
+    - id: Encoding
+      type: System.String
+    content.vb: Public Shared Sub LoadFromFile(Instance As Object, FilePath As String, Encoding As String = "utf-8")
+  overload: Tripous.Json.LoadFromFile*
+  nameWithType.vb: Json.LoadFromFile(Object, String, String)
+  fullName.vb: Tripous.Json.LoadFromFile(Object, String, String)
+  name.vb: LoadFromFile(Object, String, String)
+- uid: Tripous.Json.LoadFromFile(System.Type,System.String,System.String)
+  commentId: M:Tripous.Json.LoadFromFile(System.Type,System.String,System.String)
+  id: LoadFromFile(System.Type,System.String,System.String)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: LoadFromFile(Type, string, string)
+  nameWithType: Json.LoadFromFile(Type, string, string)
+  fullName: Tripous.Json.LoadFromFile(System.Type, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoadFromFile
+    path: ../Tripous/Json.cs
+    startLine: 231
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates and returns an object of ClassType using the json text of a specified file
+  example: []
+  syntax:
+    content: public static object LoadFromFile(Type ClassType, string FilePath, string Encoding = "utf-8")
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: FilePath
+      type: System.String
+    - id: Encoding
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Shared Function LoadFromFile(ClassType As Type, FilePath As String, Encoding As String = "utf-8") As Object
+  overload: Tripous.Json.LoadFromFile*
+  nameWithType.vb: Json.LoadFromFile(Type, String, String)
+  fullName.vb: Tripous.Json.LoadFromFile(System.Type, String, String)
+  name.vb: LoadFromFile(Type, String, String)
+- uid: Tripous.Json.SerializeToStream(System.Object,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.SerializeToStream(System.Object,System.Text.Json.JsonSerializerOptions)
+  id: SerializeToStream(System.Object,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: SerializeToStream(object, JsonSerializerOptions)
+  nameWithType: Json.SerializeToStream(object, JsonSerializerOptions)
+  fullName: Tripous.Json.SerializeToStream(object, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SerializeToStream
+    path: ../Tripous/Json.cs
+    startLine: 248
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Converts Instance to a json string using the NewtonSoft json serializer and then to stream.
+
+
+    <p>If no settings specified then it uses the default JsonSerializerSettings</p> 
+
+    <p>NOTE: UTF8 encoding is used.</p>
+  example: []
+  syntax:
+    content: public static MemoryStream SerializeToStream(object Instance, JsonSerializerOptions JsonOptions = null)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    return:
+      type: System.IO.MemoryStream
+    content.vb: Public Shared Function SerializeToStream(Instance As Object, JsonOptions As JsonSerializerOptions = Nothing) As MemoryStream
+  overload: Tripous.Json.SerializeToStream*
+  nameWithType.vb: Json.SerializeToStream(Object, JsonSerializerOptions)
+  fullName.vb: Tripous.Json.SerializeToStream(Object, System.Text.Json.JsonSerializerOptions)
+  name.vb: SerializeToStream(Object, JsonSerializerOptions)
+- uid: Tripous.Json.SerializeToStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.SerializeToStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  id: SerializeToStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: SerializeToStream(object, Stream, JsonSerializerOptions)
+  nameWithType: Json.SerializeToStream(object, Stream, JsonSerializerOptions)
+  fullName: Tripous.Json.SerializeToStream(object, System.IO.Stream, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SerializeToStream
+    path: ../Tripous/Json.cs
+    startLine: 260
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Converts Instance to a json string using the NewtonSoft json serializer and then to stream.
+
+
+    <p>If no settings specified then it uses the default JsonSerializerSettings</p> 
+
+    <p>NOTE: UTF8 encoding is used.</p>
+  example: []
+  syntax:
+    content: public static void SerializeToStream(object Instance, Stream Stream, JsonSerializerOptions JsonOptions = null)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: Stream
+      type: System.IO.Stream
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    content.vb: Public Shared Sub SerializeToStream(Instance As Object, Stream As Stream, JsonOptions As JsonSerializerOptions = Nothing)
+  overload: Tripous.Json.SerializeToStream*
+  nameWithType.vb: Json.SerializeToStream(Object, Stream, JsonSerializerOptions)
+  fullName.vb: Tripous.Json.SerializeToStream(Object, System.IO.Stream, System.Text.Json.JsonSerializerOptions)
+  name.vb: SerializeToStream(Object, Stream, JsonSerializerOptions)
+- uid: Tripous.Json.JsonTextToStream(System.String,System.IO.Stream)
+  commentId: M:Tripous.Json.JsonTextToStream(System.String,System.IO.Stream)
+  id: JsonTextToStream(System.String,System.IO.Stream)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: JsonTextToStream(string, Stream)
+  nameWithType: Json.JsonTextToStream(string, Stream)
+  fullName: Tripous.Json.JsonTextToStream(string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonTextToStream
+    path: ../Tripous/Json.cs
+    startLine: 269
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Converts a specified json text to a stream.
+
+
+    <p>NOTE: UTF8 encoding is used.</p>
+  example: []
+  syntax:
+    content: public static void JsonTextToStream(string JsonText, Stream Stream)
+    parameters:
+    - id: JsonText
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    content.vb: Public Shared Sub JsonTextToStream(JsonText As String, Stream As Stream)
+  overload: Tripous.Json.JsonTextToStream*
+  nameWithType.vb: Json.JsonTextToStream(String, Stream)
+  fullName.vb: Tripous.Json.JsonTextToStream(String, System.IO.Stream)
+  name.vb: JsonTextToStream(String, Stream)
+- uid: Tripous.Json.DeserializeFromStream(System.Type,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.DeserializeFromStream(System.Type,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  id: DeserializeFromStream(System.Type,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: DeserializeFromStream(Type, Stream, JsonSerializerOptions)
+  nameWithType: Json.DeserializeFromStream(Type, Stream, JsonSerializerOptions)
+  fullName: Tripous.Json.DeserializeFromStream(System.Type, System.IO.Stream, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DeserializeFromStream
+    path: ../Tripous/Json.cs
+    startLine: 280
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Reads the json text from a stream and then deserializes (creates) an object of a specified type.
+
+
+    <p>If no settings specified then it uses the default JsonSerializerSettings</p> 
+
+    <p>NOTE: UTF8 encoding is used.</p>
+  example: []
+  syntax:
+    content: public static object DeserializeFromStream(Type ClassType, Stream Stream, JsonSerializerOptions JsonOptions = null)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: Stream
+      type: System.IO.Stream
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    return:
+      type: System.Object
+    content.vb: Public Shared Function DeserializeFromStream(ClassType As Type, Stream As Stream, JsonOptions As JsonSerializerOptions = Nothing) As Object
+  overload: Tripous.Json.DeserializeFromStream*
+- uid: Tripous.Json.DeserializeFromStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  commentId: M:Tripous.Json.DeserializeFromStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  id: DeserializeFromStream(System.Object,System.IO.Stream,System.Text.Json.JsonSerializerOptions)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: DeserializeFromStream(object, Stream, JsonSerializerOptions)
+  nameWithType: Json.DeserializeFromStream(object, Stream, JsonSerializerOptions)
+  fullName: Tripous.Json.DeserializeFromStream(object, System.IO.Stream, System.Text.Json.JsonSerializerOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DeserializeFromStream
+    path: ../Tripous/Json.cs
+    startLine: 290
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Loads an object's properties from a specified stream, after reading the json text from the stream.
+
+
+    <p>If no settings specified then it uses the default JsonSerializerSettings</p> 
+
+    <p>NOTE: UTF8 encoding is used.</p>
+  example: []
+  syntax:
+    content: public static void DeserializeFromStream(object Instance, Stream Stream, JsonSerializerOptions JsonOptions = null)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: Stream
+      type: System.IO.Stream
+    - id: JsonOptions
+      type: System.Text.Json.JsonSerializerOptions
+    content.vb: Public Shared Sub DeserializeFromStream(Instance As Object, Stream As Stream, JsonOptions As JsonSerializerOptions = Nothing)
+  overload: Tripous.Json.DeserializeFromStream*
+  nameWithType.vb: Json.DeserializeFromStream(Object, Stream, JsonSerializerOptions)
+  fullName.vb: Tripous.Json.DeserializeFromStream(Object, System.IO.Stream, System.Text.Json.JsonSerializerOptions)
+  name.vb: DeserializeFromStream(Object, Stream, JsonSerializerOptions)
+- uid: Tripous.Json.StreamToJsonText(System.IO.Stream)
+  commentId: M:Tripous.Json.StreamToJsonText(System.IO.Stream)
+  id: StreamToJsonText(System.IO.Stream)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: StreamToJsonText(Stream)
+  nameWithType: Json.StreamToJsonText(Stream)
+  fullName: Tripous.Json.StreamToJsonText(System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StreamToJsonText
+    path: ../Tripous/Json.cs
+    startLine: 300
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Reads a stream as json text.
+
+
+    <p>NOTE: UTF8 encoding is used.</p>
+
+    <p>The stream is left open and is not disposed by this method.</p>
+  example: []
+  syntax:
+    content: public static string StreamToJsonText(Stream Stream)
+    parameters:
+    - id: Stream
+      type: System.IO.Stream
+    return:
+      type: System.String
+    content.vb: Public Shared Function StreamToJsonText(Stream As Stream) As String
+  overload: Tripous.Json.StreamToJsonText*
+- uid: Tripous.Json.GetRequestDic(System.IO.Stream)
+  commentId: M:Tripous.Json.GetRequestDic(System.IO.Stream)
+  id: GetRequestDic(System.IO.Stream)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: GetRequestDic(Stream)
+  nameWithType: Json.GetRequestDic(Stream)
+  fullName: Tripous.Json.GetRequestDic(System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetRequestDic
+    path: ../Tripous/Json.cs
+    startLine: 313
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the text of the input stream of a request (HttpContext.Request.Body) as a Dictionary. To be used when POST-ing json data.
+  example: []
+  syntax:
+    content: public static Dictionary<string, dynamic> GetRequestDic(Stream RequestBodyStream)
+    parameters:
+    - id: RequestBodyStream
+      type: System.IO.Stream
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Shared Function GetRequestDic(RequestBodyStream As Stream) As Dictionary(Of String, Object)
+  overload: Tripous.Json.GetRequestDic*
+- uid: Tripous.Json.CloneObject``1(``0)
+  commentId: M:Tripous.Json.CloneObject``1(``0)
+  id: CloneObject``1(``0)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: CloneObject<T>(T)
+  nameWithType: Json.CloneObject<T>(T)
+  fullName: Tripous.Json.CloneObject<T>(T)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CloneObject
+    path: ../Tripous/Json.cs
+    startLine: 329
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Clones an object.
+
+
+    <p>The specified instance should be marked with the SerializableAttribute and provide a default constructor.</p>
+  example: []
+  syntax:
+    content: 'public static T CloneObject<T>(T Source) where T : new()'
+    parameters:
+    - id: Source
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function CloneObject(Of T As New)(Source As T) As T
+  overload: Tripous.Json.CloneObject*
+  nameWithType.vb: Json.CloneObject(Of T)(T)
+  fullName.vb: Tripous.Json.CloneObject(Of T)(T)
+  name.vb: CloneObject(Of T)(T)
+- uid: Tripous.Json.AssignObject``2(``0,``1)
+  commentId: M:Tripous.Json.AssignObject``2(``0,``1)
+  id: AssignObject``2(``0,``1)
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: AssignObject<T, T2>(T, T2)
+  nameWithType: Json.AssignObject<T, T2>(T, T2)
+  fullName: Tripous.Json.AssignObject<T, T2>(T, T2)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AssignObject
+    path: ../Tripous/Json.cs
+    startLine: 341
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Assigns a source object properties to a dest object
+  example: []
+  syntax:
+    content: public static void AssignObject<T, T2>(T Source, T2 Dest)
+    parameters:
+    - id: Source
+      type: '{T}'
+    - id: Dest
+      type: '{T2}'
+    typeParameters:
+    - id: T
+    - id: T2
+    content.vb: Public Shared Sub AssignObject(Of T, T2)(Source As T, Dest As T2)
+  overload: Tripous.Json.AssignObject*
+  nameWithType.vb: Json.AssignObject(Of T, T2)(T, T2)
+  fullName.vb: Tripous.Json.AssignObject(Of T, T2)(T, T2)
+  name.vb: AssignObject(Of T, T2)(T, T2)
+- uid: Tripous.Json.DefaultSerializerOptions
+  commentId: P:Tripous.Json.DefaultSerializerOptions
+  id: DefaultSerializerOptions
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: DefaultSerializerOptions
+  nameWithType: Json.DefaultSerializerOptions
+  fullName: Tripous.Json.DefaultSerializerOptions
+  type: Property
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultSerializerOptions
+    path: ../Tripous/Json.cs
+    startLine: 351
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the default serialization options
+  example: []
+  syntax:
+    content: public static JsonSerializerOptions DefaultSerializerOptions { get; }
+    parameters: []
+    return:
+      type: System.Text.Json.JsonSerializerOptions
+    content.vb: Public Shared ReadOnly Property DefaultSerializerOptions As JsonSerializerOptions
+  overload: Tripous.Json.DefaultSerializerOptions*
+- uid: Tripous.Json.SerializerOptions
+  commentId: P:Tripous.Json.SerializerOptions
+  id: SerializerOptions
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: SerializerOptions
+  nameWithType: Json.SerializerOptions
+  fullName: Tripous.Json.SerializerOptions
+  type: Property
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SerializerOptions
+    path: ../Tripous/Json.cs
+    startLine: 364
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Used when no options or null options are specified.
+  example: []
+  syntax:
+    content: public static JsonSerializerOptions SerializerOptions { get; set; }
+    parameters: []
+    return:
+      type: System.Text.Json.JsonSerializerOptions
+    content.vb: Public Shared Property SerializerOptions As JsonSerializerOptions
+  overload: Tripous.Json.SerializerOptions*
+- uid: Tripous.Json.CreateOptionsFunc
+  commentId: P:Tripous.Json.CreateOptionsFunc
+  id: CreateOptionsFunc
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: CreateOptionsFunc
+  nameWithType: Json.CreateOptionsFunc
+  fullName: Tripous.Json.CreateOptionsFunc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateOptionsFunc
+    path: ../Tripous/Json.cs
+    startLine: 375
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    This property is used whenever this class is about to create <xref href="System.Text.Json.JsonSerializerOptions" data-throw-if-not-resolved="false"></xref>.
+
+
+    <p>If this property is null then the <xref href="Tripous.Json.CreateJsonOptions(System.Boolean%2cSystem.Boolean%2cSystem.Boolean%2cSystem.Int32%2cSystem.String%5b%5d)" data-throw-if-not-resolved="false"></xref>() method is used. </p>
+
+    <p>The following is the signature the callback should have.</p>
+
+    <pre><code class="lang-csharp">JsonSerializerOptions CreateOptionsFunc(bool CameCase, bool Formatted, bool CaseInsensitiveProperties = true, int Decimals, string[] ExcludeProperties)</code></pre>
+  example: []
+  syntax:
+    content: public static Func<bool, bool, bool, int, string[], JsonSerializerOptions> CreateOptionsFunc { get; set; }
+    parameters: []
+    return:
+      type: System.Func{System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[],System.Text.Json.JsonSerializerOptions}
+    content.vb: Public Shared Property CreateOptionsFunc As Func(Of Boolean, Boolean, Boolean, Integer, String(), JsonSerializerOptions)
+  overload: Tripous.Json.CreateOptionsFunc*
+- uid: Tripous.Json.DefaultDecimals
+  commentId: P:Tripous.Json.DefaultDecimals
+  id: DefaultDecimals
+  parent: Tripous.Json
+  langs:
+  - csharp
+  - vb
+  name: DefaultDecimals
+  nameWithType: Json.DefaultDecimals
+  fullName: Tripous.Json.DefaultDecimals
+  type: Property
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultDecimals
+    path: ../Tripous/Json.cs
+    startLine: 380
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Controls the decimal places when serializing decimal and double values.
+  example: []
+  syntax:
+    content: public static int DefaultDecimals { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Shared Property DefaultDecimals As Integer
+  overload: Tripous.Json.DefaultDecimals*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Json.CreateJsonOptions*
+  commentId: Overload:Tripous.Json.CreateJsonOptions
+  href: Tripous.Json.html#Tripous_Json_CreateJsonOptions_System_Boolean_System_Boolean_System_Boolean_System_Int32_System_String___
+  name: CreateJsonOptions
+  nameWithType: Json.CreateJsonOptions
+  fullName: Tripous.Json.CreateJsonOptions
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: System.Text.Json.JsonSerializerOptions
+  commentId: T:System.Text.Json.JsonSerializerOptions
+  parent: System.Text.Json
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions
+  name: JsonSerializerOptions
+  nameWithType: JsonSerializerOptions
+  fullName: System.Text.Json.JsonSerializerOptions
+- uid: System.Text.Json
+  commentId: N:System.Text.Json
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text.Json
+  nameWithType: System.Text.Json
+  fullName: System.Text.Json
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+- uid: Tripous.Json.SetupJsonOptions*
+  commentId: Overload:Tripous.Json.SetupJsonOptions
+  href: Tripous.Json.html#Tripous_Json_SetupJsonOptions_System_Text_Json_JsonSerializerOptions_System_Boolean_System_Boolean_System_Boolean_System_Int32_System_String___
+  name: SetupJsonOptions
+  nameWithType: Json.SetupJsonOptions
+  fullName: Tripous.Json.SetupJsonOptions
+- uid: Tripous.Json.Serialize*
+  commentId: Overload:Tripous.Json.Serialize
+  href: Tripous.Json.html#Tripous_Json_Serialize_System_Object_System_Text_Json_JsonSerializerOptions_
+  name: Serialize
+  nameWithType: Json.Serialize
+  fullName: Tripous.Json.Serialize
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Json.SerializerOptions
+  commentId: P:Tripous.Json.SerializerOptions
+  href: Tripous.Json.html#Tripous_Json_SerializerOptions
+  name: SerializerOptions
+  nameWithType: Json.SerializerOptions
+  fullName: Tripous.Json.SerializerOptions
+- uid: Tripous.Json.Deserialize*
+  commentId: Overload:Tripous.Json.Deserialize
+  href: Tripous.Json.html#Tripous_Json_Deserialize_System_String_System_Type_System_Text_Json_JsonSerializerOptions_
+  name: Deserialize
+  nameWithType: Json.Deserialize
+  fullName: Tripous.Json.Deserialize
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Tripous.Json.PopulateObject*
+  commentId: Overload:Tripous.Json.PopulateObject
+  href: Tripous.Json.html#Tripous_Json_PopulateObject_System_Object_System_String_System_Text_Json_JsonSerializerOptions_
+  name: PopulateObject
+  nameWithType: Json.PopulateObject
+  fullName: Tripous.Json.PopulateObject
+- uid: Tripous.Json.Format*
+  commentId: Overload:Tripous.Json.Format
+  href: Tripous.Json.html#Tripous_Json_Format_System_String_
+  name: Format
+  nameWithType: Json.Format
+  fullName: Tripous.Json.Format
+- uid: Tripous.Json.ObjectToJsonNode*
+  commentId: Overload:Tripous.Json.ObjectToJsonNode
+  href: Tripous.Json.html#Tripous_Json_ObjectToJsonNode_System_Object_
+  name: ObjectToJsonNode
+  nameWithType: Json.ObjectToJsonNode
+  fullName: Tripous.Json.ObjectToJsonNode
+- uid: System.Text.Json.Nodes.JsonNode
+  commentId: T:System.Text.Json.Nodes.JsonNode
+  parent: System.Text.Json.Nodes
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes.jsonnode
+  name: JsonNode
+  nameWithType: JsonNode
+  fullName: System.Text.Json.Nodes.JsonNode
+- uid: System.Text.Json.Nodes
+  commentId: N:System.Text.Json.Nodes
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text.Json.Nodes
+  nameWithType: System.Text.Json.Nodes
+  fullName: System.Text.Json.Nodes
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+  - name: .
+  - uid: System.Text.Json.Nodes
+    name: Nodes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+  - name: .
+  - uid: System.Text.Json.Nodes
+    name: Nodes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
+- uid: Tripous.Json.ToDictionary*
+  commentId: Overload:Tripous.Json.ToDictionary
+  href: Tripous.Json.html#Tripous_Json_ToDictionary_System_String_
+  name: ToDictionary
+  nameWithType: Json.ToDictionary
+  fullName: Tripous.Json.ToDictionary
+- uid: System.Collections.Generic.Dictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, string>
+  nameWithType: Dictionary<string, string>
+  fullName: System.Collections.Generic.Dictionary<string, string>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Text.Json.Nodes.JsonObject
+  commentId: T:System.Text.Json.Nodes.JsonObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes.jsonobject
+  name: JsonObject
+  nameWithType: JsonObject
+  fullName: System.Text.Json.Nodes.JsonObject
+- uid: Tripous.Json.ToDynamic*
+  commentId: Overload:Tripous.Json.ToDynamic
+  href: Tripous.Json.html#Tripous_Json_ToDynamic_System_String_
+  name: ToDynamic
+  nameWithType: Json.ToDynamic
+  fullName: Tripous.Json.ToDynamic
+- uid: dynamic
+  commentId: T:System.Object
+  isExternal: true
+  name: dynamic
+  nameWithType: dynamic
+  fullName: dynamic
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.Json.SaveToFile*
+  commentId: Overload:Tripous.Json.SaveToFile
+  href: Tripous.Json.html#Tripous_Json_SaveToFile_System_Object_System_String_System_String_
+  name: SaveToFile
+  nameWithType: Json.SaveToFile
+  fullName: Tripous.Json.SaveToFile
+- uid: Tripous.Json.LoadFromFile*
+  commentId: Overload:Tripous.Json.LoadFromFile
+  href: Tripous.Json.html#Tripous_Json_LoadFromFile_System_Object_System_String_System_String_
+  name: LoadFromFile
+  nameWithType: Json.LoadFromFile
+  fullName: Tripous.Json.LoadFromFile
+- uid: Tripous.Json.SerializeToStream*
+  commentId: Overload:Tripous.Json.SerializeToStream
+  href: Tripous.Json.html#Tripous_Json_SerializeToStream_System_Object_System_Text_Json_JsonSerializerOptions_
+  name: SerializeToStream
+  nameWithType: Json.SerializeToStream
+  fullName: Tripous.Json.SerializeToStream
+- uid: System.IO.MemoryStream
+  commentId: T:System.IO.MemoryStream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.memorystream
+  name: MemoryStream
+  nameWithType: MemoryStream
+  fullName: System.IO.MemoryStream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: Tripous.Json.JsonTextToStream*
+  commentId: Overload:Tripous.Json.JsonTextToStream
+  href: Tripous.Json.html#Tripous_Json_JsonTextToStream_System_String_System_IO_Stream_
+  name: JsonTextToStream
+  nameWithType: Json.JsonTextToStream
+  fullName: Tripous.Json.JsonTextToStream
+- uid: Tripous.Json.DeserializeFromStream*
+  commentId: Overload:Tripous.Json.DeserializeFromStream
+  href: Tripous.Json.html#Tripous_Json_DeserializeFromStream_System_Type_System_IO_Stream_System_Text_Json_JsonSerializerOptions_
+  name: DeserializeFromStream
+  nameWithType: Json.DeserializeFromStream
+  fullName: Tripous.Json.DeserializeFromStream
+- uid: Tripous.Json.StreamToJsonText*
+  commentId: Overload:Tripous.Json.StreamToJsonText
+  href: Tripous.Json.html#Tripous_Json_StreamToJsonText_System_IO_Stream_
+  name: StreamToJsonText
+  nameWithType: Json.StreamToJsonText
+  fullName: Tripous.Json.StreamToJsonText
+- uid: Tripous.Json.GetRequestDic*
+  commentId: Overload:Tripous.Json.GetRequestDic
+  href: Tripous.Json.html#Tripous_Json_GetRequestDic_System_IO_Stream_
+  name: GetRequestDic
+  nameWithType: Json.GetRequestDic
+  fullName: Tripous.Json.GetRequestDic
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Json.CloneObject*
+  commentId: Overload:Tripous.Json.CloneObject
+  href: Tripous.Json.html#Tripous_Json_CloneObject__1___0_
+  name: CloneObject
+  nameWithType: Json.CloneObject
+  fullName: Tripous.Json.CloneObject
+- uid: Tripous.Json.AssignObject*
+  commentId: Overload:Tripous.Json.AssignObject
+  href: Tripous.Json.html#Tripous_Json_AssignObject__2___0___1_
+  name: AssignObject
+  nameWithType: Json.AssignObject
+  fullName: Tripous.Json.AssignObject
+- uid: '{T2}'
+  commentId: '!:T2'
+  definition: T2
+  name: T2
+  nameWithType: T2
+  fullName: T2
+- uid: T2
+  commentId: '!:T2'
+  name: T2
+  nameWithType: T2
+  fullName: T2
+- uid: Tripous.Json.DefaultSerializerOptions*
+  commentId: Overload:Tripous.Json.DefaultSerializerOptions
+  href: Tripous.Json.html#Tripous_Json_DefaultSerializerOptions
+  name: DefaultSerializerOptions
+  nameWithType: Json.DefaultSerializerOptions
+  fullName: Tripous.Json.DefaultSerializerOptions
+- uid: Tripous.Json.SerializerOptions*
+  commentId: Overload:Tripous.Json.SerializerOptions
+  href: Tripous.Json.html#Tripous_Json_SerializerOptions
+  name: SerializerOptions
+  nameWithType: Json.SerializerOptions
+  fullName: Tripous.Json.SerializerOptions
+- uid: Tripous.Json.CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  commentId: M:Tripous.Json.CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+  isExternal: true
+  href: Tripous.Json.html#Tripous_Json_CreateJsonOptions_System_Boolean_System_Boolean_System_Boolean_System_Int32_System_String___
+  name: CreateJsonOptions(bool, bool, bool, int, string[])
+  nameWithType: Json.CreateJsonOptions(bool, bool, bool, int, string[])
+  fullName: Tripous.Json.CreateJsonOptions(bool, bool, bool, int, string[])
+  nameWithType.vb: Json.CreateJsonOptions(Boolean, Boolean, Boolean, Integer, String())
+  fullName.vb: Tripous.Json.CreateJsonOptions(Boolean, Boolean, Boolean, Integer, String())
+  name.vb: CreateJsonOptions(Boolean, Boolean, Boolean, Integer, String())
+  spec.csharp:
+  - uid: Tripous.Json.CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+    name: CreateJsonOptions
+    href: Tripous.Json.html#Tripous_Json_CreateJsonOptions_System_Boolean_System_Boolean_System_Boolean_System_Int32_System_String___
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Json.CreateJsonOptions(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[])
+    name: CreateJsonOptions
+    href: Tripous.Json.html#Tripous_Json_CreateJsonOptions_System_Boolean_System_Boolean_System_Boolean_System_Int32_System_String___
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+  - name: )
+- uid: Tripous.Json.CreateOptionsFunc*
+  commentId: Overload:Tripous.Json.CreateOptionsFunc
+  href: Tripous.Json.html#Tripous_Json_CreateOptionsFunc
+  name: CreateOptionsFunc
+  nameWithType: Json.CreateOptionsFunc
+  fullName: Tripous.Json.CreateOptionsFunc
+- uid: System.Func{System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[],System.Text.Json.JsonSerializerOptions}
+  commentId: T:System.Func{System.Boolean,System.Boolean,System.Boolean,System.Int32,System.String[],System.Text.Json.JsonSerializerOptions}
+  parent: System
+  definition: System.Func`6
+  href: https://learn.microsoft.com/dotnet/api/system.func-6
+  name: Func<bool, bool, bool, int, string[], JsonSerializerOptions>
+  nameWithType: Func<bool, bool, bool, int, string[], JsonSerializerOptions>
+  fullName: System.Func<bool, bool, bool, int, string[], System.Text.Json.JsonSerializerOptions>
+  nameWithType.vb: Func(Of Boolean, Boolean, Boolean, Integer, String(), JsonSerializerOptions)
+  fullName.vb: System.Func(Of Boolean, Boolean, Boolean, Integer, String(), System.Text.Json.JsonSerializerOptions)
+  name.vb: Func(Of Boolean, Boolean, Boolean, Integer, String(), JsonSerializerOptions)
+  spec.csharp:
+  - uid: System.Func`6
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-6
+  - name: <
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.Text.Json.JsonSerializerOptions
+    name: JsonSerializerOptions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`6
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-6
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Text.Json.JsonSerializerOptions
+    name: JsonSerializerOptions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions
+  - name: )
+- uid: System.Func`6
+  commentId: T:System.Func`6
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-6
+  name: Func<T1, T2, T3, T4, T5, TResult>
+  nameWithType: Func<T1, T2, T3, T4, T5, TResult>
+  fullName: System.Func<T1, T2, T3, T4, T5, TResult>
+  nameWithType.vb: Func(Of T1, T2, T3, T4, T5, TResult)
+  fullName.vb: System.Func(Of T1, T2, T3, T4, T5, TResult)
+  name.vb: Func(Of T1, T2, T3, T4, T5, TResult)
+  spec.csharp:
+  - uid: System.Func`6
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-6
+  - name: <
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: ','
+  - name: " "
+  - name: T4
+  - name: ','
+  - name: " "
+  - name: T5
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`6
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-6
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: ','
+  - name: " "
+  - name: T4
+  - name: ','
+  - name: " "
+  - name: T5
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Tripous.Json.DefaultDecimals*
+  commentId: Overload:Tripous.Json.DefaultDecimals
+  href: Tripous.Json.html#Tripous_Json_DefaultDecimals
+  name: DefaultDecimals
+  nameWithType: Json.DefaultDecimals
+  fullName: Tripous.Json.DefaultDecimals

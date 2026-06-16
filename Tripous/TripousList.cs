@@ -132,6 +132,9 @@ public class TripousList<T> : IList<T>, IList, ICollection<T>, ICollection, INot
     /// </summary>
     public void Clear()
     {
+        if (Items.Count == 0)
+            return;
+
         Items.Clear();
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         OnPropertyChanged(nameof(Count));
@@ -168,6 +171,9 @@ public class TripousList<T> : IList<T>, IList, ICollection<T>, ICollection, INot
         set
         {
             T oldItem = Items[Index];
+            if (object.ReferenceEquals(oldItem, value))
+                return;
+
             CheckAdding(value);
             Items[Index] = value;
             OnCollectionChanged(NotifyCollectionChangedAction.Replace, value, oldItem, Index);

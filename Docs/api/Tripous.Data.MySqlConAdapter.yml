@@ -1,0 +1,2595 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.MySqlConAdapter
+  commentId: T:Tripous.Data.MySqlConAdapter
+  id: MySqlConAdapter
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.MySqlConAdapter.PropDefs
+  - Tripous.Data.MySqlConAdapter.ServerType
+  - Tripous.Data.MySqlConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.MySqlConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  langs:
+  - csharp
+  - vb
+  name: MySqlConAdapter
+  nameWithType: MySqlConAdapter
+  fullName: Tripous.Data.MySqlConAdapter
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/MySqlConAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MySqlConAdapter
+    path: ../Tripous.Data/DbConnections/MySqlConAdapter.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Connection string adapter for MySQL databases.
+  example: []
+  syntax:
+    content: 'public class MySqlConAdapter : DbConAdapter'
+    content.vb: Public Class MySqlConAdapter Inherits DbConAdapter
+  inheritance:
+  - System.Object
+  - Tripous.Data.DbConAdapter
+  inheritedMembers:
+  - Tripous.Data.DbConAdapter.Find(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType)
+  - Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{System.String},System.String,System.String)
+  - Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType,System.String)
+  - Tripous.Data.DbConAdapter.Contains(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+  - Tripous.Data.DbConAdapter.Read(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+  - Tripous.Data.DbConAdapter.ParseToDictionary(System.String)
+  - Tripous.Data.DbConAdapter.WriteServer(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.WritePort(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.WriteDatabase(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.WritePassword(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.WriteIntegratedSecurity(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.WriteTrustServerCertificate(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.WriteCharset(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadServer(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadPort(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadDatabase(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadUserId(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadPassword(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadIntegratedSecurity(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadTrustServerCertificate(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadSslMode(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.ReadCharset(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.Construct(System.Collections.Generic.List{Tripous.Data.DbConProp})
+  - Tripous.Data.DbConAdapter.Parse(System.String)
+  - Tripous.Data.DbConAdapter.IsValid(Tripous.Data.DbConPropType)
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.MySqlConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.MySqlConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  id: WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.MySqlConAdapter
+  langs:
+  - csharp
+  - vb
+  name: WriteUserId(List<string>, List<DbConProp>)
+  nameWithType: MySqlConAdapter.WriteUserId(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.MySqlConAdapter.WriteUserId(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/MySqlConAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteUserId
+    path: ../Tripous.Data/DbConnections/MySqlConAdapter.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the user id using the MySQL Uid key.
+  example: []
+  syntax:
+    content: protected override void WriteUserId(List<string> Parts, List<DbConProp> Props)
+    parameters:
+    - id: Parts
+      type: System.Collections.Generic.List{System.String}
+    - id: Props
+      type: System.Collections.Generic.List{Tripous.Data.DbConProp}
+    content.vb: Protected Overrides Sub WriteUserId(Parts As List(Of String), Props As List(Of DbConProp))
+  overridden: Tripous.Data.DbConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  overload: Tripous.Data.MySqlConAdapter.WriteUserId*
+  nameWithType.vb: MySqlConAdapter.WriteUserId(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.MySqlConAdapter.WriteUserId(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteUserId(List(Of String), List(Of DbConProp))
+- uid: Tripous.Data.MySqlConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.MySqlConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  id: WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.MySqlConAdapter
+  langs:
+  - csharp
+  - vb
+  name: WriteSslMode(List<string>, List<DbConProp>)
+  nameWithType: MySqlConAdapter.WriteSslMode(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.MySqlConAdapter.WriteSslMode(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/MySqlConAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteSslMode
+    path: ../Tripous.Data/DbConnections/MySqlConAdapter.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the SSL mode setting.
+  example: []
+  syntax:
+    content: protected override void WriteSslMode(List<string> Parts, List<DbConProp> Props)
+    parameters:
+    - id: Parts
+      type: System.Collections.Generic.List{System.String}
+    - id: Props
+      type: System.Collections.Generic.List{Tripous.Data.DbConProp}
+    content.vb: Protected Overrides Sub WriteSslMode(Parts As List(Of String), Props As List(Of DbConProp))
+  overridden: Tripous.Data.DbConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  overload: Tripous.Data.MySqlConAdapter.WriteSslMode*
+  nameWithType.vb: MySqlConAdapter.WriteSslMode(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.MySqlConAdapter.WriteSslMode(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteSslMode(List(Of String), List(Of DbConProp))
+- uid: Tripous.Data.MySqlConAdapter.ServerType
+  commentId: P:Tripous.Data.MySqlConAdapter.ServerType
+  id: ServerType
+  parent: Tripous.Data.MySqlConAdapter
+  langs:
+  - csharp
+  - vb
+  name: ServerType
+  nameWithType: MySqlConAdapter.ServerType
+  fullName: Tripous.Data.MySqlConAdapter.ServerType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/MySqlConAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ServerType
+    path: ../Tripous.Data/DbConnections/MySqlConAdapter.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the database server type handled by this adapter.
+  example: []
+  syntax:
+    content: public override DbServerType ServerType { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbServerType
+    content.vb: Public Overrides ReadOnly Property ServerType As DbServerType
+  overridden: Tripous.Data.DbConAdapter.ServerType
+  overload: Tripous.Data.MySqlConAdapter.ServerType*
+- uid: Tripous.Data.MySqlConAdapter.PropDefs
+  commentId: P:Tripous.Data.MySqlConAdapter.PropDefs
+  id: PropDefs
+  parent: Tripous.Data.MySqlConAdapter
+  langs:
+  - csharp
+  - vb
+  name: PropDefs
+  nameWithType: MySqlConAdapter.PropDefs
+  fullName: Tripous.Data.MySqlConAdapter.PropDefs
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConnections/MySqlConAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PropDefs
+    path: ../Tripous.Data/DbConnections/MySqlConAdapter.cs
+    startLine: 39
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the connection property definitions supported by MySQL.
+  example: []
+  syntax:
+    content: public override DbConPropDef[] PropDefs { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbConPropDef[]
+    content.vb: Public Overrides ReadOnly Property PropDefs As DbConPropDef()
+  overridden: Tripous.Data.DbConAdapter.PropDefs
+  overload: Tripous.Data.MySqlConAdapter.PropDefs*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.Data.DbConAdapter
+  commentId: T:Tripous.Data.DbConAdapter
+  parent: Tripous.Data
+  href: Tripous.Data.DbConAdapter.html
+  name: DbConAdapter
+  nameWithType: DbConAdapter
+  fullName: Tripous.Data.DbConAdapter
+- uid: Tripous.Data.DbConAdapter.Find(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType)
+  commentId: M:Tripous.Data.DbConAdapter.Find(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType)
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Find_System_Collections_Generic_List_Tripous_Data_DbConProp__Tripous_Data_DbConPropType_
+  name: Find(List<DbConProp>, DbConPropType)
+  nameWithType: DbConAdapter.Find(List<DbConProp>, DbConPropType)
+  fullName: Tripous.Data.DbConAdapter.Find(System.Collections.Generic.List<Tripous.Data.DbConProp>, Tripous.Data.DbConPropType)
+  nameWithType.vb: DbConAdapter.Find(List(Of DbConProp), DbConPropType)
+  fullName.vb: Tripous.Data.DbConAdapter.Find(System.Collections.Generic.List(Of Tripous.Data.DbConProp), Tripous.Data.DbConPropType)
+  name.vb: Find(List(Of DbConProp), DbConPropType)
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.Find(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType)
+    name: Find
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Find_System_Collections_Generic_List_Tripous_Data_DbConProp__Tripous_Data_DbConPropType_
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbConPropType
+    name: DbConPropType
+    href: Tripous.Data.DbConPropType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.Find(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType)
+    name: Find
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Find_System_Collections_Generic_List_Tripous_Data_DbConProp__Tripous_Data_DbConPropType_
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbConPropType
+    name: DbConPropType
+    href: Tripous.Data.DbConPropType.html
+  - name: )
+- uid: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{System.String},System.String,System.String)
+  commentId: M:Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{System.String},System.String,System.String)
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Add_System_Collections_Generic_List_System_String__System_String_System_String_
+  name: Add(List<string>, string, string)
+  nameWithType: DbConAdapter.Add(List<string>, string, string)
+  fullName: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List<string>, string, string)
+  nameWithType.vb: DbConAdapter.Add(List(Of String), String, String)
+  fullName.vb: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List(Of String), String, String)
+  name.vb: Add(List(Of String), String, String)
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{System.String},System.String,System.String)
+    name: Add
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Add_System_Collections_Generic_List_System_String__System_String_System_String_
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{System.String},System.String,System.String)
+    name: Add
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Add_System_Collections_Generic_List_System_String__System_String_System_String_
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType,System.String)
+  commentId: M:Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType,System.String)
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Add_System_Collections_Generic_List_Tripous_Data_DbConProp__Tripous_Data_DbConPropType_System_String_
+  name: Add(List<DbConProp>, DbConPropType, string)
+  nameWithType: DbConAdapter.Add(List<DbConProp>, DbConPropType, string)
+  fullName: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List<Tripous.Data.DbConProp>, Tripous.Data.DbConPropType, string)
+  nameWithType.vb: DbConAdapter.Add(List(Of DbConProp), DbConPropType, String)
+  fullName.vb: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List(Of Tripous.Data.DbConProp), Tripous.Data.DbConPropType, String)
+  name.vb: Add(List(Of DbConProp), DbConPropType, String)
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType,System.String)
+    name: Add
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Add_System_Collections_Generic_List_Tripous_Data_DbConProp__Tripous_Data_DbConPropType_System_String_
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbConPropType
+    name: DbConPropType
+    href: Tripous.Data.DbConPropType.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.Add(System.Collections.Generic.List{Tripous.Data.DbConProp},Tripous.Data.DbConPropType,System.String)
+    name: Add
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Add_System_Collections_Generic_List_Tripous_Data_DbConProp__Tripous_Data_DbConPropType_System_String_
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbConPropType
+    name: DbConPropType
+    href: Tripous.Data.DbConPropType.html
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DbConAdapter.Contains(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+  commentId: M:Tripous.Data.DbConAdapter.Contains(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Contains_System_Collections_Generic_Dictionary_System_String_System_String__System_String___
+  name: Contains(Dictionary<string, string>, params string[])
+  nameWithType: DbConAdapter.Contains(Dictionary<string, string>, params string[])
+  fullName: Tripous.Data.DbConAdapter.Contains(System.Collections.Generic.Dictionary<string, string>, params string[])
+  nameWithType.vb: DbConAdapter.Contains(Dictionary(Of String, String), ParamArray String())
+  fullName.vb: Tripous.Data.DbConAdapter.Contains(System.Collections.Generic.Dictionary(Of String, String), ParamArray String())
+  name.vb: Contains(Dictionary(Of String, String), ParamArray String())
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.Contains(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+    name: Contains
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Contains_System_Collections_Generic_Dictionary_System_String_System_String__System_String___
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.Contains(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+    name: Contains
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Contains_System_Collections_Generic_Dictionary_System_String_System_String__System_String___
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.Read(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+  commentId: M:Tripous.Data.DbConAdapter.Read(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Read_System_Collections_Generic_Dictionary_System_String_System_String__System_String___
+  name: Read(Dictionary<string, string>, params string[])
+  nameWithType: DbConAdapter.Read(Dictionary<string, string>, params string[])
+  fullName: Tripous.Data.DbConAdapter.Read(System.Collections.Generic.Dictionary<string, string>, params string[])
+  nameWithType.vb: DbConAdapter.Read(Dictionary(Of String, String), ParamArray String())
+  fullName.vb: Tripous.Data.DbConAdapter.Read(System.Collections.Generic.Dictionary(Of String, String), ParamArray String())
+  name.vb: Read(Dictionary(Of String, String), ParamArray String())
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.Read(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+    name: Read
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Read_System_Collections_Generic_Dictionary_System_String_System_String__System_String___
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: params
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.Read(System.Collections.Generic.Dictionary{System.String,System.String},System.String[])
+    name: Read
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Read_System_Collections_Generic_Dictionary_System_String_System_String__System_String___
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - name: ParamArray
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ParseToDictionary(System.String)
+  commentId: M:Tripous.Data.DbConAdapter.ParseToDictionary(System.String)
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ParseToDictionary_System_String_
+  name: ParseToDictionary(string)
+  nameWithType: DbConAdapter.ParseToDictionary(string)
+  fullName: Tripous.Data.DbConAdapter.ParseToDictionary(string)
+  nameWithType.vb: DbConAdapter.ParseToDictionary(String)
+  fullName.vb: Tripous.Data.DbConAdapter.ParseToDictionary(String)
+  name.vb: ParseToDictionary(String)
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ParseToDictionary(System.String)
+    name: ParseToDictionary
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ParseToDictionary_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ParseToDictionary(System.String)
+    name: ParseToDictionary
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ParseToDictionary_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DbConAdapter.WriteServer(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WriteServer(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteServer_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteServer(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WriteServer(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WriteServer(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WriteServer(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WriteServer(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteServer(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WriteServer(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteServer
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteServer_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WriteServer(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteServer
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteServer_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.WritePort(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WritePort(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WritePort_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WritePort(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WritePort(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WritePort(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WritePort(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WritePort(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WritePort(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WritePort(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WritePort
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WritePort_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WritePort(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WritePort
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WritePort_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.WriteDatabase(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WriteDatabase(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteDatabase_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteDatabase(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WriteDatabase(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WriteDatabase(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WriteDatabase(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WriteDatabase(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteDatabase(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WriteDatabase(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteDatabase
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteDatabase_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WriteDatabase(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteDatabase
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteDatabase_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.WritePassword(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WritePassword(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WritePassword_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WritePassword(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WritePassword(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WritePassword(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WritePassword(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WritePassword(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WritePassword(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WritePassword(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WritePassword
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WritePassword_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WritePassword(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WritePassword
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WritePassword_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.WriteIntegratedSecurity(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WriteIntegratedSecurity(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteIntegratedSecurity_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteIntegratedSecurity(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WriteIntegratedSecurity(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WriteIntegratedSecurity(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WriteIntegratedSecurity(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WriteIntegratedSecurity(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteIntegratedSecurity(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WriteIntegratedSecurity(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteIntegratedSecurity
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteIntegratedSecurity_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WriteIntegratedSecurity(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteIntegratedSecurity
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteIntegratedSecurity_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.WriteTrustServerCertificate(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WriteTrustServerCertificate(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteTrustServerCertificate_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteTrustServerCertificate(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WriteTrustServerCertificate(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WriteTrustServerCertificate(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WriteTrustServerCertificate(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WriteTrustServerCertificate(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteTrustServerCertificate(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WriteTrustServerCertificate(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteTrustServerCertificate
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteTrustServerCertificate_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WriteTrustServerCertificate(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteTrustServerCertificate
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteTrustServerCertificate_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.WriteCharset(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WriteCharset(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteCharset_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteCharset(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WriteCharset(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WriteCharset(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WriteCharset(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WriteCharset(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteCharset(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WriteCharset(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteCharset
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteCharset_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WriteCharset(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteCharset
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteCharset_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadServer(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadServer(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadServer_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadServer(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadServer(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadServer(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadServer(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadServer(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadServer(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadServer(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadServer
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadServer_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadServer(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadServer
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadServer_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadPort(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadPort(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadPort_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadPort(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadPort(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadPort(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadPort(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadPort(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadPort(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadPort(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadPort
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadPort_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadPort(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadPort
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadPort_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadDatabase(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadDatabase(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadDatabase_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadDatabase(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadDatabase(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadDatabase(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadDatabase(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadDatabase(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadDatabase(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadDatabase(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadDatabase
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadDatabase_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadDatabase(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadDatabase
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadDatabase_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadUserId(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadUserId(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadUserId_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadUserId(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadUserId(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadUserId(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadUserId(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadUserId(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadUserId(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadUserId(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadUserId
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadUserId_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadUserId(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadUserId
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadUserId_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadPassword(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadPassword(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadPassword_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadPassword(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadPassword(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadPassword(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadPassword(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadPassword(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadPassword(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadPassword(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadPassword
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadPassword_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadPassword(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadPassword
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadPassword_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadIntegratedSecurity(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadIntegratedSecurity(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadIntegratedSecurity_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadIntegratedSecurity(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadIntegratedSecurity(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadIntegratedSecurity(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadIntegratedSecurity(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadIntegratedSecurity(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadIntegratedSecurity(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadIntegratedSecurity(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadIntegratedSecurity
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadIntegratedSecurity_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadIntegratedSecurity(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadIntegratedSecurity
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadIntegratedSecurity_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadTrustServerCertificate(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadTrustServerCertificate(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadTrustServerCertificate_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadTrustServerCertificate(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadTrustServerCertificate(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadTrustServerCertificate(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadTrustServerCertificate(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadTrustServerCertificate(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadTrustServerCertificate(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadTrustServerCertificate(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadTrustServerCertificate
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadTrustServerCertificate_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadTrustServerCertificate(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadTrustServerCertificate
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadTrustServerCertificate_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadSslMode(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadSslMode(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadSslMode_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadSslMode(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadSslMode(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadSslMode(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadSslMode(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadSslMode(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadSslMode(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadSslMode(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadSslMode
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadSslMode_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadSslMode(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadSslMode
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadSslMode_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.ReadCharset(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.ReadCharset(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadCharset_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: ReadCharset(Dictionary<string, string>, List<DbConProp>)
+  nameWithType: DbConAdapter.ReadCharset(Dictionary<string, string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.ReadCharset(System.Collections.Generic.Dictionary<string, string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.ReadCharset(Dictionary(Of String, String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.ReadCharset(System.Collections.Generic.Dictionary(Of String, String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: ReadCharset(Dictionary(Of String, String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.ReadCharset(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadCharset
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadCharset_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.ReadCharset(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: ReadCharset
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ReadCharset_System_Collections_Generic_Dictionary_System_String_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.Construct(System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.Construct(System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Construct_System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: Construct(List<DbConProp>)
+  nameWithType: DbConAdapter.Construct(List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.Construct(System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.Construct(List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.Construct(System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: Construct(List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.Construct(System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: Construct
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Construct_System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.Construct(System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: Construct
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Construct_System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.DbConAdapter.Parse(System.String)
+  commentId: M:Tripous.Data.DbConAdapter.Parse(System.String)
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Parse_System_String_
+  name: Parse(string)
+  nameWithType: DbConAdapter.Parse(string)
+  fullName: Tripous.Data.DbConAdapter.Parse(string)
+  nameWithType.vb: DbConAdapter.Parse(String)
+  fullName.vb: Tripous.Data.DbConAdapter.Parse(String)
+  name.vb: Parse(String)
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.Parse(System.String)
+    name: Parse
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Parse_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.Parse(System.String)
+    name: Parse
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_Parse_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DbConAdapter.IsValid(Tripous.Data.DbConPropType)
+  commentId: M:Tripous.Data.DbConAdapter.IsValid(Tripous.Data.DbConPropType)
+  parent: Tripous.Data.DbConAdapter
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_IsValid_Tripous_Data_DbConPropType_
+  name: IsValid(DbConPropType)
+  nameWithType: DbConAdapter.IsValid(DbConPropType)
+  fullName: Tripous.Data.DbConAdapter.IsValid(Tripous.Data.DbConPropType)
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.IsValid(Tripous.Data.DbConPropType)
+    name: IsValid
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_IsValid_Tripous_Data_DbConPropType_
+  - name: (
+  - uid: Tripous.Data.DbConPropType
+    name: DbConPropType
+    href: Tripous.Data.DbConPropType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.IsValid(Tripous.Data.DbConPropType)
+    name: IsValid
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_IsValid_Tripous_Data_DbConPropType_
+  - name: (
+  - uid: Tripous.Data.DbConPropType
+    name: DbConPropType
+    href: Tripous.Data.DbConPropType.html
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteUserId_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteUserId(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WriteUserId(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WriteUserId(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WriteUserId(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WriteUserId(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteUserId(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteUserId
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteUserId_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WriteUserId(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteUserId
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteUserId_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.MySqlConAdapter.WriteUserId*
+  commentId: Overload:Tripous.Data.MySqlConAdapter.WriteUserId
+  href: Tripous.Data.MySqlConAdapter.html#Tripous_Data_MySqlConAdapter_WriteUserId_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteUserId
+  nameWithType: MySqlConAdapter.WriteUserId
+  fullName: Tripous.Data.MySqlConAdapter.WriteUserId
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List{Tripous.Data.DbConProp}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.DbConProp}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<DbConProp>
+  nameWithType: List<DbConProp>
+  fullName: System.Collections.Generic.List<Tripous.Data.DbConProp>
+  nameWithType.vb: List(Of DbConProp)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.DbConProp)
+  name.vb: List(Of DbConProp)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.DbConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  commentId: M:Tripous.Data.DbConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+  parent: Tripous.Data.DbConAdapter
+  isExternal: true
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteSslMode_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteSslMode(List<string>, List<DbConProp>)
+  nameWithType: DbConAdapter.WriteSslMode(List<string>, List<DbConProp>)
+  fullName: Tripous.Data.DbConAdapter.WriteSslMode(System.Collections.Generic.List<string>, System.Collections.Generic.List<Tripous.Data.DbConProp>)
+  nameWithType.vb: DbConAdapter.WriteSslMode(List(Of String), List(Of DbConProp))
+  fullName.vb: Tripous.Data.DbConAdapter.WriteSslMode(System.Collections.Generic.List(Of String), System.Collections.Generic.List(Of Tripous.Data.DbConProp))
+  name.vb: WriteSslMode(List(Of String), List(Of DbConProp))
+  spec.csharp:
+  - uid: Tripous.Data.DbConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteSslMode
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteSslMode_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: '>'
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbConAdapter.WriteSslMode(System.Collections.Generic.List{System.String},System.Collections.Generic.List{Tripous.Data.DbConProp})
+    name: WriteSslMode
+    href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_WriteSslMode_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  - name: (
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    href: Tripous.Data.DbConProp.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.MySqlConAdapter.WriteSslMode*
+  commentId: Overload:Tripous.Data.MySqlConAdapter.WriteSslMode
+  href: Tripous.Data.MySqlConAdapter.html#Tripous_Data_MySqlConAdapter_WriteSslMode_System_Collections_Generic_List_System_String__System_Collections_Generic_List_Tripous_Data_DbConProp__
+  name: WriteSslMode
+  nameWithType: MySqlConAdapter.WriteSslMode
+  fullName: Tripous.Data.MySqlConAdapter.WriteSslMode
+- uid: Tripous.Data.DbConAdapter.ServerType
+  commentId: P:Tripous.Data.DbConAdapter.ServerType
+  parent: Tripous.Data.DbConAdapter
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_ServerType
+  name: ServerType
+  nameWithType: DbConAdapter.ServerType
+  fullName: Tripous.Data.DbConAdapter.ServerType
+- uid: Tripous.Data.MySqlConAdapter.ServerType*
+  commentId: Overload:Tripous.Data.MySqlConAdapter.ServerType
+  href: Tripous.Data.MySqlConAdapter.html#Tripous_Data_MySqlConAdapter_ServerType
+  name: ServerType
+  nameWithType: MySqlConAdapter.ServerType
+  fullName: Tripous.Data.MySqlConAdapter.ServerType
+- uid: Tripous.Data.DbServerType
+  commentId: T:Tripous.Data.DbServerType
+  parent: Tripous.Data
+  href: Tripous.Data.DbServerType.html
+  name: DbServerType
+  nameWithType: DbServerType
+  fullName: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbConAdapter.PropDefs
+  commentId: P:Tripous.Data.DbConAdapter.PropDefs
+  parent: Tripous.Data.DbConAdapter
+  href: Tripous.Data.DbConAdapter.html#Tripous_Data_DbConAdapter_PropDefs
+  name: PropDefs
+  nameWithType: DbConAdapter.PropDefs
+  fullName: Tripous.Data.DbConAdapter.PropDefs
+- uid: Tripous.Data.MySqlConAdapter.PropDefs*
+  commentId: Overload:Tripous.Data.MySqlConAdapter.PropDefs
+  href: Tripous.Data.MySqlConAdapter.html#Tripous_Data_MySqlConAdapter_PropDefs
+  name: PropDefs
+  nameWithType: MySqlConAdapter.PropDefs
+  fullName: Tripous.Data.MySqlConAdapter.PropDefs
+- uid: Tripous.Data.DbConPropDef[]
+  isExternal: true
+  href: Tripous.Data.DbConPropDef.html
+  name: DbConPropDef[]
+  nameWithType: DbConPropDef[]
+  fullName: Tripous.Data.DbConPropDef[]
+  nameWithType.vb: DbConPropDef()
+  fullName.vb: Tripous.Data.DbConPropDef()
+  name.vb: DbConPropDef()
+  spec.csharp:
+  - uid: Tripous.Data.DbConPropDef
+    name: DbConPropDef
+    href: Tripous.Data.DbConPropDef.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Tripous.Data.DbConPropDef
+    name: DbConPropDef
+    href: Tripous.Data.DbConPropDef.html
+  - name: (
+  - name: )

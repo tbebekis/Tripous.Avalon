@@ -111,18 +111,23 @@ public class Command: BaseDef
     /// </summary>
     public object Execute()
     {
-       ExecuteCommand?.Invoke(this, EventArgs.Empty);
-       object Result = ExecuteFunc != null && CanExecute() ? ExecuteFunc(this) : null;
-       return Result;
+        if (!CanExecute())
+            return null;
+
+        return ExecuteFunc != null ? ExecuteFunc(this) : null;
     }
     /// <summary>
     /// Executes this command asynchronously.
     /// </summary>
     public async Task<object> ExecuteAsync()
     {
-        ExecuteCommand?.Invoke(this, EventArgs.Empty);
-        object Result = ExecuteAsyncFunc != null && CanExecute()? await ExecuteAsyncFunc(this) : null;
-        return Result;
+        if (!CanExecute())
+            return null;
+
+        if (ExecuteAsyncFunc != null)
+            return await ExecuteAsyncFunc(this);
+
+        return ExecuteFunc != null ? ExecuteFunc(this) : null;
     }
     /// <summary>
     /// Returns true when the specified user may see or execute this command.
@@ -195,10 +200,4 @@ public class Command: BaseDef
     /// Gets a value indicating whether this command should be serialized.
     /// </summary>
     [JsonIgnore] public override bool IsSerializable => false;
-    
-    // ● events
-    /// <summary>
-    /// Occurs when this command is executed.
-    /// </summary>
-    public event EventHandler ExecuteCommand;
 }

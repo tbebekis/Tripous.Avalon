@@ -1,0 +1,901 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.SqlFilterPanelHandler
+  commentId: T:Tripous.Desktop.SqlFilterPanelHandler
+  id: SqlFilterPanelHandler
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.SqlFilterPanelHandler.#ctor(Avalonia.Controls.StackPanel)
+  - Tripous.Desktop.SqlFilterPanelHandler.Clear
+  - Tripous.Desktop.SqlFilterPanelHandler.CollectValues
+  - Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD
+  - Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls(Tripous.Data.SqlFilterDefs)
+  - Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo(Tripous.Data.SqlFilterDef)
+  - Tripous.Desktop.SqlFilterPanelHandler.FilterInfos
+  - Tripous.Desktop.SqlFilterPanelHandler.GetWhere
+  langs:
+  - csharp
+  - vb
+  name: SqlFilterPanelHandler
+  nameWithType: SqlFilterPanelHandler
+  fullName: Tripous.Desktop.SqlFilterPanelHandler
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlFilterPanelHandler
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates and manages SQL filter controls in a panel.
+  example: []
+  syntax:
+    content: public class SqlFilterPanelHandler
+    content.vb: Public Class SqlFilterPanelHandler
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo(Tripous.Data.SqlFilterDef)
+  commentId: M:Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo(Tripous.Data.SqlFilterDef)
+  id: CreateFilterInfo(Tripous.Data.SqlFilterDef)
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: CreateFilterInfo(SqlFilterDef)
+  nameWithType: SqlFilterPanelHandler.CreateFilterInfo(SqlFilterDef)
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo(Tripous.Data.SqlFilterDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFilterInfo
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 175
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates filter UI information for a filter definition.
+  example: []
+  syntax:
+    content: protected virtual SqlFilterInfo CreateFilterInfo(SqlFilterDef FilterDef)
+    parameters:
+    - id: FilterDef
+      type: Tripous.Data.SqlFilterDef
+      description: The filter definition.
+    return:
+      type: Tripous.Desktop.SqlFilterInfo
+      description: The created filter information.
+    content.vb: Protected Overridable Function CreateFilterInfo(FilterDef As SqlFilterDef) As SqlFilterInfo
+  overload: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo*
+- uid: Tripous.Desktop.SqlFilterPanelHandler.#ctor(Avalonia.Controls.StackPanel)
+  commentId: M:Tripous.Desktop.SqlFilterPanelHandler.#ctor(Avalonia.Controls.StackPanel)
+  id: '#ctor(Avalonia.Controls.StackPanel)'
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: SqlFilterPanelHandler(StackPanel)
+  nameWithType: SqlFilterPanelHandler.SqlFilterPanelHandler(StackPanel)
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.SqlFilterPanelHandler(Avalonia.Controls.StackPanel)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 189
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Initializes a new instance of the <xref href="Tripous.Desktop.SqlFilterPanelHandler" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public SqlFilterPanelHandler(StackPanel Panel)
+    parameters:
+    - id: Panel
+      type: Avalonia.Controls.StackPanel
+      description: The panel hosting the filter controls.
+    content.vb: Public Sub New(Panel As StackPanel)
+  overload: Tripous.Desktop.SqlFilterPanelHandler.#ctor*
+  nameWithType.vb: SqlFilterPanelHandler.New(StackPanel)
+  fullName.vb: Tripous.Desktop.SqlFilterPanelHandler.New(Avalonia.Controls.StackPanel)
+  name.vb: New(StackPanel)
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls(Tripous.Data.SqlFilterDefs)
+  commentId: M:Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls(Tripous.Data.SqlFilterDefs)
+  id: CreateFilterControls(Tripous.Data.SqlFilterDefs)
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: CreateFilterControls(SqlFilterDefs)
+  nameWithType: SqlFilterPanelHandler.CreateFilterControls(SqlFilterDefs)
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls(Tripous.Data.SqlFilterDefs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateFilterControls
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 199
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates the controls for a specified <xref href="Tripous.Data.SqlFilterDefs" data-throw-if-not-resolved="false"></xref> in the filters panel.
+  example: []
+  syntax:
+    content: public void CreateFilterControls(SqlFilterDefs FilterDefs)
+    parameters:
+    - id: FilterDefs
+      type: Tripous.Data.SqlFilterDefs
+      description: The filter definitions.
+    content.vb: Public Sub CreateFilterControls(FilterDefs As SqlFilterDefs)
+  overload: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls*
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD
+  commentId: M:Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD
+  id: CollectValues_OLD
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: CollectValues_OLD()
+  nameWithType: SqlFilterPanelHandler.CollectValues_OLD()
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CollectValues_OLD
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 268
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Collects values from the filter controls and returns active filters only.
+  example: []
+  syntax:
+    content: public SqlFilterDefs CollectValues_OLD()
+    return:
+      type: Tripous.Data.SqlFilterDefs
+      description: The active filter definitions.
+    content.vb: Public Function CollectValues_OLD() As SqlFilterDefs
+  overload: Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD*
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CollectValues
+  commentId: M:Tripous.Desktop.SqlFilterPanelHandler.CollectValues
+  id: CollectValues
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: CollectValues()
+  nameWithType: SqlFilterPanelHandler.CollectValues()
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CollectValues()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CollectValues
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 321
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Collects values from the filter controls and returns active filters only.
+  example: []
+  syntax:
+    content: public SqlFilterDefs CollectValues()
+    return:
+      type: Tripous.Data.SqlFilterDefs
+      description: The active filter definitions.
+    content.vb: Public Function CollectValues() As SqlFilterDefs
+  overload: Tripous.Desktop.SqlFilterPanelHandler.CollectValues*
+- uid: Tripous.Desktop.SqlFilterPanelHandler.GetWhere
+  commentId: M:Tripous.Desktop.SqlFilterPanelHandler.GetWhere
+  id: GetWhere
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: GetWhere()
+  nameWithType: SqlFilterPanelHandler.GetWhere()
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.GetWhere()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetWhere
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 364
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the SQL WHERE text produced by the active filters.
+  example: []
+  syntax:
+    content: public string GetWhere()
+    return:
+      type: System.String
+      description: The SQL WHERE text.
+    content.vb: Public Function GetWhere() As String
+  overload: Tripous.Desktop.SqlFilterPanelHandler.GetWhere*
+- uid: Tripous.Desktop.SqlFilterPanelHandler.Clear
+  commentId: M:Tripous.Desktop.SqlFilterPanelHandler.Clear
+  id: Clear
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: SqlFilterPanelHandler.Clear()
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.Clear()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clear
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 373
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Clears all filter control values.
+  example: []
+  syntax:
+    content: public void Clear()
+    content.vb: Public Sub Clear()
+  overload: Tripous.Desktop.SqlFilterPanelHandler.Clear*
+- uid: Tripous.Desktop.SqlFilterPanelHandler.FilterInfos
+  commentId: P:Tripous.Desktop.SqlFilterPanelHandler.FilterInfos
+  id: FilterInfos
+  parent: Tripous.Desktop.SqlFilterPanelHandler
+  langs:
+  - csharp
+  - vb
+  name: FilterInfos
+  nameWithType: SqlFilterPanelHandler.FilterInfos
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.FilterInfos
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FilterInfos
+    path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
+    startLine: 397
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the filter UI information list.
+  example: []
+  syntax:
+    content: public IReadOnlyList<SqlFilterInfo> FilterInfos { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Tripous.Desktop.SqlFilterInfo}
+    content.vb: Public ReadOnly Property FilterInfos As IReadOnlyList(Of SqlFilterInfo)
+  overload: Tripous.Desktop.SqlFilterPanelHandler.FilterInfos*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler_CreateFilterInfo_Tripous_Data_SqlFilterDef_
+  name: CreateFilterInfo
+  nameWithType: SqlFilterPanelHandler.CreateFilterInfo
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterInfo
+- uid: Tripous.Data.SqlFilterDef
+  commentId: T:Tripous.Data.SqlFilterDef
+  parent: Tripous.Data
+  href: Tripous.Data.SqlFilterDef.html
+  name: SqlFilterDef
+  nameWithType: SqlFilterDef
+  fullName: Tripous.Data.SqlFilterDef
+- uid: Tripous.Desktop.SqlFilterInfo
+  commentId: T:Tripous.Desktop.SqlFilterInfo
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.SqlFilterInfo.html
+  name: SqlFilterInfo
+  nameWithType: SqlFilterInfo
+  fullName: Tripous.Desktop.SqlFilterInfo
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: Tripous.Desktop.SqlFilterPanelHandler
+  commentId: T:Tripous.Desktop.SqlFilterPanelHandler
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.SqlFilterPanelHandler.html
+  name: SqlFilterPanelHandler
+  nameWithType: SqlFilterPanelHandler
+  fullName: Tripous.Desktop.SqlFilterPanelHandler
+- uid: Tripous.Desktop.SqlFilterPanelHandler.#ctor*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.#ctor
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler__ctor_Avalonia_Controls_StackPanel_
+  name: SqlFilterPanelHandler
+  nameWithType: SqlFilterPanelHandler.SqlFilterPanelHandler
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.SqlFilterPanelHandler
+  nameWithType.vb: SqlFilterPanelHandler.New
+  fullName.vb: Tripous.Desktop.SqlFilterPanelHandler.New
+  name.vb: New
+- uid: Avalonia.Controls.StackPanel
+  commentId: T:Avalonia.Controls.StackPanel
+  parent: Avalonia.Controls
+  isExternal: true
+  name: StackPanel
+  nameWithType: StackPanel
+  fullName: Avalonia.Controls.StackPanel
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: Tripous.Data.SqlFilterDefs
+  commentId: T:Tripous.Data.SqlFilterDefs
+  parent: Tripous.Data
+  href: Tripous.Data.SqlFilterDefs.html
+  name: SqlFilterDefs
+  nameWithType: SqlFilterDefs
+  fullName: Tripous.Data.SqlFilterDefs
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler_CreateFilterControls_Tripous_Data_SqlFilterDefs_
+  name: CreateFilterControls
+  nameWithType: SqlFilterPanelHandler.CreateFilterControls
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CreateFilterControls
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler_CollectValues_OLD
+  name: CollectValues_OLD
+  nameWithType: SqlFilterPanelHandler.CollectValues_OLD
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CollectValues_OLD
+- uid: Tripous.Desktop.SqlFilterPanelHandler.CollectValues*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.CollectValues
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler_CollectValues
+  name: CollectValues
+  nameWithType: SqlFilterPanelHandler.CollectValues
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.CollectValues
+- uid: Tripous.Desktop.SqlFilterPanelHandler.GetWhere*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.GetWhere
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler_GetWhere
+  name: GetWhere
+  nameWithType: SqlFilterPanelHandler.GetWhere
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.GetWhere
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.SqlFilterPanelHandler.Clear*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.Clear
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler_Clear
+  name: Clear
+  nameWithType: SqlFilterPanelHandler.Clear
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.Clear
+- uid: Tripous.Desktop.SqlFilterPanelHandler.FilterInfos*
+  commentId: Overload:Tripous.Desktop.SqlFilterPanelHandler.FilterInfos
+  href: Tripous.Desktop.SqlFilterPanelHandler.html#Tripous_Desktop_SqlFilterPanelHandler_FilterInfos
+  name: FilterInfos
+  nameWithType: SqlFilterPanelHandler.FilterInfos
+  fullName: Tripous.Desktop.SqlFilterPanelHandler.FilterInfos
+- uid: System.Collections.Generic.IReadOnlyList{Tripous.Desktop.SqlFilterInfo}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Tripous.Desktop.SqlFilterInfo}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<SqlFilterInfo>
+  nameWithType: IReadOnlyList<SqlFilterInfo>
+  fullName: System.Collections.Generic.IReadOnlyList<Tripous.Desktop.SqlFilterInfo>
+  nameWithType.vb: IReadOnlyList(Of SqlFilterInfo)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Tripous.Desktop.SqlFilterInfo)
+  name.vb: IReadOnlyList(Of SqlFilterInfo)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Tripous.Desktop.SqlFilterInfo
+    name: SqlFilterInfo
+    href: Tripous.Desktop.SqlFilterInfo.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.SqlFilterInfo
+    name: SqlFilterInfo
+    href: Tripous.Desktop.SqlFilterInfo.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

@@ -1,0 +1,896 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Logging.WriteLineFile
+  commentId: T:Tripous.Logging.WriteLineFile
+  id: WriteLineFile
+  parent: Tripous.Logging
+  children:
+  - Tripous.Logging.WriteLineFile.#ctor(System.String,System.String,System.String,System.Int32)
+  - Tripous.Logging.WriteLineFile.BeginFile
+  - Tripous.Logging.WriteLineFile.ColumnLine
+  - Tripous.Logging.WriteLineFile.DefaultFileName
+  - Tripous.Logging.WriteLineFile.DeleteFilesOlderThan(System.Int32)
+  - Tripous.Logging.WriteLineFile.Folder
+  - Tripous.Logging.WriteLineFile.LastFileName
+  - Tripous.Logging.WriteLineFile.LastFilePath
+  - Tripous.Logging.WriteLineFile.MaxSizeKiloBytes
+  - Tripous.Logging.WriteLineFile.Size
+  - Tripous.Logging.WriteLineFile.WriteLine(System.String)
+  langs:
+  - csharp
+  - vb
+  name: WriteLineFile
+  nameWithType: WriteLineFile
+  fullName: Tripous.Logging.WriteLineFile
+  type: Class
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteLineFile
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: >-
+    Helper used in writing to files, line by line.
+
+
+    <p>It uses the fist line of a file as a column line, if one is passed.</p>
+
+    <p>Column names must be right padded with spaces according to a used line format.</p>
+
+    <p>A file may grow up to a defined maximum size (in kilobytes). </p>
+
+    <p>After that a new file is created.</p>
+
+    <p>The new file gets a name as <code>yyyy-MM-dd_HH_mm_ss__fff_DefaultFileName</code></p>
+
+    <p></p>
+  example: []
+  syntax:
+    content: public class WriteLineFile
+    content.vb: Public Class WriteLineFile
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Logging.WriteLineFile.BeginFile
+  commentId: M:Tripous.Logging.WriteLineFile.BeginFile
+  id: BeginFile
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: BeginFile()
+  nameWithType: WriteLineFile.BeginFile()
+  fullName: Tripous.Logging.WriteLineFile.BeginFile()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BeginFile
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Starts a new file.
+  example: []
+  syntax:
+    content: protected void BeginFile()
+    content.vb: Protected Sub BeginFile()
+  overload: Tripous.Logging.WriteLineFile.BeginFile*
+- uid: Tripous.Logging.WriteLineFile.#ctor(System.String,System.String,System.String,System.Int32)
+  commentId: M:Tripous.Logging.WriteLineFile.#ctor(System.String,System.String,System.String,System.Int32)
+  id: '#ctor(System.String,System.String,System.String,System.Int32)'
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: WriteLineFile(string, string, string, int)
+  nameWithType: WriteLineFile.WriteLineFile(string, string, string, int)
+  fullName: Tripous.Logging.WriteLineFile.WriteLineFile(string, string, string, int)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 52
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Constructor
+  example: []
+  syntax:
+    content: public WriteLineFile(string Folder = "", string DefaultFileName = "", string ColumnLine = "", int MaxSizeKiloBytes = 512)
+    parameters:
+    - id: Folder
+      type: System.String
+      description: The folder where files are placed.
+    - id: DefaultFileName
+      type: System.String
+      description: >-
+        A file name to be used as template file name. 
+            A date-time value is added in front of each new file name, i.e.<code>yyyy-MM-dd_HH_mm_ss__fff_DefaultFileName</code>
+    - id: ColumnLine
+      type: System.String
+      description: >-
+        The first line of a file may contain column names, as passed by this parameter. 
+            Column names must be right padded with spaces according to a used line format.
+    - id: MaxSizeKiloBytes
+      type: System.Int32
+      description: A file may grow up to a defined maximum size (in kilobytes). After that a new file is created.
+    content.vb: Public Sub New(Folder As String = "", DefaultFileName As String = "", ColumnLine As String = "", MaxSizeKiloBytes As Integer = 512)
+  overload: Tripous.Logging.WriteLineFile.#ctor*
+  nameWithType.vb: WriteLineFile.New(String, String, String, Integer)
+  fullName.vb: Tripous.Logging.WriteLineFile.New(String, String, String, Integer)
+  name.vb: New(String, String, String, Integer)
+- uid: Tripous.Logging.WriteLineFile.WriteLine(System.String)
+  commentId: M:Tripous.Logging.WriteLineFile.WriteLine(System.String)
+  id: WriteLine(System.String)
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: WriteLine(string)
+  nameWithType: WriteLineFile.WriteLine(string)
+  fullName: Tripous.Logging.WriteLineFile.WriteLine(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteLine
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Writes a line to the <xref href="Tripous.Logging.WriteLineFile.LastFilePath" data-throw-if-not-resolved="false"></xref> file.
+  example: []
+  syntax:
+    content: public void WriteLine(string Line)
+    parameters:
+    - id: Line
+      type: System.String
+      description: ''
+    content.vb: Public Sub WriteLine(Line As String)
+  overload: Tripous.Logging.WriteLineFile.WriteLine*
+  nameWithType.vb: WriteLineFile.WriteLine(String)
+  fullName.vb: Tripous.Logging.WriteLineFile.WriteLine(String)
+  name.vb: WriteLine(String)
+- uid: Tripous.Logging.WriteLineFile.DeleteFilesOlderThan(System.Int32)
+  commentId: M:Tripous.Logging.WriteLineFile.DeleteFilesOlderThan(System.Int32)
+  id: DeleteFilesOlderThan(System.Int32)
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: DeleteFilesOlderThan(int)
+  nameWithType: WriteLineFile.DeleteFilesOlderThan(int)
+  fullName: Tripous.Logging.WriteLineFile.DeleteFilesOlderThan(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DeleteFilesOlderThan
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 99
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Deletes files found in <xref href="Tripous.Logging.WriteLineFile.Folder" data-throw-if-not-resolved="false"></xref> older than a specified number of days.
+  example: []
+  syntax:
+    content: public void DeleteFilesOlderThan(int Days)
+    parameters:
+    - id: Days
+      type: System.Int32
+    content.vb: Public Sub DeleteFilesOlderThan(Days As Integer)
+  overload: Tripous.Logging.WriteLineFile.DeleteFilesOlderThan*
+  nameWithType.vb: WriteLineFile.DeleteFilesOlderThan(Integer)
+  fullName.vb: Tripous.Logging.WriteLineFile.DeleteFilesOlderThan(Integer)
+  name.vb: DeleteFilesOlderThan(Integer)
+- uid: Tripous.Logging.WriteLineFile.Folder
+  commentId: P:Tripous.Logging.WriteLineFile.Folder
+  id: Folder
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: Folder
+  nameWithType: WriteLineFile.Folder
+  fullName: Tripous.Logging.WriteLineFile.Folder
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Folder
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 136
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The folder where files are placed. It is the folder of the file path specified in the constructor.
+  example: []
+  syntax:
+    content: public string Folder { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Folder As String
+  overload: Tripous.Logging.WriteLineFile.Folder*
+- uid: Tripous.Logging.WriteLineFile.DefaultFileName
+  commentId: P:Tripous.Logging.WriteLineFile.DefaultFileName
+  id: DefaultFileName
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: DefaultFileName
+  nameWithType: WriteLineFile.DefaultFileName
+  fullName: Tripous.Logging.WriteLineFile.DefaultFileName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultFileName
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 140
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: It is the file name of the file path specified in the constructor.
+  example: []
+  syntax:
+    content: public string DefaultFileName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property DefaultFileName As String
+  overload: Tripous.Logging.WriteLineFile.DefaultFileName*
+- uid: Tripous.Logging.WriteLineFile.LastFilePath
+  commentId: P:Tripous.Logging.WriteLineFile.LastFilePath
+  id: LastFilePath
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: LastFilePath
+  nameWithType: WriteLineFile.LastFilePath
+  fullName: Tripous.Logging.WriteLineFile.LastFilePath
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastFilePath
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 144
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The full path to the current file, i.e. <xref href="Tripous.Logging.WriteLineFile.Folder" data-throw-if-not-resolved="false"></xref> + <xref href="Tripous.Logging.WriteLineFile.LastFileName" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public string LastFilePath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property LastFilePath As String
+  overload: Tripous.Logging.WriteLineFile.LastFilePath*
+- uid: Tripous.Logging.WriteLineFile.LastFileName
+  commentId: P:Tripous.Logging.WriteLineFile.LastFileName
+  id: LastFileName
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: LastFileName
+  nameWithType: WriteLineFile.LastFileName
+  fullName: Tripous.Logging.WriteLineFile.LastFileName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastFileName
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 148
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The current file. Its file name looks like <code>yyyy-MM-dd_HH_mm_ss__fff_DefaultFileName</code>.
+  example: []
+  syntax:
+    content: public string LastFileName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property LastFileName As String
+  overload: Tripous.Logging.WriteLineFile.LastFileName*
+- uid: Tripous.Logging.WriteLineFile.ColumnLine
+  commentId: P:Tripous.Logging.WriteLineFile.ColumnLine
+  id: ColumnLine
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: ColumnLine
+  nameWithType: WriteLineFile.ColumnLine
+  fullName: Tripous.Logging.WriteLineFile.ColumnLine
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnLine
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 152
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The first line of a file may contain column names, as passed by this parameter. Column names must be right padded with spaces according to a used line format.
+  example: []
+  syntax:
+    content: public string ColumnLine { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property ColumnLine As String
+  overload: Tripous.Logging.WriteLineFile.ColumnLine*
+- uid: Tripous.Logging.WriteLineFile.Size
+  commentId: P:Tripous.Logging.WriteLineFile.Size
+  id: Size
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: Size
+  nameWithType: WriteLineFile.Size
+  fullName: Tripous.Logging.WriteLineFile.Size
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Size
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 156
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The size in bytes of the current file.
+  example: []
+  syntax:
+    content: public int Size { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Size As Integer
+  overload: Tripous.Logging.WriteLineFile.Size*
+- uid: Tripous.Logging.WriteLineFile.MaxSizeKiloBytes
+  commentId: P:Tripous.Logging.WriteLineFile.MaxSizeKiloBytes
+  id: MaxSizeKiloBytes
+  parent: Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: MaxSizeKiloBytes
+  nameWithType: WriteLineFile.MaxSizeKiloBytes
+  fullName: Tripous.Logging.WriteLineFile.MaxSizeKiloBytes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/WriteLineFile.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MaxSizeKiloBytes
+    path: ../Tripous.Logging/WriteLineFile.cs
+    startLine: 160
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The maximul allowed file size.
+  example: []
+  syntax:
+    content: public int MaxSizeKiloBytes { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MaxSizeKiloBytes As Integer
+  overload: Tripous.Logging.WriteLineFile.MaxSizeKiloBytes*
+references:
+- uid: Tripous.Logging
+  commentId: N:Tripous.Logging
+  href: Tripous.html
+  name: Tripous.Logging
+  nameWithType: Tripous.Logging
+  fullName: Tripous.Logging
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Logging.WriteLineFile.BeginFile*
+  commentId: Overload:Tripous.Logging.WriteLineFile.BeginFile
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_BeginFile
+  name: BeginFile
+  nameWithType: WriteLineFile.BeginFile
+  fullName: Tripous.Logging.WriteLineFile.BeginFile
+- uid: Tripous.Logging.WriteLineFile.#ctor*
+  commentId: Overload:Tripous.Logging.WriteLineFile.#ctor
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile__ctor_System_String_System_String_System_String_System_Int32_
+  name: WriteLineFile
+  nameWithType: WriteLineFile.WriteLineFile
+  fullName: Tripous.Logging.WriteLineFile.WriteLineFile
+  nameWithType.vb: WriteLineFile.New
+  fullName.vb: Tripous.Logging.WriteLineFile.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Logging.WriteLineFile.LastFilePath
+  commentId: P:Tripous.Logging.WriteLineFile.LastFilePath
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_LastFilePath
+  name: LastFilePath
+  nameWithType: WriteLineFile.LastFilePath
+  fullName: Tripous.Logging.WriteLineFile.LastFilePath
+- uid: Tripous.Logging.WriteLineFile.WriteLine*
+  commentId: Overload:Tripous.Logging.WriteLineFile.WriteLine
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_WriteLine_System_String_
+  name: WriteLine
+  nameWithType: WriteLineFile.WriteLine
+  fullName: Tripous.Logging.WriteLineFile.WriteLine
+- uid: Tripous.Logging.WriteLineFile.Folder
+  commentId: P:Tripous.Logging.WriteLineFile.Folder
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_Folder
+  name: Folder
+  nameWithType: WriteLineFile.Folder
+  fullName: Tripous.Logging.WriteLineFile.Folder
+- uid: Tripous.Logging.WriteLineFile.DeleteFilesOlderThan*
+  commentId: Overload:Tripous.Logging.WriteLineFile.DeleteFilesOlderThan
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_DeleteFilesOlderThan_System_Int32_
+  name: DeleteFilesOlderThan
+  nameWithType: WriteLineFile.DeleteFilesOlderThan
+  fullName: Tripous.Logging.WriteLineFile.DeleteFilesOlderThan
+- uid: Tripous.Logging.WriteLineFile.Folder*
+  commentId: Overload:Tripous.Logging.WriteLineFile.Folder
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_Folder
+  name: Folder
+  nameWithType: WriteLineFile.Folder
+  fullName: Tripous.Logging.WriteLineFile.Folder
+- uid: Tripous.Logging.WriteLineFile.DefaultFileName*
+  commentId: Overload:Tripous.Logging.WriteLineFile.DefaultFileName
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_DefaultFileName
+  name: DefaultFileName
+  nameWithType: WriteLineFile.DefaultFileName
+  fullName: Tripous.Logging.WriteLineFile.DefaultFileName
+- uid: Tripous.Logging.WriteLineFile.LastFileName
+  commentId: P:Tripous.Logging.WriteLineFile.LastFileName
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_LastFileName
+  name: LastFileName
+  nameWithType: WriteLineFile.LastFileName
+  fullName: Tripous.Logging.WriteLineFile.LastFileName
+- uid: Tripous.Logging.WriteLineFile.LastFilePath*
+  commentId: Overload:Tripous.Logging.WriteLineFile.LastFilePath
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_LastFilePath
+  name: LastFilePath
+  nameWithType: WriteLineFile.LastFilePath
+  fullName: Tripous.Logging.WriteLineFile.LastFilePath
+- uid: Tripous.Logging.WriteLineFile.LastFileName*
+  commentId: Overload:Tripous.Logging.WriteLineFile.LastFileName
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_LastFileName
+  name: LastFileName
+  nameWithType: WriteLineFile.LastFileName
+  fullName: Tripous.Logging.WriteLineFile.LastFileName
+- uid: Tripous.Logging.WriteLineFile.ColumnLine*
+  commentId: Overload:Tripous.Logging.WriteLineFile.ColumnLine
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_ColumnLine
+  name: ColumnLine
+  nameWithType: WriteLineFile.ColumnLine
+  fullName: Tripous.Logging.WriteLineFile.ColumnLine
+- uid: Tripous.Logging.WriteLineFile.Size*
+  commentId: Overload:Tripous.Logging.WriteLineFile.Size
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_Size
+  name: Size
+  nameWithType: WriteLineFile.Size
+  fullName: Tripous.Logging.WriteLineFile.Size
+- uid: Tripous.Logging.WriteLineFile.MaxSizeKiloBytes*
+  commentId: Overload:Tripous.Logging.WriteLineFile.MaxSizeKiloBytes
+  href: Tripous.Logging.WriteLineFile.html#Tripous_Logging_WriteLineFile_MaxSizeKiloBytes
+  name: MaxSizeKiloBytes
+  nameWithType: WriteLineFile.MaxSizeKiloBytes
+  fullName: Tripous.Logging.WriteLineFile.MaxSizeKiloBytes

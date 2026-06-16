@@ -1,0 +1,120 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Logging
+  commentId: N:Tripous.Logging
+  id: Tripous.Logging
+  children:
+  - Tripous.Logging.FileLogListener
+  - Tripous.Logging.LogEntry
+  - Tripous.Logging.LogEntryArgs
+  - Tripous.Logging.LogGlobalSettings
+  - Tripous.Logging.LogLevel
+  - Tripous.Logging.LogListener
+  - Tripous.Logging.LogRecord
+  - Tripous.Logging.LogSource
+  - Tripous.Logging.Logger
+  - Tripous.Logging.SyncedLogListener
+  - Tripous.Logging.WriteLineFile
+  langs:
+  - csharp
+  - vb
+  name: Tripous.Logging
+  nameWithType: Tripous.Logging
+  fullName: Tripous.Logging
+  type: Namespace
+  assemblies:
+  - Tripous.Logging
+references:
+- uid: Tripous.Logging.FileLogListener
+  commentId: T:Tripous.Logging.FileLogListener
+  href: Tripous.Logging.FileLogListener.html
+  name: FileLogListener
+  nameWithType: FileLogListener
+  fullName: Tripous.Logging.FileLogListener
+- uid: Tripous.Logging.LogEntry
+  commentId: T:Tripous.Logging.LogEntry
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogEntry.html
+  name: LogEntry
+  nameWithType: LogEntry
+  fullName: Tripous.Logging.LogEntry
+- uid: Tripous.Logging.LogEntryArgs
+  commentId: T:Tripous.Logging.LogEntryArgs
+  href: Tripous.Logging.LogEntryArgs.html
+  name: LogEntryArgs
+  nameWithType: LogEntryArgs
+  fullName: Tripous.Logging.LogEntryArgs
+- uid: Tripous.Logging.Logger
+  commentId: T:Tripous.Logging.Logger
+  href: Tripous.Logging.Logger.html
+  name: Logger
+  nameWithType: Logger
+  fullName: Tripous.Logging.Logger
+- uid: Tripous.Logging.LogGlobalSettings
+  commentId: T:Tripous.Logging.LogGlobalSettings
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogGlobalSettings.html
+  name: LogGlobalSettings
+  nameWithType: LogGlobalSettings
+  fullName: Tripous.Logging.LogGlobalSettings
+- uid: Tripous.Logging.LogLevel
+  commentId: T:Tripous.Logging.LogLevel
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogLevel.html
+  name: LogLevel
+  nameWithType: LogLevel
+  fullName: Tripous.Logging.LogLevel
+- uid: Tripous.Logging.LogListener
+  commentId: T:Tripous.Logging.LogListener
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogListener.html
+  name: LogListener
+  nameWithType: LogListener
+  fullName: Tripous.Logging.LogListener
+- uid: Tripous.Logging.LogRecord
+  commentId: T:Tripous.Logging.LogRecord
+  href: Tripous.Logging.LogRecord.html
+  name: LogRecord
+  nameWithType: LogRecord
+  fullName: Tripous.Logging.LogRecord
+- uid: Tripous.Logging.LogSource
+  commentId: T:Tripous.Logging.LogSource
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogSource.html
+  name: LogSource
+  nameWithType: LogSource
+  fullName: Tripous.Logging.LogSource
+- uid: Tripous.Logging.SyncedLogListener
+  commentId: T:Tripous.Logging.SyncedLogListener
+  href: Tripous.Logging.SyncedLogListener.html
+  name: SyncedLogListener
+  nameWithType: SyncedLogListener
+  fullName: Tripous.Logging.SyncedLogListener
+- uid: Tripous.Logging.WriteLineFile
+  commentId: T:Tripous.Logging.WriteLineFile
+  href: Tripous.Logging.WriteLineFile.html
+  name: WriteLineFile
+  nameWithType: WriteLineFile
+  fullName: Tripous.Logging.WriteLineFile
+- uid: Tripous.Logging
+  commentId: N:Tripous.Logging
+  href: Tripous.html
+  name: Tripous.Logging
+  nameWithType: Tripous.Logging
+  fullName: Tripous.Logging
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html

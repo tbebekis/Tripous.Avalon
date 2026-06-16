@@ -1,0 +1,1321 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbIni
+  commentId: T:Tripous.Data.DbIni
+  id: DbIni
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbIni.#ctor(Tripous.Data.DbConnectionInfo)
+  - Tripous.Data.DbIni.Delete(System.String)
+  - Tripous.Data.DbIni.Exists(System.String)
+  - Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream)
+  - Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream,System.String@)
+  - Tripous.Data.DbIni.ReadBool(System.String,System.Boolean)
+  - Tripous.Data.DbIni.ReadDateTime(System.String,System.DateTime)
+  - Tripous.Data.DbIni.ReadFloat(System.String,System.Double)
+  - Tripous.Data.DbIni.ReadInstance(System.String,System.Object)
+  - Tripous.Data.DbIni.ReadInteger(System.String,System.Int32)
+  - Tripous.Data.DbIni.ReadString(System.String,System.String)
+  - Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream)
+  - Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream,System.String)
+  - Tripous.Data.DbIni.WriteBool(System.String,System.Boolean)
+  - Tripous.Data.DbIni.WriteDateTime(System.String,System.DateTime)
+  - Tripous.Data.DbIni.WriteFloat(System.String,System.Double)
+  - Tripous.Data.DbIni.WriteInstance(System.String,System.Object)
+  - Tripous.Data.DbIni.WriteInteger(System.String,System.Int32)
+  - Tripous.Data.DbIni.WriteString(System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: DbIni
+  nameWithType: DbIni
+  fullName: Tripous.Data.DbIni
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbIni
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Simulates an .ini file using a table in a database
+  example: []
+  syntax:
+    content: public class DbIni
+    content.vb: Public Class DbIni
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.DbIni.#ctor(Tripous.Data.DbConnectionInfo)
+  commentId: M:Tripous.Data.DbIni.#ctor(Tripous.Data.DbConnectionInfo)
+  id: '#ctor(Tripous.Data.DbConnectionInfo)'
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: DbIni(DbConnectionInfo)
+  nameWithType: DbIni.DbIni(DbConnectionInfo)
+  fullName: Tripous.Data.DbIni.DbIni(Tripous.Data.DbConnectionInfo)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public DbIni(DbConnectionInfo ConnectionInfo)
+    parameters:
+    - id: ConnectionInfo
+      type: Tripous.Data.DbConnectionInfo
+    content.vb: Public Sub New(ConnectionInfo As DbConnectionInfo)
+  overload: Tripous.Data.DbIni.#ctor*
+  nameWithType.vb: DbIni.New(DbConnectionInfo)
+  fullName.vb: Tripous.Data.DbIni.New(Tripous.Data.DbConnectionInfo)
+  name.vb: New(DbConnectionInfo)
+- uid: Tripous.Data.DbIni.Exists(System.String)
+  commentId: M:Tripous.Data.DbIni.Exists(System.String)
+  id: Exists(System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: Exists(string)
+  nameWithType: DbIni.Exists(string)
+  fullName: Tripous.Data.DbIni.Exists(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Exists
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Entry exists in table
+  example: []
+  syntax:
+    content: public bool Exists(string Entry)
+    parameters:
+    - id: Entry
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function Exists(Entry As String) As Boolean
+  overload: Tripous.Data.DbIni.Exists*
+  nameWithType.vb: DbIni.Exists(String)
+  fullName.vb: Tripous.Data.DbIni.Exists(String)
+  name.vb: Exists(String)
+- uid: Tripous.Data.DbIni.Delete(System.String)
+  commentId: M:Tripous.Data.DbIni.Delete(System.String)
+  id: Delete(System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: Delete(string)
+  nameWithType: DbIni.Delete(string)
+  fullName: Tripous.Data.DbIni.Delete(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Delete
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Deletes the Entry from table
+  example: []
+  syntax:
+    content: public void Delete(string Entry)
+    parameters:
+    - id: Entry
+      type: System.String
+    content.vb: Public Sub Delete(Entry As String)
+  overload: Tripous.Data.DbIni.Delete*
+  nameWithType.vb: DbIni.Delete(String)
+  fullName.vb: Tripous.Data.DbIni.Delete(String)
+  name.vb: Delete(String)
+- uid: Tripous.Data.DbIni.WriteString(System.String,System.String)
+  commentId: M:Tripous.Data.DbIni.WriteString(System.String,System.String)
+  id: WriteString(System.String,System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteString(string, string)
+  nameWithType: DbIni.WriteString(string, string)
+  fullName: Tripous.Data.DbIni.WriteString(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteString
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 77
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteString(string Entry, string Value)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.String
+    content.vb: Public Sub WriteString(Entry As String, Value As String)
+  overload: Tripous.Data.DbIni.WriteString*
+  nameWithType.vb: DbIni.WriteString(String, String)
+  fullName.vb: Tripous.Data.DbIni.WriteString(String, String)
+  name.vb: WriteString(String, String)
+- uid: Tripous.Data.DbIni.ReadString(System.String,System.String)
+  commentId: M:Tripous.Data.DbIni.ReadString(System.String,System.String)
+  id: ReadString(System.String,System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadString(string, string)
+  nameWithType: DbIni.ReadString(string, string)
+  fullName: Tripous.Data.DbIni.ReadString(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadString
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 91
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Value of the Entry, if exists, else Default
+  example: []
+  syntax:
+    content: public string ReadString(string Entry, string Default)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Function ReadString(Entry As String, [Default] As String) As String
+  overload: Tripous.Data.DbIni.ReadString*
+  nameWithType.vb: DbIni.ReadString(String, String)
+  fullName.vb: Tripous.Data.DbIni.ReadString(String, String)
+  name.vb: ReadString(String, String)
+- uid: Tripous.Data.DbIni.WriteInteger(System.String,System.Int32)
+  commentId: M:Tripous.Data.DbIni.WriteInteger(System.String,System.Int32)
+  id: WriteInteger(System.String,System.Int32)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteInteger(string, int)
+  nameWithType: DbIni.WriteInteger(string, int)
+  fullName: Tripous.Data.DbIni.WriteInteger(string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteInteger
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 104
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteInteger(string Entry, int Value)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.Int32
+    content.vb: Public Sub WriteInteger(Entry As String, Value As Integer)
+  overload: Tripous.Data.DbIni.WriteInteger*
+  nameWithType.vb: DbIni.WriteInteger(String, Integer)
+  fullName.vb: Tripous.Data.DbIni.WriteInteger(String, Integer)
+  name.vb: WriteInteger(String, Integer)
+- uid: Tripous.Data.DbIni.ReadInteger(System.String,System.Int32)
+  commentId: M:Tripous.Data.DbIni.ReadInteger(System.String,System.Int32)
+  id: ReadInteger(System.String,System.Int32)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadInteger(string, int)
+  nameWithType: DbIni.ReadInteger(string, int)
+  fullName: Tripous.Data.DbIni.ReadInteger(string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadInteger
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 111
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Value of the Entry, if exists, else Default
+  example: []
+  syntax:
+    content: public int ReadInteger(string Entry, int Default)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Default
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Function ReadInteger(Entry As String, [Default] As Integer) As Integer
+  overload: Tripous.Data.DbIni.ReadInteger*
+  nameWithType.vb: DbIni.ReadInteger(String, Integer)
+  fullName.vb: Tripous.Data.DbIni.ReadInteger(String, Integer)
+  name.vb: ReadInteger(String, Integer)
+- uid: Tripous.Data.DbIni.WriteFloat(System.String,System.Double)
+  commentId: M:Tripous.Data.DbIni.WriteFloat(System.String,System.Double)
+  id: WriteFloat(System.String,System.Double)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteFloat(string, double)
+  nameWithType: DbIni.WriteFloat(string, double)
+  fullName: Tripous.Data.DbIni.WriteFloat(string, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteFloat
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 119
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteFloat(string Entry, double Value)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.Double
+    content.vb: Public Sub WriteFloat(Entry As String, Value As Double)
+  overload: Tripous.Data.DbIni.WriteFloat*
+  nameWithType.vb: DbIni.WriteFloat(String, Double)
+  fullName.vb: Tripous.Data.DbIni.WriteFloat(String, Double)
+  name.vb: WriteFloat(String, Double)
+- uid: Tripous.Data.DbIni.ReadFloat(System.String,System.Double)
+  commentId: M:Tripous.Data.DbIni.ReadFloat(System.String,System.Double)
+  id: ReadFloat(System.String,System.Double)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadFloat(string, double)
+  nameWithType: DbIni.ReadFloat(string, double)
+  fullName: Tripous.Data.DbIni.ReadFloat(string, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadFloat
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 126
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Value of the Entry, if exists, else Default
+  example: []
+  syntax:
+    content: public double ReadFloat(string Entry, double Default)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Default
+      type: System.Double
+    return:
+      type: System.Double
+    content.vb: Public Function ReadFloat(Entry As String, [Default] As Double) As Double
+  overload: Tripous.Data.DbIni.ReadFloat*
+  nameWithType.vb: DbIni.ReadFloat(String, Double)
+  fullName.vb: Tripous.Data.DbIni.ReadFloat(String, Double)
+  name.vb: ReadFloat(String, Double)
+- uid: Tripous.Data.DbIni.WriteBool(System.String,System.Boolean)
+  commentId: M:Tripous.Data.DbIni.WriteBool(System.String,System.Boolean)
+  id: WriteBool(System.String,System.Boolean)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteBool(string, bool)
+  nameWithType: DbIni.WriteBool(string, bool)
+  fullName: Tripous.Data.DbIni.WriteBool(string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteBool
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 134
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteBool(string Entry, bool Value)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Sub WriteBool(Entry As String, Value As Boolean)
+  overload: Tripous.Data.DbIni.WriteBool*
+  nameWithType.vb: DbIni.WriteBool(String, Boolean)
+  fullName.vb: Tripous.Data.DbIni.WriteBool(String, Boolean)
+  name.vb: WriteBool(String, Boolean)
+- uid: Tripous.Data.DbIni.ReadBool(System.String,System.Boolean)
+  commentId: M:Tripous.Data.DbIni.ReadBool(System.String,System.Boolean)
+  id: ReadBool(System.String,System.Boolean)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadBool(string, bool)
+  nameWithType: DbIni.ReadBool(string, bool)
+  fullName: Tripous.Data.DbIni.ReadBool(string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadBool
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 141
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Value of the Entry, if exists, else Default
+  example: []
+  syntax:
+    content: public bool ReadBool(string Entry, bool Default)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Default
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Function ReadBool(Entry As String, [Default] As Boolean) As Boolean
+  overload: Tripous.Data.DbIni.ReadBool*
+  nameWithType.vb: DbIni.ReadBool(String, Boolean)
+  fullName.vb: Tripous.Data.DbIni.ReadBool(String, Boolean)
+  name.vb: ReadBool(String, Boolean)
+- uid: Tripous.Data.DbIni.WriteDateTime(System.String,System.DateTime)
+  commentId: M:Tripous.Data.DbIni.WriteDateTime(System.String,System.DateTime)
+  id: WriteDateTime(System.String,System.DateTime)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteDateTime(string, DateTime)
+  nameWithType: DbIni.WriteDateTime(string, DateTime)
+  fullName: Tripous.Data.DbIni.WriteDateTime(string, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteDateTime
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 149
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteDateTime(string Entry, DateTime Value)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.DateTime
+    content.vb: Public Sub WriteDateTime(Entry As String, Value As Date)
+  overload: Tripous.Data.DbIni.WriteDateTime*
+  nameWithType.vb: DbIni.WriteDateTime(String, Date)
+  fullName.vb: Tripous.Data.DbIni.WriteDateTime(String, Date)
+  name.vb: WriteDateTime(String, Date)
+- uid: Tripous.Data.DbIni.ReadDateTime(System.String,System.DateTime)
+  commentId: M:Tripous.Data.DbIni.ReadDateTime(System.String,System.DateTime)
+  id: ReadDateTime(System.String,System.DateTime)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadDateTime(string, DateTime)
+  nameWithType: DbIni.ReadDateTime(string, DateTime)
+  fullName: Tripous.Data.DbIni.ReadDateTime(string, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadDateTime
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 156
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the Value of the Entry, if exists, else Default
+  example: []
+  syntax:
+    content: public DateTime ReadDateTime(string Entry, DateTime Default)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Default
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: Public Function ReadDateTime(Entry As String, [Default] As Date) As Date
+  overload: Tripous.Data.DbIni.ReadDateTime*
+  nameWithType.vb: DbIni.ReadDateTime(String, Date)
+  fullName.vb: Tripous.Data.DbIni.ReadDateTime(String, Date)
+  name.vb: ReadDateTime(String, Date)
+- uid: Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream,System.String)
+  commentId: M:Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream,System.String)
+  id: WriteBlob(System.String,System.IO.Stream,System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteBlob(string, Stream, string)
+  nameWithType: DbIni.WriteBlob(string, Stream, string)
+  fullName: Tripous.Data.DbIni.WriteBlob(string, System.IO.Stream, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteBlob
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 164
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value and Stream to the Entry. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteBlob(string Entry, Stream Stream, string Value)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    - id: Value
+      type: System.String
+    content.vb: Public Sub WriteBlob(Entry As String, Stream As Stream, Value As String)
+  overload: Tripous.Data.DbIni.WriteBlob*
+  nameWithType.vb: DbIni.WriteBlob(String, Stream, String)
+  fullName.vb: Tripous.Data.DbIni.WriteBlob(String, System.IO.Stream, String)
+  name.vb: WriteBlob(String, Stream, String)
+- uid: Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream)
+  commentId: M:Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream)
+  id: WriteBlob(System.String,System.IO.Stream)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteBlob(string, Stream)
+  nameWithType: DbIni.WriteBlob(string, Stream)
+  fullName: Tripous.Data.DbIni.WriteBlob(string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteBlob
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 195
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Stream to the Entry. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteBlob(string Entry, Stream Stream)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    content.vb: Public Sub WriteBlob(Entry As String, Stream As Stream)
+  overload: Tripous.Data.DbIni.WriteBlob*
+  nameWithType.vb: DbIni.WriteBlob(String, Stream)
+  fullName.vb: Tripous.Data.DbIni.WriteBlob(String, System.IO.Stream)
+  name.vb: WriteBlob(String, Stream)
+- uid: Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream,System.String@)
+  commentId: M:Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream,System.String@)
+  id: ReadBlob(System.String,System.IO.Stream,System.String@)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadBlob(string, Stream, ref string)
+  nameWithType: DbIni.ReadBlob(string, Stream, ref string)
+  fullName: Tripous.Data.DbIni.ReadBlob(string, System.IO.Stream, ref string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadBlob
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 202
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Reads the Entry to the Stream and Value. Returns true if the Entry exists.
+  example: []
+  syntax:
+    content: public bool ReadBlob(string Entry, Stream Stream, ref string Value)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function ReadBlob(Entry As String, Stream As Stream, Value As String) As Boolean
+  overload: Tripous.Data.DbIni.ReadBlob*
+  nameWithType.vb: DbIni.ReadBlob(String, Stream, String)
+  fullName.vb: Tripous.Data.DbIni.ReadBlob(String, System.IO.Stream, String)
+  name.vb: ReadBlob(String, Stream, String)
+- uid: Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream)
+  commentId: M:Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream)
+  id: ReadBlob(System.String,System.IO.Stream)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadBlob(string, Stream)
+  nameWithType: DbIni.ReadBlob(string, Stream)
+  fullName: Tripous.Data.DbIni.ReadBlob(string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadBlob
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 233
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Reads the Entry to the Stream. Returns true if the Entry exists.
+  example: []
+  syntax:
+    content: public bool ReadBlob(string Entry, Stream Stream)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    return:
+      type: System.Boolean
+    content.vb: Public Function ReadBlob(Entry As String, Stream As Stream) As Boolean
+  overload: Tripous.Data.DbIni.ReadBlob*
+  nameWithType.vb: DbIni.ReadBlob(String, Stream)
+  fullName.vb: Tripous.Data.DbIni.ReadBlob(String, System.IO.Stream)
+  name.vb: ReadBlob(String, Stream)
+- uid: Tripous.Data.DbIni.ReadInstance(System.String,System.Object)
+  commentId: M:Tripous.Data.DbIni.ReadInstance(System.String,System.Object)
+  id: ReadInstance(System.String,System.Object)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: ReadInstance(string, object)
+  nameWithType: DbIni.ReadInstance(string, object)
+  fullName: Tripous.Data.DbIni.ReadInstance(string, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReadInstance
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 242
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Loads Instance from a DbIni blob
+  example: []
+  syntax:
+    content: public bool ReadInstance(string Entry, object Instance)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Instance
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Function ReadInstance(Entry As String, Instance As Object) As Boolean
+  overload: Tripous.Data.DbIni.ReadInstance*
+  nameWithType.vb: DbIni.ReadInstance(String, Object)
+  fullName.vb: Tripous.Data.DbIni.ReadInstance(String, Object)
+  name.vb: ReadInstance(String, Object)
+- uid: Tripous.Data.DbIni.WriteInstance(System.String,System.Object)
+  commentId: M:Tripous.Data.DbIni.WriteInstance(System.String,System.Object)
+  id: WriteInstance(System.String,System.Object)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteInstance(string, object)
+  nameWithType: DbIni.WriteInstance(string, object)
+  fullName: Tripous.Data.DbIni.WriteInstance(string, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteInstance
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 269
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Saves Instance to a DbIni blob
+  example: []
+  syntax:
+    content: public void WriteInstance(string Entry, object Instance)
+    parameters:
+    - id: Entry
+      type: System.String
+    - id: Instance
+      type: System.Object
+    content.vb: Public Sub WriteInstance(Entry As String, Instance As Object)
+  overload: Tripous.Data.DbIni.WriteInstance*
+  nameWithType.vb: DbIni.WriteInstance(String, Object)
+  fullName.vb: Tripous.Data.DbIni.WriteInstance(String, Object)
+  name.vb: WriteInstance(String, Object)
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbIni.#ctor*
+  commentId: Overload:Tripous.Data.DbIni.#ctor
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni__ctor_Tripous_Data_DbConnectionInfo_
+  name: DbIni
+  nameWithType: DbIni.DbIni
+  fullName: Tripous.Data.DbIni.DbIni
+  nameWithType.vb: DbIni.New
+  fullName.vb: Tripous.Data.DbIni.New
+  name.vb: New
+- uid: Tripous.Data.DbConnectionInfo
+  commentId: T:Tripous.Data.DbConnectionInfo
+  parent: Tripous.Data
+  href: Tripous.Data.DbConnectionInfo.html
+  name: DbConnectionInfo
+  nameWithType: DbConnectionInfo
+  fullName: Tripous.Data.DbConnectionInfo
+- uid: Tripous.Data.DbIni.Exists*
+  commentId: Overload:Tripous.Data.DbIni.Exists
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_Exists_System_String_
+  name: Exists
+  nameWithType: DbIni.Exists
+  fullName: Tripous.Data.DbIni.Exists
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DbIni.Delete*
+  commentId: Overload:Tripous.Data.DbIni.Delete
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_Delete_System_String_
+  name: Delete
+  nameWithType: DbIni.Delete
+  fullName: Tripous.Data.DbIni.Delete
+- uid: Tripous.Data.DbIni.WriteString*
+  commentId: Overload:Tripous.Data.DbIni.WriteString
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_WriteString_System_String_System_String_
+  name: WriteString
+  nameWithType: DbIni.WriteString
+  fullName: Tripous.Data.DbIni.WriteString
+- uid: Tripous.Data.DbIni.ReadString*
+  commentId: Overload:Tripous.Data.DbIni.ReadString
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_ReadString_System_String_System_String_
+  name: ReadString
+  nameWithType: DbIni.ReadString
+  fullName: Tripous.Data.DbIni.ReadString
+- uid: Tripous.Data.DbIni.WriteInteger*
+  commentId: Overload:Tripous.Data.DbIni.WriteInteger
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_WriteInteger_System_String_System_Int32_
+  name: WriteInteger
+  nameWithType: DbIni.WriteInteger
+  fullName: Tripous.Data.DbIni.WriteInteger
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DbIni.ReadInteger*
+  commentId: Overload:Tripous.Data.DbIni.ReadInteger
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_ReadInteger_System_String_System_Int32_
+  name: ReadInteger
+  nameWithType: DbIni.ReadInteger
+  fullName: Tripous.Data.DbIni.ReadInteger
+- uid: Tripous.Data.DbIni.WriteFloat*
+  commentId: Overload:Tripous.Data.DbIni.WriteFloat
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_WriteFloat_System_String_System_Double_
+  name: WriteFloat
+  nameWithType: DbIni.WriteFloat
+  fullName: Tripous.Data.DbIni.WriteFloat
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Tripous.Data.DbIni.ReadFloat*
+  commentId: Overload:Tripous.Data.DbIni.ReadFloat
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_ReadFloat_System_String_System_Double_
+  name: ReadFloat
+  nameWithType: DbIni.ReadFloat
+  fullName: Tripous.Data.DbIni.ReadFloat
+- uid: Tripous.Data.DbIni.WriteBool*
+  commentId: Overload:Tripous.Data.DbIni.WriteBool
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_WriteBool_System_String_System_Boolean_
+  name: WriteBool
+  nameWithType: DbIni.WriteBool
+  fullName: Tripous.Data.DbIni.WriteBool
+- uid: Tripous.Data.DbIni.ReadBool*
+  commentId: Overload:Tripous.Data.DbIni.ReadBool
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_ReadBool_System_String_System_Boolean_
+  name: ReadBool
+  nameWithType: DbIni.ReadBool
+  fullName: Tripous.Data.DbIni.ReadBool
+- uid: Tripous.Data.DbIni.WriteDateTime*
+  commentId: Overload:Tripous.Data.DbIni.WriteDateTime
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_WriteDateTime_System_String_System_DateTime_
+  name: WriteDateTime
+  nameWithType: DbIni.WriteDateTime
+  fullName: Tripous.Data.DbIni.WriteDateTime
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.Data.DbIni.ReadDateTime*
+  commentId: Overload:Tripous.Data.DbIni.ReadDateTime
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_ReadDateTime_System_String_System_DateTime_
+  name: ReadDateTime
+  nameWithType: DbIni.ReadDateTime
+  fullName: Tripous.Data.DbIni.ReadDateTime
+- uid: Tripous.Data.DbIni.WriteBlob*
+  commentId: Overload:Tripous.Data.DbIni.WriteBlob
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_WriteBlob_System_String_System_IO_Stream_System_String_
+  name: WriteBlob
+  nameWithType: DbIni.WriteBlob
+  fullName: Tripous.Data.DbIni.WriteBlob
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+- uid: Tripous.Data.DbIni.ReadBlob*
+  commentId: Overload:Tripous.Data.DbIni.ReadBlob
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_ReadBlob_System_String_System_IO_Stream_System_String__
+  name: ReadBlob
+  nameWithType: DbIni.ReadBlob
+  fullName: Tripous.Data.DbIni.ReadBlob
+- uid: Tripous.Data.DbIni.ReadInstance*
+  commentId: Overload:Tripous.Data.DbIni.ReadInstance
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_ReadInstance_System_String_System_Object_
+  name: ReadInstance
+  nameWithType: DbIni.ReadInstance
+  fullName: Tripous.Data.DbIni.ReadInstance
+- uid: Tripous.Data.DbIni.WriteInstance*
+  commentId: Overload:Tripous.Data.DbIni.WriteInstance
+  href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_WriteInstance_System_String_System_Object_
+  name: WriteInstance
+  nameWithType: DbIni.WriteInstance
+  fullName: Tripous.Data.DbIni.WriteInstance

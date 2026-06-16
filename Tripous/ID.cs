@@ -37,46 +37,37 @@ public struct ID
     /// </summary>
     public override bool Equals([NotNullWhen(true)] object obj)
     {
-        if (obj == null && this.IsNull())
-            return true;
+        if (obj == null)
+            return this.IsNull();
 
-        if (obj == null && !this.IsNull())
-            return false;
-
-        if (obj != null && this.IsNull())
-            return false;
-
-        if (obj.GetType() == typeof(string))
-            return this.IsString() ? this.AsString().Equals(obj) : false;
-
-
-        if ((obj.GetType() == typeof(int) || obj.GetType() == typeof(short)))
-            return this.IsInt() ? this.AsInt().Equals(Convert.ToInt32(obj)) : false;
-
+        ID Other;
         if (obj is ID)
         {
-            ID Other = (ID)obj;
-
-            if (this.IsNull() && Other.IsNull())
-                return true;
-
-            if (this.IsString() && Other.IsString())
-                return this.AsString().Equals(Other.AsString());
-
-            if (this.IsInt() && Other.IsInt())
-                return this.AsInt().Equals(Other.AsInt());
-
-            return false;
+            Other = (ID)obj;
+        }
+        else if (obj.GetType() == typeof(string) || obj.GetType() == typeof(int) || obj.GetType() == typeof(short))
+        {
+            Other = new ID(obj);
+        }
+        else
+        {
+            return base.Equals(obj);
         }
 
-        return base.Equals(obj);
+        if (this.IsNull() || Other.IsNull())
+            return this.IsNull() && Other.IsNull();
+
+        if (IsNumber(this.AsString()) && IsNumber(Other.AsString()))
+            return this.AsInt().Equals(Other.AsInt());
+
+        return this.AsString().Equals(Other.AsString());
     }
     /// <summary>
     /// Returns the hash code for this instance.
     /// </summary>
     public override int GetHashCode()
     {
-        if (this.IsInt())
+        if (IsNumber(this.AsString()))
             return this.AsInt().GetHashCode();
         if (this.IsString())
             return this.AsString().GetHashCode();
@@ -248,11 +239,11 @@ public struct ID
     /// <summary>
     /// Implicit conversion from ID to short and int.
     /// </summary>
-    static public implicit operator short(ID Source) => (Source.value != null && Source.value.GetType() == typeof(short)) ? Convert.ToInt16(Source.value) : (short)0;
+    static public implicit operator short(ID Source) => Convert.ToInt16(Source.AsInt());
     /// <summary>
     /// Implicit conversion from ID to short and int.
     /// </summary>
-    static public implicit operator int(ID Source) => Source.value != null && Source.value.GetType() == typeof(int) ? Convert.ToInt32(Source.value) : (int)0;
+    static public implicit operator int(ID Source) => Source.AsInt();
 }
 
 /// <summary>

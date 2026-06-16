@@ -1,0 +1,1192 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.DataFormState
+  commentId: T:Tripous.Desktop.DataFormState
+  id: DataFormState
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.DataFormState.Edit
+  - Tripous.Desktop.DataFormState.Insert
+  - Tripous.Desktop.DataFormState.List
+  - Tripous.Desktop.DataFormState.None
+  langs:
+  - csharp
+  - vb
+  name: DataFormState
+  nameWithType: DataFormState
+  fullName: Tripous.Desktop.DataFormState
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/DataFormState.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataFormState
+    path: ../Tripous.Desktop/Enums/DataFormState.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The state of a data-form indicates the UI the form is currently displaying
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum DataFormState
+    content.vb: >-
+      <Flags>
+
+      Public Enum DataFormState
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.Add``1(Tripous.Desktop.DataFormState)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.HasAny``1(Tripous.Desktop.DataFormState)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.HasNone``1(Tripous.Desktop.DataFormState)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.Has``1(Tripous.Desktop.DataFormState)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.In``1(Tripous.Desktop.DataFormState)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.IsExactly``1(Tripous.Desktop.DataFormState)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.IsZero``1
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.Remove``1(Tripous.Desktop.DataFormState)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.Set``1(Tripous.Desktop.DataFormState,System.Boolean)
+  - Tripous.Desktop.DataFormState.Tripous.BitFields.Toggle``1(Tripous.Desktop.DataFormState)
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: Tripous.Desktop.DataFormState.None
+  commentId: F:Tripous.Desktop.DataFormState.None
+  id: None
+  parent: Tripous.Desktop.DataFormState
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: DataFormState.None
+  fullName: Tripous.Desktop.DataFormState.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/DataFormState.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Desktop/Enums/DataFormState.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: None
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Desktop.DataFormState
+- uid: Tripous.Desktop.DataFormState.List
+  commentId: F:Tripous.Desktop.DataFormState.List
+  id: List
+  parent: Tripous.Desktop.DataFormState
+  langs:
+  - csharp
+  - vb
+  name: List
+  nameWithType: DataFormState.List
+  fullName: Tripous.Desktop.DataFormState.List
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/DataFormState.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: List
+    path: ../Tripous.Desktop/Enums/DataFormState.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: List
+  example: []
+  syntax:
+    content: List = 1
+    return:
+      type: Tripous.Desktop.DataFormState
+- uid: Tripous.Desktop.DataFormState.Insert
+  commentId: F:Tripous.Desktop.DataFormState.Insert
+  id: Insert
+  parent: Tripous.Desktop.DataFormState
+  langs:
+  - csharp
+  - vb
+  name: Insert
+  nameWithType: DataFormState.Insert
+  fullName: Tripous.Desktop.DataFormState.Insert
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/DataFormState.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Insert
+    path: ../Tripous.Desktop/Enums/DataFormState.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Insert
+  example: []
+  syntax:
+    content: Insert = 2
+    return:
+      type: Tripous.Desktop.DataFormState
+- uid: Tripous.Desktop.DataFormState.Edit
+  commentId: F:Tripous.Desktop.DataFormState.Edit
+  id: Edit
+  parent: Tripous.Desktop.DataFormState
+  langs:
+  - csharp
+  - vb
+  name: Edit
+  nameWithType: DataFormState.Edit
+  fullName: Tripous.Desktop.DataFormState.Edit
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/DataFormState.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Edit
+    path: ../Tripous.Desktop/Enums/DataFormState.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Edit
+  example: []
+  syntax:
+    content: Edit = 4
+    return:
+      type: Tripous.Desktop.DataFormState
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.Add``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.Add<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.Add<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.Add(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: Add(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.HasAny``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.HasAny<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.HasAny<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.HasAny(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: HasAny(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.HasNone``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.HasNone<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.HasNone<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.HasNone(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: HasNone(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.Has``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.Has<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.Has<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.Has(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: Has(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.In``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.In<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.In<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.In(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: In(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.IsExactly``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.IsExactly<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.IsExactly(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: IsExactly(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<DataFormState>(DataFormState)
+  nameWithType: BitFields.IsZero<DataFormState>(DataFormState)
+  fullName: Tripous.BitFields.IsZero<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.IsZero(Of DataFormState)(DataFormState)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState)
+  name.vb: IsZero(Of DataFormState)(DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.DataFormState)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.DataFormState)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.Remove``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.Remove<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.Remove<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.Remove(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: Remove(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.Set``1(Tripous.Desktop.DataFormState,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<DataFormState>(DataFormState, DataFormState, bool)
+  nameWithType: BitFields.Set<DataFormState>(DataFormState, DataFormState, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState, bool)
+  nameWithType.vb: BitFields.Set(Of DataFormState)(DataFormState, DataFormState, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState, Boolean)
+  name.vb: Set(Of DataFormState)(DataFormState, DataFormState, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Desktop.DataFormState.Tripous.BitFields.Toggle``1(Tripous.Desktop.DataFormState)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<DataFormState>(DataFormState, DataFormState)
+  nameWithType: BitFields.Toggle<DataFormState>(DataFormState, DataFormState)
+  fullName: Tripous.BitFields.Toggle<Tripous.Desktop.DataFormState>(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  nameWithType.vb: BitFields.Toggle(Of DataFormState)(DataFormState, DataFormState)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Desktop.DataFormState)(Tripous.Desktop.DataFormState, Tripous.Desktop.DataFormState)
+  name.vb: Toggle(Of DataFormState)(DataFormState, DataFormState)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.DataFormState,Tripous.Desktop.DataFormState)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    href: Tripous.Desktop.DataFormState.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.DataFormState
+  commentId: T:Tripous.Desktop.DataFormState
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataFormState.html
+  name: DataFormState
+  nameWithType: DataFormState
+  fullName: Tripous.Desktop.DataFormState

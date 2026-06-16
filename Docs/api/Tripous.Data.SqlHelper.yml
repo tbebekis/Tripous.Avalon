@@ -1,0 +1,1444 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SqlHelper
+  commentId: T:Tripous.Data.SqlHelper
+  id: SqlHelper
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SqlHelper.DateTimeToStr(System.DateTime,System.Boolean)
+  - Tripous.Data.SqlHelper.DateToStr(System.DateTime,System.Boolean)
+  - Tripous.Data.SqlHelper.ExtractTableName(System.String)
+  - Tripous.Data.SqlHelper.FieldAlias(System.String,System.String)
+  - Tripous.Data.SqlHelper.FieldPath(System.String,System.String)
+  - Tripous.Data.SqlHelper.FloatSQL(System.Double)
+  - Tripous.Data.SqlHelper.FloatSql(System.String)
+  - Tripous.Data.SqlHelper.Format(System.Object)
+  - Tripous.Data.SqlHelper.FormatFieldNameAlias(System.String,System.String,System.Int32)
+  - Tripous.Data.SqlHelper.FormatFieldNameAlias(System.String,System.String,System.String,System.Int32)
+  - Tripous.Data.SqlHelper.FormatId(System.Object)
+  - Tripous.Data.SqlHelper.FormatTableNameAlias(System.String,System.String)
+  - Tripous.Data.SqlHelper.GetMainTableName(System.String)
+  - Tripous.Data.SqlHelper.IsMasked(System.String)
+  - Tripous.Data.SqlHelper.NormalizeMask(System.String)
+  - Tripous.Data.SqlHelper.NormalizeMask2(System.String)
+  - Tripous.Data.SqlHelper.NormalizeMaskForce(System.String)
+  - Tripous.Data.SqlHelper.StatementDefaultSpaces
+  - Tripous.Data.SqlHelper.TimeToStr(System.DateTime,System.Boolean)
+  - Tripous.Data.SqlHelper.TransformToFieldList(System.Collections.Generic.List{System.String})
+  langs:
+  - csharp
+  - vb
+  name: SqlHelper
+  nameWithType: SqlHelper
+  fullName: Tripous.Data.SqlHelper
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlHelper
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 12
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A collection of static methods for manipulating Sql statements.
+  example: []
+  syntax:
+    content: public class SqlHelper
+    content.vb: Public Class SqlHelper
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.SqlHelper.GetMainTableName(System.String)
+  commentId: M:Tripous.Data.SqlHelper.GetMainTableName(System.String)
+  id: GetMainTableName(System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: GetMainTableName(string)
+  nameWithType: SqlHelper.GetMainTableName(string)
+  fullName: Tripous.Data.SqlHelper.GetMainTableName(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetMainTableName
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: 'WARNING: Not reliable'
+  example: []
+  syntax:
+    content: public static string GetMainTableName(string SelectSqlText)
+    parameters:
+    - id: SelectSqlText
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetMainTableName(SelectSqlText As String) As String
+  overload: Tripous.Data.SqlHelper.GetMainTableName*
+  nameWithType.vb: SqlHelper.GetMainTableName(String)
+  fullName.vb: Tripous.Data.SqlHelper.GetMainTableName(String)
+  name.vb: GetMainTableName(String)
+- uid: Tripous.Data.SqlHelper.ExtractTableName(System.String)
+  commentId: M:Tripous.Data.SqlHelper.ExtractTableName(System.String)
+  id: ExtractTableName(System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: ExtractTableName(string)
+  nameWithType: SqlHelper.ExtractTableName(string)
+  fullName: Tripous.Data.SqlHelper.ExtractTableName(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExtractTableName
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    If the specified CreateTableSqlText is a CREATE TABLE TABLE_NAME (...) sql statement
+
+    then this method returns the TABLE_NAME, else returns string.Empty
+  example: []
+  syntax:
+    content: public static string ExtractTableName(string CreateTableSqlText)
+    parameters:
+    - id: CreateTableSqlText
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function ExtractTableName(CreateTableSqlText As String) As String
+  overload: Tripous.Data.SqlHelper.ExtractTableName*
+  nameWithType.vb: SqlHelper.ExtractTableName(String)
+  fullName.vb: Tripous.Data.SqlHelper.ExtractTableName(String)
+  name.vb: ExtractTableName(String)
+- uid: Tripous.Data.SqlHelper.TransformToFieldList(System.Collections.Generic.List{System.String})
+  commentId: M:Tripous.Data.SqlHelper.TransformToFieldList(System.Collections.Generic.List{System.String})
+  id: TransformToFieldList(System.Collections.Generic.List{System.String})
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: TransformToFieldList(List<string>)
+  nameWithType: SqlHelper.TransformToFieldList(List<string>)
+  fullName: Tripous.Data.SqlHelper.TransformToFieldList(System.Collections.Generic.List<string>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TransformToFieldList
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Transforms a string list into a field list by adding a <code>,</code> and a line break in every string item, except the last one.
+  example: []
+  syntax:
+    content: public static string TransformToFieldList(List<string> StringList)
+    parameters:
+    - id: StringList
+      type: System.Collections.Generic.List{System.String}
+    return:
+      type: System.String
+    content.vb: Public Shared Function TransformToFieldList(StringList As List(Of String)) As String
+  overload: Tripous.Data.SqlHelper.TransformToFieldList*
+  nameWithType.vb: SqlHelper.TransformToFieldList(List(Of String))
+  fullName.vb: Tripous.Data.SqlHelper.TransformToFieldList(System.Collections.Generic.List(Of String))
+  name.vb: TransformToFieldList(List(Of String))
+- uid: Tripous.Data.SqlHelper.FloatSQL(System.Double)
+  commentId: M:Tripous.Data.SqlHelper.FloatSQL(System.Double)
+  id: FloatSQL(System.Double)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FloatSQL(double)
+  nameWithType: SqlHelper.FloatSQL(double)
+  fullName: Tripous.Data.SqlHelper.FloatSQL(double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FloatSQL
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Converts the double Value to a float string, valid for S, i.e. ensures that the decimal
+
+    seperator is the point.
+  example: []
+  syntax:
+    content: public static string FloatSQL(double Value)
+    parameters:
+    - id: Value
+      type: System.Double
+    return:
+      type: System.String
+    content.vb: Public Shared Function FloatSQL(Value As Double) As String
+  overload: Tripous.Data.SqlHelper.FloatSQL*
+  nameWithType.vb: SqlHelper.FloatSQL(Double)
+  fullName.vb: Tripous.Data.SqlHelper.FloatSQL(Double)
+  name.vb: FloatSQL(Double)
+- uid: Tripous.Data.SqlHelper.FloatSql(System.String)
+  commentId: M:Tripous.Data.SqlHelper.FloatSql(System.String)
+  id: FloatSql(System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FloatSql(string)
+  nameWithType: SqlHelper.FloatSql(string)
+  fullName: Tripous.Data.SqlHelper.FloatSql(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FloatSql
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts the string Value to a float string, valid for S, i.e. ensures that the decimal
+  example: []
+  syntax:
+    content: public static string FloatSql(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function FloatSql(Value As String) As String
+  overload: Tripous.Data.SqlHelper.FloatSql*
+  nameWithType.vb: SqlHelper.FloatSql(String)
+  fullName.vb: Tripous.Data.SqlHelper.FloatSql(String)
+  name.vb: FloatSql(String)
+- uid: Tripous.Data.SqlHelper.NormalizeMaskForce(System.String)
+  commentId: M:Tripous.Data.SqlHelper.NormalizeMaskForce(System.String)
+  id: NormalizeMaskForce(System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: NormalizeMaskForce(string)
+  nameWithType: SqlHelper.NormalizeMaskForce(string)
+  fullName: Tripous.Data.SqlHelper.NormalizeMaskForce(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NormalizeMaskForce
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 79
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: "    Normalizes Value for use in a LIKE clause. It returns a string as \n<pre><code class=\"lang-csharp\">LIKE 'VALUE%'</code></pre>\n    <p>Value may or may not contain mask characters (%, ?, *)</p>"
+  example: []
+  syntax:
+    content: public static string NormalizeMaskForce(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function NormalizeMaskForce(Value As String) As String
+  overload: Tripous.Data.SqlHelper.NormalizeMaskForce*
+  nameWithType.vb: SqlHelper.NormalizeMaskForce(String)
+  fullName.vb: Tripous.Data.SqlHelper.NormalizeMaskForce(String)
+  name.vb: NormalizeMaskForce(String)
+- uid: Tripous.Data.SqlHelper.NormalizeMask(System.String)
+  commentId: M:Tripous.Data.SqlHelper.NormalizeMask(System.String)
+  id: NormalizeMask(System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: NormalizeMask(string)
+  nameWithType: SqlHelper.NormalizeMask(string)
+  fullName: Tripous.Data.SqlHelper.NormalizeMask(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NormalizeMask
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 105
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: "    Normalizes Value for use in a LIKE clause. It returns a string as \n<pre><code class=\"lang-csharp\">LIKE 'VALUE%'</code></pre>\n    <p>Value may or may not contain mask characters (%, ?, *)</p>"
+  example: []
+  syntax:
+    content: public static string NormalizeMask(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function NormalizeMask(Value As String) As String
+  overload: Tripous.Data.SqlHelper.NormalizeMask*
+  nameWithType.vb: SqlHelper.NormalizeMask(String)
+  fullName.vb: Tripous.Data.SqlHelper.NormalizeMask(String)
+  name.vb: NormalizeMask(String)
+- uid: Tripous.Data.SqlHelper.NormalizeMask2(System.String)
+  commentId: M:Tripous.Data.SqlHelper.NormalizeMask2(System.String)
+  id: NormalizeMask2(System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: NormalizeMask2(string)
+  nameWithType: SqlHelper.NormalizeMask2(string)
+  fullName: Tripous.Data.SqlHelper.NormalizeMask2(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NormalizeMask2
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 133
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: "    Normalizes Value for use in a LIKE clause. It returns a string as \n<pre><code class=\"lang-csharp\">LIKE 'VALUE%'</code></pre>\n    <p>Value may or may not contain mask characters (%, ?, *)</p>\n    <p>WARNING: This version adds a % in front of Value, if not there</p>"
+  example: []
+  syntax:
+    content: public static string NormalizeMask2(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function NormalizeMask2(Value As String) As String
+  overload: Tripous.Data.SqlHelper.NormalizeMask2*
+  nameWithType.vb: SqlHelper.NormalizeMask2(String)
+  fullName.vb: Tripous.Data.SqlHelper.NormalizeMask2(String)
+  name.vb: NormalizeMask2(String)
+- uid: Tripous.Data.SqlHelper.IsMasked(System.String)
+  commentId: M:Tripous.Data.SqlHelper.IsMasked(System.String)
+  id: IsMasked(System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: IsMasked(string)
+  nameWithType: SqlHelper.IsMasked(string)
+  fullName: Tripous.Data.SqlHelper.IsMasked(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsMasked
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 199
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Value contains any of the mask characters (%, ?, *)
+  example: []
+  syntax:
+    content: public static bool IsMasked(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsMasked(Value As String) As Boolean
+  overload: Tripous.Data.SqlHelper.IsMasked*
+  nameWithType.vb: SqlHelper.IsMasked(String)
+  fullName.vb: Tripous.Data.SqlHelper.IsMasked(String)
+  name.vb: IsMasked(String)
+- uid: Tripous.Data.SqlHelper.FormatFieldNameAlias(System.String,System.String,System.String,System.Int32)
+  commentId: M:Tripous.Data.SqlHelper.FormatFieldNameAlias(System.String,System.String,System.String,System.Int32)
+  id: FormatFieldNameAlias(System.String,System.String,System.String,System.Int32)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FormatFieldNameAlias(string, string, string, int)
+  nameWithType: SqlHelper.FormatFieldNameAlias(string, string, string, int)
+  fullName: Tripous.Data.SqlHelper.FormatFieldNameAlias(string, string, string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormatFieldNameAlias
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 220
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns a string such as  
+
+
+    <p><code>TableNameOrAlias.FieldName as Alias</code></p>
+  example: []
+  syntax:
+    content: public static string FormatFieldNameAlias(string TableNameOrAlias, string FieldName, string Alias, int Spaces)
+    parameters:
+    - id: TableNameOrAlias
+      type: System.String
+    - id: FieldName
+      type: System.String
+    - id: Alias
+      type: System.String
+    - id: Spaces
+      type: System.Int32
+    return:
+      type: System.String
+    content.vb: Public Shared Function FormatFieldNameAlias(TableNameOrAlias As String, FieldName As String, [Alias] As String, Spaces As Integer) As String
+  overload: Tripous.Data.SqlHelper.FormatFieldNameAlias*
+  nameWithType.vb: SqlHelper.FormatFieldNameAlias(String, String, String, Integer)
+  fullName.vb: Tripous.Data.SqlHelper.FormatFieldNameAlias(String, String, String, Integer)
+  name.vb: FormatFieldNameAlias(String, String, String, Integer)
+- uid: Tripous.Data.SqlHelper.FormatFieldNameAlias(System.String,System.String,System.Int32)
+  commentId: M:Tripous.Data.SqlHelper.FormatFieldNameAlias(System.String,System.String,System.Int32)
+  id: FormatFieldNameAlias(System.String,System.String,System.Int32)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FormatFieldNameAlias(string, string, int)
+  nameWithType: SqlHelper.FormatFieldNameAlias(string, string, int)
+  fullName: Tripous.Data.SqlHelper.FormatFieldNameAlias(string, string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormatFieldNameAlias
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 234
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns a string such as 
+
+
+    <p><code>FieldName as Alias</code></p>
+  example: []
+  syntax:
+    content: public static string FormatFieldNameAlias(string FieldName, string Alias, int Spaces)
+    parameters:
+    - id: FieldName
+      type: System.String
+    - id: Alias
+      type: System.String
+    - id: Spaces
+      type: System.Int32
+    return:
+      type: System.String
+    content.vb: Public Shared Function FormatFieldNameAlias(FieldName As String, [Alias] As String, Spaces As Integer) As String
+  overload: Tripous.Data.SqlHelper.FormatFieldNameAlias*
+  nameWithType.vb: SqlHelper.FormatFieldNameAlias(String, String, Integer)
+  fullName.vb: Tripous.Data.SqlHelper.FormatFieldNameAlias(String, String, Integer)
+  name.vb: FormatFieldNameAlias(String, String, Integer)
+- uid: Tripous.Data.SqlHelper.FormatTableNameAlias(System.String,System.String)
+  commentId: M:Tripous.Data.SqlHelper.FormatTableNameAlias(System.String,System.String)
+  id: FormatTableNameAlias(System.String,System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FormatTableNameAlias(string, string)
+  nameWithType: SqlHelper.FormatTableNameAlias(string, string)
+  fullName: Tripous.Data.SqlHelper.FormatTableNameAlias(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormatTableNameAlias
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 248
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns a string such as 
+
+
+    <p><code>TableName  Alias</code></p>
+  example: []
+  syntax:
+    content: public static string FormatTableNameAlias(string TableName, string Alias)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: Alias
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function FormatTableNameAlias(TableName As String, [Alias] As String) As String
+  overload: Tripous.Data.SqlHelper.FormatTableNameAlias*
+  nameWithType.vb: SqlHelper.FormatTableNameAlias(String, String)
+  fullName.vb: Tripous.Data.SqlHelper.FormatTableNameAlias(String, String)
+  name.vb: FormatTableNameAlias(String, String)
+- uid: Tripous.Data.SqlHelper.FieldPath(System.String,System.String)
+  commentId: M:Tripous.Data.SqlHelper.FieldPath(System.String,System.String)
+  id: FieldPath(System.String,System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FieldPath(string, string)
+  nameWithType: SqlHelper.FieldPath(string, string)
+  fullName: Tripous.Data.SqlHelper.FieldPath(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldPath
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 262
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string of the form TableName.FieldName
+  example: []
+  syntax:
+    content: public static string FieldPath(string TableName, string FieldName)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function FieldPath(TableName As String, FieldName As String) As String
+  overload: Tripous.Data.SqlHelper.FieldPath*
+  nameWithType.vb: SqlHelper.FieldPath(String, String)
+  fullName.vb: Tripous.Data.SqlHelper.FieldPath(String, String)
+  name.vb: FieldPath(String, String)
+- uid: Tripous.Data.SqlHelper.FieldAlias(System.String,System.String)
+  commentId: M:Tripous.Data.SqlHelper.FieldAlias(System.String,System.String)
+  id: FieldAlias(System.String,System.String)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FieldAlias(string, string)
+  nameWithType: SqlHelper.FieldAlias(string, string)
+  fullName: Tripous.Data.SqlHelper.FieldAlias(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldAlias
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 269
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructs a field at table string. By default is TableName__FieldName.
+  example: []
+  syntax:
+    content: public static string FieldAlias(string TableName, string FieldName)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function FieldAlias(TableName As String, FieldName As String) As String
+  overload: Tripous.Data.SqlHelper.FieldAlias*
+  nameWithType.vb: SqlHelper.FieldAlias(String, String)
+  fullName.vb: Tripous.Data.SqlHelper.FieldAlias(String, String)
+  name.vb: FieldAlias(String, String)
+- uid: Tripous.Data.SqlHelper.DateToStr(System.DateTime,System.Boolean)
+  commentId: M:Tripous.Data.SqlHelper.DateToStr(System.DateTime,System.Boolean)
+  id: DateToStr(System.DateTime,System.Boolean)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: DateToStr(DateTime, bool)
+  nameWithType: SqlHelper.DateToStr(DateTime, bool)
+  fullName: Tripous.Data.SqlHelper.DateToStr(System.DateTime, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateToStr
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 277
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Formats Value. Quotes the result if Quoted is true.
+  example: []
+  syntax:
+    content: public static string DateToStr(DateTime Value, bool Quoted)
+    parameters:
+    - id: Value
+      type: System.DateTime
+    - id: Quoted
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function DateToStr(Value As Date, Quoted As Boolean) As String
+  overload: Tripous.Data.SqlHelper.DateToStr*
+  nameWithType.vb: SqlHelper.DateToStr(Date, Boolean)
+  fullName.vb: Tripous.Data.SqlHelper.DateToStr(Date, Boolean)
+  name.vb: DateToStr(Date, Boolean)
+- uid: Tripous.Data.SqlHelper.TimeToStr(System.DateTime,System.Boolean)
+  commentId: M:Tripous.Data.SqlHelper.TimeToStr(System.DateTime,System.Boolean)
+  id: TimeToStr(System.DateTime,System.Boolean)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: TimeToStr(DateTime, bool)
+  nameWithType: SqlHelper.TimeToStr(DateTime, bool)
+  fullName: Tripous.Data.SqlHelper.TimeToStr(System.DateTime, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TimeToStr
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 287
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Formats Value. Quotes the result if Quoted is true.
+  example: []
+  syntax:
+    content: public static string TimeToStr(DateTime Value, bool Quoted)
+    parameters:
+    - id: Value
+      type: System.DateTime
+    - id: Quoted
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function TimeToStr(Value As Date, Quoted As Boolean) As String
+  overload: Tripous.Data.SqlHelper.TimeToStr*
+  nameWithType.vb: SqlHelper.TimeToStr(Date, Boolean)
+  fullName.vb: Tripous.Data.SqlHelper.TimeToStr(Date, Boolean)
+  name.vb: TimeToStr(Date, Boolean)
+- uid: Tripous.Data.SqlHelper.DateTimeToStr(System.DateTime,System.Boolean)
+  commentId: M:Tripous.Data.SqlHelper.DateTimeToStr(System.DateTime,System.Boolean)
+  id: DateTimeToStr(System.DateTime,System.Boolean)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: DateTimeToStr(DateTime, bool)
+  nameWithType: SqlHelper.DateTimeToStr(DateTime, bool)
+  fullName: Tripous.Data.SqlHelper.DateTimeToStr(System.DateTime, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateTimeToStr
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 297
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Formats Value. Quotes the result if Quoted is true.
+  example: []
+  syntax:
+    content: public static string DateTimeToStr(DateTime Value, bool Quoted)
+    parameters:
+    - id: Value
+      type: System.DateTime
+    - id: Quoted
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function DateTimeToStr(Value As Date, Quoted As Boolean) As String
+  overload: Tripous.Data.SqlHelper.DateTimeToStr*
+  nameWithType.vb: SqlHelper.DateTimeToStr(Date, Boolean)
+  fullName.vb: Tripous.Data.SqlHelper.DateTimeToStr(Date, Boolean)
+  name.vb: DateTimeToStr(Date, Boolean)
+- uid: Tripous.Data.SqlHelper.Format(System.Object)
+  commentId: M:Tripous.Data.SqlHelper.Format(System.Object)
+  id: Format(System.Object)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: Format(object)
+  nameWithType: SqlHelper.Format(object)
+  fullName: Tripous.Data.SqlHelper.Format(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Format
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 309
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the value of the Value as a string for constructing Sql statements.
+
+
+    <p>In case of a string or DateTime it surrounds the result with single quotes.</p>
+  example: []
+  syntax:
+    content: public static string Format(object Value)
+    parameters:
+    - id: Value
+      type: System.Object
+    return:
+      type: System.String
+    content.vb: Public Shared Function Format(Value As Object) As String
+  overload: Tripous.Data.SqlHelper.Format*
+  nameWithType.vb: SqlHelper.Format(Object)
+  fullName.vb: Tripous.Data.SqlHelper.Format(Object)
+  name.vb: Format(Object)
+- uid: Tripous.Data.SqlHelper.FormatId(System.Object)
+  commentId: M:Tripous.Data.SqlHelper.FormatId(System.Object)
+  id: FormatId(System.Object)
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: FormatId(object)
+  nameWithType: SqlHelper.FormatId(object)
+  fullName: Tripous.Data.SqlHelper.FormatId(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormatId
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 339
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the value of the Id as a string for constructing Sql statements.
+
+
+    <p>Id could be either a guid string or a 32-bit integer.</p>
+  example: []
+  syntax:
+    content: public static string FormatId(object Id)
+    parameters:
+    - id: Id
+      type: System.Object
+    return:
+      type: System.String
+    content.vb: Public Shared Function FormatId(Id As Object) As String
+  overload: Tripous.Data.SqlHelper.FormatId*
+  nameWithType.vb: SqlHelper.FormatId(Object)
+  fullName.vb: Tripous.Data.SqlHelper.FormatId(Object)
+  name.vb: FormatId(Object)
+- uid: Tripous.Data.SqlHelper.StatementDefaultSpaces
+  commentId: F:Tripous.Data.SqlHelper.StatementDefaultSpaces
+  id: StatementDefaultSpaces
+  parent: Tripous.Data.SqlHelper
+  langs:
+  - csharp
+  - vb
+  name: StatementDefaultSpaces
+  nameWithType: SqlHelper.StatementDefaultSpaces
+  fullName: Tripous.Data.SqlHelper.StatementDefaultSpaces
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/SqlHelper.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StatementDefaultSpaces
+    path: ../Tripous.Data/SqlHelper.cs
+    startLine: 364
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The spaces to be used when generating Sql statements
+  example: []
+  syntax:
+    content: public const int StatementDefaultSpaces = 30
+    return:
+      type: System.Int32
+    content.vb: Public Const StatementDefaultSpaces As Integer = 30
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.SqlHelper.GetMainTableName*
+  commentId: Overload:Tripous.Data.SqlHelper.GetMainTableName
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_GetMainTableName_System_String_
+  name: GetMainTableName
+  nameWithType: SqlHelper.GetMainTableName
+  fullName: Tripous.Data.SqlHelper.GetMainTableName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SqlHelper.ExtractTableName*
+  commentId: Overload:Tripous.Data.SqlHelper.ExtractTableName
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_ExtractTableName_System_String_
+  name: ExtractTableName
+  nameWithType: SqlHelper.ExtractTableName
+  fullName: Tripous.Data.SqlHelper.ExtractTableName
+- uid: Tripous.Data.SqlHelper.TransformToFieldList*
+  commentId: Overload:Tripous.Data.SqlHelper.TransformToFieldList
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_TransformToFieldList_System_Collections_Generic_List_System_String__
+  name: TransformToFieldList
+  nameWithType: SqlHelper.TransformToFieldList
+  fullName: Tripous.Data.SqlHelper.TransformToFieldList
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.SqlHelper.FloatSQL*
+  commentId: Overload:Tripous.Data.SqlHelper.FloatSQL
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_FloatSQL_System_Double_
+  name: FloatSQL
+  nameWithType: SqlHelper.FloatSQL
+  fullName: Tripous.Data.SqlHelper.FloatSQL
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Tripous.Data.SqlHelper.FloatSql*
+  commentId: Overload:Tripous.Data.SqlHelper.FloatSql
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_FloatSql_System_String_
+  name: FloatSql
+  nameWithType: SqlHelper.FloatSql
+  fullName: Tripous.Data.SqlHelper.FloatSql
+- uid: Tripous.Data.SqlHelper.NormalizeMaskForce*
+  commentId: Overload:Tripous.Data.SqlHelper.NormalizeMaskForce
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_NormalizeMaskForce_System_String_
+  name: NormalizeMaskForce
+  nameWithType: SqlHelper.NormalizeMaskForce
+  fullName: Tripous.Data.SqlHelper.NormalizeMaskForce
+- uid: Tripous.Data.SqlHelper.NormalizeMask*
+  commentId: Overload:Tripous.Data.SqlHelper.NormalizeMask
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_NormalizeMask_System_String_
+  name: NormalizeMask
+  nameWithType: SqlHelper.NormalizeMask
+  fullName: Tripous.Data.SqlHelper.NormalizeMask
+- uid: Tripous.Data.SqlHelper.NormalizeMask2*
+  commentId: Overload:Tripous.Data.SqlHelper.NormalizeMask2
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_NormalizeMask2_System_String_
+  name: NormalizeMask2
+  nameWithType: SqlHelper.NormalizeMask2
+  fullName: Tripous.Data.SqlHelper.NormalizeMask2
+- uid: Tripous.Data.SqlHelper.IsMasked*
+  commentId: Overload:Tripous.Data.SqlHelper.IsMasked
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_IsMasked_System_String_
+  name: IsMasked
+  nameWithType: SqlHelper.IsMasked
+  fullName: Tripous.Data.SqlHelper.IsMasked
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.SqlHelper.FormatFieldNameAlias*
+  commentId: Overload:Tripous.Data.SqlHelper.FormatFieldNameAlias
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_FormatFieldNameAlias_System_String_System_String_System_String_System_Int32_
+  name: FormatFieldNameAlias
+  nameWithType: SqlHelper.FormatFieldNameAlias
+  fullName: Tripous.Data.SqlHelper.FormatFieldNameAlias
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.SqlHelper.FormatTableNameAlias*
+  commentId: Overload:Tripous.Data.SqlHelper.FormatTableNameAlias
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_FormatTableNameAlias_System_String_System_String_
+  name: FormatTableNameAlias
+  nameWithType: SqlHelper.FormatTableNameAlias
+  fullName: Tripous.Data.SqlHelper.FormatTableNameAlias
+- uid: Tripous.Data.SqlHelper.FieldPath*
+  commentId: Overload:Tripous.Data.SqlHelper.FieldPath
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_FieldPath_System_String_System_String_
+  name: FieldPath
+  nameWithType: SqlHelper.FieldPath
+  fullName: Tripous.Data.SqlHelper.FieldPath
+- uid: Tripous.Data.SqlHelper.FieldAlias*
+  commentId: Overload:Tripous.Data.SqlHelper.FieldAlias
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_FieldAlias_System_String_System_String_
+  name: FieldAlias
+  nameWithType: SqlHelper.FieldAlias
+  fullName: Tripous.Data.SqlHelper.FieldAlias
+- uid: Tripous.Data.SqlHelper.DateToStr*
+  commentId: Overload:Tripous.Data.SqlHelper.DateToStr
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_DateToStr_System_DateTime_System_Boolean_
+  name: DateToStr
+  nameWithType: SqlHelper.DateToStr
+  fullName: Tripous.Data.SqlHelper.DateToStr
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.Data.SqlHelper.TimeToStr*
+  commentId: Overload:Tripous.Data.SqlHelper.TimeToStr
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_TimeToStr_System_DateTime_System_Boolean_
+  name: TimeToStr
+  nameWithType: SqlHelper.TimeToStr
+  fullName: Tripous.Data.SqlHelper.TimeToStr
+- uid: Tripous.Data.SqlHelper.DateTimeToStr*
+  commentId: Overload:Tripous.Data.SqlHelper.DateTimeToStr
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_DateTimeToStr_System_DateTime_System_Boolean_
+  name: DateTimeToStr
+  nameWithType: SqlHelper.DateTimeToStr
+  fullName: Tripous.Data.SqlHelper.DateTimeToStr
+- uid: Tripous.Data.SqlHelper.Format*
+  commentId: Overload:Tripous.Data.SqlHelper.Format
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_Format_System_Object_
+  name: Format
+  nameWithType: SqlHelper.Format
+  fullName: Tripous.Data.SqlHelper.Format
+- uid: Tripous.Data.SqlHelper.FormatId*
+  commentId: Overload:Tripous.Data.SqlHelper.FormatId
+  href: Tripous.Data.SqlHelper.html#Tripous_Data_SqlHelper_FormatId_System_Object_
+  name: FormatId
+  nameWithType: SqlHelper.FormatId
+  fullName: Tripous.Data.SqlHelper.FormatId

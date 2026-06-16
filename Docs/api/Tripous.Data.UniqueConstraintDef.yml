@@ -1,0 +1,565 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.UniqueConstraintDef
+  commentId: T:Tripous.Data.UniqueConstraintDef
+  id: UniqueConstraintDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.UniqueConstraintDef.#ctor
+  - Tripous.Data.UniqueConstraintDef.FieldNames
+  - Tripous.Data.UniqueConstraintDef.GetDefText
+  - Tripous.Data.UniqueConstraintDef.Name
+  langs:
+  - csharp
+  - vb
+  name: UniqueConstraintDef
+  nameWithType: UniqueConstraintDef
+  fullName: Tripous.Data.UniqueConstraintDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Schema/UniqueConstraintDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UniqueConstraintDef
+    path: ../Tripous.Data/Schema/UniqueConstraintDef.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: For table-wise unique constraints, possibly on multiple fields.
+  example: []
+  syntax:
+    content: public class UniqueConstraintDef
+    content.vb: Public Class UniqueConstraintDef
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.UniqueConstraintDef.#ctor
+  commentId: M:Tripous.Data.UniqueConstraintDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.UniqueConstraintDef
+  langs:
+  - csharp
+  - vb
+  name: UniqueConstraintDef()
+  nameWithType: UniqueConstraintDef.UniqueConstraintDef()
+  fullName: Tripous.Data.UniqueConstraintDef.UniqueConstraintDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Schema/UniqueConstraintDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Schema/UniqueConstraintDef.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public UniqueConstraintDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.UniqueConstraintDef.#ctor*
+  nameWithType.vb: UniqueConstraintDef.New()
+  fullName.vb: Tripous.Data.UniqueConstraintDef.New()
+  name.vb: New()
+- uid: Tripous.Data.UniqueConstraintDef.Name
+  commentId: P:Tripous.Data.UniqueConstraintDef.Name
+  id: Name
+  parent: Tripous.Data.UniqueConstraintDef
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: UniqueConstraintDef.Name
+  fullName: Tripous.Data.UniqueConstraintDef.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/UniqueConstraintDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/Schema/UniqueConstraintDef.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The constraint name
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.Data.UniqueConstraintDef.Name*
+- uid: Tripous.Data.UniqueConstraintDef.FieldNames
+  commentId: P:Tripous.Data.UniqueConstraintDef.FieldNames
+  id: FieldNames
+  parent: Tripous.Data.UniqueConstraintDef
+  langs:
+  - csharp
+  - vb
+  name: FieldNames
+  nameWithType: UniqueConstraintDef.FieldNames
+  fullName: Tripous.Data.UniqueConstraintDef.FieldNames
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/UniqueConstraintDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldNames
+    path: ../Tripous.Data/Schema/UniqueConstraintDef.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: "    A proper string, e.g. \n<pre><code class=\"lang-csharp\">Field1, Field2</code></pre>"
+  example: []
+  syntax:
+    content: public string FieldNames { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property FieldNames As String
+  overload: Tripous.Data.UniqueConstraintDef.FieldNames*
+- uid: Tripous.Data.UniqueConstraintDef.GetDefText
+  commentId: M:Tripous.Data.UniqueConstraintDef.GetDefText
+  id: GetDefText
+  parent: Tripous.Data.UniqueConstraintDef
+  langs:
+  - csharp
+  - vb
+  name: GetDefText()
+  nameWithType: UniqueConstraintDef.GetDefText()
+  fullName: Tripous.Data.UniqueConstraintDef.GetDefText()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/UniqueConstraintDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDefText
+    path: ../Tripous.Data/Schema/UniqueConstraintDef.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the definition text.
+  example: []
+  syntax:
+    content: public string GetDefText()
+    return:
+      type: System.String
+    content.vb: Public Function GetDefText() As String
+  overload: Tripous.Data.UniqueConstraintDef.GetDefText*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.UniqueConstraintDef.#ctor*
+  commentId: Overload:Tripous.Data.UniqueConstraintDef.#ctor
+  href: Tripous.Data.UniqueConstraintDef.html#Tripous_Data_UniqueConstraintDef__ctor
+  name: UniqueConstraintDef
+  nameWithType: UniqueConstraintDef.UniqueConstraintDef
+  fullName: Tripous.Data.UniqueConstraintDef.UniqueConstraintDef
+  nameWithType.vb: UniqueConstraintDef.New
+  fullName.vb: Tripous.Data.UniqueConstraintDef.New
+  name.vb: New
+- uid: Tripous.Data.UniqueConstraintDef.Name*
+  commentId: Overload:Tripous.Data.UniqueConstraintDef.Name
+  href: Tripous.Data.UniqueConstraintDef.html#Tripous_Data_UniqueConstraintDef_Name
+  name: Name
+  nameWithType: UniqueConstraintDef.Name
+  fullName: Tripous.Data.UniqueConstraintDef.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.UniqueConstraintDef.FieldNames*
+  commentId: Overload:Tripous.Data.UniqueConstraintDef.FieldNames
+  href: Tripous.Data.UniqueConstraintDef.html#Tripous_Data_UniqueConstraintDef_FieldNames
+  name: FieldNames
+  nameWithType: UniqueConstraintDef.FieldNames
+  fullName: Tripous.Data.UniqueConstraintDef.FieldNames
+- uid: Tripous.Data.UniqueConstraintDef.GetDefText*
+  commentId: Overload:Tripous.Data.UniqueConstraintDef.GetDefText
+  href: Tripous.Data.UniqueConstraintDef.html#Tripous_Data_UniqueConstraintDef_GetDefText
+  name: GetDefText
+  nameWithType: UniqueConstraintDef.GetDefText
+  fullName: Tripous.Data.UniqueConstraintDef.GetDefText

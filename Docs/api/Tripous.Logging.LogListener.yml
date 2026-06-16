@@ -1,0 +1,696 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Logging.LogListener
+  commentId: T:Tripous.Logging.LogListener
+  id: LogListener
+  parent: Tripous.Logging
+  children:
+  - Tripous.Logging.LogListener.#ctor
+  - Tripous.Logging.LogListener.MaxSizeKiloBytes
+  - Tripous.Logging.LogListener.ProcessLog(Tripous.Logging.LogEntry)
+  - Tripous.Logging.LogListener.Register
+  - Tripous.Logging.LogListener.RetainDays
+  - Tripous.Logging.LogListener.RetainPolicyCounter
+  - Tripous.Logging.LogListener.Unregister
+  langs:
+  - csharp
+  - vb
+  name: LogListener
+  nameWithType: LogListener
+  fullName: Tripous.Logging.LogListener
+  type: Class
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogListener
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 15
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: >-
+    A listener for <xref href="Tripous.Logging.LogEntry" data-throw-if-not-resolved="false"></xref> messages.
+
+
+    <p>A listener registers itself automatically with <xref href="Tripous.Logging.Logger" data-throw-if-not-resolved="false"></xref>, upon construction.</p>
+
+    <p>This class provides retain policy related properties to inheritors.</p>
+  example: []
+  syntax:
+    content: public abstract class LogListener
+    content.vb: Public MustInherit Class LogListener
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - Tripous.Logging.FileLogListener
+  - Tripous.Logging.SyncedLogListener
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Logging.LogListener.#ctor
+  commentId: M:Tripous.Logging.LogListener.#ctor
+  id: '#ctor'
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: LogListener()
+  nameWithType: LogListener.LogListener()
+  fullName: Tripous.Logging.LogListener.LogListener()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Constructor
+  example: []
+  syntax:
+    content: public LogListener()
+    content.vb: Public Sub New()
+  overload: Tripous.Logging.LogListener.#ctor*
+  nameWithType.vb: LogListener.New()
+  fullName.vb: Tripous.Logging.LogListener.New()
+  name.vb: New()
+- uid: Tripous.Logging.LogListener.ProcessLog(Tripous.Logging.LogEntry)
+  commentId: M:Tripous.Logging.LogListener.ProcessLog(Tripous.Logging.LogEntry)
+  id: ProcessLog(Tripous.Logging.LogEntry)
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: ProcessLog(LogEntry)
+  nameWithType: LogListener.ProcessLog(LogEntry)
+  fullName: Tripous.Logging.LogListener.ProcessLog(Tripous.Logging.LogEntry)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ProcessLog
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: " Called by the Logger to pass <xref href=\"Tripous.Logging.LogEntry\" data-throw-if-not-resolved=\"false\"></xref> to a log listener.\n\n<p>\n CAUTION: The Logger calls its Listeners asynchronously, that is from inside a thread.\n Thus Listeners should synchronize the ProcessLog() call. Controls need to check if InvokeRequired.\n </p>"
+  example: []
+  syntax:
+    content: public abstract void ProcessLog(LogEntry Entry)
+    parameters:
+    - id: Entry
+      type: Tripous.Logging.LogEntry
+    content.vb: Public MustOverride Sub ProcessLog(Entry As LogEntry)
+  overload: Tripous.Logging.LogListener.ProcessLog*
+- uid: Tripous.Logging.LogListener.Register
+  commentId: M:Tripous.Logging.LogListener.Register
+  id: Register
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: Register()
+  nameWithType: LogListener.Register()
+  fullName: Tripous.Logging.LogListener.Register()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Register
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Registers this listener to <xref href="Tripous.Logging.Logger" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public void Register()
+    content.vb: Public Sub Register()
+  overload: Tripous.Logging.LogListener.Register*
+- uid: Tripous.Logging.LogListener.Unregister
+  commentId: M:Tripous.Logging.LogListener.Unregister
+  id: Unregister
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: Unregister()
+  nameWithType: LogListener.Unregister()
+  fullName: Tripous.Logging.LogListener.Unregister()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Unregister
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Unregisters this listener to <xref href="Tripous.Logging.Logger" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: public void Unregister()
+    content.vb: Public Sub Unregister()
+  overload: Tripous.Logging.LogListener.Unregister*
+- uid: Tripous.Logging.LogListener.RetainPolicyCounter
+  commentId: P:Tripous.Logging.LogListener.RetainPolicyCounter
+  id: RetainPolicyCounter
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: RetainPolicyCounter
+  nameWithType: LogListener.RetainPolicyCounter
+  fullName: Tripous.Logging.LogListener.RetainPolicyCounter
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RetainPolicyCounter
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: After how many writes to check whether it is time to apply the retain policy. Defaults to 100
+  example: []
+  syntax:
+    content: public virtual int RetainPolicyCounter { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Property RetainPolicyCounter As Integer
+  overload: Tripous.Logging.LogListener.RetainPolicyCounter*
+- uid: Tripous.Logging.LogListener.RetainDays
+  commentId: P:Tripous.Logging.LogListener.RetainDays
+  id: RetainDays
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: RetainDays
+  nameWithType: LogListener.RetainDays
+  fullName: Tripous.Logging.LogListener.RetainDays
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RetainDays
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Retain policy. How many days to retain in the storage medium. Defaults to 7
+  example: []
+  syntax:
+    content: public virtual int RetainDays { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Property RetainDays As Integer
+  overload: Tripous.Logging.LogListener.RetainDays*
+- uid: Tripous.Logging.LogListener.MaxSizeKiloBytes
+  commentId: P:Tripous.Logging.LogListener.MaxSizeKiloBytes
+  id: MaxSizeKiloBytes
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: MaxSizeKiloBytes
+  nameWithType: LogListener.MaxSizeKiloBytes
+  fullName: Tripous.Logging.LogListener.MaxSizeKiloBytes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MaxSizeKiloBytes
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 75
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Retain policy. How many KB to allow a single log file to grow. Defaults to 512 KB
+  example: []
+  syntax:
+    content: public virtual int MaxSizeKiloBytes { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Property MaxSizeKiloBytes As Integer
+  overload: Tripous.Logging.LogListener.MaxSizeKiloBytes*
+references:
+- uid: Tripous.Logging.LogEntry
+  commentId: T:Tripous.Logging.LogEntry
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogEntry.html
+  name: LogEntry
+  nameWithType: LogEntry
+  fullName: Tripous.Logging.LogEntry
+- uid: Tripous.Logging.Logger
+  commentId: T:Tripous.Logging.Logger
+  href: Tripous.Logging.Logger.html
+  name: Logger
+  nameWithType: Logger
+  fullName: Tripous.Logging.Logger
+- uid: Tripous.Logging
+  commentId: N:Tripous.Logging
+  href: Tripous.html
+  name: Tripous.Logging
+  nameWithType: Tripous.Logging
+  fullName: Tripous.Logging
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Logging.LogListener.#ctor*
+  commentId: Overload:Tripous.Logging.LogListener.#ctor
+  href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener__ctor
+  name: LogListener
+  nameWithType: LogListener.LogListener
+  fullName: Tripous.Logging.LogListener.LogListener
+  nameWithType.vb: LogListener.New
+  fullName.vb: Tripous.Logging.LogListener.New
+  name.vb: New
+- uid: Tripous.Logging.LogListener.ProcessLog*
+  commentId: Overload:Tripous.Logging.LogListener.ProcessLog
+  href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener_ProcessLog_Tripous_Logging_LogEntry_
+  name: ProcessLog
+  nameWithType: LogListener.ProcessLog
+  fullName: Tripous.Logging.LogListener.ProcessLog
+- uid: Tripous.Logging.LogListener.Register*
+  commentId: Overload:Tripous.Logging.LogListener.Register
+  href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener_Register
+  name: Register
+  nameWithType: LogListener.Register
+  fullName: Tripous.Logging.LogListener.Register
+- uid: Tripous.Logging.LogListener.Unregister*
+  commentId: Overload:Tripous.Logging.LogListener.Unregister
+  href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener_Unregister
+  name: Unregister
+  nameWithType: LogListener.Unregister
+  fullName: Tripous.Logging.LogListener.Unregister
+- uid: Tripous.Logging.LogListener.RetainPolicyCounter*
+  commentId: Overload:Tripous.Logging.LogListener.RetainPolicyCounter
+  href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener_RetainPolicyCounter
+  name: RetainPolicyCounter
+  nameWithType: LogListener.RetainPolicyCounter
+  fullName: Tripous.Logging.LogListener.RetainPolicyCounter
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Logging.LogListener.RetainDays*
+  commentId: Overload:Tripous.Logging.LogListener.RetainDays
+  href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener_RetainDays
+  name: RetainDays
+  nameWithType: LogListener.RetainDays
+  fullName: Tripous.Logging.LogListener.RetainDays
+- uid: Tripous.Logging.LogListener.MaxSizeKiloBytes*
+  commentId: Overload:Tripous.Logging.LogListener.MaxSizeKiloBytes
+  href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener_MaxSizeKiloBytes
+  name: MaxSizeKiloBytes
+  nameWithType: LogListener.MaxSizeKiloBytes
+  fullName: Tripous.Logging.LogListener.MaxSizeKiloBytes

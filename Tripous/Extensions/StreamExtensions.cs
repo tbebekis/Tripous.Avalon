@@ -17,8 +17,8 @@ namespace Tripous
     {
         /* ●  copy-move content from one stream to another. NOTE: CopyTo() is added to Stream class in .Net 4 */
         /// <summary>
-        /// Copies all bytes from the Source to the current Dest position.
-        /// Does not reset the position of the Source or Dest after the copy operation is complete.
+        /// Copies all bytes from the beginning of Source to the current Dest position.
+        /// Requires a seekable Source and does not reset Dest after the copy operation is complete.
         /// </summary>
         public static void CopyAllTo(this Stream Source, Stream Dest, int BufferSize = 1024 * 1024)
         {
@@ -26,7 +26,8 @@ namespace Tripous
             Source.CopyTo(Dest, BufferSize);
         }
         /// <summary>
-        /// Writes the stream contents to a byte array, regardless of the Stream Position
+        /// Writes the stream contents to a byte array, regardless of the Stream Position.
+        /// Restores the Stream Position when the stream is seekable.
         /// </summary>
         static public byte[] ToArray(this Stream Stream)
         {
@@ -35,7 +36,23 @@ namespace Tripous
 
             using (MemoryStream MS = new MemoryStream())
             {
-                CopyAllTo(Stream, MS);
+                if (Stream.CanSeek)
+                {
+                    long Position = Stream.Position;
+                    try
+                    {
+                        CopyAllTo(Stream, MS);
+                    }
+                    finally
+                    {
+                        Stream.Position = Position;
+                    }
+                }
+                else
+                {
+                    Stream.CopyTo(MS);
+                }
+
                 return MS.ToArray();
             }
         }
@@ -46,13 +63,14 @@ namespace Tripous
         /// </summary>
         static public Encoding GetEncoding(byte[] Buffer)
         {
+            if (Buffer == null || Buffer.Length == 0)
+                return null;
+
             var encodings = Encoding.GetEncodings()
                             .Select(e => e.GetEncoding())
                             .Select(e => new { Encoding = e, Preamble = e.GetPreamble() })
                             .Where(e => e.Preamble.Any())
                             .ToArray();
-
-            var maxPrembleLength = encodings.Max(e => e.Preamble.Length);
 
             return encodings
                 .Where(enc => enc.Preamble.SequenceEqual(Buffer.Take(enc.Preamble.Length)))
@@ -68,10 +86,15 @@ namespace Tripous
         }
 
         /// <summary>
-        /// Adds the preable of the Encoding in front of the Buffer
+        /// Adds the preamble of the Encoding in front of the Buffer
         /// </summary>
         static public byte[] AddPreambleTo(byte[] Buffer, Encoding Encoding)
         {
+            if (Buffer == null)
+                return null;
+            if (Encoding == null)
+                throw new ArgumentNullException(nameof(Encoding));
+
             byte[] Preamble = Encoding.GetPreamble();
 
             // CAUTION: Not all encodings have a preamble
@@ -96,9 +119,10 @@ namespace Tripous
             if (Encoding == null)
                 return Buffer;
 
-            byte[] Result = new byte[Buffer.Length - Encoding.GetPreamble().Length];
+            byte[] Preamble = Encoding.GetPreamble();
+            byte[] Result = new byte[Buffer.Length - Preamble.Length];
 
-            Array.Copy(Buffer, Encoding.GetPreamble().Length, Result, 0, Result.Length);
+            Array.Copy(Buffer, Preamble.Length, Result, 0, Result.Length);
 
             return Result;
         }
@@ -106,14 +130,17 @@ namespace Tripous
 
         /// <summary>
         /// Encodes Text into a byte array. Text must be in SourceEncoding. 
-        /// <para>If SourceEncoding is null then Encoding.Unicode is assumed.</para>
+        /// <para>If SourceEncoding is null then Encoding.UTF8 is assumed.</para>
         /// <para>If DestEncoding is not null then the result byte array is converted to that Encoding. </para>
-        /// <para>If PutPreamble is true then a preable is put in front of the result array</para>
+        /// <para>If PutPreamble is true then a preamble is put in front of the result array</para>
         /// </summary>
         static public byte[] BytesOf(string Text, Encoding SourceEncoding = null, Encoding DestEncoding = null, bool PutPreamble = false)
         {
+            if (Text == null)
+                return Array.Empty<byte>();
+
             if (SourceEncoding == null)
-                SourceEncoding = Encoding.Unicode;
+                SourceEncoding = Encoding.UTF8;
 
             byte[] Buffer = SourceEncoding.GetBytes(Text);
 
@@ -127,7 +154,7 @@ namespace Tripous
         }
         /// <summary>
         /// Decodes Buffer into a string. Buffer must be in SourceEncoding.
-        /// <para>If SourceEncoding is null then Encoding.Unicode is assumed.</para>
+        /// <para>If SourceEncoding is null then a preamble is used, if any, else Encoding.UTF8 is assumed.</para>
         /// <para>If DestEncoding is not null then Buffer is first converted to that Encoding</para>
         /// </summary>
         static public string StringOf(byte[] Buffer, Encoding SourceEncoding = null, Encoding DestEncoding = null)
@@ -140,7 +167,7 @@ namespace Tripous
 
             // CAUTION: Not all encodings have a preamble
             if (SourceEncoding == null)
-                SourceEncoding = Encoding.Default;
+                SourceEncoding = Encoding.UTF8;
 
             Buffer = RemovePreambleFrom(Buffer);
 

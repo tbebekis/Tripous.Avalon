@@ -1,0 +1,1336 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.LookupDef
+  commentId: T:Tripous.Data.LookupDef
+  id: LookupDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.LookupDef.#ctor
+  - Tripous.Data.LookupDef.ClassName
+  - Tripous.Data.LookupDef.ConnectionName
+  - Tripous.Data.LookupDef.Create
+  - Tripous.Data.LookupDef.DisplayField
+  - Tripous.Data.LookupDef.EnumTypeName
+  - Tripous.Data.LookupDef.Form
+  - Tripous.Data.LookupDef.SqlText
+  - Tripous.Data.LookupDef.TableName
+  - Tripous.Data.LookupDef.UseNullItem
+  - Tripous.Data.LookupDef.ValueField
+  langs:
+  - csharp
+  - vb
+  name: LookupDef
+  nameWithType: LookupDef
+  fullName: Tripous.Data.LookupDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LookupDef
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Represents a lookup list.
+
+
+    <p>Lookup list items may come from</p>
+
+    <ul><li>a SELECT statement, given in the <xref href="Tripous.Data.LookupDef.SqlText" data-throw-if-not-resolved="false"></xref> property</li><li>a SELECT statement constructed using the <xref href="Tripous.Data.LookupDef.TableName" data-throw-if-not-resolved="false"></xref></li><li>a <xref href="System.Data.DataTable" data-throw-if-not-resolved="false"></xref> passed to <xref href="Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)" data-throw-if-not-resolved="false"></xref>() method</li><li>an enum type, given in the <xref href="Tripous.Data.LookupDef.EnumTypeName" data-throw-if-not-resolved="false"></xref> property</li><li>a <xref href="Tripous.Data.LookupSource" data-throw-if-not-resolved="false"></xref> derived class, given in the <xref href="Tripous.Data.LookupDef.ClassName" data-throw-if-not-resolved="false"></xref> property</li><li>as a last resort using the <xref href="Tripous.BaseDef.Name" data-throw-if-not-resolved="false"></xref> as a <xref href="Tripous.Data.LookupDef.TableName" data-throw-if-not-resolved="false"></xref></li></ul>
+  example: []
+  syntax:
+    content: 'public class LookupDef : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
+    content.vb: Public Class LookupDef Inherits BaseDef Implements IDef, IJsonLoadable, INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.BaseDef
+  implements:
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.BaseDef.fTitleKey
+  - Tripous.BaseDef.fName
+  - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.GetTitleKey
+  - Tripous.BaseDef.ToString
+  - Tripous.BaseDef.UpdateReferences
+  - Tripous.BaseDef.JsonLoaded
+  - Tripous.BaseDef.CreateNew
+  - Tripous.BaseDef.CheckDescriptor
+  - Tripous.BaseDef.Assign(Tripous.IDef)
+  - Tripous.BaseDef.Clone
+  - Tripous.BaseDef.Clear
+  - Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  - Tripous.BaseDef.Name
+  - Tripous.BaseDef.TitleKey
+  - Tripous.BaseDef.IsTitleKeyEmpty
+  - Tripous.BaseDef.Title
+  - Tripous.BaseDef.Tag
+  - Tripous.BaseDef.IsSerializable
+  - Tripous.BaseDef.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.LookupDef.#ctor
+  commentId: M:Tripous.Data.LookupDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: LookupDef()
+  nameWithType: LookupDef.LookupDef()
+  fullName: Tripous.Data.LookupDef.LookupDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public LookupDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.LookupDef.#ctor*
+  nameWithType.vb: LookupDef.New()
+  fullName.vb: Tripous.Data.LookupDef.New()
+  name.vb: New()
+- uid: Tripous.Data.LookupDef.Create
+  commentId: M:Tripous.Data.LookupDef.Create
+  id: Create
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: Create()
+  nameWithType: LookupDef.Create()
+  fullName: Tripous.Data.LookupDef.Create()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates and returns a <xref href="Tripous.Data.LookupSource" data-throw-if-not-resolved="false"></xref> associated with this definition.
+  example: []
+  syntax:
+    content: public LookupSource Create()
+    return:
+      type: Tripous.Data.LookupSource
+    content.vb: Public Function Create() As LookupSource
+  overload: Tripous.Data.LookupDef.Create*
+- uid: Tripous.Data.LookupDef.UseNullItem
+  commentId: P:Tripous.Data.LookupDef.UseNullItem
+  id: UseNullItem
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: UseNullItem
+  nameWithType: LookupDef.UseNullItem
+  fullName: Tripous.Data.LookupDef.UseNullItem
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UseNullItem
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When true then the first item in the list is a null item.
+  example: []
+  syntax:
+    content: public bool UseNullItem { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property UseNullItem As Boolean
+  overload: Tripous.Data.LookupDef.UseNullItem*
+- uid: Tripous.Data.LookupDef.ValueField
+  commentId: P:Tripous.Data.LookupDef.ValueField
+  id: ValueField
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: ValueField
+  nameWithType: LookupDef.ValueField
+  fullName: Tripous.Data.LookupDef.ValueField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValueField
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The field used in getting the value.
+
+
+    <p>Used only when <xref href="Tripous.Data.LookupDef.TableName" data-throw-if-not-resolved="false"></xref> or <xref href="Tripous.Data.LookupDef.SqlText" data-throw-if-not-resolved="false"></xref> is defined or the list is loaded
+
+    using <xref href="Tripous.Data.LookupSource.Select(System.String)" data-throw-if-not-resolved="false"></xref> or <xref href="Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)" data-throw-if-not-resolved="false"></xref> a <xref href="System.Data.DataTable" data-throw-if-not-resolved="false"></xref></p>
+  example: []
+  syntax:
+    content: public string ValueField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ValueField As String
+  overload: Tripous.Data.LookupDef.ValueField*
+- uid: Tripous.Data.LookupDef.DisplayField
+  commentId: P:Tripous.Data.LookupDef.DisplayField
+  id: DisplayField
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: DisplayField
+  nameWithType: LookupDef.DisplayField
+  fullName: Tripous.Data.LookupDef.DisplayField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayField
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The field used in getting the display value.
+
+
+    <p>Used only when <xref href="Tripous.Data.LookupDef.TableName" data-throw-if-not-resolved="false"></xref> or <xref href="Tripous.Data.LookupDef.SqlText" data-throw-if-not-resolved="false"></xref> is defined or the list is loaded
+
+    using <xref href="Tripous.Data.LookupSource.Select(System.String)" data-throw-if-not-resolved="false"></xref> or <xref href="Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)" data-throw-if-not-resolved="false"></xref> a <xref href="System.Data.DataTable" data-throw-if-not-resolved="false"></xref></p>
+  example: []
+  syntax:
+    content: public string DisplayField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DisplayField As String
+  overload: Tripous.Data.LookupDef.DisplayField*
+- uid: Tripous.Data.LookupDef.ConnectionName
+  commentId: P:Tripous.Data.LookupDef.ConnectionName
+  id: ConnectionName
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: ConnectionName
+  nameWithType: LookupDef.ConnectionName
+  fullName: Tripous.Data.LookupDef.ConnectionName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionName
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 105
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The connection name used in getting an <xref href="Tripous.Data.SqlStore" data-throw-if-not-resolved="false"></xref> in order to execute the <xref href="Tripous.Data.LookupDef.SqlText" data-throw-if-not-resolved="false"></xref> SELECT statement.
+  example: []
+  syntax:
+    content: public string ConnectionName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ConnectionName As String
+  overload: Tripous.Data.LookupDef.ConnectionName*
+- uid: Tripous.Data.LookupDef.SqlText
+  commentId: P:Tripous.Data.LookupDef.SqlText
+  id: SqlText
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: SqlText
+  nameWithType: LookupDef.SqlText
+  fullName: Tripous.Data.LookupDef.SqlText
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlText
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 113
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The SELECT statement
+  example: []
+  syntax:
+    content: public string SqlText { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property SqlText As String
+  overload: Tripous.Data.LookupDef.SqlText*
+- uid: Tripous.Data.LookupDef.TableName
+  commentId: P:Tripous.Data.LookupDef.TableName
+  id: TableName
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: TableName
+  nameWithType: LookupDef.TableName
+  fullName: Tripous.Data.LookupDef.TableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableName
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 128
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When not empty results in a SELECT statement like <code>select * from TableName</code>
+  example: []
+  syntax:
+    content: public string TableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TableName As String
+  overload: Tripous.Data.LookupDef.TableName*
+- uid: Tripous.Data.LookupDef.EnumTypeName
+  commentId: P:Tripous.Data.LookupDef.EnumTypeName
+  id: EnumTypeName
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: EnumTypeName
+  nameWithType: LookupDef.EnumTypeName
+  fullName: Tripous.Data.LookupDef.EnumTypeName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EnumTypeName
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 143
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An enum type used in filling the list
+  example: []
+  syntax:
+    content: public string EnumTypeName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property EnumTypeName As String
+  overload: Tripous.Data.LookupDef.EnumTypeName*
+- uid: Tripous.Data.LookupDef.ClassName
+  commentId: P:Tripous.Data.LookupDef.ClassName
+  id: ClassName
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: ClassName
+  nameWithType: LookupDef.ClassName
+  fullName: Tripous.Data.LookupDef.ClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ClassName
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The class name of a <xref href="Tripous.Data.LookupSource" data-throw-if-not-resolved="false"></xref> derived class.
+  example: []
+  syntax:
+    content: public string ClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ClassName As String
+  overload: Tripous.Data.LookupDef.ClassName*
+- uid: Tripous.Data.LookupDef.Form
+  commentId: P:Tripous.Data.LookupDef.Form
+  id: Form
+  parent: Tripous.Data.LookupDef
+  langs:
+  - csharp
+  - vb
+  name: Form
+  nameWithType: LookupDef.Form
+  fullName: Tripous.Data.LookupDef.Form
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/LookupDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Form
+    path: ../Tripous.Data/Registry/LookupDef.cs
+    startLine: 173
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The name of a form that displays the table.
+  example: []
+  syntax:
+    content: public string Form { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Form As String
+  overload: Tripous.Data.LookupDef.Form*
+references:
+- uid: Tripous.Data.LookupDef.SqlText
+  commentId: P:Tripous.Data.LookupDef.SqlText
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_SqlText
+  name: SqlText
+  nameWithType: LookupDef.SqlText
+  fullName: Tripous.Data.LookupDef.SqlText
+- uid: Tripous.Data.LookupDef.TableName
+  commentId: P:Tripous.Data.LookupDef.TableName
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_TableName
+  name: TableName
+  nameWithType: LookupDef.TableName
+  fullName: Tripous.Data.LookupDef.TableName
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)
+  commentId: M:Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)
+  isExternal: true
+  href: Tripous.Data.LookupSource.html#Tripous_Data_LookupSource_LoadFrom_System_Data_DataTable_
+  name: LoadFrom(DataTable)
+  nameWithType: LookupSource.LoadFrom(DataTable)
+  fullName: Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)
+  spec.csharp:
+  - uid: Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)
+    name: LoadFrom
+    href: Tripous.Data.LookupSource.html#Tripous_Data_LookupSource_LoadFrom_System_Data_DataTable_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.LookupSource.LoadFrom(System.Data.DataTable)
+    name: LoadFrom
+    href: Tripous.Data.LookupSource.html#Tripous_Data_LookupSource_LoadFrom_System_Data_DataTable_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: )
+- uid: Tripous.Data.LookupDef.EnumTypeName
+  commentId: P:Tripous.Data.LookupDef.EnumTypeName
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_EnumTypeName
+  name: EnumTypeName
+  nameWithType: LookupDef.EnumTypeName
+  fullName: Tripous.Data.LookupDef.EnumTypeName
+- uid: Tripous.Data.LookupSource
+  commentId: T:Tripous.Data.LookupSource
+  parent: Tripous.Data
+  href: Tripous.Data.LookupSource.html
+  name: LookupSource
+  nameWithType: LookupSource
+  fullName: Tripous.Data.LookupSource
+- uid: Tripous.Data.LookupDef.ClassName
+  commentId: P:Tripous.Data.LookupDef.ClassName
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_ClassName
+  name: ClassName
+  nameWithType: LookupDef.ClassName
+  fullName: Tripous.Data.LookupDef.ClassName
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.BaseDef.fTitleKey
+  commentId: F:Tripous.BaseDef.fTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey
+  name: fTitleKey
+  nameWithType: BaseDef.fTitleKey
+  fullName: Tripous.BaseDef.fTitleKey
+- uid: Tripous.BaseDef.fName
+  commentId: F:Tripous.BaseDef.fName
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fName
+  name: fName
+  nameWithType: BaseDef.fName
+  fullName: Tripous.BaseDef.fName
+- uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  commentId: M:Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  parent: Tripous.BaseDef
+  isExternal: true
+  href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  name: NotifyPropertyChanged(string)
+  nameWithType: BaseDef.NotifyPropertyChanged(string)
+  fullName: Tripous.BaseDef.NotifyPropertyChanged(string)
+  nameWithType.vb: BaseDef.NotifyPropertyChanged(String)
+  fullName.vb: Tripous.BaseDef.NotifyPropertyChanged(String)
+  name.vb: NotifyPropertyChanged(String)
+  spec.csharp:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.ToString
+  commentId: M:Tripous.BaseDef.ToString
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  name: ToString()
+  nameWithType: BaseDef.ToString()
+  fullName: Tripous.BaseDef.ToString()
+  spec.csharp:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.UpdateReferences
+  commentId: M:Tripous.BaseDef.UpdateReferences
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  name: UpdateReferences()
+  nameWithType: BaseDef.UpdateReferences()
+  fullName: Tripous.BaseDef.UpdateReferences()
+  spec.csharp:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.JsonLoaded
+  commentId: M:Tripous.BaseDef.JsonLoaded
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  name: JsonLoaded()
+  nameWithType: BaseDef.JsonLoaded()
+  fullName: Tripous.BaseDef.JsonLoaded()
+  spec.csharp:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CreateNew
+  commentId: M:Tripous.BaseDef.CreateNew
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  name: CreateNew()
+  nameWithType: BaseDef.CreateNew()
+  fullName: Tripous.BaseDef.CreateNew()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CheckDescriptor
+  commentId: M:Tripous.BaseDef.CheckDescriptor
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  name: CheckDescriptor()
+  nameWithType: BaseDef.CheckDescriptor()
+  fullName: Tripous.BaseDef.CheckDescriptor()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.BaseDef.Assign(Tripous.IDef)
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  name: Assign(IDef)
+  nameWithType: BaseDef.Assign(IDef)
+  fullName: Tripous.BaseDef.Assign(Tripous.IDef)
+  spec.csharp:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+- uid: Tripous.BaseDef.Clone
+  commentId: M:Tripous.BaseDef.Clone
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  name: Clone()
+  nameWithType: BaseDef.Clone()
+  fullName: Tripous.BaseDef.Clone()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Clear
+  commentId: M:Tripous.BaseDef.Clear
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  name: Clear()
+  nameWithType: BaseDef.Clear()
+  fullName: Tripous.BaseDef.Clear()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  commentId: M:Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  name: SplitTitleKeyToWordsWithPluralEnding()
+  nameWithType: BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  fullName: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  spec.csharp:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.TitleKey
+  commentId: P:Tripous.BaseDef.TitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_TitleKey
+  name: TitleKey
+  nameWithType: BaseDef.TitleKey
+  fullName: Tripous.BaseDef.TitleKey
+- uid: Tripous.BaseDef.IsTitleKeyEmpty
+  commentId: P:Tripous.BaseDef.IsTitleKeyEmpty
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty
+  name: IsTitleKeyEmpty
+  nameWithType: BaseDef.IsTitleKeyEmpty
+  fullName: Tripous.BaseDef.IsTitleKeyEmpty
+- uid: Tripous.BaseDef.Title
+  commentId: P:Tripous.BaseDef.Title
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Title
+  name: Title
+  nameWithType: BaseDef.Title
+  fullName: Tripous.BaseDef.Title
+- uid: Tripous.BaseDef.Tag
+  commentId: P:Tripous.BaseDef.Tag
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Tag
+  name: Tag
+  nameWithType: BaseDef.Tag
+  fullName: Tripous.BaseDef.Tag
+- uid: Tripous.BaseDef.IsSerializable
+  commentId: P:Tripous.BaseDef.IsSerializable
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable
+  name: IsSerializable
+  nameWithType: BaseDef.IsSerializable
+  fullName: Tripous.BaseDef.IsSerializable
+- uid: Tripous.BaseDef.PropertyChanged
+  commentId: E:Tripous.BaseDef.PropertyChanged
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged
+  name: PropertyChanged
+  nameWithType: BaseDef.PropertyChanged
+  fullName: Tripous.BaseDef.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.Data.LookupDef.#ctor*
+  commentId: Overload:Tripous.Data.LookupDef.#ctor
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef__ctor
+  name: LookupDef
+  nameWithType: LookupDef.LookupDef
+  fullName: Tripous.Data.LookupDef.LookupDef
+  nameWithType.vb: LookupDef.New
+  fullName.vb: Tripous.Data.LookupDef.New
+  name.vb: New
+- uid: Tripous.Data.LookupDef.Create*
+  commentId: Overload:Tripous.Data.LookupDef.Create
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_Create
+  name: Create
+  nameWithType: LookupDef.Create
+  fullName: Tripous.Data.LookupDef.Create
+- uid: Tripous.Data.LookupDef.UseNullItem*
+  commentId: Overload:Tripous.Data.LookupDef.UseNullItem
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_UseNullItem
+  name: UseNullItem
+  nameWithType: LookupDef.UseNullItem
+  fullName: Tripous.Data.LookupDef.UseNullItem
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.LookupSource.Select(System.String)
+  commentId: M:Tripous.Data.LookupSource.Select(System.String)
+  isExternal: true
+  href: Tripous.Data.LookupSource.html#Tripous_Data_LookupSource_Select_System_String_
+  name: Select(string)
+  nameWithType: LookupSource.Select(string)
+  fullName: Tripous.Data.LookupSource.Select(string)
+  nameWithType.vb: LookupSource.Select(String)
+  fullName.vb: Tripous.Data.LookupSource.Select(String)
+  name.vb: Select(String)
+  spec.csharp:
+  - uid: Tripous.Data.LookupSource.Select(System.String)
+    name: Select
+    href: Tripous.Data.LookupSource.html#Tripous_Data_LookupSource_Select_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.LookupSource.Select(System.String)
+    name: Select
+    href: Tripous.Data.LookupSource.html#Tripous_Data_LookupSource_Select_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.LookupDef.ValueField*
+  commentId: Overload:Tripous.Data.LookupDef.ValueField
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_ValueField
+  name: ValueField
+  nameWithType: LookupDef.ValueField
+  fullName: Tripous.Data.LookupDef.ValueField
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.LookupDef.DisplayField*
+  commentId: Overload:Tripous.Data.LookupDef.DisplayField
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_DisplayField
+  name: DisplayField
+  nameWithType: LookupDef.DisplayField
+  fullName: Tripous.Data.LookupDef.DisplayField
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.LookupDef.ConnectionName*
+  commentId: Overload:Tripous.Data.LookupDef.ConnectionName
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_ConnectionName
+  name: ConnectionName
+  nameWithType: LookupDef.ConnectionName
+  fullName: Tripous.Data.LookupDef.ConnectionName
+- uid: Tripous.Data.LookupDef.SqlText*
+  commentId: Overload:Tripous.Data.LookupDef.SqlText
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_SqlText
+  name: SqlText
+  nameWithType: LookupDef.SqlText
+  fullName: Tripous.Data.LookupDef.SqlText
+- uid: Tripous.Data.LookupDef.TableName*
+  commentId: Overload:Tripous.Data.LookupDef.TableName
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_TableName
+  name: TableName
+  nameWithType: LookupDef.TableName
+  fullName: Tripous.Data.LookupDef.TableName
+- uid: Tripous.Data.LookupDef.EnumTypeName*
+  commentId: Overload:Tripous.Data.LookupDef.EnumTypeName
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_EnumTypeName
+  name: EnumTypeName
+  nameWithType: LookupDef.EnumTypeName
+  fullName: Tripous.Data.LookupDef.EnumTypeName
+- uid: Tripous.Data.LookupDef.ClassName*
+  commentId: Overload:Tripous.Data.LookupDef.ClassName
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_ClassName
+  name: ClassName
+  nameWithType: LookupDef.ClassName
+  fullName: Tripous.Data.LookupDef.ClassName
+- uid: Tripous.Data.LookupDef.Form*
+  commentId: Overload:Tripous.Data.LookupDef.Form
+  href: Tripous.Data.LookupDef.html#Tripous_Data_LookupDef_Form
+  name: Form
+  nameWithType: LookupDef.Form
+  fullName: Tripous.Data.LookupDef.Form

@@ -1,0 +1,1487 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Logging.LogEntry
+  commentId: T:Tripous.Logging.LogEntry
+  id: LogEntry
+  parent: Tripous.Logging
+  children:
+  - Tripous.Logging.LogEntry.#ctor(System.String,System.String,System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  - Tripous.Logging.LogEntry.AsJson
+  - Tripous.Logging.LogEntry.AsLine
+  - Tripous.Logging.LogEntry.AsList
+  - Tripous.Logging.LogEntry.Date
+  - Tripous.Logging.LogEntry.EventId
+  - Tripous.Logging.LogEntry.Exception
+  - Tripous.Logging.LogEntry.ExceptionData
+  - Tripous.Logging.LogEntry.GetPropertiesAsSingleLine
+  - Tripous.Logging.LogEntry.GetPropertiesAsTextList
+  - Tripous.Logging.LogEntry.Host
+  - Tripous.Logging.LogEntry.Id
+  - Tripous.Logging.LogEntry.Level
+  - Tripous.Logging.LogEntry.LevelText
+  - Tripous.Logging.LogEntry.Properties
+  - Tripous.Logging.LogEntry.SaveToFile(System.String)
+  - Tripous.Logging.LogEntry.ScopeId
+  - Tripous.Logging.LogEntry.Source
+  - Tripous.Logging.LogEntry.Text
+  - Tripous.Logging.LogEntry.Time
+  - Tripous.Logging.LogEntry.TimeStamp
+  - Tripous.Logging.LogEntry.TimeStampText
+  - Tripous.Logging.LogEntry.ToString
+  - Tripous.Logging.LogEntry.User
+  langs:
+  - csharp
+  - vb
+  name: LogEntry
+  nameWithType: LogEntry
+  fullName: Tripous.Logging.LogEntry
+  type: Class
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogEntry
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Represents a log message
+  example: []
+  syntax:
+    content: public class LogEntry
+    content.vb: Public Class LogEntry
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Logging.LogEntry.#ctor(System.String,System.String,System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  commentId: M:Tripous.Logging.LogEntry.#ctor(System.String,System.String,System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  id: '#ctor(System.String,System.String,System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})'
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: LogEntry(string, string, string, LogLevel, Exception, string, Dictionary<string, object>)
+  nameWithType: LogEntry.LogEntry(string, string, string, LogLevel, Exception, string, Dictionary<string, object>)
+  fullName: Tripous.Logging.LogEntry.LogEntry(string, string, string, Tripous.Logging.LogLevel, System.Exception, string, System.Collections.Generic.Dictionary<string, object>)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Constructor
+  example: []
+  syntax:
+    content: public LogEntry(string Source, string ScopeId, string EventId, LogLevel Level, Exception Exception, string Text, Dictionary<string, object> Params = null)
+    parameters:
+    - id: Source
+      type: System.String
+    - id: ScopeId
+      type: System.String
+    - id: EventId
+      type: System.String
+    - id: Level
+      type: Tripous.Logging.LogLevel
+    - id: Exception
+      type: System.Exception
+    - id: Text
+      type: System.String
+    - id: Params
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Sub New(Source As String, ScopeId As String, EventId As String, Level As LogLevel, Exception As Exception, Text As String, Params As Dictionary(Of String, Object) = Nothing)
+  overload: Tripous.Logging.LogEntry.#ctor*
+  nameWithType.vb: LogEntry.New(String, String, String, LogLevel, Exception, String, Dictionary(Of String, Object))
+  fullName.vb: Tripous.Logging.LogEntry.New(String, String, String, Tripous.Logging.LogLevel, System.Exception, String, System.Collections.Generic.Dictionary(Of String, Object))
+  name.vb: New(String, String, String, LogLevel, Exception, String, Dictionary(Of String, Object))
+- uid: Tripous.Logging.LogEntry.ToString
+  commentId: M:Tripous.Logging.LogEntry.ToString
+  id: ToString
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: LogEntry.ToString()
+  fullName: Tripous.Logging.LogEntry.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns a string representation of this log info message.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Logging.LogEntry.ToString*
+- uid: Tripous.Logging.LogEntry.SaveToFile(System.String)
+  commentId: M:Tripous.Logging.LogEntry.SaveToFile(System.String)
+  id: SaveToFile(System.String)
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: SaveToFile(string)
+  nameWithType: LogEntry.SaveToFile(string)
+  fullName: Tripous.Logging.LogEntry.SaveToFile(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SaveToFile
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 79
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Saves this log info to the folder. The file name is constructed using the date and time information.
+  example: []
+  syntax:
+    content: public void SaveToFile(string Folder = "")
+    parameters:
+    - id: Folder
+      type: System.String
+    content.vb: Public Sub SaveToFile(Folder As String = "")
+  overload: Tripous.Logging.LogEntry.SaveToFile*
+  nameWithType.vb: LogEntry.SaveToFile(String)
+  fullName.vb: Tripous.Logging.LogEntry.SaveToFile(String)
+  name.vb: SaveToFile(String)
+- uid: Tripous.Logging.LogEntry.GetPropertiesAsSingleLine
+  commentId: M:Tripous.Logging.LogEntry.GetPropertiesAsSingleLine
+  id: GetPropertiesAsSingleLine
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: GetPropertiesAsSingleLine()
+  nameWithType: LogEntry.GetPropertiesAsSingleLine()
+  fullName: Tripous.Logging.LogEntry.GetPropertiesAsSingleLine()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetPropertiesAsSingleLine
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 93
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns a string representation of the <xref href="Tripous.Logging.LogEntry.Properties" data-throw-if-not-resolved="false"></xref> property of this entry.
+  example: []
+  syntax:
+    content: public string GetPropertiesAsSingleLine()
+    return:
+      type: System.String
+    content.vb: Public Function GetPropertiesAsSingleLine() As String
+  overload: Tripous.Logging.LogEntry.GetPropertiesAsSingleLine*
+- uid: Tripous.Logging.LogEntry.GetPropertiesAsTextList
+  commentId: M:Tripous.Logging.LogEntry.GetPropertiesAsTextList
+  id: GetPropertiesAsTextList
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: GetPropertiesAsTextList()
+  nameWithType: LogEntry.GetPropertiesAsTextList()
+  fullName: Tripous.Logging.LogEntry.GetPropertiesAsTextList()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetPropertiesAsTextList
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 121
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns a string representation of the <xref href="Tripous.Logging.LogEntry.Properties" data-throw-if-not-resolved="false"></xref> property of this entry.
+  example: []
+  syntax:
+    content: public string GetPropertiesAsTextList()
+    return:
+      type: System.String
+    content.vb: Public Function GetPropertiesAsTextList() As String
+  overload: Tripous.Logging.LogEntry.GetPropertiesAsTextList*
+- uid: Tripous.Logging.LogEntry.AsList
+  commentId: M:Tripous.Logging.LogEntry.AsList
+  id: AsList
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: AsList()
+  nameWithType: LogEntry.AsList()
+  fullName: Tripous.Logging.LogEntry.AsList()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsList
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 150
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns a string representation of this entry.
+  example: []
+  syntax:
+    content: public string AsList()
+    return:
+      type: System.String
+    content.vb: Public Function AsList() As String
+  overload: Tripous.Logging.LogEntry.AsList*
+- uid: Tripous.Logging.LogEntry.AsLine
+  commentId: M:Tripous.Logging.LogEntry.AsLine
+  id: AsLine
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: AsLine()
+  nameWithType: LogEntry.AsLine()
+  fullName: Tripous.Logging.LogEntry.AsLine()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsLine
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 157
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns a string representation of this entry.
+  example: []
+  syntax:
+    content: public string AsLine()
+    return:
+      type: System.String
+    content.vb: Public Function AsLine() As String
+  overload: Tripous.Logging.LogEntry.AsLine*
+- uid: Tripous.Logging.LogEntry.AsJson
+  commentId: M:Tripous.Logging.LogEntry.AsJson
+  id: AsJson
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: AsJson()
+  nameWithType: LogEntry.AsJson()
+  fullName: Tripous.Logging.LogEntry.AsJson()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsJson
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 164
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns a string representation of this entry.
+  example: []
+  syntax:
+    content: public string AsJson()
+    return:
+      type: System.String
+    content.vb: Public Function AsJson() As String
+  overload: Tripous.Logging.LogEntry.AsJson*
+- uid: Tripous.Logging.LogEntry.Id
+  commentId: P:Tripous.Logging.LogEntry.Id
+  id: Id
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: LogEntry.Id
+  fullName: Tripous.Logging.LogEntry.Id
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Id
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 173
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Id
+  example: []
+  syntax:
+    content: public string Id { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Id As String
+  overload: Tripous.Logging.LogEntry.Id*
+- uid: Tripous.Logging.LogEntry.TimeStamp
+  commentId: P:Tripous.Logging.LogEntry.TimeStamp
+  id: TimeStamp
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: TimeStamp
+  nameWithType: LogEntry.TimeStamp
+  fullName: Tripous.Logging.LogEntry.TimeStamp
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TimeStamp
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 177
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns the UTC date-time this info created
+  example: []
+  syntax:
+    content: public DateTime TimeStamp { get; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public ReadOnly Property TimeStamp As Date
+  overload: Tripous.Logging.LogEntry.TimeStamp*
+- uid: Tripous.Logging.LogEntry.TimeStampText
+  commentId: P:Tripous.Logging.LogEntry.TimeStampText
+  id: TimeStampText
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: TimeStampText
+  nameWithType: LogEntry.TimeStampText
+  fullName: Tripous.Logging.LogEntry.TimeStampText
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TimeStampText
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 181
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The timestamp as string.
+  example: []
+  syntax:
+    content: public string TimeStampText { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property TimeStampText As String
+  overload: Tripous.Logging.LogEntry.TimeStampText*
+- uid: Tripous.Logging.LogEntry.Date
+  commentId: P:Tripous.Logging.LogEntry.Date
+  id: Date
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Date
+  nameWithType: LogEntry.Date
+  fullName: Tripous.Logging.LogEntry.Date
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Date
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 185
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns the UTC date this info created.
+  example: []
+  syntax:
+    content: public string Date { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property [Date] As String
+  overload: Tripous.Logging.LogEntry.Date*
+- uid: Tripous.Logging.LogEntry.Time
+  commentId: P:Tripous.Logging.LogEntry.Time
+  id: Time
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Time
+  nameWithType: LogEntry.Time
+  fullName: Tripous.Logging.LogEntry.Time
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Time
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 189
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Returns the UTC time this info created.
+  example: []
+  syntax:
+    content: public string Time { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Time As String
+  overload: Tripous.Logging.LogEntry.Time*
+- uid: Tripous.Logging.LogEntry.User
+  commentId: P:Tripous.Logging.LogEntry.User
+  id: User
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: LogEntry.User
+  fullName: Tripous.Logging.LogEntry.User
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: User
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 193
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The username of the current user of this application or the local computer
+  example: []
+  syntax:
+    content: public string User { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property User As String
+  overload: Tripous.Logging.LogEntry.User*
+- uid: Tripous.Logging.LogEntry.Host
+  commentId: P:Tripous.Logging.LogEntry.Host
+  id: Host
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Host
+  nameWithType: LogEntry.Host
+  fullName: Tripous.Logging.LogEntry.Host
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Host
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 197
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The name of the local computer
+  example: []
+  syntax:
+    content: public string Host { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Host As String
+  overload: Tripous.Logging.LogEntry.Host*
+- uid: Tripous.Logging.LogEntry.Level
+  commentId: P:Tripous.Logging.LogEntry.Level
+  id: Level
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Level
+  nameWithType: LogEntry.Level
+  fullName: Tripous.Logging.LogEntry.Level
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Level
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 202
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The log level
+  example: []
+  syntax:
+    content: public LogLevel Level { get; }
+    parameters: []
+    return:
+      type: Tripous.Logging.LogLevel
+    content.vb: Public ReadOnly Property Level As LogLevel
+  overload: Tripous.Logging.LogEntry.Level*
+- uid: Tripous.Logging.LogEntry.LevelText
+  commentId: P:Tripous.Logging.LogEntry.LevelText
+  id: LevelText
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: LevelText
+  nameWithType: LogEntry.LevelText
+  fullName: Tripous.Logging.LogEntry.LevelText
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LevelText
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 206
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The level as string
+  example: []
+  syntax:
+    content: public string LevelText { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property LevelText As String
+  overload: Tripous.Logging.LogEntry.LevelText*
+- uid: Tripous.Logging.LogEntry.EventId
+  commentId: P:Tripous.Logging.LogEntry.EventId
+  id: EventId
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: EventId
+  nameWithType: LogEntry.EventId
+  fullName: Tripous.Logging.LogEntry.EventId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EventId
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 210
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The event Id
+  example: []
+  syntax:
+    content: public string EventId { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property EventId As String
+  overload: Tripous.Logging.LogEntry.EventId*
+- uid: Tripous.Logging.LogEntry.Text
+  commentId: P:Tripous.Logging.LogEntry.Text
+  id: Text
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Text
+  nameWithType: LogEntry.Text
+  fullName: Tripous.Logging.LogEntry.Text
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Text
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 215
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The log message
+  example: []
+  syntax:
+    content: public string Text { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Text As String
+  overload: Tripous.Logging.LogEntry.Text*
+- uid: Tripous.Logging.LogEntry.ScopeId
+  commentId: P:Tripous.Logging.LogEntry.ScopeId
+  id: ScopeId
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: ScopeId
+  nameWithType: LogEntry.ScopeId
+  fullName: Tripous.Logging.LogEntry.ScopeId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ScopeId
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 219
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The scope if any
+  example: []
+  syntax:
+    content: public string ScopeId { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property ScopeId As String
+  overload: Tripous.Logging.LogEntry.ScopeId*
+- uid: Tripous.Logging.LogEntry.Source
+  commentId: P:Tripous.Logging.LogEntry.Source
+  id: Source
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Source
+  nameWithType: LogEntry.Source
+  fullName: Tripous.Logging.LogEntry.Source
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Source
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 223
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The source of this log, if any
+  example: []
+  syntax:
+    content: public string Source { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Source As String
+  overload: Tripous.Logging.LogEntry.Source*
+- uid: Tripous.Logging.LogEntry.Properties
+  commentId: P:Tripous.Logging.LogEntry.Properties
+  id: Properties
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Properties
+  nameWithType: LogEntry.Properties
+  fullName: Tripous.Logging.LogEntry.Properties
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Properties
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 227
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: A dictionary with params passed when the log message was formatted. For use by structured log listeners
+  example: []
+  syntax:
+    content: public Dictionary<string, object> Properties { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public ReadOnly Property Properties As Dictionary(Of String, Object)
+  overload: Tripous.Logging.LogEntry.Properties*
+- uid: Tripous.Logging.LogEntry.Exception
+  commentId: P:Tripous.Logging.LogEntry.Exception
+  id: Exception
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: Exception
+  nameWithType: LogEntry.Exception
+  fullName: Tripous.Logging.LogEntry.Exception
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Exception
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 231
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The exception if this is a log regarding an exception
+  example: []
+  syntax:
+    content: public Exception Exception { get; }
+    parameters: []
+    return:
+      type: System.Exception
+    content.vb: Public ReadOnly Property Exception As Exception
+  overload: Tripous.Logging.LogEntry.Exception*
+- uid: Tripous.Logging.LogEntry.ExceptionData
+  commentId: P:Tripous.Logging.LogEntry.ExceptionData
+  id: ExceptionData
+  parent: Tripous.Logging.LogEntry
+  langs:
+  - csharp
+  - vb
+  name: ExceptionData
+  nameWithType: LogEntry.ExceptionData
+  fullName: Tripous.Logging.LogEntry.ExceptionData
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogEntry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExceptionData
+    path: ../Tripous.Logging/LogEntry.cs
+    startLine: 235
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The exception data, if this is a log regarding an exception
+  example: []
+  syntax:
+    content: public string ExceptionData { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property ExceptionData As String
+  overload: Tripous.Logging.LogEntry.ExceptionData*
+references:
+- uid: Tripous.Logging
+  commentId: N:Tripous.Logging
+  href: Tripous.html
+  name: Tripous.Logging
+  nameWithType: Tripous.Logging
+  fullName: Tripous.Logging
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Logging.LogEntry.#ctor*
+  commentId: Overload:Tripous.Logging.LogEntry.#ctor
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry__ctor_System_String_System_String_System_String_Tripous_Logging_LogLevel_System_Exception_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__
+  name: LogEntry
+  nameWithType: LogEntry.LogEntry
+  fullName: Tripous.Logging.LogEntry.LogEntry
+  nameWithType.vb: LogEntry.New
+  fullName.vb: Tripous.Logging.LogEntry.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Logging.LogLevel
+  commentId: T:Tripous.Logging.LogLevel
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogLevel.html
+  name: LogLevel
+  nameWithType: LogLevel
+  fullName: Tripous.Logging.LogLevel
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Logging.LogEntry.ToString*
+  commentId: Overload:Tripous.Logging.LogEntry.ToString
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_ToString
+  name: ToString
+  nameWithType: LogEntry.ToString
+  fullName: Tripous.Logging.LogEntry.ToString
+- uid: Tripous.Logging.LogEntry.SaveToFile*
+  commentId: Overload:Tripous.Logging.LogEntry.SaveToFile
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_SaveToFile_System_String_
+  name: SaveToFile
+  nameWithType: LogEntry.SaveToFile
+  fullName: Tripous.Logging.LogEntry.SaveToFile
+- uid: Tripous.Logging.LogEntry.Properties
+  commentId: P:Tripous.Logging.LogEntry.Properties
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Properties
+  name: Properties
+  nameWithType: LogEntry.Properties
+  fullName: Tripous.Logging.LogEntry.Properties
+- uid: Tripous.Logging.LogEntry.GetPropertiesAsSingleLine*
+  commentId: Overload:Tripous.Logging.LogEntry.GetPropertiesAsSingleLine
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_GetPropertiesAsSingleLine
+  name: GetPropertiesAsSingleLine
+  nameWithType: LogEntry.GetPropertiesAsSingleLine
+  fullName: Tripous.Logging.LogEntry.GetPropertiesAsSingleLine
+- uid: Tripous.Logging.LogEntry.GetPropertiesAsTextList*
+  commentId: Overload:Tripous.Logging.LogEntry.GetPropertiesAsTextList
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_GetPropertiesAsTextList
+  name: GetPropertiesAsTextList
+  nameWithType: LogEntry.GetPropertiesAsTextList
+  fullName: Tripous.Logging.LogEntry.GetPropertiesAsTextList
+- uid: Tripous.Logging.LogEntry.AsList*
+  commentId: Overload:Tripous.Logging.LogEntry.AsList
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_AsList
+  name: AsList
+  nameWithType: LogEntry.AsList
+  fullName: Tripous.Logging.LogEntry.AsList
+- uid: Tripous.Logging.LogEntry.AsLine*
+  commentId: Overload:Tripous.Logging.LogEntry.AsLine
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_AsLine
+  name: AsLine
+  nameWithType: LogEntry.AsLine
+  fullName: Tripous.Logging.LogEntry.AsLine
+- uid: Tripous.Logging.LogEntry.AsJson*
+  commentId: Overload:Tripous.Logging.LogEntry.AsJson
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_AsJson
+  name: AsJson
+  nameWithType: LogEntry.AsJson
+  fullName: Tripous.Logging.LogEntry.AsJson
+- uid: Tripous.Logging.LogEntry.Id*
+  commentId: Overload:Tripous.Logging.LogEntry.Id
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Id
+  name: Id
+  nameWithType: LogEntry.Id
+  fullName: Tripous.Logging.LogEntry.Id
+- uid: Tripous.Logging.LogEntry.TimeStamp*
+  commentId: Overload:Tripous.Logging.LogEntry.TimeStamp
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_TimeStamp
+  name: TimeStamp
+  nameWithType: LogEntry.TimeStamp
+  fullName: Tripous.Logging.LogEntry.TimeStamp
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.Logging.LogEntry.TimeStampText*
+  commentId: Overload:Tripous.Logging.LogEntry.TimeStampText
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_TimeStampText
+  name: TimeStampText
+  nameWithType: LogEntry.TimeStampText
+  fullName: Tripous.Logging.LogEntry.TimeStampText
+- uid: Tripous.Logging.LogEntry.Date*
+  commentId: Overload:Tripous.Logging.LogEntry.Date
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Date
+  name: Date
+  nameWithType: LogEntry.Date
+  fullName: Tripous.Logging.LogEntry.Date
+- uid: Tripous.Logging.LogEntry.Time*
+  commentId: Overload:Tripous.Logging.LogEntry.Time
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Time
+  name: Time
+  nameWithType: LogEntry.Time
+  fullName: Tripous.Logging.LogEntry.Time
+- uid: Tripous.Logging.LogEntry.User*
+  commentId: Overload:Tripous.Logging.LogEntry.User
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_User
+  name: User
+  nameWithType: LogEntry.User
+  fullName: Tripous.Logging.LogEntry.User
+- uid: Tripous.Logging.LogEntry.Host*
+  commentId: Overload:Tripous.Logging.LogEntry.Host
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Host
+  name: Host
+  nameWithType: LogEntry.Host
+  fullName: Tripous.Logging.LogEntry.Host
+- uid: Tripous.Logging.LogEntry.Level*
+  commentId: Overload:Tripous.Logging.LogEntry.Level
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Level
+  name: Level
+  nameWithType: LogEntry.Level
+  fullName: Tripous.Logging.LogEntry.Level
+- uid: Tripous.Logging.LogEntry.LevelText*
+  commentId: Overload:Tripous.Logging.LogEntry.LevelText
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_LevelText
+  name: LevelText
+  nameWithType: LogEntry.LevelText
+  fullName: Tripous.Logging.LogEntry.LevelText
+- uid: Tripous.Logging.LogEntry.EventId*
+  commentId: Overload:Tripous.Logging.LogEntry.EventId
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_EventId
+  name: EventId
+  nameWithType: LogEntry.EventId
+  fullName: Tripous.Logging.LogEntry.EventId
+- uid: Tripous.Logging.LogEntry.Text*
+  commentId: Overload:Tripous.Logging.LogEntry.Text
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Text
+  name: Text
+  nameWithType: LogEntry.Text
+  fullName: Tripous.Logging.LogEntry.Text
+- uid: Tripous.Logging.LogEntry.ScopeId*
+  commentId: Overload:Tripous.Logging.LogEntry.ScopeId
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_ScopeId
+  name: ScopeId
+  nameWithType: LogEntry.ScopeId
+  fullName: Tripous.Logging.LogEntry.ScopeId
+- uid: Tripous.Logging.LogEntry.Source*
+  commentId: Overload:Tripous.Logging.LogEntry.Source
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Source
+  name: Source
+  nameWithType: LogEntry.Source
+  fullName: Tripous.Logging.LogEntry.Source
+- uid: Tripous.Logging.LogEntry.Properties*
+  commentId: Overload:Tripous.Logging.LogEntry.Properties
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Properties
+  name: Properties
+  nameWithType: LogEntry.Properties
+  fullName: Tripous.Logging.LogEntry.Properties
+- uid: Tripous.Logging.LogEntry.Exception*
+  commentId: Overload:Tripous.Logging.LogEntry.Exception
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_Exception
+  name: Exception
+  nameWithType: LogEntry.Exception
+  fullName: Tripous.Logging.LogEntry.Exception
+- uid: Tripous.Logging.LogEntry.ExceptionData*
+  commentId: Overload:Tripous.Logging.LogEntry.ExceptionData
+  href: Tripous.Logging.LogEntry.html#Tripous_Logging_LogEntry_ExceptionData
+  name: ExceptionData
+  nameWithType: LogEntry.ExceptionData
+  fullName: Tripous.Logging.LogEntry.ExceptionData

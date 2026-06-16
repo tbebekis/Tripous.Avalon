@@ -1,0 +1,334 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.IGridHandler
+  commentId: T:Tripous.Desktop.IGridHandler
+  id: IGridHandler
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.IGridHandler.CanExecute(Tripous.Desktop.GridCommandContext)
+  - Tripous.Desktop.IGridHandler.Execute(Tripous.Desktop.GridCommandContext)
+  - Tripous.Desktop.IGridHandler.GetGridCommands
+  langs:
+  - csharp
+  - vb
+  name: IGridHandler
+  nameWithType: IGridHandler
+  fullName: Tripous.Desktop.IGridHandler
+  type: Interface
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GridCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IGridHandler
+    path: ../Tripous.Desktop/DataGrid/GridCommand.cs
+    startLine: 120
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides commands and executes them for a grid.
+  example: []
+  syntax:
+    content: public interface IGridHandler
+    content.vb: Public Interface IGridHandler
+  derivedClasses:
+  - Tripous.Desktop.ItemPage
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.IGridHandler.GetGridCommands
+  commentId: M:Tripous.Desktop.IGridHandler.GetGridCommands
+  id: GetGridCommands
+  parent: Tripous.Desktop.IGridHandler
+  langs:
+  - csharp
+  - vb
+  name: GetGridCommands()
+  nameWithType: IGridHandler.GetGridCommands()
+  fullName: Tripous.Desktop.IGridHandler.GetGridCommands()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GridCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetGridCommands
+    path: ../Tripous.Desktop/DataGrid/GridCommand.cs
+    startLine: 126
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the grid commands provided by this handler.
+  example: []
+  syntax:
+    content: GridCommand[] GetGridCommands()
+    return:
+      type: Tripous.Desktop.GridCommand[]
+      description: The grid commands.
+    content.vb: Function GetGridCommands() As GridCommand()
+  overload: Tripous.Desktop.IGridHandler.GetGridCommands*
+- uid: Tripous.Desktop.IGridHandler.CanExecute(Tripous.Desktop.GridCommandContext)
+  commentId: M:Tripous.Desktop.IGridHandler.CanExecute(Tripous.Desktop.GridCommandContext)
+  id: CanExecute(Tripous.Desktop.GridCommandContext)
+  parent: Tripous.Desktop.IGridHandler
+  langs:
+  - csharp
+  - vb
+  name: CanExecute(GridCommandContext)
+  nameWithType: IGridHandler.CanExecute(GridCommandContext)
+  fullName: Tripous.Desktop.IGridHandler.CanExecute(Tripous.Desktop.GridCommandContext)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GridCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanExecute
+    path: ../Tripous.Desktop/DataGrid/GridCommand.cs
+    startLine: 132
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns true when a grid command can execute.
+  example: []
+  syntax:
+    content: bool CanExecute(GridCommandContext Context)
+    parameters:
+    - id: Context
+      type: Tripous.Desktop.GridCommandContext
+      description: The grid command context.
+    return:
+      type: System.Boolean
+      description: True if the command can execute; otherwise, false.
+    content.vb: Function CanExecute(Context As GridCommandContext) As Boolean
+  overload: Tripous.Desktop.IGridHandler.CanExecute*
+- uid: Tripous.Desktop.IGridHandler.Execute(Tripous.Desktop.GridCommandContext)
+  commentId: M:Tripous.Desktop.IGridHandler.Execute(Tripous.Desktop.GridCommandContext)
+  id: Execute(Tripous.Desktop.GridCommandContext)
+  parent: Tripous.Desktop.IGridHandler
+  langs:
+  - csharp
+  - vb
+  name: Execute(GridCommandContext)
+  nameWithType: IGridHandler.Execute(GridCommandContext)
+  fullName: Tripous.Desktop.IGridHandler.Execute(Tripous.Desktop.GridCommandContext)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GridCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Execute
+    path: ../Tripous.Desktop/DataGrid/GridCommand.cs
+    startLine: 138
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Executes a grid command.
+  example: []
+  syntax:
+    content: object Execute(GridCommandContext Context)
+    parameters:
+    - id: Context
+      type: Tripous.Desktop.GridCommandContext
+      description: The grid command context.
+    return:
+      type: System.Object
+      description: The command result.
+    content.vb: Function Execute(Context As GridCommandContext) As Object
+  overload: Tripous.Desktop.IGridHandler.Execute*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.IGridHandler.GetGridCommands*
+  commentId: Overload:Tripous.Desktop.IGridHandler.GetGridCommands
+  href: Tripous.Desktop.IGridHandler.html#Tripous_Desktop_IGridHandler_GetGridCommands
+  name: GetGridCommands
+  nameWithType: IGridHandler.GetGridCommands
+  fullName: Tripous.Desktop.IGridHandler.GetGridCommands
+- uid: Tripous.Desktop.GridCommand[]
+  isExternal: true
+  href: Tripous.Desktop.GridCommand.html
+  name: GridCommand[]
+  nameWithType: GridCommand[]
+  fullName: Tripous.Desktop.GridCommand[]
+  nameWithType.vb: GridCommand()
+  fullName.vb: Tripous.Desktop.GridCommand()
+  name.vb: GridCommand()
+  spec.csharp:
+  - uid: Tripous.Desktop.GridCommand
+    name: GridCommand
+    href: Tripous.Desktop.GridCommand.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Tripous.Desktop.GridCommand
+    name: GridCommand
+    href: Tripous.Desktop.GridCommand.html
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.IGridHandler.CanExecute*
+  commentId: Overload:Tripous.Desktop.IGridHandler.CanExecute
+  href: Tripous.Desktop.IGridHandler.html#Tripous_Desktop_IGridHandler_CanExecute_Tripous_Desktop_GridCommandContext_
+  name: CanExecute
+  nameWithType: IGridHandler.CanExecute
+  fullName: Tripous.Desktop.IGridHandler.CanExecute
+- uid: Tripous.Desktop.GridCommandContext
+  commentId: T:Tripous.Desktop.GridCommandContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.GridCommandContext.html
+  name: GridCommandContext
+  nameWithType: GridCommandContext
+  fullName: Tripous.Desktop.GridCommandContext
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Desktop.IGridHandler.Execute*
+  commentId: Overload:Tripous.Desktop.IGridHandler.Execute
+  href: Tripous.Desktop.IGridHandler.html#Tripous_Desktop_IGridHandler_Execute_Tripous_Desktop_GridCommandContext_
+  name: Execute
+  nameWithType: IGridHandler.Execute
+  fullName: Tripous.Desktop.IGridHandler.Execute
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object

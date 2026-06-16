@@ -106,6 +106,9 @@ static public class DbOps
             {
                 if ((Table.Level == Level) && !Table.IsEmpty && Table.Columns.Contains(Table.KeyField))
                 {
+                    if (string.IsNullOrWhiteSpace(Table.Sqls.UpdateRowSql))
+                        continue;
+
                     foreach (DataRow Row in Table.Rows)
                     {
                         if (Row.RowState == DataRowState.Modified)
@@ -162,6 +165,9 @@ static public class DbOps
             {
                 if (Table.Level == Level && !Table.IsEmpty && Table.Columns.Contains(Table.KeyField))
                 {
+                    if (string.IsNullOrWhiteSpace(Table.Sqls.InsertRowSql))
+                        continue;
+
                     IsString = Table.IsStringField(Table.KeyField);
 
                     foreach (DataRow Row in Table.Rows)
@@ -206,10 +212,11 @@ static public class DbOps
                                 // update Table detail tables with the "correct" master Id.
                                 foreach (MemTable DetailTable in Table.Details)
                                 {
+                                    string DetailField = DetailTable.DetailField;
                                     foreach (DataRow DetailRow in DetailTable.Rows)
                                     {
-                                        if (!DetailRow.IsNull(DetailTable.DetailField) && (Sys.AsInteger(DetailRow[DetailTable.DetailFields[0]], -1) == OldId))
-                                            DetailRow[DetailTable.DetailFields[0]] = NewId;
+                                        if (!DetailRow.IsNull(DetailField) && (Sys.AsInteger(DetailRow[DetailField], -1) == OldId))
+                                            DetailRow[DetailField] = NewId;
                                     }
                                 }
                             }

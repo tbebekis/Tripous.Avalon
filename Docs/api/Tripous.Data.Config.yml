@@ -1,0 +1,816 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.Config
+  commentId: T:Tripous.Data.Config
+  id: Config
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.Config.GetObjectValue``1(System.String)
+  - Tripous.Data.Config.GetObjectValue``1(System.String,System.String,System.String)
+  - Tripous.Data.Config.GetObjectValue``1(System.String,Tripous.Data.ConfigScope,System.String)
+  - Tripous.Data.Config.GetValue(System.String)
+  - Tripous.Data.Config.GetValue(System.String,System.String,System.String)
+  - Tripous.Data.Config.GetValue(System.String,Tripous.Data.ConfigScope,System.String)
+  - Tripous.Data.Config.Module
+  - Tripous.Data.Config.SetUserValue(System.String,System.String)
+  - Tripous.Data.Config.SetValue(System.String,System.String,Tripous.Data.ConfigScope,System.String)
+  - Tripous.Data.Config.Store
+  langs:
+  - csharp
+  - vb
+  name: Config
+  nameWithType: Config
+  fullName: Tripous.Data.Config
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Config
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Provides access to application configuration values.
+
+
+    <p>
+
+    Configuration property definitions are registered in code and stored
+
+    in the Properties collection. Actual values are stored separately and
+
+    may exist at different scopes:
+
+    * User
+
+    * Company
+
+    * System
+
+    </p>
+
+    <p>
+
+    Effective values are resolved using the following order:
+
+    User -&gt; Company -&gt; System -&gt; DefaultValue
+
+    </p>
+
+    <p>
+
+    Company values are resolved using DbConfig.CompanyId.
+
+    User values are resolved using the current application user.
+
+    </p>
+  example: []
+  syntax:
+    content: public static class Config
+    content.vb: Public Module Config
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.Config.GetValue(System.String)
+  commentId: M:Tripous.Data.Config.GetValue(System.String)
+  id: GetValue(System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: GetValue(string)
+  nameWithType: Config.GetValue(string)
+  fullName: Tripous.Data.Config.GetValue(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 259
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the effective value of a configuration property.
+
+
+    <p>Resolution order: User, Company, System, DefaultValue.</p>
+
+    <p>This method returns the value associated with the current Company and current User.</p>
+  example: []
+  syntax:
+    content: public static string GetValue(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetValue(Name As String) As String
+  overload: Tripous.Data.Config.GetValue*
+  nameWithType.vb: Config.GetValue(String)
+  fullName.vb: Tripous.Data.Config.GetValue(String)
+  name.vb: GetValue(String)
+- uid: Tripous.Data.Config.GetValue(System.String,System.String,System.String)
+  commentId: M:Tripous.Data.Config.GetValue(System.String,System.String,System.String)
+  id: GetValue(System.String,System.String,System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: GetValue(string, string, string)
+  nameWithType: Config.GetValue(string, string, string)
+  fullName: Tripous.Data.Config.GetValue(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 267
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the effective value of a configuration property using the specified company and user context.
+
+
+    <p>Resolution order: User, Company, System, DefaultValue.</p>
+  example: []
+  syntax:
+    content: public static string GetValue(string Name, string CompanyId, string UserName)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: CompanyId
+      type: System.String
+    - id: UserName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetValue(Name As String, CompanyId As String, UserName As String) As String
+  overload: Tripous.Data.Config.GetValue*
+  nameWithType.vb: Config.GetValue(String, String, String)
+  fullName.vb: Tripous.Data.Config.GetValue(String, String, String)
+  name.vb: GetValue(String, String, String)
+- uid: Tripous.Data.Config.GetValue(System.String,Tripous.Data.ConfigScope,System.String)
+  commentId: M:Tripous.Data.Config.GetValue(System.String,Tripous.Data.ConfigScope,System.String)
+  id: GetValue(System.String,Tripous.Data.ConfigScope,System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: GetValue(string, ConfigScope, string)
+  nameWithType: Config.GetValue(string, ConfigScope, string)
+  fullName: Tripous.Data.Config.GetValue(string, Tripous.Data.ConfigScope, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 290
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value stored at the specified scope. No effective value resolution takes place.
+  example: []
+  syntax:
+    content: public static string GetValue(string Name, ConfigScope Scope, string OwnerKey)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Scope
+      type: Tripous.Data.ConfigScope
+    - id: OwnerKey
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetValue(Name As String, Scope As ConfigScope, OwnerKey As String) As String
+  overload: Tripous.Data.Config.GetValue*
+  nameWithType.vb: Config.GetValue(String, ConfigScope, String)
+  fullName.vb: Tripous.Data.Config.GetValue(String, Tripous.Data.ConfigScope, String)
+  name.vb: GetValue(String, ConfigScope, String)
+- uid: Tripous.Data.Config.GetObjectValue``1(System.String)
+  commentId: M:Tripous.Data.Config.GetObjectValue``1(System.String)
+  id: GetObjectValue``1(System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: GetObjectValue<T>(string)
+  nameWithType: Config.GetObjectValue<T>(string)
+  fullName: Tripous.Data.Config.GetObjectValue<T>(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetObjectValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 300
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the effective object value of a configuration property.
+
+
+    <p>Resolution order: User, Company, System, DefaultValue.</p>
+  example: []
+  syntax:
+    content: 'public static T GetObjectValue<T>(string Name) where T : class'
+    parameters:
+    - id: Name
+      type: System.String
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function GetObjectValue(Of T As Class)(Name As String) As T
+  overload: Tripous.Data.Config.GetObjectValue*
+  nameWithType.vb: Config.GetObjectValue(Of T)(String)
+  fullName.vb: Tripous.Data.Config.GetObjectValue(Of T)(String)
+  name.vb: GetObjectValue(Of T)(String)
+- uid: Tripous.Data.Config.GetObjectValue``1(System.String,System.String,System.String)
+  commentId: M:Tripous.Data.Config.GetObjectValue``1(System.String,System.String,System.String)
+  id: GetObjectValue``1(System.String,System.String,System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: GetObjectValue<T>(string, string, string)
+  nameWithType: Config.GetObjectValue<T>(string, string, string)
+  fullName: Tripous.Data.Config.GetObjectValue<T>(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetObjectValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 308
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the effective object value of a configuration property using the specified company and user context.
+
+
+    <p>Resolution order: User, Company, System, DefaultValue.</p>
+  example: []
+  syntax:
+    content: 'public static T GetObjectValue<T>(string Name, string CompanyId, string UserName) where T : class'
+    parameters:
+    - id: Name
+      type: System.String
+    - id: CompanyId
+      type: System.String
+    - id: UserName
+      type: System.String
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function GetObjectValue(Of T As Class)(Name As String, CompanyId As String, UserName As String) As T
+  overload: Tripous.Data.Config.GetObjectValue*
+  nameWithType.vb: Config.GetObjectValue(Of T)(String, String, String)
+  fullName.vb: Tripous.Data.Config.GetObjectValue(Of T)(String, String, String)
+  name.vb: GetObjectValue(Of T)(String, String, String)
+- uid: Tripous.Data.Config.GetObjectValue``1(System.String,Tripous.Data.ConfigScope,System.String)
+  commentId: M:Tripous.Data.Config.GetObjectValue``1(System.String,Tripous.Data.ConfigScope,System.String)
+  id: GetObjectValue``1(System.String,Tripous.Data.ConfigScope,System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: GetObjectValue<T>(string, ConfigScope, string)
+  nameWithType: Config.GetObjectValue<T>(string, ConfigScope, string)
+  fullName: Tripous.Data.Config.GetObjectValue<T>(string, Tripous.Data.ConfigScope, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetObjectValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 317
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the object value stored at the specified scope. No effective value resolution takes place.
+  example: []
+  syntax:
+    content: 'public static T GetObjectValue<T>(string Name, ConfigScope Scope, string OwnerKey) where T : class'
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Scope
+      type: Tripous.Data.ConfigScope
+    - id: OwnerKey
+      type: System.String
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function GetObjectValue(Of T As Class)(Name As String, Scope As ConfigScope, OwnerKey As String) As T
+  overload: Tripous.Data.Config.GetObjectValue*
+  nameWithType.vb: Config.GetObjectValue(Of T)(String, ConfigScope, String)
+  fullName.vb: Tripous.Data.Config.GetObjectValue(Of T)(String, Tripous.Data.ConfigScope, String)
+  name.vb: GetObjectValue(Of T)(String, ConfigScope, String)
+- uid: Tripous.Data.Config.SetValue(System.String,System.String,Tripous.Data.ConfigScope,System.String)
+  commentId: M:Tripous.Data.Config.SetValue(System.String,System.String,Tripous.Data.ConfigScope,System.String)
+  id: SetValue(System.String,System.String,Tripous.Data.ConfigScope,System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: SetValue(string, string, ConfigScope, string)
+  nameWithType: Config.SetValue(string, string, ConfigScope, string)
+  fullName: Tripous.Data.Config.SetValue(string, string, Tripous.Data.ConfigScope, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 327
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Stores a value at the specified scope, creating or updating the corresponding configuration entry.
+  example: []
+  syntax:
+    content: public static void SetValue(string Name, string Value, ConfigScope Scope, string OwnerKey)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Value
+      type: System.String
+    - id: Scope
+      type: Tripous.Data.ConfigScope
+    - id: OwnerKey
+      type: System.String
+    content.vb: Public Shared Sub SetValue(Name As String, Value As String, Scope As ConfigScope, OwnerKey As String)
+  overload: Tripous.Data.Config.SetValue*
+  nameWithType.vb: Config.SetValue(String, String, ConfigScope, String)
+  fullName.vb: Tripous.Data.Config.SetValue(String, String, Tripous.Data.ConfigScope, String)
+  name.vb: SetValue(String, String, ConfigScope, String)
+- uid: Tripous.Data.Config.SetUserValue(System.String,System.String)
+  commentId: M:Tripous.Data.Config.SetUserValue(System.String,System.String)
+  id: SetUserValue(System.String,System.String)
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: SetUserValue(string, string)
+  nameWithType: Config.SetUserValue(string, string)
+  fullName: Tripous.Data.Config.SetUserValue(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetUserValue
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 338
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Stores a value associated with the current User, creating or updating the corresponding configuration entry.
+  example: []
+  syntax:
+    content: public static void SetUserValue(string Name, string Value)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Value
+      type: System.String
+    content.vb: Public Shared Sub SetUserValue(Name As String, Value As String)
+  overload: Tripous.Data.Config.SetUserValue*
+  nameWithType.vb: Config.SetUserValue(String, String)
+  fullName.vb: Tripous.Data.Config.SetUserValue(String, String)
+  name.vb: SetUserValue(String, String)
+- uid: Tripous.Data.Config.Store
+  commentId: P:Tripous.Data.Config.Store
+  id: Store
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: Store
+  nameWithType: Config.Store
+  fullName: Tripous.Data.Config.Store
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Store
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 349
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the SQL store used by the Config system.
+  example: []
+  syntax:
+    content: public static SqlStore Store { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SqlStore
+    content.vb: Public Shared ReadOnly Property Store As SqlStore
+  overload: Tripous.Data.Config.Store*
+- uid: Tripous.Data.Config.Module
+  commentId: P:Tripous.Data.Config.Module
+  id: Module
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: Module
+  nameWithType: Config.Module
+  fullName: Tripous.Data.Config.Module
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Module
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 353
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the underlying configuration module provider instance layer.
+  example: []
+  syntax:
+    content: public static SysConfigModule Module { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SysConfigModule
+    content.vb: Public Shared ReadOnly Property [Module] As SysConfigModule
+  overload: Tripous.Data.Config.Module*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.Config.GetValue*
+  commentId: Overload:Tripous.Data.Config.GetValue
+  href: Tripous.Data.Config.html#Tripous_Data_Config_GetValue_System_String_
+  name: GetValue
+  nameWithType: Config.GetValue
+  fullName: Tripous.Data.Config.GetValue
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.ConfigScope
+  commentId: T:Tripous.Data.ConfigScope
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigScope.html
+  name: ConfigScope
+  nameWithType: ConfigScope
+  fullName: Tripous.Data.ConfigScope
+- uid: Tripous.Data.Config.GetObjectValue*
+  commentId: Overload:Tripous.Data.Config.GetObjectValue
+  href: Tripous.Data.Config.html#Tripous_Data_Config_GetObjectValue__1_System_String_
+  name: GetObjectValue
+  nameWithType: Config.GetObjectValue
+  fullName: Tripous.Data.Config.GetObjectValue
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Tripous.Data.Config.SetValue*
+  commentId: Overload:Tripous.Data.Config.SetValue
+  href: Tripous.Data.Config.html#Tripous_Data_Config_SetValue_System_String_System_String_Tripous_Data_ConfigScope_System_String_
+  name: SetValue
+  nameWithType: Config.SetValue
+  fullName: Tripous.Data.Config.SetValue
+- uid: Tripous.Data.Config.SetUserValue*
+  commentId: Overload:Tripous.Data.Config.SetUserValue
+  href: Tripous.Data.Config.html#Tripous_Data_Config_SetUserValue_System_String_System_String_
+  name: SetUserValue
+  nameWithType: Config.SetUserValue
+  fullName: Tripous.Data.Config.SetUserValue
+- uid: Tripous.Data.Config.Store*
+  commentId: Overload:Tripous.Data.Config.Store
+  href: Tripous.Data.Config.html#Tripous_Data_Config_Store
+  name: Store
+  nameWithType: Config.Store
+  fullName: Tripous.Data.Config.Store
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.Config.Module*
+  commentId: Overload:Tripous.Data.Config.Module
+  href: Tripous.Data.Config.html#Tripous_Data_Config_Module
+  name: Module
+  nameWithType: Config.Module
+  fullName: Tripous.Data.Config.Module
+- uid: Tripous.Data.SysConfigModule
+  commentId: T:Tripous.Data.SysConfigModule
+  parent: Tripous.Data
+  href: Tripous.Data.SysConfigModule.html
+  name: SysConfigModule
+  nameWithType: SysConfigModule
+  fullName: Tripous.Data.SysConfigModule

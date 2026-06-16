@@ -1,0 +1,440 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous
+  commentId: N:Tripous
+  id: Tripous
+  children:
+  - Tripous.AppAssemblies
+  - Tripous.AppRegistry
+  - Tripous.AppUser
+  - Tripous.ApplicationMode
+  - Tripous.AssemblyExtensions
+  - Tripous.BaseDef
+  - Tripous.BitFields
+  - Tripous.CodePage
+  - Tripous.Command
+  - Tripous.DateRange
+  - Tripous.DateRanges
+  - Tripous.DateTextNormalizer
+  - Tripous.DateTimeExtensions
+  - Tripous.DateTimeFormatType
+  - Tripous.DateTimeFormatTypeExtensions
+  - Tripous.DefList`1
+  - Tripous.DictionaryExtensions
+  - Tripous.DynamicClass
+  - Tripous.DynamicPropertyDescriptor
+  - Tripous.ExceptionExtensions
+  - Tripous.ExecTime
+  - Tripous.HostContext
+  - Tripous.ID
+  - Tripous.IDJsonConverter
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - Tripous.ILocalizer
+  - Tripous.Json
+  - Tripous.JsonNamingPolicyAsIs
+  - Tripous.ListExtensions
+  - Tripous.Passwords
+  - Tripous.ReadOnlyDefList`1
+  - Tripous.ResourceFiles
+  - Tripous.Sec
+  - Tripous.SettingsBase
+  - Tripous.StreamExtensions
+  - Tripous.StringExtensions
+  - Tripous.Sys
+  - Tripous.SysConfig
+  - Tripous.SysGlobalSettings
+  - Tripous.Texts
+  - Tripous.TripousArgumentNullException
+  - Tripous.TripousException
+  - Tripous.TripousList`1
+  - Tripous.TypeExtensions
+  - Tripous.TypeStore
+  - Tripous.TypeStoreAttribute
+  - Tripous.UserLevel
+  langs:
+  - csharp
+  - vb
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+  type: Namespace
+  assemblies:
+  - Tripous
+references:
+- uid: Tripous.AppAssemblies
+  commentId: T:Tripous.AppAssemblies
+  href: Tripous.AppAssemblies.html
+  name: AppAssemblies
+  nameWithType: AppAssemblies
+  fullName: Tripous.AppAssemblies
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.CodePage
+  commentId: T:Tripous.CodePage
+  href: Tripous.CodePage.html
+  name: CodePage
+  nameWithType: CodePage
+  fullName: Tripous.CodePage
+- uid: Tripous.DateTextNormalizer
+  commentId: T:Tripous.DateTextNormalizer
+  href: Tripous.DateTextNormalizer.html
+  name: DateTextNormalizer
+  nameWithType: DateTextNormalizer
+  fullName: Tripous.DateTextNormalizer
+- uid: Tripous.DynamicClass
+  commentId: T:Tripous.DynamicClass
+  parent: Tripous
+  href: Tripous.DynamicClass.html
+  name: DynamicClass
+  nameWithType: DynamicClass
+  fullName: Tripous.DynamicClass
+- uid: Tripous.DynamicPropertyDescriptor
+  commentId: T:Tripous.DynamicPropertyDescriptor
+  href: Tripous.DynamicPropertyDescriptor.html
+  name: DynamicPropertyDescriptor
+  nameWithType: DynamicPropertyDescriptor
+  fullName: Tripous.DynamicPropertyDescriptor
+- uid: Tripous.ApplicationMode
+  commentId: T:Tripous.ApplicationMode
+  parent: Tripous
+  href: Tripous.ApplicationMode.html
+  name: ApplicationMode
+  nameWithType: ApplicationMode
+  fullName: Tripous.ApplicationMode
+- uid: Tripous.DateRange
+  commentId: T:Tripous.DateRange
+  parent: Tripous
+  href: Tripous.DateRange.html
+  name: DateRange
+  nameWithType: DateRange
+  fullName: Tripous.DateRange
+- uid: Tripous.DateRanges
+  commentId: T:Tripous.DateRanges
+  parent: Tripous
+  href: Tripous.DateRanges.html
+  name: DateRanges
+  nameWithType: DateRanges
+  fullName: Tripous.DateRanges
+- uid: Tripous.DateTimeFormatType
+  commentId: T:Tripous.DateTimeFormatType
+  parent: Tripous
+  href: Tripous.DateTimeFormatType.html
+  name: DateTimeFormatType
+  nameWithType: DateTimeFormatType
+  fullName: Tripous.DateTimeFormatType
+- uid: Tripous.ExecTime
+  commentId: T:Tripous.ExecTime
+  parent: Tripous
+  href: Tripous.ExecTime.html
+  name: ExecTime
+  nameWithType: ExecTime
+  fullName: Tripous.ExecTime
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  parent: Tripous
+  href: Tripous.UserLevel.html
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel
+- uid: Tripous.TripousArgumentNullException
+  commentId: T:Tripous.TripousArgumentNullException
+  href: Tripous.TripousArgumentNullException.html
+  name: TripousArgumentNullException
+  nameWithType: TripousArgumentNullException
+  fullName: Tripous.TripousArgumentNullException
+- uid: Tripous.TripousException
+  commentId: T:Tripous.TripousException
+  href: Tripous.TripousException.html
+  name: TripousException
+  nameWithType: TripousException
+  fullName: Tripous.TripousException
+- uid: Tripous.AssemblyExtensions
+  commentId: T:Tripous.AssemblyExtensions
+  href: Tripous.AssemblyExtensions.html
+  name: AssemblyExtensions
+  nameWithType: AssemblyExtensions
+  fullName: Tripous.AssemblyExtensions
+- uid: Tripous.DateTimeExtensions
+  commentId: T:Tripous.DateTimeExtensions
+  href: Tripous.DateTimeExtensions.html
+  name: DateTimeExtensions
+  nameWithType: DateTimeExtensions
+  fullName: Tripous.DateTimeExtensions
+- uid: Tripous.DateTimeFormatTypeExtensions
+  commentId: T:Tripous.DateTimeFormatTypeExtensions
+  parent: Tripous
+  href: Tripous.DateTimeFormatTypeExtensions.html
+  name: DateTimeFormatTypeExtensions
+  nameWithType: DateTimeFormatTypeExtensions
+  fullName: Tripous.DateTimeFormatTypeExtensions
+- uid: Tripous.DictionaryExtensions
+  commentId: T:Tripous.DictionaryExtensions
+  parent: Tripous
+  href: Tripous.DictionaryExtensions.html
+  name: DictionaryExtensions
+  nameWithType: DictionaryExtensions
+  fullName: Tripous.DictionaryExtensions
+- uid: Tripous.ExceptionExtensions
+  commentId: T:Tripous.ExceptionExtensions
+  parent: Tripous
+  href: Tripous.ExceptionExtensions.html
+  name: ExceptionExtensions
+  nameWithType: ExceptionExtensions
+  fullName: Tripous.ExceptionExtensions
+- uid: Tripous.ListExtensions
+  commentId: T:Tripous.ListExtensions
+  parent: Tripous
+  href: Tripous.ListExtensions.html
+  name: ListExtensions
+  nameWithType: ListExtensions
+  fullName: Tripous.ListExtensions
+- uid: Tripous.StreamExtensions
+  commentId: T:Tripous.StreamExtensions
+  href: Tripous.StreamExtensions.html
+  name: StreamExtensions
+  nameWithType: StreamExtensions
+  fullName: Tripous.StreamExtensions
+- uid: Tripous.StringExtensions
+  commentId: T:Tripous.StringExtensions
+  href: Tripous.StringExtensions.html
+  name: StringExtensions
+  nameWithType: StringExtensions
+  fullName: Tripous.StringExtensions
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.HostContext
+  commentId: T:Tripous.HostContext
+  parent: Tripous
+  href: Tripous.HostContext.html
+  name: HostContext
+  nameWithType: HostContext
+  fullName: Tripous.HostContext
+- uid: Tripous.ID
+  commentId: T:Tripous.ID
+  parent: Tripous
+  href: Tripous.ID.html
+  name: ID
+  nameWithType: ID
+  fullName: Tripous.ID
+- uid: Tripous.IDJsonConverter
+  commentId: T:Tripous.IDJsonConverter
+  parent: Tripous
+  href: Tripous.IDJsonConverter.html
+  name: IDJsonConverter
+  nameWithType: IDJsonConverter
+  fullName: Tripous.IDJsonConverter
+- uid: Tripous.Json
+  commentId: T:Tripous.Json
+  href: Tripous.Json.html
+  name: Json
+  nameWithType: Json
+  fullName: Tripous.Json
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: Tripous.JsonNamingPolicyAsIs
+  commentId: T:Tripous.JsonNamingPolicyAsIs
+  href: Tripous.JsonNamingPolicyAsIs.html
+  name: JsonNamingPolicyAsIs
+  nameWithType: JsonNamingPolicyAsIs
+  fullName: Tripous.JsonNamingPolicyAsIs
+- uid: Tripous.ILocalizer
+  commentId: T:Tripous.ILocalizer
+  parent: Tripous
+  href: Tripous.ILocalizer.html
+  name: ILocalizer
+  nameWithType: ILocalizer
+  fullName: Tripous.ILocalizer
+- uid: Tripous.Texts
+  commentId: T:Tripous.Texts
+  href: Tripous.Texts.html
+  name: Texts
+  nameWithType: Texts
+  fullName: Tripous.Texts
+- uid: Tripous.AppRegistry
+  commentId: T:Tripous.AppRegistry
+  href: Tripous.AppRegistry.html
+  name: AppRegistry
+  nameWithType: AppRegistry
+  fullName: Tripous.AppRegistry
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.Command
+  commentId: T:Tripous.Command
+  parent: Tripous
+  href: Tripous.Command.html
+  name: Command
+  nameWithType: Command
+  fullName: Tripous.Command
+- uid: Tripous.DefList`1
+  commentId: T:Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<T>
+  nameWithType: DefList<T>
+  fullName: Tripous.DefList<T>
+  nameWithType.vb: DefList(Of T)
+  fullName.vb: Tripous.DefList(Of T)
+  name.vb: DefList(Of T)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.ReadOnlyDefList`1
+  commentId: T:Tripous.ReadOnlyDefList`1
+  href: Tripous.ReadOnlyDefList-1.html
+  name: ReadOnlyDefList<T>
+  nameWithType: ReadOnlyDefList<T>
+  fullName: Tripous.ReadOnlyDefList<T>
+  nameWithType.vb: ReadOnlyDefList(Of T)
+  fullName.vb: Tripous.ReadOnlyDefList(Of T)
+  name.vb: ReadOnlyDefList(Of T)
+  spec.csharp:
+  - uid: Tripous.ReadOnlyDefList`1
+    name: ReadOnlyDefList
+    href: Tripous.ReadOnlyDefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.ReadOnlyDefList`1
+    name: ReadOnlyDefList
+    href: Tripous.ReadOnlyDefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.ResourceFiles
+  commentId: T:Tripous.ResourceFiles
+  href: Tripous.ResourceFiles.html
+  name: ResourceFiles
+  nameWithType: ResourceFiles
+  fullName: Tripous.ResourceFiles
+- uid: Tripous.AppUser
+  commentId: T:Tripous.AppUser
+  parent: Tripous
+  href: Tripous.AppUser.html
+  name: AppUser
+  nameWithType: AppUser
+  fullName: Tripous.AppUser
+- uid: Tripous.Passwords
+  commentId: T:Tripous.Passwords
+  href: Tripous.Passwords.html
+  name: Passwords
+  nameWithType: Passwords
+  fullName: Tripous.Passwords
+- uid: Tripous.Sec
+  commentId: T:Tripous.Sec
+  href: Tripous.Sec.html
+  name: Sec
+  nameWithType: Sec
+  fullName: Tripous.Sec
+- uid: Tripous.SettingsBase
+  commentId: T:Tripous.SettingsBase
+  parent: Tripous
+  href: Tripous.SettingsBase.html
+  name: SettingsBase
+  nameWithType: SettingsBase
+  fullName: Tripous.SettingsBase
+- uid: Tripous.Sys
+  commentId: T:Tripous.Sys
+  href: Tripous.Sys.html
+  name: Sys
+  nameWithType: Sys
+  fullName: Tripous.Sys
+- uid: Tripous.SysConfig
+  commentId: T:Tripous.SysConfig
+  href: Tripous.SysConfig.html
+  name: SysConfig
+  nameWithType: SysConfig
+  fullName: Tripous.SysConfig
+- uid: Tripous.SysGlobalSettings
+  commentId: T:Tripous.SysGlobalSettings
+  parent: Tripous
+  href: Tripous.SysGlobalSettings.html
+  name: SysGlobalSettings
+  nameWithType: SysGlobalSettings
+  fullName: Tripous.SysGlobalSettings
+- uid: Tripous.TripousList`1
+  commentId: T:Tripous.TripousList`1
+  href: Tripous.TripousList-1.html
+  name: TripousList<T>
+  nameWithType: TripousList<T>
+  fullName: Tripous.TripousList<T>
+  nameWithType.vb: TripousList(Of T)
+  fullName.vb: Tripous.TripousList(Of T)
+  name.vb: TripousList(Of T)
+  spec.csharp:
+  - uid: Tripous.TripousList`1
+    name: TripousList
+    href: Tripous.TripousList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.TripousList`1
+    name: TripousList
+    href: Tripous.TripousList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeStore
+  commentId: T:Tripous.TypeStore
+  href: Tripous.TypeStore.html
+  name: TypeStore
+  nameWithType: TypeStore
+  fullName: Tripous.TypeStore
+- uid: Tripous.TypeStoreAttribute
+  commentId: T:Tripous.TypeStoreAttribute
+  parent: Tripous
+  href: Tripous.TypeStoreAttribute.html
+  name: TypeStoreAttribute
+  nameWithType: TypeStoreAttribute
+  fullName: Tripous.TypeStoreAttribute
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous

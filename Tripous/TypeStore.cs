@@ -26,6 +26,10 @@ static public class TypeStore
         return Type.GetCustomAttributes(typeof(TypeStoreAttribute), true).Length > 0;
     }
     /// <summary>
+    /// Returns true if the specified type matches the requested base type.
+    /// </summary>
+    static bool IsAssignable(Type Type, Type BaseType) => BaseType == null || BaseType.IsAssignableFrom(Type);
+    /// <summary>
     /// Resolves a type using all available mechanisms.
     /// </summary>
     static Type ResolveCore(string TypeName, Type BaseType = null)
@@ -34,15 +38,22 @@ static public class TypeStore
         Type Result = Type.GetType(TypeName, false, true);
         if (Result != null)
         {
-            Register(Result);
-            return Result;
+            if (IsAssignable(Result, BaseType))
+            {
+                Register(Result);
+                return Result;
+            }
+
+            Result = null;
         }
 
         // FullName lookup
         lock (fLock)
         {
-            if (fItems.TryGetValue(TypeName, out Result))
+            if (fItems.TryGetValue(TypeName, out Result) && IsAssignable(Result, BaseType))
                 return Result;
+
+            Result = null;
         }
 
         // Simple class name lookup
@@ -52,6 +63,7 @@ static public class TypeStore
         {
             List<Type> MatchingTypes = fItems.Values
                 .Where(T => !string.IsNullOrWhiteSpace(T.FullName) &&
+                            IsAssignable(T, BaseType) &&
                             T.FullName.EndsWith(Suffix, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 

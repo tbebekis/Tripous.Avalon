@@ -55,16 +55,13 @@ namespace Tripous
         }
         /// <summary>
         /// Returns the week number the specified date falls in 
-        /// <para>Always between 1 - 52</para>
         /// </summary>
         static public int GetWeekNumber(this DateTime DT, CultureInfo CI)
         {
-            int Result = CI.Calendar.GetWeekOfYear(DT, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
-            return Result > 52 ? 1 : Result;
+            return CI.Calendar.GetWeekOfYear(DT, CI.DateTimeFormat.CalendarWeekRule, CI.DateTimeFormat.FirstDayOfWeek);
         }
         /// <summary>
         /// Returns the week number the specified date falls in 
-        /// <para>Always between 1 - 52</para>
         /// </summary>
         static public int GetWeekNumber(this DateTime DT)
         {
@@ -78,14 +75,11 @@ namespace Tripous
             return DT.Date;
         }
         /// <summary>
-        /// Returns the end date-time of DT, i.e yyyy-MM-dd 23:59:59
+        /// Returns the end date-time of DT, i.e yyyy-MM-dd 23:59:59.9999999
         /// </summary>
         static public DateTime EndOfDay(this DateTime DT)
         {
-            DT = DT.Date;
-            DT = DT.AddDays(1);
-            DT = DT.AddSeconds(-1);
-            return DT;
+            return DT.Date.AddDays(1).AddTicks(-1);
         }
     }
 

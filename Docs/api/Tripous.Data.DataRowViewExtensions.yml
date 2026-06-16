@@ -1,0 +1,2012 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DataRowViewExtensions
+  commentId: T:Tripous.Data.DataRowViewExtensions
+  id: DataRowViewExtensions
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.Int32,System.Boolean)
+  - Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.String,System.Boolean)
+  - Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.Int32,System.DateTime)
+  - Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.String,System.DateTime)
+  - Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.Int32,System.Decimal)
+  - Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.String,System.Decimal)
+  - Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.Int32,System.Double)
+  - Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.String,System.Double)
+  - Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.Int32,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.String,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView,System.Int32,System.Object)
+  - Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView,System.String,System.Object)
+  - Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.Int32)
+  - Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.Int32,System.String)
+  - Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.String,System.String)
+  - Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  - Tripous.Data.DataRowViewExtensions.BlobToString(System.Data.DataRowView,System.String)
+  - Tripous.Data.DataRowViewExtensions.CopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  - Tripous.Data.DataRowViewExtensions.LoadFromStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  - Tripous.Data.DataRowViewExtensions.SafeCopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  - Tripous.Data.DataRowViewExtensions.SaveToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  - Tripous.Data.DataRowViewExtensions.StreamToBlob(System.Data.DataRowView,System.String,System.IO.Stream)
+  - Tripous.Data.DataRowViewExtensions.StringToBlob(System.Data.DataRowView,System.String,System.String)
+  - Tripous.Data.DataRowViewExtensions.TryGetValue(System.Data.DataRowView,System.String,System.Object@)
+  langs:
+  - csharp
+  - vb
+  name: DataRowViewExtensions
+  nameWithType: DataRowViewExtensions
+  fullName: Tripous.Data.DataRowViewExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataRowViewExtensions
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A helper class for returning typed values from a DataRowView in a safe manner,
+
+    by leveraging the existing DataRowExtensions.
+  example: []
+  syntax:
+    content: public static class DataRowViewExtensions
+    content.vb: Public Module DataRowViewExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView,System.String,System.Object)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView,System.String,System.Object)
+  id: AsObject(System.Data.DataRowView,System.String,System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsObject(DataRowView, string, object)
+  nameWithType: DataRowViewExtensions.AsObject(DataRowView, string, object)
+  fullName: Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView, string, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsObject
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as an <xref href="System.Object" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static object AsObject(this DataRowView drv, string ColumnName, object Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    - id: Default
+      type: System.Object
+    return:
+      type: System.Object
+    content.vb: Public Shared Function AsObject(drv As DataRowView, ColumnName As String, [Default] As Object) As Object
+  overload: Tripous.Data.DataRowViewExtensions.AsObject*
+  nameWithType.vb: DataRowViewExtensions.AsObject(DataRowView, String, Object)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView, String, Object)
+  name.vb: AsObject(DataRowView, String, Object)
+- uid: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.String,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.String,System.Int32)
+  id: AsInteger(System.Data.DataRowView,System.String,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(DataRowView, string, int)
+  nameWithType: DataRowViewExtensions.AsInteger(DataRowView, string, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as an <xref href="System.Int32" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static int AsInteger(this DataRowView drv, string ColumnName, int Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    - id: Default
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(drv As DataRowView, ColumnName As String, [Default] As Integer) As Integer
+  overload: Tripous.Data.DataRowViewExtensions.AsInteger*
+  nameWithType.vb: DataRowViewExtensions.AsInteger(DataRowView, String, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, String, Integer)
+  name.vb: AsInteger(DataRowView, String, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.String)
+  id: AsInteger(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(DataRowView, string)
+  nameWithType: DataRowViewExtensions.AsInteger(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as an <xref href="System.Int32" data-throw-if-not-resolved="false"></xref>, or zero if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static int AsInteger(this DataRowView drv, string ColumnName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(drv As DataRowView, ColumnName As String) As Integer
+  overload: Tripous.Data.DataRowViewExtensions.AsInteger*
+  nameWithType.vb: DataRowViewExtensions.AsInteger(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, String)
+  name.vb: AsInteger(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.String,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.String,System.String)
+  id: AsString(System.Data.DataRowView,System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsString(DataRowView, string, string)
+  nameWithType: DataRowViewExtensions.AsString(DataRowView, string, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.String" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static string AsString(this DataRowView drv, string ColumnName, string Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(drv As DataRowView, ColumnName As String, [Default] As String) As String
+  overload: Tripous.Data.DataRowViewExtensions.AsString*
+  nameWithType.vb: DataRowViewExtensions.AsString(DataRowView, String, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, String, String)
+  name.vb: AsString(DataRowView, String, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.String)
+  id: AsString(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsString(DataRowView, string)
+  nameWithType: DataRowViewExtensions.AsString(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.String" data-throw-if-not-resolved="false"></xref>, or an empty string if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static string AsString(this DataRowView drv, string ColumnName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(drv As DataRowView, ColumnName As String) As String
+  overload: Tripous.Data.DataRowViewExtensions.AsString*
+  nameWithType.vb: DataRowViewExtensions.AsString(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, String)
+  name.vb: AsString(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.String,System.Double)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.String,System.Double)
+  id: AsDouble(System.Data.DataRowView,System.String,System.Double)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDouble(DataRowView, string, double)
+  nameWithType: DataRowViewExtensions.AsDouble(DataRowView, string, double)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, string, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDouble
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 39
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.Double" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static double AsDouble(this DataRowView drv, string ColumnName, double Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    - id: Default
+      type: System.Double
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsDouble(drv As DataRowView, ColumnName As String, [Default] As Double) As Double
+  overload: Tripous.Data.DataRowViewExtensions.AsDouble*
+  nameWithType.vb: DataRowViewExtensions.AsDouble(DataRowView, String, Double)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, String, Double)
+  name.vb: AsDouble(DataRowView, String, Double)
+- uid: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.String)
+  id: AsDouble(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDouble(DataRowView, string)
+  nameWithType: DataRowViewExtensions.AsDouble(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDouble
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.Double" data-throw-if-not-resolved="false"></xref>, or zero if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static double AsDouble(this DataRowView drv, string ColumnName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsDouble(drv As DataRowView, ColumnName As String) As Double
+  overload: Tripous.Data.DataRowViewExtensions.AsDouble*
+  nameWithType.vb: DataRowViewExtensions.AsDouble(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, String)
+  name.vb: AsDouble(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.String,System.Decimal)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.String,System.Decimal)
+  id: AsDecimal(System.Data.DataRowView,System.String,System.Decimal)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDecimal(DataRowView, string, decimal)
+  nameWithType: DataRowViewExtensions.AsDecimal(DataRowView, string, decimal)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, string, decimal)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDecimal
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.Decimal" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static decimal AsDecimal(this DataRowView drv, string ColumnName, decimal Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    - id: Default
+      type: System.Decimal
+    return:
+      type: System.Decimal
+    content.vb: Public Shared Function AsDecimal(drv As DataRowView, ColumnName As String, [Default] As Decimal) As Decimal
+  overload: Tripous.Data.DataRowViewExtensions.AsDecimal*
+  nameWithType.vb: DataRowViewExtensions.AsDecimal(DataRowView, String, Decimal)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, String, Decimal)
+  name.vb: AsDecimal(DataRowView, String, Decimal)
+- uid: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.String)
+  id: AsDecimal(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDecimal(DataRowView, string)
+  nameWithType: DataRowViewExtensions.AsDecimal(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDecimal
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.Decimal" data-throw-if-not-resolved="false"></xref>, or zero if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static decimal AsDecimal(this DataRowView drv, string ColumnName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Decimal
+    content.vb: Public Shared Function AsDecimal(drv As DataRowView, ColumnName As String) As Decimal
+  overload: Tripous.Data.DataRowViewExtensions.AsDecimal*
+  nameWithType.vb: DataRowViewExtensions.AsDecimal(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, String)
+  name.vb: AsDecimal(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.String,System.Boolean)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.String,System.Boolean)
+  id: AsBoolean(System.Data.DataRowView,System.String,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(DataRowView, string, bool)
+  nameWithType: DataRowViewExtensions.AsBoolean(DataRowView, string, bool)
+  fullName: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.Boolean" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static bool AsBoolean(this DataRowView drv, string ColumnName, bool Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    - id: Default
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(drv As DataRowView, ColumnName As String, [Default] As Boolean) As Boolean
+  overload: Tripous.Data.DataRowViewExtensions.AsBoolean*
+  nameWithType.vb: DataRowViewExtensions.AsBoolean(DataRowView, String, Boolean)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, String, Boolean)
+  name.vb: AsBoolean(DataRowView, String, Boolean)
+- uid: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.String)
+  id: AsBoolean(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(DataRowView, string)
+  nameWithType: DataRowViewExtensions.AsBoolean(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.Boolean" data-throw-if-not-resolved="false"></xref>, or false if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static bool AsBoolean(this DataRowView drv, string ColumnName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(drv As DataRowView, ColumnName As String) As Boolean
+  overload: Tripous.Data.DataRowViewExtensions.AsBoolean*
+  nameWithType.vb: DataRowViewExtensions.AsBoolean(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, String)
+  name.vb: AsBoolean(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.String,System.DateTime)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.String,System.DateTime)
+  id: AsDateTime(System.Data.DataRowView,System.String,System.DateTime)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(DataRowView, string, DateTime)
+  nameWithType: DataRowViewExtensions.AsDateTime(DataRowView, string, DateTime)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, string, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.DateTime" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(this DataRowView drv, string ColumnName, DateTime Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    - id: Default
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(drv As DataRowView, ColumnName As String, [Default] As Date) As Date
+  overload: Tripous.Data.DataRowViewExtensions.AsDateTime*
+  nameWithType.vb: DataRowViewExtensions.AsDateTime(DataRowView, String, Date)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, String, Date)
+  name.vb: AsDateTime(DataRowView, String, Date)
+- uid: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.String)
+  id: AsDateTime(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(DataRowView, string)
+  nameWithType: DataRowViewExtensions.AsDateTime(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the specified column as a <xref href="System.DateTime" data-throw-if-not-resolved="false"></xref>, or <xref href="System.DateTime.MinValue" data-throw-if-not-resolved="false"></xref> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(this DataRowView drv, string ColumnName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnName
+      type: System.String
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(drv As DataRowView, ColumnName As String) As Date
+  overload: Tripous.Data.DataRowViewExtensions.AsDateTime*
+  nameWithType.vb: DataRowViewExtensions.AsDateTime(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, String)
+  name.vb: AsDateTime(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView,System.Int32,System.Object)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView,System.Int32,System.Object)
+  id: AsObject(System.Data.DataRowView,System.Int32,System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsObject(DataRowView, int, object)
+  nameWithType: DataRowViewExtensions.AsObject(DataRowView, int, object)
+  fullName: Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView, int, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsObject
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as an <xref href="System.Object" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static object AsObject(this DataRowView drv, int ColumnIndex, object Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    - id: Default
+      type: System.Object
+    return:
+      type: System.Object
+    content.vb: Public Shared Function AsObject(drv As DataRowView, ColumnIndex As Integer, [Default] As Object) As Object
+  overload: Tripous.Data.DataRowViewExtensions.AsObject*
+  nameWithType.vb: DataRowViewExtensions.AsObject(DataRowView, Integer, Object)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsObject(System.Data.DataRowView, Integer, Object)
+  name.vb: AsObject(DataRowView, Integer, Object)
+- uid: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.Int32,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.Int32,System.Int32)
+  id: AsInteger(System.Data.DataRowView,System.Int32,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(DataRowView, int, int)
+  nameWithType: DataRowViewExtensions.AsInteger(DataRowView, int, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, int, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 77
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as an <xref href="System.Int32" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static int AsInteger(this DataRowView drv, int ColumnIndex, int Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    - id: Default
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(drv As DataRowView, ColumnIndex As Integer, [Default] As Integer) As Integer
+  overload: Tripous.Data.DataRowViewExtensions.AsInteger*
+  nameWithType.vb: DataRowViewExtensions.AsInteger(DataRowView, Integer, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, Integer, Integer)
+  name.vb: AsInteger(DataRowView, Integer, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView,System.Int32)
+  id: AsInteger(System.Data.DataRowView,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(DataRowView, int)
+  nameWithType: DataRowViewExtensions.AsInteger(DataRowView, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as an <xref href="System.Int32" data-throw-if-not-resolved="false"></xref>, or zero if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static int AsInteger(this DataRowView drv, int ColumnIndex)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(drv As DataRowView, ColumnIndex As Integer) As Integer
+  overload: Tripous.Data.DataRowViewExtensions.AsInteger*
+  nameWithType.vb: DataRowViewExtensions.AsInteger(DataRowView, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsInteger(System.Data.DataRowView, Integer)
+  name.vb: AsInteger(DataRowView, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.Int32,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.Int32,System.String)
+  id: AsString(System.Data.DataRowView,System.Int32,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsString(DataRowView, int, string)
+  nameWithType: DataRowViewExtensions.AsString(DataRowView, int, string)
+  fullName: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, int, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 85
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.String" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static string AsString(this DataRowView drv, int ColumnIndex, string Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(drv As DataRowView, ColumnIndex As Integer, [Default] As String) As String
+  overload: Tripous.Data.DataRowViewExtensions.AsString*
+  nameWithType.vb: DataRowViewExtensions.AsString(DataRowView, Integer, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, Integer, String)
+  name.vb: AsString(DataRowView, Integer, String)
+- uid: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView,System.Int32)
+  id: AsString(System.Data.DataRowView,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsString(DataRowView, int)
+  nameWithType: DataRowViewExtensions.AsString(DataRowView, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 89
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.String" data-throw-if-not-resolved="false"></xref>, or an empty string if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static string AsString(this DataRowView drv, int ColumnIndex)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(drv As DataRowView, ColumnIndex As Integer) As String
+  overload: Tripous.Data.DataRowViewExtensions.AsString*
+  nameWithType.vb: DataRowViewExtensions.AsString(DataRowView, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsString(System.Data.DataRowView, Integer)
+  name.vb: AsString(DataRowView, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.Int32,System.Double)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.Int32,System.Double)
+  id: AsDouble(System.Data.DataRowView,System.Int32,System.Double)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDouble(DataRowView, int, double)
+  nameWithType: DataRowViewExtensions.AsDouble(DataRowView, int, double)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, int, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDouble
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 93
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.Double" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static double AsDouble(this DataRowView drv, int ColumnIndex, double Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    - id: Default
+      type: System.Double
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsDouble(drv As DataRowView, ColumnIndex As Integer, [Default] As Double) As Double
+  overload: Tripous.Data.DataRowViewExtensions.AsDouble*
+  nameWithType.vb: DataRowViewExtensions.AsDouble(DataRowView, Integer, Double)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, Integer, Double)
+  name.vb: AsDouble(DataRowView, Integer, Double)
+- uid: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView,System.Int32)
+  id: AsDouble(System.Data.DataRowView,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDouble(DataRowView, int)
+  nameWithType: DataRowViewExtensions.AsDouble(DataRowView, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDouble
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 97
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.Double" data-throw-if-not-resolved="false"></xref>, or zero if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static double AsDouble(this DataRowView drv, int ColumnIndex)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsDouble(drv As DataRowView, ColumnIndex As Integer) As Double
+  overload: Tripous.Data.DataRowViewExtensions.AsDouble*
+  nameWithType.vb: DataRowViewExtensions.AsDouble(DataRowView, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDouble(System.Data.DataRowView, Integer)
+  name.vb: AsDouble(DataRowView, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.Int32,System.Decimal)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.Int32,System.Decimal)
+  id: AsDecimal(System.Data.DataRowView,System.Int32,System.Decimal)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDecimal(DataRowView, int, decimal)
+  nameWithType: DataRowViewExtensions.AsDecimal(DataRowView, int, decimal)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, int, decimal)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDecimal
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 101
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.Decimal" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static decimal AsDecimal(this DataRowView drv, int ColumnIndex, decimal Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    - id: Default
+      type: System.Decimal
+    return:
+      type: System.Decimal
+    content.vb: Public Shared Function AsDecimal(drv As DataRowView, ColumnIndex As Integer, [Default] As Decimal) As Decimal
+  overload: Tripous.Data.DataRowViewExtensions.AsDecimal*
+  nameWithType.vb: DataRowViewExtensions.AsDecimal(DataRowView, Integer, Decimal)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, Integer, Decimal)
+  name.vb: AsDecimal(DataRowView, Integer, Decimal)
+- uid: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView,System.Int32)
+  id: AsDecimal(System.Data.DataRowView,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDecimal(DataRowView, int)
+  nameWithType: DataRowViewExtensions.AsDecimal(DataRowView, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDecimal
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 105
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.Decimal" data-throw-if-not-resolved="false"></xref>, or zero if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static decimal AsDecimal(this DataRowView drv, int ColumnIndex)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    return:
+      type: System.Decimal
+    content.vb: Public Shared Function AsDecimal(drv As DataRowView, ColumnIndex As Integer) As Decimal
+  overload: Tripous.Data.DataRowViewExtensions.AsDecimal*
+  nameWithType.vb: DataRowViewExtensions.AsDecimal(DataRowView, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDecimal(System.Data.DataRowView, Integer)
+  name.vb: AsDecimal(DataRowView, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.Int32,System.Boolean)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.Int32,System.Boolean)
+  id: AsBoolean(System.Data.DataRowView,System.Int32,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(DataRowView, int, bool)
+  nameWithType: DataRowViewExtensions.AsBoolean(DataRowView, int, bool)
+  fullName: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, int, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 109
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.Boolean" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static bool AsBoolean(this DataRowView drv, int ColumnIndex, bool Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    - id: Default
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(drv As DataRowView, ColumnIndex As Integer, [Default] As Boolean) As Boolean
+  overload: Tripous.Data.DataRowViewExtensions.AsBoolean*
+  nameWithType.vb: DataRowViewExtensions.AsBoolean(DataRowView, Integer, Boolean)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, Integer, Boolean)
+  name.vb: AsBoolean(DataRowView, Integer, Boolean)
+- uid: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView,System.Int32)
+  id: AsBoolean(System.Data.DataRowView,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(DataRowView, int)
+  nameWithType: DataRowViewExtensions.AsBoolean(DataRowView, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 113
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.Boolean" data-throw-if-not-resolved="false"></xref>, or false if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static bool AsBoolean(this DataRowView drv, int ColumnIndex)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(drv As DataRowView, ColumnIndex As Integer) As Boolean
+  overload: Tripous.Data.DataRowViewExtensions.AsBoolean*
+  nameWithType.vb: DataRowViewExtensions.AsBoolean(DataRowView, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsBoolean(System.Data.DataRowView, Integer)
+  name.vb: AsBoolean(DataRowView, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.Int32,System.DateTime)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.Int32,System.DateTime)
+  id: AsDateTime(System.Data.DataRowView,System.Int32,System.DateTime)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(DataRowView, int, DateTime)
+  nameWithType: DataRowViewExtensions.AsDateTime(DataRowView, int, DateTime)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, int, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 117
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.DateTime" data-throw-if-not-resolved="false"></xref>, or <code class="paramref">Default</code> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(this DataRowView drv, int ColumnIndex, DateTime Default)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    - id: Default
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(drv As DataRowView, ColumnIndex As Integer, [Default] As Date) As Date
+  overload: Tripous.Data.DataRowViewExtensions.AsDateTime*
+  nameWithType.vb: DataRowViewExtensions.AsDateTime(DataRowView, Integer, Date)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, Integer, Date)
+  name.vb: AsDateTime(DataRowView, Integer, Date)
+- uid: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.Int32)
+  commentId: M:Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView,System.Int32)
+  id: AsDateTime(System.Data.DataRowView,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(DataRowView, int)
+  nameWithType: DataRowViewExtensions.AsDateTime(DataRowView, int)
+  fullName: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 121
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the column at the specified index as a <xref href="System.DateTime" data-throw-if-not-resolved="false"></xref>, or <xref href="System.DateTime.MinValue" data-throw-if-not-resolved="false"></xref> if the value is null or DBNull.
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(this DataRowView drv, int ColumnIndex)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: ColumnIndex
+      type: System.Int32
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(drv As DataRowView, ColumnIndex As Integer) As Date
+  overload: Tripous.Data.DataRowViewExtensions.AsDateTime*
+  nameWithType.vb: DataRowViewExtensions.AsDateTime(DataRowView, Integer)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.AsDateTime(System.Data.DataRowView, Integer)
+  name.vb: AsDateTime(DataRowView, Integer)
+- uid: Tripous.Data.DataRowViewExtensions.CopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  commentId: M:Tripous.Data.DataRowViewExtensions.CopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  id: CopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyTo(DataRowView, DataRowView)
+  nameWithType: DataRowViewExtensions.CopyTo(DataRowView, DataRowView)
+  fullName: Tripous.Data.DataRowViewExtensions.CopyTo(System.Data.DataRowView, System.Data.DataRowView)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyTo
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 127
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Copies the values of <code class="paramref">Source</code> to <code class="paramref">Dest</code>.
+  example: []
+  syntax:
+    content: public static void CopyTo(this DataRowView Source, DataRowView Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataRowView
+    - id: Dest
+      type: System.Data.DataRowView
+    content.vb: Public Shared Sub CopyTo(Source As DataRowView, Dest As DataRowView)
+  overload: Tripous.Data.DataRowViewExtensions.CopyTo*
+- uid: Tripous.Data.DataRowViewExtensions.SafeCopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  commentId: M:Tripous.Data.DataRowViewExtensions.SafeCopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  id: SafeCopyTo(System.Data.DataRowView,System.Data.DataRowView)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: SafeCopyTo(DataRowView, DataRowView)
+  nameWithType: DataRowViewExtensions.SafeCopyTo(DataRowView, DataRowView)
+  fullName: Tripous.Data.DataRowViewExtensions.SafeCopyTo(System.Data.DataRowView, System.Data.DataRowView)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SafeCopyTo
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 136
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Safely copies the values of <code class="paramref">Source</code> to <code class="paramref">Dest</code>, copying only columns that exist in both rows.
+  example: []
+  syntax:
+    content: public static void SafeCopyTo(this DataRowView Source, DataRowView Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataRowView
+    - id: Dest
+      type: System.Data.DataRowView
+    content.vb: Public Shared Sub SafeCopyTo(Source As DataRowView, Dest As DataRowView)
+  overload: Tripous.Data.DataRowViewExtensions.SafeCopyTo*
+- uid: Tripous.Data.DataRowViewExtensions.StreamToBlob(System.Data.DataRowView,System.String,System.IO.Stream)
+  commentId: M:Tripous.Data.DataRowViewExtensions.StreamToBlob(System.Data.DataRowView,System.String,System.IO.Stream)
+  id: StreamToBlob(System.Data.DataRowView,System.String,System.IO.Stream)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: StreamToBlob(DataRowView, string, Stream)
+  nameWithType: DataRowViewExtensions.StreamToBlob(DataRowView, string, Stream)
+  fullName: Tripous.Data.DataRowViewExtensions.StreamToBlob(System.Data.DataRowView, string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StreamToBlob
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 147
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Reads the contents of <code class="paramref">Stream</code> and stores them in the specified blob field.
+  example: []
+  syntax:
+    content: public static void StreamToBlob(this DataRowView drv, string FieldName, Stream Stream)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: FieldName
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    content.vb: Public Shared Sub StreamToBlob(drv As DataRowView, FieldName As String, Stream As Stream)
+  overload: Tripous.Data.DataRowViewExtensions.StreamToBlob*
+  nameWithType.vb: DataRowViewExtensions.StreamToBlob(DataRowView, String, Stream)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.StreamToBlob(System.Data.DataRowView, String, System.IO.Stream)
+  name.vb: StreamToBlob(DataRowView, String, Stream)
+- uid: Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  commentId: M:Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  id: BlobToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: BlobToStream(DataRowView, string, Stream)
+  nameWithType: DataRowViewExtensions.BlobToStream(DataRowView, string, Stream)
+  fullName: Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView, string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BlobToStream
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 156
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the contents of the specified blob field to <code class="paramref">Stream</code>.
+  example: []
+  syntax:
+    content: public static void BlobToStream(this DataRowView drv, string FieldName, Stream Stream)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: FieldName
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    content.vb: Public Shared Sub BlobToStream(drv As DataRowView, FieldName As String, Stream As Stream)
+  overload: Tripous.Data.DataRowViewExtensions.BlobToStream*
+  nameWithType.vb: DataRowViewExtensions.BlobToStream(DataRowView, String, Stream)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView, String, System.IO.Stream)
+  name.vb: BlobToStream(DataRowView, String, Stream)
+- uid: Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView,System.String)
+  id: BlobToStream(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: BlobToStream(DataRowView, string)
+  nameWithType: DataRowViewExtensions.BlobToStream(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BlobToStream
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 160
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the contents of the specified blob field as a new <xref href="System.IO.MemoryStream" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public static MemoryStream BlobToStream(this DataRowView drv, string FieldName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.IO.MemoryStream
+    content.vb: Public Shared Function BlobToStream(drv As DataRowView, FieldName As String) As MemoryStream
+  overload: Tripous.Data.DataRowViewExtensions.BlobToStream*
+  nameWithType.vb: DataRowViewExtensions.BlobToStream(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.BlobToStream(System.Data.DataRowView, String)
+  name.vb: BlobToStream(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.LoadFromStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  commentId: M:Tripous.Data.DataRowViewExtensions.LoadFromStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  id: LoadFromStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: LoadFromStream(DataRowView, string, Stream)
+  nameWithType: DataRowViewExtensions.LoadFromStream(DataRowView, string, Stream)
+  fullName: Tripous.Data.DataRowViewExtensions.LoadFromStream(System.Data.DataRowView, string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoadFromStream
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 164
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Reads the contents of <code class="paramref">Stream</code> and stores them in the specified blob field.
+  example: []
+  syntax:
+    content: public static void LoadFromStream(this DataRowView drv, string BlobFieldName, Stream Stream)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: BlobFieldName
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    content.vb: Public Shared Sub LoadFromStream(drv As DataRowView, BlobFieldName As String, Stream As Stream)
+  overload: Tripous.Data.DataRowViewExtensions.LoadFromStream*
+  nameWithType.vb: DataRowViewExtensions.LoadFromStream(DataRowView, String, Stream)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.LoadFromStream(System.Data.DataRowView, String, System.IO.Stream)
+  name.vb: LoadFromStream(DataRowView, String, Stream)
+- uid: Tripous.Data.DataRowViewExtensions.SaveToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  commentId: M:Tripous.Data.DataRowViewExtensions.SaveToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  id: SaveToStream(System.Data.DataRowView,System.String,System.IO.Stream)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: SaveToStream(DataRowView, string, Stream)
+  nameWithType: DataRowViewExtensions.SaveToStream(DataRowView, string, Stream)
+  fullName: Tripous.Data.DataRowViewExtensions.SaveToStream(System.Data.DataRowView, string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SaveToStream
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 173
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the contents of the specified blob field to <code class="paramref">Stream</code>.
+  example: []
+  syntax:
+    content: public static void SaveToStream(this DataRowView drv, string BlobFieldName, Stream Stream)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: BlobFieldName
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    content.vb: Public Shared Sub SaveToStream(drv As DataRowView, BlobFieldName As String, Stream As Stream)
+  overload: Tripous.Data.DataRowViewExtensions.SaveToStream*
+  nameWithType.vb: DataRowViewExtensions.SaveToStream(DataRowView, String, Stream)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.SaveToStream(System.Data.DataRowView, String, System.IO.Stream)
+  name.vb: SaveToStream(DataRowView, String, Stream)
+- uid: Tripous.Data.DataRowViewExtensions.StringToBlob(System.Data.DataRowView,System.String,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.StringToBlob(System.Data.DataRowView,System.String,System.String)
+  id: StringToBlob(System.Data.DataRowView,System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: StringToBlob(DataRowView, string, string)
+  nameWithType: DataRowViewExtensions.StringToBlob(DataRowView, string, string)
+  fullName: Tripous.Data.DataRowViewExtensions.StringToBlob(System.Data.DataRowView, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StringToBlob
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 177
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts <code class="paramref">Value</code> to bytes and stores it in the specified blob field.
+  example: []
+  syntax:
+    content: public static void StringToBlob(this DataRowView drv, string BlobFieldName, string Value)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: BlobFieldName
+      type: System.String
+    - id: Value
+      type: System.String
+    content.vb: Public Shared Sub StringToBlob(drv As DataRowView, BlobFieldName As String, Value As String)
+  overload: Tripous.Data.DataRowViewExtensions.StringToBlob*
+  nameWithType.vb: DataRowViewExtensions.StringToBlob(DataRowView, String, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.StringToBlob(System.Data.DataRowView, String, String)
+  name.vb: StringToBlob(DataRowView, String, String)
+- uid: Tripous.Data.DataRowViewExtensions.BlobToString(System.Data.DataRowView,System.String)
+  commentId: M:Tripous.Data.DataRowViewExtensions.BlobToString(System.Data.DataRowView,System.String)
+  id: BlobToString(System.Data.DataRowView,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: BlobToString(DataRowView, string)
+  nameWithType: DataRowViewExtensions.BlobToString(DataRowView, string)
+  fullName: Tripous.Data.DataRowViewExtensions.BlobToString(System.Data.DataRowView, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BlobToString
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 186
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the contents of the specified blob field as a <xref href="System.String" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public static string BlobToString(this DataRowView drv, string BlobFieldName)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: BlobFieldName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function BlobToString(drv As DataRowView, BlobFieldName As String) As String
+  overload: Tripous.Data.DataRowViewExtensions.BlobToString*
+  nameWithType.vb: DataRowViewExtensions.BlobToString(DataRowView, String)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.BlobToString(System.Data.DataRowView, String)
+  name.vb: BlobToString(DataRowView, String)
+- uid: Tripous.Data.DataRowViewExtensions.TryGetValue(System.Data.DataRowView,System.String,System.Object@)
+  commentId: M:Tripous.Data.DataRowViewExtensions.TryGetValue(System.Data.DataRowView,System.String,System.Object@)
+  id: TryGetValue(System.Data.DataRowView,System.String,System.Object@)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataRowViewExtensions
+  langs:
+  - csharp
+  - vb
+  name: TryGetValue(DataRowView, string, out object)
+  nameWithType: DataRowViewExtensions.TryGetValue(DataRowView, string, out object)
+  fullName: Tripous.Data.DataRowViewExtensions.TryGetValue(System.Data.DataRowView, string, out object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataRowViewExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryGetValue
+    path: ../Tripous.Data/Extensions/DataRowViewExtensions.cs
+    startLine: 192
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true and sets <code class="paramref">Value</code> to the value of the specified field, if the field exists; otherwise returns false.
+  example: []
+  syntax:
+    content: public static bool TryGetValue(this DataRowView drv, string FieldName, out object Value)
+    parameters:
+    - id: drv
+      type: System.Data.DataRowView
+    - id: FieldName
+      type: System.String
+    - id: Value
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryGetValue(drv As DataRowView, FieldName As String, Value As Object) As Boolean
+  overload: Tripous.Data.DataRowViewExtensions.TryGetValue*
+  nameWithType.vb: DataRowViewExtensions.TryGetValue(DataRowView, String, Object)
+  fullName.vb: Tripous.Data.DataRowViewExtensions.TryGetValue(System.Data.DataRowView, String, Object)
+  name.vb: TryGetValue(DataRowView, String, Object)
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.DataRowViewExtensions.AsObject*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.AsObject
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_AsObject_System_Data_DataRowView_System_String_System_Object_
+  name: AsObject
+  nameWithType: DataRowViewExtensions.AsObject
+  fullName: Tripous.Data.DataRowViewExtensions.AsObject
+- uid: System.Data.DataRowView
+  commentId: T:System.Data.DataRowView
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarowview
+  name: DataRowView
+  nameWithType: DataRowView
+  fullName: System.Data.DataRowView
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DataRowViewExtensions.AsInteger*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.AsInteger
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_AsInteger_System_Data_DataRowView_System_String_System_Int32_
+  name: AsInteger
+  nameWithType: DataRowViewExtensions.AsInteger
+  fullName: Tripous.Data.DataRowViewExtensions.AsInteger
+- uid: Tripous.Data.DataRowViewExtensions.AsString*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.AsString
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_AsString_System_Data_DataRowView_System_String_System_String_
+  name: AsString
+  nameWithType: DataRowViewExtensions.AsString
+  fullName: Tripous.Data.DataRowViewExtensions.AsString
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Tripous.Data.DataRowViewExtensions.AsDouble*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.AsDouble
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_AsDouble_System_Data_DataRowView_System_String_System_Double_
+  name: AsDouble
+  nameWithType: DataRowViewExtensions.AsDouble
+  fullName: Tripous.Data.DataRowViewExtensions.AsDouble
+- uid: System.Decimal
+  commentId: T:System.Decimal
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.decimal
+  name: decimal
+  nameWithType: decimal
+  fullName: decimal
+  nameWithType.vb: Decimal
+  fullName.vb: Decimal
+  name.vb: Decimal
+- uid: Tripous.Data.DataRowViewExtensions.AsDecimal*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.AsDecimal
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_AsDecimal_System_Data_DataRowView_System_String_System_Decimal_
+  name: AsDecimal
+  nameWithType: DataRowViewExtensions.AsDecimal
+  fullName: Tripous.Data.DataRowViewExtensions.AsDecimal
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DataRowViewExtensions.AsBoolean*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.AsBoolean
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_AsBoolean_System_Data_DataRowView_System_String_System_Boolean_
+  name: AsBoolean
+  nameWithType: DataRowViewExtensions.AsBoolean
+  fullName: Tripous.Data.DataRowViewExtensions.AsBoolean
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.Data.DataRowViewExtensions.AsDateTime*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.AsDateTime
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_AsDateTime_System_Data_DataRowView_System_String_System_DateTime_
+  name: AsDateTime
+  nameWithType: DataRowViewExtensions.AsDateTime
+  fullName: Tripous.Data.DataRowViewExtensions.AsDateTime
+- uid: System.DateTime.MinValue
+  commentId: F:System.DateTime.MinValue
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime.minvalue
+  name: MinValue
+  nameWithType: DateTime.MinValue
+  fullName: System.DateTime.MinValue
+  nameWithType.vb: Date.MinValue
+  fullName.vb: Date.MinValue
+- uid: Tripous.Data.DataRowViewExtensions.CopyTo*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.CopyTo
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_CopyTo_System_Data_DataRowView_System_Data_DataRowView_
+  name: CopyTo
+  nameWithType: DataRowViewExtensions.CopyTo
+  fullName: Tripous.Data.DataRowViewExtensions.CopyTo
+- uid: Tripous.Data.DataRowViewExtensions.SafeCopyTo*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.SafeCopyTo
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_SafeCopyTo_System_Data_DataRowView_System_Data_DataRowView_
+  name: SafeCopyTo
+  nameWithType: DataRowViewExtensions.SafeCopyTo
+  fullName: Tripous.Data.DataRowViewExtensions.SafeCopyTo
+- uid: Tripous.Data.DataRowViewExtensions.StreamToBlob*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.StreamToBlob
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_StreamToBlob_System_Data_DataRowView_System_String_System_IO_Stream_
+  name: StreamToBlob
+  nameWithType: DataRowViewExtensions.StreamToBlob
+  fullName: Tripous.Data.DataRowViewExtensions.StreamToBlob
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+- uid: Tripous.Data.DataRowViewExtensions.BlobToStream*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.BlobToStream
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_BlobToStream_System_Data_DataRowView_System_String_System_IO_Stream_
+  name: BlobToStream
+  nameWithType: DataRowViewExtensions.BlobToStream
+  fullName: Tripous.Data.DataRowViewExtensions.BlobToStream
+- uid: System.IO.MemoryStream
+  commentId: T:System.IO.MemoryStream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.memorystream
+  name: MemoryStream
+  nameWithType: MemoryStream
+  fullName: System.IO.MemoryStream
+- uid: Tripous.Data.DataRowViewExtensions.LoadFromStream*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.LoadFromStream
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_LoadFromStream_System_Data_DataRowView_System_String_System_IO_Stream_
+  name: LoadFromStream
+  nameWithType: DataRowViewExtensions.LoadFromStream
+  fullName: Tripous.Data.DataRowViewExtensions.LoadFromStream
+- uid: Tripous.Data.DataRowViewExtensions.SaveToStream*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.SaveToStream
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_SaveToStream_System_Data_DataRowView_System_String_System_IO_Stream_
+  name: SaveToStream
+  nameWithType: DataRowViewExtensions.SaveToStream
+  fullName: Tripous.Data.DataRowViewExtensions.SaveToStream
+- uid: Tripous.Data.DataRowViewExtensions.StringToBlob*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.StringToBlob
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_StringToBlob_System_Data_DataRowView_System_String_System_String_
+  name: StringToBlob
+  nameWithType: DataRowViewExtensions.StringToBlob
+  fullName: Tripous.Data.DataRowViewExtensions.StringToBlob
+- uid: Tripous.Data.DataRowViewExtensions.BlobToString*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.BlobToString
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_BlobToString_System_Data_DataRowView_System_String_
+  name: BlobToString
+  nameWithType: DataRowViewExtensions.BlobToString
+  fullName: Tripous.Data.DataRowViewExtensions.BlobToString
+- uid: Tripous.Data.DataRowViewExtensions.TryGetValue*
+  commentId: Overload:Tripous.Data.DataRowViewExtensions.TryGetValue
+  href: Tripous.Data.DataRowViewExtensions.html#Tripous_Data_DataRowViewExtensions_TryGetValue_System_Data_DataRowView_System_String_System_Object__
+  name: TryGetValue
+  nameWithType: DataRowViewExtensions.TryGetValue
+  fullName: Tripous.Data.DataRowViewExtensions.TryGetValue

@@ -1,0 +1,917 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.Db
+  commentId: T:Tripous.Data.Db
+  id: Db
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.Db.Base64ToDataSet(System.String)
+  - Tripous.Data.Db.Base64ToTable(System.String)
+  - Tripous.Data.Db.Connections
+  - Tripous.Data.Db.DataSetToToBase64(System.Data.DataSet)
+  - Tripous.Data.Db.DefaultStore
+  - Tripous.Data.Db.GetConnectionInfo(System.String)
+  - Tripous.Data.Db.GetDefaultConnectionInfo
+  - Tripous.Data.Db.Initialize
+  - Tripous.Data.Db.LoadConnections
+  - Tripous.Data.Db.MainIni
+  - Tripous.Data.Db.Settings
+  - Tripous.Data.Db.StandardDefaultValues
+  - Tripous.Data.Db.TableToToBase64(System.Data.DataTable)
+  langs:
+  - csharp
+  - vb
+  name: Db
+  nameWithType: Db
+  fullName: Tripous.Data.Db
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Db
+    path: ../Tripous.Data/Db.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The central point of this library
+  example: []
+  syntax:
+    content: public static class Db
+    content.vb: Public Module Db
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.Db.Initialize
+  commentId: M:Tripous.Data.Db.Initialize
+  id: Initialize
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: Initialize()
+  nameWithType: Db.Initialize()
+  fullName: Tripous.Data.Db.Initialize()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Initialize
+    path: ../Tripous.Data/Db.cs
+    startLine: 52
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes this class.
+  example: []
+  syntax:
+    content: public static void Initialize()
+    content.vb: Public Shared Sub Initialize()
+  overload: Tripous.Data.Db.Initialize*
+- uid: Tripous.Data.Db.LoadConnections
+  commentId: M:Tripous.Data.Db.LoadConnections
+  id: LoadConnections
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: LoadConnections()
+  nameWithType: Db.LoadConnections()
+  fullName: Tripous.Data.Db.LoadConnections()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoadConnections
+    path: ../Tripous.Data/Db.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Loads connections from a .json file, using the <xref href="Tripous.SettingsBase.SettingsFilePath" data-throw-if-not-resolved="false"></xref> setting.
+  example: []
+  syntax:
+    content: public static void LoadConnections()
+    content.vb: Public Shared Sub LoadConnections()
+  overload: Tripous.Data.Db.LoadConnections*
+- uid: Tripous.Data.Db.GetConnectionInfo(System.String)
+  commentId: M:Tripous.Data.Db.GetConnectionInfo(System.String)
+  id: GetConnectionInfo(System.String)
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: GetConnectionInfo(string)
+  nameWithType: Db.GetConnectionInfo(string)
+  fullName: Tripous.Data.Db.GetConnectionInfo(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetConnectionInfo
+    path: ../Tripous.Data/Db.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the <xref href="Tripous.Data.DbConnectionInfo" data-throw-if-not-resolved="false"></xref> with the specified <code class="paramref">Name</code>, if any, else throws an exception.
+  example: []
+  syntax:
+    content: public static DbConnectionInfo GetConnectionInfo(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    return:
+      type: Tripous.Data.DbConnectionInfo
+    content.vb: Public Shared Function GetConnectionInfo(Name As String) As DbConnectionInfo
+  overload: Tripous.Data.Db.GetConnectionInfo*
+  nameWithType.vb: Db.GetConnectionInfo(String)
+  fullName.vb: Tripous.Data.Db.GetConnectionInfo(String)
+  name.vb: GetConnectionInfo(String)
+- uid: Tripous.Data.Db.GetDefaultConnectionInfo
+  commentId: M:Tripous.Data.Db.GetDefaultConnectionInfo
+  id: GetDefaultConnectionInfo
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: GetDefaultConnectionInfo()
+  nameWithType: Db.GetDefaultConnectionInfo()
+  fullName: Tripous.Data.Db.GetDefaultConnectionInfo()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDefaultConnectionInfo
+    path: ../Tripous.Data/Db.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the default connection string, if any, else throws an exception.
+  example: []
+  syntax:
+    content: public static DbConnectionInfo GetDefaultConnectionInfo()
+    return:
+      type: Tripous.Data.DbConnectionInfo
+    content.vb: Public Shared Function GetDefaultConnectionInfo() As DbConnectionInfo
+  overload: Tripous.Data.Db.GetDefaultConnectionInfo*
+- uid: Tripous.Data.Db.TableToToBase64(System.Data.DataTable)
+  commentId: M:Tripous.Data.Db.TableToToBase64(System.Data.DataTable)
+  id: TableToToBase64(System.Data.DataTable)
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: TableToToBase64(DataTable)
+  nameWithType: Db.TableToToBase64(DataTable)
+  fullName: Tripous.Data.Db.TableToToBase64(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableToToBase64
+    path: ../Tripous.Data/Db.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts Table to Base64 string
+  example: []
+  syntax:
+    content: public static string TableToToBase64(DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    return:
+      type: System.String
+    content.vb: Public Shared Function TableToToBase64(Table As DataTable) As String
+  overload: Tripous.Data.Db.TableToToBase64*
+- uid: Tripous.Data.Db.Base64ToTable(System.String)
+  commentId: M:Tripous.Data.Db.Base64ToTable(System.String)
+  id: Base64ToTable(System.String)
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: Base64ToTable(string)
+  nameWithType: Db.Base64ToTable(string)
+  fullName: Tripous.Data.Db.Base64ToTable(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Base64ToTable
+    path: ../Tripous.Data/Db.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts the Base64 Text to a DataTable
+  example: []
+  syntax:
+    content: public static DataTable Base64ToTable(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Shared Function Base64ToTable(Text As String) As DataTable
+  overload: Tripous.Data.Db.Base64ToTable*
+  nameWithType.vb: Db.Base64ToTable(String)
+  fullName.vb: Tripous.Data.Db.Base64ToTable(String)
+  name.vb: Base64ToTable(String)
+- uid: Tripous.Data.Db.DataSetToToBase64(System.Data.DataSet)
+  commentId: M:Tripous.Data.Db.DataSetToToBase64(System.Data.DataSet)
+  id: DataSetToToBase64(System.Data.DataSet)
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: DataSetToToBase64(DataSet)
+  nameWithType: Db.DataSetToToBase64(DataSet)
+  fullName: Tripous.Data.Db.DataSetToToBase64(System.Data.DataSet)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataSetToToBase64
+    path: ../Tripous.Data/Db.cs
+    startLine: 109
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts DataSet to Base64 string
+  example: []
+  syntax:
+    content: public static string DataSetToToBase64(DataSet DS)
+    parameters:
+    - id: DS
+      type: System.Data.DataSet
+    return:
+      type: System.String
+    content.vb: Public Shared Function DataSetToToBase64(DS As DataSet) As String
+  overload: Tripous.Data.Db.DataSetToToBase64*
+- uid: Tripous.Data.Db.Base64ToDataSet(System.String)
+  commentId: M:Tripous.Data.Db.Base64ToDataSet(System.String)
+  id: Base64ToDataSet(System.String)
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: Base64ToDataSet(string)
+  nameWithType: Db.Base64ToDataSet(string)
+  fullName: Tripous.Data.Db.Base64ToDataSet(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Base64ToDataSet
+    path: ../Tripous.Data/Db.cs
+    startLine: 125
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts the Base64 Text to a DataSet
+  example: []
+  syntax:
+    content: public static DataSet Base64ToDataSet(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.Data.DataSet
+    content.vb: Public Shared Function Base64ToDataSet(Text As String) As DataSet
+  overload: Tripous.Data.Db.Base64ToDataSet*
+  nameWithType.vb: Db.Base64ToDataSet(String)
+  fullName.vb: Tripous.Data.Db.Base64ToDataSet(String)
+  name.vb: Base64ToDataSet(String)
+- uid: Tripous.Data.Db.DefaultStore
+  commentId: P:Tripous.Data.Db.DefaultStore
+  id: DefaultStore
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: DefaultStore
+  nameWithType: Db.DefaultStore
+  fullName: Tripous.Data.Db.DefaultStore
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultStore
+    path: ../Tripous.Data/Db.cs
+    startLine: 146
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the default <xref href="Tripous.Data.SqlStore" data-throw-if-not-resolved="false"></xref>, creating it on first access via <xref href="Tripous.Data.SqlStores.CreateDefaultSqlStore" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public static SqlStore DefaultStore { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SqlStore
+    content.vb: Public Shared ReadOnly Property DefaultStore As SqlStore
+  overload: Tripous.Data.Db.DefaultStore*
+- uid: Tripous.Data.Db.Connections
+  commentId: F:Tripous.Data.Db.Connections
+  id: Connections
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: Connections
+  nameWithType: Db.Connections
+  fullName: Tripous.Data.Db.Connections
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Connections
+    path: ../Tripous.Data/Db.cs
+    startLine: 150
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The registered database connections.
+  example: []
+  syntax:
+    content: public static DbConnections Connections
+    return:
+      type: Tripous.Data.DbConnections
+    content.vb: Public Shared Connections As DbConnections
+- uid: Tripous.Data.Db.MainIni
+  commentId: P:Tripous.Data.Db.MainIni
+  id: MainIni
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: MainIni
+  nameWithType: Db.MainIni
+  fullName: Tripous.Data.Db.MainIni
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MainIni
+    path: ../Tripous.Data/Db.cs
+    startLine: 154
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the main <xref href="Tripous.Data.DbIni" data-throw-if-not-resolved="false"></xref> instance, creating it on first access using the default connection info.
+  example: []
+  syntax:
+    content: public static DbIni MainIni { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbIni
+    content.vb: Public Shared ReadOnly Property MainIni As DbIni
+  overload: Tripous.Data.Db.MainIni*
+- uid: Tripous.Data.Db.StandardDefaultValues
+  commentId: F:Tripous.Data.Db.StandardDefaultValues
+  id: StandardDefaultValues
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: StandardDefaultValues
+  nameWithType: Db.StandardDefaultValues
+  fullName: Tripous.Data.Db.StandardDefaultValues
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StandardDefaultValues
+    path: ../Tripous.Data/Db.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A semi-colon delimited list of the standard default value names.
+  example: []
+  syntax:
+    content: public static readonly string StandardDefaultValues
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly StandardDefaultValues As String
+- uid: Tripous.Data.Db.Settings
+  commentId: P:Tripous.Data.Db.Settings
+  id: Settings
+  parent: Tripous.Data.Db
+  langs:
+  - csharp
+  - vb
+  name: Settings
+  nameWithType: Db.Settings
+  fullName: Tripous.Data.Db.Settings
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Db.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Settings
+    path: ../Tripous.Data/Db.cs
+    startLine: 163
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Db global settings
+  example: []
+  syntax:
+    content: public static DbGlobalSettings Settings { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbGlobalSettings
+    content.vb: Public Shared ReadOnly Property Settings As DbGlobalSettings
+  overload: Tripous.Data.Db.Settings*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.Db.Initialize*
+  commentId: Overload:Tripous.Data.Db.Initialize
+  href: Tripous.Data.Db.html#Tripous_Data_Db_Initialize
+  name: Initialize
+  nameWithType: Db.Initialize
+  fullName: Tripous.Data.Db.Initialize
+- uid: Tripous.SettingsBase.SettingsFilePath
+  commentId: P:Tripous.SettingsBase.SettingsFilePath
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_SettingsFilePath
+  name: SettingsFilePath
+  nameWithType: SettingsBase.SettingsFilePath
+  fullName: Tripous.SettingsBase.SettingsFilePath
+- uid: Tripous.Data.Db.LoadConnections*
+  commentId: Overload:Tripous.Data.Db.LoadConnections
+  href: Tripous.Data.Db.html#Tripous_Data_Db_LoadConnections
+  name: LoadConnections
+  nameWithType: Db.LoadConnections
+  fullName: Tripous.Data.Db.LoadConnections
+- uid: Tripous.SettingsBase
+  commentId: T:Tripous.SettingsBase
+  parent: Tripous
+  href: Tripous.SettingsBase.html
+  name: SettingsBase
+  nameWithType: SettingsBase
+  fullName: Tripous.SettingsBase
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbConnectionInfo
+  commentId: T:Tripous.Data.DbConnectionInfo
+  parent: Tripous.Data
+  href: Tripous.Data.DbConnectionInfo.html
+  name: DbConnectionInfo
+  nameWithType: DbConnectionInfo
+  fullName: Tripous.Data.DbConnectionInfo
+- uid: Tripous.Data.Db.GetConnectionInfo*
+  commentId: Overload:Tripous.Data.Db.GetConnectionInfo
+  href: Tripous.Data.Db.html#Tripous_Data_Db_GetConnectionInfo_System_String_
+  name: GetConnectionInfo
+  nameWithType: Db.GetConnectionInfo
+  fullName: Tripous.Data.Db.GetConnectionInfo
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.Db.GetDefaultConnectionInfo*
+  commentId: Overload:Tripous.Data.Db.GetDefaultConnectionInfo
+  href: Tripous.Data.Db.html#Tripous_Data_Db_GetDefaultConnectionInfo
+  name: GetDefaultConnectionInfo
+  nameWithType: Db.GetDefaultConnectionInfo
+  fullName: Tripous.Data.Db.GetDefaultConnectionInfo
+- uid: Tripous.Data.Db.TableToToBase64*
+  commentId: Overload:Tripous.Data.Db.TableToToBase64
+  href: Tripous.Data.Db.html#Tripous_Data_Db_TableToToBase64_System_Data_DataTable_
+  name: TableToToBase64
+  nameWithType: Db.TableToToBase64
+  fullName: Tripous.Data.Db.TableToToBase64
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data.Db.Base64ToTable*
+  commentId: Overload:Tripous.Data.Db.Base64ToTable
+  href: Tripous.Data.Db.html#Tripous_Data_Db_Base64ToTable_System_String_
+  name: Base64ToTable
+  nameWithType: Db.Base64ToTable
+  fullName: Tripous.Data.Db.Base64ToTable
+- uid: Tripous.Data.Db.DataSetToToBase64*
+  commentId: Overload:Tripous.Data.Db.DataSetToToBase64
+  href: Tripous.Data.Db.html#Tripous_Data_Db_DataSetToToBase64_System_Data_DataSet_
+  name: DataSetToToBase64
+  nameWithType: Db.DataSetToToBase64
+  fullName: Tripous.Data.Db.DataSetToToBase64
+- uid: System.Data.DataSet
+  commentId: T:System.Data.DataSet
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataset
+  name: DataSet
+  nameWithType: DataSet
+  fullName: System.Data.DataSet
+- uid: Tripous.Data.Db.Base64ToDataSet*
+  commentId: Overload:Tripous.Data.Db.Base64ToDataSet
+  href: Tripous.Data.Db.html#Tripous_Data_Db_Base64ToDataSet_System_String_
+  name: Base64ToDataSet
+  nameWithType: Db.Base64ToDataSet
+  fullName: Tripous.Data.Db.Base64ToDataSet
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.SqlStores.CreateDefaultSqlStore
+  commentId: M:Tripous.Data.SqlStores.CreateDefaultSqlStore
+  href: Tripous.Data.SqlStores.html#Tripous_Data_SqlStores_CreateDefaultSqlStore
+  name: CreateDefaultSqlStore()
+  nameWithType: SqlStores.CreateDefaultSqlStore()
+  fullName: Tripous.Data.SqlStores.CreateDefaultSqlStore()
+  spec.csharp:
+  - uid: Tripous.Data.SqlStores.CreateDefaultSqlStore
+    name: CreateDefaultSqlStore
+    href: Tripous.Data.SqlStores.html#Tripous_Data_SqlStores_CreateDefaultSqlStore
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.SqlStores.CreateDefaultSqlStore
+    name: CreateDefaultSqlStore
+    href: Tripous.Data.SqlStores.html#Tripous_Data_SqlStores_CreateDefaultSqlStore
+  - name: (
+  - name: )
+- uid: Tripous.Data.Db.DefaultStore*
+  commentId: Overload:Tripous.Data.Db.DefaultStore
+  href: Tripous.Data.Db.html#Tripous_Data_Db_DefaultStore
+  name: DefaultStore
+  nameWithType: Db.DefaultStore
+  fullName: Tripous.Data.Db.DefaultStore
+- uid: Tripous.Data.DbConnections
+  commentId: T:Tripous.Data.DbConnections
+  parent: Tripous.Data
+  href: Tripous.Data.DbConnections.html
+  name: DbConnections
+  nameWithType: DbConnections
+  fullName: Tripous.Data.DbConnections
+- uid: Tripous.Data.DbIni
+  commentId: T:Tripous.Data.DbIni
+  parent: Tripous.Data
+  href: Tripous.Data.DbIni.html
+  name: DbIni
+  nameWithType: DbIni
+  fullName: Tripous.Data.DbIni
+- uid: Tripous.Data.Db.MainIni*
+  commentId: Overload:Tripous.Data.Db.MainIni
+  href: Tripous.Data.Db.html#Tripous_Data_Db_MainIni
+  name: MainIni
+  nameWithType: Db.MainIni
+  fullName: Tripous.Data.Db.MainIni
+- uid: Tripous.Data.Db.Settings*
+  commentId: Overload:Tripous.Data.Db.Settings
+  href: Tripous.Data.Db.html#Tripous_Data_Db_Settings
+  name: Settings
+  nameWithType: Db.Settings
+  fullName: Tripous.Data.Db.Settings
+- uid: Tripous.Data.DbGlobalSettings
+  commentId: T:Tripous.Data.DbGlobalSettings
+  parent: Tripous.Data
+  href: Tripous.Data.DbGlobalSettings.html
+  name: DbGlobalSettings
+  nameWithType: DbGlobalSettings
+  fullName: Tripous.Data.DbGlobalSettings

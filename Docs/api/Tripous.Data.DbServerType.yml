@@ -1,0 +1,1400 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbServerType
+  commentId: T:Tripous.Data.DbServerType
+  id: DbServerType
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbServerType.Firebird
+  - Tripous.Data.DbServerType.MsSql
+  - Tripous.Data.DbServerType.MySql
+  - Tripous.Data.DbServerType.Oracle
+  - Tripous.Data.DbServerType.PostgreSql
+  - Tripous.Data.DbServerType.Sqlite
+  langs:
+  - csharp
+  - vb
+  name: DbServerType
+  nameWithType: DbServerType
+  fullName: Tripous.Data.DbServerType
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbServerType
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Indicates the type of the database server.
+  example: []
+  syntax:
+    content: public enum DbServerType
+    content.vb: Public Enum DbServerType
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.DbServerType.Tripous.BitFields.Add``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.BitFields.HasAny``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.BitFields.HasNone``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.BitFields.Has``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.BitFields.In``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.BitFields.IsExactly``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.BitFields.IsZero``1
+  - Tripous.Data.DbServerType.Tripous.BitFields.Remove``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.BitFields.Set``1(Tripous.Data.DbServerType,System.Boolean)
+  - Tripous.Data.DbServerType.Tripous.BitFields.Toggle``1(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerType.Tripous.Data.DbServerTypeHelper.GetFactory
+  - Tripous.Data.DbServerType.Tripous.Data.DbServerTypeHelper.GetProviderInvariantName
+  - Tripous.Data.DbServerType.Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString
+- uid: Tripous.Data.DbServerType.MsSql
+  commentId: F:Tripous.Data.DbServerType.MsSql
+  id: MsSql
+  parent: Tripous.Data.DbServerType
+  langs:
+  - csharp
+  - vb
+  name: MsSql
+  nameWithType: DbServerType.MsSql
+  fullName: Tripous.Data.DbServerType.MsSql
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MsSql
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Microsoft SQL Server.
+  example: []
+  syntax:
+    content: MsSql = 0
+    return:
+      type: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbServerType.MySql
+  commentId: F:Tripous.Data.DbServerType.MySql
+  id: MySql
+  parent: Tripous.Data.DbServerType
+  langs:
+  - csharp
+  - vb
+  name: MySql
+  nameWithType: DbServerType.MySql
+  fullName: Tripous.Data.DbServerType.MySql
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MySql
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: MySQL.
+  example: []
+  syntax:
+    content: MySql = 1
+    return:
+      type: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbServerType.PostgreSql
+  commentId: F:Tripous.Data.DbServerType.PostgreSql
+  id: PostgreSql
+  parent: Tripous.Data.DbServerType
+  langs:
+  - csharp
+  - vb
+  name: PostgreSql
+  nameWithType: DbServerType.PostgreSql
+  fullName: Tripous.Data.DbServerType.PostgreSql
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PostgreSql
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: PostgreSQL.
+  example: []
+  syntax:
+    content: PostgreSql = 2
+    return:
+      type: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbServerType.Firebird
+  commentId: F:Tripous.Data.DbServerType.Firebird
+  id: Firebird
+  parent: Tripous.Data.DbServerType
+  langs:
+  - csharp
+  - vb
+  name: Firebird
+  nameWithType: DbServerType.Firebird
+  fullName: Tripous.Data.DbServerType.Firebird
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Firebird
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Firebird.
+  example: []
+  syntax:
+    content: Firebird = 3
+    return:
+      type: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbServerType.Oracle
+  commentId: F:Tripous.Data.DbServerType.Oracle
+  id: Oracle
+  parent: Tripous.Data.DbServerType
+  langs:
+  - csharp
+  - vb
+  name: Oracle
+  nameWithType: DbServerType.Oracle
+  fullName: Tripous.Data.DbServerType.Oracle
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Oracle
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Oracle.
+  example: []
+  syntax:
+    content: Oracle = 4
+    return:
+      type: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbServerType.Sqlite
+  commentId: F:Tripous.Data.DbServerType.Sqlite
+  id: Sqlite
+  parent: Tripous.Data.DbServerType
+  langs:
+  - csharp
+  - vb
+  name: Sqlite
+  nameWithType: DbServerType.Sqlite
+  fullName: Tripous.Data.DbServerType.Sqlite
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Sqlite
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: SQLite.
+  example: []
+  syntax:
+    content: Sqlite = 5
+    return:
+      type: Tripous.Data.DbServerType
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.Add``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.Add<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.Add<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.Add(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: Add(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.HasAny``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.HasAny<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.HasAny(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: HasAny(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.HasNone``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.HasNone<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.HasNone(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: HasNone(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.Has``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.Has<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.Has<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.Has(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: Has(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.In``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.In<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.In<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.In(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: In(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.IsExactly``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.IsExactly<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.IsExactly(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: IsExactly(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<DbServerType>(DbServerType)
+  nameWithType: BitFields.IsZero<DbServerType>(DbServerType)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.DbServerType>(Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.IsZero(Of DbServerType)(DbServerType)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType)
+  name.vb: IsZero(Of DbServerType)(DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.DbServerType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.DbServerType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.Remove``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.Remove<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.Remove(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: Remove(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.Set``1(Tripous.Data.DbServerType,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<DbServerType>(DbServerType, DbServerType, bool)
+  nameWithType: BitFields.Set<DbServerType>(DbServerType, DbServerType, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType, bool)
+  nameWithType.vb: BitFields.Set(Of DbServerType)(DbServerType, DbServerType, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType, Boolean)
+  name.vb: Set(Of DbServerType)(DbServerType, DbServerType, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.BitFields.Toggle``1(Tripous.Data.DbServerType)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<DbServerType>(DbServerType, DbServerType)
+  nameWithType: BitFields.Toggle<DbServerType>(DbServerType, DbServerType)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.DbServerType>(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  nameWithType.vb: BitFields.Toggle(Of DbServerType)(DbServerType, DbServerType)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.DbServerType)(Tripous.Data.DbServerType, Tripous.Data.DbServerType)
+  name.vb: Toggle(Of DbServerType)(DbServerType, DbServerType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.DbServerType,Tripous.Data.DbServerType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.Data.DbServerTypeHelper.GetFactory
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  parent: Tripous.Data.DbServerTypeHelper
+  definition: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetFactory_Tripous_Data_DbServerType_
+  name: GetFactory(DbServerType)
+  nameWithType: DbServerTypeHelper.GetFactory(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  spec.csharp:
+  - uid: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+    name: GetFactory
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetFactory_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+    name: GetFactory
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetFactory_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.Data.DbServerTypeHelper.GetProviderInvariantName
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  parent: Tripous.Data.DbServerTypeHelper
+  definition: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetProviderInvariantName_Tripous_Data_DbServerType_
+  name: GetProviderInvariantName(DbServerType)
+  nameWithType: DbServerTypeHelper.GetProviderInvariantName(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  spec.csharp:
+  - uid: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+    name: GetProviderInvariantName
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetProviderInvariantName_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+    name: GetProviderInvariantName
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetProviderInvariantName_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerType.Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  parent: Tripous.Data.DbServerTypeHelper
+  definition: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetTemplateConnectionString_Tripous_Data_DbServerType_
+  name: GetTemplateConnectionString(DbServerType)
+  nameWithType: DbServerTypeHelper.GetTemplateConnectionString(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  spec.csharp:
+  - uid: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+    name: GetTemplateConnectionString
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetTemplateConnectionString_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+    name: GetTemplateConnectionString
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetTemplateConnectionString_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetFactory_Tripous_Data_DbServerType_
+  name: GetFactory(DbServerType)
+  nameWithType: DbServerTypeHelper.GetFactory(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  spec.csharp:
+  - uid: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+    name: GetFactory
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetFactory_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+    name: GetFactory
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetFactory_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerTypeHelper
+  commentId: T:Tripous.Data.DbServerTypeHelper
+  parent: Tripous.Data
+  href: Tripous.Data.DbServerTypeHelper.html
+  name: DbServerTypeHelper
+  nameWithType: DbServerTypeHelper
+  fullName: Tripous.Data.DbServerTypeHelper
+- uid: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetProviderInvariantName_Tripous_Data_DbServerType_
+  name: GetProviderInvariantName(DbServerType)
+  nameWithType: DbServerTypeHelper.GetProviderInvariantName(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  spec.csharp:
+  - uid: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+    name: GetProviderInvariantName
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetProviderInvariantName_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+    name: GetProviderInvariantName
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetProviderInvariantName_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetTemplateConnectionString_Tripous_Data_DbServerType_
+  name: GetTemplateConnectionString(DbServerType)
+  nameWithType: DbServerTypeHelper.GetTemplateConnectionString(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  spec.csharp:
+  - uid: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+    name: GetTemplateConnectionString
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetTemplateConnectionString_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+    name: GetTemplateConnectionString
+    href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetTemplateConnectionString_Tripous_Data_DbServerType_
+  - name: (
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    href: Tripous.Data.DbServerType.html
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbServerType
+  commentId: T:Tripous.Data.DbServerType
+  parent: Tripous.Data
+  href: Tripous.Data.DbServerType.html
+  name: DbServerType
+  nameWithType: DbServerType
+  fullName: Tripous.Data.DbServerType

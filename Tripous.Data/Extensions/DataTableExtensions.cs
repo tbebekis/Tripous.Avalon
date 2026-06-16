@@ -411,14 +411,6 @@ static public class DataTableExtensions
 
         foreach (DataRow SourceRow in Source.Rows)
             Dest.ImportRow(SourceRow);
-
-        DataTable Temp = Source.GetChanges(DataRowState.Deleted);
-
-        if (Temp != null)
-        {
-            foreach (DataRow Row in Temp.Rows)
-                Dest.ImportRow(Row);
-        }
     }
     /// <summary>
     /// Copies Source data rows to Result data rows, preserving the RowState.
@@ -451,6 +443,8 @@ static public class DataTableExtensions
                 Row.CopyTo(DestRow);
                 Table.Rows.Add(DestRow);
             }
+
+            return Table;
         }
 
         return new DataTable();
@@ -617,6 +611,9 @@ static public class DataTableExtensions
 
         foreach (DataRow Row in Table.Rows)
         {
+            if (Row.RowState == DataRowState.Deleted || Row.RowState == DataRowState.Detached)
+                continue;
+
             bool Match = true;
 
             for (int i = 0; i < FieldNames.Length; i++)

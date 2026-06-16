@@ -562,43 +562,7 @@ static public class Sys
     /// <summary>
     /// Returns a list of non-system assemblies
     /// </summary>
-    static public List<Assembly> GetApplicationAssemblies(string[] ExcludeAssempliesContaining = null)
-    {
-        //---------------------------------------------------
-        bool CanInclude(string Name)
-        {
-            if (string.IsNullOrWhiteSpace(Name) ||
-                Name.StartsWith("System") ||
-                Name.StartsWith("Microsoft") ||
-                Name.StartsWith("Avalonia") ||
-                Name.StartsWith("mscorlib") ||
-                Name.StartsWith("netstandard"))
-                return false;
-            
-            if (ExcludeAssempliesContaining != null)
-            {
-                foreach (string AssemplyNamePart in ExcludeAssempliesContaining)
-                    if (Name.ContainsText(AssemplyNamePart))
-                        return false;
-            }
-
-            return true;
-        }
-        //---------------------------------------------------
-        
-        List<Assembly> Result = new List<Assembly>();
-        Assembly[] LoadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-        foreach (Assembly Item in LoadedAssemblies)
-        {
-            string Name = Item.GetName().Name;
-            bool Flag = CanInclude(Name);
-            if (Flag)
-                Result.Add(Item);
-        }
-
-        return Result;
-    }
+    static public List<Assembly> GetApplicationAssemblies(string[] ExcludeAssempliesContaining = null) => AppAssemblies.GetApplicationAssemblies(ExcludeAssempliesContaining);
    
     /// <summary>
     /// Creates and returns a new Guid.
@@ -625,12 +589,9 @@ static public class Sys
             CharSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
         char[] Buffer = new char[Length];
-        Random R = new Random();
 
         for (int i = 0; i < Buffer.Length; i++)
-        {
-            Buffer[i] = CharSet[R.Next(CharSet.Length)];
-        }
+            Buffer[i] = CharSet[RandomNumberGenerator.GetInt32(CharSet.Length)];
 
         string Result = new string(Buffer);
         return Result;

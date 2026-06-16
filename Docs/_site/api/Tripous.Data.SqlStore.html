@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SqlStore | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SqlStore | Tripous Framework Documentation ">
+      
+      <meta name="description" content="Sql store. Used in executing SELECT, INSERT, UPDATE, DELETE, etc commands, using a DbConnection.  Many methods use a Params parameter. That Params can be:  a. either a comma separated list of parameters or  b. the Params[0] element, that is the first element in Params, may be  a a generic &amp;lt;string, object&amp;gt;or an  or  and in this second case no other Params elements are used">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/tbebekis/Tripous.Avalon/new/main/apiSpec/new?filename=Tripous_Data_SqlStore.md&amp;value=---%0Auid%3A%20Tripous.Data.SqlStore%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.Data.SqlStore">
+
+
+
+  <h1 id="Tripous_Data_SqlStore" data-uid="Tripous.Data.SqlStore" class="text-break">
+Class SqlStore  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a>.<a class="xref" href="Tripous.Data.html">Data</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.Data.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Sql store. Used in executing SELECT, INSERT, UPDATE, DELETE, etc commands, using a DbConnection.</p>
+<p>
+Many methods use a Params parameter.
+That Params can be: <br>
+a. either a comma separated list of parameters or <br>
+b. the Params[0] element, that is the first element in Params, may be 
+<ol><li>a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></li><li>a generic <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.idictionary">IDictionary</a>&lt;string, object&gt;</li><li>or an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ilist">IList</a> or <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.array">Array</a></li></ol>
+<p>and in this second case no other Params elements are used</p>
+
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SqlStore</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">SqlStore</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_">TypeExtensions.InheritsFrom(object, Type)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Tripous_Data_SqlStore__ctor_" data-uid="Tripous.Data.SqlStore.#ctor*"></a>
+
+  <h3 id="Tripous_Data_SqlStore__ctor_Tripous_Data_DbConnectionInfo_" data-uid="Tripous.Data.SqlStore.#ctor(Tripous.Data.DbConnectionInfo)">
+  SqlStore(DbConnectionInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SqlStore(DbConnectionInfo ConnectionInfo)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionInfo</code> <a class="xref" href="Tripous.Data.DbConnectionInfo.html">DbConnectionInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Tripous_Data_SqlStore_ConnectionInfo_" data-uid="Tripous.Data.SqlStore.ConnectionInfo*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ConnectionInfo" data-uid="Tripous.Data.SqlStore.ConnectionInfo">
+  ConnectionInfo
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L518"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The connection info used by this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DbConnectionInfo ConnectionInfo { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.DbConnectionInfo.html">DbConnectionInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_Provider_" data-uid="Tripous.Data.SqlStore.Provider*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_Provider" data-uid="Tripous.Data.SqlStore.Provider">
+  Provider
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L514"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The SqlProvider used by this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SqlProvider Provider { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.SqlProvider.html">SqlProvider</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_Data_SqlStore_BeginTransaction_" data-uid="Tripous.Data.SqlStore.BeginTransaction*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_BeginTransaction" data-uid="Tripous.Data.SqlStore.BeginTransaction">
+  BeginTransaction()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a DbConnection, opens the connection and begins a transaction.
+Returns the transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DbTransaction BeginTransaction()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_CanConnect_" data-uid="Tripous.Data.SqlStore.CanConnect*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_CanConnect_System_Boolean_" data-uid="Tripous.Data.SqlStore.CanConnect(System.Boolean)">
+  CanConnect(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if this connection info is valid and can connect to a database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanConnect(bool ThrowIfNot = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ThrowIfNot</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_CreateTable_" data-uid="Tripous.Data.SqlStore.CreateTable*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_CreateTable_System_String_" data-uid="Tripous.Data.SqlStore.CreateTable(System.String)">
+  CreateTable(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L467"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a new table in the database by executing CommandText. Returns true
+only if creates the table, false if the table already exists.</p>
+<p>The method creates a table generator too, if the database supports generators/sequences.</p>
+<p>CommandText should be a CREATE TABLE statement and can contain datatype placeholders.
+See <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_">ReplaceDataTypePlaceholders(string)</a> for details.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool CreateTable(string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_EnsureConnection_" data-uid="Tripous.Data.SqlStore.EnsureConnection*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_EnsureConnection_System_String_" data-uid="Tripous.Data.SqlStore.EnsureConnection(System.String)">
+  EnsureConnection(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ensures that a connection can be done by opening and closing the connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void EnsureConnection(string ConnectionString)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_ExecSql_" data-uid="Tripous.Data.SqlStore.ExecSql*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ExecSql_System_Action_System_Data_Common_DbTransaction__" data-uid="Tripous.Data.SqlStore.ExecSql(System.Action{System.Data.Common.DbTransaction})">
+  ExecSql(Action&lt;DbTransaction&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>It can be used in executin multiple SQL operations inside a single transaction using a callback.</p>
+<p>Example</p>
+<pre><code class="lang-csharp">Provider.ExecSql(ConnectionString,
+    tr =&gt; Provider.ExecSql(tr, Sql1, Params1),
+    tr =&gt; Provider.ExecSql(tr, Sql2, Params2),
+    tr =&gt; Provider.ExecSql(tr, Sql3, Params3)
+);</code></pre>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExecSql(Action&lt;DbTransaction&gt; Action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Action</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_ExecSql_" data-uid="Tripous.Data.SqlStore.ExecSql*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ExecSql_System_Collections_Generic_IEnumerable_System_String__" data-uid="Tripous.Data.SqlStore.ExecSql(System.Collections.Generic.IEnumerable{System.String})">
+  ExecSql(IEnumerable&lt;string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a list of executable statements inside a single transaction</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ExecSql(IEnumerable&lt;string&gt; SqlTextList)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlTextList</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_ExecSql_" data-uid="Tripous.Data.SqlStore.ExecSql*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ExecSql_System_Data_Common_DbTransaction_System_String_" data-uid="Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String)">
+  ExecSql(DbTransaction, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a single SQL operation inside a transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ExecSql(DbTransaction Transaction, string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_ExecSql_" data-uid="Tripous.Data.SqlStore.ExecSql*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ExecSql_System_Data_Common_DbTransaction_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String,System.Object[])">
+  ExecSql(DbTransaction, string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a single SQL operation inside a transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ExecSql(DbTransaction Transaction, string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_ExecSql_" data-uid="Tripous.Data.SqlStore.ExecSql*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ExecSql_System_String_" data-uid="Tripous.Data.SqlStore.ExecSql(System.String)">
+  ExecSql(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ExecSql(string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_ExecSql_" data-uid="Tripous.Data.SqlStore.ExecSql*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ExecSql_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.ExecSql(System.String,System.Object[])">
+  ExecSql(string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ExecSql(string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_FieldExists_" data-uid="Tripous.Data.SqlStore.FieldExists*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_FieldExists_System_String_System_String_" data-uid="Tripous.Data.SqlStore.FieldExists(System.String,System.String)">
+  FieldExists(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L494"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the FieldName exists in TableName table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool FieldExists(string TableName, string FieldName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>FieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetFieldNames_" data-uid="Tripous.Data.SqlStore.GetFieldNames*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetFieldNames_System_String_" data-uid="Tripous.Data.SqlStore.GetFieldNames(System.String)">
+  GetFieldNames(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L385"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string list with the field names of the TableName</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;string&gt; GetFieldNames(string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetIndexNames_" data-uid="Tripous.Data.SqlStore.GetIndexNames*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetIndexNames" data-uid="Tripous.Data.SqlStore.GetIndexNames">
+  GetIndexNames()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L401"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string list with the index names in the database</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;string&gt; GetIndexNames()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetNativeSchemaFromSelect_" data-uid="Tripous.Data.SqlStore.GetNativeSchemaFromSelect*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetNativeSchemaFromSelect_System_String_System_String_" data-uid="Tripous.Data.SqlStore.GetNativeSchemaFromSelect(System.String,System.String)">
+  GetNativeSchemaFromSelect(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L342"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the native schema of the SqlText SELECT statement..</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataTable GetNativeSchemaFromSelect(string StatementName, string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>StatementName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datatable">DataTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetNativeSchemaFromTableName_" data-uid="Tripous.Data.SqlStore.GetNativeSchemaFromTableName*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_" data-uid="Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)">
+  GetNativeSchemaFromTableName(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L332"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the native schema of the TableName table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataTable GetNativeSchemaFromTableName(string StatementName, string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>StatementName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datatable">DataTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetSchema_" data-uid="Tripous.Data.SqlStore.GetSchema*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetSchema" data-uid="Tripous.Data.SqlStore.GetSchema">
+  GetSchema()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L304"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns schema information for the data source of this System.Data.Common.DbConnection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DataTable GetSchema()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datatable">DataTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetSchema_" data-uid="Tripous.Data.SqlStore.GetSchema*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetSchema_System_String_" data-uid="Tripous.Data.SqlStore.GetSchema(System.String)">
+  GetSchema(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L313"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns schema information for the data source of this System.Data.Common.DbConnection
+using the specified string for the schema name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DataTable GetSchema(string collectionName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collectionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datatable">DataTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetSchema_" data-uid="Tripous.Data.SqlStore.GetSchema*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetSchema_System_String_System_String___" data-uid="Tripous.Data.SqlStore.GetSchema(System.String,System.String[])">
+  GetSchema(string, string[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L323"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns schema information for the data source of this System.Data.Common.DbConnection
+using the specified string for the schema name and the specified string array
+for the restriction values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DataTable GetSchema(string collectionName, string[] restrictionValues)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collectionName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>restrictionValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datatable">DataTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetServerDateTime_" data-uid="Tripous.Data.SqlStore.GetServerDateTime*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetServerDateTime" data-uid="Tripous.Data.SqlStore.GetServerDateTime">
+  GetServerDateTime()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L195"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the datetime value from the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime GetServerDateTime()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_GetTableNames_" data-uid="Tripous.Data.SqlStore.GetTableNames*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_GetTableNames" data-uid="Tripous.Data.SqlStore.GetTableNames">
+  GetTableNames()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L372"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string list with the table names in the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;string&gt; GetTableNames()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_IndexExists_" data-uid="Tripous.Data.SqlStore.IndexExists*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_IndexExists_System_String_" data-uid="Tripous.Data.SqlStore.IndexExists(System.String)">
+  IndexExists(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L502"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if an index with IndexName exists in the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IndexExists(string IndexName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>IndexName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_IntegerResult_" data-uid="Tripous.Data.SqlStore.IntegerResult*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_IntegerResult_System_Data_Common_DbTransaction_System_String_System_Int32_System_Object___" data-uid="Tripous.Data.SqlStore.IntegerResult(System.Data.Common.DbTransaction,System.String,System.Int32,System.Object[])">
+  IntegerResult(DbTransaction, string, int, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ideal for executing SELECT statements of the type &quot;select count(ID) as COUNT_ID from TABLE_NAME where ID = 1234&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IntegerResult(DbTransaction Transaction, string SqlText, int Default, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_IntegerResult_" data-uid="Tripous.Data.SqlStore.IntegerResult*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_IntegerResult_System_String_System_Int32_" data-uid="Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32)">
+  IntegerResult(string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L181"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ideal for executing SELECT statements of the type &quot;select count(ID) as COUNT_ID from TABLE_NAME where ID = 1234&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IntegerResult(string SqlText, int Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_IntegerResult_" data-uid="Tripous.Data.SqlStore.IntegerResult*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_IntegerResult_System_String_System_Int32_System_Object___" data-uid="Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32,System.Object[])">
+  IntegerResult(string, int, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ideal for executing SELECT statements of the type &quot;select count(ID) as COUNT_ID from TABLE_NAME where ID = 1234&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IntegerResult(string SqlText, int Default, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_LastId_" data-uid="Tripous.Data.SqlStore.LastId*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_LastId_System_Data_Common_DbTransaction_System_String_" data-uid="Tripous.Data.SqlStore.LastId(System.Data.Common.DbTransaction,System.String)">
+  LastId(DbTransaction, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L210"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the last id produced by an INSERT Sqlt statement.</p>
+<p>It should be used only with databases that support identity (auto-increment) columns</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int LastId(DbTransaction Transaction, string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_LastId_" data-uid="Tripous.Data.SqlStore.LastId*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_LastId_System_String_" data-uid="Tripous.Data.SqlStore.LastId(System.String)">
+  LastId(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L253"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the last id produced by an INSERT Sqlt statement.</p>
+<p>It should be used only with databases that support identity (auto-increment) columns</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int LastId(string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_NextId_" data-uid="Tripous.Data.SqlStore.NextId*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_NextId_System_Data_Common_DbTransaction_System_String_" data-uid="Tripous.Data.SqlStore.NextId(System.Data.Common.DbTransaction,System.String)">
+  NextId(DbTransaction, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L202"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the next id value of a generator named after the TableName table.</p>
+<p>It should be used only with databases that support generators or when a CustomOid object is used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int NextId(DbTransaction Transaction, string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_NextId_" data-uid="Tripous.Data.SqlStore.NextId*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_NextId_System_String_" data-uid="Tripous.Data.SqlStore.NextId(System.String)">
+  NextId(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L227"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the next id value of a generator named after the TableName table.</p>
+<p>It should be used only with databases that support generators or when a CustomOid object is used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int NextId(string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_NextIdByGenerator_" data-uid="Tripous.Data.SqlStore.NextIdByGenerator*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_NextIdByGenerator_System_Data_Common_DbTransaction_System_String_" data-uid="Tripous.Data.SqlStore.NextIdByGenerator(System.Data.Common.DbTransaction,System.String)">
+  NextIdByGenerator(DbTransaction, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the next value of the GeneratorName generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int NextIdByGenerator(DbTransaction Transaction, string GeneratorName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>GeneratorName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_NextIdByGenerator_" data-uid="Tripous.Data.SqlStore.NextIdByGenerator*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_NextIdByGenerator_System_String_" data-uid="Tripous.Data.SqlStore.NextIdByGenerator(System.String)">
+  NextIdByGenerator(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L278"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the next value of the GeneratorName generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int NextIdByGenerator(string GeneratorName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>GeneratorName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_OpenConnection_" data-uid="Tripous.Data.SqlStore.OpenConnection*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_OpenConnection" data-uid="Tripous.Data.SqlStore.OpenConnection">
+  OpenConnection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates and opens a DbConnection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DbConnection OpenConnection()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbconnection">DbConnection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_ResetTable_" data-uid="Tripous.Data.SqlStore.ResetTable*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_ResetTable_System_String_" data-uid="Tripous.Data.SqlStore.ResetTable(System.String)">
+  ResetTable(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L446"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Empties the TableName table in the database and initializes its generator/sequencer or identity column.</p>
+<p>DANGEROUS</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetTable(string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_Select_" data-uid="Tripous.Data.SqlStore.Select*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_Select_System_Data_Common_DbTransaction_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.Select(System.Data.Common.DbTransaction,System.String,System.Object[])">
+  Select(DbTransaction, string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SELECT statement inside a transaction and returns the result as a DataTable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MemTable Select(DbTransaction Transaction, string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.MemTable.html">MemTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_Select_" data-uid="Tripous.Data.SqlStore.Select*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_Select_System_String_" data-uid="Tripous.Data.SqlStore.Select(System.String)">
+  Select(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SELECT statement and returns the result as a DataTable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MemTable Select(string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.MemTable.html">MemTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_Select_" data-uid="Tripous.Data.SqlStore.Select*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_Select_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.Select(System.String,System.Object[])">
+  Select(string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SELECT statement and returns the result as a DataTable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MemTable Select(string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.MemTable.html">MemTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectIncrementLocked_" data-uid="Tripous.Data.SqlStore.SelectIncrementLocked*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectIncrementLocked_System_String_System_String_System_Object_System_String_" data-uid="Tripous.Data.SqlStore.SelectIncrementLocked(System.String,System.String,System.Object,System.String)">
+  SelectIncrementLocked(string, string, object, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Selects a row with update lock, increments an integer field, and returns the initial row.</p>
+<p>Example</p>
+<code>DataRow Row = SelectIncrementLocked("NumberSeries", "Code", "SALES_DOMESTIC_1", "NextNumber");</code>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DataRow SelectIncrementLocked(string TableName, string KeyFieldName, object KeyValue, string ValueFieldName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>KeyFieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>KeyValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>ValueFieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectResult_" data-uid="Tripous.Data.SqlStore.SelectResult*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectResult_System_Data_Common_DbTransaction_System_String_System_Object_System_Object___" data-uid="Tripous.Data.SqlStore.SelectResult(System.Data.Common.DbTransaction,System.String,System.Object,System.Object[])">
+  SelectResult(DbTransaction, string, object, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L176"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ideal for executing SELECT statements of the type &quot;select FIELD_NAME from TABLE_NAME&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object SelectResult(DbTransaction Transaction, string SqlText, object Default, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectResult_" data-uid="Tripous.Data.SqlStore.SelectResult*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectResult_System_String_" data-uid="Tripous.Data.SqlStore.SelectResult(System.String)">
+  SelectResult(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L164"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ideal for executing SELECT statements of the type &quot;select FIELD_NAME from TABLE_NAME&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object SelectResult(string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectResult_" data-uid="Tripous.Data.SqlStore.SelectResult*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectResult_System_String_System_Object_" data-uid="Tripous.Data.SqlStore.SelectResult(System.String,System.Object)">
+  SelectResult(string, object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ideal for executing SELECT statements of the type &quot;select FIELD_NAME from TABLE_NAME&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object SelectResult(string SqlText, object Default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectResult_" data-uid="Tripous.Data.SqlStore.SelectResult*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectResult_System_String_System_Object_System_Object___" data-uid="Tripous.Data.SqlStore.SelectResult(System.String,System.Object,System.Object[])">
+  SelectResult(string, object, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ideal for executing SELECT statements of the type &quot;select FIELD_NAME from TABLE_NAME&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object SelectResult(string SqlText, object Default, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Default</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectResults_" data-uid="Tripous.Data.SqlStore.SelectResults*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectResults_System_Data_Common_DbTransaction_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.SelectResults(System.Data.Common.DbTransaction,System.String,System.Object[])">
+  SelectResults(DbTransaction, string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes SqlText and returns the first DataRow of the result set.</p>
+<p>WARNING: If SqlText returns no rows at all then this method returns null.</p>
+<p></p>
+<p>Params can be: </p>
+<p>1. either a comma separated C# params list</p>
+<p>2. or the Params[0] element, that is the first element in Params, may be a DataRow, generic IDictionary, IList or Array
+and in that case no other Params elements are used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataRow SelectResults(DbTransaction Transaction, string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectResults_" data-uid="Tripous.Data.SqlStore.SelectResults*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectResults_System_String_" data-uid="Tripous.Data.SqlStore.SelectResults(System.String)">
+  SelectResults(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes SqlText and returns the first DataRow of the result set.</p>
+<p>WARNING: If SqlText returns no rows at all then this method returns null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataRow SelectResults(string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectResults_" data-uid="Tripous.Data.SqlStore.SelectResults*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectResults_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.SelectResults(System.String,System.Object[])">
+  SelectResults(string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L149"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes SqlText and returns the first DataRow of the result set.</p>
+<p>WARNING: If SqlText returns no rows at all then this method returns null.</p>
+<p></p>
+<p>Params can be: </p>
+<p>1. either a comma separated C# params list</p>
+<p>2. or the Params[0] element, that is the first element in Params, may be a DataRow, generic IDictionary, IList or Array
+and in that case no other Params elements are used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataRow SelectResults(string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectTo_" data-uid="Tripous.Data.SqlStore.SelectTo*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectTo_System_Data_Common_DbTransaction_Tripous_Data_MemTable_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.SelectTo(System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.String,System.Object[])">
+  SelectTo(DbTransaction, MemTable, string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SELECT statement and loads the result into the specified DataTable using a transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SelectTo(DbTransaction Transaction, MemTable Table, string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>Table</code> <a class="xref" href="Tripous.Data.MemTable.html">MemTable</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectTo_" data-uid="Tripous.Data.SqlStore.SelectTo*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectTo_Tripous_Data_MemTable_System_String_" data-uid="Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String)">
+  SelectTo(MemTable, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SELECT statement and loads the result into the specified DataTable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SelectTo(MemTable Table, string SqlText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Table</code> <a class="xref" href="Tripous.Data.MemTable.html">MemTable</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_SelectTo_" data-uid="Tripous.Data.SqlStore.SelectTo*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_SelectTo_Tripous_Data_MemTable_System_String_System_Object___" data-uid="Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String,System.Object[])">
+  SelectTo(MemTable, string, params object[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a SELECT statement and loads the result into the specified DataTable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SelectTo(MemTable Table, string SqlText, params object[] Params)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Table</code> <a class="xref" href="Tripous.Data.MemTable.html">MemTable</a></dt>
+    <dd></dd>
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Params</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_TableExists_" data-uid="Tripous.Data.SqlStore.TableExists*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_TableExists_System_String_System_Boolean_" data-uid="Tripous.Data.SqlStore.TableExists(System.String,System.Boolean)">
+  TableExists(string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L419"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if a table with TableName exists in the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TableExists(string TableName, bool UseSelect = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>UseSelect</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlStore_TableIsEmpty_" data-uid="Tripous.Data.SqlStore.TableIsEmpty*"></a>
+
+  <h3 id="Tripous_Data_SqlStore_TableIsEmpty_System_String_" data-uid="Tripous.Data.SqlStore.TableIsEmpty(System.String)">
+  TableIsEmpty(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L454"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if a table contains no rows in the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TableIsEmpty(string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlStore.cs/#L25" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

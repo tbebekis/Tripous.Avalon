@@ -1,0 +1,537 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  id: IDef
+  parent: Tripous
+  children:
+  - Tripous.IDef.Assign(Tripous.IDef)
+  - Tripous.IDef.CheckDescriptor
+  - Tripous.IDef.Clear
+  - Tripous.IDef.Clone
+  - Tripous.IDef.Name
+  - Tripous.IDef.Tag
+  - Tripous.IDef.Title
+  - Tripous.IDef.TitleKey
+  - Tripous.IDef.UpdateReferences
+  langs:
+  - csharp
+  - vb
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+  type: Interface
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IDef
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Base interface for all descriptors
+  example: []
+  syntax:
+    content: public interface IDef
+    content.vb: Public Interface IDef
+  derivedClasses:
+  - Tripous.BaseDef
+  - Tripous.Command
+  - Tripous.Data.CodeProviderDef
+  - Tripous.Data.ConfigPropertyDef
+  - Tripous.Data.DocumentHandlerDef
+  - Tripous.Data.FieldDef
+  - Tripous.Data.LocatorDef
+  - Tripous.Data.LocatorFieldDef
+  - Tripous.Data.LookupDef
+  - Tripous.Data.ModuleDef
+  - Tripous.Data.SchemaVersionDef
+  - Tripous.Data.SelectDef
+  - Tripous.Data.SelectSql
+  - Tripous.Data.SqlFilterDef
+  - Tripous.Data.TableDef
+  - Tripous.Desktop.FormDef
+  - Tripous.Desktop.GridColumnDef
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.IDef.CheckDescriptor
+  commentId: M:Tripous.IDef.CheckDescriptor
+  id: CheckDescriptor
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: CheckDescriptor()
+  nameWithType: IDef.CheckDescriptor()
+  fullName: Tripous.IDef.CheckDescriptor()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckDescriptor
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 19
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Throws an exception if this descriptor is not fully defined
+  example: []
+  syntax:
+    content: void CheckDescriptor()
+    content.vb: Sub CheckDescriptor()
+  overload: Tripous.IDef.CheckDescriptor*
+- uid: Tripous.IDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.IDef.Assign(Tripous.IDef)
+  id: Assign(Tripous.IDef)
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: Assign(IDef)
+  nameWithType: IDef.Assign(IDef)
+  fullName: Tripous.IDef.Assign(Tripous.IDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Assign
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 24
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Assigns property values from a source instance.
+  example: []
+  syntax:
+    content: void Assign(IDef Source)
+    parameters:
+    - id: Source
+      type: Tripous.IDef
+    content.vb: Sub Assign(Source As IDef)
+  overload: Tripous.IDef.Assign*
+- uid: Tripous.IDef.Clone
+  commentId: M:Tripous.IDef.Clone
+  id: Clone
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: Clone()
+  nameWithType: IDef.Clone()
+  fullName: Tripous.IDef.Clone()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clone
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 28
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns a clone of this instance.
+  example: []
+  syntax:
+    content: IDef Clone()
+    return:
+      type: Tripous.IDef
+    content.vb: Function Clone() As IDef
+  overload: Tripous.IDef.Clone*
+- uid: Tripous.IDef.Clear
+  commentId: M:Tripous.IDef.Clear
+  id: Clear
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: IDef.Clear()
+  fullName: Tripous.IDef.Clear()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clear
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 32
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Clears the property values of this instance.
+  example: []
+  syntax:
+    content: void Clear()
+    content.vb: Sub Clear()
+  overload: Tripous.IDef.Clear*
+- uid: Tripous.IDef.UpdateReferences
+  commentId: M:Tripous.IDef.UpdateReferences
+  id: UpdateReferences
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: UpdateReferences()
+  nameWithType: IDef.UpdateReferences()
+  fullName: Tripous.IDef.UpdateReferences()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateReferences
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 37
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Updates references such as when an instance has references to other instances, e.g. tables of a module definition.
+  example: []
+  syntax:
+    content: void UpdateReferences()
+    content.vb: Sub UpdateReferences()
+  overload: Tripous.IDef.UpdateReferences*
+- uid: Tripous.IDef.Name
+  commentId: P:Tripous.IDef.Name
+  id: Name
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: IDef.Name
+  fullName: Tripous.IDef.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 43
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: The descriptor name.
+  example: []
+  syntax:
+    content: string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Property Name As String
+  overload: Tripous.IDef.Name*
+- uid: Tripous.IDef.TitleKey
+  commentId: P:Tripous.IDef.TitleKey
+  id: TitleKey
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: TitleKey
+  nameWithType: IDef.TitleKey
+  fullName: Tripous.IDef.TitleKey
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TitleKey
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 47
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: The descriptor resource title key, e.g. "Module"
+  example: []
+  syntax:
+    content: string TitleKey { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Property TitleKey As String
+  overload: Tripous.IDef.TitleKey*
+- uid: Tripous.IDef.Title
+  commentId: P:Tripous.IDef.Title
+  id: Title
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: Title
+  nameWithType: IDef.Title
+  fullName: Tripous.IDef.Title
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Title
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 51
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: The descriptor title.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      string Title { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      ReadOnly Property Title As String
+  overload: Tripous.IDef.Title*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.IDef.Tag
+  commentId: P:Tripous.IDef.Tag
+  id: Tag
+  parent: Tripous.IDef
+  langs:
+  - csharp
+  - vb
+  name: Tag
+  nameWithType: IDef.Tag
+  fullName: Tripous.IDef.Tag
+  type: Property
+  source:
+    remote:
+      path: Tripous/Registry/IDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tag
+    path: ../Tripous/Registry/IDef.cs
+    startLine: 56
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A user-defined value associated with this descriptor.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      object Tag { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: >-
+      <JsonIgnore>
+
+      ReadOnly Property Tag As Object
+  overload: Tripous.IDef.Tag*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.IDef.CheckDescriptor*
+  commentId: Overload:Tripous.IDef.CheckDescriptor
+  href: Tripous.IDef.html#Tripous_IDef_CheckDescriptor
+  name: CheckDescriptor
+  nameWithType: IDef.CheckDescriptor
+  fullName: Tripous.IDef.CheckDescriptor
+- uid: Tripous.IDef.Assign*
+  commentId: Overload:Tripous.IDef.Assign
+  href: Tripous.IDef.html#Tripous_IDef_Assign_Tripous_IDef_
+  name: Assign
+  nameWithType: IDef.Assign
+  fullName: Tripous.IDef.Assign
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IDef.Clone*
+  commentId: Overload:Tripous.IDef.Clone
+  href: Tripous.IDef.html#Tripous_IDef_Clone
+  name: Clone
+  nameWithType: IDef.Clone
+  fullName: Tripous.IDef.Clone
+- uid: Tripous.IDef.Clear*
+  commentId: Overload:Tripous.IDef.Clear
+  href: Tripous.IDef.html#Tripous_IDef_Clear
+  name: Clear
+  nameWithType: IDef.Clear
+  fullName: Tripous.IDef.Clear
+- uid: Tripous.IDef.UpdateReferences*
+  commentId: Overload:Tripous.IDef.UpdateReferences
+  href: Tripous.IDef.html#Tripous_IDef_UpdateReferences
+  name: UpdateReferences
+  nameWithType: IDef.UpdateReferences
+  fullName: Tripous.IDef.UpdateReferences
+- uid: Tripous.IDef.Name*
+  commentId: Overload:Tripous.IDef.Name
+  href: Tripous.IDef.html#Tripous_IDef_Name
+  name: Name
+  nameWithType: IDef.Name
+  fullName: Tripous.IDef.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.IDef.TitleKey*
+  commentId: Overload:Tripous.IDef.TitleKey
+  href: Tripous.IDef.html#Tripous_IDef_TitleKey
+  name: TitleKey
+  nameWithType: IDef.TitleKey
+  fullName: Tripous.IDef.TitleKey
+- uid: Tripous.IDef.Title*
+  commentId: Overload:Tripous.IDef.Title
+  href: Tripous.IDef.html#Tripous_IDef_Title
+  name: Title
+  nameWithType: IDef.Title
+  fullName: Tripous.IDef.Title
+- uid: Tripous.IDef.Tag*
+  commentId: Overload:Tripous.IDef.Tag
+  href: Tripous.IDef.html#Tripous_IDef_Tag
+  name: Tag
+  nameWithType: IDef.Tag
+  fullName: Tripous.IDef.Tag
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object

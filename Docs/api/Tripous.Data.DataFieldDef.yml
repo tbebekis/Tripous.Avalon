@@ -1,0 +1,1714 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DataFieldDef
+  commentId: T:Tripous.Data.DataFieldDef
+  id: DataFieldDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DataFieldDef.#ctor
+  - Tripous.Data.DataFieldDef.DataType
+  - Tripous.Data.DataFieldDef.DataTypeToString
+  - Tripous.Data.DataFieldDef.DataTypeToString(Tripous.Data.DataFieldType)
+  - Tripous.Data.DataFieldDef.DecimalPart
+  - Tripous.Data.DataFieldDef.DefaultExpression
+  - Tripous.Data.DataFieldDef.ForeignKey
+  - Tripous.Data.DataFieldDef.ForeignKeyConstraintName
+  - Tripous.Data.DataFieldDef.GetDataTypeDefText
+  - Tripous.Data.DataFieldDef.GetDefText(System.Boolean)
+  - Tripous.Data.DataFieldDef.GetDefaultDefText
+  - Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText
+  - Tripous.Data.DataFieldDef.GetNullDefText
+  - Tripous.Data.DataFieldDef.GetUniqueConstraintDefText
+  - Tripous.Data.DataFieldDef.Id
+  - Tripous.Data.DataFieldDef.IsPrimaryKey
+  - Tripous.Data.DataFieldDef.Length
+  - Tripous.Data.DataFieldDef.Name
+  - Tripous.Data.DataFieldDef.Required
+  - Tripous.Data.DataFieldDef.SetDefaultExpression(System.String)
+  - Tripous.Data.DataFieldDef.SetForeignKey(System.String,System.String)
+  - Tripous.Data.DataFieldDef.SetLength(System.Int32)
+  - Tripous.Data.DataFieldDef.SetRequired(System.Boolean)
+  - Tripous.Data.DataFieldDef.SetTitleKey(System.String)
+  - Tripous.Data.DataFieldDef.SetUnique(System.Boolean,System.String)
+  - Tripous.Data.DataFieldDef.Title
+  - Tripous.Data.DataFieldDef.TitleKey
+  - Tripous.Data.DataFieldDef.ToString
+  - Tripous.Data.DataFieldDef.Unique
+  - Tripous.Data.DataFieldDef.UniqueConstraintName
+  langs:
+  - csharp
+  - vb
+  name: DataFieldDef
+  nameWithType: DataFieldDef
+  fullName: Tripous.Data.DataFieldDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataFieldDef
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Database table field definition
+  example: []
+  syntax:
+    content: public class DataFieldDef
+    content.vb: Public Class DataFieldDef
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.DataFieldDef.#ctor
+  commentId: M:Tripous.Data.DataFieldDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: DataFieldDef()
+  nameWithType: DataFieldDef.DataFieldDef()
+  fullName: Tripous.Data.DataFieldDef.DataFieldDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public DataFieldDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.DataFieldDef.#ctor*
+  nameWithType.vb: DataFieldDef.New()
+  fullName.vb: Tripous.Data.DataFieldDef.New()
+  name.vb: New()
+- uid: Tripous.Data.DataFieldDef.DataTypeToString(Tripous.Data.DataFieldType)
+  commentId: M:Tripous.Data.DataFieldDef.DataTypeToString(Tripous.Data.DataFieldType)
+  id: DataTypeToString(Tripous.Data.DataFieldType)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: DataTypeToString(DataFieldType)
+  nameWithType: DataFieldDef.DataTypeToString(DataFieldType)
+  fullName: Tripous.Data.DataFieldDef.DataTypeToString(Tripous.Data.DataFieldType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataTypeToString
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the string representation of a field data type.
+  example: []
+  syntax:
+    content: public static string DataTypeToString(DataFieldType Type)
+    parameters:
+    - id: Type
+      type: Tripous.Data.DataFieldType
+    return:
+      type: System.String
+    content.vb: Public Shared Function DataTypeToString(Type As DataFieldType) As String
+  overload: Tripous.Data.DataFieldDef.DataTypeToString*
+- uid: Tripous.Data.DataFieldDef.ToString
+  commentId: M:Tripous.Data.DataFieldDef.ToString
+  id: ToString
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: DataFieldDef.ToString()
+  fullName: Tripous.Data.DataFieldDef.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string representation of this instance.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Data.DataFieldDef.ToString*
+- uid: Tripous.Data.DataFieldDef.DataTypeToString
+  commentId: M:Tripous.Data.DataFieldDef.DataTypeToString
+  id: DataTypeToString
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: DataTypeToString()
+  nameWithType: DataFieldDef.DataTypeToString()
+  fullName: Tripous.Data.DataFieldDef.DataTypeToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataTypeToString
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the string representation of a field data type.
+  example: []
+  syntax:
+    content: public string DataTypeToString()
+    return:
+      type: System.String
+    content.vb: Public Function DataTypeToString() As String
+  overload: Tripous.Data.DataFieldDef.DataTypeToString*
+- uid: Tripous.Data.DataFieldDef.GetDataTypeDefText
+  commentId: M:Tripous.Data.DataFieldDef.GetDataTypeDefText
+  id: GetDataTypeDefText
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: GetDataTypeDefText()
+  nameWithType: DataFieldDef.GetDataTypeDefText()
+  fullName: Tripous.Data.DataFieldDef.GetDataTypeDefText()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDataTypeDefText
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 75
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the definition text for the data-type, e.g. @NVARCHAR(96)
+  example: []
+  syntax:
+    content: public string GetDataTypeDefText()
+    return:
+      type: System.String
+    content.vb: Public Function GetDataTypeDefText() As String
+  overload: Tripous.Data.DataFieldDef.GetDataTypeDefText*
+- uid: Tripous.Data.DataFieldDef.GetNullDefText
+  commentId: M:Tripous.Data.DataFieldDef.GetNullDefText
+  id: GetNullDefText
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: GetNullDefText()
+  nameWithType: DataFieldDef.GetNullDefText()
+  fullName: Tripous.Data.DataFieldDef.GetNullDefText()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetNullDefText
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 100
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the definition text for the null/not null constraint, e.g. not null
+  example: []
+  syntax:
+    content: public string GetNullDefText()
+    return:
+      type: System.String
+    content.vb: Public Function GetNullDefText() As String
+  overload: Tripous.Data.DataFieldDef.GetNullDefText*
+- uid: Tripous.Data.DataFieldDef.GetDefaultDefText
+  commentId: M:Tripous.Data.DataFieldDef.GetDefaultDefText
+  id: GetDefaultDefText
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: GetDefaultDefText()
+  nameWithType: DataFieldDef.GetDefaultDefText()
+  fullName: Tripous.Data.DataFieldDef.GetDefaultDefText()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDefaultDefText
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 111
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the definition text for the default constraint, e.g. '' or 0
+  example: []
+  syntax:
+    content: public string GetDefaultDefText()
+    return:
+      type: System.String
+    content.vb: Public Function GetDefaultDefText() As String
+  overload: Tripous.Data.DataFieldDef.GetDefaultDefText*
+- uid: Tripous.Data.DataFieldDef.GetUniqueConstraintDefText
+  commentId: M:Tripous.Data.DataFieldDef.GetUniqueConstraintDefText
+  id: GetUniqueConstraintDefText
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: GetUniqueConstraintDefText()
+  nameWithType: DataFieldDef.GetUniqueConstraintDefText()
+  fullName: Tripous.Data.DataFieldDef.GetUniqueConstraintDefText()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetUniqueConstraintDefText
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 122
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the definition text of the unique constraint, if defined, else empty string.
+
+
+    <p>CAUTION: For use with a CREATE TABLE statement only. </p>
+
+    <p>NOTE: All databases support unique constraint in the CREATE TABLE statement.</p>
+  example: []
+  syntax:
+    content: public string GetUniqueConstraintDefText()
+    return:
+      type: System.String
+    content.vb: Public Function GetUniqueConstraintDefText() As String
+  overload: Tripous.Data.DataFieldDef.GetUniqueConstraintDefText*
+- uid: Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText
+  commentId: M:Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText
+  id: GetForeignKeyConstraintDefText
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: GetForeignKeyConstraintDefText()
+  nameWithType: DataFieldDef.GetForeignKeyConstraintDefText()
+  fullName: Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetForeignKeyConstraintDefText
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 137
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the definition text of the foreign key constraint, if defined, else empty string.
+
+
+    <p>CAUTION: For use with a CREATE TABLE statement only.</p>
+
+    <p>NOTE: All databases support foreign key constraint in the CREATE TABLE statement.</p>
+  example: []
+  syntax:
+    content: public string GetForeignKeyConstraintDefText()
+    return:
+      type: System.String
+    content.vb: Public Function GetForeignKeyConstraintDefText() As String
+  overload: Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText*
+- uid: Tripous.Data.DataFieldDef.GetDefText(System.Boolean)
+  commentId: M:Tripous.Data.DataFieldDef.GetDefText(System.Boolean)
+  id: GetDefText(System.Boolean)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: GetDefText(bool)
+  nameWithType: DataFieldDef.GetDefText(bool)
+  fullName: Tripous.Data.DataFieldDef.GetDefText(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDefText
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 156
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the field definition text.
+
+
+    <p>WARNING: The returned text must be passed through <xref href="Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)" data-throw-if-not-resolved="false"></xref> method, for the final result.</p>
+  example: []
+  syntax:
+    content: public string GetDefText(bool IncludeName)
+    parameters:
+    - id: IncludeName
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Function GetDefText(IncludeName As Boolean) As String
+  overload: Tripous.Data.DataFieldDef.GetDefText*
+  nameWithType.vb: DataFieldDef.GetDefText(Boolean)
+  fullName.vb: Tripous.Data.DataFieldDef.GetDefText(Boolean)
+  name.vb: GetDefText(Boolean)
+- uid: Tripous.Data.DataFieldDef.SetForeignKey(System.String,System.String)
+  commentId: M:Tripous.Data.DataFieldDef.SetForeignKey(System.String,System.String)
+  id: SetForeignKey(System.String,System.String)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetForeignKey(string, string)
+  nameWithType: DataFieldDef.SetForeignKey(string, string)
+  fullName: Tripous.Data.DataFieldDef.SetForeignKey(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetForeignKey
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 168
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: "    Defines a foreign key upon this field and a foreign table and field specified by string of the form \n<pre><code class=\"lang-csharp\">TableName.ColumnName</code></pre>\n. Returns this."
+  example: []
+  syntax:
+    content: public DataFieldDef SetForeignKey(string Value, string ConstraintName = "")
+    parameters:
+    - id: Value
+      type: System.String
+    - id: ConstraintName
+      type: System.String
+    return:
+      type: Tripous.Data.DataFieldDef
+    content.vb: Public Function SetForeignKey(Value As String, ConstraintName As String = "") As DataFieldDef
+  overload: Tripous.Data.DataFieldDef.SetForeignKey*
+  nameWithType.vb: DataFieldDef.SetForeignKey(String, String)
+  fullName.vb: Tripous.Data.DataFieldDef.SetForeignKey(String, String)
+  name.vb: SetForeignKey(String, String)
+- uid: Tripous.Data.DataFieldDef.SetUnique(System.Boolean,System.String)
+  commentId: M:Tripous.Data.DataFieldDef.SetUnique(System.Boolean,System.String)
+  id: SetUnique(System.Boolean,System.String)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetUnique(bool, string)
+  nameWithType: DataFieldDef.SetUnique(bool, string)
+  fullName: Tripous.Data.DataFieldDef.SetUnique(bool, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetUnique
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 178
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the value of a property and returns this instance.
+  example: []
+  syntax:
+    content: public DataFieldDef SetUnique(bool Value, string ConstraintName = "")
+    parameters:
+    - id: Value
+      type: System.Boolean
+    - id: ConstraintName
+      type: System.String
+    return:
+      type: Tripous.Data.DataFieldDef
+    content.vb: Public Function SetUnique(Value As Boolean, ConstraintName As String = "") As DataFieldDef
+  overload: Tripous.Data.DataFieldDef.SetUnique*
+  nameWithType.vb: DataFieldDef.SetUnique(Boolean, String)
+  fullName.vb: Tripous.Data.DataFieldDef.SetUnique(Boolean, String)
+  name.vb: SetUnique(Boolean, String)
+- uid: Tripous.Data.DataFieldDef.SetRequired(System.Boolean)
+  commentId: M:Tripous.Data.DataFieldDef.SetRequired(System.Boolean)
+  id: SetRequired(System.Boolean)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetRequired(bool)
+  nameWithType: DataFieldDef.SetRequired(bool)
+  fullName: Tripous.Data.DataFieldDef.SetRequired(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetRequired
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 188
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the value of a property and returns this instance.
+  example: []
+  syntax:
+    content: public DataFieldDef SetRequired(bool Value = true)
+    parameters:
+    - id: Value
+      type: System.Boolean
+    return:
+      type: Tripous.Data.DataFieldDef
+    content.vb: Public Function SetRequired(Value As Boolean = True) As DataFieldDef
+  overload: Tripous.Data.DataFieldDef.SetRequired*
+  nameWithType.vb: DataFieldDef.SetRequired(Boolean)
+  fullName.vb: Tripous.Data.DataFieldDef.SetRequired(Boolean)
+  name.vb: SetRequired(Boolean)
+- uid: Tripous.Data.DataFieldDef.SetDefaultExpression(System.String)
+  commentId: M:Tripous.Data.DataFieldDef.SetDefaultExpression(System.String)
+  id: SetDefaultExpression(System.String)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetDefaultExpression(string)
+  nameWithType: DataFieldDef.SetDefaultExpression(string)
+  fullName: Tripous.Data.DataFieldDef.SetDefaultExpression(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetDefaultExpression
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 196
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the value of a property and returns this instance.
+  example: []
+  syntax:
+    content: public DataFieldDef SetDefaultExpression(string Value = null)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.DataFieldDef
+    content.vb: Public Function SetDefaultExpression(Value As String = Nothing) As DataFieldDef
+  overload: Tripous.Data.DataFieldDef.SetDefaultExpression*
+  nameWithType.vb: DataFieldDef.SetDefaultExpression(String)
+  fullName.vb: Tripous.Data.DataFieldDef.SetDefaultExpression(String)
+  name.vb: SetDefaultExpression(String)
+- uid: Tripous.Data.DataFieldDef.SetTitleKey(System.String)
+  commentId: M:Tripous.Data.DataFieldDef.SetTitleKey(System.String)
+  id: SetTitleKey(System.String)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetTitleKey(string)
+  nameWithType: DataFieldDef.SetTitleKey(string)
+  fullName: Tripous.Data.DataFieldDef.SetTitleKey(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetTitleKey
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 204
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the value of a property and returns this instance.
+  example: []
+  syntax:
+    content: public DataFieldDef SetTitleKey(string Value = "")
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.DataFieldDef
+    content.vb: Public Function SetTitleKey(Value As String = "") As DataFieldDef
+  overload: Tripous.Data.DataFieldDef.SetTitleKey*
+  nameWithType.vb: DataFieldDef.SetTitleKey(String)
+  fullName.vb: Tripous.Data.DataFieldDef.SetTitleKey(String)
+  name.vb: SetTitleKey(String)
+- uid: Tripous.Data.DataFieldDef.SetLength(System.Int32)
+  commentId: M:Tripous.Data.DataFieldDef.SetLength(System.Int32)
+  id: SetLength(System.Int32)
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetLength(int)
+  nameWithType: DataFieldDef.SetLength(int)
+  fullName: Tripous.Data.DataFieldDef.SetLength(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetLength
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 212
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the value of a property and returns this instance.
+  example: []
+  syntax:
+    content: public DataFieldDef SetLength(int Value = 0)
+    parameters:
+    - id: Value
+      type: System.Int32
+    return:
+      type: Tripous.Data.DataFieldDef
+    content.vb: Public Function SetLength(Value As Integer = 0) As DataFieldDef
+  overload: Tripous.Data.DataFieldDef.SetLength*
+  nameWithType.vb: DataFieldDef.SetLength(Integer)
+  fullName.vb: Tripous.Data.DataFieldDef.SetLength(Integer)
+  name.vb: SetLength(Integer)
+- uid: Tripous.Data.DataFieldDef.Id
+  commentId: P:Tripous.Data.DataFieldDef.Id
+  id: Id
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: DataFieldDef.Id
+  fullName: Tripous.Data.DataFieldDef.Id
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Id
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 223
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A GUID string. We need this in comparing two instances of <xref href="Tripous.Data.DataTableDef" data-throw-if-not-resolved="false"></xref> 
+
+    for fields with the same Id but different Name, for column renaming.
+  example: []
+  syntax:
+    content: public string Id { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Id As String
+  overload: Tripous.Data.DataFieldDef.Id*
+- uid: Tripous.Data.DataFieldDef.Name
+  commentId: P:Tripous.Data.DataFieldDef.Name
+  id: Name
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: DataFieldDef.Name
+  fullName: Tripous.Data.DataFieldDef.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 227
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A name unique among all instances of this type
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.Data.DataFieldDef.Name*
+- uid: Tripous.Data.DataFieldDef.TitleKey
+  commentId: P:Tripous.Data.DataFieldDef.TitleKey
+  id: TitleKey
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: TitleKey
+  nameWithType: DataFieldDef.TitleKey
+  fullName: Tripous.Data.DataFieldDef.TitleKey
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TitleKey
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 239
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a resource Key used in returning a localized version of Title
+  example: []
+  syntax:
+    content: public string TitleKey { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TitleKey As String
+  overload: Tripous.Data.DataFieldDef.TitleKey*
+- uid: Tripous.Data.DataFieldDef.Title
+  commentId: P:Tripous.Data.DataFieldDef.Title
+  id: Title
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: Title
+  nameWithType: DataFieldDef.Title
+  fullName: Tripous.Data.DataFieldDef.Title
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Title
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 248
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets the Title of this instance, used for display purposes. 
+
+
+    <p>NOTE: The setter is fake. Do NOT use it.</p>
+  example: []
+  syntax:
+    content: public string Title { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Title As String
+  overload: Tripous.Data.DataFieldDef.Title*
+- uid: Tripous.Data.DataFieldDef.IsPrimaryKey
+  commentId: P:Tripous.Data.DataFieldDef.IsPrimaryKey
+  id: IsPrimaryKey
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsPrimaryKey
+  nameWithType: DataFieldDef.IsPrimaryKey
+  fullName: Tripous.Data.DataFieldDef.IsPrimaryKey
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsPrimaryKey
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 257
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when the field is a primary key
+  example: []
+  syntax:
+    content: public bool IsPrimaryKey { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsPrimaryKey As Boolean
+  overload: Tripous.Data.DataFieldDef.IsPrimaryKey*
+- uid: Tripous.Data.DataFieldDef.DataType
+  commentId: P:Tripous.Data.DataFieldDef.DataType
+  id: DataType
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: DataType
+  nameWithType: DataFieldDef.DataType
+  fullName: Tripous.Data.DataFieldDef.DataType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataType
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 262
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The data-type of the field. One of the <xref href="Tripous.Data.DataFieldType" data-throw-if-not-resolved="false"></xref> constants.
+  example: []
+  syntax:
+    content: public DataFieldType DataType { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.DataFieldType
+    content.vb: Public Property DataType As DataFieldType
+  overload: Tripous.Data.DataFieldDef.DataType*
+- uid: Tripous.Data.DataFieldDef.Length
+  commentId: P:Tripous.Data.DataFieldDef.Length
+  id: Length
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: Length
+  nameWithType: DataFieldDef.Length
+  fullName: Tripous.Data.DataFieldDef.Length
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Length
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 276
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Field length. Applicable to varchar fields only.
+  example: []
+  syntax:
+    content: public int Length { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Length As Integer
+  overload: Tripous.Data.DataFieldDef.Length*
+- uid: Tripous.Data.DataFieldDef.DecimalPart
+  commentId: P:Tripous.Data.DataFieldDef.DecimalPart
+  id: DecimalPart
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: DecimalPart
+  nameWithType: DataFieldDef.DecimalPart
+  fullName: Tripous.Data.DataFieldDef.DecimalPart
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DecimalPart
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 295
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Defines the Precision and Scale explicitly of a decimal field. 
+
+
+    <p>Used with <xref href="Tripous.Data.DataFieldType.Decimal_" data-throw-if-not-resolved="false"></xref> only.</p>
+
+    <p>The user provides the Precision and Scale explicitly <strong>without parentheses.</strong>.</p>
+
+    <p>Example: <code>@DECIMAL_(10, 2)</code> becomes <code>decimal(10, 2)</code></p>
+  example: []
+  syntax:
+    content: public string DecimalPart { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DecimalPart As String
+  overload: Tripous.Data.DataFieldDef.DecimalPart*
+- uid: Tripous.Data.DataFieldDef.Required
+  commentId: P:Tripous.Data.DataFieldDef.Required
+  id: Required
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: Required
+  nameWithType: DataFieldDef.Required
+  fullName: Tripous.Data.DataFieldDef.Required
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Required
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 300
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    True when the field is NOT nullable 
+
+
+    <p>NOTE: when true then produces 'not null'</p>
+  example: []
+  syntax:
+    content: public bool Required { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Required As Boolean
+  overload: Tripous.Data.DataFieldDef.Required*
+- uid: Tripous.Data.DataFieldDef.DefaultExpression
+  commentId: P:Tripous.Data.DataFieldDef.DefaultExpression
+  id: DefaultExpression
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: DefaultExpression
+  nameWithType: DataFieldDef.DefaultExpression
+  fullName: Tripous.Data.DataFieldDef.DefaultExpression
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultExpression
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 309
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The default expression, if any. E.g. 0, or ''. Defaults to null.
+
+
+    <p>NOTE:  e.g. produces default 0, or default '' </p>
+  example: []
+  syntax:
+    content: public string DefaultExpression { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DefaultExpression As String
+  overload: Tripous.Data.DataFieldDef.DefaultExpression*
+- uid: Tripous.Data.DataFieldDef.Unique
+  commentId: P:Tripous.Data.DataFieldDef.Unique
+  id: Unique
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: Unique
+  nameWithType: DataFieldDef.Unique
+  fullName: Tripous.Data.DataFieldDef.Unique
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Unique
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 315
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When true indicates that the field has a unique constraint.
+  example: []
+  syntax:
+    content: public bool Unique { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Unique As Boolean
+  overload: Tripous.Data.DataFieldDef.Unique*
+- uid: Tripous.Data.DataFieldDef.UniqueConstraintName
+  commentId: P:Tripous.Data.DataFieldDef.UniqueConstraintName
+  id: UniqueConstraintName
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: UniqueConstraintName
+  nameWithType: DataFieldDef.UniqueConstraintName
+  fullName: Tripous.Data.DataFieldDef.UniqueConstraintName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UniqueConstraintName
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 332
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The unique constraint name to create when <xref href="Tripous.Data.DataFieldDef.Unique" data-throw-if-not-resolved="false"></xref> is set to true.
+  example: []
+  syntax:
+    content: public string UniqueConstraintName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property UniqueConstraintName As String
+  overload: Tripous.Data.DataFieldDef.UniqueConstraintName*
+- uid: Tripous.Data.DataFieldDef.ForeignKey
+  commentId: P:Tripous.Data.DataFieldDef.ForeignKey
+  id: ForeignKey
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: ForeignKey
+  nameWithType: DataFieldDef.ForeignKey
+  fullName: Tripous.Data.DataFieldDef.ForeignKey
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ForeignKey
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 337
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: "    A string of the form \n<pre><code class=\"lang-csharp\">TableName.ColumnName</code></pre>\n for creating a foreign key constraint on this field."
+  example: []
+  syntax:
+    content: public string ForeignKey { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ForeignKey As String
+  overload: Tripous.Data.DataFieldDef.ForeignKey*
+- uid: Tripous.Data.DataFieldDef.ForeignKeyConstraintName
+  commentId: P:Tripous.Data.DataFieldDef.ForeignKeyConstraintName
+  id: ForeignKeyConstraintName
+  parent: Tripous.Data.DataFieldDef
+  langs:
+  - csharp
+  - vb
+  name: ForeignKeyConstraintName
+  nameWithType: DataFieldDef.ForeignKeyConstraintName
+  fullName: Tripous.Data.DataFieldDef.ForeignKeyConstraintName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataFieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ForeignKeyConstraintName
+    path: ../Tripous.Data/Schema/DataFieldDef.cs
+    startLine: 355
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When not null/empty indicates that this field has a foreign key constraint.
+  example: []
+  syntax:
+    content: public string ForeignKeyConstraintName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ForeignKeyConstraintName As String
+  overload: Tripous.Data.DataFieldDef.ForeignKeyConstraintName*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DataFieldDef.#ctor*
+  commentId: Overload:Tripous.Data.DataFieldDef.#ctor
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef__ctor
+  name: DataFieldDef
+  nameWithType: DataFieldDef.DataFieldDef
+  fullName: Tripous.Data.DataFieldDef.DataFieldDef
+  nameWithType.vb: DataFieldDef.New
+  fullName.vb: Tripous.Data.DataFieldDef.New
+  name.vb: New
+- uid: Tripous.Data.DataFieldDef.DataTypeToString*
+  commentId: Overload:Tripous.Data.DataFieldDef.DataTypeToString
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_DataTypeToString_Tripous_Data_DataFieldType_
+  name: DataTypeToString
+  nameWithType: DataFieldDef.DataTypeToString
+  fullName: Tripous.Data.DataFieldDef.DataTypeToString
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataFieldDef.ToString*
+  commentId: Overload:Tripous.Data.DataFieldDef.ToString
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_ToString
+  name: ToString
+  nameWithType: DataFieldDef.ToString
+  fullName: Tripous.Data.DataFieldDef.ToString
+- uid: Tripous.Data.DataFieldDef.GetDataTypeDefText*
+  commentId: Overload:Tripous.Data.DataFieldDef.GetDataTypeDefText
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_GetDataTypeDefText
+  name: GetDataTypeDefText
+  nameWithType: DataFieldDef.GetDataTypeDefText
+  fullName: Tripous.Data.DataFieldDef.GetDataTypeDefText
+- uid: Tripous.Data.DataFieldDef.GetNullDefText*
+  commentId: Overload:Tripous.Data.DataFieldDef.GetNullDefText
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_GetNullDefText
+  name: GetNullDefText
+  nameWithType: DataFieldDef.GetNullDefText
+  fullName: Tripous.Data.DataFieldDef.GetNullDefText
+- uid: Tripous.Data.DataFieldDef.GetDefaultDefText*
+  commentId: Overload:Tripous.Data.DataFieldDef.GetDefaultDefText
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_GetDefaultDefText
+  name: GetDefaultDefText
+  nameWithType: DataFieldDef.GetDefaultDefText
+  fullName: Tripous.Data.DataFieldDef.GetDefaultDefText
+- uid: Tripous.Data.DataFieldDef.GetUniqueConstraintDefText*
+  commentId: Overload:Tripous.Data.DataFieldDef.GetUniqueConstraintDefText
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_GetUniqueConstraintDefText
+  name: GetUniqueConstraintDefText
+  nameWithType: DataFieldDef.GetUniqueConstraintDefText
+  fullName: Tripous.Data.DataFieldDef.GetUniqueConstraintDefText
+- uid: Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText*
+  commentId: Overload:Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_GetForeignKeyConstraintDefText
+  name: GetForeignKeyConstraintDefText
+  nameWithType: DataFieldDef.GetForeignKeyConstraintDefText
+  fullName: Tripous.Data.DataFieldDef.GetForeignKeyConstraintDefText
+- uid: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+  commentId: M:Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+  parent: Tripous.Data.SqlProvider
+  isExternal: true
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_
+  name: ReplaceDataTypePlaceholders(string)
+  nameWithType: SqlProvider.ReplaceDataTypePlaceholders(string)
+  fullName: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(string)
+  nameWithType.vb: SqlProvider.ReplaceDataTypePlaceholders(String)
+  fullName.vb: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(String)
+  name.vb: ReplaceDataTypePlaceholders(String)
+  spec.csharp:
+  - uid: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+    name: ReplaceDataTypePlaceholders
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+    name: ReplaceDataTypePlaceholders
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataFieldDef.GetDefText*
+  commentId: Overload:Tripous.Data.DataFieldDef.GetDefText
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_GetDefText_System_Boolean_
+  name: GetDefText
+  nameWithType: DataFieldDef.GetDefText
+  fullName: Tripous.Data.DataFieldDef.GetDefText
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.SqlProvider
+  commentId: T:Tripous.Data.SqlProvider
+  parent: Tripous.Data
+  href: Tripous.Data.SqlProvider.html
+  name: SqlProvider
+  nameWithType: SqlProvider
+  fullName: Tripous.Data.SqlProvider
+- uid: Tripous.Data.DataFieldDef.SetForeignKey*
+  commentId: Overload:Tripous.Data.DataFieldDef.SetForeignKey
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_SetForeignKey_System_String_System_String_
+  name: SetForeignKey
+  nameWithType: DataFieldDef.SetForeignKey
+  fullName: Tripous.Data.DataFieldDef.SetForeignKey
+- uid: Tripous.Data.DataFieldDef
+  commentId: T:Tripous.Data.DataFieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldDef.html
+  name: DataFieldDef
+  nameWithType: DataFieldDef
+  fullName: Tripous.Data.DataFieldDef
+- uid: Tripous.Data.DataFieldDef.SetUnique*
+  commentId: Overload:Tripous.Data.DataFieldDef.SetUnique
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_SetUnique_System_Boolean_System_String_
+  name: SetUnique
+  nameWithType: DataFieldDef.SetUnique
+  fullName: Tripous.Data.DataFieldDef.SetUnique
+- uid: Tripous.Data.DataFieldDef.SetRequired*
+  commentId: Overload:Tripous.Data.DataFieldDef.SetRequired
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_SetRequired_System_Boolean_
+  name: SetRequired
+  nameWithType: DataFieldDef.SetRequired
+  fullName: Tripous.Data.DataFieldDef.SetRequired
+- uid: Tripous.Data.DataFieldDef.SetDefaultExpression*
+  commentId: Overload:Tripous.Data.DataFieldDef.SetDefaultExpression
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_SetDefaultExpression_System_String_
+  name: SetDefaultExpression
+  nameWithType: DataFieldDef.SetDefaultExpression
+  fullName: Tripous.Data.DataFieldDef.SetDefaultExpression
+- uid: Tripous.Data.DataFieldDef.SetTitleKey*
+  commentId: Overload:Tripous.Data.DataFieldDef.SetTitleKey
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_SetTitleKey_System_String_
+  name: SetTitleKey
+  nameWithType: DataFieldDef.SetTitleKey
+  fullName: Tripous.Data.DataFieldDef.SetTitleKey
+- uid: Tripous.Data.DataFieldDef.SetLength*
+  commentId: Overload:Tripous.Data.DataFieldDef.SetLength
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_SetLength_System_Int32_
+  name: SetLength
+  nameWithType: DataFieldDef.SetLength
+  fullName: Tripous.Data.DataFieldDef.SetLength
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DataTableDef
+  commentId: T:Tripous.Data.DataTableDef
+  parent: Tripous.Data
+  href: Tripous.Data.DataTableDef.html
+  name: DataTableDef
+  nameWithType: DataTableDef
+  fullName: Tripous.Data.DataTableDef
+- uid: Tripous.Data.DataFieldDef.Id*
+  commentId: Overload:Tripous.Data.DataFieldDef.Id
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_Id
+  name: Id
+  nameWithType: DataFieldDef.Id
+  fullName: Tripous.Data.DataFieldDef.Id
+- uid: Tripous.Data.DataFieldDef.Name*
+  commentId: Overload:Tripous.Data.DataFieldDef.Name
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_Name
+  name: Name
+  nameWithType: DataFieldDef.Name
+  fullName: Tripous.Data.DataFieldDef.Name
+- uid: Tripous.Data.DataFieldDef.TitleKey*
+  commentId: Overload:Tripous.Data.DataFieldDef.TitleKey
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_TitleKey
+  name: TitleKey
+  nameWithType: DataFieldDef.TitleKey
+  fullName: Tripous.Data.DataFieldDef.TitleKey
+- uid: Tripous.Data.DataFieldDef.Title*
+  commentId: Overload:Tripous.Data.DataFieldDef.Title
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_Title
+  name: Title
+  nameWithType: DataFieldDef.Title
+  fullName: Tripous.Data.DataFieldDef.Title
+- uid: Tripous.Data.DataFieldDef.IsPrimaryKey*
+  commentId: Overload:Tripous.Data.DataFieldDef.IsPrimaryKey
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_IsPrimaryKey
+  name: IsPrimaryKey
+  nameWithType: DataFieldDef.IsPrimaryKey
+  fullName: Tripous.Data.DataFieldDef.IsPrimaryKey
+- uid: Tripous.Data.DataFieldDef.DataType*
+  commentId: Overload:Tripous.Data.DataFieldDef.DataType
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_DataType
+  name: DataType
+  nameWithType: DataFieldDef.DataType
+  fullName: Tripous.Data.DataFieldDef.DataType
+- uid: Tripous.Data.DataFieldDef.Length*
+  commentId: Overload:Tripous.Data.DataFieldDef.Length
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_Length
+  name: Length
+  nameWithType: DataFieldDef.Length
+  fullName: Tripous.Data.DataFieldDef.Length
+- uid: Tripous.Data.DataFieldType.Decimal_
+  commentId: F:Tripous.Data.DataFieldType.Decimal_
+  href: Tripous.Data.DataFieldType.html#Tripous_Data_DataFieldType_Decimal_
+  name: Decimal_
+  nameWithType: DataFieldType.Decimal_
+  fullName: Tripous.Data.DataFieldType.Decimal_
+- uid: Tripous.Data.DataFieldDef.DecimalPart*
+  commentId: Overload:Tripous.Data.DataFieldDef.DecimalPart
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_DecimalPart
+  name: DecimalPart
+  nameWithType: DataFieldDef.DecimalPart
+  fullName: Tripous.Data.DataFieldDef.DecimalPart
+- uid: Tripous.Data.DataFieldDef.Required*
+  commentId: Overload:Tripous.Data.DataFieldDef.Required
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_Required
+  name: Required
+  nameWithType: DataFieldDef.Required
+  fullName: Tripous.Data.DataFieldDef.Required
+- uid: Tripous.Data.DataFieldDef.DefaultExpression*
+  commentId: Overload:Tripous.Data.DataFieldDef.DefaultExpression
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_DefaultExpression
+  name: DefaultExpression
+  nameWithType: DataFieldDef.DefaultExpression
+  fullName: Tripous.Data.DataFieldDef.DefaultExpression
+- uid: Tripous.Data.DataFieldDef.Unique*
+  commentId: Overload:Tripous.Data.DataFieldDef.Unique
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_Unique
+  name: Unique
+  nameWithType: DataFieldDef.Unique
+  fullName: Tripous.Data.DataFieldDef.Unique
+- uid: Tripous.Data.DataFieldDef.Unique
+  commentId: P:Tripous.Data.DataFieldDef.Unique
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_Unique
+  name: Unique
+  nameWithType: DataFieldDef.Unique
+  fullName: Tripous.Data.DataFieldDef.Unique
+- uid: Tripous.Data.DataFieldDef.UniqueConstraintName*
+  commentId: Overload:Tripous.Data.DataFieldDef.UniqueConstraintName
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_UniqueConstraintName
+  name: UniqueConstraintName
+  nameWithType: DataFieldDef.UniqueConstraintName
+  fullName: Tripous.Data.DataFieldDef.UniqueConstraintName
+- uid: Tripous.Data.DataFieldDef.ForeignKey*
+  commentId: Overload:Tripous.Data.DataFieldDef.ForeignKey
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_ForeignKey
+  name: ForeignKey
+  nameWithType: DataFieldDef.ForeignKey
+  fullName: Tripous.Data.DataFieldDef.ForeignKey
+- uid: Tripous.Data.DataFieldDef.ForeignKeyConstraintName*
+  commentId: Overload:Tripous.Data.DataFieldDef.ForeignKeyConstraintName
+  href: Tripous.Data.DataFieldDef.html#Tripous_Data_DataFieldDef_ForeignKeyConstraintName
+  name: ForeignKeyConstraintName
+  nameWithType: DataFieldDef.ForeignKeyConstraintName
+  fullName: Tripous.Data.DataFieldDef.ForeignKeyConstraintName

@@ -1,0 +1,1620 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.ItemBinder
+  commentId: T:Tripous.Desktop.ItemBinder
+  id: ItemBinder
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.ItemBinder.#ctor
+  - Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CalendarDatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CheckBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.DatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ListBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.NumericUpDown,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bind(Tripous.Desktop.LocatorBox,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.BindImage(Avalonia.Controls.Image,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.String,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.BindMemo(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  - Tripous.Desktop.ItemBinder.Bindings
+  - Tripous.Desktop.ItemBinder.Clear
+  - Tripous.Desktop.ItemBinder.CurrentRow
+  - Tripous.Desktop.ItemBinder.CurrentRowChanged
+  - Tripous.Desktop.ItemBinder.CurrentRowChanging
+  - Tripous.Desktop.ItemBinder.Refresh
+  - Tripous.Desktop.ItemBinder.RowProvider
+  - Tripous.Desktop.ItemBinder.TableInfo
+  langs:
+  - csharp
+  - vb
+  name: ItemBinder
+  nameWithType: ItemBinder
+  fullName: Tripous.Desktop.ItemBinder
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemBinder
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Binds to single (Item) controls, no grids.
+
+
+    <p>It watches for <xref href="Tripous.Desktop.ItemBinder.CurrentRow" data-throw-if-not-resolved="false"></xref> changes and notifies its controls.</p>
+  example: []
+  syntax:
+    content: public class ItemBinder
+    content.vb: Public Class ItemBinder
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.ItemBinder.#ctor
+  commentId: M:Tripous.Desktop.ItemBinder.#ctor
+  id: '#ctor'
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: ItemBinder()
+  nameWithType: ItemBinder.ItemBinder()
+  fullName: Tripous.Desktop.ItemBinder.ItemBinder()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public ItemBinder()
+    content.vb: Public Sub New()
+  overload: Tripous.Desktop.ItemBinder.#ctor*
+  nameWithType.vb: ItemBinder.New()
+  fullName.vb: Tripous.Desktop.ItemBinder.New()
+  name.vb: New()
+- uid: Tripous.Desktop.ItemBinder.Clear
+  commentId: M:Tripous.Desktop.ItemBinder.Clear
+  id: Clear
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: ItemBinder.Clear()
+  fullName: Tripous.Desktop.ItemBinder.Clear()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clear
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Clears all bindings.
+
+
+    <p>NOTE: Dangerous.</p>
+  example: []
+  syntax:
+    content: public void Clear()
+    content.vb: Public Sub Clear()
+  overload: Tripous.Desktop.ItemBinder.Clear*
+- uid: Tripous.Desktop.ItemBinder.Refresh
+  commentId: M:Tripous.Desktop.ItemBinder.Refresh
+  id: Refresh
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Refresh()
+  nameWithType: ItemBinder.Refresh()
+  fullName: Tripous.Desktop.ItemBinder.Refresh()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Refresh
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Sends a notification to its controls that the <xref href="Tripous.Desktop.ItemBinder.CurrentRow" data-throw-if-not-resolved="false"></xref> has changed.
+  example: []
+  syntax:
+    content: public void Refresh()
+    content.vb: Public Sub Refresh()
+  overload: Tripous.Desktop.ItemBinder.Refresh*
+- uid: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: Bind(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(TextBox, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.Bind(TextBox, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.TextBox, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 69
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding Bind(TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.TextBox
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function Bind(Box As TextBox, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+  nameWithType.vb: ItemBinder.Bind(TextBox, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.TextBox, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: Bind(TextBox, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.BindMemo(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.BindMemo(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: BindMemo(Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: BindMemo(TextBox, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.BindMemo(TextBox, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.BindMemo(Avalonia.Controls.TextBox, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindMemo
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding BindMemo(TextBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.TextBox
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function BindMemo(Box As TextBox, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.BindMemo*
+  nameWithType.vb: ItemBinder.BindMemo(TextBox, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.BindMemo(Avalonia.Controls.TextBox, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: BindMemo(TextBox, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CheckBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CheckBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: Bind(Avalonia.Controls.CheckBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(CheckBox, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.Bind(CheckBox, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CheckBox, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 87
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding Bind(CheckBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.CheckBox
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function Bind(Box As CheckBox, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+  nameWithType.vb: ItemBinder.Bind(CheckBox, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CheckBox, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: Bind(CheckBox, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.DatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.DatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: Bind(Avalonia.Controls.DatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(DatePicker, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.Bind(DatePicker, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.DatePicker, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 96
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding Bind(DatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.DatePicker
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function Bind(Box As DatePicker, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+  nameWithType.vb: ItemBinder.Bind(DatePicker, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.DatePicker, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: Bind(DatePicker, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CalendarDatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CalendarDatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: Bind(Avalonia.Controls.CalendarDatePicker,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(CalendarDatePicker, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.Bind(CalendarDatePicker, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CalendarDatePicker, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 105
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding Bind(CalendarDatePicker Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.CalendarDatePicker
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function Bind(Box As CalendarDatePicker, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+  nameWithType.vb: ItemBinder.Bind(CalendarDatePicker, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.CalendarDatePicker, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: Bind(CalendarDatePicker, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  id: Bind(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(ComboBox, string, DataColumn, IEnumerable, FieldDef)
+  nameWithType: ItemBinder.Bind(ComboBox, string, DataColumn, IEnumerable, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ComboBox, string, System.Data.DataColumn, System.Collections.IEnumerable, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 114
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding Bind(ComboBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.ComboBox
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: Items
+      type: System.Collections.IEnumerable
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function Bind(Box As ComboBox, FieldName As String, DataColumn As DataColumn, Items As IEnumerable, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+  nameWithType.vb: ItemBinder.Bind(ComboBox, String, DataColumn, IEnumerable, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ComboBox, String, System.Data.DataColumn, System.Collections.IEnumerable, Tripous.Data.FieldDef)
+  name.vb: Bind(ComboBox, String, DataColumn, IEnumerable, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ListBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ListBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  id: Bind(Avalonia.Controls.ListBox,System.String,System.Data.DataColumn,System.Collections.IEnumerable,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(ListBox, string, DataColumn, IEnumerable, FieldDef)
+  nameWithType: ItemBinder.Bind(ListBox, string, DataColumn, IEnumerable, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ListBox, string, System.Data.DataColumn, System.Collections.IEnumerable, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 123
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding Bind(ListBox Box, string FieldName, DataColumn DataColumn, IEnumerable Items, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.ListBox
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: Items
+      type: System.Collections.IEnumerable
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function Bind(Box As ListBox, FieldName As String, DataColumn As DataColumn, Items As IEnumerable, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+  nameWithType.vb: ItemBinder.Bind(ListBox, String, DataColumn, IEnumerable, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.ListBox, String, System.Data.DataColumn, System.Collections.IEnumerable, Tripous.Data.FieldDef)
+  name.vb: Bind(ListBox, String, DataColumn, IEnumerable, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.NumericUpDown,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.NumericUpDown,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: Bind(Avalonia.Controls.NumericUpDown,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(NumericUpDown, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.Bind(NumericUpDown, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.NumericUpDown, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 132
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding Bind(NumericUpDown Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.NumericUpDown
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function Bind(Box As NumericUpDown, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+  nameWithType.vb: ItemBinder.Bind(NumericUpDown, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.Bind(Avalonia.Controls.NumericUpDown, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: Bind(NumericUpDown, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: BindLookup(ComboBox, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.BindLookup(ComboBox, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindLookup
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 141
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding BindLookup(ComboBox Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.ComboBox
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function BindLookup(Box As ComboBox, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.BindLookup*
+  nameWithType.vb: ItemBinder.BindLookup(ComboBox, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: BindLookup(ComboBox, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.String,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.String,Tripous.Data.FieldDef)
+  id: BindLookup(Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.String,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: BindLookup(ComboBox, string, DataColumn, string, FieldDef)
+  nameWithType: ItemBinder.BindLookup(ComboBox, string, DataColumn, string, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox, string, System.Data.DataColumn, string, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindLookup
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 150
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding BindLookup(ComboBox Box, string FieldName, DataColumn DataColumn, string LookupSourceName, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.ComboBox
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: LookupSourceName
+      type: System.String
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function BindLookup(Box As ComboBox, FieldName As String, DataColumn As DataColumn, LookupSourceName As String, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.BindLookup*
+  nameWithType.vb: ItemBinder.BindLookup(ComboBox, String, DataColumn, String, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.BindLookup(Avalonia.Controls.ComboBox, String, System.Data.DataColumn, String, Tripous.Data.FieldDef)
+  name.vb: BindLookup(ComboBox, String, DataColumn, String, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.BindImage(Avalonia.Controls.Image,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.BindImage(Avalonia.Controls.Image,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  id: BindImage(Avalonia.Controls.Image,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: BindImage(Image, string, DataColumn, FieldDef)
+  nameWithType: ItemBinder.BindImage(Image, string, DataColumn, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.BindImage(Avalonia.Controls.Image, string, System.Data.DataColumn, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindImage
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 159
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Bind utility.
+  example: []
+  syntax:
+    content: public ControlBinding BindImage(Image Box, string FieldName, DataColumn DataColumn, FieldDef FieldDef = null)
+    parameters:
+    - id: Box
+      type: Avalonia.Controls.Image
+    - id: FieldName
+      type: System.String
+    - id: DataColumn
+      type: System.Data.DataColumn
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Function BindImage(Box As Image, FieldName As String, DataColumn As DataColumn, FieldDef As FieldDef = Nothing) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.BindImage*
+  nameWithType.vb: ItemBinder.BindImage(Image, String, DataColumn, FieldDef)
+  fullName.vb: Tripous.Desktop.ItemBinder.BindImage(Avalonia.Controls.Image, String, System.Data.DataColumn, Tripous.Data.FieldDef)
+  name.vb: BindImage(Image, String, DataColumn, FieldDef)
+- uid: Tripous.Desktop.ItemBinder.Bind(Tripous.Desktop.LocatorBox,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.ItemBinder.Bind(Tripous.Desktop.LocatorBox,Tripous.Data.FieldDef)
+  id: Bind(Tripous.Desktop.LocatorBox,Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bind(LocatorBox, FieldDef)
+  nameWithType: ItemBinder.Bind(LocatorBox, FieldDef)
+  fullName: Tripous.Desktop.ItemBinder.Bind(Tripous.Desktop.LocatorBox, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bind
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 168
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Binds a locator box to a field.
+  example: []
+  syntax:
+    content: public virtual ControlBinding Bind(LocatorBox Box, FieldDef Field)
+    parameters:
+    - id: Box
+      type: Tripous.Desktop.LocatorBox
+    - id: Field
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Desktop.ControlBinding
+    content.vb: Public Overridable Function Bind(Box As LocatorBox, Field As FieldDef) As ControlBinding
+  overload: Tripous.Desktop.ItemBinder.Bind*
+- uid: Tripous.Desktop.ItemBinder.RowProvider
+  commentId: P:Tripous.Desktop.ItemBinder.RowProvider
+  id: RowProvider
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: RowProvider
+  nameWithType: ItemBinder.RowProvider
+  fullName: Tripous.Desktop.ItemBinder.RowProvider
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowProvider
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 184
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides the <xref href="Tripous.Desktop.ItemBinder.CurrentRow" data-throw-if-not-resolved="false"></xref> and change notifications.
+  example: []
+  syntax:
+    content: public IRowProvider RowProvider { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.IRowProvider
+    content.vb: Public Property RowProvider As IRowProvider
+  overload: Tripous.Desktop.ItemBinder.RowProvider*
+- uid: Tripous.Desktop.ItemBinder.CurrentRow
+  commentId: P:Tripous.Desktop.ItemBinder.CurrentRow
+  id: CurrentRow
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: CurrentRow
+  nameWithType: ItemBinder.CurrentRow
+  fullName: Tripous.Desktop.ItemBinder.CurrentRow
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CurrentRow
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 205
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The current row.
+  example: []
+  syntax:
+    content: public DataRow CurrentRow { get; protected set; }
+    parameters: []
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Property CurrentRow As DataRow
+  overload: Tripous.Desktop.ItemBinder.CurrentRow*
+- uid: Tripous.Desktop.ItemBinder.Bindings
+  commentId: P:Tripous.Desktop.ItemBinder.Bindings
+  id: Bindings
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: Bindings
+  nameWithType: ItemBinder.Bindings
+  fullName: Tripous.Desktop.ItemBinder.Bindings
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Bindings
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 222
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The list of bindings.
+  example: []
+  syntax:
+    content: public List<ControlBinding> Bindings { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Desktop.ControlBinding}
+    content.vb: Public Property Bindings As List(Of ControlBinding)
+  overload: Tripous.Desktop.ItemBinder.Bindings*
+- uid: Tripous.Desktop.ItemBinder.TableInfo
+  commentId: P:Tripous.Desktop.ItemBinder.TableInfo
+  id: TableInfo
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: TableInfo
+  nameWithType: ItemBinder.TableInfo
+  fullName: Tripous.Desktop.ItemBinder.TableInfo
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableInfo
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 226
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: UI information regarding a single-row <xref href="Tripous.Data.TableDef" data-throw-if-not-resolved="false"></xref> in an <xref href="Tripous.Desktop.ItemPage" data-throw-if-not-resolved="false"></xref> form.
+  example: []
+  syntax:
+    content: public UiTableInfo TableInfo { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.UiTableInfo
+    content.vb: Public Property TableInfo As UiTableInfo
+  overload: Tripous.Desktop.ItemBinder.TableInfo*
+- uid: Tripous.Desktop.ItemBinder.CurrentRowChanging
+  commentId: E:Tripous.Desktop.ItemBinder.CurrentRowChanging
+  id: CurrentRowChanging
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: CurrentRowChanging
+  nameWithType: ItemBinder.CurrentRowChanging
+  fullName: Tripous.Desktop.ItemBinder.CurrentRowChanging
+  type: Event
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CurrentRowChanging
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 232
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Occurs when the <xref href="Tripous.Desktop.ItemBinder.CurrentRow" data-throw-if-not-resolved="false"></xref> is about to change.
+  example: []
+  syntax:
+    content: public event EventHandler CurrentRowChanging
+    return:
+      type: System.EventHandler
+    content.vb: Public Event CurrentRowChanging As EventHandler
+- uid: Tripous.Desktop.ItemBinder.CurrentRowChanged
+  commentId: E:Tripous.Desktop.ItemBinder.CurrentRowChanged
+  id: CurrentRowChanged
+  parent: Tripous.Desktop.ItemBinder
+  langs:
+  - csharp
+  - vb
+  name: CurrentRowChanged
+  nameWithType: ItemBinder.CurrentRowChanged
+  fullName: Tripous.Desktop.ItemBinder.CurrentRowChanged
+  type: Event
+  source:
+    remote:
+      path: Tripous.Desktop/Bindings/ItemBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CurrentRowChanged
+    path: ../Tripous.Desktop/Bindings/ItemBinder.cs
+    startLine: 236
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Occurs when the <xref href="Tripous.Desktop.ItemBinder.CurrentRow" data-throw-if-not-resolved="false"></xref> is changed.
+  example: []
+  syntax:
+    content: public event EventHandler CurrentRowChanged
+    return:
+      type: System.EventHandler
+    content.vb: Public Event CurrentRowChanged As EventHandler
+references:
+- uid: Tripous.Desktop.ItemBinder.CurrentRow
+  commentId: P:Tripous.Desktop.ItemBinder.CurrentRow
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_CurrentRow
+  name: CurrentRow
+  nameWithType: ItemBinder.CurrentRow
+  fullName: Tripous.Desktop.ItemBinder.CurrentRow
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.ItemBinder.#ctor*
+  commentId: Overload:Tripous.Desktop.ItemBinder.#ctor
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder__ctor
+  name: ItemBinder
+  nameWithType: ItemBinder.ItemBinder
+  fullName: Tripous.Desktop.ItemBinder.ItemBinder
+  nameWithType.vb: ItemBinder.New
+  fullName.vb: Tripous.Desktop.ItemBinder.New
+  name.vb: New
+- uid: Tripous.Desktop.ItemBinder.Clear*
+  commentId: Overload:Tripous.Desktop.ItemBinder.Clear
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_Clear
+  name: Clear
+  nameWithType: ItemBinder.Clear
+  fullName: Tripous.Desktop.ItemBinder.Clear
+- uid: Tripous.Desktop.ItemBinder.Refresh*
+  commentId: Overload:Tripous.Desktop.ItemBinder.Refresh
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_Refresh
+  name: Refresh
+  nameWithType: ItemBinder.Refresh
+  fullName: Tripous.Desktop.ItemBinder.Refresh
+- uid: Tripous.Desktop.ItemBinder.Bind*
+  commentId: Overload:Tripous.Desktop.ItemBinder.Bind
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_Bind_Avalonia_Controls_TextBox_System_String_System_Data_DataColumn_Tripous_Data_FieldDef_
+  name: Bind
+  nameWithType: ItemBinder.Bind
+  fullName: Tripous.Desktop.ItemBinder.Bind
+- uid: Avalonia.Controls.TextBox
+  commentId: T:Avalonia.Controls.TextBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TextBox
+  nameWithType: TextBox
+  fullName: Avalonia.Controls.TextBox
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Data.DataColumn
+  commentId: T:System.Data.DataColumn
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn
+  nameWithType: DataColumn
+  fullName: System.Data.DataColumn
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+- uid: Tripous.Desktop.ControlBinding
+  commentId: T:Tripous.Desktop.ControlBinding
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ControlBinding.html
+  name: ControlBinding
+  nameWithType: ControlBinding
+  fullName: Tripous.Desktop.ControlBinding
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: Tripous.Desktop.ItemBinder.BindMemo*
+  commentId: Overload:Tripous.Desktop.ItemBinder.BindMemo
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_BindMemo_Avalonia_Controls_TextBox_System_String_System_Data_DataColumn_Tripous_Data_FieldDef_
+  name: BindMemo
+  nameWithType: ItemBinder.BindMemo
+  fullName: Tripous.Desktop.ItemBinder.BindMemo
+- uid: Avalonia.Controls.CheckBox
+  commentId: T:Avalonia.Controls.CheckBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: CheckBox
+  nameWithType: CheckBox
+  fullName: Avalonia.Controls.CheckBox
+- uid: Avalonia.Controls.DatePicker
+  commentId: T:Avalonia.Controls.DatePicker
+  parent: Avalonia.Controls
+  isExternal: true
+  name: DatePicker
+  nameWithType: DatePicker
+  fullName: Avalonia.Controls.DatePicker
+- uid: Avalonia.Controls.CalendarDatePicker
+  commentId: T:Avalonia.Controls.CalendarDatePicker
+  parent: Avalonia.Controls
+  isExternal: true
+  name: CalendarDatePicker
+  nameWithType: CalendarDatePicker
+  fullName: Avalonia.Controls.CalendarDatePicker
+- uid: Avalonia.Controls.ComboBox
+  commentId: T:Avalonia.Controls.ComboBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ComboBox
+  nameWithType: ComboBox
+  fullName: Avalonia.Controls.ComboBox
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: Avalonia.Controls.ListBox
+  commentId: T:Avalonia.Controls.ListBox
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ListBox
+  nameWithType: ListBox
+  fullName: Avalonia.Controls.ListBox
+- uid: Avalonia.Controls.NumericUpDown
+  commentId: T:Avalonia.Controls.NumericUpDown
+  parent: Avalonia.Controls
+  isExternal: true
+  name: NumericUpDown
+  nameWithType: NumericUpDown
+  fullName: Avalonia.Controls.NumericUpDown
+- uid: Tripous.Desktop.ItemBinder.BindLookup*
+  commentId: Overload:Tripous.Desktop.ItemBinder.BindLookup
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_BindLookup_Avalonia_Controls_ComboBox_System_String_System_Data_DataColumn_Tripous_Data_FieldDef_
+  name: BindLookup
+  nameWithType: ItemBinder.BindLookup
+  fullName: Tripous.Desktop.ItemBinder.BindLookup
+- uid: Tripous.Desktop.ItemBinder.BindImage*
+  commentId: Overload:Tripous.Desktop.ItemBinder.BindImage
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_BindImage_Avalonia_Controls_Image_System_String_System_Data_DataColumn_Tripous_Data_FieldDef_
+  name: BindImage
+  nameWithType: ItemBinder.BindImage
+  fullName: Tripous.Desktop.ItemBinder.BindImage
+- uid: Avalonia.Controls.Image
+  commentId: T:Avalonia.Controls.Image
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Image
+  nameWithType: Image
+  fullName: Avalonia.Controls.Image
+- uid: Tripous.Desktop.LocatorBox
+  commentId: T:Tripous.Desktop.LocatorBox
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.LocatorBox.html
+  name: LocatorBox
+  nameWithType: LocatorBox
+  fullName: Tripous.Desktop.LocatorBox
+- uid: Tripous.Desktop.ItemBinder.RowProvider*
+  commentId: Overload:Tripous.Desktop.ItemBinder.RowProvider
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_RowProvider
+  name: RowProvider
+  nameWithType: ItemBinder.RowProvider
+  fullName: Tripous.Desktop.ItemBinder.RowProvider
+- uid: Tripous.Data.IRowProvider
+  commentId: T:Tripous.Data.IRowProvider
+  parent: Tripous.Data
+  href: Tripous.Data.IRowProvider.html
+  name: IRowProvider
+  nameWithType: IRowProvider
+  fullName: Tripous.Data.IRowProvider
+- uid: Tripous.Desktop.ItemBinder.CurrentRow*
+  commentId: Overload:Tripous.Desktop.ItemBinder.CurrentRow
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_CurrentRow
+  name: CurrentRow
+  nameWithType: ItemBinder.CurrentRow
+  fullName: Tripous.Desktop.ItemBinder.CurrentRow
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: Tripous.Desktop.ItemBinder.Bindings*
+  commentId: Overload:Tripous.Desktop.ItemBinder.Bindings
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_Bindings
+  name: Bindings
+  nameWithType: ItemBinder.Bindings
+  fullName: Tripous.Desktop.ItemBinder.Bindings
+- uid: System.Collections.Generic.List{Tripous.Desktop.ControlBinding}
+  commentId: T:System.Collections.Generic.List{Tripous.Desktop.ControlBinding}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<ControlBinding>
+  nameWithType: List<ControlBinding>
+  fullName: System.Collections.Generic.List<Tripous.Desktop.ControlBinding>
+  nameWithType.vb: List(Of ControlBinding)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Desktop.ControlBinding)
+  name.vb: List(Of ControlBinding)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Desktop.ControlBinding
+    name: ControlBinding
+    href: Tripous.Desktop.ControlBinding.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ControlBinding
+    name: ControlBinding
+    href: Tripous.Desktop.ControlBinding.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.TableDef
+  commentId: T:Tripous.Data.TableDef
+  parent: Tripous.Data
+  href: Tripous.Data.TableDef.html
+  name: TableDef
+  nameWithType: TableDef
+  fullName: Tripous.Data.TableDef
+- uid: Tripous.Desktop.ItemPage
+  commentId: T:Tripous.Desktop.ItemPage
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ItemPage.html
+  name: ItemPage
+  nameWithType: ItemPage
+  fullName: Tripous.Desktop.ItemPage
+- uid: Tripous.Desktop.ItemBinder.TableInfo*
+  commentId: Overload:Tripous.Desktop.ItemBinder.TableInfo
+  href: Tripous.Desktop.ItemBinder.html#Tripous_Desktop_ItemBinder_TableInfo
+  name: TableInfo
+  nameWithType: ItemBinder.TableInfo
+  fullName: Tripous.Desktop.ItemBinder.TableInfo
+- uid: Tripous.Desktop.UiTableInfo
+  commentId: T:Tripous.Desktop.UiTableInfo
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.UiTableInfo.html
+  name: UiTableInfo
+  nameWithType: UiTableInfo
+  fullName: Tripous.Desktop.UiTableInfo
+- uid: System.EventHandler
+  commentId: T:System.EventHandler
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler
+  name: EventHandler
+  nameWithType: EventHandler
+  fullName: System.EventHandler

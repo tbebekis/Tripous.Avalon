@@ -1,0 +1,3115 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  id: SqlStore
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SqlStore.#ctor(Tripous.Data.DbConnectionInfo)
+  - Tripous.Data.SqlStore.BeginTransaction
+  - Tripous.Data.SqlStore.CanConnect(System.Boolean)
+  - Tripous.Data.SqlStore.ConnectionInfo
+  - Tripous.Data.SqlStore.CreateTable(System.String)
+  - Tripous.Data.SqlStore.EnsureConnection(System.String)
+  - Tripous.Data.SqlStore.ExecSql(System.Action{System.Data.Common.DbTransaction})
+  - Tripous.Data.SqlStore.ExecSql(System.Collections.Generic.IEnumerable{System.String})
+  - Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String)
+  - Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String,System.Object[])
+  - Tripous.Data.SqlStore.ExecSql(System.String)
+  - Tripous.Data.SqlStore.ExecSql(System.String,System.Object[])
+  - Tripous.Data.SqlStore.FieldExists(System.String,System.String)
+  - Tripous.Data.SqlStore.GetFieldNames(System.String)
+  - Tripous.Data.SqlStore.GetIndexNames
+  - Tripous.Data.SqlStore.GetNativeSchemaFromSelect(System.String,System.String)
+  - Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+  - Tripous.Data.SqlStore.GetSchema
+  - Tripous.Data.SqlStore.GetSchema(System.String)
+  - Tripous.Data.SqlStore.GetSchema(System.String,System.String[])
+  - Tripous.Data.SqlStore.GetServerDateTime
+  - Tripous.Data.SqlStore.GetTableNames
+  - Tripous.Data.SqlStore.IndexExists(System.String)
+  - Tripous.Data.SqlStore.IntegerResult(System.Data.Common.DbTransaction,System.String,System.Int32,System.Object[])
+  - Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32)
+  - Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32,System.Object[])
+  - Tripous.Data.SqlStore.LastId(System.Data.Common.DbTransaction,System.String)
+  - Tripous.Data.SqlStore.LastId(System.String)
+  - Tripous.Data.SqlStore.NextId(System.Data.Common.DbTransaction,System.String)
+  - Tripous.Data.SqlStore.NextId(System.String)
+  - Tripous.Data.SqlStore.NextIdByGenerator(System.Data.Common.DbTransaction,System.String)
+  - Tripous.Data.SqlStore.NextIdByGenerator(System.String)
+  - Tripous.Data.SqlStore.OpenConnection
+  - Tripous.Data.SqlStore.Provider
+  - Tripous.Data.SqlStore.ResetTable(System.String)
+  - Tripous.Data.SqlStore.Select(System.Data.Common.DbTransaction,System.String,System.Object[])
+  - Tripous.Data.SqlStore.Select(System.String)
+  - Tripous.Data.SqlStore.Select(System.String,System.Object[])
+  - Tripous.Data.SqlStore.SelectIncrementLocked(System.String,System.String,System.Object,System.String)
+  - Tripous.Data.SqlStore.SelectResult(System.Data.Common.DbTransaction,System.String,System.Object,System.Object[])
+  - Tripous.Data.SqlStore.SelectResult(System.String)
+  - Tripous.Data.SqlStore.SelectResult(System.String,System.Object)
+  - Tripous.Data.SqlStore.SelectResult(System.String,System.Object,System.Object[])
+  - Tripous.Data.SqlStore.SelectResults(System.Data.Common.DbTransaction,System.String,System.Object[])
+  - Tripous.Data.SqlStore.SelectResults(System.String)
+  - Tripous.Data.SqlStore.SelectResults(System.String,System.Object[])
+  - Tripous.Data.SqlStore.SelectTo(System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.String,System.Object[])
+  - Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String)
+  - Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String,System.Object[])
+  - Tripous.Data.SqlStore.TableExists(System.String,System.Boolean)
+  - Tripous.Data.SqlStore.TableIsEmpty(System.String)
+  langs:
+  - csharp
+  - vb
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlStore
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 24
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sql store. Used in executing SELECT, INSERT, UPDATE, DELETE, etc commands, using a DbConnection.
+
+
+    <p>
+
+    Many methods use a Params parameter.
+
+    That Params can be: <br />
+
+    a. either a comma separated list of parameters or <br />
+
+    b. the Params[0] element, that is the first element in Params, may be 
+
+
+    <ol><li>a <xref href="System.Data.DataRow" data-throw-if-not-resolved="false"></xref></li><li>a generic <xref href="System.Collections.IDictionary" data-throw-if-not-resolved="false"></xref>&lt;string, object&gt;</li><li>or an <xref href="System.Collections.IList" data-throw-if-not-resolved="false"></xref> or <xref href="System.Array" data-throw-if-not-resolved="false"></xref></li></ol>
+
+
+    and in this second case no other Params elements are used
+
+    </p>
+  example: []
+  syntax:
+    content: public class SqlStore
+    content.vb: Public Class SqlStore
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.SqlStore.#ctor(Tripous.Data.DbConnectionInfo)
+  commentId: M:Tripous.Data.SqlStore.#ctor(Tripous.Data.DbConnectionInfo)
+  id: '#ctor(Tripous.Data.DbConnectionInfo)'
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SqlStore(DbConnectionInfo)
+  nameWithType: SqlStore.SqlStore(DbConnectionInfo)
+  fullName: Tripous.Data.SqlStore.SqlStore(Tripous.Data.DbConnectionInfo)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public SqlStore(DbConnectionInfo ConnectionInfo)
+    parameters:
+    - id: ConnectionInfo
+      type: Tripous.Data.DbConnectionInfo
+    content.vb: Public Sub New(ConnectionInfo As DbConnectionInfo)
+  overload: Tripous.Data.SqlStore.#ctor*
+  nameWithType.vb: SqlStore.New(DbConnectionInfo)
+  fullName.vb: Tripous.Data.SqlStore.New(Tripous.Data.DbConnectionInfo)
+  name.vb: New(DbConnectionInfo)
+- uid: Tripous.Data.SqlStore.OpenConnection
+  commentId: M:Tripous.Data.SqlStore.OpenConnection
+  id: OpenConnection
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: OpenConnection()
+  nameWithType: SqlStore.OpenConnection()
+  fullName: Tripous.Data.SqlStore.OpenConnection()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OpenConnection
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates and opens a DbConnection
+  example: []
+  syntax:
+    content: public DbConnection OpenConnection()
+    return:
+      type: System.Data.Common.DbConnection
+    content.vb: Public Function OpenConnection() As DbConnection
+  overload: Tripous.Data.SqlStore.OpenConnection*
+- uid: Tripous.Data.SqlStore.BeginTransaction
+  commentId: M:Tripous.Data.SqlStore.BeginTransaction
+  id: BeginTransaction
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: BeginTransaction()
+  nameWithType: SqlStore.BeginTransaction()
+  fullName: Tripous.Data.SqlStore.BeginTransaction()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BeginTransaction
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Creates a DbConnection, opens the connection and begins a transaction.
+
+    Returns the transaction.
+  example: []
+  syntax:
+    content: public virtual DbTransaction BeginTransaction()
+    return:
+      type: System.Data.Common.DbTransaction
+    content.vb: Public Overridable Function BeginTransaction() As DbTransaction
+  overload: Tripous.Data.SqlStore.BeginTransaction*
+- uid: Tripous.Data.SqlStore.CanConnect(System.Boolean)
+  commentId: M:Tripous.Data.SqlStore.CanConnect(System.Boolean)
+  id: CanConnect(System.Boolean)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: CanConnect(bool)
+  nameWithType: SqlStore.CanConnect(bool)
+  fullName: Tripous.Data.SqlStore.CanConnect(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanConnect
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if this connection info is valid and can connect to a database.
+  example: []
+  syntax:
+    content: public bool CanConnect(bool ThrowIfNot = false)
+    parameters:
+    - id: ThrowIfNot
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Function CanConnect(ThrowIfNot As Boolean = False) As Boolean
+  overload: Tripous.Data.SqlStore.CanConnect*
+  nameWithType.vb: SqlStore.CanConnect(Boolean)
+  fullName.vb: Tripous.Data.SqlStore.CanConnect(Boolean)
+  name.vb: CanConnect(Boolean)
+- uid: Tripous.Data.SqlStore.EnsureConnection(System.String)
+  commentId: M:Tripous.Data.SqlStore.EnsureConnection(System.String)
+  id: EnsureConnection(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: EnsureConnection(string)
+  nameWithType: SqlStore.EnsureConnection(string)
+  fullName: Tripous.Data.SqlStore.EnsureConnection(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EnsureConnection
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 54
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ensures that a connection can be done by opening and closing the connection.
+  example: []
+  syntax:
+    content: public virtual void EnsureConnection(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    content.vb: Public Overridable Sub EnsureConnection(ConnectionString As String)
+  overload: Tripous.Data.SqlStore.EnsureConnection*
+  nameWithType.vb: SqlStore.EnsureConnection(String)
+  fullName.vb: Tripous.Data.SqlStore.EnsureConnection(String)
+  name.vb: EnsureConnection(String)
+- uid: Tripous.Data.SqlStore.Select(System.String)
+  commentId: M:Tripous.Data.SqlStore.Select(System.String)
+  id: Select(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: Select(string)
+  nameWithType: SqlStore.Select(string)
+  fullName: Tripous.Data.SqlStore.Select(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Select
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SELECT statement and returns the result as a DataTable.
+  example: []
+  syntax:
+    content: public MemTable Select(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Function [Select](SqlText As String) As MemTable
+  overload: Tripous.Data.SqlStore.Select*
+  nameWithType.vb: SqlStore.Select(String)
+  fullName.vb: Tripous.Data.SqlStore.Select(String)
+  name.vb: Select(String)
+- uid: Tripous.Data.SqlStore.Select(System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.Select(System.String,System.Object[])
+  id: Select(System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: Select(string, params object[])
+  nameWithType: SqlStore.Select(string, params object[])
+  fullName: Tripous.Data.SqlStore.Select(string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Select
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SELECT statement and returns the result as a DataTable.
+  example: []
+  syntax:
+    content: public MemTable Select(string SqlText, params object[] Params)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Function [Select](SqlText As String, ParamArray Params As Object()) As MemTable
+  overload: Tripous.Data.SqlStore.Select*
+  nameWithType.vb: SqlStore.Select(String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.Select(String, ParamArray Object())
+  name.vb: Select(String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.Select(System.Data.Common.DbTransaction,System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.Select(System.Data.Common.DbTransaction,System.String,System.Object[])
+  id: Select(System.Data.Common.DbTransaction,System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: Select(DbTransaction, string, params object[])
+  nameWithType: SqlStore.Select(DbTransaction, string, params object[])
+  fullName: Tripous.Data.SqlStore.Select(System.Data.Common.DbTransaction, string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Select
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SELECT statement inside a transaction and returns the result as a DataTable.
+  example: []
+  syntax:
+    content: public MemTable Select(DbTransaction Transaction, string SqlText, params object[] Params)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Function [Select](Transaction As DbTransaction, SqlText As String, ParamArray Params As Object()) As MemTable
+  overload: Tripous.Data.SqlStore.Select*
+  nameWithType.vb: SqlStore.Select(DbTransaction, String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.Select(System.Data.Common.DbTransaction, String, ParamArray Object())
+  name.vb: Select(DbTransaction, String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String)
+  commentId: M:Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String)
+  id: SelectTo(Tripous.Data.MemTable,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectTo(MemTable, string)
+  nameWithType: SqlStore.SelectTo(MemTable, string)
+  fullName: Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectTo
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SELECT statement and loads the result into the specified DataTable.
+  example: []
+  syntax:
+    content: public int SelectTo(MemTable Table, string SqlText)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Function SelectTo(Table As MemTable, SqlText As String) As Integer
+  overload: Tripous.Data.SqlStore.SelectTo*
+  nameWithType.vb: SqlStore.SelectTo(MemTable, String)
+  fullName.vb: Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable, String)
+  name.vb: SelectTo(MemTable, String)
+- uid: Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable,System.String,System.Object[])
+  id: SelectTo(Tripous.Data.MemTable,System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectTo(MemTable, string, params object[])
+  nameWithType: SqlStore.SelectTo(MemTable, string, params object[])
+  fullName: Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable, string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectTo
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SELECT statement and loads the result into the specified DataTable.
+  example: []
+  syntax:
+    content: public int SelectTo(MemTable Table, string SqlText, params object[] Params)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Int32
+    content.vb: Public Function SelectTo(Table As MemTable, SqlText As String, ParamArray Params As Object()) As Integer
+  overload: Tripous.Data.SqlStore.SelectTo*
+  nameWithType.vb: SqlStore.SelectTo(MemTable, String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.SelectTo(Tripous.Data.MemTable, String, ParamArray Object())
+  name.vb: SelectTo(MemTable, String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.SelectTo(System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.SelectTo(System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.String,System.Object[])
+  id: SelectTo(System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectTo(DbTransaction, MemTable, string, params object[])
+  nameWithType: SqlStore.SelectTo(DbTransaction, MemTable, string, params object[])
+  fullName: Tripous.Data.SqlStore.SelectTo(System.Data.Common.DbTransaction, Tripous.Data.MemTable, string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectTo
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SELECT statement and loads the result into the specified DataTable using a transaction.
+  example: []
+  syntax:
+    content: public int SelectTo(DbTransaction Transaction, MemTable Table, string SqlText, params object[] Params)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Int32
+    content.vb: Public Function SelectTo(Transaction As DbTransaction, Table As MemTable, SqlText As String, ParamArray Params As Object()) As Integer
+  overload: Tripous.Data.SqlStore.SelectTo*
+  nameWithType.vb: SqlStore.SelectTo(DbTransaction, MemTable, String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.SelectTo(System.Data.Common.DbTransaction, Tripous.Data.MemTable, String, ParamArray Object())
+  name.vb: SelectTo(DbTransaction, MemTable, String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.ExecSql(System.String)
+  commentId: M:Tripous.Data.SqlStore.ExecSql(System.String)
+  id: ExecSql(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ExecSql(string)
+  nameWithType: SqlStore.ExecSql(string)
+  fullName: Tripous.Data.SqlStore.ExecSql(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecSql
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 88
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
+  example: []
+  syntax:
+    content: public int ExecSql(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Function ExecSql(SqlText As String) As Integer
+  overload: Tripous.Data.SqlStore.ExecSql*
+  nameWithType.vb: SqlStore.ExecSql(String)
+  fullName.vb: Tripous.Data.SqlStore.ExecSql(String)
+  name.vb: ExecSql(String)
+- uid: Tripous.Data.SqlStore.ExecSql(System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.ExecSql(System.String,System.Object[])
+  id: ExecSql(System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ExecSql(string, params object[])
+  nameWithType: SqlStore.ExecSql(string, params object[])
+  fullName: Tripous.Data.SqlStore.ExecSql(string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecSql
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 92
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a SQL statement (INSERT, UPDATE, DELETE, κλπ) and returns the number of rows affected.
+  example: []
+  syntax:
+    content: public int ExecSql(string SqlText, params object[] Params)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Int32
+    content.vb: Public Function ExecSql(SqlText As String, ParamArray Params As Object()) As Integer
+  overload: Tripous.Data.SqlStore.ExecSql*
+  nameWithType.vb: SqlStore.ExecSql(String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.ExecSql(String, ParamArray Object())
+  name.vb: ExecSql(String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.ExecSql(System.Collections.Generic.IEnumerable{System.String})
+  commentId: M:Tripous.Data.SqlStore.ExecSql(System.Collections.Generic.IEnumerable{System.String})
+  id: ExecSql(System.Collections.Generic.IEnumerable{System.String})
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ExecSql(IEnumerable<string>)
+  nameWithType: SqlStore.ExecSql(IEnumerable<string>)
+  fullName: Tripous.Data.SqlStore.ExecSql(System.Collections.Generic.IEnumerable<string>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecSql
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 97
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a list of executable statements inside a single transaction
+  example: []
+  syntax:
+    content: public virtual void ExecSql(IEnumerable<string> SqlTextList)
+    parameters:
+    - id: SqlTextList
+      type: System.Collections.Generic.IEnumerable{System.String}
+    content.vb: Public Overridable Sub ExecSql(SqlTextList As IEnumerable(Of String))
+  overload: Tripous.Data.SqlStore.ExecSql*
+  nameWithType.vb: SqlStore.ExecSql(IEnumerable(Of String))
+  fullName.vb: Tripous.Data.SqlStore.ExecSql(System.Collections.Generic.IEnumerable(Of String))
+  name.vb: ExecSql(IEnumerable(Of String))
+- uid: Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String)
+  commentId: M:Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String)
+  id: ExecSql(System.Data.Common.DbTransaction,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ExecSql(DbTransaction, string)
+  nameWithType: SqlStore.ExecSql(DbTransaction, string)
+  fullName: Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecSql
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 102
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a single SQL operation inside a transaction.
+  example: []
+  syntax:
+    content: public int ExecSql(DbTransaction Transaction, string SqlText)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Function ExecSql(Transaction As DbTransaction, SqlText As String) As Integer
+  overload: Tripous.Data.SqlStore.ExecSql*
+  nameWithType.vb: SqlStore.ExecSql(DbTransaction, String)
+  fullName.vb: Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction, String)
+  name.vb: ExecSql(DbTransaction, String)
+- uid: Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction,System.String,System.Object[])
+  id: ExecSql(System.Data.Common.DbTransaction,System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ExecSql(DbTransaction, string, params object[])
+  nameWithType: SqlStore.ExecSql(DbTransaction, string, params object[])
+  fullName: Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction, string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecSql
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 106
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a single SQL operation inside a transaction.
+  example: []
+  syntax:
+    content: public int ExecSql(DbTransaction Transaction, string SqlText, params object[] Params)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Int32
+    content.vb: Public Function ExecSql(Transaction As DbTransaction, SqlText As String, ParamArray Params As Object()) As Integer
+  overload: Tripous.Data.SqlStore.ExecSql*
+  nameWithType.vb: SqlStore.ExecSql(DbTransaction, String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.ExecSql(System.Data.Common.DbTransaction, String, ParamArray Object())
+  name.vb: ExecSql(DbTransaction, String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.ExecSql(System.Action{System.Data.Common.DbTransaction})
+  commentId: M:Tripous.Data.SqlStore.ExecSql(System.Action{System.Data.Common.DbTransaction})
+  id: ExecSql(System.Action{System.Data.Common.DbTransaction})
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ExecSql(Action<DbTransaction>)
+  nameWithType: SqlStore.ExecSql(Action<DbTransaction>)
+  fullName: Tripous.Data.SqlStore.ExecSql(System.Action<System.Data.Common.DbTransaction>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExecSql
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 120
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    It can be used in executin multiple SQL operations inside a single transaction using a callback.
+
+
+    <p>Example</p>
+
+    <pre><code class="lang-csharp">Provider.ExecSql(ConnectionString,
+        tr =&gt; Provider.ExecSql(tr, Sql1, Params1),
+        tr =&gt; Provider.ExecSql(tr, Sql2, Params2),
+        tr =&gt; Provider.ExecSql(tr, Sql3, Params3)
+    );</code></pre>
+  example: []
+  syntax:
+    content: public void ExecSql(Action<DbTransaction> Action)
+    parameters:
+    - id: Action
+      type: System.Action{System.Data.Common.DbTransaction}
+    content.vb: Public Sub ExecSql(Action As Action(Of DbTransaction))
+  overload: Tripous.Data.SqlStore.ExecSql*
+  nameWithType.vb: SqlStore.ExecSql(Action(Of DbTransaction))
+  fullName.vb: Tripous.Data.SqlStore.ExecSql(System.Action(Of System.Data.Common.DbTransaction))
+  name.vb: ExecSql(Action(Of DbTransaction))
+- uid: Tripous.Data.SqlStore.SelectIncrementLocked(System.String,System.String,System.Object,System.String)
+  commentId: M:Tripous.Data.SqlStore.SelectIncrementLocked(System.String,System.String,System.Object,System.String)
+  id: SelectIncrementLocked(System.String,System.String,System.Object,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectIncrementLocked(string, string, object, string)
+  nameWithType: SqlStore.SelectIncrementLocked(string, string, object, string)
+  fullName: Tripous.Data.SqlStore.SelectIncrementLocked(string, string, object, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectIncrementLocked
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 128
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Selects a row with update lock, increments an integer field, and returns the initial row.
+
+
+    <p>Example</p>
+
+    <code>DataRow Row = SelectIncrementLocked("NumberSeries", "Code", "SALES_DOMESTIC_1", "NextNumber");</code>
+  example: []
+  syntax:
+    content: public virtual DataRow SelectIncrementLocked(string TableName, string KeyFieldName, object KeyValue, string ValueFieldName)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: KeyFieldName
+      type: System.String
+    - id: KeyValue
+      type: System.Object
+    - id: ValueFieldName
+      type: System.String
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Overridable Function SelectIncrementLocked(TableName As String, KeyFieldName As String, KeyValue As Object, ValueFieldName As String) As DataRow
+  overload: Tripous.Data.SqlStore.SelectIncrementLocked*
+  nameWithType.vb: SqlStore.SelectIncrementLocked(String, String, Object, String)
+  fullName.vb: Tripous.Data.SqlStore.SelectIncrementLocked(String, String, Object, String)
+  name.vb: SelectIncrementLocked(String, String, Object, String)
+- uid: Tripous.Data.SqlStore.SelectResults(System.String)
+  commentId: M:Tripous.Data.SqlStore.SelectResults(System.String)
+  id: SelectResults(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectResults(string)
+  nameWithType: SqlStore.SelectResults(string)
+  fullName: Tripous.Data.SqlStore.SelectResults(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectResults
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 138
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Executes SqlText and returns the first DataRow of the result set.
+
+
+    <p>WARNING: If SqlText returns no rows at all then this method returns null.</p>
+  example: []
+  syntax:
+    content: public DataRow SelectResults(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Function SelectResults(SqlText As String) As DataRow
+  overload: Tripous.Data.SqlStore.SelectResults*
+  nameWithType.vb: SqlStore.SelectResults(String)
+  fullName.vb: Tripous.Data.SqlStore.SelectResults(String)
+  name.vb: SelectResults(String)
+- uid: Tripous.Data.SqlStore.SelectResults(System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.SelectResults(System.String,System.Object[])
+  id: SelectResults(System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectResults(string, params object[])
+  nameWithType: SqlStore.SelectResults(string, params object[])
+  fullName: Tripous.Data.SqlStore.SelectResults(string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectResults
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 148
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Executes SqlText and returns the first DataRow of the result set.
+
+
+    <p>WARNING: If SqlText returns no rows at all then this method returns null.</p>
+
+    <p></p>
+
+    <p>Params can be: </p>
+
+    <p>1. either a comma separated C# params list</p>
+
+    <p>2. or the Params[0] element, that is the first element in Params, may be a DataRow, generic IDictionary, IList or Array
+
+    and in that case no other Params elements are used.</p>
+  example: []
+  syntax:
+    content: public DataRow SelectResults(string SqlText, params object[] Params)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Function SelectResults(SqlText As String, ParamArray Params As Object()) As DataRow
+  overload: Tripous.Data.SqlStore.SelectResults*
+  nameWithType.vb: SqlStore.SelectResults(String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.SelectResults(String, ParamArray Object())
+  name.vb: SelectResults(String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.SelectResults(System.Data.Common.DbTransaction,System.String,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.SelectResults(System.Data.Common.DbTransaction,System.String,System.Object[])
+  id: SelectResults(System.Data.Common.DbTransaction,System.String,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectResults(DbTransaction, string, params object[])
+  nameWithType: SqlStore.SelectResults(DbTransaction, string, params object[])
+  fullName: Tripous.Data.SqlStore.SelectResults(System.Data.Common.DbTransaction, string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectResults
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Executes SqlText and returns the first DataRow of the result set.
+
+
+    <p>WARNING: If SqlText returns no rows at all then this method returns null.</p>
+
+    <p></p>
+
+    <p>Params can be: </p>
+
+    <p>1. either a comma separated C# params list</p>
+
+    <p>2. or the Params[0] element, that is the first element in Params, may be a DataRow, generic IDictionary, IList or Array
+
+    and in that case no other Params elements are used.</p>
+  example: []
+  syntax:
+    content: public DataRow SelectResults(DbTransaction Transaction, string SqlText, params object[] Params)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: SqlText
+      type: System.String
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Function SelectResults(Transaction As DbTransaction, SqlText As String, ParamArray Params As Object()) As DataRow
+  overload: Tripous.Data.SqlStore.SelectResults*
+  nameWithType.vb: SqlStore.SelectResults(DbTransaction, String, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.SelectResults(System.Data.Common.DbTransaction, String, ParamArray Object())
+  name.vb: SelectResults(DbTransaction, String, ParamArray Object())
+- uid: Tripous.Data.SqlStore.SelectResult(System.String)
+  commentId: M:Tripous.Data.SqlStore.SelectResult(System.String)
+  id: SelectResult(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectResult(string)
+  nameWithType: SqlStore.SelectResult(string)
+  fullName: Tripous.Data.SqlStore.SelectResult(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectResult
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 163
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ideal for executing SELECT statements of the type "select FIELD_NAME from TABLE_NAME"
+  example: []
+  syntax:
+    content: public object SelectResult(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Function SelectResult(SqlText As String) As Object
+  overload: Tripous.Data.SqlStore.SelectResult*
+  nameWithType.vb: SqlStore.SelectResult(String)
+  fullName.vb: Tripous.Data.SqlStore.SelectResult(String)
+  name.vb: SelectResult(String)
+- uid: Tripous.Data.SqlStore.SelectResult(System.String,System.Object)
+  commentId: M:Tripous.Data.SqlStore.SelectResult(System.String,System.Object)
+  id: SelectResult(System.String,System.Object)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectResult(string, object)
+  nameWithType: SqlStore.SelectResult(string, object)
+  fullName: Tripous.Data.SqlStore.SelectResult(string, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectResult
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 167
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ideal for executing SELECT statements of the type "select FIELD_NAME from TABLE_NAME"
+  example: []
+  syntax:
+    content: public object SelectResult(string SqlText, object Default)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Default
+      type: System.Object
+    return:
+      type: System.Object
+    content.vb: Public Function SelectResult(SqlText As String, [Default] As Object) As Object
+  overload: Tripous.Data.SqlStore.SelectResult*
+  nameWithType.vb: SqlStore.SelectResult(String, Object)
+  fullName.vb: Tripous.Data.SqlStore.SelectResult(String, Object)
+  name.vb: SelectResult(String, Object)
+- uid: Tripous.Data.SqlStore.SelectResult(System.String,System.Object,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.SelectResult(System.String,System.Object,System.Object[])
+  id: SelectResult(System.String,System.Object,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectResult(string, object, params object[])
+  nameWithType: SqlStore.SelectResult(string, object, params object[])
+  fullName: Tripous.Data.SqlStore.SelectResult(string, object, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectResult
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 171
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ideal for executing SELECT statements of the type "select FIELD_NAME from TABLE_NAME"
+  example: []
+  syntax:
+    content: public object SelectResult(string SqlText, object Default, params object[] Params)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Default
+      type: System.Object
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Object
+    content.vb: Public Function SelectResult(SqlText As String, [Default] As Object, ParamArray Params As Object()) As Object
+  overload: Tripous.Data.SqlStore.SelectResult*
+  nameWithType.vb: SqlStore.SelectResult(String, Object, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.SelectResult(String, Object, ParamArray Object())
+  name.vb: SelectResult(String, Object, ParamArray Object())
+- uid: Tripous.Data.SqlStore.SelectResult(System.Data.Common.DbTransaction,System.String,System.Object,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.SelectResult(System.Data.Common.DbTransaction,System.String,System.Object,System.Object[])
+  id: SelectResult(System.Data.Common.DbTransaction,System.String,System.Object,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: SelectResult(DbTransaction, string, object, params object[])
+  nameWithType: SqlStore.SelectResult(DbTransaction, string, object, params object[])
+  fullName: Tripous.Data.SqlStore.SelectResult(System.Data.Common.DbTransaction, string, object, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectResult
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 175
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ideal for executing SELECT statements of the type "select FIELD_NAME from TABLE_NAME"
+  example: []
+  syntax:
+    content: public object SelectResult(DbTransaction Transaction, string SqlText, object Default, params object[] Params)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: SqlText
+      type: System.String
+    - id: Default
+      type: System.Object
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Object
+    content.vb: Public Function SelectResult(Transaction As DbTransaction, SqlText As String, [Default] As Object, ParamArray Params As Object()) As Object
+  overload: Tripous.Data.SqlStore.SelectResult*
+  nameWithType.vb: SqlStore.SelectResult(DbTransaction, String, Object, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.SelectResult(System.Data.Common.DbTransaction, String, Object, ParamArray Object())
+  name.vb: SelectResult(DbTransaction, String, Object, ParamArray Object())
+- uid: Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32)
+  commentId: M:Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32)
+  id: IntegerResult(System.String,System.Int32)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: IntegerResult(string, int)
+  nameWithType: SqlStore.IntegerResult(string, int)
+  fullName: Tripous.Data.SqlStore.IntegerResult(string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IntegerResult
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 180
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ideal for executing SELECT statements of the type "select count(ID) as COUNT_ID from TABLE_NAME where ID = 1234"
+  example: []
+  syntax:
+    content: public int IntegerResult(string SqlText, int Default)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Default
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Function IntegerResult(SqlText As String, [Default] As Integer) As Integer
+  overload: Tripous.Data.SqlStore.IntegerResult*
+  nameWithType.vb: SqlStore.IntegerResult(String, Integer)
+  fullName.vb: Tripous.Data.SqlStore.IntegerResult(String, Integer)
+  name.vb: IntegerResult(String, Integer)
+- uid: Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32,System.Object[])
+  id: IntegerResult(System.String,System.Int32,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: IntegerResult(string, int, params object[])
+  nameWithType: SqlStore.IntegerResult(string, int, params object[])
+  fullName: Tripous.Data.SqlStore.IntegerResult(string, int, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IntegerResult
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 184
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ideal for executing SELECT statements of the type "select count(ID) as COUNT_ID from TABLE_NAME where ID = 1234"
+  example: []
+  syntax:
+    content: public int IntegerResult(string SqlText, int Default, params object[] Params)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Default
+      type: System.Int32
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Int32
+    content.vb: Public Function IntegerResult(SqlText As String, [Default] As Integer, ParamArray Params As Object()) As Integer
+  overload: Tripous.Data.SqlStore.IntegerResult*
+  nameWithType.vb: SqlStore.IntegerResult(String, Integer, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.IntegerResult(String, Integer, ParamArray Object())
+  name.vb: IntegerResult(String, Integer, ParamArray Object())
+- uid: Tripous.Data.SqlStore.IntegerResult(System.Data.Common.DbTransaction,System.String,System.Int32,System.Object[])
+  commentId: M:Tripous.Data.SqlStore.IntegerResult(System.Data.Common.DbTransaction,System.String,System.Int32,System.Object[])
+  id: IntegerResult(System.Data.Common.DbTransaction,System.String,System.Int32,System.Object[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: IntegerResult(DbTransaction, string, int, params object[])
+  nameWithType: SqlStore.IntegerResult(DbTransaction, string, int, params object[])
+  fullName: Tripous.Data.SqlStore.IntegerResult(System.Data.Common.DbTransaction, string, int, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IntegerResult
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 189
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Ideal for executing SELECT statements of the type "select count(ID) as COUNT_ID from TABLE_NAME where ID = 1234"
+  example: []
+  syntax:
+    content: public int IntegerResult(DbTransaction Transaction, string SqlText, int Default, params object[] Params)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: SqlText
+      type: System.String
+    - id: Default
+      type: System.Int32
+    - id: Params
+      type: System.Object[]
+    return:
+      type: System.Int32
+    content.vb: Public Function IntegerResult(Transaction As DbTransaction, SqlText As String, [Default] As Integer, ParamArray Params As Object()) As Integer
+  overload: Tripous.Data.SqlStore.IntegerResult*
+  nameWithType.vb: SqlStore.IntegerResult(DbTransaction, String, Integer, ParamArray Object())
+  fullName.vb: Tripous.Data.SqlStore.IntegerResult(System.Data.Common.DbTransaction, String, Integer, ParamArray Object())
+  name.vb: IntegerResult(DbTransaction, String, Integer, ParamArray Object())
+- uid: Tripous.Data.SqlStore.GetServerDateTime
+  commentId: M:Tripous.Data.SqlStore.GetServerDateTime
+  id: GetServerDateTime
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetServerDateTime()
+  nameWithType: SqlStore.GetServerDateTime()
+  fullName: Tripous.Data.SqlStore.GetServerDateTime()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetServerDateTime
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 194
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the datetime value from the server.
+  example: []
+  syntax:
+    content: public DateTime GetServerDateTime()
+    return:
+      type: System.DateTime
+    content.vb: Public Function GetServerDateTime() As Date
+  overload: Tripous.Data.SqlStore.GetServerDateTime*
+- uid: Tripous.Data.SqlStore.NextId(System.Data.Common.DbTransaction,System.String)
+  commentId: M:Tripous.Data.SqlStore.NextId(System.Data.Common.DbTransaction,System.String)
+  id: NextId(System.Data.Common.DbTransaction,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: NextId(DbTransaction, string)
+  nameWithType: SqlStore.NextId(DbTransaction, string)
+  fullName: Tripous.Data.SqlStore.NextId(System.Data.Common.DbTransaction, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextId
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 201
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the next id value of a generator named after the TableName table.
+
+
+    <p>It should be used only with databases that support generators or when a CustomOid object is used.</p>
+  example: []
+  syntax:
+    content: public virtual int NextId(DbTransaction Transaction, string TableName)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Function NextId(Transaction As DbTransaction, TableName As String) As Integer
+  overload: Tripous.Data.SqlStore.NextId*
+  nameWithType.vb: SqlStore.NextId(DbTransaction, String)
+  fullName.vb: Tripous.Data.SqlStore.NextId(System.Data.Common.DbTransaction, String)
+  name.vb: NextId(DbTransaction, String)
+- uid: Tripous.Data.SqlStore.LastId(System.Data.Common.DbTransaction,System.String)
+  commentId: M:Tripous.Data.SqlStore.LastId(System.Data.Common.DbTransaction,System.String)
+  id: LastId(System.Data.Common.DbTransaction,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: LastId(DbTransaction, string)
+  nameWithType: SqlStore.LastId(DbTransaction, string)
+  fullName: Tripous.Data.SqlStore.LastId(System.Data.Common.DbTransaction, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastId
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 209
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the last id produced by an INSERT Sqlt statement.
+
+
+    <p>It should be used only with databases that support identity (auto-increment) columns</p>
+  example: []
+  syntax:
+    content: public virtual int LastId(DbTransaction Transaction, string TableName)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Function LastId(Transaction As DbTransaction, TableName As String) As Integer
+  overload: Tripous.Data.SqlStore.LastId*
+  nameWithType.vb: SqlStore.LastId(DbTransaction, String)
+  fullName.vb: Tripous.Data.SqlStore.LastId(System.Data.Common.DbTransaction, String)
+  name.vb: LastId(DbTransaction, String)
+- uid: Tripous.Data.SqlStore.NextIdByGenerator(System.Data.Common.DbTransaction,System.String)
+  commentId: M:Tripous.Data.SqlStore.NextIdByGenerator(System.Data.Common.DbTransaction,System.String)
+  id: NextIdByGenerator(System.Data.Common.DbTransaction,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: NextIdByGenerator(DbTransaction, string)
+  nameWithType: SqlStore.NextIdByGenerator(DbTransaction, string)
+  fullName: Tripous.Data.SqlStore.NextIdByGenerator(System.Data.Common.DbTransaction, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextIdByGenerator
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 216
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the next value of the GeneratorName generator.
+  example: []
+  syntax:
+    content: public virtual int NextIdByGenerator(DbTransaction Transaction, string GeneratorName)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: GeneratorName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Function NextIdByGenerator(Transaction As DbTransaction, GeneratorName As String) As Integer
+  overload: Tripous.Data.SqlStore.NextIdByGenerator*
+  nameWithType.vb: SqlStore.NextIdByGenerator(DbTransaction, String)
+  fullName.vb: Tripous.Data.SqlStore.NextIdByGenerator(System.Data.Common.DbTransaction, String)
+  name.vb: NextIdByGenerator(DbTransaction, String)
+- uid: Tripous.Data.SqlStore.NextId(System.String)
+  commentId: M:Tripous.Data.SqlStore.NextId(System.String)
+  id: NextId(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: NextId(string)
+  nameWithType: SqlStore.NextId(string)
+  fullName: Tripous.Data.SqlStore.NextId(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextId
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 226
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the next id value of a generator named after the TableName table.
+
+
+    <p>It should be used only with databases that support generators or when a CustomOid object is used.</p>
+  example: []
+  syntax:
+    content: public virtual int NextId(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Function NextId(TableName As String) As Integer
+  overload: Tripous.Data.SqlStore.NextId*
+  nameWithType.vb: SqlStore.NextId(String)
+  fullName.vb: Tripous.Data.SqlStore.NextId(String)
+  name.vb: NextId(String)
+- uid: Tripous.Data.SqlStore.LastId(System.String)
+  commentId: M:Tripous.Data.SqlStore.LastId(System.String)
+  id: LastId(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: LastId(string)
+  nameWithType: SqlStore.LastId(string)
+  fullName: Tripous.Data.SqlStore.LastId(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastId
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 252
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns the last id produced by an INSERT Sqlt statement.
+
+
+    <p>It should be used only with databases that support identity (auto-increment) columns</p>
+  example: []
+  syntax:
+    content: public virtual int LastId(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Function LastId(TableName As String) As Integer
+  overload: Tripous.Data.SqlStore.LastId*
+  nameWithType.vb: SqlStore.LastId(String)
+  fullName.vb: Tripous.Data.SqlStore.LastId(String)
+  name.vb: LastId(String)
+- uid: Tripous.Data.SqlStore.NextIdByGenerator(System.String)
+  commentId: M:Tripous.Data.SqlStore.NextIdByGenerator(System.String)
+  id: NextIdByGenerator(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: NextIdByGenerator(string)
+  nameWithType: SqlStore.NextIdByGenerator(string)
+  fullName: Tripous.Data.SqlStore.NextIdByGenerator(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextIdByGenerator
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 277
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the next value of the GeneratorName generator.
+  example: []
+  syntax:
+    content: public virtual int NextIdByGenerator(string GeneratorName)
+    parameters:
+    - id: GeneratorName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Overridable Function NextIdByGenerator(GeneratorName As String) As Integer
+  overload: Tripous.Data.SqlStore.NextIdByGenerator*
+  nameWithType.vb: SqlStore.NextIdByGenerator(String)
+  fullName.vb: Tripous.Data.SqlStore.NextIdByGenerator(String)
+  name.vb: NextIdByGenerator(String)
+- uid: Tripous.Data.SqlStore.GetSchema
+  commentId: M:Tripous.Data.SqlStore.GetSchema
+  id: GetSchema
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetSchema()
+  nameWithType: SqlStore.GetSchema()
+  fullName: Tripous.Data.SqlStore.GetSchema()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSchema
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 303
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns schema information for the data source of this System.Data.Common.DbConnection.
+  example: []
+  syntax:
+    content: public virtual DataTable GetSchema()
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Overridable Function GetSchema() As DataTable
+  overload: Tripous.Data.SqlStore.GetSchema*
+- uid: Tripous.Data.SqlStore.GetSchema(System.String)
+  commentId: M:Tripous.Data.SqlStore.GetSchema(System.String)
+  id: GetSchema(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetSchema(string)
+  nameWithType: SqlStore.GetSchema(string)
+  fullName: Tripous.Data.SqlStore.GetSchema(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSchema
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 312
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns schema information for the data source of this System.Data.Common.DbConnection
+
+    using the specified string for the schema name.
+  example: []
+  syntax:
+    content: public virtual DataTable GetSchema(string collectionName)
+    parameters:
+    - id: collectionName
+      type: System.String
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Overridable Function GetSchema(collectionName As String) As DataTable
+  overload: Tripous.Data.SqlStore.GetSchema*
+  nameWithType.vb: SqlStore.GetSchema(String)
+  fullName.vb: Tripous.Data.SqlStore.GetSchema(String)
+  name.vb: GetSchema(String)
+- uid: Tripous.Data.SqlStore.GetSchema(System.String,System.String[])
+  commentId: M:Tripous.Data.SqlStore.GetSchema(System.String,System.String[])
+  id: GetSchema(System.String,System.String[])
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetSchema(string, string[])
+  nameWithType: SqlStore.GetSchema(string, string[])
+  fullName: Tripous.Data.SqlStore.GetSchema(string, string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSchema
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 322
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns schema information for the data source of this System.Data.Common.DbConnection
+
+    using the specified string for the schema name and the specified string array
+
+    for the restriction values.
+  example: []
+  syntax:
+    content: public virtual DataTable GetSchema(string collectionName, string[] restrictionValues)
+    parameters:
+    - id: collectionName
+      type: System.String
+    - id: restrictionValues
+      type: System.String[]
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Overridable Function GetSchema(collectionName As String, restrictionValues As String()) As DataTable
+  overload: Tripous.Data.SqlStore.GetSchema*
+  nameWithType.vb: SqlStore.GetSchema(String, String())
+  fullName.vb: Tripous.Data.SqlStore.GetSchema(String, String())
+  name.vb: GetSchema(String, String())
+- uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+  commentId: M:Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+  id: GetNativeSchemaFromTableName(System.String,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetNativeSchemaFromTableName(string, string)
+  nameWithType: SqlStore.GetNativeSchemaFromTableName(string, string)
+  fullName: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetNativeSchemaFromTableName
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 331
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the native schema of the TableName table.
+  example: []
+  syntax:
+    content: public DataTable GetNativeSchemaFromTableName(string StatementName, string TableName)
+    parameters:
+    - id: StatementName
+      type: System.String
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Function GetNativeSchemaFromTableName(StatementName As String, TableName As String) As DataTable
+  overload: Tripous.Data.SqlStore.GetNativeSchemaFromTableName*
+  nameWithType.vb: SqlStore.GetNativeSchemaFromTableName(String, String)
+  fullName.vb: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(String, String)
+  name.vb: GetNativeSchemaFromTableName(String, String)
+- uid: Tripous.Data.SqlStore.GetNativeSchemaFromSelect(System.String,System.String)
+  commentId: M:Tripous.Data.SqlStore.GetNativeSchemaFromSelect(System.String,System.String)
+  id: GetNativeSchemaFromSelect(System.String,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetNativeSchemaFromSelect(string, string)
+  nameWithType: SqlStore.GetNativeSchemaFromSelect(string, string)
+  fullName: Tripous.Data.SqlStore.GetNativeSchemaFromSelect(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetNativeSchemaFromSelect
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 341
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the native schema of the SqlText SELECT statement..
+  example: []
+  syntax:
+    content: public DataTable GetNativeSchemaFromSelect(string StatementName, string SqlText)
+    parameters:
+    - id: StatementName
+      type: System.String
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Function GetNativeSchemaFromSelect(StatementName As String, SqlText As String) As DataTable
+  overload: Tripous.Data.SqlStore.GetNativeSchemaFromSelect*
+  nameWithType.vb: SqlStore.GetNativeSchemaFromSelect(String, String)
+  fullName.vb: Tripous.Data.SqlStore.GetNativeSchemaFromSelect(String, String)
+  name.vb: GetNativeSchemaFromSelect(String, String)
+- uid: Tripous.Data.SqlStore.GetTableNames
+  commentId: M:Tripous.Data.SqlStore.GetTableNames
+  id: GetTableNames
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetTableNames()
+  nameWithType: SqlStore.GetTableNames()
+  fullName: Tripous.Data.SqlStore.GetTableNames()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetTableNames
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 371
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string list with the table names in the database.
+  example: []
+  syntax:
+    content: public List<string> GetTableNames()
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Function GetTableNames() As List(Of String)
+  overload: Tripous.Data.SqlStore.GetTableNames*
+- uid: Tripous.Data.SqlStore.GetFieldNames(System.String)
+  commentId: M:Tripous.Data.SqlStore.GetFieldNames(System.String)
+  id: GetFieldNames(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetFieldNames(string)
+  nameWithType: SqlStore.GetFieldNames(string)
+  fullName: Tripous.Data.SqlStore.GetFieldNames(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetFieldNames
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 384
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string list with the field names of the TableName
+  example: []
+  syntax:
+    content: public List<string> GetFieldNames(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Function GetFieldNames(TableName As String) As List(Of String)
+  overload: Tripous.Data.SqlStore.GetFieldNames*
+  nameWithType.vb: SqlStore.GetFieldNames(String)
+  fullName.vb: Tripous.Data.SqlStore.GetFieldNames(String)
+  name.vb: GetFieldNames(String)
+- uid: Tripous.Data.SqlStore.GetIndexNames
+  commentId: M:Tripous.Data.SqlStore.GetIndexNames
+  id: GetIndexNames
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetIndexNames()
+  nameWithType: SqlStore.GetIndexNames()
+  fullName: Tripous.Data.SqlStore.GetIndexNames()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetIndexNames
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 400
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string list with the index names in the database
+  example: []
+  syntax:
+    content: public List<string> GetIndexNames()
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Function GetIndexNames() As List(Of String)
+  overload: Tripous.Data.SqlStore.GetIndexNames*
+- uid: Tripous.Data.SqlStore.TableExists(System.String,System.Boolean)
+  commentId: M:Tripous.Data.SqlStore.TableExists(System.String,System.Boolean)
+  id: TableExists(System.String,System.Boolean)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: TableExists(string, bool)
+  nameWithType: SqlStore.TableExists(string, bool)
+  fullName: Tripous.Data.SqlStore.TableExists(string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableExists
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 418
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if a table with TableName exists in the database.
+  example: []
+  syntax:
+    content: public bool TableExists(string TableName, bool UseSelect = false)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: UseSelect
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Function TableExists(TableName As String, UseSelect As Boolean = False) As Boolean
+  overload: Tripous.Data.SqlStore.TableExists*
+  nameWithType.vb: SqlStore.TableExists(String, Boolean)
+  fullName.vb: Tripous.Data.SqlStore.TableExists(String, Boolean)
+  name.vb: TableExists(String, Boolean)
+- uid: Tripous.Data.SqlStore.ResetTable(System.String)
+  commentId: M:Tripous.Data.SqlStore.ResetTable(System.String)
+  id: ResetTable(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ResetTable(string)
+  nameWithType: SqlStore.ResetTable(string)
+  fullName: Tripous.Data.SqlStore.ResetTable(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ResetTable
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 445
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Empties the TableName table in the database and initializes its generator/sequencer or identity column.
+
+
+    <p>DANGEROUS</p>
+  example: []
+  syntax:
+    content: public void ResetTable(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    content.vb: Public Sub ResetTable(TableName As String)
+  overload: Tripous.Data.SqlStore.ResetTable*
+  nameWithType.vb: SqlStore.ResetTable(String)
+  fullName.vb: Tripous.Data.SqlStore.ResetTable(String)
+  name.vb: ResetTable(String)
+- uid: Tripous.Data.SqlStore.TableIsEmpty(System.String)
+  commentId: M:Tripous.Data.SqlStore.TableIsEmpty(System.String)
+  id: TableIsEmpty(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: TableIsEmpty(string)
+  nameWithType: SqlStore.TableIsEmpty(string)
+  fullName: Tripous.Data.SqlStore.TableIsEmpty(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableIsEmpty
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 453
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if a table contains no rows in the database.
+  example: []
+  syntax:
+    content: public bool TableIsEmpty(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function TableIsEmpty(TableName As String) As Boolean
+  overload: Tripous.Data.SqlStore.TableIsEmpty*
+  nameWithType.vb: SqlStore.TableIsEmpty(String)
+  fullName.vb: Tripous.Data.SqlStore.TableIsEmpty(String)
+  name.vb: TableIsEmpty(String)
+- uid: Tripous.Data.SqlStore.CreateTable(System.String)
+  commentId: M:Tripous.Data.SqlStore.CreateTable(System.String)
+  id: CreateTable(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: CreateTable(string)
+  nameWithType: SqlStore.CreateTable(string)
+  fullName: Tripous.Data.SqlStore.CreateTable(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateTable
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 466
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Creates a new table in the database by executing CommandText. Returns true
+
+    only if creates the table, false if the table already exists.
+
+
+    <p>The method creates a table generator too, if the database supports generators/sequences.</p>
+
+    <p>CommandText should be a CREATE TABLE statement and can contain datatype placeholders.
+
+    See <xref href="Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)" data-throw-if-not-resolved="false"></xref> for details.</p>
+  example: []
+  syntax:
+    content: public virtual bool CreateTable(string SqlText)
+    parameters:
+    - id: SqlText
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Overridable Function CreateTable(SqlText As String) As Boolean
+  overload: Tripous.Data.SqlStore.CreateTable*
+  nameWithType.vb: SqlStore.CreateTable(String)
+  fullName.vb: Tripous.Data.SqlStore.CreateTable(String)
+  name.vb: CreateTable(String)
+- uid: Tripous.Data.SqlStore.FieldExists(System.String,System.String)
+  commentId: M:Tripous.Data.SqlStore.FieldExists(System.String,System.String)
+  id: FieldExists(System.String,System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: FieldExists(string, string)
+  nameWithType: SqlStore.FieldExists(string, string)
+  fullName: Tripous.Data.SqlStore.FieldExists(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldExists
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 493
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if the FieldName exists in TableName table.
+  example: []
+  syntax:
+    content: public bool FieldExists(string TableName, string FieldName)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function FieldExists(TableName As String, FieldName As String) As Boolean
+  overload: Tripous.Data.SqlStore.FieldExists*
+  nameWithType.vb: SqlStore.FieldExists(String, String)
+  fullName.vb: Tripous.Data.SqlStore.FieldExists(String, String)
+  name.vb: FieldExists(String, String)
+- uid: Tripous.Data.SqlStore.IndexExists(System.String)
+  commentId: M:Tripous.Data.SqlStore.IndexExists(System.String)
+  id: IndexExists(System.String)
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: IndexExists(string)
+  nameWithType: SqlStore.IndexExists(string)
+  fullName: Tripous.Data.SqlStore.IndexExists(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IndexExists
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 501
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if an index with IndexName exists in the database.
+  example: []
+  syntax:
+    content: public bool IndexExists(string IndexName)
+    parameters:
+    - id: IndexName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function IndexExists(IndexName As String) As Boolean
+  overload: Tripous.Data.SqlStore.IndexExists*
+  nameWithType.vb: SqlStore.IndexExists(String)
+  fullName.vb: Tripous.Data.SqlStore.IndexExists(String)
+  name.vb: IndexExists(String)
+- uid: Tripous.Data.SqlStore.Provider
+  commentId: P:Tripous.Data.SqlStore.Provider
+  id: Provider
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: Provider
+  nameWithType: SqlStore.Provider
+  fullName: Tripous.Data.SqlStore.Provider
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Provider
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 513
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The SqlProvider used by this instance.
+  example: []
+  syntax:
+    content: public SqlProvider Provider { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SqlProvider
+    content.vb: Public ReadOnly Property Provider As SqlProvider
+  overload: Tripous.Data.SqlStore.Provider*
+- uid: Tripous.Data.SqlStore.ConnectionInfo
+  commentId: P:Tripous.Data.SqlStore.ConnectionInfo
+  id: ConnectionInfo
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: ConnectionInfo
+  nameWithType: SqlStore.ConnectionInfo
+  fullName: Tripous.Data.SqlStore.ConnectionInfo
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionInfo
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 517
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The connection info used by this instance.
+  example: []
+  syntax:
+    content: public DbConnectionInfo ConnectionInfo { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbConnectionInfo
+    content.vb: Public ReadOnly Property ConnectionInfo As DbConnectionInfo
+  overload: Tripous.Data.SqlStore.ConnectionInfo*
+references:
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: System.Collections.IDictionary
+  commentId: T:System.Collections.IDictionary
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  name: IDictionary
+  nameWithType: IDictionary
+  fullName: System.Collections.IDictionary
+- uid: System.Collections.IList
+  commentId: T:System.Collections.IList
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ilist
+  name: IList
+  nameWithType: IList
+  fullName: System.Collections.IList
+- uid: System.Array
+  commentId: T:System.Array
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.array
+  name: Array
+  nameWithType: Array
+  fullName: System.Array
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.SqlStore.#ctor*
+  commentId: Overload:Tripous.Data.SqlStore.#ctor
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore__ctor_Tripous_Data_DbConnectionInfo_
+  name: SqlStore
+  nameWithType: SqlStore.SqlStore
+  fullName: Tripous.Data.SqlStore.SqlStore
+  nameWithType.vb: SqlStore.New
+  fullName.vb: Tripous.Data.SqlStore.New
+  name.vb: New
+- uid: Tripous.Data.DbConnectionInfo
+  commentId: T:Tripous.Data.DbConnectionInfo
+  parent: Tripous.Data
+  href: Tripous.Data.DbConnectionInfo.html
+  name: DbConnectionInfo
+  nameWithType: DbConnectionInfo
+  fullName: Tripous.Data.DbConnectionInfo
+- uid: Tripous.Data.SqlStore.OpenConnection*
+  commentId: Overload:Tripous.Data.SqlStore.OpenConnection
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_OpenConnection
+  name: OpenConnection
+  nameWithType: SqlStore.OpenConnection
+  fullName: Tripous.Data.SqlStore.OpenConnection
+- uid: System.Data.Common.DbConnection
+  commentId: T:System.Data.Common.DbConnection
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnection
+  name: DbConnection
+  nameWithType: DbConnection
+  fullName: System.Data.Common.DbConnection
+- uid: System.Data.Common
+  commentId: N:System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data.Common
+  nameWithType: System.Data.Common
+  fullName: System.Data.Common
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+- uid: Tripous.Data.SqlStore.BeginTransaction*
+  commentId: Overload:Tripous.Data.SqlStore.BeginTransaction
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_BeginTransaction
+  name: BeginTransaction
+  nameWithType: SqlStore.BeginTransaction
+  fullName: Tripous.Data.SqlStore.BeginTransaction
+- uid: System.Data.Common.DbTransaction
+  commentId: T:System.Data.Common.DbTransaction
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  name: DbTransaction
+  nameWithType: DbTransaction
+  fullName: System.Data.Common.DbTransaction
+- uid: Tripous.Data.SqlStore.CanConnect*
+  commentId: Overload:Tripous.Data.SqlStore.CanConnect
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_CanConnect_System_Boolean_
+  name: CanConnect
+  nameWithType: SqlStore.CanConnect
+  fullName: Tripous.Data.SqlStore.CanConnect
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.SqlStore.EnsureConnection*
+  commentId: Overload:Tripous.Data.SqlStore.EnsureConnection
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_EnsureConnection_System_String_
+  name: EnsureConnection
+  nameWithType: SqlStore.EnsureConnection
+  fullName: Tripous.Data.SqlStore.EnsureConnection
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SqlStore.Select*
+  commentId: Overload:Tripous.Data.SqlStore.Select
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_Select_System_String_
+  name: Select
+  nameWithType: SqlStore.Select
+  fullName: Tripous.Data.SqlStore.Select
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: Tripous.Data.SqlStore.SelectTo*
+  commentId: Overload:Tripous.Data.SqlStore.SelectTo
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_SelectTo_Tripous_Data_MemTable_System_String_
+  name: SelectTo
+  nameWithType: SqlStore.SelectTo
+  fullName: Tripous.Data.SqlStore.SelectTo
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.SqlStore.ExecSql*
+  commentId: Overload:Tripous.Data.SqlStore.ExecSql
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_ExecSql_System_String_
+  name: ExecSql
+  nameWithType: SqlStore.ExecSql
+  fullName: Tripous.Data.SqlStore.ExecSql
+- uid: System.Collections.Generic.IEnumerable{System.String}
+  commentId: T:System.Collections.Generic.IEnumerable{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<string>
+  nameWithType: IEnumerable<string>
+  fullName: System.Collections.Generic.IEnumerable<string>
+  nameWithType.vb: IEnumerable(Of String)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of String)
+  name.vb: IEnumerable(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Action{System.Data.Common.DbTransaction}
+  commentId: T:System.Action{System.Data.Common.DbTransaction}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<DbTransaction>
+  nameWithType: Action<DbTransaction>
+  fullName: System.Action<System.Data.Common.DbTransaction>
+  nameWithType.vb: Action(Of DbTransaction)
+  fullName.vb: System.Action(Of System.Data.Common.DbTransaction)
+  name.vb: Action(Of DbTransaction)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: System.Data.Common.DbTransaction
+    name: DbTransaction
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Data.Common.DbTransaction
+    name: DbTransaction
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.SqlStore.SelectIncrementLocked*
+  commentId: Overload:Tripous.Data.SqlStore.SelectIncrementLocked
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_SelectIncrementLocked_System_String_System_String_System_Object_System_String_
+  name: SelectIncrementLocked
+  nameWithType: SqlStore.SelectIncrementLocked
+  fullName: Tripous.Data.SqlStore.SelectIncrementLocked
+- uid: Tripous.Data.SqlStore.SelectResults*
+  commentId: Overload:Tripous.Data.SqlStore.SelectResults
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_SelectResults_System_String_
+  name: SelectResults
+  nameWithType: SqlStore.SelectResults
+  fullName: Tripous.Data.SqlStore.SelectResults
+- uid: Tripous.Data.SqlStore.SelectResult*
+  commentId: Overload:Tripous.Data.SqlStore.SelectResult
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_SelectResult_System_String_
+  name: SelectResult
+  nameWithType: SqlStore.SelectResult
+  fullName: Tripous.Data.SqlStore.SelectResult
+- uid: Tripous.Data.SqlStore.IntegerResult*
+  commentId: Overload:Tripous.Data.SqlStore.IntegerResult
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_IntegerResult_System_String_System_Int32_
+  name: IntegerResult
+  nameWithType: SqlStore.IntegerResult
+  fullName: Tripous.Data.SqlStore.IntegerResult
+- uid: Tripous.Data.SqlStore.GetServerDateTime*
+  commentId: Overload:Tripous.Data.SqlStore.GetServerDateTime
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetServerDateTime
+  name: GetServerDateTime
+  nameWithType: SqlStore.GetServerDateTime
+  fullName: Tripous.Data.SqlStore.GetServerDateTime
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.Data.SqlStore.NextId*
+  commentId: Overload:Tripous.Data.SqlStore.NextId
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_NextId_System_Data_Common_DbTransaction_System_String_
+  name: NextId
+  nameWithType: SqlStore.NextId
+  fullName: Tripous.Data.SqlStore.NextId
+- uid: Tripous.Data.SqlStore.LastId*
+  commentId: Overload:Tripous.Data.SqlStore.LastId
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_LastId_System_Data_Common_DbTransaction_System_String_
+  name: LastId
+  nameWithType: SqlStore.LastId
+  fullName: Tripous.Data.SqlStore.LastId
+- uid: Tripous.Data.SqlStore.NextIdByGenerator*
+  commentId: Overload:Tripous.Data.SqlStore.NextIdByGenerator
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_NextIdByGenerator_System_Data_Common_DbTransaction_System_String_
+  name: NextIdByGenerator
+  nameWithType: SqlStore.NextIdByGenerator
+  fullName: Tripous.Data.SqlStore.NextIdByGenerator
+- uid: Tripous.Data.SqlStore.GetSchema*
+  commentId: Overload:Tripous.Data.SqlStore.GetSchema
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetSchema
+  name: GetSchema
+  nameWithType: SqlStore.GetSchema
+  fullName: Tripous.Data.SqlStore.GetSchema
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName*
+  commentId: Overload:Tripous.Data.SqlStore.GetNativeSchemaFromTableName
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_
+  name: GetNativeSchemaFromTableName
+  nameWithType: SqlStore.GetNativeSchemaFromTableName
+  fullName: Tripous.Data.SqlStore.GetNativeSchemaFromTableName
+- uid: Tripous.Data.SqlStore.GetNativeSchemaFromSelect*
+  commentId: Overload:Tripous.Data.SqlStore.GetNativeSchemaFromSelect
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromSelect_System_String_System_String_
+  name: GetNativeSchemaFromSelect
+  nameWithType: SqlStore.GetNativeSchemaFromSelect
+  fullName: Tripous.Data.SqlStore.GetNativeSchemaFromSelect
+- uid: Tripous.Data.SqlStore.GetTableNames*
+  commentId: Overload:Tripous.Data.SqlStore.GetTableNames
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetTableNames
+  name: GetTableNames
+  nameWithType: SqlStore.GetTableNames
+  fullName: Tripous.Data.SqlStore.GetTableNames
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.SqlStore.GetFieldNames*
+  commentId: Overload:Tripous.Data.SqlStore.GetFieldNames
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetFieldNames_System_String_
+  name: GetFieldNames
+  nameWithType: SqlStore.GetFieldNames
+  fullName: Tripous.Data.SqlStore.GetFieldNames
+- uid: Tripous.Data.SqlStore.GetIndexNames*
+  commentId: Overload:Tripous.Data.SqlStore.GetIndexNames
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetIndexNames
+  name: GetIndexNames
+  nameWithType: SqlStore.GetIndexNames
+  fullName: Tripous.Data.SqlStore.GetIndexNames
+- uid: Tripous.Data.SqlStore.TableExists*
+  commentId: Overload:Tripous.Data.SqlStore.TableExists
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_TableExists_System_String_System_Boolean_
+  name: TableExists
+  nameWithType: SqlStore.TableExists
+  fullName: Tripous.Data.SqlStore.TableExists
+- uid: Tripous.Data.SqlStore.ResetTable*
+  commentId: Overload:Tripous.Data.SqlStore.ResetTable
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_ResetTable_System_String_
+  name: ResetTable
+  nameWithType: SqlStore.ResetTable
+  fullName: Tripous.Data.SqlStore.ResetTable
+- uid: Tripous.Data.SqlStore.TableIsEmpty*
+  commentId: Overload:Tripous.Data.SqlStore.TableIsEmpty
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_TableIsEmpty_System_String_
+  name: TableIsEmpty
+  nameWithType: SqlStore.TableIsEmpty
+  fullName: Tripous.Data.SqlStore.TableIsEmpty
+- uid: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+  commentId: M:Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+  parent: Tripous.Data.SqlProvider
+  isExternal: true
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_
+  name: ReplaceDataTypePlaceholders(string)
+  nameWithType: SqlProvider.ReplaceDataTypePlaceholders(string)
+  fullName: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(string)
+  nameWithType.vb: SqlProvider.ReplaceDataTypePlaceholders(String)
+  fullName.vb: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(String)
+  name.vb: ReplaceDataTypePlaceholders(String)
+  spec.csharp:
+  - uid: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+    name: ReplaceDataTypePlaceholders
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.SqlProvider.ReplaceDataTypePlaceholders(System.String)
+    name: ReplaceDataTypePlaceholders
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.SqlStore.CreateTable*
+  commentId: Overload:Tripous.Data.SqlStore.CreateTable
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_CreateTable_System_String_
+  name: CreateTable
+  nameWithType: SqlStore.CreateTable
+  fullName: Tripous.Data.SqlStore.CreateTable
+- uid: Tripous.Data.SqlProvider
+  commentId: T:Tripous.Data.SqlProvider
+  parent: Tripous.Data
+  href: Tripous.Data.SqlProvider.html
+  name: SqlProvider
+  nameWithType: SqlProvider
+  fullName: Tripous.Data.SqlProvider
+- uid: Tripous.Data.SqlStore.FieldExists*
+  commentId: Overload:Tripous.Data.SqlStore.FieldExists
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_FieldExists_System_String_System_String_
+  name: FieldExists
+  nameWithType: SqlStore.FieldExists
+  fullName: Tripous.Data.SqlStore.FieldExists
+- uid: Tripous.Data.SqlStore.IndexExists*
+  commentId: Overload:Tripous.Data.SqlStore.IndexExists
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_IndexExists_System_String_
+  name: IndexExists
+  nameWithType: SqlStore.IndexExists
+  fullName: Tripous.Data.SqlStore.IndexExists
+- uid: Tripous.Data.SqlStore.Provider*
+  commentId: Overload:Tripous.Data.SqlStore.Provider
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_Provider
+  name: Provider
+  nameWithType: SqlStore.Provider
+  fullName: Tripous.Data.SqlStore.Provider
+- uid: Tripous.Data.SqlStore.ConnectionInfo*
+  commentId: Overload:Tripous.Data.SqlStore.ConnectionInfo
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_ConnectionInfo
+  name: ConnectionInfo
+  nameWithType: SqlStore.ConnectionInfo
+  fullName: Tripous.Data.SqlStore.ConnectionInfo

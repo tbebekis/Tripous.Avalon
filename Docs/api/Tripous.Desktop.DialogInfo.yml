@@ -1,0 +1,1109 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.DialogInfo
+  commentId: T:Tripous.Desktop.DialogInfo
+  id: DialogInfo
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.DialogInfo.#ctor
+  - Tripous.Desktop.DialogInfo.Caller
+  - Tripous.Desktop.DialogInfo.Dialog
+  - Tripous.Desktop.DialogInfo.InputData
+  - Tripous.Desktop.DialogInfo.ModalResult
+  - Tripous.Desktop.DialogInfo.Params
+  - Tripous.Desktop.DialogInfo.Parent
+  - Tripous.Desktop.DialogInfo.Result
+  - Tripous.Desktop.DialogInfo.ResultData
+  - Tripous.Desktop.DialogInfo.ShowModal``1(System.Object,Avalonia.Controls.Control)
+  - Tripous.Desktop.DialogInfo.Tag
+  langs:
+  - csharp
+  - vb
+  name: DialogInfo
+  nameWithType: DialogInfo
+  fullName: Tripous.Desktop.DialogInfo
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DialogInfo
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides context and result data for a dialog window.
+  example: []
+  syntax:
+    content: public class DialogInfo
+    content.vb: Public Class DialogInfo
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.DialogInfo.#ctor
+  commentId: M:Tripous.Desktop.DialogInfo.#ctor
+  id: '#ctor'
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: DialogInfo()
+  nameWithType: DialogInfo.DialogInfo()
+  fullName: Tripous.Desktop.DialogInfo.DialogInfo()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Initializes a new instance of the <xref href="Tripous.Desktop.DialogInfo" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public DialogInfo()
+    content.vb: Public Sub New()
+  overload: Tripous.Desktop.DialogInfo.#ctor*
+  nameWithType.vb: DialogInfo.New()
+  fullName.vb: Tripous.Desktop.DialogInfo.New()
+  name.vb: New()
+- uid: Tripous.Desktop.DialogInfo.ShowModal``1(System.Object,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.DialogInfo.ShowModal``1(System.Object,Avalonia.Controls.Control)
+  id: ShowModal``1(System.Object,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: ShowModal<T>(object, Control)
+  nameWithType: DialogInfo.ShowModal<T>(object, Control)
+  fullName: Tripous.Desktop.DialogInfo.ShowModal<T>(object, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowModal
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows a dialog window modally.
+  example: []
+  syntax:
+    content: 'public Task<DialogInfo> ShowModal<T>(object InputData = null, Control Caller = null) where T : DialogWindow, new()'
+    parameters:
+    - id: InputData
+      type: System.Object
+      description: The input data passed to the dialog.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    typeParameters:
+    - id: T
+      description: The dialog window type.
+    return:
+      type: System.Threading.Tasks.Task{Tripous.Desktop.DialogInfo}
+      description: This dialog information instance.
+    content.vb: Public Function ShowModal(Of T As {DialogWindow, New})(InputData As Object = Nothing, Caller As Control = Nothing) As Task(Of DialogInfo)
+  overload: Tripous.Desktop.DialogInfo.ShowModal*
+  nameWithType.vb: DialogInfo.ShowModal(Of T)(Object, Control)
+  fullName.vb: Tripous.Desktop.DialogInfo.ShowModal(Of T)(Object, Avalonia.Controls.Control)
+  name.vb: ShowModal(Of T)(Object, Control)
+- uid: Tripous.Desktop.DialogInfo.Dialog
+  commentId: P:Tripous.Desktop.DialogInfo.Dialog
+  id: Dialog
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: Dialog
+  nameWithType: DialogInfo.Dialog
+  fullName: Tripous.Desktop.DialogInfo.Dialog
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Dialog
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the dialog window.
+  example: []
+  syntax:
+    content: public DialogWindow Dialog { get; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.DialogWindow
+    content.vb: Public Property Dialog As DialogWindow
+  overload: Tripous.Desktop.DialogInfo.Dialog*
+- uid: Tripous.Desktop.DialogInfo.Parent
+  commentId: P:Tripous.Desktop.DialogInfo.Parent
+  id: Parent
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: Parent
+  nameWithType: DialogInfo.Parent
+  fullName: Tripous.Desktop.DialogInfo.Parent
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Parent
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the parent window.
+  example: []
+  syntax:
+    content: public Window Parent { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.Window
+    content.vb: Public Property Parent As Window
+  overload: Tripous.Desktop.DialogInfo.Parent*
+- uid: Tripous.Desktop.DialogInfo.Caller
+  commentId: P:Tripous.Desktop.DialogInfo.Caller
+  id: Caller
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: Caller
+  nameWithType: DialogInfo.Caller
+  fullName: Tripous.Desktop.DialogInfo.Caller
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Caller
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the caller control.
+  example: []
+  syntax:
+    content: public Control Caller { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.Control
+    content.vb: Public Property Caller As Control
+  overload: Tripous.Desktop.DialogInfo.Caller*
+- uid: Tripous.Desktop.DialogInfo.InputData
+  commentId: P:Tripous.Desktop.DialogInfo.InputData
+  id: InputData
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: InputData
+  nameWithType: DialogInfo.InputData
+  fullName: Tripous.Desktop.DialogInfo.InputData
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InputData
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the input data passed to the dialog.
+  example: []
+  syntax:
+    content: public object InputData { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property InputData As Object
+  overload: Tripous.Desktop.DialogInfo.InputData*
+- uid: Tripous.Desktop.DialogInfo.ModalResult
+  commentId: P:Tripous.Desktop.DialogInfo.ModalResult
+  id: ModalResult
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: ModalResult
+  nameWithType: DialogInfo.ModalResult
+  fullName: Tripous.Desktop.DialogInfo.ModalResult
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModalResult
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the modal result.
+  example: []
+  syntax:
+    content: public ModalResult ModalResult { get; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.ModalResult
+    content.vb: Public Property ModalResult As ModalResult
+  overload: Tripous.Desktop.DialogInfo.ModalResult*
+- uid: Tripous.Desktop.DialogInfo.Result
+  commentId: P:Tripous.Desktop.DialogInfo.Result
+  id: Result
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: Result
+  nameWithType: DialogInfo.Result
+  fullName: Tripous.Desktop.DialogInfo.Result
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Result
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 71
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets a value indicating whether the dialog result is OK.
+  example: []
+  syntax:
+    content: public bool Result { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property Result As Boolean
+  overload: Tripous.Desktop.DialogInfo.Result*
+- uid: Tripous.Desktop.DialogInfo.ResultData
+  commentId: P:Tripous.Desktop.DialogInfo.ResultData
+  id: ResultData
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: ResultData
+  nameWithType: DialogInfo.ResultData
+  fullName: Tripous.Desktop.DialogInfo.ResultData
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ResultData
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 75
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the result data returned by the dialog.
+  example: []
+  syntax:
+    content: public object ResultData { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property ResultData As Object
+  overload: Tripous.Desktop.DialogInfo.ResultData*
+- uid: Tripous.Desktop.DialogInfo.Tag
+  commentId: P:Tripous.Desktop.DialogInfo.Tag
+  id: Tag
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: Tag
+  nameWithType: DialogInfo.Tag
+  fullName: Tripous.Desktop.DialogInfo.Tag
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tag
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 79
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets user-defined data.
+  example: []
+  syntax:
+    content: public object Tag { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property Tag As Object
+  overload: Tripous.Desktop.DialogInfo.Tag*
+- uid: Tripous.Desktop.DialogInfo.Params
+  commentId: F:Tripous.Desktop.DialogInfo.Params
+  id: Params
+  parent: Tripous.Desktop.DialogInfo
+  langs:
+  - csharp
+  - vb
+  name: Params
+  nameWithType: DialogInfo.Params
+  fullName: Tripous.Desktop.DialogInfo.Params
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/DialogInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Params
+    path: ../Tripous.Desktop/Dialogs/DialogInfo.cs
+    startLine: 85
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: User-defined dialog parameters.
+  example: []
+  syntax:
+    content: public Dictionary<string, object> Params
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Params As Dictionary(Of String, Object)
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.DialogInfo
+  commentId: T:Tripous.Desktop.DialogInfo
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DialogInfo.html
+  name: DialogInfo
+  nameWithType: DialogInfo
+  fullName: Tripous.Desktop.DialogInfo
+- uid: Tripous.Desktop.DialogInfo.#ctor*
+  commentId: Overload:Tripous.Desktop.DialogInfo.#ctor
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo__ctor
+  name: DialogInfo
+  nameWithType: DialogInfo.DialogInfo
+  fullName: Tripous.Desktop.DialogInfo.DialogInfo
+  nameWithType.vb: DialogInfo.New
+  fullName.vb: Tripous.Desktop.DialogInfo.New
+  name.vb: New
+- uid: Tripous.Desktop.DialogInfo.ShowModal*
+  commentId: Overload:Tripous.Desktop.DialogInfo.ShowModal
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_ShowModal__1_System_Object_Avalonia_Controls_Control_
+  name: ShowModal
+  nameWithType: DialogInfo.ShowModal
+  fullName: Tripous.Desktop.DialogInfo.ShowModal
+- uid: Avalonia.Controls.Control
+  commentId: T:Avalonia.Controls.Control
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Control
+  nameWithType: Control
+  fullName: Avalonia.Controls.Control
+- uid: System.Threading.Tasks.Task{Tripous.Desktop.DialogInfo}
+  commentId: T:System.Threading.Tasks.Task{Tripous.Desktop.DialogInfo}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<DialogInfo>
+  nameWithType: Task<DialogInfo>
+  fullName: System.Threading.Tasks.Task<Tripous.Desktop.DialogInfo>
+  nameWithType.vb: Task(Of DialogInfo)
+  fullName.vb: System.Threading.Tasks.Task(Of Tripous.Desktop.DialogInfo)
+  name.vb: Task(Of DialogInfo)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Tripous.Desktop.DialogInfo
+    name: DialogInfo
+    href: Tripous.Desktop.DialogInfo.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.DialogInfo
+    name: DialogInfo
+    href: Tripous.Desktop.DialogInfo.html
+  - name: )
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Tripous.Desktop.DialogInfo.Dialog*
+  commentId: Overload:Tripous.Desktop.DialogInfo.Dialog
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_Dialog
+  name: Dialog
+  nameWithType: DialogInfo.Dialog
+  fullName: Tripous.Desktop.DialogInfo.Dialog
+- uid: Tripous.Desktop.DialogWindow
+  commentId: T:Tripous.Desktop.DialogWindow
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DialogWindow.html
+  name: DialogWindow
+  nameWithType: DialogWindow
+  fullName: Tripous.Desktop.DialogWindow
+- uid: Tripous.Desktop.DialogInfo.Parent*
+  commentId: Overload:Tripous.Desktop.DialogInfo.Parent
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_Parent
+  name: Parent
+  nameWithType: DialogInfo.Parent
+  fullName: Tripous.Desktop.DialogInfo.Parent
+- uid: Avalonia.Controls.Window
+  commentId: T:Avalonia.Controls.Window
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Window
+  nameWithType: Window
+  fullName: Avalonia.Controls.Window
+- uid: Tripous.Desktop.DialogInfo.Caller*
+  commentId: Overload:Tripous.Desktop.DialogInfo.Caller
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_Caller
+  name: Caller
+  nameWithType: DialogInfo.Caller
+  fullName: Tripous.Desktop.DialogInfo.Caller
+- uid: Tripous.Desktop.DialogInfo.InputData*
+  commentId: Overload:Tripous.Desktop.DialogInfo.InputData
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_InputData
+  name: InputData
+  nameWithType: DialogInfo.InputData
+  fullName: Tripous.Desktop.DialogInfo.InputData
+- uid: Tripous.Desktop.DialogInfo.ModalResult*
+  commentId: Overload:Tripous.Desktop.DialogInfo.ModalResult
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_ModalResult
+  name: ModalResult
+  nameWithType: DialogInfo.ModalResult
+  fullName: Tripous.Desktop.DialogInfo.ModalResult
+- uid: Tripous.Desktop.ModalResult
+  commentId: T:Tripous.Desktop.ModalResult
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ModalResult.html
+  name: ModalResult
+  nameWithType: ModalResult
+  fullName: Tripous.Desktop.ModalResult
+- uid: Tripous.Desktop.DialogInfo.Result*
+  commentId: Overload:Tripous.Desktop.DialogInfo.Result
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_Result
+  name: Result
+  nameWithType: DialogInfo.Result
+  fullName: Tripous.Desktop.DialogInfo.Result
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Desktop.DialogInfo.ResultData*
+  commentId: Overload:Tripous.Desktop.DialogInfo.ResultData
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_ResultData
+  name: ResultData
+  nameWithType: DialogInfo.ResultData
+  fullName: Tripous.Desktop.DialogInfo.ResultData
+- uid: Tripous.Desktop.DialogInfo.Tag*
+  commentId: Overload:Tripous.Desktop.DialogInfo.Tag
+  href: Tripous.Desktop.DialogInfo.html#Tripous_Desktop_DialogInfo_Tag
+  name: Tag
+  nameWithType: DialogInfo.Tag
+  fullName: Tripous.Desktop.DialogInfo.Tag
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

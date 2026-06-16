@@ -1,0 +1,3240 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Sys
+  commentId: T:Tripous.Sys
+  id: Sys
+  parent: Tripous
+  children:
+  - Tripous.Sys.APPLICATION
+  - Tripous.Sys.AsBoolean(System.Object,System.Boolean)
+  - Tripous.Sys.AsDateTime(System.Object,System.DateTime)
+  - Tripous.Sys.AsDecimal(System.Object,System.Decimal)
+  - Tripous.Sys.AsDouble(System.Object,System.Double)
+  - Tripous.Sys.AsInteger(System.Object,System.Int32)
+  - Tripous.Sys.AsString(System.Object,System.String)
+  - Tripous.Sys.AsValue``1(System.Object,``0)
+  - Tripous.Sys.Context
+  - Tripous.Sys.DEFAULT
+  - Tripous.Sys.DateTimeToStr(System.DateTime,System.Boolean)
+  - Tripous.Sys.DateToStr(System.DateTime)
+  - Tripous.Sys.Debug(System.Exception)
+  - Tripous.Sys.Debug(System.String)
+  - Tripous.Sys.DebugMode
+  - Tripous.Sys.DebugProc
+  - Tripous.Sys.DecimalToStr(System.Decimal,System.Int32)
+  - Tripous.Sys.DoubleToStr(System.Double,System.Int32)
+  - Tripous.Sys.EnId
+  - Tripous.Sys.EscapeText(System.String)
+  - Tripous.Sys.FieldAliasSep
+  - Tripous.Sys.FromField
+  - Tripous.Sys.GENERAL
+  - Tripous.Sys.GenId
+  - Tripous.Sys.GenId(System.Boolean)
+  - Tripous.Sys.GenerateRandomString(System.Int32,System.String)
+  - Tripous.Sys.GetApplicationAssemblies(System.String[])
+  - Tripous.Sys.GetCurrentAppUserId
+  - Tripous.Sys.GetCurrentAppUserName
+  - Tripous.Sys.GetFiles(System.String,System.String,System.Boolean)
+  - Tripous.Sys.GetInvalidFileNameChars
+  - Tripous.Sys.GrId
+  - Tripous.Sys.HostName
+  - Tripous.Sys.ISODateTimeFormats
+  - Tripous.Sys.InvalidId
+  - Tripous.Sys.IsNull(System.Object)
+  - Tripous.Sys.IsSameText(System.String,System.String)
+  - Tripous.Sys.IsValidFileName(System.String)
+  - Tripous.Sys.LogError(System.Exception)
+  - Tripous.Sys.LogErrorProc
+  - Tripous.Sys.LogErrorText(System.String)
+  - Tripous.Sys.LogExceptionProc
+  - Tripous.Sys.LogInfo(System.String)
+  - Tripous.Sys.LogInfoProc
+  - Tripous.Sys.LogWarn(System.String)
+  - Tripous.Sys.LogWarnProc
+  - Tripous.Sys.MASTER_KEY_FIELD_NAME
+  - Tripous.Sys.NULL
+  - Tripous.Sys.NamePathSep
+  - Tripous.Sys.None
+  - Tripous.Sys.OpenFileExplorer(System.String)
+  - Tripous.Sys.RegisterAllEncodings
+  - Tripous.Sys.RemoveTrailingSlash(System.String)
+  - Tripous.Sys.SYSTEM
+  - Tripous.Sys.Settings
+  - Tripous.Sys.StandardCompanyGuid
+  - Tripous.Sys.StrToDate(System.String,System.DateTime)
+  - Tripous.Sys.StrToDateTime(System.String)
+  - Tripous.Sys.StrToDateTime(System.String,System.DateTime)
+  - Tripous.Sys.StrToValidFileName(System.String)
+  - Tripous.Sys.Throw(System.String)
+  - Tripous.Sys.Throw(System.String,System.Object[])
+  - Tripous.Sys.ToField
+  - Tripous.Sys.TryStrToDateTime(System.String,System.DateTime@)
+  - Tripous.Sys.UiLog(System.String)
+  - Tripous.Sys.UiLogProc
+  - Tripous.Sys.UserName
+  langs:
+  - csharp
+  - vb
+  name: Sys
+  nameWithType: Sys
+  fullName: Tripous.Sys
+  type: Class
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Sys
+    path: ../Tripous/Sys.cs
+    startLine: 14
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: System-related utilities.
+  example: []
+  syntax:
+    content: public static class Sys
+    content.vb: Public Module Sys
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Sys.ISODateTimeFormats
+  commentId: F:Tripous.Sys.ISODateTimeFormats
+  id: ISODateTimeFormats
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: ISODateTimeFormats
+  nameWithType: Sys.ISODateTimeFormats
+  fullName: Tripous.Sys.ISODateTimeFormats
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ISODateTimeFormats
+    path: ../Tripous/Sys.cs
+    startLine: 22
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: An array of ISO8601 datetime formats
+  example: []
+  syntax:
+    content: public static readonly string[] ISODateTimeFormats
+    return:
+      type: System.String[]
+    content.vb: Public Shared ReadOnly ISODateTimeFormats As String()
+- uid: Tripous.Sys.None
+  commentId: F:Tripous.Sys.None
+  id: None
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: Sys.None
+  fullName: Tripous.Sys.None
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous/Sys.cs
+    startLine: 48
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string None = "[none]"
+    return:
+      type: System.String
+    content.vb: Public Const None As String = "[none]"
+- uid: Tripous.Sys.NULL
+  commentId: F:Tripous.Sys.NULL
+  id: "NULL"
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: "NULL"
+  nameWithType: Sys.NULL
+  fullName: Tripous.Sys.NULL
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: "NULL"
+    path: ../Tripous/Sys.cs
+    startLine: 52
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string NULL = "___null___"
+    return:
+      type: System.String
+    content.vb: Public Const NULL As String = "___null___"
+- uid: Tripous.Sys.DEFAULT
+  commentId: F:Tripous.Sys.DEFAULT
+  id: DEFAULT
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: DEFAULT
+  nameWithType: Sys.DEFAULT
+  fullName: Tripous.Sys.DEFAULT
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DEFAULT
+    path: ../Tripous/Sys.cs
+    startLine: 56
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string DEFAULT = "Default"
+    return:
+      type: System.String
+    content.vb: Public Const DEFAULT As String = "Default"
+- uid: Tripous.Sys.SYSTEM
+  commentId: F:Tripous.Sys.SYSTEM
+  id: SYSTEM
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: SYSTEM
+  nameWithType: Sys.SYSTEM
+  fullName: Tripous.Sys.SYSTEM
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SYSTEM
+    path: ../Tripous/Sys.cs
+    startLine: 60
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string SYSTEM = "System"
+    return:
+      type: System.String
+    content.vb: Public Const SYSTEM As String = "System"
+- uid: Tripous.Sys.APPLICATION
+  commentId: F:Tripous.Sys.APPLICATION
+  id: APPLICATION
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: APPLICATION
+  nameWithType: Sys.APPLICATION
+  fullName: Tripous.Sys.APPLICATION
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: APPLICATION
+    path: ../Tripous/Sys.cs
+    startLine: 64
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string APPLICATION = "Application"
+    return:
+      type: System.String
+    content.vb: Public Const APPLICATION As String = "Application"
+- uid: Tripous.Sys.MASTER_KEY_FIELD_NAME
+  commentId: F:Tripous.Sys.MASTER_KEY_FIELD_NAME
+  id: MASTER_KEY_FIELD_NAME
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: MASTER_KEY_FIELD_NAME
+  nameWithType: Sys.MASTER_KEY_FIELD_NAME
+  fullName: Tripous.Sys.MASTER_KEY_FIELD_NAME
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MASTER_KEY_FIELD_NAME
+    path: ../Tripous/Sys.cs
+    startLine: 68
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string MASTER_KEY_FIELD_NAME = "MASTER_KEY_FIELD_NAME"
+    return:
+      type: System.String
+    content.vb: Public Const MASTER_KEY_FIELD_NAME As String = "MASTER_KEY_FIELD_NAME"
+- uid: Tripous.Sys.NamePathSep
+  commentId: F:Tripous.Sys.NamePathSep
+  id: NamePathSep
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: NamePathSep
+  nameWithType: Sys.NamePathSep
+  fullName: Tripous.Sys.NamePathSep
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NamePathSep
+    path: ../Tripous/Sys.cs
+    startLine: 72
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string NamePathSep = "."
+    return:
+      type: System.String
+    content.vb: Public Const NamePathSep As String = "."
+- uid: Tripous.Sys.FieldAliasSep
+  commentId: F:Tripous.Sys.FieldAliasSep
+  id: FieldAliasSep
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: FieldAliasSep
+  nameWithType: Sys.FieldAliasSep
+  fullName: Tripous.Sys.FieldAliasSep
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldAliasSep
+    path: ../Tripous/Sys.cs
+    startLine: 76
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string FieldAliasSep = "__"
+    return:
+      type: System.String
+    content.vb: Public Const FieldAliasSep As String = "__"
+- uid: Tripous.Sys.FromField
+  commentId: F:Tripous.Sys.FromField
+  id: FromField
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: FromField
+  nameWithType: Sys.FromField
+  fullName: Tripous.Sys.FromField
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FromField
+    path: ../Tripous/Sys.cs
+    startLine: 80
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string FromField = "_FROM"
+    return:
+      type: System.String
+    content.vb: Public Const FromField As String = "_FROM"
+- uid: Tripous.Sys.ToField
+  commentId: F:Tripous.Sys.ToField
+  id: ToField
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: ToField
+  nameWithType: Sys.ToField
+  fullName: Tripous.Sys.ToField
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToField
+    path: ../Tripous/Sys.cs
+    startLine: 84
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string ToField = "_TO"
+    return:
+      type: System.String
+    content.vb: Public Const ToField As String = "_TO"
+- uid: Tripous.Sys.StandardCompanyGuid
+  commentId: F:Tripous.Sys.StandardCompanyGuid
+  id: StandardCompanyGuid
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: StandardCompanyGuid
+  nameWithType: Sys.StandardCompanyGuid
+  fullName: Tripous.Sys.StandardCompanyGuid
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StandardCompanyGuid
+    path: ../Tripous/Sys.cs
+    startLine: 88
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string StandardCompanyGuid = "74772779-BF08-4B22-8F87-196FB87EC7C2"
+    return:
+      type: System.String
+    content.vb: Public Const StandardCompanyGuid As String = "74772779-BF08-4B22-8F87-196FB87EC7C2"
+- uid: Tripous.Sys.InvalidId
+  commentId: F:Tripous.Sys.InvalidId
+  id: InvalidId
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: InvalidId
+  nameWithType: Sys.InvalidId
+  fullName: Tripous.Sys.InvalidId
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InvalidId
+    path: ../Tripous/Sys.cs
+    startLine: 92
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string InvalidId = "27C15428-7892-4F7D-B28F-9BA059C94BA4"
+    return:
+      type: System.String
+    content.vb: Public Const InvalidId As String = "27C15428-7892-4F7D-B28F-9BA059C94BA4"
+- uid: Tripous.Sys.EnId
+  commentId: F:Tripous.Sys.EnId
+  id: EnId
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: EnId
+  nameWithType: Sys.EnId
+  fullName: Tripous.Sys.EnId
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EnId
+    path: ../Tripous/Sys.cs
+    startLine: 96
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string EnId = "D4997C35-6E89-499A-87BF-D5750D0D3F06"
+    return:
+      type: System.String
+    content.vb: Public Const EnId As String = "D4997C35-6E89-499A-87BF-D5750D0D3F06"
+- uid: Tripous.Sys.GrId
+  commentId: F:Tripous.Sys.GrId
+  id: GrId
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GrId
+  nameWithType: Sys.GrId
+  fullName: Tripous.Sys.GrId
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GrId
+    path: ../Tripous/Sys.cs
+    startLine: 100
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string GrId = "92A158E7-25CA-4367-BA57-FB79C40D775C"
+    return:
+      type: System.String
+    content.vb: Public Const GrId As String = "92A158E7-25CA-4367-BA57-FB79C40D775C"
+- uid: Tripous.Sys.GENERAL
+  commentId: F:Tripous.Sys.GENERAL
+  id: GENERAL
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GENERAL
+  nameWithType: Sys.GENERAL
+  fullName: Tripous.Sys.GENERAL
+  type: Field
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GENERAL
+    path: ../Tripous/Sys.cs
+    startLine: 104
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string GENERAL = "General"
+    return:
+      type: System.String
+    content.vb: Public Const GENERAL As String = "General"
+- uid: Tripous.Sys.Throw(System.String)
+  commentId: M:Tripous.Sys.Throw(System.String)
+  id: Throw(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: Throw(string)
+  nameWithType: Sys.Throw(string)
+  fullName: Tripous.Sys.Throw(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Throw
+    path: ../Tripous/Sys.cs
+    startLine: 112
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Throws an Exception
+  example: []
+  syntax:
+    content: public static void Throw(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Shared Sub [Throw](Text As String)
+  overload: Tripous.Sys.Throw*
+  nameWithType.vb: Sys.Throw(String)
+  fullName.vb: Tripous.Sys.Throw(String)
+  name.vb: Throw(String)
+- uid: Tripous.Sys.Throw(System.String,System.Object[])
+  commentId: M:Tripous.Sys.Throw(System.String,System.Object[])
+  id: Throw(System.String,System.Object[])
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: Throw(string, params object[])
+  nameWithType: Sys.Throw(string, params object[])
+  fullName: Tripous.Sys.Throw(string, params object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Throw
+    path: ../Tripous/Sys.cs
+    startLine: 122
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Throws an Exception
+  example: []
+  syntax:
+    content: public static void Throw(string Text, params object[] Args)
+    parameters:
+    - id: Text
+      type: System.String
+    - id: Args
+      type: System.Object[]
+    content.vb: Public Shared Sub [Throw](Text As String, ParamArray Args As Object())
+  overload: Tripous.Sys.Throw*
+  nameWithType.vb: Sys.Throw(String, ParamArray Object())
+  fullName.vb: Tripous.Sys.Throw(String, ParamArray Object())
+  name.vb: Throw(String, ParamArray Object())
+- uid: Tripous.Sys.RegisterAllEncodings
+  commentId: M:Tripous.Sys.RegisterAllEncodings
+  id: RegisterAllEncodings
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: RegisterAllEncodings()
+  nameWithType: Sys.RegisterAllEncodings()
+  fullName: Tripous.Sys.RegisterAllEncodings()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RegisterAllEncodings
+    path: ../Tripous/Sys.cs
+    startLine: 132
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Unlocks all Code Pages (Greek, DOS, etc.) for the entire application.
+  example: []
+  syntax:
+    content: public static void RegisterAllEncodings()
+    content.vb: Public Shared Sub RegisterAllEncodings()
+  overload: Tripous.Sys.RegisterAllEncodings*
+- uid: Tripous.Sys.IsNull(System.Object)
+  commentId: M:Tripous.Sys.IsNull(System.Object)
+  id: IsNull(System.Object)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: IsNull(object)
+  nameWithType: Sys.IsNull(object)
+  fullName: Tripous.Sys.IsNull(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNull
+    path: ../Tripous/Sys.cs
+    startLine: 144
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if Value is null or DBNull
+  example: []
+  syntax:
+    content: public static bool IsNull(object Value)
+    parameters:
+    - id: Value
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsNull(Value As Object) As Boolean
+  overload: Tripous.Sys.IsNull*
+  nameWithType.vb: Sys.IsNull(Object)
+  fullName.vb: Tripous.Sys.IsNull(Object)
+  name.vb: IsNull(Object)
+- uid: Tripous.Sys.DoubleToStr(System.Double,System.Int32)
+  commentId: M:Tripous.Sys.DoubleToStr(System.Double,System.Int32)
+  id: DoubleToStr(System.Double,System.Int32)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: DoubleToStr(double, int)
+  nameWithType: Sys.DoubleToStr(double, int)
+  fullName: Tripous.Sys.DoubleToStr(double, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DoubleToStr
+    path: ../Tripous/Sys.cs
+    startLine: 149
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Formats and returns a double value
+  example: []
+  syntax:
+    content: public static string DoubleToStr(double Value, int Digits = 4)
+    parameters:
+    - id: Value
+      type: System.Double
+    - id: Digits
+      type: System.Int32
+    return:
+      type: System.String
+    content.vb: Public Shared Function DoubleToStr(Value As Double, Digits As Integer = 4) As String
+  overload: Tripous.Sys.DoubleToStr*
+  nameWithType.vb: Sys.DoubleToStr(Double, Integer)
+  fullName.vb: Tripous.Sys.DoubleToStr(Double, Integer)
+  name.vb: DoubleToStr(Double, Integer)
+- uid: Tripous.Sys.DecimalToStr(System.Decimal,System.Int32)
+  commentId: M:Tripous.Sys.DecimalToStr(System.Decimal,System.Int32)
+  id: DecimalToStr(System.Decimal,System.Int32)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: DecimalToStr(decimal, int)
+  nameWithType: Sys.DecimalToStr(decimal, int)
+  fullName: Tripous.Sys.DecimalToStr(decimal, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DecimalToStr
+    path: ../Tripous/Sys.cs
+    startLine: 156
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Formats and returns a double value
+  example: []
+  syntax:
+    content: public static string DecimalToStr(decimal Value, int Digits = 4)
+    parameters:
+    - id: Value
+      type: System.Decimal
+    - id: Digits
+      type: System.Int32
+    return:
+      type: System.String
+    content.vb: Public Shared Function DecimalToStr(Value As Decimal, Digits As Integer = 4) As String
+  overload: Tripous.Sys.DecimalToStr*
+  nameWithType.vb: Sys.DecimalToStr(Decimal, Integer)
+  fullName.vb: Tripous.Sys.DecimalToStr(Decimal, Integer)
+  name.vb: DecimalToStr(Decimal, Integer)
+- uid: Tripous.Sys.DateTimeToStr(System.DateTime,System.Boolean)
+  commentId: M:Tripous.Sys.DateTimeToStr(System.DateTime,System.Boolean)
+  id: DateTimeToStr(System.DateTime,System.Boolean)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: DateTimeToStr(DateTime, bool)
+  nameWithType: Sys.DateTimeToStr(DateTime, bool)
+  fullName: Tripous.Sys.DateTimeToStr(System.DateTime, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateTimeToStr
+    path: ../Tripous/Sys.cs
+    startLine: 163
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a datetime into a string
+  example: []
+  syntax:
+    content: public static string DateTimeToStr(DateTime Value, bool UseMSecs = false)
+    parameters:
+    - id: Value
+      type: System.DateTime
+    - id: UseMSecs
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function DateTimeToStr(Value As Date, UseMSecs As Boolean = False) As String
+  overload: Tripous.Sys.DateTimeToStr*
+  nameWithType.vb: Sys.DateTimeToStr(Date, Boolean)
+  fullName.vb: Tripous.Sys.DateTimeToStr(Date, Boolean)
+  name.vb: DateTimeToStr(Date, Boolean)
+- uid: Tripous.Sys.DateToStr(System.DateTime)
+  commentId: M:Tripous.Sys.DateToStr(System.DateTime)
+  id: DateToStr(System.DateTime)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: DateToStr(DateTime)
+  nameWithType: Sys.DateToStr(DateTime)
+  fullName: Tripous.Sys.DateToStr(System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateToStr
+    path: ../Tripous/Sys.cs
+    startLine: 170
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a date into a string
+  example: []
+  syntax:
+    content: public static string DateToStr(DateTime Value)
+    parameters:
+    - id: Value
+      type: System.DateTime
+    return:
+      type: System.String
+    content.vb: Public Shared Function DateToStr(Value As Date) As String
+  overload: Tripous.Sys.DateToStr*
+  nameWithType.vb: Sys.DateToStr(Date)
+  fullName.vb: Tripous.Sys.DateToStr(Date)
+  name.vb: DateToStr(Date)
+- uid: Tripous.Sys.AsValue``1(System.Object,``0)
+  commentId: M:Tripous.Sys.AsValue``1(System.Object,``0)
+  id: AsValue``1(System.Object,``0)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: AsValue<T>(object, T)
+  nameWithType: Sys.AsValue<T>(object, T)
+  fullName: Tripous.Sys.AsValue<T>(object, T)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsValue
+    path: ../Tripous/Sys.cs
+    startLine: 178
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value as a value of T. If is null returns Default.
+  example: []
+  syntax:
+    content: public static T AsValue<T>(object Value, T Default)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: Default
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function AsValue(Of T)(Value As Object, [Default] As T) As T
+  overload: Tripous.Sys.AsValue*
+  nameWithType.vb: Sys.AsValue(Of T)(Object, T)
+  fullName.vb: Tripous.Sys.AsValue(Of T)(Object, T)
+  name.vb: AsValue(Of T)(Object, T)
+- uid: Tripous.Sys.AsString(System.Object,System.String)
+  commentId: M:Tripous.Sys.AsString(System.Object,System.String)
+  id: AsString(System.Object,System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: AsString(object, string)
+  nameWithType: Sys.AsString(object, string)
+  fullName: Tripous.Sys.AsString(object, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous/Sys.cs
+    startLine: 208
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a value to string, if possible, else returns Default
+  example: []
+  syntax:
+    content: public static string AsString(object Value, string Default = "")
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(Value As Object, [Default] As String = "") As String
+  overload: Tripous.Sys.AsString*
+  nameWithType.vb: Sys.AsString(Object, String)
+  fullName.vb: Tripous.Sys.AsString(Object, String)
+  name.vb: AsString(Object, String)
+- uid: Tripous.Sys.AsInteger(System.Object,System.Int32)
+  commentId: M:Tripous.Sys.AsInteger(System.Object,System.Int32)
+  id: AsInteger(System.Object,System.Int32)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(object, int)
+  nameWithType: Sys.AsInteger(object, int)
+  fullName: Tripous.Sys.AsInteger(object, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous/Sys.cs
+    startLine: 215
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a value to int, if possible, else returns Default
+  example: []
+  syntax:
+    content: public static int AsInteger(object Value, int Default = 0)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: Default
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(Value As Object, [Default] As Integer = 0) As Integer
+  overload: Tripous.Sys.AsInteger*
+  nameWithType.vb: Sys.AsInteger(Object, Integer)
+  fullName.vb: Tripous.Sys.AsInteger(Object, Integer)
+  name.vb: AsInteger(Object, Integer)
+- uid: Tripous.Sys.AsBoolean(System.Object,System.Boolean)
+  commentId: M:Tripous.Sys.AsBoolean(System.Object,System.Boolean)
+  id: AsBoolean(System.Object,System.Boolean)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(object, bool)
+  nameWithType: Sys.AsBoolean(object, bool)
+  fullName: Tripous.Sys.AsBoolean(object, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous/Sys.cs
+    startLine: 230
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a value to bool, if possible, else returns Default
+  example: []
+  syntax:
+    content: public static bool AsBoolean(object Value, bool Default = false)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: Default
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(Value As Object, [Default] As Boolean = False) As Boolean
+  overload: Tripous.Sys.AsBoolean*
+  nameWithType.vb: Sys.AsBoolean(Object, Boolean)
+  fullName.vb: Tripous.Sys.AsBoolean(Object, Boolean)
+  name.vb: AsBoolean(Object, Boolean)
+- uid: Tripous.Sys.AsDouble(System.Object,System.Double)
+  commentId: M:Tripous.Sys.AsDouble(System.Object,System.Double)
+  id: AsDouble(System.Object,System.Double)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: AsDouble(object, double)
+  nameWithType: Sys.AsDouble(object, double)
+  fullName: Tripous.Sys.AsDouble(object, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDouble
+    path: ../Tripous/Sys.cs
+    startLine: 246
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a value to double, if possible, else returns Default
+  example: []
+  syntax:
+    content: public static double AsDouble(object Value, double Default = 0)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: Default
+      type: System.Double
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsDouble(Value As Object, [Default] As Double = 0) As Double
+  overload: Tripous.Sys.AsDouble*
+  nameWithType.vb: Sys.AsDouble(Object, Double)
+  fullName.vb: Tripous.Sys.AsDouble(Object, Double)
+  name.vb: AsDouble(Object, Double)
+- uid: Tripous.Sys.AsDecimal(System.Object,System.Decimal)
+  commentId: M:Tripous.Sys.AsDecimal(System.Object,System.Decimal)
+  id: AsDecimal(System.Object,System.Decimal)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: AsDecimal(object, decimal)
+  nameWithType: Sys.AsDecimal(object, decimal)
+  fullName: Tripous.Sys.AsDecimal(object, decimal)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDecimal
+    path: ../Tripous/Sys.cs
+    startLine: 268
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a value to decimal, if possible, else returns Default
+  example: []
+  syntax:
+    content: public static decimal AsDecimal(object Value, decimal Default = 0)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: Default
+      type: System.Decimal
+    return:
+      type: System.Decimal
+    content.vb: Public Shared Function AsDecimal(Value As Object, [Default] As Decimal = 0) As Decimal
+  overload: Tripous.Sys.AsDecimal*
+  nameWithType.vb: Sys.AsDecimal(Object, Decimal)
+  fullName.vb: Tripous.Sys.AsDecimal(Object, Decimal)
+  name.vb: AsDecimal(Object, Decimal)
+- uid: Tripous.Sys.AsDateTime(System.Object,System.DateTime)
+  commentId: M:Tripous.Sys.AsDateTime(System.Object,System.DateTime)
+  id: AsDateTime(System.Object,System.DateTime)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(object, DateTime)
+  nameWithType: Sys.AsDateTime(object, DateTime)
+  fullName: Tripous.Sys.AsDateTime(object, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous/Sys.cs
+    startLine: 289
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a value to DateTime, if possible, else returns Default
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(object Value, DateTime Default)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: Default
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(Value As Object, [Default] As Date) As Date
+  overload: Tripous.Sys.AsDateTime*
+  nameWithType.vb: Sys.AsDateTime(Object, Date)
+  fullName.vb: Tripous.Sys.AsDateTime(Object, Date)
+  name.vb: AsDateTime(Object, Date)
+- uid: Tripous.Sys.StrToDateTime(System.String)
+  commentId: M:Tripous.Sys.StrToDateTime(System.String)
+  id: StrToDateTime(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: StrToDateTime(string)
+  nameWithType: Sys.StrToDateTime(string)
+  fullName: Tripous.Sys.StrToDateTime(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StrToDateTime
+    path: ../Tripous/Sys.cs
+    startLine: 305
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a string to a DateTime value. The string must be defined in one of the ISODateTimeFormats
+  example: []
+  syntax:
+    content: public static DateTime StrToDateTime(string S)
+    parameters:
+    - id: S
+      type: System.String
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function StrToDateTime(S As String) As Date
+  overload: Tripous.Sys.StrToDateTime*
+  nameWithType.vb: Sys.StrToDateTime(String)
+  fullName.vb: Tripous.Sys.StrToDateTime(String)
+  name.vb: StrToDateTime(String)
+- uid: Tripous.Sys.StrToDateTime(System.String,System.DateTime)
+  commentId: M:Tripous.Sys.StrToDateTime(System.String,System.DateTime)
+  id: StrToDateTime(System.String,System.DateTime)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: StrToDateTime(string, DateTime)
+  nameWithType: Sys.StrToDateTime(string, DateTime)
+  fullName: Tripous.Sys.StrToDateTime(string, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StrToDateTime
+    path: ../Tripous/Sys.cs
+    startLine: 319
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a string to a DateTime value. The string must be defined in one of the ISODateTimeFormats
+  example: []
+  syntax:
+    content: public static DateTime StrToDateTime(string S, DateTime Default)
+    parameters:
+    - id: S
+      type: System.String
+    - id: Default
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function StrToDateTime(S As String, [Default] As Date) As Date
+  overload: Tripous.Sys.StrToDateTime*
+  nameWithType.vb: Sys.StrToDateTime(String, Date)
+  fullName.vb: Tripous.Sys.StrToDateTime(String, Date)
+  name.vb: StrToDateTime(String, Date)
+- uid: Tripous.Sys.StrToDate(System.String,System.DateTime)
+  commentId: M:Tripous.Sys.StrToDate(System.String,System.DateTime)
+  id: StrToDate(System.String,System.DateTime)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: StrToDate(string, DateTime)
+  nameWithType: Sys.StrToDate(string, DateTime)
+  fullName: Tripous.Sys.StrToDate(string, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StrToDate
+    path: ../Tripous/Sys.cs
+    startLine: 329
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a string to a DateTime.Date value. The string must be defined in one of the ISODateTimeFormats
+  example: []
+  syntax:
+    content: public static DateTime StrToDate(string S, DateTime Default)
+    parameters:
+    - id: S
+      type: System.String
+    - id: Default
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function StrToDate(S As String, [Default] As Date) As Date
+  overload: Tripous.Sys.StrToDate*
+  nameWithType.vb: Sys.StrToDate(String, Date)
+  fullName.vb: Tripous.Sys.StrToDate(String, Date)
+  name.vb: StrToDate(String, Date)
+- uid: Tripous.Sys.TryStrToDateTime(System.String,System.DateTime@)
+  commentId: M:Tripous.Sys.TryStrToDateTime(System.String,System.DateTime@)
+  id: TryStrToDateTime(System.String,System.DateTime@)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: TryStrToDateTime(string, out DateTime)
+  nameWithType: Sys.TryStrToDateTime(string, out DateTime)
+  fullName: Tripous.Sys.TryStrToDateTime(string, out System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryStrToDateTime
+    path: ../Tripous/Sys.cs
+    startLine: 336
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts a string into a DateTime. Returns true on success.
+  example: []
+  syntax:
+    content: public static bool TryStrToDateTime(string S, out DateTime Value)
+    parameters:
+    - id: S
+      type: System.String
+    - id: Value
+      type: System.DateTime
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryStrToDateTime(S As String, Value As Date) As Boolean
+  overload: Tripous.Sys.TryStrToDateTime*
+  nameWithType.vb: Sys.TryStrToDateTime(String, Date)
+  fullName.vb: Tripous.Sys.TryStrToDateTime(String, Date)
+  name.vb: TryStrToDateTime(String, Date)
+- uid: Tripous.Sys.RemoveTrailingSlash(System.String)
+  commentId: M:Tripous.Sys.RemoveTrailingSlash(System.String)
+  id: RemoveTrailingSlash(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: RemoveTrailingSlash(string)
+  nameWithType: Sys.RemoveTrailingSlash(string)
+  fullName: Tripous.Sys.RemoveTrailingSlash(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemoveTrailingSlash
+    path: ../Tripous/Sys.cs
+    startLine: 361
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Removes a trailing slash mark (e.g. c:\Temp\ ) from a file path.
+  example: []
+  syntax:
+    content: public static string RemoveTrailingSlash(string FilePath)
+    parameters:
+    - id: FilePath
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function RemoveTrailingSlash(FilePath As String) As String
+  overload: Tripous.Sys.RemoveTrailingSlash*
+  nameWithType.vb: Sys.RemoveTrailingSlash(String)
+  fullName.vb: Tripous.Sys.RemoveTrailingSlash(String)
+  name.vb: RemoveTrailingSlash(String)
+- uid: Tripous.Sys.GetInvalidFileNameChars
+  commentId: M:Tripous.Sys.GetInvalidFileNameChars
+  id: GetInvalidFileNameChars
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GetInvalidFileNameChars()
+  nameWithType: Sys.GetInvalidFileNameChars()
+  fullName: Tripous.Sys.GetInvalidFileNameChars()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetInvalidFileNameChars
+    path: ../Tripous/Sys.cs
+    startLine: 369
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns an array containing the characters that are not allowed in file names.
+  example: []
+  syntax:
+    content: public static char[] GetInvalidFileNameChars()
+    return:
+      type: System.Char[]
+    content.vb: Public Shared Function GetInvalidFileNameChars() As Char()
+  overload: Tripous.Sys.GetInvalidFileNameChars*
+- uid: Tripous.Sys.IsValidFileName(System.String)
+  commentId: M:Tripous.Sys.IsValidFileName(System.String)
+  id: IsValidFileName(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: IsValidFileName(string)
+  nameWithType: Sys.IsValidFileName(string)
+  fullName: Tripous.Sys.IsValidFileName(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsValidFileName
+    path: ../Tripous/Sys.cs
+    startLine: 378
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns true if FileName is a valid file name, that is it just contains
+
+    characters that are allowed in file names.
+  example: []
+  syntax:
+    content: public static bool IsValidFileName(string FileName)
+    parameters:
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsValidFileName(FileName As String) As Boolean
+  overload: Tripous.Sys.IsValidFileName*
+  nameWithType.vb: Sys.IsValidFileName(String)
+  fullName.vb: Tripous.Sys.IsValidFileName(String)
+  name.vb: IsValidFileName(String)
+- uid: Tripous.Sys.StrToValidFileName(System.String)
+  commentId: M:Tripous.Sys.StrToValidFileName(System.String)
+  id: StrToValidFileName(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: StrToValidFileName(string)
+  nameWithType: Sys.StrToValidFileName(string)
+  fullName: Tripous.Sys.StrToValidFileName(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StrToValidFileName
+    path: ../Tripous/Sys.cs
+    startLine: 386
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Replaces any invalid file name characters from Source with spaces.
+  example: []
+  syntax:
+    content: public static string StrToValidFileName(string Source)
+    parameters:
+    - id: Source
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function StrToValidFileName(Source As String) As String
+  overload: Tripous.Sys.StrToValidFileName*
+  nameWithType.vb: Sys.StrToValidFileName(String)
+  fullName.vb: Tripous.Sys.StrToValidFileName(String)
+  name.vb: StrToValidFileName(String)
+- uid: Tripous.Sys.GetFiles(System.String,System.String,System.Boolean)
+  commentId: M:Tripous.Sys.GetFiles(System.String,System.String,System.Boolean)
+  id: GetFiles(System.String,System.String,System.Boolean)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GetFiles(string, string, bool)
+  nameWithType: Sys.GetFiles(string, string, bool)
+  fullName: Tripous.Sys.GetFiles(string, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetFiles
+    path: ../Tripous/Sys.cs
+    startLine: 401
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns file names from the specified Folder that match the specified Filters.
+
+
+    <p>Filters is a list of filters delimited by semicolon, i.e. *.gif;*.jpg;*.png;*.bmp; </p>
+
+    <p> The returned file names include the full path.</p>
+  example: []
+  syntax:
+    content: public static string[] GetFiles(string Folder, string Filters, bool SearchSubFolders = false)
+    parameters:
+    - id: Folder
+      type: System.String
+    - id: Filters
+      type: System.String
+    - id: SearchSubFolders
+      type: System.Boolean
+    return:
+      type: System.String[]
+    content.vb: Public Shared Function GetFiles(Folder As String, Filters As String, SearchSubFolders As Boolean = False) As String()
+  overload: Tripous.Sys.GetFiles*
+  nameWithType.vb: Sys.GetFiles(String, String, Boolean)
+  fullName.vb: Tripous.Sys.GetFiles(String, String, Boolean)
+  name.vb: GetFiles(String, String, Boolean)
+- uid: Tripous.Sys.OpenFileExplorer(System.String)
+  commentId: M:Tripous.Sys.OpenFileExplorer(System.String)
+  id: OpenFileExplorer(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: OpenFileExplorer(string)
+  nameWithType: Sys.OpenFileExplorer(string)
+  fullName: Tripous.Sys.OpenFileExplorer(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OpenFileExplorer
+    path: ../Tripous/Sys.cs
+    startLine: 418
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays the file explorer on a path
+  example: []
+  syntax:
+    content: public static void OpenFileExplorer(string path)
+    parameters:
+    - id: path
+      type: System.String
+    content.vb: Public Shared Sub OpenFileExplorer(path As String)
+  overload: Tripous.Sys.OpenFileExplorer*
+  nameWithType.vb: Sys.OpenFileExplorer(String)
+  fullName.vb: Tripous.Sys.OpenFileExplorer(String)
+  name.vb: OpenFileExplorer(String)
+- uid: Tripous.Sys.EscapeText(System.String)
+  commentId: M:Tripous.Sys.EscapeText(System.String)
+  id: EscapeText(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: EscapeText(string)
+  nameWithType: Sys.EscapeText(string)
+  fullName: Tripous.Sys.EscapeText(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EscapeText
+    path: ../Tripous/Sys.cs
+    startLine: 455
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Escapes a text so it can be safely used inside a C# string literal.
+  example: []
+  syntax:
+    content: public static string EscapeText(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function EscapeText(Text As String) As String
+  overload: Tripous.Sys.EscapeText*
+  nameWithType.vb: Sys.EscapeText(String)
+  fullName.vb: Tripous.Sys.EscapeText(String)
+  name.vb: EscapeText(String)
+- uid: Tripous.Sys.UiLog(System.String)
+  commentId: M:Tripous.Sys.UiLog(System.String)
+  id: UiLog(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: UiLog(string)
+  nameWithType: Sys.UiLog(string)
+  fullName: Tripous.Sys.UiLog(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UiLog
+    path: ../Tripous/Sys.cs
+    startLine: 473
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays a message in the UI log box.
+  example: []
+  syntax:
+    content: public static void UiLog(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Shared Sub UiLog(Text As String)
+  overload: Tripous.Sys.UiLog*
+  nameWithType.vb: Sys.UiLog(String)
+  fullName.vb: Tripous.Sys.UiLog(String)
+  name.vb: UiLog(String)
+- uid: Tripous.Sys.LogError(System.Exception)
+  commentId: M:Tripous.Sys.LogError(System.Exception)
+  id: LogError(System.Exception)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogError(Exception)
+  nameWithType: Sys.LogError(Exception)
+  fullName: Tripous.Sys.LogError(System.Exception)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogError
+    path: ../Tripous/Sys.cs
+    startLine: 481
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays an error message in the UI log box.
+  example: []
+  syntax:
+    content: public static void LogError(Exception e)
+    parameters:
+    - id: e
+      type: System.Exception
+    content.vb: Public Shared Sub LogError(e As Exception)
+  overload: Tripous.Sys.LogError*
+- uid: Tripous.Sys.LogErrorText(System.String)
+  commentId: M:Tripous.Sys.LogErrorText(System.String)
+  id: LogErrorText(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogErrorText(string)
+  nameWithType: Sys.LogErrorText(string)
+  fullName: Tripous.Sys.LogErrorText(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogErrorText
+    path: ../Tripous/Sys.cs
+    startLine: 495
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays an error message in the UI log box.
+  example: []
+  syntax:
+    content: public static void LogErrorText(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Shared Sub LogErrorText(Text As String)
+  overload: Tripous.Sys.LogErrorText*
+  nameWithType.vb: Sys.LogErrorText(String)
+  fullName.vb: Tripous.Sys.LogErrorText(String)
+  name.vb: LogErrorText(String)
+- uid: Tripous.Sys.LogWarn(System.String)
+  commentId: M:Tripous.Sys.LogWarn(System.String)
+  id: LogWarn(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogWarn(string)
+  nameWithType: Sys.LogWarn(string)
+  fullName: Tripous.Sys.LogWarn(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogWarn
+    path: ../Tripous/Sys.cs
+    startLine: 509
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays a warning message in the UI log box.
+  example: []
+  syntax:
+    content: public static void LogWarn(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Shared Sub LogWarn(Text As String)
+  overload: Tripous.Sys.LogWarn*
+  nameWithType.vb: Sys.LogWarn(String)
+  fullName.vb: Tripous.Sys.LogWarn(String)
+  name.vb: LogWarn(String)
+- uid: Tripous.Sys.LogInfo(System.String)
+  commentId: M:Tripous.Sys.LogInfo(System.String)
+  id: LogInfo(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogInfo(string)
+  nameWithType: Sys.LogInfo(string)
+  fullName: Tripous.Sys.LogInfo(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogInfo
+    path: ../Tripous/Sys.cs
+    startLine: 523
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays an info message in the UI log box.
+  example: []
+  syntax:
+    content: public static void LogInfo(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Shared Sub LogInfo(Text As String)
+  overload: Tripous.Sys.LogInfo*
+  nameWithType.vb: Sys.LogInfo(String)
+  fullName.vb: Tripous.Sys.LogInfo(String)
+  name.vb: LogInfo(String)
+- uid: Tripous.Sys.Debug(System.String)
+  commentId: M:Tripous.Sys.Debug(System.String)
+  id: Debug(System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: Debug(string)
+  nameWithType: Sys.Debug(string)
+  fullName: Tripous.Sys.Debug(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Debug
+    path: ../Tripous/Sys.cs
+    startLine: 539
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays a message in the debug box.
+  example: []
+  syntax:
+    content: public static void Debug(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Shared Sub Debug(Text As String)
+  overload: Tripous.Sys.Debug*
+  nameWithType.vb: Sys.Debug(String)
+  fullName.vb: Tripous.Sys.Debug(String)
+  name.vb: Debug(String)
+- uid: Tripous.Sys.Debug(System.Exception)
+  commentId: M:Tripous.Sys.Debug(System.Exception)
+  id: Debug(System.Exception)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: Debug(Exception)
+  nameWithType: Sys.Debug(Exception)
+  fullName: Tripous.Sys.Debug(System.Exception)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Debug
+    path: ../Tripous/Sys.cs
+    startLine: 552
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Displays an error message in the debug box.
+  example: []
+  syntax:
+    content: public static void Debug(Exception e)
+    parameters:
+    - id: e
+      type: System.Exception
+    content.vb: Public Shared Sub Debug(e As Exception)
+  overload: Tripous.Sys.Debug*
+- uid: Tripous.Sys.GetApplicationAssemblies(System.String[])
+  commentId: M:Tripous.Sys.GetApplicationAssemblies(System.String[])
+  id: GetApplicationAssemblies(System.String[])
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GetApplicationAssemblies(string[])
+  nameWithType: Sys.GetApplicationAssemblies(string[])
+  fullName: Tripous.Sys.GetApplicationAssemblies(string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetApplicationAssemblies
+    path: ../Tripous/Sys.cs
+    startLine: 564
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns a list of non-system assemblies
+  example: []
+  syntax:
+    content: public static List<Assembly> GetApplicationAssemblies(string[] ExcludeAssempliesContaining = null)
+    parameters:
+    - id: ExcludeAssempliesContaining
+      type: System.String[]
+    return:
+      type: System.Collections.Generic.List{System.Reflection.Assembly}
+    content.vb: Public Shared Function GetApplicationAssemblies(ExcludeAssempliesContaining As String() = Nothing) As List(Of Assembly)
+  overload: Tripous.Sys.GetApplicationAssemblies*
+  nameWithType.vb: Sys.GetApplicationAssemblies(String())
+  fullName.vb: Tripous.Sys.GetApplicationAssemblies(String())
+  name.vb: GetApplicationAssemblies(String())
+- uid: Tripous.Sys.GenId(System.Boolean)
+  commentId: M:Tripous.Sys.GenId(System.Boolean)
+  id: GenId(System.Boolean)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GenId(bool)
+  nameWithType: Sys.GenId(bool)
+  fullName: Tripous.Sys.GenId(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GenId
+    path: ../Tripous/Sys.cs
+    startLine: 570
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Creates and returns a new Guid.
+
+
+    <p>If UseBrackets is true, the new guid is surrounded by {}</p>
+  example: []
+  syntax:
+    content: public static string GenId(bool UseBrackets)
+    parameters:
+    - id: UseBrackets
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function GenId(UseBrackets As Boolean) As String
+  overload: Tripous.Sys.GenId*
+  nameWithType.vb: Sys.GenId(Boolean)
+  fullName.vb: Tripous.Sys.GenId(Boolean)
+  name.vb: GenId(Boolean)
+- uid: Tripous.Sys.GenId
+  commentId: M:Tripous.Sys.GenId
+  id: GenId
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GenId()
+  nameWithType: Sys.GenId()
+  fullName: Tripous.Sys.GenId()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GenId
+    path: ../Tripous/Sys.cs
+    startLine: 578
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates and returns a new Guid WITHOUT surrounding brackets, i.e. {}
+  example: []
+  syntax:
+    content: public static string GenId()
+    return:
+      type: System.String
+    content.vb: Public Shared Function GenId() As String
+  overload: Tripous.Sys.GenId*
+- uid: Tripous.Sys.GenerateRandomString(System.Int32,System.String)
+  commentId: M:Tripous.Sys.GenerateRandomString(System.Int32,System.String)
+  id: GenerateRandomString(System.Int32,System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GenerateRandomString(int, string)
+  nameWithType: Sys.GenerateRandomString(int, string)
+  fullName: Tripous.Sys.GenerateRandomString(int, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GenerateRandomString
+    path: ../Tripous/Sys.cs
+    startLine: 585
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Creates and returns a random string of a specified length, picking characters from a specified set of characters.
+  example: []
+  syntax:
+    content: public static string GenerateRandomString(int Length, string CharSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+    parameters:
+    - id: Length
+      type: System.Int32
+    - id: CharSet
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GenerateRandomString(Length As Integer, CharSet As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") As String
+  overload: Tripous.Sys.GenerateRandomString*
+  nameWithType.vb: Sys.GenerateRandomString(Integer, String)
+  fullName.vb: Tripous.Sys.GenerateRandomString(Integer, String)
+  name.vb: GenerateRandomString(Integer, String)
+- uid: Tripous.Sys.IsSameText(System.String,System.String)
+  commentId: M:Tripous.Sys.IsSameText(System.String,System.String)
+  id: IsSameText(System.String,System.String)
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: IsSameText(string, string)
+  nameWithType: Sys.IsSameText(string, string)
+  fullName: Tripous.Sys.IsSameText(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSameText
+    path: ../Tripous/Sys.cs
+    startLine: 603
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Case insensitive string equality.
+
+
+    <p>Returns true if 1. both are null, 2. both are empty string or 3. they are the same string </p>
+  example: []
+  syntax:
+    content: public static bool IsSameText(string A, string B)
+    parameters:
+    - id: A
+      type: System.String
+    - id: B
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsSameText(A As String, B As String) As Boolean
+  overload: Tripous.Sys.IsSameText*
+  nameWithType.vb: Sys.IsSameText(String, String)
+  fullName.vb: Tripous.Sys.IsSameText(String, String)
+  name.vb: IsSameText(String, String)
+- uid: Tripous.Sys.DebugMode
+  commentId: P:Tripous.Sys.DebugMode
+  id: DebugMode
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: DebugMode
+  nameWithType: Sys.DebugMode
+  fullName: Tripous.Sys.DebugMode
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DebugMode
+    path: ../Tripous/Sys.cs
+    startLine: 611
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when this application is in debug mode.
+  example: []
+  syntax:
+    content: public static bool DebugMode { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Property DebugMode As Boolean
+  overload: Tripous.Sys.DebugMode*
+- uid: Tripous.Sys.DebugProc
+  commentId: P:Tripous.Sys.DebugProc
+  id: DebugProc
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: DebugProc
+  nameWithType: Sys.DebugProc
+  fullName: Tripous.Sys.DebugProc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DebugProc
+    path: ../Tripous/Sys.cs
+    startLine: 615
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: An action that displays debug strings to lob box. It is passed by the Ui static class.
+  example: []
+  syntax:
+    content: public static Action<string> DebugProc { get; set; }
+    parameters: []
+    return:
+      type: System.Action{System.String}
+    content.vb: Public Shared Property DebugProc As Action(Of String)
+  overload: Tripous.Sys.DebugProc*
+- uid: Tripous.Sys.UiLogProc
+  commentId: P:Tripous.Sys.UiLogProc
+  id: UiLogProc
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: UiLogProc
+  nameWithType: Sys.UiLogProc
+  fullName: Tripous.Sys.UiLogProc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UiLogProc
+    path: ../Tripous/Sys.cs
+    startLine: 619
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: An action that displays UI log strings to lob box. It is passed by the Ui static class.
+  example: []
+  syntax:
+    content: public static Action<string> UiLogProc { get; set; }
+    parameters: []
+    return:
+      type: System.Action{System.String}
+    content.vb: Public Shared Property UiLogProc As Action(Of String)
+  overload: Tripous.Sys.UiLogProc*
+- uid: Tripous.Sys.LogExceptionProc
+  commentId: P:Tripous.Sys.LogExceptionProc
+  id: LogExceptionProc
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogExceptionProc
+  nameWithType: Sys.LogExceptionProc
+  fullName: Tripous.Sys.LogExceptionProc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogExceptionProc
+    path: ../Tripous/Sys.cs
+    startLine: 624
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: An action that displays exception strings to log box.
+  example: []
+  syntax:
+    content: public static Action<Exception> LogExceptionProc { get; set; }
+    parameters: []
+    return:
+      type: System.Action{System.Exception}
+    content.vb: Public Shared Property LogExceptionProc As Action(Of Exception)
+  overload: Tripous.Sys.LogExceptionProc*
+- uid: Tripous.Sys.LogErrorProc
+  commentId: P:Tripous.Sys.LogErrorProc
+  id: LogErrorProc
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogErrorProc
+  nameWithType: Sys.LogErrorProc
+  fullName: Tripous.Sys.LogErrorProc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogErrorProc
+    path: ../Tripous/Sys.cs
+    startLine: 628
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: An action that displays error strings to log box.
+  example: []
+  syntax:
+    content: public static Action<string> LogErrorProc { get; set; }
+    parameters: []
+    return:
+      type: System.Action{System.String}
+    content.vb: Public Shared Property LogErrorProc As Action(Of String)
+  overload: Tripous.Sys.LogErrorProc*
+- uid: Tripous.Sys.LogWarnProc
+  commentId: P:Tripous.Sys.LogWarnProc
+  id: LogWarnProc
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogWarnProc
+  nameWithType: Sys.LogWarnProc
+  fullName: Tripous.Sys.LogWarnProc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogWarnProc
+    path: ../Tripous/Sys.cs
+    startLine: 632
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: An action that displays warning strings to log box.
+  example: []
+  syntax:
+    content: public static Action<string> LogWarnProc { get; set; }
+    parameters: []
+    return:
+      type: System.Action{System.String}
+    content.vb: Public Shared Property LogWarnProc As Action(Of String)
+  overload: Tripous.Sys.LogWarnProc*
+- uid: Tripous.Sys.LogInfoProc
+  commentId: P:Tripous.Sys.LogInfoProc
+  id: LogInfoProc
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: LogInfoProc
+  nameWithType: Sys.LogInfoProc
+  fullName: Tripous.Sys.LogInfoProc
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogInfoProc
+    path: ../Tripous/Sys.cs
+    startLine: 636
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: An action that displays info strings to log box.
+  example: []
+  syntax:
+    content: public static Action<string> LogInfoProc { get; set; }
+    parameters: []
+    return:
+      type: System.Action{System.String}
+    content.vb: Public Shared Property LogInfoProc As Action(Of String)
+  overload: Tripous.Sys.LogInfoProc*
+- uid: Tripous.Sys.UserName
+  commentId: P:Tripous.Sys.UserName
+  id: UserName
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: UserName
+  nameWithType: Sys.UserName
+  fullName: Tripous.Sys.UserName
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UserName
+    path: ../Tripous/Sys.cs
+    startLine: 641
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: The username of the current user of the local computer
+  example: []
+  syntax:
+    content: public static string UserName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property UserName As String
+  overload: Tripous.Sys.UserName*
+- uid: Tripous.Sys.HostName
+  commentId: P:Tripous.Sys.HostName
+  id: HostName
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: HostName
+  nameWithType: Sys.HostName
+  fullName: Tripous.Sys.HostName
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HostName
+    path: ../Tripous/Sys.cs
+    startLine: 645
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: The name of the local computer
+  example: []
+  syntax:
+    content: public static string HostName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly Property HostName As String
+  overload: Tripous.Sys.HostName*
+- uid: Tripous.Sys.GetCurrentAppUserId
+  commentId: M:Tripous.Sys.GetCurrentAppUserId
+  id: GetCurrentAppUserId
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentAppUserId()
+  nameWithType: Sys.GetCurrentAppUserId()
+  fullName: Tripous.Sys.GetCurrentAppUserId()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCurrentAppUserId
+    path: ../Tripous/Sys.cs
+    startLine: 650
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: The id of the current application user. Used when an application supports users.
+  example: []
+  syntax:
+    content: public static string GetCurrentAppUserId()
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetCurrentAppUserId() As String
+  overload: Tripous.Sys.GetCurrentAppUserId*
+- uid: Tripous.Sys.GetCurrentAppUserName
+  commentId: M:Tripous.Sys.GetCurrentAppUserName
+  id: GetCurrentAppUserName
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentAppUserName()
+  nameWithType: Sys.GetCurrentAppUserName()
+  fullName: Tripous.Sys.GetCurrentAppUserName()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCurrentAppUserName
+    path: ../Tripous/Sys.cs
+    startLine: 660
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: The name of the current application user. Used when an application supports users.
+  example: []
+  syntax:
+    content: public static string GetCurrentAppUserName()
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetCurrentAppUserName() As String
+  overload: Tripous.Sys.GetCurrentAppUserName*
+- uid: Tripous.Sys.Settings
+  commentId: P:Tripous.Sys.Settings
+  id: Settings
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: Settings
+  nameWithType: Sys.Settings
+  fullName: Tripous.Sys.Settings
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Settings
+    path: ../Tripous/Sys.cs
+    startLine: 670
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: System global settings
+  example: []
+  syntax:
+    content: public static SysGlobalSettings Settings { get; }
+    parameters: []
+    return:
+      type: Tripous.SysGlobalSettings
+    content.vb: Public Shared ReadOnly Property Settings As SysGlobalSettings
+  overload: Tripous.Sys.Settings*
+- uid: Tripous.Sys.Context
+  commentId: P:Tripous.Sys.Context
+  id: Context
+  parent: Tripous.Sys
+  langs:
+  - csharp
+  - vb
+  name: Context
+  nameWithType: Sys.Context
+  fullName: Tripous.Sys.Context
+  type: Property
+  source:
+    remote:
+      path: Tripous/Sys.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Context
+    path: ../Tripous/Sys.cs
+    startLine: 674
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Provides access to the current application execution context.
+  example: []
+  syntax:
+    content: public static HostContext Context { get; }
+    parameters: []
+    return:
+      type: Tripous.HostContext
+    content.vb: Public Shared ReadOnly Property Context As HostContext
+  overload: Tripous.Sys.Context*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Sys.Throw*
+  commentId: Overload:Tripous.Sys.Throw
+  href: Tripous.Sys.html#Tripous_Sys_Throw_System_String_
+  name: Throw
+  nameWithType: Sys.Throw
+  fullName: Tripous.Sys.Throw
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: Tripous.Sys.RegisterAllEncodings*
+  commentId: Overload:Tripous.Sys.RegisterAllEncodings
+  href: Tripous.Sys.html#Tripous_Sys_RegisterAllEncodings
+  name: RegisterAllEncodings
+  nameWithType: Sys.RegisterAllEncodings
+  fullName: Tripous.Sys.RegisterAllEncodings
+- uid: Tripous.Sys.IsNull*
+  commentId: Overload:Tripous.Sys.IsNull
+  href: Tripous.Sys.html#Tripous_Sys_IsNull_System_Object_
+  name: IsNull
+  nameWithType: Sys.IsNull
+  fullName: Tripous.Sys.IsNull
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Sys.DoubleToStr*
+  commentId: Overload:Tripous.Sys.DoubleToStr
+  href: Tripous.Sys.html#Tripous_Sys_DoubleToStr_System_Double_System_Int32_
+  name: DoubleToStr
+  nameWithType: Sys.DoubleToStr
+  fullName: Tripous.Sys.DoubleToStr
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Sys.DecimalToStr*
+  commentId: Overload:Tripous.Sys.DecimalToStr
+  href: Tripous.Sys.html#Tripous_Sys_DecimalToStr_System_Decimal_System_Int32_
+  name: DecimalToStr
+  nameWithType: Sys.DecimalToStr
+  fullName: Tripous.Sys.DecimalToStr
+- uid: System.Decimal
+  commentId: T:System.Decimal
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.decimal
+  name: decimal
+  nameWithType: decimal
+  fullName: decimal
+  nameWithType.vb: Decimal
+  fullName.vb: Decimal
+  name.vb: Decimal
+- uid: Tripous.Sys.DateTimeToStr*
+  commentId: Overload:Tripous.Sys.DateTimeToStr
+  href: Tripous.Sys.html#Tripous_Sys_DateTimeToStr_System_DateTime_System_Boolean_
+  name: DateTimeToStr
+  nameWithType: Sys.DateTimeToStr
+  fullName: Tripous.Sys.DateTimeToStr
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.Sys.DateToStr*
+  commentId: Overload:Tripous.Sys.DateToStr
+  href: Tripous.Sys.html#Tripous_Sys_DateToStr_System_DateTime_
+  name: DateToStr
+  nameWithType: Sys.DateToStr
+  fullName: Tripous.Sys.DateToStr
+- uid: Tripous.Sys.AsValue*
+  commentId: Overload:Tripous.Sys.AsValue
+  href: Tripous.Sys.html#Tripous_Sys_AsValue__1_System_Object___0_
+  name: AsValue
+  nameWithType: Sys.AsValue
+  fullName: Tripous.Sys.AsValue
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Tripous.Sys.AsString*
+  commentId: Overload:Tripous.Sys.AsString
+  href: Tripous.Sys.html#Tripous_Sys_AsString_System_Object_System_String_
+  name: AsString
+  nameWithType: Sys.AsString
+  fullName: Tripous.Sys.AsString
+- uid: Tripous.Sys.AsInteger*
+  commentId: Overload:Tripous.Sys.AsInteger
+  href: Tripous.Sys.html#Tripous_Sys_AsInteger_System_Object_System_Int32_
+  name: AsInteger
+  nameWithType: Sys.AsInteger
+  fullName: Tripous.Sys.AsInteger
+- uid: Tripous.Sys.AsBoolean*
+  commentId: Overload:Tripous.Sys.AsBoolean
+  href: Tripous.Sys.html#Tripous_Sys_AsBoolean_System_Object_System_Boolean_
+  name: AsBoolean
+  nameWithType: Sys.AsBoolean
+  fullName: Tripous.Sys.AsBoolean
+- uid: Tripous.Sys.AsDouble*
+  commentId: Overload:Tripous.Sys.AsDouble
+  href: Tripous.Sys.html#Tripous_Sys_AsDouble_System_Object_System_Double_
+  name: AsDouble
+  nameWithType: Sys.AsDouble
+  fullName: Tripous.Sys.AsDouble
+- uid: Tripous.Sys.AsDecimal*
+  commentId: Overload:Tripous.Sys.AsDecimal
+  href: Tripous.Sys.html#Tripous_Sys_AsDecimal_System_Object_System_Decimal_
+  name: AsDecimal
+  nameWithType: Sys.AsDecimal
+  fullName: Tripous.Sys.AsDecimal
+- uid: Tripous.Sys.AsDateTime*
+  commentId: Overload:Tripous.Sys.AsDateTime
+  href: Tripous.Sys.html#Tripous_Sys_AsDateTime_System_Object_System_DateTime_
+  name: AsDateTime
+  nameWithType: Sys.AsDateTime
+  fullName: Tripous.Sys.AsDateTime
+- uid: Tripous.Sys.StrToDateTime*
+  commentId: Overload:Tripous.Sys.StrToDateTime
+  href: Tripous.Sys.html#Tripous_Sys_StrToDateTime_System_String_
+  name: StrToDateTime
+  nameWithType: Sys.StrToDateTime
+  fullName: Tripous.Sys.StrToDateTime
+- uid: Tripous.Sys.StrToDate*
+  commentId: Overload:Tripous.Sys.StrToDate
+  href: Tripous.Sys.html#Tripous_Sys_StrToDate_System_String_System_DateTime_
+  name: StrToDate
+  nameWithType: Sys.StrToDate
+  fullName: Tripous.Sys.StrToDate
+- uid: Tripous.Sys.TryStrToDateTime*
+  commentId: Overload:Tripous.Sys.TryStrToDateTime
+  href: Tripous.Sys.html#Tripous_Sys_TryStrToDateTime_System_String_System_DateTime__
+  name: TryStrToDateTime
+  nameWithType: Sys.TryStrToDateTime
+  fullName: Tripous.Sys.TryStrToDateTime
+- uid: Tripous.Sys.RemoveTrailingSlash*
+  commentId: Overload:Tripous.Sys.RemoveTrailingSlash
+  href: Tripous.Sys.html#Tripous_Sys_RemoveTrailingSlash_System_String_
+  name: RemoveTrailingSlash
+  nameWithType: Sys.RemoveTrailingSlash
+  fullName: Tripous.Sys.RemoveTrailingSlash
+- uid: Tripous.Sys.GetInvalidFileNameChars*
+  commentId: Overload:Tripous.Sys.GetInvalidFileNameChars
+  href: Tripous.Sys.html#Tripous_Sys_GetInvalidFileNameChars
+  name: GetInvalidFileNameChars
+  nameWithType: Sys.GetInvalidFileNameChars
+  fullName: Tripous.Sys.GetInvalidFileNameChars
+- uid: System.Char[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.char
+  name: char[]
+  nameWithType: char[]
+  fullName: char[]
+  nameWithType.vb: Char()
+  fullName.vb: Char()
+  name.vb: Char()
+  spec.csharp:
+  - uid: System.Char
+    name: char
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.char
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Char
+    name: Char
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.char
+  - name: (
+  - name: )
+- uid: Tripous.Sys.IsValidFileName*
+  commentId: Overload:Tripous.Sys.IsValidFileName
+  href: Tripous.Sys.html#Tripous_Sys_IsValidFileName_System_String_
+  name: IsValidFileName
+  nameWithType: Sys.IsValidFileName
+  fullName: Tripous.Sys.IsValidFileName
+- uid: Tripous.Sys.StrToValidFileName*
+  commentId: Overload:Tripous.Sys.StrToValidFileName
+  href: Tripous.Sys.html#Tripous_Sys_StrToValidFileName_System_String_
+  name: StrToValidFileName
+  nameWithType: Sys.StrToValidFileName
+  fullName: Tripous.Sys.StrToValidFileName
+- uid: Tripous.Sys.GetFiles*
+  commentId: Overload:Tripous.Sys.GetFiles
+  href: Tripous.Sys.html#Tripous_Sys_GetFiles_System_String_System_String_System_Boolean_
+  name: GetFiles
+  nameWithType: Sys.GetFiles
+  fullName: Tripous.Sys.GetFiles
+- uid: Tripous.Sys.OpenFileExplorer*
+  commentId: Overload:Tripous.Sys.OpenFileExplorer
+  href: Tripous.Sys.html#Tripous_Sys_OpenFileExplorer_System_String_
+  name: OpenFileExplorer
+  nameWithType: Sys.OpenFileExplorer
+  fullName: Tripous.Sys.OpenFileExplorer
+- uid: Tripous.Sys.EscapeText*
+  commentId: Overload:Tripous.Sys.EscapeText
+  href: Tripous.Sys.html#Tripous_Sys_EscapeText_System_String_
+  name: EscapeText
+  nameWithType: Sys.EscapeText
+  fullName: Tripous.Sys.EscapeText
+- uid: Tripous.Sys.UiLog*
+  commentId: Overload:Tripous.Sys.UiLog
+  href: Tripous.Sys.html#Tripous_Sys_UiLog_System_String_
+  name: UiLog
+  nameWithType: Sys.UiLog
+  fullName: Tripous.Sys.UiLog
+- uid: Tripous.Sys.LogError*
+  commentId: Overload:Tripous.Sys.LogError
+  href: Tripous.Sys.html#Tripous_Sys_LogError_System_Exception_
+  name: LogError
+  nameWithType: Sys.LogError
+  fullName: Tripous.Sys.LogError
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: Tripous.Sys.LogErrorText*
+  commentId: Overload:Tripous.Sys.LogErrorText
+  href: Tripous.Sys.html#Tripous_Sys_LogErrorText_System_String_
+  name: LogErrorText
+  nameWithType: Sys.LogErrorText
+  fullName: Tripous.Sys.LogErrorText
+- uid: Tripous.Sys.LogWarn*
+  commentId: Overload:Tripous.Sys.LogWarn
+  href: Tripous.Sys.html#Tripous_Sys_LogWarn_System_String_
+  name: LogWarn
+  nameWithType: Sys.LogWarn
+  fullName: Tripous.Sys.LogWarn
+- uid: Tripous.Sys.LogInfo*
+  commentId: Overload:Tripous.Sys.LogInfo
+  href: Tripous.Sys.html#Tripous_Sys_LogInfo_System_String_
+  name: LogInfo
+  nameWithType: Sys.LogInfo
+  fullName: Tripous.Sys.LogInfo
+- uid: Tripous.Sys.Debug*
+  commentId: Overload:Tripous.Sys.Debug
+  href: Tripous.Sys.html#Tripous_Sys_Debug_System_String_
+  name: Debug
+  nameWithType: Sys.Debug
+  fullName: Tripous.Sys.Debug
+- uid: Tripous.Sys.GetApplicationAssemblies*
+  commentId: Overload:Tripous.Sys.GetApplicationAssemblies
+  href: Tripous.Sys.html#Tripous_Sys_GetApplicationAssemblies_System_String___
+  name: GetApplicationAssemblies
+  nameWithType: Sys.GetApplicationAssemblies
+  fullName: Tripous.Sys.GetApplicationAssemblies
+- uid: System.Collections.Generic.List{System.Reflection.Assembly}
+  commentId: T:System.Collections.Generic.List{System.Reflection.Assembly}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Assembly>
+  nameWithType: List<Assembly>
+  fullName: System.Collections.Generic.List<System.Reflection.Assembly>
+  nameWithType.vb: List(Of Assembly)
+  fullName.vb: System.Collections.Generic.List(Of System.Reflection.Assembly)
+  name.vb: List(Of Assembly)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.Reflection.Assembly
+    name: Assembly
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection.assembly
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Reflection.Assembly
+    name: Assembly
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection.assembly
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Sys.GenId*
+  commentId: Overload:Tripous.Sys.GenId
+  href: Tripous.Sys.html#Tripous_Sys_GenId_System_Boolean_
+  name: GenId
+  nameWithType: Sys.GenId
+  fullName: Tripous.Sys.GenId
+- uid: Tripous.Sys.GenerateRandomString*
+  commentId: Overload:Tripous.Sys.GenerateRandomString
+  href: Tripous.Sys.html#Tripous_Sys_GenerateRandomString_System_Int32_System_String_
+  name: GenerateRandomString
+  nameWithType: Sys.GenerateRandomString
+  fullName: Tripous.Sys.GenerateRandomString
+- uid: Tripous.Sys.IsSameText*
+  commentId: Overload:Tripous.Sys.IsSameText
+  href: Tripous.Sys.html#Tripous_Sys_IsSameText_System_String_System_String_
+  name: IsSameText
+  nameWithType: Sys.IsSameText
+  fullName: Tripous.Sys.IsSameText
+- uid: Tripous.Sys.DebugMode*
+  commentId: Overload:Tripous.Sys.DebugMode
+  href: Tripous.Sys.html#Tripous_Sys_DebugMode
+  name: DebugMode
+  nameWithType: Sys.DebugMode
+  fullName: Tripous.Sys.DebugMode
+- uid: Tripous.Sys.DebugProc*
+  commentId: Overload:Tripous.Sys.DebugProc
+  href: Tripous.Sys.html#Tripous_Sys_DebugProc
+  name: DebugProc
+  nameWithType: Sys.DebugProc
+  fullName: Tripous.Sys.DebugProc
+- uid: System.Action{System.String}
+  commentId: T:System.Action{System.String}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<string>
+  nameWithType: Action<string>
+  fullName: System.Action<string>
+  nameWithType.vb: Action(Of String)
+  fullName.vb: System.Action(Of String)
+  name.vb: Action(Of String)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Sys.UiLogProc*
+  commentId: Overload:Tripous.Sys.UiLogProc
+  href: Tripous.Sys.html#Tripous_Sys_UiLogProc
+  name: UiLogProc
+  nameWithType: Sys.UiLogProc
+  fullName: Tripous.Sys.UiLogProc
+- uid: Tripous.Sys.LogExceptionProc*
+  commentId: Overload:Tripous.Sys.LogExceptionProc
+  href: Tripous.Sys.html#Tripous_Sys_LogExceptionProc
+  name: LogExceptionProc
+  nameWithType: Sys.LogExceptionProc
+  fullName: Tripous.Sys.LogExceptionProc
+- uid: System.Action{System.Exception}
+  commentId: T:System.Action{System.Exception}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<Exception>
+  nameWithType: Action<Exception>
+  fullName: System.Action<System.Exception>
+  nameWithType.vb: Action(Of Exception)
+  fullName.vb: System.Action(Of System.Exception)
+  name.vb: Action(Of Exception)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+- uid: Tripous.Sys.LogErrorProc*
+  commentId: Overload:Tripous.Sys.LogErrorProc
+  href: Tripous.Sys.html#Tripous_Sys_LogErrorProc
+  name: LogErrorProc
+  nameWithType: Sys.LogErrorProc
+  fullName: Tripous.Sys.LogErrorProc
+- uid: Tripous.Sys.LogWarnProc*
+  commentId: Overload:Tripous.Sys.LogWarnProc
+  href: Tripous.Sys.html#Tripous_Sys_LogWarnProc
+  name: LogWarnProc
+  nameWithType: Sys.LogWarnProc
+  fullName: Tripous.Sys.LogWarnProc
+- uid: Tripous.Sys.LogInfoProc*
+  commentId: Overload:Tripous.Sys.LogInfoProc
+  href: Tripous.Sys.html#Tripous_Sys_LogInfoProc
+  name: LogInfoProc
+  nameWithType: Sys.LogInfoProc
+  fullName: Tripous.Sys.LogInfoProc
+- uid: Tripous.Sys.UserName*
+  commentId: Overload:Tripous.Sys.UserName
+  href: Tripous.Sys.html#Tripous_Sys_UserName
+  name: UserName
+  nameWithType: Sys.UserName
+  fullName: Tripous.Sys.UserName
+- uid: Tripous.Sys.HostName*
+  commentId: Overload:Tripous.Sys.HostName
+  href: Tripous.Sys.html#Tripous_Sys_HostName
+  name: HostName
+  nameWithType: Sys.HostName
+  fullName: Tripous.Sys.HostName
+- uid: Tripous.Sys.GetCurrentAppUserId*
+  commentId: Overload:Tripous.Sys.GetCurrentAppUserId
+  href: Tripous.Sys.html#Tripous_Sys_GetCurrentAppUserId
+  name: GetCurrentAppUserId
+  nameWithType: Sys.GetCurrentAppUserId
+  fullName: Tripous.Sys.GetCurrentAppUserId
+- uid: Tripous.Sys.GetCurrentAppUserName*
+  commentId: Overload:Tripous.Sys.GetCurrentAppUserName
+  href: Tripous.Sys.html#Tripous_Sys_GetCurrentAppUserName
+  name: GetCurrentAppUserName
+  nameWithType: Sys.GetCurrentAppUserName
+  fullName: Tripous.Sys.GetCurrentAppUserName
+- uid: Tripous.Sys.Settings*
+  commentId: Overload:Tripous.Sys.Settings
+  href: Tripous.Sys.html#Tripous_Sys_Settings
+  name: Settings
+  nameWithType: Sys.Settings
+  fullName: Tripous.Sys.Settings
+- uid: Tripous.SysGlobalSettings
+  commentId: T:Tripous.SysGlobalSettings
+  parent: Tripous
+  href: Tripous.SysGlobalSettings.html
+  name: SysGlobalSettings
+  nameWithType: SysGlobalSettings
+  fullName: Tripous.SysGlobalSettings
+- uid: Tripous.Sys.Context*
+  commentId: Overload:Tripous.Sys.Context
+  href: Tripous.Sys.html#Tripous_Sys_Context
+  name: Context
+  nameWithType: Sys.Context
+  fullName: Tripous.Sys.Context
+- uid: Tripous.HostContext
+  commentId: T:Tripous.HostContext
+  parent: Tripous
+  href: Tripous.HostContext.html
+  name: HostContext
+  nameWithType: HostContext
+  fullName: Tripous.HostContext

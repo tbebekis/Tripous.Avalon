@@ -1,0 +1,2411 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DataTableExtensions
+  commentId: T:Tripous.Data.DataTableExtensions
+  id: DataTableExtensions
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DataTableExtensions.AddNewRow(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.AppendTo(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.ClearSchemaAndData(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.ContainsColumn(System.Data.DataTable,System.String)
+  - Tripous.Data.DataTableExtensions.CopyColumnsFrom(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet)
+  - Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet,System.Data.DataSet,System.Boolean)
+  - Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  - Tripous.Data.DataTableExtensions.CopyRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable,System.Boolean)
+  - Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.CopyStructureTo(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  - Tripous.Data.DataTableExtensions.DeleteRows(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.FindColumn(System.Data.DataTable,System.String)
+  - Tripous.Data.DataTableExtensions.GetColumn(System.Data.DataTable,System.String)
+  - Tripous.Data.DataTableExtensions.GetDeletedRows(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.GetKeyValuesList(System.Data.DataTable,System.String,System.Int32)
+  - Tripous.Data.DataTableExtensions.GetRowCount(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.IndexOfColumn(System.Data.DataTable,System.String)
+  - Tripous.Data.DataTableExtensions.IsStringField(System.Data.DataTable,System.String)
+  - Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable,System.String,System.Object,Tripous.Data.LocateOptions)
+  - Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable,System.String[],System.Object[],Tripous.Data.LocateOptions)
+  - Tripous.Data.DataTableExtensions.MergeStructure(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.SafeAppendTo(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable,System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  - Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom(System.Data.DataTable,System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)
+  - Tripous.Data.DataTableExtensions.SetColumnsVisible(System.Data.DataTable,System.Boolean)
+  - Tripous.Data.DataTableExtensions.SplitToChunks(System.Data.DataTable,System.Int32)
+  - Tripous.Data.DataTableExtensions.ToObservableCollection(System.Data.DataTable)
+  - Tripous.Data.DataTableExtensions.ToTable(System.Collections.Generic.IEnumerable{System.Data.DataRow})
+  langs:
+  - csharp
+  - vb
+  name: DataTableExtensions
+  nameWithType: DataTableExtensions
+  fullName: Tripous.Data.DataTableExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataTableExtensions
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Extensions
+  example: []
+  syntax:
+    content: public static class DataTableExtensions
+    content.vb: Public Module DataTableExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.DataTableExtensions.GetRowCount(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.GetRowCount(System.Data.DataTable)
+  id: GetRowCount(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetRowCount(DataTable)
+  nameWithType: DataTableExtensions.GetRowCount(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.GetRowCount(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetRowCount
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the REAL number of rows in Table, not counting DataRowState.Deleted rows
+  example: []
+  syntax:
+    content: public static int GetRowCount(this DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function GetRowCount(Table As DataTable) As Integer
+  overload: Tripous.Data.DataTableExtensions.GetRowCount*
+- uid: Tripous.Data.DataTableExtensions.IndexOfColumn(System.Data.DataTable,System.String)
+  commentId: M:Tripous.Data.DataTableExtensions.IndexOfColumn(System.Data.DataTable,System.String)
+  id: IndexOfColumn(System.Data.DataTable,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: IndexOfColumn(DataTable, string)
+  nameWithType: DataTableExtensions.IndexOfColumn(DataTable, string)
+  fullName: Tripous.Data.DataTableExtensions.IndexOfColumn(System.Data.DataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IndexOfColumn
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the index of the DataColumn with FieldName in the Table, if any, else -1.
+  example: []
+  syntax:
+    content: public static int IndexOfColumn(this DataTable Table, string FieldName)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function IndexOfColumn(Table As DataTable, FieldName As String) As Integer
+  overload: Tripous.Data.DataTableExtensions.IndexOfColumn*
+  nameWithType.vb: DataTableExtensions.IndexOfColumn(DataTable, String)
+  fullName.vb: Tripous.Data.DataTableExtensions.IndexOfColumn(System.Data.DataTable, String)
+  name.vb: IndexOfColumn(DataTable, String)
+- uid: Tripous.Data.DataTableExtensions.ContainsColumn(System.Data.DataTable,System.String)
+  commentId: M:Tripous.Data.DataTableExtensions.ContainsColumn(System.Data.DataTable,System.String)
+  id: ContainsColumn(System.Data.DataTable,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: ContainsColumn(DataTable, string)
+  nameWithType: DataTableExtensions.ContainsColumn(DataTable, string)
+  fullName: Tripous.Data.DataTableExtensions.ContainsColumn(System.Data.DataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ContainsColumn
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Table contains a DataColumn with FieldName
+  example: []
+  syntax:
+    content: public static bool ContainsColumn(this DataTable Table, string FieldName)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function ContainsColumn(Table As DataTable, FieldName As String) As Boolean
+  overload: Tripous.Data.DataTableExtensions.ContainsColumn*
+  nameWithType.vb: DataTableExtensions.ContainsColumn(DataTable, String)
+  fullName.vb: Tripous.Data.DataTableExtensions.ContainsColumn(System.Data.DataTable, String)
+  name.vb: ContainsColumn(DataTable, String)
+- uid: Tripous.Data.DataTableExtensions.FindColumn(System.Data.DataTable,System.String)
+  commentId: M:Tripous.Data.DataTableExtensions.FindColumn(System.Data.DataTable,System.String)
+  id: FindColumn(System.Data.DataTable,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: FindColumn(DataTable, string)
+  nameWithType: DataTableExtensions.FindColumn(DataTable, string)
+  fullName: Tripous.Data.DataTableExtensions.FindColumn(System.Data.DataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindColumn
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 54
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the DataColumn with FileName, if exists, else null.
+  example: []
+  syntax:
+    content: public static DataColumn FindColumn(this DataTable Table, string FieldName)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Data.DataColumn
+    content.vb: Public Shared Function FindColumn(Table As DataTable, FieldName As String) As DataColumn
+  overload: Tripous.Data.DataTableExtensions.FindColumn*
+  nameWithType.vb: DataTableExtensions.FindColumn(DataTable, String)
+  fullName.vb: Tripous.Data.DataTableExtensions.FindColumn(System.Data.DataTable, String)
+  name.vb: FindColumn(DataTable, String)
+- uid: Tripous.Data.DataTableExtensions.GetColumn(System.Data.DataTable,System.String)
+  commentId: M:Tripous.Data.DataTableExtensions.GetColumn(System.Data.DataTable,System.String)
+  id: GetColumn(System.Data.DataTable,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetColumn(DataTable, string)
+  nameWithType: DataTableExtensions.GetColumn(DataTable, string)
+  fullName: Tripous.Data.DataTableExtensions.GetColumn(System.Data.DataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetColumn
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the DataColumn with FileName, if exists, else exception.
+  example: []
+  syntax:
+    content: public static DataColumn GetColumn(this DataTable Table, string FieldName)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Data.DataColumn
+    content.vb: Public Shared Function GetColumn(Table As DataTable, FieldName As String) As DataColumn
+  overload: Tripous.Data.DataTableExtensions.GetColumn*
+  nameWithType.vb: DataTableExtensions.GetColumn(DataTable, String)
+  fullName.vb: Tripous.Data.DataTableExtensions.GetColumn(System.Data.DataTable, String)
+  name.vb: GetColumn(DataTable, String)
+- uid: Tripous.Data.DataTableExtensions.DeleteRows(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.DeleteRows(System.Data.DataTable)
+  id: DeleteRows(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: DeleteRows(DataTable)
+  nameWithType: DataTableExtensions.DeleteRows(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.DeleteRows(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DeleteRows
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 84
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A DataRow is marked as Deleted only if the DataRow.Delete() is called.
+
+
+    <p>The DataRowCollection.Clear(), DataRowCollection.RemoveAt(), DataTable.Clear() etc, 
+
+    do NOT set the DataRowState.Deleted flag.</p>
+
+    <p>This method deletes all rows from a DataTable and sets the Deleted flag.</p>
+
+    <p>WARNING: Only DataRowState.Unchanged rows (which is set by a DataTable.AcceptChanges() etc)
+
+    are marked as DataRowState.Deleted.</p>
+  example: []
+  syntax:
+    content: public static void DeleteRows(this DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub DeleteRows(Table As DataTable)
+  overload: Tripous.Data.DataTableExtensions.DeleteRows*
+- uid: Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  id: CopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyTo(DataTable, DataTable, bool)
+  nameWithType: DataTableExtensions.CopyTo(DataTable, DataTable, bool)
+  fullName: Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable, System.Data.DataTable, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyTo
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 100
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies Source rows to Dest. 
+
+
+    <p>WARNING: Assumes that Source and Dest are identical in schema.</p>
+  example: []
+  syntax:
+    content: public static void CopyTo(this DataTable Source, DataTable Dest, bool EmptyDest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    - id: EmptyDest
+      type: System.Boolean
+    content.vb: Public Shared Sub CopyTo(Source As DataTable, Dest As DataTable, EmptyDest As Boolean)
+  overload: Tripous.Data.DataTableExtensions.CopyTo*
+  nameWithType.vb: DataTableExtensions.CopyTo(DataTable, DataTable, Boolean)
+  fullName.vb: Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable, System.Data.DataTable, Boolean)
+  name.vb: CopyTo(DataTable, DataTable, Boolean)
+- uid: Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  commentId: M:Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  id: SafeCopyTo(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: SafeCopyTo(DataTable, DataTable, bool)
+  nameWithType: DataTableExtensions.SafeCopyTo(DataTable, DataTable, bool)
+  fullName: Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable, System.Data.DataTable, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SafeCopyTo
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 127
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies Source rows to Dest.
+
+
+    <p>WARNING: Only data from columns with identical names to both tables are copied.</p>
+  example: []
+  syntax:
+    content: public static void SafeCopyTo(this DataTable Source, DataTable Dest, bool EmptyDest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    - id: EmptyDest
+      type: System.Boolean
+    content.vb: Public Shared Sub SafeCopyTo(Source As DataTable, Dest As DataTable, EmptyDest As Boolean)
+  overload: Tripous.Data.DataTableExtensions.SafeCopyTo*
+  nameWithType.vb: DataTableExtensions.SafeCopyTo(DataTable, DataTable, Boolean)
+  fullName.vb: Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable, System.Data.DataTable, Boolean)
+  name.vb: SafeCopyTo(DataTable, DataTable, Boolean)
+- uid: Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable,System.Data.DataTable)
+  id: CopyTo(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyTo(DataTable, DataTable)
+  nameWithType: DataTableExtensions.CopyTo(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.CopyTo(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyTo
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 156
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies Source rows to Dest. 
+
+
+    <p>WARNING: Dest is emptied first.</p>
+
+    <p>WARNING: Assumes that Source and Dest are identical in schema.</p>
+  example: []
+  syntax:
+    content: public static void CopyTo(this DataTable Source, DataTable Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub CopyTo(Source As DataTable, Dest As DataTable)
+  overload: Tripous.Data.DataTableExtensions.CopyTo*
+- uid: Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable,System.Data.DataTable)
+  id: SafeCopyTo(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: SafeCopyTo(DataTable, DataTable)
+  nameWithType: DataTableExtensions.SafeCopyTo(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.SafeCopyTo(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SafeCopyTo
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 165
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies Source rows to Dest.
+
+
+    <p>WARNING: Dest is emptied first.</p>
+
+    <p>WARNING: Only data from columns with identical names to both tables are copied.</p>
+  example: []
+  syntax:
+    content: public static void SafeCopyTo(this DataTable Source, DataTable Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub SafeCopyTo(Source As DataTable, Dest As DataTable)
+  overload: Tripous.Data.DataTableExtensions.SafeCopyTo*
+- uid: Tripous.Data.DataTableExtensions.AppendTo(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.AppendTo(System.Data.DataTable,System.Data.DataTable)
+  id: AppendTo(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: AppendTo(DataTable, DataTable)
+  nameWithType: DataTableExtensions.AppendTo(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.AppendTo(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AppendTo
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 174
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Appends Source rows to Dest. 
+
+
+    <p>WARNING: Assumes that Source and Dest are identical in schema.</p>
+  example: []
+  syntax:
+    content: public static void AppendTo(this DataTable Source, DataTable Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub AppendTo(Source As DataTable, Dest As DataTable)
+  overload: Tripous.Data.DataTableExtensions.AppendTo*
+- uid: Tripous.Data.DataTableExtensions.SafeAppendTo(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.SafeAppendTo(System.Data.DataTable,System.Data.DataTable)
+  id: SafeAppendTo(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: SafeAppendTo(DataTable, DataTable)
+  nameWithType: DataTableExtensions.SafeAppendTo(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.SafeAppendTo(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SafeAppendTo
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 182
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Appends Source rows to Dest.
+
+
+    <p>WARNING: Only data from columns with identical names to both tables are copied.</p>
+  example: []
+  syntax:
+    content: public static void SafeAppendTo(this DataTable Source, DataTable Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub SafeAppendTo(Source As DataTable, Dest As DataTable)
+  overload: Tripous.Data.DataTableExtensions.SafeAppendTo*
+- uid: Tripous.Data.DataTableExtensions.ClearSchemaAndData(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.ClearSchemaAndData(System.Data.DataTable)
+  id: ClearSchemaAndData(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: ClearSchemaAndData(DataTable)
+  nameWithType: DataTableExtensions.ClearSchemaAndData(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.ClearSchemaAndData(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ClearSchemaAndData
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 190
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Clears all rows, constraints and columns from Target, leaving it with no schema and no data.
+  example: []
+  syntax:
+    content: public static void ClearSchemaAndData(this DataTable Target)
+    parameters:
+    - id: Target
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub ClearSchemaAndData(Target As DataTable)
+  overload: Tripous.Data.DataTableExtensions.ClearSchemaAndData*
+- uid: Tripous.Data.DataTableExtensions.CopyColumnsFrom(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyColumnsFrom(System.Data.DataTable,System.Data.DataTable)
+  id: CopyColumnsFrom(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyColumnsFrom(DataTable, DataTable)
+  nameWithType: DataTableExtensions.CopyColumnsFrom(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.CopyColumnsFrom(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyColumnsFrom
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 199
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Clears the columns of Target and re-creates them based on the columns of Source, copying the relevant column properties.
+  example: []
+  syntax:
+    content: public static void CopyColumnsFrom(this DataTable Target, DataTable Source)
+    parameters:
+    - id: Target
+      type: System.Data.DataTable
+    - id: Source
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub CopyColumnsFrom(Target As DataTable, Source As DataTable)
+  overload: Tripous.Data.DataTableExtensions.CopyColumnsFrom*
+- uid: Tripous.Data.DataTableExtensions.CopyRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  id: CopyRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyRowsFrom(DataTable, DataTable)
+  nameWithType: DataTableExtensions.CopyRowsFrom(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.CopyRowsFrom(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyRowsFrom
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 224
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Copies the rows of Source to Target, preserving the RowState of each row.
+  example: []
+  syntax:
+    content: public static void CopyRowsFrom(this DataTable Target, DataTable Source)
+    parameters:
+    - id: Target
+      type: System.Data.DataTable
+    - id: Source
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub CopyRowsFrom(Target As DataTable, Source As DataTable)
+  overload: Tripous.Data.DataTableExtensions.CopyRowsFrom*
+- uid: Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  id: CopyStructureAndRowsFrom(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyStructureAndRowsFrom(DataTable, DataTable)
+  nameWithType: DataTableExtensions.CopyStructureAndRowsFrom(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyStructureAndRowsFrom
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 269
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Clears Target and copies the table name, namespace, locale, case-sensitivity, columns and rows from Source to Target.
+  example: []
+  syntax:
+    content: public static void CopyStructureAndRowsFrom(this DataTable Target, DataTable Source)
+    parameters:
+    - id: Target
+      type: System.Data.DataTable
+    - id: Source
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub CopyStructureAndRowsFrom(Target As DataTable, Source As DataTable)
+  overload: Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom*
+- uid: Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable)
+  id: CopyStructure(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyStructure(DataTable)
+  nameWithType: DataTableExtensions.CopyStructure(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyStructure
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 285
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns a new empty DataTable with a schema identical to Source.
+
+
+    <p>WARNING: It preserves the class type of the Source.
+
+    That is the result table is of the same class type as the Source.</p>
+  example: []
+  syntax:
+    content: public static DataTable CopyStructure(this DataTable Source)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Shared Function CopyStructure(Source As DataTable) As DataTable
+  overload: Tripous.Data.DataTableExtensions.CopyStructure*
+- uid: Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable,System.Boolean)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable,System.Boolean)
+  id: CopyStructure(System.Data.DataTable,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyStructure(DataTable, bool)
+  nameWithType: DataTableExtensions.CopyStructure(DataTable, bool)
+  fullName: Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyStructure
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 294
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns a new empty DataTable with a schema identical to Source.
+
+
+    <p>If PreserveClassType is true then the result table is of the same class type as the Source.</p>
+
+    <p>Else the result table is of the System.Data.DataTable type.</p>
+  example: []
+  syntax:
+    content: public static DataTable CopyStructure(this DataTable Source, bool PreserveClassType)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: PreserveClassType
+      type: System.Boolean
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Shared Function CopyStructure(Source As DataTable, PreserveClassType As Boolean) As DataTable
+  overload: Tripous.Data.DataTableExtensions.CopyStructure*
+  nameWithType.vb: DataTableExtensions.CopyStructure(DataTable, Boolean)
+  fullName.vb: Tripous.Data.DataTableExtensions.CopyStructure(System.Data.DataTable, Boolean)
+  name.vb: CopyStructure(DataTable, Boolean)
+- uid: Tripous.Data.DataTableExtensions.CopyStructureTo(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyStructureTo(System.Data.DataTable,System.Data.DataTable)
+  id: CopyStructureTo(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyStructureTo(DataTable, DataTable)
+  nameWithType: DataTableExtensions.CopyStructureTo(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.CopyStructureTo(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyStructureTo
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 313
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies the Source schema to Dest.
+
+
+    <p>WARNING: Dest must be empty and no DataColumns defined.</p>
+  example: []
+  syntax:
+    content: public static void CopyStructureTo(this DataTable Source, DataTable Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub CopyStructureTo(Source As DataTable, Dest As DataTable)
+  overload: Tripous.Data.DataTableExtensions.CopyStructureTo*
+- uid: Tripous.Data.DataTableExtensions.MergeStructure(System.Data.DataTable,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.MergeStructure(System.Data.DataTable,System.Data.DataTable)
+  id: MergeStructure(System.Data.DataTable,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: MergeStructure(DataTable, DataTable)
+  nameWithType: DataTableExtensions.MergeStructure(DataTable, DataTable)
+  fullName: Tripous.Data.DataTableExtensions.MergeStructure(System.Data.DataTable, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MergeStructure
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 336
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies column schema from Source to Dest. Only DataColumns that do not exist
+
+    in Dest are copied.
+  example: []
+  syntax:
+    content: public static void MergeStructure(this DataTable Source, DataTable Dest)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub MergeStructure(Source As DataTable, Dest As DataTable)
+  overload: Tripous.Data.DataTableExtensions.MergeStructure*
+- uid: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet,System.Data.DataSet,System.Boolean)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet,System.Data.DataSet,System.Boolean)
+  id: CopyExactState(System.Data.DataSet,System.Data.DataSet,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyExactState(DataSet, DataSet, bool)
+  nameWithType: DataTableExtensions.CopyExactState(DataSet, DataSet, bool)
+  fullName: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet, System.Data.DataSet, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyExactState
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 350
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies tables from Source to Dest.
+
+
+    <p>For each table copies Source data rows to Dest data rows, preserving the RowState.</p>
+
+    <p>NOTE: It first clears any rows found in Dest tables.</p>
+
+    <p>If CopySchemaToo is true, it deletes Columns from Dest tables and
+
+    creates new Columns based on Source tables</p>
+  example: []
+  syntax:
+    content: public static void CopyExactState(this DataSet Source, DataSet Dest, bool CopySchemaToo)
+    parameters:
+    - id: Source
+      type: System.Data.DataSet
+    - id: Dest
+      type: System.Data.DataSet
+    - id: CopySchemaToo
+      type: System.Boolean
+    content.vb: Public Shared Sub CopyExactState(Source As DataSet, Dest As DataSet, CopySchemaToo As Boolean)
+  overload: Tripous.Data.DataTableExtensions.CopyExactState*
+  nameWithType.vb: DataTableExtensions.CopyExactState(DataSet, DataSet, Boolean)
+  fullName.vb: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet, System.Data.DataSet, Boolean)
+  name.vb: CopyExactState(DataSet, DataSet, Boolean)
+- uid: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet)
+  id: CopyExactState(System.Data.DataSet)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyExactState(DataSet)
+  nameWithType: DataTableExtensions.CopyExactState(DataSet)
+  fullName: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataSet)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyExactState
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 376
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies tables from Source to Result.
+
+
+    <p>For each table copies Source data rows to Result data rows, preserving the RowState.</p>
+  example: []
+  syntax:
+    content: public static DataSet CopyExactState(this DataSet Source)
+    parameters:
+    - id: Source
+      type: System.Data.DataSet
+    return:
+      type: System.Data.DataSet
+    content.vb: Public Shared Function CopyExactState(Source As DataSet) As DataSet
+  overload: Tripous.Data.DataTableExtensions.CopyExactState*
+- uid: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  id: CopyExactState(System.Data.DataTable,System.Data.DataTable,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyExactState(DataTable, DataTable, bool)
+  nameWithType: DataTableExtensions.CopyExactState(DataTable, DataTable, bool)
+  fullName: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable, System.Data.DataTable, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyExactState
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 389
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Copies Source data rows to Dest data rows, preserving the RowState.
+
+
+    <p>NOTE: It first clears any rows found in Dest.</p>
+
+    <p>If CopySchemaToo is true, it deletes Columns from Dest and
+
+    creates new Columns based on Source</p>
+  example: []
+  syntax:
+    content: public static void CopyExactState(this DataTable Source, DataTable Dest, bool CopySchemaToo)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    - id: Dest
+      type: System.Data.DataTable
+    - id: CopySchemaToo
+      type: System.Boolean
+    content.vb: Public Shared Sub CopyExactState(Source As DataTable, Dest As DataTable, CopySchemaToo As Boolean)
+  overload: Tripous.Data.DataTableExtensions.CopyExactState*
+  nameWithType.vb: DataTableExtensions.CopyExactState(DataTable, DataTable, Boolean)
+  fullName.vb: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable, System.Data.DataTable, Boolean)
+  name.vb: CopyExactState(DataTable, DataTable, Boolean)
+- uid: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable)
+  id: CopyExactState(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyExactState(DataTable)
+  nameWithType: DataTableExtensions.CopyExactState(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.CopyExactState(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyExactState
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 425
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Copies Source data rows to Result data rows, preserving the RowState.
+  example: []
+  syntax:
+    content: public static DataTable CopyExactState(this DataTable Source)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Shared Function CopyExactState(Source As DataTable) As DataTable
+  overload: Tripous.Data.DataTableExtensions.CopyExactState*
+- uid: Tripous.Data.DataTableExtensions.ToTable(System.Collections.Generic.IEnumerable{System.Data.DataRow})
+  commentId: M:Tripous.Data.DataTableExtensions.ToTable(System.Collections.Generic.IEnumerable{System.Data.DataRow})
+  id: ToTable(System.Collections.Generic.IEnumerable{System.Data.DataRow})
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: ToTable(IEnumerable<DataRow>)
+  nameWithType: DataTableExtensions.ToTable(IEnumerable<DataRow>)
+  fullName: Tripous.Data.DataTableExtensions.ToTable(System.Collections.Generic.IEnumerable<System.Data.DataRow>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToTable
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 436
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns a DataTable that contains copies of the DataRow objects, given an input IEnumerable of DataRow.
+
+
+    <p>.NetStandard 2.1 contains the extension method CopyToDataTable() with the same functionality.</p>
+  example: []
+  syntax:
+    content: public static DataTable ToTable(this IEnumerable<DataRow> Rows)
+    parameters:
+    - id: Rows
+      type: System.Collections.Generic.IEnumerable{System.Data.DataRow}
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Shared Function ToTable(Rows As IEnumerable(Of DataRow)) As DataTable
+  overload: Tripous.Data.DataTableExtensions.ToTable*
+  nameWithType.vb: DataTableExtensions.ToTable(IEnumerable(Of DataRow))
+  fullName.vb: Tripous.Data.DataTableExtensions.ToTable(System.Collections.Generic.IEnumerable(Of System.Data.DataRow))
+  name.vb: ToTable(IEnumerable(Of DataRow))
+- uid: Tripous.Data.DataTableExtensions.GetDeletedRows(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.GetDeletedRows(System.Data.DataTable)
+  id: GetDeletedRows(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetDeletedRows(DataTable)
+  nameWithType: DataTableExtensions.GetDeletedRows(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.GetDeletedRows(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDeletedRows
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 464
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns a DataTable with the deleted rows in the Source.
+
+
+    <p>A DataRow is marked with the <xref href="System.Data.DataViewRowState.Deleted" data-throw-if-not-resolved="false"></xref> flag when it is deleted.
+
+    After that is not possible to access the row data without an exception.</p>
+
+    <p>By getting deleted rows of a table to another table, eliminates this problem.</p>
+  example: []
+  syntax:
+    content: public static DataTable GetDeletedRows(this DataTable Source)
+    parameters:
+    - id: Source
+      type: System.Data.DataTable
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Shared Function GetDeletedRows(Source As DataTable) As DataTable
+  overload: Tripous.Data.DataTableExtensions.GetDeletedRows*
+- uid: Tripous.Data.DataTableExtensions.SplitToChunks(System.Data.DataTable,System.Int32)
+  commentId: M:Tripous.Data.DataTableExtensions.SplitToChunks(System.Data.DataTable,System.Int32)
+  id: SplitToChunks(System.Data.DataTable,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: SplitToChunks(DataTable, int)
+  nameWithType: DataTableExtensions.SplitToChunks(DataTable, int)
+  fullName: Tripous.Data.DataTableExtensions.SplitToChunks(System.Data.DataTable, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SplitToChunks
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 473
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Splits a specified table's rows into chunks. Each chunk may have a specified row count.
+  example: []
+  syntax:
+    content: public static DataRow[][] SplitToChunks(this DataTable Table, int ChunkRowCount)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: ChunkRowCount
+      type: System.Int32
+    return:
+      type: System.Data.DataRow[][]
+    content.vb: Public Shared Function SplitToChunks(Table As DataTable, ChunkRowCount As Integer) As DataRow()()
+  overload: Tripous.Data.DataTableExtensions.SplitToChunks*
+  nameWithType.vb: DataTableExtensions.SplitToChunks(DataTable, Integer)
+  fullName.vb: Tripous.Data.DataTableExtensions.SplitToChunks(System.Data.DataTable, Integer)
+  name.vb: SplitToChunks(DataTable, Integer)
+- uid: Tripous.Data.DataTableExtensions.AddNewRow(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.AddNewRow(System.Data.DataTable)
+  id: AddNewRow(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddNewRow(DataTable)
+  nameWithType: DataTableExtensions.AddNewRow(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.AddNewRow(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddNewRow
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 489
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates a new row, adds the row to rows, and returns the row.
+  example: []
+  syntax:
+    content: public static DataRow AddNewRow(this DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Shared Function AddNewRow(Table As DataTable) As DataRow
+  overload: Tripous.Data.DataTableExtensions.AddNewRow*
+- uid: Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom(System.Data.DataTable,System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)
+  commentId: M:Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom(System.Data.DataTable,System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)
+  id: SetColumnCaptionsFrom(System.Data.DataTable,System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: SetColumnCaptionsFrom(DataTable, IDictionary<string, string>, bool)
+  nameWithType: DataTableExtensions.SetColumnCaptionsFrom(DataTable, IDictionary<string, string>, bool)
+  fullName: Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom(System.Data.DataTable, System.Collections.Generic.IDictionary<string, string>, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetColumnCaptionsFrom
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 500
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets Table column captions. Dictionary is a ColumnName=Caption list of pairs. If HideUntitle is true, 
+
+    then any column not found in Dictionary is set to Visible = false in its ExtendedProperties.
+  example: []
+  syntax:
+    content: public static void SetColumnCaptionsFrom(this DataTable Table, IDictionary<string, string> Dictionary, bool HideUntitled)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: Dictionary
+      type: System.Collections.Generic.IDictionary{System.String,System.String}
+    - id: HideUntitled
+      type: System.Boolean
+    content.vb: Public Shared Sub SetColumnCaptionsFrom(Table As DataTable, Dictionary As IDictionary(Of String, String), HideUntitled As Boolean)
+  overload: Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom*
+  nameWithType.vb: DataTableExtensions.SetColumnCaptionsFrom(DataTable, IDictionary(Of String, String), Boolean)
+  fullName.vb: Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom(System.Data.DataTable, System.Collections.Generic.IDictionary(Of String, String), Boolean)
+  name.vb: SetColumnCaptionsFrom(DataTable, IDictionary(Of String, String), Boolean)
+- uid: Tripous.Data.DataTableExtensions.SetColumnsVisible(System.Data.DataTable,System.Boolean)
+  commentId: M:Tripous.Data.DataTableExtensions.SetColumnsVisible(System.Data.DataTable,System.Boolean)
+  id: SetColumnsVisible(System.Data.DataTable,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: SetColumnsVisible(DataTable, bool)
+  nameWithType: DataTableExtensions.SetColumnsVisible(DataTable, bool)
+  fullName: Tripous.Data.DataTableExtensions.SetColumnsVisible(System.Data.DataTable, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetColumnsVisible
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 527
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the Visible "extended property" of all Table.Columns to Value.
+  example: []
+  syntax:
+    content: public static void SetColumnsVisible(this DataTable Table, bool Value)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub SetColumnsVisible(Table As DataTable, Value As Boolean)
+  overload: Tripous.Data.DataTableExtensions.SetColumnsVisible*
+  nameWithType.vb: DataTableExtensions.SetColumnsVisible(DataTable, Boolean)
+  fullName.vb: Tripous.Data.DataTableExtensions.SetColumnsVisible(System.Data.DataTable, Boolean)
+  name.vb: SetColumnsVisible(DataTable, Boolean)
+- uid: Tripous.Data.DataTableExtensions.GetKeyValuesList(System.Data.DataTable,System.String,System.Int32)
+  commentId: M:Tripous.Data.DataTableExtensions.GetKeyValuesList(System.Data.DataTable,System.String,System.Int32)
+  id: GetKeyValuesList(System.Data.DataTable,System.String,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetKeyValuesList(DataTable, string, int)
+  nameWithType: DataTableExtensions.GetKeyValuesList(DataTable, string, int)
+  fullName: Tripous.Data.DataTableExtensions.GetKeyValuesList(System.Data.DataTable, string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetKeyValuesList
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 541
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Used in constructing SQL statements that contain a WHERE clause of the type
+
+
+    <p><code>  where FIELD_NAME in (...)</code></p>
+
+
+    This method limits the number of elements inside the in (...) according to the passed in ModValue, in order
+
+    to avoid problems with database servers that have such a limit.
+
+
+    <p>It returns a string array where each element contains no more than ModValue of the FieldName values from Table.</p>
+  example: []
+  syntax:
+    content: public static List<string> GetKeyValuesList(this DataTable Table, string FieldName, int ModValue = 100)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldName
+      type: System.String
+    - id: ModValue
+      type: System.Int32
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Shared Function GetKeyValuesList(Table As DataTable, FieldName As String, ModValue As Integer = 100) As List(Of String)
+  overload: Tripous.Data.DataTableExtensions.GetKeyValuesList*
+  nameWithType.vb: DataTableExtensions.GetKeyValuesList(DataTable, String, Integer)
+  fullName.vb: Tripous.Data.DataTableExtensions.GetKeyValuesList(System.Data.DataTable, String, Integer)
+  name.vb: GetKeyValuesList(DataTable, String, Integer)
+- uid: Tripous.Data.DataTableExtensions.IsStringField(System.Data.DataTable,System.String)
+  commentId: M:Tripous.Data.DataTableExtensions.IsStringField(System.Data.DataTable,System.String)
+  id: IsStringField(System.Data.DataTable,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsStringField(DataTable, string)
+  nameWithType: DataTableExtensions.IsStringField(DataTable, string)
+  fullName: Tripous.Data.DataTableExtensions.IsStringField(System.Data.DataTable, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsStringField
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 595
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if FieldName is of type string.
+  example: []
+  syntax:
+    content: public static bool IsStringField(this DataTable Table, string FieldName)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsStringField(Table As DataTable, FieldName As String) As Boolean
+  overload: Tripous.Data.DataTableExtensions.IsStringField*
+  nameWithType.vb: DataTableExtensions.IsStringField(DataTable, String)
+  fullName.vb: Tripous.Data.DataTableExtensions.IsStringField(System.Data.DataTable, String)
+  name.vb: IsStringField(DataTable, String)
+- uid: Tripous.Data.DataTableExtensions.ToObservableCollection(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataTableExtensions.ToObservableCollection(System.Data.DataTable)
+  id: ToObservableCollection(System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: ToObservableCollection(DataTable)
+  nameWithType: DataTableExtensions.ToObservableCollection(DataTable)
+  fullName: Tripous.Data.DataTableExtensions.ToObservableCollection(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToObservableCollection
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 603
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts the rows of a DataTable to an observable collection.
+  example: []
+  syntax:
+    content: public static ObservableCollection<DataRow> ToObservableCollection(this DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    return:
+      type: System.Collections.ObjectModel.ObservableCollection{System.Data.DataRow}
+    content.vb: Public Shared Function ToObservableCollection(Table As DataTable) As ObservableCollection(Of DataRow)
+  overload: Tripous.Data.DataTableExtensions.ToObservableCollection*
+- uid: Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable,System.String[],System.Object[],Tripous.Data.LocateOptions)
+  commentId: M:Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable,System.String[],System.Object[],Tripous.Data.LocateOptions)
+  id: Locate(System.Data.DataTable,System.String[],System.Object[],Tripous.Data.LocateOptions)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: Locate(DataTable, string[], object[], LocateOptions)
+  nameWithType: DataTableExtensions.Locate(DataTable, string[], object[], LocateOptions)
+  fullName: Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable, string[], object[], Tripous.Data.LocateOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Locate
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 608
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the first row in Table whose values for FieldNames match Values, according to Options, if found, else null.
+  example: []
+  syntax:
+    content: public static DataRow Locate(this DataTable Table, string[] FieldNames, object[] Values, LocateOptions Options)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldNames
+      type: System.String[]
+    - id: Values
+      type: System.Object[]
+    - id: Options
+      type: Tripous.Data.LocateOptions
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Shared Function Locate(Table As DataTable, FieldNames As String(), Values As Object(), Options As LocateOptions) As DataRow
+  overload: Tripous.Data.DataTableExtensions.Locate*
+  nameWithType.vb: DataTableExtensions.Locate(DataTable, String(), Object(), LocateOptions)
+  fullName.vb: Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable, String(), Object(), Tripous.Data.LocateOptions)
+  name.vb: Locate(DataTable, String(), Object(), LocateOptions)
+- uid: Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable,System.String,System.Object,Tripous.Data.LocateOptions)
+  commentId: M:Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable,System.String,System.Object,Tripous.Data.LocateOptions)
+  id: Locate(System.Data.DataTable,System.String,System.Object,Tripous.Data.LocateOptions)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataTableExtensions
+  langs:
+  - csharp
+  - vb
+  name: Locate(DataTable, string, object, LocateOptions)
+  nameWithType: DataTableExtensions.Locate(DataTable, string, object, LocateOptions)
+  fullName: Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable, string, object, Tripous.Data.LocateOptions)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataTableExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Locate
+    path: ../Tripous.Data/Extensions/DataTableExtensions.cs
+    startLine: 681
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the first row in Table whose value for FieldName matches Value, according to Options, if found, else null.
+  example: []
+  syntax:
+    content: public static DataRow Locate(this DataTable Table, string FieldName, object Value, LocateOptions Options)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: FieldName
+      type: System.String
+    - id: Value
+      type: System.Object
+    - id: Options
+      type: Tripous.Data.LocateOptions
+    return:
+      type: System.Data.DataRow
+    content.vb: Public Shared Function Locate(Table As DataTable, FieldName As String, Value As Object, Options As LocateOptions) As DataRow
+  overload: Tripous.Data.DataTableExtensions.Locate*
+  nameWithType.vb: DataTableExtensions.Locate(DataTable, String, Object, LocateOptions)
+  fullName.vb: Tripous.Data.DataTableExtensions.Locate(System.Data.DataTable, String, Object, Tripous.Data.LocateOptions)
+  name.vb: Locate(DataTable, String, Object, LocateOptions)
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.DataTableExtensions.GetRowCount*
+  commentId: Overload:Tripous.Data.DataTableExtensions.GetRowCount
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_GetRowCount_System_Data_DataTable_
+  name: GetRowCount
+  nameWithType: DataTableExtensions.GetRowCount
+  fullName: Tripous.Data.DataTableExtensions.GetRowCount
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data.DataTableExtensions.IndexOfColumn*
+  commentId: Overload:Tripous.Data.DataTableExtensions.IndexOfColumn
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_IndexOfColumn_System_Data_DataTable_System_String_
+  name: IndexOfColumn
+  nameWithType: DataTableExtensions.IndexOfColumn
+  fullName: Tripous.Data.DataTableExtensions.IndexOfColumn
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DataTableExtensions.ContainsColumn*
+  commentId: Overload:Tripous.Data.DataTableExtensions.ContainsColumn
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_ContainsColumn_System_Data_DataTable_System_String_
+  name: ContainsColumn
+  nameWithType: DataTableExtensions.ContainsColumn
+  fullName: Tripous.Data.DataTableExtensions.ContainsColumn
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DataTableExtensions.FindColumn*
+  commentId: Overload:Tripous.Data.DataTableExtensions.FindColumn
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_FindColumn_System_Data_DataTable_System_String_
+  name: FindColumn
+  nameWithType: DataTableExtensions.FindColumn
+  fullName: Tripous.Data.DataTableExtensions.FindColumn
+- uid: System.Data.DataColumn
+  commentId: T:System.Data.DataColumn
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn
+  nameWithType: DataColumn
+  fullName: System.Data.DataColumn
+- uid: Tripous.Data.DataTableExtensions.GetColumn*
+  commentId: Overload:Tripous.Data.DataTableExtensions.GetColumn
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_GetColumn_System_Data_DataTable_System_String_
+  name: GetColumn
+  nameWithType: DataTableExtensions.GetColumn
+  fullName: Tripous.Data.DataTableExtensions.GetColumn
+- uid: Tripous.Data.DataTableExtensions.DeleteRows*
+  commentId: Overload:Tripous.Data.DataTableExtensions.DeleteRows
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_DeleteRows_System_Data_DataTable_
+  name: DeleteRows
+  nameWithType: DataTableExtensions.DeleteRows
+  fullName: Tripous.Data.DataTableExtensions.DeleteRows
+- uid: Tripous.Data.DataTableExtensions.CopyTo*
+  commentId: Overload:Tripous.Data.DataTableExtensions.CopyTo
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_CopyTo_System_Data_DataTable_System_Data_DataTable_System_Boolean_
+  name: CopyTo
+  nameWithType: DataTableExtensions.CopyTo
+  fullName: Tripous.Data.DataTableExtensions.CopyTo
+- uid: Tripous.Data.DataTableExtensions.SafeCopyTo*
+  commentId: Overload:Tripous.Data.DataTableExtensions.SafeCopyTo
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_SafeCopyTo_System_Data_DataTable_System_Data_DataTable_System_Boolean_
+  name: SafeCopyTo
+  nameWithType: DataTableExtensions.SafeCopyTo
+  fullName: Tripous.Data.DataTableExtensions.SafeCopyTo
+- uid: Tripous.Data.DataTableExtensions.AppendTo*
+  commentId: Overload:Tripous.Data.DataTableExtensions.AppendTo
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_AppendTo_System_Data_DataTable_System_Data_DataTable_
+  name: AppendTo
+  nameWithType: DataTableExtensions.AppendTo
+  fullName: Tripous.Data.DataTableExtensions.AppendTo
+- uid: Tripous.Data.DataTableExtensions.SafeAppendTo*
+  commentId: Overload:Tripous.Data.DataTableExtensions.SafeAppendTo
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_SafeAppendTo_System_Data_DataTable_System_Data_DataTable_
+  name: SafeAppendTo
+  nameWithType: DataTableExtensions.SafeAppendTo
+  fullName: Tripous.Data.DataTableExtensions.SafeAppendTo
+- uid: Tripous.Data.DataTableExtensions.ClearSchemaAndData*
+  commentId: Overload:Tripous.Data.DataTableExtensions.ClearSchemaAndData
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_ClearSchemaAndData_System_Data_DataTable_
+  name: ClearSchemaAndData
+  nameWithType: DataTableExtensions.ClearSchemaAndData
+  fullName: Tripous.Data.DataTableExtensions.ClearSchemaAndData
+- uid: Tripous.Data.DataTableExtensions.CopyColumnsFrom*
+  commentId: Overload:Tripous.Data.DataTableExtensions.CopyColumnsFrom
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_CopyColumnsFrom_System_Data_DataTable_System_Data_DataTable_
+  name: CopyColumnsFrom
+  nameWithType: DataTableExtensions.CopyColumnsFrom
+  fullName: Tripous.Data.DataTableExtensions.CopyColumnsFrom
+- uid: Tripous.Data.DataTableExtensions.CopyRowsFrom*
+  commentId: Overload:Tripous.Data.DataTableExtensions.CopyRowsFrom
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_CopyRowsFrom_System_Data_DataTable_System_Data_DataTable_
+  name: CopyRowsFrom
+  nameWithType: DataTableExtensions.CopyRowsFrom
+  fullName: Tripous.Data.DataTableExtensions.CopyRowsFrom
+- uid: Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom*
+  commentId: Overload:Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_CopyStructureAndRowsFrom_System_Data_DataTable_System_Data_DataTable_
+  name: CopyStructureAndRowsFrom
+  nameWithType: DataTableExtensions.CopyStructureAndRowsFrom
+  fullName: Tripous.Data.DataTableExtensions.CopyStructureAndRowsFrom
+- uid: Tripous.Data.DataTableExtensions.CopyStructure*
+  commentId: Overload:Tripous.Data.DataTableExtensions.CopyStructure
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_CopyStructure_System_Data_DataTable_
+  name: CopyStructure
+  nameWithType: DataTableExtensions.CopyStructure
+  fullName: Tripous.Data.DataTableExtensions.CopyStructure
+- uid: Tripous.Data.DataTableExtensions.CopyStructureTo*
+  commentId: Overload:Tripous.Data.DataTableExtensions.CopyStructureTo
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_CopyStructureTo_System_Data_DataTable_System_Data_DataTable_
+  name: CopyStructureTo
+  nameWithType: DataTableExtensions.CopyStructureTo
+  fullName: Tripous.Data.DataTableExtensions.CopyStructureTo
+- uid: Tripous.Data.DataTableExtensions.MergeStructure*
+  commentId: Overload:Tripous.Data.DataTableExtensions.MergeStructure
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_MergeStructure_System_Data_DataTable_System_Data_DataTable_
+  name: MergeStructure
+  nameWithType: DataTableExtensions.MergeStructure
+  fullName: Tripous.Data.DataTableExtensions.MergeStructure
+- uid: Tripous.Data.DataTableExtensions.CopyExactState*
+  commentId: Overload:Tripous.Data.DataTableExtensions.CopyExactState
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_CopyExactState_System_Data_DataSet_System_Data_DataSet_System_Boolean_
+  name: CopyExactState
+  nameWithType: DataTableExtensions.CopyExactState
+  fullName: Tripous.Data.DataTableExtensions.CopyExactState
+- uid: System.Data.DataSet
+  commentId: T:System.Data.DataSet
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataset
+  name: DataSet
+  nameWithType: DataSet
+  fullName: System.Data.DataSet
+- uid: Tripous.Data.DataTableExtensions.ToTable*
+  commentId: Overload:Tripous.Data.DataTableExtensions.ToTable
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_ToTable_System_Collections_Generic_IEnumerable_System_Data_DataRow__
+  name: ToTable
+  nameWithType: DataTableExtensions.ToTable
+  fullName: Tripous.Data.DataTableExtensions.ToTable
+- uid: System.Collections.Generic.IEnumerable{System.Data.DataRow}
+  commentId: T:System.Collections.Generic.IEnumerable{System.Data.DataRow}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<DataRow>
+  nameWithType: IEnumerable<DataRow>
+  fullName: System.Collections.Generic.IEnumerable<System.Data.DataRow>
+  nameWithType.vb: IEnumerable(Of DataRow)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of System.Data.DataRow)
+  name.vb: IEnumerable(Of DataRow)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Data.DataViewRowState.Deleted
+  commentId: F:System.Data.DataViewRowState.Deleted
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataviewrowstate#system-data-dataviewrowstate-deleted
+  name: Deleted
+  nameWithType: DataViewRowState.Deleted
+  fullName: System.Data.DataViewRowState.Deleted
+- uid: Tripous.Data.DataTableExtensions.GetDeletedRows*
+  commentId: Overload:Tripous.Data.DataTableExtensions.GetDeletedRows
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_GetDeletedRows_System_Data_DataTable_
+  name: GetDeletedRows
+  nameWithType: DataTableExtensions.GetDeletedRows
+  fullName: Tripous.Data.DataTableExtensions.GetDeletedRows
+- uid: Tripous.Data.DataTableExtensions.SplitToChunks*
+  commentId: Overload:Tripous.Data.DataTableExtensions.SplitToChunks
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_SplitToChunks_System_Data_DataTable_System_Int32_
+  name: SplitToChunks
+  nameWithType: DataTableExtensions.SplitToChunks
+  fullName: Tripous.Data.DataTableExtensions.SplitToChunks
+- uid: System.Data.DataRow[][]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow[][]
+  nameWithType: DataRow[][]
+  fullName: System.Data.DataRow[][]
+  nameWithType.vb: DataRow()()
+  fullName.vb: System.Data.DataRow()()
+  name.vb: DataRow()()
+  spec.csharp:
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: '['
+  - name: ']'
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: (
+  - name: )
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataTableExtensions.AddNewRow*
+  commentId: Overload:Tripous.Data.DataTableExtensions.AddNewRow
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_AddNewRow_System_Data_DataTable_
+  name: AddNewRow
+  nameWithType: DataTableExtensions.AddNewRow
+  fullName: Tripous.Data.DataTableExtensions.AddNewRow
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom*
+  commentId: Overload:Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_SetColumnCaptionsFrom_System_Data_DataTable_System_Collections_Generic_IDictionary_System_String_System_String__System_Boolean_
+  name: SetColumnCaptionsFrom
+  nameWithType: DataTableExtensions.SetColumnCaptionsFrom
+  fullName: Tripous.Data.DataTableExtensions.SetColumnCaptionsFrom
+- uid: System.Collections.Generic.IDictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.IDictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IDictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<string, string>
+  nameWithType: IDictionary<string, string>
+  fullName: System.Collections.Generic.IDictionary<string, string>
+  nameWithType.vb: IDictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.IDictionary(Of String, String)
+  name.vb: IDictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.IDictionary`2
+  commentId: T:System.Collections.Generic.IDictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<TKey, TValue>
+  nameWithType: IDictionary<TKey, TValue>
+  fullName: System.Collections.Generic.IDictionary<TKey, TValue>
+  nameWithType.vb: IDictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.IDictionary(Of TKey, TValue)
+  name.vb: IDictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Tripous.Data.DataTableExtensions.SetColumnsVisible*
+  commentId: Overload:Tripous.Data.DataTableExtensions.SetColumnsVisible
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_SetColumnsVisible_System_Data_DataTable_System_Boolean_
+  name: SetColumnsVisible
+  nameWithType: DataTableExtensions.SetColumnsVisible
+  fullName: Tripous.Data.DataTableExtensions.SetColumnsVisible
+- uid: Tripous.Data.DataTableExtensions.GetKeyValuesList*
+  commentId: Overload:Tripous.Data.DataTableExtensions.GetKeyValuesList
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_GetKeyValuesList_System_Data_DataTable_System_String_System_Int32_
+  name: GetKeyValuesList
+  nameWithType: DataTableExtensions.GetKeyValuesList
+  fullName: Tripous.Data.DataTableExtensions.GetKeyValuesList
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.DataTableExtensions.IsStringField*
+  commentId: Overload:Tripous.Data.DataTableExtensions.IsStringField
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_IsStringField_System_Data_DataTable_System_String_
+  name: IsStringField
+  nameWithType: DataTableExtensions.IsStringField
+  fullName: Tripous.Data.DataTableExtensions.IsStringField
+- uid: Tripous.Data.DataTableExtensions.ToObservableCollection*
+  commentId: Overload:Tripous.Data.DataTableExtensions.ToObservableCollection
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_ToObservableCollection_System_Data_DataTable_
+  name: ToObservableCollection
+  nameWithType: DataTableExtensions.ToObservableCollection
+  fullName: Tripous.Data.DataTableExtensions.ToObservableCollection
+- uid: System.Collections.ObjectModel.ObservableCollection{System.Data.DataRow}
+  commentId: T:System.Collections.ObjectModel.ObservableCollection{System.Data.DataRow}
+  parent: System.Collections.ObjectModel
+  definition: System.Collections.ObjectModel.ObservableCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1
+  name: ObservableCollection<DataRow>
+  nameWithType: ObservableCollection<DataRow>
+  fullName: System.Collections.ObjectModel.ObservableCollection<System.Data.DataRow>
+  nameWithType.vb: ObservableCollection(Of DataRow)
+  fullName.vb: System.Collections.ObjectModel.ObservableCollection(Of System.Data.DataRow)
+  name.vb: ObservableCollection(Of DataRow)
+  spec.csharp:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1
+  - name: <
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: )
+- uid: System.Collections.ObjectModel.ObservableCollection`1
+  commentId: T:System.Collections.ObjectModel.ObservableCollection`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1
+  name: ObservableCollection<T>
+  nameWithType: ObservableCollection<T>
+  fullName: System.Collections.ObjectModel.ObservableCollection<T>
+  nameWithType.vb: ObservableCollection(Of T)
+  fullName.vb: System.Collections.ObjectModel.ObservableCollection(Of T)
+  name.vb: ObservableCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.ObjectModel.ObservableCollection`1
+    name: ObservableCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.ObjectModel
+  commentId: N:System.Collections.ObjectModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.ObjectModel
+  nameWithType: System.Collections.ObjectModel
+  fullName: System.Collections.ObjectModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.ObjectModel
+    name: ObjectModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.ObjectModel
+    name: ObjectModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel
+- uid: Tripous.Data.DataTableExtensions.Locate*
+  commentId: Overload:Tripous.Data.DataTableExtensions.Locate
+  href: Tripous.Data.DataTableExtensions.html#Tripous_Data_DataTableExtensions_Locate_System_Data_DataTable_System_String___System_Object___Tripous_Data_LocateOptions_
+  name: Locate
+  nameWithType: DataTableExtensions.Locate
+  fullName: Tripous.Data.DataTableExtensions.Locate
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: Tripous.Data.LocateOptions
+  commentId: T:Tripous.Data.LocateOptions
+  parent: Tripous.Data
+  href: Tripous.Data.LocateOptions.html
+  name: LocateOptions
+  nameWithType: LocateOptions
+  fullName: Tripous.Data.LocateOptions

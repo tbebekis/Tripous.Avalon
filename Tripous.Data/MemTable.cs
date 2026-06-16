@@ -27,7 +27,6 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
 
     DetailList fDetails;
     TableSqls fSqls;
-    List<MemTable> fStocks;
 
     //  ● private
     bool IsValidRow(DataRow row)
@@ -37,7 +36,7 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
                && row.RowState != DataRowState.Deleted
                && row.RowState != DataRowState.Detached;
     }
-    DataRow FirstRowOrNull() => Rows.Count > 0 ? Rows[0] : null;
+    DataRow FirstRowOrNull() => Rows.Cast<DataRow>().FirstOrDefault(IsValidRow);
     void RowFilterChanged()
     {
         string Normalize(string filter) => string.IsNullOrWhiteSpace(filter) ? null : filter.Trim();
@@ -906,11 +905,6 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     /// </summary>
     public TableSqls Sqls => fSqls ??= new();
     /// <summary>
-    /// Gets the StockTables of this instance.
-    /// </summary>
-    public List<MemTable> Stocks => fStocks ??= new();
- 
-    /// <summary>
     /// Returns true if this is a detail table.
     /// </summary>
     public bool IsDetail => Master != null;
@@ -991,7 +985,7 @@ public class MemTable : DataTable, IRowProvider, IRowProviderHost
     /// <summary>
     /// The details as a list of <see cref="IRowProvider"/>
     /// </summary>
-    public ReadOnlyCollection<IRowProvider> RowProviders => fDetails.Cast<IRowProvider>().ToList().AsReadOnly();
+    public ReadOnlyCollection<IRowProvider> RowProviders => Details.Cast<IRowProvider>().ToList().AsReadOnly();
     
     // ● events 
     /// <summary>

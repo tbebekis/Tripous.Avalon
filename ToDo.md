@@ -1,5 +1,13 @@
 # Tripous.Avalon To-Do And Roadmap
 
+## Documentation
+
+- Continue XML documentation cleanup in small batches.
+- Add conceptual documentation for Tripous.Avalon architecture and main subsystems.
+- Document data-module rules and UI-layer boundaries.
+- Document `Tripous.Desktop` form, grid, locator, and toolbar infrastructure.
+- Later apply XML documentation cleanup to tERP types.
+
 ## User Interface Preferences
 
 - Add dynamic user-selected list filters.
@@ -12,9 +20,8 @@
 
 ## Controls And Components
 
-- Add `LookUpBox`, a lookup combo box control.
-- Add `LocatorBox`.
-- Redesign Locators as a new system independent from the existing definitions.
+- Review whether a dedicated `LookUpBox` is still needed after the current lookup combo box and locator work.
+- Continue polishing `LocatorBox`.
 - Add `GroupGrid`.
 - Add `PivotGrid`.
 

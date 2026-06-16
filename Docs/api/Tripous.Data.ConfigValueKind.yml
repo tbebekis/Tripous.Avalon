@@ -1,0 +1,1395 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.ConfigValueKind
+  commentId: T:Tripous.Data.ConfigValueKind
+  id: ConfigValueKind
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.ConfigValueKind.Boolean
+  - Tripous.Data.ConfigValueKind.Date
+  - Tripous.Data.ConfigValueKind.Decimal
+  - Tripous.Data.ConfigValueKind.Double
+  - Tripous.Data.ConfigValueKind.Enum
+  - Tripous.Data.ConfigValueKind.Integer
+  - Tripous.Data.ConfigValueKind.Lookup
+  - Tripous.Data.ConfigValueKind.Memo
+  - Tripous.Data.ConfigValueKind.Object
+  - Tripous.Data.ConfigValueKind.String
+  - Tripous.Data.ConfigValueKind.Time
+  langs:
+  - csharp
+  - vb
+  name: ConfigValueKind
+  nameWithType: ConfigValueKind
+  fullName: Tripous.Data.ConfigValueKind
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConfigValueKind
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Specifies the structural classification or serialization type of a configuration entry value.
+  example: []
+  syntax:
+    content: >-
+      [TypeStore]
+
+      public enum ConfigValueKind
+    content.vb: >-
+      <TypeStore>
+
+      Public Enum ConfigValueKind
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.Add``1(Tripous.Data.ConfigValueKind)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.HasAny``1(Tripous.Data.ConfigValueKind)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.HasNone``1(Tripous.Data.ConfigValueKind)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.Has``1(Tripous.Data.ConfigValueKind)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.In``1(Tripous.Data.ConfigValueKind)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.IsExactly``1(Tripous.Data.ConfigValueKind)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.IsZero``1
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.Remove``1(Tripous.Data.ConfigValueKind)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.Set``1(Tripous.Data.ConfigValueKind,System.Boolean)
+  - Tripous.Data.ConfigValueKind.Tripous.BitFields.Toggle``1(Tripous.Data.ConfigValueKind)
+  attributes:
+  - type: Tripous.TypeStoreAttribute
+    ctor: Tripous.TypeStoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.ConfigValueKind.String
+  commentId: F:Tripous.Data.ConfigValueKind.String
+  id: String
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: String
+  nameWithType: ConfigValueKind.String
+  fullName: Tripous.Data.ConfigValueKind.String
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: String
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Text or string primitive scalar value.
+  example: []
+  syntax:
+    content: String = 0
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Integer
+  commentId: F:Tripous.Data.ConfigValueKind.Integer
+  id: Integer
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Integer
+  nameWithType: ConfigValueKind.Integer
+  fullName: Tripous.Data.ConfigValueKind.Integer
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Integer
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Whole 32-bit signed integer numeric value.
+  example: []
+  syntax:
+    content: Integer = 1
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Boolean
+  commentId: F:Tripous.Data.ConfigValueKind.Boolean
+  id: Boolean
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Boolean
+  nameWithType: ConfigValueKind.Boolean
+  fullName: Tripous.Data.ConfigValueKind.Boolean
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Boolean
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Boolean conditional true or false status flag.
+  example: []
+  syntax:
+    content: Boolean = 2
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Date
+  commentId: F:Tripous.Data.ConfigValueKind.Date
+  id: Date
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Date
+  nameWithType: ConfigValueKind.Date
+  fullName: Tripous.Data.ConfigValueKind.Date
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Date
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 52
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Calendar date value representation.
+  example: []
+  syntax:
+    content: Date = 3
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Time
+  commentId: F:Tripous.Data.ConfigValueKind.Time
+  id: Time
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Time
+  nameWithType: ConfigValueKind.Time
+  fullName: Tripous.Data.ConfigValueKind.Time
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Time
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Daily time-of-day clock measurement representation.
+  example: []
+  syntax:
+    content: Time = 4
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Double
+  commentId: F:Tripous.Data.ConfigValueKind.Double
+  id: Double
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Double
+  nameWithType: ConfigValueKind.Double
+  fullName: Tripous.Data.ConfigValueKind.Double
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Double
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Double precision binary floating-point representation.
+  example: []
+  syntax:
+    content: Double = 5
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Decimal
+  commentId: F:Tripous.Data.ConfigValueKind.Decimal
+  id: Decimal
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Decimal
+  nameWithType: ConfigValueKind.Decimal
+  fullName: Tripous.Data.ConfigValueKind.Decimal
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Decimal
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Precise fixed-point decimal financial numeric value.
+  example: []
+  syntax:
+    content: Decimal = 6
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Lookup
+  commentId: F:Tripous.Data.ConfigValueKind.Lookup
+  id: Lookup
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Lookup
+  nameWithType: ConfigValueKind.Lookup
+  fullName: Tripous.Data.ConfigValueKind.Lookup
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Lookup
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Relational key identifier linking to external lookup source tables.
+  example: []
+  syntax:
+    content: Lookup = 7
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Enum
+  commentId: F:Tripous.Data.ConfigValueKind.Enum
+  id: Enum
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Enum
+  nameWithType: ConfigValueKind.Enum
+  fullName: Tripous.Data.ConfigValueKind.Enum
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Enum
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 72
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Discrete numeric token tracking an external registered code list.
+  example: []
+  syntax:
+    content: Enum = 8
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Memo
+  commentId: F:Tripous.Data.ConfigValueKind.Memo
+  id: Memo
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Memo
+  nameWithType: ConfigValueKind.Memo
+  fullName: Tripous.Data.ConfigValueKind.Memo
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Memo
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 76
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Large multi-line plain text or structural data payload.
+  example: []
+  syntax:
+    content: Memo = 50
+    return:
+      type: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigValueKind.Object
+  commentId: F:Tripous.Data.ConfigValueKind.Object
+  id: Object
+  parent: Tripous.Data.ConfigValueKind
+  langs:
+  - csharp
+  - vb
+  name: Object
+  nameWithType: ConfigValueKind.Object
+  fullName: Tripous.Data.ConfigValueKind.Object
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Object
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 80
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Complex structured custom object serialized descriptor mapping.
+  example: []
+  syntax:
+    content: Object = 100
+    return:
+      type: Tripous.Data.ConfigValueKind
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.Add``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.Add<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.Add<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.Add(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: Add(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.HasAny``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.HasAny<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.HasAny(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: HasAny(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.HasNone``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.HasNone<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.HasNone(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: HasNone(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.Has``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.Has<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.Has<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.Has(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: Has(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.In``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.In<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.In<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.In(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: In(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.IsExactly``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.IsExactly<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.IsExactly(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: IsExactly(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ConfigValueKind>(ConfigValueKind)
+  nameWithType: BitFields.IsZero<ConfigValueKind>(ConfigValueKind)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.IsZero(Of ConfigValueKind)(ConfigValueKind)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind)
+  name.vb: IsZero(Of ConfigValueKind)(ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.ConfigValueKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.ConfigValueKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.Remove``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.Remove<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.Remove(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: Remove(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.Set``1(Tripous.Data.ConfigValueKind,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ConfigValueKind>(ConfigValueKind, ConfigValueKind, bool)
+  nameWithType: BitFields.Set<ConfigValueKind>(ConfigValueKind, ConfigValueKind, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind, bool)
+  nameWithType.vb: BitFields.Set(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind, Boolean)
+  name.vb: Set(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.ConfigValueKind.Tripous.BitFields.Toggle``1(Tripous.Data.ConfigValueKind)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  nameWithType: BitFields.Toggle<ConfigValueKind>(ConfigValueKind, ConfigValueKind)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.ConfigValueKind>(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  nameWithType.vb: BitFields.Toggle(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.ConfigValueKind)(Tripous.Data.ConfigValueKind, Tripous.Data.ConfigValueKind)
+  name.vb: Toggle(Of ConfigValueKind)(ConfigValueKind, ConfigValueKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.ConfigValueKind,Tripous.Data.ConfigValueKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.ConfigValueKind
+  commentId: T:Tripous.Data.ConfigValueKind
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigValueKind.html
+  name: ConfigValueKind
+  nameWithType: ConfigValueKind
+  fullName: Tripous.Data.ConfigValueKind

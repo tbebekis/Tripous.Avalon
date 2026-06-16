@@ -1,0 +1,829 @@
+### YamlMime:TableOfContent
+items:
+- uid: Tripous
+  name: Tripous
+  type: Namespace
+  items:
+  - uid: Tripous.AppAssemblies
+    name: AppAssemblies
+    type: Class
+  - uid: Tripous.AppRegistry
+    name: AppRegistry
+    type: Class
+  - uid: Tripous.AppUser
+    name: AppUser
+    type: Class
+  - uid: Tripous.ApplicationMode
+    name: ApplicationMode
+    type: Enum
+  - uid: Tripous.AssemblyExtensions
+    name: AssemblyExtensions
+    type: Class
+  - uid: Tripous.BaseDef
+    name: BaseDef
+    type: Class
+  - uid: Tripous.BitFields
+    name: BitFields
+    type: Class
+  - uid: Tripous.CodePage
+    name: CodePage
+    type: Class
+  - uid: Tripous.Command
+    name: Command
+    type: Class
+  - uid: Tripous.DateRange
+    name: DateRange
+    type: Enum
+  - uid: Tripous.DateRanges
+    name: DateRanges
+    type: Class
+  - uid: Tripous.DateTextNormalizer
+    name: DateTextNormalizer
+    type: Class
+  - uid: Tripous.DateTimeExtensions
+    name: DateTimeExtensions
+    type: Class
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    type: Enum
+  - uid: Tripous.DateTimeFormatTypeExtensions
+    name: DateTimeFormatTypeExtensions
+    type: Class
+  - uid: Tripous.DefList`1
+    name: DefList<T>
+    type: Class
+  - uid: Tripous.DictionaryExtensions
+    name: DictionaryExtensions
+    type: Class
+  - uid: Tripous.DynamicClass
+    name: DynamicClass
+    type: Class
+  - uid: Tripous.DynamicPropertyDescriptor
+    name: DynamicPropertyDescriptor
+    type: Class
+  - uid: Tripous.ExceptionExtensions
+    name: ExceptionExtensions
+    type: Class
+  - uid: Tripous.ExecTime
+    name: ExecTime
+    type: Enum
+  - uid: Tripous.HostContext
+    name: HostContext
+    type: Class
+  - uid: Tripous.ID
+    name: ID
+    type: Struct
+  - uid: Tripous.IDJsonConverter
+    name: IDJsonConverter
+    type: Class
+  - uid: Tripous.IDef
+    name: IDef
+    type: Interface
+  - uid: Tripous.IJsonLoadable
+    name: IJsonLoadable
+    type: Interface
+  - uid: Tripous.ILocalizer
+    name: ILocalizer
+    type: Interface
+  - uid: Tripous.Json
+    name: Json
+    type: Class
+  - uid: Tripous.JsonNamingPolicyAsIs
+    name: JsonNamingPolicyAsIs
+    type: Class
+  - uid: Tripous.ListExtensions
+    name: ListExtensions
+    type: Class
+  - uid: Tripous.Passwords
+    name: Passwords
+    type: Class
+  - uid: Tripous.ReadOnlyDefList`1
+    name: ReadOnlyDefList<T>
+    type: Class
+  - uid: Tripous.ResourceFiles
+    name: ResourceFiles
+    type: Class
+  - uid: Tripous.Sec
+    name: Sec
+    type: Class
+  - uid: Tripous.SettingsBase
+    name: SettingsBase
+    type: Class
+  - uid: Tripous.StreamExtensions
+    name: StreamExtensions
+    type: Class
+  - uid: Tripous.StringExtensions
+    name: StringExtensions
+    type: Class
+  - uid: Tripous.Sys
+    name: Sys
+    type: Class
+  - uid: Tripous.SysConfig
+    name: SysConfig
+    type: Class
+  - uid: Tripous.SysGlobalSettings
+    name: SysGlobalSettings
+    type: Class
+  - uid: Tripous.Texts
+    name: Texts
+    type: Class
+  - uid: Tripous.TripousArgumentNullException
+    name: TripousArgumentNullException
+    type: Class
+  - uid: Tripous.TripousException
+    name: TripousException
+    type: Class
+  - uid: Tripous.TripousList`1
+    name: TripousList<T>
+    type: Class
+  - uid: Tripous.TypeExtensions
+    name: TypeExtensions
+    type: Class
+  - uid: Tripous.TypeStore
+    name: TypeStore
+    type: Class
+  - uid: Tripous.TypeStoreAttribute
+    name: TypeStoreAttribute
+    type: Class
+  - uid: Tripous.UserLevel
+    name: UserLevel
+    type: Enum
+- uid: Tripous.Data
+  name: Tripous.Data
+  type: Namespace
+  items:
+  - uid: Tripous.Data.AggregateType
+    name: AggregateType
+    type: Enum
+  - uid: Tripous.Data.AggregateTypes
+    name: AggregateTypes
+    type: Class
+  - uid: Tripous.Data.AlterTableType
+    name: AlterTableType
+    type: Enum
+  - uid: Tripous.Data.BatchCommitArgs
+    name: BatchCommitArgs
+    type: Class
+  - uid: Tripous.Data.BoolOp
+    name: BoolOp
+    type: Enum
+  - uid: Tripous.Data.BuildSqlFlags
+    name: BuildSqlFlags
+    type: Enum
+  - uid: Tripous.Data.CodeProviderDef
+    name: CodeProviderDef
+    type: Class
+  - uid: Tripous.Data.CodeProviderEntry
+    name: CodeProviderEntry
+    type: Class
+  - uid: Tripous.Data.CodeProviderModule
+    name: CodeProviderModule
+    type: Class
+  - uid: Tripous.Data.ConditionOp
+    name: ConditionOp
+    type: Enum
+  - uid: Tripous.Data.Config
+    name: Config
+    type: Class
+  - uid: Tripous.Data.ConfigPropertyDef
+    name: ConfigPropertyDef
+    type: Class
+  - uid: Tripous.Data.ConfigScope
+    name: ConfigScope
+    type: Enum
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    type: Enum
+  - uid: Tripous.Data.ConnectionStringBuilder
+    name: ConnectionStringBuilder
+    type: Class
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    type: Enum
+  - uid: Tripous.Data.DataColumnExtensions
+    name: DataColumnExtensions
+    type: Class
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    type: Enum
+  - uid: Tripous.Data.DataFieldDef
+    name: DataFieldDef
+    type: Class
+  - uid: Tripous.Data.DataFieldType
+    name: DataFieldType
+    type: Enum
+  - uid: Tripous.Data.DataFieldTypeHelper
+    name: DataFieldTypeHelper
+    type: Class
+  - uid: Tripous.Data.DataMode
+    name: DataMode
+    type: Enum
+  - uid: Tripous.Data.DataModule
+    name: DataModule
+    type: Class
+  - uid: Tripous.Data.DataModuleException
+    name: DataModuleException
+    type: Class
+  - uid: Tripous.Data.DataRegistry
+    name: DataRegistry
+    type: Class
+  - uid: Tripous.Data.DataRowExtensions
+    name: DataRowExtensions
+    type: Class
+  - uid: Tripous.Data.DataRowViewExtensions
+    name: DataRowViewExtensions
+    type: Class
+  - uid: Tripous.Data.DataTableDef
+    name: DataTableDef
+    type: Class
+  - uid: Tripous.Data.DataTableExtensions
+    name: DataTableExtensions
+    type: Class
+  - uid: Tripous.Data.Db
+    name: Db
+    type: Class
+  - uid: Tripous.Data.DbConAdapter
+    name: DbConAdapter
+    type: Class
+  - uid: Tripous.Data.DbConAdapters
+    name: DbConAdapters
+    type: Class
+  - uid: Tripous.Data.DbConProp
+    name: DbConProp
+    type: Class
+  - uid: Tripous.Data.DbConPropDef
+    name: DbConPropDef
+    type: Class
+  - uid: Tripous.Data.DbConPropExtensions
+    name: DbConPropExtensions
+    type: Class
+  - uid: Tripous.Data.DbConPropType
+    name: DbConPropType
+    type: Enum
+  - uid: Tripous.Data.DbConfig
+    name: DbConfig
+    type: Class
+  - uid: Tripous.Data.DbConnectionInfo
+    name: DbConnectionInfo
+    type: Class
+  - uid: Tripous.Data.DbConnections
+    name: DbConnections
+    type: Class
+  - uid: Tripous.Data.DbGlobalSettings
+    name: DbGlobalSettings
+    type: Class
+  - uid: Tripous.Data.DbIni
+    name: DbIni
+    type: Class
+  - uid: Tripous.Data.DbMetaColumn
+    name: DbMetaColumn
+    type: Class
+  - uid: Tripous.Data.DbMetaConstraint
+    name: DbMetaConstraint
+    type: Class
+  - uid: Tripous.Data.DbMetaForeignKey
+    name: DbMetaForeignKey
+    type: Class
+  - uid: Tripous.Data.DbMetaIndex
+    name: DbMetaIndex
+    type: Class
+  - uid: Tripous.Data.DbMetaObject
+    name: DbMetaObject
+    type: Class
+  - uid: Tripous.Data.DbMetaProcedure
+    name: DbMetaProcedure
+    type: Class
+  - uid: Tripous.Data.DbMetaSequence
+    name: DbMetaSequence
+    type: Class
+  - uid: Tripous.Data.DbMetaTable
+    name: DbMetaTable
+    type: Class
+  - uid: Tripous.Data.DbMetaTrigger
+    name: DbMetaTrigger
+    type: Class
+  - uid: Tripous.Data.DbMetaView
+    name: DbMetaView
+    type: Class
+  - uid: Tripous.Data.DbOpContext
+    name: DbOpContext
+    type: Class
+  - uid: Tripous.Data.DbOps
+    name: DbOps
+    type: Class
+  - uid: Tripous.Data.DbSchema
+    name: DbSchema
+    type: Class
+  - uid: Tripous.Data.DbSchemaLoader
+    name: DbSchemaLoader
+    type: Class
+  - uid: Tripous.Data.DbServerType
+    name: DbServerType
+    type: Enum
+  - uid: Tripous.Data.DbServerTypeHelper
+    name: DbServerTypeHelper
+    type: Class
+  - uid: Tripous.Data.DetailList
+    name: DetailList
+    type: Class
+  - uid: Tripous.Data.DocumentHandlerDef
+    name: DocumentHandlerDef
+    type: Class
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    type: Enum
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    type: Class
+  - uid: Tripous.Data.FieldFlags
+    name: FieldFlags
+    type: Enum
+  - uid: Tripous.Data.FirebirdConAdapter
+    name: FirebirdConAdapter
+    type: Class
+  - uid: Tripous.Data.IRowProvider
+    name: IRowProvider
+    type: Interface
+  - uid: Tripous.Data.IRowProviderHost
+    name: IRowProviderHost
+    type: Interface
+  - uid: Tripous.Data.ISqlValueProvider
+    name: ISqlValueProvider
+    type: Interface
+  - uid: Tripous.Data.LocateOptions
+    name: LocateOptions
+    type: Enum
+  - uid: Tripous.Data.Locator
+    name: Locator
+    type: Class
+  - uid: Tripous.Data.LocatorDef
+    name: LocatorDef
+    type: Class
+  - uid: Tripous.Data.LocatorEventArgs
+    name: LocatorEventArgs
+    type: Class
+  - uid: Tripous.Data.LocatorEventType
+    name: LocatorEventType
+    type: Enum
+  - uid: Tripous.Data.LocatorFieldDef
+    name: LocatorFieldDef
+    type: Class
+  - uid: Tripous.Data.LocatorSearchResult
+    name: LocatorSearchResult
+    type: Class
+  - uid: Tripous.Data.LogDataModule
+    name: LogDataModule
+    type: Class
+  - uid: Tripous.Data.LookupDef
+    name: LookupDef
+    type: Class
+  - uid: Tripous.Data.LookupItem
+    name: LookupItem
+    type: Class
+  - uid: Tripous.Data.LookupSource
+    name: LookupSource
+    type: Class
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    type: Class
+  - uid: Tripous.Data.ModuleDef
+    name: ModuleDef
+    type: Class
+  - uid: Tripous.Data.MsSqlConAdapter
+    name: MsSqlConAdapter
+    type: Class
+  - uid: Tripous.Data.MySqlConAdapter
+    name: MySqlConAdapter
+    type: Class
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    type: Enum
+  - uid: Tripous.Data.OracleConAdapter
+    name: OracleConAdapter
+    type: Class
+  - uid: Tripous.Data.ParsingErrorType
+    name: ParsingErrorType
+    type: Enum
+  - uid: Tripous.Data.ParsingMessage
+    name: ParsingMessage
+    type: Class
+  - uid: Tripous.Data.PostgreSqlConAdapter
+    name: PostgreSqlConAdapter
+    type: Class
+  - uid: Tripous.Data.RegBuilderProject
+    name: RegBuilderProject
+    type: Class
+  - uid: Tripous.Data.ResetPeriod
+    name: ResetPeriod
+    type: Enum
+  - uid: Tripous.Data.Schema
+    name: Schema
+    type: Class
+  - uid: Tripous.Data.SchemaItem
+    name: SchemaItem
+    type: Class
+  - uid: Tripous.Data.SchemaParserResult
+    name: SchemaParserResult
+    type: Class
+  - uid: Tripous.Data.SchemaRegistrationBuilder
+    name: SchemaRegistrationBuilder
+    type: Class
+  - uid: Tripous.Data.SchemaVersion
+    name: SchemaVersion
+    type: Class
+  - uid: Tripous.Data.SchemaVersionDef
+    name: SchemaVersionDef
+    type: Class
+  - uid: Tripous.Data.SchemaVersionExtensions
+    name: SchemaVersionExtensions
+    type: Class
+  - uid: Tripous.Data.Schemas
+    name: Schemas
+    type: Class
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    type: Class
+  - uid: Tripous.Data.SelectDefs
+    name: SelectDefs
+    type: Class
+  - uid: Tripous.Data.SelectSql
+    name: SelectSql
+    type: Class
+  - uid: Tripous.Data.SelectSqlParser
+    name: SelectSqlParser
+    type: Class
+  - uid: Tripous.Data.SqlCache
+    name: SqlCache
+    type: Class
+  - uid: Tripous.Data.SqlFilterDef
+    name: SqlFilterDef
+    type: Class
+  - uid: Tripous.Data.SqlFilterDefs
+    name: SqlFilterDefs
+    type: Class
+  - uid: Tripous.Data.SqlFilterExpressionDef
+    name: SqlFilterExpressionDef
+    type: Class
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    type: Enum
+  - uid: Tripous.Data.SqlHelper
+    name: SqlHelper
+    type: Class
+  - uid: Tripous.Data.SqlParam
+    name: SqlParam
+    type: Class
+  - uid: Tripous.Data.SqlParamRef
+    name: SqlParamRef
+    type: Class
+  - uid: Tripous.Data.SqlParamScanner
+    name: SqlParamScanner
+    type: Class
+  - uid: Tripous.Data.SqlParams
+    name: SqlParams
+    type: Class
+  - uid: Tripous.Data.SqlProvider
+    name: SqlProvider
+    type: Class
+  - uid: Tripous.Data.SqlProviderFirebird
+    name: SqlProviderFirebird
+    type: Class
+  - uid: Tripous.Data.SqlProviderMsSql
+    name: SqlProviderMsSql
+    type: Class
+  - uid: Tripous.Data.SqlProviderMySql
+    name: SqlProviderMySql
+    type: Class
+  - uid: Tripous.Data.SqlProviderOracle
+    name: SqlProviderOracle
+    type: Class
+  - uid: Tripous.Data.SqlProviderPostgreSql
+    name: SqlProviderPostgreSql
+    type: Class
+  - uid: Tripous.Data.SqlProviderSqlite
+    name: SqlProviderSqlite
+    type: Class
+  - uid: Tripous.Data.SqlProviders
+    name: SqlProviders
+    type: Class
+  - uid: Tripous.Data.SqlStatementBuilder
+    name: SqlStatementBuilder
+    type: Class
+  - uid: Tripous.Data.SqlStore
+    name: SqlStore
+    type: Class
+  - uid: Tripous.Data.SqlStores
+    name: SqlStores
+    type: Class
+  - uid: Tripous.Data.SqlTypeTokens
+    name: SqlTypeTokens
+    type: Class
+  - uid: Tripous.Data.SqlValueProviders
+    name: SqlValueProviders
+    type: Class
+  - uid: Tripous.Data.SqlWhereFilterFormatter
+    name: SqlWhereFilterFormatter
+    type: Class
+  - uid: Tripous.Data.SqlWhereFilterMode
+    name: SqlWhereFilterMode
+    type: Enum
+  - uid: Tripous.Data.SqliteConAdapter
+    name: SqliteConAdapter
+    type: Class
+  - uid: Tripous.Data.SysConfigModule
+    name: SysConfigModule
+    type: Class
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    type: Class
+  - uid: Tripous.Data.TableSet
+    name: TableSet
+    type: Class
+  - uid: Tripous.Data.TableSetException
+    name: TableSetException
+    type: Class
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    type: Enum
+  - uid: Tripous.Data.TableSqls
+    name: TableSqls
+    type: Class
+  - uid: Tripous.Data.TransactionEventArgs
+    name: TransactionEventArgs
+    type: Class
+  - uid: Tripous.Data.TransactionStage
+    name: TransactionStage
+    type: Enum
+  - uid: Tripous.Data.TripousBusinessException
+    name: TripousBusinessException
+    type: Class
+  - uid: Tripous.Data.TripousDataException
+    name: TripousDataException
+    type: Class
+  - uid: Tripous.Data.UniqueConstraintDef
+    name: UniqueConstraintDef
+    type: Class
+- uid: Tripous.Desktop
+  name: Tripous.Desktop
+  type: Namespace
+  items:
+  - uid: Tripous.Desktop.AppForm
+    name: AppForm
+    type: Class
+  - uid: Tripous.Desktop.AppFormDialog
+    name: AppFormDialog
+    type: Class
+  - uid: Tripous.Desktop.AppFormPagerHandler
+    name: AppFormPagerHandler
+    type: Class
+  - uid: Tripous.Desktop.AvaloniaAssets
+    name: AvaloniaAssets
+    type: Class
+  - uid: Tripous.Desktop.CommandTreeViewForm
+    name: CommandTreeViewForm
+    type: Class
+  - uid: Tripous.Desktop.ConfigDialog
+    name: ConfigDialog
+    type: Class
+  - uid: Tripous.Desktop.ControlBinding
+    name: ControlBinding
+    type: Class
+  - uid: Tripous.Desktop.ControlBindingHelper
+    name: ControlBindingHelper
+    type: Class
+  - uid: Tripous.Desktop.DataForm
+    name: DataForm
+    type: Class
+  - uid: Tripous.Desktop.DataFormAction
+    name: DataFormAction
+    type: Enum
+  - uid: Tripous.Desktop.DataFormContext
+    name: DataFormContext
+    type: Class
+  - uid: Tripous.Desktop.DataFormState
+    name: DataFormState
+    type: Enum
+  - uid: Tripous.Desktop.DataGridBinder
+    name: DataGridBinder
+    type: Class
+  - uid: Tripous.Desktop.DataViewItemsSource
+    name: DataViewItemsSource
+    type: Class
+  - uid: Tripous.Desktop.DbConnectionEditDialog
+    name: DbConnectionEditDialog
+    type: Class
+  - uid: Tripous.Desktop.DesktopExceptionHandler
+    name: DesktopExceptionHandler
+    type: Class
+  - uid: Tripous.Desktop.DesktopRegistry
+    name: DesktopRegistry
+    type: Class
+  - uid: Tripous.Desktop.DetailGridCommandContext
+    name: DetailGridCommandContext
+    type: Class
+  - uid: Tripous.Desktop.DialogInfo
+    name: DialogInfo
+    type: Class
+  - uid: Tripous.Desktop.DialogWindow
+    name: DialogWindow
+    type: Class
+  - uid: Tripous.Desktop.FirstRunBoxData
+    name: FirstRunBoxData
+    type: Class
+  - uid: Tripous.Desktop.FirstRunDialog
+    name: FirstRunDialog
+    type: Class
+  - uid: Tripous.Desktop.FormContext
+    name: FormContext
+    type: Class
+  - uid: Tripous.Desktop.FormDef
+    name: FormDef
+    type: Class
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    type: Enum
+  - uid: Tripous.Desktop.GridActionType
+    name: GridActionType
+    type: Enum
+  - uid: Tripous.Desktop.GridColumnBinding
+    name: GridColumnBinding
+    type: Class
+  - uid: Tripous.Desktop.GridColumnDef
+    name: GridColumnDef
+    type: Class
+  - uid: Tripous.Desktop.GridCommand
+    name: GridCommand
+    type: Class
+  - uid: Tripous.Desktop.GridCommandContext
+    name: GridCommandContext
+    type: Class
+  - uid: Tripous.Desktop.GridEditController
+    name: GridEditController
+    type: Class
+  - uid: Tripous.Desktop.GridLocatorBox
+    name: GridLocatorBox
+    type: Class
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    type: Enum
+  - uid: Tripous.Desktop.Highlighters
+    name: Highlighters
+    type: Class
+  - uid: Tripous.Desktop.IConfigEditor
+    name: IConfigEditor
+    type: Interface
+  - uid: Tripous.Desktop.IGridHandler
+    name: IGridHandler
+    type: Interface
+  - uid: Tripous.Desktop.IReferenceContextMenuHost
+    name: IReferenceContextMenuHost
+    type: Interface
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    type: Enum
+  - uid: Tripous.Desktop.InputBox
+    name: InputBox
+    type: Class
+  - uid: Tripous.Desktop.InputBoxData
+    name: InputBoxData
+    type: Class
+  - uid: Tripous.Desktop.ItemBinder
+    name: ItemBinder
+    type: Class
+  - uid: Tripous.Desktop.ItemPage
+    name: ItemPage
+    type: Class
+  - uid: Tripous.Desktop.LocatorBox
+    name: LocatorBox
+    type: Class
+  - uid: Tripous.Desktop.LocatorBoxRowEventArgs
+    name: LocatorBoxRowEventArgs
+    type: Class
+  - uid: Tripous.Desktop.LocatorControlHelper
+    name: LocatorControlHelper
+    type: Class
+  - uid: Tripous.Desktop.LogBox
+    name: LogBox
+    type: Class
+  - uid: Tripous.Desktop.LoginBoxData
+    name: LoginBoxData
+    type: Class
+  - uid: Tripous.Desktop.LoginDialog
+    name: LoginDialog
+    type: Class
+  - uid: Tripous.Desktop.LookupDisplayConverter
+    name: LookupDisplayConverter
+    type: Class
+  - uid: Tripous.Desktop.MenuExtensions
+    name: MenuExtensions
+    type: Class
+  - uid: Tripous.Desktop.MessageBox
+    name: MessageBox
+    type: Class
+  - uid: Tripous.Desktop.MessageBoxMode
+    name: MessageBoxMode
+    type: Enum
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    type: Enum
+  - uid: Tripous.Desktop.ReferenceContextMenu
+    name: ReferenceContextMenu
+    type: Class
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    type: Enum
+  - uid: Tripous.Desktop.ReferenceMenuCommandContext
+    name: ReferenceMenuCommandContext
+    type: Class
+  - uid: Tripous.Desktop.RegBuilderProjectData
+    name: RegBuilderProjectData
+    type: Class
+  - uid: Tripous.Desktop.RegBuilderProjectDialog
+    name: RegBuilderProjectDialog
+    type: Class
+  - uid: Tripous.Desktop.SqlFilterInfo
+    name: SqlFilterInfo
+    type: Class
+  - uid: Tripous.Desktop.SqlFilterPanelHandler
+    name: SqlFilterPanelHandler
+    type: Class
+  - uid: Tripous.Desktop.ToolBar
+    name: ToolBar
+    type: Class
+  - uid: Tripous.Desktop.TripousAvalonExtensions
+    name: TripousAvalonExtensions
+    type: Class
+  - uid: Tripous.Desktop.TripousBinding
+    name: TripousBinding
+    type: Class
+  - uid: Tripous.Desktop.TripousDesktopException
+    name: TripousDesktopException
+    type: Class
+  - uid: Tripous.Desktop.Ui
+    name: Ui
+    type: Class
+  - uid: Tripous.Desktop.UiDetailTableInfo
+    name: UiDetailTableInfo
+    type: Class
+  - uid: Tripous.Desktop.UiFactory
+    name: UiFactory
+    type: Class
+  - uid: Tripous.Desktop.UiFieldInfo
+    name: UiFieldInfo
+    type: Class
+  - uid: Tripous.Desktop.UiGlobalSettings
+    name: UiGlobalSettings
+    type: Class
+  - uid: Tripous.Desktop.UiItemContext
+    name: UiItemContext
+    type: Class
+  - uid: Tripous.Desktop.UiItemDetails
+    name: UiItemDetails
+    type: Class
+  - uid: Tripous.Desktop.UiItemInfo
+    name: UiItemInfo
+    type: Class
+  - uid: Tripous.Desktop.UiItemPage
+    name: UiItemPage
+    type: Class
+  - uid: Tripous.Desktop.UiTableInfo
+    name: UiTableInfo
+    type: Class
+- uid: Tripous.Logging
+  name: Tripous.Logging
+  type: Namespace
+  items:
+  - uid: Tripous.Logging.FileLogListener
+    name: FileLogListener
+    type: Class
+  - uid: Tripous.Logging.LogEntry
+    name: LogEntry
+    type: Class
+  - uid: Tripous.Logging.LogEntryArgs
+    name: LogEntryArgs
+    type: Class
+  - uid: Tripous.Logging.LogGlobalSettings
+    name: LogGlobalSettings
+    type: Class
+  - uid: Tripous.Logging.LogLevel
+    name: LogLevel
+    type: Enum
+  - uid: Tripous.Logging.LogListener
+    name: LogListener
+    type: Class
+  - uid: Tripous.Logging.LogRecord
+    name: LogRecord
+    type: Class
+  - uid: Tripous.Logging.LogSource
+    name: LogSource
+    type: Class
+  - uid: Tripous.Logging.Logger
+    name: Logger
+    type: Class
+  - uid: Tripous.Logging.SyncedLogListener
+    name: SyncedLogListener
+    type: Class
+  - uid: Tripous.Logging.WriteLineFile
+    name: WriteLineFile
+    type: Class
+memberLayout: SamePage

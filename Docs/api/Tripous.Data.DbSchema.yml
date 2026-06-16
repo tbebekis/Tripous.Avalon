@@ -1,0 +1,1086 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbSchema
+  commentId: T:Tripous.Data.DbSchema
+  id: DbSchema
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbSchema.#ctor(Tripous.Data.DbConnectionInfo)
+  - Tripous.Data.DbSchema.ConnectionInfo
+  - Tripous.Data.DbSchema.DbServerType
+  - Tripous.Data.DbSchema.IsLoaded
+  - Tripous.Data.DbSchema.Load
+  - Tripous.Data.DbSchema.Name
+  - Tripous.Data.DbSchema.Procedures
+  - Tripous.Data.DbSchema.ReLoad
+  - Tripous.Data.DbSchema.Sequences
+  - Tripous.Data.DbSchema.Tables
+  - Tripous.Data.DbSchema.UnLoad
+  - Tripous.Data.DbSchema.Views
+  langs:
+  - csharp
+  - vb
+  name: DbSchema
+  nameWithType: DbSchema
+  fullName: Tripous.Data.DbSchema
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbSchema
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents the comprehensive database schema container, managing structural metadata collection.
+  example: []
+  syntax:
+    content: public class DbSchema
+    content.vb: Public Class DbSchema
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.DbSchema.#ctor(Tripous.Data.DbConnectionInfo)
+  commentId: M:Tripous.Data.DbSchema.#ctor(Tripous.Data.DbConnectionInfo)
+  id: '#ctor(Tripous.Data.DbConnectionInfo)'
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: DbSchema(DbConnectionInfo)
+  nameWithType: DbSchema.DbSchema(DbConnectionInfo)
+  fullName: Tripous.Data.DbSchema.DbSchema(Tripous.Data.DbConnectionInfo)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes a new instance of the DbSchema class with specified connection info parameters.
+  example: []
+  syntax:
+    content: public DbSchema(DbConnectionInfo ConnectionInfo)
+    parameters:
+    - id: ConnectionInfo
+      type: Tripous.Data.DbConnectionInfo
+    content.vb: Public Sub New(ConnectionInfo As DbConnectionInfo)
+  overload: Tripous.Data.DbSchema.#ctor*
+  nameWithType.vb: DbSchema.New(DbConnectionInfo)
+  fullName.vb: Tripous.Data.DbSchema.New(Tripous.Data.DbConnectionInfo)
+  name.vb: New(DbConnectionInfo)
+- uid: Tripous.Data.DbSchema.Load
+  commentId: M:Tripous.Data.DbSchema.Load
+  id: Load
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: Load()
+  nameWithType: DbSchema.Load()
+  fullName: Tripous.Data.DbSchema.Load()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Load
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Loads all metadata information from the data provider source if not already loaded.
+  example: []
+  syntax:
+    content: public void Load()
+    content.vb: Public Sub Load()
+  overload: Tripous.Data.DbSchema.Load*
+- uid: Tripous.Data.DbSchema.UnLoad
+  commentId: M:Tripous.Data.DbSchema.UnLoad
+  id: UnLoad
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: UnLoad()
+  nameWithType: DbSchema.UnLoad()
+  fullName: Tripous.Data.DbSchema.UnLoad()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UnLoad
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 41
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Clears and unloads all cached metadata definitions from the schema collections.
+  example: []
+  syntax:
+    content: public void UnLoad()
+    content.vb: Public Sub UnLoad()
+  overload: Tripous.Data.DbSchema.UnLoad*
+- uid: Tripous.Data.DbSchema.ReLoad
+  commentId: M:Tripous.Data.DbSchema.ReLoad
+  id: ReLoad
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: ReLoad()
+  nameWithType: DbSchema.ReLoad()
+  fullName: Tripous.Data.DbSchema.ReLoad()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReLoad
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Refreshes and reloads the structural database metadata from the server source.
+  example: []
+  syntax:
+    content: public void ReLoad()
+    content.vb: Public Sub ReLoad()
+  overload: Tripous.Data.DbSchema.ReLoad*
+- uid: Tripous.Data.DbSchema.IsLoaded
+  commentId: P:Tripous.Data.DbSchema.IsLoaded
+  id: IsLoaded
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: IsLoaded
+  nameWithType: DbSchema.IsLoaded
+  fullName: Tripous.Data.DbSchema.IsLoaded
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsLoaded
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 58
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a value indicating whether the metadata structures have been successfully loaded.
+  example: []
+  syntax:
+    content: public bool IsLoaded { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsLoaded As Boolean
+  overload: Tripous.Data.DbSchema.IsLoaded*
+- uid: Tripous.Data.DbSchema.Name
+  commentId: P:Tripous.Data.DbSchema.Name
+  id: Name
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: DbSchema.Name
+  fullName: Tripous.Data.DbSchema.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the unique identifier name of the connection configuration.
+  example: []
+  syntax:
+    content: public string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Name As String
+  overload: Tripous.Data.DbSchema.Name*
+- uid: Tripous.Data.DbSchema.DbServerType
+  commentId: P:Tripous.Data.DbSchema.DbServerType
+  id: DbServerType
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: DbServerType
+  nameWithType: DbSchema.DbServerType
+  fullName: Tripous.Data.DbSchema.DbServerType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbServerType
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 66
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the database management system platform type classification.
+  example: []
+  syntax:
+    content: public DbServerType DbServerType { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbServerType
+    content.vb: Public ReadOnly Property DbServerType As DbServerType
+  overload: Tripous.Data.DbSchema.DbServerType*
+- uid: Tripous.Data.DbSchema.Tables
+  commentId: P:Tripous.Data.DbSchema.Tables
+  id: Tables
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: Tables
+  nameWithType: DbSchema.Tables
+  fullName: Tripous.Data.DbSchema.Tables
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tables
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the collection of schema table structures defined within the database.
+  example: []
+  syntax:
+    content: public List<DbMetaTable> Tables { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.DbMetaTable}
+    content.vb: Public ReadOnly Property Tables As List(Of DbMetaTable)
+  overload: Tripous.Data.DbSchema.Tables*
+- uid: Tripous.Data.DbSchema.Views
+  commentId: P:Tripous.Data.DbSchema.Views
+  id: Views
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: Views
+  nameWithType: DbSchema.Views
+  fullName: Tripous.Data.DbSchema.Views
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Views
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the collection of relational projection view definitions within the database.
+  example: []
+  syntax:
+    content: public List<DbMetaView> Views { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.DbMetaView}
+    content.vb: Public ReadOnly Property Views As List(Of DbMetaView)
+  overload: Tripous.Data.DbSchema.Views*
+- uid: Tripous.Data.DbSchema.Procedures
+  commentId: P:Tripous.Data.DbSchema.Procedures
+  id: Procedures
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: Procedures
+  nameWithType: DbSchema.Procedures
+  fullName: Tripous.Data.DbSchema.Procedures
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Procedures
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the collection of programmable stored modules or routines within the database.
+  example: []
+  syntax:
+    content: public List<DbMetaProcedure> Procedures { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.DbMetaProcedure}
+    content.vb: Public ReadOnly Property Procedures As List(Of DbMetaProcedure)
+  overload: Tripous.Data.DbSchema.Procedures*
+- uid: Tripous.Data.DbSchema.Sequences
+  commentId: P:Tripous.Data.DbSchema.Sequences
+  id: Sequences
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: Sequences
+  nameWithType: DbSchema.Sequences
+  fullName: Tripous.Data.DbSchema.Sequences
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Sequences
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the collection of sequence values or unique identifier generator definitions within the database.
+  example: []
+  syntax:
+    content: public List<DbMetaSequence> Sequences { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.DbMetaSequence}
+    content.vb: Public ReadOnly Property Sequences As List(Of DbMetaSequence)
+  overload: Tripous.Data.DbSchema.Sequences*
+- uid: Tripous.Data.DbSchema.ConnectionInfo
+  commentId: P:Tripous.Data.DbSchema.ConnectionInfo
+  id: ConnectionInfo
+  parent: Tripous.Data.DbSchema
+  langs:
+  - csharp
+  - vb
+  name: ConnectionInfo
+  nameWithType: DbSchema.ConnectionInfo
+  fullName: Tripous.Data.DbSchema.ConnectionInfo
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbSchema.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionInfo
+    path: ../Tripous.Data/Metadata/DbSchema.cs
+    startLine: 86
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the underlying connection configuration attributes used for data schema discovery.
+  example: []
+  syntax:
+    content: public DbConnectionInfo ConnectionInfo { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DbConnectionInfo
+    content.vb: Public ReadOnly Property ConnectionInfo As DbConnectionInfo
+  overload: Tripous.Data.DbSchema.ConnectionInfo*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbSchema.#ctor*
+  commentId: Overload:Tripous.Data.DbSchema.#ctor
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema__ctor_Tripous_Data_DbConnectionInfo_
+  name: DbSchema
+  nameWithType: DbSchema.DbSchema
+  fullName: Tripous.Data.DbSchema.DbSchema
+  nameWithType.vb: DbSchema.New
+  fullName.vb: Tripous.Data.DbSchema.New
+  name.vb: New
+- uid: Tripous.Data.DbConnectionInfo
+  commentId: T:Tripous.Data.DbConnectionInfo
+  parent: Tripous.Data
+  href: Tripous.Data.DbConnectionInfo.html
+  name: DbConnectionInfo
+  nameWithType: DbConnectionInfo
+  fullName: Tripous.Data.DbConnectionInfo
+- uid: Tripous.Data.DbSchema.Load*
+  commentId: Overload:Tripous.Data.DbSchema.Load
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_Load
+  name: Load
+  nameWithType: DbSchema.Load
+  fullName: Tripous.Data.DbSchema.Load
+- uid: Tripous.Data.DbSchema.UnLoad*
+  commentId: Overload:Tripous.Data.DbSchema.UnLoad
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_UnLoad
+  name: UnLoad
+  nameWithType: DbSchema.UnLoad
+  fullName: Tripous.Data.DbSchema.UnLoad
+- uid: Tripous.Data.DbSchema.ReLoad*
+  commentId: Overload:Tripous.Data.DbSchema.ReLoad
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_ReLoad
+  name: ReLoad
+  nameWithType: DbSchema.ReLoad
+  fullName: Tripous.Data.DbSchema.ReLoad
+- uid: Tripous.Data.DbSchema.IsLoaded*
+  commentId: Overload:Tripous.Data.DbSchema.IsLoaded
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_IsLoaded
+  name: IsLoaded
+  nameWithType: DbSchema.IsLoaded
+  fullName: Tripous.Data.DbSchema.IsLoaded
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DbSchema.Name*
+  commentId: Overload:Tripous.Data.DbSchema.Name
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_Name
+  name: Name
+  nameWithType: DbSchema.Name
+  fullName: Tripous.Data.DbSchema.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DbSchema.DbServerType*
+  commentId: Overload:Tripous.Data.DbSchema.DbServerType
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_DbServerType
+  name: DbServerType
+  nameWithType: DbSchema.DbServerType
+  fullName: Tripous.Data.DbSchema.DbServerType
+- uid: Tripous.Data.DbServerType
+  commentId: T:Tripous.Data.DbServerType
+  parent: Tripous.Data
+  href: Tripous.Data.DbServerType.html
+  name: DbServerType
+  nameWithType: DbServerType
+  fullName: Tripous.Data.DbServerType
+- uid: Tripous.Data.DbSchema.Tables*
+  commentId: Overload:Tripous.Data.DbSchema.Tables
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_Tables
+  name: Tables
+  nameWithType: DbSchema.Tables
+  fullName: Tripous.Data.DbSchema.Tables
+- uid: System.Collections.Generic.List{Tripous.Data.DbMetaTable}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.DbMetaTable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<DbMetaTable>
+  nameWithType: List<DbMetaTable>
+  fullName: System.Collections.Generic.List<Tripous.Data.DbMetaTable>
+  nameWithType.vb: List(Of DbMetaTable)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.DbMetaTable)
+  name.vb: List(Of DbMetaTable)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbMetaTable
+    name: DbMetaTable
+    href: Tripous.Data.DbMetaTable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbMetaTable
+    name: DbMetaTable
+    href: Tripous.Data.DbMetaTable.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.DbSchema.Views*
+  commentId: Overload:Tripous.Data.DbSchema.Views
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_Views
+  name: Views
+  nameWithType: DbSchema.Views
+  fullName: Tripous.Data.DbSchema.Views
+- uid: System.Collections.Generic.List{Tripous.Data.DbMetaView}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.DbMetaView}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<DbMetaView>
+  nameWithType: List<DbMetaView>
+  fullName: System.Collections.Generic.List<Tripous.Data.DbMetaView>
+  nameWithType.vb: List(Of DbMetaView)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.DbMetaView)
+  name.vb: List(Of DbMetaView)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbMetaView
+    name: DbMetaView
+    href: Tripous.Data.DbMetaView.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbMetaView
+    name: DbMetaView
+    href: Tripous.Data.DbMetaView.html
+  - name: )
+- uid: Tripous.Data.DbSchema.Procedures*
+  commentId: Overload:Tripous.Data.DbSchema.Procedures
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_Procedures
+  name: Procedures
+  nameWithType: DbSchema.Procedures
+  fullName: Tripous.Data.DbSchema.Procedures
+- uid: System.Collections.Generic.List{Tripous.Data.DbMetaProcedure}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.DbMetaProcedure}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<DbMetaProcedure>
+  nameWithType: List<DbMetaProcedure>
+  fullName: System.Collections.Generic.List<Tripous.Data.DbMetaProcedure>
+  nameWithType.vb: List(Of DbMetaProcedure)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.DbMetaProcedure)
+  name.vb: List(Of DbMetaProcedure)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbMetaProcedure
+    name: DbMetaProcedure
+    href: Tripous.Data.DbMetaProcedure.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbMetaProcedure
+    name: DbMetaProcedure
+    href: Tripous.Data.DbMetaProcedure.html
+  - name: )
+- uid: Tripous.Data.DbSchema.Sequences*
+  commentId: Overload:Tripous.Data.DbSchema.Sequences
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_Sequences
+  name: Sequences
+  nameWithType: DbSchema.Sequences
+  fullName: Tripous.Data.DbSchema.Sequences
+- uid: System.Collections.Generic.List{Tripous.Data.DbMetaSequence}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.DbMetaSequence}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<DbMetaSequence>
+  nameWithType: List<DbMetaSequence>
+  fullName: System.Collections.Generic.List<Tripous.Data.DbMetaSequence>
+  nameWithType.vb: List(Of DbMetaSequence)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.DbMetaSequence)
+  name.vb: List(Of DbMetaSequence)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.DbMetaSequence
+    name: DbMetaSequence
+    href: Tripous.Data.DbMetaSequence.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DbMetaSequence
+    name: DbMetaSequence
+    href: Tripous.Data.DbMetaSequence.html
+  - name: )
+- uid: Tripous.Data.DbSchema.ConnectionInfo*
+  commentId: Overload:Tripous.Data.DbSchema.ConnectionInfo
+  href: Tripous.Data.DbSchema.html#Tripous_Data_DbSchema_ConnectionInfo
+  name: ConnectionInfo
+  nameWithType: DbSchema.ConnectionInfo
+  fullName: Tripous.Data.DbSchema.ConnectionInfo

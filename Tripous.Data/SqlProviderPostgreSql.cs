@@ -68,7 +68,7 @@ public class SqlProviderPostgreSql : SqlProvider
     /// </summary>
     public override DateTime GetServerDateTime(string ConnectionString)
     {
-        string SqlText = $"elect CURRENT_TIMESTAMP";
+        string SqlText = $"SELECT CURRENT_TIMESTAMP";
         DateTime Default = DateTime.Now.ToUniversalTime();
         object Value = SelectResult(ConnectionString, SqlText, Default);
         DateTime Result = Convert.ToDateTime(Value);

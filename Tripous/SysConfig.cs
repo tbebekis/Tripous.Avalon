@@ -113,7 +113,7 @@ static public class SysConfig
         get
         {
             if (string.IsNullOrEmpty(fAppTempFolderPath))
-                fAppDataFolderPath = Path.GetTempPath();
+                fAppTempFolderPath = Path.GetTempPath();
             return fAppTempFolderPath;
         }
         set

@@ -41,6 +41,9 @@ static public class AppAssemblies
     /// </summary>
     static public void AddExcludeStart(string Name)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            return;
+
         if (!StartList.ContainsText(Name))
             StartList.Add(Name);
     }
@@ -49,6 +52,9 @@ static public class AppAssemblies
     /// </summary>
     static public void AddExcludeStart(IEnumerable<string> Names)
     {
+        if (Names == null)
+            return;
+
         foreach (string Name in Names)
             AddExcludeStart(Name);
     }
@@ -59,6 +65,9 @@ static public class AppAssemblies
     /// </summary>
     static public void AddExcludeContaining(string Name)
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            return;
+
         if (!ContainingList.ContainsText(Name))
             ContainingList.Add(Name);
     }
@@ -67,6 +76,9 @@ static public class AppAssemblies
     /// </summary>
     static public void AddExcludeContaining(IEnumerable<string> Names)
     {
+        if (Names == null)
+            return;
+
         foreach (string Name in Names)
             AddExcludeContaining(Name);
     }
@@ -75,13 +87,13 @@ static public class AppAssemblies
     /// Returns true when an assembly name is considered
     /// an application assembly name.
     /// </summary>
-    static bool IsApplicationAssembly(string Name)
+    static bool IsApplicationAssembly(string Name, IEnumerable<string> ExcludeContainingNames)
     {
         foreach (string sName in StartList)
             if (Name.StartsWithText(sName))
                 return false;
         
-        foreach (string sName in ContainingList)
+        foreach (string sName in ExcludeContainingNames)
             if (Name.ContainsText(sName))
                 return false;
 
@@ -90,13 +102,20 @@ static public class AppAssemblies
     
     /// <summary>
     /// Returns all currently loaded application assemblies.
-    /// Optionally extends the exclusion list with additional
-    /// assembly name fragments.
+    /// Optionally applies additional assembly name fragments
+    /// excluded only for this call.
     /// </summary>
     static public List<Assembly> GetApplicationAssemblies(string[] ExcludeAssembliesContaining = null)
     {
+        List<string> ExcludeContainingNames = new List<string>(ContainingList);
         if (ExcludeAssembliesContaining != null)
-            AddExcludeContaining(ExcludeAssembliesContaining);
+        {
+            foreach (string Name in ExcludeAssembliesContaining)
+            {
+                if (!ExcludeContainingNames.ContainsText(Name))
+                    ExcludeContainingNames.Add(Name);
+            }
+        }
  
         List<Assembly> Result = new List<Assembly>();
         Assembly[] LoadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -104,7 +123,7 @@ static public class AppAssemblies
         foreach (Assembly Item in LoadedAssemblies)
         {
             string Name = Item.GetName().Name;
-            bool Flag = IsApplicationAssembly(Name);
+            bool Flag = IsApplicationAssembly(Name, ExcludeContainingNames);
             if (Flag)
                 Result.Add(Item);
         }
@@ -145,18 +164,32 @@ static public class AppAssemblies
 
         if (Result == null)
         {
+            List<Type> MatchingTypes = new List<Type>();
+
             foreach (Assembly A in Assemblies)
             {
                 Types = A.GetTypesSafe();
                 foreach (Type T in Types)
                 {
                     if (T.IsClass && T.FullName.EndsWith("." + ClassName) && IsOk(T))
-                    {
-                        Result = T;
-                        break;
-                    }
+                        MatchingTypes.Add(T);
                 }
             }
+
+            if (MatchingTypes.Count > 1)
+            {
+                StringBuilder SB = new();
+
+                SB.AppendLine($"There are more than one types with this name: {ClassName}");
+
+                foreach (Type T in MatchingTypes)
+                    SB.AppendLine(T.FullName);
+
+                throw new TripousException(SB.ToString());
+            }
+
+            if (MatchingTypes.Count == 1)
+                Result = MatchingTypes[0];
         }
 
         return Result;

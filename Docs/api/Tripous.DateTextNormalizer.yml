@@ -1,0 +1,647 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.DateTextNormalizer
+  commentId: T:Tripous.DateTextNormalizer
+  id: DateTextNormalizer
+  parent: Tripous
+  children:
+  - Tripous.DateTextNormalizer.TryNormalize(System.String,System.Globalization.CultureInfo,System.String@)
+  - Tripous.DateTextNormalizer.TryNormalize(System.String,System.Globalization.CultureInfo,System.String@,System.DateTime@)
+  - Tripous.DateTextNormalizer.TryNormalize(System.String,System.String@)
+  - Tripous.DateTextNormalizer.TryNormalize(System.String,System.String@,System.DateTime@)
+  - Tripous.DateTextNormalizer.TryParse(System.String,System.DateTime@)
+  - Tripous.DateTextNormalizer.TryParse(System.String,System.Globalization.CultureInfo,System.DateTime@)
+  langs:
+  - csharp
+  - vb
+  name: DateTextNormalizer
+  nameWithType: DateTextNormalizer
+  fullName: Tripous.DateTextNormalizer
+  type: Class
+  source:
+    remote:
+      path: Tripous/DateTextNormalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateTextNormalizer
+    path: ../Tripous/DateTextNormalizer.cs
+    startLine: 16
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Normalizes and parses date text using ISO format and culture short-date format.
+
+
+    <p>ISO-like input is detected when the text contains a dash or starts with a four-digit part.</p>
+
+    <p>Examples: <code>2030</code> becomes <code>2030-01-01</code>, <code>2030-03</code> becomes <code>2030-03-01</code>, and <code>2030-03-10</code> remains <code>2030-03-10</code>.</p>
+
+    <p>Culture input follows <xref href="System.Globalization.DateTimeFormatInfo.ShortDatePattern" data-throw-if-not-resolved="false"></xref>. For a DMY culture, <code>10/3</code> becomes <code>10/03/current-year</code> and <code>10/3/30</code> becomes <code>10/03/2030</code>.</p>
+  example: []
+  syntax:
+    content: public static class DateTextNormalizer
+    content.vb: Public Module DateTextNormalizer
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.DateTextNormalizer.TryNormalize(System.String,System.String@)
+  commentId: M:Tripous.DateTextNormalizer.TryNormalize(System.String,System.String@)
+  id: TryNormalize(System.String,System.String@)
+  parent: Tripous.DateTextNormalizer
+  langs:
+  - csharp
+  - vb
+  name: TryNormalize(string, out string)
+  nameWithType: DateTextNormalizer.TryNormalize(string, out string)
+  fullName: Tripous.DateTextNormalizer.TryNormalize(string, out string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DateTextNormalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryNormalize
+    path: ../Tripous/DateTextNormalizer.cs
+    startLine: 172
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Tries to normalize date text using the current culture.
+
+
+    <p>Examples: <code>2030</code> becomes <code>2030-01-01</code>; in a DMY culture, <code>10/3</code> becomes <code>10/03/current-year</code>.</p>
+  example: []
+  syntax:
+    content: public static bool TryNormalize(string Text, out string NormalizedText)
+    parameters:
+    - id: Text
+      type: System.String
+    - id: NormalizedText
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryNormalize(Text As String, NormalizedText As String) As Boolean
+  overload: Tripous.DateTextNormalizer.TryNormalize*
+  nameWithType.vb: DateTextNormalizer.TryNormalize(String, String)
+  fullName.vb: Tripous.DateTextNormalizer.TryNormalize(String, String)
+  name.vb: TryNormalize(String, String)
+- uid: Tripous.DateTextNormalizer.TryNormalize(System.String,System.String@,System.DateTime@)
+  commentId: M:Tripous.DateTextNormalizer.TryNormalize(System.String,System.String@,System.DateTime@)
+  id: TryNormalize(System.String,System.String@,System.DateTime@)
+  parent: Tripous.DateTextNormalizer
+  langs:
+  - csharp
+  - vb
+  name: TryNormalize(string, out string, out DateTime)
+  nameWithType: DateTextNormalizer.TryNormalize(string, out string, out DateTime)
+  fullName: Tripous.DateTextNormalizer.TryNormalize(string, out string, out System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DateTextNormalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryNormalize
+    path: ../Tripous/DateTextNormalizer.cs
+    startLine: 181
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Tries to normalize date text using the current culture and returns the parsed date.
+
+
+    <p>Examples: <code>2030-</code> becomes <code>2030-01-01</code>; <code>2030-03-</code> becomes <code>2030-03-01</code>.</p>
+  example: []
+  syntax:
+    content: public static bool TryNormalize(string Text, out string NormalizedText, out DateTime Date)
+    parameters:
+    - id: Text
+      type: System.String
+    - id: NormalizedText
+      type: System.String
+    - id: Date
+      type: System.DateTime
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryNormalize(Text As String, NormalizedText As String, [Date] As Date) As Boolean
+  overload: Tripous.DateTextNormalizer.TryNormalize*
+  nameWithType.vb: DateTextNormalizer.TryNormalize(String, String, Date)
+  fullName.vb: Tripous.DateTextNormalizer.TryNormalize(String, String, Date)
+  name.vb: TryNormalize(String, String, Date)
+- uid: Tripous.DateTextNormalizer.TryParse(System.String,System.DateTime@)
+  commentId: M:Tripous.DateTextNormalizer.TryParse(System.String,System.DateTime@)
+  id: TryParse(System.String,System.DateTime@)
+  parent: Tripous.DateTextNormalizer
+  langs:
+  - csharp
+  - vb
+  name: TryParse(string, out DateTime)
+  nameWithType: DateTextNormalizer.TryParse(string, out DateTime)
+  fullName: Tripous.DateTextNormalizer.TryParse(string, out System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DateTextNormalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryParse
+    path: ../Tripous/DateTextNormalizer.cs
+    startLine: 190
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Tries to parse date text using the current culture.
+
+
+    <p>Examples: <code>2030</code> parses as January 1st, 2030; culture input such as <code>10/3/30</code> parses according to the current culture pattern.</p>
+  example: []
+  syntax:
+    content: public static bool TryParse(string Text, out DateTime Date)
+    parameters:
+    - id: Text
+      type: System.String
+    - id: Date
+      type: System.DateTime
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryParse(Text As String, [Date] As Date) As Boolean
+  overload: Tripous.DateTextNormalizer.TryParse*
+  nameWithType.vb: DateTextNormalizer.TryParse(String, Date)
+  fullName.vb: Tripous.DateTextNormalizer.TryParse(String, Date)
+  name.vb: TryParse(String, Date)
+- uid: Tripous.DateTextNormalizer.TryNormalize(System.String,System.Globalization.CultureInfo,System.String@)
+  commentId: M:Tripous.DateTextNormalizer.TryNormalize(System.String,System.Globalization.CultureInfo,System.String@)
+  id: TryNormalize(System.String,System.Globalization.CultureInfo,System.String@)
+  parent: Tripous.DateTextNormalizer
+  langs:
+  - csharp
+  - vb
+  name: TryNormalize(string, CultureInfo, out string)
+  nameWithType: DateTextNormalizer.TryNormalize(string, CultureInfo, out string)
+  fullName: Tripous.DateTextNormalizer.TryNormalize(string, System.Globalization.CultureInfo, out string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DateTextNormalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryNormalize
+    path: ../Tripous/DateTextNormalizer.cs
+    startLine: 200
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Tries to normalize date text.
+
+
+    <p>ISO-like input is completed as year-month-day. Culture input is completed according to <code class="paramref">CultureInfo</code>.</p>
+  example: []
+  syntax:
+    content: public static bool TryNormalize(string Text, CultureInfo CultureInfo, out string NormalizedText)
+    parameters:
+    - id: Text
+      type: System.String
+    - id: CultureInfo
+      type: System.Globalization.CultureInfo
+    - id: NormalizedText
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryNormalize(Text As String, CultureInfo As CultureInfo, NormalizedText As String) As Boolean
+  overload: Tripous.DateTextNormalizer.TryNormalize*
+  nameWithType.vb: DateTextNormalizer.TryNormalize(String, CultureInfo, String)
+  fullName.vb: Tripous.DateTextNormalizer.TryNormalize(String, System.Globalization.CultureInfo, String)
+  name.vb: TryNormalize(String, CultureInfo, String)
+- uid: Tripous.DateTextNormalizer.TryNormalize(System.String,System.Globalization.CultureInfo,System.String@,System.DateTime@)
+  commentId: M:Tripous.DateTextNormalizer.TryNormalize(System.String,System.Globalization.CultureInfo,System.String@,System.DateTime@)
+  id: TryNormalize(System.String,System.Globalization.CultureInfo,System.String@,System.DateTime@)
+  parent: Tripous.DateTextNormalizer
+  langs:
+  - csharp
+  - vb
+  name: TryNormalize(string, CultureInfo, out string, out DateTime)
+  nameWithType: DateTextNormalizer.TryNormalize(string, CultureInfo, out string, out DateTime)
+  fullName: Tripous.DateTextNormalizer.TryNormalize(string, System.Globalization.CultureInfo, out string, out System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DateTextNormalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryNormalize
+    path: ../Tripous/DateTextNormalizer.cs
+    startLine: 209
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Tries to normalize date text and returns the parsed date.
+
+
+    <p>Missing ISO month or day becomes <code>01</code>. Missing culture year becomes the current year.</p>
+  example: []
+  syntax:
+    content: public static bool TryNormalize(string Text, CultureInfo CultureInfo, out string NormalizedText, out DateTime Date)
+    parameters:
+    - id: Text
+      type: System.String
+    - id: CultureInfo
+      type: System.Globalization.CultureInfo
+    - id: NormalizedText
+      type: System.String
+    - id: Date
+      type: System.DateTime
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryNormalize(Text As String, CultureInfo As CultureInfo, NormalizedText As String, [Date] As Date) As Boolean
+  overload: Tripous.DateTextNormalizer.TryNormalize*
+  nameWithType.vb: DateTextNormalizer.TryNormalize(String, CultureInfo, String, Date)
+  fullName.vb: Tripous.DateTextNormalizer.TryNormalize(String, System.Globalization.CultureInfo, String, Date)
+  name.vb: TryNormalize(String, CultureInfo, String, Date)
+- uid: Tripous.DateTextNormalizer.TryParse(System.String,System.Globalization.CultureInfo,System.DateTime@)
+  commentId: M:Tripous.DateTextNormalizer.TryParse(System.String,System.Globalization.CultureInfo,System.DateTime@)
+  id: TryParse(System.String,System.Globalization.CultureInfo,System.DateTime@)
+  parent: Tripous.DateTextNormalizer
+  langs:
+  - csharp
+  - vb
+  name: TryParse(string, CultureInfo, out DateTime)
+  nameWithType: DateTextNormalizer.TryParse(string, CultureInfo, out DateTime)
+  fullName: Tripous.DateTextNormalizer.TryParse(string, System.Globalization.CultureInfo, out System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DateTextNormalizer.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryParse
+    path: ../Tripous/DateTextNormalizer.cs
+    startLine: 239
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Tries to parse date text.
+
+
+    <p>Uses ISO completion first for ISO-like input, otherwise uses the supplied culture first.</p>
+  example: []
+  syntax:
+    content: public static bool TryParse(string Text, CultureInfo CultureInfo, out DateTime Date)
+    parameters:
+    - id: Text
+      type: System.String
+    - id: CultureInfo
+      type: System.Globalization.CultureInfo
+    - id: Date
+      type: System.DateTime
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function TryParse(Text As String, CultureInfo As CultureInfo, [Date] As Date) As Boolean
+  overload: Tripous.DateTextNormalizer.TryParse*
+  nameWithType.vb: DateTextNormalizer.TryParse(String, CultureInfo, Date)
+  fullName.vb: Tripous.DateTextNormalizer.TryParse(String, System.Globalization.CultureInfo, Date)
+  name.vb: TryParse(String, CultureInfo, Date)
+references:
+- uid: System.Globalization.DateTimeFormatInfo.ShortDatePattern
+  commentId: P:System.Globalization.DateTimeFormatInfo.ShortDatePattern
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.globalization.datetimeformatinfo.shortdatepattern
+  name: ShortDatePattern
+  nameWithType: DateTimeFormatInfo.ShortDatePattern
+  fullName: System.Globalization.DateTimeFormatInfo.ShortDatePattern
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.DateTextNormalizer.TryNormalize*
+  commentId: Overload:Tripous.DateTextNormalizer.TryNormalize
+  href: Tripous.DateTextNormalizer.html#Tripous_DateTextNormalizer_TryNormalize_System_String_System_String__
+  name: TryNormalize
+  nameWithType: DateTextNormalizer.TryNormalize
+  fullName: Tripous.DateTextNormalizer.TryNormalize
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.DateTextNormalizer.TryParse*
+  commentId: Overload:Tripous.DateTextNormalizer.TryParse
+  href: Tripous.DateTextNormalizer.html#Tripous_DateTextNormalizer_TryParse_System_String_System_DateTime__
+  name: TryParse
+  nameWithType: DateTextNormalizer.TryParse
+  fullName: Tripous.DateTextNormalizer.TryParse
+- uid: System.Globalization.CultureInfo
+  commentId: T:System.Globalization.CultureInfo
+  parent: System.Globalization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo
+  name: CultureInfo
+  nameWithType: CultureInfo
+  fullName: System.Globalization.CultureInfo
+- uid: System.Globalization
+  commentId: N:System.Globalization
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Globalization
+  nameWithType: System.Globalization
+  fullName: System.Globalization
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Globalization
+    name: Globalization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Globalization
+    name: Globalization
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization

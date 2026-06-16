@@ -1,0 +1,937 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Logging.LogGlobalSettings
+  commentId: T:Tripous.Logging.LogGlobalSettings
+  id: LogGlobalSettings
+  parent: Tripous.Logging
+  children:
+  - Tripous.Logging.LogGlobalSettings.Active
+  - Tripous.Logging.LogGlobalSettings.LogFolderPath
+  - Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes
+  - Tripous.Logging.LogGlobalSettings.MinLevel
+  - Tripous.Logging.LogGlobalSettings.PropertyChanged
+  - Tripous.Logging.LogGlobalSettings.RetainDays
+  - Tripous.Logging.LogGlobalSettings.RetainPolicyCounter
+  langs:
+  - csharp
+  - vb
+  name: LogGlobalSettings
+  nameWithType: LogGlobalSettings
+  fullName: Tripous.Logging.LogGlobalSettings
+  type: Class
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogGlobalSettings
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Global settings for the <xref href="Tripous.Logging.Logger" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: 'public class LogGlobalSettings : SettingsBase, INotifyPropertyChanged'
+    content.vb: Public Class LogGlobalSettings Inherits SettingsBase Implements INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.SettingsBase
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.SettingsBase.FileName
+  - Tripous.SettingsBase.LoadBefore
+  - Tripous.SettingsBase.LoadAfter
+  - Tripous.SettingsBase.SaveBefore
+  - Tripous.SettingsBase.SaveAfter
+  - Tripous.SettingsBase.GetFilePath
+  - Tripous.SettingsBase.Load
+  - Tripous.SettingsBase.Save
+  - Tripous.SettingsBase.SettingsFilePath
+  - Tripous.SettingsBase.IsLoaded
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Logging.LogGlobalSettings.Active
+  commentId: P:Tripous.Logging.LogGlobalSettings.Active
+  id: Active
+  parent: Tripous.Logging.LogGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: Active
+  nameWithType: LogGlobalSettings.Active
+  fullName: Tripous.Logging.LogGlobalSettings.Active
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Active
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: When false no logs are recorded. Defaults to true.
+  example: []
+  syntax:
+    content: public bool Active { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Active As Boolean
+  overload: Tripous.Logging.LogGlobalSettings.Active*
+- uid: Tripous.Logging.LogGlobalSettings.MinLevel
+  commentId: P:Tripous.Logging.LogGlobalSettings.MinLevel
+  id: MinLevel
+  parent: Tripous.Logging.LogGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: MinLevel
+  nameWithType: LogGlobalSettings.MinLevel
+  fullName: Tripous.Logging.LogGlobalSettings.MinLevel
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MinLevel
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: >-
+    The level of the accepted log. For a log info to be recorded its log level must be greater or equal to this level. 
+
+    See <xref href="Tripous.Logging.LogLevel" data-throw-if-not-resolved="false"></xref> enum for the numeric values of each level.
+
+
+    <p>Defaults to Info.</p>
+  example: []
+  syntax:
+    content: public LogLevel MinLevel { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Logging.LogLevel
+    content.vb: Public Property MinLevel As LogLevel
+  overload: Tripous.Logging.LogGlobalSettings.MinLevel*
+- uid: Tripous.Logging.LogGlobalSettings.LogFolderPath
+  commentId: P:Tripous.Logging.LogGlobalSettings.LogFolderPath
+  id: LogFolderPath
+  parent: Tripous.Logging.LogGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: LogFolderPath
+  nameWithType: LogGlobalSettings.LogFolderPath
+  fullName: Tripous.Logging.LogGlobalSettings.LogFolderPath
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogFolderPath
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Gets or sets the path to the folder where file logs are saved.
+  example: []
+  syntax:
+    content: public string LogFolderPath { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property LogFolderPath As String
+  overload: Tripous.Logging.LogGlobalSettings.LogFolderPath*
+- uid: Tripous.Logging.LogGlobalSettings.RetainPolicyCounter
+  commentId: P:Tripous.Logging.LogGlobalSettings.RetainPolicyCounter
+  id: RetainPolicyCounter
+  parent: Tripous.Logging.LogGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: RetainPolicyCounter
+  nameWithType: LogGlobalSettings.RetainPolicyCounter
+  fullName: Tripous.Logging.LogGlobalSettings.RetainPolicyCounter
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RetainPolicyCounter
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Gets or sets after how many writes to check whether it is time to apply the retain policy. Defaults to 100.
+  example: []
+  syntax:
+    content: public int RetainPolicyCounter { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property RetainPolicyCounter As Integer
+  overload: Tripous.Logging.LogGlobalSettings.RetainPolicyCounter*
+- uid: Tripous.Logging.LogGlobalSettings.RetainDays
+  commentId: P:Tripous.Logging.LogGlobalSettings.RetainDays
+  id: RetainDays
+  parent: Tripous.Logging.LogGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: RetainDays
+  nameWithType: LogGlobalSettings.RetainDays
+  fullName: Tripous.Logging.LogGlobalSettings.RetainDays
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RetainDays
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 72
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Gets or sets how many days to retain in the storage medium. Defaults to 7.
+  example: []
+  syntax:
+    content: public int RetainDays { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property RetainDays As Integer
+  overload: Tripous.Logging.LogGlobalSettings.RetainDays*
+- uid: Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes
+  commentId: P:Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes
+  id: MaxSizeKiloBytes
+  parent: Tripous.Logging.LogGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: MaxSizeKiloBytes
+  nameWithType: LogGlobalSettings.MaxSizeKiloBytes
+  fullName: Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MaxSizeKiloBytes
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 80
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Gets or sets how many KB to allow a single log file to grow. Defaults to 512 KB.
+  example: []
+  syntax:
+    content: public int MaxSizeKiloBytes { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MaxSizeKiloBytes As Integer
+  overload: Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes*
+- uid: Tripous.Logging.LogGlobalSettings.PropertyChanged
+  commentId: E:Tripous.Logging.LogGlobalSettings.PropertyChanged
+  id: PropertyChanged
+  parent: Tripous.Logging.LogGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: PropertyChanged
+  nameWithType: LogGlobalSettings.PropertyChanged
+  fullName: Tripous.Logging.LogGlobalSettings.PropertyChanged
+  type: Event
+  source:
+    remote:
+      path: Tripous.Logging/LogGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PropertyChanged
+    path: ../Tripous.Logging/LogGlobalSettings.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Occurs when a property value changes.
+  example: []
+  syntax:
+    content: public event PropertyChangedEventHandler PropertyChanged
+    return:
+      type: System.ComponentModel.PropertyChangedEventHandler
+    content.vb: Public Event PropertyChanged As PropertyChangedEventHandler
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+references:
+- uid: Tripous.Logging.Logger
+  commentId: T:Tripous.Logging.Logger
+  href: Tripous.Logging.Logger.html
+  name: Logger
+  nameWithType: Logger
+  fullName: Tripous.Logging.Logger
+- uid: Tripous.Logging
+  commentId: N:Tripous.Logging
+  href: Tripous.html
+  name: Tripous.Logging
+  nameWithType: Tripous.Logging
+  fullName: Tripous.Logging
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.SettingsBase
+  commentId: T:Tripous.SettingsBase
+  parent: Tripous
+  href: Tripous.SettingsBase.html
+  name: SettingsBase
+  nameWithType: SettingsBase
+  fullName: Tripous.SettingsBase
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.SettingsBase.FileName
+  commentId: P:Tripous.SettingsBase.FileName
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_FileName
+  name: FileName
+  nameWithType: SettingsBase.FileName
+  fullName: Tripous.SettingsBase.FileName
+- uid: Tripous.SettingsBase.LoadBefore
+  commentId: M:Tripous.SettingsBase.LoadBefore
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_LoadBefore
+  name: LoadBefore()
+  nameWithType: SettingsBase.LoadBefore()
+  fullName: Tripous.SettingsBase.LoadBefore()
+  spec.csharp:
+  - uid: Tripous.SettingsBase.LoadBefore
+    name: LoadBefore
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_LoadBefore
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.SettingsBase.LoadBefore
+    name: LoadBefore
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_LoadBefore
+  - name: (
+  - name: )
+- uid: Tripous.SettingsBase.LoadAfter
+  commentId: M:Tripous.SettingsBase.LoadAfter
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_LoadAfter
+  name: LoadAfter()
+  nameWithType: SettingsBase.LoadAfter()
+  fullName: Tripous.SettingsBase.LoadAfter()
+  spec.csharp:
+  - uid: Tripous.SettingsBase.LoadAfter
+    name: LoadAfter
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_LoadAfter
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.SettingsBase.LoadAfter
+    name: LoadAfter
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_LoadAfter
+  - name: (
+  - name: )
+- uid: Tripous.SettingsBase.SaveBefore
+  commentId: M:Tripous.SettingsBase.SaveBefore
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_SaveBefore
+  name: SaveBefore()
+  nameWithType: SettingsBase.SaveBefore()
+  fullName: Tripous.SettingsBase.SaveBefore()
+  spec.csharp:
+  - uid: Tripous.SettingsBase.SaveBefore
+    name: SaveBefore
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_SaveBefore
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.SettingsBase.SaveBefore
+    name: SaveBefore
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_SaveBefore
+  - name: (
+  - name: )
+- uid: Tripous.SettingsBase.SaveAfter
+  commentId: M:Tripous.SettingsBase.SaveAfter
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_SaveAfter
+  name: SaveAfter()
+  nameWithType: SettingsBase.SaveAfter()
+  fullName: Tripous.SettingsBase.SaveAfter()
+  spec.csharp:
+  - uid: Tripous.SettingsBase.SaveAfter
+    name: SaveAfter
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_SaveAfter
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.SettingsBase.SaveAfter
+    name: SaveAfter
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_SaveAfter
+  - name: (
+  - name: )
+- uid: Tripous.SettingsBase.GetFilePath
+  commentId: M:Tripous.SettingsBase.GetFilePath
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_GetFilePath
+  name: GetFilePath()
+  nameWithType: SettingsBase.GetFilePath()
+  fullName: Tripous.SettingsBase.GetFilePath()
+  spec.csharp:
+  - uid: Tripous.SettingsBase.GetFilePath
+    name: GetFilePath
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_GetFilePath
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.SettingsBase.GetFilePath
+    name: GetFilePath
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_GetFilePath
+  - name: (
+  - name: )
+- uid: Tripous.SettingsBase.Load
+  commentId: M:Tripous.SettingsBase.Load
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_Load
+  name: Load()
+  nameWithType: SettingsBase.Load()
+  fullName: Tripous.SettingsBase.Load()
+  spec.csharp:
+  - uid: Tripous.SettingsBase.Load
+    name: Load
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_Load
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.SettingsBase.Load
+    name: Load
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_Load
+  - name: (
+  - name: )
+- uid: Tripous.SettingsBase.Save
+  commentId: M:Tripous.SettingsBase.Save
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_Save
+  name: Save()
+  nameWithType: SettingsBase.Save()
+  fullName: Tripous.SettingsBase.Save()
+  spec.csharp:
+  - uid: Tripous.SettingsBase.Save
+    name: Save
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_Save
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.SettingsBase.Save
+    name: Save
+    href: Tripous.SettingsBase.html#Tripous_SettingsBase_Save
+  - name: (
+  - name: )
+- uid: Tripous.SettingsBase.SettingsFilePath
+  commentId: P:Tripous.SettingsBase.SettingsFilePath
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_SettingsFilePath
+  name: SettingsFilePath
+  nameWithType: SettingsBase.SettingsFilePath
+  fullName: Tripous.SettingsBase.SettingsFilePath
+- uid: Tripous.SettingsBase.IsLoaded
+  commentId: P:Tripous.SettingsBase.IsLoaded
+  parent: Tripous.SettingsBase
+  href: Tripous.SettingsBase.html#Tripous_SettingsBase_IsLoaded
+  name: IsLoaded
+  nameWithType: SettingsBase.IsLoaded
+  fullName: Tripous.SettingsBase.IsLoaded
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.Logging.LogGlobalSettings.Active*
+  commentId: Overload:Tripous.Logging.LogGlobalSettings.Active
+  href: Tripous.Logging.LogGlobalSettings.html#Tripous_Logging_LogGlobalSettings_Active
+  name: Active
+  nameWithType: LogGlobalSettings.Active
+  fullName: Tripous.Logging.LogGlobalSettings.Active
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Logging.LogLevel
+  commentId: T:Tripous.Logging.LogLevel
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogLevel.html
+  name: LogLevel
+  nameWithType: LogLevel
+  fullName: Tripous.Logging.LogLevel
+- uid: Tripous.Logging.LogGlobalSettings.MinLevel*
+  commentId: Overload:Tripous.Logging.LogGlobalSettings.MinLevel
+  href: Tripous.Logging.LogGlobalSettings.html#Tripous_Logging_LogGlobalSettings_MinLevel
+  name: MinLevel
+  nameWithType: LogGlobalSettings.MinLevel
+  fullName: Tripous.Logging.LogGlobalSettings.MinLevel
+- uid: Tripous.Logging.LogGlobalSettings.LogFolderPath*
+  commentId: Overload:Tripous.Logging.LogGlobalSettings.LogFolderPath
+  href: Tripous.Logging.LogGlobalSettings.html#Tripous_Logging_LogGlobalSettings_LogFolderPath
+  name: LogFolderPath
+  nameWithType: LogGlobalSettings.LogFolderPath
+  fullName: Tripous.Logging.LogGlobalSettings.LogFolderPath
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Logging.LogGlobalSettings.RetainPolicyCounter*
+  commentId: Overload:Tripous.Logging.LogGlobalSettings.RetainPolicyCounter
+  href: Tripous.Logging.LogGlobalSettings.html#Tripous_Logging_LogGlobalSettings_RetainPolicyCounter
+  name: RetainPolicyCounter
+  nameWithType: LogGlobalSettings.RetainPolicyCounter
+  fullName: Tripous.Logging.LogGlobalSettings.RetainPolicyCounter
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Logging.LogGlobalSettings.RetainDays*
+  commentId: Overload:Tripous.Logging.LogGlobalSettings.RetainDays
+  href: Tripous.Logging.LogGlobalSettings.html#Tripous_Logging_LogGlobalSettings_RetainDays
+  name: RetainDays
+  nameWithType: LogGlobalSettings.RetainDays
+  fullName: Tripous.Logging.LogGlobalSettings.RetainDays
+- uid: Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes*
+  commentId: Overload:Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes
+  href: Tripous.Logging.LogGlobalSettings.html#Tripous_Logging_LogGlobalSettings_MaxSizeKiloBytes
+  name: MaxSizeKiloBytes
+  nameWithType: LogGlobalSettings.MaxSizeKiloBytes
+  fullName: Tripous.Logging.LogGlobalSettings.MaxSizeKiloBytes
+- uid: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  commentId: E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  parent: System.ComponentModel.INotifyPropertyChanged
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged
+  name: PropertyChanged
+  nameWithType: INotifyPropertyChanged.PropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+- uid: System.ComponentModel.PropertyChangedEventHandler
+  commentId: T:System.ComponentModel.PropertyChangedEventHandler
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertychangedeventhandler
+  name: PropertyChangedEventHandler
+  nameWithType: PropertyChangedEventHandler
+  fullName: System.ComponentModel.PropertyChangedEventHandler

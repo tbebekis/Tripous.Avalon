@@ -1,0 +1,1395 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DataColumnType
+  commentId: T:Tripous.Data.DataColumnType
+  id: DataColumnType
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DataColumnType.Boolean
+  - Tripous.Data.DataColumnType.Currency
+  - Tripous.Data.DataColumnType.Date
+  - Tripous.Data.DataColumnType.DateTime
+  - Tripous.Data.DataColumnType.Decimal
+  - Tripous.Data.DataColumnType.Image
+  - Tripous.Data.DataColumnType.Integer
+  - Tripous.Data.DataColumnType.Lookup
+  - Tripous.Data.DataColumnType.Memo
+  - Tripous.Data.DataColumnType.None
+  - Tripous.Data.DataColumnType.Text
+  langs:
+  - csharp
+  - vb
+  name: DataColumnType
+  nameWithType: DataColumnType
+  fullName: Tripous.Data.DataColumnType
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataColumnType
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Indicates the data type of a column.
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum DataColumnType
+    content.vb: >-
+      <Flags>
+
+      Public Enum DataColumnType
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.Add``1(Tripous.Data.DataColumnType)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.HasAny``1(Tripous.Data.DataColumnType)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.HasNone``1(Tripous.Data.DataColumnType)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.Has``1(Tripous.Data.DataColumnType)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.In``1(Tripous.Data.DataColumnType)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.IsExactly``1(Tripous.Data.DataColumnType)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.IsZero``1
+  - Tripous.Data.DataColumnType.Tripous.BitFields.Remove``1(Tripous.Data.DataColumnType)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.Set``1(Tripous.Data.DataColumnType,System.Boolean)
+  - Tripous.Data.DataColumnType.Tripous.BitFields.Toggle``1(Tripous.Data.DataColumnType)
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.DataColumnType.None
+  commentId: F:Tripous.Data.DataColumnType.None
+  id: None
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: DataColumnType.None
+  fullName: Tripous.Data.DataColumnType.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: No type specified.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Text
+  commentId: F:Tripous.Data.DataColumnType.Text
+  id: Text
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Text
+  nameWithType: DataColumnType.Text
+  fullName: Tripous.Data.DataColumnType.Text
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Text
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A text (string) column.
+  example: []
+  syntax:
+    content: Text = 1
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Boolean
+  commentId: F:Tripous.Data.DataColumnType.Boolean
+  id: Boolean
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Boolean
+  nameWithType: DataColumnType.Boolean
+  fullName: Tripous.Data.DataColumnType.Boolean
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Boolean
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A boolean column.
+  example: []
+  syntax:
+    content: Boolean = 2
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Date
+  commentId: F:Tripous.Data.DataColumnType.Date
+  id: Date
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Date
+  nameWithType: DataColumnType.Date
+  fullName: Tripous.Data.DataColumnType.Date
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Date
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A date-only column.
+  example: []
+  syntax:
+    content: Date = 4
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.DateTime
+  commentId: F:Tripous.Data.DataColumnType.DateTime
+  id: DateTime
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: DateTime
+  nameWithType: DataColumnType.DateTime
+  fullName: Tripous.Data.DataColumnType.DateTime
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateTime
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A date and time column.
+  example: []
+  syntax:
+    content: DateTime = 8
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Integer
+  commentId: F:Tripous.Data.DataColumnType.Integer
+  id: Integer
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Integer
+  nameWithType: DataColumnType.Integer
+  fullName: Tripous.Data.DataColumnType.Integer
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Integer
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 39
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An integer column.
+  example: []
+  syntax:
+    content: Integer = 16
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Decimal
+  commentId: F:Tripous.Data.DataColumnType.Decimal
+  id: Decimal
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Decimal
+  nameWithType: DataColumnType.Decimal
+  fullName: Tripous.Data.DataColumnType.Decimal
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Decimal
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A decimal (floating-point) column.
+  example: []
+  syntax:
+    content: Decimal = 32
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Currency
+  commentId: F:Tripous.Data.DataColumnType.Currency
+  id: Currency
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Currency
+  nameWithType: DataColumnType.Currency
+  fullName: Tripous.Data.DataColumnType.Currency
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Currency
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A currency column.
+  example: []
+  syntax:
+    content: Currency = 64
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Image
+  commentId: F:Tripous.Data.DataColumnType.Image
+  id: Image
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Image
+  nameWithType: DataColumnType.Image
+  fullName: Tripous.Data.DataColumnType.Image
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Image
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An image column.
+  example: []
+  syntax:
+    content: Image = 128
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Memo
+  commentId: F:Tripous.Data.DataColumnType.Memo
+  id: Memo
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Memo
+  nameWithType: DataColumnType.Memo
+  fullName: Tripous.Data.DataColumnType.Memo
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Memo
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A memo (long text) column.
+  example: []
+  syntax:
+    content: Memo = 256
+    return:
+      type: Tripous.Data.DataColumnType
+- uid: Tripous.Data.DataColumnType.Lookup
+  commentId: F:Tripous.Data.DataColumnType.Lookup
+  id: Lookup
+  parent: Tripous.Data.DataColumnType
+  langs:
+  - csharp
+  - vb
+  name: Lookup
+  nameWithType: DataColumnType.Lookup
+  fullName: Tripous.Data.DataColumnType.Lookup
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/DataColumnType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Lookup
+    path: ../Tripous.Data/Enums/DataColumnType.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A lookup column, referring to a value in another table.
+  example: []
+  syntax:
+    content: Lookup = 512
+    return:
+      type: Tripous.Data.DataColumnType
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.Add``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.Add<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.Add<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.Add(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: Add(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.HasAny``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.HasAny<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.HasAny(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: HasAny(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.HasNone``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.HasNone<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.HasNone(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: HasNone(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.Has``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.Has<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.Has<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.Has(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: Has(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.In``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.In<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.In<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.In(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: In(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.IsExactly``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.IsExactly<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.IsExactly(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: IsExactly(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<DataColumnType>(DataColumnType)
+  nameWithType: BitFields.IsZero<DataColumnType>(DataColumnType)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.IsZero(Of DataColumnType)(DataColumnType)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType)
+  name.vb: IsZero(Of DataColumnType)(DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.DataColumnType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.DataColumnType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.Remove``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.Remove<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.Remove(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: Remove(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.Set``1(Tripous.Data.DataColumnType,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<DataColumnType>(DataColumnType, DataColumnType, bool)
+  nameWithType: BitFields.Set<DataColumnType>(DataColumnType, DataColumnType, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType, bool)
+  nameWithType.vb: BitFields.Set(Of DataColumnType)(DataColumnType, DataColumnType, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType, Boolean)
+  name.vb: Set(Of DataColumnType)(DataColumnType, DataColumnType, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.DataColumnType.Tripous.BitFields.Toggle``1(Tripous.Data.DataColumnType)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<DataColumnType>(DataColumnType, DataColumnType)
+  nameWithType: BitFields.Toggle<DataColumnType>(DataColumnType, DataColumnType)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.DataColumnType>(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  nameWithType.vb: BitFields.Toggle(Of DataColumnType)(DataColumnType, DataColumnType)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.DataColumnType)(Tripous.Data.DataColumnType, Tripous.Data.DataColumnType)
+  name.vb: Toggle(Of DataColumnType)(DataColumnType, DataColumnType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.DataColumnType,Tripous.Data.DataColumnType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataColumnType
+    name: DataColumnType
+    href: Tripous.Data.DataColumnType.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DataColumnType
+  commentId: T:Tripous.Data.DataColumnType
+  parent: Tripous.Data
+  href: Tripous.Data.DataColumnType.html
+  name: DataColumnType
+  nameWithType: DataColumnType
+  fullName: Tripous.Data.DataColumnType

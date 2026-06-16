@@ -1,0 +1,1666 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  id: TypeExtensions
+  parent: Tripous
+  children:
+  - Tripous.TypeExtensions.Create(System.Type)
+  - Tripous.TypeExtensions.Create(System.Type,System.Object[])
+  - Tripous.TypeExtensions.Create(System.Type,System.Type[],System.Object[])
+  - Tripous.TypeExtensions.FindField(System.Object,System.String)
+  - Tripous.TypeExtensions.FindField(System.Type,System.String)
+  - Tripous.TypeExtensions.FindIntegerIndexer(System.Type)
+  - Tripous.TypeExtensions.FindPublicProperty(System.Type,System.String)
+  - Tripous.TypeExtensions.GetArgTypes(System.Object[])
+  - Tripous.TypeExtensions.GetDefaultFormat(System.Type)
+  - Tripous.TypeExtensions.GetFields(System.Type,System.Type)
+  - Tripous.TypeExtensions.GetPublicPropertyValue(System.Object,System.String)
+  - Tripous.TypeExtensions.GetPublicPropertyValue(System.Type,System.Object,System.String)
+  - Tripous.TypeExtensions.HasDefaultConstructor(System.Type)
+  - Tripous.TypeExtensions.HasPublicProperty(System.Type,System.String)
+  - Tripous.TypeExtensions.ImplementsInterface(System.Type,System.Type)
+  - Tripous.TypeExtensions.ImplementsInterfaces(System.Type,System.Type[])
+  - Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  - Tripous.TypeExtensions.InheritsFrom(System.Type,System.Type)
+  - Tripous.TypeExtensions.IsDateTime(System.Type)
+  - Tripous.TypeExtensions.IsDecimal(System.Type)
+  - Tripous.TypeExtensions.IsDouble(System.Type)
+  - Tripous.TypeExtensions.IsFloat(System.Type)
+  - Tripous.TypeExtensions.IsInteger(System.Type)
+  - Tripous.TypeExtensions.IsIntegerIndexer(System.Reflection.PropertyInfo)
+  - Tripous.TypeExtensions.IsNullable(System.Type)
+  - Tripous.TypeExtensions.IsNumeric(System.Type)
+  - Tripous.TypeExtensions.IsString(System.Type)
+  langs:
+  - csharp
+  - vb
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TypeExtensions
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 15
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Type related extension methods
+  example: []
+  syntax:
+    content: public static class TypeExtensions
+    content.vb: Public Module TypeExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.TypeExtensions.HasDefaultConstructor(System.Type)
+  commentId: M:Tripous.TypeExtensions.HasDefaultConstructor(System.Type)
+  id: HasDefaultConstructor(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: HasDefaultConstructor(Type)
+  nameWithType: TypeExtensions.HasDefaultConstructor(Type)
+  fullName: Tripous.TypeExtensions.HasDefaultConstructor(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasDefaultConstructor
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 20
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a type defines a default public constructor
+  example: []
+  syntax:
+    content: public static bool HasDefaultConstructor(this Type ClassType)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function HasDefaultConstructor(ClassType As Type) As Boolean
+  overload: Tripous.TypeExtensions.HasDefaultConstructor*
+- uid: Tripous.TypeExtensions.Create(System.Type,System.Type[],System.Object[])
+  commentId: M:Tripous.TypeExtensions.Create(System.Type,System.Type[],System.Object[])
+  id: Create(System.Type,System.Type[],System.Object[])
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: Create(Type, Type[], object[])
+  nameWithType: TypeExtensions.Create(Type, Type[], object[])
+  fullName: Tripous.TypeExtensions.Create(System.Type, System.Type[], object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 36
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    A kind of "virtual constructor" of any type of object. 
+
+    Example call for a constructor with no params/arguments
+       Create(typeof(object), new Type[]{ },  new object[]{ });
+  example: []
+  syntax:
+    content: public static object Create(this Type ClassType, Type[] Params, object[] Args)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: Params
+      type: System.Type[]
+    - id: Args
+      type: System.Object[]
+    return:
+      type: System.Object
+    content.vb: Public Shared Function Create(ClassType As Type, Params As Type(), Args As Object()) As Object
+  overload: Tripous.TypeExtensions.Create*
+  nameWithType.vb: TypeExtensions.Create(Type, Type(), Object())
+  fullName.vb: Tripous.TypeExtensions.Create(System.Type, System.Type(), Object())
+  name.vb: Create(Type, Type(), Object())
+- uid: Tripous.TypeExtensions.GetArgTypes(System.Object[])
+  commentId: M:Tripous.TypeExtensions.GetArgTypes(System.Object[])
+  id: GetArgTypes(System.Object[])
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetArgTypes(object[])
+  nameWithType: TypeExtensions.GetArgTypes(object[])
+  fullName: Tripous.TypeExtensions.GetArgTypes(object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetArgTypes
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 52
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Tries to infer Type-s of Args. If an Arg is null, it infers the typeof(object)
+  example: []
+  syntax:
+    content: public static Type[] GetArgTypes(object[] Args)
+    parameters:
+    - id: Args
+      type: System.Object[]
+    return:
+      type: System.Type[]
+    content.vb: Public Shared Function GetArgTypes(Args As Object()) As Type()
+  overload: Tripous.TypeExtensions.GetArgTypes*
+  nameWithType.vb: TypeExtensions.GetArgTypes(Object())
+  fullName.vb: Tripous.TypeExtensions.GetArgTypes(Object())
+  name.vb: GetArgTypes(Object())
+- uid: Tripous.TypeExtensions.Create(System.Type,System.Object[])
+  commentId: M:Tripous.TypeExtensions.Create(System.Type,System.Object[])
+  id: Create(System.Type,System.Object[])
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: Create(Type, object[])
+  nameWithType: TypeExtensions.Create(Type, object[])
+  fullName: Tripous.TypeExtensions.Create(System.Type, object[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 74
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    A kind of "virtual constructor" of any type of object. 
+
+    Example call for a constructor
+       Create(typeof(object), new object[]{ });
+  example: []
+  syntax:
+    content: public static object Create(this Type ClassType, object[] Args)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: Args
+      type: System.Object[]
+    return:
+      type: System.Object
+    content.vb: Public Shared Function Create(ClassType As Type, Args As Object()) As Object
+  overload: Tripous.TypeExtensions.Create*
+  nameWithType.vb: TypeExtensions.Create(Type, Object())
+  fullName.vb: Tripous.TypeExtensions.Create(System.Type, Object())
+  name.vb: Create(Type, Object())
+- uid: Tripous.TypeExtensions.Create(System.Type)
+  commentId: M:Tripous.TypeExtensions.Create(System.Type)
+  id: Create(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: Create(Type)
+  nameWithType: TypeExtensions.Create(Type)
+  fullName: Tripous.TypeExtensions.Create(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 83
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    A kind of "virtual constructor" of any type of object. 
+
+    Example call for a constructor with no params/arguments
+       Create(typeof(object));
+  example: []
+  syntax:
+    content: public static object Create(this Type ClassType)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    return:
+      type: System.Object
+    content.vb: Public Shared Function Create(ClassType As Type) As Object
+  overload: Tripous.TypeExtensions.Create*
+- uid: Tripous.TypeExtensions.ImplementsInterfaces(System.Type,System.Type[])
+  commentId: M:Tripous.TypeExtensions.ImplementsInterfaces(System.Type,System.Type[])
+  id: ImplementsInterfaces(System.Type,System.Type[])
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: ImplementsInterfaces(Type, Type[])
+  nameWithType: TypeExtensions.ImplementsInterfaces(Type, Type[])
+  fullName: Tripous.TypeExtensions.ImplementsInterfaces(System.Type, System.Type[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ImplementsInterfaces
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 93
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if ClassType implements all InterfaceTypes.
+  example: []
+  syntax:
+    content: public static bool ImplementsInterfaces(this Type ClassType, Type[] InterfaceTypes)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: InterfaceTypes
+      type: System.Type[]
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function ImplementsInterfaces(ClassType As Type, InterfaceTypes As Type()) As Boolean
+  overload: Tripous.TypeExtensions.ImplementsInterfaces*
+  nameWithType.vb: TypeExtensions.ImplementsInterfaces(Type, Type())
+  fullName.vb: Tripous.TypeExtensions.ImplementsInterfaces(System.Type, System.Type())
+  name.vb: ImplementsInterfaces(Type, Type())
+- uid: Tripous.TypeExtensions.ImplementsInterface(System.Type,System.Type)
+  commentId: M:Tripous.TypeExtensions.ImplementsInterface(System.Type,System.Type)
+  id: ImplementsInterface(System.Type,System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: ImplementsInterface(Type, Type)
+  nameWithType: TypeExtensions.ImplementsInterface(Type, Type)
+  fullName: Tripous.TypeExtensions.ImplementsInterface(System.Type, System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ImplementsInterface
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 107
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if ClassType implements InterfaceType.
+  example: []
+  syntax:
+    content: public static bool ImplementsInterface(this Type ClassType, Type InterfaceType)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: InterfaceType
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function ImplementsInterface(ClassType As Type, InterfaceType As Type) As Boolean
+  overload: Tripous.TypeExtensions.ImplementsInterface*
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Type,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Type,System.Type)
+  id: InheritsFrom(System.Type,System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: InheritsFrom(Type, Type)
+  nameWithType: TypeExtensions.InheritsFrom(Type, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(System.Type, System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InheritsFrom
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 115
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if ClassType is a or inherits from Value.
+  example: []
+  syntax:
+    content: public static bool InheritsFrom(this Type ClassType, Type Value)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: Value
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function InheritsFrom(ClassType As Type, Value As Type) As Boolean
+  overload: Tripous.TypeExtensions.InheritsFrom*
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  id: InheritsFrom(System.Object,System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InheritsFrom
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 122
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if Instance is a or inherits from Value.
+  example: []
+  syntax:
+    content: public static bool InheritsFrom(this object Instance, Type Value)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: Value
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function InheritsFrom(Instance As Object, Value As Type) As Boolean
+  overload: Tripous.TypeExtensions.InheritsFrom*
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+- uid: Tripous.TypeExtensions.HasPublicProperty(System.Type,System.String)
+  commentId: M:Tripous.TypeExtensions.HasPublicProperty(System.Type,System.String)
+  id: HasPublicProperty(System.Type,System.String)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: HasPublicProperty(Type, string)
+  nameWithType: TypeExtensions.HasPublicProperty(Type, string)
+  fullName: Tripous.TypeExtensions.HasPublicProperty(System.Type, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasPublicProperty
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 130
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if the ClassType has a public instance property with PropertyName
+  example: []
+  syntax:
+    content: public static bool HasPublicProperty(this Type ClassType, string PropertyName)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: PropertyName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function HasPublicProperty(ClassType As Type, PropertyName As String) As Boolean
+  overload: Tripous.TypeExtensions.HasPublicProperty*
+  nameWithType.vb: TypeExtensions.HasPublicProperty(Type, String)
+  fullName.vb: Tripous.TypeExtensions.HasPublicProperty(System.Type, String)
+  name.vb: HasPublicProperty(Type, String)
+- uid: Tripous.TypeExtensions.FindPublicProperty(System.Type,System.String)
+  commentId: M:Tripous.TypeExtensions.FindPublicProperty(System.Type,System.String)
+  id: FindPublicProperty(System.Type,System.String)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: FindPublicProperty(Type, string)
+  nameWithType: TypeExtensions.FindPublicProperty(Type, string)
+  fullName: Tripous.TypeExtensions.FindPublicProperty(System.Type, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindPublicProperty
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 137
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Finds the public instance property of ClassType by PropertyName
+  example: []
+  syntax:
+    content: public static PropertyInfo FindPublicProperty(this Type ClassType, string PropertyName)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: PropertyName
+      type: System.String
+    return:
+      type: System.Reflection.PropertyInfo
+    content.vb: Public Shared Function FindPublicProperty(ClassType As Type, PropertyName As String) As PropertyInfo
+  overload: Tripous.TypeExtensions.FindPublicProperty*
+  nameWithType.vb: TypeExtensions.FindPublicProperty(Type, String)
+  fullName.vb: Tripous.TypeExtensions.FindPublicProperty(System.Type, String)
+  name.vb: FindPublicProperty(Type, String)
+- uid: Tripous.TypeExtensions.GetPublicPropertyValue(System.Type,System.Object,System.String)
+  commentId: M:Tripous.TypeExtensions.GetPublicPropertyValue(System.Type,System.Object,System.String)
+  id: GetPublicPropertyValue(System.Type,System.Object,System.String)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetPublicPropertyValue(Type, object, string)
+  nameWithType: TypeExtensions.GetPublicPropertyValue(Type, object, string)
+  fullName: Tripous.TypeExtensions.GetPublicPropertyValue(System.Type, object, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetPublicPropertyValue
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 156
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns the value of the public prorperty PropertyName of Instance. Instance must be of type ClassType.
+
+
+    <p>If Instance is null or Instance has not a PropertyName public property, null is returned.</p>
+  example: []
+  syntax:
+    content: public static object GetPublicPropertyValue(this Type ClassType, object Instance, string PropertyName)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    - id: Instance
+      type: System.Object
+    - id: PropertyName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Shared Function GetPublicPropertyValue(ClassType As Type, Instance As Object, PropertyName As String) As Object
+  overload: Tripous.TypeExtensions.GetPublicPropertyValue*
+  nameWithType.vb: TypeExtensions.GetPublicPropertyValue(Type, Object, String)
+  fullName.vb: Tripous.TypeExtensions.GetPublicPropertyValue(System.Type, Object, String)
+  name.vb: GetPublicPropertyValue(Type, Object, String)
+- uid: Tripous.TypeExtensions.GetPublicPropertyValue(System.Object,System.String)
+  commentId: M:Tripous.TypeExtensions.GetPublicPropertyValue(System.Object,System.String)
+  id: GetPublicPropertyValue(System.Object,System.String)
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetPublicPropertyValue(object, string)
+  nameWithType: TypeExtensions.GetPublicPropertyValue(object, string)
+  fullName: Tripous.TypeExtensions.GetPublicPropertyValue(object, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetPublicPropertyValue
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 170
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the value of the public property PropertyName, if any, else null.
+  example: []
+  syntax:
+    content: public static object GetPublicPropertyValue(object Instance, string PropertyName)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: PropertyName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Shared Function GetPublicPropertyValue(Instance As Object, PropertyName As String) As Object
+  overload: Tripous.TypeExtensions.GetPublicPropertyValue*
+  nameWithType.vb: TypeExtensions.GetPublicPropertyValue(Object, String)
+  fullName.vb: Tripous.TypeExtensions.GetPublicPropertyValue(Object, String)
+  name.vb: GetPublicPropertyValue(Object, String)
+- uid: Tripous.TypeExtensions.IsIntegerIndexer(System.Reflection.PropertyInfo)
+  commentId: M:Tripous.TypeExtensions.IsIntegerIndexer(System.Reflection.PropertyInfo)
+  id: IsIntegerIndexer(System.Reflection.PropertyInfo)
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsIntegerIndexer(PropertyInfo)
+  nameWithType: TypeExtensions.IsIntegerIndexer(PropertyInfo)
+  fullName: Tripous.TypeExtensions.IsIntegerIndexer(System.Reflection.PropertyInfo)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsIntegerIndexer
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 185
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if the PropInfo is an one-dimensional integer indexer property
+  example: []
+  syntax:
+    content: public static bool IsIntegerIndexer(PropertyInfo PropInfo)
+    parameters:
+    - id: PropInfo
+      type: System.Reflection.PropertyInfo
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsIntegerIndexer(PropInfo As PropertyInfo) As Boolean
+  overload: Tripous.TypeExtensions.IsIntegerIndexer*
+- uid: Tripous.TypeExtensions.FindIntegerIndexer(System.Type)
+  commentId: M:Tripous.TypeExtensions.FindIntegerIndexer(System.Type)
+  id: FindIntegerIndexer(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: FindIntegerIndexer(Type)
+  nameWithType: TypeExtensions.FindIntegerIndexer(Type)
+  fullName: Tripous.TypeExtensions.FindIntegerIndexer(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindIntegerIndexer
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 195
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the one-dimensional integer indexer property of the ClassType, if it has one, otherwise null.
+  example: []
+  syntax:
+    content: public static PropertyInfo FindIntegerIndexer(this Type ClassType)
+    parameters:
+    - id: ClassType
+      type: System.Type
+    return:
+      type: System.Reflection.PropertyInfo
+    content.vb: Public Shared Function FindIntegerIndexer(ClassType As Type) As PropertyInfo
+  overload: Tripous.TypeExtensions.FindIntegerIndexer*
+- uid: Tripous.TypeExtensions.GetFields(System.Type,System.Type)
+  commentId: M:Tripous.TypeExtensions.GetFields(System.Type,System.Type)
+  id: GetFields(System.Type,System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetFields(Type, Type)
+  nameWithType: TypeExtensions.GetFields(Type, Type)
+  fullName: Tripous.TypeExtensions.GetFields(System.Type, System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetFields
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 231
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns a list of public and non-public fields of the Type, including
+
+    inherited fields. It includes fields up to LastType.
+  example: []
+  syntax:
+    content: public static IList<FieldInfo> GetFields(this Type Type, Type LastType)
+    parameters:
+    - id: Type
+      type: System.Type
+    - id: LastType
+      type: System.Type
+    return:
+      type: System.Collections.Generic.IList{System.Reflection.FieldInfo}
+    content.vb: Public Shared Function GetFields(Type As Type, LastType As Type) As IList(Of FieldInfo)
+  overload: Tripous.TypeExtensions.GetFields*
+- uid: Tripous.TypeExtensions.FindField(System.Type,System.String)
+  commentId: M:Tripous.TypeExtensions.FindField(System.Type,System.String)
+  id: FindField(System.Type,System.String)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: FindField(Type, string)
+  nameWithType: TypeExtensions.FindField(Type, string)
+  fullName: Tripous.TypeExtensions.FindField(System.Type, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindField
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 241
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Finds and returns a public or non-public FieldInfo with FieldName, if any in the Type
+
+    or any base type, else null.
+  example: []
+  syntax:
+    content: public static FieldInfo FindField(this Type Type, string FieldName)
+    parameters:
+    - id: Type
+      type: System.Type
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Reflection.FieldInfo
+    content.vb: Public Shared Function FindField(Type As Type, FieldName As String) As FieldInfo
+  overload: Tripous.TypeExtensions.FindField*
+  nameWithType.vb: TypeExtensions.FindField(Type, String)
+  fullName.vb: Tripous.TypeExtensions.FindField(System.Type, String)
+  name.vb: FindField(Type, String)
+- uid: Tripous.TypeExtensions.FindField(System.Object,System.String)
+  commentId: M:Tripous.TypeExtensions.FindField(System.Object,System.String)
+  id: FindField(System.Object,System.String)
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: FindField(object, string)
+  nameWithType: TypeExtensions.FindField(object, string)
+  fullName: Tripous.TypeExtensions.FindField(object, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindField
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 258
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns the value of a public or non-public field with FieldName which is
+
+    declared in the type of the Instance or any of its ancestors. Returns null
+
+    if the field is not found.
+  example: []
+  syntax:
+    content: public static object FindField(object Instance, string FieldName)
+    parameters:
+    - id: Instance
+      type: System.Object
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Shared Function FindField(Instance As Object, FieldName As String) As Object
+  overload: Tripous.TypeExtensions.FindField*
+  nameWithType.vb: TypeExtensions.FindField(Object, String)
+  fullName.vb: Tripous.TypeExtensions.FindField(Object, String)
+  name.vb: FindField(Object, String)
+- uid: Tripous.TypeExtensions.IsNullable(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsNullable(System.Type)
+  id: IsNullable(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsNullable(Type)
+  nameWithType: TypeExtensions.IsNullable(Type)
+  fullName: Tripous.TypeExtensions.IsNullable(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNullable
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 272
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if T is of a Nullable type
+  example: []
+  syntax:
+    content: public static bool IsNullable(this Type T)
+    parameters:
+    - id: T
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsNullable(T As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsNullable*
+- uid: Tripous.TypeExtensions.IsDecimal(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsDecimal(System.Type)
+  id: IsDecimal(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsDecimal(Type)
+  nameWithType: TypeExtensions.IsDecimal(Type)
+  fullName: Tripous.TypeExtensions.IsDecimal(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDecimal
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 279
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if T is decimal or nullable decimal
+  example: []
+  syntax:
+    content: public static bool IsDecimal(this Type T)
+    parameters:
+    - id: T
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsDecimal(T As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsDecimal*
+- uid: Tripous.TypeExtensions.IsDouble(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsDouble(System.Type)
+  id: IsDouble(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsDouble(Type)
+  nameWithType: TypeExtensions.IsDouble(Type)
+  fullName: Tripous.TypeExtensions.IsDouble(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDouble
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 286
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if T is double or nullable double
+  example: []
+  syntax:
+    content: public static bool IsDouble(this Type T)
+    parameters:
+    - id: T
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsDouble(T As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsDouble*
+- uid: Tripous.TypeExtensions.IsInteger(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsInteger(System.Type)
+  id: IsInteger(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsInteger(Type)
+  nameWithType: TypeExtensions.IsInteger(Type)
+  fullName: Tripous.TypeExtensions.IsInteger(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsInteger
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 312
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a specified type is an integer type, i.e. Byte, SByte, Int16, Int32, Int64, UInt16, UInt32, UInt64
+  example: []
+  syntax:
+    content: public static bool IsInteger(this Type DataType)
+    parameters:
+    - id: DataType
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsInteger(DataType As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsInteger*
+- uid: Tripous.TypeExtensions.IsFloat(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsFloat(System.Type)
+  id: IsFloat(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsFloat(Type)
+  nameWithType: TypeExtensions.IsFloat(Type)
+  fullName: Tripous.TypeExtensions.IsFloat(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsFloat
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 316
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a specified type is float, double or decimal
+  example: []
+  syntax:
+    content: public static bool IsFloat(this Type DataType)
+    parameters:
+    - id: DataType
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsFloat(DataType As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsFloat*
+- uid: Tripous.TypeExtensions.IsNumeric(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsNumeric(System.Type)
+  id: IsNumeric(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsNumeric(Type)
+  nameWithType: TypeExtensions.IsNumeric(Type)
+  fullName: Tripous.TypeExtensions.IsNumeric(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNumeric
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 320
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a specified type is an integer or float type
+  example: []
+  syntax:
+    content: public static bool IsNumeric(this Type DataType)
+    parameters:
+    - id: DataType
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsNumeric(DataType As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsNumeric*
+- uid: Tripous.TypeExtensions.IsDateTime(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsDateTime(System.Type)
+  id: IsDateTime(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsDateTime(Type)
+  nameWithType: TypeExtensions.IsDateTime(Type)
+  fullName: Tripous.TypeExtensions.IsDateTime(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDateTime
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 324
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a specified type is a DateTime type
+  example: []
+  syntax:
+    content: public static bool IsDateTime(this Type DataType)
+    parameters:
+    - id: DataType
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsDateTime(DataType As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsDateTime*
+- uid: Tripous.TypeExtensions.IsString(System.Type)
+  commentId: M:Tripous.TypeExtensions.IsString(System.Type)
+  id: IsString(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsString(Type)
+  nameWithType: TypeExtensions.IsString(Type)
+  fullName: Tripous.TypeExtensions.IsString(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsString
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 328
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true if a specified type is a string type
+  example: []
+  syntax:
+    content: public static bool IsString(this Type DataType)
+    parameters:
+    - id: DataType
+      type: System.Type
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsString(DataType As Type) As Boolean
+  overload: Tripous.TypeExtensions.IsString*
+- uid: Tripous.TypeExtensions.GetDefaultFormat(System.Type)
+  commentId: M:Tripous.TypeExtensions.GetDefaultFormat(System.Type)
+  id: GetDefaultFormat(System.Type)
+  isExtensionMethod: true
+  parent: Tripous.TypeExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetDefaultFormat(Type)
+  nameWithType: TypeExtensions.GetDefaultFormat(Type)
+  fullName: Tripous.TypeExtensions.GetDefaultFormat(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/TypeExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDefaultFormat
+    path: ../Tripous/Extensions/TypeExtensions.cs
+    startLine: 334
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the default format string for the specified type.
+  example: []
+  syntax:
+    content: public static string GetDefaultFormat(this Type T)
+    parameters:
+    - id: T
+      type: System.Type
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetDefaultFormat(T As Type) As String
+  overload: Tripous.TypeExtensions.GetDefaultFormat*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.HasDefaultConstructor*
+  commentId: Overload:Tripous.TypeExtensions.HasDefaultConstructor
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_HasDefaultConstructor_System_Type_
+  name: HasDefaultConstructor
+  nameWithType: TypeExtensions.HasDefaultConstructor
+  fullName: Tripous.TypeExtensions.HasDefaultConstructor
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.TypeExtensions.Create*
+  commentId: Overload:Tripous.TypeExtensions.Create
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_Create_System_Type_System_Type___System_Object___
+  name: Create
+  nameWithType: TypeExtensions.Create
+  fullName: Tripous.TypeExtensions.Create
+- uid: System.Type[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type[]
+  nameWithType: Type[]
+  fullName: System.Type[]
+  nameWithType.vb: Type()
+  fullName.vb: System.Type()
+  name.vb: Type()
+  spec.csharp:
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+- uid: System.Object[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object[]
+  nameWithType: object[]
+  fullName: object[]
+  nameWithType.vb: Object()
+  fullName.vb: Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+- uid: Tripous.TypeExtensions.GetArgTypes*
+  commentId: Overload:Tripous.TypeExtensions.GetArgTypes
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_GetArgTypes_System_Object___
+  name: GetArgTypes
+  nameWithType: TypeExtensions.GetArgTypes
+  fullName: Tripous.TypeExtensions.GetArgTypes
+- uid: Tripous.TypeExtensions.ImplementsInterfaces*
+  commentId: Overload:Tripous.TypeExtensions.ImplementsInterfaces
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_ImplementsInterfaces_System_Type_System_Type___
+  name: ImplementsInterfaces
+  nameWithType: TypeExtensions.ImplementsInterfaces
+  fullName: Tripous.TypeExtensions.ImplementsInterfaces
+- uid: Tripous.TypeExtensions.ImplementsInterface*
+  commentId: Overload:Tripous.TypeExtensions.ImplementsInterface
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_ImplementsInterface_System_Type_System_Type_
+  name: ImplementsInterface
+  nameWithType: TypeExtensions.ImplementsInterface
+  fullName: Tripous.TypeExtensions.ImplementsInterface
+- uid: Tripous.TypeExtensions.InheritsFrom*
+  commentId: Overload:Tripous.TypeExtensions.InheritsFrom
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Type_System_Type_
+  name: InheritsFrom
+  nameWithType: TypeExtensions.InheritsFrom
+  fullName: Tripous.TypeExtensions.InheritsFrom
+- uid: Tripous.TypeExtensions.HasPublicProperty*
+  commentId: Overload:Tripous.TypeExtensions.HasPublicProperty
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_HasPublicProperty_System_Type_System_String_
+  name: HasPublicProperty
+  nameWithType: TypeExtensions.HasPublicProperty
+  fullName: Tripous.TypeExtensions.HasPublicProperty
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.TypeExtensions.FindPublicProperty*
+  commentId: Overload:Tripous.TypeExtensions.FindPublicProperty
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_FindPublicProperty_System_Type_System_String_
+  name: FindPublicProperty
+  nameWithType: TypeExtensions.FindPublicProperty
+  fullName: Tripous.TypeExtensions.FindPublicProperty
+- uid: System.Reflection.PropertyInfo
+  commentId: T:System.Reflection.PropertyInfo
+  parent: System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.propertyinfo
+  name: PropertyInfo
+  nameWithType: PropertyInfo
+  fullName: System.Reflection.PropertyInfo
+- uid: System.Reflection
+  commentId: N:System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Reflection
+  nameWithType: System.Reflection
+  fullName: System.Reflection
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+- uid: Tripous.TypeExtensions.GetPublicPropertyValue*
+  commentId: Overload:Tripous.TypeExtensions.GetPublicPropertyValue
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_GetPublicPropertyValue_System_Type_System_Object_System_String_
+  name: GetPublicPropertyValue
+  nameWithType: TypeExtensions.GetPublicPropertyValue
+  fullName: Tripous.TypeExtensions.GetPublicPropertyValue
+- uid: Tripous.TypeExtensions.IsIntegerIndexer*
+  commentId: Overload:Tripous.TypeExtensions.IsIntegerIndexer
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsIntegerIndexer_System_Reflection_PropertyInfo_
+  name: IsIntegerIndexer
+  nameWithType: TypeExtensions.IsIntegerIndexer
+  fullName: Tripous.TypeExtensions.IsIntegerIndexer
+- uid: Tripous.TypeExtensions.FindIntegerIndexer*
+  commentId: Overload:Tripous.TypeExtensions.FindIntegerIndexer
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_FindIntegerIndexer_System_Type_
+  name: FindIntegerIndexer
+  nameWithType: TypeExtensions.FindIntegerIndexer
+  fullName: Tripous.TypeExtensions.FindIntegerIndexer
+- uid: Tripous.TypeExtensions.GetFields*
+  commentId: Overload:Tripous.TypeExtensions.GetFields
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_GetFields_System_Type_System_Type_
+  name: GetFields
+  nameWithType: TypeExtensions.GetFields
+  fullName: Tripous.TypeExtensions.GetFields
+- uid: System.Collections.Generic.IList{System.Reflection.FieldInfo}
+  commentId: T:System.Collections.Generic.IList{System.Reflection.FieldInfo}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  name: IList<FieldInfo>
+  nameWithType: IList<FieldInfo>
+  fullName: System.Collections.Generic.IList<System.Reflection.FieldInfo>
+  nameWithType.vb: IList(Of FieldInfo)
+  fullName.vb: System.Collections.Generic.IList(Of System.Reflection.FieldInfo)
+  name.vb: IList(Of FieldInfo)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: <
+  - uid: System.Reflection.FieldInfo
+    name: FieldInfo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection.fieldinfo
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Reflection.FieldInfo
+    name: FieldInfo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection.fieldinfo
+  - name: )
+- uid: System.Collections.Generic.IList`1
+  commentId: T:System.Collections.Generic.IList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.TypeExtensions.FindField*
+  commentId: Overload:Tripous.TypeExtensions.FindField
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_FindField_System_Type_System_String_
+  name: FindField
+  nameWithType: TypeExtensions.FindField
+  fullName: Tripous.TypeExtensions.FindField
+- uid: System.Reflection.FieldInfo
+  commentId: T:System.Reflection.FieldInfo
+  parent: System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.fieldinfo
+  name: FieldInfo
+  nameWithType: FieldInfo
+  fullName: System.Reflection.FieldInfo
+- uid: Tripous.TypeExtensions.IsNullable*
+  commentId: Overload:Tripous.TypeExtensions.IsNullable
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsNullable_System_Type_
+  name: IsNullable
+  nameWithType: TypeExtensions.IsNullable
+  fullName: Tripous.TypeExtensions.IsNullable
+- uid: Tripous.TypeExtensions.IsDecimal*
+  commentId: Overload:Tripous.TypeExtensions.IsDecimal
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsDecimal_System_Type_
+  name: IsDecimal
+  nameWithType: TypeExtensions.IsDecimal
+  fullName: Tripous.TypeExtensions.IsDecimal
+- uid: Tripous.TypeExtensions.IsDouble*
+  commentId: Overload:Tripous.TypeExtensions.IsDouble
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsDouble_System_Type_
+  name: IsDouble
+  nameWithType: TypeExtensions.IsDouble
+  fullName: Tripous.TypeExtensions.IsDouble
+- uid: Tripous.TypeExtensions.IsInteger*
+  commentId: Overload:Tripous.TypeExtensions.IsInteger
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsInteger_System_Type_
+  name: IsInteger
+  nameWithType: TypeExtensions.IsInteger
+  fullName: Tripous.TypeExtensions.IsInteger
+- uid: Tripous.TypeExtensions.IsFloat*
+  commentId: Overload:Tripous.TypeExtensions.IsFloat
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsFloat_System_Type_
+  name: IsFloat
+  nameWithType: TypeExtensions.IsFloat
+  fullName: Tripous.TypeExtensions.IsFloat
+- uid: Tripous.TypeExtensions.IsNumeric*
+  commentId: Overload:Tripous.TypeExtensions.IsNumeric
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsNumeric_System_Type_
+  name: IsNumeric
+  nameWithType: TypeExtensions.IsNumeric
+  fullName: Tripous.TypeExtensions.IsNumeric
+- uid: Tripous.TypeExtensions.IsDateTime*
+  commentId: Overload:Tripous.TypeExtensions.IsDateTime
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsDateTime_System_Type_
+  name: IsDateTime
+  nameWithType: TypeExtensions.IsDateTime
+  fullName: Tripous.TypeExtensions.IsDateTime
+- uid: Tripous.TypeExtensions.IsString*
+  commentId: Overload:Tripous.TypeExtensions.IsString
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_IsString_System_Type_
+  name: IsString
+  nameWithType: TypeExtensions.IsString
+  fullName: Tripous.TypeExtensions.IsString
+- uid: Tripous.TypeExtensions.GetDefaultFormat*
+  commentId: Overload:Tripous.TypeExtensions.GetDefaultFormat
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_GetDefaultFormat_System_Type_
+  name: GetDefaultFormat
+  nameWithType: TypeExtensions.GetDefaultFormat
+  fullName: Tripous.TypeExtensions.GetDefaultFormat

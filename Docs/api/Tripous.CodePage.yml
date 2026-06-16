@@ -1,0 +1,832 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.CodePage
+  commentId: T:Tripous.CodePage
+  id: CodePage
+  parent: Tripous
+  children:
+  - Tripous.CodePage.#ctor
+  - Tripous.CodePage.#ctor(System.Text.Encoding)
+  - Tripous.CodePage.DisplayName
+  - Tripous.CodePage.Encoding
+  - Tripous.CodePage.GetSupportedCodePages
+  - Tripous.CodePage.GetSupportedCodePagesAll
+  - Tripous.CodePage.Name
+  - Tripous.CodePage.ToString
+  langs:
+  - csharp
+  - vb
+  name: CodePage
+  nameWithType: CodePage
+  fullName: Tripous.CodePage
+  type: Class
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CodePage
+    path: ../Tripous/CodePage.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Represents a text encoding (code page) supported by the system.
+  example: []
+  syntax:
+    content: public class CodePage
+    content.vb: Public Class CodePage
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.CodePage.#ctor
+  commentId: M:Tripous.CodePage.#ctor
+  id: '#ctor'
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: CodePage()
+  nameWithType: CodePage.CodePage()
+  fullName: Tripous.CodePage.CodePage()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/CodePage.cs
+    startLine: 19
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public CodePage()
+    content.vb: Public Sub New()
+  overload: Tripous.CodePage.#ctor*
+  nameWithType.vb: CodePage.New()
+  fullName.vb: Tripous.CodePage.New()
+  name.vb: New()
+- uid: Tripous.CodePage.#ctor(System.Text.Encoding)
+  commentId: M:Tripous.CodePage.#ctor(System.Text.Encoding)
+  id: '#ctor(System.Text.Encoding)'
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: CodePage(Encoding)
+  nameWithType: CodePage.CodePage(Encoding)
+  fullName: Tripous.CodePage.CodePage(System.Text.Encoding)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/CodePage.cs
+    startLine: 23
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructs an instance from a text encoding.
+  example: []
+  syntax:
+    content: public CodePage(Encoding Encoding)
+    parameters:
+    - id: Encoding
+      type: System.Text.Encoding
+    content.vb: Public Sub New(Encoding As Encoding)
+  overload: Tripous.CodePage.#ctor*
+  nameWithType.vb: CodePage.New(Encoding)
+  fullName.vb: Tripous.CodePage.New(System.Text.Encoding)
+  name.vb: New(Encoding)
+- uid: Tripous.CodePage.GetSupportedCodePagesAll
+  commentId: M:Tripous.CodePage.GetSupportedCodePagesAll
+  id: GetSupportedCodePagesAll
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: GetSupportedCodePagesAll()
+  nameWithType: CodePage.GetSupportedCodePagesAll()
+  fullName: Tripous.CodePage.GetSupportedCodePagesAll()
+  type: Method
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSupportedCodePagesAll
+    path: ../Tripous/CodePage.cs
+    startLine: 38
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns all code pages supported by the system.
+
+
+    Assumes that:
+
+    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+
+    has already been called.
+  example: []
+  syntax:
+    content: public static List<CodePage> GetSupportedCodePagesAll()
+    return:
+      type: System.Collections.Generic.List{Tripous.CodePage}
+    content.vb: Public Shared Function GetSupportedCodePagesAll() As List(Of CodePage)
+  overload: Tripous.CodePage.GetSupportedCodePagesAll*
+- uid: Tripous.CodePage.GetSupportedCodePages
+  commentId: M:Tripous.CodePage.GetSupportedCodePages
+  id: GetSupportedCodePages
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: GetSupportedCodePages()
+  nameWithType: CodePage.GetSupportedCodePages()
+  fullName: Tripous.CodePage.GetSupportedCodePages()
+  type: Method
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSupportedCodePages
+    path: ../Tripous/CodePage.cs
+    startLine: 48
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns a predefined list of commonly used code pages.
+  example: []
+  syntax:
+    content: public static List<CodePage> GetSupportedCodePages()
+    return:
+      type: System.Collections.Generic.List{Tripous.CodePage}
+    content.vb: Public Shared Function GetSupportedCodePages() As List(Of CodePage)
+  overload: Tripous.CodePage.GetSupportedCodePages*
+- uid: Tripous.CodePage.ToString
+  commentId: M:Tripous.CodePage.ToString
+  id: ToString
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: CodePage.ToString()
+  fullName: Tripous.CodePage.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous/CodePage.cs
+    startLine: 61
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the display name of this code page.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.CodePage.ToString*
+- uid: Tripous.CodePage.Name
+  commentId: P:Tripous.CodePage.Name
+  id: Name
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: CodePage.Name
+  fullName: Tripous.CodePage.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous/CodePage.cs
+    startLine: 67
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets the encoding web name.
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.CodePage.Name*
+- uid: Tripous.CodePage.DisplayName
+  commentId: P:Tripous.CodePage.DisplayName
+  id: DisplayName
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: DisplayName
+  nameWithType: CodePage.DisplayName
+  fullName: Tripous.CodePage.DisplayName
+  type: Property
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayName
+    path: ../Tripous/CodePage.cs
+    startLine: 71
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets the user-friendly encoding name.
+  example: []
+  syntax:
+    content: public string DisplayName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DisplayName As String
+  overload: Tripous.CodePage.DisplayName*
+- uid: Tripous.CodePage.Encoding
+  commentId: P:Tripous.CodePage.Encoding
+  id: Encoding
+  parent: Tripous.CodePage
+  langs:
+  - csharp
+  - vb
+  name: Encoding
+  nameWithType: CodePage.Encoding
+  fullName: Tripous.CodePage.Encoding
+  type: Property
+  source:
+    remote:
+      path: Tripous/CodePage.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Encoding
+    path: ../Tripous/CodePage.cs
+    startLine: 75
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the corresponding text encoding.
+  example: []
+  syntax:
+    content: public Encoding Encoding { get; }
+    parameters: []
+    return:
+      type: System.Text.Encoding
+    content.vb: Public ReadOnly Property Encoding As Encoding
+  overload: Tripous.CodePage.Encoding*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.CodePage.#ctor*
+  commentId: Overload:Tripous.CodePage.#ctor
+  href: Tripous.CodePage.html#Tripous_CodePage__ctor
+  name: CodePage
+  nameWithType: CodePage.CodePage
+  fullName: Tripous.CodePage.CodePage
+  nameWithType.vb: CodePage.New
+  fullName.vb: Tripous.CodePage.New
+  name.vb: New
+- uid: System.Text.Encoding
+  commentId: T:System.Text.Encoding
+  parent: System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.encoding
+  name: Encoding
+  nameWithType: Encoding
+  fullName: System.Text.Encoding
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+- uid: Tripous.CodePage.GetSupportedCodePagesAll*
+  commentId: Overload:Tripous.CodePage.GetSupportedCodePagesAll
+  href: Tripous.CodePage.html#Tripous_CodePage_GetSupportedCodePagesAll
+  name: GetSupportedCodePagesAll
+  nameWithType: CodePage.GetSupportedCodePagesAll
+  fullName: Tripous.CodePage.GetSupportedCodePagesAll
+- uid: System.Collections.Generic.List{Tripous.CodePage}
+  commentId: T:System.Collections.Generic.List{Tripous.CodePage}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<CodePage>
+  nameWithType: List<CodePage>
+  fullName: System.Collections.Generic.List<Tripous.CodePage>
+  nameWithType.vb: List(Of CodePage)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.CodePage)
+  name.vb: List(Of CodePage)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.CodePage
+    name: CodePage
+    href: Tripous.CodePage.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.CodePage
+    name: CodePage
+    href: Tripous.CodePage.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.CodePage.GetSupportedCodePages*
+  commentId: Overload:Tripous.CodePage.GetSupportedCodePages
+  href: Tripous.CodePage.html#Tripous_CodePage_GetSupportedCodePages
+  name: GetSupportedCodePages
+  nameWithType: CodePage.GetSupportedCodePages
+  fullName: Tripous.CodePage.GetSupportedCodePages
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.CodePage.ToString*
+  commentId: Overload:Tripous.CodePage.ToString
+  href: Tripous.CodePage.html#Tripous_CodePage_ToString
+  name: ToString
+  nameWithType: CodePage.ToString
+  fullName: Tripous.CodePage.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.CodePage.Name*
+  commentId: Overload:Tripous.CodePage.Name
+  href: Tripous.CodePage.html#Tripous_CodePage_Name
+  name: Name
+  nameWithType: CodePage.Name
+  fullName: Tripous.CodePage.Name
+- uid: Tripous.CodePage.DisplayName*
+  commentId: Overload:Tripous.CodePage.DisplayName
+  href: Tripous.CodePage.html#Tripous_CodePage_DisplayName
+  name: DisplayName
+  nameWithType: CodePage.DisplayName
+  fullName: Tripous.CodePage.DisplayName
+- uid: Tripous.CodePage.Encoding*
+  commentId: Overload:Tripous.CodePage.Encoding
+  href: Tripous.CodePage.html#Tripous_CodePage_Encoding
+  name: Encoding
+  nameWithType: CodePage.Encoding
+  fullName: Tripous.CodePage.Encoding

@@ -1,0 +1,1182 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.ImageSizeType
+  commentId: T:Tripous.Desktop.ImageSizeType
+  id: ImageSizeType
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.ImageSizeType.Defined
+  - Tripous.Desktop.ImageSizeType.Icon16
+  - Tripous.Desktop.ImageSizeType.Icon32
+  - Tripous.Desktop.ImageSizeType.Undefined
+  langs:
+  - csharp
+  - vb
+  name: ImageSizeType
+  nameWithType: ImageSizeType
+  fullName: Tripous.Desktop.ImageSizeType
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/ImageSizeType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ImageSizeType
+    path: ../Tripous.Desktop/Enums/ImageSizeType.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Defines common image size categories.
+  example: []
+  syntax:
+    content: public enum ImageSizeType
+    content.vb: Public Enum ImageSizeType
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.Add``1(Tripous.Desktop.ImageSizeType)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.HasAny``1(Tripous.Desktop.ImageSizeType)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.HasNone``1(Tripous.Desktop.ImageSizeType)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.Has``1(Tripous.Desktop.ImageSizeType)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.In``1(Tripous.Desktop.ImageSizeType)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.IsExactly``1(Tripous.Desktop.ImageSizeType)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.IsZero``1
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.Remove``1(Tripous.Desktop.ImageSizeType)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.Set``1(Tripous.Desktop.ImageSizeType,System.Boolean)
+  - Tripous.Desktop.ImageSizeType.Tripous.BitFields.Toggle``1(Tripous.Desktop.ImageSizeType)
+- uid: Tripous.Desktop.ImageSizeType.Undefined
+  commentId: F:Tripous.Desktop.ImageSizeType.Undefined
+  id: Undefined
+  parent: Tripous.Desktop.ImageSizeType
+  langs:
+  - csharp
+  - vb
+  name: Undefined
+  nameWithType: ImageSizeType.Undefined
+  fullName: Tripous.Desktop.ImageSizeType.Undefined
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/ImageSizeType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Undefined
+    path: ../Tripous.Desktop/Enums/ImageSizeType.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The image size is undefined.
+  example: []
+  syntax:
+    content: Undefined = 0
+    return:
+      type: Tripous.Desktop.ImageSizeType
+- uid: Tripous.Desktop.ImageSizeType.Defined
+  commentId: F:Tripous.Desktop.ImageSizeType.Defined
+  id: Defined
+  parent: Tripous.Desktop.ImageSizeType
+  langs:
+  - csharp
+  - vb
+  name: Defined
+  nameWithType: ImageSizeType.Defined
+  fullName: Tripous.Desktop.ImageSizeType.Defined
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/ImageSizeType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Defined
+    path: ../Tripous.Desktop/Enums/ImageSizeType.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The image size is explicitly defined.
+  example: []
+  syntax:
+    content: Defined = 1
+    return:
+      type: Tripous.Desktop.ImageSizeType
+- uid: Tripous.Desktop.ImageSizeType.Icon16
+  commentId: F:Tripous.Desktop.ImageSizeType.Icon16
+  id: Icon16
+  parent: Tripous.Desktop.ImageSizeType
+  langs:
+  - csharp
+  - vb
+  name: Icon16
+  nameWithType: ImageSizeType.Icon16
+  fullName: Tripous.Desktop.ImageSizeType.Icon16
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/ImageSizeType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Icon16
+    path: ../Tripous.Desktop/Enums/ImageSizeType.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: A 16x16 icon image size.
+  example: []
+  syntax:
+    content: Icon16 = 2
+    return:
+      type: Tripous.Desktop.ImageSizeType
+- uid: Tripous.Desktop.ImageSizeType.Icon32
+  commentId: F:Tripous.Desktop.ImageSizeType.Icon32
+  id: Icon32
+  parent: Tripous.Desktop.ImageSizeType
+  langs:
+  - csharp
+  - vb
+  name: Icon32
+  nameWithType: ImageSizeType.Icon32
+  fullName: Tripous.Desktop.ImageSizeType.Icon32
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/ImageSizeType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Icon32
+    path: ../Tripous.Desktop/Enums/ImageSizeType.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: A 32x32 icon image size.
+  example: []
+  syntax:
+    content: Icon32 = 3
+    return:
+      type: Tripous.Desktop.ImageSizeType
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.Add``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.Add<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.Add<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.Add(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: Add(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.HasAny``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.HasAny<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.HasAny<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.HasAny(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: HasAny(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.HasNone``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.HasNone<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.HasNone<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.HasNone(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: HasNone(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.Has``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.Has<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.Has<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.Has(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: Has(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.In``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.In<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.In<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.In(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: In(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.IsExactly``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.IsExactly<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.IsExactly(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: IsExactly(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ImageSizeType>(ImageSizeType)
+  nameWithType: BitFields.IsZero<ImageSizeType>(ImageSizeType)
+  fullName: Tripous.BitFields.IsZero<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.IsZero(Of ImageSizeType)(ImageSizeType)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType)
+  name.vb: IsZero(Of ImageSizeType)(ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.ImageSizeType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.ImageSizeType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.Remove``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.Remove<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.Remove<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.Remove(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: Remove(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.Set``1(Tripous.Desktop.ImageSizeType,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ImageSizeType>(ImageSizeType, ImageSizeType, bool)
+  nameWithType: BitFields.Set<ImageSizeType>(ImageSizeType, ImageSizeType, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType, bool)
+  nameWithType.vb: BitFields.Set(Of ImageSizeType)(ImageSizeType, ImageSizeType, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType, Boolean)
+  name.vb: Set(Of ImageSizeType)(ImageSizeType, ImageSizeType, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Desktop.ImageSizeType.Tripous.BitFields.Toggle``1(Tripous.Desktop.ImageSizeType)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ImageSizeType>(ImageSizeType, ImageSizeType)
+  nameWithType: BitFields.Toggle<ImageSizeType>(ImageSizeType, ImageSizeType)
+  fullName: Tripous.BitFields.Toggle<Tripous.Desktop.ImageSizeType>(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  nameWithType.vb: BitFields.Toggle(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Desktop.ImageSizeType)(Tripous.Desktop.ImageSizeType, Tripous.Desktop.ImageSizeType)
+  name.vb: Toggle(Of ImageSizeType)(ImageSizeType, ImageSizeType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.ImageSizeType,Tripous.Desktop.ImageSizeType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ImageSizeType
+    name: ImageSizeType
+    href: Tripous.Desktop.ImageSizeType.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.ImageSizeType
+  commentId: T:Tripous.Desktop.ImageSizeType
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ImageSizeType.html
+  name: ImageSizeType
+  nameWithType: ImageSizeType
+  fullName: Tripous.Desktop.ImageSizeType

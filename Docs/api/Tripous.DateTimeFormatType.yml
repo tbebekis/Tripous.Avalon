@@ -1,0 +1,1644 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.DateTimeFormatType
+  commentId: T:Tripous.DateTimeFormatType
+  id: DateTimeFormatType
+  parent: Tripous
+  children:
+  - Tripous.DateTimeFormatType.Custom
+  - Tripous.DateTimeFormatType.Date
+  - Tripous.DateTimeFormatType.DateLongTime
+  - Tripous.DateTimeFormatType.DateLongTime24
+  - Tripous.DateTimeFormatType.DateTime
+  - Tripous.DateTimeFormatType.DateTime24
+  - Tripous.DateTimeFormatType.IsoDate
+  - Tripous.DateTimeFormatType.IsoDateLongTime
+  - Tripous.DateTimeFormatType.IsoDateTime
+  - Tripous.DateTimeFormatType.LongDate
+  - Tripous.DateTimeFormatType.LongTime
+  - Tripous.DateTimeFormatType.LongTime24
+  - Tripous.DateTimeFormatType.Time
+  - Tripous.DateTimeFormatType.Time24
+  langs:
+  - csharp
+  - vb
+  name: DateTimeFormatType
+  nameWithType: DateTimeFormatType
+  fullName: Tripous.DateTimeFormatType
+  type: Enum
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateTimeFormatType
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Indicates how a DateTime should be formatted as a string
+  example: []
+  syntax:
+    content: public enum DateTimeFormatType
+    content.vb: Public Enum DateTimeFormatType
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.Add``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.HasAny``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.HasNone``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.Has``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.In``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.IsExactly``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.IsZero``1
+  - Tripous.DateTimeFormatType.Tripous.BitFields.Remove``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.Set``1(Tripous.DateTimeFormatType,System.Boolean)
+  - Tripous.DateTimeFormatType.Tripous.BitFields.Toggle``1(Tripous.DateTimeFormatType)
+  - Tripous.DateTimeFormatType.Tripous.DateTimeFormatTypeExtensions.GetFormatString
+  - Tripous.DateTimeFormatType.Tripous.DateTimeFormatTypeExtensions.GetFormatString(System.Globalization.CultureInfo)
+- uid: Tripous.DateTimeFormatType.Date
+  commentId: F:Tripous.DateTimeFormatType.Date
+  id: Date
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: Date
+  nameWithType: DateTimeFormatType.Date
+  fullName: Tripous.DateTimeFormatType.Date
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Date
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 20
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Short date. 
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 31/1/2012</p>
+  example: []
+  syntax:
+    content: Date = 0
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.LongDate
+  commentId: F:Tripous.DateTimeFormatType.LongDate
+  id: LongDate
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: LongDate
+  nameWithType: DateTimeFormatType.LongDate
+  fullName: Tripous.DateTimeFormatType.LongDate
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LongDate
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 26
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Long Date.
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: Monday 1 January 2012</p>
+  example: []
+  syntax:
+    content: LongDate = 1
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.Time
+  commentId: F:Tripous.DateTimeFormatType.Time
+  id: Time
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: Time
+  nameWithType: DateTimeFormatType.Time
+  fullName: Tripous.DateTimeFormatType.Time
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Time
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 33
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Short time.
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 11:30 pm</p>
+  example: []
+  syntax:
+    content: Time = 2
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.LongTime
+  commentId: F:Tripous.DateTimeFormatType.LongTime
+  id: LongTime
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: LongTime
+  nameWithType: DateTimeFormatType.LongTime
+  fullName: Tripous.DateTimeFormatType.LongTime
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LongTime
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 39
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Long time.
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 11:30:30 pm</p>
+  example: []
+  syntax:
+    content: LongTime = 3
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.DateTime
+  commentId: F:Tripous.DateTimeFormatType.DateTime
+  id: DateTime
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: DateTime
+  nameWithType: DateTimeFormatType.DateTime
+  fullName: Tripous.DateTimeFormatType.DateTime
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateTime
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 46
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Short date-time.
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 31/1/2012 11:30 pm</p>
+  example: []
+  syntax:
+    content: DateTime = 4
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.DateLongTime
+  commentId: F:Tripous.DateTimeFormatType.DateLongTime
+  id: DateLongTime
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: DateLongTime
+  nameWithType: DateTimeFormatType.DateLongTime
+  fullName: Tripous.DateTimeFormatType.DateLongTime
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateLongTime
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 52
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Short date, long time
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 31/1/2012 11:30:30 pm</p>
+  example: []
+  syntax:
+    content: DateLongTime = 5
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.Time24
+  commentId: F:Tripous.DateTimeFormatType.Time24
+  id: Time24
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: Time24
+  nameWithType: DateTimeFormatType.Time24
+  fullName: Tripous.DateTimeFormatType.Time24
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Time24
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 59
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Short 24h time
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 13:30</p>
+  example: []
+  syntax:
+    content: Time24 = 6
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.LongTime24
+  commentId: F:Tripous.DateTimeFormatType.LongTime24
+  id: LongTime24
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: LongTime24
+  nameWithType: DateTimeFormatType.LongTime24
+  fullName: Tripous.DateTimeFormatType.LongTime24
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LongTime24
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 65
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Long 24h time
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 13:30:30</p>
+  example: []
+  syntax:
+    content: LongTime24 = 7
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.DateTime24
+  commentId: F:Tripous.DateTimeFormatType.DateTime24
+  id: DateTime24
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: DateTime24
+  nameWithType: DateTimeFormatType.DateTime24
+  fullName: Tripous.DateTimeFormatType.DateTime24
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateTime24
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 72
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Short date, short 24h time
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 31/1/2012 13:30</p>
+  example: []
+  syntax:
+    content: DateTime24 = 8
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.DateLongTime24
+  commentId: F:Tripous.DateTimeFormatType.DateLongTime24
+  id: DateLongTime24
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: DateLongTime24
+  nameWithType: DateTimeFormatType.DateLongTime24
+  fullName: Tripous.DateTimeFormatType.DateLongTime24
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateLongTime24
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 78
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Short date, long 24h time
+
+
+    <p>NOTE: Thread.CurrentThread.CurrentCulture depended.</p>
+
+    <p>Could be as: 31/1/2012 13:30:30</p>
+  example: []
+  syntax:
+    content: DateLongTime24 = 9
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.IsoDate
+  commentId: F:Tripous.DateTimeFormatType.IsoDate
+  id: IsoDate
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: IsoDate
+  nameWithType: DateTimeFormatType.IsoDate
+  fullName: Tripous.DateTimeFormatType.IsoDate
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsoDate
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 83
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: 'ISO date: yyyy-MM-dd'
+  example: []
+  syntax:
+    content: IsoDate = 10
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.IsoDateTime
+  commentId: F:Tripous.DateTimeFormatType.IsoDateTime
+  id: IsoDateTime
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: IsoDateTime
+  nameWithType: DateTimeFormatType.IsoDateTime
+  fullName: Tripous.DateTimeFormatType.IsoDateTime
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsoDateTime
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 87
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: 'ISO date-time: yyyy-MM-dd HH:mm'
+  example: []
+  syntax:
+    content: IsoDateTime = 11
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.IsoDateLongTime
+  commentId: F:Tripous.DateTimeFormatType.IsoDateLongTime
+  id: IsoDateLongTime
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: IsoDateLongTime
+  nameWithType: DateTimeFormatType.IsoDateLongTime
+  fullName: Tripous.DateTimeFormatType.IsoDateLongTime
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsoDateLongTime
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 91
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: 'ISO date-time: yyyy-MM-dd HH:mm:ss'
+  example: []
+  syntax:
+    content: IsoDateLongTime = 12
+    return:
+      type: Tripous.DateTimeFormatType
+- uid: Tripous.DateTimeFormatType.Custom
+  commentId: F:Tripous.DateTimeFormatType.Custom
+  id: Custom
+  parent: Tripous.DateTimeFormatType
+  langs:
+  - csharp
+  - vb
+  name: Custom
+  nameWithType: DateTimeFormatType.Custom
+  fullName: Tripous.DateTimeFormatType.Custom
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateTimeFormatType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Custom
+    path: ../Tripous/Enums/DateTimeFormatType.cs
+    startLine: 96
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A user supplied format
+  example: []
+  syntax:
+    content: Custom = 13
+    return:
+      type: Tripous.DateTimeFormatType
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.Add``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.Add<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.Add<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.Add(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: Add(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.HasAny``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.HasAny<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.HasAny<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.HasAny(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: HasAny(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.HasNone``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.HasNone<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.HasNone<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.HasNone(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: HasNone(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.Has``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.Has<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.Has<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.Has(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: Has(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.In``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.In<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.In<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.In(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: In(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.IsExactly``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.IsExactly<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.IsExactly<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.IsExactly(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: IsExactly(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<DateTimeFormatType>(DateTimeFormatType)
+  nameWithType: BitFields.IsZero<DateTimeFormatType>(DateTimeFormatType)
+  fullName: Tripous.BitFields.IsZero<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.IsZero(Of DateTimeFormatType)(DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType)
+  name.vb: IsZero(Of DateTimeFormatType)(DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.DateTimeFormatType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.DateTimeFormatType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.Remove``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.Remove<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.Remove<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.Remove(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: Remove(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.Set``1(Tripous.DateTimeFormatType,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType, bool)
+  nameWithType: BitFields.Set<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType, bool)
+  fullName: Tripous.BitFields.Set<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType, bool)
+  nameWithType.vb: BitFields.Set(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType, Boolean)
+  name.vb: Set(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.BitFields.Toggle``1(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  nameWithType: BitFields.Toggle<DateTimeFormatType>(DateTimeFormatType, DateTimeFormatType)
+  fullName: Tripous.BitFields.Toggle<Tripous.DateTimeFormatType>(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  nameWithType.vb: BitFields.Toggle(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.DateTimeFormatType)(Tripous.DateTimeFormatType, Tripous.DateTimeFormatType)
+  name.vb: Toggle(Of DateTimeFormatType)(DateTimeFormatType, DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.DateTimeFormatType,Tripous.DateTimeFormatType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.DateTimeFormatTypeExtensions.GetFormatString
+  commentId: M:Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+  parent: Tripous.DateTimeFormatTypeExtensions
+  definition: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+  href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_
+  name: GetFormatString(DateTimeFormatType)
+  nameWithType: DateTimeFormatTypeExtensions.GetFormatString(DateTimeFormatType)
+  fullName: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatType.Tripous.DateTimeFormatTypeExtensions.GetFormatString(System.Globalization.CultureInfo)
+  commentId: M:Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+  parent: Tripous.DateTimeFormatTypeExtensions
+  definition: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+  href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_System_Globalization_CultureInfo_
+  name: GetFormatString(DateTimeFormatType, CultureInfo)
+  nameWithType: DateTimeFormatTypeExtensions.GetFormatString(DateTimeFormatType, CultureInfo)
+  fullName: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType, System.Globalization.CultureInfo)
+  spec.csharp:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_System_Globalization_CultureInfo_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: System.Globalization.CultureInfo
+    name: CultureInfo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_System_Globalization_CultureInfo_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: System.Globalization.CultureInfo
+    name: CultureInfo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+  commentId: M:Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+  href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_
+  name: GetFormatString(DateTimeFormatType)
+  nameWithType: DateTimeFormatTypeExtensions.GetFormatString(DateTimeFormatType)
+  fullName: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+  spec.csharp:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: )
+- uid: Tripous.DateTimeFormatTypeExtensions
+  commentId: T:Tripous.DateTimeFormatTypeExtensions
+  parent: Tripous
+  href: Tripous.DateTimeFormatTypeExtensions.html
+  name: DateTimeFormatTypeExtensions
+  nameWithType: DateTimeFormatTypeExtensions
+  fullName: Tripous.DateTimeFormatTypeExtensions
+- uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+  commentId: M:Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+  isExternal: true
+  href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_System_Globalization_CultureInfo_
+  name: GetFormatString(DateTimeFormatType, CultureInfo)
+  nameWithType: DateTimeFormatTypeExtensions.GetFormatString(DateTimeFormatType, CultureInfo)
+  fullName: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType, System.Globalization.CultureInfo)
+  spec.csharp:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_System_Globalization_CultureInfo_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: System.Globalization.CultureInfo
+    name: CultureInfo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateTimeFormatTypeExtensions.GetFormatString(Tripous.DateTimeFormatType,System.Globalization.CultureInfo)
+    name: GetFormatString
+    href: Tripous.DateTimeFormatTypeExtensions.html#Tripous_DateTimeFormatTypeExtensions_GetFormatString_Tripous_DateTimeFormatType_System_Globalization_CultureInfo_
+  - name: (
+  - uid: Tripous.DateTimeFormatType
+    name: DateTimeFormatType
+    href: Tripous.DateTimeFormatType.html
+  - name: ','
+  - name: " "
+  - uid: System.Globalization.CultureInfo
+    name: CultureInfo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo
+  - name: )
+- uid: Tripous.DateTimeFormatType
+  commentId: T:Tripous.DateTimeFormatType
+  parent: Tripous
+  href: Tripous.DateTimeFormatType.html
+  name: DateTimeFormatType
+  nameWithType: DateTimeFormatType
+  fullName: Tripous.DateTimeFormatType

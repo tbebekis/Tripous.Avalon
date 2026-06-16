@@ -1,0 +1,1949 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.DynamicPropertyDescriptor
+  commentId: T:Tripous.DynamicPropertyDescriptor
+  id: DynamicPropertyDescriptor
+  parent: Tripous
+  children:
+  - Tripous.DynamicPropertyDescriptor.#ctor(Tripous.DynamicClass,System.String,System.Type,System.Attribute[])
+  - Tripous.DynamicPropertyDescriptor.CanResetValue(System.Object)
+  - Tripous.DynamicPropertyDescriptor.ComponentType
+  - Tripous.DynamicPropertyDescriptor.GetValue(System.Object)
+  - Tripous.DynamicPropertyDescriptor.IsReadOnly
+  - Tripous.DynamicPropertyDescriptor.PropertyType
+  - Tripous.DynamicPropertyDescriptor.ResetValue(System.Object)
+  - Tripous.DynamicPropertyDescriptor.SetValue(System.Object,System.Object)
+  - Tripous.DynamicPropertyDescriptor.ShouldSerializeValue(System.Object)
+  langs:
+  - csharp
+  - vb
+  name: DynamicPropertyDescriptor
+  nameWithType: DynamicPropertyDescriptor
+  fullName: Tripous.DynamicPropertyDescriptor
+  type: Class
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DynamicPropertyDescriptor
+    path: ../Tripous/DynamicClass.cs
+    startLine: 227
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Provides property descriptor support for a dynamic property
+
+    of a DynamicClass instance.
+  example: []
+  syntax:
+    content: 'public class DynamicPropertyDescriptor : PropertyDescriptor'
+    content.vb: Public Class DynamicPropertyDescriptor Inherits PropertyDescriptor
+  inheritance:
+  - System.Object
+  - System.ComponentModel.MemberDescriptor
+  - System.ComponentModel.PropertyDescriptor
+  inheritedMembers:
+  - System.ComponentModel.PropertyDescriptor.AddValueChanged(System.Object,System.EventHandler)
+  - System.ComponentModel.PropertyDescriptor.CreateInstance(System.Type)
+  - System.ComponentModel.PropertyDescriptor.Equals(System.Object)
+  - System.ComponentModel.PropertyDescriptor.FillAttributes(System.Collections.IList)
+  - System.ComponentModel.PropertyDescriptor.GetChildProperties
+  - System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Attribute[])
+  - System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object)
+  - System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object,System.Attribute[])
+  - System.ComponentModel.PropertyDescriptor.GetEditor(System.Type)
+  - System.ComponentModel.PropertyDescriptor.GetHashCode
+  - System.ComponentModel.PropertyDescriptor.GetInvocationTarget(System.Type,System.Object)
+  - System.ComponentModel.PropertyDescriptor.GetTypeFromName(System.String)
+  - System.ComponentModel.PropertyDescriptor.GetValueChangedHandler(System.Object)
+  - System.ComponentModel.PropertyDescriptor.OnValueChanged(System.Object,System.EventArgs)
+  - System.ComponentModel.PropertyDescriptor.RemoveValueChanged(System.Object,System.EventHandler)
+  - System.ComponentModel.PropertyDescriptor.Converter
+  - System.ComponentModel.PropertyDescriptor.ConverterFromRegisteredType
+  - System.ComponentModel.PropertyDescriptor.IsLocalizable
+  - System.ComponentModel.PropertyDescriptor.SerializationVisibility
+  - System.ComponentModel.PropertyDescriptor.SupportsChangeEvents
+  - System.ComponentModel.MemberDescriptor.CreateAttributeCollection
+  - System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type)
+  - System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type,System.Boolean)
+  - System.ComponentModel.MemberDescriptor.GetInvokee(System.Type,System.Object)
+  - System.ComponentModel.MemberDescriptor.GetSite(System.Object)
+  - System.ComponentModel.MemberDescriptor.AttributeArray
+  - System.ComponentModel.MemberDescriptor.Attributes
+  - System.ComponentModel.MemberDescriptor.Category
+  - System.ComponentModel.MemberDescriptor.Description
+  - System.ComponentModel.MemberDescriptor.DesignTimeOnly
+  - System.ComponentModel.MemberDescriptor.DisplayName
+  - System.ComponentModel.MemberDescriptor.IsBrowsable
+  - System.ComponentModel.MemberDescriptor.Name
+  - System.ComponentModel.MemberDescriptor.NameHashCode
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.DynamicPropertyDescriptor.#ctor(Tripous.DynamicClass,System.String,System.Type,System.Attribute[])
+  commentId: M:Tripous.DynamicPropertyDescriptor.#ctor(Tripous.DynamicClass,System.String,System.Type,System.Attribute[])
+  id: '#ctor(Tripous.DynamicClass,System.String,System.Type,System.Attribute[])'
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: DynamicPropertyDescriptor(DynamicClass, string, Type, Attribute[])
+  nameWithType: DynamicPropertyDescriptor.DynamicPropertyDescriptor(DynamicClass, string, Type, Attribute[])
+  fullName: Tripous.DynamicPropertyDescriptor.DynamicPropertyDescriptor(Tripous.DynamicClass, string, System.Type, System.Attribute[])
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/DynamicClass.cs
+    startLine: 236
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public DynamicPropertyDescriptor(DynamicClass Instance, string PropName, Type PropType, Attribute[] PropAttributes)
+    parameters:
+    - id: Instance
+      type: Tripous.DynamicClass
+    - id: PropName
+      type: System.String
+    - id: PropType
+      type: System.Type
+    - id: PropAttributes
+      type: System.Attribute[]
+    content.vb: Public Sub New(Instance As DynamicClass, PropName As String, PropType As Type, PropAttributes As Attribute())
+  overload: Tripous.DynamicPropertyDescriptor.#ctor*
+  nameWithType.vb: DynamicPropertyDescriptor.New(DynamicClass, String, Type, Attribute())
+  fullName.vb: Tripous.DynamicPropertyDescriptor.New(Tripous.DynamicClass, String, System.Type, System.Attribute())
+  name.vb: New(DynamicClass, String, Type, Attribute())
+- uid: Tripous.DynamicPropertyDescriptor.GetValue(System.Object)
+  commentId: M:Tripous.DynamicPropertyDescriptor.GetValue(System.Object)
+  id: GetValue(System.Object)
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: GetValue(object)
+  nameWithType: DynamicPropertyDescriptor.GetValue(object)
+  fullName: Tripous.DynamicPropertyDescriptor.GetValue(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous/DynamicClass.cs
+    startLine: 247
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the property value.
+  example: []
+  syntax:
+    content: public override object GetValue(object Component)
+    parameters:
+    - id: Component
+      type: System.Object
+    return:
+      type: System.Object
+    content.vb: Public Overrides Function GetValue(Component As Object) As Object
+  overridden: System.ComponentModel.PropertyDescriptor.GetValue(System.Object)
+  overload: Tripous.DynamicPropertyDescriptor.GetValue*
+  nameWithType.vb: DynamicPropertyDescriptor.GetValue(Object)
+  fullName.vb: Tripous.DynamicPropertyDescriptor.GetValue(Object)
+  name.vb: GetValue(Object)
+- uid: Tripous.DynamicPropertyDescriptor.SetValue(System.Object,System.Object)
+  commentId: M:Tripous.DynamicPropertyDescriptor.SetValue(System.Object,System.Object)
+  id: SetValue(System.Object,System.Object)
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: SetValue(object, object)
+  nameWithType: DynamicPropertyDescriptor.SetValue(object, object)
+  fullName: Tripous.DynamicPropertyDescriptor.SetValue(object, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetValue
+    path: ../Tripous/DynamicClass.cs
+    startLine: 254
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Sets the property value.
+  example: []
+  syntax:
+    content: public override void SetValue(object Component, object Value)
+    parameters:
+    - id: Component
+      type: System.Object
+    - id: Value
+      type: System.Object
+    content.vb: Public Overrides Sub SetValue(Component As Object, Value As Object)
+  overridden: System.ComponentModel.PropertyDescriptor.SetValue(System.Object,System.Object)
+  overload: Tripous.DynamicPropertyDescriptor.SetValue*
+  nameWithType.vb: DynamicPropertyDescriptor.SetValue(Object, Object)
+  fullName.vb: Tripous.DynamicPropertyDescriptor.SetValue(Object, Object)
+  name.vb: SetValue(Object, Object)
+- uid: Tripous.DynamicPropertyDescriptor.CanResetValue(System.Object)
+  commentId: M:Tripous.DynamicPropertyDescriptor.CanResetValue(System.Object)
+  id: CanResetValue(System.Object)
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: CanResetValue(object)
+  nameWithType: DynamicPropertyDescriptor.CanResetValue(object)
+  fullName: Tripous.DynamicPropertyDescriptor.CanResetValue(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanResetValue
+    path: ../Tripous/DynamicClass.cs
+    startLine: 261
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true when the property value can be reset.
+  example: []
+  syntax:
+    content: public override bool CanResetValue(object Component)
+    parameters:
+    - id: Component
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function CanResetValue(Component As Object) As Boolean
+  overridden: System.ComponentModel.PropertyDescriptor.CanResetValue(System.Object)
+  overload: Tripous.DynamicPropertyDescriptor.CanResetValue*
+  nameWithType.vb: DynamicPropertyDescriptor.CanResetValue(Object)
+  fullName.vb: Tripous.DynamicPropertyDescriptor.CanResetValue(Object)
+  name.vb: CanResetValue(Object)
+- uid: Tripous.DynamicPropertyDescriptor.ResetValue(System.Object)
+  commentId: M:Tripous.DynamicPropertyDescriptor.ResetValue(System.Object)
+  id: ResetValue(System.Object)
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: ResetValue(object)
+  nameWithType: DynamicPropertyDescriptor.ResetValue(object)
+  fullName: Tripous.DynamicPropertyDescriptor.ResetValue(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ResetValue
+    path: ../Tripous/DynamicClass.cs
+    startLine: 268
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Resets the property value.
+  example: []
+  syntax:
+    content: public override void ResetValue(object Component)
+    parameters:
+    - id: Component
+      type: System.Object
+    content.vb: Public Overrides Sub ResetValue(Component As Object)
+  overridden: System.ComponentModel.PropertyDescriptor.ResetValue(System.Object)
+  overload: Tripous.DynamicPropertyDescriptor.ResetValue*
+  nameWithType.vb: DynamicPropertyDescriptor.ResetValue(Object)
+  fullName.vb: Tripous.DynamicPropertyDescriptor.ResetValue(Object)
+  name.vb: ResetValue(Object)
+- uid: Tripous.DynamicPropertyDescriptor.ShouldSerializeValue(System.Object)
+  commentId: M:Tripous.DynamicPropertyDescriptor.ShouldSerializeValue(System.Object)
+  id: ShouldSerializeValue(System.Object)
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: ShouldSerializeValue(object)
+  nameWithType: DynamicPropertyDescriptor.ShouldSerializeValue(object)
+  fullName: Tripous.DynamicPropertyDescriptor.ShouldSerializeValue(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShouldSerializeValue
+    path: ../Tripous/DynamicClass.cs
+    startLine: 274
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns true when the property value should be serialized.
+  example: []
+  syntax:
+    content: public override bool ShouldSerializeValue(object Component)
+    parameters:
+    - id: Component
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function ShouldSerializeValue(Component As Object) As Boolean
+  overridden: System.ComponentModel.PropertyDescriptor.ShouldSerializeValue(System.Object)
+  overload: Tripous.DynamicPropertyDescriptor.ShouldSerializeValue*
+  nameWithType.vb: DynamicPropertyDescriptor.ShouldSerializeValue(Object)
+  fullName.vb: Tripous.DynamicPropertyDescriptor.ShouldSerializeValue(Object)
+  name.vb: ShouldSerializeValue(Object)
+- uid: Tripous.DynamicPropertyDescriptor.ComponentType
+  commentId: P:Tripous.DynamicPropertyDescriptor.ComponentType
+  id: ComponentType
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: ComponentType
+  nameWithType: DynamicPropertyDescriptor.ComponentType
+  fullName: Tripous.DynamicPropertyDescriptor.ComponentType
+  type: Property
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ComponentType
+    path: ../Tripous/DynamicClass.cs
+    startLine: 283
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the component type.
+  example: []
+  syntax:
+    content: public override Type ComponentType { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Public Overrides ReadOnly Property ComponentType As Type
+  overridden: System.ComponentModel.PropertyDescriptor.ComponentType
+  overload: Tripous.DynamicPropertyDescriptor.ComponentType*
+- uid: Tripous.DynamicPropertyDescriptor.IsReadOnly
+  commentId: P:Tripous.DynamicPropertyDescriptor.IsReadOnly
+  id: IsReadOnly
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: IsReadOnly
+  nameWithType: DynamicPropertyDescriptor.IsReadOnly
+  fullName: Tripous.DynamicPropertyDescriptor.IsReadOnly
+  type: Property
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsReadOnly
+    path: ../Tripous/DynamicClass.cs
+    startLine: 287
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets a value indicating whether this property is read-only.
+  example: []
+  syntax:
+    content: public override bool IsReadOnly { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides ReadOnly Property IsReadOnly As Boolean
+  overridden: System.ComponentModel.PropertyDescriptor.IsReadOnly
+  overload: Tripous.DynamicPropertyDescriptor.IsReadOnly*
+- uid: Tripous.DynamicPropertyDescriptor.PropertyType
+  commentId: P:Tripous.DynamicPropertyDescriptor.PropertyType
+  id: PropertyType
+  parent: Tripous.DynamicPropertyDescriptor
+  langs:
+  - csharp
+  - vb
+  name: PropertyType
+  nameWithType: DynamicPropertyDescriptor.PropertyType
+  fullName: Tripous.DynamicPropertyDescriptor.PropertyType
+  type: Property
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PropertyType
+    path: ../Tripous/DynamicClass.cs
+    startLine: 291
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the property type.
+  example: []
+  syntax:
+    content: public override Type PropertyType { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Public Overrides ReadOnly Property PropertyType As Type
+  overridden: System.ComponentModel.PropertyDescriptor.PropertyType
+  overload: Tripous.DynamicPropertyDescriptor.PropertyType*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.ComponentModel.MemberDescriptor
+  commentId: T:System.ComponentModel.MemberDescriptor
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor
+  name: MemberDescriptor
+  nameWithType: MemberDescriptor
+  fullName: System.ComponentModel.MemberDescriptor
+- uid: System.ComponentModel.PropertyDescriptor
+  commentId: T:System.ComponentModel.PropertyDescriptor
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor
+  name: PropertyDescriptor
+  nameWithType: PropertyDescriptor
+  fullName: System.ComponentModel.PropertyDescriptor
+- uid: System.ComponentModel.PropertyDescriptor.AddValueChanged(System.Object,System.EventHandler)
+  commentId: M:System.ComponentModel.PropertyDescriptor.AddValueChanged(System.Object,System.EventHandler)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.addvaluechanged
+  name: AddValueChanged(object, EventHandler)
+  nameWithType: PropertyDescriptor.AddValueChanged(object, EventHandler)
+  fullName: System.ComponentModel.PropertyDescriptor.AddValueChanged(object, System.EventHandler)
+  nameWithType.vb: PropertyDescriptor.AddValueChanged(Object, EventHandler)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.AddValueChanged(Object, System.EventHandler)
+  name.vb: AddValueChanged(Object, EventHandler)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.AddValueChanged(System.Object,System.EventHandler)
+    name: AddValueChanged
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.addvaluechanged
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.EventHandler
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.AddValueChanged(System.Object,System.EventHandler)
+    name: AddValueChanged
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.addvaluechanged
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.EventHandler
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.CreateInstance(System.Type)
+  commentId: M:System.ComponentModel.PropertyDescriptor.CreateInstance(System.Type)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.createinstance
+  name: CreateInstance(Type)
+  nameWithType: PropertyDescriptor.CreateInstance(Type)
+  fullName: System.ComponentModel.PropertyDescriptor.CreateInstance(System.Type)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.CreateInstance(System.Type)
+    name: CreateInstance
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.createinstance
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.CreateInstance(System.Type)
+    name: CreateInstance
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.createinstance
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.Equals(System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.Equals(System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.equals
+  name: Equals(object)
+  nameWithType: PropertyDescriptor.Equals(object)
+  fullName: System.ComponentModel.PropertyDescriptor.Equals(object)
+  nameWithType.vb: PropertyDescriptor.Equals(Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.FillAttributes(System.Collections.IList)
+  commentId: M:System.ComponentModel.PropertyDescriptor.FillAttributes(System.Collections.IList)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.fillattributes
+  name: FillAttributes(IList)
+  nameWithType: PropertyDescriptor.FillAttributes(IList)
+  fullName: System.ComponentModel.PropertyDescriptor.FillAttributes(System.Collections.IList)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.FillAttributes(System.Collections.IList)
+    name: FillAttributes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.fillattributes
+  - name: (
+  - uid: System.Collections.IList
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.ilist
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.FillAttributes(System.Collections.IList)
+    name: FillAttributes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.fillattributes
+  - name: (
+  - uid: System.Collections.IList
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.ilist
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetChildProperties
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetChildProperties
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties
+  name: GetChildProperties()
+  nameWithType: PropertyDescriptor.GetChildProperties()
+  fullName: System.ComponentModel.PropertyDescriptor.GetChildProperties()
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties
+  - name: (
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Attribute[])
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Attribute[])
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-attribute())
+  name: GetChildProperties(Attribute[])
+  nameWithType: PropertyDescriptor.GetChildProperties(Attribute[])
+  fullName: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Attribute[])
+  nameWithType.vb: PropertyDescriptor.GetChildProperties(Attribute())
+  fullName.vb: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Attribute())
+  name.vb: GetChildProperties(Attribute())
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Attribute[])
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-attribute())
+  - name: (
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Attribute[])
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-attribute())
+  - name: (
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: (
+  - name: )
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-object)
+  name: GetChildProperties(object)
+  nameWithType: PropertyDescriptor.GetChildProperties(object)
+  fullName: System.ComponentModel.PropertyDescriptor.GetChildProperties(object)
+  nameWithType.vb: PropertyDescriptor.GetChildProperties(Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.GetChildProperties(Object)
+  name.vb: GetChildProperties(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object)
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object)
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object,System.Attribute[])
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object,System.Attribute[])
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-object-system-attribute())
+  name: GetChildProperties(object, Attribute[])
+  nameWithType: PropertyDescriptor.GetChildProperties(object, Attribute[])
+  fullName: System.ComponentModel.PropertyDescriptor.GetChildProperties(object, System.Attribute[])
+  nameWithType.vb: PropertyDescriptor.GetChildProperties(Object, Attribute())
+  fullName.vb: System.ComponentModel.PropertyDescriptor.GetChildProperties(Object, System.Attribute())
+  name.vb: GetChildProperties(Object, Attribute())
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object,System.Attribute[])
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-object-system-attribute())
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetChildProperties(System.Object,System.Attribute[])
+    name: GetChildProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getchildproperties#system-componentmodel-propertydescriptor-getchildproperties(system-object-system-attribute())
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: (
+  - name: )
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetEditor(System.Type)
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetEditor(System.Type)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.geteditor
+  name: GetEditor(Type)
+  nameWithType: PropertyDescriptor.GetEditor(Type)
+  fullName: System.ComponentModel.PropertyDescriptor.GetEditor(System.Type)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetEditor(System.Type)
+    name: GetEditor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.geteditor
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetEditor(System.Type)
+    name: GetEditor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.geteditor
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetHashCode
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetHashCode
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.gethashcode
+  name: GetHashCode()
+  nameWithType: PropertyDescriptor.GetHashCode()
+  fullName: System.ComponentModel.PropertyDescriptor.GetHashCode()
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.gethashcode
+  - name: (
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetInvocationTarget(System.Type,System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetInvocationTarget(System.Type,System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getinvocationtarget
+  name: GetInvocationTarget(Type, object)
+  nameWithType: PropertyDescriptor.GetInvocationTarget(Type, object)
+  fullName: System.ComponentModel.PropertyDescriptor.GetInvocationTarget(System.Type, object)
+  nameWithType.vb: PropertyDescriptor.GetInvocationTarget(Type, Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.GetInvocationTarget(System.Type, Object)
+  name.vb: GetInvocationTarget(Type, Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetInvocationTarget(System.Type,System.Object)
+    name: GetInvocationTarget
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getinvocationtarget
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetInvocationTarget(System.Type,System.Object)
+    name: GetInvocationTarget
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getinvocationtarget
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetTypeFromName(System.String)
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetTypeFromName(System.String)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.gettypefromname
+  name: GetTypeFromName(string)
+  nameWithType: PropertyDescriptor.GetTypeFromName(string)
+  fullName: System.ComponentModel.PropertyDescriptor.GetTypeFromName(string)
+  nameWithType.vb: PropertyDescriptor.GetTypeFromName(String)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.GetTypeFromName(String)
+  name.vb: GetTypeFromName(String)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetTypeFromName(System.String)
+    name: GetTypeFromName
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.gettypefromname
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetTypeFromName(System.String)
+    name: GetTypeFromName
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.gettypefromname
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetValueChangedHandler(System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetValueChangedHandler(System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getvaluechangedhandler
+  name: GetValueChangedHandler(object)
+  nameWithType: PropertyDescriptor.GetValueChangedHandler(object)
+  fullName: System.ComponentModel.PropertyDescriptor.GetValueChangedHandler(object)
+  nameWithType.vb: PropertyDescriptor.GetValueChangedHandler(Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.GetValueChangedHandler(Object)
+  name.vb: GetValueChangedHandler(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetValueChangedHandler(System.Object)
+    name: GetValueChangedHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getvaluechangedhandler
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetValueChangedHandler(System.Object)
+    name: GetValueChangedHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getvaluechangedhandler
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.OnValueChanged(System.Object,System.EventArgs)
+  commentId: M:System.ComponentModel.PropertyDescriptor.OnValueChanged(System.Object,System.EventArgs)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.onvaluechanged
+  name: OnValueChanged(object, EventArgs)
+  nameWithType: PropertyDescriptor.OnValueChanged(object, EventArgs)
+  fullName: System.ComponentModel.PropertyDescriptor.OnValueChanged(object, System.EventArgs)
+  nameWithType.vb: PropertyDescriptor.OnValueChanged(Object, EventArgs)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.OnValueChanged(Object, System.EventArgs)
+  name.vb: OnValueChanged(Object, EventArgs)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.OnValueChanged(System.Object,System.EventArgs)
+    name: OnValueChanged
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.onvaluechanged
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.EventArgs
+    name: EventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventargs
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.OnValueChanged(System.Object,System.EventArgs)
+    name: OnValueChanged
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.onvaluechanged
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.EventArgs
+    name: EventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventargs
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.RemoveValueChanged(System.Object,System.EventHandler)
+  commentId: M:System.ComponentModel.PropertyDescriptor.RemoveValueChanged(System.Object,System.EventHandler)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.removevaluechanged
+  name: RemoveValueChanged(object, EventHandler)
+  nameWithType: PropertyDescriptor.RemoveValueChanged(object, EventHandler)
+  fullName: System.ComponentModel.PropertyDescriptor.RemoveValueChanged(object, System.EventHandler)
+  nameWithType.vb: PropertyDescriptor.RemoveValueChanged(Object, EventHandler)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.RemoveValueChanged(Object, System.EventHandler)
+  name.vb: RemoveValueChanged(Object, EventHandler)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.RemoveValueChanged(System.Object,System.EventHandler)
+    name: RemoveValueChanged
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.removevaluechanged
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.EventHandler
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.RemoveValueChanged(System.Object,System.EventHandler)
+    name: RemoveValueChanged
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.removevaluechanged
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.EventHandler
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.Converter
+  commentId: P:System.ComponentModel.PropertyDescriptor.Converter
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.converter
+  name: Converter
+  nameWithType: PropertyDescriptor.Converter
+  fullName: System.ComponentModel.PropertyDescriptor.Converter
+- uid: System.ComponentModel.PropertyDescriptor.ConverterFromRegisteredType
+  commentId: P:System.ComponentModel.PropertyDescriptor.ConverterFromRegisteredType
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.converterfromregisteredtype
+  name: ConverterFromRegisteredType
+  nameWithType: PropertyDescriptor.ConverterFromRegisteredType
+  fullName: System.ComponentModel.PropertyDescriptor.ConverterFromRegisteredType
+- uid: System.ComponentModel.PropertyDescriptor.IsLocalizable
+  commentId: P:System.ComponentModel.PropertyDescriptor.IsLocalizable
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.islocalizable
+  name: IsLocalizable
+  nameWithType: PropertyDescriptor.IsLocalizable
+  fullName: System.ComponentModel.PropertyDescriptor.IsLocalizable
+- uid: System.ComponentModel.PropertyDescriptor.SerializationVisibility
+  commentId: P:System.ComponentModel.PropertyDescriptor.SerializationVisibility
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.serializationvisibility
+  name: SerializationVisibility
+  nameWithType: PropertyDescriptor.SerializationVisibility
+  fullName: System.ComponentModel.PropertyDescriptor.SerializationVisibility
+- uid: System.ComponentModel.PropertyDescriptor.SupportsChangeEvents
+  commentId: P:System.ComponentModel.PropertyDescriptor.SupportsChangeEvents
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.supportschangeevents
+  name: SupportsChangeEvents
+  nameWithType: PropertyDescriptor.SupportsChangeEvents
+  fullName: System.ComponentModel.PropertyDescriptor.SupportsChangeEvents
+- uid: System.ComponentModel.MemberDescriptor.CreateAttributeCollection
+  commentId: M:System.ComponentModel.MemberDescriptor.CreateAttributeCollection
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.createattributecollection
+  name: CreateAttributeCollection()
+  nameWithType: MemberDescriptor.CreateAttributeCollection()
+  fullName: System.ComponentModel.MemberDescriptor.CreateAttributeCollection()
+  spec.csharp:
+  - uid: System.ComponentModel.MemberDescriptor.CreateAttributeCollection
+    name: CreateAttributeCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.createattributecollection
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.MemberDescriptor.CreateAttributeCollection
+    name: CreateAttributeCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.createattributecollection
+  - name: (
+  - name: )
+- uid: System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type)
+  commentId: M:System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type)
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.findmethod#system-componentmodel-memberdescriptor-findmethod(system-type-system-string-system-type()-system-type)
+  name: FindMethod(Type, string, Type[], Type)
+  nameWithType: MemberDescriptor.FindMethod(Type, string, Type[], Type)
+  fullName: System.ComponentModel.MemberDescriptor.FindMethod(System.Type, string, System.Type[], System.Type)
+  nameWithType.vb: MemberDescriptor.FindMethod(Type, String, Type(), Type)
+  fullName.vb: System.ComponentModel.MemberDescriptor.FindMethod(System.Type, String, System.Type(), System.Type)
+  name.vb: FindMethod(Type, String, Type(), Type)
+  spec.csharp:
+  - uid: System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type)
+    name: FindMethod
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.findmethod#system-componentmodel-memberdescriptor-findmethod(system-type-system-string-system-type()-system-type)
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type)
+    name: FindMethod
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.findmethod#system-componentmodel-memberdescriptor-findmethod(system-type-system-string-system-type()-system-type)
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type,System.Boolean)
+  commentId: M:System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type,System.Boolean)
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.findmethod#system-componentmodel-memberdescriptor-findmethod(system-type-system-string-system-type()-system-type-system-boolean)
+  name: FindMethod(Type, string, Type[], Type, bool)
+  nameWithType: MemberDescriptor.FindMethod(Type, string, Type[], Type, bool)
+  fullName: System.ComponentModel.MemberDescriptor.FindMethod(System.Type, string, System.Type[], System.Type, bool)
+  nameWithType.vb: MemberDescriptor.FindMethod(Type, String, Type(), Type, Boolean)
+  fullName.vb: System.ComponentModel.MemberDescriptor.FindMethod(System.Type, String, System.Type(), System.Type, Boolean)
+  name.vb: FindMethod(Type, String, Type(), Type, Boolean)
+  spec.csharp:
+  - uid: System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type,System.Boolean)
+    name: FindMethod
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.findmethod#system-componentmodel-memberdescriptor-findmethod(system-type-system-string-system-type()-system-type-system-boolean)
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.MemberDescriptor.FindMethod(System.Type,System.String,System.Type[],System.Type,System.Boolean)
+    name: FindMethod
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.findmethod#system-componentmodel-memberdescriptor-findmethod(system-type-system-string-system-type()-system-type-system-boolean)
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.ComponentModel.MemberDescriptor.GetInvokee(System.Type,System.Object)
+  commentId: M:System.ComponentModel.MemberDescriptor.GetInvokee(System.Type,System.Object)
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.getinvokee
+  name: GetInvokee(Type, object)
+  nameWithType: MemberDescriptor.GetInvokee(Type, object)
+  fullName: System.ComponentModel.MemberDescriptor.GetInvokee(System.Type, object)
+  nameWithType.vb: MemberDescriptor.GetInvokee(Type, Object)
+  fullName.vb: System.ComponentModel.MemberDescriptor.GetInvokee(System.Type, Object)
+  name.vb: GetInvokee(Type, Object)
+  spec.csharp:
+  - uid: System.ComponentModel.MemberDescriptor.GetInvokee(System.Type,System.Object)
+    name: GetInvokee
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.getinvokee
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.MemberDescriptor.GetInvokee(System.Type,System.Object)
+    name: GetInvokee
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.getinvokee
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ComponentModel.MemberDescriptor.GetSite(System.Object)
+  commentId: M:System.ComponentModel.MemberDescriptor.GetSite(System.Object)
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.getsite
+  name: GetSite(object)
+  nameWithType: MemberDescriptor.GetSite(object)
+  fullName: System.ComponentModel.MemberDescriptor.GetSite(object)
+  nameWithType.vb: MemberDescriptor.GetSite(Object)
+  fullName.vb: System.ComponentModel.MemberDescriptor.GetSite(Object)
+  name.vb: GetSite(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.MemberDescriptor.GetSite(System.Object)
+    name: GetSite
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.getsite
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.MemberDescriptor.GetSite(System.Object)
+    name: GetSite
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.getsite
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ComponentModel.MemberDescriptor.AttributeArray
+  commentId: P:System.ComponentModel.MemberDescriptor.AttributeArray
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.attributearray
+  name: AttributeArray
+  nameWithType: MemberDescriptor.AttributeArray
+  fullName: System.ComponentModel.MemberDescriptor.AttributeArray
+- uid: System.ComponentModel.MemberDescriptor.Attributes
+  commentId: P:System.ComponentModel.MemberDescriptor.Attributes
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.attributes
+  name: Attributes
+  nameWithType: MemberDescriptor.Attributes
+  fullName: System.ComponentModel.MemberDescriptor.Attributes
+- uid: System.ComponentModel.MemberDescriptor.Category
+  commentId: P:System.ComponentModel.MemberDescriptor.Category
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.category
+  name: Category
+  nameWithType: MemberDescriptor.Category
+  fullName: System.ComponentModel.MemberDescriptor.Category
+- uid: System.ComponentModel.MemberDescriptor.Description
+  commentId: P:System.ComponentModel.MemberDescriptor.Description
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.description
+  name: Description
+  nameWithType: MemberDescriptor.Description
+  fullName: System.ComponentModel.MemberDescriptor.Description
+- uid: System.ComponentModel.MemberDescriptor.DesignTimeOnly
+  commentId: P:System.ComponentModel.MemberDescriptor.DesignTimeOnly
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.designtimeonly
+  name: DesignTimeOnly
+  nameWithType: MemberDescriptor.DesignTimeOnly
+  fullName: System.ComponentModel.MemberDescriptor.DesignTimeOnly
+- uid: System.ComponentModel.MemberDescriptor.DisplayName
+  commentId: P:System.ComponentModel.MemberDescriptor.DisplayName
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.displayname
+  name: DisplayName
+  nameWithType: MemberDescriptor.DisplayName
+  fullName: System.ComponentModel.MemberDescriptor.DisplayName
+- uid: System.ComponentModel.MemberDescriptor.IsBrowsable
+  commentId: P:System.ComponentModel.MemberDescriptor.IsBrowsable
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.isbrowsable
+  name: IsBrowsable
+  nameWithType: MemberDescriptor.IsBrowsable
+  fullName: System.ComponentModel.MemberDescriptor.IsBrowsable
+- uid: System.ComponentModel.MemberDescriptor.Name
+  commentId: P:System.ComponentModel.MemberDescriptor.Name
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.name
+  name: Name
+  nameWithType: MemberDescriptor.Name
+  fullName: System.ComponentModel.MemberDescriptor.Name
+- uid: System.ComponentModel.MemberDescriptor.NameHashCode
+  commentId: P:System.ComponentModel.MemberDescriptor.NameHashCode
+  parent: System.ComponentModel.MemberDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.memberdescriptor.namehashcode
+  name: NameHashCode
+  nameWithType: MemberDescriptor.NameHashCode
+  fullName: System.ComponentModel.MemberDescriptor.NameHashCode
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.DynamicPropertyDescriptor.#ctor*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.#ctor
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor__ctor_Tripous_DynamicClass_System_String_System_Type_System_Attribute___
+  name: DynamicPropertyDescriptor
+  nameWithType: DynamicPropertyDescriptor.DynamicPropertyDescriptor
+  fullName: Tripous.DynamicPropertyDescriptor.DynamicPropertyDescriptor
+  nameWithType.vb: DynamicPropertyDescriptor.New
+  fullName.vb: Tripous.DynamicPropertyDescriptor.New
+  name.vb: New
+- uid: Tripous.DynamicClass
+  commentId: T:Tripous.DynamicClass
+  parent: Tripous
+  href: Tripous.DynamicClass.html
+  name: DynamicClass
+  nameWithType: DynamicClass
+  fullName: Tripous.DynamicClass
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: System.Attribute[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.attribute
+  name: Attribute[]
+  nameWithType: Attribute[]
+  fullName: System.Attribute[]
+  nameWithType.vb: Attribute()
+  fullName.vb: System.Attribute()
+  name.vb: Attribute()
+  spec.csharp:
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: (
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor.GetValue(System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.GetValue(System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getvalue
+  name: GetValue(object)
+  nameWithType: PropertyDescriptor.GetValue(object)
+  fullName: System.ComponentModel.PropertyDescriptor.GetValue(object)
+  nameWithType.vb: PropertyDescriptor.GetValue(Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.GetValue(Object)
+  name.vb: GetValue(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.GetValue(System.Object)
+    name: GetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getvalue
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.GetValue(System.Object)
+    name: GetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.getvalue
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DynamicPropertyDescriptor.GetValue*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.GetValue
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_GetValue_System_Object_
+  name: GetValue
+  nameWithType: DynamicPropertyDescriptor.GetValue
+  fullName: Tripous.DynamicPropertyDescriptor.GetValue
+- uid: System.ComponentModel.PropertyDescriptor.SetValue(System.Object,System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.SetValue(System.Object,System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.setvalue
+  name: SetValue(object, object)
+  nameWithType: PropertyDescriptor.SetValue(object, object)
+  fullName: System.ComponentModel.PropertyDescriptor.SetValue(object, object)
+  nameWithType.vb: PropertyDescriptor.SetValue(Object, Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.SetValue(Object, Object)
+  name.vb: SetValue(Object, Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.SetValue(System.Object,System.Object)
+    name: SetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.setvalue
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.SetValue(System.Object,System.Object)
+    name: SetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.setvalue
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DynamicPropertyDescriptor.SetValue*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.SetValue
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_SetValue_System_Object_System_Object_
+  name: SetValue
+  nameWithType: DynamicPropertyDescriptor.SetValue
+  fullName: Tripous.DynamicPropertyDescriptor.SetValue
+- uid: System.ComponentModel.PropertyDescriptor.CanResetValue(System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.CanResetValue(System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.canresetvalue
+  name: CanResetValue(object)
+  nameWithType: PropertyDescriptor.CanResetValue(object)
+  fullName: System.ComponentModel.PropertyDescriptor.CanResetValue(object)
+  nameWithType.vb: PropertyDescriptor.CanResetValue(Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.CanResetValue(Object)
+  name.vb: CanResetValue(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.CanResetValue(System.Object)
+    name: CanResetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.canresetvalue
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.CanResetValue(System.Object)
+    name: CanResetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.canresetvalue
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DynamicPropertyDescriptor.CanResetValue*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.CanResetValue
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_CanResetValue_System_Object_
+  name: CanResetValue
+  nameWithType: DynamicPropertyDescriptor.CanResetValue
+  fullName: Tripous.DynamicPropertyDescriptor.CanResetValue
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.ComponentModel.PropertyDescriptor.ResetValue(System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.ResetValue(System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.resetvalue
+  name: ResetValue(object)
+  nameWithType: PropertyDescriptor.ResetValue(object)
+  fullName: System.ComponentModel.PropertyDescriptor.ResetValue(object)
+  nameWithType.vb: PropertyDescriptor.ResetValue(Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.ResetValue(Object)
+  name.vb: ResetValue(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.ResetValue(System.Object)
+    name: ResetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.resetvalue
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.ResetValue(System.Object)
+    name: ResetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.resetvalue
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DynamicPropertyDescriptor.ResetValue*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.ResetValue
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_ResetValue_System_Object_
+  name: ResetValue
+  nameWithType: DynamicPropertyDescriptor.ResetValue
+  fullName: Tripous.DynamicPropertyDescriptor.ResetValue
+- uid: System.ComponentModel.PropertyDescriptor.ShouldSerializeValue(System.Object)
+  commentId: M:System.ComponentModel.PropertyDescriptor.ShouldSerializeValue(System.Object)
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.shouldserializevalue
+  name: ShouldSerializeValue(object)
+  nameWithType: PropertyDescriptor.ShouldSerializeValue(object)
+  fullName: System.ComponentModel.PropertyDescriptor.ShouldSerializeValue(object)
+  nameWithType.vb: PropertyDescriptor.ShouldSerializeValue(Object)
+  fullName.vb: System.ComponentModel.PropertyDescriptor.ShouldSerializeValue(Object)
+  name.vb: ShouldSerializeValue(Object)
+  spec.csharp:
+  - uid: System.ComponentModel.PropertyDescriptor.ShouldSerializeValue(System.Object)
+    name: ShouldSerializeValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.shouldserializevalue
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.PropertyDescriptor.ShouldSerializeValue(System.Object)
+    name: ShouldSerializeValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.shouldserializevalue
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DynamicPropertyDescriptor.ShouldSerializeValue*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.ShouldSerializeValue
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_ShouldSerializeValue_System_Object_
+  name: ShouldSerializeValue
+  nameWithType: DynamicPropertyDescriptor.ShouldSerializeValue
+  fullName: Tripous.DynamicPropertyDescriptor.ShouldSerializeValue
+- uid: System.ComponentModel.PropertyDescriptor.ComponentType
+  commentId: P:System.ComponentModel.PropertyDescriptor.ComponentType
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.componenttype
+  name: ComponentType
+  nameWithType: PropertyDescriptor.ComponentType
+  fullName: System.ComponentModel.PropertyDescriptor.ComponentType
+- uid: Tripous.DynamicPropertyDescriptor.ComponentType*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.ComponentType
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_ComponentType
+  name: ComponentType
+  nameWithType: DynamicPropertyDescriptor.ComponentType
+  fullName: Tripous.DynamicPropertyDescriptor.ComponentType
+- uid: System.ComponentModel.PropertyDescriptor.IsReadOnly
+  commentId: P:System.ComponentModel.PropertyDescriptor.IsReadOnly
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.isreadonly
+  name: IsReadOnly
+  nameWithType: PropertyDescriptor.IsReadOnly
+  fullName: System.ComponentModel.PropertyDescriptor.IsReadOnly
+- uid: Tripous.DynamicPropertyDescriptor.IsReadOnly*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.IsReadOnly
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_IsReadOnly
+  name: IsReadOnly
+  nameWithType: DynamicPropertyDescriptor.IsReadOnly
+  fullName: Tripous.DynamicPropertyDescriptor.IsReadOnly
+- uid: System.ComponentModel.PropertyDescriptor.PropertyType
+  commentId: P:System.ComponentModel.PropertyDescriptor.PropertyType
+  parent: System.ComponentModel.PropertyDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor.propertytype
+  name: PropertyType
+  nameWithType: PropertyDescriptor.PropertyType
+  fullName: System.ComponentModel.PropertyDescriptor.PropertyType
+- uid: Tripous.DynamicPropertyDescriptor.PropertyType*
+  commentId: Overload:Tripous.DynamicPropertyDescriptor.PropertyType
+  href: Tripous.DynamicPropertyDescriptor.html#Tripous_DynamicPropertyDescriptor_PropertyType
+  name: PropertyType
+  nameWithType: DynamicPropertyDescriptor.PropertyType
+  fullName: Tripous.DynamicPropertyDescriptor.PropertyType

@@ -1,0 +1,4553 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.TableDef
+  commentId: T:Tripous.Data.TableDef
+  id: TableDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.TableDef.#ctor
+  - Tripous.Data.TableDef.#ctor(Tripous.Data.ModuleDef)
+  - Tripous.Data.TableDef.Add(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddBoolean(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddDate(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddDateTime(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddDecimal(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddDetail(System.String,System.String,System.String)
+  - Tripous.Data.TableDef.AddDouble(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddEnumLookupId(System.String,System.String,System.Type,System.String,System.Boolean,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddField(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddId(System.String,Tripous.Data.DataFieldType,Tripous.Data.FieldFlags,System.Int32)
+  - Tripous.Data.TableDef.AddId(System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddInteger(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddIntegerId(System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddIntegerLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddJoin(System.String,System.String,System.String,System.String)
+  - Tripous.Data.TableDef.AddJoin(System.String,System.String,System.String,System.String,System.String)
+  - Tripous.Data.TableDef.AddLookupId(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddString(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddStringId(System.String,Tripous.Data.FieldFlags,System.Int32)
+  - Tripous.Data.TableDef.AddStringLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.AddTextBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  - Tripous.Data.TableDef.Alias
+  - Tripous.Data.TableDef.AssignLookupSnapshots(System.Data.DataRow,Tripous.Data.FieldDef,Tripous.Data.LookupSource,Tripous.Data.LookupItem)
+  - Tripous.Data.TableDef.BuildSql(Tripous.Data.BuildSqlFlags)
+  - Tripous.Data.TableDef.CheckDescriptor
+  - Tripous.Data.TableDef.CheckTopTableErrors
+  - Tripous.Data.TableDef.CreateDescriptorTable(Tripous.Data.SqlStore)
+  - Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
+  - Tripous.Data.TableDef.DetailField
+  - Tripous.Data.TableDef.Details
+  - Tripous.Data.TableDef.FieldExists(System.String)
+  - Tripous.Data.TableDef.FieldGroups
+  - Tripous.Data.TableDef.Fields
+  - Tripous.Data.TableDef.FindAnyField(System.String)
+  - Tripous.Data.TableDef.FindAnyFieldTitle(System.String)
+  - Tripous.Data.TableDef.FindAnyJoinTable(System.String)
+  - Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField(System.String)
+  - Tripous.Data.TableDef.FindField(System.String)
+  - Tripous.Data.TableDef.FindJoinTableByMasterKeyField(System.String)
+  - Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  - Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  - Tripous.Data.TableDef.GetBindableFields
+  - Tripous.Data.TableDef.GetBindableGroups
+  - Tripous.Data.TableDef.GetField(System.String)
+  - Tripous.Data.TableDef.GetTopTableErrors
+  - Tripous.Data.TableDef.HasDetails
+  - Tripous.Data.TableDef.HasJoins
+  - Tripous.Data.TableDef.HasStocks
+  - Tripous.Data.TableDef.ITEM
+  - Tripous.Data.TableDef.IsDetail
+  - Tripous.Data.TableDef.IsJoin
+  - Tripous.Data.TableDef.IsLocatorSnapshotField(Tripous.Data.FieldDef)
+  - Tripous.Data.TableDef.IsOneToOne
+  - Tripous.Data.TableDef.IsUiVisible
+  - Tripous.Data.TableDef.Joins
+  - Tripous.Data.TableDef.KeyField
+  - Tripous.Data.TableDef.LINES
+  - Tripous.Data.TableDef.Master
+  - Tripous.Data.TableDef.MasterField
+  - Tripous.Data.TableDef.ModuleDef
+  - Tripous.Data.TableDef.Owner
+  - Tripous.Data.TableDef.SUBLINES
+  - Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor(System.Data.DataTable,System.Collections.Generic.Dictionary{System.String,System.String})
+  - Tripous.Data.TableDef.Sqls
+  - Tripous.Data.TableDef.Stocks
+  - Tripous.Data.TableDef.UpdateFrom(System.Data.DataTable)
+  - Tripous.Data.TableDef.UpdateReferences
+  langs:
+  - csharp
+  - vb
+  name: TableDef
+  nameWithType: TableDef
+  fullName: Tripous.Data.TableDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableDef
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A table definition
+  example: []
+  syntax:
+    content: 'public class TableDef : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
+    content.vb: Public Class TableDef Inherits BaseDef Implements IDef, IJsonLoadable, INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.BaseDef
+  implements:
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.BaseDef.fTitleKey
+  - Tripous.BaseDef.fName
+  - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.GetTitleKey
+  - Tripous.BaseDef.ToString
+  - Tripous.BaseDef.JsonLoaded
+  - Tripous.BaseDef.CreateNew
+  - Tripous.BaseDef.Assign(Tripous.IDef)
+  - Tripous.BaseDef.Clone
+  - Tripous.BaseDef.Clear
+  - Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  - Tripous.BaseDef.Name
+  - Tripous.BaseDef.TitleKey
+  - Tripous.BaseDef.IsTitleKeyEmpty
+  - Tripous.BaseDef.Title
+  - Tripous.BaseDef.Tag
+  - Tripous.BaseDef.IsSerializable
+  - Tripous.BaseDef.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.TableDef.ITEM
+  commentId: F:Tripous.Data.TableDef.ITEM
+  id: ITEM
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: ITEM
+  nameWithType: TableDef.ITEM
+  fullName: Tripous.Data.TableDef.ITEM
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ITEM
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string ITEM = "_ITEM_"
+    return:
+      type: System.String
+    content.vb: Public Const ITEM As String = "_ITEM_"
+- uid: Tripous.Data.TableDef.LINES
+  commentId: F:Tripous.Data.TableDef.LINES
+  id: LINES
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: LINES
+  nameWithType: TableDef.LINES
+  fullName: Tripous.Data.TableDef.LINES
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LINES
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string LINES = "_LINES_"
+    return:
+      type: System.String
+    content.vb: Public Const LINES As String = "_LINES_"
+- uid: Tripous.Data.TableDef.SUBLINES
+  commentId: F:Tripous.Data.TableDef.SUBLINES
+  id: SUBLINES
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: SUBLINES
+  nameWithType: TableDef.SUBLINES
+  fullName: Tripous.Data.TableDef.SUBLINES
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SUBLINES
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constant
+  example: []
+  syntax:
+    content: public const string SUBLINES = "_SUBLINES_"
+    return:
+      type: System.String
+    content.vb: Public Const SUBLINES As String = "_SUBLINES_"
+- uid: Tripous.Data.TableDef.#ctor
+  commentId: M:Tripous.Data.TableDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: TableDef()
+  nameWithType: TableDef.TableDef()
+  fullName: Tripous.Data.TableDef.TableDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 46
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public TableDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.TableDef.#ctor*
+  nameWithType.vb: TableDef.New()
+  fullName.vb: Tripous.Data.TableDef.New()
+  name.vb: New()
+- uid: Tripous.Data.TableDef.#ctor(Tripous.Data.ModuleDef)
+  commentId: M:Tripous.Data.TableDef.#ctor(Tripous.Data.ModuleDef)
+  id: '#ctor(Tripous.Data.ModuleDef)'
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: TableDef(ModuleDef)
+  nameWithType: TableDef.TableDef(ModuleDef)
+  fullName: Tripous.Data.TableDef.TableDef(Tripous.Data.ModuleDef)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 52
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public TableDef(ModuleDef ModuleDef)
+    parameters:
+    - id: ModuleDef
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Sub New(ModuleDef As ModuleDef)
+  overload: Tripous.Data.TableDef.#ctor*
+  nameWithType.vb: TableDef.New(ModuleDef)
+  fullName.vb: Tripous.Data.TableDef.New(Tripous.Data.ModuleDef)
+  name.vb: New(ModuleDef)
+- uid: Tripous.Data.TableDef.CheckDescriptor
+  commentId: M:Tripous.Data.TableDef.CheckDescriptor
+  id: CheckDescriptor
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: CheckDescriptor()
+  nameWithType: TableDef.CheckDescriptor()
+  fullName: Tripous.Data.TableDef.CheckDescriptor()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckDescriptor
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 61
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Throws an exception if this descriptor is not fully defined
+  example: []
+  syntax:
+    content: public override void CheckDescriptor()
+    content.vb: Public Overrides Sub CheckDescriptor()
+  overridden: Tripous.BaseDef.CheckDescriptor
+  overload: Tripous.Data.TableDef.CheckDescriptor*
+- uid: Tripous.Data.TableDef.GetTopTableErrors
+  commentId: M:Tripous.Data.TableDef.GetTopTableErrors
+  id: GetTopTableErrors
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: GetTopTableErrors()
+  nameWithType: TableDef.GetTopTableErrors()
+  fullName: Tripous.Data.TableDef.GetTopTableErrors()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetTopTableErrors
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 77
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the errors of the top table.
+  example: []
+  syntax:
+    content: public string GetTopTableErrors()
+    return:
+      type: System.String
+    content.vb: Public Function GetTopTableErrors() As String
+  overload: Tripous.Data.TableDef.GetTopTableErrors*
+- uid: Tripous.Data.TableDef.CheckTopTableErrors
+  commentId: M:Tripous.Data.TableDef.CheckTopTableErrors
+  id: CheckTopTableErrors
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: CheckTopTableErrors()
+  nameWithType: TableDef.CheckTopTableErrors()
+  fullName: Tripous.Data.TableDef.CheckTopTableErrors()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckTopTableErrors
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 123
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Checks the top table for errors and throws an exception if any.
+  example: []
+  syntax:
+    content: public void CheckTopTableErrors()
+    content.vb: Public Sub CheckTopTableErrors()
+  overload: Tripous.Data.TableDef.CheckTopTableErrors*
+- uid: Tripous.Data.TableDef.UpdateReferences
+  commentId: M:Tripous.Data.TableDef.UpdateReferences
+  id: UpdateReferences
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: UpdateReferences()
+  nameWithType: TableDef.UpdateReferences()
+  fullName: Tripous.Data.TableDef.UpdateReferences()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateReferences
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 132
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Updates references such as when an instance has references to other instances, e.g. tables of a module definition.
+  example: []
+  syntax:
+    content: public override void UpdateReferences()
+    content.vb: Public Overrides Sub UpdateReferences()
+  overridden: Tripous.BaseDef.UpdateReferences
+  overload: Tripous.Data.TableDef.UpdateReferences*
+- uid: Tripous.Data.TableDef.FindAnyJoinTable(System.String)
+  commentId: M:Tripous.Data.TableDef.FindAnyJoinTable(System.String)
+  id: FindAnyJoinTable(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindAnyJoinTable(string)
+  nameWithType: TableDef.FindAnyJoinTable(string)
+  fullName: Tripous.Data.TableDef.FindAnyJoinTable(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindAnyJoinTable
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 174
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Searces the whole joined tree for a table by a Name or Alias and returns
+
+    a JoinTableDescriptor, if any, else null.
+  example: []
+  syntax:
+    content: public TableDef FindAnyJoinTable(string NameOrAlias)
+    parameters:
+    - id: NameOrAlias
+      type: System.String
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: Public Function FindAnyJoinTable(NameOrAlias As String) As TableDef
+  overload: Tripous.Data.TableDef.FindAnyJoinTable*
+  nameWithType.vb: TableDef.FindAnyJoinTable(String)
+  fullName.vb: Tripous.Data.TableDef.FindAnyJoinTable(String)
+  name.vb: FindAnyJoinTable(String)
+- uid: Tripous.Data.TableDef.FindJoinTableByMasterKeyField(System.String)
+  commentId: M:Tripous.Data.TableDef.FindJoinTableByMasterKeyField(System.String)
+  id: FindJoinTableByMasterKeyField(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindJoinTableByMasterKeyField(string)
+  nameWithType: TableDef.FindJoinTableByMasterKeyField(string)
+  fullName: Tripous.Data.TableDef.FindJoinTableByMasterKeyField(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindJoinTableByMasterKeyField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 192
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Finds a join table descriptor by MasterKeyField, if any, else null.
+  example: []
+  syntax:
+    content: public TableDef FindJoinTableByMasterKeyField(string MasterKeyField)
+    parameters:
+    - id: MasterKeyField
+      type: System.String
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: Public Function FindJoinTableByMasterKeyField(MasterKeyField As String) As TableDef
+  overload: Tripous.Data.TableDef.FindJoinTableByMasterKeyField*
+  nameWithType.vb: TableDef.FindJoinTableByMasterKeyField(String)
+  fullName.vb: Tripous.Data.TableDef.FindJoinTableByMasterKeyField(String)
+  name.vb: FindJoinTableByMasterKeyField(String)
+- uid: Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField(System.String)
+  commentId: M:Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField(System.String)
+  id: FindAnyJoinTableByMasterKeyField(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindAnyJoinTableByMasterKeyField(string)
+  nameWithType: TableDef.FindAnyJoinTableByMasterKeyField(string)
+  fullName: Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindAnyJoinTableByMasterKeyField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 200
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Searces the whole joined tree for a join table descriptor by MasterKeyField
+
+    and returns that table, if any, else null.
+  example: []
+  syntax:
+    content: public TableDef FindAnyJoinTableByMasterKeyField(string MasterKeyField)
+    parameters:
+    - id: MasterKeyField
+      type: System.String
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: Public Function FindAnyJoinTableByMasterKeyField(MasterKeyField As String) As TableDef
+  overload: Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField*
+  nameWithType.vb: TableDef.FindAnyJoinTableByMasterKeyField(String)
+  fullName.vb: Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField(String)
+  name.vb: FindAnyJoinTableByMasterKeyField(String)
+- uid: Tripous.Data.TableDef.FindAnyField(System.String)
+  commentId: M:Tripous.Data.TableDef.FindAnyField(System.String)
+  id: FindAnyField(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindAnyField(string)
+  nameWithType: TableDef.FindAnyField(string)
+  fullName: Tripous.Data.TableDef.FindAnyField(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindAnyField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 221
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Finds and returns, if exists, a field that has NameOrAlias Name or Alias. 
+
+    It searches this table descriptor and its joined tables in the full tree.
+
+    Returns null if a field not found.
+  example: []
+  syntax:
+    content: public Tuple<TableDef, FieldDef> FindAnyField(string NameOrAlias)
+    parameters:
+    - id: NameOrAlias
+      type: System.String
+    return:
+      type: System.Tuple{Tripous.Data.TableDef,Tripous.Data.FieldDef}
+    content.vb: Public Function FindAnyField(NameOrAlias As String) As Tuple(Of TableDef, FieldDef)
+  overload: Tripous.Data.TableDef.FindAnyField*
+  nameWithType.vb: TableDef.FindAnyField(String)
+  fullName.vb: Tripous.Data.TableDef.FindAnyField(String)
+  name.vb: FindAnyField(String)
+- uid: Tripous.Data.TableDef.FindAnyFieldTitle(System.String)
+  commentId: M:Tripous.Data.TableDef.FindAnyFieldTitle(System.String)
+  id: FindAnyFieldTitle(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindAnyFieldTitle(string)
+  nameWithType: TableDef.FindAnyFieldTitle(string)
+  fullName: Tripous.Data.TableDef.FindAnyFieldTitle(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindAnyFieldTitle
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 261
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Finds a field title by searching the whole tree of fields.
+  example: []
+  syntax:
+    content: public string FindAnyFieldTitle(string NameOrAlias)
+    parameters:
+    - id: NameOrAlias
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Function FindAnyFieldTitle(NameOrAlias As String) As String
+  overload: Tripous.Data.TableDef.FindAnyFieldTitle*
+  nameWithType.vb: TableDef.FindAnyFieldTitle(String)
+  fullName.vb: Tripous.Data.TableDef.FindAnyFieldTitle(String)
+  name.vb: FindAnyFieldTitle(String)
+- uid: Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  commentId: M:Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  id: FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindLocatorJoinField(FieldDef, LocatorFieldDef)
+  nameWithType: TableDef.FindLocatorJoinField(FieldDef, LocatorFieldDef)
+  fullName: Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef, Tripous.Data.LocatorFieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindLocatorJoinField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 270
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Finds the join field that matches a locator field.
+  example: []
+  syntax:
+    content: public FieldDef FindLocatorJoinField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
+    parameters:
+    - id: ReferenceField
+      type: Tripous.Data.FieldDef
+    - id: LocatorField
+      type: Tripous.Data.LocatorFieldDef
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function FindLocatorJoinField(ReferenceField As FieldDef, LocatorField As LocatorFieldDef) As FieldDef
+  overload: Tripous.Data.TableDef.FindLocatorJoinField*
+- uid: Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  commentId: M:Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  id: FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindLocatorTargetField(FieldDef, LocatorFieldDef)
+  nameWithType: TableDef.FindLocatorTargetField(FieldDef, LocatorFieldDef)
+  fullName: Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef, Tripous.Data.LocatorFieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindLocatorTargetField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 284
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Finds the target field for a locator field.
+  example: []
+  syntax:
+    content: public FieldDef FindLocatorTargetField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
+    parameters:
+    - id: ReferenceField
+      type: Tripous.Data.FieldDef
+    - id: LocatorField
+      type: Tripous.Data.LocatorFieldDef
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function FindLocatorTargetField(ReferenceField As FieldDef, LocatorField As LocatorFieldDef) As FieldDef
+  overload: Tripous.Data.TableDef.FindLocatorTargetField*
+- uid: Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
+  commentId: M:Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
+  id: CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: CreateLocatorTargetFieldMap(FieldDef, LocatorDef)
+  nameWithType: TableDef.CreateLocatorTargetFieldMap(FieldDef, LocatorDef)
+  fullName: Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef, Tripous.Data.LocatorDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLocatorTargetFieldMap
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 296
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates a locator field to target field map.
+  example: []
+  syntax:
+    content: public Dictionary<string, string> CreateLocatorTargetFieldMap(FieldDef ReferenceField, LocatorDef LocatorDef)
+    parameters:
+    - id: ReferenceField
+      type: Tripous.Data.FieldDef
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+    content.vb: Public Function CreateLocatorTargetFieldMap(ReferenceField As FieldDef, LocatorDef As LocatorDef) As Dictionary(Of String, String)
+  overload: Tripous.Data.TableDef.CreateLocatorTargetFieldMap*
+- uid: Tripous.Data.TableDef.IsLocatorSnapshotField(Tripous.Data.FieldDef)
+  commentId: M:Tripous.Data.TableDef.IsLocatorSnapshotField(Tripous.Data.FieldDef)
+  id: IsLocatorSnapshotField(Tripous.Data.FieldDef)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: IsLocatorSnapshotField(FieldDef)
+  nameWithType: TableDef.IsLocatorSnapshotField(FieldDef)
+  fullName: Tripous.Data.TableDef.IsLocatorSnapshotField(Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsLocatorSnapshotField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 316
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when a field is a snapshot target of a locator field.
+  example: []
+  syntax:
+    content: public bool IsLocatorSnapshotField(FieldDef Field)
+    parameters:
+    - id: Field
+      type: Tripous.Data.FieldDef
+    return:
+      type: System.Boolean
+    content.vb: Public Function IsLocatorSnapshotField(Field As FieldDef) As Boolean
+  overload: Tripous.Data.TableDef.IsLocatorSnapshotField*
+- uid: Tripous.Data.TableDef.AssignLookupSnapshots(System.Data.DataRow,Tripous.Data.FieldDef,Tripous.Data.LookupSource,Tripous.Data.LookupItem)
+  commentId: M:Tripous.Data.TableDef.AssignLookupSnapshots(System.Data.DataRow,Tripous.Data.FieldDef,Tripous.Data.LookupSource,Tripous.Data.LookupItem)
+  id: AssignLookupSnapshots(System.Data.DataRow,Tripous.Data.FieldDef,Tripous.Data.LookupSource,Tripous.Data.LookupItem)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AssignLookupSnapshots(DataRow, FieldDef, LookupSource, LookupItem)
+  nameWithType: TableDef.AssignLookupSnapshots(DataRow, FieldDef, LookupSource, LookupItem)
+  fullName: Tripous.Data.TableDef.AssignLookupSnapshots(System.Data.DataRow, Tripous.Data.FieldDef, Tripous.Data.LookupSource, Tripous.Data.LookupItem)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AssignLookupSnapshots
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 330
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Assigns lookup snapshot values to a target row.
+  example: []
+  syntax:
+    content: public void AssignLookupSnapshots(DataRow TargetRow, FieldDef LookupField, LookupSource LookupSource, LookupItem LookupItem)
+    parameters:
+    - id: TargetRow
+      type: System.Data.DataRow
+    - id: LookupField
+      type: Tripous.Data.FieldDef
+    - id: LookupSource
+      type: Tripous.Data.LookupSource
+    - id: LookupItem
+      type: Tripous.Data.LookupItem
+    content.vb: Public Sub AssignLookupSnapshots(TargetRow As DataRow, LookupField As FieldDef, LookupSource As LookupSource, LookupItem As LookupItem)
+  overload: Tripous.Data.TableDef.AssignLookupSnapshots*
+- uid: Tripous.Data.TableDef.BuildSql(Tripous.Data.BuildSqlFlags)
+  commentId: M:Tripous.Data.TableDef.BuildSql(Tripous.Data.BuildSqlFlags)
+  id: BuildSql(Tripous.Data.BuildSqlFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: BuildSql(BuildSqlFlags)
+  nameWithType: TableDef.BuildSql(BuildSqlFlags)
+  fullName: Tripous.Data.TableDef.BuildSql(Tripous.Data.BuildSqlFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BuildSql
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 392
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Builds SQL statements for this table descriptor.
+  example: []
+  syntax:
+    content: public TableSqls BuildSql(BuildSqlFlags Flags)
+    parameters:
+    - id: Flags
+      type: Tripous.Data.BuildSqlFlags
+    return:
+      type: Tripous.Data.TableSqls
+    content.vb: Public Function BuildSql(Flags As BuildSqlFlags) As TableSqls
+  overload: Tripous.Data.TableDef.BuildSql*
+- uid: Tripous.Data.TableDef.UpdateFrom(System.Data.DataTable)
+  commentId: M:Tripous.Data.TableDef.UpdateFrom(System.Data.DataTable)
+  id: UpdateFrom(System.Data.DataTable)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: UpdateFrom(DataTable)
+  nameWithType: TableDef.UpdateFrom(DataTable)
+  fullName: Tripous.Data.TableDef.UpdateFrom(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateFrom
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 557
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Updates this descriptor information using a specified DataTable schema.
+  example: []
+  syntax:
+    content: public void UpdateFrom(DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    content.vb: Public Sub UpdateFrom(Table As DataTable)
+  overload: Tripous.Data.TableDef.UpdateFrom*
+- uid: Tripous.Data.TableDef.CreateDescriptorTable(Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.TableDef.CreateDescriptorTable(Tripous.Data.SqlStore)
+  id: CreateDescriptorTable(Tripous.Data.SqlStore)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: CreateDescriptorTable(SqlStore)
+  nameWithType: TableDef.CreateDescriptorTable(SqlStore)
+  fullName: Tripous.Data.TableDef.CreateDescriptorTable(Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateDescriptorTable
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 622
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Creates a DataTable based on a descriptor. 
+
+
+    <p>Creates the look-up tables too if a flag is specified.</p>
+
+    <p>The table may added to a list using a specified delegate.</p>
+  example: []
+  syntax:
+    content: public MemTable CreateDescriptorTable(SqlStore Store)
+    parameters:
+    - id: Store
+      type: Tripous.Data.SqlStore
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public Function CreateDescriptorTable(Store As SqlStore) As MemTable
+  overload: Tripous.Data.TableDef.CreateDescriptorTable*
+- uid: Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor(System.Data.DataTable,System.Collections.Generic.Dictionary{System.String,System.String})
+  commentId: M:Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor(System.Data.DataTable,System.Collections.Generic.Dictionary{System.String,System.String})
+  id: SetupFieldsDisplayLabelsFor(System.Data.DataTable,System.Collections.Generic.Dictionary{System.String,System.String})
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: SetupFieldsDisplayLabelsFor(DataTable, Dictionary<string, string>)
+  nameWithType: TableDef.SetupFieldsDisplayLabelsFor(DataTable, Dictionary<string, string>)
+  fullName: Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor(System.Data.DataTable, System.Collections.Generic.Dictionary<string, string>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetupFieldsDisplayLabelsFor
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 720
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Setups column titles for Table columns using the DisplayLabes dictionary and the TableDes TableDescriptor.
+  example: []
+  syntax:
+    content: public void SetupFieldsDisplayLabelsFor(DataTable Table, Dictionary<string, string> DisplayLabels)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: DisplayLabels
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+    content.vb: Public Sub SetupFieldsDisplayLabelsFor(Table As DataTable, DisplayLabels As Dictionary(Of String, String))
+  overload: Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor*
+  nameWithType.vb: TableDef.SetupFieldsDisplayLabelsFor(DataTable, Dictionary(Of String, String))
+  fullName.vb: Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor(System.Data.DataTable, System.Collections.Generic.Dictionary(Of String, String))
+  name.vb: SetupFieldsDisplayLabelsFor(DataTable, Dictionary(Of String, String))
+- uid: Tripous.Data.TableDef.FieldExists(System.String)
+  commentId: M:Tripous.Data.TableDef.FieldExists(System.String)
+  id: FieldExists(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FieldExists(string)
+  nameWithType: TableDef.FieldExists(string)
+  fullName: Tripous.Data.TableDef.FieldExists(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldExists
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 745
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if the specified field name exists in this descriptor.
+  example: []
+  syntax:
+    content: public bool FieldExists(string FieldName)
+    parameters:
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function FieldExists(FieldName As String) As Boolean
+  overload: Tripous.Data.TableDef.FieldExists*
+  nameWithType.vb: TableDef.FieldExists(String)
+  fullName.vb: Tripous.Data.TableDef.FieldExists(String)
+  name.vb: FieldExists(String)
+- uid: Tripous.Data.TableDef.FindField(System.String)
+  commentId: M:Tripous.Data.TableDef.FindField(System.String)
+  id: FindField(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FindField(string)
+  nameWithType: TableDef.FindField(string)
+  fullName: Tripous.Data.TableDef.FindField(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 749
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Finds a field by name, if any, else null.
+  example: []
+  syntax:
+    content: public FieldDef FindField(string FieldName)
+    parameters:
+    - id: FieldName
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function FindField(FieldName As String) As FieldDef
+  overload: Tripous.Data.TableDef.FindField*
+  nameWithType.vb: TableDef.FindField(String)
+  fullName.vb: Tripous.Data.TableDef.FindField(String)
+  name.vb: FindField(String)
+- uid: Tripous.Data.TableDef.GetField(System.String)
+  commentId: M:Tripous.Data.TableDef.GetField(System.String)
+  id: GetField(System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: GetField(string)
+  nameWithType: TableDef.GetField(string)
+  fullName: Tripous.Data.TableDef.GetField(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 753
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a field by name, if any, else exception.
+  example: []
+  syntax:
+    content: public FieldDef GetField(string FieldName)
+    parameters:
+    - id: FieldName
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function GetField(FieldName As String) As FieldDef
+  overload: Tripous.Data.TableDef.GetField*
+  nameWithType.vb: TableDef.GetField(String)
+  fullName.vb: Tripous.Data.TableDef.GetField(String)
+  name.vb: GetField(String)
+- uid: Tripous.Data.TableDef.AddField(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddField(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddField(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddField(string, DataFieldType, string, string, string, int, int, string, string, FieldFlags)
+  nameWithType: TableDef.AddField(string, DataFieldType, string, string, string, int, int, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddField(string, Tripous.Data.DataFieldType, string, string, string, int, int, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 764
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns a field.
+  example: []
+  syntax:
+    content: public FieldDef AddField(string Name, DataFieldType DataType, string Group = null, string TitleKey = null, string Alias = null, int MaxLength = -1, int Decimals = -1, string LookupSource = null, string Locator = null, FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Alias
+      type: System.String
+    - id: MaxLength
+      type: System.Int32
+    - id: Decimals
+      type: System.Int32
+    - id: LookupSource
+      type: System.String
+    - id: Locator
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddField(Name As String, DataType As DataFieldType, Group As String = Nothing, TitleKey As String = Nothing, [Alias] As String = Nothing, MaxLength As Integer = -1, Decimals As Integer = -1, LookupSource As String = Nothing, Locator As String = Nothing, Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddField*
+  nameWithType.vb: TableDef.AddField(String, DataFieldType, String, String, String, Integer, Integer, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddField(String, Tripous.Data.DataFieldType, String, String, String, Integer, Integer, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddField(String, DataFieldType, String, String, String, Integer, Integer, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddId(System.String,Tripous.Data.DataFieldType,Tripous.Data.FieldFlags,System.Int32)
+  commentId: M:Tripous.Data.TableDef.AddId(System.String,Tripous.Data.DataFieldType,Tripous.Data.FieldFlags,System.Int32)
+  id: AddId(System.String,Tripous.Data.DataFieldType,Tripous.Data.FieldFlags,System.Int32)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddId(string, DataFieldType, FieldFlags, int)
+  nameWithType: TableDef.AddId(string, DataFieldType, FieldFlags, int)
+  fullName: Tripous.Data.TableDef.AddId(string, Tripous.Data.DataFieldType, Tripous.Data.FieldFlags, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 793
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an Id field.
+  example: []
+  syntax:
+    content: public FieldDef AddId(string Name, DataFieldType DataType, FieldFlags Flags = FieldFlags.Hidden | FieldFlags.Required, int MaxLength = 40)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    - id: MaxLength
+      type: System.Int32
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddId(Name As String, DataType As DataFieldType, Flags As FieldFlags = FieldFlags.Hidden Or FieldFlags.Required, MaxLength As Integer = 40) As FieldDef
+  overload: Tripous.Data.TableDef.AddId*
+  nameWithType.vb: TableDef.AddId(String, DataFieldType, FieldFlags, Integer)
+  fullName.vb: Tripous.Data.TableDef.AddId(String, Tripous.Data.DataFieldType, Tripous.Data.FieldFlags, Integer)
+  name.vb: AddId(String, DataFieldType, FieldFlags, Integer)
+- uid: Tripous.Data.TableDef.AddId(System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddId(System.String,Tripous.Data.FieldFlags)
+  id: AddId(System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddId(string, FieldFlags)
+  nameWithType: TableDef.AddId(string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddId(string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 805
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an Id field based on settings on <xref href="Tripous.Data.DbConfig.OidDataType" data-throw-if-not-resolved="false"></xref> and <xref href="Tripous.Data.DbConfig.OidSize" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public FieldDef AddId(string Name = "Id", FieldFlags Flags = FieldFlags.Hidden | FieldFlags.Required)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddId(Name As String = "Id", Flags As FieldFlags = FieldFlags.Hidden Or FieldFlags.Required) As FieldDef
+  overload: Tripous.Data.TableDef.AddId*
+  nameWithType.vb: TableDef.AddId(String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddId(String, Tripous.Data.FieldFlags)
+  name.vb: AddId(String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddStringId(System.String,Tripous.Data.FieldFlags,System.Int32)
+  commentId: M:Tripous.Data.TableDef.AddStringId(System.String,Tripous.Data.FieldFlags,System.Int32)
+  id: AddStringId(System.String,Tripous.Data.FieldFlags,System.Int32)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddStringId(string, FieldFlags, int)
+  nameWithType: TableDef.AddStringId(string, FieldFlags, int)
+  fullName: Tripous.Data.TableDef.AddStringId(string, Tripous.Data.FieldFlags, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddStringId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 809
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns a string Id field
+  example: []
+  syntax:
+    content: public FieldDef AddStringId(string Name = "Id", FieldFlags Flags = FieldFlags.Hidden | FieldFlags.Required, int MaxLength = 40)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    - id: MaxLength
+      type: System.Int32
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddStringId(Name As String = "Id", Flags As FieldFlags = FieldFlags.Hidden Or FieldFlags.Required, MaxLength As Integer = 40) As FieldDef
+  overload: Tripous.Data.TableDef.AddStringId*
+  nameWithType.vb: TableDef.AddStringId(String, FieldFlags, Integer)
+  fullName.vb: Tripous.Data.TableDef.AddStringId(String, Tripous.Data.FieldFlags, Integer)
+  name.vb: AddStringId(String, FieldFlags, Integer)
+- uid: Tripous.Data.TableDef.AddIntegerId(System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddIntegerId(System.String,Tripous.Data.FieldFlags)
+  id: AddIntegerId(System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddIntegerId(string, FieldFlags)
+  nameWithType: TableDef.AddIntegerId(string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddIntegerId(string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddIntegerId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 813
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an integer Id field
+  example: []
+  syntax:
+    content: public FieldDef AddIntegerId(string Name = "Id", FieldFlags Flags = FieldFlags.Hidden | FieldFlags.Required)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddIntegerId(Name As String = "Id", Flags As FieldFlags = FieldFlags.Hidden Or FieldFlags.Required) As FieldDef
+  overload: Tripous.Data.TableDef.AddIntegerId*
+  nameWithType.vb: TableDef.AddIntegerId(String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddIntegerId(String, Tripous.Data.FieldFlags)
+  name.vb: AddIntegerId(String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddLookupId(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddLookupId(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddLookupId(System.String,Tripous.Data.DataFieldType,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddLookupId(string, DataFieldType, string, string, string, FieldFlags)
+  nameWithType: TableDef.AddLookupId(string, DataFieldType, string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddLookupId(string, Tripous.Data.DataFieldType, string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 820
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a fields, such as <code>CountryId</code> which needs a <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> in order to be displayed correctly in the Ui.
+
+
+    <p>The <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> should be registered in the registry.</p>
+  example: []
+  syntax:
+    content: public FieldDef AddLookupId(string Name, DataFieldType DataType, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+    - id: LookupSource
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddLookupId(Name As String, DataType As DataFieldType, LookupSource As String, Group As String = Nothing, TitleKey As String = Nothing, Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddLookupId*
+  nameWithType.vb: TableDef.AddLookupId(String, DataFieldType, String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddLookupId(String, Tripous.Data.DataFieldType, String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddLookupId(String, DataFieldType, String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddStringLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddStringLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddStringLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddStringLookupId(string, string, string, string, FieldFlags)
+  nameWithType: TableDef.AddStringLookupId(string, string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddStringLookupId(string, string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddStringLookupId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 830
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a fields, such as <code>CountryId</code> which needs a <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> in order to be displayed correctly in the Ui.
+
+
+    <p>The <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> should be registered in the registry.</p>
+  example: []
+  syntax:
+    content: public FieldDef AddStringLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: LookupSource
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddStringLookupId(Name As String, LookupSource As String, Group As String = Nothing, TitleKey As String = Nothing, Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddStringLookupId*
+  nameWithType.vb: TableDef.AddStringLookupId(String, String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddStringLookupId(String, String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddStringLookupId(String, String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddIntegerLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddIntegerLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddIntegerLookupId(System.String,System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddIntegerLookupId(string, string, string, string, FieldFlags)
+  nameWithType: TableDef.AddIntegerLookupId(string, string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddIntegerLookupId(string, string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddIntegerLookupId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 836
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a fields, such as <code>CountryId</code> which needs a <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> in order to be displayed correctly in the Ui.
+
+
+    <p>The <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> should be registered in the registry.</p>
+  example: []
+  syntax:
+    content: public FieldDef AddIntegerLookupId(string Name, string LookupSource, string Group = null, string TitleKey = null, FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: LookupSource
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddIntegerLookupId(Name As String, LookupSource As String, Group As String = Nothing, TitleKey As String = Nothing, Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddIntegerLookupId*
+  nameWithType.vb: TableDef.AddIntegerLookupId(String, String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddIntegerLookupId(String, String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddIntegerLookupId(String, String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddEnumLookupId(System.String,System.String,System.Type,System.String,System.Boolean,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddEnumLookupId(System.String,System.String,System.Type,System.String,System.Boolean,System.String,Tripous.Data.FieldFlags)
+  id: AddEnumLookupId(System.String,System.String,System.Type,System.String,System.Boolean,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddEnumLookupId(string, string, Type, string, bool, string, FieldFlags)
+  nameWithType: TableDef.AddEnumLookupId(string, string, Type, string, bool, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddEnumLookupId(string, string, System.Type, string, bool, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddEnumLookupId
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 843
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a fields, such as <code>AggregateId</code> which needs a <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> of an enum type, such as the <xref href="Tripous.Data.AggregateType" data-throw-if-not-resolved="false"></xref>,
+
+    in order to be displayed correctly in the Ui.
+
+
+    <p><b>NOTE</b>: This method creates and registers the required <xref href="Tripous.Data.LookupDef" data-throw-if-not-resolved="false"></xref> to the registry.</p>
+  example: []
+  syntax:
+    content: public FieldDef AddEnumLookupId(string Name, string LookupSource, Type EnumType, string Group = null, bool UseNullItem = false, string TitleKey = null, FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: LookupSource
+      type: System.String
+    - id: EnumType
+      type: System.Type
+    - id: Group
+      type: System.String
+    - id: UseNullItem
+      type: System.Boolean
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddEnumLookupId(Name As String, LookupSource As String, EnumType As Type, Group As String = Nothing, UseNullItem As Boolean = False, TitleKey As String = Nothing, Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddEnumLookupId*
+  nameWithType.vb: TableDef.AddEnumLookupId(String, String, Type, String, Boolean, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddEnumLookupId(String, String, System.Type, String, Boolean, String, Tripous.Data.FieldFlags)
+  name.vb: AddEnumLookupId(String, String, Type, String, Boolean, String, FieldFlags)
+- uid: Tripous.Data.TableDef.Add(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.Add(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  id: Add(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Add(string, int, string, string, FieldFlags)
+  nameWithType: TableDef.Add(string, int, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.Add(string, int, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Add
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 859
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns a string field.
+  example: []
+  syntax:
+    content: public FieldDef Add(string Name, int MaxLength, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: MaxLength
+      type: System.Int32
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function Add(Name As String, MaxLength As Integer, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.Add*
+  nameWithType.vb: TableDef.Add(String, Integer, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.Add(String, Integer, String, String, Tripous.Data.FieldFlags)
+  name.vb: Add(String, Integer, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddString(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddString(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddString(System.String,System.Int32,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddString(string, int, string, string, FieldFlags)
+  nameWithType: TableDef.AddString(string, int, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddString(string, int, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddString
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 864
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns a string field.
+  example: []
+  syntax:
+    content: public FieldDef AddString(string Name, int MaxLength = 96, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: MaxLength
+      type: System.Int32
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddString(Name As String, MaxLength As Integer = 96, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddString*
+  nameWithType.vb: TableDef.AddString(String, Integer, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddString(String, Integer, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddString(String, Integer, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddInteger(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddInteger(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddInteger(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddInteger(string, string, string, FieldFlags)
+  nameWithType: TableDef.AddInteger(string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddInteger(string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddInteger
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 871
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an integer field.
+  example: []
+  syntax:
+    content: public FieldDef AddInteger(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddInteger(Name As String, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddInteger*
+  nameWithType.vb: TableDef.AddInteger(String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddInteger(String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddInteger(String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddDouble(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddDouble(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  id: AddDouble(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddDouble(string, string, int, string, FieldFlags)
+  nameWithType: TableDef.AddDouble(string, string, int, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddDouble(string, string, int, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddDouble
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 876
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an double field.
+  example: []
+  syntax:
+    content: public FieldDef AddDouble(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: Decimals
+      type: System.Int32
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddDouble(Name As String, Group As String = Nothing, Decimals As Integer = 4, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddDouble*
+  nameWithType.vb: TableDef.AddDouble(String, String, Integer, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddDouble(String, String, Integer, String, Tripous.Data.FieldFlags)
+  name.vb: AddDouble(String, String, Integer, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddDecimal(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddDecimal(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  id: AddDecimal(System.String,System.String,System.Int32,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddDecimal(string, string, int, string, FieldFlags)
+  nameWithType: TableDef.AddDecimal(string, string, int, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddDecimal(string, string, int, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddDecimal
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 881
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an decimal field.
+  example: []
+  syntax:
+    content: public FieldDef AddDecimal(string Name, string Group = null, int Decimals = 4, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: Decimals
+      type: System.Int32
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddDecimal(Name As String, Group As String = Nothing, Decimals As Integer = 4, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddDecimal*
+  nameWithType.vb: TableDef.AddDecimal(String, String, Integer, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddDecimal(String, String, Integer, String, Tripous.Data.FieldFlags)
+  name.vb: AddDecimal(String, String, Integer, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddDate(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddDate(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddDate(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddDate(string, string, string, FieldFlags)
+  nameWithType: TableDef.AddDate(string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddDate(string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddDate
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 886
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an date field.
+  example: []
+  syntax:
+    content: public FieldDef AddDate(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddDate(Name As String, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddDate*
+  nameWithType.vb: TableDef.AddDate(String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddDate(String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddDate(String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddDateTime(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddDateTime(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddDateTime(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddDateTime(string, string, string, FieldFlags)
+  nameWithType: TableDef.AddDateTime(string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddDateTime(string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddDateTime
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 891
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an date-time field.
+  example: []
+  syntax:
+    content: public FieldDef AddDateTime(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddDateTime(Name As String, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddDateTime*
+  nameWithType.vb: TableDef.AddDateTime(String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddDateTime(String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddDateTime(String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddBoolean(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddBoolean(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddBoolean(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddBoolean(string, string, string, FieldFlags)
+  nameWithType: TableDef.AddBoolean(string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddBoolean(string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddBoolean
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 896
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns an integer-boolean field.
+  example: []
+  syntax:
+    content: public FieldDef AddBoolean(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddBoolean(Name As String, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddBoolean*
+  nameWithType.vb: TableDef.AddBoolean(String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddBoolean(String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddBoolean(String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddBlob(string, string, string, FieldFlags)
+  nameWithType: TableDef.AddBlob(string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddBlob(string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddBlob
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 901
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns a blob field.
+  example: []
+  syntax:
+    content: public FieldDef AddBlob(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddBlob(Name As String, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddBlob*
+  nameWithType.vb: TableDef.AddBlob(String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddBlob(String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddBlob(String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddTextBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.TableDef.AddTextBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  id: AddTextBlob(System.String,System.String,System.String,Tripous.Data.FieldFlags)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddTextBlob(string, string, string, FieldFlags)
+  nameWithType: TableDef.AddTextBlob(string, string, string, FieldFlags)
+  fullName: Tripous.Data.TableDef.AddTextBlob(string, string, string, Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddTextBlob
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 906
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds and returns a text blob field.
+  example: []
+  syntax:
+    content: public FieldDef AddTextBlob(string Name, string Group = null, string TitleKey = "", FieldFlags Flags = FieldFlags.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: Group
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: Flags
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddTextBlob(Name As String, Group As String = Nothing, TitleKey As String = "", Flags As FieldFlags = FieldFlags.None) As FieldDef
+  overload: Tripous.Data.TableDef.AddTextBlob*
+  nameWithType.vb: TableDef.AddTextBlob(String, String, String, FieldFlags)
+  fullName.vb: Tripous.Data.TableDef.AddTextBlob(String, String, String, Tripous.Data.FieldFlags)
+  name.vb: AddTextBlob(String, String, String, FieldFlags)
+- uid: Tripous.Data.TableDef.AddDetail(System.String,System.String,System.String)
+  commentId: M:Tripous.Data.TableDef.AddDetail(System.String,System.String,System.String)
+  id: AddDetail(System.String,System.String,System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddDetail(string, string, string)
+  nameWithType: TableDef.AddDetail(string, string, string)
+  fullName: Tripous.Data.TableDef.AddDetail(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddDetail
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 913
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds a detail table to this table.
+  example: []
+  syntax:
+    content: public TableDef AddDetail(string DetailTableName, string MasterField, string DetailField)
+    parameters:
+    - id: DetailTableName
+      type: System.String
+    - id: MasterField
+      type: System.String
+    - id: DetailField
+      type: System.String
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: Public Function AddDetail(DetailTableName As String, MasterField As String, DetailField As String) As TableDef
+  overload: Tripous.Data.TableDef.AddDetail*
+  nameWithType.vb: TableDef.AddDetail(String, String, String)
+  fullName.vb: Tripous.Data.TableDef.AddDetail(String, String, String)
+  name.vb: AddDetail(String, String, String)
+- uid: Tripous.Data.TableDef.AddJoin(System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.TableDef.AddJoin(System.String,System.String,System.String,System.String)
+  id: AddJoin(System.String,System.String,System.String,System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddJoin(string, string, string, string)
+  nameWithType: TableDef.AddJoin(string, string, string, string)
+  fullName: Tripous.Data.TableDef.AddJoin(string, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddJoin
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 937
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a table join in this table and returns the joined table.
+
+
+    <p>If this is CUSTOMER table then the COUNTRY table can be joined as</p>
+
+    <p>TableName: COUNTRY</p>
+
+    <p>Alias: empty string or null or an alias</p>
+
+    <p>OwnKeyField: COUNTRY_ID</p>
+
+    <p>The above settings produce the following:</p>
+
+    <p><code>left join COUNTRY on COUNTRY.ID = CUSTOMER.COUNTRY_ID</code></p>
+  example: []
+  syntax:
+    content: public TableDef AddJoin(string OwnKeyField, string ForeignTable, string ForeignAlias = "", string ForeignPrimaryKey = "Id")
+    parameters:
+    - id: OwnKeyField
+      type: System.String
+      description: A field that belongs to this table. Is used in the join SQL statement
+    - id: ForeignTable
+      type: System.String
+      description: The name of the table to join, e.g. COUNTRY to CUSTOMER
+    - id: ForeignAlias
+      type: System.String
+      description: The alias of the table to join, e.g. <code>co</code>
+    - id: ForeignPrimaryKey
+      type: System.String
+      description: The primary key field name of the table to join, e.g. <code>Id</code>
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: Public Function AddJoin(OwnKeyField As String, ForeignTable As String, ForeignAlias As String = "", ForeignPrimaryKey As String = "Id") As TableDef
+  overload: Tripous.Data.TableDef.AddJoin*
+  nameWithType.vb: TableDef.AddJoin(String, String, String, String)
+  fullName.vb: Tripous.Data.TableDef.AddJoin(String, String, String, String)
+  name.vb: AddJoin(String, String, String, String)
+- uid: Tripous.Data.TableDef.AddJoin(System.String,System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.TableDef.AddJoin(System.String,System.String,System.String,System.String,System.String)
+  id: AddJoin(System.String,System.String,System.String,System.String,System.String)
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: AddJoin(string, string, string, string, string)
+  nameWithType: TableDef.AddJoin(string, string, string, string, string)
+  fullName: Tripous.Data.TableDef.AddJoin(string, string, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddJoin
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 952
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a table join in this table and returns the joined table.
+
+
+    <p>If this is CUSTOMER table then the COUNTRY table can be joined as</p>
+
+    <p>TableName: COUNTRY</p>
+
+    <p>Alias: empty string or null or an alias</p>
+
+    <p>OwnKeyField: COUNTRY_ID</p>
+
+    <p>The above settings produce the following:</p>
+
+    <p><code>left join COUNTRY on COUNTRY.ID = CUSTOMER.COUNTRY_ID</code></p>
+  example: []
+  syntax:
+    content: public TableDef AddJoin(string OwnKeyField, string Locator, string ForeignTable, string ForeignAlias = "", string ForeignPrimaryKey = "Id")
+    parameters:
+    - id: OwnKeyField
+      type: System.String
+      description: A field that belongs to this table. Is used in the join SQL statement
+    - id: Locator
+      type: System.String
+      description: The locator name to be used in the owner key field.
+    - id: ForeignTable
+      type: System.String
+      description: The name of the table to join, e.g. COUNTRY to CUSTOMER
+    - id: ForeignAlias
+      type: System.String
+      description: The alias of the table to join, e.g. <code>co</code>
+    - id: ForeignPrimaryKey
+      type: System.String
+      description: The primary key field name of the table to join, e.g. <code>Id</code>
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: Public Function AddJoin(OwnKeyField As String, Locator As String, ForeignTable As String, ForeignAlias As String = "", ForeignPrimaryKey As String = "Id") As TableDef
+  overload: Tripous.Data.TableDef.AddJoin*
+  nameWithType.vb: TableDef.AddJoin(String, String, String, String, String)
+  fullName.vb: Tripous.Data.TableDef.AddJoin(String, String, String, String, String)
+  name.vb: AddJoin(String, String, String, String, String)
+- uid: Tripous.Data.TableDef.GetBindableFields
+  commentId: M:Tripous.Data.TableDef.GetBindableFields
+  id: GetBindableFields
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: GetBindableFields()
+  nameWithType: TableDef.GetBindableFields()
+  fullName: Tripous.Data.TableDef.GetBindableFields()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetBindableFields
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 971
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the list of bindable fields.
+  example: []
+  syntax:
+    content: public List<FieldDef> GetBindableFields()
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.FieldDef}
+    content.vb: Public Function GetBindableFields() As List(Of FieldDef)
+  overload: Tripous.Data.TableDef.GetBindableFields*
+- uid: Tripous.Data.TableDef.GetBindableGroups
+  commentId: M:Tripous.Data.TableDef.GetBindableGroups
+  id: GetBindableGroups
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: GetBindableGroups()
+  nameWithType: TableDef.GetBindableGroups()
+  fullName: Tripous.Data.TableDef.GetBindableGroups()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetBindableGroups
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 976
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the list of field groups that are not bindable.
+  example: []
+  syntax:
+    content: public Dictionary<string, List<FieldDef>> GetBindableGroups()
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{Tripous.Data.FieldDef}}
+      description: ''
+    content.vb: Public Function GetBindableGroups() As Dictionary(Of String, List(Of FieldDef))
+  overload: Tripous.Data.TableDef.GetBindableGroups*
+- uid: Tripous.Data.TableDef.ModuleDef
+  commentId: P:Tripous.Data.TableDef.ModuleDef
+  id: ModuleDef
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: ModuleDef
+  nameWithType: TableDef.ModuleDef
+  fullName: Tripous.Data.TableDef.ModuleDef
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleDef
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1011
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The master definition this instance belongs to.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public ModuleDef ModuleDef { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property ModuleDef As ModuleDef
+  overload: Tripous.Data.TableDef.ModuleDef*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.TableDef.Master
+  commentId: P:Tripous.Data.TableDef.Master
+  id: Master
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Master
+  nameWithType: TableDef.Master
+  fullName: Tripous.Data.TableDef.Master
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Master
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1016
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The master table when this is a detail table.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public TableDef Master { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Master As TableDef
+  overload: Tripous.Data.TableDef.Master*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.TableDef.Owner
+  commentId: P:Tripous.Data.TableDef.Owner
+  id: Owner
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Owner
+  nameWithType: TableDef.Owner
+  fullName: Tripous.Data.TableDef.Owner
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Owner
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1021
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When this is a join table, the owner is the table that joins this table.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public TableDef Owner { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Owner As TableDef
+  overload: Tripous.Data.TableDef.Owner*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.TableDef.Alias
+  commentId: P:Tripous.Data.TableDef.Alias
+  id: Alias
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Alias
+  nameWithType: TableDef.Alias
+  fullName: Tripous.Data.TableDef.Alias
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Alias
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1027
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An alias of this table
+  example: []
+  syntax:
+    content: public string Alias { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property [Alias] As String
+  overload: Tripous.Data.TableDef.Alias*
+- uid: Tripous.Data.TableDef.KeyField
+  commentId: P:Tripous.Data.TableDef.KeyField
+  id: KeyField
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: KeyField
+  nameWithType: TableDef.KeyField
+  fullName: Tripous.Data.TableDef.KeyField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: KeyField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1035
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the name of the primary key field of this table.
+  example: []
+  syntax:
+    content: public string KeyField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property KeyField As String
+  overload: Tripous.Data.TableDef.KeyField*
+- uid: Tripous.Data.TableDef.MasterField
+  commentId: P:Tripous.Data.TableDef.MasterField
+  id: MasterField
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: MasterField
+  nameWithType: TableDef.MasterField
+  fullName: Tripous.Data.TableDef.MasterField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MasterField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1044
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets or sets the field name of a field belonging to a master table.
+
+
+    <p>Used when this table is a detail table in a master-detail relation or when this is a join table.</p>
+  example: []
+  syntax:
+    content: public string MasterField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property MasterField As String
+  overload: Tripous.Data.TableDef.MasterField*
+- uid: Tripous.Data.TableDef.DetailField
+  commentId: P:Tripous.Data.TableDef.DetailField
+  id: DetailField
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: DetailField
+  nameWithType: TableDef.DetailField
+  fullName: Tripous.Data.TableDef.DetailField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailField
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1053
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The detail key field. A field that belongs to this table and matches the primary key field of the master table.
+
+
+    <p>It is used when this table is a detail table in a master-detail relation.</p>
+  example: []
+  syntax:
+    content: public string DetailField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DetailField As String
+  overload: Tripous.Data.TableDef.DetailField*
+- uid: Tripous.Data.TableDef.IsDetail
+  commentId: P:Tripous.Data.TableDef.IsDetail
+  id: IsDetail
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: IsDetail
+  nameWithType: TableDef.IsDetail
+  fullName: Tripous.Data.TableDef.IsDetail
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDetail
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1061
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: When true then this is a detail table, e.g. a TradeLines under a Trade table.
+  example: []
+  syntax:
+    content: public bool IsDetail { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsDetail As Boolean
+  overload: Tripous.Data.TableDef.IsDetail*
+- uid: Tripous.Data.TableDef.IsOneToOne
+  commentId: P:Tripous.Data.TableDef.IsOneToOne
+  id: IsOneToOne
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: IsOneToOne
+  nameWithType: TableDef.IsOneToOne
+  fullName: Tripous.Data.TableDef.IsOneToOne
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsOneToOne
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1070
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sometimes there is an one-to-one relationship between the top table, i.e. <xref href="Tripous.Data.ModuleDef.Table" data-throw-if-not-resolved="false"></xref> and one or more details, but single-row tables.
+
+
+    <p>For example: Trade and StoreTrade and FinTrade, where Trade is the top table and StoreTrade and FinTrade are <xref href="Tripous.Data.TableDef.IsOneToOne" data-throw-if-not-resolved="false"></xref> table.</p>
+  example: []
+  syntax:
+    content: public bool IsOneToOne { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsOneToOne As Boolean
+  overload: Tripous.Data.TableDef.IsOneToOne*
+- uid: Tripous.Data.TableDef.IsUiVisible
+  commentId: P:Tripous.Data.TableDef.IsUiVisible
+  id: IsUiVisible
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: IsUiVisible
+  nameWithType: TableDef.IsUiVisible
+  fullName: Tripous.Data.TableDef.IsUiVisible
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsUiVisible
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1080
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    When false then the table is not visible in the UI.
+
+
+    <p>Useful with <xref href="Tripous.Data.TableDef.IsOneToOne" data-throw-if-not-resolved="false"></xref> details, for example when a Trade table has one-to-one details tables such as the StoreTrade and FinTrade.</p>
+
+    <p>It is also useful with multi-row detail tables when the table must remain hidden, without a grid in the UI.</p>
+  example: []
+  syntax:
+    content: public bool IsUiVisible { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsUiVisible As Boolean
+  overload: Tripous.Data.TableDef.IsUiVisible*
+- uid: Tripous.Data.TableDef.Sqls
+  commentId: P:Tripous.Data.TableDef.Sqls
+  id: Sqls
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Sqls
+  nameWithType: TableDef.Sqls
+  fullName: Tripous.Data.TableDef.Sqls
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Sqls
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1089
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The SQL statements associated with this table.
+  example: []
+  syntax:
+    content: public TableSqls Sqls { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.TableSqls
+    content.vb: Public Property Sqls As TableSqls
+  overload: Tripous.Data.TableDef.Sqls*
+- uid: Tripous.Data.TableDef.FieldGroups
+  commentId: P:Tripous.Data.TableDef.FieldGroups
+  id: FieldGroups
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: FieldGroups
+  nameWithType: TableDef.FieldGroups
+  fullName: Tripous.Data.TableDef.FieldGroups
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldGroups
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1093
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Preferred field group display order.
+  example: []
+  syntax:
+    content: public List<string> FieldGroups { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property FieldGroups As List(Of String)
+  overload: Tripous.Data.TableDef.FieldGroups*
+- uid: Tripous.Data.TableDef.Fields
+  commentId: P:Tripous.Data.TableDef.Fields
+  id: Fields
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Fields
+  nameWithType: TableDef.Fields
+  fullName: Tripous.Data.TableDef.Fields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Fields
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1101
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The fields of this table
+  example: []
+  syntax:
+    content: public DefList<FieldDef> Fields { get; set; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.FieldDef}
+    content.vb: Public Property Fields As DefList(Of FieldDef)
+  overload: Tripous.Data.TableDef.Fields*
+- uid: Tripous.Data.TableDef.Joins
+  commentId: P:Tripous.Data.TableDef.Joins
+  id: Joins
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Joins
+  nameWithType: TableDef.Joins
+  fullName: Tripous.Data.TableDef.Joins
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Joins
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1109
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of join tables.
+  example: []
+  syntax:
+    content: public DefList<TableDef> Joins { get; set; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.TableDef}
+    content.vb: Public Property Joins As DefList(Of TableDef)
+  overload: Tripous.Data.TableDef.Joins*
+- uid: Tripous.Data.TableDef.Stocks
+  commentId: P:Tripous.Data.TableDef.Stocks
+  id: Stocks
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Stocks
+  nameWithType: TableDef.Stocks
+  fullName: Tripous.Data.TableDef.Stocks
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Stocks
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1128
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The main table (Item) is selected as 
+
+
+    <p> <code>select * from TABLE_NAME where ID = :ID</code></p>
+
+    <p>
+
+    If the table contains foreign keys, for instance CUSTOMER_ID etc, then those foreign tables are NOT joined. 
+
+    The programmer who designs the UI just creates a Locator where needed.
+
+    </p>
+
+    <p>
+
+    But there is always the need to have data from those foreign tables in many situations, i.e. in reports.
+
+    </p>
+
+    <p>
+
+    StockTables are used for that. StockTables are selected each time after the select of the main table (Item)          
+
+    </p>
+  example: []
+  syntax:
+    content: public DefList<SelectDef> Stocks { get; set; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.SelectDef}
+    content.vb: Public Property Stocks As DefList(Of SelectDef)
+  overload: Tripous.Data.TableDef.Stocks*
+- uid: Tripous.Data.TableDef.Details
+  commentId: P:Tripous.Data.TableDef.Details
+  id: Details
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: Details
+  nameWithType: TableDef.Details
+  fullName: Tripous.Data.TableDef.Details
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Details
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1136
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The detail tables of this table.
+  example: []
+  syntax:
+    content: public DefList<TableDef> Details { get; set; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.TableDef}
+    content.vb: Public Property Details As DefList(Of TableDef)
+  overload: Tripous.Data.TableDef.Details*
+- uid: Tripous.Data.TableDef.HasDetails
+  commentId: P:Tripous.Data.TableDef.HasDetails
+  id: HasDetails
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: HasDetails
+  nameWithType: TableDef.HasDetails
+  fullName: Tripous.Data.TableDef.HasDetails
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasDetails
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1145
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when this table has details
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool HasDetails { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property HasDetails As Boolean
+  overload: Tripous.Data.TableDef.HasDetails*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.TableDef.HasJoins
+  commentId: P:Tripous.Data.TableDef.HasJoins
+  id: HasJoins
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: HasJoins
+  nameWithType: TableDef.HasJoins
+  fullName: Tripous.Data.TableDef.HasJoins
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasJoins
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1149
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when this table has joins
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool HasJoins { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property HasJoins As Boolean
+  overload: Tripous.Data.TableDef.HasJoins*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.TableDef.HasStocks
+  commentId: P:Tripous.Data.TableDef.HasStocks
+  id: HasStocks
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: HasStocks
+  nameWithType: TableDef.HasStocks
+  fullName: Tripous.Data.TableDef.HasStocks
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasStocks
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1153
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when this table has stocks
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool HasStocks { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property HasStocks As Boolean
+  overload: Tripous.Data.TableDef.HasStocks*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.TableDef.IsJoin
+  commentId: P:Tripous.Data.TableDef.IsJoin
+  id: IsJoin
+  parent: Tripous.Data.TableDef
+  langs:
+  - csharp
+  - vb
+  name: IsJoin
+  nameWithType: TableDef.IsJoin
+  fullName: Tripous.Data.TableDef.IsJoin
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/TableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsJoin
+    path: ../Tripous.Data/Registry/TableDef.cs
+    startLine: 1157
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when this is a table joined to another table.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsJoin { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsJoin As Boolean
+  overload: Tripous.Data.TableDef.IsJoin*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.BaseDef.fTitleKey
+  commentId: F:Tripous.BaseDef.fTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey
+  name: fTitleKey
+  nameWithType: BaseDef.fTitleKey
+  fullName: Tripous.BaseDef.fTitleKey
+- uid: Tripous.BaseDef.fName
+  commentId: F:Tripous.BaseDef.fName
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fName
+  name: fName
+  nameWithType: BaseDef.fName
+  fullName: Tripous.BaseDef.fName
+- uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  commentId: M:Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  parent: Tripous.BaseDef
+  isExternal: true
+  href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  name: NotifyPropertyChanged(string)
+  nameWithType: BaseDef.NotifyPropertyChanged(string)
+  fullName: Tripous.BaseDef.NotifyPropertyChanged(string)
+  nameWithType.vb: BaseDef.NotifyPropertyChanged(String)
+  fullName.vb: Tripous.BaseDef.NotifyPropertyChanged(String)
+  name.vb: NotifyPropertyChanged(String)
+  spec.csharp:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.ToString
+  commentId: M:Tripous.BaseDef.ToString
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  name: ToString()
+  nameWithType: BaseDef.ToString()
+  fullName: Tripous.BaseDef.ToString()
+  spec.csharp:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.JsonLoaded
+  commentId: M:Tripous.BaseDef.JsonLoaded
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  name: JsonLoaded()
+  nameWithType: BaseDef.JsonLoaded()
+  fullName: Tripous.BaseDef.JsonLoaded()
+  spec.csharp:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CreateNew
+  commentId: M:Tripous.BaseDef.CreateNew
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  name: CreateNew()
+  nameWithType: BaseDef.CreateNew()
+  fullName: Tripous.BaseDef.CreateNew()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.BaseDef.Assign(Tripous.IDef)
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  name: Assign(IDef)
+  nameWithType: BaseDef.Assign(IDef)
+  fullName: Tripous.BaseDef.Assign(Tripous.IDef)
+  spec.csharp:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+- uid: Tripous.BaseDef.Clone
+  commentId: M:Tripous.BaseDef.Clone
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  name: Clone()
+  nameWithType: BaseDef.Clone()
+  fullName: Tripous.BaseDef.Clone()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Clear
+  commentId: M:Tripous.BaseDef.Clear
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  name: Clear()
+  nameWithType: BaseDef.Clear()
+  fullName: Tripous.BaseDef.Clear()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  commentId: M:Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  name: SplitTitleKeyToWordsWithPluralEnding()
+  nameWithType: BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  fullName: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  spec.csharp:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
+- uid: Tripous.BaseDef.TitleKey
+  commentId: P:Tripous.BaseDef.TitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_TitleKey
+  name: TitleKey
+  nameWithType: BaseDef.TitleKey
+  fullName: Tripous.BaseDef.TitleKey
+- uid: Tripous.BaseDef.IsTitleKeyEmpty
+  commentId: P:Tripous.BaseDef.IsTitleKeyEmpty
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty
+  name: IsTitleKeyEmpty
+  nameWithType: BaseDef.IsTitleKeyEmpty
+  fullName: Tripous.BaseDef.IsTitleKeyEmpty
+- uid: Tripous.BaseDef.Title
+  commentId: P:Tripous.BaseDef.Title
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Title
+  name: Title
+  nameWithType: BaseDef.Title
+  fullName: Tripous.BaseDef.Title
+- uid: Tripous.BaseDef.Tag
+  commentId: P:Tripous.BaseDef.Tag
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Tag
+  name: Tag
+  nameWithType: BaseDef.Tag
+  fullName: Tripous.BaseDef.Tag
+- uid: Tripous.BaseDef.IsSerializable
+  commentId: P:Tripous.BaseDef.IsSerializable
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable
+  name: IsSerializable
+  nameWithType: BaseDef.IsSerializable
+  fullName: Tripous.BaseDef.IsSerializable
+- uid: Tripous.BaseDef.PropertyChanged
+  commentId: E:Tripous.BaseDef.PropertyChanged
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged
+  name: PropertyChanged
+  nameWithType: BaseDef.PropertyChanged
+  fullName: Tripous.BaseDef.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.TableDef.#ctor*
+  commentId: Overload:Tripous.Data.TableDef.#ctor
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef__ctor
+  name: TableDef
+  nameWithType: TableDef.TableDef
+  fullName: Tripous.Data.TableDef.TableDef
+  nameWithType.vb: TableDef.New
+  fullName.vb: Tripous.Data.TableDef.New
+  name.vb: New
+- uid: Tripous.Data.ModuleDef
+  commentId: T:Tripous.Data.ModuleDef
+  parent: Tripous.Data
+  href: Tripous.Data.ModuleDef.html
+  name: ModuleDef
+  nameWithType: ModuleDef
+  fullName: Tripous.Data.ModuleDef
+- uid: Tripous.BaseDef.CheckDescriptor
+  commentId: M:Tripous.BaseDef.CheckDescriptor
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  name: CheckDescriptor()
+  nameWithType: BaseDef.CheckDescriptor()
+  fullName: Tripous.BaseDef.CheckDescriptor()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+- uid: Tripous.Data.TableDef.CheckDescriptor*
+  commentId: Overload:Tripous.Data.TableDef.CheckDescriptor
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_CheckDescriptor
+  name: CheckDescriptor
+  nameWithType: TableDef.CheckDescriptor
+  fullName: Tripous.Data.TableDef.CheckDescriptor
+- uid: Tripous.Data.TableDef.GetTopTableErrors*
+  commentId: Overload:Tripous.Data.TableDef.GetTopTableErrors
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_GetTopTableErrors
+  name: GetTopTableErrors
+  nameWithType: TableDef.GetTopTableErrors
+  fullName: Tripous.Data.TableDef.GetTopTableErrors
+- uid: Tripous.Data.TableDef.CheckTopTableErrors*
+  commentId: Overload:Tripous.Data.TableDef.CheckTopTableErrors
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_CheckTopTableErrors
+  name: CheckTopTableErrors
+  nameWithType: TableDef.CheckTopTableErrors
+  fullName: Tripous.Data.TableDef.CheckTopTableErrors
+- uid: Tripous.BaseDef.UpdateReferences
+  commentId: M:Tripous.BaseDef.UpdateReferences
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  name: UpdateReferences()
+  nameWithType: BaseDef.UpdateReferences()
+  fullName: Tripous.BaseDef.UpdateReferences()
+  spec.csharp:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+- uid: Tripous.Data.TableDef.UpdateReferences*
+  commentId: Overload:Tripous.Data.TableDef.UpdateReferences
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_UpdateReferences
+  name: UpdateReferences
+  nameWithType: TableDef.UpdateReferences
+  fullName: Tripous.Data.TableDef.UpdateReferences
+- uid: Tripous.Data.TableDef.FindAnyJoinTable*
+  commentId: Overload:Tripous.Data.TableDef.FindAnyJoinTable
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindAnyJoinTable_System_String_
+  name: FindAnyJoinTable
+  nameWithType: TableDef.FindAnyJoinTable
+  fullName: Tripous.Data.TableDef.FindAnyJoinTable
+- uid: Tripous.Data.TableDef
+  commentId: T:Tripous.Data.TableDef
+  parent: Tripous.Data
+  href: Tripous.Data.TableDef.html
+  name: TableDef
+  nameWithType: TableDef
+  fullName: Tripous.Data.TableDef
+- uid: Tripous.Data.TableDef.FindJoinTableByMasterKeyField*
+  commentId: Overload:Tripous.Data.TableDef.FindJoinTableByMasterKeyField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindJoinTableByMasterKeyField_System_String_
+  name: FindJoinTableByMasterKeyField
+  nameWithType: TableDef.FindJoinTableByMasterKeyField
+  fullName: Tripous.Data.TableDef.FindJoinTableByMasterKeyField
+- uid: Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField*
+  commentId: Overload:Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindAnyJoinTableByMasterKeyField_System_String_
+  name: FindAnyJoinTableByMasterKeyField
+  nameWithType: TableDef.FindAnyJoinTableByMasterKeyField
+  fullName: Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField
+- uid: Tripous.Data.TableDef.FindAnyField*
+  commentId: Overload:Tripous.Data.TableDef.FindAnyField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindAnyField_System_String_
+  name: FindAnyField
+  nameWithType: TableDef.FindAnyField
+  fullName: Tripous.Data.TableDef.FindAnyField
+- uid: System.Tuple{Tripous.Data.TableDef,Tripous.Data.FieldDef}
+  commentId: T:System.Tuple{Tripous.Data.TableDef,Tripous.Data.FieldDef}
+  parent: System
+  definition: System.Tuple`2
+  href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  name: Tuple<TableDef, FieldDef>
+  nameWithType: Tuple<TableDef, FieldDef>
+  fullName: System.Tuple<Tripous.Data.TableDef, Tripous.Data.FieldDef>
+  nameWithType.vb: Tuple(Of TableDef, FieldDef)
+  fullName.vb: System.Tuple(Of Tripous.Data.TableDef, Tripous.Data.FieldDef)
+  name.vb: Tuple(Of TableDef, FieldDef)
+  spec.csharp:
+  - uid: System.Tuple`2
+    name: Tuple
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  - name: <
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Tuple`2
+    name: Tuple
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: )
+- uid: System.Tuple`2
+  commentId: T:System.Tuple`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  name: Tuple<T1, T2>
+  nameWithType: Tuple<T1, T2>
+  fullName: System.Tuple<T1, T2>
+  nameWithType.vb: Tuple(Of T1, T2)
+  fullName.vb: System.Tuple(Of T1, T2)
+  name.vb: Tuple(Of T1, T2)
+  spec.csharp:
+  - uid: System.Tuple`2
+    name: Tuple
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  - name: <
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: '>'
+  spec.vb:
+  - uid: System.Tuple`2
+    name: Tuple
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.tuple-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: )
+- uid: Tripous.Data.TableDef.FindAnyFieldTitle*
+  commentId: Overload:Tripous.Data.TableDef.FindAnyFieldTitle
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindAnyFieldTitle_System_String_
+  name: FindAnyFieldTitle
+  nameWithType: TableDef.FindAnyFieldTitle
+  fullName: Tripous.Data.TableDef.FindAnyFieldTitle
+- uid: Tripous.Data.TableDef.FindLocatorJoinField*
+  commentId: Overload:Tripous.Data.TableDef.FindLocatorJoinField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindLocatorJoinField_Tripous_Data_FieldDef_Tripous_Data_LocatorFieldDef_
+  name: FindLocatorJoinField
+  nameWithType: TableDef.FindLocatorJoinField
+  fullName: Tripous.Data.TableDef.FindLocatorJoinField
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+- uid: Tripous.Data.LocatorFieldDef
+  commentId: T:Tripous.Data.LocatorFieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorFieldDef.html
+  name: LocatorFieldDef
+  nameWithType: LocatorFieldDef
+  fullName: Tripous.Data.LocatorFieldDef
+- uid: Tripous.Data.TableDef.FindLocatorTargetField*
+  commentId: Overload:Tripous.Data.TableDef.FindLocatorTargetField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindLocatorTargetField_Tripous_Data_FieldDef_Tripous_Data_LocatorFieldDef_
+  name: FindLocatorTargetField
+  nameWithType: TableDef.FindLocatorTargetField
+  fullName: Tripous.Data.TableDef.FindLocatorTargetField
+- uid: Tripous.Data.TableDef.CreateLocatorTargetFieldMap*
+  commentId: Overload:Tripous.Data.TableDef.CreateLocatorTargetFieldMap
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_CreateLocatorTargetFieldMap_Tripous_Data_FieldDef_Tripous_Data_LocatorDef_
+  name: CreateLocatorTargetFieldMap
+  nameWithType: TableDef.CreateLocatorTargetFieldMap
+  fullName: Tripous.Data.TableDef.CreateLocatorTargetFieldMap
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
+- uid: System.Collections.Generic.Dictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, string>
+  nameWithType: Dictionary<string, string>
+  fullName: System.Collections.Generic.Dictionary<string, string>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.TableDef.IsLocatorSnapshotField*
+  commentId: Overload:Tripous.Data.TableDef.IsLocatorSnapshotField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsLocatorSnapshotField_Tripous_Data_FieldDef_
+  name: IsLocatorSnapshotField
+  nameWithType: TableDef.IsLocatorSnapshotField
+  fullName: Tripous.Data.TableDef.IsLocatorSnapshotField
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.TableDef.AssignLookupSnapshots*
+  commentId: Overload:Tripous.Data.TableDef.AssignLookupSnapshots
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AssignLookupSnapshots_System_Data_DataRow_Tripous_Data_FieldDef_Tripous_Data_LookupSource_Tripous_Data_LookupItem_
+  name: AssignLookupSnapshots
+  nameWithType: TableDef.AssignLookupSnapshots
+  fullName: Tripous.Data.TableDef.AssignLookupSnapshots
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: Tripous.Data.LookupSource
+  commentId: T:Tripous.Data.LookupSource
+  parent: Tripous.Data
+  href: Tripous.Data.LookupSource.html
+  name: LookupSource
+  nameWithType: LookupSource
+  fullName: Tripous.Data.LookupSource
+- uid: Tripous.Data.LookupItem
+  commentId: T:Tripous.Data.LookupItem
+  parent: Tripous.Data
+  href: Tripous.Data.LookupItem.html
+  name: LookupItem
+  nameWithType: LookupItem
+  fullName: Tripous.Data.LookupItem
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data.TableDef.BuildSql*
+  commentId: Overload:Tripous.Data.TableDef.BuildSql
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_BuildSql_Tripous_Data_BuildSqlFlags_
+  name: BuildSql
+  nameWithType: TableDef.BuildSql
+  fullName: Tripous.Data.TableDef.BuildSql
+- uid: Tripous.Data.BuildSqlFlags
+  commentId: T:Tripous.Data.BuildSqlFlags
+  parent: Tripous.Data
+  href: Tripous.Data.BuildSqlFlags.html
+  name: BuildSqlFlags
+  nameWithType: BuildSqlFlags
+  fullName: Tripous.Data.BuildSqlFlags
+- uid: Tripous.Data.TableSqls
+  commentId: T:Tripous.Data.TableSqls
+  parent: Tripous.Data
+  href: Tripous.Data.TableSqls.html
+  name: TableSqls
+  nameWithType: TableSqls
+  fullName: Tripous.Data.TableSqls
+- uid: Tripous.Data.TableDef.UpdateFrom*
+  commentId: Overload:Tripous.Data.TableDef.UpdateFrom
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_UpdateFrom_System_Data_DataTable_
+  name: UpdateFrom
+  nameWithType: TableDef.UpdateFrom
+  fullName: Tripous.Data.TableDef.UpdateFrom
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: Tripous.Data.TableDef.CreateDescriptorTable*
+  commentId: Overload:Tripous.Data.TableDef.CreateDescriptorTable
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_CreateDescriptorTable_Tripous_Data_SqlStore_
+  name: CreateDescriptorTable
+  nameWithType: TableDef.CreateDescriptorTable
+  fullName: Tripous.Data.TableDef.CreateDescriptorTable
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor*
+  commentId: Overload:Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_SetupFieldsDisplayLabelsFor_System_Data_DataTable_System_Collections_Generic_Dictionary_System_String_System_String__
+  name: SetupFieldsDisplayLabelsFor
+  nameWithType: TableDef.SetupFieldsDisplayLabelsFor
+  fullName: Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor
+- uid: Tripous.Data.TableDef.FieldExists*
+  commentId: Overload:Tripous.Data.TableDef.FieldExists
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FieldExists_System_String_
+  name: FieldExists
+  nameWithType: TableDef.FieldExists
+  fullName: Tripous.Data.TableDef.FieldExists
+- uid: Tripous.Data.TableDef.FindField*
+  commentId: Overload:Tripous.Data.TableDef.FindField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindField_System_String_
+  name: FindField
+  nameWithType: TableDef.FindField
+  fullName: Tripous.Data.TableDef.FindField
+- uid: Tripous.Data.TableDef.GetField*
+  commentId: Overload:Tripous.Data.TableDef.GetField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_GetField_System_String_
+  name: GetField
+  nameWithType: TableDef.GetField
+  fullName: Tripous.Data.TableDef.GetField
+- uid: Tripous.Data.TableDef.AddField*
+  commentId: Overload:Tripous.Data.TableDef.AddField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddField_System_String_Tripous_Data_DataFieldType_System_String_System_String_System_String_System_Int32_System_Int32_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddField
+  nameWithType: TableDef.AddField
+  fullName: Tripous.Data.TableDef.AddField
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.FieldFlags
+  commentId: T:Tripous.Data.FieldFlags
+  parent: Tripous.Data
+  href: Tripous.Data.FieldFlags.html
+  name: FieldFlags
+  nameWithType: FieldFlags
+  fullName: Tripous.Data.FieldFlags
+- uid: Tripous.Data.TableDef.AddId*
+  commentId: Overload:Tripous.Data.TableDef.AddId
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddId_System_String_Tripous_Data_DataFieldType_Tripous_Data_FieldFlags_System_Int32_
+  name: AddId
+  nameWithType: TableDef.AddId
+  fullName: Tripous.Data.TableDef.AddId
+- uid: Tripous.Data.DbConfig.OidDataType
+  commentId: P:Tripous.Data.DbConfig.OidDataType
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_OidDataType
+  name: OidDataType
+  nameWithType: DbConfig.OidDataType
+  fullName: Tripous.Data.DbConfig.OidDataType
+- uid: Tripous.Data.DbConfig.OidSize
+  commentId: P:Tripous.Data.DbConfig.OidSize
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_OidSize
+  name: OidSize
+  nameWithType: DbConfig.OidSize
+  fullName: Tripous.Data.DbConfig.OidSize
+- uid: Tripous.Data.TableDef.AddStringId*
+  commentId: Overload:Tripous.Data.TableDef.AddStringId
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddStringId_System_String_Tripous_Data_FieldFlags_System_Int32_
+  name: AddStringId
+  nameWithType: TableDef.AddStringId
+  fullName: Tripous.Data.TableDef.AddStringId
+- uid: Tripous.Data.TableDef.AddIntegerId*
+  commentId: Overload:Tripous.Data.TableDef.AddIntegerId
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddIntegerId_System_String_Tripous_Data_FieldFlags_
+  name: AddIntegerId
+  nameWithType: TableDef.AddIntegerId
+  fullName: Tripous.Data.TableDef.AddIntegerId
+- uid: Tripous.Data.LookupDef
+  commentId: T:Tripous.Data.LookupDef
+  parent: Tripous.Data
+  href: Tripous.Data.LookupDef.html
+  name: LookupDef
+  nameWithType: LookupDef
+  fullName: Tripous.Data.LookupDef
+- uid: Tripous.Data.TableDef.AddLookupId*
+  commentId: Overload:Tripous.Data.TableDef.AddLookupId
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddLookupId_System_String_Tripous_Data_DataFieldType_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddLookupId
+  nameWithType: TableDef.AddLookupId
+  fullName: Tripous.Data.TableDef.AddLookupId
+- uid: Tripous.Data.TableDef.AddStringLookupId*
+  commentId: Overload:Tripous.Data.TableDef.AddStringLookupId
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddStringLookupId_System_String_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddStringLookupId
+  nameWithType: TableDef.AddStringLookupId
+  fullName: Tripous.Data.TableDef.AddStringLookupId
+- uid: Tripous.Data.TableDef.AddIntegerLookupId*
+  commentId: Overload:Tripous.Data.TableDef.AddIntegerLookupId
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddIntegerLookupId_System_String_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddIntegerLookupId
+  nameWithType: TableDef.AddIntegerLookupId
+  fullName: Tripous.Data.TableDef.AddIntegerLookupId
+- uid: Tripous.Data.AggregateType
+  commentId: T:Tripous.Data.AggregateType
+  parent: Tripous.Data
+  href: Tripous.Data.AggregateType.html
+  name: AggregateType
+  nameWithType: AggregateType
+  fullName: Tripous.Data.AggregateType
+- uid: Tripous.Data.TableDef.AddEnumLookupId*
+  commentId: Overload:Tripous.Data.TableDef.AddEnumLookupId
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddEnumLookupId_System_String_System_String_System_Type_System_String_System_Boolean_System_String_Tripous_Data_FieldFlags_
+  name: AddEnumLookupId
+  nameWithType: TableDef.AddEnumLookupId
+  fullName: Tripous.Data.TableDef.AddEnumLookupId
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: Tripous.Data.TableDef.Add*
+  commentId: Overload:Tripous.Data.TableDef.Add
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Add_System_String_System_Int32_System_String_System_String_Tripous_Data_FieldFlags_
+  name: Add
+  nameWithType: TableDef.Add
+  fullName: Tripous.Data.TableDef.Add
+- uid: Tripous.Data.TableDef.AddString*
+  commentId: Overload:Tripous.Data.TableDef.AddString
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddString_System_String_System_Int32_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddString
+  nameWithType: TableDef.AddString
+  fullName: Tripous.Data.TableDef.AddString
+- uid: Tripous.Data.TableDef.AddInteger*
+  commentId: Overload:Tripous.Data.TableDef.AddInteger
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddInteger_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddInteger
+  nameWithType: TableDef.AddInteger
+  fullName: Tripous.Data.TableDef.AddInteger
+- uid: Tripous.Data.TableDef.AddDouble*
+  commentId: Overload:Tripous.Data.TableDef.AddDouble
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddDouble_System_String_System_String_System_Int32_System_String_Tripous_Data_FieldFlags_
+  name: AddDouble
+  nameWithType: TableDef.AddDouble
+  fullName: Tripous.Data.TableDef.AddDouble
+- uid: Tripous.Data.TableDef.AddDecimal*
+  commentId: Overload:Tripous.Data.TableDef.AddDecimal
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddDecimal_System_String_System_String_System_Int32_System_String_Tripous_Data_FieldFlags_
+  name: AddDecimal
+  nameWithType: TableDef.AddDecimal
+  fullName: Tripous.Data.TableDef.AddDecimal
+- uid: Tripous.Data.TableDef.AddDate*
+  commentId: Overload:Tripous.Data.TableDef.AddDate
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddDate_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddDate
+  nameWithType: TableDef.AddDate
+  fullName: Tripous.Data.TableDef.AddDate
+- uid: Tripous.Data.TableDef.AddDateTime*
+  commentId: Overload:Tripous.Data.TableDef.AddDateTime
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddDateTime_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddDateTime
+  nameWithType: TableDef.AddDateTime
+  fullName: Tripous.Data.TableDef.AddDateTime
+- uid: Tripous.Data.TableDef.AddBoolean*
+  commentId: Overload:Tripous.Data.TableDef.AddBoolean
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddBoolean_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddBoolean
+  nameWithType: TableDef.AddBoolean
+  fullName: Tripous.Data.TableDef.AddBoolean
+- uid: Tripous.Data.TableDef.AddBlob*
+  commentId: Overload:Tripous.Data.TableDef.AddBlob
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddBlob_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddBlob
+  nameWithType: TableDef.AddBlob
+  fullName: Tripous.Data.TableDef.AddBlob
+- uid: Tripous.Data.TableDef.AddTextBlob*
+  commentId: Overload:Tripous.Data.TableDef.AddTextBlob
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddTextBlob_System_String_System_String_System_String_Tripous_Data_FieldFlags_
+  name: AddTextBlob
+  nameWithType: TableDef.AddTextBlob
+  fullName: Tripous.Data.TableDef.AddTextBlob
+- uid: Tripous.Data.TableDef.AddDetail*
+  commentId: Overload:Tripous.Data.TableDef.AddDetail
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddDetail_System_String_System_String_System_String_
+  name: AddDetail
+  nameWithType: TableDef.AddDetail
+  fullName: Tripous.Data.TableDef.AddDetail
+- uid: Tripous.Data.TableDef.AddJoin*
+  commentId: Overload:Tripous.Data.TableDef.AddJoin
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_AddJoin_System_String_System_String_System_String_System_String_
+  name: AddJoin
+  nameWithType: TableDef.AddJoin
+  fullName: Tripous.Data.TableDef.AddJoin
+- uid: Tripous.Data.TableDef.GetBindableFields*
+  commentId: Overload:Tripous.Data.TableDef.GetBindableFields
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_GetBindableFields
+  name: GetBindableFields
+  nameWithType: TableDef.GetBindableFields
+  fullName: Tripous.Data.TableDef.GetBindableFields
+- uid: System.Collections.Generic.List{Tripous.Data.FieldDef}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.FieldDef}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<FieldDef>
+  nameWithType: List<FieldDef>
+  fullName: System.Collections.Generic.List<Tripous.Data.FieldDef>
+  nameWithType.vb: List(Of FieldDef)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.FieldDef)
+  name.vb: List(Of FieldDef)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.TableDef.GetBindableGroups*
+  commentId: Overload:Tripous.Data.TableDef.GetBindableGroups
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_GetBindableGroups
+  name: GetBindableGroups
+  nameWithType: TableDef.GetBindableGroups
+  fullName: Tripous.Data.TableDef.GetBindableGroups
+- uid: System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{Tripous.Data.FieldDef}}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{Tripous.Data.FieldDef}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, List<FieldDef>>
+  nameWithType: Dictionary<string, List<FieldDef>>
+  fullName: System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Tripous.Data.FieldDef>>
+  nameWithType.vb: Dictionary(Of String, List(Of FieldDef))
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, System.Collections.Generic.List(Of Tripous.Data.FieldDef))
+  name.vb: Dictionary(Of String, List(Of FieldDef))
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: )
+  - name: )
+- uid: Tripous.Data.TableDef.ModuleDef*
+  commentId: Overload:Tripous.Data.TableDef.ModuleDef
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_ModuleDef
+  name: ModuleDef
+  nameWithType: TableDef.ModuleDef
+  fullName: Tripous.Data.TableDef.ModuleDef
+- uid: Tripous.Data.TableDef.Master*
+  commentId: Overload:Tripous.Data.TableDef.Master
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Master
+  name: Master
+  nameWithType: TableDef.Master
+  fullName: Tripous.Data.TableDef.Master
+- uid: Tripous.Data.TableDef.Owner*
+  commentId: Overload:Tripous.Data.TableDef.Owner
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Owner
+  name: Owner
+  nameWithType: TableDef.Owner
+  fullName: Tripous.Data.TableDef.Owner
+- uid: Tripous.Data.TableDef.Alias*
+  commentId: Overload:Tripous.Data.TableDef.Alias
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Alias
+  name: Alias
+  nameWithType: TableDef.Alias
+  fullName: Tripous.Data.TableDef.Alias
+- uid: Tripous.Data.TableDef.KeyField*
+  commentId: Overload:Tripous.Data.TableDef.KeyField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_KeyField
+  name: KeyField
+  nameWithType: TableDef.KeyField
+  fullName: Tripous.Data.TableDef.KeyField
+- uid: Tripous.Data.TableDef.MasterField*
+  commentId: Overload:Tripous.Data.TableDef.MasterField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_MasterField
+  name: MasterField
+  nameWithType: TableDef.MasterField
+  fullName: Tripous.Data.TableDef.MasterField
+- uid: Tripous.Data.TableDef.DetailField*
+  commentId: Overload:Tripous.Data.TableDef.DetailField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_DetailField
+  name: DetailField
+  nameWithType: TableDef.DetailField
+  fullName: Tripous.Data.TableDef.DetailField
+- uid: Tripous.Data.TableDef.IsDetail*
+  commentId: Overload:Tripous.Data.TableDef.IsDetail
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsDetail
+  name: IsDetail
+  nameWithType: TableDef.IsDetail
+  fullName: Tripous.Data.TableDef.IsDetail
+- uid: Tripous.Data.ModuleDef.Table
+  commentId: P:Tripous.Data.ModuleDef.Table
+  href: Tripous.Data.ModuleDef.html#Tripous_Data_ModuleDef_Table
+  name: Table
+  nameWithType: ModuleDef.Table
+  fullName: Tripous.Data.ModuleDef.Table
+- uid: Tripous.Data.TableDef.IsOneToOne
+  commentId: P:Tripous.Data.TableDef.IsOneToOne
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsOneToOne
+  name: IsOneToOne
+  nameWithType: TableDef.IsOneToOne
+  fullName: Tripous.Data.TableDef.IsOneToOne
+- uid: Tripous.Data.TableDef.IsOneToOne*
+  commentId: Overload:Tripous.Data.TableDef.IsOneToOne
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsOneToOne
+  name: IsOneToOne
+  nameWithType: TableDef.IsOneToOne
+  fullName: Tripous.Data.TableDef.IsOneToOne
+- uid: Tripous.Data.TableDef.IsUiVisible*
+  commentId: Overload:Tripous.Data.TableDef.IsUiVisible
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsUiVisible
+  name: IsUiVisible
+  nameWithType: TableDef.IsUiVisible
+  fullName: Tripous.Data.TableDef.IsUiVisible
+- uid: Tripous.Data.TableDef.Sqls*
+  commentId: Overload:Tripous.Data.TableDef.Sqls
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Sqls
+  name: Sqls
+  nameWithType: TableDef.Sqls
+  fullName: Tripous.Data.TableDef.Sqls
+- uid: Tripous.Data.TableDef.FieldGroups*
+  commentId: Overload:Tripous.Data.TableDef.FieldGroups
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FieldGroups
+  name: FieldGroups
+  nameWithType: TableDef.FieldGroups
+  fullName: Tripous.Data.TableDef.FieldGroups
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.TableDef.Fields*
+  commentId: Overload:Tripous.Data.TableDef.Fields
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Fields
+  name: Fields
+  nameWithType: TableDef.Fields
+  fullName: Tripous.Data.TableDef.Fields
+- uid: Tripous.DefList{Tripous.Data.FieldDef}
+  commentId: T:Tripous.DefList{Tripous.Data.FieldDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.FieldDef.html
+  name: DefList<FieldDef>
+  nameWithType: DefList<FieldDef>
+  fullName: Tripous.DefList<Tripous.Data.FieldDef>
+  nameWithType.vb: DefList(Of FieldDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.FieldDef)
+  name.vb: DefList(Of FieldDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: )
+- uid: Tripous.DefList`1
+  commentId: T:Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<T>
+  nameWithType: DefList<T>
+  fullName: Tripous.DefList<T>
+  nameWithType.vb: DefList(Of T)
+  fullName.vb: Tripous.DefList(Of T)
+  name.vb: DefList(Of T)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.TableDef.Joins*
+  commentId: Overload:Tripous.Data.TableDef.Joins
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Joins
+  name: Joins
+  nameWithType: TableDef.Joins
+  fullName: Tripous.Data.TableDef.Joins
+- uid: Tripous.DefList{Tripous.Data.TableDef}
+  commentId: T:Tripous.DefList{Tripous.Data.TableDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.TableDef.html
+  name: DefList<TableDef>
+  nameWithType: DefList<TableDef>
+  fullName: Tripous.DefList<Tripous.Data.TableDef>
+  nameWithType.vb: DefList(Of TableDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.TableDef)
+  name.vb: DefList(Of TableDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+- uid: Tripous.Data.TableDef.Stocks*
+  commentId: Overload:Tripous.Data.TableDef.Stocks
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Stocks
+  name: Stocks
+  nameWithType: TableDef.Stocks
+  fullName: Tripous.Data.TableDef.Stocks
+- uid: Tripous.DefList{Tripous.Data.SelectDef}
+  commentId: T:Tripous.DefList{Tripous.Data.SelectDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.SelectDef.html
+  name: DefList<SelectDef>
+  nameWithType: DefList<SelectDef>
+  fullName: Tripous.DefList<Tripous.Data.SelectDef>
+  nameWithType.vb: DefList(Of SelectDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.SelectDef)
+  name.vb: DefList(Of SelectDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: )
+- uid: Tripous.Data.TableDef.Details*
+  commentId: Overload:Tripous.Data.TableDef.Details
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_Details
+  name: Details
+  nameWithType: TableDef.Details
+  fullName: Tripous.Data.TableDef.Details
+- uid: Tripous.Data.TableDef.HasDetails*
+  commentId: Overload:Tripous.Data.TableDef.HasDetails
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_HasDetails
+  name: HasDetails
+  nameWithType: TableDef.HasDetails
+  fullName: Tripous.Data.TableDef.HasDetails
+- uid: Tripous.Data.TableDef.HasJoins*
+  commentId: Overload:Tripous.Data.TableDef.HasJoins
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_HasJoins
+  name: HasJoins
+  nameWithType: TableDef.HasJoins
+  fullName: Tripous.Data.TableDef.HasJoins
+- uid: Tripous.Data.TableDef.HasStocks*
+  commentId: Overload:Tripous.Data.TableDef.HasStocks
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_HasStocks
+  name: HasStocks
+  nameWithType: TableDef.HasStocks
+  fullName: Tripous.Data.TableDef.HasStocks
+- uid: Tripous.Data.TableDef.IsJoin*
+  commentId: Overload:Tripous.Data.TableDef.IsJoin
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsJoin
+  name: IsJoin
+  nameWithType: TableDef.IsJoin
+  fullName: Tripous.Data.TableDef.IsJoin

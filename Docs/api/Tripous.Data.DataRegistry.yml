@@ -1,0 +1,2403 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DataRegistry
+  commentId: T:Tripous.Data.DataRegistry
+  id: DataRegistry
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DataRegistry.AddCodeProvider(System.String)
+  - Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddDocumentHandler(System.String,System.String)
+  - Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddLookupListModule(System.String)
+  - Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String)
+  - Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddLookupSource(System.String,System.Type,System.Boolean)
+  - Tripous.Data.DataRegistry.AddLookupSource(System.Type,System.Boolean)
+  - Tripous.Data.DataRegistry.AddLookupWithClassName(System.String,System.String,System.String,System.Boolean)
+  - Tripous.Data.DataRegistry.AddLookupWithSql(System.String,System.String,System.String,System.Boolean)
+  - Tripous.Data.DataRegistry.AddLookupWithTableName(System.String,System.String,System.String,System.Boolean)
+  - Tripous.Data.DataRegistry.AddModule(System.String,System.String,System.String,System.String,System.Boolean,Tripous.UserLevel)
+  - Tripous.Data.DataRegistry.AddOrUpdateCodeProvider(System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler(System.String,System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateLookup(System.String,System.Type,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})
+  - Tripous.Data.DataRegistry.AddOrUpdateLookupListModule(System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.String,System.Type,System.Nullable{System.Boolean})
+  - Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.Type,System.Nullable{System.Boolean})
+  - Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  - Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  - Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  - Tripous.Data.DataRegistry.AddOrUpdateModule(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{Tripous.UserLevel})
+  - Tripous.Data.DataRegistry.CodeProviders
+  - Tripous.Data.DataRegistry.ConfigProperties
+  - Tripous.Data.DataRegistry.CreateModule(System.String,System.Boolean)
+  - Tripous.Data.DataRegistry.DocumentHandlers
+  - Tripous.Data.DataRegistry.Locators
+  - Tripous.Data.DataRegistry.Lookups
+  - Tripous.Data.DataRegistry.Modules
+  - Tripous.Data.DataRegistry.UpdateLocatorReferences
+  langs:
+  - csharp
+  - vb
+  name: DataRegistry
+  nameWithType: DataRegistry
+  fullName: Tripous.Data.DataRegistry
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataRegistry
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Registry of the data layer.
+  example: []
+  syntax:
+    content: public static class DataRegistry
+    content.vb: Public Module DataRegistry
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.DataRegistry.AddModule(System.String,System.String,System.String,System.String,System.Boolean,Tripous.UserLevel)
+  commentId: M:Tripous.Data.DataRegistry.AddModule(System.String,System.String,System.String,System.String,System.Boolean,Tripous.UserLevel)
+  id: AddModule(System.String,System.String,System.String,System.String,System.Boolean,Tripous.UserLevel)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddModule(string, string, string, string, bool, UserLevel)
+  nameWithType: DataRegistry.AddModule(string, string, string, string, bool, UserLevel)
+  fullName: Tripous.Data.DataRegistry.AddModule(string, string, string, string, bool, Tripous.UserLevel)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddModule
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 261
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a definition to the registry.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static ModuleDef AddModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool IsSingleSelect = false, UserLevel SecurityLevel = UserLevel.None)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: ListSelectSql
+      type: System.String
+    - id: IsSingleSelect
+      type: System.Boolean
+    - id: SecurityLevel
+      type: Tripous.UserLevel
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Shared Function AddModule(Name As String, TitleKey As String = Nothing, ClassName As String = Nothing, ListSelectSql As String = Nothing, IsSingleSelect As Boolean = False, SecurityLevel As UserLevel = UserLevel.None) As ModuleDef
+  overload: Tripous.Data.DataRegistry.AddModule*
+  nameWithType.vb: DataRegistry.AddModule(String, String, String, String, Boolean, UserLevel)
+  fullName.vb: Tripous.Data.DataRegistry.AddModule(String, String, String, String, Boolean, Tripous.UserLevel)
+  name.vb: AddModule(String, String, String, String, Boolean, UserLevel)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateModule(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{Tripous.UserLevel})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateModule(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{Tripous.UserLevel})
+  id: AddOrUpdateModule(System.String,System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{Tripous.UserLevel})
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateModule(string, string, string, string, bool?, UserLevel?)
+  nameWithType: DataRegistry.AddOrUpdateModule(string, string, string, string, bool?, UserLevel?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateModule(string, string, string, string, bool?, Tripous.UserLevel?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateModule
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 272
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a module definition.
+
+
+    <p>Existing child definitions and collections are preserved.</p>
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static ModuleDef AddOrUpdateModule(string Name, string TitleKey = null, string ClassName = null, string ListSelectSql = null, bool? IsSingleSelect = null, UserLevel? SecurityLevel = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: ListSelectSql
+      type: System.String
+    - id: IsSingleSelect
+      type: System.Nullable{System.Boolean}
+    - id: SecurityLevel
+      type: System.Nullable{Tripous.UserLevel}
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Shared Function AddOrUpdateModule(Name As String, TitleKey As String = Nothing, ClassName As String = Nothing, ListSelectSql As String = Nothing, IsSingleSelect As Boolean? = Nothing, SecurityLevel As UserLevel? = Nothing) As ModuleDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateModule*
+  nameWithType.vb: DataRegistry.AddOrUpdateModule(String, String, String, String, Boolean?, UserLevel?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateModule(String, String, String, String, Boolean?, Tripous.UserLevel?)
+  name.vb: AddOrUpdateModule(String, String, String, String, Boolean?, UserLevel?)
+- uid: Tripous.Data.DataRegistry.AddLookupListModule(System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupListModule(System.String)
+  id: AddLookupListModule(System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupListModule(string)
+  nameWithType: DataRegistry.AddLookupListModule(string)
+  fullName: Tripous.Data.DataRegistry.AddLookupListModule(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupListModule
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 291
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A list module with just Id and Name as fields in its table.
+
+
+    <p>NOTE: The name of the module is the list TableName</p>
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static ModuleDef AddLookupListModule(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Shared Function AddLookupListModule(Name As String) As ModuleDef
+  overload: Tripous.Data.DataRegistry.AddLookupListModule*
+  nameWithType.vb: DataRegistry.AddLookupListModule(String)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupListModule(String)
+  name.vb: AddLookupListModule(String)
+- uid: Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String)
+  id: AddLookupListModule(System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupListModule(string, string)
+  nameWithType: DataRegistry.AddLookupListModule(string, string)
+  fullName: Tripous.Data.DataRegistry.AddLookupListModule(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupListModule
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 297
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A list module with just Id and Name as fields in its table.
+
+
+    <p>NOTE: The name of the module is the list TableName</p>
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static ModuleDef AddLookupListModule(string Name, string TitleKey)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Shared Function AddLookupListModule(Name As String, TitleKey As String) As ModuleDef
+  overload: Tripous.Data.DataRegistry.AddLookupListModule*
+  nameWithType.vb: DataRegistry.AddLookupListModule(String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupListModule(String, String)
+  name.vb: AddLookupListModule(String, String)
+- uid: Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String,System.String)
+  id: AddLookupListModule(System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupListModule(string, string, string)
+  nameWithType: DataRegistry.AddLookupListModule(string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddLookupListModule(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupListModule
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 303
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A list module with just Id and Name as fields in its table.
+
+
+    <p>NOTE: The name of the module is the list TableName</p>
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static ModuleDef AddLookupListModule(string TableName, string Name, string TitleKey)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: Name
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Shared Function AddLookupListModule(TableName As String, Name As String, TitleKey As String) As ModuleDef
+  overload: Tripous.Data.DataRegistry.AddLookupListModule*
+  nameWithType.vb: DataRegistry.AddLookupListModule(String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupListModule(String, String, String)
+  name.vb: AddLookupListModule(String, String, String)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupListModule(System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLookupListModule(System.String,System.String,System.String)
+  id: AddOrUpdateLookupListModule(System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLookupListModule(string, string, string)
+  nameWithType: DataRegistry.AddOrUpdateLookupListModule(string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupListModule(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLookupListModule
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 314
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a lookup list module definition.
+
+
+    <p>Existing child definitions and collections are preserved.</p>
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static ModuleDef AddOrUpdateLookupListModule(string TableName, string Name, string TitleKey)
+    parameters:
+    - id: TableName
+      type: System.String
+    - id: Name
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    return:
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Shared Function AddOrUpdateLookupListModule(TableName As String, Name As String, TitleKey As String) As ModuleDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLookupListModule*
+  nameWithType.vb: DataRegistry.AddOrUpdateLookupListModule(String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookupListModule(String, String, String)
+  name.vb: AddOrUpdateLookupListModule(String, String, String)
+- uid: Tripous.Data.DataRegistry.AddLookupSource(System.Type,System.Boolean)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupSource(System.Type,System.Boolean)
+  id: AddLookupSource(System.Type,System.Boolean)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupSource(Type, bool)
+  nameWithType: DataRegistry.AddLookupSource(Type, bool)
+  fullName: Tripous.Data.DataRegistry.AddLookupSource(System.Type, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupSource
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 341
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a lookup source.
+
+
+    <p>The enum type is used as the source.</p>
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddLookupSource(Type EnumType, bool UseNullItem = false)
+    parameters:
+    - id: EnumType
+      type: System.Type
+    - id: UseNullItem
+      type: System.Boolean
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddLookupSource(EnumType As Type, UseNullItem As Boolean = False) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddLookupSource*
+  nameWithType.vb: DataRegistry.AddLookupSource(Type, Boolean)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupSource(System.Type, Boolean)
+  name.vb: AddLookupSource(Type, Boolean)
+- uid: Tripous.Data.DataRegistry.AddLookupSource(System.String,System.Type,System.Boolean)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupSource(System.String,System.Type,System.Boolean)
+  id: AddLookupSource(System.String,System.Type,System.Boolean)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupSource(string, Type, bool)
+  nameWithType: DataRegistry.AddLookupSource(string, Type, bool)
+  fullName: Tripous.Data.DataRegistry.AddLookupSource(string, System.Type, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupSource
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 346
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a lookup source.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddLookupSource(string Name, Type EnumType, bool UseNullItem = false)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: EnumType
+      type: System.Type
+    - id: UseNullItem
+      type: System.Boolean
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddLookupSource(Name As String, EnumType As Type, UseNullItem As Boolean = False) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddLookupSource*
+  nameWithType.vb: DataRegistry.AddLookupSource(String, Type, Boolean)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupSource(String, System.Type, Boolean)
+  name.vb: AddLookupSource(String, Type, Boolean)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.Type,System.Nullable{System.Boolean})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.Type,System.Nullable{System.Boolean})
+  id: AddOrUpdateLookupSource(System.Type,System.Nullable{System.Boolean})
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLookupSource(Type, bool?)
+  nameWithType: DataRegistry.AddOrUpdateLookupSource(Type, bool?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.Type, bool?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLookupSource
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 356
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates an enum lookup definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddOrUpdateLookupSource(Type EnumType, bool? UseNullItem = null)
+    parameters:
+    - id: EnumType
+      type: System.Type
+    - id: UseNullItem
+      type: System.Nullable{System.Boolean}
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddOrUpdateLookupSource(EnumType As Type, UseNullItem As Boolean? = Nothing) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLookupSource*
+  nameWithType.vb: DataRegistry.AddOrUpdateLookupSource(Type, Boolean?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.Type, Boolean?)
+  name.vb: AddOrUpdateLookupSource(Type, Boolean?)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.String,System.Type,System.Nullable{System.Boolean})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.String,System.Type,System.Nullable{System.Boolean})
+  id: AddOrUpdateLookupSource(System.String,System.Type,System.Nullable{System.Boolean})
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLookupSource(string, Type, bool?)
+  nameWithType: DataRegistry.AddOrUpdateLookupSource(string, Type, bool?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupSource(string, System.Type, bool?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLookupSource
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 366
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates an enum lookup definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddOrUpdateLookupSource(string Name, Type EnumType, bool? UseNullItem = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: EnumType
+      type: System.Type
+    - id: UseNullItem
+      type: System.Nullable{System.Boolean}
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddOrUpdateLookupSource(Name As String, EnumType As Type, UseNullItem As Boolean? = Nothing) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLookupSource*
+  nameWithType.vb: DataRegistry.AddOrUpdateLookupSource(String, Type, Boolean?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookupSource(String, System.Type, Boolean?)
+  name.vb: AddOrUpdateLookupSource(String, Type, Boolean?)
+- uid: Tripous.Data.DataRegistry.AddLookupWithTableName(System.String,System.String,System.String,System.Boolean)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupWithTableName(System.String,System.String,System.String,System.Boolean)
+  id: AddLookupWithTableName(System.String,System.String,System.String,System.Boolean)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupWithTableName(string, string, string, bool)
+  nameWithType: DataRegistry.AddLookupWithTableName(string, string, string, bool)
+  fullName: Tripous.Data.DataRegistry.AddLookupWithTableName(string, string, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupWithTableName
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 378
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a lookup source.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddLookupWithTableName(string Name, string TableName = null, string FormName = null, bool UseNullItem = false)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: TableName
+      type: System.String
+    - id: FormName
+      type: System.String
+    - id: UseNullItem
+      type: System.Boolean
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddLookupWithTableName(Name As String, TableName As String = Nothing, FormName As String = Nothing, UseNullItem As Boolean = False) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddLookupWithTableName*
+  nameWithType.vb: DataRegistry.AddLookupWithTableName(String, String, String, Boolean)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupWithTableName(String, String, String, Boolean)
+  name.vb: AddLookupWithTableName(String, String, String, Boolean)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  id: AddOrUpdateLookupWithTableName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLookupWithTableName(string, string, string, bool?)
+  nameWithType: DataRegistry.AddOrUpdateLookupWithTableName(string, string, string, bool?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName(string, string, string, bool?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLookupWithTableName
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 391
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a table lookup definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddOrUpdateLookupWithTableName(string Name, string TableName = null, string FormName = null, bool? UseNullItem = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: TableName
+      type: System.String
+    - id: FormName
+      type: System.String
+    - id: UseNullItem
+      type: System.Nullable{System.Boolean}
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddOrUpdateLookupWithTableName(Name As String, TableName As String = Nothing, FormName As String = Nothing, UseNullItem As Boolean? = Nothing) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName*
+  nameWithType.vb: DataRegistry.AddOrUpdateLookupWithTableName(String, String, String, Boolean?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName(String, String, String, Boolean?)
+  name.vb: AddOrUpdateLookupWithTableName(String, String, String, Boolean?)
+- uid: Tripous.Data.DataRegistry.AddLookupWithSql(System.String,System.String,System.String,System.Boolean)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupWithSql(System.String,System.String,System.String,System.Boolean)
+  id: AddLookupWithSql(System.String,System.String,System.String,System.Boolean)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupWithSql(string, string, string, bool)
+  nameWithType: DataRegistry.AddLookupWithSql(string, string, string, bool)
+  fullName: Tripous.Data.DataRegistry.AddLookupWithSql(string, string, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupWithSql
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 403
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a lookup source.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddLookupWithSql(string Name, string SqlText = null, string FormName = null, bool UseNullItem = false)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: SqlText
+      type: System.String
+    - id: FormName
+      type: System.String
+    - id: UseNullItem
+      type: System.Boolean
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddLookupWithSql(Name As String, SqlText As String = Nothing, FormName As String = Nothing, UseNullItem As Boolean = False) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddLookupWithSql*
+  nameWithType.vb: DataRegistry.AddLookupWithSql(String, String, String, Boolean)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupWithSql(String, String, String, Boolean)
+  name.vb: AddLookupWithSql(String, String, String, Boolean)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  id: AddOrUpdateLookupWithSql(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLookupWithSql(string, string, string, bool?)
+  nameWithType: DataRegistry.AddOrUpdateLookupWithSql(string, string, string, bool?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql(string, string, string, bool?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLookupWithSql
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 416
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a SQL lookup definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddOrUpdateLookupWithSql(string Name, string SqlText = null, string FormName = null, bool? UseNullItem = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: SqlText
+      type: System.String
+    - id: FormName
+      type: System.String
+    - id: UseNullItem
+      type: System.Nullable{System.Boolean}
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddOrUpdateLookupWithSql(Name As String, SqlText As String = Nothing, FormName As String = Nothing, UseNullItem As Boolean? = Nothing) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql*
+  nameWithType.vb: DataRegistry.AddOrUpdateLookupWithSql(String, String, String, Boolean?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql(String, String, String, Boolean?)
+  name.vb: AddOrUpdateLookupWithSql(String, String, String, Boolean?)
+- uid: Tripous.Data.DataRegistry.AddLookupWithClassName(System.String,System.String,System.String,System.Boolean)
+  commentId: M:Tripous.Data.DataRegistry.AddLookupWithClassName(System.String,System.String,System.String,System.Boolean)
+  id: AddLookupWithClassName(System.String,System.String,System.String,System.Boolean)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLookupWithClassName(string, string, string, bool)
+  nameWithType: DataRegistry.AddLookupWithClassName(string, string, string, bool)
+  fullName: Tripous.Data.DataRegistry.AddLookupWithClassName(string, string, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLookupWithClassName
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 428
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a lookup source.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddLookupWithClassName(string Name, string ClassName, string FormName = null, bool UseNullItem = false)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: FormName
+      type: System.String
+    - id: UseNullItem
+      type: System.Boolean
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddLookupWithClassName(Name As String, ClassName As String, FormName As String = Nothing, UseNullItem As Boolean = False) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddLookupWithClassName*
+  nameWithType.vb: DataRegistry.AddLookupWithClassName(String, String, String, Boolean)
+  fullName.vb: Tripous.Data.DataRegistry.AddLookupWithClassName(String, String, String, Boolean)
+  name.vb: AddLookupWithClassName(String, String, String, Boolean)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  id: AddOrUpdateLookupWithClassName(System.String,System.String,System.String,System.Nullable{System.Boolean})
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLookupWithClassName(string, string, string, bool?)
+  nameWithType: DataRegistry.AddOrUpdateLookupWithClassName(string, string, string, bool?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName(string, string, string, bool?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLookupWithClassName
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 438
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a class lookup definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddOrUpdateLookupWithClassName(string Name, string ClassName, string FormName = null, bool? UseNullItem = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: FormName
+      type: System.String
+    - id: UseNullItem
+      type: System.Nullable{System.Boolean}
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddOrUpdateLookupWithClassName(Name As String, ClassName As String, FormName As String = Nothing, UseNullItem As Boolean? = Nothing) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName*
+  nameWithType.vb: DataRegistry.AddOrUpdateLookupWithClassName(String, String, String, Boolean?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName(String, String, String, Boolean?)
+  name.vb: AddOrUpdateLookupWithClassName(String, String, String, Boolean?)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookup(System.String,System.Type,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLookup(System.String,System.Type,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})
+  id: AddOrUpdateLookup(System.String,System.Type,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLookup(string, Type, string, string, string, string, bool?)
+  nameWithType: DataRegistry.AddOrUpdateLookup(string, Type, string, string, string, string, bool?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookup(string, System.Type, string, string, string, string, bool?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLookup
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 450
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a lookup definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LookupDef AddOrUpdateLookup(string Name, Type EnumType, string TableName, string SqlText, string ClassName, string FormName, bool? UseNullItem)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: EnumType
+      type: System.Type
+    - id: TableName
+      type: System.String
+    - id: SqlText
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: FormName
+      type: System.String
+    - id: UseNullItem
+      type: System.Nullable{System.Boolean}
+    return:
+      type: Tripous.Data.LookupDef
+    content.vb: Public Shared Function AddOrUpdateLookup(Name As String, EnumType As Type, TableName As String, SqlText As String, ClassName As String, FormName As String, UseNullItem As Boolean?) As LookupDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLookup*
+  nameWithType.vb: DataRegistry.AddOrUpdateLookup(String, Type, String, String, String, String, Boolean?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookup(String, System.Type, String, String, String, String, Boolean?)
+  name.vb: AddOrUpdateLookup(String, Type, String, String, String, String, Boolean?)
+- uid: Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String)
+  id: AddLocator(System.String,System.String,System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLocator(string, string, string, string, string)
+  nameWithType: DataRegistry.AddLocator(string, string, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddLocator(string, string, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLocator
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 472
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a locator definition.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static LocatorDef AddLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: SourceTableName
+      type: System.String
+    - id: KeyField
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: FormName
+      type: System.String
+    return:
+      type: Tripous.Data.LocatorDef
+    content.vb: Public Shared Function AddLocator(Name As String, SourceTableName As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
+  overload: Tripous.Data.DataRegistry.AddLocator*
+  nameWithType.vb: DataRegistry.AddLocator(String, String, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddLocator(String, String, String, String, String)
+  name.vb: AddLocator(String, String, String, String, String)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
+  id: AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLocator(string, string, string, string, string)
+  nameWithType: DataRegistry.AddOrUpdateLocator(string, string, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocator(string, string, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLocator
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 484
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a table locator definition.
+
+
+    <p>Existing field definitions are preserved.</p>
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LocatorDef AddOrUpdateLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: SourceTableName
+      type: System.String
+    - id: KeyField
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: FormName
+      type: System.String
+    return:
+      type: Tripous.Data.LocatorDef
+    content.vb: Public Shared Function AddOrUpdateLocator(Name As String, SourceTableName As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLocator*
+  nameWithType.vb: DataRegistry.AddOrUpdateLocator(String, String, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLocator(String, String, String, String, String)
+  name.vb: AddOrUpdateLocator(String, String, String, String, String)
+- uid: Tripous.Data.DataRegistry.AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  id: AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddLocatorWithSql(string, string, string, string, string)
+  nameWithType: DataRegistry.AddLocatorWithSql(string, string, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddLocatorWithSql(string, string, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddLocatorWithSql
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 504
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a locator definition.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static LocatorDef AddLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: SelectSql
+      type: System.String
+    - id: KeyField
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: FormName
+      type: System.String
+    return:
+      type: Tripous.Data.LocatorDef
+    content.vb: Public Shared Function AddLocatorWithSql(Name As String, SelectSql As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
+  overload: Tripous.Data.DataRegistry.AddLocatorWithSql*
+  nameWithType.vb: DataRegistry.AddLocatorWithSql(String, String, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddLocatorWithSql(String, String, String, String, String)
+  name.vb: AddLocatorWithSql(String, String, String, String, String)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  id: AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateLocatorWithSql(string, string, string, string, string)
+  nameWithType: DataRegistry.AddOrUpdateLocatorWithSql(string, string, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(string, string, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateLocatorWithSql
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 516
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a SQL locator definition.
+
+
+    <p>Existing field definitions are preserved.</p>
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static LocatorDef AddOrUpdateLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: SelectSql
+      type: System.String
+    - id: KeyField
+      type: System.String
+    - id: ClassName
+      type: System.String
+    - id: FormName
+      type: System.String
+    return:
+      type: Tripous.Data.LocatorDef
+    content.vb: Public Shared Function AddOrUpdateLocatorWithSql(Name As String, SelectSql As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql*
+  nameWithType.vb: DataRegistry.AddOrUpdateLocatorWithSql(String, String, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(String, String, String, String, String)
+  name.vb: AddOrUpdateLocatorWithSql(String, String, String, String, String)
+- uid: Tripous.Data.DataRegistry.UpdateLocatorReferences
+  commentId: M:Tripous.Data.DataRegistry.UpdateLocatorReferences
+  id: UpdateLocatorReferences
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: UpdateLocatorReferences()
+  nameWithType: DataRegistry.UpdateLocatorReferences()
+  fullName: Tripous.Data.DataRegistry.UpdateLocatorReferences()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateLocatorReferences
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 535
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Locators are not part of module, so we need a way to update references.
+  example: []
+  syntax:
+    content: public static void UpdateLocatorReferences()
+    content.vb: Public Shared Sub UpdateLocatorReferences()
+  overload: Tripous.Data.DataRegistry.UpdateLocatorReferences*
+- uid: Tripous.Data.DataRegistry.AddCodeProvider(System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddCodeProvider(System.String)
+  id: AddCodeProvider(System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddCodeProvider(string)
+  nameWithType: DataRegistry.AddCodeProvider(string)
+  fullName: Tripous.Data.DataRegistry.AddCodeProvider(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCodeProvider
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 546
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a definition.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static CodeProviderDef AddCodeProvider(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    return:
+      type: Tripous.Data.CodeProviderDef
+    content.vb: Public Shared Function AddCodeProvider(Name As String) As CodeProviderDef
+  overload: Tripous.Data.DataRegistry.AddCodeProvider*
+  nameWithType.vb: DataRegistry.AddCodeProvider(String)
+  fullName.vb: Tripous.Data.DataRegistry.AddCodeProvider(String)
+  name.vb: AddCodeProvider(String)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateCodeProvider(System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateCodeProvider(System.String)
+  id: AddOrUpdateCodeProvider(System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateCodeProvider(string)
+  nameWithType: DataRegistry.AddOrUpdateCodeProvider(string)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateCodeProvider(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateCodeProvider
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 557
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or returns a code provider definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static CodeProviderDef AddOrUpdateCodeProvider(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    return:
+      type: Tripous.Data.CodeProviderDef
+    content.vb: Public Shared Function AddOrUpdateCodeProvider(Name As String) As CodeProviderDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateCodeProvider*
+  nameWithType.vb: DataRegistry.AddOrUpdateCodeProvider(String)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateCodeProvider(String)
+  name.vb: AddOrUpdateCodeProvider(String)
+- uid: Tripous.Data.DataRegistry.AddDocumentHandler(System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddDocumentHandler(System.String,System.String)
+  id: AddDocumentHandler(System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddDocumentHandler(string, string)
+  nameWithType: DataRegistry.AddDocumentHandler(string, string)
+  fullName: Tripous.Data.DataRegistry.AddDocumentHandler(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddDocumentHandler
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 573
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a definition.
+
+
+    <p>If the definition exists, an exception is thrown.</p>
+  example: []
+  syntax:
+    content: public static DocumentHandlerDef AddDocumentHandler(string Name, string ClassName)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ClassName
+      type: System.String
+    return:
+      type: Tripous.Data.DocumentHandlerDef
+    content.vb: Public Shared Function AddDocumentHandler(Name As String, ClassName As String) As DocumentHandlerDef
+  overload: Tripous.Data.DataRegistry.AddDocumentHandler*
+  nameWithType.vb: DataRegistry.AddDocumentHandler(String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddDocumentHandler(String, String)
+  name.vb: AddDocumentHandler(String, String)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler(System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler(System.String,System.String)
+  id: AddOrUpdateDocumentHandler(System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateDocumentHandler(string, string)
+  nameWithType: DataRegistry.AddOrUpdateDocumentHandler(string, string)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateDocumentHandler
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 584
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a document handler definition.
+
+
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  example: []
+  syntax:
+    content: public static DocumentHandlerDef AddOrUpdateDocumentHandler(string Name, string ClassName)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: ClassName
+      type: System.String
+    return:
+      type: Tripous.Data.DocumentHandlerDef
+    content.vb: Public Shared Function AddOrUpdateDocumentHandler(Name As String, ClassName As String) As DocumentHandlerDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler*
+  nameWithType.vb: DataRegistry.AddOrUpdateDocumentHandler(String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler(String, String)
+  name.vb: AddOrUpdateDocumentHandler(String, String)
+- uid: Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
+  id: AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddConfigProperty(string, string, string, UserLevel, ConfigValueKind, string, string, string)
+  nameWithType: DataRegistry.AddConfigProperty(string, string, string, UserLevel, ConfigValueKind, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddConfigProperty(string, string, string, Tripous.UserLevel, Tripous.Data.ConfigValueKind, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddConfigProperty
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 604
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds a configuration property definition.
+
+    If the definition exists, an exception is thrown.
+  example: []
+  syntax:
+    content: public static ConfigPropertyDef AddConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel SecurityLevel = UserLevel.Admin, ConfigValueKind Kind = ConfigValueKind.String, string DefaultValue = null, string TypeName = null, string EditorClassName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: GroupName
+      type: System.String
+    - id: SecurityLevel
+      type: Tripous.UserLevel
+    - id: Kind
+      type: Tripous.Data.ConfigValueKind
+    - id: DefaultValue
+      type: System.String
+    - id: TypeName
+      type: System.String
+    - id: EditorClassName
+      type: System.String
+    return:
+      type: Tripous.Data.ConfigPropertyDef
+    content.vb: Public Shared Function AddConfigProperty(Name As String, TitleKey As String = Nothing, GroupName As String = Nothing, SecurityLevel As UserLevel = UserLevel.Admin, Kind As ConfigValueKind = ConfigValueKind.String, DefaultValue As String = Nothing, TypeName As String = Nothing, EditorClassName As String = Nothing) As ConfigPropertyDef
+  overload: Tripous.Data.DataRegistry.AddConfigProperty*
+  nameWithType.vb: DataRegistry.AddConfigProperty(String, String, String, UserLevel, ConfigValueKind, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddConfigProperty(String, String, String, Tripous.UserLevel, Tripous.Data.ConfigValueKind, String, String, String)
+  name.vb: AddConfigProperty(String, String, String, UserLevel, ConfigValueKind, String, String, String)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
+  id: AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: AddOrUpdateConfigProperty(string, string, string, UserLevel?, ConfigValueKind?, string, string, string)
+  nameWithType: DataRegistry.AddOrUpdateConfigProperty(string, string, string, UserLevel?, ConfigValueKind?, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(string, string, string, Tripous.UserLevel?, Tripous.Data.ConfigValueKind?, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddOrUpdateConfigProperty
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 623
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Adds or updates a configuration property definition.
+
+    NOTE: When the definition already exists, non-null parameters and nullable enum parameters with a value update its scalar properties.
+  example: []
+  syntax:
+    content: public static ConfigPropertyDef AddOrUpdateConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel? SecurityLevel = null, ConfigValueKind? Kind = null, string DefaultValue = null, string TypeName = null, string EditorClassName = null)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: TitleKey
+      type: System.String
+    - id: GroupName
+      type: System.String
+    - id: SecurityLevel
+      type: System.Nullable{Tripous.UserLevel}
+    - id: Kind
+      type: System.Nullable{Tripous.Data.ConfigValueKind}
+    - id: DefaultValue
+      type: System.String
+    - id: TypeName
+      type: System.String
+    - id: EditorClassName
+      type: System.String
+    return:
+      type: Tripous.Data.ConfigPropertyDef
+    content.vb: Public Shared Function AddOrUpdateConfigProperty(Name As String, TitleKey As String = Nothing, GroupName As String = Nothing, SecurityLevel As UserLevel? = Nothing, Kind As ConfigValueKind? = Nothing, DefaultValue As String = Nothing, TypeName As String = Nothing, EditorClassName As String = Nothing) As ConfigPropertyDef
+  overload: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty*
+  nameWithType.vb: DataRegistry.AddOrUpdateConfigProperty(String, String, String, UserLevel?, ConfigValueKind?, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(String, String, String, Tripous.UserLevel?, Tripous.Data.ConfigValueKind?, String, String, String)
+  name.vb: AddOrUpdateConfigProperty(String, String, String, UserLevel?, ConfigValueKind?, String, String, String)
+- uid: Tripous.Data.DataRegistry.CreateModule(System.String,System.Boolean)
+  commentId: M:Tripous.Data.DataRegistry.CreateModule(System.String,System.Boolean)
+  id: CreateModule(System.String,System.Boolean)
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: CreateModule(string, bool)
+  nameWithType: DataRegistry.CreateModule(string, bool)
+  fullName: Tripous.Data.DataRegistry.CreateModule(string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateModule
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 639
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates and returns a <xref href="Tripous.Data.DataModule" data-throw-if-not-resolved="false"></xref> based on its registered name.
+  example: []
+  syntax:
+    content: public static DataModule CreateModule(string Name, bool InitializeToo = true)
+    parameters:
+    - id: Name
+      type: System.String
+    - id: InitializeToo
+      type: System.Boolean
+    return:
+      type: Tripous.Data.DataModule
+    content.vb: Public Shared Function CreateModule(Name As String, InitializeToo As Boolean = True) As DataModule
+  overload: Tripous.Data.DataRegistry.CreateModule*
+  nameWithType.vb: DataRegistry.CreateModule(String, Boolean)
+  fullName.vb: Tripous.Data.DataRegistry.CreateModule(String, Boolean)
+  name.vb: CreateModule(String, Boolean)
+- uid: Tripous.Data.DataRegistry.Locators
+  commentId: P:Tripous.Data.DataRegistry.Locators
+  id: Locators
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: Locators
+  nameWithType: DataRegistry.Locators
+  fullName: Tripous.Data.DataRegistry.Locators
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Locators
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 645
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of locator definitions.
+  example: []
+  syntax:
+    content: public static DefList<LocatorDef> Locators { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.LocatorDef}
+    content.vb: Public Shared ReadOnly Property Locators As DefList(Of LocatorDef)
+  overload: Tripous.Data.DataRegistry.Locators*
+- uid: Tripous.Data.DataRegistry.Modules
+  commentId: P:Tripous.Data.DataRegistry.Modules
+  id: Modules
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: Modules
+  nameWithType: DataRegistry.Modules
+  fullName: Tripous.Data.DataRegistry.Modules
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Modules
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 649
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of module definitions
+  example: []
+  syntax:
+    content: public static DefList<ModuleDef> Modules { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.ModuleDef}
+    content.vb: Public Shared ReadOnly Property Modules As DefList(Of ModuleDef)
+  overload: Tripous.Data.DataRegistry.Modules*
+- uid: Tripous.Data.DataRegistry.Lookups
+  commentId: P:Tripous.Data.DataRegistry.Lookups
+  id: Lookups
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: Lookups
+  nameWithType: DataRegistry.Lookups
+  fullName: Tripous.Data.DataRegistry.Lookups
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Lookups
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 653
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of lookup sources definitions
+  example: []
+  syntax:
+    content: public static DefList<LookupDef> Lookups { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.LookupDef}
+    content.vb: Public Shared ReadOnly Property Lookups As DefList(Of LookupDef)
+  overload: Tripous.Data.DataRegistry.Lookups*
+- uid: Tripous.Data.DataRegistry.CodeProviders
+  commentId: P:Tripous.Data.DataRegistry.CodeProviders
+  id: CodeProviders
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: CodeProviders
+  nameWithType: DataRegistry.CodeProviders
+  fullName: Tripous.Data.DataRegistry.CodeProviders
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CodeProviders
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 657
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of code providers.
+  example: []
+  syntax:
+    content: public static DefList<CodeProviderDef> CodeProviders { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.CodeProviderDef}
+    content.vb: Public Shared ReadOnly Property CodeProviders As DefList(Of CodeProviderDef)
+  overload: Tripous.Data.DataRegistry.CodeProviders*
+- uid: Tripous.Data.DataRegistry.DocumentHandlers
+  commentId: P:Tripous.Data.DataRegistry.DocumentHandlers
+  id: DocumentHandlers
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: DocumentHandlers
+  nameWithType: DataRegistry.DocumentHandlers
+  fullName: Tripous.Data.DataRegistry.DocumentHandlers
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DocumentHandlers
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 661
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of document handlers
+  example: []
+  syntax:
+    content: public static DefList<DocumentHandlerDef> DocumentHandlers { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.DocumentHandlerDef}
+    content.vb: Public Shared ReadOnly Property DocumentHandlers As DefList(Of DocumentHandlerDef)
+  overload: Tripous.Data.DataRegistry.DocumentHandlers*
+- uid: Tripous.Data.DataRegistry.ConfigProperties
+  commentId: P:Tripous.Data.DataRegistry.ConfigProperties
+  id: ConfigProperties
+  parent: Tripous.Data.DataRegistry
+  langs:
+  - csharp
+  - vb
+  name: ConfigProperties
+  nameWithType: DataRegistry.ConfigProperties
+  fullName: Tripous.Data.DataRegistry.ConfigProperties
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/DataRegistry.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConfigProperties
+    path: ../Tripous.Data/Registry/DataRegistry.cs
+    startLine: 665
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of configuration property definitions.
+  example: []
+  syntax:
+    content: public static DefList<ConfigPropertyDef> ConfigProperties { get; }
+    parameters: []
+    return:
+      type: Tripous.DefList{Tripous.Data.ConfigPropertyDef}
+    content.vb: Public Shared ReadOnly Property ConfigProperties As DefList(Of ConfigPropertyDef)
+  overload: Tripous.Data.DataRegistry.ConfigProperties*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.DataRegistry.AddModule*
+  commentId: Overload:Tripous.Data.DataRegistry.AddModule
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddModule_System_String_System_String_System_String_System_String_System_Boolean_Tripous_UserLevel_
+  name: AddModule
+  nameWithType: DataRegistry.AddModule
+  fullName: Tripous.Data.DataRegistry.AddModule
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  parent: Tripous
+  href: Tripous.UserLevel.html
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel
+- uid: Tripous.Data.ModuleDef
+  commentId: T:Tripous.Data.ModuleDef
+  parent: Tripous.Data
+  href: Tripous.Data.ModuleDef.html
+  name: ModuleDef
+  nameWithType: ModuleDef
+  fullName: Tripous.Data.ModuleDef
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DataRegistry.AddOrUpdateModule*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateModule
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateModule_System_String_System_String_System_String_System_String_System_Nullable_System_Boolean__System_Nullable_Tripous_UserLevel__
+  name: AddOrUpdateModule
+  nameWithType: DataRegistry.AddOrUpdateModule
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateModule
+- uid: System.Nullable{System.Boolean}
+  commentId: T:System.Nullable{System.Boolean}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool?
+  nameWithType: bool?
+  fullName: bool?
+  nameWithType.vb: Boolean?
+  fullName.vb: Boolean?
+  name.vb: Boolean?
+  spec.csharp:
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '?'
+  spec.vb:
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '?'
+- uid: System.Nullable{Tripous.UserLevel}
+  commentId: T:System.Nullable{Tripous.UserLevel}
+  parent: System
+  definition: System.Nullable`1
+  name: UserLevel?
+  nameWithType: UserLevel?
+  fullName: Tripous.UserLevel?
+  spec.csharp:
+  - uid: Tripous.UserLevel
+    name: UserLevel
+  - name: '?'
+  spec.vb:
+  - uid: Tripous.UserLevel
+    name: UserLevel
+  - name: '?'
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.DataRegistry.AddLookupListModule*
+  commentId: Overload:Tripous.Data.DataRegistry.AddLookupListModule
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLookupListModule_System_String_
+  name: AddLookupListModule
+  nameWithType: DataRegistry.AddLookupListModule
+  fullName: Tripous.Data.DataRegistry.AddLookupListModule
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupListModule*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLookupListModule
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLookupListModule_System_String_System_String_System_String_
+  name: AddOrUpdateLookupListModule
+  nameWithType: DataRegistry.AddOrUpdateLookupListModule
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupListModule
+- uid: Tripous.Data.DataRegistry.AddLookupSource*
+  commentId: Overload:Tripous.Data.DataRegistry.AddLookupSource
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLookupSource_System_Type_System_Boolean_
+  name: AddLookupSource
+  nameWithType: DataRegistry.AddLookupSource
+  fullName: Tripous.Data.DataRegistry.AddLookupSource
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: Tripous.Data.LookupDef
+  commentId: T:Tripous.Data.LookupDef
+  parent: Tripous.Data
+  href: Tripous.Data.LookupDef.html
+  name: LookupDef
+  nameWithType: LookupDef
+  fullName: Tripous.Data.LookupDef
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupSource*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLookupSource
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLookupSource_System_Type_System_Nullable_System_Boolean__
+  name: AddOrUpdateLookupSource
+  nameWithType: DataRegistry.AddOrUpdateLookupSource
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupSource
+- uid: Tripous.Data.DataRegistry.AddLookupWithTableName*
+  commentId: Overload:Tripous.Data.DataRegistry.AddLookupWithTableName
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLookupWithTableName_System_String_System_String_System_String_System_Boolean_
+  name: AddLookupWithTableName
+  nameWithType: DataRegistry.AddLookupWithTableName
+  fullName: Tripous.Data.DataRegistry.AddLookupWithTableName
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLookupWithTableName_System_String_System_String_System_String_System_Nullable_System_Boolean__
+  name: AddOrUpdateLookupWithTableName
+  nameWithType: DataRegistry.AddOrUpdateLookupWithTableName
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupWithTableName
+- uid: Tripous.Data.DataRegistry.AddLookupWithSql*
+  commentId: Overload:Tripous.Data.DataRegistry.AddLookupWithSql
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLookupWithSql_System_String_System_String_System_String_System_Boolean_
+  name: AddLookupWithSql
+  nameWithType: DataRegistry.AddLookupWithSql
+  fullName: Tripous.Data.DataRegistry.AddLookupWithSql
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLookupWithSql_System_String_System_String_System_String_System_Nullable_System_Boolean__
+  name: AddOrUpdateLookupWithSql
+  nameWithType: DataRegistry.AddOrUpdateLookupWithSql
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupWithSql
+- uid: Tripous.Data.DataRegistry.AddLookupWithClassName*
+  commentId: Overload:Tripous.Data.DataRegistry.AddLookupWithClassName
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLookupWithClassName_System_String_System_String_System_String_System_Boolean_
+  name: AddLookupWithClassName
+  nameWithType: DataRegistry.AddLookupWithClassName
+  fullName: Tripous.Data.DataRegistry.AddLookupWithClassName
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLookupWithClassName_System_String_System_String_System_String_System_Nullable_System_Boolean__
+  name: AddOrUpdateLookupWithClassName
+  nameWithType: DataRegistry.AddOrUpdateLookupWithClassName
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookupWithClassName
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLookup*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLookup
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLookup_System_String_System_Type_System_String_System_String_System_String_System_String_System_Nullable_System_Boolean__
+  name: AddOrUpdateLookup
+  nameWithType: DataRegistry.AddOrUpdateLookup
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLookup
+- uid: Tripous.Data.DataRegistry.AddLocator*
+  commentId: Overload:Tripous.Data.DataRegistry.AddLocator
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLocator_System_String_System_String_System_String_System_String_System_String_
+  name: AddLocator
+  nameWithType: DataRegistry.AddLocator
+  fullName: Tripous.Data.DataRegistry.AddLocator
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLocator*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLocator
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLocator_System_String_System_String_System_String_System_String_System_String_
+  name: AddOrUpdateLocator
+  nameWithType: DataRegistry.AddOrUpdateLocator
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocator
+- uid: Tripous.Data.DataRegistry.AddLocatorWithSql*
+  commentId: Overload:Tripous.Data.DataRegistry.AddLocatorWithSql
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLocatorWithSql_System_String_System_String_System_String_System_String_System_String_
+  name: AddLocatorWithSql
+  nameWithType: DataRegistry.AddLocatorWithSql
+  fullName: Tripous.Data.DataRegistry.AddLocatorWithSql
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLocatorWithSql_System_String_System_String_System_String_System_String_System_String_
+  name: AddOrUpdateLocatorWithSql
+  nameWithType: DataRegistry.AddOrUpdateLocatorWithSql
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql
+- uid: Tripous.Data.DataRegistry.UpdateLocatorReferences*
+  commentId: Overload:Tripous.Data.DataRegistry.UpdateLocatorReferences
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_UpdateLocatorReferences
+  name: UpdateLocatorReferences
+  nameWithType: DataRegistry.UpdateLocatorReferences
+  fullName: Tripous.Data.DataRegistry.UpdateLocatorReferences
+- uid: Tripous.Data.DataRegistry.AddCodeProvider*
+  commentId: Overload:Tripous.Data.DataRegistry.AddCodeProvider
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddCodeProvider_System_String_
+  name: AddCodeProvider
+  nameWithType: DataRegistry.AddCodeProvider
+  fullName: Tripous.Data.DataRegistry.AddCodeProvider
+- uid: Tripous.Data.CodeProviderDef
+  commentId: T:Tripous.Data.CodeProviderDef
+  parent: Tripous.Data
+  href: Tripous.Data.CodeProviderDef.html
+  name: CodeProviderDef
+  nameWithType: CodeProviderDef
+  fullName: Tripous.Data.CodeProviderDef
+- uid: Tripous.Data.DataRegistry.AddOrUpdateCodeProvider*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateCodeProvider
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateCodeProvider_System_String_
+  name: AddOrUpdateCodeProvider
+  nameWithType: DataRegistry.AddOrUpdateCodeProvider
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateCodeProvider
+- uid: Tripous.Data.DataRegistry.AddDocumentHandler*
+  commentId: Overload:Tripous.Data.DataRegistry.AddDocumentHandler
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddDocumentHandler_System_String_System_String_
+  name: AddDocumentHandler
+  nameWithType: DataRegistry.AddDocumentHandler
+  fullName: Tripous.Data.DataRegistry.AddDocumentHandler
+- uid: Tripous.Data.DocumentHandlerDef
+  commentId: T:Tripous.Data.DocumentHandlerDef
+  parent: Tripous.Data
+  href: Tripous.Data.DocumentHandlerDef.html
+  name: DocumentHandlerDef
+  nameWithType: DocumentHandlerDef
+  fullName: Tripous.Data.DocumentHandlerDef
+- uid: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateDocumentHandler_System_String_System_String_
+  name: AddOrUpdateDocumentHandler
+  nameWithType: DataRegistry.AddOrUpdateDocumentHandler
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler
+- uid: Tripous.Data.DataRegistry.AddConfigProperty*
+  commentId: Overload:Tripous.Data.DataRegistry.AddConfigProperty
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddConfigProperty_System_String_System_String_System_String_Tripous_UserLevel_Tripous_Data_ConfigValueKind_System_String_System_String_System_String_
+  name: AddConfigProperty
+  nameWithType: DataRegistry.AddConfigProperty
+  fullName: Tripous.Data.DataRegistry.AddConfigProperty
+- uid: Tripous.Data.ConfigValueKind
+  commentId: T:Tripous.Data.ConfigValueKind
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigValueKind.html
+  name: ConfigValueKind
+  nameWithType: ConfigValueKind
+  fullName: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigPropertyDef
+  commentId: T:Tripous.Data.ConfigPropertyDef
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigPropertyDef.html
+  name: ConfigPropertyDef
+  nameWithType: ConfigPropertyDef
+  fullName: Tripous.Data.ConfigPropertyDef
+- uid: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty*
+  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateConfigProperty
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateConfigProperty_System_String_System_String_System_String_System_Nullable_Tripous_UserLevel__System_Nullable_Tripous_Data_ConfigValueKind__System_String_System_String_System_String_
+  name: AddOrUpdateConfigProperty
+  nameWithType: DataRegistry.AddOrUpdateConfigProperty
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty
+- uid: System.Nullable{Tripous.Data.ConfigValueKind}
+  commentId: T:System.Nullable{Tripous.Data.ConfigValueKind}
+  parent: System
+  definition: System.Nullable`1
+  href: Tripous.Data.ConfigValueKind.html
+  name: ConfigValueKind?
+  nameWithType: ConfigValueKind?
+  fullName: Tripous.Data.ConfigValueKind?
+  spec.csharp:
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '?'
+  spec.vb:
+  - uid: Tripous.Data.ConfigValueKind
+    name: ConfigValueKind
+    href: Tripous.Data.ConfigValueKind.html
+  - name: '?'
+- uid: Tripous.Data.DataModule
+  commentId: T:Tripous.Data.DataModule
+  parent: Tripous.Data
+  href: Tripous.Data.DataModule.html
+  name: DataModule
+  nameWithType: DataModule
+  fullName: Tripous.Data.DataModule
+- uid: Tripous.Data.DataRegistry.CreateModule*
+  commentId: Overload:Tripous.Data.DataRegistry.CreateModule
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_CreateModule_System_String_System_Boolean_
+  name: CreateModule
+  nameWithType: DataRegistry.CreateModule
+  fullName: Tripous.Data.DataRegistry.CreateModule
+- uid: Tripous.Data.DataRegistry.Locators*
+  commentId: Overload:Tripous.Data.DataRegistry.Locators
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_Locators
+  name: Locators
+  nameWithType: DataRegistry.Locators
+  fullName: Tripous.Data.DataRegistry.Locators
+- uid: Tripous.DefList{Tripous.Data.LocatorDef}
+  commentId: T:Tripous.DefList{Tripous.Data.LocatorDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.LocatorDef.html
+  name: DefList<LocatorDef>
+  nameWithType: DefList<LocatorDef>
+  fullName: Tripous.DefList<Tripous.Data.LocatorDef>
+  nameWithType.vb: DefList(Of LocatorDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.LocatorDef)
+  name.vb: DefList(Of LocatorDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.LocatorDef
+    name: LocatorDef
+    href: Tripous.Data.LocatorDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorDef
+    name: LocatorDef
+    href: Tripous.Data.LocatorDef.html
+  - name: )
+- uid: Tripous.DefList`1
+  commentId: T:Tripous.DefList`1
+  href: Tripous.DefList-1.html
+  name: DefList<T>
+  nameWithType: DefList<T>
+  fullName: Tripous.DefList<T>
+  nameWithType.vb: DefList(Of T)
+  fullName.vb: Tripous.DefList(Of T)
+  name.vb: DefList(Of T)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+    href: Tripous.DefList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.DataRegistry.Modules*
+  commentId: Overload:Tripous.Data.DataRegistry.Modules
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_Modules
+  name: Modules
+  nameWithType: DataRegistry.Modules
+  fullName: Tripous.Data.DataRegistry.Modules
+- uid: Tripous.DefList{Tripous.Data.ModuleDef}
+  commentId: T:Tripous.DefList{Tripous.Data.ModuleDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.ModuleDef.html
+  name: DefList<ModuleDef>
+  nameWithType: DefList<ModuleDef>
+  fullName: Tripous.DefList<Tripous.Data.ModuleDef>
+  nameWithType.vb: DefList(Of ModuleDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.ModuleDef)
+  name.vb: DefList(Of ModuleDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.ModuleDef
+    name: ModuleDef
+    href: Tripous.Data.ModuleDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ModuleDef
+    name: ModuleDef
+    href: Tripous.Data.ModuleDef.html
+  - name: )
+- uid: Tripous.Data.DataRegistry.Lookups*
+  commentId: Overload:Tripous.Data.DataRegistry.Lookups
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_Lookups
+  name: Lookups
+  nameWithType: DataRegistry.Lookups
+  fullName: Tripous.Data.DataRegistry.Lookups
+- uid: Tripous.DefList{Tripous.Data.LookupDef}
+  commentId: T:Tripous.DefList{Tripous.Data.LookupDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.LookupDef.html
+  name: DefList<LookupDef>
+  nameWithType: DefList<LookupDef>
+  fullName: Tripous.DefList<Tripous.Data.LookupDef>
+  nameWithType.vb: DefList(Of LookupDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.LookupDef)
+  name.vb: DefList(Of LookupDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.LookupDef
+    name: LookupDef
+    href: Tripous.Data.LookupDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LookupDef
+    name: LookupDef
+    href: Tripous.Data.LookupDef.html
+  - name: )
+- uid: Tripous.Data.DataRegistry.CodeProviders*
+  commentId: Overload:Tripous.Data.DataRegistry.CodeProviders
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_CodeProviders
+  name: CodeProviders
+  nameWithType: DataRegistry.CodeProviders
+  fullName: Tripous.Data.DataRegistry.CodeProviders
+- uid: Tripous.DefList{Tripous.Data.CodeProviderDef}
+  commentId: T:Tripous.DefList{Tripous.Data.CodeProviderDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.CodeProviderDef.html
+  name: DefList<CodeProviderDef>
+  nameWithType: DefList<CodeProviderDef>
+  fullName: Tripous.DefList<Tripous.Data.CodeProviderDef>
+  nameWithType.vb: DefList(Of CodeProviderDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.CodeProviderDef)
+  name.vb: DefList(Of CodeProviderDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.CodeProviderDef
+    name: CodeProviderDef
+    href: Tripous.Data.CodeProviderDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.CodeProviderDef
+    name: CodeProviderDef
+    href: Tripous.Data.CodeProviderDef.html
+  - name: )
+- uid: Tripous.Data.DataRegistry.DocumentHandlers*
+  commentId: Overload:Tripous.Data.DataRegistry.DocumentHandlers
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_DocumentHandlers
+  name: DocumentHandlers
+  nameWithType: DataRegistry.DocumentHandlers
+  fullName: Tripous.Data.DataRegistry.DocumentHandlers
+- uid: Tripous.DefList{Tripous.Data.DocumentHandlerDef}
+  commentId: T:Tripous.DefList{Tripous.Data.DocumentHandlerDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.DocumentHandlerDef.html
+  name: DefList<DocumentHandlerDef>
+  nameWithType: DefList<DocumentHandlerDef>
+  fullName: Tripous.DefList<Tripous.Data.DocumentHandlerDef>
+  nameWithType.vb: DefList(Of DocumentHandlerDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.DocumentHandlerDef)
+  name.vb: DefList(Of DocumentHandlerDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.DocumentHandlerDef
+    name: DocumentHandlerDef
+    href: Tripous.Data.DocumentHandlerDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DocumentHandlerDef
+    name: DocumentHandlerDef
+    href: Tripous.Data.DocumentHandlerDef.html
+  - name: )
+- uid: Tripous.Data.DataRegistry.ConfigProperties*
+  commentId: Overload:Tripous.Data.DataRegistry.ConfigProperties
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_ConfigProperties
+  name: ConfigProperties
+  nameWithType: DataRegistry.ConfigProperties
+  fullName: Tripous.Data.DataRegistry.ConfigProperties
+- uid: Tripous.DefList{Tripous.Data.ConfigPropertyDef}
+  commentId: T:Tripous.DefList{Tripous.Data.ConfigPropertyDef}
+  parent: Tripous
+  definition: Tripous.DefList`1
+  href: Tripous.Data.ConfigPropertyDef.html
+  name: DefList<ConfigPropertyDef>
+  nameWithType: DefList<ConfigPropertyDef>
+  fullName: Tripous.DefList<Tripous.Data.ConfigPropertyDef>
+  nameWithType.vb: DefList(Of ConfigPropertyDef)
+  fullName.vb: Tripous.DefList(Of Tripous.Data.ConfigPropertyDef)
+  name.vb: DefList(Of ConfigPropertyDef)
+  spec.csharp:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: <
+  - uid: Tripous.Data.ConfigPropertyDef
+    name: ConfigPropertyDef
+    href: Tripous.Data.ConfigPropertyDef.html
+  - name: '>'
+  spec.vb:
+  - uid: Tripous.DefList`1
+    name: DefList
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConfigPropertyDef
+    name: ConfigPropertyDef
+    href: Tripous.Data.ConfigPropertyDef.html
+  - name: )

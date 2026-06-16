@@ -1,0 +1,280 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.IConfigEditor
+  commentId: T:Tripous.Desktop.IConfigEditor
+  id: IConfigEditor
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.IConfigEditor.LoadValue(Tripous.Data.ConfigPropertyDef,System.String)
+  - Tripous.Desktop.IConfigEditor.SaveValue
+  langs:
+  - csharp
+  - vb
+  name: IConfigEditor
+  nameWithType: IConfigEditor
+  fullName: Tripous.Desktop.IConfigEditor
+  type: Interface
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/IConfigEditor.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IConfigEditor
+    path: ../Tripous.Desktop/Dialogs/IConfigEditor.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides a desktop editor for a complex configuration property.
+  example: []
+  syntax:
+    content: public interface IConfigEditor
+    content.vb: Public Interface IConfigEditor
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.IConfigEditor.LoadValue(Tripous.Data.ConfigPropertyDef,System.String)
+  commentId: M:Tripous.Desktop.IConfigEditor.LoadValue(Tripous.Data.ConfigPropertyDef,System.String)
+  id: LoadValue(Tripous.Data.ConfigPropertyDef,System.String)
+  parent: Tripous.Desktop.IConfigEditor
+  langs:
+  - csharp
+  - vb
+  name: LoadValue(ConfigPropertyDef, string)
+  nameWithType: IConfigEditor.LoadValue(ConfigPropertyDef, string)
+  fullName: Tripous.Desktop.IConfigEditor.LoadValue(Tripous.Data.ConfigPropertyDef, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/IConfigEditor.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoadValue
+    path: ../Tripous.Desktop/Dialogs/IConfigEditor.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Loads a configuration value into the editor.
+  example: []
+  syntax:
+    content: void LoadValue(ConfigPropertyDef Def, string Value)
+    parameters:
+    - id: Def
+      type: Tripous.Data.ConfigPropertyDef
+    - id: Value
+      type: System.String
+    content.vb: Sub LoadValue(Def As ConfigPropertyDef, Value As String)
+  overload: Tripous.Desktop.IConfigEditor.LoadValue*
+  nameWithType.vb: IConfigEditor.LoadValue(ConfigPropertyDef, String)
+  fullName.vb: Tripous.Desktop.IConfigEditor.LoadValue(Tripous.Data.ConfigPropertyDef, String)
+  name.vb: LoadValue(ConfigPropertyDef, String)
+- uid: Tripous.Desktop.IConfigEditor.SaveValue
+  commentId: M:Tripous.Desktop.IConfigEditor.SaveValue
+  id: SaveValue
+  parent: Tripous.Desktop.IConfigEditor
+  langs:
+  - csharp
+  - vb
+  name: SaveValue()
+  nameWithType: IConfigEditor.SaveValue()
+  fullName: Tripous.Desktop.IConfigEditor.SaveValue()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/IConfigEditor.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SaveValue
+    path: ../Tripous.Desktop/Dialogs/IConfigEditor.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the edited configuration value.
+  example: []
+  syntax:
+    content: string SaveValue()
+    return:
+      type: System.String
+    content.vb: Function SaveValue() As String
+  overload: Tripous.Desktop.IConfigEditor.SaveValue*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.IConfigEditor.LoadValue*
+  commentId: Overload:Tripous.Desktop.IConfigEditor.LoadValue
+  href: Tripous.Desktop.IConfigEditor.html#Tripous_Desktop_IConfigEditor_LoadValue_Tripous_Data_ConfigPropertyDef_System_String_
+  name: LoadValue
+  nameWithType: IConfigEditor.LoadValue
+  fullName: Tripous.Desktop.IConfigEditor.LoadValue
+- uid: Tripous.Data.ConfigPropertyDef
+  commentId: T:Tripous.Data.ConfigPropertyDef
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigPropertyDef.html
+  name: ConfigPropertyDef
+  nameWithType: ConfigPropertyDef
+  fullName: Tripous.Data.ConfigPropertyDef
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Desktop.IConfigEditor.SaveValue*
+  commentId: Overload:Tripous.Desktop.IConfigEditor.SaveValue
+  href: Tripous.Desktop.IConfigEditor.html#Tripous_Desktop_IConfigEditor_SaveValue
+  name: SaveValue
+  nameWithType: IConfigEditor.SaveValue
+  fullName: Tripous.Desktop.IConfigEditor.SaveValue

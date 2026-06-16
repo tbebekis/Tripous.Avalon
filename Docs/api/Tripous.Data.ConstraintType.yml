@@ -1,0 +1,1240 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.ConstraintType
+  commentId: T:Tripous.Data.ConstraintType
+  id: ConstraintType
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.ConstraintType.Check
+  - Tripous.Data.ConstraintType.ForeignKey
+  - Tripous.Data.ConstraintType.NotNull
+  - Tripous.Data.ConstraintType.PrimaryKey
+  - Tripous.Data.ConstraintType.Unique
+  - Tripous.Data.ConstraintType.Unknown
+  langs:
+  - csharp
+  - vb
+  name: ConstraintType
+  nameWithType: ConstraintType
+  fullName: Tripous.Data.ConstraintType
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaConstraint.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConstraintType
+    path: ../Tripous.Data/Metadata/DbMetaConstraint.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Specifies the type of a database constraint.
+  example: []
+  syntax:
+    content: public enum ConstraintType
+    content.vb: Public Enum ConstraintType
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.Add``1(Tripous.Data.ConstraintType)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.HasAny``1(Tripous.Data.ConstraintType)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.HasNone``1(Tripous.Data.ConstraintType)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.Has``1(Tripous.Data.ConstraintType)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.In``1(Tripous.Data.ConstraintType)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.IsExactly``1(Tripous.Data.ConstraintType)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.IsZero``1
+  - Tripous.Data.ConstraintType.Tripous.BitFields.Remove``1(Tripous.Data.ConstraintType)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.Set``1(Tripous.Data.ConstraintType,System.Boolean)
+  - Tripous.Data.ConstraintType.Tripous.BitFields.Toggle``1(Tripous.Data.ConstraintType)
+- uid: Tripous.Data.ConstraintType.Unknown
+  commentId: F:Tripous.Data.ConstraintType.Unknown
+  id: Unknown
+  parent: Tripous.Data.ConstraintType
+  langs:
+  - csharp
+  - vb
+  name: Unknown
+  nameWithType: ConstraintType.Unknown
+  fullName: Tripous.Data.ConstraintType.Unknown
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaConstraint.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Unknown
+    path: ../Tripous.Data/Metadata/DbMetaConstraint.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The constraint type is unknown or undefined.
+  example: []
+  syntax:
+    content: Unknown = 0
+    return:
+      type: Tripous.Data.ConstraintType
+- uid: Tripous.Data.ConstraintType.PrimaryKey
+  commentId: F:Tripous.Data.ConstraintType.PrimaryKey
+  id: PrimaryKey
+  parent: Tripous.Data.ConstraintType
+  langs:
+  - csharp
+  - vb
+  name: PrimaryKey
+  nameWithType: ConstraintType.PrimaryKey
+  fullName: Tripous.Data.ConstraintType.PrimaryKey
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaConstraint.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PrimaryKey
+    path: ../Tripous.Data/Metadata/DbMetaConstraint.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents a primary key constraint.
+  example: []
+  syntax:
+    content: PrimaryKey = 1
+    return:
+      type: Tripous.Data.ConstraintType
+- uid: Tripous.Data.ConstraintType.ForeignKey
+  commentId: F:Tripous.Data.ConstraintType.ForeignKey
+  id: ForeignKey
+  parent: Tripous.Data.ConstraintType
+  langs:
+  - csharp
+  - vb
+  name: ForeignKey
+  nameWithType: ConstraintType.ForeignKey
+  fullName: Tripous.Data.ConstraintType.ForeignKey
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaConstraint.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ForeignKey
+    path: ../Tripous.Data/Metadata/DbMetaConstraint.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents a foreign key constraint.
+  example: []
+  syntax:
+    content: ForeignKey = 2
+    return:
+      type: Tripous.Data.ConstraintType
+- uid: Tripous.Data.ConstraintType.Unique
+  commentId: F:Tripous.Data.ConstraintType.Unique
+  id: Unique
+  parent: Tripous.Data.ConstraintType
+  langs:
+  - csharp
+  - vb
+  name: Unique
+  nameWithType: ConstraintType.Unique
+  fullName: Tripous.Data.ConstraintType.Unique
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaConstraint.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Unique
+    path: ../Tripous.Data/Metadata/DbMetaConstraint.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents a unique constraint.
+  example: []
+  syntax:
+    content: Unique = 3
+    return:
+      type: Tripous.Data.ConstraintType
+- uid: Tripous.Data.ConstraintType.Check
+  commentId: F:Tripous.Data.ConstraintType.Check
+  id: Check
+  parent: Tripous.Data.ConstraintType
+  langs:
+  - csharp
+  - vb
+  name: Check
+  nameWithType: ConstraintType.Check
+  fullName: Tripous.Data.ConstraintType.Check
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaConstraint.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Check
+    path: ../Tripous.Data/Metadata/DbMetaConstraint.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents a check constraint.
+  example: []
+  syntax:
+    content: Check = 4
+    return:
+      type: Tripous.Data.ConstraintType
+- uid: Tripous.Data.ConstraintType.NotNull
+  commentId: F:Tripous.Data.ConstraintType.NotNull
+  id: NotNull
+  parent: Tripous.Data.ConstraintType
+  langs:
+  - csharp
+  - vb
+  name: NotNull
+  nameWithType: ConstraintType.NotNull
+  fullName: Tripous.Data.ConstraintType.NotNull
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaConstraint.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NotNull
+    path: ../Tripous.Data/Metadata/DbMetaConstraint.cs
+    startLine: 39
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents a non-nullable column constraint.
+  example: []
+  syntax:
+    content: NotNull = 5
+    return:
+      type: Tripous.Data.ConstraintType
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.Add``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.Add<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.Add<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.Add(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: Add(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.HasAny``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.HasAny<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.HasAny(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: HasAny(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.HasNone``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.HasNone<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.HasNone(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: HasNone(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.Has``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.Has<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.Has<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.Has(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: Has(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.In``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.In<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.In<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.In(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: In(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.IsExactly``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.IsExactly<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.IsExactly(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: IsExactly(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ConstraintType>(ConstraintType)
+  nameWithType: BitFields.IsZero<ConstraintType>(ConstraintType)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.IsZero(Of ConstraintType)(ConstraintType)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType)
+  name.vb: IsZero(Of ConstraintType)(ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.ConstraintType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.ConstraintType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.Remove``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.Remove<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.Remove(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: Remove(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.Set``1(Tripous.Data.ConstraintType,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ConstraintType>(ConstraintType, ConstraintType, bool)
+  nameWithType: BitFields.Set<ConstraintType>(ConstraintType, ConstraintType, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType, bool)
+  nameWithType.vb: BitFields.Set(Of ConstraintType)(ConstraintType, ConstraintType, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType, Boolean)
+  name.vb: Set(Of ConstraintType)(ConstraintType, ConstraintType, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.ConstraintType.Tripous.BitFields.Toggle``1(Tripous.Data.ConstraintType)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ConstraintType>(ConstraintType, ConstraintType)
+  nameWithType: BitFields.Toggle<ConstraintType>(ConstraintType, ConstraintType)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.ConstraintType>(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  nameWithType.vb: BitFields.Toggle(Of ConstraintType)(ConstraintType, ConstraintType)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.ConstraintType)(Tripous.Data.ConstraintType, Tripous.Data.ConstraintType)
+  name.vb: Toggle(Of ConstraintType)(ConstraintType, ConstraintType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.ConstraintType,Tripous.Data.ConstraintType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.ConstraintType
+    name: ConstraintType
+    href: Tripous.Data.ConstraintType.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.ConstraintType
+  commentId: T:Tripous.Data.ConstraintType
+  parent: Tripous.Data
+  href: Tripous.Data.ConstraintType.html
+  name: ConstraintType
+  nameWithType: ConstraintType
+  fullName: Tripous.Data.ConstraintType

@@ -1,0 +1,1211 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.ReferenceMenuActionType
+  commentId: T:Tripous.Desktop.ReferenceMenuActionType
+  id: ReferenceMenuActionType
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.ReferenceMenuActionType.Add
+  - Tripous.Desktop.ReferenceMenuActionType.Clear
+  - Tripous.Desktop.ReferenceMenuActionType.Edit
+  - Tripous.Desktop.ReferenceMenuActionType.Reload
+  - Tripous.Desktop.ReferenceMenuActionType.ShowList
+  langs:
+  - csharp
+  - vb
+  name: ReferenceMenuActionType
+  nameWithType: ReferenceMenuActionType
+  fullName: Tripous.Desktop.ReferenceMenuActionType
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReferenceMenuActionType
+    path: ../Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Defines the standard actions of a reference context menu.
+  example: []
+  syntax:
+    content: public enum ReferenceMenuActionType
+    content.vb: Public Enum ReferenceMenuActionType
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Add``1(Tripous.Desktop.ReferenceMenuActionType)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.HasAny``1(Tripous.Desktop.ReferenceMenuActionType)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.HasNone``1(Tripous.Desktop.ReferenceMenuActionType)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Has``1(Tripous.Desktop.ReferenceMenuActionType)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.In``1(Tripous.Desktop.ReferenceMenuActionType)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.IsExactly``1(Tripous.Desktop.ReferenceMenuActionType)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.IsZero``1
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Remove``1(Tripous.Desktop.ReferenceMenuActionType)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Set``1(Tripous.Desktop.ReferenceMenuActionType,System.Boolean)
+  - Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Toggle``1(Tripous.Desktop.ReferenceMenuActionType)
+- uid: Tripous.Desktop.ReferenceMenuActionType.ShowList
+  commentId: F:Tripous.Desktop.ReferenceMenuActionType.ShowList
+  id: ShowList
+  parent: Tripous.Desktop.ReferenceMenuActionType
+  langs:
+  - csharp
+  - vb
+  name: ShowList
+  nameWithType: ReferenceMenuActionType.ShowList
+  fullName: Tripous.Desktop.ReferenceMenuActionType.ShowList
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowList
+    path: ../Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows the reference list.
+  example: []
+  syntax:
+    content: ShowList = 0
+    return:
+      type: Tripous.Desktop.ReferenceMenuActionType
+- uid: Tripous.Desktop.ReferenceMenuActionType.Reload
+  commentId: F:Tripous.Desktop.ReferenceMenuActionType.Reload
+  id: Reload
+  parent: Tripous.Desktop.ReferenceMenuActionType
+  langs:
+  - csharp
+  - vb
+  name: Reload
+  nameWithType: ReferenceMenuActionType.Reload
+  fullName: Tripous.Desktop.ReferenceMenuActionType.Reload
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Reload
+    path: ../Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Reloads reference data.
+  example: []
+  syntax:
+    content: Reload = 1
+    return:
+      type: Tripous.Desktop.ReferenceMenuActionType
+- uid: Tripous.Desktop.ReferenceMenuActionType.Edit
+  commentId: F:Tripous.Desktop.ReferenceMenuActionType.Edit
+  id: Edit
+  parent: Tripous.Desktop.ReferenceMenuActionType
+  langs:
+  - csharp
+  - vb
+  name: Edit
+  nameWithType: ReferenceMenuActionType.Edit
+  fullName: Tripous.Desktop.ReferenceMenuActionType.Edit
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Edit
+    path: ../Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Edits the selected reference item.
+  example: []
+  syntax:
+    content: Edit = 2
+    return:
+      type: Tripous.Desktop.ReferenceMenuActionType
+- uid: Tripous.Desktop.ReferenceMenuActionType.Add
+  commentId: F:Tripous.Desktop.ReferenceMenuActionType.Add
+  id: Add
+  parent: Tripous.Desktop.ReferenceMenuActionType
+  langs:
+  - csharp
+  - vb
+  name: Add
+  nameWithType: ReferenceMenuActionType.Add
+  fullName: Tripous.Desktop.ReferenceMenuActionType.Add
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Add
+    path: ../Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a new reference item.
+  example: []
+  syntax:
+    content: Add = 3
+    return:
+      type: Tripous.Desktop.ReferenceMenuActionType
+- uid: Tripous.Desktop.ReferenceMenuActionType.Clear
+  commentId: F:Tripous.Desktop.ReferenceMenuActionType.Clear
+  id: Clear
+  parent: Tripous.Desktop.ReferenceMenuActionType
+  langs:
+  - csharp
+  - vb
+  name: Clear
+  nameWithType: ReferenceMenuActionType.Clear
+  fullName: Tripous.Desktop.ReferenceMenuActionType.Clear
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clear
+    path: ../Tripous.Desktop/ItemUi/ReferenceMenuCommand.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Clears the reference value.
+  example: []
+  syntax:
+    content: Clear = 4
+    return:
+      type: Tripous.Desktop.ReferenceMenuActionType
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Add``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.Add<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.Add<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.Add(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: Add(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.HasAny``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.HasAny<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.HasAny<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.HasAny(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: HasAny(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.HasNone``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.HasNone<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.HasNone<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.HasNone(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: HasNone(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Has``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.Has<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.Has<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.Has(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: Has(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.In``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.In<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.In<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.In(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: In(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.IsExactly``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.IsExactly<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.IsExactly(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: IsExactly(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ReferenceMenuActionType>(ReferenceMenuActionType)
+  nameWithType: BitFields.IsZero<ReferenceMenuActionType>(ReferenceMenuActionType)
+  fullName: Tripous.BitFields.IsZero<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.IsZero(Of ReferenceMenuActionType)(ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: IsZero(Of ReferenceMenuActionType)(ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.ReferenceMenuActionType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.ReferenceMenuActionType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Remove``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.Remove<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.Remove<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.Remove(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: Remove(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Set``1(Tripous.Desktop.ReferenceMenuActionType,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType, bool)
+  nameWithType: BitFields.Set<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType, bool)
+  nameWithType.vb: BitFields.Set(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType, Boolean)
+  name.vb: Set(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Desktop.ReferenceMenuActionType.Tripous.BitFields.Toggle``1(Tripous.Desktop.ReferenceMenuActionType)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  nameWithType: BitFields.Toggle<ReferenceMenuActionType>(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName: Tripous.BitFields.Toggle<Tripous.Desktop.ReferenceMenuActionType>(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  nameWithType.vb: BitFields.Toggle(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Desktop.ReferenceMenuActionType)(Tripous.Desktop.ReferenceMenuActionType, Tripous.Desktop.ReferenceMenuActionType)
+  name.vb: Toggle(Of ReferenceMenuActionType)(ReferenceMenuActionType, ReferenceMenuActionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.ReferenceMenuActionType,Tripous.Desktop.ReferenceMenuActionType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ReferenceMenuActionType
+    name: ReferenceMenuActionType
+    href: Tripous.Desktop.ReferenceMenuActionType.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.ReferenceMenuActionType
+  commentId: T:Tripous.Desktop.ReferenceMenuActionType
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ReferenceMenuActionType.html
+  name: ReferenceMenuActionType
+  nameWithType: ReferenceMenuActionType
+  fullName: Tripous.Desktop.ReferenceMenuActionType

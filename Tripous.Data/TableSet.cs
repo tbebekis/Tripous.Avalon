@@ -100,7 +100,7 @@ public class TableSet
                     {
                         if (Row.HasVersion(DataRowVersion.Proposed))
                         {
-                            Row.EndEdit();
+                            Row.CancelEdit();
                         }
                     }
                 }
@@ -151,22 +151,15 @@ public class TableSet
             // 1. SqlText execution ===================================================
             if ((tblMaster.Rows.Count > 0) && (tblMaster.Columns.Contains(tblDetail.MasterField)))
             {
-                SelectSql SS = new SelectSql(tblDetail.Sqls.SelectSql);
-                SS.Where = "";
-
                 //  limit the number of elements inside the in (...),  in order
                 //    to avoid problems with database servers that have such a limit.   
                 List<string> KeyValuesList = tblMaster.GetKeyValuesList(tblDetail.MasterField, 100);
 
-                StringBuilder SB = new StringBuilder();
                 for (int i = 0; i < KeyValuesList.Count; i++)
                 {
-                    SB.Clear();
-                    SB.AppendLine(SS.Text);
-                    SB.AppendLine($"where ");
-                    SB.AppendLine($"{tblDetail.TableName}.{tblDetail.DetailField} in ({KeyValuesList[i]})");
-
-                    SqlText = SB.ToString();
+                    SelectSql SS = new SelectSql(tblDetail.Sqls.SelectSql);
+                    SS.Where = $"{tblDetail.TableName}.{tblDetail.DetailField} in ({KeyValuesList[i]})";
+                    SqlText = SS.Text;
 
                     Select_DoAddToDetail(SqlText, tblDetail);
                 }
@@ -314,7 +307,7 @@ public class TableSet
     /// </summary>
     public void ListSave(MemTable Table)
     {
-        DbOpContext Context = CreateDbOpContext(ListTable);
+        DbOpContext Context = CreateDbOpContext(Table);
         DbOps.PostChanges(Context);
     }
     
@@ -345,17 +338,6 @@ public class TableSet
             if (!string.IsNullOrWhiteSpace(ItemTable.Sqls.SelectRowSql))
             {
                 Store.SelectTo(ItemTable, ItemTable.Sqls.SelectRowSql, RowId);
-            }
-
-            // select stock tables
-            if (RowId != null && ItemTable.Rows.Count >= 1)
-            {
-                MemTable StockTable;
-                for (int i = 0; i < ItemTable.Stocks.Count; i++)
-                {
-                    StockTable = ItemTable.Stocks[i];
-                    Store.SelectTo(StockTable, StockTable.Sqls.SelectRowSql, ItemTable.Rows[0]);
-                }
             }
 
             Select_DoDetails(ItemTable); 
@@ -405,12 +387,12 @@ public class TableSet
 
                     DbOpContext Context = CreateDbOpContext(ItemTable);
                     DbOps.PostDeletes(Context);
-                    AcceptChanges();
 
                     OnTransactionStageDelete(TransactionStage.Post, ExecTime.After, RowId);
 
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.Before, RowId);
                     Transaction.Commit();
+                    AcceptChanges();
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.After, RowId);
                 }
                 catch
@@ -658,6 +640,7 @@ public class TableSet
                         LastCommitedId = ItemTable.Rows[0][ItemTable.KeyField];
 
                     PostCounter++;
+                    Args.PostCounter = PostCounter;
 
                     if (PostCounter % Args.TransLimit == 0)
                         CommitBatchTransaction();

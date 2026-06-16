@@ -1,0 +1,1297 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SqlFilterExpressionType
+  commentId: T:Tripous.Data.SqlFilterExpressionType
+  id: SqlFilterExpressionType
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SqlFilterExpressionType.Date
+  - Tripous.Data.SqlFilterExpressionType.Decimal
+  - Tripous.Data.SqlFilterExpressionType.Enum
+  - Tripous.Data.SqlFilterExpressionType.Integer
+  - Tripous.Data.SqlFilterExpressionType.Lookup
+  - Tripous.Data.SqlFilterExpressionType.String
+  langs:
+  - csharp
+  - vb
+  name: SqlFilterExpressionType
+  nameWithType: SqlFilterExpressionType
+  fullName: Tripous.Data.SqlFilterExpressionType
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Enums/SqlFilterExpressionType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlFilterExpressionType
+    path: ../Tripous.Data/Enums/SqlFilterExpressionType.cs
+    startLine: 15
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Indicates the type of a filter expression.
+
+
+    <p>See the <code>SqlFilterExpressions.txt</code> file for the filter syntax.</p>
+  example: []
+  syntax:
+    content: public enum SqlFilterExpressionType
+    content.vb: Public Enum SqlFilterExpressionType
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Add``1(Tripous.Data.SqlFilterExpressionType)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.HasAny``1(Tripous.Data.SqlFilterExpressionType)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.HasNone``1(Tripous.Data.SqlFilterExpressionType)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Has``1(Tripous.Data.SqlFilterExpressionType)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.In``1(Tripous.Data.SqlFilterExpressionType)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.IsExactly``1(Tripous.Data.SqlFilterExpressionType)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.IsZero``1
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Remove``1(Tripous.Data.SqlFilterExpressionType)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Set``1(Tripous.Data.SqlFilterExpressionType,System.Boolean)
+  - Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Toggle``1(Tripous.Data.SqlFilterExpressionType)
+- uid: Tripous.Data.SqlFilterExpressionType.String
+  commentId: F:Tripous.Data.SqlFilterExpressionType.String
+  id: String
+  parent: Tripous.Data.SqlFilterExpressionType
+  langs:
+  - csharp
+  - vb
+  name: String
+  nameWithType: SqlFilterExpressionType.String
+  fullName: Tripous.Data.SqlFilterExpressionType.String
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/SqlFilterExpressionType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: String
+    path: ../Tripous.Data/Enums/SqlFilterExpressionType.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A string filter.
+
+
+    <p>The user must enter the value in the runtime UI.</p>
+
+    <p>[[Label]] or [[string:Label]]</p>
+  example: []
+  syntax:
+    content: String = 0
+    return:
+      type: Tripous.Data.SqlFilterExpressionType
+- uid: Tripous.Data.SqlFilterExpressionType.Date
+  commentId: F:Tripous.Data.SqlFilterExpressionType.Date
+  id: Date
+  parent: Tripous.Data.SqlFilterExpressionType
+  langs:
+  - csharp
+  - vb
+  name: Date
+  nameWithType: SqlFilterExpressionType.Date
+  fullName: Tripous.Data.SqlFilterExpressionType.Date
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/SqlFilterExpressionType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Date
+    path: ../Tripous.Data/Enums/SqlFilterExpressionType.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A date filter.
+
+
+    <p>[[date:Label]] or [[date:custom:Label]] is a Custom date. The user must enter the date in the runtime UI.</p>
+
+    <p>[[date:LastMonth:Label]] is a computed date. The system computes the date in the runtime UI.</p>
+
+    <p>The <xref href="Tripous.DateRange" data-throw-if-not-resolved="false"></xref> enumeration type contains the valid literals for this setting.</p>
+  example: []
+  syntax:
+    content: Date = 1
+    return:
+      type: Tripous.Data.SqlFilterExpressionType
+- uid: Tripous.Data.SqlFilterExpressionType.Integer
+  commentId: F:Tripous.Data.SqlFilterExpressionType.Integer
+  id: Integer
+  parent: Tripous.Data.SqlFilterExpressionType
+  langs:
+  - csharp
+  - vb
+  name: Integer
+  nameWithType: SqlFilterExpressionType.Integer
+  fullName: Tripous.Data.SqlFilterExpressionType.Integer
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/SqlFilterExpressionType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Integer
+    path: ../Tripous.Data/Enums/SqlFilterExpressionType.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A integer filter
+
+
+    <p>The user must enter the value in the runtime UI.</p>
+
+    <p>[[int:Label]]</p>
+  example: []
+  syntax:
+    content: Integer = 2
+    return:
+      type: Tripous.Data.SqlFilterExpressionType
+- uid: Tripous.Data.SqlFilterExpressionType.Decimal
+  commentId: F:Tripous.Data.SqlFilterExpressionType.Decimal
+  id: Decimal
+  parent: Tripous.Data.SqlFilterExpressionType
+  langs:
+  - csharp
+  - vb
+  name: Decimal
+  nameWithType: SqlFilterExpressionType.Decimal
+  fullName: Tripous.Data.SqlFilterExpressionType.Decimal
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/SqlFilterExpressionType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Decimal
+    path: ../Tripous.Data/Enums/SqlFilterExpressionType.cs
+    startLine: 41
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A decimal filter
+
+
+    <p>The user must enter the value in the runtime UI.</p>
+
+    <p>[[dec:Label]]</p>
+  example: []
+  syntax:
+    content: Decimal = 3
+    return:
+      type: Tripous.Data.SqlFilterExpressionType
+- uid: Tripous.Data.SqlFilterExpressionType.Lookup
+  commentId: F:Tripous.Data.SqlFilterExpressionType.Lookup
+  id: Lookup
+  parent: Tripous.Data.SqlFilterExpressionType
+  langs:
+  - csharp
+  - vb
+  name: Lookup
+  nameWithType: SqlFilterExpressionType.Lookup
+  fullName: Tripous.Data.SqlFilterExpressionType.Lookup
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/SqlFilterExpressionType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Lookup
+    path: ../Tripous.Data/Enums/SqlFilterExpressionType.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A filter with a lookup SELECT Sql. The user must define the LookUp Sql in the design-time UI.
+
+
+    <p>The lookup SELECT is executed by the runtime UI and it returns one or more rows.</p>
+
+    <p>The first column of the returned result list, is the Result Column, and it is used as the value in the runtime UI.</p>
+
+    <p>The user must choose one or more rows in the runtime UI.</p>
+
+    <p>[[lookup:Label]] - single choise</p>
+
+    <p> [[lookup:multi:Label]] - multi choise</p>
+  example: []
+  syntax:
+    content: Lookup = 4
+    return:
+      type: Tripous.Data.SqlFilterExpressionType
+- uid: Tripous.Data.SqlFilterExpressionType.Enum
+  commentId: F:Tripous.Data.SqlFilterExpressionType.Enum
+  id: Enum
+  parent: Tripous.Data.SqlFilterExpressionType
+  langs:
+  - csharp
+  - vb
+  name: Enum
+  nameWithType: SqlFilterExpressionType.Enum
+  fullName: Tripous.Data.SqlFilterExpressionType.Enum
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/SqlFilterExpressionType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Enum
+    path: ../Tripous.Data/Enums/SqlFilterExpressionType.cs
+    startLine: 57
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A list of constants. The user provides a list of possible values in the design-time UI.
+
+    The user selects one or more constants in the runtime UI.
+
+
+    <p>[[enum:string:date|int|dec:Label]]  - single choise </p>
+
+    <p>[[enum:multi:string:date|int|dec:Label]]  - multi choise </p>
+  example: []
+  syntax:
+    content: Enum = 5
+    return:
+      type: Tripous.Data.SqlFilterExpressionType
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Add``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.Add<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.Add<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.Add(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: Add(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.HasAny``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.HasAny<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.HasAny(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: HasAny(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.HasNone``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.HasNone<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.HasNone(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: HasNone(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Has``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.Has<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.Has<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.Has(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: Has(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.In``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.In<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.In<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.In(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: In(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.IsExactly``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.IsExactly<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.IsExactly(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: IsExactly(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<SqlFilterExpressionType>(SqlFilterExpressionType)
+  nameWithType: BitFields.IsZero<SqlFilterExpressionType>(SqlFilterExpressionType)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.IsZero(Of SqlFilterExpressionType)(SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType)
+  name.vb: IsZero(Of SqlFilterExpressionType)(SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.SqlFilterExpressionType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.SqlFilterExpressionType)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Remove``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.Remove<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.Remove(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: Remove(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Set``1(Tripous.Data.SqlFilterExpressionType,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType, bool)
+  nameWithType: BitFields.Set<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType, bool)
+  nameWithType.vb: BitFields.Set(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType, Boolean)
+  name.vb: Set(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionType.Tripous.BitFields.Toggle``1(Tripous.Data.SqlFilterExpressionType)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  nameWithType: BitFields.Toggle<SqlFilterExpressionType>(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.SqlFilterExpressionType>(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  nameWithType.vb: BitFields.Toggle(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.SqlFilterExpressionType)(Tripous.Data.SqlFilterExpressionType, Tripous.Data.SqlFilterExpressionType)
+  name.vb: Toggle(Of SqlFilterExpressionType)(SqlFilterExpressionType, SqlFilterExpressionType)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.SqlFilterExpressionType,Tripous.Data.SqlFilterExpressionType)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SqlFilterExpressionType
+    name: SqlFilterExpressionType
+    href: Tripous.Data.SqlFilterExpressionType.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.SqlFilterExpressionType
+  commentId: T:Tripous.Data.SqlFilterExpressionType
+  parent: Tripous.Data
+  href: Tripous.Data.SqlFilterExpressionType.html
+  name: SqlFilterExpressionType
+  nameWithType: SqlFilterExpressionType
+  fullName: Tripous.Data.SqlFilterExpressionType
+- uid: Tripous.DateRange
+  commentId: T:Tripous.DateRange
+  parent: Tripous
+  href: Tripous.DateRange.html
+  name: DateRange
+  nameWithType: DateRange
+  fullName: Tripous.DateRange

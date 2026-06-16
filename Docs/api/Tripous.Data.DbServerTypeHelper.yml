@@ -1,0 +1,486 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbServerTypeHelper
+  commentId: T:Tripous.Data.DbServerTypeHelper
+  id: DbServerTypeHelper
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  - Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  langs:
+  - csharp
+  - vb
+  name: DbServerTypeHelper
+  nameWithType: DbServerTypeHelper
+  fullName: Tripous.Data.DbServerTypeHelper
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbServerTypeHelper
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Extension methods.
+  example: []
+  syntax:
+    content: public static class DbServerTypeHelper
+    content.vb: Public Module DbServerTypeHelper
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  id: GetTemplateConnectionString(Tripous.Data.DbServerType)
+  isExtensionMethod: true
+  parent: Tripous.Data.DbServerTypeHelper
+  langs:
+  - csharp
+  - vb
+  name: GetTemplateConnectionString(DbServerType)
+  nameWithType: DbServerTypeHelper.GetTemplateConnectionString(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString(Tripous.Data.DbServerType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetTemplateConnectionString
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a template connection string for the specified <code class="paramref">DbServerType</code>, with placeholders to be filled in by the caller.
+  example: []
+  syntax:
+    content: public static string GetTemplateConnectionString(this DbServerType DbServerType)
+    parameters:
+    - id: DbServerType
+      type: Tripous.Data.DbServerType
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetTemplateConnectionString(DbServerType As DbServerType) As String
+  overload: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString*
+- uid: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  id: GetProviderInvariantName(Tripous.Data.DbServerType)
+  isExtensionMethod: true
+  parent: Tripous.Data.DbServerTypeHelper
+  langs:
+  - csharp
+  - vb
+  name: GetProviderInvariantName(DbServerType)
+  nameWithType: DbServerTypeHelper.GetProviderInvariantName(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName(Tripous.Data.DbServerType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetProviderInvariantName
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the provider invariant name.
+  example: []
+  syntax:
+    content: public static string GetProviderInvariantName(this DbServerType DbServerType)
+    parameters:
+    - id: DbServerType
+      type: Tripous.Data.DbServerType
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetProviderInvariantName(DbServerType As DbServerType) As String
+  overload: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName*
+- uid: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  commentId: M:Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  id: GetFactory(Tripous.Data.DbServerType)
+  isExtensionMethod: true
+  parent: Tripous.Data.DbServerTypeHelper
+  langs:
+  - csharp
+  - vb
+  name: GetFactory(DbServerType)
+  nameWithType: DbServerTypeHelper.GetFactory(DbServerType)
+  fullName: Tripous.Data.DbServerTypeHelper.GetFactory(Tripous.Data.DbServerType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Enums/DbServerType.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetFactory
+    path: ../Tripous.Data/Enums/DbServerType.cs
+    startLine: 71
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the <xref href="System.Data.Common.DbProviderFactory" data-throw-if-not-resolved="false"></xref> associated with the specified <code class="paramref">DbServerType</code>.
+  example: []
+  syntax:
+    content: public static DbProviderFactory GetFactory(this DbServerType DbServerType)
+    parameters:
+    - id: DbServerType
+      type: Tripous.Data.DbServerType
+    return:
+      type: System.Data.Common.DbProviderFactory
+    content.vb: Public Shared Function GetFactory(DbServerType As DbServerType) As DbProviderFactory
+  overload: Tripous.Data.DbServerTypeHelper.GetFactory*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString*
+  commentId: Overload:Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetTemplateConnectionString_Tripous_Data_DbServerType_
+  name: GetTemplateConnectionString
+  nameWithType: DbServerTypeHelper.GetTemplateConnectionString
+  fullName: Tripous.Data.DbServerTypeHelper.GetTemplateConnectionString
+- uid: Tripous.Data.DbServerType
+  commentId: T:Tripous.Data.DbServerType
+  parent: Tripous.Data
+  href: Tripous.Data.DbServerType.html
+  name: DbServerType
+  nameWithType: DbServerType
+  fullName: Tripous.Data.DbServerType
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName*
+  commentId: Overload:Tripous.Data.DbServerTypeHelper.GetProviderInvariantName
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetProviderInvariantName_Tripous_Data_DbServerType_
+  name: GetProviderInvariantName
+  nameWithType: DbServerTypeHelper.GetProviderInvariantName
+  fullName: Tripous.Data.DbServerTypeHelper.GetProviderInvariantName
+- uid: System.Data.Common.DbProviderFactory
+  commentId: T:System.Data.Common.DbProviderFactory
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbproviderfactory
+  name: DbProviderFactory
+  nameWithType: DbProviderFactory
+  fullName: System.Data.Common.DbProviderFactory
+- uid: Tripous.Data.DbServerTypeHelper.GetFactory*
+  commentId: Overload:Tripous.Data.DbServerTypeHelper.GetFactory
+  href: Tripous.Data.DbServerTypeHelper.html#Tripous_Data_DbServerTypeHelper_GetFactory_Tripous_Data_DbServerType_
+  name: GetFactory
+  nameWithType: DbServerTypeHelper.GetFactory
+  fullName: Tripous.Data.DbServerTypeHelper.GetFactory
+- uid: System.Data.Common
+  commentId: N:System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data.Common
+  nameWithType: System.Data.Common
+  fullName: System.Data.Common
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common

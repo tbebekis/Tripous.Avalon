@@ -1,0 +1,608 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SqlValueProviders
+  commentId: T:Tripous.Data.SqlValueProviders
+  id: SqlValueProviders
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SqlValueProviders.Add(Tripous.Data.ISqlValueProvider)
+  - Tripous.Data.SqlValueProviders.Process(System.Data.DataRow,System.Data.DataColumn,System.String,Tripous.Data.SqlStore)
+  - Tripous.Data.SqlValueProviders.Process(System.Data.DataRow,Tripous.Data.SqlStore)
+  - Tripous.Data.SqlValueProviders.Process(System.Data.DataTable,Tripous.Data.SqlStore)
+  - Tripous.Data.SqlValueProviders.Process(System.String@,Tripous.Data.SqlStore)
+  - Tripous.Data.SqlValueProviders.Remove(Tripous.Data.ISqlValueProvider)
+  langs:
+  - csharp
+  - vb
+  name: SqlValueProviders
+  nameWithType: SqlValueProviders
+  fullName: Tripous.Data.SqlValueProviders
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/SqlValueProviders.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlValueProviders
+    path: ../Tripous.Data/SqlValueProviders.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Provides values to Sql statements by replacing placeholders, such as AppData and AppUserName, with actual values.
+
+
+    <p>Provides values to DataRows when they have DataColumns named such as AppData and AppUserName. </p>
+  example: []
+  syntax:
+    content: public static class SqlValueProviders
+    content.vb: Public Module SqlValueProviders
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.SqlValueProviders.Add(Tripous.Data.ISqlValueProvider)
+  commentId: M:Tripous.Data.SqlValueProviders.Add(Tripous.Data.ISqlValueProvider)
+  id: Add(Tripous.Data.ISqlValueProvider)
+  parent: Tripous.Data.SqlValueProviders
+  langs:
+  - csharp
+  - vb
+  name: Add(ISqlValueProvider)
+  nameWithType: SqlValueProviders.Add(ISqlValueProvider)
+  fullName: Tripous.Data.SqlValueProviders.Add(Tripous.Data.ISqlValueProvider)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlValueProviders.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Add
+    path: ../Tripous.Data/SqlValueProviders.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Registers a provider
+  example: []
+  syntax:
+    content: public static void Add(ISqlValueProvider Store)
+    parameters:
+    - id: Store
+      type: Tripous.Data.ISqlValueProvider
+    content.vb: Public Shared Sub Add(Store As ISqlValueProvider)
+  overload: Tripous.Data.SqlValueProviders.Add*
+- uid: Tripous.Data.SqlValueProviders.Remove(Tripous.Data.ISqlValueProvider)
+  commentId: M:Tripous.Data.SqlValueProviders.Remove(Tripous.Data.ISqlValueProvider)
+  id: Remove(Tripous.Data.ISqlValueProvider)
+  parent: Tripous.Data.SqlValueProviders
+  langs:
+  - csharp
+  - vb
+  name: Remove(ISqlValueProvider)
+  nameWithType: SqlValueProviders.Remove(ISqlValueProvider)
+  fullName: Tripous.Data.SqlValueProviders.Remove(Tripous.Data.ISqlValueProvider)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlValueProviders.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Remove
+    path: ../Tripous.Data/SqlValueProviders.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Unregisters a provider
+  example: []
+  syntax:
+    content: public static void Remove(ISqlValueProvider Store)
+    parameters:
+    - id: Store
+      type: Tripous.Data.ISqlValueProvider
+    content.vb: Public Shared Sub Remove(Store As ISqlValueProvider)
+  overload: Tripous.Data.SqlValueProviders.Remove*
+- uid: Tripous.Data.SqlValueProviders.Process(System.String@,Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SqlValueProviders.Process(System.String@,Tripous.Data.SqlStore)
+  id: Process(System.String@,Tripous.Data.SqlStore)
+  parent: Tripous.Data.SqlValueProviders
+  langs:
+  - csharp
+  - vb
+  name: Process(ref string, SqlStore)
+  nameWithType: SqlValueProviders.Process(ref string, SqlStore)
+  fullName: Tripous.Data.SqlValueProviders.Process(ref string, Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlValueProviders.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Process
+    path: ../Tripous.Data/SqlValueProviders.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Replaces certain placeholders in SqlText with actual values.
+  example: []
+  syntax:
+    content: public static void Process(ref string SqlText, SqlStore Store = null)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Store
+      type: Tripous.Data.SqlStore
+    content.vb: Public Shared Sub Process(SqlText As String, Store As SqlStore = Nothing)
+  overload: Tripous.Data.SqlValueProviders.Process*
+  nameWithType.vb: SqlValueProviders.Process(String, SqlStore)
+  fullName.vb: Tripous.Data.SqlValueProviders.Process(String, Tripous.Data.SqlStore)
+  name.vb: Process(String, SqlStore)
+- uid: Tripous.Data.SqlValueProviders.Process(System.Data.DataRow,System.Data.DataColumn,System.String,Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SqlValueProviders.Process(System.Data.DataRow,System.Data.DataColumn,System.String,Tripous.Data.SqlStore)
+  id: Process(System.Data.DataRow,System.Data.DataColumn,System.String,Tripous.Data.SqlStore)
+  parent: Tripous.Data.SqlValueProviders
+  langs:
+  - csharp
+  - vb
+  name: Process(DataRow, DataColumn, string, SqlStore)
+  nameWithType: SqlValueProviders.Process(DataRow, DataColumn, string, SqlStore)
+  fullName: Tripous.Data.SqlValueProviders.Process(System.Data.DataRow, System.Data.DataColumn, string, Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlValueProviders.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Process
+    path: ../Tripous.Data/SqlValueProviders.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Set the value to a Column of a Row of a Table, based on a Keyword which may have values such as AppData or AppUserName.
+  example: []
+  syntax:
+    content: public static void Process(DataRow Row, DataColumn Column, string Keyword, SqlStore Store = null)
+    parameters:
+    - id: Row
+      type: System.Data.DataRow
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Keyword
+      type: System.String
+    - id: Store
+      type: Tripous.Data.SqlStore
+    content.vb: Public Shared Sub Process(Row As DataRow, Column As DataColumn, Keyword As String, Store As SqlStore = Nothing)
+  overload: Tripous.Data.SqlValueProviders.Process*
+  nameWithType.vb: SqlValueProviders.Process(DataRow, DataColumn, String, SqlStore)
+  fullName.vb: Tripous.Data.SqlValueProviders.Process(System.Data.DataRow, System.Data.DataColumn, String, Tripous.Data.SqlStore)
+  name.vb: Process(DataRow, DataColumn, String, SqlStore)
+- uid: Tripous.Data.SqlValueProviders.Process(System.Data.DataRow,Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SqlValueProviders.Process(System.Data.DataRow,Tripous.Data.SqlStore)
+  id: Process(System.Data.DataRow,Tripous.Data.SqlStore)
+  parent: Tripous.Data.SqlValueProviders
+  langs:
+  - csharp
+  - vb
+  name: Process(DataRow, SqlStore)
+  nameWithType: SqlValueProviders.Process(DataRow, SqlStore)
+  fullName: Tripous.Data.SqlValueProviders.Process(System.Data.DataRow, Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlValueProviders.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Process
+    path: ../Tripous.Data/SqlValueProviders.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets values to Row for columns with names such as AppData or AppUserName.
+  example: []
+  syntax:
+    content: public static void Process(DataRow Row, SqlStore Store = null)
+    parameters:
+    - id: Row
+      type: System.Data.DataRow
+    - id: Store
+      type: Tripous.Data.SqlStore
+    content.vb: Public Shared Sub Process(Row As DataRow, Store As SqlStore = Nothing)
+  overload: Tripous.Data.SqlValueProviders.Process*
+- uid: Tripous.Data.SqlValueProviders.Process(System.Data.DataTable,Tripous.Data.SqlStore)
+  commentId: M:Tripous.Data.SqlValueProviders.Process(System.Data.DataTable,Tripous.Data.SqlStore)
+  id: Process(System.Data.DataTable,Tripous.Data.SqlStore)
+  parent: Tripous.Data.SqlValueProviders
+  langs:
+  - csharp
+  - vb
+  name: Process(DataTable, SqlStore)
+  nameWithType: SqlValueProviders.Process(DataTable, SqlStore)
+  fullName: Tripous.Data.SqlValueProviders.Process(System.Data.DataTable, Tripous.Data.SqlStore)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlValueProviders.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Process
+    path: ../Tripous.Data/SqlValueProviders.cs
+    startLine: 94
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets values to all rows of the Table, for columns with names such as AppData or AppUserName.
+  example: []
+  syntax:
+    content: public static void Process(DataTable Table, SqlStore Store = null)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    - id: Store
+      type: Tripous.Data.SqlStore
+    content.vb: Public Shared Sub Process(Table As DataTable, Store As SqlStore = Nothing)
+  overload: Tripous.Data.SqlValueProviders.Process*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.SqlValueProviders.Add*
+  commentId: Overload:Tripous.Data.SqlValueProviders.Add
+  href: Tripous.Data.SqlValueProviders.html#Tripous_Data_SqlValueProviders_Add_Tripous_Data_ISqlValueProvider_
+  name: Add
+  nameWithType: SqlValueProviders.Add
+  fullName: Tripous.Data.SqlValueProviders.Add
+- uid: Tripous.Data.ISqlValueProvider
+  commentId: T:Tripous.Data.ISqlValueProvider
+  parent: Tripous.Data
+  href: Tripous.Data.ISqlValueProvider.html
+  name: ISqlValueProvider
+  nameWithType: ISqlValueProvider
+  fullName: Tripous.Data.ISqlValueProvider
+- uid: Tripous.Data.SqlValueProviders.Remove*
+  commentId: Overload:Tripous.Data.SqlValueProviders.Remove
+  href: Tripous.Data.SqlValueProviders.html#Tripous_Data_SqlValueProviders_Remove_Tripous_Data_ISqlValueProvider_
+  name: Remove
+  nameWithType: SqlValueProviders.Remove
+  fullName: Tripous.Data.SqlValueProviders.Remove
+- uid: Tripous.Data.SqlValueProviders.Process*
+  commentId: Overload:Tripous.Data.SqlValueProviders.Process
+  href: Tripous.Data.SqlValueProviders.html#Tripous_Data_SqlValueProviders_Process_System_String__Tripous_Data_SqlStore_
+  name: Process
+  nameWithType: SqlValueProviders.Process
+  fullName: Tripous.Data.SqlValueProviders.Process
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: System.Data.DataColumn
+  commentId: T:System.Data.DataColumn
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn
+  nameWithType: DataColumn
+  fullName: System.Data.DataColumn
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable

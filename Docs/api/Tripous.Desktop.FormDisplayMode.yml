@@ -1,0 +1,1130 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.FormDisplayMode
+  commentId: T:Tripous.Desktop.FormDisplayMode
+  id: FormDisplayMode
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.FormDisplayMode.Dialog
+  - Tripous.Desktop.FormDisplayMode.TabItem
+  langs:
+  - csharp
+  - vb
+  name: FormDisplayMode
+  nameWithType: FormDisplayMode
+  fullName: Tripous.Desktop.FormDisplayMode
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/FormDisplayMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormDisplayMode
+    path: ../Tripous.Desktop/Enums/FormDisplayMode.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Indicates how a form is opened and hosted.
+  example: []
+  syntax:
+    content: public enum FormDisplayMode
+    content.vb: Public Enum FormDisplayMode
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Add``1(Tripous.Desktop.FormDisplayMode)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.HasAny``1(Tripous.Desktop.FormDisplayMode)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.HasNone``1(Tripous.Desktop.FormDisplayMode)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Has``1(Tripous.Desktop.FormDisplayMode)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.In``1(Tripous.Desktop.FormDisplayMode)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.IsExactly``1(Tripous.Desktop.FormDisplayMode)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.IsZero``1
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Remove``1(Tripous.Desktop.FormDisplayMode)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Set``1(Tripous.Desktop.FormDisplayMode,System.Boolean)
+  - Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Toggle``1(Tripous.Desktop.FormDisplayMode)
+- uid: Tripous.Desktop.FormDisplayMode.TabItem
+  commentId: F:Tripous.Desktop.FormDisplayMode.TabItem
+  id: TabItem
+  parent: Tripous.Desktop.FormDisplayMode
+  langs:
+  - csharp
+  - vb
+  name: TabItem
+  nameWithType: FormDisplayMode.TabItem
+  fullName: Tripous.Desktop.FormDisplayMode.TabItem
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/FormDisplayMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TabItem
+    path: ../Tripous.Desktop/Enums/FormDisplayMode.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Opens the form in the main UI, typically inside a tab.
+
+    Full functionality is available.
+  example: []
+  syntax:
+    content: TabItem = 0
+    return:
+      type: Tripous.Desktop.FormDisplayMode
+- uid: Tripous.Desktop.FormDisplayMode.Dialog
+  commentId: F:Tripous.Desktop.FormDisplayMode.Dialog
+  id: Dialog
+  parent: Tripous.Desktop.FormDisplayMode
+  langs:
+  - csharp
+  - vb
+  name: Dialog
+  nameWithType: FormDisplayMode.Dialog
+  fullName: Tripous.Desktop.FormDisplayMode.Dialog
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/FormDisplayMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Dialog
+    path: ../Tripous.Desktop/Enums/FormDisplayMode.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Opens the form in a modal dialog window.
+
+    Enables OK/Cancel semantics and result returning.
+  example: []
+  syntax:
+    content: Dialog = 1
+    return:
+      type: Tripous.Desktop.FormDisplayMode
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Add``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.Add<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.Add<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.Add(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: Add(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.HasAny``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.HasAny<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.HasAny<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.HasAny(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: HasAny(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.HasNone``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.HasNone<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.HasNone<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.HasNone(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: HasNone(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Has``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.Has<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.Has<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.Has(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: Has(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.In``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.In<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.In<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.In(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: In(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.IsExactly``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.IsExactly<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.IsExactly(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: IsExactly(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<FormDisplayMode>(FormDisplayMode)
+  nameWithType: BitFields.IsZero<FormDisplayMode>(FormDisplayMode)
+  fullName: Tripous.BitFields.IsZero<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.IsZero(Of FormDisplayMode)(FormDisplayMode)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode)
+  name.vb: IsZero(Of FormDisplayMode)(FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.FormDisplayMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.FormDisplayMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Remove``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.Remove<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.Remove<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.Remove(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: Remove(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Set``1(Tripous.Desktop.FormDisplayMode,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<FormDisplayMode>(FormDisplayMode, FormDisplayMode, bool)
+  nameWithType: BitFields.Set<FormDisplayMode>(FormDisplayMode, FormDisplayMode, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode, bool)
+  nameWithType.vb: BitFields.Set(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode, Boolean)
+  name.vb: Set(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Desktop.FormDisplayMode.Tripous.BitFields.Toggle``1(Tripous.Desktop.FormDisplayMode)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  nameWithType: BitFields.Toggle<FormDisplayMode>(FormDisplayMode, FormDisplayMode)
+  fullName: Tripous.BitFields.Toggle<Tripous.Desktop.FormDisplayMode>(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  nameWithType.vb: BitFields.Toggle(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Desktop.FormDisplayMode)(Tripous.Desktop.FormDisplayMode, Tripous.Desktop.FormDisplayMode)
+  name.vb: Toggle(Of FormDisplayMode)(FormDisplayMode, FormDisplayMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.FormDisplayMode,Tripous.Desktop.FormDisplayMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.FormDisplayMode
+    name: FormDisplayMode
+    href: Tripous.Desktop.FormDisplayMode.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.FormDisplayMode
+  commentId: T:Tripous.Desktop.FormDisplayMode
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.FormDisplayMode.html
+  name: FormDisplayMode
+  nameWithType: FormDisplayMode
+  fullName: Tripous.Desktop.FormDisplayMode

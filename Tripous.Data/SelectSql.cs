@@ -10,6 +10,8 @@ namespace Tripous.Data;
 
 /// <summary>
 /// Represents a SQL SELECT statement.
+/// <para>NOTE: This is not a full SQL parser.</para>
+/// <para>It supports nested SELECT statements inside parentheses because the parser ignores clause keywords while inside parentheses.</para>
 /// </summary>
 public class SelectSql : BaseDef
 {

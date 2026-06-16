@@ -1,0 +1,1057 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbOpContext
+  commentId: T:Tripous.Data.DbOpContext
+  id: DbOpContext
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbOpContext.#ctor(System.String,Tripous.Data.SqlStore,System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.Boolean,System.Boolean)
+  - Tripous.Data.DbOpContext.CascadeDeletes
+  - Tripous.Data.DbOpContext.FlatList
+  - Tripous.Data.DbOpContext.MaxDetailLevel
+  - Tripous.Data.DbOpContext.ModuleName
+  - Tripous.Data.DbOpContext.OidIsAfter
+  - Tripous.Data.DbOpContext.OidIsBefore
+  - Tripous.Data.DbOpContext.Store
+  - Tripous.Data.DbOpContext.TopTable
+  - Tripous.Data.DbOpContext.Transaction
+  langs:
+  - csharp
+  - vb
+  name: DbOpContext
+  nameWithType: DbOpContext
+  fullName: Tripous.Data.DbOpContext
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbOpContext
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Database operation context.
+  example: []
+  syntax:
+    content: public class DbOpContext
+    content.vb: Public Class DbOpContext
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.DbOpContext.#ctor(System.String,Tripous.Data.SqlStore,System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.Boolean,System.Boolean)
+  commentId: M:Tripous.Data.DbOpContext.#ctor(System.String,Tripous.Data.SqlStore,System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.Boolean,System.Boolean)
+  id: '#ctor(System.String,Tripous.Data.SqlStore,System.Data.Common.DbTransaction,Tripous.Data.MemTable,System.Boolean,System.Boolean)'
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: DbOpContext(string, SqlStore, DbTransaction, MemTable, bool, bool)
+  nameWithType: DbOpContext.DbOpContext(string, SqlStore, DbTransaction, MemTable, bool, bool)
+  fullName: Tripous.Data.DbOpContext.DbOpContext(string, Tripous.Data.SqlStore, System.Data.Common.DbTransaction, Tripous.Data.MemTable, bool, bool)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public DbOpContext(string ModuleName, SqlStore Store, DbTransaction Transaction, MemTable TopTable, bool CascadeDeletes = true, bool GenerateSql = false)
+    parameters:
+    - id: ModuleName
+      type: System.String
+    - id: Store
+      type: Tripous.Data.SqlStore
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: TopTable
+      type: Tripous.Data.MemTable
+    - id: CascadeDeletes
+      type: System.Boolean
+    - id: GenerateSql
+      type: System.Boolean
+    content.vb: Public Sub New(ModuleName As String, Store As SqlStore, Transaction As DbTransaction, TopTable As MemTable, CascadeDeletes As Boolean = True, GenerateSql As Boolean = False)
+  overload: Tripous.Data.DbOpContext.#ctor*
+  nameWithType.vb: DbOpContext.New(String, SqlStore, DbTransaction, MemTable, Boolean, Boolean)
+  fullName.vb: Tripous.Data.DbOpContext.New(String, Tripous.Data.SqlStore, System.Data.Common.DbTransaction, Tripous.Data.MemTable, Boolean, Boolean)
+  name.vb: New(String, SqlStore, DbTransaction, MemTable, Boolean, Boolean)
+- uid: Tripous.Data.DbOpContext.ModuleName
+  commentId: P:Tripous.Data.DbOpContext.ModuleName
+  id: ModuleName
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: ModuleName
+  nameWithType: DbOpContext.ModuleName
+  fullName: Tripous.Data.DbOpContext.ModuleName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModuleName
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 52
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    <p><b>WARNING:</b> The <xref href="Tripous.Data.DbOpContext.ModuleName" data-throw-if-not-resolved="false"></xref> and a TableName are used in constructing a unique StatementName.</p>
+
+    <p>The StatementName is used with the <xref href="Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String%2cSystem.String)" data-throw-if-not-resolved="false"></xref>
+
+    so the <code>ModuleName.TableName</code> must construct a unique name because schema DataTables are stored in the <xref href="Tripous.Data.SqlCache" data-throw-if-not-resolved="false"></xref> under that unique name. </p>
+  example: []
+  syntax:
+    content: public string ModuleName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property ModuleName As String
+  overload: Tripous.Data.DbOpContext.ModuleName*
+- uid: Tripous.Data.DbOpContext.Store
+  commentId: P:Tripous.Data.DbOpContext.Store
+  id: Store
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: Store
+  nameWithType: DbOpContext.Store
+  fullName: Tripous.Data.DbOpContext.Store
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Store
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The <xref href="Tripous.Data.SqlStore" data-throw-if-not-resolved="false"></xref> this context operates with.
+  example: []
+  syntax:
+    content: public SqlStore Store { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SqlStore
+    content.vb: Public ReadOnly Property Store As SqlStore
+  overload: Tripous.Data.DbOpContext.Store*
+- uid: Tripous.Data.DbOpContext.Transaction
+  commentId: P:Tripous.Data.DbOpContext.Transaction
+  id: Transaction
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: Transaction
+  nameWithType: DbOpContext.Transaction
+  fullName: Tripous.Data.DbOpContext.Transaction
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Transaction
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The database transaction this context operates under.
+  example: []
+  syntax:
+    content: public DbTransaction Transaction { get; }
+    parameters: []
+    return:
+      type: System.Data.Common.DbTransaction
+    content.vb: Public ReadOnly Property Transaction As DbTransaction
+  overload: Tripous.Data.DbOpContext.Transaction*
+- uid: Tripous.Data.DbOpContext.TopTable
+  commentId: P:Tripous.Data.DbOpContext.TopTable
+  id: TopTable
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: TopTable
+  nameWithType: DbOpContext.TopTable
+  fullName: Tripous.Data.DbOpContext.TopTable
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TopTable
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The top-level <xref href="Tripous.Data.MemTable" data-throw-if-not-resolved="false"></xref> of the data tree this context operates on.
+  example: []
+  syntax:
+    content: public MemTable TopTable { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: Public ReadOnly Property TopTable As MemTable
+  overload: Tripous.Data.DbOpContext.TopTable*
+- uid: Tripous.Data.DbOpContext.FlatList
+  commentId: P:Tripous.Data.DbOpContext.FlatList
+  id: FlatList
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: FlatList
+  nameWithType: DbOpContext.FlatList
+  fullName: Tripous.Data.DbOpContext.FlatList
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FlatList
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The <xref href="Tripous.Data.DbOpContext.TopTable" data-throw-if-not-resolved="false"></xref> and all its descendant tables, as a flat list.
+  example: []
+  syntax:
+    content: public List<MemTable> FlatList { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.MemTable}
+    content.vb: Public ReadOnly Property FlatList As List(Of MemTable)
+  overload: Tripous.Data.DbOpContext.FlatList*
+- uid: Tripous.Data.DbOpContext.MaxDetailLevel
+  commentId: P:Tripous.Data.DbOpContext.MaxDetailLevel
+  id: MaxDetailLevel
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: MaxDetailLevel
+  nameWithType: DbOpContext.MaxDetailLevel
+  fullName: Tripous.Data.DbOpContext.MaxDetailLevel
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MaxDetailLevel
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The maximum detail (nesting) level among the tables in <xref href="Tripous.Data.DbOpContext.FlatList" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public int MaxDetailLevel { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property MaxDetailLevel As Integer
+  overload: Tripous.Data.DbOpContext.MaxDetailLevel*
+- uid: Tripous.Data.DbOpContext.CascadeDeletes
+  commentId: P:Tripous.Data.DbOpContext.CascadeDeletes
+  id: CascadeDeletes
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: CascadeDeletes
+  nameWithType: DbOpContext.CascadeDeletes
+  fullName: Tripous.Data.DbOpContext.CascadeDeletes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CascadeDeletes
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 77
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Indicates whether deletes should be cascaded to detail tables.
+  example: []
+  syntax:
+    content: public bool CascadeDeletes { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property CascadeDeletes As Boolean
+  overload: Tripous.Data.DbOpContext.CascadeDeletes*
+- uid: Tripous.Data.DbOpContext.OidIsBefore
+  commentId: P:Tripous.Data.DbOpContext.OidIsBefore
+  id: OidIsBefore
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: OidIsBefore
+  nameWithType: DbOpContext.OidIsBefore
+  fullName: Tripous.Data.DbOpContext.OidIsBefore
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OidIsBefore
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Oids are needed before commiting a row to the database
+  example: []
+  syntax:
+    content: public bool OidIsBefore { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property OidIsBefore As Boolean
+  overload: Tripous.Data.DbOpContext.OidIsBefore*
+- uid: Tripous.Data.DbOpContext.OidIsAfter
+  commentId: P:Tripous.Data.DbOpContext.OidIsAfter
+  id: OidIsAfter
+  parent: Tripous.Data.DbOpContext
+  langs:
+  - csharp
+  - vb
+  name: OidIsAfter
+  nameWithType: DbOpContext.OidIsAfter
+  fullName: Tripous.Data.DbOpContext.OidIsAfter
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbOpContext.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OidIsAfter
+    path: ../Tripous.Data/DbOpContext.cs
+    startLine: 86
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Oids are needed after commiting a row to the database
+  example: []
+  syntax:
+    content: public bool OidIsAfter { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property OidIsAfter As Boolean
+  overload: Tripous.Data.DbOpContext.OidIsAfter*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbOpContext.#ctor*
+  commentId: Overload:Tripous.Data.DbOpContext.#ctor
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext__ctor_System_String_Tripous_Data_SqlStore_System_Data_Common_DbTransaction_Tripous_Data_MemTable_System_Boolean_System_Boolean_
+  name: DbOpContext
+  nameWithType: DbOpContext.DbOpContext
+  fullName: Tripous.Data.DbOpContext.DbOpContext
+  nameWithType.vb: DbOpContext.New
+  fullName.vb: Tripous.Data.DbOpContext.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: System.Data.Common.DbTransaction
+  commentId: T:System.Data.Common.DbTransaction
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  name: DbTransaction
+  nameWithType: DbTransaction
+  fullName: System.Data.Common.DbTransaction
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Data.Common
+  commentId: N:System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data.Common
+  nameWithType: System.Data.Common
+  fullName: System.Data.Common
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+- uid: Tripous.Data.DbOpContext.ModuleName
+  commentId: P:Tripous.Data.DbOpContext.ModuleName
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_ModuleName
+  name: ModuleName
+  nameWithType: DbOpContext.ModuleName
+  fullName: Tripous.Data.DbOpContext.ModuleName
+- uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+  commentId: M:Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+  isExternal: true
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_
+  name: GetNativeSchemaFromTableName(string, string)
+  nameWithType: SqlStore.GetNativeSchemaFromTableName(string, string)
+  fullName: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(string, string)
+  nameWithType.vb: SqlStore.GetNativeSchemaFromTableName(String, String)
+  fullName.vb: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(String, String)
+  name.vb: GetNativeSchemaFromTableName(String, String)
+  spec.csharp:
+  - uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+    name: GetNativeSchemaFromTableName
+    href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.SqlStore.GetNativeSchemaFromTableName(System.String,System.String)
+    name: GetNativeSchemaFromTableName
+    href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetNativeSchemaFromTableName_System_String_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.SqlCache
+  commentId: T:Tripous.Data.SqlCache
+  href: Tripous.Data.SqlCache.html
+  name: SqlCache
+  nameWithType: SqlCache
+  fullName: Tripous.Data.SqlCache
+- uid: Tripous.Data.DbOpContext.ModuleName*
+  commentId: Overload:Tripous.Data.DbOpContext.ModuleName
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_ModuleName
+  name: ModuleName
+  nameWithType: DbOpContext.ModuleName
+  fullName: Tripous.Data.DbOpContext.ModuleName
+- uid: Tripous.Data.DbOpContext.Store*
+  commentId: Overload:Tripous.Data.DbOpContext.Store
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_Store
+  name: Store
+  nameWithType: DbOpContext.Store
+  fullName: Tripous.Data.DbOpContext.Store
+- uid: Tripous.Data.DbOpContext.Transaction*
+  commentId: Overload:Tripous.Data.DbOpContext.Transaction
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_Transaction
+  name: Transaction
+  nameWithType: DbOpContext.Transaction
+  fullName: Tripous.Data.DbOpContext.Transaction
+- uid: Tripous.Data.DbOpContext.TopTable*
+  commentId: Overload:Tripous.Data.DbOpContext.TopTable
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_TopTable
+  name: TopTable
+  nameWithType: DbOpContext.TopTable
+  fullName: Tripous.Data.DbOpContext.TopTable
+- uid: Tripous.Data.DbOpContext.TopTable
+  commentId: P:Tripous.Data.DbOpContext.TopTable
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_TopTable
+  name: TopTable
+  nameWithType: DbOpContext.TopTable
+  fullName: Tripous.Data.DbOpContext.TopTable
+- uid: Tripous.Data.DbOpContext.FlatList*
+  commentId: Overload:Tripous.Data.DbOpContext.FlatList
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_FlatList
+  name: FlatList
+  nameWithType: DbOpContext.FlatList
+  fullName: Tripous.Data.DbOpContext.FlatList
+- uid: System.Collections.Generic.List{Tripous.Data.MemTable}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.MemTable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<MemTable>
+  nameWithType: List<MemTable>
+  fullName: System.Collections.Generic.List<Tripous.Data.MemTable>
+  nameWithType.vb: List(Of MemTable)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.MemTable)
+  name.vb: List(Of MemTable)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.DbOpContext.FlatList
+  commentId: P:Tripous.Data.DbOpContext.FlatList
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_FlatList
+  name: FlatList
+  nameWithType: DbOpContext.FlatList
+  fullName: Tripous.Data.DbOpContext.FlatList
+- uid: Tripous.Data.DbOpContext.MaxDetailLevel*
+  commentId: Overload:Tripous.Data.DbOpContext.MaxDetailLevel
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_MaxDetailLevel
+  name: MaxDetailLevel
+  nameWithType: DbOpContext.MaxDetailLevel
+  fullName: Tripous.Data.DbOpContext.MaxDetailLevel
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DbOpContext.CascadeDeletes*
+  commentId: Overload:Tripous.Data.DbOpContext.CascadeDeletes
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_CascadeDeletes
+  name: CascadeDeletes
+  nameWithType: DbOpContext.CascadeDeletes
+  fullName: Tripous.Data.DbOpContext.CascadeDeletes
+- uid: Tripous.Data.DbOpContext.OidIsBefore*
+  commentId: Overload:Tripous.Data.DbOpContext.OidIsBefore
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_OidIsBefore
+  name: OidIsBefore
+  nameWithType: DbOpContext.OidIsBefore
+  fullName: Tripous.Data.DbOpContext.OidIsBefore
+- uid: Tripous.Data.DbOpContext.OidIsAfter*
+  commentId: Overload:Tripous.Data.DbOpContext.OidIsAfter
+  href: Tripous.Data.DbOpContext.html#Tripous_Data_DbOpContext_OidIsAfter
+  name: OidIsAfter
+  nameWithType: DbOpContext.OidIsAfter
+  fullName: Tripous.Data.DbOpContext.OidIsAfter

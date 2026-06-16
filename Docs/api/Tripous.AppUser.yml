@@ -1,0 +1,1042 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.AppUser
+  commentId: T:Tripous.AppUser
+  id: AppUser
+  parent: Tripous
+  children:
+  - Tripous.AppUser.CultureCode
+  - Tripous.AppUser.Email
+  - Tripous.AppUser.FullName
+  - Tripous.AppUser.Id
+  - Tripous.AppUser.IsActive
+  - Tripous.AppUser.IsAdmin
+  - Tripous.AppUser.IsGod
+  - Tripous.AppUser.LanguageCode
+  - Tripous.AppUser.LastLoginAt
+  - Tripous.AppUser.Phone
+  - Tripous.AppUser.Properties
+  - Tripous.AppUser.Remarks
+  - Tripous.AppUser.UserLevel
+  - Tripous.AppUser.UserName
+  langs:
+  - csharp
+  - vb
+  name: AppUser
+  nameWithType: AppUser
+  fullName: Tripous.AppUser
+  type: Class
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AppUser
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 6
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Represents a user of this application
+  example: []
+  syntax:
+    content: public sealed class AppUser
+    content.vb: Public NotInheritable Class AppUser
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.AppUser.Id
+  commentId: P:Tripous.AppUser.Id
+  id: Id
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: Id
+  nameWithType: AppUser.Id
+  fullName: Tripous.AppUser.Id
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Id
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 12
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: User id.
+  example: []
+  syntax:
+    content: public string Id { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Id As String
+  overload: Tripous.AppUser.Id*
+- uid: Tripous.AppUser.UserName
+  commentId: P:Tripous.AppUser.UserName
+  id: UserName
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: UserName
+  nameWithType: AppUser.UserName
+  fullName: Tripous.AppUser.UserName
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UserName
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 16
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: User name.
+  example: []
+  syntax:
+    content: public string UserName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property UserName As String
+  overload: Tripous.AppUser.UserName*
+- uid: Tripous.AppUser.FullName
+  commentId: P:Tripous.AppUser.FullName
+  id: FullName
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: FullName
+  nameWithType: AppUser.FullName
+  fullName: Tripous.AppUser.FullName
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FullName
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 20
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: User full name.
+  example: []
+  syntax:
+    content: public string FullName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property FullName As String
+  overload: Tripous.AppUser.FullName*
+- uid: Tripous.AppUser.UserLevel
+  commentId: P:Tripous.AppUser.UserLevel
+  id: UserLevel
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: UserLevel
+  nameWithType: AppUser.UserLevel
+  fullName: Tripous.AppUser.UserLevel
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UserLevel
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 24
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: User level.
+  example: []
+  syntax:
+    content: public UserLevel UserLevel { get; set; }
+    parameters: []
+    return:
+      type: Tripous.UserLevel
+    content.vb: Public Property UserLevel As UserLevel
+  overload: Tripous.AppUser.UserLevel*
+- uid: Tripous.AppUser.Email
+  commentId: P:Tripous.AppUser.Email
+  id: Email
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: Email
+  nameWithType: AppUser.Email
+  fullName: Tripous.AppUser.Email
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Email
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 28
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: User email.
+  example: []
+  syntax:
+    content: public string Email { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Email As String
+  overload: Tripous.AppUser.Email*
+- uid: Tripous.AppUser.Phone
+  commentId: P:Tripous.AppUser.Phone
+  id: Phone
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: Phone
+  nameWithType: AppUser.Phone
+  fullName: Tripous.AppUser.Phone
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Phone
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 32
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: User phone.
+  example: []
+  syntax:
+    content: public string Phone { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Phone As String
+  overload: Tripous.AppUser.Phone*
+- uid: Tripous.AppUser.LastLoginAt
+  commentId: P:Tripous.AppUser.LastLoginAt
+  id: LastLoginAt
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: LastLoginAt
+  nameWithType: AppUser.LastLoginAt
+  fullName: Tripous.AppUser.LastLoginAt
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastLoginAt
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 36
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Last login date and time.
+  example: []
+  syntax:
+    content: public DateTime LastLoginAt { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property LastLoginAt As Date
+  overload: Tripous.AppUser.LastLoginAt*
+- uid: Tripous.AppUser.IsActive
+  commentId: P:Tripous.AppUser.IsActive
+  id: IsActive
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: IsActive
+  nameWithType: AppUser.IsActive
+  fullName: Tripous.AppUser.IsActive
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsActive
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 40
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when the user account is active.
+  example: []
+  syntax:
+    content: public bool IsActive { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsActive As Boolean
+  overload: Tripous.AppUser.IsActive*
+- uid: Tripous.AppUser.CultureCode
+  commentId: P:Tripous.AppUser.CultureCode
+  id: CultureCode
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: CultureCode
+  nameWithType: AppUser.CultureCode
+  fullName: Tripous.AppUser.CultureCode
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CultureCode
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 44
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Preferred culture code, e.g. en-US, el-GR.
+  example: []
+  syntax:
+    content: public string CultureCode { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property CultureCode As String
+  overload: Tripous.AppUser.CultureCode*
+- uid: Tripous.AppUser.LanguageCode
+  commentId: P:Tripous.AppUser.LanguageCode
+  id: LanguageCode
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: LanguageCode
+  nameWithType: AppUser.LanguageCode
+  fullName: Tripous.AppUser.LanguageCode
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LanguageCode
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 48
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Preferred language code, e.g. en, el.
+  example: []
+  syntax:
+    content: public string LanguageCode { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property LanguageCode As String
+  overload: Tripous.AppUser.LanguageCode*
+- uid: Tripous.AppUser.Remarks
+  commentId: P:Tripous.AppUser.Remarks
+  id: Remarks
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: Remarks
+  nameWithType: AppUser.Remarks
+  fullName: Tripous.AppUser.Remarks
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Remarks
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 52
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: User remarks.
+  example: []
+  syntax:
+    content: public string Remarks { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Remarks As String
+  overload: Tripous.AppUser.Remarks*
+- uid: Tripous.AppUser.IsAdmin
+  commentId: P:Tripous.AppUser.IsAdmin
+  id: IsAdmin
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: IsAdmin
+  nameWithType: AppUser.IsAdmin
+  fullName: Tripous.AppUser.IsAdmin
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsAdmin
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 56
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when user has administrator privileges.
+  example: []
+  syntax:
+    content: public bool IsAdmin { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsAdmin As Boolean
+  overload: Tripous.AppUser.IsAdmin*
+- uid: Tripous.AppUser.IsGod
+  commentId: P:Tripous.AppUser.IsGod
+  id: IsGod
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: IsGod
+  nameWithType: AppUser.IsGod
+  fullName: Tripous.AppUser.IsGod
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsGod
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 60
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: True when user has god privileges.
+  example: []
+  syntax:
+    content: public bool IsGod { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsGod As Boolean
+  overload: Tripous.AppUser.IsGod*
+- uid: Tripous.AppUser.Properties
+  commentId: P:Tripous.AppUser.Properties
+  id: Properties
+  parent: Tripous.AppUser
+  langs:
+  - csharp
+  - vb
+  name: Properties
+  nameWithType: AppUser.Properties
+  fullName: Tripous.AppUser.Properties
+  type: Property
+  source:
+    remote:
+      path: Tripous/Security/AppUser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Properties
+    path: ../Tripous/Security/AppUser.cs
+    startLine: 64
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A bag of custom properties.
+  example: []
+  syntax:
+    content: public Dictionary<string, object> Properties { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public ReadOnly Property Properties As Dictionary(Of String, Object)
+  overload: Tripous.AppUser.Properties*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.AppUser.Id*
+  commentId: Overload:Tripous.AppUser.Id
+  href: Tripous.AppUser.html#Tripous_AppUser_Id
+  name: Id
+  nameWithType: AppUser.Id
+  fullName: Tripous.AppUser.Id
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.AppUser.UserName*
+  commentId: Overload:Tripous.AppUser.UserName
+  href: Tripous.AppUser.html#Tripous_AppUser_UserName
+  name: UserName
+  nameWithType: AppUser.UserName
+  fullName: Tripous.AppUser.UserName
+- uid: Tripous.AppUser.FullName*
+  commentId: Overload:Tripous.AppUser.FullName
+  href: Tripous.AppUser.html#Tripous_AppUser_FullName
+  name: FullName
+  nameWithType: AppUser.FullName
+  fullName: Tripous.AppUser.FullName
+- uid: Tripous.AppUser.UserLevel*
+  commentId: Overload:Tripous.AppUser.UserLevel
+  href: Tripous.AppUser.html#Tripous_AppUser_UserLevel
+  name: UserLevel
+  nameWithType: AppUser.UserLevel
+  fullName: Tripous.AppUser.UserLevel
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  parent: Tripous
+  href: Tripous.UserLevel.html
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel
+- uid: Tripous.AppUser.Email*
+  commentId: Overload:Tripous.AppUser.Email
+  href: Tripous.AppUser.html#Tripous_AppUser_Email
+  name: Email
+  nameWithType: AppUser.Email
+  fullName: Tripous.AppUser.Email
+- uid: Tripous.AppUser.Phone*
+  commentId: Overload:Tripous.AppUser.Phone
+  href: Tripous.AppUser.html#Tripous_AppUser_Phone
+  name: Phone
+  nameWithType: AppUser.Phone
+  fullName: Tripous.AppUser.Phone
+- uid: Tripous.AppUser.LastLoginAt*
+  commentId: Overload:Tripous.AppUser.LastLoginAt
+  href: Tripous.AppUser.html#Tripous_AppUser_LastLoginAt
+  name: LastLoginAt
+  nameWithType: AppUser.LastLoginAt
+  fullName: Tripous.AppUser.LastLoginAt
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.AppUser.IsActive*
+  commentId: Overload:Tripous.AppUser.IsActive
+  href: Tripous.AppUser.html#Tripous_AppUser_IsActive
+  name: IsActive
+  nameWithType: AppUser.IsActive
+  fullName: Tripous.AppUser.IsActive
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.AppUser.CultureCode*
+  commentId: Overload:Tripous.AppUser.CultureCode
+  href: Tripous.AppUser.html#Tripous_AppUser_CultureCode
+  name: CultureCode
+  nameWithType: AppUser.CultureCode
+  fullName: Tripous.AppUser.CultureCode
+- uid: Tripous.AppUser.LanguageCode*
+  commentId: Overload:Tripous.AppUser.LanguageCode
+  href: Tripous.AppUser.html#Tripous_AppUser_LanguageCode
+  name: LanguageCode
+  nameWithType: AppUser.LanguageCode
+  fullName: Tripous.AppUser.LanguageCode
+- uid: Tripous.AppUser.Remarks*
+  commentId: Overload:Tripous.AppUser.Remarks
+  href: Tripous.AppUser.html#Tripous_AppUser_Remarks
+  name: Remarks
+  nameWithType: AppUser.Remarks
+  fullName: Tripous.AppUser.Remarks
+- uid: Tripous.AppUser.IsAdmin*
+  commentId: Overload:Tripous.AppUser.IsAdmin
+  href: Tripous.AppUser.html#Tripous_AppUser_IsAdmin
+  name: IsAdmin
+  nameWithType: AppUser.IsAdmin
+  fullName: Tripous.AppUser.IsAdmin
+- uid: Tripous.AppUser.IsGod*
+  commentId: Overload:Tripous.AppUser.IsGod
+  href: Tripous.AppUser.html#Tripous_AppUser_IsGod
+  name: IsGod
+  nameWithType: AppUser.IsGod
+  fullName: Tripous.AppUser.IsGod
+- uid: Tripous.AppUser.Properties*
+  commentId: Overload:Tripous.AppUser.Properties
+  href: Tripous.AppUser.html#Tripous_AppUser_Properties
+  name: Properties
+  nameWithType: AppUser.Properties
+  fullName: Tripous.AppUser.Properties
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

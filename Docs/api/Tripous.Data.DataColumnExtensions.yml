@@ -1,0 +1,1523 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DataColumnExtensions
+  commentId: T:Tripous.Data.DataColumnExtensions
+  id: DataColumnExtensions
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DataColumnExtensions.CloneColumn(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn,System.Data.DataTable)
+  - Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn,System.Data.DataTable,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.DataTypeToJson(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn,System.Int32)
+  - Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn,System.Boolean)
+  - Tripous.Data.DataColumnExtensions.IsVisibleSet(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.IsWidthSet(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.JsonToDataType(System.Data.DataColumn,System.String)
+  - Tripous.Data.DataColumnExtensions.SetAsAutoInc(System.Data.DataColumn)
+  - Tripous.Data.DataColumnExtensions.SetTitleKey(System.Data.DataColumn,System.String)
+  - Tripous.Data.DataColumnExtensions.SetWidth(System.Data.DataColumn,System.Int32)
+  - Tripous.Data.DataColumnExtensions.TitleKey(System.Data.DataColumn)
+  langs:
+  - csharp
+  - vb
+  name: DataColumnExtensions
+  nameWithType: DataColumnExtensions
+  fullName: Tripous.Data.DataColumnExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataColumnExtensions
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Extensions
+  example: []
+  syntax:
+    content: public static class DataColumnExtensions
+    content.vb: Public Module DataColumnExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.DataColumnExtensions.CloneColumn(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.CloneColumn(System.Data.DataColumn)
+  id: CloneColumn(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: CloneColumn(DataColumn)
+  nameWithType: DataColumnExtensions.CloneColumn(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.CloneColumn(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CloneColumn
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates and returns a new DataColumn based on Source.
+  example: []
+  syntax:
+    content: public static DataColumn CloneColumn(this DataColumn Source)
+    parameters:
+    - id: Source
+      type: System.Data.DataColumn
+    return:
+      type: System.Data.DataColumn
+    content.vb: Public Shared Function CloneColumn(Source As DataColumn) As DataColumn
+  overload: Tripous.Data.DataColumnExtensions.CloneColumn*
+- uid: Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn,System.Data.DataTable,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn,System.Data.DataTable,System.Boolean)
+  id: CopyStructureTo(System.Data.DataColumn,System.Data.DataTable,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyStructureTo(DataColumn, DataTable, bool)
+  nameWithType: DataColumnExtensions.CopyStructureTo(DataColumn, DataTable, bool)
+  fullName: Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn, System.Data.DataTable, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyStructureTo
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 46
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Copies SourceColumn to Target DataTable.
+  example: []
+  syntax:
+    content: public static void CopyStructureTo(this DataColumn SourceColumn, DataTable Target, bool AllowDBNull)
+    parameters:
+    - id: SourceColumn
+      type: System.Data.DataColumn
+    - id: Target
+      type: System.Data.DataTable
+    - id: AllowDBNull
+      type: System.Boolean
+    content.vb: Public Shared Sub CopyStructureTo(SourceColumn As DataColumn, Target As DataTable, AllowDBNull As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.CopyStructureTo*
+  nameWithType.vb: DataColumnExtensions.CopyStructureTo(DataColumn, DataTable, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn, System.Data.DataTable, Boolean)
+  name.vb: CopyStructureTo(DataColumn, DataTable, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn,System.Data.DataTable)
+  commentId: M:Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn,System.Data.DataTable)
+  id: CopyStructureTo(System.Data.DataColumn,System.Data.DataTable)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: CopyStructureTo(DataColumn, DataTable)
+  nameWithType: DataColumnExtensions.CopyStructureTo(DataColumn, DataTable)
+  fullName: Tripous.Data.DataColumnExtensions.CopyStructureTo(System.Data.DataColumn, System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CopyStructureTo
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Copies SourceColumn to Target DataTable.
+  example: []
+  syntax:
+    content: public static void CopyStructureTo(this DataColumn SourceColumn, DataTable Dest)
+    parameters:
+    - id: SourceColumn
+      type: System.Data.DataColumn
+    - id: Dest
+      type: System.Data.DataTable
+    content.vb: Public Shared Sub CopyStructureTo(SourceColumn As DataColumn, Dest As DataTable)
+  overload: Tripous.Data.DataColumnExtensions.CopyStructureTo*
+- uid: Tripous.Data.DataColumnExtensions.IsVisibleSet(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsVisibleSet(System.Data.DataColumn)
+  id: IsVisibleSet(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsVisibleSet(DataColumn)
+  nameWithType: DataColumnExtensions.IsVisibleSet(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsVisibleSet(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsVisibleSet
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 65
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Column is not null and has a Visible pseudo-property defined in its ExtendedProperties.
+  example: []
+  syntax:
+    content: public static bool IsVisibleSet(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsVisibleSet(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsVisibleSet*
+- uid: Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn)
+  id: IsVisible(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsVisible(DataColumn)
+  nameWithType: DataColumnExtensions.IsVisible(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsVisible
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns true if the Column satisfies the condition (pseudo-property).
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static bool IsVisible(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsVisible(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsVisible*
+- uid: Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn,System.Boolean)
+  id: IsVisible(System.Data.DataColumn,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsVisible(DataColumn, bool)
+  nameWithType: DataColumnExtensions.IsVisible(DataColumn, bool)
+  fullName: Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsVisible
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets a condition (pseudo-property) of the Column to the Value.
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static void IsVisible(this DataColumn Column, bool Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub IsVisible(Column As DataColumn, Value As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.IsVisible*
+  nameWithType.vb: DataColumnExtensions.IsVisible(DataColumn, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.IsVisible(System.Data.DataColumn, Boolean)
+  name.vb: IsVisible(DataColumn, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn)
+  id: IsDateTime(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsDateTime(DataColumn)
+  nameWithType: DataColumnExtensions.IsDateTime(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDateTime
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns true if the Column satisfies the condition (pseudo-property).
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static bool IsDateTime(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsDateTime(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsDateTime*
+- uid: Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn,System.Boolean)
+  id: IsDateTime(System.Data.DataColumn,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsDateTime(DataColumn, bool)
+  nameWithType: DataColumnExtensions.IsDateTime(DataColumn, bool)
+  fullName: Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDateTime
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 98
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets a condition (pseudo-property) of the Column to the Value.
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static void IsDateTime(this DataColumn Column, bool Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub IsDateTime(Column As DataColumn, Value As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.IsDateTime*
+  nameWithType.vb: DataColumnExtensions.IsDateTime(DataColumn, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.IsDateTime(System.Data.DataColumn, Boolean)
+  name.vb: IsDateTime(DataColumn, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn)
+  id: IsDate(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsDate(DataColumn)
+  nameWithType: DataColumnExtensions.IsDate(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDate
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 107
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns true if the Column satisfies the condition (pseudo-property).
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static bool IsDate(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsDate(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsDate*
+- uid: Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn,System.Boolean)
+  id: IsDate(System.Data.DataColumn,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsDate(DataColumn, bool)
+  nameWithType: DataColumnExtensions.IsDate(DataColumn, bool)
+  fullName: Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDate
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 115
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets a condition (pseudo-property) of the Column to the Value.
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static void IsDate(this DataColumn Column, bool Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub IsDate(Column As DataColumn, Value As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.IsDate*
+  nameWithType.vb: DataColumnExtensions.IsDate(DataColumn, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.IsDate(System.Data.DataColumn, Boolean)
+  name.vb: IsDate(DataColumn, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn)
+  id: IsTime(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsTime(DataColumn)
+  nameWithType: DataColumnExtensions.IsTime(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsTime
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 124
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns true if the Column satisfies the condition (pseudo-property).
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static bool IsTime(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsTime(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsTime*
+- uid: Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn,System.Boolean)
+  id: IsTime(System.Data.DataColumn,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsTime(DataColumn, bool)
+  nameWithType: DataColumnExtensions.IsTime(DataColumn, bool)
+  fullName: Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsTime
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 132
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets a condition (pseudo-property) of the Column to the Value.
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static void IsTime(this DataColumn Column, bool Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub IsTime(Column As DataColumn, Value As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.IsTime*
+  nameWithType.vb: DataColumnExtensions.IsTime(DataColumn, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.IsTime(System.Data.DataColumn, Boolean)
+  name.vb: IsTime(DataColumn, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn)
+  id: IsCheckBox(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsCheckBox(DataColumn)
+  nameWithType: DataColumnExtensions.IsCheckBox(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsCheckBox
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 141
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns true if the Column satisfies the condition (pseudo-property).
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static bool IsCheckBox(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsCheckBox(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsCheckBox*
+- uid: Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn,System.Boolean)
+  id: IsCheckBox(System.Data.DataColumn,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsCheckBox(DataColumn, bool)
+  nameWithType: DataColumnExtensions.IsCheckBox(DataColumn, bool)
+  fullName: Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsCheckBox
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 149
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets a condition (pseudo-property) of the Column to the Value.
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static void IsCheckBox(this DataColumn Column, bool Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub IsCheckBox(Column As DataColumn, Value As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.IsCheckBox*
+  nameWithType.vb: DataColumnExtensions.IsCheckBox(DataColumn, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.IsCheckBox(System.Data.DataColumn, Boolean)
+  name.vb: IsCheckBox(DataColumn, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn)
+  id: IsMemo(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsMemo(DataColumn)
+  nameWithType: DataColumnExtensions.IsMemo(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsMemo
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns true if the Column satisfies the condition (pseudo-property).
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static bool IsMemo(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsMemo(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsMemo*
+- uid: Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn,System.Boolean)
+  id: IsMemo(System.Data.DataColumn,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsMemo(DataColumn, bool)
+  nameWithType: DataColumnExtensions.IsMemo(DataColumn, bool)
+  fullName: Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsMemo
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 166
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets a condition (pseudo-property) of the Column to the Value.
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static void IsMemo(this DataColumn Column, bool Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub IsMemo(Column As DataColumn, Value As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.IsMemo*
+  nameWithType.vb: DataColumnExtensions.IsMemo(DataColumn, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.IsMemo(System.Data.DataColumn, Boolean)
+  name.vb: IsMemo(DataColumn, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn)
+  id: IsImage(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsImage(DataColumn)
+  nameWithType: DataColumnExtensions.IsImage(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsImage
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 175
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Returns true if the Column satisfies the condition (pseudo-property).
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static bool IsImage(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsImage(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsImage*
+- uid: Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn,System.Boolean)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn,System.Boolean)
+  id: IsImage(System.Data.DataColumn,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsImage(DataColumn, bool)
+  nameWithType: DataColumnExtensions.IsImage(DataColumn, bool)
+  fullName: Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsImage
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 183
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Sets a condition (pseudo-property) of the Column to the Value.
+
+
+    <p>NOTE: The condition is a pseudo-property defined in its ExtendedProperties.</p>
+  example: []
+  syntax:
+    content: public static void IsImage(this DataColumn Column, bool Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Shared Sub IsImage(Column As DataColumn, Value As Boolean)
+  overload: Tripous.Data.DataColumnExtensions.IsImage*
+  nameWithType.vb: DataColumnExtensions.IsImage(DataColumn, Boolean)
+  fullName.vb: Tripous.Data.DataColumnExtensions.IsImage(System.Data.DataColumn, Boolean)
+  name.vb: IsImage(DataColumn, Boolean)
+- uid: Tripous.Data.DataColumnExtensions.TitleKey(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.TitleKey(System.Data.DataColumn)
+  id: TitleKey(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: TitleKey(DataColumn)
+  nameWithType: DataColumnExtensions.TitleKey(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.TitleKey(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TitleKey
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 191
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the value of the TitleKey key from the Column.ExtendedProperties
+  example: []
+  syntax:
+    content: public static string TitleKey(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.String
+    content.vb: Public Shared Function TitleKey(Column As DataColumn) As String
+  overload: Tripous.Data.DataColumnExtensions.TitleKey*
+- uid: Tripous.Data.DataColumnExtensions.SetTitleKey(System.Data.DataColumn,System.String)
+  commentId: M:Tripous.Data.DataColumnExtensions.SetTitleKey(System.Data.DataColumn,System.String)
+  id: SetTitleKey(System.Data.DataColumn,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: SetTitleKey(DataColumn, string)
+  nameWithType: DataColumnExtensions.SetTitleKey(DataColumn, string)
+  fullName: Tripous.Data.DataColumnExtensions.SetTitleKey(System.Data.DataColumn, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetTitleKey
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 198
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the Value of the TitleKey key to the Column.ExtendedProperties
+  example: []
+  syntax:
+    content: public static void SetTitleKey(this DataColumn Column, string Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.String
+    content.vb: Public Shared Sub SetTitleKey(Column As DataColumn, Value As String)
+  overload: Tripous.Data.DataColumnExtensions.SetTitleKey*
+  nameWithType.vb: DataColumnExtensions.SetTitleKey(DataColumn, String)
+  fullName.vb: Tripous.Data.DataColumnExtensions.SetTitleKey(System.Data.DataColumn, String)
+  name.vb: SetTitleKey(DataColumn, String)
+- uid: Tripous.Data.DataColumnExtensions.SetWidth(System.Data.DataColumn,System.Int32)
+  commentId: M:Tripous.Data.DataColumnExtensions.SetWidth(System.Data.DataColumn,System.Int32)
+  id: SetWidth(System.Data.DataColumn,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: SetWidth(DataColumn, int)
+  nameWithType: DataColumnExtensions.SetWidth(DataColumn, int)
+  fullName: Tripous.Data.DataColumnExtensions.SetWidth(System.Data.DataColumn, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetWidth
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 207
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the Width extended property
+  example: []
+  syntax:
+    content: public static void SetWidth(this DataColumn Column, int Value)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Value
+      type: System.Int32
+    content.vb: Public Shared Sub SetWidth(Column As DataColumn, Value As Integer)
+  overload: Tripous.Data.DataColumnExtensions.SetWidth*
+  nameWithType.vb: DataColumnExtensions.SetWidth(DataColumn, Integer)
+  fullName.vb: Tripous.Data.DataColumnExtensions.SetWidth(System.Data.DataColumn, Integer)
+  name.vb: SetWidth(DataColumn, Integer)
+- uid: Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn,System.Int32)
+  commentId: M:Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn,System.Int32)
+  id: GetWidth(System.Data.DataColumn,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetWidth(DataColumn, int)
+  nameWithType: DataColumnExtensions.GetWidth(DataColumn, int)
+  fullName: Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetWidth
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 215
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the Width extended property
+  example: []
+  syntax:
+    content: public static int GetWidth(this DataColumn Column, int Default)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Default
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function GetWidth(Column As DataColumn, [Default] As Integer) As Integer
+  overload: Tripous.Data.DataColumnExtensions.GetWidth*
+  nameWithType.vb: DataColumnExtensions.GetWidth(DataColumn, Integer)
+  fullName.vb: Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn, Integer)
+  name.vb: GetWidth(DataColumn, Integer)
+- uid: Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn)
+  id: GetWidth(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: GetWidth(DataColumn)
+  nameWithType: DataColumnExtensions.GetWidth(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.GetWidth(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetWidth
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 225
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the Width extended property
+  example: []
+  syntax:
+    content: public static int GetWidth(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function GetWidth(Column As DataColumn) As Integer
+  overload: Tripous.Data.DataColumnExtensions.GetWidth*
+- uid: Tripous.Data.DataColumnExtensions.IsWidthSet(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.IsWidthSet(System.Data.DataColumn)
+  id: IsWidthSet(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: IsWidthSet(DataColumn)
+  nameWithType: DataColumnExtensions.IsWidthSet(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.IsWidthSet(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsWidthSet
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 232
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Column is not null and has a Width pseudo-property defined in its ExtendedProperties.
+  example: []
+  syntax:
+    content: public static bool IsWidthSet(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsWidthSet(Column As DataColumn) As Boolean
+  overload: Tripous.Data.DataColumnExtensions.IsWidthSet*
+- uid: Tripous.Data.DataColumnExtensions.SetAsAutoInc(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.SetAsAutoInc(System.Data.DataColumn)
+  id: SetAsAutoInc(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: SetAsAutoInc(DataColumn)
+  nameWithType: DataColumnExtensions.SetAsAutoInc(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.SetAsAutoInc(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetAsAutoInc
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 243
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the Column as a negative autoincrement one, if it is of an integer type.
+  example: []
+  syntax:
+    content: public static void SetAsAutoInc(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    content.vb: Public Shared Sub SetAsAutoInc(Column As DataColumn)
+  overload: Tripous.Data.DataColumnExtensions.SetAsAutoInc*
+- uid: Tripous.Data.DataColumnExtensions.DataTypeToJson(System.Data.DataColumn)
+  commentId: M:Tripous.Data.DataColumnExtensions.DataTypeToJson(System.Data.DataColumn)
+  id: DataTypeToJson(System.Data.DataColumn)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: DataTypeToJson(DataColumn)
+  nameWithType: DataColumnExtensions.DataTypeToJson(DataColumn)
+  fullName: Tripous.Data.DataColumnExtensions.DataTypeToJson(System.Data.DataColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataTypeToJson
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 256
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a character that denotes the datatype of the column
+  example: []
+  syntax:
+    content: public static string DataTypeToJson(this DataColumn Column)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    return:
+      type: System.String
+    content.vb: Public Shared Function DataTypeToJson(Column As DataColumn) As String
+  overload: Tripous.Data.DataColumnExtensions.DataTypeToJson*
+- uid: Tripous.Data.DataColumnExtensions.JsonToDataType(System.Data.DataColumn,System.String)
+  commentId: M:Tripous.Data.DataColumnExtensions.JsonToDataType(System.Data.DataColumn,System.String)
+  id: JsonToDataType(System.Data.DataColumn,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Data.DataColumnExtensions
+  langs:
+  - csharp
+  - vb
+  name: JsonToDataType(DataColumn, string)
+  nameWithType: DataColumnExtensions.JsonToDataType(DataColumn, string)
+  fullName: Tripous.Data.DataColumnExtensions.JsonToDataType(System.Data.DataColumn, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Extensions/DataColumnExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonToDataType
+    path: ../Tripous.Data/Extensions/DataColumnExtensions.cs
+    startLine: 287
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts a json datatype to column datatype
+  example: []
+  syntax:
+    content: public static void JsonToDataType(this DataColumn Column, string Json)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+    - id: Json
+      type: System.String
+    content.vb: Public Shared Sub JsonToDataType(Column As DataColumn, Json As String)
+  overload: Tripous.Data.DataColumnExtensions.JsonToDataType*
+  nameWithType.vb: DataColumnExtensions.JsonToDataType(DataColumn, String)
+  fullName.vb: Tripous.Data.DataColumnExtensions.JsonToDataType(System.Data.DataColumn, String)
+  name.vb: JsonToDataType(DataColumn, String)
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.DataColumnExtensions.CloneColumn*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.CloneColumn
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_CloneColumn_System_Data_DataColumn_
+  name: CloneColumn
+  nameWithType: DataColumnExtensions.CloneColumn
+  fullName: Tripous.Data.DataColumnExtensions.CloneColumn
+- uid: System.Data.DataColumn
+  commentId: T:System.Data.DataColumn
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn
+  nameWithType: DataColumn
+  fullName: System.Data.DataColumn
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data.DataColumnExtensions.CopyStructureTo*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.CopyStructureTo
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_CopyStructureTo_System_Data_DataColumn_System_Data_DataTable_System_Boolean_
+  name: CopyStructureTo
+  nameWithType: DataColumnExtensions.CopyStructureTo
+  fullName: Tripous.Data.DataColumnExtensions.CopyStructureTo
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DataColumnExtensions.IsVisibleSet*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsVisibleSet
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsVisibleSet_System_Data_DataColumn_
+  name: IsVisibleSet
+  nameWithType: DataColumnExtensions.IsVisibleSet
+  fullName: Tripous.Data.DataColumnExtensions.IsVisibleSet
+- uid: Tripous.Data.DataColumnExtensions.IsVisible*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsVisible
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsVisible_System_Data_DataColumn_
+  name: IsVisible
+  nameWithType: DataColumnExtensions.IsVisible
+  fullName: Tripous.Data.DataColumnExtensions.IsVisible
+- uid: Tripous.Data.DataColumnExtensions.IsDateTime*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsDateTime
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsDateTime_System_Data_DataColumn_
+  name: IsDateTime
+  nameWithType: DataColumnExtensions.IsDateTime
+  fullName: Tripous.Data.DataColumnExtensions.IsDateTime
+- uid: Tripous.Data.DataColumnExtensions.IsDate*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsDate
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsDate_System_Data_DataColumn_
+  name: IsDate
+  nameWithType: DataColumnExtensions.IsDate
+  fullName: Tripous.Data.DataColumnExtensions.IsDate
+- uid: Tripous.Data.DataColumnExtensions.IsTime*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsTime
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsTime_System_Data_DataColumn_
+  name: IsTime
+  nameWithType: DataColumnExtensions.IsTime
+  fullName: Tripous.Data.DataColumnExtensions.IsTime
+- uid: Tripous.Data.DataColumnExtensions.IsCheckBox*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsCheckBox
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsCheckBox_System_Data_DataColumn_
+  name: IsCheckBox
+  nameWithType: DataColumnExtensions.IsCheckBox
+  fullName: Tripous.Data.DataColumnExtensions.IsCheckBox
+- uid: Tripous.Data.DataColumnExtensions.IsMemo*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsMemo
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsMemo_System_Data_DataColumn_
+  name: IsMemo
+  nameWithType: DataColumnExtensions.IsMemo
+  fullName: Tripous.Data.DataColumnExtensions.IsMemo
+- uid: Tripous.Data.DataColumnExtensions.IsImage*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsImage
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsImage_System_Data_DataColumn_
+  name: IsImage
+  nameWithType: DataColumnExtensions.IsImage
+  fullName: Tripous.Data.DataColumnExtensions.IsImage
+- uid: Tripous.Data.DataColumnExtensions.TitleKey*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.TitleKey
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_TitleKey_System_Data_DataColumn_
+  name: TitleKey
+  nameWithType: DataColumnExtensions.TitleKey
+  fullName: Tripous.Data.DataColumnExtensions.TitleKey
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DataColumnExtensions.SetTitleKey*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.SetTitleKey
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_SetTitleKey_System_Data_DataColumn_System_String_
+  name: SetTitleKey
+  nameWithType: DataColumnExtensions.SetTitleKey
+  fullName: Tripous.Data.DataColumnExtensions.SetTitleKey
+- uid: Tripous.Data.DataColumnExtensions.SetWidth*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.SetWidth
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_SetWidth_System_Data_DataColumn_System_Int32_
+  name: SetWidth
+  nameWithType: DataColumnExtensions.SetWidth
+  fullName: Tripous.Data.DataColumnExtensions.SetWidth
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DataColumnExtensions.GetWidth*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.GetWidth
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_GetWidth_System_Data_DataColumn_System_Int32_
+  name: GetWidth
+  nameWithType: DataColumnExtensions.GetWidth
+  fullName: Tripous.Data.DataColumnExtensions.GetWidth
+- uid: Tripous.Data.DataColumnExtensions.IsWidthSet*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.IsWidthSet
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_IsWidthSet_System_Data_DataColumn_
+  name: IsWidthSet
+  nameWithType: DataColumnExtensions.IsWidthSet
+  fullName: Tripous.Data.DataColumnExtensions.IsWidthSet
+- uid: Tripous.Data.DataColumnExtensions.SetAsAutoInc*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.SetAsAutoInc
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_SetAsAutoInc_System_Data_DataColumn_
+  name: SetAsAutoInc
+  nameWithType: DataColumnExtensions.SetAsAutoInc
+  fullName: Tripous.Data.DataColumnExtensions.SetAsAutoInc
+- uid: Tripous.Data.DataColumnExtensions.DataTypeToJson*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.DataTypeToJson
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_DataTypeToJson_System_Data_DataColumn_
+  name: DataTypeToJson
+  nameWithType: DataColumnExtensions.DataTypeToJson
+  fullName: Tripous.Data.DataColumnExtensions.DataTypeToJson
+- uid: Tripous.Data.DataColumnExtensions.JsonToDataType*
+  commentId: Overload:Tripous.Data.DataColumnExtensions.JsonToDataType
+  href: Tripous.Data.DataColumnExtensions.html#Tripous_Data_DataColumnExtensions_JsonToDataType_System_Data_DataColumn_System_String_
+  name: JsonToDataType
+  nameWithType: DataColumnExtensions.JsonToDataType
+  fullName: Tripous.Data.DataColumnExtensions.JsonToDataType

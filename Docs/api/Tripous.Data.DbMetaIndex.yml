@@ -1,0 +1,614 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbMetaIndex
+  commentId: T:Tripous.Data.DbMetaIndex
+  id: DbMetaIndex
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbMetaIndex.Columns
+  - Tripous.Data.DbMetaIndex.DisplayText
+  - Tripous.Data.DbMetaIndex.IndexType
+  - Tripous.Data.DbMetaIndex.IsUnique
+  langs:
+  - csharp
+  - vb
+  name: DbMetaIndex
+  nameWithType: DbMetaIndex
+  fullName: Tripous.Data.DbMetaIndex
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaIndex.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbMetaIndex
+    path: ../Tripous.Data/Metadata/DbMetaIndex.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents metadata for a database index.
+  example: []
+  syntax:
+    content: 'public class DbMetaIndex : DbMetaObject'
+    content.vb: Public Class DbMetaIndex Inherits DbMetaObject
+  inheritance:
+  - System.Object
+  - Tripous.Data.DbMetaObject
+  inheritedMembers:
+  - Tripous.Data.DbMetaObject.Name
+  - Tripous.Data.DbMetaObject.SchemaName
+  - Tripous.Data.DbMetaObject.SourceCode
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.DbMetaIndex.IsUnique
+  commentId: P:Tripous.Data.DbMetaIndex.IsUnique
+  id: IsUnique
+  parent: Tripous.Data.DbMetaIndex
+  langs:
+  - csharp
+  - vb
+  name: IsUnique
+  nameWithType: DbMetaIndex.IsUnique
+  fullName: Tripous.Data.DbMetaIndex.IsUnique
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaIndex.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsUnique
+    path: ../Tripous.Data/Metadata/DbMetaIndex.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating whether the index enforces uniqueness.
+  example: []
+  syntax:
+    content: public bool IsUnique { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsUnique As Boolean
+  overload: Tripous.Data.DbMetaIndex.IsUnique*
+- uid: Tripous.Data.DbMetaIndex.IndexType
+  commentId: P:Tripous.Data.DbMetaIndex.IndexType
+  id: IndexType
+  parent: Tripous.Data.DbMetaIndex
+  langs:
+  - csharp
+  - vb
+  name: IndexType
+  nameWithType: DbMetaIndex.IndexType
+  fullName: Tripous.Data.DbMetaIndex.IndexType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaIndex.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IndexType
+    path: ../Tripous.Data/Metadata/DbMetaIndex.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the storage structure type of the index (e.g., BTREE, HASH).
+  example: []
+  syntax:
+    content: public string IndexType { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property IndexType As String
+  overload: Tripous.Data.DbMetaIndex.IndexType*
+- uid: Tripous.Data.DbMetaIndex.Columns
+  commentId: P:Tripous.Data.DbMetaIndex.Columns
+  id: Columns
+  parent: Tripous.Data.DbMetaIndex
+  langs:
+  - csharp
+  - vb
+  name: Columns
+  nameWithType: DbMetaIndex.Columns
+  fullName: Tripous.Data.DbMetaIndex.Columns
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaIndex.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Columns
+    path: ../Tripous.Data/Metadata/DbMetaIndex.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the list of column names included in this index.
+  example: []
+  syntax:
+    content: public string Columns { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Columns As String
+  overload: Tripous.Data.DbMetaIndex.Columns*
+- uid: Tripous.Data.DbMetaIndex.DisplayText
+  commentId: P:Tripous.Data.DbMetaIndex.DisplayText
+  id: DisplayText
+  parent: Tripous.Data.DbMetaIndex
+  langs:
+  - csharp
+  - vb
+  name: DisplayText
+  nameWithType: DbMetaIndex.DisplayText
+  fullName: Tripous.Data.DbMetaIndex.DisplayText
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaIndex.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayText
+    path: ../Tripous.Data/Metadata/DbMetaIndex.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a descriptive, formatted string representation of the index metadata.
+  example: []
+  syntax:
+    content: public override string DisplayText { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Overrides ReadOnly Property DisplayText As String
+  overridden: Tripous.Data.DbMetaObject.DisplayText
+  overload: Tripous.Data.DbMetaIndex.DisplayText*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.Data.DbMetaObject
+  commentId: T:Tripous.Data.DbMetaObject
+  parent: Tripous.Data
+  href: Tripous.Data.DbMetaObject.html
+  name: DbMetaObject
+  nameWithType: DbMetaObject
+  fullName: Tripous.Data.DbMetaObject
+- uid: Tripous.Data.DbMetaObject.Name
+  commentId: P:Tripous.Data.DbMetaObject.Name
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_Name
+  name: Name
+  nameWithType: DbMetaObject.Name
+  fullName: Tripous.Data.DbMetaObject.Name
+- uid: Tripous.Data.DbMetaObject.SchemaName
+  commentId: P:Tripous.Data.DbMetaObject.SchemaName
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_SchemaName
+  name: SchemaName
+  nameWithType: DbMetaObject.SchemaName
+  fullName: Tripous.Data.DbMetaObject.SchemaName
+- uid: Tripous.Data.DbMetaObject.SourceCode
+  commentId: P:Tripous.Data.DbMetaObject.SourceCode
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_SourceCode
+  name: SourceCode
+  nameWithType: DbMetaObject.SourceCode
+  fullName: Tripous.Data.DbMetaObject.SourceCode
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbMetaIndex.IsUnique*
+  commentId: Overload:Tripous.Data.DbMetaIndex.IsUnique
+  href: Tripous.Data.DbMetaIndex.html#Tripous_Data_DbMetaIndex_IsUnique
+  name: IsUnique
+  nameWithType: DbMetaIndex.IsUnique
+  fullName: Tripous.Data.DbMetaIndex.IsUnique
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DbMetaIndex.IndexType*
+  commentId: Overload:Tripous.Data.DbMetaIndex.IndexType
+  href: Tripous.Data.DbMetaIndex.html#Tripous_Data_DbMetaIndex_IndexType
+  name: IndexType
+  nameWithType: DbMetaIndex.IndexType
+  fullName: Tripous.Data.DbMetaIndex.IndexType
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DbMetaIndex.Columns*
+  commentId: Overload:Tripous.Data.DbMetaIndex.Columns
+  href: Tripous.Data.DbMetaIndex.html#Tripous_Data_DbMetaIndex_Columns
+  name: Columns
+  nameWithType: DbMetaIndex.Columns
+  fullName: Tripous.Data.DbMetaIndex.Columns
+- uid: Tripous.Data.DbMetaObject.DisplayText
+  commentId: P:Tripous.Data.DbMetaObject.DisplayText
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_DisplayText
+  name: DisplayText
+  nameWithType: DbMetaObject.DisplayText
+  fullName: Tripous.Data.DbMetaObject.DisplayText
+- uid: Tripous.Data.DbMetaIndex.DisplayText*
+  commentId: Overload:Tripous.Data.DbMetaIndex.DisplayText
+  href: Tripous.Data.DbMetaIndex.html#Tripous_Data_DbMetaIndex_DisplayText
+  name: DisplayText
+  nameWithType: DbMetaIndex.DisplayText
+  fullName: Tripous.Data.DbMetaIndex.DisplayText

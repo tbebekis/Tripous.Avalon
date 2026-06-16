@@ -429,20 +429,34 @@ public class TableDef: BaseDef
         string sUpdateList       = SqlHelper.TransformToFieldList(UpdateList);           // string.Join(", " + Environment.NewLine, UpdateList.ToArray()).TrimEnd();
  
         /* Insert */
-        Statements.InsertRowSql = $@"insert into {this.Name} (
+        if (!string.IsNullOrWhiteSpace(sInsertList))
+        {
+            Statements.InsertRowSql = $@"insert into {this.Name} (
 {sInsertList}
 ) values (
 {sInsertParamsList}
 )
 ";
+        }
+        else
+        {
+            Statements.InsertRowSql = string.Empty;
+        }
 
         /* Update */
-        Statements.UpdateRowSql = $@"update {this.Name} 
+        if (!string.IsNullOrWhiteSpace(sUpdateList))
+        {
+            Statements.UpdateRowSql = $@"update {this.Name} 
 set 
 {sUpdateList}
 where
 {this.KeyField} = :{this.KeyField}
 ";
+        }
+        else
+        {
+            Statements.UpdateRowSql = string.Empty;
+        }
 
         /* Delete */
         Statements.DeleteRowSql = $@"delete from {this.Name} where {this.KeyField} = :{this.KeyField}";

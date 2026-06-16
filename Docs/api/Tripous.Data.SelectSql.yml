@@ -1,0 +1,2560 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SelectSql
+  commentId: T:Tripous.Data.SelectSql
+  id: SelectSql
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SelectSql.#ctor
+  - Tripous.Data.SelectSql.#ctor(System.String)
+  - Tripous.Data.SelectSql.AddTo(System.String,System.String,System.String)
+  - Tripous.Data.SelectSql.AddToGroupBy(System.String)
+  - Tripous.Data.SelectSql.AddToHaving(System.String)
+  - Tripous.Data.SelectSql.AddToOrderBy(System.String)
+  - Tripous.Data.SelectSql.AddToWhere(System.String)
+  - Tripous.Data.SelectSql.AddToWhere(System.String,System.String)
+  - Tripous.Data.SelectSql.Assign(System.Object)
+  - Tripous.Data.SelectSql.CR(System.String)
+  - Tripous.Data.SelectSql.CheckDescriptor
+  - Tripous.Data.SelectSql.Clear
+  - Tripous.Data.SelectSql.Clone
+  - Tripous.Data.SelectSql.CompanyAware
+  - Tripous.Data.SelectSql.ConnectionName
+  - Tripous.Data.SelectSql.DateRange
+  - Tripous.Data.SelectSql.DateRangeColumn
+  - Tripous.Data.SelectSql.DateRangeConstructWhereParams(Tripous.DateRange,System.String)
+  - Tripous.Data.SelectSql.DateRangeReplaceWhereParams(System.String@,Tripous.Data.SqlProvider)
+  - Tripous.Data.SelectSql.DefaultName
+  - Tripous.Data.SelectSql.From
+  - Tripous.Data.SelectSql.GetMainTableName
+  - Tripous.Data.SelectSql.GetSqlText
+  - Tripous.Data.SelectSql.GroupBy
+  - Tripous.Data.SelectSql.Having
+  - Tripous.Data.SelectSql.IsEmpty
+  - Tripous.Data.SelectSql.IsMasked(System.String)
+  - Tripous.Data.SelectSql.LB
+  - Tripous.Data.SelectSql.NormalizeClause(System.String,System.String)
+  - Tripous.Data.SelectSql.OrToWhere(System.String)
+  - Tripous.Data.SelectSql.OrderBy
+  - Tripous.Data.SelectSql.Parse(System.String)
+  - Tripous.Data.SelectSql.ParseFromTableName(System.String)
+  - Tripous.Data.SelectSql.RemoveOrderBy
+  - Tripous.Data.SelectSql.ReplaceLastComma(System.String@)
+  - Tripous.Data.SelectSql.SPACE
+  - Tripous.Data.SelectSql.SPACES
+  - Tripous.Data.SelectSql.Select
+  - Tripous.Data.SelectSql.SelectFromToString
+  - Tripous.Data.SelectSql.Table
+  - Tripous.Data.SelectSql.Text
+  - Tripous.Data.SelectSql.Where
+  - Tripous.Data.SelectSql.WhereUser
+  langs:
+  - csharp
+  - vb
+  name: SelectSql
+  nameWithType: SelectSql
+  fullName: Tripous.Data.SelectSql
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectSql
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents a SQL SELECT statement.
+  example: []
+  syntax:
+    content: 'public class SelectSql : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
+    content.vb: Public Class SelectSql Inherits BaseDef Implements IDef, IJsonLoadable, INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.BaseDef
+  implements:
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.BaseDef.fTitleKey
+  - Tripous.BaseDef.fName
+  - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.GetTitleKey
+  - Tripous.BaseDef.ToString
+  - Tripous.BaseDef.UpdateReferences
+  - Tripous.BaseDef.JsonLoaded
+  - Tripous.BaseDef.CreateNew
+  - Tripous.BaseDef.Assign(Tripous.IDef)
+  - Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  - Tripous.BaseDef.Name
+  - Tripous.BaseDef.TitleKey
+  - Tripous.BaseDef.IsTitleKeyEmpty
+  - Tripous.BaseDef.Title
+  - Tripous.BaseDef.Tag
+  - Tripous.BaseDef.IsSerializable
+  - Tripous.BaseDef.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.SelectSql.LB
+  commentId: F:Tripous.Data.SelectSql.LB
+  id: LB
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: LB
+  nameWithType: SelectSql.LB
+  fullName: Tripous.Data.SelectSql.LB
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LB
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: LineBreak
+  example: []
+  syntax:
+    content: public static readonly string LB
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly LB As String
+- uid: Tripous.Data.SelectSql.SPACE
+  commentId: F:Tripous.Data.SelectSql.SPACE
+  id: SPACE
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: SPACE
+  nameWithType: SelectSql.SPACE
+  fullName: Tripous.Data.SelectSql.SPACE
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SPACE
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Space
+  example: []
+  syntax:
+    content: public static readonly string SPACE
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly SPACE As String
+- uid: Tripous.Data.SelectSql.SPACES
+  commentId: F:Tripous.Data.SelectSql.SPACES
+  id: SPACES
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: SPACES
+  nameWithType: SelectSql.SPACES
+  fullName: Tripous.Data.SelectSql.SPACES
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SPACES
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Spaces
+  example: []
+  syntax:
+    content: public static readonly string SPACES
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly SPACES As String
+- uid: Tripous.Data.SelectSql.DefaultName
+  commentId: F:Tripous.Data.SelectSql.DefaultName
+  id: DefaultName
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: DefaultName
+  nameWithType: SelectSql.DefaultName
+  fullName: Tripous.Data.SelectSql.DefaultName
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultName
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constant
+  example: []
+  syntax:
+    content: public static readonly string DefaultName
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly DefaultName As String
+- uid: Tripous.Data.SelectSql.#ctor
+  commentId: M:Tripous.Data.SelectSql.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: SelectSql()
+  nameWithType: SelectSql.SelectSql()
+  fullName: Tripous.Data.SelectSql.SelectSql()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 106
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public SelectSql()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.SelectSql.#ctor*
+  nameWithType.vb: SelectSql.New()
+  fullName.vb: Tripous.Data.SelectSql.New()
+  name.vb: New()
+- uid: Tripous.Data.SelectSql.#ctor(System.String)
+  commentId: M:Tripous.Data.SelectSql.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: SelectSql(string)
+  nameWithType: SelectSql.SelectSql(string)
+  fullName: Tripous.Data.SelectSql.SelectSql(string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 113
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public SelectSql(string StatementText)
+    parameters:
+    - id: StatementText
+      type: System.String
+    content.vb: Public Sub New(StatementText As String)
+  overload: Tripous.Data.SelectSql.#ctor*
+  nameWithType.vb: SelectSql.New(String)
+  fullName.vb: Tripous.Data.SelectSql.New(String)
+  name.vb: New(String)
+- uid: Tripous.Data.SelectSql.CR(System.String)
+  commentId: M:Tripous.Data.SelectSql.CR(System.String)
+  id: CR(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: CR(string)
+  nameWithType: SelectSql.CR(string)
+  fullName: Tripous.Data.SelectSql.CR(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CR
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 123
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds a Carriage Return (LineBreak) after S
+  example: []
+  syntax:
+    content: public static string CR(string S)
+    parameters:
+    - id: S
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function CR(S As String) As String
+  overload: Tripous.Data.SelectSql.CR*
+  nameWithType.vb: SelectSql.CR(String)
+  fullName.vb: Tripous.Data.SelectSql.CR(String)
+  name.vb: CR(String)
+- uid: Tripous.Data.SelectSql.ReplaceLastComma(System.String@)
+  commentId: M:Tripous.Data.SelectSql.ReplaceLastComma(System.String@)
+  id: ReplaceLastComma(System.String@)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: ReplaceLastComma(ref string)
+  nameWithType: SelectSql.ReplaceLastComma(ref string)
+  fullName: Tripous.Data.SelectSql.ReplaceLastComma(ref string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReplaceLastComma
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 133
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Replaces any trailing comma with space in S, ignoring trailing spaces.
+  example: []
+  syntax:
+    content: public static void ReplaceLastComma(ref string S)
+    parameters:
+    - id: S
+      type: System.String
+    content.vb: Public Shared Sub ReplaceLastComma(S As String)
+  overload: Tripous.Data.SelectSql.ReplaceLastComma*
+  nameWithType.vb: SelectSql.ReplaceLastComma(String)
+  fullName.vb: Tripous.Data.SelectSql.ReplaceLastComma(String)
+  name.vb: ReplaceLastComma(String)
+- uid: Tripous.Data.SelectSql.AddTo(System.String,System.String,System.String)
+  commentId: M:Tripous.Data.SelectSql.AddTo(System.String,System.String,System.String)
+  id: AddTo(System.String,System.String,System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: AddTo(string, string, string)
+  nameWithType: SelectSql.AddTo(string, string, string)
+  fullName: Tripous.Data.SelectSql.AddTo(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddTo
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 164
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates Clause + Delimiter + Plus
+  example: []
+  syntax:
+    content: public static string AddTo(string Clause, string Delimiter, string Plus)
+    parameters:
+    - id: Clause
+      type: System.String
+    - id: Delimiter
+      type: System.String
+    - id: Plus
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AddTo(Clause As String, Delimiter As String, Plus As String) As String
+  overload: Tripous.Data.SelectSql.AddTo*
+  nameWithType.vb: SelectSql.AddTo(String, String, String)
+  fullName.vb: Tripous.Data.SelectSql.AddTo(String, String, String)
+  name.vb: AddTo(String, String, String)
+- uid: Tripous.Data.SelectSql.NormalizeClause(System.String,System.String)
+  commentId: M:Tripous.Data.SelectSql.NormalizeClause(System.String,System.String)
+  id: NormalizeClause(System.String,System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: NormalizeClause(string, string)
+  nameWithType: SelectSql.NormalizeClause(string, string)
+  fullName: Tripous.Data.SelectSql.NormalizeClause(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NormalizeClause
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 187
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates Keyword + Clause
+  example: []
+  syntax:
+    content: public static string NormalizeClause(string Clause, string Keyword)
+    parameters:
+    - id: Clause
+      type: System.String
+    - id: Keyword
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function NormalizeClause(Clause As String, Keyword As String) As String
+  overload: Tripous.Data.SelectSql.NormalizeClause*
+  nameWithType.vb: SelectSql.NormalizeClause(String, String)
+  fullName.vb: Tripous.Data.SelectSql.NormalizeClause(String, String)
+  name.vb: NormalizeClause(String, String)
+- uid: Tripous.Data.SelectSql.IsMasked(System.String)
+  commentId: M:Tripous.Data.SelectSql.IsMasked(System.String)
+  id: IsMasked(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: IsMasked(string)
+  nameWithType: SelectSql.IsMasked(string)
+  fullName: Tripous.Data.SelectSql.IsMasked(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsMasked
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 203
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Value contains any of the mask characters (%, ?, *)
+  example: []
+  syntax:
+    content: public static bool IsMasked(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsMasked(Value As String) As Boolean
+  overload: Tripous.Data.SelectSql.IsMasked*
+  nameWithType.vb: SelectSql.IsMasked(String)
+  fullName.vb: Tripous.Data.SelectSql.IsMasked(String)
+  name.vb: IsMasked(String)
+- uid: Tripous.Data.SelectSql.DateRangeConstructWhereParams(Tripous.DateRange,System.String)
+  commentId: M:Tripous.Data.SelectSql.DateRangeConstructWhereParams(Tripous.DateRange,System.String)
+  id: DateRangeConstructWhereParams(Tripous.DateRange,System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: DateRangeConstructWhereParams(DateRange, string)
+  nameWithType: SelectSql.DateRangeConstructWhereParams(DateRange, string)
+  fullName: Tripous.Data.SelectSql.DateRangeConstructWhereParams(Tripous.DateRange, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateRangeConstructWhereParams
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 222
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructs a DateTime param pair (date range params) suitable for thw WHERE part in a SelectSql
+  example: []
+  syntax:
+    content: public static string DateRangeConstructWhereParams(DateRange Range, string FieldName)
+    parameters:
+    - id: Range
+      type: Tripous.DateRange
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function DateRangeConstructWhereParams(Range As DateRange, FieldName As String) As String
+  overload: Tripous.Data.SelectSql.DateRangeConstructWhereParams*
+  nameWithType.vb: SelectSql.DateRangeConstructWhereParams(DateRange, String)
+  fullName.vb: Tripous.Data.SelectSql.DateRangeConstructWhereParams(Tripous.DateRange, String)
+  name.vb: DateRangeConstructWhereParams(DateRange, String)
+- uid: Tripous.Data.SelectSql.DateRangeReplaceWhereParams(System.String@,Tripous.Data.SqlProvider)
+  commentId: M:Tripous.Data.SelectSql.DateRangeReplaceWhereParams(System.String@,Tripous.Data.SqlProvider)
+  id: DateRangeReplaceWhereParams(System.String@,Tripous.Data.SqlProvider)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: DateRangeReplaceWhereParams(ref string, SqlProvider)
+  nameWithType: SelectSql.DateRangeReplaceWhereParams(ref string, SqlProvider)
+  fullName: Tripous.Data.SelectSql.DateRangeReplaceWhereParams(ref string, Tripous.Data.SqlProvider)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateRangeReplaceWhereParams
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 232
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Replaces any DateTime param pair (date range params) found in SqlText with actual values.
+  example: []
+  syntax:
+    content: public static void DateRangeReplaceWhereParams(ref string SqlText, SqlProvider Provider)
+    parameters:
+    - id: SqlText
+      type: System.String
+    - id: Provider
+      type: Tripous.Data.SqlProvider
+    content.vb: Public Shared Sub DateRangeReplaceWhereParams(SqlText As String, Provider As SqlProvider)
+  overload: Tripous.Data.SelectSql.DateRangeReplaceWhereParams*
+  nameWithType.vb: SelectSql.DateRangeReplaceWhereParams(String, SqlProvider)
+  fullName.vb: Tripous.Data.SelectSql.DateRangeReplaceWhereParams(String, Tripous.Data.SqlProvider)
+  name.vb: DateRangeReplaceWhereParams(String, SqlProvider)
+- uid: Tripous.Data.SelectSql.CheckDescriptor
+  commentId: M:Tripous.Data.SelectSql.CheckDescriptor
+  id: CheckDescriptor
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: CheckDescriptor()
+  nameWithType: SelectSql.CheckDescriptor()
+  fullName: Tripous.Data.SelectSql.CheckDescriptor()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckDescriptor
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 273
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Throws an exception if this descriptor is not fully defined
+  example: []
+  syntax:
+    content: public override void CheckDescriptor()
+    content.vb: Public Overrides Sub CheckDescriptor()
+  overridden: Tripous.BaseDef.CheckDescriptor
+  overload: Tripous.Data.SelectSql.CheckDescriptor*
+- uid: Tripous.Data.SelectSql.Clear
+  commentId: M:Tripous.Data.SelectSql.Clear
+  id: Clear
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: SelectSql.Clear()
+  fullName: Tripous.Data.SelectSql.Clear()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clear
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 283
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Clears the content of the clause properties
+  example: []
+  syntax:
+    content: public override void Clear()
+    content.vb: Public Overrides Sub Clear()
+  overridden: Tripous.BaseDef.Clear
+  overload: Tripous.Data.SelectSql.Clear*
+- uid: Tripous.Data.SelectSql.Assign(System.Object)
+  commentId: M:Tripous.Data.SelectSql.Assign(System.Object)
+  id: Assign(System.Object)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Assign(object)
+  nameWithType: SelectSql.Assign(object)
+  fullName: Tripous.Data.SelectSql.Assign(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Assign
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 305
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Assigns this properties from Source.
+
+
+    <p>WARNING: We need this because an automated Assign() calls the Text property
+
+    which in turn calls the SelectSqlParser which has no ability to handle fields
+
+    surrounded by double quotes or [] or something.</p>
+  example: []
+  syntax:
+    content: public void Assign(object Source)
+    parameters:
+    - id: Source
+      type: System.Object
+    content.vb: Public Sub Assign(Source As Object)
+  overload: Tripous.Data.SelectSql.Assign*
+  nameWithType.vb: SelectSql.Assign(Object)
+  fullName.vb: Tripous.Data.SelectSql.Assign(Object)
+  name.vb: Assign(Object)
+- uid: Tripous.Data.SelectSql.Clone
+  commentId: M:Tripous.Data.SelectSql.Clone
+  id: Clone
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Clone()
+  nameWithType: SelectSql.Clone()
+  fullName: Tripous.Data.SelectSql.Clone()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clone
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 336
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a clone of this instance.
+  example: []
+  syntax:
+    content: public override BaseDef Clone()
+    return:
+      type: Tripous.BaseDef
+    content.vb: Public Overrides Function Clone() As BaseDef
+  overridden: Tripous.BaseDef.Clone
+  overload: Tripous.Data.SelectSql.Clone*
+- uid: Tripous.Data.SelectSql.GetSqlText
+  commentId: M:Tripous.Data.SelectSql.GetSqlText
+  id: GetSqlText
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: GetSqlText()
+  nameWithType: SelectSql.GetSqlText()
+  fullName: Tripous.Data.SelectSql.GetSqlText()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSqlText
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 345
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates Keyword + Clause for all clauses
+  example: []
+  syntax:
+    content: public string GetSqlText()
+    return:
+      type: System.String
+    content.vb: Public Function GetSqlText() As String
+  overload: Tripous.Data.SelectSql.GetSqlText*
+- uid: Tripous.Data.SelectSql.AddToWhere(System.String)
+  commentId: M:Tripous.Data.SelectSql.AddToWhere(System.String)
+  id: AddToWhere(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: AddToWhere(string)
+  nameWithType: SelectSql.AddToWhere(string)
+  fullName: Tripous.Data.SelectSql.AddToWhere(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddToWhere
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 396
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates WHERE + and + Plus
+  example: []
+  syntax:
+    content: public void AddToWhere(string Plus)
+    parameters:
+    - id: Plus
+      type: System.String
+    content.vb: Public Sub AddToWhere(Plus As String)
+  overload: Tripous.Data.SelectSql.AddToWhere*
+  nameWithType.vb: SelectSql.AddToWhere(String)
+  fullName.vb: Tripous.Data.SelectSql.AddToWhere(String)
+  name.vb: AddToWhere(String)
+- uid: Tripous.Data.SelectSql.OrToWhere(System.String)
+  commentId: M:Tripous.Data.SelectSql.OrToWhere(System.String)
+  id: OrToWhere(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: OrToWhere(string)
+  nameWithType: SelectSql.OrToWhere(string)
+  fullName: Tripous.Data.SelectSql.OrToWhere(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OrToWhere
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 403
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates WHERE + or + Plus
+  example: []
+  syntax:
+    content: public void OrToWhere(string Plus)
+    parameters:
+    - id: Plus
+      type: System.String
+    content.vb: Public Sub OrToWhere(Plus As String)
+  overload: Tripous.Data.SelectSql.OrToWhere*
+  nameWithType.vb: SelectSql.OrToWhere(String)
+  fullName.vb: Tripous.Data.SelectSql.OrToWhere(String)
+  name.vb: OrToWhere(String)
+- uid: Tripous.Data.SelectSql.AddToWhere(System.String,System.String)
+  commentId: M:Tripous.Data.SelectSql.AddToWhere(System.String,System.String)
+  id: AddToWhere(System.String,System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: AddToWhere(string, string)
+  nameWithType: SelectSql.AddToWhere(string, string)
+  fullName: Tripous.Data.SelectSql.AddToWhere(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddToWhere
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 410
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates WHERE + Delimiter + Plus
+  example: []
+  syntax:
+    content: public void AddToWhere(string Plus, string Delimiter)
+    parameters:
+    - id: Plus
+      type: System.String
+    - id: Delimiter
+      type: System.String
+    content.vb: Public Sub AddToWhere(Plus As String, Delimiter As String)
+  overload: Tripous.Data.SelectSql.AddToWhere*
+  nameWithType.vb: SelectSql.AddToWhere(String, String)
+  fullName.vb: Tripous.Data.SelectSql.AddToWhere(String, String)
+  name.vb: AddToWhere(String, String)
+- uid: Tripous.Data.SelectSql.AddToGroupBy(System.String)
+  commentId: M:Tripous.Data.SelectSql.AddToGroupBy(System.String)
+  id: AddToGroupBy(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: AddToGroupBy(string)
+  nameWithType: SelectSql.AddToGroupBy(string)
+  fullName: Tripous.Data.SelectSql.AddToGroupBy(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddToGroupBy
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 417
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates GROUP BY + , + Plus
+  example: []
+  syntax:
+    content: public void AddToGroupBy(string Plus)
+    parameters:
+    - id: Plus
+      type: System.String
+    content.vb: Public Sub AddToGroupBy(Plus As String)
+  overload: Tripous.Data.SelectSql.AddToGroupBy*
+  nameWithType.vb: SelectSql.AddToGroupBy(String)
+  fullName.vb: Tripous.Data.SelectSql.AddToGroupBy(String)
+  name.vb: AddToGroupBy(String)
+- uid: Tripous.Data.SelectSql.AddToHaving(System.String)
+  commentId: M:Tripous.Data.SelectSql.AddToHaving(System.String)
+  id: AddToHaving(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: AddToHaving(string)
+  nameWithType: SelectSql.AddToHaving(string)
+  fullName: Tripous.Data.SelectSql.AddToHaving(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddToHaving
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 424
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates HAVING + and + Plus
+  example: []
+  syntax:
+    content: public void AddToHaving(string Plus)
+    parameters:
+    - id: Plus
+      type: System.String
+    content.vb: Public Sub AddToHaving(Plus As String)
+  overload: Tripous.Data.SelectSql.AddToHaving*
+  nameWithType.vb: SelectSql.AddToHaving(String)
+  fullName.vb: Tripous.Data.SelectSql.AddToHaving(String)
+  name.vb: AddToHaving(String)
+- uid: Tripous.Data.SelectSql.AddToOrderBy(System.String)
+  commentId: M:Tripous.Data.SelectSql.AddToOrderBy(System.String)
+  id: AddToOrderBy(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: AddToOrderBy(string)
+  nameWithType: SelectSql.AddToOrderBy(string)
+  fullName: Tripous.Data.SelectSql.AddToOrderBy(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddToOrderBy
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 431
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Concatenates ORDER BY + , + Plus
+  example: []
+  syntax:
+    content: public void AddToOrderBy(string Plus)
+    parameters:
+    - id: Plus
+      type: System.String
+    content.vb: Public Sub AddToOrderBy(Plus As String)
+  overload: Tripous.Data.SelectSql.AddToOrderBy*
+  nameWithType.vb: SelectSql.AddToOrderBy(String)
+  fullName.vb: Tripous.Data.SelectSql.AddToOrderBy(String)
+  name.vb: AddToOrderBy(String)
+- uid: Tripous.Data.SelectSql.RemoveOrderBy
+  commentId: M:Tripous.Data.SelectSql.RemoveOrderBy
+  id: RemoveOrderBy
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: RemoveOrderBy()
+  nameWithType: SelectSql.RemoveOrderBy()
+  fullName: Tripous.Data.SelectSql.RemoveOrderBy()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemoveOrderBy
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 439
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Removes the ORDER BY clause.
+  example: []
+  syntax:
+    content: public void RemoveOrderBy()
+    content.vb: Public Sub RemoveOrderBy()
+  overload: Tripous.Data.SelectSql.RemoveOrderBy*
+- uid: Tripous.Data.SelectSql.SelectFromToString
+  commentId: M:Tripous.Data.SelectSql.SelectFromToString
+  id: SelectFromToString
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: SelectFromToString()
+  nameWithType: SelectSql.SelectFromToString()
+  fullName: Tripous.Data.SelectSql.SelectFromToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectFromToString
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 447
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns concatenated the SELECT and FROM clauses only.
+  example: []
+  syntax:
+    content: public string SelectFromToString()
+    return:
+      type: System.String
+    content.vb: Public Function SelectFromToString() As String
+  overload: Tripous.Data.SelectSql.SelectFromToString*
+- uid: Tripous.Data.SelectSql.Parse(System.String)
+  commentId: M:Tripous.Data.SelectSql.Parse(System.String)
+  id: Parse(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Parse(string)
+  nameWithType: SelectSql.Parse(string)
+  fullName: Tripous.Data.SelectSql.Parse(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Parse
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 454
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Parses StatementText and assigns its clause properties.
+  example: []
+  syntax:
+    content: public void Parse(string StatementText)
+    parameters:
+    - id: StatementText
+      type: System.String
+    content.vb: Public Sub Parse(StatementText As String)
+  overload: Tripous.Data.SelectSql.Parse*
+  nameWithType.vb: SelectSql.Parse(String)
+  fullName.vb: Tripous.Data.SelectSql.Parse(String)
+  name.vb: Parse(String)
+- uid: Tripous.Data.SelectSql.ParseFromTableName(System.String)
+  commentId: M:Tripous.Data.SelectSql.ParseFromTableName(System.String)
+  id: ParseFromTableName(System.String)
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: ParseFromTableName(string)
+  nameWithType: SelectSql.ParseFromTableName(string)
+  fullName: Tripous.Data.SelectSql.ParseFromTableName(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ParseFromTableName
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 479
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates a select * from TableName statement and then calls Parse()
+  example: []
+  syntax:
+    content: public void ParseFromTableName(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    content.vb: Public Sub ParseFromTableName(TableName As String)
+  overload: Tripous.Data.SelectSql.ParseFromTableName*
+  nameWithType.vb: SelectSql.ParseFromTableName(String)
+  fullName.vb: Tripous.Data.SelectSql.ParseFromTableName(String)
+  name.vb: ParseFromTableName(String)
+- uid: Tripous.Data.SelectSql.GetMainTableName
+  commentId: M:Tripous.Data.SelectSql.GetMainTableName
+  id: GetMainTableName
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: GetMainTableName()
+  nameWithType: SelectSql.GetMainTableName()
+  fullName: Tripous.Data.SelectSql.GetMainTableName()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetMainTableName
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 486
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Tries to get the main table name from the statement
+  example: []
+  syntax:
+    content: public string GetMainTableName()
+    return:
+      type: System.String
+    content.vb: Public Function GetMainTableName() As String
+  overload: Tripous.Data.SelectSql.GetMainTableName*
+- uid: Tripous.Data.SelectSql.Text
+  commentId: P:Tripous.Data.SelectSql.Text
+  id: Text
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Text
+  nameWithType: SelectSql.Text
+  fullName: Tripous.Data.SelectSql.Text
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Text
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 496
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets the statement as a whole.
+
+
+    <p>Sets clause properties by parsing the passed string value.</p>
+  example: []
+  syntax:
+    content: public string Text { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Text As String
+  overload: Tripous.Data.SelectSql.Text*
+- uid: Tripous.Data.SelectSql.CompanyAware
+  commentId: P:Tripous.Data.SelectSql.CompanyAware
+  id: CompanyAware
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: CompanyAware
+  nameWithType: SelectSql.CompanyAware
+  fullName: Tripous.Data.SelectSql.CompanyAware
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CompanyAware
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 505
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets or sets a value indicating whether this object
+
+
+    <p>uses the CompanyFieldName when preparing the statement as a whole</p>
+  example: []
+  syntax:
+    content: public bool CompanyAware { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CompanyAware As Boolean
+  overload: Tripous.Data.SelectSql.CompanyAware*
+- uid: Tripous.Data.SelectSql.ConnectionName
+  commentId: P:Tripous.Data.SelectSql.ConnectionName
+  id: ConnectionName
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: ConnectionName
+  nameWithType: SelectSql.ConnectionName
+  fullName: Tripous.Data.SelectSql.ConnectionName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionName
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 509
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the database connection name
+  example: []
+  syntax:
+    content: public string ConnectionName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ConnectionName As String
+  overload: Tripous.Data.SelectSql.ConnectionName*
+- uid: Tripous.Data.SelectSql.DateRangeColumn
+  commentId: P:Tripous.Data.SelectSql.DateRangeColumn
+  id: DateRangeColumn
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: DateRangeColumn
+  nameWithType: SelectSql.DateRangeColumn
+  fullName: Tripous.Data.SelectSql.DateRangeColumn
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateRangeColumn
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 520
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A fully qualified (i.e. TABLE_NAME.FIELD_NAME) column of type date or datetime.
+
+
+    <p>It works in conjuction with DateRange property in order to produce
+
+    a fixed part in the WHERE clause of this select statement.</p>
+  example: []
+  syntax:
+    content: public string DateRangeColumn { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DateRangeColumn As String
+  overload: Tripous.Data.SelectSql.DateRangeColumn*
+- uid: Tripous.Data.SelectSql.DateRange
+  commentId: P:Tripous.Data.SelectSql.DateRange
+  id: DateRange
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: DateRange
+  nameWithType: SelectSql.DateRange
+  fullName: Tripous.Data.SelectSql.DateRange
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateRange
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 526
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A DateRange.
+
+
+    <p>It works in conjuction with DateRangeColumn property in order to produce
+
+    a fixed part in the WHERE clause of this select statement.</p>
+  example: []
+  syntax:
+    content: public DateRange DateRange { get; set; }
+    parameters: []
+    return:
+      type: Tripous.DateRange
+    content.vb: Public Property DateRange As DateRange
+  overload: Tripous.Data.SelectSql.DateRange*
+- uid: Tripous.Data.SelectSql.Select
+  commentId: P:Tripous.Data.SelectSql.Select
+  id: Select
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Select
+  nameWithType: SelectSql.Select
+  fullName: Tripous.Data.SelectSql.Select
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Select
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 531
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the SELECT clause.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string Select { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property [Select] As String
+  overload: Tripous.Data.SelectSql.Select*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.From
+  commentId: P:Tripous.Data.SelectSql.From
+  id: From
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: From
+  nameWithType: SelectSql.From
+  fullName: Tripous.Data.SelectSql.From
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: From
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 536
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the FROM clause.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string From { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property From As String
+  overload: Tripous.Data.SelectSql.From*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.Where
+  commentId: P:Tripous.Data.SelectSql.Where
+  id: Where
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Where
+  nameWithType: SelectSql.Where
+  fullName: Tripous.Data.SelectSql.Where
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Where
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 541
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the WHERE clause.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string Where { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Where As String
+  overload: Tripous.Data.SelectSql.Where*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.WhereUser
+  commentId: P:Tripous.Data.SelectSql.WhereUser
+  id: WhereUser
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: WhereUser
+  nameWithType: SelectSql.WhereUser
+  fullName: Tripous.Data.SelectSql.WhereUser
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WhereUser
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 546
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the WHERE clause, that part that is considered user where.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string WhereUser { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property WhereUser As String
+  overload: Tripous.Data.SelectSql.WhereUser*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.GroupBy
+  commentId: P:Tripous.Data.SelectSql.GroupBy
+  id: GroupBy
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: GroupBy
+  nameWithType: SelectSql.GroupBy
+  fullName: Tripous.Data.SelectSql.GroupBy
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupBy
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 551
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the GROUP BY clause.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string GroupBy { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property GroupBy As String
+  overload: Tripous.Data.SelectSql.GroupBy*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.Having
+  commentId: P:Tripous.Data.SelectSql.Having
+  id: Having
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Having
+  nameWithType: SelectSql.Having
+  fullName: Tripous.Data.SelectSql.Having
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Having
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 556
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the HAVING clause.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string Having { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Having As String
+  overload: Tripous.Data.SelectSql.Having*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.OrderBy
+  commentId: P:Tripous.Data.SelectSql.OrderBy
+  id: OrderBy
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: OrderBy
+  nameWithType: SelectSql.OrderBy
+  fullName: Tripous.Data.SelectSql.OrderBy
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OrderBy
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 561
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the ORDER BY clause.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string OrderBy { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property OrderBy As String
+  overload: Tripous.Data.SelectSql.OrderBy*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.IsEmpty
+  commentId: P:Tripous.Data.SelectSql.IsEmpty
+  id: IsEmpty
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: IsEmpty
+  nameWithType: SelectSql.IsEmpty
+  fullName: Tripous.Data.SelectSql.IsEmpty
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsEmpty
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 566
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if the statement is empty
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsEmpty { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsEmpty As Boolean
+  overload: Tripous.Data.SelectSql.IsEmpty*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SelectSql.Table
+  commentId: P:Tripous.Data.SelectSql.Table
+  id: Table
+  parent: Tripous.Data.SelectSql
+  langs:
+  - csharp
+  - vb
+  name: Table
+  nameWithType: SelectSql.Table
+  fullName: Tripous.Data.SelectSql.Table
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSql.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Table
+    path: ../Tripous.Data/SelectSql.cs
+    startLine: 571
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The DataTable that results after the select execution
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public MemTable Table { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.MemTable
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Table As MemTable
+  overload: Tripous.Data.SelectSql.Table*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.BaseDef.fTitleKey
+  commentId: F:Tripous.BaseDef.fTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey
+  name: fTitleKey
+  nameWithType: BaseDef.fTitleKey
+  fullName: Tripous.BaseDef.fTitleKey
+- uid: Tripous.BaseDef.fName
+  commentId: F:Tripous.BaseDef.fName
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fName
+  name: fName
+  nameWithType: BaseDef.fName
+  fullName: Tripous.BaseDef.fName
+- uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  commentId: M:Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  parent: Tripous.BaseDef
+  isExternal: true
+  href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  name: NotifyPropertyChanged(string)
+  nameWithType: BaseDef.NotifyPropertyChanged(string)
+  fullName: Tripous.BaseDef.NotifyPropertyChanged(string)
+  nameWithType.vb: BaseDef.NotifyPropertyChanged(String)
+  fullName.vb: Tripous.BaseDef.NotifyPropertyChanged(String)
+  name.vb: NotifyPropertyChanged(String)
+  spec.csharp:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.ToString
+  commentId: M:Tripous.BaseDef.ToString
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  name: ToString()
+  nameWithType: BaseDef.ToString()
+  fullName: Tripous.BaseDef.ToString()
+  spec.csharp:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.UpdateReferences
+  commentId: M:Tripous.BaseDef.UpdateReferences
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  name: UpdateReferences()
+  nameWithType: BaseDef.UpdateReferences()
+  fullName: Tripous.BaseDef.UpdateReferences()
+  spec.csharp:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.JsonLoaded
+  commentId: M:Tripous.BaseDef.JsonLoaded
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  name: JsonLoaded()
+  nameWithType: BaseDef.JsonLoaded()
+  fullName: Tripous.BaseDef.JsonLoaded()
+  spec.csharp:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CreateNew
+  commentId: M:Tripous.BaseDef.CreateNew
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  name: CreateNew()
+  nameWithType: BaseDef.CreateNew()
+  fullName: Tripous.BaseDef.CreateNew()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.BaseDef.Assign(Tripous.IDef)
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  name: Assign(IDef)
+  nameWithType: BaseDef.Assign(IDef)
+  fullName: Tripous.BaseDef.Assign(Tripous.IDef)
+  spec.csharp:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+- uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  commentId: M:Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  name: SplitTitleKeyToWordsWithPluralEnding()
+  nameWithType: BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  fullName: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  spec.csharp:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
+- uid: Tripous.BaseDef.TitleKey
+  commentId: P:Tripous.BaseDef.TitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_TitleKey
+  name: TitleKey
+  nameWithType: BaseDef.TitleKey
+  fullName: Tripous.BaseDef.TitleKey
+- uid: Tripous.BaseDef.IsTitleKeyEmpty
+  commentId: P:Tripous.BaseDef.IsTitleKeyEmpty
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty
+  name: IsTitleKeyEmpty
+  nameWithType: BaseDef.IsTitleKeyEmpty
+  fullName: Tripous.BaseDef.IsTitleKeyEmpty
+- uid: Tripous.BaseDef.Title
+  commentId: P:Tripous.BaseDef.Title
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Title
+  name: Title
+  nameWithType: BaseDef.Title
+  fullName: Tripous.BaseDef.Title
+- uid: Tripous.BaseDef.Tag
+  commentId: P:Tripous.BaseDef.Tag
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Tag
+  name: Tag
+  nameWithType: BaseDef.Tag
+  fullName: Tripous.BaseDef.Tag
+- uid: Tripous.BaseDef.IsSerializable
+  commentId: P:Tripous.BaseDef.IsSerializable
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable
+  name: IsSerializable
+  nameWithType: BaseDef.IsSerializable
+  fullName: Tripous.BaseDef.IsSerializable
+- uid: Tripous.BaseDef.PropertyChanged
+  commentId: E:Tripous.BaseDef.PropertyChanged
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged
+  name: PropertyChanged
+  nameWithType: BaseDef.PropertyChanged
+  fullName: Tripous.BaseDef.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SelectSql.#ctor*
+  commentId: Overload:Tripous.Data.SelectSql.#ctor
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql__ctor
+  name: SelectSql
+  nameWithType: SelectSql.SelectSql
+  fullName: Tripous.Data.SelectSql.SelectSql
+  nameWithType.vb: SelectSql.New
+  fullName.vb: Tripous.Data.SelectSql.New
+  name.vb: New
+- uid: Tripous.Data.SelectSql.CR*
+  commentId: Overload:Tripous.Data.SelectSql.CR
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_CR_System_String_
+  name: CR
+  nameWithType: SelectSql.CR
+  fullName: Tripous.Data.SelectSql.CR
+- uid: Tripous.Data.SelectSql.ReplaceLastComma*
+  commentId: Overload:Tripous.Data.SelectSql.ReplaceLastComma
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_ReplaceLastComma_System_String__
+  name: ReplaceLastComma
+  nameWithType: SelectSql.ReplaceLastComma
+  fullName: Tripous.Data.SelectSql.ReplaceLastComma
+- uid: Tripous.Data.SelectSql.AddTo*
+  commentId: Overload:Tripous.Data.SelectSql.AddTo
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_AddTo_System_String_System_String_System_String_
+  name: AddTo
+  nameWithType: SelectSql.AddTo
+  fullName: Tripous.Data.SelectSql.AddTo
+- uid: Tripous.Data.SelectSql.NormalizeClause*
+  commentId: Overload:Tripous.Data.SelectSql.NormalizeClause
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_NormalizeClause_System_String_System_String_
+  name: NormalizeClause
+  nameWithType: SelectSql.NormalizeClause
+  fullName: Tripous.Data.SelectSql.NormalizeClause
+- uid: Tripous.Data.SelectSql.IsMasked*
+  commentId: Overload:Tripous.Data.SelectSql.IsMasked
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_IsMasked_System_String_
+  name: IsMasked
+  nameWithType: SelectSql.IsMasked
+  fullName: Tripous.Data.SelectSql.IsMasked
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.SelectSql.DateRangeConstructWhereParams*
+  commentId: Overload:Tripous.Data.SelectSql.DateRangeConstructWhereParams
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_DateRangeConstructWhereParams_Tripous_DateRange_System_String_
+  name: DateRangeConstructWhereParams
+  nameWithType: SelectSql.DateRangeConstructWhereParams
+  fullName: Tripous.Data.SelectSql.DateRangeConstructWhereParams
+- uid: Tripous.DateRange
+  commentId: T:Tripous.DateRange
+  parent: Tripous
+  href: Tripous.DateRange.html
+  name: DateRange
+  nameWithType: DateRange
+  fullName: Tripous.DateRange
+- uid: Tripous.Data.SelectSql.DateRangeReplaceWhereParams*
+  commentId: Overload:Tripous.Data.SelectSql.DateRangeReplaceWhereParams
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_DateRangeReplaceWhereParams_System_String__Tripous_Data_SqlProvider_
+  name: DateRangeReplaceWhereParams
+  nameWithType: SelectSql.DateRangeReplaceWhereParams
+  fullName: Tripous.Data.SelectSql.DateRangeReplaceWhereParams
+- uid: Tripous.Data.SqlProvider
+  commentId: T:Tripous.Data.SqlProvider
+  parent: Tripous.Data
+  href: Tripous.Data.SqlProvider.html
+  name: SqlProvider
+  nameWithType: SqlProvider
+  fullName: Tripous.Data.SqlProvider
+- uid: Tripous.BaseDef.CheckDescriptor
+  commentId: M:Tripous.BaseDef.CheckDescriptor
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  name: CheckDescriptor()
+  nameWithType: BaseDef.CheckDescriptor()
+  fullName: Tripous.BaseDef.CheckDescriptor()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+- uid: Tripous.Data.SelectSql.CheckDescriptor*
+  commentId: Overload:Tripous.Data.SelectSql.CheckDescriptor
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_CheckDescriptor
+  name: CheckDescriptor
+  nameWithType: SelectSql.CheckDescriptor
+  fullName: Tripous.Data.SelectSql.CheckDescriptor
+- uid: Tripous.BaseDef.Clear
+  commentId: M:Tripous.BaseDef.Clear
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  name: Clear()
+  nameWithType: BaseDef.Clear()
+  fullName: Tripous.BaseDef.Clear()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+- uid: Tripous.Data.SelectSql.Clear*
+  commentId: Overload:Tripous.Data.SelectSql.Clear
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Clear
+  name: Clear
+  nameWithType: SelectSql.Clear
+  fullName: Tripous.Data.SelectSql.Clear
+- uid: Tripous.Data.SelectSql.Assign*
+  commentId: Overload:Tripous.Data.SelectSql.Assign
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Assign_System_Object_
+  name: Assign
+  nameWithType: SelectSql.Assign
+  fullName: Tripous.Data.SelectSql.Assign
+- uid: Tripous.BaseDef.Clone
+  commentId: M:Tripous.BaseDef.Clone
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  name: Clone()
+  nameWithType: BaseDef.Clone()
+  fullName: Tripous.BaseDef.Clone()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+- uid: Tripous.Data.SelectSql.Clone*
+  commentId: Overload:Tripous.Data.SelectSql.Clone
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Clone
+  name: Clone
+  nameWithType: SelectSql.Clone
+  fullName: Tripous.Data.SelectSql.Clone
+- uid: Tripous.Data.SelectSql.GetSqlText*
+  commentId: Overload:Tripous.Data.SelectSql.GetSqlText
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_GetSqlText
+  name: GetSqlText
+  nameWithType: SelectSql.GetSqlText
+  fullName: Tripous.Data.SelectSql.GetSqlText
+- uid: Tripous.Data.SelectSql.AddToWhere*
+  commentId: Overload:Tripous.Data.SelectSql.AddToWhere
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_AddToWhere_System_String_
+  name: AddToWhere
+  nameWithType: SelectSql.AddToWhere
+  fullName: Tripous.Data.SelectSql.AddToWhere
+- uid: Tripous.Data.SelectSql.OrToWhere*
+  commentId: Overload:Tripous.Data.SelectSql.OrToWhere
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_OrToWhere_System_String_
+  name: OrToWhere
+  nameWithType: SelectSql.OrToWhere
+  fullName: Tripous.Data.SelectSql.OrToWhere
+- uid: Tripous.Data.SelectSql.AddToGroupBy*
+  commentId: Overload:Tripous.Data.SelectSql.AddToGroupBy
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_AddToGroupBy_System_String_
+  name: AddToGroupBy
+  nameWithType: SelectSql.AddToGroupBy
+  fullName: Tripous.Data.SelectSql.AddToGroupBy
+- uid: Tripous.Data.SelectSql.AddToHaving*
+  commentId: Overload:Tripous.Data.SelectSql.AddToHaving
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_AddToHaving_System_String_
+  name: AddToHaving
+  nameWithType: SelectSql.AddToHaving
+  fullName: Tripous.Data.SelectSql.AddToHaving
+- uid: Tripous.Data.SelectSql.AddToOrderBy*
+  commentId: Overload:Tripous.Data.SelectSql.AddToOrderBy
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_AddToOrderBy_System_String_
+  name: AddToOrderBy
+  nameWithType: SelectSql.AddToOrderBy
+  fullName: Tripous.Data.SelectSql.AddToOrderBy
+- uid: Tripous.Data.SelectSql.RemoveOrderBy*
+  commentId: Overload:Tripous.Data.SelectSql.RemoveOrderBy
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_RemoveOrderBy
+  name: RemoveOrderBy
+  nameWithType: SelectSql.RemoveOrderBy
+  fullName: Tripous.Data.SelectSql.RemoveOrderBy
+- uid: Tripous.Data.SelectSql.SelectFromToString*
+  commentId: Overload:Tripous.Data.SelectSql.SelectFromToString
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_SelectFromToString
+  name: SelectFromToString
+  nameWithType: SelectSql.SelectFromToString
+  fullName: Tripous.Data.SelectSql.SelectFromToString
+- uid: Tripous.Data.SelectSql.Parse*
+  commentId: Overload:Tripous.Data.SelectSql.Parse
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Parse_System_String_
+  name: Parse
+  nameWithType: SelectSql.Parse
+  fullName: Tripous.Data.SelectSql.Parse
+- uid: Tripous.Data.SelectSql.ParseFromTableName*
+  commentId: Overload:Tripous.Data.SelectSql.ParseFromTableName
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_ParseFromTableName_System_String_
+  name: ParseFromTableName
+  nameWithType: SelectSql.ParseFromTableName
+  fullName: Tripous.Data.SelectSql.ParseFromTableName
+- uid: Tripous.Data.SelectSql.GetMainTableName*
+  commentId: Overload:Tripous.Data.SelectSql.GetMainTableName
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_GetMainTableName
+  name: GetMainTableName
+  nameWithType: SelectSql.GetMainTableName
+  fullName: Tripous.Data.SelectSql.GetMainTableName
+- uid: Tripous.Data.SelectSql.Text*
+  commentId: Overload:Tripous.Data.SelectSql.Text
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Text
+  name: Text
+  nameWithType: SelectSql.Text
+  fullName: Tripous.Data.SelectSql.Text
+- uid: Tripous.Data.SelectSql.CompanyAware*
+  commentId: Overload:Tripous.Data.SelectSql.CompanyAware
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_CompanyAware
+  name: CompanyAware
+  nameWithType: SelectSql.CompanyAware
+  fullName: Tripous.Data.SelectSql.CompanyAware
+- uid: Tripous.Data.SelectSql.ConnectionName*
+  commentId: Overload:Tripous.Data.SelectSql.ConnectionName
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_ConnectionName
+  name: ConnectionName
+  nameWithType: SelectSql.ConnectionName
+  fullName: Tripous.Data.SelectSql.ConnectionName
+- uid: Tripous.Data.SelectSql.DateRangeColumn*
+  commentId: Overload:Tripous.Data.SelectSql.DateRangeColumn
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_DateRangeColumn
+  name: DateRangeColumn
+  nameWithType: SelectSql.DateRangeColumn
+  fullName: Tripous.Data.SelectSql.DateRangeColumn
+- uid: Tripous.Data.SelectSql.DateRange*
+  commentId: Overload:Tripous.Data.SelectSql.DateRange
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_DateRange
+  name: DateRange
+  nameWithType: SelectSql.DateRange
+  fullName: Tripous.Data.SelectSql.DateRange
+- uid: Tripous.Data.SelectSql.Select*
+  commentId: Overload:Tripous.Data.SelectSql.Select
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Select
+  name: Select
+  nameWithType: SelectSql.Select
+  fullName: Tripous.Data.SelectSql.Select
+- uid: Tripous.Data.SelectSql.From*
+  commentId: Overload:Tripous.Data.SelectSql.From
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_From
+  name: From
+  nameWithType: SelectSql.From
+  fullName: Tripous.Data.SelectSql.From
+- uid: Tripous.Data.SelectSql.Where*
+  commentId: Overload:Tripous.Data.SelectSql.Where
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Where
+  name: Where
+  nameWithType: SelectSql.Where
+  fullName: Tripous.Data.SelectSql.Where
+- uid: Tripous.Data.SelectSql.WhereUser*
+  commentId: Overload:Tripous.Data.SelectSql.WhereUser
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_WhereUser
+  name: WhereUser
+  nameWithType: SelectSql.WhereUser
+  fullName: Tripous.Data.SelectSql.WhereUser
+- uid: Tripous.Data.SelectSql.GroupBy*
+  commentId: Overload:Tripous.Data.SelectSql.GroupBy
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_GroupBy
+  name: GroupBy
+  nameWithType: SelectSql.GroupBy
+  fullName: Tripous.Data.SelectSql.GroupBy
+- uid: Tripous.Data.SelectSql.Having*
+  commentId: Overload:Tripous.Data.SelectSql.Having
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Having
+  name: Having
+  nameWithType: SelectSql.Having
+  fullName: Tripous.Data.SelectSql.Having
+- uid: Tripous.Data.SelectSql.OrderBy*
+  commentId: Overload:Tripous.Data.SelectSql.OrderBy
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_OrderBy
+  name: OrderBy
+  nameWithType: SelectSql.OrderBy
+  fullName: Tripous.Data.SelectSql.OrderBy
+- uid: Tripous.Data.SelectSql.IsEmpty*
+  commentId: Overload:Tripous.Data.SelectSql.IsEmpty
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_IsEmpty
+  name: IsEmpty
+  nameWithType: SelectSql.IsEmpty
+  fullName: Tripous.Data.SelectSql.IsEmpty
+- uid: Tripous.Data.SelectSql.Table*
+  commentId: Overload:Tripous.Data.SelectSql.Table
+  href: Tripous.Data.SelectSql.html#Tripous_Data_SelectSql_Table
+  name: Table
+  nameWithType: SelectSql.Table
+  fullName: Tripous.Data.SelectSql.Table
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable

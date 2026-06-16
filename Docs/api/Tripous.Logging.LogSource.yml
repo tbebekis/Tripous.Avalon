@@ -1,0 +1,1457 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Logging.LogSource
+  commentId: T:Tripous.Logging.LogSource
+  id: LogSource
+  parent: Tripous.Logging
+  children:
+  - Tripous.Logging.LogSource.#ctor(System.String)
+  - Tripous.Logging.LogSource.Active
+  - Tripous.Logging.LogSource.Create(System.String)
+  - Tripous.Logging.LogSource.Debug(System.String)
+  - Tripous.Logging.LogSource.Debug(System.String,System.String)
+  - Tripous.Logging.LogSource.EnterScope(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  - Tripous.Logging.LogSource.Error(System.Exception)
+  - Tripous.Logging.LogSource.Error(System.String)
+  - Tripous.Logging.LogSource.Error(System.String,System.Exception)
+  - Tripous.Logging.LogSource.Error(System.String,System.String)
+  - Tripous.Logging.LogSource.ExitScope
+  - Tripous.Logging.LogSource.Info(System.String)
+  - Tripous.Logging.LogSource.Info(System.String,System.String)
+  - Tripous.Logging.LogSource.Log(System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  - Tripous.Logging.LogSource.Log(System.String,Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  - Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  - Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  - Tripous.Logging.LogSource.Name
+  - Tripous.Logging.LogSource.Trace(System.String)
+  - Tripous.Logging.LogSource.Trace(System.String,System.String)
+  - Tripous.Logging.LogSource.Warn(System.String)
+  - Tripous.Logging.LogSource.Warn(System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: LogSource
+  nameWithType: LogSource
+  fullName: Tripous.Logging.LogSource
+  type: Class
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogSource
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: >-
+    Represents a named source in a log.
+
+
+    <p>The Source and the Scope of a LogEntry are just names devised by the developer.</p>
+
+    <p>A Source could be the full name of a class, such as a MainForm, an action url or any other suitable string and it marks all the log messages produced by this source.</p>
+
+    <p>A Scope could be the name of a method or the name of a group of methods, or whatever.</p>
+
+    <p>The Logger class provides a method to create a Source.</p>
+
+    <p>The Source creates a Default Scope when it is created. The developer never gets a reference to a Scope.</p>
+
+    <p>The developer may call EnterScope(...) passing it a Scope name.</p>
+
+    <p>The ExitScope() exits the last entered Scope. The Default Scope cannot exited.</p>
+
+    <p>It is even safe to call ExitScope() more times than the existing Scopes.</p>
+
+    <p>Any call to Source log methods, such as Log(), Debug(), Error(), etc. produces a LogEntry marked with the Source name and the name of the latest Scope.</p>
+  example: []
+  syntax:
+    content: public class LogSource
+    content.vb: Public Class LogSource
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Logging.LogSource.#ctor(System.String)
+  commentId: M:Tripous.Logging.LogSource.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: LogSource(string)
+  nameWithType: LogSource.LogSource(string)
+  fullName: Tripous.Logging.LogSource.LogSource(string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 94
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Constructor
+  example: []
+  syntax:
+    content: public LogSource(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    content.vb: Public Sub New(Name As String)
+  overload: Tripous.Logging.LogSource.#ctor*
+  nameWithType.vb: LogSource.New(String)
+  fullName.vb: Tripous.Logging.LogSource.New(String)
+  name.vb: New(String)
+- uid: Tripous.Logging.LogSource.Create(System.String)
+  commentId: M:Tripous.Logging.LogSource.Create(System.String)
+  id: Create(System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Create(string)
+  nameWithType: LogSource.Create(string)
+  fullName: Tripous.Logging.LogSource.Create(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Create
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 109
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Creates and returns a source
+  example: []
+  syntax:
+    content: public static LogSource Create(string Name)
+    parameters:
+    - id: Name
+      type: System.String
+    return:
+      type: Tripous.Logging.LogSource
+    content.vb: Public Shared Function Create(Name As String) As LogSource
+  overload: Tripous.Logging.LogSource.Create*
+  nameWithType.vb: LogSource.Create(String)
+  fullName.vb: Tripous.Logging.LogSource.Create(String)
+  name.vb: Create(String)
+- uid: Tripous.Logging.LogSource.EnterScope(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  commentId: M:Tripous.Logging.LogSource.EnterScope(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  id: EnterScope(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: EnterScope(string, Dictionary<string, object>)
+  nameWithType: LogSource.EnterScope(string, Dictionary<string, object>)
+  fullName: Tripous.Logging.LogSource.EnterScope(string, System.Collections.Generic.Dictionary<string, object>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EnterScope
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 119
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: >-
+    Begins a new log scope. A log scope is just a label under which next log messages are recorded. Log scopes can be nested.
+
+
+    <p>The Name of a scope is the label of the scope.</p>
+
+    <p>Scope params are attached to each log message in that scope. </p>
+  example: []
+  syntax:
+    content: public void EnterScope(string ScopeName, Dictionary<string, object> ScopeParams = null)
+    parameters:
+    - id: ScopeName
+      type: System.String
+    - id: ScopeParams
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Sub EnterScope(ScopeName As String, ScopeParams As Dictionary(Of String, Object) = Nothing)
+  overload: Tripous.Logging.LogSource.EnterScope*
+  nameWithType.vb: LogSource.EnterScope(String, Dictionary(Of String, Object))
+  fullName.vb: Tripous.Logging.LogSource.EnterScope(String, System.Collections.Generic.Dictionary(Of String, Object))
+  name.vb: EnterScope(String, Dictionary(Of String, Object))
+- uid: Tripous.Logging.LogSource.ExitScope
+  commentId: M:Tripous.Logging.LogSource.ExitScope
+  id: ExitScope
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: ExitScope()
+  nameWithType: LogSource.ExitScope()
+  fullName: Tripous.Logging.LogSource.ExitScope()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExitScope
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 133
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Exits the last entered scope.
+  example: []
+  syntax:
+    content: public void ExitScope()
+    content.vb: Public Sub ExitScope()
+  overload: Tripous.Logging.LogSource.ExitScope*
+- uid: Tripous.Logging.LogSource.Log(System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  commentId: M:Tripous.Logging.LogSource.Log(System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  id: Log(System.String,Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Log(string, LogLevel, Exception, string, Dictionary<string, object>)
+  nameWithType: LogSource.Log(string, LogLevel, Exception, string, Dictionary<string, object>)
+  fullName: Tripous.Logging.LogSource.Log(string, Tripous.Logging.LogLevel, System.Exception, string, System.Collections.Generic.Dictionary<string, object>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Log
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 148
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a message
+  example: []
+  syntax:
+    content: public void Log(string EventId, LogLevel Level, Exception Ex, string Text, Dictionary<string, object> Params)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Level
+      type: Tripous.Logging.LogLevel
+    - id: Ex
+      type: System.Exception
+    - id: Text
+      type: System.String
+    - id: Params
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Sub Log(EventId As String, Level As LogLevel, Ex As Exception, Text As String, Params As Dictionary(Of String, Object))
+  overload: Tripous.Logging.LogSource.Log*
+  nameWithType.vb: LogSource.Log(String, LogLevel, Exception, String, Dictionary(Of String, Object))
+  fullName.vb: Tripous.Logging.LogSource.Log(String, Tripous.Logging.LogLevel, System.Exception, String, System.Collections.Generic.Dictionary(Of String, Object))
+  name.vb: Log(String, LogLevel, Exception, String, Dictionary(Of String, Object))
+- uid: Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  commentId: M:Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  id: Log(Tripous.Logging.LogLevel,System.Exception,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Log(LogLevel, Exception, string, Dictionary<string, object>)
+  nameWithType: LogSource.Log(LogLevel, Exception, string, Dictionary<string, object>)
+  fullName: Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel, System.Exception, string, System.Collections.Generic.Dictionary<string, object>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Log
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 172
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a message
+  example: []
+  syntax:
+    content: public void Log(LogLevel Level, Exception Ex, string Text, Dictionary<string, object> Params)
+    parameters:
+    - id: Level
+      type: Tripous.Logging.LogLevel
+    - id: Ex
+      type: System.Exception
+    - id: Text
+      type: System.String
+    - id: Params
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Sub Log(Level As LogLevel, Ex As Exception, Text As String, Params As Dictionary(Of String, Object))
+  overload: Tripous.Logging.LogSource.Log*
+  nameWithType.vb: LogSource.Log(LogLevel, Exception, String, Dictionary(Of String, Object))
+  fullName.vb: Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel, System.Exception, String, System.Collections.Generic.Dictionary(Of String, Object))
+  name.vb: Log(LogLevel, Exception, String, Dictionary(Of String, Object))
+- uid: Tripous.Logging.LogSource.Log(System.String,Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  commentId: M:Tripous.Logging.LogSource.Log(System.String,Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  id: Log(System.String,Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Log(string, LogLevel, string, Dictionary<string, object>)
+  nameWithType: LogSource.Log(string, LogLevel, string, Dictionary<string, object>)
+  fullName: Tripous.Logging.LogSource.Log(string, Tripous.Logging.LogLevel, string, System.Collections.Generic.Dictionary<string, object>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Log
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 180
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a message
+  example: []
+  syntax:
+    content: public void Log(string EventId, LogLevel Level, string Text, Dictionary<string, object> Params)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Level
+      type: Tripous.Logging.LogLevel
+    - id: Text
+      type: System.String
+    - id: Params
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Sub Log(EventId As String, Level As LogLevel, Text As String, Params As Dictionary(Of String, Object))
+  overload: Tripous.Logging.LogSource.Log*
+  nameWithType.vb: LogSource.Log(String, LogLevel, String, Dictionary(Of String, Object))
+  fullName.vb: Tripous.Logging.LogSource.Log(String, Tripous.Logging.LogLevel, String, System.Collections.Generic.Dictionary(Of String, Object))
+  name.vb: Log(String, LogLevel, String, Dictionary(Of String, Object))
+- uid: Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  commentId: M:Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  id: Log(Tripous.Logging.LogLevel,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Log(LogLevel, string, Dictionary<string, object>)
+  nameWithType: LogSource.Log(LogLevel, string, Dictionary<string, object>)
+  fullName: Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel, string, System.Collections.Generic.Dictionary<string, object>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Log
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 188
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a message
+  example: []
+  syntax:
+    content: public void Log(LogLevel Level, string Text, Dictionary<string, object> Params)
+    parameters:
+    - id: Level
+      type: Tripous.Logging.LogLevel
+    - id: Text
+      type: System.String
+    - id: Params
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Sub Log(Level As LogLevel, Text As String, Params As Dictionary(Of String, Object))
+  overload: Tripous.Logging.LogSource.Log*
+  nameWithType.vb: LogSource.Log(LogLevel, String, Dictionary(Of String, Object))
+  fullName.vb: Tripous.Logging.LogSource.Log(Tripous.Logging.LogLevel, String, System.Collections.Generic.Dictionary(Of String, Object))
+  name.vb: Log(LogLevel, String, Dictionary(Of String, Object))
+- uid: Tripous.Logging.LogSource.Trace(System.String,System.String)
+  commentId: M:Tripous.Logging.LogSource.Trace(System.String,System.String)
+  id: Trace(System.String,System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Trace(string, string)
+  nameWithType: LogSource.Trace(string, string)
+  fullName: Tripous.Logging.LogSource.Trace(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Trace
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 198
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a trace level message
+  example: []
+  syntax:
+    content: public void Trace(string EventId, string Text)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Trace(EventId As String, Text As String)
+  overload: Tripous.Logging.LogSource.Trace*
+  nameWithType.vb: LogSource.Trace(String, String)
+  fullName.vb: Tripous.Logging.LogSource.Trace(String, String)
+  name.vb: Trace(String, String)
+- uid: Tripous.Logging.LogSource.Trace(System.String)
+  commentId: M:Tripous.Logging.LogSource.Trace(System.String)
+  id: Trace(System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Trace(string)
+  nameWithType: LogSource.Trace(string)
+  fullName: Tripous.Logging.LogSource.Trace(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Trace
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 205
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a trace level message
+  example: []
+  syntax:
+    content: public void Trace(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Trace(Text As String)
+  overload: Tripous.Logging.LogSource.Trace*
+  nameWithType.vb: LogSource.Trace(String)
+  fullName.vb: Tripous.Logging.LogSource.Trace(String)
+  name.vb: Trace(String)
+- uid: Tripous.Logging.LogSource.Debug(System.String,System.String)
+  commentId: M:Tripous.Logging.LogSource.Debug(System.String,System.String)
+  id: Debug(System.String,System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Debug(string, string)
+  nameWithType: LogSource.Debug(string, string)
+  fullName: Tripous.Logging.LogSource.Debug(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Debug
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 214
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a debug level message
+  example: []
+  syntax:
+    content: public void Debug(string EventId, string Text)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Debug(EventId As String, Text As String)
+  overload: Tripous.Logging.LogSource.Debug*
+  nameWithType.vb: LogSource.Debug(String, String)
+  fullName.vb: Tripous.Logging.LogSource.Debug(String, String)
+  name.vb: Debug(String, String)
+- uid: Tripous.Logging.LogSource.Debug(System.String)
+  commentId: M:Tripous.Logging.LogSource.Debug(System.String)
+  id: Debug(System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Debug(string)
+  nameWithType: LogSource.Debug(string)
+  fullName: Tripous.Logging.LogSource.Debug(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Debug
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 221
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a debug level message
+  example: []
+  syntax:
+    content: public void Debug(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Debug(Text As String)
+  overload: Tripous.Logging.LogSource.Debug*
+  nameWithType.vb: LogSource.Debug(String)
+  fullName.vb: Tripous.Logging.LogSource.Debug(String)
+  name.vb: Debug(String)
+- uid: Tripous.Logging.LogSource.Info(System.String,System.String)
+  commentId: M:Tripous.Logging.LogSource.Info(System.String,System.String)
+  id: Info(System.String,System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Info(string, string)
+  nameWithType: LogSource.Info(string, string)
+  fullName: Tripous.Logging.LogSource.Info(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Info
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 230
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs an info level message
+  example: []
+  syntax:
+    content: public void Info(string EventId, string Text)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Info(EventId As String, Text As String)
+  overload: Tripous.Logging.LogSource.Info*
+  nameWithType.vb: LogSource.Info(String, String)
+  fullName.vb: Tripous.Logging.LogSource.Info(String, String)
+  name.vb: Info(String, String)
+- uid: Tripous.Logging.LogSource.Info(System.String)
+  commentId: M:Tripous.Logging.LogSource.Info(System.String)
+  id: Info(System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Info(string)
+  nameWithType: LogSource.Info(string)
+  fullName: Tripous.Logging.LogSource.Info(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Info
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 237
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs an info level message
+  example: []
+  syntax:
+    content: public void Info(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Info(Text As String)
+  overload: Tripous.Logging.LogSource.Info*
+  nameWithType.vb: LogSource.Info(String)
+  fullName.vb: Tripous.Logging.LogSource.Info(String)
+  name.vb: Info(String)
+- uid: Tripous.Logging.LogSource.Warn(System.String,System.String)
+  commentId: M:Tripous.Logging.LogSource.Warn(System.String,System.String)
+  id: Warn(System.String,System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Warn(string, string)
+  nameWithType: LogSource.Warn(string, string)
+  fullName: Tripous.Logging.LogSource.Warn(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Warn
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 246
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a warn level message
+  example: []
+  syntax:
+    content: public void Warn(string EventId, string Text)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Warn(EventId As String, Text As String)
+  overload: Tripous.Logging.LogSource.Warn*
+  nameWithType.vb: LogSource.Warn(String, String)
+  fullName.vb: Tripous.Logging.LogSource.Warn(String, String)
+  name.vb: Warn(String, String)
+- uid: Tripous.Logging.LogSource.Warn(System.String)
+  commentId: M:Tripous.Logging.LogSource.Warn(System.String)
+  id: Warn(System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Warn(string)
+  nameWithType: LogSource.Warn(string)
+  fullName: Tripous.Logging.LogSource.Warn(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Warn
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 253
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs a warn levelmessage
+  example: []
+  syntax:
+    content: public void Warn(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Warn(Text As String)
+  overload: Tripous.Logging.LogSource.Warn*
+  nameWithType.vb: LogSource.Warn(String)
+  fullName.vb: Tripous.Logging.LogSource.Warn(String)
+  name.vb: Warn(String)
+- uid: Tripous.Logging.LogSource.Error(System.String,System.Exception)
+  commentId: M:Tripous.Logging.LogSource.Error(System.String,System.Exception)
+  id: Error(System.String,System.Exception)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Error(string, Exception)
+  nameWithType: LogSource.Error(string, Exception)
+  fullName: Tripous.Logging.LogSource.Error(string, System.Exception)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Error
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 262
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs an error message
+  example: []
+  syntax:
+    content: public void Error(string EventId, Exception Ex)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Ex
+      type: System.Exception
+    content.vb: Public Sub [Error](EventId As String, Ex As Exception)
+  overload: Tripous.Logging.LogSource.Error*
+  nameWithType.vb: LogSource.Error(String, Exception)
+  fullName.vb: Tripous.Logging.LogSource.Error(String, System.Exception)
+  name.vb: Error(String, Exception)
+- uid: Tripous.Logging.LogSource.Error(System.Exception)
+  commentId: M:Tripous.Logging.LogSource.Error(System.Exception)
+  id: Error(System.Exception)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Error(Exception)
+  nameWithType: LogSource.Error(Exception)
+  fullName: Tripous.Logging.LogSource.Error(System.Exception)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Error
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 270
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs an error message
+  example: []
+  syntax:
+    content: public void Error(Exception Ex)
+    parameters:
+    - id: Ex
+      type: System.Exception
+    content.vb: Public Sub [Error](Ex As Exception)
+  overload: Tripous.Logging.LogSource.Error*
+- uid: Tripous.Logging.LogSource.Error(System.String,System.String)
+  commentId: M:Tripous.Logging.LogSource.Error(System.String,System.String)
+  id: Error(System.String,System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Error(string, string)
+  nameWithType: LogSource.Error(string, string)
+  fullName: Tripous.Logging.LogSource.Error(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Error
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 280
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs an error message
+  example: []
+  syntax:
+    content: public void Error(string EventId, string Text)
+    parameters:
+    - id: EventId
+      type: System.String
+    - id: Text
+      type: System.String
+    content.vb: Public Sub [Error](EventId As String, Text As String)
+  overload: Tripous.Logging.LogSource.Error*
+  nameWithType.vb: LogSource.Error(String, String)
+  fullName.vb: Tripous.Logging.LogSource.Error(String, String)
+  name.vb: Error(String, String)
+- uid: Tripous.Logging.LogSource.Error(System.String)
+  commentId: M:Tripous.Logging.LogSource.Error(System.String)
+  id: Error(System.String)
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Error(string)
+  nameWithType: LogSource.Error(string)
+  fullName: Tripous.Logging.LogSource.Error(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Error
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 287
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Logs an error message
+  example: []
+  syntax:
+    content: public void Error(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Sub [Error](Text As String)
+  overload: Tripous.Logging.LogSource.Error*
+  nameWithType.vb: LogSource.Error(String)
+  fullName.vb: Tripous.Logging.LogSource.Error(String)
+  name.vb: Error(String)
+- uid: Tripous.Logging.LogSource.Name
+  commentId: P:Tripous.Logging.LogSource.Name
+  id: Name
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: LogSource.Name
+  fullName: Tripous.Logging.LogSource.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 298
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: The name of this log source.
+  example: []
+  syntax:
+    content: public string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.Logging.LogSource.Name*
+- uid: Tripous.Logging.LogSource.Active
+  commentId: P:Tripous.Logging.LogSource.Active
+  id: Active
+  parent: Tripous.Logging.LogSource
+  langs:
+  - csharp
+  - vb
+  name: Active
+  nameWithType: LogSource.Active
+  fullName: Tripous.Logging.LogSource.Active
+  type: Property
+  source:
+    remote:
+      path: Tripous.Logging/LogSource.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Active
+    path: ../Tripous.Logging/LogSource.cs
+    startLine: 302
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: When false no logs are recorded. Defaults to true.
+  example: []
+  syntax:
+    content: public bool Active { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Active As Boolean
+  overload: Tripous.Logging.LogSource.Active*
+references:
+- uid: Tripous.Logging
+  commentId: N:Tripous.Logging
+  href: Tripous.html
+  name: Tripous.Logging
+  nameWithType: Tripous.Logging
+  fullName: Tripous.Logging
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Logging
+    name: Logging
+    href: Tripous.Logging.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Logging.LogSource.#ctor*
+  commentId: Overload:Tripous.Logging.LogSource.#ctor
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource__ctor_System_String_
+  name: LogSource
+  nameWithType: LogSource.LogSource
+  fullName: Tripous.Logging.LogSource.LogSource
+  nameWithType.vb: LogSource.New
+  fullName.vb: Tripous.Logging.LogSource.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Logging.LogSource.Create*
+  commentId: Overload:Tripous.Logging.LogSource.Create
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Create_System_String_
+  name: Create
+  nameWithType: LogSource.Create
+  fullName: Tripous.Logging.LogSource.Create
+- uid: Tripous.Logging.LogSource
+  commentId: T:Tripous.Logging.LogSource
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogSource.html
+  name: LogSource
+  nameWithType: LogSource
+  fullName: Tripous.Logging.LogSource
+- uid: Tripous.Logging.LogSource.EnterScope*
+  commentId: Overload:Tripous.Logging.LogSource.EnterScope
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_EnterScope_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__
+  name: EnterScope
+  nameWithType: LogSource.EnterScope
+  fullName: Tripous.Logging.LogSource.EnterScope
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Logging.LogSource.ExitScope*
+  commentId: Overload:Tripous.Logging.LogSource.ExitScope
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_ExitScope
+  name: ExitScope
+  nameWithType: LogSource.ExitScope
+  fullName: Tripous.Logging.LogSource.ExitScope
+- uid: Tripous.Logging.LogSource.Log*
+  commentId: Overload:Tripous.Logging.LogSource.Log
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Log_System_String_Tripous_Logging_LogLevel_System_Exception_System_String_System_Collections_Generic_Dictionary_System_String_System_Object__
+  name: Log
+  nameWithType: LogSource.Log
+  fullName: Tripous.Logging.LogSource.Log
+- uid: Tripous.Logging.LogLevel
+  commentId: T:Tripous.Logging.LogLevel
+  parent: Tripous.Logging
+  href: Tripous.Logging.LogLevel.html
+  name: LogLevel
+  nameWithType: LogLevel
+  fullName: Tripous.Logging.LogLevel
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: Tripous.Logging.LogSource.Trace*
+  commentId: Overload:Tripous.Logging.LogSource.Trace
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Trace_System_String_System_String_
+  name: Trace
+  nameWithType: LogSource.Trace
+  fullName: Tripous.Logging.LogSource.Trace
+- uid: Tripous.Logging.LogSource.Debug*
+  commentId: Overload:Tripous.Logging.LogSource.Debug
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Debug_System_String_System_String_
+  name: Debug
+  nameWithType: LogSource.Debug
+  fullName: Tripous.Logging.LogSource.Debug
+- uid: Tripous.Logging.LogSource.Info*
+  commentId: Overload:Tripous.Logging.LogSource.Info
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Info_System_String_System_String_
+  name: Info
+  nameWithType: LogSource.Info
+  fullName: Tripous.Logging.LogSource.Info
+- uid: Tripous.Logging.LogSource.Warn*
+  commentId: Overload:Tripous.Logging.LogSource.Warn
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Warn_System_String_System_String_
+  name: Warn
+  nameWithType: LogSource.Warn
+  fullName: Tripous.Logging.LogSource.Warn
+- uid: Tripous.Logging.LogSource.Error*
+  commentId: Overload:Tripous.Logging.LogSource.Error
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Error_System_String_System_Exception_
+  name: Error
+  nameWithType: LogSource.Error
+  fullName: Tripous.Logging.LogSource.Error
+- uid: Tripous.Logging.LogSource.Name*
+  commentId: Overload:Tripous.Logging.LogSource.Name
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Name
+  name: Name
+  nameWithType: LogSource.Name
+  fullName: Tripous.Logging.LogSource.Name
+- uid: Tripous.Logging.LogSource.Active*
+  commentId: Overload:Tripous.Logging.LogSource.Active
+  href: Tripous.Logging.LogSource.html#Tripous_Logging_LogSource_Active
+  name: Active
+  nameWithType: LogSource.Active
+  fullName: Tripous.Logging.LogSource.Active
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

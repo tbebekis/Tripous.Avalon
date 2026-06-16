@@ -1,0 +1,891 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.BatchCommitArgs
+  commentId: T:Tripous.Data.BatchCommitArgs
+  id: BatchCommitArgs
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.BatchCommitArgs.#ctor(System.Func{System.Boolean},System.Func{System.Object,System.Boolean},System.Int32)
+  - Tripous.Data.BatchCommitArgs.AfterFunc
+  - Tripous.Data.BatchCommitArgs.BeforeFunc
+  - Tripous.Data.BatchCommitArgs.Counter
+  - Tripous.Data.BatchCommitArgs.PostCounter
+  - Tripous.Data.BatchCommitArgs.Tag
+  - Tripous.Data.BatchCommitArgs.TransLimit
+  langs:
+  - csharp
+  - vb
+  name: BatchCommitArgs
+  nameWithType: BatchCommitArgs
+  fullName: Tripous.Data.BatchCommitArgs
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BatchCommitArgs
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Used with the TableSet  CommitBatch() method.
+  example: []
+  syntax:
+    content: 'public class BatchCommitArgs : EventArgs'
+    content.vb: Public Class BatchCommitArgs Inherits EventArgs
+  inheritance:
+  - System.Object
+  - System.EventArgs
+  inheritedMembers:
+  - System.EventArgs.Empty
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.BatchCommitArgs.#ctor(System.Func{System.Boolean},System.Func{System.Object,System.Boolean},System.Int32)
+  commentId: M:Tripous.Data.BatchCommitArgs.#ctor(System.Func{System.Boolean},System.Func{System.Object,System.Boolean},System.Int32)
+  id: '#ctor(System.Func{System.Boolean},System.Func{System.Object,System.Boolean},System.Int32)'
+  parent: Tripous.Data.BatchCommitArgs
+  langs:
+  - csharp
+  - vb
+  name: BatchCommitArgs(Func<bool>, Func<object, bool>, int)
+  nameWithType: BatchCommitArgs.BatchCommitArgs(Func<bool>, Func<object, bool>, int)
+  fullName: Tripous.Data.BatchCommitArgs.BatchCommitArgs(System.Func<bool>, System.Func<object, bool>, int)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 24
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Constructor
+
+
+    <p>BeforeFunc: Provided by caller. It is called before each iteration.</p>
+
+    <p>AfterFunc: Provided by caller. It is called after each iteration.
+
+    The whole batch operation terminates when AfterFunc() returns false</p>
+
+    <p>TransLimit: The transaction is commited each time the TransLimit is reached</p>
+  example: []
+  syntax:
+    content: public BatchCommitArgs(Func<bool> BeforeFunc = null, Func<object, bool> AfterFunc = null, int TransLimit = 300)
+    parameters:
+    - id: BeforeFunc
+      type: System.Func{System.Boolean}
+    - id: AfterFunc
+      type: System.Func{System.Object,System.Boolean}
+    - id: TransLimit
+      type: System.Int32
+    content.vb: Public Sub New(BeforeFunc As Func(Of Boolean) = Nothing, AfterFunc As Func(Of Object, Boolean) = Nothing, TransLimit As Integer = 300)
+  overload: Tripous.Data.BatchCommitArgs.#ctor*
+  nameWithType.vb: BatchCommitArgs.New(Func(Of Boolean), Func(Of Object, Boolean), Integer)
+  fullName.vb: Tripous.Data.BatchCommitArgs.New(System.Func(Of Boolean), System.Func(Of Object, Boolean), Integer)
+  name.vb: New(Func(Of Boolean), Func(Of Object, Boolean), Integer)
+- uid: Tripous.Data.BatchCommitArgs.Counter
+  commentId: P:Tripous.Data.BatchCommitArgs.Counter
+  id: Counter
+  parent: Tripous.Data.BatchCommitArgs
+  langs:
+  - csharp
+  - vb
+  name: Counter
+  nameWithType: BatchCommitArgs.Counter
+  fullName: Tripous.Data.BatchCommitArgs.Counter
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Counter
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The loop main counter. Just counts the iterations and increases in each iteration.
+
+
+    <p>An iteration may end up in posting a row, or NOT.</p>
+
+    <p>For an iteration to post, the BeforeFunc() must return true.</p>
+  example: []
+  syntax:
+    content: public int Counter { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Counter As Integer
+  overload: Tripous.Data.BatchCommitArgs.Counter*
+- uid: Tripous.Data.BatchCommitArgs.TransLimit
+  commentId: P:Tripous.Data.BatchCommitArgs.TransLimit
+  id: TransLimit
+  parent: Tripous.Data.BatchCommitArgs
+  langs:
+  - csharp
+  - vb
+  name: TransLimit
+  nameWithType: BatchCommitArgs.TransLimit
+  fullName: Tripous.Data.BatchCommitArgs.TransLimit
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TransLimit
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 41
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The transaction is commited each time the TransLimit is reached
+  example: []
+  syntax:
+    content: public int TransLimit { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property TransLimit As Integer
+  overload: Tripous.Data.BatchCommitArgs.TransLimit*
+- uid: Tripous.Data.BatchCommitArgs.PostCounter
+  commentId: P:Tripous.Data.BatchCommitArgs.PostCounter
+  id: PostCounter
+  parent: Tripous.Data.BatchCommitArgs
+  langs:
+  - csharp
+  - vb
+  name: PostCounter
+  nameWithType: BatchCommitArgs.PostCounter
+  fullName: Tripous.Data.BatchCommitArgs.PostCounter
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PostCounter
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    It increases when an iteration posts a row. The BeforeFunc() should return true, for this to happen.
+
+
+    <p>This is NOT the commit counter. It is the counter for the posts to the database
+
+    and is used, along with the TransLimit, to decide if the Transaction.Commit() should be called.</p>
+
+    <p>It is set by the TableSet, NOT the caller.</p>
+  example: []
+  syntax:
+    content: public int PostCounter { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property PostCounter As Integer
+  overload: Tripous.Data.BatchCommitArgs.PostCounter*
+- uid: Tripous.Data.BatchCommitArgs.BeforeFunc
+  commentId: P:Tripous.Data.BatchCommitArgs.BeforeFunc
+  id: BeforeFunc
+  parent: Tripous.Data.BatchCommitArgs
+  langs:
+  - csharp
+  - vb
+  name: BeforeFunc
+  nameWithType: BatchCommitArgs.BeforeFunc
+  fullName: Tripous.Data.BatchCommitArgs.BeforeFunc
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BeforeFunc
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Optional. Provided by caller. It is called before each and any iteration in the loop.
+
+
+    <p>If it returns true, then the TableSet/Broker posts the row and increases the PostCounter counter.</p>
+
+    <p>The caller should return true, only when calls Broker.Insert() or Broker.Edit() (NO Broker.Delete()) from inside this method.
+
+    Returning true is the sign that a row post is required.</p>
+
+    <p>NOTE: If it is not provided, it is considered as returning true always.</p>
+  example: []
+  syntax:
+    content: public Func<bool> BeforeFunc { get; }
+    parameters: []
+    return:
+      type: System.Func{System.Boolean}
+    content.vb: Public Property BeforeFunc As Func(Of Boolean)
+  overload: Tripous.Data.BatchCommitArgs.BeforeFunc*
+- uid: Tripous.Data.BatchCommitArgs.AfterFunc
+  commentId: P:Tripous.Data.BatchCommitArgs.AfterFunc
+  id: AfterFunc
+  parent: Tripous.Data.BatchCommitArgs
+  langs:
+  - csharp
+  - vb
+  name: AfterFunc
+  nameWithType: BatchCommitArgs.AfterFunc
+  fullName: Tripous.Data.BatchCommitArgs.AfterFunc
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AfterFunc
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Optional. Provided by caller. It is called after each (post or no-post) and any iteration in the loop.
+
+
+    <p>The TableSet passes the LastCommitedId to this method.</p>
+
+    <p>The whole batch operation terminates when this call returns false.</p>
+
+    <p>NOTE: If it is not provided, it is considered as returning true always.</p>
+  example: []
+  syntax:
+    content: public Func<object, bool> AfterFunc { get; }
+    parameters: []
+    return:
+      type: System.Func{System.Object,System.Boolean}
+    content.vb: Public Property AfterFunc As Func(Of Object, Boolean)
+  overload: Tripous.Data.BatchCommitArgs.AfterFunc*
+- uid: Tripous.Data.BatchCommitArgs.Tag
+  commentId: P:Tripous.Data.BatchCommitArgs.Tag
+  id: Tag
+  parent: Tripous.Data.BatchCommitArgs
+  langs:
+  - csharp
+  - vb
+  name: Tag
+  nameWithType: BatchCommitArgs.Tag
+  fullName: Tripous.Data.BatchCommitArgs.Tag
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/BatchCommitArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tag
+    path: ../Tripous.Data/BatchCommitArgs.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: User defined value.
+  example: []
+  syntax:
+    content: public object Tag { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property Tag As Object
+  overload: Tripous.Data.BatchCommitArgs.Tag*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.EventArgs
+  commentId: T:System.EventArgs
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventargs
+  name: EventArgs
+  nameWithType: EventArgs
+  fullName: System.EventArgs
+- uid: System.EventArgs.Empty
+  commentId: F:System.EventArgs.Empty
+  parent: System.EventArgs
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventargs.empty
+  name: Empty
+  nameWithType: EventArgs.Empty
+  fullName: System.EventArgs.Empty
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.BatchCommitArgs.#ctor*
+  commentId: Overload:Tripous.Data.BatchCommitArgs.#ctor
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs__ctor_System_Func_System_Boolean__System_Func_System_Object_System_Boolean__System_Int32_
+  name: BatchCommitArgs
+  nameWithType: BatchCommitArgs.BatchCommitArgs
+  fullName: Tripous.Data.BatchCommitArgs.BatchCommitArgs
+  nameWithType.vb: BatchCommitArgs.New
+  fullName.vb: Tripous.Data.BatchCommitArgs.New
+  name.vb: New
+- uid: System.Func{System.Boolean}
+  commentId: T:System.Func{System.Boolean}
+  parent: System
+  definition: System.Func`1
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<bool>
+  nameWithType: Func<bool>
+  fullName: System.Func<bool>
+  nameWithType.vb: Func(Of Boolean)
+  fullName.vb: System.Func(Of Boolean)
+  name.vb: Func(Of Boolean)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Func{System.Object,System.Boolean}
+  commentId: T:System.Func{System.Object,System.Boolean}
+  parent: System
+  definition: System.Func`2
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<object, bool>
+  nameWithType: Func<object, bool>
+  fullName: System.Func<object, bool>
+  nameWithType.vb: Func(Of Object, Boolean)
+  fullName.vb: System.Func(Of Object, Boolean)
+  name.vb: Func(Of Object, Boolean)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-2
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: <
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Tripous.Data.BatchCommitArgs.Counter*
+  commentId: Overload:Tripous.Data.BatchCommitArgs.Counter
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_Counter
+  name: Counter
+  nameWithType: BatchCommitArgs.Counter
+  fullName: Tripous.Data.BatchCommitArgs.Counter
+- uid: Tripous.Data.BatchCommitArgs.TransLimit*
+  commentId: Overload:Tripous.Data.BatchCommitArgs.TransLimit
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_TransLimit
+  name: TransLimit
+  nameWithType: BatchCommitArgs.TransLimit
+  fullName: Tripous.Data.BatchCommitArgs.TransLimit
+- uid: Tripous.Data.BatchCommitArgs.PostCounter*
+  commentId: Overload:Tripous.Data.BatchCommitArgs.PostCounter
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_PostCounter
+  name: PostCounter
+  nameWithType: BatchCommitArgs.PostCounter
+  fullName: Tripous.Data.BatchCommitArgs.PostCounter
+- uid: Tripous.Data.BatchCommitArgs.BeforeFunc*
+  commentId: Overload:Tripous.Data.BatchCommitArgs.BeforeFunc
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_BeforeFunc
+  name: BeforeFunc
+  nameWithType: BatchCommitArgs.BeforeFunc
+  fullName: Tripous.Data.BatchCommitArgs.BeforeFunc
+- uid: Tripous.Data.BatchCommitArgs.AfterFunc*
+  commentId: Overload:Tripous.Data.BatchCommitArgs.AfterFunc
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_AfterFunc
+  name: AfterFunc
+  nameWithType: BatchCommitArgs.AfterFunc
+  fullName: Tripous.Data.BatchCommitArgs.AfterFunc
+- uid: Tripous.Data.BatchCommitArgs.Tag*
+  commentId: Overload:Tripous.Data.BatchCommitArgs.Tag
+  href: Tripous.Data.BatchCommitArgs.html#Tripous_Data_BatchCommitArgs_Tag
+  name: Tag
+  nameWithType: BatchCommitArgs.Tag
+  fullName: Tripous.Data.BatchCommitArgs.Tag

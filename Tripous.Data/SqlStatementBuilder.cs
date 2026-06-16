@@ -75,8 +75,16 @@ public static class SqlStatementBuilder
         if (S3.Length > 2) S3 = S3.Remove(S3.Length - 2, 2);
 
         // insert
-        string SQL = "insert into {0} (" + LB + "{1}" + LB + ") values (" + LB + "{2}" + LB + ")";
-        SqlStatements.InsertRowSql = string.Format(SQL, TableName, S, S2);
+        string SQL;
+        if (!string.IsNullOrWhiteSpace(S))
+        {
+            SQL = "insert into {0} (" + LB + "{1}" + LB + ") values (" + LB + "{2}" + LB + ")";
+            SqlStatements.InsertRowSql = string.Format(SQL, TableName, S, S2);
+        }
+        else
+        {
+            SqlStatements.InsertRowSql = string.Empty;
+        }
 
         // update
         if (!string.IsNullOrWhiteSpace(S3))

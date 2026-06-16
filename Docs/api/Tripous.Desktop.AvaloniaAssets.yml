@@ -1,0 +1,1114 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.AvaloniaAssets
+  commentId: T:Tripous.Desktop.AvaloniaAssets
+  id: AvaloniaAssets
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.AvaloniaAssets.Combine(System.String,System.String[])
+  - Tripous.Desktop.AvaloniaAssets.CreateImage(Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  - Tripous.Desktop.AvaloniaAssets.FindAsset(System.String)
+  - Tripous.Desktop.AvaloniaAssets.FindImage(System.String)
+  - Tripous.Desktop.AvaloniaAssets.FindImage(System.String,Avalonia.Size)
+  - Tripous.Desktop.AvaloniaAssets.FindImage(System.String,Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  - Tripous.Desktop.AvaloniaAssets.FindImage16(System.String)
+  - Tripous.Desktop.AvaloniaAssets.FindImage32(System.String)
+  - Tripous.Desktop.AvaloniaAssets.FindUri(System.String)
+  - Tripous.Desktop.AvaloniaAssets.FindUri(System.String,System.String)
+  - Tripous.Desktop.AvaloniaAssets.FindUri(System.String[],System.String)
+  - Tripous.Desktop.AvaloniaAssets.FindUriByPath(System.String)
+  - Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image,System.String)
+  - Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image,System.Uri)
+  langs:
+  - csharp
+  - vb
+  name: AvaloniaAssets
+  nameWithType: AvaloniaAssets
+  fullName: Tripous.Desktop.AvaloniaAssets
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AvaloniaAssets
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles Avalonia resources.
+  example: []
+  syntax:
+    content: public static class AvaloniaAssets
+    content.vb: Public Module AvaloniaAssets
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Desktop.AvaloniaAssets.FindUriByPath(System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindUriByPath(System.String)
+  id: FindUriByPath(System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindUriByPath(string)
+  nameWithType: AvaloniaAssets.FindUriByPath(string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindUriByPath(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindUriByPath
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns true if an asset resource path exists, e.g. <code>avares://Tripous.Desktop/Images/MyImage.png</code>
+  example: []
+  syntax:
+    content: public static Uri FindUriByPath(string AssetPath)
+    parameters:
+    - id: AssetPath
+      type: System.String
+    return:
+      type: System.Uri
+    content.vb: Public Shared Function FindUriByPath(AssetPath As String) As Uri
+  overload: Tripous.Desktop.AvaloniaAssets.FindUriByPath*
+  nameWithType.vb: AvaloniaAssets.FindUriByPath(String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindUriByPath(String)
+  name.vb: FindUriByPath(String)
+- uid: Tripous.Desktop.AvaloniaAssets.FindUri(System.String[],System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindUri(System.String[],System.String)
+  id: FindUri(System.String[],System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindUri(string[], string)
+  nameWithType: AvaloniaAssets.FindUri(string[], string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindUri(string[], string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindUri
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Finds and returns the <xref href="System.Uri" data-throw-if-not-resolved="false"></xref> of an asset, if any, else null.
+
+
+    <p>Combines the specified folders and filename.</p>
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Uri FindUri(string[] Folders, string FileName)
+    parameters:
+    - id: Folders
+      type: System.String[]
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Uri
+    content.vb: Public Shared Function FindUri(Folders As String(), FileName As String) As Uri
+  overload: Tripous.Desktop.AvaloniaAssets.FindUri*
+  nameWithType.vb: AvaloniaAssets.FindUri(String(), String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindUri(String(), String)
+  name.vb: FindUri(String(), String)
+- uid: Tripous.Desktop.AvaloniaAssets.FindUri(System.String,System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindUri(System.String,System.String)
+  id: FindUri(System.String,System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindUri(string, string)
+  nameWithType: AvaloniaAssets.FindUri(string, string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindUri(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindUri
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Finds and returns the <xref href="System.Uri" data-throw-if-not-resolved="false"></xref> of an asset, if any, else null.
+
+
+    <p>Combines a specified folder and filename.</p>
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Uri FindUri(string Folder, string FileName)
+    parameters:
+    - id: Folder
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Uri
+    content.vb: Public Shared Function FindUri(Folder As String, FileName As String) As Uri
+  overload: Tripous.Desktop.AvaloniaAssets.FindUri*
+  nameWithType.vb: AvaloniaAssets.FindUri(String, String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindUri(String, String)
+  name.vb: FindUri(String, String)
+- uid: Tripous.Desktop.AvaloniaAssets.FindUri(System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindUri(System.String)
+  id: FindUri(System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindUri(string)
+  nameWithType: AvaloniaAssets.FindUri(string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindUri(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindUri
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 76
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Finds and returns the <xref href="System.Uri" data-throw-if-not-resolved="false"></xref> of an asset, if any, else null.
+
+
+    <p>Combines a number of folders and the specified filename.</p>
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Uri FindUri(string FileName)
+    parameters:
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Uri
+    content.vb: Public Shared Function FindUri(FileName As String) As Uri
+  overload: Tripous.Desktop.AvaloniaAssets.FindUri*
+  nameWithType.vb: AvaloniaAssets.FindUri(String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindUri(String)
+  name.vb: FindUri(String)
+- uid: Tripous.Desktop.AvaloniaAssets.Combine(System.String,System.String[])
+  commentId: M:Tripous.Desktop.AvaloniaAssets.Combine(System.String,System.String[])
+  id: Combine(System.String,System.String[])
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: Combine(string, params string[])
+  nameWithType: AvaloniaAssets.Combine(string, params string[])
+  fullName: Tripous.Desktop.AvaloniaAssets.Combine(string, params string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Combine
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Combines parts into an Avalonia asset URI
+  example: []
+  syntax:
+    content: public static string Combine(string BasePath, params string[] Parts)
+    parameters:
+    - id: BasePath
+      type: System.String
+    - id: Parts
+      type: System.String[]
+    return:
+      type: System.String
+    content.vb: Public Shared Function Combine(BasePath As String, ParamArray Parts As String()) As String
+  overload: Tripous.Desktop.AvaloniaAssets.Combine*
+  nameWithType.vb: AvaloniaAssets.Combine(String, ParamArray String())
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.Combine(String, ParamArray String())
+  name.vb: Combine(String, ParamArray String())
+- uid: Tripous.Desktop.AvaloniaAssets.CreateImage(Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  commentId: M:Tripous.Desktop.AvaloniaAssets.CreateImage(Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  id: CreateImage(Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: CreateImage(ImageSizeType, Size?)
+  nameWithType: AvaloniaAssets.CreateImage(ImageSizeType, Size?)
+  fullName: Tripous.Desktop.AvaloniaAssets.CreateImage(Tripous.Desktop.ImageSizeType, Avalonia.Size?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateImage
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 107
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates an image of a specified size.
+  example: []
+  syntax:
+    content: public static Image CreateImage(ImageSizeType SizeType, Size? Size = null)
+    parameters:
+    - id: SizeType
+      type: Tripous.Desktop.ImageSizeType
+    - id: Size
+      type: System.Nullable{Avalonia.Size}
+    return:
+      type: Avalonia.Controls.Image
+    content.vb: Public Shared Function CreateImage(SizeType As ImageSizeType, Size As Size? = Nothing) As Image
+  overload: Tripous.Desktop.AvaloniaAssets.CreateImage*
+- uid: Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image,System.Uri)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image,System.Uri)
+  id: SetImage(Avalonia.Controls.Image,System.Uri)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: SetImage(Image, Uri)
+  nameWithType: AvaloniaAssets.SetImage(Image, Uri)
+  fullName: Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image, System.Uri)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetImage
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 124
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Sets the <xref href="Avalonia.Controls.Image.Source" data-throw-if-not-resolved="false"></xref> of a specified image.
+  example: []
+  syntax:
+    content: public static bool SetImage(Image Image, Uri Uri)
+    parameters:
+    - id: Image
+      type: Avalonia.Controls.Image
+    - id: Uri
+      type: System.Uri
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function SetImage(Image As Image, Uri As Uri) As Boolean
+  overload: Tripous.Desktop.AvaloniaAssets.SetImage*
+- uid: Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image,System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image,System.String)
+  id: SetImage(Avalonia.Controls.Image,System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: SetImage(Image, string)
+  nameWithType: AvaloniaAssets.SetImage(Image, string)
+  fullName: Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetImage
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 138
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Sets the <xref href="Avalonia.Controls.Image.Source" data-throw-if-not-resolved="false"></xref> of a specified image.
+  example: []
+  syntax:
+    content: public static bool SetImage(Image Image, string FileName)
+    parameters:
+    - id: Image
+      type: Avalonia.Controls.Image
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function SetImage(Image As Image, FileName As String) As Boolean
+  overload: Tripous.Desktop.AvaloniaAssets.SetImage*
+  nameWithType.vb: AvaloniaAssets.SetImage(Image, String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.SetImage(Avalonia.Controls.Image, String)
+  name.vb: SetImage(Image, String)
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage(System.String,Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindImage(System.String,Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  id: FindImage(System.String,Tripous.Desktop.ImageSizeType,System.Nullable{Avalonia.Size})
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindImage(string, ImageSizeType, Size?)
+  nameWithType: AvaloniaAssets.FindImage(string, ImageSizeType, Size?)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage(string, Tripous.Desktop.ImageSizeType, Avalonia.Size?)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindImage
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 150
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Returns an image of a specified size, if found in assets, else null.
+
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Image FindImage(string FileName, ImageSizeType SizeType, Size? Size = null)
+    parameters:
+    - id: FileName
+      type: System.String
+    - id: SizeType
+      type: Tripous.Desktop.ImageSizeType
+    - id: Size
+      type: System.Nullable{Avalonia.Size}
+    return:
+      type: Avalonia.Controls.Image
+    content.vb: Public Shared Function FindImage(FileName As String, SizeType As ImageSizeType, Size As Size? = Nothing) As Image
+  overload: Tripous.Desktop.AvaloniaAssets.FindImage*
+  nameWithType.vb: AvaloniaAssets.FindImage(String, ImageSizeType, Size?)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindImage(String, Tripous.Desktop.ImageSizeType, Avalonia.Size?)
+  name.vb: FindImage(String, ImageSizeType, Size?)
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage16(System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindImage16(System.String)
+  id: FindImage16(System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindImage16(string)
+  nameWithType: AvaloniaAssets.FindImage16(string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage16(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindImage16
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 167
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Returns an image of a specified size, if found in assets, else null.
+
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Image FindImage16(string FileName)
+    parameters:
+    - id: FileName
+      type: System.String
+    return:
+      type: Avalonia.Controls.Image
+    content.vb: Public Shared Function FindImage16(FileName As String) As Image
+  overload: Tripous.Desktop.AvaloniaAssets.FindImage16*
+  nameWithType.vb: AvaloniaAssets.FindImage16(String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindImage16(String)
+  name.vb: FindImage16(String)
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage32(System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindImage32(System.String)
+  id: FindImage32(System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindImage32(string)
+  nameWithType: AvaloniaAssets.FindImage32(string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage32(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindImage32
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 172
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Returns an image of a specified size, if found in assets, else null.
+
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Image FindImage32(string FileName)
+    parameters:
+    - id: FileName
+      type: System.String
+    return:
+      type: Avalonia.Controls.Image
+    content.vb: Public Shared Function FindImage32(FileName As String) As Image
+  overload: Tripous.Desktop.AvaloniaAssets.FindImage32*
+  nameWithType.vb: AvaloniaAssets.FindImage32(String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindImage32(String)
+  name.vb: FindImage32(String)
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage(System.String,Avalonia.Size)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindImage(System.String,Avalonia.Size)
+  id: FindImage(System.String,Avalonia.Size)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindImage(string, Size)
+  nameWithType: AvaloniaAssets.FindImage(string, Size)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage(string, Avalonia.Size)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindImage
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 177
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Returns an image of a specified size, if found in assets, else null.
+
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Image FindImage(string FileName, Size Size)
+    parameters:
+    - id: FileName
+      type: System.String
+    - id: Size
+      type: Avalonia.Size
+    return:
+      type: Avalonia.Controls.Image
+    content.vb: Public Shared Function FindImage(FileName As String, Size As Size) As Image
+  overload: Tripous.Desktop.AvaloniaAssets.FindImage*
+  nameWithType.vb: AvaloniaAssets.FindImage(String, Size)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindImage(String, Avalonia.Size)
+  name.vb: FindImage(String, Size)
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage(System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindImage(System.String)
+  id: FindImage(System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindImage(string)
+  nameWithType: AvaloniaAssets.FindImage(string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindImage
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 182
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Returns an image of any size, if found in assets, else null.
+
+
+    <p>NOTE: It searches the application assemblies too.</p>
+  example: []
+  syntax:
+    content: public static Image FindImage(string FileName)
+    parameters:
+    - id: FileName
+      type: System.String
+    return:
+      type: Avalonia.Controls.Image
+    content.vb: Public Shared Function FindImage(FileName As String) As Image
+  overload: Tripous.Desktop.AvaloniaAssets.FindImage*
+  nameWithType.vb: AvaloniaAssets.FindImage(String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindImage(String)
+  name.vb: FindImage(String)
+- uid: Tripous.Desktop.AvaloniaAssets.FindAsset(System.String)
+  commentId: M:Tripous.Desktop.AvaloniaAssets.FindAsset(System.String)
+  id: FindAsset(System.String)
+  parent: Tripous.Desktop.AvaloniaAssets
+  langs:
+  - csharp
+  - vb
+  name: FindAsset(string)
+  nameWithType: AvaloniaAssets.FindAsset(string)
+  fullName: Tripous.Desktop.AvaloniaAssets.FindAsset(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AvaloniaAssets.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindAsset
+    path: ../Tripous.Desktop/AvaloniaAssets.cs
+    startLine: 188
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Finds and returns an asset as a stream, if any, else null.
+
+
+    <p>WARNING: The returned stream should be disposed by the caller.</p>
+  example: []
+  syntax:
+    content: public static Stream FindAsset(string FileName)
+    parameters:
+    - id: FileName
+      type: System.String
+    return:
+      type: System.IO.Stream
+    content.vb: Public Shared Function FindAsset(FileName As String) As Stream
+  overload: Tripous.Desktop.AvaloniaAssets.FindAsset*
+  nameWithType.vb: AvaloniaAssets.FindAsset(String)
+  fullName.vb: Tripous.Desktop.AvaloniaAssets.FindAsset(String)
+  name.vb: FindAsset(String)
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Desktop.AvaloniaAssets.FindUriByPath*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.FindUriByPath
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_FindUriByPath_System_String_
+  name: FindUriByPath
+  nameWithType: AvaloniaAssets.FindUriByPath
+  fullName: Tripous.Desktop.AvaloniaAssets.FindUriByPath
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Uri
+  commentId: T:System.Uri
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uri
+  name: Uri
+  nameWithType: Uri
+  fullName: System.Uri
+- uid: Tripous.Desktop.AvaloniaAssets.FindUri*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.FindUri
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_FindUri_System_String___System_String_
+  name: FindUri
+  nameWithType: AvaloniaAssets.FindUri
+  fullName: Tripous.Desktop.AvaloniaAssets.FindUri
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.AvaloniaAssets.Combine*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.Combine
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_Combine_System_String_System_String___
+  name: Combine
+  nameWithType: AvaloniaAssets.Combine
+  fullName: Tripous.Desktop.AvaloniaAssets.Combine
+- uid: Tripous.Desktop.AvaloniaAssets.CreateImage*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.CreateImage
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_CreateImage_Tripous_Desktop_ImageSizeType_System_Nullable_Avalonia_Size__
+  name: CreateImage
+  nameWithType: AvaloniaAssets.CreateImage
+  fullName: Tripous.Desktop.AvaloniaAssets.CreateImage
+- uid: Tripous.Desktop.ImageSizeType
+  commentId: T:Tripous.Desktop.ImageSizeType
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ImageSizeType.html
+  name: ImageSizeType
+  nameWithType: ImageSizeType
+  fullName: Tripous.Desktop.ImageSizeType
+- uid: System.Nullable{Avalonia.Size}
+  commentId: T:System.Nullable{Avalonia.Size}
+  parent: System
+  definition: System.Nullable`1
+  name: Size?
+  nameWithType: Size?
+  fullName: Avalonia.Size?
+  spec.csharp:
+  - uid: Avalonia.Size
+    name: Size
+    isExternal: true
+  - name: '?'
+  spec.vb:
+  - uid: Avalonia.Size
+    name: Size
+    isExternal: true
+  - name: '?'
+- uid: Avalonia.Controls.Image
+  commentId: T:Avalonia.Controls.Image
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Image
+  nameWithType: Image
+  fullName: Avalonia.Controls.Image
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: Avalonia.Controls.Image.Source
+  commentId: P:Avalonia.Controls.Image.Source
+  isExternal: true
+  name: Source
+  nameWithType: Image.Source
+  fullName: Avalonia.Controls.Image.Source
+- uid: Tripous.Desktop.AvaloniaAssets.SetImage*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.SetImage
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_SetImage_Avalonia_Controls_Image_System_Uri_
+  name: SetImage
+  nameWithType: AvaloniaAssets.SetImage
+  fullName: Tripous.Desktop.AvaloniaAssets.SetImage
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.FindImage
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_FindImage_System_String_Tripous_Desktop_ImageSizeType_System_Nullable_Avalonia_Size__
+  name: FindImage
+  nameWithType: AvaloniaAssets.FindImage
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage16*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.FindImage16
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_FindImage16_System_String_
+  name: FindImage16
+  nameWithType: AvaloniaAssets.FindImage16
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage16
+- uid: Tripous.Desktop.AvaloniaAssets.FindImage32*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.FindImage32
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_FindImage32_System_String_
+  name: FindImage32
+  nameWithType: AvaloniaAssets.FindImage32
+  fullName: Tripous.Desktop.AvaloniaAssets.FindImage32
+- uid: Avalonia.Size
+  commentId: T:Avalonia.Size
+  parent: Avalonia
+  isExternal: true
+  name: Size
+  nameWithType: Size
+  fullName: Avalonia.Size
+- uid: Avalonia
+  commentId: N:Avalonia
+  isExternal: true
+  name: Avalonia
+  nameWithType: Avalonia
+  fullName: Avalonia
+- uid: Tripous.Desktop.AvaloniaAssets.FindAsset*
+  commentId: Overload:Tripous.Desktop.AvaloniaAssets.FindAsset
+  href: Tripous.Desktop.AvaloniaAssets.html#Tripous_Desktop_AvaloniaAssets_FindAsset_System_String_
+  name: FindAsset
+  nameWithType: AvaloniaAssets.FindAsset
+  fullName: Tripous.Desktop.AvaloniaAssets.FindAsset
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io

@@ -1,0 +1,844 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.ResourceFiles
+  commentId: T:Tripous.ResourceFiles
+  id: ResourceFiles
+  parent: Tripous
+  children:
+  - Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly,System.String,System.String)
+  - Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly,System.String,System.String,System.String)
+  - Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly,System.String,System.String)
+  - Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly,System.String,System.String,System.String)
+  - Tripous.ResourceFiles.GetResourceFilePaths(System.Reflection.Assembly)
+  - Tripous.ResourceFiles.GetResourceFileStream(System.Reflection.Assembly,System.String,System.String,System.String)
+  - Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly,System.String,System.String)
+  - Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly,System.String,System.String,System.String)
+  - Tripous.ResourceFiles.ResourceFileExists(System.Reflection.Assembly,System.String,System.String)
+  langs:
+  - csharp
+  - vb
+  name: ResourceFiles
+  nameWithType: ResourceFiles
+  fullName: Tripous.ResourceFiles
+  type: Class
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ResourceFiles
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 14
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Helper for embedded resource files.
+  example: []
+  syntax:
+    content: public static class ResourceFiles
+    content.vb: Public Module ResourceFiles
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.ResourceFiles.GetResourceFilePaths(System.Reflection.Assembly)
+  commentId: M:Tripous.ResourceFiles.GetResourceFilePaths(System.Reflection.Assembly)
+  id: GetResourceFilePaths(System.Reflection.Assembly)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: GetResourceFilePaths(Assembly)
+  nameWithType: ResourceFiles.GetResourceFilePaths(Assembly)
+  fullName: Tripous.ResourceFiles.GetResourceFilePaths(System.Reflection.Assembly)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetResourceFilePaths
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 38
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns all resource names in the assembly.
+  example: []
+  syntax:
+    content: public static string[] GetResourceFilePaths(Assembly A)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    return:
+      type: System.String[]
+    content.vb: Public Shared Function GetResourceFilePaths(A As Assembly) As String()
+  overload: Tripous.ResourceFiles.GetResourceFilePaths*
+- uid: Tripous.ResourceFiles.ResourceFileExists(System.Reflection.Assembly,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.ResourceFileExists(System.Reflection.Assembly,System.String,System.String)
+  id: ResourceFileExists(System.Reflection.Assembly,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: ResourceFileExists(Assembly, string, string)
+  nameWithType: ResourceFiles.ResourceFileExists(Assembly, string, string)
+  fullName: Tripous.ResourceFiles.ResourceFileExists(System.Reflection.Assembly, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ResourceFileExists
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 43
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns true if the resource exists.
+
+
+    <pre><code class="lang-csharp">ResourceFileExists(typeof(MyClass).Assembly, "Sql.Scripts", "MyFile.sql")</code></pre>
+  example: []
+  syntax:
+    content: public static bool ResourceFileExists(Assembly A, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function ResourceFileExists(A As Assembly, FolderPath As String, FileName As String) As Boolean
+  overload: Tripous.ResourceFiles.ResourceFileExists*
+  nameWithType.vb: ResourceFiles.ResourceFileExists(Assembly, String, String)
+  fullName.vb: Tripous.ResourceFiles.ResourceFileExists(System.Reflection.Assembly, String, String)
+  name.vb: ResourceFileExists(Assembly, String, String)
+- uid: Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly,System.String,System.String)
+  id: FindResourcePath(System.Reflection.Assembly,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: FindResourcePath(Assembly, string, string)
+  nameWithType: ResourceFiles.FindResourcePath(Assembly, string, string)
+  fullName: Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindResourcePath
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 49
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Finds the full resource path.
+
+
+    <pre><code class="lang-csharp">FindResourcePath(Assembly, "Models/Ddl", "Schema.sql")</code></pre>
+  example: []
+  syntax:
+    content: public static string FindResourcePath(Assembly A, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function FindResourcePath(A As Assembly, FolderPath As String, FileName As String) As String
+  overload: Tripous.ResourceFiles.FindResourcePath*
+  nameWithType.vb: ResourceFiles.FindResourcePath(Assembly, String, String)
+  fullName.vb: Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly, String, String)
+  name.vb: FindResourcePath(Assembly, String, String)
+- uid: Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly,System.String,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly,System.String,System.String,System.String)
+  id: FindResourcePath(System.Reflection.Assembly,System.String,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: FindResourcePath(Assembly, string, string, string)
+  nameWithType: ResourceFiles.FindResourcePath(Assembly, string, string, string)
+  fullName: Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindResourcePath
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 58
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Finds the full resource path using a base namespace.
+
+
+    <pre><code class="lang-csharp">FindResourcePath(Assembly, "Tripous.Data", "Sql", "MyFile.sql")</code></pre>
+  example: []
+  syntax:
+    content: public static string FindResourcePath(Assembly A, string BaseNamespace, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: BaseNamespace
+      type: System.String
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function FindResourcePath(A As Assembly, BaseNamespace As String, FolderPath As String, FileName As String) As String
+  overload: Tripous.ResourceFiles.FindResourcePath*
+  nameWithType.vb: ResourceFiles.FindResourcePath(Assembly, String, String, String)
+  fullName.vb: Tripous.ResourceFiles.FindResourcePath(System.Reflection.Assembly, String, String, String)
+  name.vb: FindResourcePath(Assembly, String, String, String)
+- uid: Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly,System.String,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly,System.String,System.String,System.String)
+  id: GetResourceFileText(System.Reflection.Assembly,System.String,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: GetResourceFileText(Assembly, string, string, string)
+  nameWithType: ResourceFiles.GetResourceFileText(Assembly, string, string, string)
+  fullName: Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetResourceFileText
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 68
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Returns the text content of a resource.
+
+
+    <pre><code class="lang-csharp">string Sql = GetResourceFileText(A, "Tripous.Data", "Sql", "Init.sql")</code></pre>
+  example: []
+  syntax:
+    content: public static string GetResourceFileText(Assembly A, string BaseNamespace, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: BaseNamespace
+      type: System.String
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetResourceFileText(A As Assembly, BaseNamespace As String, FolderPath As String, FileName As String) As String
+  overload: Tripous.ResourceFiles.GetResourceFileText*
+  nameWithType.vb: ResourceFiles.GetResourceFileText(Assembly, String, String, String)
+  fullName.vb: Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly, String, String, String)
+  name.vb: GetResourceFileText(Assembly, String, String, String)
+- uid: Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly,System.String,System.String)
+  id: GetResourceFileText(System.Reflection.Assembly,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: GetResourceFileText(Assembly, string, string)
+  nameWithType: ResourceFiles.GetResourceFileText(Assembly, string, string)
+  fullName: Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetResourceFileText
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 76
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the text content of a resource using simple path matching.
+  example: []
+  syntax:
+    content: public static string GetResourceFileText(Assembly A, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetResourceFileText(A As Assembly, FolderPath As String, FileName As String) As String
+  overload: Tripous.ResourceFiles.GetResourceFileText*
+  nameWithType.vb: ResourceFiles.GetResourceFileText(Assembly, String, String)
+  fullName.vb: Tripous.ResourceFiles.GetResourceFileText(System.Reflection.Assembly, String, String)
+  name.vb: GetResourceFileText(Assembly, String, String)
+- uid: Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly,System.String,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly,System.String,System.String,System.String)
+  id: GetResourceFileData(System.Reflection.Assembly,System.String,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: GetResourceFileData(Assembly, string, string, string)
+  nameWithType: ResourceFiles.GetResourceFileData(Assembly, string, string, string)
+  fullName: Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetResourceFileData
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 85
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the raw data of a resource.
+  example: []
+  syntax:
+    content: public static byte[] GetResourceFileData(Assembly A, string BaseNamespace, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: BaseNamespace
+      type: System.String
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Byte[]
+    content.vb: Public Shared Function GetResourceFileData(A As Assembly, BaseNamespace As String, FolderPath As String, FileName As String) As Byte()
+  overload: Tripous.ResourceFiles.GetResourceFileData*
+  nameWithType.vb: ResourceFiles.GetResourceFileData(Assembly, String, String, String)
+  fullName.vb: Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly, String, String, String)
+  name.vb: GetResourceFileData(Assembly, String, String, String)
+- uid: Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly,System.String,System.String)
+  id: GetResourceFileData(System.Reflection.Assembly,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: GetResourceFileData(Assembly, string, string)
+  nameWithType: ResourceFiles.GetResourceFileData(Assembly, string, string)
+  fullName: Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetResourceFileData
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 93
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the raw data of a resource using simple path matching.
+  example: []
+  syntax:
+    content: public static byte[] GetResourceFileData(Assembly A, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.Byte[]
+    content.vb: Public Shared Function GetResourceFileData(A As Assembly, FolderPath As String, FileName As String) As Byte()
+  overload: Tripous.ResourceFiles.GetResourceFileData*
+  nameWithType.vb: ResourceFiles.GetResourceFileData(Assembly, String, String)
+  fullName.vb: Tripous.ResourceFiles.GetResourceFileData(System.Reflection.Assembly, String, String)
+  name.vb: GetResourceFileData(Assembly, String, String)
+- uid: Tripous.ResourceFiles.GetResourceFileStream(System.Reflection.Assembly,System.String,System.String,System.String)
+  commentId: M:Tripous.ResourceFiles.GetResourceFileStream(System.Reflection.Assembly,System.String,System.String,System.String)
+  id: GetResourceFileStream(System.Reflection.Assembly,System.String,System.String,System.String)
+  parent: Tripous.ResourceFiles
+  langs:
+  - csharp
+  - vb
+  name: GetResourceFileStream(Assembly, string, string, string)
+  nameWithType: ResourceFiles.GetResourceFileStream(Assembly, string, string, string)
+  fullName: Tripous.ResourceFiles.GetResourceFileStream(System.Reflection.Assembly, string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/ResourceFiles.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetResourceFileStream
+    path: ../Tripous/ResourceFiles.cs
+    startLine: 117
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns a stream for the specified resource.
+  example: []
+  syntax:
+    content: public static Stream GetResourceFileStream(Assembly A, string BaseNamespace, string FolderPath, string FileName)
+    parameters:
+    - id: A
+      type: System.Reflection.Assembly
+    - id: BaseNamespace
+      type: System.String
+    - id: FolderPath
+      type: System.String
+    - id: FileName
+      type: System.String
+    return:
+      type: System.IO.Stream
+    content.vb: Public Shared Function GetResourceFileStream(A As Assembly, BaseNamespace As String, FolderPath As String, FileName As String) As Stream
+  overload: Tripous.ResourceFiles.GetResourceFileStream*
+  nameWithType.vb: ResourceFiles.GetResourceFileStream(Assembly, String, String, String)
+  fullName.vb: Tripous.ResourceFiles.GetResourceFileStream(System.Reflection.Assembly, String, String, String)
+  name.vb: GetResourceFileStream(Assembly, String, String, String)
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.ResourceFiles.GetResourceFilePaths*
+  commentId: Overload:Tripous.ResourceFiles.GetResourceFilePaths
+  href: Tripous.ResourceFiles.html#Tripous_ResourceFiles_GetResourceFilePaths_System_Reflection_Assembly_
+  name: GetResourceFilePaths
+  nameWithType: ResourceFiles.GetResourceFilePaths
+  fullName: Tripous.ResourceFiles.GetResourceFilePaths
+- uid: System.Reflection.Assembly
+  commentId: T:System.Reflection.Assembly
+  parent: System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.reflection.assembly
+  name: Assembly
+  nameWithType: Assembly
+  fullName: System.Reflection.Assembly
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: System.Reflection
+  commentId: N:System.Reflection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Reflection
+  nameWithType: System.Reflection
+  fullName: System.Reflection
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Reflection
+    name: Reflection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.reflection
+- uid: Tripous.ResourceFiles.ResourceFileExists*
+  commentId: Overload:Tripous.ResourceFiles.ResourceFileExists
+  href: Tripous.ResourceFiles.html#Tripous_ResourceFiles_ResourceFileExists_System_Reflection_Assembly_System_String_System_String_
+  name: ResourceFileExists
+  nameWithType: ResourceFiles.ResourceFileExists
+  fullName: Tripous.ResourceFiles.ResourceFileExists
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.ResourceFiles.FindResourcePath*
+  commentId: Overload:Tripous.ResourceFiles.FindResourcePath
+  href: Tripous.ResourceFiles.html#Tripous_ResourceFiles_FindResourcePath_System_Reflection_Assembly_System_String_System_String_
+  name: FindResourcePath
+  nameWithType: ResourceFiles.FindResourcePath
+  fullName: Tripous.ResourceFiles.FindResourcePath
+- uid: Tripous.ResourceFiles.GetResourceFileText*
+  commentId: Overload:Tripous.ResourceFiles.GetResourceFileText
+  href: Tripous.ResourceFiles.html#Tripous_ResourceFiles_GetResourceFileText_System_Reflection_Assembly_System_String_System_String_System_String_
+  name: GetResourceFileText
+  nameWithType: ResourceFiles.GetResourceFileText
+  fullName: Tripous.ResourceFiles.GetResourceFileText
+- uid: Tripous.ResourceFiles.GetResourceFileData*
+  commentId: Overload:Tripous.ResourceFiles.GetResourceFileData
+  href: Tripous.ResourceFiles.html#Tripous_ResourceFiles_GetResourceFileData_System_Reflection_Assembly_System_String_System_String_System_String_
+  name: GetResourceFileData
+  nameWithType: ResourceFiles.GetResourceFileData
+  fullName: Tripous.ResourceFiles.GetResourceFileData
+- uid: System.Byte[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.byte
+  name: byte[]
+  nameWithType: byte[]
+  fullName: byte[]
+  nameWithType.vb: Byte()
+  fullName.vb: Byte()
+  name.vb: Byte()
+  spec.csharp:
+  - uid: System.Byte
+    name: byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Byte
+    name: Byte
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.byte
+  - name: (
+  - name: )
+- uid: Tripous.ResourceFiles.GetResourceFileStream*
+  commentId: Overload:Tripous.ResourceFiles.GetResourceFileStream
+  href: Tripous.ResourceFiles.html#Tripous_ResourceFiles_GetResourceFileStream_System_Reflection_Assembly_System_String_System_String_System_String_
+  name: GetResourceFileStream
+  nameWithType: ResourceFiles.GetResourceFileStream
+  fullName: Tripous.ResourceFiles.GetResourceFileStream
+- uid: System.IO.Stream
+  commentId: T:System.IO.Stream
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.stream
+  name: Stream
+  nameWithType: Stream
+  fullName: System.IO.Stream
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io

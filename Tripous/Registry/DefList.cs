@@ -68,7 +68,7 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
         {
             Result = Activator.CreateInstance<T>();
             Result.Name = Name;
-            Items.Add(Result);
+            Add(Result);
         }
 
         return Result;
@@ -105,10 +105,7 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
             int Index = Items.IndexOf(Other);
             if (Index != -1)
             {
-                Index--;
-                if (Index < 0)
-                    Index = 0;
-                Items.Insert(Index, Def);
+                Insert(Index, Def);
                 return true;
             }
         }
@@ -128,9 +125,9 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
             {
                 Index++;
                 if (Index > Items.Count - 1)
-                    Items.Add(Def);
+                    Add(Def);
                 else
-                    Items.Insert(Index, Def);
+                    Insert(Index, Def);
                 return true;
             }
         }
@@ -191,4 +188,3 @@ public class DefList<T> : TripousList<T>, IJsonLoadable where T : IDef
 }
 
  
-

@@ -1,0 +1,1036 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbConfig
+  commentId: T:Tripous.Data.DbConfig
+  id: DbConfig
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbConfig.CodeProviderModuleName
+  - Tripous.Data.DbConfig.CompanyFieldName
+  - Tripous.Data.DbConfig.CompanyId
+  - Tripous.Data.DbConfig.CompanyIdSql
+  - Tripous.Data.DbConfig.CompanyIdValue
+  - Tripous.Data.DbConfig.DefaultConnectionName
+  - Tripous.Data.DbConfig.GuidOids
+  - Tripous.Data.DbConfig.OidDataType
+  - Tripous.Data.DbConfig.OidSize
+  - Tripous.Data.DbConfig.SysAppUserTableName
+  - Tripous.Data.DbConfig.SysConfigTableName
+  - Tripous.Data.DbConfig.SysDbIniBlobField
+  - Tripous.Data.DbConfig.SysDbIniEntryField
+  - Tripous.Data.DbConfig.SysDbIniTableName
+  - Tripous.Data.DbConfig.SysDbIniValueField
+  - Tripous.Data.DbConfig.SysLogTableName
+  - Tripous.Data.DbConfig.SysNumberSeriesTableName
+  - Tripous.Data.DbConfig.VariablesPrefix
+  langs:
+  - csharp
+  - vb
+  name: DbConfig
+  nameWithType: DbConfig
+  fullName: Tripous.Data.DbConfig
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbConfig
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Provides global database configuration settings used by the data layer.
+  example: []
+  syntax:
+    content: public static class DbConfig
+    content.vb: Public Module DbConfig
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Data.DbConfig.GuidOids
+  commentId: P:Tripous.Data.DbConfig.GuidOids
+  id: GuidOids
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: GuidOids
+  nameWithType: DbConfig.GuidOids
+  fullName: Tripous.Data.DbConfig.GuidOids
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GuidOids
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    When is set indicates that the Oids are Guid strings.  
+
+
+    <p>Defaults to true.</p>
+  example: []
+  syntax:
+    content: public static bool GuidOids { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Property GuidOids As Boolean
+  overload: Tripous.Data.DbConfig.GuidOids*
+- uid: Tripous.Data.DbConfig.VariablesPrefix
+  commentId: P:Tripous.Data.DbConfig.VariablesPrefix
+  id: VariablesPrefix
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: VariablesPrefix
+  nameWithType: DbConfig.VariablesPrefix
+  fullName: Tripous.Data.DbConfig.VariablesPrefix
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VariablesPrefix
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets the variables prefix used in SQL statements.
+
+
+    <p>Defaults to :@, e.g. :@Today</p>
+  example: []
+  syntax:
+    content: public static string VariablesPrefix { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property VariablesPrefix As String
+  overload: Tripous.Data.DbConfig.VariablesPrefix*
+- uid: Tripous.Data.DbConfig.CompanyFieldName
+  commentId: P:Tripous.Data.DbConfig.CompanyFieldName
+  id: CompanyFieldName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: CompanyFieldName
+  nameWithType: DbConfig.CompanyFieldName
+  fullName: Tripous.Data.DbConfig.CompanyFieldName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CompanyFieldName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The field name of the company field, used in various tables. 
+
+
+    <p>Defaults to CompanyId</p>
+  example: []
+  syntax:
+    content: public static string CompanyFieldName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property CompanyFieldName As String
+  overload: Tripous.Data.DbConfig.CompanyFieldName*
+- uid: Tripous.Data.DbConfig.CompanyId
+  commentId: P:Tripous.Data.DbConfig.CompanyId
+  id: CompanyId
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: CompanyId
+  nameWithType: DbConfig.CompanyId
+  fullName: Tripous.Data.DbConfig.CompanyId
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CompanyId
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The Id of the current company, if any, else null.
+  example: []
+  syntax:
+    content: public static object CompanyId { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Shared Property CompanyId As Object
+  overload: Tripous.Data.DbConfig.CompanyId*
+- uid: Tripous.Data.DbConfig.CompanyIdSql
+  commentId: P:Tripous.Data.DbConfig.CompanyIdSql
+  id: CompanyIdSql
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: CompanyIdSql
+  nameWithType: DbConfig.CompanyIdSql
+  fullName: Tripous.Data.DbConfig.CompanyIdSql
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CompanyIdSql
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: ReadOnly. Returns the value of the CompanyId as a string for constructing SQL statements.
+  example: []
+  syntax:
+    content: public static string CompanyIdSql { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared ReadOnly Property CompanyIdSql As String
+  overload: Tripous.Data.DbConfig.CompanyIdSql*
+- uid: Tripous.Data.DbConfig.CompanyIdValue
+  commentId: P:Tripous.Data.DbConfig.CompanyIdValue
+  id: CompanyIdValue
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: CompanyIdValue
+  nameWithType: DbConfig.CompanyIdValue
+  fullName: Tripous.Data.DbConfig.CompanyIdValue
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CompanyIdValue
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: ReadOnly. Returns the effective value of the CompanyId.
+  example: []
+  syntax:
+    content: public static object CompanyIdValue { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Shared ReadOnly Property CompanyIdValue As Object
+  overload: Tripous.Data.DbConfig.CompanyIdValue*
+- uid: Tripous.Data.DbConfig.OidDataType
+  commentId: P:Tripous.Data.DbConfig.OidDataType
+  id: OidDataType
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: OidDataType
+  nameWithType: DbConfig.OidDataType
+  fullName: Tripous.Data.DbConfig.OidDataType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OidDataType
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 79
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the default data type used for object identifiers.
+  example: []
+  syntax:
+    content: public static DataFieldType OidDataType { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.DataFieldType
+    content.vb: Public Shared ReadOnly Property OidDataType As DataFieldType
+  overload: Tripous.Data.DbConfig.OidDataType*
+- uid: Tripous.Data.DbConfig.OidSize
+  commentId: P:Tripous.Data.DbConfig.OidSize
+  id: OidSize
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: OidSize
+  nameWithType: DbConfig.OidSize
+  fullName: Tripous.Data.DbConfig.OidSize
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OidSize
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 83
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the default field size used for object identifiers.
+  example: []
+  syntax:
+    content: public static int OidSize { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Shared ReadOnly Property OidSize As Integer
+  overload: Tripous.Data.DbConfig.OidSize*
+- uid: Tripous.Data.DbConfig.DefaultConnectionName
+  commentId: P:Tripous.Data.DbConfig.DefaultConnectionName
+  id: DefaultConnectionName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: DefaultConnectionName
+  nameWithType: DbConfig.DefaultConnectionName
+  fullName: Tripous.Data.DbConfig.DefaultConnectionName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultConnectionName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 87
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The name of the default database connection.
+  example: []
+  syntax:
+    content: public static string DefaultConnectionName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property DefaultConnectionName As String
+  overload: Tripous.Data.DbConfig.DefaultConnectionName*
+- uid: Tripous.Data.DbConfig.CodeProviderModuleName
+  commentId: P:Tripous.Data.DbConfig.CodeProviderModuleName
+  id: CodeProviderModuleName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: CodeProviderModuleName
+  nameWithType: DbConfig.CodeProviderModuleName
+  fullName: Tripous.Data.DbConfig.CodeProviderModuleName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CodeProviderModuleName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 91
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module name used by code providers.
+  example: []
+  syntax:
+    content: public static string CodeProviderModuleName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property CodeProviderModuleName As String
+  overload: Tripous.Data.DbConfig.CodeProviderModuleName*
+- uid: Tripous.Data.DbConfig.SysDbIniTableName
+  commentId: P:Tripous.Data.DbConfig.SysDbIniTableName
+  id: SysDbIniTableName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysDbIniTableName
+  nameWithType: DbConfig.SysDbIniTableName
+  fullName: Tripous.Data.DbConfig.SysDbIniTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysDbIniTableName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 95
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the system database initialization table name.
+  example: []
+  syntax:
+    content: public static string SysDbIniTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysDbIniTableName As String
+  overload: Tripous.Data.DbConfig.SysDbIniTableName*
+- uid: Tripous.Data.DbConfig.SysLogTableName
+  commentId: P:Tripous.Data.DbConfig.SysLogTableName
+  id: SysLogTableName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysLogTableName
+  nameWithType: DbConfig.SysLogTableName
+  fullName: Tripous.Data.DbConfig.SysLogTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysLogTableName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 99
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the system log table name.
+  example: []
+  syntax:
+    content: public static string SysLogTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysLogTableName As String
+  overload: Tripous.Data.DbConfig.SysLogTableName*
+- uid: Tripous.Data.DbConfig.SysNumberSeriesTableName
+  commentId: P:Tripous.Data.DbConfig.SysNumberSeriesTableName
+  id: SysNumberSeriesTableName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysNumberSeriesTableName
+  nameWithType: DbConfig.SysNumberSeriesTableName
+  fullName: Tripous.Data.DbConfig.SysNumberSeriesTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysNumberSeriesTableName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 103
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the system number series table name.
+  example: []
+  syntax:
+    content: public static string SysNumberSeriesTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysNumberSeriesTableName As String
+  overload: Tripous.Data.DbConfig.SysNumberSeriesTableName*
+- uid: Tripous.Data.DbConfig.SysConfigTableName
+  commentId: P:Tripous.Data.DbConfig.SysConfigTableName
+  id: SysConfigTableName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysConfigTableName
+  nameWithType: DbConfig.SysConfigTableName
+  fullName: Tripous.Data.DbConfig.SysConfigTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysConfigTableName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 107
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the system configuration table name.
+  example: []
+  syntax:
+    content: public static string SysConfigTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysConfigTableName As String
+  overload: Tripous.Data.DbConfig.SysConfigTableName*
+- uid: Tripous.Data.DbConfig.SysAppUserTableName
+  commentId: P:Tripous.Data.DbConfig.SysAppUserTableName
+  id: SysAppUserTableName
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysAppUserTableName
+  nameWithType: DbConfig.SysAppUserTableName
+  fullName: Tripous.Data.DbConfig.SysAppUserTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysAppUserTableName
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 111
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the application users table name.
+  example: []
+  syntax:
+    content: public static string SysAppUserTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysAppUserTableName As String
+  overload: Tripous.Data.DbConfig.SysAppUserTableName*
+- uid: Tripous.Data.DbConfig.SysDbIniEntryField
+  commentId: P:Tripous.Data.DbConfig.SysDbIniEntryField
+  id: SysDbIniEntryField
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysDbIniEntryField
+  nameWithType: DbConfig.SysDbIniEntryField
+  fullName: Tripous.Data.DbConfig.SysDbIniEntryField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysDbIniEntryField
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 115
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the key field name of the SYS_INI table.
+  example: []
+  syntax:
+    content: public static string SysDbIniEntryField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysDbIniEntryField As String
+  overload: Tripous.Data.DbConfig.SysDbIniEntryField*
+- uid: Tripous.Data.DbConfig.SysDbIniValueField
+  commentId: P:Tripous.Data.DbConfig.SysDbIniValueField
+  id: SysDbIniValueField
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysDbIniValueField
+  nameWithType: DbConfig.SysDbIniValueField
+  fullName: Tripous.Data.DbConfig.SysDbIniValueField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysDbIniValueField
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 119
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the value field name of the SYS_INI table.
+  example: []
+  syntax:
+    content: public static string SysDbIniValueField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysDbIniValueField As String
+  overload: Tripous.Data.DbConfig.SysDbIniValueField*
+- uid: Tripous.Data.DbConfig.SysDbIniBlobField
+  commentId: P:Tripous.Data.DbConfig.SysDbIniBlobField
+  id: SysDbIniBlobField
+  parent: Tripous.Data.DbConfig
+  langs:
+  - csharp
+  - vb
+  name: SysDbIniBlobField
+  nameWithType: DbConfig.SysDbIniBlobField
+  fullName: Tripous.Data.DbConfig.SysDbIniBlobField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/DbConfig.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SysDbIniBlobField
+    path: ../Tripous.Data/DbConfig.cs
+    startLine: 123
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the blob value field name of the SYS_INI table.
+  example: []
+  syntax:
+    content: public static string SysDbIniBlobField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Shared Property SysDbIniBlobField As String
+  overload: Tripous.Data.DbConfig.SysDbIniBlobField*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.DbConfig.GuidOids*
+  commentId: Overload:Tripous.Data.DbConfig.GuidOids
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_GuidOids
+  name: GuidOids
+  nameWithType: DbConfig.GuidOids
+  fullName: Tripous.Data.DbConfig.GuidOids
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DbConfig.VariablesPrefix*
+  commentId: Overload:Tripous.Data.DbConfig.VariablesPrefix
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_VariablesPrefix
+  name: VariablesPrefix
+  nameWithType: DbConfig.VariablesPrefix
+  fullName: Tripous.Data.DbConfig.VariablesPrefix
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DbConfig.CompanyFieldName*
+  commentId: Overload:Tripous.Data.DbConfig.CompanyFieldName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_CompanyFieldName
+  name: CompanyFieldName
+  nameWithType: DbConfig.CompanyFieldName
+  fullName: Tripous.Data.DbConfig.CompanyFieldName
+- uid: Tripous.Data.DbConfig.CompanyId*
+  commentId: Overload:Tripous.Data.DbConfig.CompanyId
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_CompanyId
+  name: CompanyId
+  nameWithType: DbConfig.CompanyId
+  fullName: Tripous.Data.DbConfig.CompanyId
+- uid: Tripous.Data.DbConfig.CompanyIdSql*
+  commentId: Overload:Tripous.Data.DbConfig.CompanyIdSql
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_CompanyIdSql
+  name: CompanyIdSql
+  nameWithType: DbConfig.CompanyIdSql
+  fullName: Tripous.Data.DbConfig.CompanyIdSql
+- uid: Tripous.Data.DbConfig.CompanyIdValue*
+  commentId: Overload:Tripous.Data.DbConfig.CompanyIdValue
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_CompanyIdValue
+  name: CompanyIdValue
+  nameWithType: DbConfig.CompanyIdValue
+  fullName: Tripous.Data.DbConfig.CompanyIdValue
+- uid: Tripous.Data.DbConfig.OidDataType*
+  commentId: Overload:Tripous.Data.DbConfig.OidDataType
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_OidDataType
+  name: OidDataType
+  nameWithType: DbConfig.OidDataType
+  fullName: Tripous.Data.DbConfig.OidDataType
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: Tripous.Data.DbConfig.OidSize*
+  commentId: Overload:Tripous.Data.DbConfig.OidSize
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_OidSize
+  name: OidSize
+  nameWithType: DbConfig.OidSize
+  fullName: Tripous.Data.DbConfig.OidSize
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DbConfig.DefaultConnectionName*
+  commentId: Overload:Tripous.Data.DbConfig.DefaultConnectionName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_DefaultConnectionName
+  name: DefaultConnectionName
+  nameWithType: DbConfig.DefaultConnectionName
+  fullName: Tripous.Data.DbConfig.DefaultConnectionName
+- uid: Tripous.Data.DbConfig.CodeProviderModuleName*
+  commentId: Overload:Tripous.Data.DbConfig.CodeProviderModuleName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_CodeProviderModuleName
+  name: CodeProviderModuleName
+  nameWithType: DbConfig.CodeProviderModuleName
+  fullName: Tripous.Data.DbConfig.CodeProviderModuleName
+- uid: Tripous.Data.DbConfig.SysDbIniTableName*
+  commentId: Overload:Tripous.Data.DbConfig.SysDbIniTableName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysDbIniTableName
+  name: SysDbIniTableName
+  nameWithType: DbConfig.SysDbIniTableName
+  fullName: Tripous.Data.DbConfig.SysDbIniTableName
+- uid: Tripous.Data.DbConfig.SysLogTableName*
+  commentId: Overload:Tripous.Data.DbConfig.SysLogTableName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysLogTableName
+  name: SysLogTableName
+  nameWithType: DbConfig.SysLogTableName
+  fullName: Tripous.Data.DbConfig.SysLogTableName
+- uid: Tripous.Data.DbConfig.SysNumberSeriesTableName*
+  commentId: Overload:Tripous.Data.DbConfig.SysNumberSeriesTableName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysNumberSeriesTableName
+  name: SysNumberSeriesTableName
+  nameWithType: DbConfig.SysNumberSeriesTableName
+  fullName: Tripous.Data.DbConfig.SysNumberSeriesTableName
+- uid: Tripous.Data.DbConfig.SysConfigTableName*
+  commentId: Overload:Tripous.Data.DbConfig.SysConfigTableName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysConfigTableName
+  name: SysConfigTableName
+  nameWithType: DbConfig.SysConfigTableName
+  fullName: Tripous.Data.DbConfig.SysConfigTableName
+- uid: Tripous.Data.DbConfig.SysAppUserTableName*
+  commentId: Overload:Tripous.Data.DbConfig.SysAppUserTableName
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysAppUserTableName
+  name: SysAppUserTableName
+  nameWithType: DbConfig.SysAppUserTableName
+  fullName: Tripous.Data.DbConfig.SysAppUserTableName
+- uid: Tripous.Data.DbConfig.SysDbIniEntryField*
+  commentId: Overload:Tripous.Data.DbConfig.SysDbIniEntryField
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysDbIniEntryField
+  name: SysDbIniEntryField
+  nameWithType: DbConfig.SysDbIniEntryField
+  fullName: Tripous.Data.DbConfig.SysDbIniEntryField
+- uid: Tripous.Data.DbConfig.SysDbIniValueField*
+  commentId: Overload:Tripous.Data.DbConfig.SysDbIniValueField
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysDbIniValueField
+  name: SysDbIniValueField
+  nameWithType: DbConfig.SysDbIniValueField
+  fullName: Tripous.Data.DbConfig.SysDbIniValueField
+- uid: Tripous.Data.DbConfig.SysDbIniBlobField*
+  commentId: Overload:Tripous.Data.DbConfig.SysDbIniBlobField
+  href: Tripous.Data.DbConfig.html#Tripous_Data_DbConfig_SysDbIniBlobField
+  name: SysDbIniBlobField
+  nameWithType: DbConfig.SysDbIniBlobField
+  fullName: Tripous.Data.DbConfig.SysDbIniBlobField

@@ -1,0 +1,1171 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SqlFilterExpressionDef
+  commentId: T:Tripous.Data.SqlFilterExpressionDef
+  id: SqlFilterExpressionDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SqlFilterExpressionDef.#ctor
+  - Tripous.Data.SqlFilterExpressionDef.DateRange
+  - Tripous.Data.SqlFilterExpressionDef.Errors
+  - Tripous.Data.SqlFilterExpressionDef.ExpressionType
+  - Tripous.Data.SqlFilterExpressionDef.HasErrors
+  - Tripous.Data.SqlFilterExpressionDef.IsMultiple
+  - Tripous.Data.SqlFilterExpressionDef.IsNumeric
+  - Tripous.Data.SqlFilterExpressionDef.Label
+  - Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText
+  - Tripous.Data.SqlFilterExpressionDef.RawTag
+  - Tripous.Data.SqlFilterExpressionDef.Statement
+  - Tripous.Data.SqlFilterExpressionDef.Tag
+  - Tripous.Data.SqlFilterExpressionDef.Text
+  - Tripous.Data.SqlFilterExpressionDef.ToString
+  - Tripous.Data.SqlFilterExpressionDef.Value
+  langs:
+  - csharp
+  - vb
+  name: SqlFilterExpressionDef
+  nameWithType: SqlFilterExpressionDef
+  fullName: Tripous.Data.SqlFilterExpressionDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SqlFilterExpressionDef
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 15
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A filter expression,
+
+
+    <p>e.g. <code>[[string:Customer Name]]</code></p>
+
+    <p>See the <code>SqlFilterExpressions.txt</code> file for the filter syntax.</p>
+  example: []
+  syntax:
+    content: public class SqlFilterExpressionDef
+    content.vb: Public Class SqlFilterExpressionDef
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.SqlFilterExpressionDef.#ctor
+  commentId: M:Tripous.Data.SqlFilterExpressionDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: SqlFilterExpressionDef()
+  nameWithType: SqlFilterExpressionDef.SqlFilterExpressionDef()
+  fullName: Tripous.Data.SqlFilterExpressionDef.SqlFilterExpressionDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 394
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public SqlFilterExpressionDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.SqlFilterExpressionDef.#ctor*
+  nameWithType.vb: SqlFilterExpressionDef.New()
+  fullName.vb: Tripous.Data.SqlFilterExpressionDef.New()
+  name.vb: New()
+- uid: Tripous.Data.SqlFilterExpressionDef.ToString
+  commentId: M:Tripous.Data.SqlFilterExpressionDef.ToString
+  id: ToString
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: SqlFilterExpressionDef.ToString()
+  fullName: Tripous.Data.SqlFilterExpressionDef.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 402
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string representation of this instance.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Data.SqlFilterExpressionDef.ToString*
+- uid: Tripous.Data.SqlFilterExpressionDef.RawTag
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.RawTag
+  id: RawTag
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: RawTag
+  nameWithType: SqlFilterExpressionDef.RawTag
+  fullName: Tripous.Data.SqlFilterExpressionDef.RawTag
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RawTag
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 411
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The raw tag, e.g. <code>[[date:A_Date]]</code>
+  example: []
+  syntax:
+    content: public string RawTag { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property RawTag As String
+  overload: Tripous.Data.SqlFilterExpressionDef.RawTag*
+- uid: Tripous.Data.SqlFilterExpressionDef.Text
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.Text
+  id: Text
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: Text
+  nameWithType: SqlFilterExpressionDef.Text
+  fullName: Tripous.Data.SqlFilterExpressionDef.Text
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Text
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 433
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    When it is a LookUp or Enum filter, this is the SELECT statement or the list of constants the user enters inline in the SELECT statement.
+
+
+    <p>When it is a LookUp filter this is a SELECT statement, e.g. [[lookup:int:Country:select Id from Country]]</p>
+
+    <p>When it is an Enum filter, this is a semicolon delimited list of constants, e.g.  [[enum:string:Status:Pending;Completed;Cancelled]]</p>
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string Text { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Text As String
+  overload: Tripous.Data.SqlFilterExpressionDef.Text*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.Statement
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.Statement
+  id: Statement
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: Statement
+  nameWithType: SqlFilterExpressionDef.Statement
+  fullName: Tripous.Data.SqlFilterExpressionDef.Statement
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Statement
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 440
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    When it is a LookUp or Enum filter, this is the SELECT statement or the list of constants the user enters in the design-time UI.
+
+
+    <p>When it is a LookUp filter, this is a SELECT statement.</p>
+
+    <p>When it is an Enum filter, this is a semicolon delimited list of constants.</p>
+  example: []
+  syntax:
+    content: public string Statement { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Statement As String
+  overload: Tripous.Data.SqlFilterExpressionDef.Statement*
+- uid: Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText
+  id: LookUpSelectSqlText
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: LookUpSelectSqlText
+  nameWithType: SqlFilterExpressionDef.LookUpSelectSqlText
+  fullName: Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LookUpSelectSqlText
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 452
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Lookup SELECT statement.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string LookUpSelectSqlText { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property LookUpSelectSqlText As String
+  overload: Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.Label
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.Label
+  id: Label
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: Label
+  nameWithType: SqlFilterExpressionDef.Label
+  fullName: Tripous.Data.SqlFilterExpressionDef.Label
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Label
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 476
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The label the user gives to the filter, e.g. A_Date as in [[date:A_Date]]
+
+
+    <p>A label may contain spaces and characters other than english characters.</p>
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string Label { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Label As String
+  overload: Tripous.Data.SqlFilterExpressionDef.Label*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.ExpressionType
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.ExpressionType
+  id: ExpressionType
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: ExpressionType
+  nameWithType: SqlFilterExpressionDef.ExpressionType
+  fullName: Tripous.Data.SqlFilterExpressionDef.ExpressionType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExpressionType
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 481
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The type of the filter, e.g. String, Date, Integer, Decimal, LookUp, Enum
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public SqlFilterExpressionType ExpressionType { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.SqlFilterExpressionType
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property ExpressionType As SqlFilterExpressionType
+  overload: Tripous.Data.SqlFilterExpressionDef.ExpressionType*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.DateRange
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.DateRange
+  id: DateRange
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: DateRange
+  nameWithType: SqlFilterExpressionDef.DateRange
+  fullName: Tripous.Data.SqlFilterExpressionDef.DateRange
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateRange
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 488
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The date range. Used when it is a Date filter only.
+
+
+    <p>[[date:MyDate]] is a Custom date. The user must enter the date in the runtime UI.</p>
+
+    <p>[[date:LastMonth:MyDate]] is a computed date. The system computes the date in the runtime UI.</p>
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public DateRange DateRange { get; }
+    parameters: []
+    return:
+      type: Tripous.DateRange
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property DateRange As DateRange
+  overload: Tripous.Data.SqlFilterExpressionDef.DateRange*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.IsMultiple
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.IsMultiple
+  id: IsMultiple
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: IsMultiple
+  nameWithType: SqlFilterExpressionDef.IsMultiple
+  fullName: Tripous.Data.SqlFilterExpressionDef.IsMultiple
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsMultiple
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 493
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when 'multi' is included in the <xref href="Tripous.Data.SqlFilterExpressionDef.RawTag" data-throw-if-not-resolved="false"></xref>
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsMultiple { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property IsMultiple As Boolean
+  overload: Tripous.Data.SqlFilterExpressionDef.IsMultiple*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.IsNumeric
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.IsNumeric
+  id: IsNumeric
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: IsNumeric
+  nameWithType: SqlFilterExpressionDef.IsNumeric
+  fullName: Tripous.Data.SqlFilterExpressionDef.IsNumeric
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNumeric
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 501
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    True when in lookup or enum types a numeric modifier is used.
+
+
+    <p>e.g.</p>
+
+    <p> [[lookup:string|int:Label]] </p>
+
+    <p> [[enum:string|int|dec:Label]] </p>
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsNumeric { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property IsNumeric As Boolean
+  overload: Tripous.Data.SqlFilterExpressionDef.IsNumeric*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.Value
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.Value
+  id: Value
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: Value
+  nameWithType: SqlFilterExpressionDef.Value
+  fullName: Tripous.Data.SqlFilterExpressionDef.Value
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Value
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 508
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    The value the user enters in the runtime UI when the SELECT is executed.
+
+
+    <p>When this is a Date filter with a value other than <xref href="Tripous.DateRange.Custom" data-throw-if-not-resolved="false"></xref>
+
+    then this value is automatically completed in the runtime UI that executes the SELECT.</p>
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string Value { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Value As String
+  overload: Tripous.Data.SqlFilterExpressionDef.Value*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.HasErrors
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.HasErrors
+  id: HasErrors
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: HasErrors
+  nameWithType: SqlFilterExpressionDef.HasErrors
+  fullName: Tripous.Data.SqlFilterExpressionDef.HasErrors
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasErrors
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 513
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when there are errors in the filter definition.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool HasErrors { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property HasErrors As Boolean
+  overload: Tripous.Data.SqlFilterExpressionDef.HasErrors*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.Errors
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.Errors
+  id: Errors
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: Errors
+  nameWithType: SqlFilterExpressionDef.Errors
+  fullName: Tripous.Data.SqlFilterExpressionDef.Errors
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Errors
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 518
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of errors in the filter definition.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public string Errors { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property Errors As String
+  overload: Tripous.Data.SqlFilterExpressionDef.Errors*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.SqlFilterExpressionDef.Tag
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.Tag
+  id: Tag
+  parent: Tripous.Data.SqlFilterExpressionDef
+  langs:
+  - csharp
+  - vb
+  name: Tag
+  nameWithType: SqlFilterExpressionDef.Tag
+  fullName: Tripous.Data.SqlFilterExpressionDef.Tag
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/SqlFilterExpressionDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tag
+    path: ../Tripous.Data/Registry/SqlFilterExpressionDef.cs
+    startLine: 523
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A user defined object.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public object Tag { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property Tag As Object
+  overload: Tripous.Data.SqlFilterExpressionDef.Tag*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.SqlFilterExpressionDef.#ctor*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.#ctor
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef__ctor
+  name: SqlFilterExpressionDef
+  nameWithType: SqlFilterExpressionDef.SqlFilterExpressionDef
+  fullName: Tripous.Data.SqlFilterExpressionDef.SqlFilterExpressionDef
+  nameWithType.vb: SqlFilterExpressionDef.New
+  fullName.vb: Tripous.Data.SqlFilterExpressionDef.New
+  name.vb: New
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Data.SqlFilterExpressionDef.ToString*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.ToString
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_ToString
+  name: ToString
+  nameWithType: SqlFilterExpressionDef.ToString
+  fullName: Tripous.Data.SqlFilterExpressionDef.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SqlFilterExpressionDef.RawTag*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.RawTag
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_RawTag
+  name: RawTag
+  nameWithType: SqlFilterExpressionDef.RawTag
+  fullName: Tripous.Data.SqlFilterExpressionDef.RawTag
+- uid: Tripous.Data.SqlFilterExpressionDef.Text*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.Text
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_Text
+  name: Text
+  nameWithType: SqlFilterExpressionDef.Text
+  fullName: Tripous.Data.SqlFilterExpressionDef.Text
+- uid: Tripous.Data.SqlFilterExpressionDef.Statement*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.Statement
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_Statement
+  name: Statement
+  nameWithType: SqlFilterExpressionDef.Statement
+  fullName: Tripous.Data.SqlFilterExpressionDef.Statement
+- uid: Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_LookUpSelectSqlText
+  name: LookUpSelectSqlText
+  nameWithType: SqlFilterExpressionDef.LookUpSelectSqlText
+  fullName: Tripous.Data.SqlFilterExpressionDef.LookUpSelectSqlText
+- uid: Tripous.Data.SqlFilterExpressionDef.Label*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.Label
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_Label
+  name: Label
+  nameWithType: SqlFilterExpressionDef.Label
+  fullName: Tripous.Data.SqlFilterExpressionDef.Label
+- uid: Tripous.Data.SqlFilterExpressionDef.ExpressionType*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.ExpressionType
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_ExpressionType
+  name: ExpressionType
+  nameWithType: SqlFilterExpressionDef.ExpressionType
+  fullName: Tripous.Data.SqlFilterExpressionDef.ExpressionType
+- uid: Tripous.Data.SqlFilterExpressionType
+  commentId: T:Tripous.Data.SqlFilterExpressionType
+  parent: Tripous.Data
+  href: Tripous.Data.SqlFilterExpressionType.html
+  name: SqlFilterExpressionType
+  nameWithType: SqlFilterExpressionType
+  fullName: Tripous.Data.SqlFilterExpressionType
+- uid: Tripous.Data.SqlFilterExpressionDef.DateRange*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.DateRange
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_DateRange
+  name: DateRange
+  nameWithType: SqlFilterExpressionDef.DateRange
+  fullName: Tripous.Data.SqlFilterExpressionDef.DateRange
+- uid: Tripous.DateRange
+  commentId: T:Tripous.DateRange
+  parent: Tripous
+  href: Tripous.DateRange.html
+  name: DateRange
+  nameWithType: DateRange
+  fullName: Tripous.DateRange
+- uid: Tripous.Data.SqlFilterExpressionDef.RawTag
+  commentId: P:Tripous.Data.SqlFilterExpressionDef.RawTag
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_RawTag
+  name: RawTag
+  nameWithType: SqlFilterExpressionDef.RawTag
+  fullName: Tripous.Data.SqlFilterExpressionDef.RawTag
+- uid: Tripous.Data.SqlFilterExpressionDef.IsMultiple*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.IsMultiple
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_IsMultiple
+  name: IsMultiple
+  nameWithType: SqlFilterExpressionDef.IsMultiple
+  fullName: Tripous.Data.SqlFilterExpressionDef.IsMultiple
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.SqlFilterExpressionDef.IsNumeric*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.IsNumeric
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_IsNumeric
+  name: IsNumeric
+  nameWithType: SqlFilterExpressionDef.IsNumeric
+  fullName: Tripous.Data.SqlFilterExpressionDef.IsNumeric
+- uid: Tripous.DateRange.Custom
+  commentId: F:Tripous.DateRange.Custom
+  name: Custom
+  nameWithType: DateRange.Custom
+  fullName: Tripous.DateRange.Custom
+- uid: Tripous.Data.SqlFilterExpressionDef.Value*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.Value
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_Value
+  name: Value
+  nameWithType: SqlFilterExpressionDef.Value
+  fullName: Tripous.Data.SqlFilterExpressionDef.Value
+- uid: Tripous.Data.SqlFilterExpressionDef.HasErrors*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.HasErrors
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_HasErrors
+  name: HasErrors
+  nameWithType: SqlFilterExpressionDef.HasErrors
+  fullName: Tripous.Data.SqlFilterExpressionDef.HasErrors
+- uid: Tripous.Data.SqlFilterExpressionDef.Errors*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.Errors
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_Errors
+  name: Errors
+  nameWithType: SqlFilterExpressionDef.Errors
+  fullName: Tripous.Data.SqlFilterExpressionDef.Errors
+- uid: Tripous.Data.SqlFilterExpressionDef.Tag*
+  commentId: Overload:Tripous.Data.SqlFilterExpressionDef.Tag
+  href: Tripous.Data.SqlFilterExpressionDef.html#Tripous_Data_SqlFilterExpressionDef_Tag
+  name: Tag
+  nameWithType: SqlFilterExpressionDef.Tag
+  fullName: Tripous.Data.SqlFilterExpressionDef.Tag

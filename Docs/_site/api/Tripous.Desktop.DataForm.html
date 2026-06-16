@@ -1,0 +1,4437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class DataForm | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DataForm | Tripous Framework Documentation ">
+      
+      <meta name="description" content="A data form with a List part and an Item part.  All user initiated form actions should enter through . The ExecuteXXXX() methods are the action handlers and they are the only methods that should directly change, or eventually cause a change to, the .   Low level data operation methods, such as , , ,  and , should be called only by the corresponding ExecuteXXXX() method. This keeps UI commands, keyboard shortcuts and toolbar buttons on the same execution path.   The cancel flow is intentionally split.  handles the Cancel action.  handles only rejecting item changes. When an item has changes, Cancel asks for confirmation, rejects the changes, refreshes the item controls and stays in the Item part. A second Cancel, with no changes left, returns to the List part.   Startup is the only intentional exception to the general rule.  may call ExecuteEdit(RowId) or ExecuteInsert() directly and delayed through the UI dispatcher. At startup the list part may not be loaded yet, so Execute(Edit) cannot always resolve the desired row through the current list row. This exception is for bootstrapping only; normal UI actions should still use .">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.Desktop.DataForm">
+
+
+
+  <h1 id="Tripous_Desktop_DataForm" data-uid="Tripous.Desktop.DataForm" class="text-break">
+Class DataForm  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a>.<a class="xref" href="Tripous.Desktop.html">Desktop</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.Desktop.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A data form with a List part and an Item part.</p>
+<p>
+All user initiated form actions should enter through <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_Execute_Tripous_Desktop_DataFormAction_">Execute(DataFormAction)</a>.
+The <code>ExecuteXXXX()</code> methods are the action handlers and they are the only methods that should
+directly change, or eventually cause a change to, the <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_FormState">FormState</a>.
+</p>
+<p>
+Low level data operation methods, such as <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_ListSelect">ListSelect()</a>, <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_Insert">Insert()</a>,
+<a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_Load_System_Object_">Load(object)</a>, <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_Delete_System_Object_">Delete(object)</a> and <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_Save">Save()</a>, should be called only by the
+corresponding <code>ExecuteXXXX()</code> method. This keeps UI commands, keyboard shortcuts and toolbar
+buttons on the same execution path.
+</p>
+<p>
+The cancel flow is intentionally split. <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_ExecuteCancel">ExecuteCancel()</a> handles the Cancel action.
+<a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_ExecuteCancelEdit">ExecuteCancelEdit()</a> handles only rejecting item changes. When an item has changes,
+Cancel asks for confirmation, rejects the changes, refreshes the item controls and stays in the
+Item part. A second Cancel, with no changes left, returns to the List part.
+</p>
+<p>
+Startup is the only intentional exception to the general rule. <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_ExecuteStartAction">ExecuteStartAction()</a>
+may call <code>ExecuteEdit(RowId)</code> or <code>ExecuteInsert()</code> directly and delayed through the UI
+dispatcher. At startup the list part may not be loaded yet, so <code>Execute(Edit)</code> cannot always
+resolve the desired row through the current list row. This exception is for bootstrapping only;
+normal UI actions should still use <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_Execute_Tripous_Desktop_DataFormAction_">Execute(DataFormAction)</a>.
+</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DataForm : AppForm, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, IStyleable, INamed, IInputElement, IDataTemplateHost, ISetterValue</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AvaloniaObject</span></div>
+      <div><span class="xref">Animatable</span></div>
+      <div><span class="xref">StyledElement</span></div>
+      <div><span class="xref">Visual</span></div>
+      <div><span class="xref">Layoutable</span></div>
+      <div><span class="xref">Interactive</span></div>
+      <div><span class="xref">InputElement</span></div>
+      <div><span class="xref">Control</span></div>
+      <div><span class="xref">TemplatedControl</span></div>
+      <div><span class="xref">ContentControl</span></div>
+      <div><span class="xref">UserControl</span></div>
+      <div><a class="xref" href="Tripous.Desktop.AppForm.html">AppForm</a></div>
+      <div><span class="xref">DataForm</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
+      <div><span class="xref">IDataContextProvider</span></div>
+      <div><span class="xref">ILogical</span></div>
+      <div><span class="xref">IThemeVariantHost</span></div>
+      <div><span class="xref">IResourceHost</span></div>
+      <div><span class="xref">IResourceNode</span></div>
+      <div><span class="xref">IStyleHost</span></div>
+      <div><span class="xref">ISetLogicalParent</span></div>
+      <div><span class="xref">ISetInheritanceParent</span></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.isupportinitialize">ISupportInitialize</a></div>
+      <div><span class="xref">IStyleable</span></div>
+      <div><span class="xref">INamed</span></div>
+      <div><span class="xref">IInputElement</span></div>
+      <div><span class="xref">IDataTemplateHost</span></div>
+      <div><span class="xref">ISetterValue</span></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_fTitleText">AppForm.fTitleText</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_FormInitializing">AppForm.FormInitializing()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_FormInitialize">AppForm.FormInitialize()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_FormInitialized">AppForm.FormInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_Setup">AppForm.Setup()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ProcessFormOptions">AppForm.ProcessFormOptions()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_Closing">AppForm.Closing()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_Closed">AppForm.Closed()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_TitleTextChanged">AppForm.TitleTextChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_HandleBroadcasterEvent_System_String_System_Collections_Generic_IDictionary_System_String_System_Object__">AppForm.HandleBroadcasterEvent(string, IDictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_Setup_Tripous_Desktop_FormContext_">AppForm.Setup(FormContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_SetAsSelectedForm">AppForm.SetAsSelectedForm()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_CanCloseForm">AppForm.CanCloseForm()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_CloseForm">AppForm.CloseForm()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_Context">AppForm.Context</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_FormId">AppForm.FormId</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ParentControl">AppForm.ParentControl</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ParentTabPage">AppForm.ParentTabPage</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ParentTabControl">AppForm.ParentTabControl</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ParentWindow">AppForm.ParentWindow</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_IsSetupDone">AppForm.IsSetupDone</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_IsFormInitialized">AppForm.IsFormInitialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ClosableByUser">AppForm.ClosableByUser</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_IsSelectedForm">AppForm.IsSelectedForm</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_TitleText">AppForm.TitleText</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_IsClosing">AppForm.IsClosing</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_IsModal">AppForm.IsModal</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Desktop.AppForm.html#Tripous_Desktop_AppForm_ModalResult">AppForm.ModalResult</a>
+    </div>
+    <div>
+      <span class="xref">UserControl.OnCreateAutomationPeer()</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.ContentProperty</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.ContentTemplateProperty</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.HorizontalContentAlignmentProperty</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.VerticalContentAlignmentProperty</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.OnPropertyChanged(AvaloniaPropertyChangedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.RegisterContentPresenter(ContentPresenter)</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.Content</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.ContentTemplate</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.Presenter</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.HorizontalContentAlignment</span>
+    </div>
+    <div>
+      <span class="xref">ContentControl.VerticalContentAlignment</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.BackgroundProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.BackgroundSizingProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.BorderBrushProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.BorderThicknessProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.CornerRadiusProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontFamilyProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontFeaturesProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontSizeProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontStyleProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontWeightProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontStretchProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.ForegroundProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.PaddingProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.TemplateProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.IsTemplateFocusTargetProperty</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.TemplateAppliedEvent</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.GetIsTemplateFocusTarget(Control)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">TemplatedControl.SetIsTemplateFocusTarget(Control, bool)</a>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.ApplyTemplate()</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.GetTemplateFocusTarget()</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.OnApplyTemplate(TemplateAppliedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.OnTemplateChanged(AvaloniaPropertyChangedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.Background</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.BackgroundSizing</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.BorderBrush</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.BorderThickness</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.CornerRadius</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontFamily</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontFeatures</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontSize</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontStyle</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontWeight</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.FontStretch</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.Foreground</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.Padding</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.Template</span>
+    </div>
+    <div>
+      <span class="xref">TemplatedControl.TemplateApplied</span>
+    </div>
+    <div>
+      <span class="xref">Control.FocusAdornerProperty</span>
+    </div>
+    <div>
+      <span class="xref">Control.TagProperty</span>
+    </div>
+    <div>
+      <span class="xref">Control.ContextMenuProperty</span>
+    </div>
+    <div>
+      <span class="xref">Control.ContextFlyoutProperty</span>
+    </div>
+    <div>
+      <span class="xref">Control.RequestBringIntoViewEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.ContextRequestedEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.LoadedEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.UnloadedEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.SizeChangedEvent</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnLoaded(RoutedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnUnloaded(RoutedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnSizeChanged(SizeChangedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnDetachedFromVisualTreeCore(VisualTreeAttachmentEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnGotFocus(GotFocusEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnLostFocus(RoutedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnPointerReleased(PointerReleasedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.OnKeyUp(KeyEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Control.FocusAdorner</span>
+    </div>
+    <div>
+      <span class="xref">Control.DataTemplates</span>
+    </div>
+    <div>
+      <span class="xref">Control.ContextMenu</span>
+    </div>
+    <div>
+      <span class="xref">Control.ContextFlyout</span>
+    </div>
+    <div>
+      <span class="xref">Control.IsLoaded</span>
+    </div>
+    <div>
+      <span class="xref">Control.Tag</span>
+    </div>
+    <div>
+      <span class="xref">Control.ContextRequested</span>
+    </div>
+    <div>
+      <span class="xref">Control.Loaded</span>
+    </div>
+    <div>
+      <span class="xref">Control.Unloaded</span>
+    </div>
+    <div>
+      <span class="xref">Control.SizeChanged</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.FocusableProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsEnabledProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsEffectivelyEnabledProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.CursorProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsKeyboardFocusWithinProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsFocusedProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsHitTestVisibleProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsPointerOverProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsTabStopProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.GotFocusEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.LostFocusEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.KeyDownEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.KeyUpEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.TabIndexProperty</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.TextInputEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.TextInputMethodClientRequestedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerEnteredEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerExitedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerMovedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerPressedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerReleasedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerCaptureLostEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerWheelChangedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.TappedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.HoldingEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.DoubleTappedEvent</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.Focus(NavigationMethod, KeyModifiers)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnAccessKey(RoutedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnKeyDown(KeyEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnTextInput(TextInputEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnPointerEntered(PointerEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnPointerExited(PointerEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnPointerMoved(PointerEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnPointerPressed(PointerPressedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnPointerCaptureLost(PointerCaptureLostEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.OnPointerWheelChanged(PointerWheelEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.UpdateIsEffectivelyEnabled()</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.Focusable</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsEnabled</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.Cursor</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsKeyboardFocusWithin</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsFocused</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsHitTestVisible</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsPointerOver</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsTabStop</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsEffectivelyEnabled</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.TabIndex</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.KeyBindings</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.IsEnabledCore</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.GestureRecognizers</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.GotFocus</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.LostFocus</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.KeyDown</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.KeyUp</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.TextInput</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.TextInputMethodClientRequested</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerEntered</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerExited</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerMoved</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerPressed</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerReleased</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerCaptureLost</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.PointerWheelChanged</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.Tapped</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.Holding</span>
+    </div>
+    <div>
+      <span class="xref">InputElement.DoubleTapped</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Interactive.AddHandler(RoutedEvent, Delegate, RoutingStrategies, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">Interactive.AddHandler&lt;TEventArgs&gt;(RoutedEvent&lt;TEventArgs&gt;, EventHandler&lt;TEventArgs&gt;, RoutingStrategies, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.delegate">Interactive.RemoveHandler(RoutedEvent, Delegate)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">Interactive.RemoveHandler&lt;TEventArgs&gt;(RoutedEvent&lt;TEventArgs&gt;, EventHandler&lt;TEventArgs&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">Interactive.RaiseEvent(RoutedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Interactive.BuildEventRoute(RoutedEvent)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.DesiredSizeProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.WidthProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.HeightProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MinWidthProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MaxWidthProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MinHeightProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MaxHeightProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MarginProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.HorizontalAlignmentProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.VerticalAlignmentProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.UseLayoutRoundingProperty</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.UpdateLayout()</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.Measure(Size)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.Arrange(Rect)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.InvalidateMeasure()</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.InvalidateArrange()</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.AffectsMeasure&lt;T&gt;(params AvaloniaProperty[])</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.AffectsArrange&lt;T&gt;(params AvaloniaProperty[])</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MeasureCore(Size)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MeasureOverride(Size)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.ArrangeCore(Rect)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.ArrangeOverride(Size)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.OnMeasureInvalidated()</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.OnVisualParentChanged(Visual, Visual)</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.Width</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.Height</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MinWidth</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MaxWidth</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MinHeight</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.MaxHeight</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.Margin</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.HorizontalAlignment</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.VerticalAlignment</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.DesiredSize</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.IsMeasureValid</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.IsArrangeValid</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.UseLayoutRounding</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.EffectiveViewportChanged</span>
+    </div>
+    <div>
+      <span class="xref">Layoutable.LayoutUpdated</span>
+    </div>
+    <div>
+      <span class="xref">Visual.BoundsProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.ClipToBoundsProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.ClipProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.IsVisibleProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.OpacityProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.OpacityMaskProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.EffectProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.HasMirrorTransformProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.RenderTransformProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.RenderTransformOriginProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.FlowDirectionProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.VisualParentProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.ZIndexProperty</span>
+    </div>
+    <div>
+      <span class="xref">Visual.GetFlowDirection(Visual)</span>
+    </div>
+    <div>
+      <span class="xref">Visual.SetFlowDirection(Visual, FlowDirection)</span>
+    </div>
+    <div>
+      <span class="xref">Visual.InvalidateVisual()</span>
+    </div>
+    <div>
+      <span class="xref">Visual.Render(DrawingContext)</span>
+    </div>
+    <div>
+      <span class="xref">Visual.AffectsRender&lt;T&gt;(params AvaloniaProperty[])</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Visual.LogicalChildrenCollectionChanged(object, NotifyCollectionChangedEventArgs)</a>
+    </div>
+    <div>
+      <span class="xref">Visual.OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Visual.InvalidateMirrorTransform()</span>
+    </div>
+    <div>
+      <span class="xref">Visual.Bounds</span>
+    </div>
+    <div>
+      <span class="xref">Visual.ClipToBounds</span>
+    </div>
+    <div>
+      <span class="xref">Visual.Clip</span>
+    </div>
+    <div>
+      <span class="xref">Visual.IsEffectivelyVisible</span>
+    </div>
+    <div>
+      <span class="xref">Visual.IsVisible</span>
+    </div>
+    <div>
+      <span class="xref">Visual.Opacity</span>
+    </div>
+    <div>
+      <span class="xref">Visual.OpacityMask</span>
+    </div>
+    <div>
+      <span class="xref">Visual.Effect</span>
+    </div>
+    <div>
+      <span class="xref">Visual.HasMirrorTransform</span>
+    </div>
+    <div>
+      <span class="xref">Visual.RenderTransform</span>
+    </div>
+    <div>
+      <span class="xref">Visual.RenderTransformOrigin</span>
+    </div>
+    <div>
+      <span class="xref">Visual.FlowDirection</span>
+    </div>
+    <div>
+      <span class="xref">Visual.ZIndex</span>
+    </div>
+    <div>
+      <span class="xref">Visual.VisualChildren</span>
+    </div>
+    <div>
+      <span class="xref">Visual.VisualRoot</span>
+    </div>
+    <div>
+      <span class="xref">Visual.BypassFlowDirectionPolicies</span>
+    </div>
+    <div>
+      <span class="xref">Visual.AttachedToVisualTree</span>
+    </div>
+    <div>
+      <span class="xref">Visual.DetachedFromVisualTree</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.DataContextProperty</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.NameProperty</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.ParentProperty</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.TemplatedParentProperty</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.ThemeProperty</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.BeginInit()</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.EndInit()</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.ApplyStyling()</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.InitializeIfNeeded()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">StyledElement.TryGetResource(object, ThemeVariant, out object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">StyledElement.OnDataContextChanged(EventArgs)</a>
+    </div>
+    <div>
+      <span class="xref">StyledElement.OnDataContextBeginUpdate()</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.OnDataContextEndUpdate()</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.OnInitialized()</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Name</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Classes</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.DataContext</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.IsInitialized</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Styles</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.StyleKey</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Resources</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.TemplatedParent</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Theme</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.LogicalChildren</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.PseudoClasses</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.StyleKeyOverride</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Parent</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.ActualThemeVariant</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.AttachedToLogicalTree</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.DetachedFromLogicalTree</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.DataContextChanged</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.Initialized</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.ResourcesChanged</span>
+    </div>
+    <div>
+      <span class="xref">StyledElement.ActualThemeVariantChanged</span>
+    </div>
+    <div>
+      <span class="xref">Animatable.TransitionsProperty</span>
+    </div>
+    <div>
+      <span class="xref">Animatable.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs)</span>
+    </div>
+    <div>
+      <span class="xref">Animatable.Transitions</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.CheckAccess()</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.VerifyAccess()</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.ClearValue(AvaloniaProperty)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(AvaloniaProperty&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(StyledProperty&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.ClearValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">AvaloniaObject.Equals(object)</a>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.GetValue(AvaloniaProperty)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.GetValue&lt;T&gt;(StyledProperty&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.GetValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.GetBaseValue&lt;T&gt;(StyledProperty&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.IsAnimating(AvaloniaProperty)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.IsSet(AvaloniaProperty)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">AvaloniaObject.SetValue(AvaloniaProperty, object, BindingPriority)</a>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.SetValue&lt;T&gt;(StyledProperty&lt;T&gt;, T, BindingPriority)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.SetValue&lt;T&gt;(DirectPropertyBase&lt;T&gt;, T)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">AvaloniaObject.SetCurrentValue(AvaloniaProperty, object)</a>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.SetCurrentValue&lt;T&gt;(StyledProperty&lt;T&gt;, T)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.Bind(AvaloniaProperty, IBinding)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind(AvaloniaProperty, IObservable&lt;object&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledProperty&lt;T&gt;, IObservable&lt;object&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledProperty&lt;T&gt;, IObservable&lt;T&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(StyledProperty&lt;T&gt;, IObservable&lt;BindingValue&lt;T&gt;&gt;, BindingPriority)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(DirectPropertyBase&lt;T&gt;, IObservable&lt;object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(DirectPropertyBase&lt;T&gt;, IObservable&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iobservable-1">AvaloniaObject.Bind&lt;T&gt;(DirectPropertyBase&lt;T&gt;, IObservable&lt;BindingValue&lt;T&gt;&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.CoerceValue(AvaloniaProperty)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">AvaloniaObject.UpdateDataValidation(AvaloniaProperty, BindingValueType, Exception)</a>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.RaisePropertyChanged&lt;T&gt;(DirectPropertyBase&lt;T&gt;, T, T)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.SetAndRaise&lt;T&gt;(DirectPropertyBase&lt;T&gt;, ref T, T)</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.InheritanceParent</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.this[AvaloniaProperty]</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.this[IndexerDescriptor]</span>
+    </div>
+    <div>
+      <span class="xref">AvaloniaObject.PropertyChanged</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_GetOwnerWindow_Avalonia_Controls_Control_">Ui.GetOwnerWindow(Control)</a>
+  </div>
+  <div>
+      <a class="xref" href="Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_GetParentWindow_Avalonia_Controls_Control_">Ui.GetParentWindow(Control)</a>
+  </div>
+  <div>
+      <a class="xref" href="Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_">TypeExtensions.InheritsFrom(object, Type)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Tripous_Desktop_DataForm__ctor_" data-uid="Tripous.Desktop.DataForm.#ctor*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm__ctor" data-uid="Tripous.Desktop.DataForm.#ctor">
+  DataForm()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1102"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataForm()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_FilterPanelHandler" data-uid="Tripous.Desktop.DataForm.FilterPanelHandler">
+  FilterPanelHandler
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L152"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The SQL filter panel handler.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected SqlFilterPanelHandler FilterPanelHandler</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.SqlFilterPanelHandler.html">SqlFilterPanelHandler</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_LastAction" data-uid="Tripous.Desktop.DataForm.LastAction">
+  LastAction
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The last executed form action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected DataFormAction LastAction</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.DataFormAction.html">DataFormAction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_Saving" data-uid="Tripous.Desktop.DataForm.Saving">
+  Saving
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True while a save operation is in progress.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool Saving</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_SelectListToolBar" data-uid="Tripous.Desktop.DataForm.SelectListToolBar">
+  SelectListToolBar
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The select list toolbar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ToolBar SelectListToolBar</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.ToolBar.html">ToolBar</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_ToolBar" data-uid="Tripous.Desktop.DataForm.ToolBar">
+  ToolBar
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The main form toolbar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ToolBar ToolBar</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.ToolBar.html">ToolBar</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnCancel" data-uid="Tripous.Desktop.DataForm.btnCancel">
+  btnCancel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Cancel toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnCancel</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnClose" data-uid="Tripous.Desktop.DataForm.btnClose">
+  btnClose
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Close toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnClose</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnDelete" data-uid="Tripous.Desktop.DataForm.btnDelete">
+  btnDelete
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Delete toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnDelete</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnEdit" data-uid="Tripous.Desktop.DataForm.btnEdit">
+  btnEdit
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Edit toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnEdit</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnFind" data-uid="Tripous.Desktop.DataForm.btnFind">
+  btnFind
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Find toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnFind</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnHome" data-uid="Tripous.Desktop.DataForm.btnHome">
+  btnHome
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Home toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnHome</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnInsert" data-uid="Tripous.Desktop.DataForm.btnInsert">
+  btnInsert
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Insert toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnInsert</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnList" data-uid="Tripous.Desktop.DataForm.btnList">
+  btnList
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The List toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnList</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnOK" data-uid="Tripous.Desktop.DataForm.btnOK">
+  btnOK
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The OK toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnOK</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnRefresh" data-uid="Tripous.Desktop.DataForm.btnRefresh">
+  btnRefresh
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reloads the current item from the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnRefresh</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnRefreshList" data-uid="Tripous.Desktop.DataForm.btnRefreshList">
+  btnRefreshList
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Refresh List toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnRefreshList</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnSave" data-uid="Tripous.Desktop.DataForm.btnSave">
+  btnSave
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Save toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Button btnSave</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Button</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_btnToggleIds" data-uid="Tripous.Desktop.DataForm.btnToggleIds">
+  btnToggleIds
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Toggle Ids toolbar button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ToggleButton btnToggleIds</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ToggleButton</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_cboSelectList" data-uid="Tripous.Desktop.DataForm.cboSelectList">
+  cboSelectList
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The select list combo box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ComboBox cboSelectList</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ComboBox</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_fFiltersSideBarVisible" data-uid="Tripous.Desktop.DataForm.fFiltersSideBarVisible">
+  fFiltersSideBarVisible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when the filters sidebar is visible.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool fFiltersSideBarVisible</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_fFormState" data-uid="Tripous.Desktop.DataForm.fFormState">
+  fFormState
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current form state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected DataFormState fFormState</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.DataFormState.html">DataFormState</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_fIdColumnsVisible" data-uid="Tripous.Desktop.DataForm.fIdColumnsVisible">
+  fIdColumnsVisible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when ID columns are visible.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool fIdColumnsVisible</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_fListTargetId" data-uid="Tripous.Desktop.DataForm.fListTargetId">
+  fListTargetId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The list row identifier to select after a list refresh.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected object fListTargetId</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_sepCancelOK" data-uid="Tripous.Desktop.DataForm.sepCancelOK">
+  sepCancelOK
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L136"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Cancel/OK toolbar separator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Border sepCancelOK</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Border</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_sepEdit" data-uid="Tripous.Desktop.DataForm.sepEdit">
+  sepEdit
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The edit toolbar separator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Border sepEdit</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Border</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_sepHome" data-uid="Tripous.Desktop.DataForm.sepHome">
+  sepHome
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Home toolbar separator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Border sepHome</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Border</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_sepList" data-uid="Tripous.Desktop.DataForm.sepList">
+  sepList
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The List toolbar separator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Border sepList</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Border</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Desktop_DataForm_sepSave" data-uid="Tripous.Desktop.DataForm.sepSave">
+  sepSave
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Save toolbar separator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Border sepSave</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Border</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Tripous_Desktop_DataForm_CurrentRow_" data-uid="Tripous.Desktop.DataForm.CurrentRow*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_CurrentRow" data-uid="Tripous.Desktop.DataForm.CurrentRow">
+  CurrentRow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current row in the item part</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataRow CurrentRow { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_DataFormContext_" data-uid="Tripous.Desktop.DataForm.DataFormContext*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_DataFormContext" data-uid="Tripous.Desktop.DataForm.DataFormContext">
+  DataFormContext
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1111"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Form context</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataFormContext DataFormContext { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.DataFormContext.html">DataFormContext</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_FiltersSideBarVisible_" data-uid="Tripous.Desktop.DataForm.FiltersSideBarVisible*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_FiltersSideBarVisible" data-uid="Tripous.Desktop.DataForm.FiltersSideBarVisible">
+  FiltersSideBarVisible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1206"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When true the filters sidebar is visible.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool FiltersSideBarVisible { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_FormDef_" data-uid="Tripous.Desktop.DataForm.FormDef*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_FormDef" data-uid="Tripous.Desktop.DataForm.FormDef">
+  FormDef
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The form definition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FormDef FormDef { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.FormDef.html">FormDef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_FormState_" data-uid="Tripous.Desktop.DataForm.FormState*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_FormState" data-uid="Tripous.Desktop.DataForm.FormState">
+  FormState
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1149"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The state of a data-form indicates the UI the form is currently displaying</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual DataFormState FormState { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.DataFormState.html">DataFormState</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_IdColumnsVisible_" data-uid="Tripous.Desktop.DataForm.IdColumnsVisible*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_IdColumnsVisible" data-uid="Tripous.Desktop.DataForm.IdColumnsVisible">
+  IdColumnsVisible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1191"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Toggles visibility of list DataGrid columns ending with ID</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IdColumnsVisible { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_InvalidActions_" data-uid="Tripous.Desktop.DataForm.InvalidActions*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_InvalidActions" data-uid="Tripous.Desktop.DataForm.InvalidActions">
+  InvalidActions
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1128"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Form actions the form is not allowed to execute.</p>
+<p>This setting comes from the <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_DataFormContext">DataFormContext</a> which creates the form. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataFormAction InvalidActions { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.DataFormAction.html">DataFormAction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_IsEditableForm_" data-uid="Tripous.Desktop.DataForm.IsEditableForm*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_IsEditableForm" data-uid="Tripous.Desktop.DataForm.IsEditableForm">
+  IsEditableForm
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if this is a form where insert-edit-delete is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEditableForm { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_IsInListState_" data-uid="Tripous.Desktop.DataForm.IsInListState*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_IsInListState" data-uid="Tripous.Desktop.DataForm.IsInListState">
+  IsInListState
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1165"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when the form is in list state</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsInListState { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_IsListEmpty_" data-uid="Tripous.Desktop.DataForm.IsListEmpty*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_IsListEmpty" data-uid="Tripous.Desktop.DataForm.IsListEmpty">
+  IsListEmpty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when the list grid/table is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsListEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_IsReadOnlyForm_" data-uid="Tripous.Desktop.DataForm.IsReadOnlyForm*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_IsReadOnlyForm" data-uid="Tripous.Desktop.DataForm.IsReadOnlyForm">
+  IsReadOnlyForm
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1170"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if this is a form where insert-edit-delete is NOT allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReadOnlyForm { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_IsSingleSelect_" data-uid="Tripous.Desktop.DataForm.IsSingleSelect*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_IsSingleSelect" data-uid="Tripous.Desktop.DataForm.IsSingleSelect">
+  IsSingleSelect
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When true then this is a form with a fixed single select.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSingleSelect { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ItemPage_" data-uid="Tripous.Desktop.DataForm.ItemPage*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ItemPage" data-uid="Tripous.Desktop.DataForm.ItemPage">
+  ItemPage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1136"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The item page</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ItemPage ItemPage { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.ItemPage.html">ItemPage</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ListCurrentRow_" data-uid="Tripous.Desktop.DataForm.ListCurrentRow*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ListCurrentRow" data-uid="Tripous.Desktop.DataForm.ListCurrentRow">
+  ListCurrentRow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1141"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current row in the list part</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataRow ListCurrentRow { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.datarow">DataRow</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ListIsDirty_" data-uid="Tripous.Desktop.DataForm.ListIsDirty*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ListIsDirty" data-uid="Tripous.Desktop.DataForm.ListIsDirty">
+  ListIsDirty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when the list should be reloaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ListIsDirty { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Module_" data-uid="Tripous.Desktop.DataForm.Module*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Module" data-uid="Tripous.Desktop.DataForm.Module">
+  Module
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The data module</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataModule Module { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.DataModule.html">DataModule</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ModuleDef_" data-uid="Tripous.Desktop.DataForm.ModuleDef*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ModuleDef" data-uid="Tripous.Desktop.DataForm.ModuleDef">
+  ModuleDef
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The module definition</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModuleDef ModuleDef { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.ModuleDef.html">ModuleDef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_StartAction_" data-uid="Tripous.Desktop.DataForm.StartAction*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_StartAction" data-uid="Tripous.Desktop.DataForm.StartAction">
+  StartAction
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The first action the form should execute after initialization.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataFormAction StartAction { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Desktop.DataFormAction.html">DataFormAction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_Desktop_DataForm_ApplyIdColumnsVisible_" data-uid="Tripous.Desktop.DataForm.ApplyIdColumnsVisible*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ApplyIdColumnsVisible" data-uid="Tripous.Desktop.DataForm.ApplyIdColumnsVisible">
+  ApplyIdColumnsVisible()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1021"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies the visibility of list DataGrid columns ending with ID</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ApplyIdColumnsVisible()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_BindListGrid_" data-uid="Tripous.Desktop.DataForm.BindListGrid*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_BindListGrid_Tripous_Data_SelectDef_" data-uid="Tripous.Desktop.DataForm.BindListGrid(Tripous.Data.SelectDef)">
+  BindListGrid(SelectDef)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L849"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Binds the list grid to the list table data view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void BindListGrid(SelectDef SelectDef)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SelectDef</code> <a class="xref" href="Tripous.Data.SelectDef.html">SelectDef</a></dt>
+    <dd><p>The select definition.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_CanExecuteGridCommand_" data-uid="Tripous.Desktop.DataForm.CanExecuteGridCommand*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_CanExecuteGridCommand_Tripous_Desktop_GridCommandContext_" data-uid="Tripous.Desktop.DataForm.CanExecuteGridCommand(Tripous.Desktop.GridCommandContext)">
+  CanExecuteGridCommand(GridCommandContext)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L784"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true when a detail grid command can execute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool CanExecuteGridCommand(GridCommandContext Context)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Context</code> <a class="xref" href="Tripous.Desktop.GridCommandContext.html">GridCommandContext</a></dt>
+    <dd><p>The grid command context.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the command can execute; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_CancelChanges_" data-uid="Tripous.Desktop.DataForm.CancelChanges*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_CancelChanges" data-uid="Tripous.Desktop.DataForm.CancelChanges">
+  CancelChanges()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L775"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cancels changes in the data module.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CancelChanges()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_CreateItemPanel_" data-uid="Tripous.Desktop.DataForm.CreateItemPanel*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_CreateItemPanel" data-uid="Tripous.Desktop.DataForm.CreateItemPanel">
+  CreateItemPanel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L925"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the item panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CreateItemPanel()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_CreateSelectListToolBar_" data-uid="Tripous.Desktop.DataForm.CreateSelectListToolBar*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_CreateSelectListToolBar" data-uid="Tripous.Desktop.DataForm.CreateSelectListToolBar">
+  CreateSelectListToolBar()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L830"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the select list toolbar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CreateSelectListToolBar()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_CreateToolBar_" data-uid="Tripous.Desktop.DataForm.CreateToolBar*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_CreateToolBar" data-uid="Tripous.Desktop.DataForm.CreateToolBar">
+  CreateToolBar()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L791"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the main toolbar.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool CreateToolBar()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the toolbar was created; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Delete_" data-uid="Tripous.Desktop.DataForm.Delete*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Delete_System_Object_" data-uid="Tripous.Desktop.DataForm.Delete(System.Object)">
+  Delete(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L740"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Deletes an item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Delete(object oId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>oId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The row identifier.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_EnableCommands_" data-uid="Tripous.Desktop.DataForm.EnableCommands*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_EnableCommands" data-uid="Tripous.Desktop.DataForm.EnableCommands">
+  EnableCommands()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L954"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enables and disables buttons and menu items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void EnableCommands()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_EnableControls_" data-uid="Tripous.Desktop.DataForm.EnableControls*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_EnableControls" data-uid="Tripous.Desktop.DataForm.EnableControls">
+  EnableControls()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1009"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enables and disables controls.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void EnableControls()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Execute_" data-uid="Tripous.Desktop.DataForm.Execute*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Execute_Tripous_Desktop_DataFormAction_" data-uid="Tripous.Desktop.DataForm.Execute(Tripous.Desktop.DataFormAction)">
+  Execute(DataFormAction)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L339"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a form action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task Execute(DataFormAction Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Value</code> <a class="xref" href="Tripous.Desktop.DataFormAction.html">DataFormAction</a></dt>
+    <dd><p>The action to execute.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteCancel_" data-uid="Tripous.Desktop.DataForm.ExecuteCancel*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteCancel" data-uid="Tripous.Desktop.DataForm.ExecuteCancel">
+  ExecuteCancel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L590"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Cancel action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteCancel()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteCancelEdit_" data-uid="Tripous.Desktop.DataForm.ExecuteCancelEdit*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteCancelEdit" data-uid="Tripous.Desktop.DataForm.ExecuteCancelEdit">
+  ExecuteCancelEdit()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L611"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cancels item editing after optional confirmation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task&lt;bool&gt; ExecuteCancelEdit()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd><p>True if editing was cancelled or there were no changes; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteCustom_" data-uid="Tripous.Desktop.DataForm.ExecuteCustom*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteCustom_System_Object_" data-uid="Tripous.Desktop.DataForm.ExecuteCustom(System.Object)">
+  ExecuteCustom(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L418"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a custom action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteCustom(object Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The custom action value.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteDelete_" data-uid="Tripous.Desktop.DataForm.ExecuteDelete*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteDelete_System_Object_" data-uid="Tripous.Desktop.DataForm.ExecuteDelete(System.Object)">
+  ExecuteDelete(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L527"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Delete action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteDelete(object oId = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>oId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The row identifier to delete.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteEdit_" data-uid="Tripous.Desktop.DataForm.ExecuteEdit*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteEdit_System_Object_" data-uid="Tripous.Desktop.DataForm.ExecuteEdit(System.Object)">
+  ExecuteEdit(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L510"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Edit action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ExecuteEdit(object oId = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>oId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The row identifier to edit.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteFind_" data-uid="Tripous.Desktop.DataForm.ExecuteFind*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteFind" data-uid="Tripous.Desktop.DataForm.ExecuteFind">
+  ExecuteFind()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L431"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Find action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ExecuteFind()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteHome_" data-uid="Tripous.Desktop.DataForm.ExecuteHome*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteHome" data-uid="Tripous.Desktop.DataForm.ExecuteHome">
+  ExecuteHome()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L427"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Home action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ExecuteHome()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteInsert_" data-uid="Tripous.Desktop.DataForm.ExecuteInsert*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteInsert" data-uid="Tripous.Desktop.DataForm.ExecuteInsert">
+  ExecuteInsert()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L501"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Insert action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ExecuteInsert()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteList_" data-uid="Tripous.Desktop.DataForm.ExecuteList*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteList" data-uid="Tripous.Desktop.DataForm.ExecuteList">
+  ExecuteList()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L476"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the List action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteList()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteRefresh_" data-uid="Tripous.Desktop.DataForm.ExecuteRefresh*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteRefresh" data-uid="Tripous.Desktop.DataForm.ExecuteRefresh">
+  ExecuteRefresh()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L570"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Confirms pending changes and reloads the current item from the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteRefresh()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteRefreshList_" data-uid="Tripous.Desktop.DataForm.ExecuteRefreshList*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteRefreshList" data-uid="Tripous.Desktop.DataForm.ExecuteRefreshList">
+  ExecuteRefreshList()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L492"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Refresh List action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteRefreshList()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteSave_" data-uid="Tripous.Desktop.DataForm.ExecuteSave*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteSave" data-uid="Tripous.Desktop.DataForm.ExecuteSave">
+  ExecuteSave()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L548"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Save action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteSave()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteShortcut_" data-uid="Tripous.Desktop.DataForm.ExecuteShortcut*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteShortcut_Avalonia_Controls_Button_Tripous_Desktop_DataFormAction_" data-uid="Tripous.Desktop.DataForm.ExecuteShortcut(Avalonia.Controls.Button,Tripous.Desktop.DataFormAction)">
+  ExecuteShortcut(Button, DataFormAction)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes a shortcut action when the associated button is available.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool ExecuteShortcut(Button Button, DataFormAction Action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Button</code> <span class="xref">Button</span></dt>
+    <dd><p>The toolbar button associated with the shortcut.</p>
+</dd>
+    <dt><code>Action</code> <a class="xref" href="Tripous.Desktop.DataFormAction.html">DataFormAction</a></dt>
+    <dd><p>The form action to execute.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the shortcut was handled; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteStartAction_" data-uid="Tripous.Desktop.DataForm.ExecuteStartAction*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteStartAction" data-uid="Tripous.Desktop.DataForm.ExecuteStartAction">
+  ExecuteStartAction()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L306"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the startup action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ExecuteStartAction()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ExecuteToggleIds_" data-uid="Tripous.Desktop.DataForm.ExecuteToggleIds*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ExecuteToggleIds" data-uid="Tripous.Desktop.DataForm.ExecuteToggleIds">
+  ExecuteToggleIds()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L435"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes the Toggle Ids action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ExecuteToggleIds()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Executed_" data-uid="Tripous.Desktop.DataForm.Executed*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Executed_Tripous_Desktop_DataFormAction_" data-uid="Tripous.Desktop.DataForm.Executed(Tripous.Desktop.DataFormAction)">
+  Executed(DataFormAction)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L412"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called after a form action is executed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Executed(DataFormAction Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Value</code> <a class="xref" href="Tripous.Desktop.DataFormAction.html">DataFormAction</a></dt>
+    <dd><p>The executed action.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Executing_" data-uid="Tripous.Desktop.DataForm.Executing*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Executing_Tripous_Desktop_DataFormAction_" data-uid="Tripous.Desktop.DataForm.Executing(Tripous.Desktop.DataFormAction)">
+  Executing(DataFormAction)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L407"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called before a form action is executed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool Executing(DataFormAction Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Value</code> <a class="xref" href="Tripous.Desktop.DataFormAction.html">DataFormAction</a></dt>
+    <dd><p>The action to execute.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True to cancel the default execution; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_FindFirstFocusableControl_" data-uid="Tripous.Desktop.DataForm.FindFirstFocusableControl*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_FindFirstFocusableControl_Avalonia_Controls_Control_" data-uid="Tripous.Desktop.DataForm.FindFirstFocusableControl(Avalonia.Controls.Control)">
+  FindFirstFocusableControl(Control)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L859"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the first editable focus control in a container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Control FindFirstFocusableControl(Control Container)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Container</code> <span class="xref">Control</span></dt>
+    <dd><p>The container to search.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Control</span></dt>
+    <dd><p>The first editable focus control, if any; otherwise, null.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_FocusPreviousEditableControl_" data-uid="Tripous.Desktop.DataForm.FocusPreviousEditableControl*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_FocusPreviousEditableControl_Avalonia_Controls_Control_" data-uid="Tripous.Desktop.DataForm.FocusPreviousEditableControl(Avalonia.Controls.Control)">
+  FocusPreviousEditableControl(Control)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L900"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Focuses the previous editable control in the item panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool FocusPreviousEditableControl(Control Current)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Current</code> <span class="xref">Control</span></dt>
+    <dd><p>The current control.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if focus moved; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_FormStateChanged_" data-uid="Tripous.Desktop.DataForm.FormStateChanged*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_FormStateChanged" data-uid="Tripous.Desktop.DataForm.FormStateChanged">
+  FormStateChanged()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L280"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when the <a class="xref" href="Tripous.Desktop.DataForm.html#Tripous_Desktop_DataForm_FormState">FormState</a> property changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void FormStateChanged()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_GetCurrentListId_" data-uid="Tripous.Desktop.DataForm.GetCurrentListId*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_GetCurrentListId" data-uid="Tripous.Desktop.DataForm.GetCurrentListId">
+  GetCurrentListId()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L701"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the current list row identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual object GetCurrentListId()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The current list row identifier, if any; otherwise, null.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_GetItemLogText_" data-uid="Tripous.Desktop.DataForm.GetItemLogText*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_GetItemLogText_System_Object_" data-uid="Tripous.Desktop.DataForm.GetItemLogText(System.Object)">
+  GetItemLogText(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L441"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a text describing the current item for logging purposes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string GetItemLogText(object Id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The item identifier.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The item log text.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_GetSavedFilterValues_" data-uid="Tripous.Desktop.DataForm.GetSavedFilterValues*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_GetSavedFilterValues_Tripous_Data_SelectDef_Tripous_Data_SqlFilterDefs_" data-uid="Tripous.Desktop.DataForm.GetSavedFilterValues(Tripous.Data.SelectDef,Tripous.Data.SqlFilterDefs)">
+  GetSavedFilterValues(SelectDef, SqlFilterDefs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1063"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates and returns a new <a class="xref" href="Tripous.Data.SqlFilterDefs.html">SqlFilterDefs</a> instance with the saved filter values of the current user.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual SqlFilterDefs GetSavedFilterValues(SelectDef SelectDef, SqlFilterDefs FilterDefs)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SelectDef</code> <a class="xref" href="Tripous.Data.SelectDef.html">SelectDef</a></dt>
+    <dd><p>The select definition.</p>
+</dd>
+    <dt><code>FilterDefs</code> <a class="xref" href="Tripous.Data.SqlFilterDefs.html">SqlFilterDefs</a></dt>
+    <dd><p>The filter definitions.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.SqlFilterDefs.html">SqlFilterDefs</a></dt>
+    <dd><p>The filter definitions with saved values applied.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_GoToListOID_" data-uid="Tripous.Desktop.DataForm.GoToListOID*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_GoToListOID_System_Object_" data-uid="Tripous.Desktop.DataForm.GoToListOID(System.Object)">
+  GoToListOID(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L669"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Selects a list row by identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool GoToListOID(object oId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>oId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The row identifier.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the row was found and selected; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_HasChanges_" data-uid="Tripous.Desktop.DataForm.HasChanges*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_HasChanges" data-uid="Tripous.Desktop.DataForm.HasChanges">
+  HasChanges()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L771"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true when the data module has changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool HasChanges()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the data module has changes; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_InitializeComponent_" data-uid="Tripous.Desktop.DataForm.InitializeComponent*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_InitializeComponent_System_Boolean_" data-uid="Tripous.Desktop.DataForm.InitializeComponent(System.Boolean)">
+  InitializeComponent(bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ExcludeFromCodeCoverage]
+public void InitializeComponent(bool loadXaml = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>loadXaml</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Should the XAML be loaded into the component.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Insert_" data-uid="Tripous.Desktop.DataForm.Insert*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Insert" data-uid="Tripous.Desktop.DataForm.Insert">
+  Insert()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L730"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inserts a new item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Insert()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_IsEditableFocusControl_" data-uid="Tripous.Desktop.DataForm.IsEditableFocusControl*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_IsEditableFocusControl_Avalonia_Controls_Control_" data-uid="Tripous.Desktop.DataForm.IsEditableFocusControl(Avalonia.Controls.Control)">
+  IsEditableFocusControl(Control)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L877"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true when a control can receive edit focus.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool IsEditableFocusControl(Control Control)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Control</code> <span class="xref">Control</span></dt>
+    <dd><p>The control to check.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the control can receive edit focus; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ListSelect_" data-uid="Tripous.Desktop.DataForm.ListSelect*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ListSelect" data-uid="Tripous.Desktop.DataForm.ListSelect">
+  ListSelect()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L632"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Selects the current list using the selected select definition and active filters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task ListSelect()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Load_" data-uid="Tripous.Desktop.DataForm.Load*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Load_System_Object_" data-uid="Tripous.Desktop.DataForm.Load(System.Object)">
+  Load(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L735"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Loads an item for editing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Load(object oId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>oId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The row identifier.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_OnAttachedToVisualTree_" data-uid="Tripous.Desktop.DataForm.OnAttachedToVisualTree*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_OnAttachedToVisualTree_Avalonia_VisualTreeAttachmentEventArgs_" data-uid="Tripous.Desktop.DataForm.OnAttachedToVisualTree(Avalonia.VisualTreeAttachmentEventArgs)">
+  OnAttachedToVisualTree(VisualTreeAttachmentEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L236"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when the control is added to a rooted visual tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">VisualTreeAttachmentEventArgs</span></dt>
+    <dd><p>The visual tree attachment event arguments.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_PassResultBack_" data-uid="Tripous.Desktop.DataForm.PassResultBack*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_PassResultBack" data-uid="Tripous.Desktop.DataForm.PassResultBack">
+  PassResultBack()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L714"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Passes modal result data back to the form context.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void PassResultBack()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ProcessEscapeKey_" data-uid="Tripous.Desktop.DataForm.ProcessEscapeKey*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ProcessEscapeKey" data-uid="Tripous.Desktop.DataForm.ProcessEscapeKey">
+  ProcessEscapeKey()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1074"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>It is called when the escape key is pressed.</p>
+<p>Returning true indicates that the key press is handled.</p>
+<p>NOTE: By default, when is a modal dialog, it sets <a class="xref" href="Tripous.Desktop.ModalResult.html">ModalResult</a> to Cancel, and closes the form.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool ProcessEscapeKey()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the escape key was processed; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ProcessKeyDown_" data-uid="Tripous.Desktop.DataForm.ProcessKeyDown*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ProcessKeyDown_Avalonia_Input_KeyEventArgs_" data-uid="Tripous.Desktop.DataForm.ProcessKeyDown(Avalonia.Input.KeyEventArgs)">
+  ProcessKeyDown(KeyEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L225"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Processes key down events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool ProcessKeyDown(KeyEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">KeyEventArgs</span></dt>
+    <dd><p>The key event arguments.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the key was processed; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_ProcessShortcutKey_" data-uid="Tripous.Desktop.DataForm.ProcessShortcutKey*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_ProcessShortcutKey_Avalonia_Input_KeyEventArgs_" data-uid="Tripous.Desktop.DataForm.ProcessShortcutKey(Avalonia.Input.KeyEventArgs)">
+  ProcessShortcutKey(KeyEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Processes a keyboard shortcut.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool ProcessShortcutKey(KeyEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">KeyEventArgs</span></dt>
+    <dd><p>The key event arguments.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the shortcut was handled; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Refresh_" data-uid="Tripous.Desktop.DataForm.Refresh*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Refresh" data-uid="Tripous.Desktop.DataForm.Refresh">
+  Refresh()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L756"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reloads the current item and refreshes its controls.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Refresh()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Save_" data-uid="Tripous.Desktop.DataForm.Save*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Save" data-uid="Tripous.Desktop.DataForm.Save">
+  Save()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L748"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Saves the current item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Save()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_SelectedSelectChanged_" data-uid="Tripous.Desktop.DataForm.SelectedSelectChanged*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_SelectedSelectChanged" data-uid="Tripous.Desktop.DataForm.SelectedSelectChanged">
+  SelectedSelectChanged()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1042"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when another named SELECT is selected in the combobox with the select list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void SelectedSelectChanged()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_Start_" data-uid="Tripous.Desktop.DataForm.Start*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_Start" data-uid="Tripous.Desktop.DataForm.Start">
+  Start()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L254"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes any first command on the form</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task Start()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_UiLog_" data-uid="Tripous.Desktop.DataForm.UiLog*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_UiLog_System_String_" data-uid="Tripous.Desktop.DataForm.UiLog(System.String)">
+  UiLog(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L1089"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes a message to the UI log when data form logging is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void UiLog(string Message)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The message to write.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_UnBindListGrid_" data-uid="Tripous.Desktop.DataForm.UnBindListGrid*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_UnBindListGrid" data-uid="Tripous.Desktop.DataForm.UnBindListGrid">
+  UnBindListGrid()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L853"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unbinds the list grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void UnBindListGrid()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Desktop_DataForm_UpdateUi_" data-uid="Tripous.Desktop.DataForm.UpdateUi*"></a>
+
+  <h3 id="Tripous_Desktop_DataForm_UpdateUi" data-uid="Tripous.Desktop.DataForm.UpdateUi">
+  UpdateUi()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Desktop/DataForm.axaml.cs/#L943"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates the user interface, title, enable-disable buttons etc.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void UpdateUi()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1809 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.DictionaryExtensions
+  commentId: T:Tripous.DictionaryExtensions
+  id: DictionaryExtensions
+  parent: Tripous
+  children:
+  - Tripous.DictionaryExtensions.AsBoolean(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  - Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+  - Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  - Tripous.DictionaryExtensions.AsDateTime(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  - Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+  - Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  - Tripous.DictionaryExtensions.AsFloat(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  - Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+  - Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  - Tripous.DictionaryExtensions.AsInteger(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  - Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+  - Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  - Tripous.DictionaryExtensions.AsObject(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  - Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+  - Tripous.DictionaryExtensions.AsString(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  - Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+  - Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+  - Tripous.DictionaryExtensions.Assign``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Boolean)
+  - Tripous.DictionaryExtensions.DicToText(System.Collections.Generic.IDictionary{System.String,System.String})
+  - Tripous.DictionaryExtensions.LoadFromXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  - Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  - Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String,System.String)
+  - Tripous.DictionaryExtensions.TextToDic(System.Collections.Generic.IDictionary{System.String,System.String},System.String)
+  - Tripous.DictionaryExtensions.ValueOf``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0)
+  - Tripous.DictionaryExtensions.ValueOf``1(System.Collections.Hashtable,System.String,``0)
+  - Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  langs:
+  - csharp
+  - vb
+  name: DictionaryExtensions
+  nameWithType: DictionaryExtensions
+  fullName: Tripous.DictionaryExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DictionaryExtensions
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 19
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    A helper class for returning typed values from an IDictionary in a safe manner.
+
+    It assumes that the FlagName is always a string
+  example: []
+  syntax:
+    content: public static class DictionaryExtensions
+    content.vb: Public Module DictionaryExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+  commentId: M:Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+  id: AsObject(System.Collections.IDictionary,System.String,System.Object)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsObject(IDictionary, string, object)
+  nameWithType: DictionaryExtensions.AsObject(IDictionary, string, object)
+  fullName: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary, string, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsObject
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 24
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else Default
+  example: []
+  syntax:
+    content: public static object AsObject(this IDictionary Dictionary, string Key, object Default)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.Object
+    return:
+      type: System.Object
+    content.vb: Public Shared Function AsObject(Dictionary As IDictionary, Key As String, [Default] As Object) As Object
+  overload: Tripous.DictionaryExtensions.AsObject*
+  nameWithType.vb: DictionaryExtensions.AsObject(IDictionary, String, Object)
+  fullName.vb: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary, String, Object)
+  name.vb: AsObject(IDictionary, String, Object)
+- uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  commentId: M:Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  id: AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(IDictionary, string, int)
+  nameWithType: DictionaryExtensions.AsInteger(IDictionary, string, int)
+  fullName: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 40
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else Default
+  example: []
+  syntax:
+    content: public static int AsInteger(this IDictionary Dictionary, string Key, int Default)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(Dictionary As IDictionary, Key As String, [Default] As Integer) As Integer
+  overload: Tripous.DictionaryExtensions.AsInteger*
+  nameWithType.vb: DictionaryExtensions.AsInteger(IDictionary, String, Integer)
+  fullName.vb: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, String, Integer)
+  name.vb: AsInteger(IDictionary, String, Integer)
+- uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+  id: AsInteger(System.Collections.IDictionary,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsInteger(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 55
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else Default
+  example: []
+  syntax:
+    content: public static int AsInteger(this IDictionary Dictionary, string Key)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(Dictionary As IDictionary, Key As String) As Integer
+  overload: Tripous.DictionaryExtensions.AsInteger*
+  nameWithType.vb: DictionaryExtensions.AsInteger(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, String)
+  name.vb: AsInteger(IDictionary, String)
+- uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+  id: AsString(System.Collections.IDictionary,System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsString(IDictionary, string, string)
+  nameWithType: DictionaryExtensions.AsString(IDictionary, string, string)
+  fullName: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 62
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else 0
+  example: []
+  syntax:
+    content: public static string AsString(this IDictionary Dictionary, string Key, string Default)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(Dictionary As IDictionary, Key As String, [Default] As String) As String
+  overload: Tripous.DictionaryExtensions.AsString*
+  nameWithType.vb: DictionaryExtensions.AsString(IDictionary, String, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, String, String)
+  name.vb: AsString(IDictionary, String, String)
+- uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+  id: AsString(System.Collections.IDictionary,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsString(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsString(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 78
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else the empty string
+  example: []
+  syntax:
+    content: public static string AsString(this IDictionary Dictionary, string Key)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(Dictionary As IDictionary, Key As String) As String
+  overload: Tripous.DictionaryExtensions.AsString*
+  nameWithType.vb: DictionaryExtensions.AsString(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, String)
+  name.vb: AsString(IDictionary, String)
+- uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  commentId: M:Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  id: AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsFloat(IDictionary, string, double)
+  nameWithType: DictionaryExtensions.AsFloat(IDictionary, string, double)
+  fullName: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, string, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsFloat
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 85
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else Default
+  example: []
+  syntax:
+    content: public static double AsFloat(this IDictionary Dictionary, string Key, double Default)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.Double
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsFloat(Dictionary As IDictionary, Key As String, [Default] As Double) As Double
+  overload: Tripous.DictionaryExtensions.AsFloat*
+  nameWithType.vb: DictionaryExtensions.AsFloat(IDictionary, String, Double)
+  fullName.vb: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, String, Double)
+  name.vb: AsFloat(IDictionary, String, Double)
+- uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+  id: AsFloat(System.Collections.IDictionary,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsFloat(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsFloat(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsFloat
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 100
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else 0
+  example: []
+  syntax:
+    content: public static double AsFloat(this IDictionary Dictionary, string Key)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsFloat(Dictionary As IDictionary, Key As String) As Double
+  overload: Tripous.DictionaryExtensions.AsFloat*
+  nameWithType.vb: DictionaryExtensions.AsFloat(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, String)
+  name.vb: AsFloat(IDictionary, String)
+- uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  commentId: M:Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  id: AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(IDictionary, string, bool)
+  nameWithType: DictionaryExtensions.AsBoolean(IDictionary, string, bool)
+  fullName: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 107
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else Default
+  example: []
+  syntax:
+    content: public static bool AsBoolean(this IDictionary Dictionary, string Key, bool Default)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.Boolean
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(Dictionary As IDictionary, Key As String, [Default] As Boolean) As Boolean
+  overload: Tripous.DictionaryExtensions.AsBoolean*
+  nameWithType.vb: DictionaryExtensions.AsBoolean(IDictionary, String, Boolean)
+  fullName.vb: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, String, Boolean)
+  name.vb: AsBoolean(IDictionary, String, Boolean)
+- uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+  id: AsBoolean(System.Collections.IDictionary,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsBoolean(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 123
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else false
+  example: []
+  syntax:
+    content: public static bool AsBoolean(this IDictionary Dictionary, string Key)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(Dictionary As IDictionary, Key As String) As Boolean
+  overload: Tripous.DictionaryExtensions.AsBoolean*
+  nameWithType.vb: DictionaryExtensions.AsBoolean(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, String)
+  name.vb: AsBoolean(IDictionary, String)
+- uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  commentId: M:Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  id: AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(IDictionary, string, DateTime)
+  nameWithType: DictionaryExtensions.AsDateTime(IDictionary, string, DateTime)
+  fullName: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, string, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 130
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else Default
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(this IDictionary Dictionary, string Key, DateTime Default)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    - id: Default
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(Dictionary As IDictionary, Key As String, [Default] As Date) As Date
+  overload: Tripous.DictionaryExtensions.AsDateTime*
+  nameWithType.vb: DictionaryExtensions.AsDateTime(IDictionary, String, Date)
+  fullName.vb: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, String, Date)
+  name.vb: AsDateTime(IDictionary, String, Date)
+- uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+  id: AsDateTime(System.Collections.IDictionary,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsDateTime(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 145
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of FlagName if exists, else DateTime.Now
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(this IDictionary Dictionary, string Key)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.IDictionary
+    - id: Key
+      type: System.String
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(Dictionary As IDictionary, Key As String) As Date
+  overload: Tripous.DictionaryExtensions.AsDateTime*
+  nameWithType.vb: DictionaryExtensions.AsDateTime(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, String)
+  name.vb: AsDateTime(IDictionary, String)
+- uid: Tripous.DictionaryExtensions.DicToText(System.Collections.Generic.IDictionary{System.String,System.String})
+  commentId: M:Tripous.DictionaryExtensions.DicToText(System.Collections.Generic.IDictionary{System.String,System.String})
+  id: DicToText(System.Collections.Generic.IDictionary{System.String,System.String})
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: DicToText(IDictionary<string, string>)
+  nameWithType: DictionaryExtensions.DicToText(IDictionary<string, string>)
+  fullName: Tripous.DictionaryExtensions.DicToText(System.Collections.Generic.IDictionary<string, string>)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DicToText
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 154
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Converts Dictionary to a text lines, where each line has the format FlagName=Value
+  example: []
+  syntax:
+    content: public static string DicToText(this IDictionary<string, string> Dictionary)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.Generic.IDictionary{System.String,System.String}
+    return:
+      type: System.String
+    content.vb: Public Shared Function DicToText(Dictionary As IDictionary(Of String, String)) As String
+  overload: Tripous.DictionaryExtensions.DicToText*
+  nameWithType.vb: DictionaryExtensions.DicToText(IDictionary(Of String, String))
+  fullName.vb: Tripous.DictionaryExtensions.DicToText(System.Collections.Generic.IDictionary(Of String, String))
+  name.vb: DicToText(IDictionary(Of String, String))
+- uid: Tripous.DictionaryExtensions.TextToDic(System.Collections.Generic.IDictionary{System.String,System.String},System.String)
+  commentId: M:Tripous.DictionaryExtensions.TextToDic(System.Collections.Generic.IDictionary{System.String,System.String},System.String)
+  id: TextToDic(System.Collections.Generic.IDictionary{System.String,System.String},System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: TextToDic(IDictionary<string, string>, string)
+  nameWithType: DictionaryExtensions.TextToDic(IDictionary<string, string>, string)
+  fullName: Tripous.DictionaryExtensions.TextToDic(System.Collections.Generic.IDictionary<string, string>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TextToDic
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 172
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Loads Dictionary using Text. Text must be zero or more lines, where each line has the format FlagName=Value
+  example: []
+  syntax:
+    content: public static void TextToDic(this IDictionary<string, string> Dictionary, string Text)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.Generic.IDictionary{System.String,System.String}
+    - id: Text
+      type: System.String
+    content.vb: Public Shared Sub TextToDic(Dictionary As IDictionary(Of String, String), Text As String)
+  overload: Tripous.DictionaryExtensions.TextToDic*
+  nameWithType.vb: DictionaryExtensions.TextToDic(IDictionary(Of String, String), String)
+  fullName.vb: Tripous.DictionaryExtensions.TextToDic(System.Collections.Generic.IDictionary(Of String, String), String)
+  name.vb: TextToDic(IDictionary(Of String, String), String)
+- uid: Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String,System.String)
+  commentId: M:Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String,System.String)
+  id: SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: SaveToXml(IDictionary<string, string>, XmlNode, string, string)
+  nameWithType: DictionaryExtensions.SaveToXml(IDictionary<string, string>, XmlNode, string, string)
+  fullName: Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary<string, string>, System.Xml.XmlNode, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SaveToXml
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 208
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Saves Dictionary to ParentNode. A child node with ListNodeName is created to that ParentNode. Then each Dictionary entry
+
+    becomes a child Node to that ListNodeName Node, with ItemNodeName. FlagName and Value of each Dictionary entry are saved as
+
+    attributes to that item Node.
+  example: []
+  syntax:
+    content: public static void SaveToXml(this IDictionary<string, string> Dictionary, XmlNode ParentNode, string ListNodeName, string ItemNodeName)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.Generic.IDictionary{System.String,System.String}
+    - id: ParentNode
+      type: System.Xml.XmlNode
+    - id: ListNodeName
+      type: System.String
+    - id: ItemNodeName
+      type: System.String
+    content.vb: Public Shared Sub SaveToXml(Dictionary As IDictionary(Of String, String), ParentNode As XmlNode, ListNodeName As String, ItemNodeName As String)
+  overload: Tripous.DictionaryExtensions.SaveToXml*
+  nameWithType.vb: DictionaryExtensions.SaveToXml(IDictionary(Of String, String), XmlNode, String, String)
+  fullName.vb: Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary(Of String, String), System.Xml.XmlNode, String, String)
+  name.vb: SaveToXml(IDictionary(Of String, String), XmlNode, String, String)
+- uid: Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  commentId: M:Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  id: SaveToXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: SaveToXml(IDictionary<string, string>, XmlNode, string)
+  nameWithType: DictionaryExtensions.SaveToXml(IDictionary<string, string>, XmlNode, string)
+  fullName: Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary<string, string>, System.Xml.XmlNode, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SaveToXml
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 227
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Saves Dictionary to ParentNode. A child node with ListNodeName is created to that ParentNode. Then each Dictionary entry
+
+    becomes a child Node to that ListNodeName Node, with "item" as node name. FlagName and Value of each Dictionary entry are saved as
+
+    attributes to that item Node.
+  example: []
+  syntax:
+    content: public static void SaveToXml(this IDictionary<string, string> Dictionary, XmlNode ParentNode, string ListNodeName)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.Generic.IDictionary{System.String,System.String}
+    - id: ParentNode
+      type: System.Xml.XmlNode
+    - id: ListNodeName
+      type: System.String
+    content.vb: Public Shared Sub SaveToXml(Dictionary As IDictionary(Of String, String), ParentNode As XmlNode, ListNodeName As String)
+  overload: Tripous.DictionaryExtensions.SaveToXml*
+  nameWithType.vb: DictionaryExtensions.SaveToXml(IDictionary(Of String, String), XmlNode, String)
+  fullName.vb: Tripous.DictionaryExtensions.SaveToXml(System.Collections.Generic.IDictionary(Of String, String), System.Xml.XmlNode, String)
+  name.vb: SaveToXml(IDictionary(Of String, String), XmlNode, String)
+- uid: Tripous.DictionaryExtensions.LoadFromXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  commentId: M:Tripous.DictionaryExtensions.LoadFromXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  id: LoadFromXml(System.Collections.Generic.IDictionary{System.String,System.String},System.Xml.XmlNode,System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: LoadFromXml(IDictionary<string, string>, XmlNode, string)
+  nameWithType: DictionaryExtensions.LoadFromXml(IDictionary<string, string>, XmlNode, string)
+  fullName: Tripous.DictionaryExtensions.LoadFromXml(System.Collections.Generic.IDictionary<string, string>, System.Xml.XmlNode, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoadFromXml
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 234
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Loads Dictionary from ParentNode. See SaveToXml() for a description of the node tree
+  example: []
+  syntax:
+    content: public static void LoadFromXml(this IDictionary<string, string> Dictionary, XmlNode ParentNode, string ListNodeName)
+    parameters:
+    - id: Dictionary
+      type: System.Collections.Generic.IDictionary{System.String,System.String}
+    - id: ParentNode
+      type: System.Xml.XmlNode
+    - id: ListNodeName
+      type: System.String
+    content.vb: Public Shared Sub LoadFromXml(Dictionary As IDictionary(Of String, String), ParentNode As XmlNode, ListNodeName As String)
+  overload: Tripous.DictionaryExtensions.LoadFromXml*
+  nameWithType.vb: DictionaryExtensions.LoadFromXml(IDictionary(Of String, String), XmlNode, String)
+  fullName.vb: Tripous.DictionaryExtensions.LoadFromXml(System.Collections.Generic.IDictionary(Of String, String), System.Xml.XmlNode, String)
+  name.vb: LoadFromXml(IDictionary(Of String, String), XmlNode, String)
+- uid: Tripous.DictionaryExtensions.Assign``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Boolean)
+  commentId: M:Tripous.DictionaryExtensions.Assign``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Boolean)
+  id: Assign``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1},System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: Assign<TKey, TValue>(IDictionary<TKey, TValue>, IDictionary<TKey, TValue>, bool)
+  nameWithType: DictionaryExtensions.Assign<TKey, TValue>(IDictionary<TKey, TValue>, IDictionary<TKey, TValue>, bool)
+  fullName: Tripous.DictionaryExtensions.Assign<TKey, TValue>(System.Collections.Generic.IDictionary<TKey, TValue>, System.Collections.Generic.IDictionary<TKey, TValue>, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Assign
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 262
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Assigns Dest to Source
+  example: []
+  syntax:
+    content: public static void Assign<TKey, TValue>(this IDictionary<TKey, TValue> Source, IDictionary<TKey, TValue> Dest, bool ClearSource = true)
+    parameters:
+    - id: Source
+      type: System.Collections.Generic.IDictionary{{TKey},{TValue}}
+    - id: Dest
+      type: System.Collections.Generic.IDictionary{{TKey},{TValue}}
+    - id: ClearSource
+      type: System.Boolean
+    typeParameters:
+    - id: TKey
+    - id: TValue
+    content.vb: Public Shared Sub Assign(Of TKey, TValue)(Source As IDictionary(Of TKey, TValue), Dest As IDictionary(Of TKey, TValue), ClearSource As Boolean = True)
+  overload: Tripous.DictionaryExtensions.Assign*
+  nameWithType.vb: DictionaryExtensions.Assign(Of TKey, TValue)(IDictionary(Of TKey, TValue), IDictionary(Of TKey, TValue), Boolean)
+  fullName.vb: Tripous.DictionaryExtensions.Assign(Of TKey, TValue)(System.Collections.Generic.IDictionary(Of TKey, TValue), System.Collections.Generic.IDictionary(Of TKey, TValue), Boolean)
+  name.vb: Assign(Of TKey, TValue)(IDictionary(Of TKey, TValue), IDictionary(Of TKey, TValue), Boolean)
+- uid: Tripous.DictionaryExtensions.ValueOf``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0)
+  commentId: M:Tripous.DictionaryExtensions.ValueOf``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0)
+  id: ValueOf``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: ValueOf<T>(IDictionary<string, object>, string, T)
+  nameWithType: DictionaryExtensions.ValueOf<T>(IDictionary<string, object>, string, T)
+  fullName: Tripous.DictionaryExtensions.ValueOf<T>(System.Collections.Generic.IDictionary<string, object>, string, T)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValueOf
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 281
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the value of Key if exists and not null, else returns Default.
+  example: []
+  syntax:
+    content: public static T ValueOf<T>(this IDictionary<string, object> Data, string Key, T Default)
+    parameters:
+    - id: Data
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    - id: Key
+      type: System.String
+    - id: Default
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function ValueOf(Of T)(Data As IDictionary(Of String, Object), Key As String, [Default] As T) As T
+  overload: Tripous.DictionaryExtensions.ValueOf*
+  nameWithType.vb: DictionaryExtensions.ValueOf(Of T)(IDictionary(Of String, Object), String, T)
+  fullName.vb: Tripous.DictionaryExtensions.ValueOf(Of T)(System.Collections.Generic.IDictionary(Of String, Object), String, T)
+  name.vb: ValueOf(Of T)(IDictionary(Of String, Object), String, T)
+- uid: Tripous.DictionaryExtensions.AsObject(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsObject(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  id: AsObject(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsObject(IDictionary<string, object>, string)
+  nameWithType: DictionaryExtensions.AsObject(IDictionary<string, object>, string)
+  fullName: Tripous.DictionaryExtensions.AsObject(System.Collections.Generic.IDictionary<string, object>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsObject
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 295
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of Key
+  example: []
+  syntax:
+    content: public static object AsObject(this IDictionary<string, object> Data, string Key)
+    parameters:
+    - id: Data
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    - id: Key
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Shared Function AsObject(Data As IDictionary(Of String, Object), Key As String) As Object
+  overload: Tripous.DictionaryExtensions.AsObject*
+  nameWithType.vb: DictionaryExtensions.AsObject(IDictionary(Of String, Object), String)
+  fullName.vb: Tripous.DictionaryExtensions.AsObject(System.Collections.Generic.IDictionary(Of String, Object), String)
+  name.vb: AsObject(IDictionary(Of String, Object), String)
+- uid: Tripous.DictionaryExtensions.AsString(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsString(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  id: AsString(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsString(IDictionary<string, object>, string)
+  nameWithType: DictionaryExtensions.AsString(IDictionary<string, object>, string)
+  fullName: Tripous.DictionaryExtensions.AsString(System.Collections.Generic.IDictionary<string, object>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsString
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 302
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of Key
+  example: []
+  syntax:
+    content: public static string AsString(this IDictionary<string, object> Data, string Key)
+    parameters:
+    - id: Data
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    - id: Key
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function AsString(Data As IDictionary(Of String, Object), Key As String) As String
+  overload: Tripous.DictionaryExtensions.AsString*
+  nameWithType.vb: DictionaryExtensions.AsString(IDictionary(Of String, Object), String)
+  fullName.vb: Tripous.DictionaryExtensions.AsString(System.Collections.Generic.IDictionary(Of String, Object), String)
+  name.vb: AsString(IDictionary(Of String, Object), String)
+- uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsInteger(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  id: AsInteger(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsInteger(IDictionary<string, object>, string)
+  nameWithType: DictionaryExtensions.AsInteger(IDictionary<string, object>, string)
+  fullName: Tripous.DictionaryExtensions.AsInteger(System.Collections.Generic.IDictionary<string, object>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsInteger
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 309
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of Key
+  example: []
+  syntax:
+    content: public static int AsInteger(this IDictionary<string, object> Data, string Key)
+    parameters:
+    - id: Data
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    - id: Key
+      type: System.String
+    return:
+      type: System.Int32
+    content.vb: Public Shared Function AsInteger(Data As IDictionary(Of String, Object), Key As String) As Integer
+  overload: Tripous.DictionaryExtensions.AsInteger*
+  nameWithType.vb: DictionaryExtensions.AsInteger(IDictionary(Of String, Object), String)
+  fullName.vb: Tripous.DictionaryExtensions.AsInteger(System.Collections.Generic.IDictionary(Of String, Object), String)
+  name.vb: AsInteger(IDictionary(Of String, Object), String)
+- uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsBoolean(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  id: AsBoolean(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsBoolean(IDictionary<string, object>, string)
+  nameWithType: DictionaryExtensions.AsBoolean(IDictionary<string, object>, string)
+  fullName: Tripous.DictionaryExtensions.AsBoolean(System.Collections.Generic.IDictionary<string, object>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsBoolean
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 316
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of Key
+  example: []
+  syntax:
+    content: public static bool AsBoolean(this IDictionary<string, object> Data, string Key)
+    parameters:
+    - id: Data
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    - id: Key
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function AsBoolean(Data As IDictionary(Of String, Object), Key As String) As Boolean
+  overload: Tripous.DictionaryExtensions.AsBoolean*
+  nameWithType.vb: DictionaryExtensions.AsBoolean(IDictionary(Of String, Object), String)
+  fullName.vb: Tripous.DictionaryExtensions.AsBoolean(System.Collections.Generic.IDictionary(Of String, Object), String)
+  name.vb: AsBoolean(IDictionary(Of String, Object), String)
+- uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsFloat(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  id: AsFloat(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsFloat(IDictionary<string, object>, string)
+  nameWithType: DictionaryExtensions.AsFloat(IDictionary<string, object>, string)
+  fullName: Tripous.DictionaryExtensions.AsFloat(System.Collections.Generic.IDictionary<string, object>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsFloat
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 323
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of Key
+  example: []
+  syntax:
+    content: public static double AsFloat(this IDictionary<string, object> Data, string Key)
+    parameters:
+    - id: Data
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    - id: Key
+      type: System.String
+    return:
+      type: System.Double
+    content.vb: Public Shared Function AsFloat(Data As IDictionary(Of String, Object), Key As String) As Double
+  overload: Tripous.DictionaryExtensions.AsFloat*
+  nameWithType.vb: DictionaryExtensions.AsFloat(IDictionary(Of String, Object), String)
+  fullName.vb: Tripous.DictionaryExtensions.AsFloat(System.Collections.Generic.IDictionary(Of String, Object), String)
+  name.vb: AsFloat(IDictionary(Of String, Object), String)
+- uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsDateTime(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  id: AsDateTime(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: AsDateTime(IDictionary<string, object>, string)
+  nameWithType: DictionaryExtensions.AsDateTime(IDictionary<string, object>, string)
+  fullName: Tripous.DictionaryExtensions.AsDateTime(System.Collections.Generic.IDictionary<string, object>, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AsDateTime
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 330
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the Value of Key
+  example: []
+  syntax:
+    content: public static DateTime AsDateTime(this IDictionary<string, object> Data, string Key)
+    parameters:
+    - id: Data
+      type: System.Collections.Generic.IDictionary{System.String,System.Object}
+    - id: Key
+      type: System.String
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Function AsDateTime(Data As IDictionary(Of String, Object), Key As String) As Date
+  overload: Tripous.DictionaryExtensions.AsDateTime*
+  nameWithType.vb: DictionaryExtensions.AsDateTime(IDictionary(Of String, Object), String)
+  fullName.vb: Tripous.DictionaryExtensions.AsDateTime(System.Collections.Generic.IDictionary(Of String, Object), String)
+  name.vb: AsDateTime(IDictionary(Of String, Object), String)
+- uid: Tripous.DictionaryExtensions.ValueOf``1(System.Collections.Hashtable,System.String,``0)
+  commentId: M:Tripous.DictionaryExtensions.ValueOf``1(System.Collections.Hashtable,System.String,``0)
+  id: ValueOf``1(System.Collections.Hashtable,System.String,``0)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: ValueOf<T>(Hashtable, string, T)
+  nameWithType: DictionaryExtensions.ValueOf<T>(Hashtable, string, T)
+  fullName: Tripous.DictionaryExtensions.ValueOf<T>(System.Collections.Hashtable, string, T)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValueOf
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 339
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the value of Key if exists and not null, else returns Default.
+  example: []
+  syntax:
+    content: public static T ValueOf<T>(this Hashtable Data, string Key, T Default)
+    parameters:
+    - id: Data
+      type: System.Collections.Hashtable
+    - id: Key
+      type: System.String
+    - id: Default
+      type: '{T}'
+    typeParameters:
+    - id: T
+    return:
+      type: '{T}'
+    content.vb: Public Shared Function ValueOf(Of T)(Data As Hashtable, Key As String, [Default] As T) As T
+  overload: Tripous.DictionaryExtensions.ValueOf*
+  nameWithType.vb: DictionaryExtensions.ValueOf(Of T)(Hashtable, String, T)
+  fullName.vb: Tripous.DictionaryExtensions.ValueOf(Of T)(System.Collections.Hashtable, String, T)
+  name.vb: ValueOf(Of T)(Hashtable, String, T)
+- uid: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  commentId: M:Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  id: ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  isExtensionMethod: true
+  parent: Tripous.DictionaryExtensions
+  langs:
+  - csharp
+  - vb
+  name: ValuesToRow(IDictionary, DataRow)
+  nameWithType: DictionaryExtensions.ValuesToRow(IDictionary, DataRow)
+  fullName: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary, System.Data.DataRow)
+  type: Method
+  source:
+    remote:
+      path: Tripous/Extensions/DictionaryExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValuesToRow
+    path: ../Tripous/Extensions/DictionaryExtensions.cs
+    startLine: 352
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Passes values from Values to Row.
+  example: []
+  syntax:
+    content: public static void ValuesToRow(this IDictionary Values, DataRow Row)
+    parameters:
+    - id: Values
+      type: System.Collections.IDictionary
+    - id: Row
+      type: System.Data.DataRow
+    content.vb: Public Shared Sub ValuesToRow(Values As IDictionary, Row As DataRow)
+  overload: Tripous.DictionaryExtensions.ValuesToRow*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.DictionaryExtensions.AsObject*
+  commentId: Overload:Tripous.DictionaryExtensions.AsObject
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsObject_System_Collections_IDictionary_System_String_System_Object_
+  name: AsObject
+  nameWithType: DictionaryExtensions.AsObject
+  fullName: Tripous.DictionaryExtensions.AsObject
+- uid: System.Collections.IDictionary
+  commentId: T:System.Collections.IDictionary
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  name: IDictionary
+  nameWithType: IDictionary
+  fullName: System.Collections.IDictionary
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: Tripous.DictionaryExtensions.AsInteger*
+  commentId: Overload:Tripous.DictionaryExtensions.AsInteger
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_System_Int32_
+  name: AsInteger
+  nameWithType: DictionaryExtensions.AsInteger
+  fullName: Tripous.DictionaryExtensions.AsInteger
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.DictionaryExtensions.AsString*
+  commentId: Overload:Tripous.DictionaryExtensions.AsString
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_System_String_
+  name: AsString
+  nameWithType: DictionaryExtensions.AsString
+  fullName: Tripous.DictionaryExtensions.AsString
+- uid: Tripous.DictionaryExtensions.AsFloat*
+  commentId: Overload:Tripous.DictionaryExtensions.AsFloat
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_System_Double_
+  name: AsFloat
+  nameWithType: DictionaryExtensions.AsFloat
+  fullName: Tripous.DictionaryExtensions.AsFloat
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Tripous.DictionaryExtensions.AsBoolean*
+  commentId: Overload:Tripous.DictionaryExtensions.AsBoolean
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_System_Boolean_
+  name: AsBoolean
+  nameWithType: DictionaryExtensions.AsBoolean
+  fullName: Tripous.DictionaryExtensions.AsBoolean
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.DictionaryExtensions.AsDateTime*
+  commentId: Overload:Tripous.DictionaryExtensions.AsDateTime
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_System_DateTime_
+  name: AsDateTime
+  nameWithType: DictionaryExtensions.AsDateTime
+  fullName: Tripous.DictionaryExtensions.AsDateTime
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.datetime
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+  nameWithType.vb: Date
+  fullName.vb: Date
+  name.vb: Date
+- uid: Tripous.DictionaryExtensions.DicToText*
+  commentId: Overload:Tripous.DictionaryExtensions.DicToText
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_DicToText_System_Collections_Generic_IDictionary_System_String_System_String__
+  name: DicToText
+  nameWithType: DictionaryExtensions.DicToText
+  fullName: Tripous.DictionaryExtensions.DicToText
+- uid: System.Collections.Generic.IDictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.IDictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IDictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<string, string>
+  nameWithType: IDictionary<string, string>
+  fullName: System.Collections.Generic.IDictionary<string, string>
+  nameWithType.vb: IDictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.IDictionary(Of String, String)
+  name.vb: IDictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.IDictionary`2
+  commentId: T:System.Collections.Generic.IDictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<TKey, TValue>
+  nameWithType: IDictionary<TKey, TValue>
+  fullName: System.Collections.Generic.IDictionary<TKey, TValue>
+  nameWithType.vb: IDictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.IDictionary(Of TKey, TValue)
+  name.vb: IDictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.DictionaryExtensions.TextToDic*
+  commentId: Overload:Tripous.DictionaryExtensions.TextToDic
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_TextToDic_System_Collections_Generic_IDictionary_System_String_System_String__System_String_
+  name: TextToDic
+  nameWithType: DictionaryExtensions.TextToDic
+  fullName: Tripous.DictionaryExtensions.TextToDic
+- uid: Tripous.DictionaryExtensions.SaveToXml*
+  commentId: Overload:Tripous.DictionaryExtensions.SaveToXml
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_SaveToXml_System_Collections_Generic_IDictionary_System_String_System_String__System_Xml_XmlNode_System_String_System_String_
+  name: SaveToXml
+  nameWithType: DictionaryExtensions.SaveToXml
+  fullName: Tripous.DictionaryExtensions.SaveToXml
+- uid: System.Xml.XmlNode
+  commentId: T:System.Xml.XmlNode
+  parent: System.Xml
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.xml.xmlnode
+  name: XmlNode
+  nameWithType: XmlNode
+  fullName: System.Xml.XmlNode
+- uid: System.Xml
+  commentId: N:System.Xml
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Xml
+  nameWithType: System.Xml
+  fullName: System.Xml
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Xml
+    name: Xml
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.xml
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Xml
+    name: Xml
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.xml
+- uid: Tripous.DictionaryExtensions.LoadFromXml*
+  commentId: Overload:Tripous.DictionaryExtensions.LoadFromXml
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_LoadFromXml_System_Collections_Generic_IDictionary_System_String_System_String__System_Xml_XmlNode_System_String_
+  name: LoadFromXml
+  nameWithType: DictionaryExtensions.LoadFromXml
+  fullName: Tripous.DictionaryExtensions.LoadFromXml
+- uid: Tripous.DictionaryExtensions.Assign*
+  commentId: Overload:Tripous.DictionaryExtensions.Assign
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_Assign__2_System_Collections_Generic_IDictionary___0___1__System_Collections_Generic_IDictionary___0___1__System_Boolean_
+  name: Assign
+  nameWithType: DictionaryExtensions.Assign
+  fullName: Tripous.DictionaryExtensions.Assign
+- uid: System.Collections.Generic.IDictionary{{TKey},{TValue}}
+  commentId: T:System.Collections.Generic.IDictionary{``0,``1}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IDictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<TKey, TValue>
+  nameWithType: IDictionary<TKey, TValue>
+  fullName: System.Collections.Generic.IDictionary<TKey, TValue>
+  nameWithType.vb: IDictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.IDictionary(Of TKey, TValue)
+  name.vb: IDictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Tripous.DictionaryExtensions.ValueOf*
+  commentId: Overload:Tripous.DictionaryExtensions.ValueOf
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValueOf__1_System_Collections_Generic_IDictionary_System_String_System_Object__System_String___0_
+  name: ValueOf
+  nameWithType: DictionaryExtensions.ValueOf
+  fullName: Tripous.DictionaryExtensions.ValueOf
+- uid: System.Collections.Generic.IDictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.IDictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IDictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  name: IDictionary<string, object>
+  nameWithType: IDictionary<string, object>
+  fullName: System.Collections.Generic.IDictionary<string, object>
+  nameWithType.vb: IDictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.IDictionary(Of String, Object)
+  name.vb: IDictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IDictionary`2
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: System.Collections.Hashtable
+  commentId: T:System.Collections.Hashtable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.hashtable
+  name: Hashtable
+  nameWithType: Hashtable
+  fullName: System.Collections.Hashtable
+- uid: Tripous.DictionaryExtensions.ValuesToRow*
+  commentId: Overload:Tripous.DictionaryExtensions.ValuesToRow
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValuesToRow_System_Collections_IDictionary_System_Data_DataRow_
+  name: ValuesToRow
+  nameWithType: DictionaryExtensions.ValuesToRow
+  fullName: Tripous.DictionaryExtensions.ValuesToRow
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data

@@ -1,0 +1,460 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.IRowProviderHost
+  commentId: T:Tripous.Data.IRowProviderHost
+  id: IRowProviderHost
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.IRowProviderHost.FindRowProvider(System.String)
+  - Tripous.Data.IRowProviderHost.GetRowProvider(System.String)
+  - Tripous.Data.IRowProviderHost.RowProviderExists(System.String)
+  - Tripous.Data.IRowProviderHost.RowProviders
+  langs:
+  - csharp
+  - vb
+  name: IRowProviderHost
+  nameWithType: IRowProviderHost
+  fullName: Tripous.Data.IRowProviderHost
+  type: Interface
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IRowProviderHost
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Provides access to multiple <xref href="Tripous.Data.IRowProvider" data-throw-if-not-resolved="false"></xref>.
+
+
+    <p>Useful when multiple tables are in an one-to-one relationship, such as a Trade, a StoreTrade and a FinTrade table.</p>
+  example: []
+  syntax:
+    content: public interface IRowProviderHost
+    content.vb: Public Interface IRowProviderHost
+  derivedClasses:
+  - Tripous.Data.MemTable
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.IRowProviderHost.RowProviderExists(System.String)
+  commentId: M:Tripous.Data.IRowProviderHost.RowProviderExists(System.String)
+  id: RowProviderExists(System.String)
+  parent: Tripous.Data.IRowProviderHost
+  langs:
+  - csharp
+  - vb
+  name: RowProviderExists(string)
+  nameWithType: IRowProviderHost.RowProviderExists(string)
+  fullName: Tripous.Data.IRowProviderHost.RowProviderExists(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowProviderExists
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if a <xref href="Tripous.Data.IRowProvider" data-throw-if-not-resolved="false"></xref> with the specified <code class="paramref">TableName</code> exists.
+  example: []
+  syntax:
+    content: bool RowProviderExists(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Function RowProviderExists(TableName As String) As Boolean
+  overload: Tripous.Data.IRowProviderHost.RowProviderExists*
+  nameWithType.vb: IRowProviderHost.RowProviderExists(String)
+  fullName.vb: Tripous.Data.IRowProviderHost.RowProviderExists(String)
+  name.vb: RowProviderExists(String)
+- uid: Tripous.Data.IRowProviderHost.FindRowProvider(System.String)
+  commentId: M:Tripous.Data.IRowProviderHost.FindRowProvider(System.String)
+  id: FindRowProvider(System.String)
+  parent: Tripous.Data.IRowProviderHost
+  langs:
+  - csharp
+  - vb
+  name: FindRowProvider(string)
+  nameWithType: IRowProviderHost.FindRowProvider(string)
+  fullName: Tripous.Data.IRowProviderHost.FindRowProvider(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindRowProvider
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the <xref href="Tripous.Data.IRowProvider" data-throw-if-not-resolved="false"></xref> with the specified <code class="paramref">TableName</code>, if found, else null.
+  example: []
+  syntax:
+    content: IRowProvider FindRowProvider(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: Tripous.Data.IRowProvider
+    content.vb: Function FindRowProvider(TableName As String) As IRowProvider
+  overload: Tripous.Data.IRowProviderHost.FindRowProvider*
+  nameWithType.vb: IRowProviderHost.FindRowProvider(String)
+  fullName.vb: Tripous.Data.IRowProviderHost.FindRowProvider(String)
+  name.vb: FindRowProvider(String)
+- uid: Tripous.Data.IRowProviderHost.GetRowProvider(System.String)
+  commentId: M:Tripous.Data.IRowProviderHost.GetRowProvider(System.String)
+  id: GetRowProvider(System.String)
+  parent: Tripous.Data.IRowProviderHost
+  langs:
+  - csharp
+  - vb
+  name: GetRowProvider(string)
+  nameWithType: IRowProviderHost.GetRowProvider(string)
+  fullName: Tripous.Data.IRowProviderHost.GetRowProvider(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetRowProvider
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 53
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the <xref href="Tripous.Data.IRowProvider" data-throw-if-not-resolved="false"></xref> with the specified <code class="paramref">TableName</code>, if found, else throws an exception.
+  example: []
+  syntax:
+    content: IRowProvider GetRowProvider(string TableName)
+    parameters:
+    - id: TableName
+      type: System.String
+    return:
+      type: Tripous.Data.IRowProvider
+    content.vb: Function GetRowProvider(TableName As String) As IRowProvider
+  overload: Tripous.Data.IRowProviderHost.GetRowProvider*
+  nameWithType.vb: IRowProviderHost.GetRowProvider(String)
+  fullName.vb: Tripous.Data.IRowProviderHost.GetRowProvider(String)
+  name.vb: GetRowProvider(String)
+- uid: Tripous.Data.IRowProviderHost.RowProviders
+  commentId: P:Tripous.Data.IRowProviderHost.RowProviders
+  id: RowProviders
+  parent: Tripous.Data.IRowProviderHost
+  langs:
+  - csharp
+  - vb
+  name: RowProviders
+  nameWithType: IRowProviderHost.RowProviders
+  fullName: Tripous.Data.IRowProviderHost.RowProviders
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowProviders
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 58
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list of <xref href="Tripous.Data.IRowProvider" data-throw-if-not-resolved="false"></xref> instances hosted by this instance.
+  example: []
+  syntax:
+    content: ReadOnlyCollection<IRowProvider> RowProviders { get; }
+    parameters: []
+    return:
+      type: System.Collections.ObjectModel.ReadOnlyCollection{Tripous.Data.IRowProvider}
+    content.vb: ReadOnly Property RowProviders As ReadOnlyCollection(Of IRowProvider)
+  overload: Tripous.Data.IRowProviderHost.RowProviders*
+references:
+- uid: Tripous.Data.IRowProvider
+  commentId: T:Tripous.Data.IRowProvider
+  parent: Tripous.Data
+  href: Tripous.Data.IRowProvider.html
+  name: IRowProvider
+  nameWithType: IRowProvider
+  fullName: Tripous.Data.IRowProvider
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.IRowProviderHost.RowProviderExists*
+  commentId: Overload:Tripous.Data.IRowProviderHost.RowProviderExists
+  href: Tripous.Data.IRowProviderHost.html#Tripous_Data_IRowProviderHost_RowProviderExists_System_String_
+  name: RowProviderExists
+  nameWithType: IRowProviderHost.RowProviderExists
+  fullName: Tripous.Data.IRowProviderHost.RowProviderExists
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.IRowProviderHost.FindRowProvider*
+  commentId: Overload:Tripous.Data.IRowProviderHost.FindRowProvider
+  href: Tripous.Data.IRowProviderHost.html#Tripous_Data_IRowProviderHost_FindRowProvider_System_String_
+  name: FindRowProvider
+  nameWithType: IRowProviderHost.FindRowProvider
+  fullName: Tripous.Data.IRowProviderHost.FindRowProvider
+- uid: Tripous.Data.IRowProviderHost.GetRowProvider*
+  commentId: Overload:Tripous.Data.IRowProviderHost.GetRowProvider
+  href: Tripous.Data.IRowProviderHost.html#Tripous_Data_IRowProviderHost_GetRowProvider_System_String_
+  name: GetRowProvider
+  nameWithType: IRowProviderHost.GetRowProvider
+  fullName: Tripous.Data.IRowProviderHost.GetRowProvider
+- uid: Tripous.Data.IRowProviderHost.RowProviders*
+  commentId: Overload:Tripous.Data.IRowProviderHost.RowProviders
+  href: Tripous.Data.IRowProviderHost.html#Tripous_Data_IRowProviderHost_RowProviders
+  name: RowProviders
+  nameWithType: IRowProviderHost.RowProviders
+  fullName: Tripous.Data.IRowProviderHost.RowProviders
+- uid: System.Collections.ObjectModel.ReadOnlyCollection{Tripous.Data.IRowProvider}
+  commentId: T:System.Collections.ObjectModel.ReadOnlyCollection{Tripous.Data.IRowProvider}
+  parent: System.Collections.ObjectModel
+  definition: System.Collections.ObjectModel.ReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.readonlycollection-1
+  name: ReadOnlyCollection<IRowProvider>
+  nameWithType: ReadOnlyCollection<IRowProvider>
+  fullName: System.Collections.ObjectModel.ReadOnlyCollection<Tripous.Data.IRowProvider>
+  nameWithType.vb: ReadOnlyCollection(Of IRowProvider)
+  fullName.vb: System.Collections.ObjectModel.ReadOnlyCollection(Of Tripous.Data.IRowProvider)
+  name.vb: ReadOnlyCollection(Of IRowProvider)
+  spec.csharp:
+  - uid: System.Collections.ObjectModel.ReadOnlyCollection`1
+    name: ReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.readonlycollection-1
+  - name: <
+  - uid: Tripous.Data.IRowProvider
+    name: IRowProvider
+    href: Tripous.Data.IRowProvider.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.ObjectModel.ReadOnlyCollection`1
+    name: ReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.readonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.IRowProvider
+    name: IRowProvider
+    href: Tripous.Data.IRowProvider.html
+  - name: )
+- uid: System.Collections.ObjectModel.ReadOnlyCollection`1
+  commentId: T:System.Collections.ObjectModel.ReadOnlyCollection`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.readonlycollection-1
+  name: ReadOnlyCollection<T>
+  nameWithType: ReadOnlyCollection<T>
+  fullName: System.Collections.ObjectModel.ReadOnlyCollection<T>
+  nameWithType.vb: ReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.ObjectModel.ReadOnlyCollection(Of T)
+  name.vb: ReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.ObjectModel.ReadOnlyCollection`1
+    name: ReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.readonlycollection-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.ObjectModel.ReadOnlyCollection`1
+    name: ReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.readonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.ObjectModel
+  commentId: N:System.Collections.ObjectModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.ObjectModel
+  nameWithType: System.Collections.ObjectModel
+  fullName: System.Collections.ObjectModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.ObjectModel
+    name: ObjectModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.ObjectModel
+    name: ObjectModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.objectmodel

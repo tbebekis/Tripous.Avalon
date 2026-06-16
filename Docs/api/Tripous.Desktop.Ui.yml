@@ -1,0 +1,1742 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.Ui
+  commentId: T:Tripous.Desktop.Ui
+  id: Ui
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.Ui.CreateContainerNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  - Tripous.Desktop.Ui.CreateLeafNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  - Tripous.Desktop.Ui.CreateTreeNode(System.String,Avalonia.Media.FontWeight,System.String,System.Object,System.Double,System.Int32)
+  - Tripous.Desktop.Ui.Debug(System.Exception)
+  - Tripous.Desktop.Ui.Debug(System.String)
+  - Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.ItemsControl,System.Boolean)
+  - Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeView,System.Boolean)
+  - Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeViewItem,System.Boolean)
+  - Tripous.Desktop.Ui.GetOwnerWindow(Avalonia.Controls.Control)
+  - Tripous.Desktop.Ui.GetParentWindow(Avalonia.Controls.Control)
+  - Tripous.Desktop.Ui.InputBox(System.String,System.String,Avalonia.Controls.Control)
+  - Tripous.Desktop.Ui.MainWindow
+  - Tripous.Desktop.Ui.OpenFileDialog(Avalonia.Controls.Control,System.String[])
+  - Tripous.Desktop.Ui.Post(System.Action)
+  - Tripous.Desktop.Ui.Post(System.Action,Avalonia.Threading.DispatcherPriority)
+  - Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task})
+  - Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task},Avalonia.Threading.DispatcherPriority)
+  - Tripous.Desktop.Ui.SShowDataFormLog
+  - Tripous.Desktop.Ui.SaveFileDialog(Avalonia.Controls.Control,System.String[])
+  - Tripous.Desktop.Ui.Settings
+  - Tripous.Desktop.Ui.ShowWaitCursor(System.Action,Avalonia.Controls.Control)
+  - Tripous.Desktop.Ui.ShowWaitCursor``1(System.Action{``0},``0,Avalonia.Controls.Control)
+  langs:
+  - csharp
+  - vb
+  name: Ui
+  nameWithType: Ui
+  fullName: Tripous.Desktop.Ui
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Ui
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Constants
+  example: []
+  syntax:
+    content: public static class Ui
+    content.vb: Public Module Ui
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Desktop.Ui.SShowDataFormLog
+  commentId: F:Tripous.Desktop.Ui.SShowDataFormLog
+  id: SShowDataFormLog
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: SShowDataFormLog
+  nameWithType: Ui.SShowDataFormLog
+  fullName: Tripous.Desktop.Ui.SShowDataFormLog
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.Constants.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SShowDataFormLog
+    path: ../Tripous.Desktop/Ui.Constants.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The name of the command to show the DataForm log.
+  example: []
+  syntax:
+    content: public const string SShowDataFormLog = "ShowDataFormLog"
+    return:
+      type: System.String
+    content.vb: Public Const SShowDataFormLog As String = "ShowDataFormLog"
+- uid: Tripous.Desktop.Ui.GetParentWindow(Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.Ui.GetParentWindow(Avalonia.Controls.Control)
+  id: GetParentWindow(Avalonia.Controls.Control)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: GetParentWindow(Control)
+  nameWithType: Ui.GetParentWindow(Control)
+  fullName: Tripous.Desktop.Ui.GetParentWindow(Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetParentWindow
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the parent window of a control.
+  example: []
+  syntax:
+    content: public static Window GetParentWindow(this Control Control)
+    parameters:
+    - id: Control
+      type: Avalonia.Controls.Control
+      description: The control.
+    return:
+      type: Avalonia.Controls.Window
+      description: The parent window, if any; otherwise, null.
+    content.vb: Public Shared Function GetParentWindow(Control As Control) As Window
+  overload: Tripous.Desktop.Ui.GetParentWindow*
+- uid: Tripous.Desktop.Ui.GetOwnerWindow(Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.Ui.GetOwnerWindow(Avalonia.Controls.Control)
+  id: GetOwnerWindow(Avalonia.Controls.Control)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: GetOwnerWindow(Control)
+  nameWithType: Ui.GetOwnerWindow(Control)
+  fullName: Tripous.Desktop.Ui.GetOwnerWindow(Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetOwnerWindow
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 36
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the owner window of a control.
+  example: []
+  syntax:
+    content: public static Window GetOwnerWindow(this Control Control)
+    parameters:
+    - id: Control
+      type: Avalonia.Controls.Control
+      description: The control.
+    return:
+      type: Avalonia.Controls.Window
+      description: The owner window.
+    content.vb: Public Shared Function GetOwnerWindow(Control As Control) As Window
+  overload: Tripous.Desktop.Ui.GetOwnerWindow*
+- uid: Tripous.Desktop.Ui.SaveFileDialog(Avalonia.Controls.Control,System.String[])
+  commentId: M:Tripous.Desktop.Ui.SaveFileDialog(Avalonia.Controls.Control,System.String[])
+  id: SaveFileDialog(Avalonia.Controls.Control,System.String[])
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: SaveFileDialog(Control, params string[])
+  nameWithType: Ui.SaveFileDialog(Control, params string[])
+  fullName: Tripous.Desktop.Ui.SaveFileDialog(Avalonia.Controls.Control, params string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SaveFileDialog
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows a save file dialog.
+  example: []
+  syntax:
+    content: public static Task<string> SaveFileDialog(Control Caller, params string[] Extensions)
+    parameters:
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    - id: Extensions
+      type: System.String[]
+      description: The allowed file extensions.
+    return:
+      type: System.Threading.Tasks.Task{System.String}
+      description: The selected file path, if any; otherwise, null.
+    content.vb: Public Shared Function SaveFileDialog(Caller As Control, ParamArray Extensions As String()) As Task(Of String)
+  overload: Tripous.Desktop.Ui.SaveFileDialog*
+  nameWithType.vb: Ui.SaveFileDialog(Control, ParamArray String())
+  fullName.vb: Tripous.Desktop.Ui.SaveFileDialog(Avalonia.Controls.Control, ParamArray String())
+  name.vb: SaveFileDialog(Control, ParamArray String())
+- uid: Tripous.Desktop.Ui.OpenFileDialog(Avalonia.Controls.Control,System.String[])
+  commentId: M:Tripous.Desktop.Ui.OpenFileDialog(Avalonia.Controls.Control,System.String[])
+  id: OpenFileDialog(Avalonia.Controls.Control,System.String[])
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: OpenFileDialog(Control, params string[])
+  nameWithType: Ui.OpenFileDialog(Control, params string[])
+  fullName: Tripous.Desktop.Ui.OpenFileDialog(Avalonia.Controls.Control, params string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OpenFileDialog
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 102
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows an open file dialog.
+  example: []
+  syntax:
+    content: public static Task<string> OpenFileDialog(Control Caller, params string[] Extensions)
+    parameters:
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    - id: Extensions
+      type: System.String[]
+      description: The allowed file extensions.
+    return:
+      type: System.Threading.Tasks.Task{System.String}
+      description: The selected file path, if any; otherwise, null.
+    content.vb: Public Shared Function OpenFileDialog(Caller As Control, ParamArray Extensions As String()) As Task(Of String)
+  overload: Tripous.Desktop.Ui.OpenFileDialog*
+  nameWithType.vb: Ui.OpenFileDialog(Control, ParamArray String())
+  fullName.vb: Tripous.Desktop.Ui.OpenFileDialog(Avalonia.Controls.Control, ParamArray String())
+  name.vb: OpenFileDialog(Control, ParamArray String())
+- uid: Tripous.Desktop.Ui.InputBox(System.String,System.String,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.Ui.InputBox(System.String,System.String,Avalonia.Controls.Control)
+  id: InputBox(System.String,System.String,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: InputBox(string, string, Control)
+  nameWithType: Ui.InputBox(string, string, Control)
+  fullName: Tripous.Desktop.Ui.InputBox(string, string, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InputBox
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 157
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows an input box dialog.
+  example: []
+  syntax:
+    content: public static Task<InputBoxData> InputBox(string Message, string Value = "", Control Caller = null)
+    parameters:
+    - id: Message
+      type: System.String
+      description: The dialog message.
+    - id: Value
+      type: System.String
+      description: The initial value.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    return:
+      type: System.Threading.Tasks.Task{Tripous.Desktop.InputBoxData}
+      description: The input box data.
+    content.vb: Public Shared Function InputBox(Message As String, Value As String = "", Caller As Control = Nothing) As Task(Of InputBoxData)
+  overload: Tripous.Desktop.Ui.InputBox*
+  nameWithType.vb: Ui.InputBox(String, String, Control)
+  fullName.vb: Tripous.Desktop.Ui.InputBox(String, String, Avalonia.Controls.Control)
+  name.vb: InputBox(String, String, Control)
+- uid: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeView,System.Boolean)
+  commentId: M:Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeView,System.Boolean)
+  id: ExpandAll(Avalonia.Controls.TreeView,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: ExpandAll(TreeView, bool)
+  nameWithType: Ui.ExpandAll(TreeView, bool)
+  fullName: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeView, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExpandAll
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 168
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Expands or collapses all items in a TreeView.
+  example: []
+  syntax:
+    content: public static void ExpandAll(this TreeView tv, bool Flag)
+    parameters:
+    - id: tv
+      type: Avalonia.Controls.TreeView
+      description: The tree view.
+    - id: Flag
+      type: System.Boolean
+      description: True to expand; false to collapse.
+    content.vb: Public Shared Sub ExpandAll(tv As TreeView, Flag As Boolean)
+  overload: Tripous.Desktop.Ui.ExpandAll*
+  nameWithType.vb: Ui.ExpandAll(TreeView, Boolean)
+  fullName.vb: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeView, Boolean)
+  name.vb: ExpandAll(TreeView, Boolean)
+- uid: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeViewItem,System.Boolean)
+  commentId: M:Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeViewItem,System.Boolean)
+  id: ExpandAll(Avalonia.Controls.TreeViewItem,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: ExpandAll(TreeViewItem, bool)
+  nameWithType: Ui.ExpandAll(TreeViewItem, bool)
+  fullName: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeViewItem, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExpandAll
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 174
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Expands or collapses all items in TreeViewItem.
+  example: []
+  syntax:
+    content: public static void ExpandAll(this TreeViewItem Node, bool Flag)
+    parameters:
+    - id: Node
+      type: Avalonia.Controls.TreeViewItem
+      description: The tree view item.
+    - id: Flag
+      type: System.Boolean
+      description: True to expand; false to collapse.
+    content.vb: Public Shared Sub ExpandAll(Node As TreeViewItem, Flag As Boolean)
+  overload: Tripous.Desktop.Ui.ExpandAll*
+  nameWithType.vb: Ui.ExpandAll(TreeViewItem, Boolean)
+  fullName.vb: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.TreeViewItem, Boolean)
+  name.vb: ExpandAll(TreeViewItem, Boolean)
+- uid: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.ItemsControl,System.Boolean)
+  commentId: M:Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.ItemsControl,System.Boolean)
+  id: ExpandAll(Avalonia.Controls.ItemsControl,System.Boolean)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: ExpandAll(ItemsControl, bool)
+  nameWithType: Ui.ExpandAll(ItemsControl, bool)
+  fullName: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.ItemsControl, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExpandAll
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 180
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Expands or collapses all items in a TreeView or TreeViewItem.
+  example: []
+  syntax:
+    content: public static void ExpandAll(ItemsControl Control, bool Flag)
+    parameters:
+    - id: Control
+      type: Avalonia.Controls.ItemsControl
+      description: The items control.
+    - id: Flag
+      type: System.Boolean
+      description: True to expand; false to collapse.
+    content.vb: Public Shared Sub ExpandAll(Control As ItemsControl, Flag As Boolean)
+  overload: Tripous.Desktop.Ui.ExpandAll*
+  nameWithType.vb: Ui.ExpandAll(ItemsControl, Boolean)
+  fullName.vb: Tripous.Desktop.Ui.ExpandAll(Avalonia.Controls.ItemsControl, Boolean)
+  name.vb: ExpandAll(ItemsControl, Boolean)
+- uid: Tripous.Desktop.Ui.CreateTreeNode(System.String,Avalonia.Media.FontWeight,System.String,System.Object,System.Double,System.Int32)
+  commentId: M:Tripous.Desktop.Ui.CreateTreeNode(System.String,Avalonia.Media.FontWeight,System.String,System.Object,System.Double,System.Int32)
+  id: CreateTreeNode(System.String,Avalonia.Media.FontWeight,System.String,System.Object,System.Double,System.Int32)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: CreateTreeNode(string, FontWeight, string, object, double, int)
+  nameWithType: Ui.CreateTreeNode(string, FontWeight, string, object, double, int)
+  fullName: Tripous.Desktop.Ui.CreateTreeNode(string, Avalonia.Media.FontWeight, string, object, double, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateTreeNode
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 211
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a <xref href="Avalonia.Controls.TreeViewItem" data-throw-if-not-resolved="false"></xref> node with an image.
+  example: []
+  syntax:
+    content: public static TreeViewItem CreateTreeNode(string Caption, FontWeight FontWeight, string IconFile, object Tag, double Spacing = 5, int NegativeMargin = 0)
+    parameters:
+    - id: Caption
+      type: System.String
+      description: The node caption.
+    - id: FontWeight
+      type: Avalonia.Media.FontWeight
+      description: The caption font weight.
+    - id: IconFile
+      type: System.String
+      description: The icon file name.
+    - id: Tag
+      type: System.Object
+      description: The node tag.
+    - id: Spacing
+      type: System.Double
+      description: The content spacing.
+    - id: NegativeMargin
+      type: System.Int32
+      description: The negative left margin.
+    return:
+      type: Avalonia.Controls.TreeViewItem
+      description: The created tree view item.
+    content.vb: Public Shared Function CreateTreeNode(Caption As String, FontWeight As FontWeight, IconFile As String, Tag As Object, Spacing As Double = 5, NegativeMargin As Integer = 0) As TreeViewItem
+  overload: Tripous.Desktop.Ui.CreateTreeNode*
+  nameWithType.vb: Ui.CreateTreeNode(String, FontWeight, String, Object, Double, Integer)
+  fullName.vb: Tripous.Desktop.Ui.CreateTreeNode(String, Avalonia.Media.FontWeight, String, Object, Double, Integer)
+  name.vb: CreateTreeNode(String, FontWeight, String, Object, Double, Integer)
+- uid: Tripous.Desktop.Ui.CreateContainerNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  commentId: M:Tripous.Desktop.Ui.CreateContainerNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  id: CreateContainerNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: CreateContainerNode(string, object, string, double, int)
+  nameWithType: Ui.CreateContainerNode(string, object, string, double, int)
+  fullName: Tripous.Desktop.Ui.CreateContainerNode(string, object, string, double, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateContainerNode
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 238
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a container <xref href="Avalonia.Controls.TreeViewItem" data-throw-if-not-resolved="false"></xref> node with an image.
+  example: []
+  syntax:
+    content: public static TreeViewItem CreateContainerNode(string Caption, object Tag = null, string IconFile = "folder16.png", double Spacing = 5, int NegativeMargin = -8)
+    parameters:
+    - id: Caption
+      type: System.String
+      description: The node caption.
+    - id: Tag
+      type: System.Object
+      description: The node tag.
+    - id: IconFile
+      type: System.String
+      description: The icon file name.
+    - id: Spacing
+      type: System.Double
+      description: The content spacing.
+    - id: NegativeMargin
+      type: System.Int32
+      description: The negative left margin.
+    return:
+      type: Avalonia.Controls.TreeViewItem
+      description: The created tree view item.
+    content.vb: Public Shared Function CreateContainerNode(Caption As String, Tag As Object = Nothing, IconFile As String = "folder16.png", Spacing As Double = 5, NegativeMargin As Integer = -8) As TreeViewItem
+  overload: Tripous.Desktop.Ui.CreateContainerNode*
+  nameWithType.vb: Ui.CreateContainerNode(String, Object, String, Double, Integer)
+  fullName.vb: Tripous.Desktop.Ui.CreateContainerNode(String, Object, String, Double, Integer)
+  name.vb: CreateContainerNode(String, Object, String, Double, Integer)
+- uid: Tripous.Desktop.Ui.CreateLeafNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  commentId: M:Tripous.Desktop.Ui.CreateLeafNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  id: CreateLeafNode(System.String,System.Object,System.String,System.Double,System.Int32)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: CreateLeafNode(string, object, string, double, int)
+  nameWithType: Ui.CreateLeafNode(string, object, string, double, int)
+  fullName: Tripous.Desktop.Ui.CreateLeafNode(string, object, string, double, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLeafNode
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 252
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a leaf <xref href="Avalonia.Controls.TreeViewItem" data-throw-if-not-resolved="false"></xref> node with an image.
+  example: []
+  syntax:
+    content: public static TreeViewItem CreateLeafNode(string Caption, object Tag = null, string IconFile = "item16.png", double Spacing = 5, int NegativeMargin = 0)
+    parameters:
+    - id: Caption
+      type: System.String
+      description: The node caption.
+    - id: Tag
+      type: System.Object
+      description: The node tag.
+    - id: IconFile
+      type: System.String
+      description: The icon file name.
+    - id: Spacing
+      type: System.Double
+      description: The content spacing.
+    - id: NegativeMargin
+      type: System.Int32
+      description: The negative left margin.
+    return:
+      type: Avalonia.Controls.TreeViewItem
+      description: The created tree view item.
+    content.vb: Public Shared Function CreateLeafNode(Caption As String, Tag As Object = Nothing, IconFile As String = "item16.png", Spacing As Double = 5, NegativeMargin As Integer = 0) As TreeViewItem
+  overload: Tripous.Desktop.Ui.CreateLeafNode*
+  nameWithType.vb: Ui.CreateLeafNode(String, Object, String, Double, Integer)
+  fullName.vb: Tripous.Desktop.Ui.CreateLeafNode(String, Object, String, Double, Integer)
+  name.vb: CreateLeafNode(String, Object, String, Double, Integer)
+- uid: Tripous.Desktop.Ui.Debug(System.String)
+  commentId: M:Tripous.Desktop.Ui.Debug(System.String)
+  id: Debug(System.String)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Debug(string)
+  nameWithType: Ui.Debug(string)
+  fullName: Tripous.Desktop.Ui.Debug(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Debug
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 263
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Writes debug text to the UI log or debug output.
+  example: []
+  syntax:
+    content: public static void Debug(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+      description: The text to write.
+    content.vb: Public Shared Sub Debug(Text As String)
+  overload: Tripous.Desktop.Ui.Debug*
+  nameWithType.vb: Ui.Debug(String)
+  fullName.vb: Tripous.Desktop.Ui.Debug(String)
+  name.vb: Debug(String)
+- uid: Tripous.Desktop.Ui.Debug(System.Exception)
+  commentId: M:Tripous.Desktop.Ui.Debug(System.Exception)
+  id: Debug(System.Exception)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Debug(Exception)
+  nameWithType: Ui.Debug(Exception)
+  fullName: Tripous.Desktop.Ui.Debug(System.Exception)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Debug
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 277
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Writes an exception to the debug output.
+  example: []
+  syntax:
+    content: public static void Debug(Exception e)
+    parameters:
+    - id: e
+      type: System.Exception
+      description: The exception.
+    content.vb: Public Shared Sub Debug(e As Exception)
+  overload: Tripous.Desktop.Ui.Debug*
+- uid: Tripous.Desktop.Ui.Post(System.Action)
+  commentId: M:Tripous.Desktop.Ui.Post(System.Action)
+  id: Post(System.Action)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Post(Action)
+  nameWithType: Ui.Post(Action)
+  fullName: Tripous.Desktop.Ui.Post(System.Action)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Post
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 291
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Executes an action on the UI thread (fire-and-forget).
+
+
+    <p>Supports both synchronous and asynchronous delegates.</p>
+
+    <code>Ui.Post(async () =&gt; await DoSomethingAsync());</code>
+  example: []
+  syntax:
+    content: public static void Post(Action Proc)
+    parameters:
+    - id: Proc
+      type: System.Action
+      description: The action to execute.
+    content.vb: Public Shared Sub Post(Proc As Action)
+  overload: Tripous.Desktop.Ui.Post*
+- uid: Tripous.Desktop.Ui.Post(System.Action,Avalonia.Threading.DispatcherPriority)
+  commentId: M:Tripous.Desktop.Ui.Post(System.Action,Avalonia.Threading.DispatcherPriority)
+  id: Post(System.Action,Avalonia.Threading.DispatcherPriority)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Post(Action, DispatcherPriority)
+  nameWithType: Ui.Post(Action, DispatcherPriority)
+  fullName: Tripous.Desktop.Ui.Post(System.Action, Avalonia.Threading.DispatcherPriority)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Post
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 299
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Executes an action on the UI thread (fire-and-forget).
+
+
+    <p>Supports both synchronous and asynchronous delegates.</p>
+
+    <code>Ui.Post(async () =&gt; await DoSomethingAsync());</code>
+  example: []
+  syntax:
+    content: public static void Post(Action Proc, DispatcherPriority Priority)
+    parameters:
+    - id: Proc
+      type: System.Action
+      description: The action to execute.
+    - id: Priority
+      type: Avalonia.Threading.DispatcherPriority
+      description: The dispatcher priority.
+    content.vb: Public Shared Sub Post(Proc As Action, Priority As DispatcherPriority)
+  overload: Tripous.Desktop.Ui.Post*
+- uid: Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task})
+  commentId: M:Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task})
+  id: Post(System.Func{System.Threading.Tasks.Task})
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Post(Func<Task>)
+  nameWithType: Ui.Post(Func<Task>)
+  fullName: Tripous.Desktop.Ui.Post(System.Func<System.Threading.Tasks.Task>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Post
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 311
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Executes an action on the UI thread (fire-and-forget).
+
+
+    <p>Supports both synchronous and asynchronous delegates.</p>
+
+    <code>Ui.Post(async () =&gt; await DoSomethingAsync());</code>
+  example: []
+  syntax:
+    content: public static void Post(Func<Task> Func)
+    parameters:
+    - id: Func
+      type: System.Func{System.Threading.Tasks.Task}
+      description: The function to execute.
+    content.vb: Public Shared Sub Post(Func As Func(Of Task))
+  overload: Tripous.Desktop.Ui.Post*
+  nameWithType.vb: Ui.Post(Func(Of Task))
+  fullName.vb: Tripous.Desktop.Ui.Post(System.Func(Of System.Threading.Tasks.Task))
+  name.vb: Post(Func(Of Task))
+- uid: Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task},Avalonia.Threading.DispatcherPriority)
+  commentId: M:Tripous.Desktop.Ui.Post(System.Func{System.Threading.Tasks.Task},Avalonia.Threading.DispatcherPriority)
+  id: Post(System.Func{System.Threading.Tasks.Task},Avalonia.Threading.DispatcherPriority)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Post(Func<Task>, DispatcherPriority)
+  nameWithType: Ui.Post(Func<Task>, DispatcherPriority)
+  fullName: Tripous.Desktop.Ui.Post(System.Func<System.Threading.Tasks.Task>, Avalonia.Threading.DispatcherPriority)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Post
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 319
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: >-
+    Executes an action on the UI thread (fire-and-forget).
+
+
+    <p>Supports both synchronous and asynchronous delegates.</p>
+
+    <code>Ui.Post(async () =&gt; await DoSomethingAsync());</code>
+  example: []
+  syntax:
+    content: public static void Post(Func<Task> Func, DispatcherPriority Priority)
+    parameters:
+    - id: Func
+      type: System.Func{System.Threading.Tasks.Task}
+      description: The function to execute.
+    - id: Priority
+      type: Avalonia.Threading.DispatcherPriority
+      description: The dispatcher priority.
+    content.vb: Public Shared Sub Post(Func As Func(Of Task), Priority As DispatcherPriority)
+  overload: Tripous.Desktop.Ui.Post*
+  nameWithType.vb: Ui.Post(Func(Of Task), DispatcherPriority)
+  fullName.vb: Tripous.Desktop.Ui.Post(System.Func(Of System.Threading.Tasks.Task), Avalonia.Threading.DispatcherPriority)
+  name.vb: Post(Func(Of Task), DispatcherPriority)
+- uid: Tripous.Desktop.Ui.ShowWaitCursor(System.Action,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.Ui.ShowWaitCursor(System.Action,Avalonia.Controls.Control)
+  id: ShowWaitCursor(System.Action,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: ShowWaitCursor(Action, Control)
+  nameWithType: Ui.ShowWaitCursor(Action, Control)
+  fullName: Tripous.Desktop.Ui.ShowWaitCursor(System.Action, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowWaitCursor
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 330
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Executes an action while showing the wait cursor.
+  example: []
+  syntax:
+    content: public static void ShowWaitCursor(Action Proc, Control Caller = null)
+    parameters:
+    - id: Proc
+      type: System.Action
+      description: The action to execute.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    content.vb: Public Shared Sub ShowWaitCursor(Proc As Action, Caller As Control = Nothing)
+  overload: Tripous.Desktop.Ui.ShowWaitCursor*
+- uid: Tripous.Desktop.Ui.ShowWaitCursor``1(System.Action{``0},``0,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.Ui.ShowWaitCursor``1(System.Action{``0},``0,Avalonia.Controls.Control)
+  id: ShowWaitCursor``1(System.Action{``0},``0,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: ShowWaitCursor<T>(Action<T>, T, Control)
+  nameWithType: Ui.ShowWaitCursor<T>(Action<T>, T, Control)
+  fullName: Tripous.Desktop.Ui.ShowWaitCursor<T>(System.Action<T>, T, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowWaitCursor
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 361
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Executes an action while showing the wait cursor.
+  example: []
+  syntax:
+    content: public static void ShowWaitCursor<T>(Action<T> Proc, T Info, Control Caller = null)
+    parameters:
+    - id: Proc
+      type: System.Action{{T}}
+      description: The action to execute.
+    - id: Info
+      type: '{T}'
+      description: The action argument.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    typeParameters:
+    - id: T
+      description: The action argument type.
+    content.vb: Public Shared Sub ShowWaitCursor(Of T)(Proc As Action(Of T), Info As T, Caller As Control = Nothing)
+  overload: Tripous.Desktop.Ui.ShowWaitCursor*
+  nameWithType.vb: Ui.ShowWaitCursor(Of T)(Action(Of T), T, Control)
+  fullName.vb: Tripous.Desktop.Ui.ShowWaitCursor(Of T)(System.Action(Of T), T, Avalonia.Controls.Control)
+  name.vb: ShowWaitCursor(Of T)(Action(Of T), T, Control)
+- uid: Tripous.Desktop.Ui.MainWindow
+  commentId: P:Tripous.Desktop.Ui.MainWindow
+  id: MainWindow
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: MainWindow
+  nameWithType: Ui.MainWindow
+  fullName: Tripous.Desktop.Ui.MainWindow
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MainWindow
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 390
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The main window.
+  example: []
+  syntax:
+    content: public static Window MainWindow { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.Window
+    content.vb: Public Shared Property MainWindow As Window
+  overload: Tripous.Desktop.Ui.MainWindow*
+- uid: Tripous.Desktop.Ui.Settings
+  commentId: P:Tripous.Desktop.Ui.Settings
+  id: Settings
+  parent: Tripous.Desktop.Ui
+  langs:
+  - csharp
+  - vb
+  name: Settings
+  nameWithType: Ui.Settings
+  fullName: Tripous.Desktop.Ui.Settings
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Ui.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Settings
+    path: ../Tripous.Desktop/Ui.cs
+    startLine: 394
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: UI global settings.
+  example: []
+  syntax:
+    content: public static UiGlobalSettings Settings { get; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.UiGlobalSettings
+    content.vb: Public Shared ReadOnly Property Settings As UiGlobalSettings
+  overload: Tripous.Desktop.Ui.Settings*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.Ui.GetParentWindow*
+  commentId: Overload:Tripous.Desktop.Ui.GetParentWindow
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_GetParentWindow_Avalonia_Controls_Control_
+  name: GetParentWindow
+  nameWithType: Ui.GetParentWindow
+  fullName: Tripous.Desktop.Ui.GetParentWindow
+- uid: Avalonia.Controls.Control
+  commentId: T:Avalonia.Controls.Control
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Control
+  nameWithType: Control
+  fullName: Avalonia.Controls.Control
+- uid: Avalonia.Controls.Window
+  commentId: T:Avalonia.Controls.Window
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Window
+  nameWithType: Window
+  fullName: Avalonia.Controls.Window
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: Tripous.Desktop.Ui.GetOwnerWindow*
+  commentId: Overload:Tripous.Desktop.Ui.GetOwnerWindow
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_GetOwnerWindow_Avalonia_Controls_Control_
+  name: GetOwnerWindow
+  nameWithType: Ui.GetOwnerWindow
+  fullName: Tripous.Desktop.Ui.GetOwnerWindow
+- uid: Tripous.Desktop.Ui.SaveFileDialog*
+  commentId: Overload:Tripous.Desktop.Ui.SaveFileDialog
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_SaveFileDialog_Avalonia_Controls_Control_System_String___
+  name: SaveFileDialog
+  nameWithType: Ui.SaveFileDialog
+  fullName: Tripous.Desktop.Ui.SaveFileDialog
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: System.Threading.Tasks.Task{System.String}
+  commentId: T:System.Threading.Tasks.Task{System.String}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<string>
+  nameWithType: Task<string>
+  fullName: System.Threading.Tasks.Task<string>
+  nameWithType.vb: Task(Of String)
+  fullName.vb: System.Threading.Tasks.Task(Of String)
+  name.vb: Task(Of String)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: Tripous.Desktop.Ui.OpenFileDialog*
+  commentId: Overload:Tripous.Desktop.Ui.OpenFileDialog
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_OpenFileDialog_Avalonia_Controls_Control_System_String___
+  name: OpenFileDialog
+  nameWithType: Ui.OpenFileDialog
+  fullName: Tripous.Desktop.Ui.OpenFileDialog
+- uid: Tripous.Desktop.Ui.InputBox*
+  commentId: Overload:Tripous.Desktop.Ui.InputBox
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_InputBox_System_String_System_String_Avalonia_Controls_Control_
+  name: InputBox
+  nameWithType: Ui.InputBox
+  fullName: Tripous.Desktop.Ui.InputBox
+- uid: System.Threading.Tasks.Task{Tripous.Desktop.InputBoxData}
+  commentId: T:System.Threading.Tasks.Task{Tripous.Desktop.InputBoxData}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<InputBoxData>
+  nameWithType: Task<InputBoxData>
+  fullName: System.Threading.Tasks.Task<Tripous.Desktop.InputBoxData>
+  nameWithType.vb: Task(Of InputBoxData)
+  fullName.vb: System.Threading.Tasks.Task(Of Tripous.Desktop.InputBoxData)
+  name.vb: Task(Of InputBoxData)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: Tripous.Desktop.InputBoxData
+    name: InputBoxData
+    href: Tripous.Desktop.InputBoxData.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.InputBoxData
+    name: InputBoxData
+    href: Tripous.Desktop.InputBoxData.html
+  - name: )
+- uid: Tripous.Desktop.Ui.ExpandAll*
+  commentId: Overload:Tripous.Desktop.Ui.ExpandAll
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_ExpandAll_Avalonia_Controls_TreeView_System_Boolean_
+  name: ExpandAll
+  nameWithType: Ui.ExpandAll
+  fullName: Tripous.Desktop.Ui.ExpandAll
+- uid: Avalonia.Controls.TreeView
+  commentId: T:Avalonia.Controls.TreeView
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TreeView
+  nameWithType: TreeView
+  fullName: Avalonia.Controls.TreeView
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Avalonia.Controls.TreeViewItem
+  commentId: T:Avalonia.Controls.TreeViewItem
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TreeViewItem
+  nameWithType: TreeViewItem
+  fullName: Avalonia.Controls.TreeViewItem
+- uid: Avalonia.Controls.ItemsControl
+  commentId: T:Avalonia.Controls.ItemsControl
+  parent: Avalonia.Controls
+  isExternal: true
+  name: ItemsControl
+  nameWithType: ItemsControl
+  fullName: Avalonia.Controls.ItemsControl
+- uid: Tripous.Desktop.Ui.CreateTreeNode*
+  commentId: Overload:Tripous.Desktop.Ui.CreateTreeNode
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_CreateTreeNode_System_String_Avalonia_Media_FontWeight_System_String_System_Object_System_Double_System_Int32_
+  name: CreateTreeNode
+  nameWithType: Ui.CreateTreeNode
+  fullName: Tripous.Desktop.Ui.CreateTreeNode
+- uid: Avalonia.Media.FontWeight
+  commentId: T:Avalonia.Media.FontWeight
+  parent: Avalonia.Media
+  isExternal: true
+  name: FontWeight
+  nameWithType: FontWeight
+  fullName: Avalonia.Media.FontWeight
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Avalonia.Media
+  commentId: N:Avalonia.Media
+  isExternal: true
+  name: Avalonia.Media
+  nameWithType: Avalonia.Media
+  fullName: Avalonia.Media
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Media
+    name: Media
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Media
+    name: Media
+    isExternal: true
+- uid: Tripous.Desktop.Ui.CreateContainerNode*
+  commentId: Overload:Tripous.Desktop.Ui.CreateContainerNode
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_CreateContainerNode_System_String_System_Object_System_String_System_Double_System_Int32_
+  name: CreateContainerNode
+  nameWithType: Ui.CreateContainerNode
+  fullName: Tripous.Desktop.Ui.CreateContainerNode
+- uid: Tripous.Desktop.Ui.CreateLeafNode*
+  commentId: Overload:Tripous.Desktop.Ui.CreateLeafNode
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_CreateLeafNode_System_String_System_Object_System_String_System_Double_System_Int32_
+  name: CreateLeafNode
+  nameWithType: Ui.CreateLeafNode
+  fullName: Tripous.Desktop.Ui.CreateLeafNode
+- uid: Tripous.Desktop.Ui.Debug*
+  commentId: Overload:Tripous.Desktop.Ui.Debug
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_Debug_System_String_
+  name: Debug
+  nameWithType: Ui.Debug
+  fullName: Tripous.Desktop.Ui.Debug
+- uid: System.Exception
+  commentId: T:System.Exception
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: Exception
+  nameWithType: Exception
+  fullName: System.Exception
+- uid: Tripous.Desktop.Ui.Post*
+  commentId: Overload:Tripous.Desktop.Ui.Post
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_Post_System_Action_
+  name: Post
+  nameWithType: Ui.Post
+  fullName: Tripous.Desktop.Ui.Post
+- uid: System.Action
+  commentId: T:System.Action
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action
+  name: Action
+  nameWithType: Action
+  fullName: System.Action
+- uid: Avalonia.Threading.DispatcherPriority
+  commentId: T:Avalonia.Threading.DispatcherPriority
+  parent: Avalonia.Threading
+  isExternal: true
+  name: DispatcherPriority
+  nameWithType: DispatcherPriority
+  fullName: Avalonia.Threading.DispatcherPriority
+- uid: Avalonia.Threading
+  commentId: N:Avalonia.Threading
+  isExternal: true
+  name: Avalonia.Threading
+  nameWithType: Avalonia.Threading
+  fullName: Avalonia.Threading
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Threading
+    name: Threading
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Threading
+    name: Threading
+    isExternal: true
+- uid: System.Func{System.Threading.Tasks.Task}
+  commentId: T:System.Func{System.Threading.Tasks.Task}
+  parent: System
+  definition: System.Func`1
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<Task>
+  nameWithType: Func<Task>
+  fullName: System.Func<System.Threading.Tasks.Task>
+  nameWithType.vb: Func(Of Task)
+  fullName.vb: System.Func(Of System.Threading.Tasks.Task)
+  name.vb: Func(Of Task)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+  - name: )
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: Tripous.Desktop.Ui.ShowWaitCursor*
+  commentId: Overload:Tripous.Desktop.Ui.ShowWaitCursor
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_ShowWaitCursor_System_Action_Avalonia_Controls_Control_
+  name: ShowWaitCursor
+  nameWithType: Ui.ShowWaitCursor
+  fullName: Tripous.Desktop.Ui.ShowWaitCursor
+- uid: System.Action{{T}}
+  commentId: T:System.Action{``0}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Tripous.Desktop.Ui.MainWindow*
+  commentId: Overload:Tripous.Desktop.Ui.MainWindow
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_MainWindow
+  name: MainWindow
+  nameWithType: Ui.MainWindow
+  fullName: Tripous.Desktop.Ui.MainWindow
+- uid: Tripous.Desktop.Ui.Settings*
+  commentId: Overload:Tripous.Desktop.Ui.Settings
+  href: Tripous.Desktop.Ui.html#Tripous_Desktop_Ui_Settings
+  name: Settings
+  nameWithType: Ui.Settings
+  fullName: Tripous.Desktop.Ui.Settings
+- uid: Tripous.Desktop.UiGlobalSettings
+  commentId: T:Tripous.Desktop.UiGlobalSettings
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.UiGlobalSettings.html
+  name: UiGlobalSettings
+  nameWithType: UiGlobalSettings
+  fullName: Tripous.Desktop.UiGlobalSettings

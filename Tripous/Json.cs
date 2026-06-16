@@ -250,6 +250,7 @@ static public class Json
     {
         MemoryStream MS = new MemoryStream();
         SerializeToStream(Instance, MS, JsonOptions);
+        MS.Position = 0;
         return MS;
     }
     /// <summary>
@@ -295,19 +296,15 @@ static public class Json
     /// <summary>
     /// Reads a stream as json text.
     /// <para>NOTE: UTF8 encoding is used.</para>
+    /// <para>The stream is left open and is not disposed by this method.</para>
     /// </summary>
     static public string StreamToJsonText(Stream Stream)
     {
-        string JsonText = string.Empty;
-        if (Stream != null && Stream.Length > 0)
-        {
-            using (StreamReader reader = new StreamReader(Stream, Encoding.UTF8))
-            {
-                JsonText = reader.ReadToEnd();
-            }
-        }
+        if (Stream == null)
+            return string.Empty;
 
-        return JsonText;
+        using StreamReader Reader = new StreamReader(Stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true, bufferSize: 1024, leaveOpen: true);
+        return Reader.ReadToEnd();
     }
 
 
@@ -316,13 +313,11 @@ static public class Json
     /// </summary>
     static public Dictionary<string, dynamic> GetRequestDic(Stream RequestBodyStream)
     {
-        if (RequestBodyStream != null && RequestBodyStream.CanSeek)
+        if (RequestBodyStream != null)
         {
             string Text = StreamToJsonText(RequestBodyStream);
             if (!string.IsNullOrWhiteSpace(Text))
-            {
                 return Deserialize<Dictionary<string, dynamic>>(Text);
-            }
         }
 
         return new Dictionary<string, dynamic>();

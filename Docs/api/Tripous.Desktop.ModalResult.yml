@@ -1,0 +1,1153 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.ModalResult
+  commentId: T:Tripous.Desktop.ModalResult
+  id: ModalResult
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.ModalResult.Cancel
+  - Tripous.Desktop.ModalResult.None
+  - Tripous.Desktop.ModalResult.Ok
+  langs:
+  - csharp
+  - vb
+  name: ModalResult
+  nameWithType: ModalResult
+  fullName: Tripous.Desktop.ModalResult
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/ModalResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ModalResult
+    path: ../Tripous.Desktop/Dialogs/ModalResult.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Defines the result of a modal dialog.
+  example: []
+  syntax:
+    content: public enum ModalResult
+    content.vb: Public Enum ModalResult
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.Add``1(Tripous.Desktop.ModalResult)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.HasAny``1(Tripous.Desktop.ModalResult)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.HasNone``1(Tripous.Desktop.ModalResult)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.Has``1(Tripous.Desktop.ModalResult)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.In``1(Tripous.Desktop.ModalResult)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.IsExactly``1(Tripous.Desktop.ModalResult)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.IsZero``1
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.Remove``1(Tripous.Desktop.ModalResult)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.Set``1(Tripous.Desktop.ModalResult,System.Boolean)
+  - Tripous.Desktop.ModalResult.Tripous.BitFields.Toggle``1(Tripous.Desktop.ModalResult)
+- uid: Tripous.Desktop.ModalResult.None
+  commentId: F:Tripous.Desktop.ModalResult.None
+  id: None
+  parent: Tripous.Desktop.ModalResult
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: ModalResult.None
+  fullName: Tripous.Desktop.ModalResult.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/ModalResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Desktop/Dialogs/ModalResult.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: No modal result has been assigned.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Desktop.ModalResult
+- uid: Tripous.Desktop.ModalResult.Ok
+  commentId: F:Tripous.Desktop.ModalResult.Ok
+  id: Ok
+  parent: Tripous.Desktop.ModalResult
+  langs:
+  - csharp
+  - vb
+  name: Ok
+  nameWithType: ModalResult.Ok
+  fullName: Tripous.Desktop.ModalResult.Ok
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/ModalResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Ok
+    path: ../Tripous.Desktop/Dialogs/ModalResult.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The dialog was accepted.
+  example: []
+  syntax:
+    content: Ok = 1
+    return:
+      type: Tripous.Desktop.ModalResult
+- uid: Tripous.Desktop.ModalResult.Cancel
+  commentId: F:Tripous.Desktop.ModalResult.Cancel
+  id: Cancel
+  parent: Tripous.Desktop.ModalResult
+  langs:
+  - csharp
+  - vb
+  name: Cancel
+  nameWithType: ModalResult.Cancel
+  fullName: Tripous.Desktop.ModalResult.Cancel
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Dialogs/ModalResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Cancel
+    path: ../Tripous.Desktop/Dialogs/ModalResult.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The dialog was cancelled.
+  example: []
+  syntax:
+    content: Cancel = 2
+    return:
+      type: Tripous.Desktop.ModalResult
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.Add``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.Add<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.Add<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.Add(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: Add(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.HasAny``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.HasAny<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.HasAny<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.HasAny(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: HasAny(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.HasNone``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.HasNone<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.HasNone<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.HasNone(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: HasNone(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.Has``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.Has<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.Has<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.Has(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: Has(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.In``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.In<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.In<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.In(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: In(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.IsExactly``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.IsExactly<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.IsExactly(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: IsExactly(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<ModalResult>(ModalResult)
+  nameWithType: BitFields.IsZero<ModalResult>(ModalResult)
+  fullName: Tripous.BitFields.IsZero<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.IsZero(Of ModalResult)(ModalResult)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult)
+  name.vb: IsZero(Of ModalResult)(ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.ModalResult)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.ModalResult)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.Remove``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.Remove<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.Remove<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.Remove(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: Remove(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.Set``1(Tripous.Desktop.ModalResult,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<ModalResult>(ModalResult, ModalResult, bool)
+  nameWithType: BitFields.Set<ModalResult>(ModalResult, ModalResult, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult, bool)
+  nameWithType.vb: BitFields.Set(Of ModalResult)(ModalResult, ModalResult, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult, Boolean)
+  name.vb: Set(Of ModalResult)(ModalResult, ModalResult, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Desktop.ModalResult.Tripous.BitFields.Toggle``1(Tripous.Desktop.ModalResult)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<ModalResult>(ModalResult, ModalResult)
+  nameWithType: BitFields.Toggle<ModalResult>(ModalResult, ModalResult)
+  fullName: Tripous.BitFields.Toggle<Tripous.Desktop.ModalResult>(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  nameWithType.vb: BitFields.Toggle(Of ModalResult)(ModalResult, ModalResult)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Desktop.ModalResult)(Tripous.Desktop.ModalResult, Tripous.Desktop.ModalResult)
+  name.vb: Toggle(Of ModalResult)(ModalResult, ModalResult)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.ModalResult,Tripous.Desktop.ModalResult)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.ModalResult
+    name: ModalResult
+    href: Tripous.Desktop.ModalResult.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.ModalResult
+  commentId: T:Tripous.Desktop.ModalResult
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.ModalResult.html
+  name: ModalResult
+  nameWithType: ModalResult
+  fullName: Tripous.Desktop.ModalResult

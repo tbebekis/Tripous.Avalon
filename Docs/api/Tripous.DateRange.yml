@@ -1,0 +1,1934 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.DateRange
+  commentId: T:Tripous.DateRange
+  id: DateRange
+  parent: Tripous
+  children:
+  - Tripous.DateRange.Custom
+  - Tripous.DateRange.LastMonth
+  - Tripous.DateRange.LastSemester
+  - Tripous.DateRange.LastThreeMonths
+  - Tripous.DateRange.LastTwoMonths
+  - Tripous.DateRange.LastTwoWeeks
+  - Tripous.DateRange.LastTwoYears
+  - Tripous.DateRange.LastWeek
+  - Tripous.DateRange.LastYear
+  - Tripous.DateRange.NextMonth
+  - Tripous.DateRange.NextSemester
+  - Tripous.DateRange.NextThreeMonths
+  - Tripous.DateRange.NextTwoMonths
+  - Tripous.DateRange.NextTwoWeeks
+  - Tripous.DateRange.NextTwoYears
+  - Tripous.DateRange.NextWeek
+  - Tripous.DateRange.NextYear
+  - Tripous.DateRange.Today
+  - Tripous.DateRange.Tomorrow
+  - Tripous.DateRange.Yesterday
+  langs:
+  - csharp
+  - vb
+  name: DateRange
+  nameWithType: DateRange
+  fullName: Tripous.DateRange
+  type: Enum
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DateRange
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 13
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Indicates how to construct a range between two dates.
+  example: []
+  syntax:
+    content: public enum DateRange
+    content.vb: Public Enum DateRange
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.DateRange.Tripous.BitFields.Add``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.BitFields.HasAny``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.BitFields.HasNone``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.BitFields.Has``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.BitFields.In``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.BitFields.IsExactly``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.BitFields.IsZero``1
+  - Tripous.DateRange.Tripous.BitFields.Remove``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.BitFields.Set``1(Tripous.DateRange,System.Boolean)
+  - Tripous.DateRange.Tripous.BitFields.Toggle``1(Tripous.DateRange)
+  - Tripous.DateRange.Tripous.DateRanges.IsPast
+  - Tripous.DateRange.Tripous.DateRanges.ToDates(System.DateTime,System.DateTime@,System.DateTime@)
+  - Tripous.DateRange.Tripous.DateRanges.ToDates(System.DateTime@,System.DateTime@)
+- uid: Tripous.DateRange.Custom
+  commentId: F:Tripous.DateRange.Custom
+  id: Custom
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: Custom
+  nameWithType: DateRange.Custom
+  fullName: Tripous.DateRange.Custom
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Custom
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 18
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Custom range
+  example: []
+  syntax:
+    content: Custom = 0
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.Today
+  commentId: F:Tripous.DateRange.Today
+  id: Today
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: Today
+  nameWithType: DateRange.Today
+  fullName: Tripous.DateRange.Today
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Today
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 23
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From today To today
+  example: []
+  syntax:
+    content: Today = 1
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.Yesterday
+  commentId: F:Tripous.DateRange.Yesterday
+  id: Yesterday
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: Yesterday
+  nameWithType: DateRange.Yesterday
+  fullName: Tripous.DateRange.Yesterday
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Yesterday
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 27
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From yesterday To today
+  example: []
+  syntax:
+    content: Yesterday = 2
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.Tomorrow
+  commentId: F:Tripous.DateRange.Tomorrow
+  id: Tomorrow
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: Tomorrow
+  nameWithType: DateRange.Tomorrow
+  fullName: Tripous.DateRange.Tomorrow
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tomorrow
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 31
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From today To Tomorrow
+  example: []
+  syntax:
+    content: Tomorrow = 3
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastWeek
+  commentId: F:Tripous.DateRange.LastWeek
+  id: LastWeek
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastWeek
+  nameWithType: DateRange.LastWeek
+  fullName: Tripous.DateRange.LastWeek
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastWeek
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 38
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 7 days before To today
+  example: []
+  syntax:
+    content: LastWeek = 4
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastTwoWeeks
+  commentId: F:Tripous.DateRange.LastTwoWeeks
+  id: LastTwoWeeks
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastTwoWeeks
+  nameWithType: DateRange.LastTwoWeeks
+  fullName: Tripous.DateRange.LastTwoWeeks
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastTwoWeeks
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 42
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 14 days before To today
+  example: []
+  syntax:
+    content: LastTwoWeeks = 5
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastMonth
+  commentId: F:Tripous.DateRange.LastMonth
+  id: LastMonth
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastMonth
+  nameWithType: DateRange.LastMonth
+  fullName: Tripous.DateRange.LastMonth
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastMonth
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 46
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 30 before To today
+  example: []
+  syntax:
+    content: LastMonth = 6
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastTwoMonths
+  commentId: F:Tripous.DateRange.LastTwoMonths
+  id: LastTwoMonths
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastTwoMonths
+  nameWithType: DateRange.LastTwoMonths
+  fullName: Tripous.DateRange.LastTwoMonths
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastTwoMonths
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 50
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 60 before To today
+  example: []
+  syntax:
+    content: LastTwoMonths = 7
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastThreeMonths
+  commentId: F:Tripous.DateRange.LastThreeMonths
+  id: LastThreeMonths
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastThreeMonths
+  nameWithType: DateRange.LastThreeMonths
+  fullName: Tripous.DateRange.LastThreeMonths
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastThreeMonths
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 54
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 90 before To today
+  example: []
+  syntax:
+    content: LastThreeMonths = 8
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastSemester
+  commentId: F:Tripous.DateRange.LastSemester
+  id: LastSemester
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastSemester
+  nameWithType: DateRange.LastSemester
+  fullName: Tripous.DateRange.LastSemester
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastSemester
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 58
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 180 before To today
+  example: []
+  syntax:
+    content: LastSemester = 9
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastYear
+  commentId: F:Tripous.DateRange.LastYear
+  id: LastYear
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastYear
+  nameWithType: DateRange.LastYear
+  fullName: Tripous.DateRange.LastYear
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastYear
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 62
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 365 before To today
+  example: []
+  syntax:
+    content: LastYear = 10
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.LastTwoYears
+  commentId: F:Tripous.DateRange.LastTwoYears
+  id: LastTwoYears
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: LastTwoYears
+  nameWithType: DateRange.LastTwoYears
+  fullName: Tripous.DateRange.LastTwoYears
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastTwoYears
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 66
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: From 730 before To today
+  example: []
+  syntax:
+    content: LastTwoYears = 11
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextWeek
+  commentId: F:Tripous.DateRange.NextWeek
+  id: NextWeek
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextWeek
+  nameWithType: DateRange.NextWeek
+  fullName: Tripous.DateRange.NextWeek
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextWeek
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 73
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextWeek
+  example: []
+  syntax:
+    content: NextWeek = 12
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextTwoWeeks
+  commentId: F:Tripous.DateRange.NextTwoWeeks
+  id: NextTwoWeeks
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextTwoWeeks
+  nameWithType: DateRange.NextTwoWeeks
+  fullName: Tripous.DateRange.NextTwoWeeks
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextTwoWeeks
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 77
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextTwoWeeks
+  example: []
+  syntax:
+    content: NextTwoWeeks = 13
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextMonth
+  commentId: F:Tripous.DateRange.NextMonth
+  id: NextMonth
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextMonth
+  nameWithType: DateRange.NextMonth
+  fullName: Tripous.DateRange.NextMonth
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextMonth
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 81
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextMonth
+  example: []
+  syntax:
+    content: NextMonth = 14
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextTwoMonths
+  commentId: F:Tripous.DateRange.NextTwoMonths
+  id: NextTwoMonths
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextTwoMonths
+  nameWithType: DateRange.NextTwoMonths
+  fullName: Tripous.DateRange.NextTwoMonths
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextTwoMonths
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 85
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextTwoMonths
+  example: []
+  syntax:
+    content: NextTwoMonths = 15
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextThreeMonths
+  commentId: F:Tripous.DateRange.NextThreeMonths
+  id: NextThreeMonths
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextThreeMonths
+  nameWithType: DateRange.NextThreeMonths
+  fullName: Tripous.DateRange.NextThreeMonths
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextThreeMonths
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 89
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextThreeMonths
+  example: []
+  syntax:
+    content: NextThreeMonths = 16
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextSemester
+  commentId: F:Tripous.DateRange.NextSemester
+  id: NextSemester
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextSemester
+  nameWithType: DateRange.NextSemester
+  fullName: Tripous.DateRange.NextSemester
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextSemester
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 93
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextSemester
+  example: []
+  syntax:
+    content: NextSemester = 17
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextYear
+  commentId: F:Tripous.DateRange.NextYear
+  id: NextYear
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextYear
+  nameWithType: DateRange.NextYear
+  fullName: Tripous.DateRange.NextYear
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextYear
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 97
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextYear
+  example: []
+  syntax:
+    content: NextYear = 18
+    return:
+      type: Tripous.DateRange
+- uid: Tripous.DateRange.NextTwoYears
+  commentId: F:Tripous.DateRange.NextTwoYears
+  id: NextTwoYears
+  parent: Tripous.DateRange
+  langs:
+  - csharp
+  - vb
+  name: NextTwoYears
+  nameWithType: DateRange.NextTwoYears
+  fullName: Tripous.DateRange.NextTwoYears
+  type: Field
+  source:
+    remote:
+      path: Tripous/Enums/DateRange.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NextTwoYears
+    path: ../Tripous/Enums/DateRange.cs
+    startLine: 101
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: NextTwoYears
+  example: []
+  syntax:
+    content: NextTwoYears = 19
+    return:
+      type: Tripous.DateRange
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.Add``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.Add<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.Add<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.Add(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: Add(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.DateRange,Tripous.DateRange)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.DateRange,Tripous.DateRange)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.HasAny``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.HasAny<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.HasAny<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.HasAny(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: HasAny(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.DateRange,Tripous.DateRange)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.DateRange,Tripous.DateRange)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.HasNone``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.HasNone<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.HasNone<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.HasNone(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: HasNone(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.DateRange,Tripous.DateRange)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.DateRange,Tripous.DateRange)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.Has``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.Has<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.Has<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.Has(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: Has(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.DateRange,Tripous.DateRange)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.DateRange,Tripous.DateRange)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.In``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.In<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.In<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.In(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: In(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.DateRange,Tripous.DateRange)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.DateRange,Tripous.DateRange)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.IsExactly``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.IsExactly<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.IsExactly<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.IsExactly(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: IsExactly(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.DateRange,Tripous.DateRange)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.DateRange,Tripous.DateRange)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<DateRange>(DateRange)
+  nameWithType: BitFields.IsZero<DateRange>(DateRange)
+  fullName: Tripous.BitFields.IsZero<Tripous.DateRange>(Tripous.DateRange)
+  nameWithType.vb: BitFields.IsZero(Of DateRange)(DateRange)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.DateRange)(Tripous.DateRange)
+  name.vb: IsZero(Of DateRange)(DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.DateRange)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.DateRange)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.Remove``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.Remove<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.Remove<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.Remove(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: Remove(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.DateRange,Tripous.DateRange)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.DateRange,Tripous.DateRange)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.Set``1(Tripous.DateRange,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<DateRange>(DateRange, DateRange, bool)
+  nameWithType: BitFields.Set<DateRange>(DateRange, DateRange, bool)
+  fullName: Tripous.BitFields.Set<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange, bool)
+  nameWithType.vb: BitFields.Set(Of DateRange)(DateRange, DateRange, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange, Boolean)
+  name.vb: Set(Of DateRange)(DateRange, DateRange, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.DateRange,Tripous.DateRange,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.DateRange,Tripous.DateRange,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.DateRange.Tripous.BitFields.Toggle``1(Tripous.DateRange)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<DateRange>(DateRange, DateRange)
+  nameWithType: BitFields.Toggle<DateRange>(DateRange, DateRange)
+  fullName: Tripous.BitFields.Toggle<Tripous.DateRange>(Tripous.DateRange, Tripous.DateRange)
+  nameWithType.vb: BitFields.Toggle(Of DateRange)(DateRange, DateRange)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.DateRange)(Tripous.DateRange, Tripous.DateRange)
+  name.vb: Toggle(Of DateRange)(DateRange, DateRange)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.DateRange,Tripous.DateRange)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.DateRange,Tripous.DateRange)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.DateRanges.IsPast
+  commentId: M:Tripous.DateRanges.IsPast(Tripous.DateRange)
+  parent: Tripous.DateRanges
+  definition: Tripous.DateRanges.IsPast(Tripous.DateRange)
+  href: Tripous.DateRanges.html#Tripous_DateRanges_IsPast_Tripous_DateRange_
+  name: IsPast(DateRange)
+  nameWithType: DateRanges.IsPast(DateRange)
+  fullName: Tripous.DateRanges.IsPast(Tripous.DateRange)
+  spec.csharp:
+  - uid: Tripous.DateRanges.IsPast(Tripous.DateRange)
+    name: IsPast
+    href: Tripous.DateRanges.html#Tripous_DateRanges_IsPast_Tripous_DateRange_
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateRanges.IsPast(Tripous.DateRange)
+    name: IsPast
+    href: Tripous.DateRanges.html#Tripous_DateRanges_IsPast_Tripous_DateRange_
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRange.Tripous.DateRanges.ToDates(System.DateTime,System.DateTime@,System.DateTime@)
+  commentId: M:Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+  parent: Tripous.DateRanges
+  definition: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+  href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime_System_DateTime__System_DateTime__
+  name: ToDates(DateRange, DateTime, ref DateTime, ref DateTime)
+  nameWithType: DateRanges.ToDates(DateRange, DateTime, ref DateTime, ref DateTime)
+  fullName: Tripous.DateRanges.ToDates(Tripous.DateRange, System.DateTime, ref System.DateTime, ref System.DateTime)
+  nameWithType.vb: DateRanges.ToDates(DateRange, Date, Date, Date)
+  fullName.vb: Tripous.DateRanges.ToDates(Tripous.DateRange, Date, Date, Date)
+  name.vb: ToDates(DateRange, Date, Date, Date)
+  spec.csharp:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+- uid: Tripous.DateRange.Tripous.DateRanges.ToDates(System.DateTime@,System.DateTime@)
+  commentId: M:Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+  parent: Tripous.DateRanges
+  definition: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+  href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime__System_DateTime__
+  name: ToDates(DateRange, ref DateTime, ref DateTime)
+  nameWithType: DateRanges.ToDates(DateRange, ref DateTime, ref DateTime)
+  fullName: Tripous.DateRanges.ToDates(Tripous.DateRange, ref System.DateTime, ref System.DateTime)
+  nameWithType.vb: DateRanges.ToDates(DateRange, Date, Date)
+  fullName.vb: Tripous.DateRanges.ToDates(Tripous.DateRange, Date, Date)
+  name.vb: ToDates(DateRange, Date, Date)
+  spec.csharp:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.DateRanges.IsPast(Tripous.DateRange)
+  commentId: M:Tripous.DateRanges.IsPast(Tripous.DateRange)
+  href: Tripous.DateRanges.html#Tripous_DateRanges_IsPast_Tripous_DateRange_
+  name: IsPast(DateRange)
+  nameWithType: DateRanges.IsPast(DateRange)
+  fullName: Tripous.DateRanges.IsPast(Tripous.DateRange)
+  spec.csharp:
+  - uid: Tripous.DateRanges.IsPast(Tripous.DateRange)
+    name: IsPast
+    href: Tripous.DateRanges.html#Tripous_DateRanges_IsPast_Tripous_DateRange_
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateRanges.IsPast(Tripous.DateRange)
+    name: IsPast
+    href: Tripous.DateRanges.html#Tripous_DateRanges_IsPast_Tripous_DateRange_
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: )
+- uid: Tripous.DateRanges
+  commentId: T:Tripous.DateRanges
+  parent: Tripous
+  href: Tripous.DateRanges.html
+  name: DateRanges
+  nameWithType: DateRanges
+  fullName: Tripous.DateRanges
+- uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+  commentId: M:Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+  isExternal: true
+  href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime_System_DateTime__System_DateTime__
+  name: ToDates(DateRange, DateTime, ref DateTime, ref DateTime)
+  nameWithType: DateRanges.ToDates(DateRange, DateTime, ref DateTime, ref DateTime)
+  fullName: Tripous.DateRanges.ToDates(Tripous.DateRange, System.DateTime, ref System.DateTime, ref System.DateTime)
+  nameWithType.vb: DateRanges.ToDates(DateRange, Date, Date, Date)
+  fullName.vb: Tripous.DateRanges.ToDates(Tripous.DateRange, Date, Date, Date)
+  name.vb: ToDates(DateRange, Date, Date, Date)
+  spec.csharp:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+- uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+  commentId: M:Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+  isExternal: true
+  href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime__System_DateTime__
+  name: ToDates(DateRange, ref DateTime, ref DateTime)
+  nameWithType: DateRanges.ToDates(DateRange, ref DateTime, ref DateTime)
+  fullName: Tripous.DateRanges.ToDates(Tripous.DateRange, ref System.DateTime, ref System.DateTime)
+  nameWithType.vb: DateRanges.ToDates(DateRange, Date, Date)
+  fullName.vb: Tripous.DateRanges.ToDates(Tripous.DateRange, Date, Date)
+  name.vb: ToDates(DateRange, Date, Date)
+  spec.csharp:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+  spec.vb:
+  - uid: Tripous.DateRanges.ToDates(Tripous.DateRange,System.DateTime@,System.DateTime@)
+    name: ToDates
+    href: Tripous.DateRanges.html#Tripous_DateRanges_ToDates_Tripous_DateRange_System_DateTime__System_DateTime__
+  - name: (
+  - uid: Tripous.DateRange
+    name: DateRange
+    href: Tripous.DateRange.html
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+- uid: Tripous.DateRange
+  commentId: T:Tripous.DateRange
+  parent: Tripous
+  href: Tripous.DateRange.html
+  name: DateRange
+  nameWithType: DateRange
+  fullName: Tripous.DateRange

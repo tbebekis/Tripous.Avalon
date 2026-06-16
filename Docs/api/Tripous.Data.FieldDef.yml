@@ -1,0 +1,3510 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  id: FieldDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.FieldDef.#ctor
+  - Tripous.Data.FieldDef.#ctor(Tripous.Data.TableDef)
+  - Tripous.Data.FieldDef.AddFlags(Tripous.Data.FieldFlags)
+  - Tripous.Data.FieldDef.Alias
+  - Tripous.Data.FieldDef.CheckDescriptor
+  - Tripous.Data.FieldDef.CodeProvider
+  - Tripous.Data.FieldDef.DataType
+  - Tripous.Data.FieldDef.Decimals
+  - Tripous.Data.FieldDef.DefaultValue
+  - Tripous.Data.FieldDef.DisplayFormat
+  - Tripous.Data.FieldDef.DisplayWidth
+  - Tripous.Data.FieldDef.EditFormat
+  - Tripous.Data.FieldDef.Expression
+  - Tripous.Data.FieldDef.Flags
+  - Tripous.Data.FieldDef.GetTitleKey
+  - Tripous.Data.FieldDef.Group
+  - Tripous.Data.FieldDef.IsBindable
+  - Tripous.Data.FieldDef.IsBlob
+  - Tripous.Data.FieldDef.IsBoolean
+  - Tripous.Data.FieldDef.IsDateTime
+  - Tripous.Data.FieldDef.IsExtraField
+  - Tripous.Data.FieldDef.IsFloat
+  - Tripous.Data.FieldDef.IsForeignKeyField
+  - Tripous.Data.FieldDef.IsHidden
+  - Tripous.Data.FieldDef.IsImage
+  - Tripous.Data.FieldDef.IsImagePath
+  - Tripous.Data.FieldDef.IsInteger
+  - Tripous.Data.FieldDef.IsLargeMemo
+  - Tripous.Data.FieldDef.IsLocator
+  - Tripous.Data.FieldDef.IsLookup
+  - Tripous.Data.FieldDef.IsMemo
+  - Tripous.Data.FieldDef.IsNativeField
+  - Tripous.Data.FieldDef.IsNoInsertOrUpdate
+  - Tripous.Data.FieldDef.IsNullable
+  - Tripous.Data.FieldDef.IsNumeric
+  - Tripous.Data.FieldDef.IsReadOnly
+  - Tripous.Data.FieldDef.IsReadOnlyEdit
+  - Tripous.Data.FieldDef.IsReadOnlyUI
+  - Tripous.Data.FieldDef.IsRequired
+  - Tripous.Data.FieldDef.IsSearchable
+  - Tripous.Data.FieldDef.IsVisible
+  - Tripous.Data.FieldDef.Locator
+  - Tripous.Data.FieldDef.LookupSource
+  - Tripous.Data.FieldDef.MaxLength
+  - Tripous.Data.FieldDef.SetAlias(System.String)
+  - Tripous.Data.FieldDef.SetCodeProviderName(System.String)
+  - Tripous.Data.FieldDef.SetDecimals(System.Int32)
+  - Tripous.Data.FieldDef.SetDefaultValue(System.String)
+  - Tripous.Data.FieldDef.SetExpression(System.String)
+  - Tripous.Data.FieldDef.SetFlags(Tripous.Data.FieldFlags)
+  - Tripous.Data.FieldDef.SetGroup(System.String)
+  - Tripous.Data.FieldDef.SetLargeMemo
+  - Tripous.Data.FieldDef.SetMaxLength(System.Int32)
+  - Tripous.Data.FieldDef.SetMemo
+  - Tripous.Data.FieldDef.SetNullable(System.Boolean)
+  - Tripous.Data.FieldDef.SetSnapshotOf(System.String)
+  - Tripous.Data.FieldDef.SetTitleKey(System.String)
+  - Tripous.Data.FieldDef.SnapshotOf
+  - Tripous.Data.FieldDef.TableDef
+  - Tripous.Data.FieldDef.ToString
+  - Tripous.Data.FieldDef.ToolTip
+  langs:
+  - csharp
+  - vb
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldDef
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A field definition
+  example: []
+  syntax:
+    content: 'public class FieldDef : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
+    content.vb: Public Class FieldDef Inherits BaseDef Implements IDef, IJsonLoadable, INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  - Tripous.BaseDef
+  implements:
+  - Tripous.IDef
+  - Tripous.IJsonLoadable
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - Tripous.BaseDef.fTitleKey
+  - Tripous.BaseDef.fName
+  - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.UpdateReferences
+  - Tripous.BaseDef.JsonLoaded
+  - Tripous.BaseDef.CreateNew
+  - Tripous.BaseDef.Assign(Tripous.IDef)
+  - Tripous.BaseDef.Clone
+  - Tripous.BaseDef.Clear
+  - Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  - Tripous.BaseDef.Name
+  - Tripous.BaseDef.TitleKey
+  - Tripous.BaseDef.IsTitleKeyEmpty
+  - Tripous.BaseDef.Title
+  - Tripous.BaseDef.Tag
+  - Tripous.BaseDef.IsSerializable
+  - Tripous.BaseDef.PropertyChanged
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.FieldDef.GetTitleKey
+  commentId: M:Tripous.Data.FieldDef.GetTitleKey
+  id: GetTitleKey
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: GetTitleKey()
+  nameWithType: FieldDef.GetTitleKey()
+  fullName: Tripous.Data.FieldDef.GetTitleKey()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetTitleKey
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 36
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Overrides <xref href="Tripous.BaseDef.GetTitleKey" data-throw-if-not-resolved="false"></xref> to return the Alias of this field if this is a field of a join table.
+  example: []
+  syntax:
+    content: protected override string GetTitleKey()
+    return:
+      type: System.String
+    content.vb: Protected Overrides Function GetTitleKey() As String
+  overridden: Tripous.BaseDef.GetTitleKey
+  overload: Tripous.Data.FieldDef.GetTitleKey*
+- uid: Tripous.Data.FieldDef.#ctor
+  commentId: M:Tripous.Data.FieldDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: FieldDef()
+  nameWithType: FieldDef.FieldDef()
+  fullName: Tripous.Data.FieldDef.FieldDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public FieldDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.FieldDef.#ctor*
+  nameWithType.vb: FieldDef.New()
+  fullName.vb: Tripous.Data.FieldDef.New()
+  name.vb: New()
+- uid: Tripous.Data.FieldDef.#ctor(Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.FieldDef.#ctor(Tripous.Data.TableDef)
+  id: '#ctor(Tripous.Data.TableDef)'
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: FieldDef(TableDef)
+  nameWithType: FieldDef.FieldDef(TableDef)
+  fullName: Tripous.Data.FieldDef.FieldDef(Tripous.Data.TableDef)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 54
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public FieldDef(TableDef TableDef)
+    parameters:
+    - id: TableDef
+      type: Tripous.Data.TableDef
+    content.vb: Public Sub New(TableDef As TableDef)
+  overload: Tripous.Data.FieldDef.#ctor*
+  nameWithType.vb: FieldDef.New(TableDef)
+  fullName.vb: Tripous.Data.FieldDef.New(Tripous.Data.TableDef)
+  name.vb: New(TableDef)
+- uid: Tripous.Data.FieldDef.ToString
+  commentId: M:Tripous.Data.FieldDef.ToString
+  id: ToString
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: FieldDef.ToString()
+  fullName: Tripous.Data.FieldDef.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string representation of this instance.
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: Tripous.BaseDef.ToString
+  overload: Tripous.Data.FieldDef.ToString*
+- uid: Tripous.Data.FieldDef.CheckDescriptor
+  commentId: M:Tripous.Data.FieldDef.CheckDescriptor
+  id: CheckDescriptor
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: CheckDescriptor()
+  nameWithType: FieldDef.CheckDescriptor()
+  fullName: Tripous.Data.FieldDef.CheckDescriptor()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckDescriptor
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Throws an exception if this descriptor is not fully defined
+  example: []
+  syntax:
+    content: public override void CheckDescriptor()
+    content.vb: Public Overrides Sub CheckDescriptor()
+  overridden: Tripous.BaseDef.CheckDescriptor
+  overload: Tripous.Data.FieldDef.CheckDescriptor*
+- uid: Tripous.Data.FieldDef.SetAlias(System.String)
+  commentId: M:Tripous.Data.FieldDef.SetAlias(System.String)
+  id: SetAlias(System.String)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetAlias(string)
+  nameWithType: FieldDef.SetAlias(string)
+  fullName: Tripous.Data.FieldDef.SetAlias(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetAlias
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 86
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.Alias" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetAlias(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetAlias(Value As String) As FieldDef
+  overload: Tripous.Data.FieldDef.SetAlias*
+  nameWithType.vb: FieldDef.SetAlias(String)
+  fullName.vb: Tripous.Data.FieldDef.SetAlias(String)
+  name.vb: SetAlias(String)
+- uid: Tripous.Data.FieldDef.SetTitleKey(System.String)
+  commentId: M:Tripous.Data.FieldDef.SetTitleKey(System.String)
+  id: SetTitleKey(System.String)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetTitleKey(string)
+  nameWithType: FieldDef.SetTitleKey(string)
+  fullName: Tripous.Data.FieldDef.SetTitleKey(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetTitleKey
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 95
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.BaseDef.TitleKey" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetTitleKey(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetTitleKey(Value As String) As FieldDef
+  overload: Tripous.Data.FieldDef.SetTitleKey*
+  nameWithType.vb: FieldDef.SetTitleKey(String)
+  fullName.vb: Tripous.Data.FieldDef.SetTitleKey(String)
+  name.vb: SetTitleKey(String)
+- uid: Tripous.Data.FieldDef.SetMaxLength(System.Int32)
+  commentId: M:Tripous.Data.FieldDef.SetMaxLength(System.Int32)
+  id: SetMaxLength(System.Int32)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetMaxLength(int)
+  nameWithType: FieldDef.SetMaxLength(int)
+  fullName: Tripous.Data.FieldDef.SetMaxLength(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetMaxLength
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 103
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.MaxLength" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetMaxLength(int Value)
+    parameters:
+    - id: Value
+      type: System.Int32
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetMaxLength(Value As Integer) As FieldDef
+  overload: Tripous.Data.FieldDef.SetMaxLength*
+  nameWithType.vb: FieldDef.SetMaxLength(Integer)
+  fullName.vb: Tripous.Data.FieldDef.SetMaxLength(Integer)
+  name.vb: SetMaxLength(Integer)
+- uid: Tripous.Data.FieldDef.SetDecimals(System.Int32)
+  commentId: M:Tripous.Data.FieldDef.SetDecimals(System.Int32)
+  id: SetDecimals(System.Int32)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetDecimals(int)
+  nameWithType: FieldDef.SetDecimals(int)
+  fullName: Tripous.Data.FieldDef.SetDecimals(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetDecimals
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 111
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.Decimals" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetDecimals(int Value)
+    parameters:
+    - id: Value
+      type: System.Int32
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetDecimals(Value As Integer) As FieldDef
+  overload: Tripous.Data.FieldDef.SetDecimals*
+  nameWithType.vb: FieldDef.SetDecimals(Integer)
+  fullName.vb: Tripous.Data.FieldDef.SetDecimals(Integer)
+  name.vb: SetDecimals(Integer)
+- uid: Tripous.Data.FieldDef.SetFlags(Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.FieldDef.SetFlags(Tripous.Data.FieldFlags)
+  id: SetFlags(Tripous.Data.FieldFlags)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetFlags(FieldFlags)
+  nameWithType: FieldDef.SetFlags(FieldFlags)
+  fullName: Tripous.Data.FieldDef.SetFlags(Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetFlags
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 119
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.Flags" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetFlags(FieldFlags Value)
+    parameters:
+    - id: Value
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetFlags(Value As FieldFlags) As FieldDef
+  overload: Tripous.Data.FieldDef.SetFlags*
+- uid: Tripous.Data.FieldDef.AddFlags(Tripous.Data.FieldFlags)
+  commentId: M:Tripous.Data.FieldDef.AddFlags(Tripous.Data.FieldFlags)
+  id: AddFlags(Tripous.Data.FieldFlags)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: AddFlags(FieldFlags)
+  nameWithType: FieldDef.AddFlags(FieldFlags)
+  fullName: Tripous.Data.FieldDef.AddFlags(Tripous.Data.FieldFlags)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddFlags
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 127
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds the <xref href="Tripous.Data.FieldDef.Flags" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef AddFlags(FieldFlags Value)
+    parameters:
+    - id: Value
+      type: Tripous.Data.FieldFlags
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function AddFlags(Value As FieldFlags) As FieldDef
+  overload: Tripous.Data.FieldDef.AddFlags*
+- uid: Tripous.Data.FieldDef.SetCodeProviderName(System.String)
+  commentId: M:Tripous.Data.FieldDef.SetCodeProviderName(System.String)
+  id: SetCodeProviderName(System.String)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetCodeProviderName(string)
+  nameWithType: FieldDef.SetCodeProviderName(string)
+  fullName: Tripous.Data.FieldDef.SetCodeProviderName(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetCodeProviderName
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 135
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.CodeProvider" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetCodeProviderName(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetCodeProviderName(Value As String) As FieldDef
+  overload: Tripous.Data.FieldDef.SetCodeProviderName*
+  nameWithType.vb: FieldDef.SetCodeProviderName(String)
+  fullName.vb: Tripous.Data.FieldDef.SetCodeProviderName(String)
+  name.vb: SetCodeProviderName(String)
+- uid: Tripous.Data.FieldDef.SetSnapshotOf(System.String)
+  commentId: M:Tripous.Data.FieldDef.SetSnapshotOf(System.String)
+  id: SetSnapshotOf(System.String)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetSnapshotOf(string)
+  nameWithType: FieldDef.SetSnapshotOf(string)
+  fullName: Tripous.Data.FieldDef.SetSnapshotOf(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetSnapshotOf
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 143
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.SnapshotOf" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetSnapshotOf(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetSnapshotOf(Value As String) As FieldDef
+  overload: Tripous.Data.FieldDef.SetSnapshotOf*
+  nameWithType.vb: FieldDef.SetSnapshotOf(String)
+  fullName.vb: Tripous.Data.FieldDef.SetSnapshotOf(String)
+  name.vb: SetSnapshotOf(String)
+- uid: Tripous.Data.FieldDef.SetDefaultValue(System.String)
+  commentId: M:Tripous.Data.FieldDef.SetDefaultValue(System.String)
+  id: SetDefaultValue(System.String)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetDefaultValue(string)
+  nameWithType: FieldDef.SetDefaultValue(string)
+  fullName: Tripous.Data.FieldDef.SetDefaultValue(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetDefaultValue
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 151
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.DefaultValue" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetDefaultValue(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetDefaultValue(Value As String) As FieldDef
+  overload: Tripous.Data.FieldDef.SetDefaultValue*
+  nameWithType.vb: FieldDef.SetDefaultValue(String)
+  fullName.vb: Tripous.Data.FieldDef.SetDefaultValue(String)
+  name.vb: SetDefaultValue(String)
+- uid: Tripous.Data.FieldDef.SetExpression(System.String)
+  commentId: M:Tripous.Data.FieldDef.SetExpression(System.String)
+  id: SetExpression(System.String)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetExpression(string)
+  nameWithType: FieldDef.SetExpression(string)
+  fullName: Tripous.Data.FieldDef.SetExpression(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetExpression
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 159
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.Expression" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetExpression(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetExpression(Value As String) As FieldDef
+  overload: Tripous.Data.FieldDef.SetExpression*
+  nameWithType.vb: FieldDef.SetExpression(String)
+  fullName.vb: Tripous.Data.FieldDef.SetExpression(String)
+  name.vb: SetExpression(String)
+- uid: Tripous.Data.FieldDef.SetNullable(System.Boolean)
+  commentId: M:Tripous.Data.FieldDef.SetNullable(System.Boolean)
+  id: SetNullable(System.Boolean)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetNullable(bool)
+  nameWithType: FieldDef.SetNullable(bool)
+  fullName: Tripous.Data.FieldDef.SetNullable(bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetNullable
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 167
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.SetNullable(System.Boolean)" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetNullable(bool Value)
+    parameters:
+    - id: Value
+      type: System.Boolean
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetNullable(Value As Boolean) As FieldDef
+  overload: Tripous.Data.FieldDef.SetNullable*
+  nameWithType.vb: FieldDef.SetNullable(Boolean)
+  fullName.vb: Tripous.Data.FieldDef.SetNullable(Boolean)
+  name.vb: SetNullable(Boolean)
+- uid: Tripous.Data.FieldDef.SetGroup(System.String)
+  commentId: M:Tripous.Data.FieldDef.SetGroup(System.String)
+  id: SetGroup(System.String)
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetGroup(string)
+  nameWithType: FieldDef.SetGroup(string)
+  fullName: Tripous.Data.FieldDef.SetGroup(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetGroup
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 175
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the <xref href="Tripous.Data.FieldDef.Group" data-throw-if-not-resolved="false"></xref> and returns this instance.
+  example: []
+  syntax:
+    content: public FieldDef SetGroup(string Value)
+    parameters:
+    - id: Value
+      type: System.String
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetGroup(Value As String) As FieldDef
+  overload: Tripous.Data.FieldDef.SetGroup*
+  nameWithType.vb: FieldDef.SetGroup(String)
+  fullName.vb: Tripous.Data.FieldDef.SetGroup(String)
+  name.vb: SetGroup(String)
+- uid: Tripous.Data.FieldDef.SetMemo
+  commentId: M:Tripous.Data.FieldDef.SetMemo
+  id: SetMemo
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetMemo()
+  nameWithType: FieldDef.SetMemo()
+  fullName: Tripous.Data.FieldDef.SetMemo()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetMemo
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 183
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the Memo <xref href="Tripous.Data.FieldFlags" data-throw-if-not-resolved="false"></xref> flag and returns this instance."
+  example: []
+  syntax:
+    content: public FieldDef SetMemo()
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetMemo() As FieldDef
+  overload: Tripous.Data.FieldDef.SetMemo*
+- uid: Tripous.Data.FieldDef.SetLargeMemo
+  commentId: M:Tripous.Data.FieldDef.SetLargeMemo
+  id: SetLargeMemo
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SetLargeMemo()
+  nameWithType: FieldDef.SetLargeMemo()
+  fullName: Tripous.Data.FieldDef.SetLargeMemo()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetLargeMemo
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 192
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the LargeMemo <xref href="Tripous.Data.FieldFlags" data-throw-if-not-resolved="false"></xref> flag and returns this instance."
+  example: []
+  syntax:
+    content: public FieldDef SetLargeMemo()
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Function SetLargeMemo() As FieldDef
+  overload: Tripous.Data.FieldDef.SetLargeMemo*
+- uid: Tripous.Data.FieldDef.TableDef
+  commentId: P:Tripous.Data.FieldDef.TableDef
+  id: TableDef
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: TableDef
+  nameWithType: FieldDef.TableDef
+  fullName: Tripous.Data.FieldDef.TableDef
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableDef
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 203
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The master definition this instance belongs to.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public TableDef TableDef { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.TableDef
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Property TableDef As TableDef
+  overload: Tripous.Data.FieldDef.TableDef*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.Alias
+  commentId: P:Tripous.Data.FieldDef.Alias
+  id: Alias
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: Alias
+  nameWithType: FieldDef.Alias
+  fullName: Tripous.Data.FieldDef.Alias
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Alias
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 208
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An alias of this field
+  example: []
+  syntax:
+    content: public string Alias { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property [Alias] As String
+  overload: Tripous.Data.FieldDef.Alias*
+- uid: Tripous.Data.FieldDef.DataType
+  commentId: P:Tripous.Data.FieldDef.DataType
+  id: DataType
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: DataType
+  nameWithType: FieldDef.DataType
+  fullName: Tripous.Data.FieldDef.DataType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataType
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 228
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The data type of this field.
+  example: []
+  syntax:
+    content: public DataFieldType DataType { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.DataFieldType
+    content.vb: Public Property DataType As DataFieldType
+  overload: Tripous.Data.FieldDef.DataType*
+- uid: Tripous.Data.FieldDef.Group
+  commentId: P:Tripous.Data.FieldDef.Group
+  id: Group
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: Group
+  nameWithType: FieldDef.Group
+  fullName: Tripous.Data.FieldDef.Group
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Group
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 236
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The group the field should be displayed into, e.g. General, Address, Billing, etc.
+  example: []
+  syntax:
+    content: public string Group { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Group As String
+  overload: Tripous.Data.FieldDef.Group*
+- uid: Tripous.Data.FieldDef.SnapshotOf
+  commentId: P:Tripous.Data.FieldDef.SnapshotOf
+  id: SnapshotOf
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: SnapshotOf
+  nameWithType: FieldDef.SnapshotOf
+  fullName: Tripous.Data.FieldDef.SnapshotOf
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SnapshotOf
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 245
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets or sets the source field whose value is stored as a snapshot in this field.
+
+
+    <p>Expected format: <code>TableName.FieldName</code>, for example <code>Product.Code</code>.</p>
+  example: []
+  syntax:
+    content: public string SnapshotOf { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property SnapshotOf As String
+  overload: Tripous.Data.FieldDef.SnapshotOf*
+- uid: Tripous.Data.FieldDef.MaxLength
+  commentId: P:Tripous.Data.FieldDef.MaxLength
+  id: MaxLength
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: MaxLength
+  nameWithType: FieldDef.MaxLength
+  fullName: Tripous.Data.FieldDef.MaxLength
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MaxLength
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 253
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the maximum length of the field. -1 means is not set.
+  example: []
+  syntax:
+    content: public int MaxLength { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MaxLength As Integer
+  overload: Tripous.Data.FieldDef.MaxLength*
+- uid: Tripous.Data.FieldDef.IsNullable
+  commentId: P:Tripous.Data.FieldDef.IsNullable
+  id: IsNullable
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsNullable
+  nameWithType: FieldDef.IsNullable
+  fullName: Tripous.Data.FieldDef.IsNullable
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNullable
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 261
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating whether this field is nullable.
+  example: []
+  syntax:
+    content: public bool IsNullable { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsNullable As Boolean
+  overload: Tripous.Data.FieldDef.IsNullable*
+- uid: Tripous.Data.FieldDef.Flags
+  commentId: P:Tripous.Data.FieldDef.Flags
+  id: Flags
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: Flags
+  nameWithType: FieldDef.Flags
+  fullName: Tripous.Data.FieldDef.Flags
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Flags
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 269
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the field flags.
+  example: []
+  syntax:
+    content: public FieldFlags Flags { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.FieldFlags
+    content.vb: Public Property Flags As FieldFlags
+  overload: Tripous.Data.FieldDef.Flags*
+- uid: Tripous.Data.FieldDef.DefaultValue
+  commentId: P:Tripous.Data.FieldDef.DefaultValue
+  id: DefaultValue
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: DefaultValue
+  nameWithType: FieldDef.DefaultValue
+  fullName: Tripous.Data.FieldDef.DefaultValue
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultValue
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 277
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the default value of the field.
+  example: []
+  syntax:
+    content: public string DefaultValue { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DefaultValue As String
+  overload: Tripous.Data.FieldDef.DefaultValue*
+- uid: Tripous.Data.FieldDef.Expression
+  commentId: P:Tripous.Data.FieldDef.Expression
+  id: Expression
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: Expression
+  nameWithType: FieldDef.Expression
+  fullName: Tripous.Data.FieldDef.Expression
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Expression
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 285
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the expression of the field.
+  example: []
+  syntax:
+    content: public string Expression { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Expression As String
+  overload: Tripous.Data.FieldDef.Expression*
+- uid: Tripous.Data.FieldDef.DisplayFormat
+  commentId: P:Tripous.Data.FieldDef.DisplayFormat
+  id: DisplayFormat
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: DisplayFormat
+  nameWithType: FieldDef.DisplayFormat
+  fullName: Tripous.Data.FieldDef.DisplayFormat
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayFormat
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 293
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the format string to be used for displaying the field value.
+  example: []
+  syntax:
+    content: public string DisplayFormat { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DisplayFormat As String
+  overload: Tripous.Data.FieldDef.DisplayFormat*
+- uid: Tripous.Data.FieldDef.EditFormat
+  commentId: P:Tripous.Data.FieldDef.EditFormat
+  id: EditFormat
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: EditFormat
+  nameWithType: FieldDef.EditFormat
+  fullName: Tripous.Data.FieldDef.EditFormat
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: EditFormat
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 301
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the format string to be used for editing the field value.
+  example: []
+  syntax:
+    content: public string EditFormat { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property EditFormat As String
+  overload: Tripous.Data.FieldDef.EditFormat*
+- uid: Tripous.Data.FieldDef.DisplayWidth
+  commentId: P:Tripous.Data.FieldDef.DisplayWidth
+  id: DisplayWidth
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: DisplayWidth
+  nameWithType: FieldDef.DisplayWidth
+  fullName: Tripous.Data.FieldDef.DisplayWidth
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayWidth
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 309
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the width of the field in pixels. 0 means is not set.
+  example: []
+  syntax:
+    content: public int DisplayWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property DisplayWidth As Integer
+  overload: Tripous.Data.FieldDef.DisplayWidth*
+- uid: Tripous.Data.FieldDef.LookupSource
+  commentId: P:Tripous.Data.FieldDef.LookupSource
+  id: LookupSource
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: LookupSource
+  nameWithType: FieldDef.LookupSource
+  fullName: Tripous.Data.FieldDef.LookupSource
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LookupSource
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 317
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the name of the lookup source descriptor associated to this field.
+  example: []
+  syntax:
+    content: public string LookupSource { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property LookupSource As String
+  overload: Tripous.Data.FieldDef.LookupSource*
+- uid: Tripous.Data.FieldDef.Locator
+  commentId: P:Tripous.Data.FieldDef.Locator
+  id: Locator
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: Locator
+  nameWithType: FieldDef.Locator
+  fullName: Tripous.Data.FieldDef.Locator
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Locator
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 325
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the name of the locator descriptor associated to this field.
+  example: []
+  syntax:
+    content: public string Locator { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Locator As String
+  overload: Tripous.Data.FieldDef.Locator*
+- uid: Tripous.Data.FieldDef.Decimals
+  commentId: P:Tripous.Data.FieldDef.Decimals
+  id: Decimals
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: Decimals
+  nameWithType: FieldDef.Decimals
+  fullName: Tripous.Data.FieldDef.Decimals
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Decimals
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 333
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the decimals of the field. Used when is a float field. -1 means is not set.
+  example: []
+  syntax:
+    content: public int Decimals { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Decimals As Integer
+  overload: Tripous.Data.FieldDef.Decimals*
+- uid: Tripous.Data.FieldDef.CodeProvider
+  commentId: P:Tripous.Data.FieldDef.CodeProvider
+  id: CodeProvider
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: CodeProvider
+  nameWithType: FieldDef.CodeProvider
+  fullName: Tripous.Data.FieldDef.CodeProvider
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CodeProvider
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 341
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the Name of the code producer descriptor associated to this field.
+  example: []
+  syntax:
+    content: public string CodeProvider { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property CodeProvider As String
+  overload: Tripous.Data.FieldDef.CodeProvider*
+- uid: Tripous.Data.FieldDef.ToolTip
+  commentId: P:Tripous.Data.FieldDef.ToolTip
+  id: ToolTip
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: ToolTip
+  nameWithType: FieldDef.ToolTip
+  fullName: Tripous.Data.FieldDef.ToolTip
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToolTip
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 349
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the ToolTip text of the field.
+  example: []
+  syntax:
+    content: public string ToolTip { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ToolTip As String
+  overload: Tripous.Data.FieldDef.ToolTip*
+- uid: Tripous.Data.FieldDef.IsRequired
+  commentId: P:Tripous.Data.FieldDef.IsRequired
+  id: IsRequired
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsRequired
+  nameWithType: FieldDef.IsRequired
+  fullName: Tripous.Data.FieldDef.IsRequired
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsRequired
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 358
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Required flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsRequired { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsRequired As Boolean
+  overload: Tripous.Data.FieldDef.IsRequired*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsVisible
+  commentId: P:Tripous.Data.FieldDef.IsVisible
+  id: IsVisible
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsVisible
+  nameWithType: FieldDef.IsVisible
+  fullName: Tripous.Data.FieldDef.IsVisible
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsVisible
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 362
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Hidden flag is NOT set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsVisible { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsVisible As Boolean
+  overload: Tripous.Data.FieldDef.IsVisible*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsHidden
+  commentId: P:Tripous.Data.FieldDef.IsHidden
+  id: IsHidden
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsHidden
+  nameWithType: FieldDef.IsHidden
+  fullName: Tripous.Data.FieldDef.IsHidden
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsHidden
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 366
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Hidden flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsHidden { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsHidden As Boolean
+  overload: Tripous.Data.FieldDef.IsHidden*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsReadOnly
+  commentId: P:Tripous.Data.FieldDef.IsReadOnly
+  id: IsReadOnly
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsReadOnly
+  nameWithType: FieldDef.IsReadOnly
+  fullName: Tripous.Data.FieldDef.IsReadOnly
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsReadOnly
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 370
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the ReadOnly flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsReadOnly { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsReadOnly As Boolean
+  overload: Tripous.Data.FieldDef.IsReadOnly*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsReadOnlyUI
+  commentId: P:Tripous.Data.FieldDef.IsReadOnlyUI
+  id: IsReadOnlyUI
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsReadOnlyUI
+  nameWithType: FieldDef.IsReadOnlyUI
+  fullName: Tripous.Data.FieldDef.IsReadOnlyUI
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsReadOnlyUI
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 374
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the ReadOnlyUI flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsReadOnlyUI { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsReadOnlyUI As Boolean
+  overload: Tripous.Data.FieldDef.IsReadOnlyUI*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsReadOnlyEdit
+  commentId: P:Tripous.Data.FieldDef.IsReadOnlyEdit
+  id: IsReadOnlyEdit
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsReadOnlyEdit
+  nameWithType: FieldDef.IsReadOnlyEdit
+  fullName: Tripous.Data.FieldDef.IsReadOnlyEdit
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsReadOnlyEdit
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 378
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the ReadOnlyEdit flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsReadOnlyEdit { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsReadOnlyEdit As Boolean
+  overload: Tripous.Data.FieldDef.IsReadOnlyEdit*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsNumeric
+  commentId: P:Tripous.Data.FieldDef.IsNumeric
+  id: IsNumeric
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsNumeric
+  nameWithType: FieldDef.IsNumeric
+  fullName: Tripous.Data.FieldDef.IsNumeric
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNumeric
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 382
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the data type is a numeric type.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsNumeric { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsNumeric As Boolean
+  overload: Tripous.Data.FieldDef.IsNumeric*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsInteger
+  commentId: P:Tripous.Data.FieldDef.IsInteger
+  id: IsInteger
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsInteger
+  nameWithType: FieldDef.IsInteger
+  fullName: Tripous.Data.FieldDef.IsInteger
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsInteger
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 386
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the data type is an integer type.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsInteger { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsInteger As Boolean
+  overload: Tripous.Data.FieldDef.IsInteger*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsFloat
+  commentId: P:Tripous.Data.FieldDef.IsFloat
+  id: IsFloat
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsFloat
+  nameWithType: FieldDef.IsFloat
+  fullName: Tripous.Data.FieldDef.IsFloat
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsFloat
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 390
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the data type is a float type.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsFloat { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsFloat As Boolean
+  overload: Tripous.Data.FieldDef.IsFloat*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsDateTime
+  commentId: P:Tripous.Data.FieldDef.IsDateTime
+  id: IsDateTime
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsDateTime
+  nameWithType: FieldDef.IsDateTime
+  fullName: Tripous.Data.FieldDef.IsDateTime
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsDateTime
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 394
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the data type is a date type.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsDateTime { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsDateTime As Boolean
+  overload: Tripous.Data.FieldDef.IsDateTime*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsBoolean
+  commentId: P:Tripous.Data.FieldDef.IsBoolean
+  id: IsBoolean
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsBoolean
+  nameWithType: FieldDef.IsBoolean
+  fullName: Tripous.Data.FieldDef.IsBoolean
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsBoolean
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 398
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Boolean flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsBoolean { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsBoolean As Boolean
+  overload: Tripous.Data.FieldDef.IsBoolean*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsMemo
+  commentId: P:Tripous.Data.FieldDef.IsMemo
+  id: IsMemo
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsMemo
+  nameWithType: FieldDef.IsMemo
+  fullName: Tripous.Data.FieldDef.IsMemo
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsMemo
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 402
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Memo flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsMemo { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsMemo As Boolean
+  overload: Tripous.Data.FieldDef.IsMemo*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsLargeMemo
+  commentId: P:Tripous.Data.FieldDef.IsLargeMemo
+  id: IsLargeMemo
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsLargeMemo
+  nameWithType: FieldDef.IsLargeMemo
+  fullName: Tripous.Data.FieldDef.IsLargeMemo
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsLargeMemo
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 406
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the LargeMemo flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsLargeMemo { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsLargeMemo As Boolean
+  overload: Tripous.Data.FieldDef.IsLargeMemo*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsBlob
+  commentId: P:Tripous.Data.FieldDef.IsBlob
+  id: IsBlob
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsBlob
+  nameWithType: FieldDef.IsBlob
+  fullName: Tripous.Data.FieldDef.IsBlob
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsBlob
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 410
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the data type is a blob type.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsBlob { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsBlob As Boolean
+  overload: Tripous.Data.FieldDef.IsBlob*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsImage
+  commentId: P:Tripous.Data.FieldDef.IsImage
+  id: IsImage
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsImage
+  nameWithType: FieldDef.IsImage
+  fullName: Tripous.Data.FieldDef.IsImage
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsImage
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 414
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Image flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsImage { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsImage As Boolean
+  overload: Tripous.Data.FieldDef.IsImage*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsImagePath
+  commentId: P:Tripous.Data.FieldDef.IsImagePath
+  id: IsImagePath
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsImagePath
+  nameWithType: FieldDef.IsImagePath
+  fullName: Tripous.Data.FieldDef.IsImagePath
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsImagePath
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 418
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the ImagePath flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsImagePath { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsImagePath As Boolean
+  overload: Tripous.Data.FieldDef.IsImagePath*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsSearchable
+  commentId: P:Tripous.Data.FieldDef.IsSearchable
+  id: IsSearchable
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsSearchable
+  nameWithType: FieldDef.IsSearchable
+  fullName: Tripous.Data.FieldDef.IsSearchable
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSearchable
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 422
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Searchable flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsSearchable { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsSearchable As Boolean
+  overload: Tripous.Data.FieldDef.IsSearchable*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsExtraField
+  commentId: P:Tripous.Data.FieldDef.IsExtraField
+  id: IsExtraField
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsExtraField
+  nameWithType: FieldDef.IsExtraField
+  fullName: Tripous.Data.FieldDef.IsExtraField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsExtraField
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 426
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Extra flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsExtraField { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsExtraField As Boolean
+  overload: Tripous.Data.FieldDef.IsExtraField*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsNativeField
+  commentId: P:Tripous.Data.FieldDef.IsNativeField
+  id: IsNativeField
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsNativeField
+  nameWithType: FieldDef.IsNativeField
+  fullName: Tripous.Data.FieldDef.IsNativeField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNativeField
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 430
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the Extra flag is NOT set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsNativeField { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsNativeField As Boolean
+  overload: Tripous.Data.FieldDef.IsNativeField*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsForeignKeyField
+  commentId: P:Tripous.Data.FieldDef.IsForeignKeyField
+  id: IsForeignKeyField
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsForeignKeyField
+  nameWithType: FieldDef.IsForeignKeyField
+  fullName: Tripous.Data.FieldDef.IsForeignKeyField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsForeignKeyField
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 434
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the ForeignKey flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsForeignKeyField { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsForeignKeyField As Boolean
+  overload: Tripous.Data.FieldDef.IsForeignKeyField*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsNoInsertOrUpdate
+  commentId: P:Tripous.Data.FieldDef.IsNoInsertOrUpdate
+  id: IsNoInsertOrUpdate
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsNoInsertOrUpdate
+  nameWithType: FieldDef.IsNoInsertOrUpdate
+  fullName: Tripous.Data.FieldDef.IsNoInsertOrUpdate
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNoInsertOrUpdate
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 438
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when the NoInsertUpdate flag is set in Flags.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsNoInsertOrUpdate { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsNoInsertOrUpdate As Boolean
+  overload: Tripous.Data.FieldDef.IsNoInsertOrUpdate*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsBindable
+  commentId: P:Tripous.Data.FieldDef.IsBindable
+  id: IsBindable
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsBindable
+  nameWithType: FieldDef.IsBindable
+  fullName: Tripous.Data.FieldDef.IsBindable
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsBindable
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 443
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when this field is a bindable one, i.e. is visible and is not a blob
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsBindable { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsBindable As Boolean
+  overload: Tripous.Data.FieldDef.IsBindable*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsLookup
+  commentId: P:Tripous.Data.FieldDef.IsLookup
+  id: IsLookup
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsLookup
+  nameWithType: FieldDef.IsLookup
+  fullName: Tripous.Data.FieldDef.IsLookup
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsLookup
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 447
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when this field is a lookup field.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsLookup { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsLookup As Boolean
+  overload: Tripous.Data.FieldDef.IsLookup*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.FieldDef.IsLocator
+  commentId: P:Tripous.Data.FieldDef.IsLocator
+  id: IsLocator
+  parent: Tripous.Data.FieldDef
+  langs:
+  - csharp
+  - vb
+  name: IsLocator
+  nameWithType: FieldDef.IsLocator
+  fullName: Tripous.Data.FieldDef.IsLocator
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/FieldDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsLocator
+    path: ../Tripous.Data/Registry/FieldDef.cs
+    startLine: 451
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when this field is a locator field.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public bool IsLocator { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property IsLocator As Boolean
+  overload: Tripous.Data.FieldDef.IsLocator*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.BaseDef
+  commentId: T:Tripous.BaseDef
+  parent: Tripous
+  href: Tripous.BaseDef.html
+  name: BaseDef
+  nameWithType: BaseDef
+  fullName: Tripous.BaseDef
+- uid: Tripous.IDef
+  commentId: T:Tripous.IDef
+  parent: Tripous
+  href: Tripous.IDef.html
+  name: IDef
+  nameWithType: IDef
+  fullName: Tripous.IDef
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  parent: Tripous
+  href: Tripous.IJsonLoadable.html
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: Tripous.BaseDef.fTitleKey
+  commentId: F:Tripous.BaseDef.fTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey
+  name: fTitleKey
+  nameWithType: BaseDef.fTitleKey
+  fullName: Tripous.BaseDef.fTitleKey
+- uid: Tripous.BaseDef.fName
+  commentId: F:Tripous.BaseDef.fName
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_fName
+  name: fName
+  nameWithType: BaseDef.fName
+  fullName: Tripous.BaseDef.fName
+- uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  commentId: M:Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  parent: Tripous.BaseDef
+  isExternal: true
+  href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  name: NotifyPropertyChanged(string)
+  nameWithType: BaseDef.NotifyPropertyChanged(string)
+  fullName: Tripous.BaseDef.NotifyPropertyChanged(string)
+  nameWithType.vb: BaseDef.NotifyPropertyChanged(String)
+  fullName.vb: Tripous.BaseDef.NotifyPropertyChanged(String)
+  name.vb: NotifyPropertyChanged(String)
+  spec.csharp:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.NotifyPropertyChanged(System.String)
+    name: NotifyPropertyChanged
+    href: Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.UpdateReferences
+  commentId: M:Tripous.BaseDef.UpdateReferences
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  name: UpdateReferences()
+  nameWithType: BaseDef.UpdateReferences()
+  fullName: Tripous.BaseDef.UpdateReferences()
+  spec.csharp:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.UpdateReferences
+    name: UpdateReferences
+    href: Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.JsonLoaded
+  commentId: M:Tripous.BaseDef.JsonLoaded
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  name: JsonLoaded()
+  nameWithType: BaseDef.JsonLoaded()
+  fullName: Tripous.BaseDef.JsonLoaded()
+  spec.csharp:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.JsonLoaded
+    name: JsonLoaded
+    href: Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.CreateNew
+  commentId: M:Tripous.BaseDef.CreateNew
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  name: CreateNew()
+  nameWithType: BaseDef.CreateNew()
+  fullName: Tripous.BaseDef.CreateNew()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CreateNew
+    name: CreateNew
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CreateNew
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Assign(Tripous.IDef)
+  commentId: M:Tripous.BaseDef.Assign(Tripous.IDef)
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  name: Assign(IDef)
+  nameWithType: BaseDef.Assign(IDef)
+  fullName: Tripous.BaseDef.Assign(Tripous.IDef)
+  spec.csharp:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Assign(Tripous.IDef)
+    name: Assign
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_
+  - name: (
+  - uid: Tripous.IDef
+    name: IDef
+    href: Tripous.IDef.html
+  - name: )
+- uid: Tripous.BaseDef.Clone
+  commentId: M:Tripous.BaseDef.Clone
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  name: Clone()
+  nameWithType: BaseDef.Clone()
+  fullName: Tripous.BaseDef.Clone()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clone
+    name: Clone
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clone
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Clear
+  commentId: M:Tripous.BaseDef.Clear
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  name: Clear()
+  nameWithType: BaseDef.Clear()
+  fullName: Tripous.BaseDef.Clear()
+  spec.csharp:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.Clear
+    name: Clear
+    href: Tripous.BaseDef.html#Tripous_BaseDef_Clear
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  commentId: M:Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  name: SplitTitleKeyToWordsWithPluralEnding()
+  nameWithType: BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  fullName: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding()
+  spec.csharp:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.SplitTitleKeyToWordsWithPluralEnding
+    name: SplitTitleKeyToWordsWithPluralEnding
+    href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
+  - name: (
+  - name: )
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
+- uid: Tripous.BaseDef.TitleKey
+  commentId: P:Tripous.BaseDef.TitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_TitleKey
+  name: TitleKey
+  nameWithType: BaseDef.TitleKey
+  fullName: Tripous.BaseDef.TitleKey
+- uid: Tripous.BaseDef.IsTitleKeyEmpty
+  commentId: P:Tripous.BaseDef.IsTitleKeyEmpty
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty
+  name: IsTitleKeyEmpty
+  nameWithType: BaseDef.IsTitleKeyEmpty
+  fullName: Tripous.BaseDef.IsTitleKeyEmpty
+- uid: Tripous.BaseDef.Title
+  commentId: P:Tripous.BaseDef.Title
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Title
+  name: Title
+  nameWithType: BaseDef.Title
+  fullName: Tripous.BaseDef.Title
+- uid: Tripous.BaseDef.Tag
+  commentId: P:Tripous.BaseDef.Tag
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Tag
+  name: Tag
+  nameWithType: BaseDef.Tag
+  fullName: Tripous.BaseDef.Tag
+- uid: Tripous.BaseDef.IsSerializable
+  commentId: P:Tripous.BaseDef.IsSerializable
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable
+  name: IsSerializable
+  nameWithType: BaseDef.IsSerializable
+  fullName: Tripous.BaseDef.IsSerializable
+- uid: Tripous.BaseDef.PropertyChanged
+  commentId: E:Tripous.BaseDef.PropertyChanged
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged
+  name: PropertyChanged
+  nameWithType: BaseDef.PropertyChanged
+  fullName: Tripous.BaseDef.PropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+- uid: Tripous.Data.FieldDef.GetTitleKey*
+  commentId: Overload:Tripous.Data.FieldDef.GetTitleKey
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_GetTitleKey
+  name: GetTitleKey
+  nameWithType: FieldDef.GetTitleKey
+  fullName: Tripous.Data.FieldDef.GetTitleKey
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.FieldDef.#ctor*
+  commentId: Overload:Tripous.Data.FieldDef.#ctor
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef__ctor
+  name: FieldDef
+  nameWithType: FieldDef.FieldDef
+  fullName: Tripous.Data.FieldDef.FieldDef
+  nameWithType.vb: FieldDef.New
+  fullName.vb: Tripous.Data.FieldDef.New
+  name.vb: New
+- uid: Tripous.Data.TableDef
+  commentId: T:Tripous.Data.TableDef
+  parent: Tripous.Data
+  href: Tripous.Data.TableDef.html
+  name: TableDef
+  nameWithType: TableDef
+  fullName: Tripous.Data.TableDef
+- uid: Tripous.BaseDef.ToString
+  commentId: M:Tripous.BaseDef.ToString
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  name: ToString()
+  nameWithType: BaseDef.ToString()
+  fullName: Tripous.BaseDef.ToString()
+  spec.csharp:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.ToString
+    name: ToString
+    href: Tripous.BaseDef.html#Tripous_BaseDef_ToString
+  - name: (
+  - name: )
+- uid: Tripous.Data.FieldDef.ToString*
+  commentId: Overload:Tripous.Data.FieldDef.ToString
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_ToString
+  name: ToString
+  nameWithType: FieldDef.ToString
+  fullName: Tripous.Data.FieldDef.ToString
+- uid: Tripous.BaseDef.CheckDescriptor
+  commentId: M:Tripous.BaseDef.CheckDescriptor
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  name: CheckDescriptor()
+  nameWithType: BaseDef.CheckDescriptor()
+  fullName: Tripous.BaseDef.CheckDescriptor()
+  spec.csharp:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.CheckDescriptor
+    name: CheckDescriptor
+    href: Tripous.BaseDef.html#Tripous_BaseDef_CheckDescriptor
+  - name: (
+  - name: )
+- uid: Tripous.Data.FieldDef.CheckDescriptor*
+  commentId: Overload:Tripous.Data.FieldDef.CheckDescriptor
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_CheckDescriptor
+  name: CheckDescriptor
+  nameWithType: FieldDef.CheckDescriptor
+  fullName: Tripous.Data.FieldDef.CheckDescriptor
+- uid: Tripous.Data.FieldDef.Alias
+  commentId: P:Tripous.Data.FieldDef.Alias
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Alias
+  name: Alias
+  nameWithType: FieldDef.Alias
+  fullName: Tripous.Data.FieldDef.Alias
+- uid: Tripous.Data.FieldDef.SetAlias*
+  commentId: Overload:Tripous.Data.FieldDef.SetAlias
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetAlias_System_String_
+  name: SetAlias
+  nameWithType: FieldDef.SetAlias
+  fullName: Tripous.Data.FieldDef.SetAlias
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+- uid: Tripous.Data.FieldDef.SetTitleKey*
+  commentId: Overload:Tripous.Data.FieldDef.SetTitleKey
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetTitleKey_System_String_
+  name: SetTitleKey
+  nameWithType: FieldDef.SetTitleKey
+  fullName: Tripous.Data.FieldDef.SetTitleKey
+- uid: Tripous.Data.FieldDef.MaxLength
+  commentId: P:Tripous.Data.FieldDef.MaxLength
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_MaxLength
+  name: MaxLength
+  nameWithType: FieldDef.MaxLength
+  fullName: Tripous.Data.FieldDef.MaxLength
+- uid: Tripous.Data.FieldDef.SetMaxLength*
+  commentId: Overload:Tripous.Data.FieldDef.SetMaxLength
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetMaxLength_System_Int32_
+  name: SetMaxLength
+  nameWithType: FieldDef.SetMaxLength
+  fullName: Tripous.Data.FieldDef.SetMaxLength
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.FieldDef.Decimals
+  commentId: P:Tripous.Data.FieldDef.Decimals
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Decimals
+  name: Decimals
+  nameWithType: FieldDef.Decimals
+  fullName: Tripous.Data.FieldDef.Decimals
+- uid: Tripous.Data.FieldDef.SetDecimals*
+  commentId: Overload:Tripous.Data.FieldDef.SetDecimals
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetDecimals_System_Int32_
+  name: SetDecimals
+  nameWithType: FieldDef.SetDecimals
+  fullName: Tripous.Data.FieldDef.SetDecimals
+- uid: Tripous.Data.FieldDef.Flags
+  commentId: P:Tripous.Data.FieldDef.Flags
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Flags
+  name: Flags
+  nameWithType: FieldDef.Flags
+  fullName: Tripous.Data.FieldDef.Flags
+- uid: Tripous.Data.FieldDef.SetFlags*
+  commentId: Overload:Tripous.Data.FieldDef.SetFlags
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetFlags_Tripous_Data_FieldFlags_
+  name: SetFlags
+  nameWithType: FieldDef.SetFlags
+  fullName: Tripous.Data.FieldDef.SetFlags
+- uid: Tripous.Data.FieldFlags
+  commentId: T:Tripous.Data.FieldFlags
+  parent: Tripous.Data
+  href: Tripous.Data.FieldFlags.html
+  name: FieldFlags
+  nameWithType: FieldFlags
+  fullName: Tripous.Data.FieldFlags
+- uid: Tripous.Data.FieldDef.AddFlags*
+  commentId: Overload:Tripous.Data.FieldDef.AddFlags
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_AddFlags_Tripous_Data_FieldFlags_
+  name: AddFlags
+  nameWithType: FieldDef.AddFlags
+  fullName: Tripous.Data.FieldDef.AddFlags
+- uid: Tripous.Data.FieldDef.CodeProvider
+  commentId: P:Tripous.Data.FieldDef.CodeProvider
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_CodeProvider
+  name: CodeProvider
+  nameWithType: FieldDef.CodeProvider
+  fullName: Tripous.Data.FieldDef.CodeProvider
+- uid: Tripous.Data.FieldDef.SetCodeProviderName*
+  commentId: Overload:Tripous.Data.FieldDef.SetCodeProviderName
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetCodeProviderName_System_String_
+  name: SetCodeProviderName
+  nameWithType: FieldDef.SetCodeProviderName
+  fullName: Tripous.Data.FieldDef.SetCodeProviderName
+- uid: Tripous.Data.FieldDef.SnapshotOf
+  commentId: P:Tripous.Data.FieldDef.SnapshotOf
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SnapshotOf
+  name: SnapshotOf
+  nameWithType: FieldDef.SnapshotOf
+  fullName: Tripous.Data.FieldDef.SnapshotOf
+- uid: Tripous.Data.FieldDef.SetSnapshotOf*
+  commentId: Overload:Tripous.Data.FieldDef.SetSnapshotOf
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetSnapshotOf_System_String_
+  name: SetSnapshotOf
+  nameWithType: FieldDef.SetSnapshotOf
+  fullName: Tripous.Data.FieldDef.SetSnapshotOf
+- uid: Tripous.Data.FieldDef.DefaultValue
+  commentId: P:Tripous.Data.FieldDef.DefaultValue
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_DefaultValue
+  name: DefaultValue
+  nameWithType: FieldDef.DefaultValue
+  fullName: Tripous.Data.FieldDef.DefaultValue
+- uid: Tripous.Data.FieldDef.SetDefaultValue*
+  commentId: Overload:Tripous.Data.FieldDef.SetDefaultValue
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetDefaultValue_System_String_
+  name: SetDefaultValue
+  nameWithType: FieldDef.SetDefaultValue
+  fullName: Tripous.Data.FieldDef.SetDefaultValue
+- uid: Tripous.Data.FieldDef.Expression
+  commentId: P:Tripous.Data.FieldDef.Expression
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Expression
+  name: Expression
+  nameWithType: FieldDef.Expression
+  fullName: Tripous.Data.FieldDef.Expression
+- uid: Tripous.Data.FieldDef.SetExpression*
+  commentId: Overload:Tripous.Data.FieldDef.SetExpression
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetExpression_System_String_
+  name: SetExpression
+  nameWithType: FieldDef.SetExpression
+  fullName: Tripous.Data.FieldDef.SetExpression
+- uid: Tripous.Data.FieldDef.SetNullable(System.Boolean)
+  commentId: M:Tripous.Data.FieldDef.SetNullable(System.Boolean)
+  isExternal: true
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetNullable_System_Boolean_
+  name: SetNullable(bool)
+  nameWithType: FieldDef.SetNullable(bool)
+  fullName: Tripous.Data.FieldDef.SetNullable(bool)
+  nameWithType.vb: FieldDef.SetNullable(Boolean)
+  fullName.vb: Tripous.Data.FieldDef.SetNullable(Boolean)
+  name.vb: SetNullable(Boolean)
+  spec.csharp:
+  - uid: Tripous.Data.FieldDef.SetNullable(System.Boolean)
+    name: SetNullable
+    href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetNullable_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.FieldDef.SetNullable(System.Boolean)
+    name: SetNullable
+    href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetNullable_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.FieldDef.SetNullable*
+  commentId: Overload:Tripous.Data.FieldDef.SetNullable
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetNullable_System_Boolean_
+  name: SetNullable
+  nameWithType: FieldDef.SetNullable
+  fullName: Tripous.Data.FieldDef.SetNullable
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.FieldDef.Group
+  commentId: P:Tripous.Data.FieldDef.Group
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Group
+  name: Group
+  nameWithType: FieldDef.Group
+  fullName: Tripous.Data.FieldDef.Group
+- uid: Tripous.Data.FieldDef.SetGroup*
+  commentId: Overload:Tripous.Data.FieldDef.SetGroup
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetGroup_System_String_
+  name: SetGroup
+  nameWithType: FieldDef.SetGroup
+  fullName: Tripous.Data.FieldDef.SetGroup
+- uid: Tripous.Data.FieldDef.SetMemo*
+  commentId: Overload:Tripous.Data.FieldDef.SetMemo
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetMemo
+  name: SetMemo
+  nameWithType: FieldDef.SetMemo
+  fullName: Tripous.Data.FieldDef.SetMemo
+- uid: Tripous.Data.FieldDef.SetLargeMemo*
+  commentId: Overload:Tripous.Data.FieldDef.SetLargeMemo
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SetLargeMemo
+  name: SetLargeMemo
+  nameWithType: FieldDef.SetLargeMemo
+  fullName: Tripous.Data.FieldDef.SetLargeMemo
+- uid: Tripous.Data.FieldDef.TableDef*
+  commentId: Overload:Tripous.Data.FieldDef.TableDef
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_TableDef
+  name: TableDef
+  nameWithType: FieldDef.TableDef
+  fullName: Tripous.Data.FieldDef.TableDef
+- uid: Tripous.Data.FieldDef.Alias*
+  commentId: Overload:Tripous.Data.FieldDef.Alias
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Alias
+  name: Alias
+  nameWithType: FieldDef.Alias
+  fullName: Tripous.Data.FieldDef.Alias
+- uid: Tripous.Data.FieldDef.DataType*
+  commentId: Overload:Tripous.Data.FieldDef.DataType
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_DataType
+  name: DataType
+  nameWithType: FieldDef.DataType
+  fullName: Tripous.Data.FieldDef.DataType
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: Tripous.Data.FieldDef.Group*
+  commentId: Overload:Tripous.Data.FieldDef.Group
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Group
+  name: Group
+  nameWithType: FieldDef.Group
+  fullName: Tripous.Data.FieldDef.Group
+- uid: Tripous.Data.FieldDef.SnapshotOf*
+  commentId: Overload:Tripous.Data.FieldDef.SnapshotOf
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_SnapshotOf
+  name: SnapshotOf
+  nameWithType: FieldDef.SnapshotOf
+  fullName: Tripous.Data.FieldDef.SnapshotOf
+- uid: Tripous.Data.FieldDef.MaxLength*
+  commentId: Overload:Tripous.Data.FieldDef.MaxLength
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_MaxLength
+  name: MaxLength
+  nameWithType: FieldDef.MaxLength
+  fullName: Tripous.Data.FieldDef.MaxLength
+- uid: Tripous.Data.FieldDef.IsNullable*
+  commentId: Overload:Tripous.Data.FieldDef.IsNullable
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsNullable
+  name: IsNullable
+  nameWithType: FieldDef.IsNullable
+  fullName: Tripous.Data.FieldDef.IsNullable
+- uid: Tripous.Data.FieldDef.Flags*
+  commentId: Overload:Tripous.Data.FieldDef.Flags
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Flags
+  name: Flags
+  nameWithType: FieldDef.Flags
+  fullName: Tripous.Data.FieldDef.Flags
+- uid: Tripous.Data.FieldDef.DefaultValue*
+  commentId: Overload:Tripous.Data.FieldDef.DefaultValue
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_DefaultValue
+  name: DefaultValue
+  nameWithType: FieldDef.DefaultValue
+  fullName: Tripous.Data.FieldDef.DefaultValue
+- uid: Tripous.Data.FieldDef.Expression*
+  commentId: Overload:Tripous.Data.FieldDef.Expression
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Expression
+  name: Expression
+  nameWithType: FieldDef.Expression
+  fullName: Tripous.Data.FieldDef.Expression
+- uid: Tripous.Data.FieldDef.DisplayFormat*
+  commentId: Overload:Tripous.Data.FieldDef.DisplayFormat
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_DisplayFormat
+  name: DisplayFormat
+  nameWithType: FieldDef.DisplayFormat
+  fullName: Tripous.Data.FieldDef.DisplayFormat
+- uid: Tripous.Data.FieldDef.EditFormat*
+  commentId: Overload:Tripous.Data.FieldDef.EditFormat
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_EditFormat
+  name: EditFormat
+  nameWithType: FieldDef.EditFormat
+  fullName: Tripous.Data.FieldDef.EditFormat
+- uid: Tripous.Data.FieldDef.DisplayWidth*
+  commentId: Overload:Tripous.Data.FieldDef.DisplayWidth
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_DisplayWidth
+  name: DisplayWidth
+  nameWithType: FieldDef.DisplayWidth
+  fullName: Tripous.Data.FieldDef.DisplayWidth
+- uid: Tripous.Data.FieldDef.LookupSource*
+  commentId: Overload:Tripous.Data.FieldDef.LookupSource
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_LookupSource
+  name: LookupSource
+  nameWithType: FieldDef.LookupSource
+  fullName: Tripous.Data.FieldDef.LookupSource
+- uid: Tripous.Data.FieldDef.Locator*
+  commentId: Overload:Tripous.Data.FieldDef.Locator
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Locator
+  name: Locator
+  nameWithType: FieldDef.Locator
+  fullName: Tripous.Data.FieldDef.Locator
+- uid: Tripous.Data.FieldDef.Decimals*
+  commentId: Overload:Tripous.Data.FieldDef.Decimals
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_Decimals
+  name: Decimals
+  nameWithType: FieldDef.Decimals
+  fullName: Tripous.Data.FieldDef.Decimals
+- uid: Tripous.Data.FieldDef.CodeProvider*
+  commentId: Overload:Tripous.Data.FieldDef.CodeProvider
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_CodeProvider
+  name: CodeProvider
+  nameWithType: FieldDef.CodeProvider
+  fullName: Tripous.Data.FieldDef.CodeProvider
+- uid: Tripous.Data.FieldDef.ToolTip*
+  commentId: Overload:Tripous.Data.FieldDef.ToolTip
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_ToolTip
+  name: ToolTip
+  nameWithType: FieldDef.ToolTip
+  fullName: Tripous.Data.FieldDef.ToolTip
+- uid: Tripous.Data.FieldDef.IsRequired*
+  commentId: Overload:Tripous.Data.FieldDef.IsRequired
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsRequired
+  name: IsRequired
+  nameWithType: FieldDef.IsRequired
+  fullName: Tripous.Data.FieldDef.IsRequired
+- uid: Tripous.Data.FieldDef.IsVisible*
+  commentId: Overload:Tripous.Data.FieldDef.IsVisible
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsVisible
+  name: IsVisible
+  nameWithType: FieldDef.IsVisible
+  fullName: Tripous.Data.FieldDef.IsVisible
+- uid: Tripous.Data.FieldDef.IsHidden*
+  commentId: Overload:Tripous.Data.FieldDef.IsHidden
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsHidden
+  name: IsHidden
+  nameWithType: FieldDef.IsHidden
+  fullName: Tripous.Data.FieldDef.IsHidden
+- uid: Tripous.Data.FieldDef.IsReadOnly*
+  commentId: Overload:Tripous.Data.FieldDef.IsReadOnly
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsReadOnly
+  name: IsReadOnly
+  nameWithType: FieldDef.IsReadOnly
+  fullName: Tripous.Data.FieldDef.IsReadOnly
+- uid: Tripous.Data.FieldDef.IsReadOnlyUI*
+  commentId: Overload:Tripous.Data.FieldDef.IsReadOnlyUI
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsReadOnlyUI
+  name: IsReadOnlyUI
+  nameWithType: FieldDef.IsReadOnlyUI
+  fullName: Tripous.Data.FieldDef.IsReadOnlyUI
+- uid: Tripous.Data.FieldDef.IsReadOnlyEdit*
+  commentId: Overload:Tripous.Data.FieldDef.IsReadOnlyEdit
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsReadOnlyEdit
+  name: IsReadOnlyEdit
+  nameWithType: FieldDef.IsReadOnlyEdit
+  fullName: Tripous.Data.FieldDef.IsReadOnlyEdit
+- uid: Tripous.Data.FieldDef.IsNumeric*
+  commentId: Overload:Tripous.Data.FieldDef.IsNumeric
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsNumeric
+  name: IsNumeric
+  nameWithType: FieldDef.IsNumeric
+  fullName: Tripous.Data.FieldDef.IsNumeric
+- uid: Tripous.Data.FieldDef.IsInteger*
+  commentId: Overload:Tripous.Data.FieldDef.IsInteger
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsInteger
+  name: IsInteger
+  nameWithType: FieldDef.IsInteger
+  fullName: Tripous.Data.FieldDef.IsInteger
+- uid: Tripous.Data.FieldDef.IsFloat*
+  commentId: Overload:Tripous.Data.FieldDef.IsFloat
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsFloat
+  name: IsFloat
+  nameWithType: FieldDef.IsFloat
+  fullName: Tripous.Data.FieldDef.IsFloat
+- uid: Tripous.Data.FieldDef.IsDateTime*
+  commentId: Overload:Tripous.Data.FieldDef.IsDateTime
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsDateTime
+  name: IsDateTime
+  nameWithType: FieldDef.IsDateTime
+  fullName: Tripous.Data.FieldDef.IsDateTime
+- uid: Tripous.Data.FieldDef.IsBoolean*
+  commentId: Overload:Tripous.Data.FieldDef.IsBoolean
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsBoolean
+  name: IsBoolean
+  nameWithType: FieldDef.IsBoolean
+  fullName: Tripous.Data.FieldDef.IsBoolean
+- uid: Tripous.Data.FieldDef.IsMemo*
+  commentId: Overload:Tripous.Data.FieldDef.IsMemo
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsMemo
+  name: IsMemo
+  nameWithType: FieldDef.IsMemo
+  fullName: Tripous.Data.FieldDef.IsMemo
+- uid: Tripous.Data.FieldDef.IsLargeMemo*
+  commentId: Overload:Tripous.Data.FieldDef.IsLargeMemo
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsLargeMemo
+  name: IsLargeMemo
+  nameWithType: FieldDef.IsLargeMemo
+  fullName: Tripous.Data.FieldDef.IsLargeMemo
+- uid: Tripous.Data.FieldDef.IsBlob*
+  commentId: Overload:Tripous.Data.FieldDef.IsBlob
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsBlob
+  name: IsBlob
+  nameWithType: FieldDef.IsBlob
+  fullName: Tripous.Data.FieldDef.IsBlob
+- uid: Tripous.Data.FieldDef.IsImage*
+  commentId: Overload:Tripous.Data.FieldDef.IsImage
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsImage
+  name: IsImage
+  nameWithType: FieldDef.IsImage
+  fullName: Tripous.Data.FieldDef.IsImage
+- uid: Tripous.Data.FieldDef.IsImagePath*
+  commentId: Overload:Tripous.Data.FieldDef.IsImagePath
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsImagePath
+  name: IsImagePath
+  nameWithType: FieldDef.IsImagePath
+  fullName: Tripous.Data.FieldDef.IsImagePath
+- uid: Tripous.Data.FieldDef.IsSearchable*
+  commentId: Overload:Tripous.Data.FieldDef.IsSearchable
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsSearchable
+  name: IsSearchable
+  nameWithType: FieldDef.IsSearchable
+  fullName: Tripous.Data.FieldDef.IsSearchable
+- uid: Tripous.Data.FieldDef.IsExtraField*
+  commentId: Overload:Tripous.Data.FieldDef.IsExtraField
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsExtraField
+  name: IsExtraField
+  nameWithType: FieldDef.IsExtraField
+  fullName: Tripous.Data.FieldDef.IsExtraField
+- uid: Tripous.Data.FieldDef.IsNativeField*
+  commentId: Overload:Tripous.Data.FieldDef.IsNativeField
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsNativeField
+  name: IsNativeField
+  nameWithType: FieldDef.IsNativeField
+  fullName: Tripous.Data.FieldDef.IsNativeField
+- uid: Tripous.Data.FieldDef.IsForeignKeyField*
+  commentId: Overload:Tripous.Data.FieldDef.IsForeignKeyField
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsForeignKeyField
+  name: IsForeignKeyField
+  nameWithType: FieldDef.IsForeignKeyField
+  fullName: Tripous.Data.FieldDef.IsForeignKeyField
+- uid: Tripous.Data.FieldDef.IsNoInsertOrUpdate*
+  commentId: Overload:Tripous.Data.FieldDef.IsNoInsertOrUpdate
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsNoInsertOrUpdate
+  name: IsNoInsertOrUpdate
+  nameWithType: FieldDef.IsNoInsertOrUpdate
+  fullName: Tripous.Data.FieldDef.IsNoInsertOrUpdate
+- uid: Tripous.Data.FieldDef.IsBindable*
+  commentId: Overload:Tripous.Data.FieldDef.IsBindable
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsBindable
+  name: IsBindable
+  nameWithType: FieldDef.IsBindable
+  fullName: Tripous.Data.FieldDef.IsBindable
+- uid: Tripous.Data.FieldDef.IsLookup*
+  commentId: Overload:Tripous.Data.FieldDef.IsLookup
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsLookup
+  name: IsLookup
+  nameWithType: FieldDef.IsLookup
+  fullName: Tripous.Data.FieldDef.IsLookup
+- uid: Tripous.Data.FieldDef.IsLocator*
+  commentId: Overload:Tripous.Data.FieldDef.IsLocator
+  href: Tripous.Data.FieldDef.html#Tripous_Data_FieldDef_IsLocator
+  name: IsLocator
+  nameWithType: FieldDef.IsLocator
+  fullName: Tripous.Data.FieldDef.IsLocator

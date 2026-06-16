@@ -1,0 +1,1559 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.HighlightMode
+  commentId: T:Tripous.Desktop.HighlightMode
+  id: HighlightMode
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.HighlightMode.Boo
+  - Tripous.Desktop.HighlightMode.CSS
+  - Tripous.Desktop.HighlightMode.CSharp
+  - Tripous.Desktop.HighlightMode.Coco
+  - Tripous.Desktop.HighlightMode.Cpp
+  - Tripous.Desktop.HighlightMode.HTML
+  - Tripous.Desktop.HighlightMode.JSON
+  - Tripous.Desktop.HighlightMode.Java
+  - Tripous.Desktop.HighlightMode.Javascript
+  - Tripous.Desktop.HighlightMode.Markdown
+  - Tripous.Desktop.HighlightMode.None
+  - Tripous.Desktop.HighlightMode.PHP
+  - Tripous.Desktop.HighlightMode.PowerShell
+  - Tripous.Desktop.HighlightMode.Python
+  - Tripous.Desktop.HighlightMode.SQL
+  - Tripous.Desktop.HighlightMode.VB
+  - Tripous.Desktop.HighlightMode.XML
+  langs:
+  - csharp
+  - vb
+  name: HighlightMode
+  nameWithType: HighlightMode
+  fullName: Tripous.Desktop.HighlightMode
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HighlightMode
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Defines supported syntax highlighting modes.
+  example: []
+  syntax:
+    content: public enum HighlightMode
+    content.vb: Public Enum HighlightMode
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.Add``1(Tripous.Desktop.HighlightMode)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.HasAny``1(Tripous.Desktop.HighlightMode)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.HasNone``1(Tripous.Desktop.HighlightMode)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.Has``1(Tripous.Desktop.HighlightMode)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.In``1(Tripous.Desktop.HighlightMode)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.IsExactly``1(Tripous.Desktop.HighlightMode)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.IsZero``1
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.Remove``1(Tripous.Desktop.HighlightMode)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.Set``1(Tripous.Desktop.HighlightMode,System.Boolean)
+  - Tripous.Desktop.HighlightMode.Tripous.BitFields.Toggle``1(Tripous.Desktop.HighlightMode)
+- uid: Tripous.Desktop.HighlightMode.None
+  commentId: F:Tripous.Desktop.HighlightMode.None
+  id: None
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: HighlightMode.None
+  fullName: Tripous.Desktop.HighlightMode.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: No syntax highlighting.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.CSharp
+  commentId: F:Tripous.Desktop.HighlightMode.CSharp
+  id: CSharp
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: CSharp
+  nameWithType: HighlightMode.CSharp
+  fullName: Tripous.Desktop.HighlightMode.CSharp
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CSharp
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: C# syntax highlighting.
+  example: []
+  syntax:
+    content: CSharp = 1
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.Javascript
+  commentId: F:Tripous.Desktop.HighlightMode.Javascript
+  id: Javascript
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: Javascript
+  nameWithType: HighlightMode.Javascript
+  fullName: Tripous.Desktop.HighlightMode.Javascript
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Javascript
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: JavaScript syntax highlighting.
+  example: []
+  syntax:
+    content: Javascript = 2
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.HTML
+  commentId: F:Tripous.Desktop.HighlightMode.HTML
+  id: HTML
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: HTML
+  nameWithType: HighlightMode.HTML
+  fullName: Tripous.Desktop.HighlightMode.HTML
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HTML
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: HTML syntax highlighting.
+  example: []
+  syntax:
+    content: HTML = 3
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.Boo
+  commentId: F:Tripous.Desktop.HighlightMode.Boo
+  id: Boo
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: Boo
+  nameWithType: HighlightMode.Boo
+  fullName: Tripous.Desktop.HighlightMode.Boo
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Boo
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Boo syntax highlighting.
+  example: []
+  syntax:
+    content: Boo = 4
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.Coco
+  commentId: F:Tripous.Desktop.HighlightMode.Coco
+  id: Coco
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: Coco
+  nameWithType: HighlightMode.Coco
+  fullName: Tripous.Desktop.HighlightMode.Coco
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Coco
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Coco/R syntax highlighting.
+  example: []
+  syntax:
+    content: Coco = 5
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.CSS
+  commentId: F:Tripous.Desktop.HighlightMode.CSS
+  id: CSS
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: CSS
+  nameWithType: HighlightMode.CSS
+  fullName: Tripous.Desktop.HighlightMode.CSS
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CSS
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: CSS syntax highlighting.
+  example: []
+  syntax:
+    content: CSS = 6
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.Cpp
+  commentId: F:Tripous.Desktop.HighlightMode.Cpp
+  id: Cpp
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: Cpp
+  nameWithType: HighlightMode.Cpp
+  fullName: Tripous.Desktop.HighlightMode.Cpp
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Cpp
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 46
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: C++ syntax highlighting.
+  example: []
+  syntax:
+    content: Cpp = 7
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.Java
+  commentId: F:Tripous.Desktop.HighlightMode.Java
+  id: Java
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: Java
+  nameWithType: HighlightMode.Java
+  fullName: Tripous.Desktop.HighlightMode.Java
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Java
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Java syntax highlighting.
+  example: []
+  syntax:
+    content: Java = 8
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.PowerShell
+  commentId: F:Tripous.Desktop.HighlightMode.PowerShell
+  id: PowerShell
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: PowerShell
+  nameWithType: HighlightMode.PowerShell
+  fullName: Tripous.Desktop.HighlightMode.PowerShell
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PowerShell
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 54
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: PowerShell syntax highlighting.
+  example: []
+  syntax:
+    content: PowerShell = 9
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.PHP
+  commentId: F:Tripous.Desktop.HighlightMode.PHP
+  id: PHP
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: PHP
+  nameWithType: HighlightMode.PHP
+  fullName: Tripous.Desktop.HighlightMode.PHP
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PHP
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 58
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: PHP syntax highlighting.
+  example: []
+  syntax:
+    content: PHP = 10
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.Python
+  commentId: F:Tripous.Desktop.HighlightMode.Python
+  id: Python
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: Python
+  nameWithType: HighlightMode.Python
+  fullName: Tripous.Desktop.HighlightMode.Python
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Python
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Python syntax highlighting.
+  example: []
+  syntax:
+    content: Python = 11
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.SQL
+  commentId: F:Tripous.Desktop.HighlightMode.SQL
+  id: SQL
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: SQL
+  nameWithType: HighlightMode.SQL
+  fullName: Tripous.Desktop.HighlightMode.SQL
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SQL
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 66
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: SQL syntax highlighting.
+  example: []
+  syntax:
+    content: SQL = 12
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.VB
+  commentId: F:Tripous.Desktop.HighlightMode.VB
+  id: VB
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: VB
+  nameWithType: HighlightMode.VB
+  fullName: Tripous.Desktop.HighlightMode.VB
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VB
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Visual Basic syntax highlighting.
+  example: []
+  syntax:
+    content: VB = 13
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.XML
+  commentId: F:Tripous.Desktop.HighlightMode.XML
+  id: XML
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: XML
+  nameWithType: HighlightMode.XML
+  fullName: Tripous.Desktop.HighlightMode.XML
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: XML
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: XML syntax highlighting.
+  example: []
+  syntax:
+    content: XML = 14
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.Markdown
+  commentId: F:Tripous.Desktop.HighlightMode.Markdown
+  id: Markdown
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: Markdown
+  nameWithType: HighlightMode.Markdown
+  fullName: Tripous.Desktop.HighlightMode.Markdown
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Markdown
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Markdown syntax highlighting.
+  example: []
+  syntax:
+    content: Markdown = 15
+    return:
+      type: Tripous.Desktop.HighlightMode
+- uid: Tripous.Desktop.HighlightMode.JSON
+  commentId: F:Tripous.Desktop.HighlightMode.JSON
+  id: JSON
+  parent: Tripous.Desktop.HighlightMode
+  langs:
+  - csharp
+  - vb
+  name: JSON
+  nameWithType: HighlightMode.JSON
+  fullName: Tripous.Desktop.HighlightMode.JSON
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Enums/HighlightMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JSON
+    path: ../Tripous.Desktop/Enums/HighlightMode.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: JSON syntax highlighting.
+  example: []
+  syntax:
+    content: JSON = 16
+    return:
+      type: Tripous.Desktop.HighlightMode
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.Add``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.Add<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.Add<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.Add(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: Add(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.HasAny``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.HasAny<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.HasAny<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.HasAny(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: HasAny(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.HasNone``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.HasNone<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.HasNone<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.HasNone(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: HasNone(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.Has``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.Has<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.Has<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.Has(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: Has(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.In``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.In<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.In<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.In(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: In(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.IsExactly``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.IsExactly<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.IsExactly(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: IsExactly(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<HighlightMode>(HighlightMode)
+  nameWithType: BitFields.IsZero<HighlightMode>(HighlightMode)
+  fullName: Tripous.BitFields.IsZero<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.IsZero(Of HighlightMode)(HighlightMode)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode)
+  name.vb: IsZero(Of HighlightMode)(HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.HighlightMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Desktop.HighlightMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.Remove``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.Remove<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.Remove<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.Remove(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: Remove(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.Set``1(Tripous.Desktop.HighlightMode,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<HighlightMode>(HighlightMode, HighlightMode, bool)
+  nameWithType: BitFields.Set<HighlightMode>(HighlightMode, HighlightMode, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode, bool)
+  nameWithType.vb: BitFields.Set(Of HighlightMode)(HighlightMode, HighlightMode, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode, Boolean)
+  name.vb: Set(Of HighlightMode)(HighlightMode, HighlightMode, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Desktop.HighlightMode.Tripous.BitFields.Toggle``1(Tripous.Desktop.HighlightMode)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<HighlightMode>(HighlightMode, HighlightMode)
+  nameWithType: BitFields.Toggle<HighlightMode>(HighlightMode, HighlightMode)
+  fullName: Tripous.BitFields.Toggle<Tripous.Desktop.HighlightMode>(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  nameWithType.vb: BitFields.Toggle(Of HighlightMode)(HighlightMode, HighlightMode)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Desktop.HighlightMode)(Tripous.Desktop.HighlightMode, Tripous.Desktop.HighlightMode)
+  name.vb: Toggle(Of HighlightMode)(HighlightMode, HighlightMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Desktop.HighlightMode,Tripous.Desktop.HighlightMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Desktop.HighlightMode
+    name: HighlightMode
+    href: Tripous.Desktop.HighlightMode.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.HighlightMode
+  commentId: T:Tripous.Desktop.HighlightMode
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.HighlightMode.html
+  name: HighlightMode
+  nameWithType: HighlightMode
+  fullName: Tripous.Desktop.HighlightMode

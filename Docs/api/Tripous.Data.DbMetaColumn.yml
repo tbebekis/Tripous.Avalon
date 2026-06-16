@@ -1,0 +1,967 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DbMetaColumn
+  commentId: T:Tripous.Data.DbMetaColumn
+  id: DbMetaColumn
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DbMetaColumn.DataSubType
+  - Tripous.Data.DbMetaColumn.DataType
+  - Tripous.Data.DbMetaColumn.DefaultValue
+  - Tripous.Data.DbMetaColumn.DisplayText
+  - Tripous.Data.DbMetaColumn.Expression
+  - Tripous.Data.DbMetaColumn.IsComputed
+  - Tripous.Data.DbMetaColumn.IsIdentity
+  - Tripous.Data.DbMetaColumn.IsNullable
+  - Tripous.Data.DbMetaColumn.OrdinalPosition
+  - Tripous.Data.DbMetaColumn.Precision
+  - Tripous.Data.DbMetaColumn.Scale
+  - Tripous.Data.DbMetaColumn.SizeInBytes
+  - Tripous.Data.DbMetaColumn.SizeInChars
+  langs:
+  - csharp
+  - vb
+  name: DbMetaColumn
+  nameWithType: DbMetaColumn
+  fullName: Tripous.Data.DbMetaColumn
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DbMetaColumn
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Represents metadata for a database table column.
+  example: []
+  syntax:
+    content: 'public class DbMetaColumn : DbMetaObject'
+    content.vb: Public Class DbMetaColumn Inherits DbMetaObject
+  inheritance:
+  - System.Object
+  - Tripous.Data.DbMetaObject
+  inheritedMembers:
+  - Tripous.Data.DbMetaObject.Name
+  - Tripous.Data.DbMetaObject.SchemaName
+  - Tripous.Data.DbMetaObject.SourceCode
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.DbMetaColumn.DataType
+  commentId: P:Tripous.Data.DbMetaColumn.DataType
+  id: DataType
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: DataType
+  nameWithType: DbMetaColumn.DataType
+  fullName: Tripous.Data.DbMetaColumn.DataType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataType
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the data type name (e.g., varchar, integer, timestamp).
+  example: []
+  syntax:
+    content: public string DataType { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DataType As String
+  overload: Tripous.Data.DbMetaColumn.DataType*
+- uid: Tripous.Data.DbMetaColumn.DataSubType
+  commentId: P:Tripous.Data.DbMetaColumn.DataSubType
+  id: DataSubType
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: DataSubType
+  nameWithType: DbMetaColumn.DataSubType
+  fullName: Tripous.Data.DbMetaColumn.DataSubType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataSubType
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the database-specific data sub-type (e.g., VARCHAR to CHARACTER VARYING in Firebird).
+  example: []
+  syntax:
+    content: public string DataSubType { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DataSubType As String
+  overload: Tripous.Data.DbMetaColumn.DataSubType*
+- uid: Tripous.Data.DbMetaColumn.IsNullable
+  commentId: P:Tripous.Data.DbMetaColumn.IsNullable
+  id: IsNullable
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: IsNullable
+  nameWithType: DbMetaColumn.IsNullable
+  fullName: Tripous.Data.DbMetaColumn.IsNullable
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsNullable
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating whether the column accepts null values.
+  example: []
+  syntax:
+    content: public bool IsNullable { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsNullable As Boolean
+  overload: Tripous.Data.DbMetaColumn.IsNullable*
+- uid: Tripous.Data.DbMetaColumn.SizeInChars
+  commentId: P:Tripous.Data.DbMetaColumn.SizeInChars
+  id: SizeInChars
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: SizeInChars
+  nameWithType: DbMetaColumn.SizeInChars
+  fullName: Tripous.Data.DbMetaColumn.SizeInChars
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SizeInChars
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the maximum character length for string columns.
+  example: []
+  syntax:
+    content: public int SizeInChars { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property SizeInChars As Integer
+  overload: Tripous.Data.DbMetaColumn.SizeInChars*
+- uid: Tripous.Data.DbMetaColumn.SizeInBytes
+  commentId: P:Tripous.Data.DbMetaColumn.SizeInBytes
+  id: SizeInBytes
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: SizeInBytes
+  nameWithType: DbMetaColumn.SizeInBytes
+  fullName: Tripous.Data.DbMetaColumn.SizeInBytes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SizeInBytes
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the maximum byte length for string or binary columns.
+  example: []
+  syntax:
+    content: public int SizeInBytes { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property SizeInBytes As Integer
+  overload: Tripous.Data.DbMetaColumn.SizeInBytes*
+- uid: Tripous.Data.DbMetaColumn.Precision
+  commentId: P:Tripous.Data.DbMetaColumn.Precision
+  id: Precision
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: Precision
+  nameWithType: DbMetaColumn.Precision
+  fullName: Tripous.Data.DbMetaColumn.Precision
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Precision
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the numeric precision.
+  example: []
+  syntax:
+    content: public int Precision { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Precision As Integer
+  overload: Tripous.Data.DbMetaColumn.Precision*
+- uid: Tripous.Data.DbMetaColumn.Scale
+  commentId: P:Tripous.Data.DbMetaColumn.Scale
+  id: Scale
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: Scale
+  nameWithType: DbMetaColumn.Scale
+  fullName: Tripous.Data.DbMetaColumn.Scale
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Scale
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 46
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the numeric scale.
+  example: []
+  syntax:
+    content: public int Scale { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Scale As Integer
+  overload: Tripous.Data.DbMetaColumn.Scale*
+- uid: Tripous.Data.DbMetaColumn.DefaultValue
+  commentId: P:Tripous.Data.DbMetaColumn.DefaultValue
+  id: DefaultValue
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: DefaultValue
+  nameWithType: DbMetaColumn.DefaultValue
+  fullName: Tripous.Data.DbMetaColumn.DefaultValue
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DefaultValue
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the default value expression.
+  example: []
+  syntax:
+    content: public string DefaultValue { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DefaultValue As String
+  overload: Tripous.Data.DbMetaColumn.DefaultValue*
+- uid: Tripous.Data.DbMetaColumn.Expression
+  commentId: P:Tripous.Data.DbMetaColumn.Expression
+  id: Expression
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: Expression
+  nameWithType: DbMetaColumn.Expression
+  fullName: Tripous.Data.DbMetaColumn.Expression
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Expression
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 54
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the computed column expression.
+  example: []
+  syntax:
+    content: public string Expression { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Expression As String
+  overload: Tripous.Data.DbMetaColumn.Expression*
+- uid: Tripous.Data.DbMetaColumn.IsIdentity
+  commentId: P:Tripous.Data.DbMetaColumn.IsIdentity
+  id: IsIdentity
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: IsIdentity
+  nameWithType: DbMetaColumn.IsIdentity
+  fullName: Tripous.Data.DbMetaColumn.IsIdentity
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsIdentity
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 58
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating whether the column is an identity or auto-increment column.
+  example: []
+  syntax:
+    content: public bool IsIdentity { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsIdentity As Boolean
+  overload: Tripous.Data.DbMetaColumn.IsIdentity*
+- uid: Tripous.Data.DbMetaColumn.IsComputed
+  commentId: P:Tripous.Data.DbMetaColumn.IsComputed
+  id: IsComputed
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: IsComputed
+  nameWithType: DbMetaColumn.IsComputed
+  fullName: Tripous.Data.DbMetaColumn.IsComputed
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsComputed
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating whether the column value is calculated or computed.
+  example: []
+  syntax:
+    content: public bool IsComputed { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsComputed As Boolean
+  overload: Tripous.Data.DbMetaColumn.IsComputed*
+- uid: Tripous.Data.DbMetaColumn.OrdinalPosition
+  commentId: P:Tripous.Data.DbMetaColumn.OrdinalPosition
+  id: OrdinalPosition
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: OrdinalPosition
+  nameWithType: DbMetaColumn.OrdinalPosition
+  fullName: Tripous.Data.DbMetaColumn.OrdinalPosition
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OrdinalPosition
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 66
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the 1-based index position of the column within the table schema.
+  example: []
+  syntax:
+    content: public int OrdinalPosition { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property OrdinalPosition As Integer
+  overload: Tripous.Data.DbMetaColumn.OrdinalPosition*
+- uid: Tripous.Data.DbMetaColumn.DisplayText
+  commentId: P:Tripous.Data.DbMetaColumn.DisplayText
+  id: DisplayText
+  parent: Tripous.Data.DbMetaColumn
+  langs:
+  - csharp
+  - vb
+  name: DisplayText
+  nameWithType: DbMetaColumn.DisplayText
+  fullName: Tripous.Data.DbMetaColumn.DisplayText
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Metadata/DbMetaColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayText
+    path: ../Tripous.Data/Metadata/DbMetaColumn.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets a descriptive, formatted string representation of the column metadata.
+  example: []
+  syntax:
+    content: public override string DisplayText { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Overrides ReadOnly Property DisplayText As String
+  overridden: Tripous.Data.DbMetaObject.DisplayText
+  overload: Tripous.Data.DbMetaColumn.DisplayText*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.Data.DbMetaObject
+  commentId: T:Tripous.Data.DbMetaObject
+  parent: Tripous.Data
+  href: Tripous.Data.DbMetaObject.html
+  name: DbMetaObject
+  nameWithType: DbMetaObject
+  fullName: Tripous.Data.DbMetaObject
+- uid: Tripous.Data.DbMetaObject.Name
+  commentId: P:Tripous.Data.DbMetaObject.Name
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_Name
+  name: Name
+  nameWithType: DbMetaObject.Name
+  fullName: Tripous.Data.DbMetaObject.Name
+- uid: Tripous.Data.DbMetaObject.SchemaName
+  commentId: P:Tripous.Data.DbMetaObject.SchemaName
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_SchemaName
+  name: SchemaName
+  nameWithType: DbMetaObject.SchemaName
+  fullName: Tripous.Data.DbMetaObject.SchemaName
+- uid: Tripous.Data.DbMetaObject.SourceCode
+  commentId: P:Tripous.Data.DbMetaObject.SourceCode
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_SourceCode
+  name: SourceCode
+  nameWithType: DbMetaObject.SourceCode
+  fullName: Tripous.Data.DbMetaObject.SourceCode
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DbMetaColumn.DataType*
+  commentId: Overload:Tripous.Data.DbMetaColumn.DataType
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_DataType
+  name: DataType
+  nameWithType: DbMetaColumn.DataType
+  fullName: Tripous.Data.DbMetaColumn.DataType
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.DbMetaColumn.DataSubType*
+  commentId: Overload:Tripous.Data.DbMetaColumn.DataSubType
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_DataSubType
+  name: DataSubType
+  nameWithType: DbMetaColumn.DataSubType
+  fullName: Tripous.Data.DbMetaColumn.DataSubType
+- uid: Tripous.Data.DbMetaColumn.IsNullable*
+  commentId: Overload:Tripous.Data.DbMetaColumn.IsNullable
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_IsNullable
+  name: IsNullable
+  nameWithType: DbMetaColumn.IsNullable
+  fullName: Tripous.Data.DbMetaColumn.IsNullable
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.DbMetaColumn.SizeInChars*
+  commentId: Overload:Tripous.Data.DbMetaColumn.SizeInChars
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_SizeInChars
+  name: SizeInChars
+  nameWithType: DbMetaColumn.SizeInChars
+  fullName: Tripous.Data.DbMetaColumn.SizeInChars
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.DbMetaColumn.SizeInBytes*
+  commentId: Overload:Tripous.Data.DbMetaColumn.SizeInBytes
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_SizeInBytes
+  name: SizeInBytes
+  nameWithType: DbMetaColumn.SizeInBytes
+  fullName: Tripous.Data.DbMetaColumn.SizeInBytes
+- uid: Tripous.Data.DbMetaColumn.Precision*
+  commentId: Overload:Tripous.Data.DbMetaColumn.Precision
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_Precision
+  name: Precision
+  nameWithType: DbMetaColumn.Precision
+  fullName: Tripous.Data.DbMetaColumn.Precision
+- uid: Tripous.Data.DbMetaColumn.Scale*
+  commentId: Overload:Tripous.Data.DbMetaColumn.Scale
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_Scale
+  name: Scale
+  nameWithType: DbMetaColumn.Scale
+  fullName: Tripous.Data.DbMetaColumn.Scale
+- uid: Tripous.Data.DbMetaColumn.DefaultValue*
+  commentId: Overload:Tripous.Data.DbMetaColumn.DefaultValue
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_DefaultValue
+  name: DefaultValue
+  nameWithType: DbMetaColumn.DefaultValue
+  fullName: Tripous.Data.DbMetaColumn.DefaultValue
+- uid: Tripous.Data.DbMetaColumn.Expression*
+  commentId: Overload:Tripous.Data.DbMetaColumn.Expression
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_Expression
+  name: Expression
+  nameWithType: DbMetaColumn.Expression
+  fullName: Tripous.Data.DbMetaColumn.Expression
+- uid: Tripous.Data.DbMetaColumn.IsIdentity*
+  commentId: Overload:Tripous.Data.DbMetaColumn.IsIdentity
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_IsIdentity
+  name: IsIdentity
+  nameWithType: DbMetaColumn.IsIdentity
+  fullName: Tripous.Data.DbMetaColumn.IsIdentity
+- uid: Tripous.Data.DbMetaColumn.IsComputed*
+  commentId: Overload:Tripous.Data.DbMetaColumn.IsComputed
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_IsComputed
+  name: IsComputed
+  nameWithType: DbMetaColumn.IsComputed
+  fullName: Tripous.Data.DbMetaColumn.IsComputed
+- uid: Tripous.Data.DbMetaColumn.OrdinalPosition*
+  commentId: Overload:Tripous.Data.DbMetaColumn.OrdinalPosition
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_OrdinalPosition
+  name: OrdinalPosition
+  nameWithType: DbMetaColumn.OrdinalPosition
+  fullName: Tripous.Data.DbMetaColumn.OrdinalPosition
+- uid: Tripous.Data.DbMetaObject.DisplayText
+  commentId: P:Tripous.Data.DbMetaObject.DisplayText
+  parent: Tripous.Data.DbMetaObject
+  href: Tripous.Data.DbMetaObject.html#Tripous_Data_DbMetaObject_DisplayText
+  name: DisplayText
+  nameWithType: DbMetaObject.DisplayText
+  fullName: Tripous.Data.DbMetaObject.DisplayText
+- uid: Tripous.Data.DbMetaColumn.DisplayText*
+  commentId: Overload:Tripous.Data.DbMetaColumn.DisplayText
+  href: Tripous.Data.DbMetaColumn.html#Tripous_Data_DbMetaColumn_DisplayText
+  name: DisplayText
+  nameWithType: DbMetaColumn.DisplayText
+  fullName: Tripous.Data.DbMetaColumn.DisplayText

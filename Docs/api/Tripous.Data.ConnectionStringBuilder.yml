@@ -1,0 +1,3352 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.ConnectionStringBuilder
+  commentId: T:Tripous.Data.ConnectionStringBuilder
+  id: ConnectionStringBuilder
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.ConnectionStringBuilder.#ctor
+  - Tripous.Data.ConnectionStringBuilder.#ctor(System.Boolean)
+  - Tripous.Data.ConnectionStringBuilder.#ctor(System.Boolean,System.String)
+  - Tripous.Data.ConnectionStringBuilder.#ctor(System.String)
+  - Tripous.Data.ConnectionStringBuilder.Alias
+  - Tripous.Data.ConnectionStringBuilder.AliasKey
+  - Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder(System.String)
+  - Tripous.Data.ConnectionStringBuilder.Database
+  - Tripous.Data.ConnectionStringBuilder.ExtendedProperties
+  - Tripous.Data.ConnectionStringBuilder.ExtractAlias(System.String,System.String@,System.String@)
+  - Tripous.Data.ConnectionStringBuilder.FromDataTable(System.Data.DataTable)
+  - Tripous.Data.ConnectionStringBuilder.GetAlias(System.String)
+  - Tripous.Data.ConnectionStringBuilder.GetFirst(System.String[])
+  - Tripous.Data.ConnectionStringBuilder.Item(System.String)
+  - Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString(System.String)
+  - Tripous.Data.ConnectionStringBuilder.OleDbProvider
+  - Tripous.Data.ConnectionStringBuilder.Password
+  - Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry(System.String)
+  - Tripous.Data.ConnectionStringBuilder.RemoveKeys(System.String[])
+  - Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders(System.String)
+  - Tripous.Data.ConnectionStringBuilder.Server
+  - Tripous.Data.ConnectionStringBuilder.SetConnectionString(System.String)
+  - Tripous.Data.ConnectionStringBuilder.ToDataTable
+  - Tripous.Data.ConnectionStringBuilder.ToDataTable(System.Data.DataTable)
+  - Tripous.Data.ConnectionStringBuilder.TryGetValue(System.String,System.String@)
+  - Tripous.Data.ConnectionStringBuilder.User
+  langs:
+  - csharp
+  - vb
+  name: ConnectionStringBuilder
+  nameWithType: ConnectionStringBuilder
+  fullName: Tripous.Data.ConnectionStringBuilder
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionStringBuilder
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Provides helper methods and strongly typed accessors for manipulating database connection strings.
+  example: []
+  syntax:
+    content: 'public class ConnectionStringBuilder : DbConnectionStringBuilder, IDictionary, ICollection, IEnumerable, ICustomTypeDescriptor'
+    content.vb: Public Class ConnectionStringBuilder Inherits DbConnectionStringBuilder Implements IDictionary, ICollection, IEnumerable, ICustomTypeDescriptor
+  inheritance:
+  - System.Object
+  - System.Data.Common.DbConnectionStringBuilder
+  implements:
+  - System.Collections.IDictionary
+  - System.Collections.ICollection
+  - System.Collections.IEnumerable
+  - System.ComponentModel.ICustomTypeDescriptor
+  inheritedMembers:
+  - System.Data.Common.DbConnectionStringBuilder.Add(System.String,System.Object)
+  - System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String)
+  - System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String,System.Boolean)
+  - System.Data.Common.DbConnectionStringBuilder.Clear
+  - System.Data.Common.DbConnectionStringBuilder.ClearPropertyDescriptors
+  - System.Data.Common.DbConnectionStringBuilder.ContainsKey(System.String)
+  - System.Data.Common.DbConnectionStringBuilder.EquivalentTo(System.Data.Common.DbConnectionStringBuilder)
+  - System.Data.Common.DbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+  - System.Data.Common.DbConnectionStringBuilder.Remove(System.String)
+  - System.Data.Common.DbConnectionStringBuilder.ShouldSerialize(System.String)
+  - System.Data.Common.DbConnectionStringBuilder.ToString
+  - System.Data.Common.DbConnectionStringBuilder.TryGetValue(System.String,System.Object@)
+  - System.Data.Common.DbConnectionStringBuilder.ConnectionString
+  - System.Data.Common.DbConnectionStringBuilder.Count
+  - System.Data.Common.DbConnectionStringBuilder.IsFixedSize
+  - System.Data.Common.DbConnectionStringBuilder.IsReadOnly
+  - System.Data.Common.DbConnectionStringBuilder.Keys
+  - System.Data.Common.DbConnectionStringBuilder.Values
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsBoolean(System.String)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsBoolean(System.String,System.Boolean)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsDateTime(System.String)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsDateTime(System.String,System.DateTime)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsFloat(System.String)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsFloat(System.String,System.Double)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsInteger(System.String)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsInteger(System.String,System.Int32)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsObject(System.String,System.Object)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsString(System.String)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.AsString(System.String,System.String)
+  - System.Collections.IDictionary.Tripous.DictionaryExtensions.ValuesToRow(System.Data.DataRow)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.ConnectionStringBuilder.#ctor
+  commentId: M:Tripous.Data.ConnectionStringBuilder.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ConnectionStringBuilder()
+  nameWithType: ConnectionStringBuilder.ConnectionStringBuilder()
+  fullName: Tripous.Data.ConnectionStringBuilder.ConnectionStringBuilder()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes a new instance.
+  example: []
+  syntax:
+    content: public ConnectionStringBuilder()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.ConnectionStringBuilder.#ctor*
+  nameWithType.vb: ConnectionStringBuilder.New()
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.New()
+  name.vb: New()
+- uid: Tripous.Data.ConnectionStringBuilder.#ctor(System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ConnectionStringBuilder(string)
+  nameWithType: ConnectionStringBuilder.ConnectionStringBuilder(string)
+  fullName: Tripous.Data.ConnectionStringBuilder.ConnectionStringBuilder(string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes a new instance using the specified connection string.
+  example: []
+  syntax:
+    content: public ConnectionStringBuilder(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    content.vb: Public Sub New(ConnectionString As String)
+  overload: Tripous.Data.ConnectionStringBuilder.#ctor*
+  nameWithType.vb: ConnectionStringBuilder.New(String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.New(String)
+  name.vb: New(String)
+- uid: Tripous.Data.ConnectionStringBuilder.#ctor(System.Boolean)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.#ctor(System.Boolean)
+  id: '#ctor(System.Boolean)'
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ConnectionStringBuilder(bool)
+  nameWithType: ConnectionStringBuilder.ConnectionStringBuilder(bool)
+  fullName: Tripous.Data.ConnectionStringBuilder.ConnectionStringBuilder(bool)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes a new instance using the specified ODBC parsing rules.
+  example: []
+  syntax:
+    content: public ConnectionStringBuilder(bool UseOdbcRules)
+    parameters:
+    - id: UseOdbcRules
+      type: System.Boolean
+    content.vb: Public Sub New(UseOdbcRules As Boolean)
+  overload: Tripous.Data.ConnectionStringBuilder.#ctor*
+  nameWithType.vb: ConnectionStringBuilder.New(Boolean)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.New(Boolean)
+  name.vb: New(Boolean)
+- uid: Tripous.Data.ConnectionStringBuilder.#ctor(System.Boolean,System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.#ctor(System.Boolean,System.String)
+  id: '#ctor(System.Boolean,System.String)'
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ConnectionStringBuilder(bool, string)
+  nameWithType: ConnectionStringBuilder.ConnectionStringBuilder(bool, string)
+  fullName: Tripous.Data.ConnectionStringBuilder.ConnectionStringBuilder(bool, string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Initializes a new instance using the specified ODBC parsing rules and connection string.
+  example: []
+  syntax:
+    content: public ConnectionStringBuilder(bool UseOdbcRules, string ConnectionString)
+    parameters:
+    - id: UseOdbcRules
+      type: System.Boolean
+    - id: ConnectionString
+      type: System.String
+    content.vb: Public Sub New(UseOdbcRules As Boolean, ConnectionString As String)
+  overload: Tripous.Data.ConnectionStringBuilder.#ctor*
+  nameWithType.vb: ConnectionStringBuilder.New(Boolean, String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.New(Boolean, String)
+  name.vb: New(Boolean, String)
+- uid: Tripous.Data.ConnectionStringBuilder.AliasKey
+  commentId: F:Tripous.Data.ConnectionStringBuilder.AliasKey
+  id: AliasKey
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: AliasKey
+  nameWithType: ConnectionStringBuilder.AliasKey
+  fullName: Tripous.Data.ConnectionStringBuilder.AliasKey
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AliasKey
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 55
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The connection string key used to store an alias.
+  example: []
+  syntax:
+    content: public const string AliasKey = "Alias"
+    return:
+      type: System.String
+    content.vb: Public Const AliasKey As String = "Alias"
+- uid: Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString(System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString(System.String)
+  id: NormalizeConnectionString(System.String)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: NormalizeConnectionString(string)
+  nameWithType: ConnectionStringBuilder.NormalizeConnectionString(string)
+  fullName: Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NormalizeConnectionString
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Removes the alias entry and expands any path placeholders.
+  example: []
+  syntax:
+    content: public static string NormalizeConnectionString(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function NormalizeConnectionString(ConnectionString As String) As String
+  overload: Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString*
+  nameWithType.vb: ConnectionStringBuilder.NormalizeConnectionString(String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString(String)
+  name.vb: NormalizeConnectionString(String)
+- uid: Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders(System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders(System.String)
+  id: ReplacePathPlaceholders(System.String)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ReplacePathPlaceholders(string)
+  nameWithType: ConnectionStringBuilder.ReplacePathPlaceholders(string)
+  fullName: Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ReplacePathPlaceholders
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 67
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Replaces all supported path placeholders with physical paths.
+  example: []
+  syntax:
+    content: public static string ReplacePathPlaceholders(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function ReplacePathPlaceholders(ConnectionString As String) As String
+  overload: Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders*
+  nameWithType.vb: ConnectionStringBuilder.ReplacePathPlaceholders(String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders(String)
+  name.vb: ReplacePathPlaceholders(String)
+- uid: Tripous.Data.ConnectionStringBuilder.ExtractAlias(System.String,System.String@,System.String@)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.ExtractAlias(System.String,System.String@,System.String@)
+  id: ExtractAlias(System.String,System.String@,System.String@)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ExtractAlias(string, ref string, ref string)
+  nameWithType: ConnectionStringBuilder.ExtractAlias(string, ref string, ref string)
+  fullName: Tripous.Data.ConnectionStringBuilder.ExtractAlias(string, ref string, ref string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExtractAlias
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 84
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Extracts the alias and the remaining connection string.
+  example: []
+  syntax:
+    content: public static void ExtractAlias(string Input, ref string Alias, ref string ConnectionString)
+    parameters:
+    - id: Input
+      type: System.String
+    - id: Alias
+      type: System.String
+    - id: ConnectionString
+      type: System.String
+    content.vb: Public Shared Sub ExtractAlias(Input As String, [Alias] As String, ConnectionString As String)
+  overload: Tripous.Data.ConnectionStringBuilder.ExtractAlias*
+  nameWithType.vb: ConnectionStringBuilder.ExtractAlias(String, String, String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.ExtractAlias(String, String, String)
+  name.vb: ExtractAlias(String, String, String)
+- uid: Tripous.Data.ConnectionStringBuilder.GetAlias(System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.GetAlias(System.String)
+  id: GetAlias(System.String)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: GetAlias(string)
+  nameWithType: ConnectionStringBuilder.GetAlias(string)
+  fullName: Tripous.Data.ConnectionStringBuilder.GetAlias(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetAlias
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 105
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the alias stored in a connection string.
+  example: []
+  syntax:
+    content: public static string GetAlias(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetAlias(ConnectionString As String) As String
+  overload: Tripous.Data.ConnectionStringBuilder.GetAlias*
+  nameWithType.vb: ConnectionStringBuilder.GetAlias(String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.GetAlias(String)
+  name.vb: GetAlias(String)
+- uid: Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry(System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry(System.String)
+  id: RemoveAliasEntry(System.String)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: RemoveAliasEntry(string)
+  nameWithType: ConnectionStringBuilder.RemoveAliasEntry(string)
+  fullName: Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemoveAliasEntry
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 115
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Removes the alias entry from a connection string.
+  example: []
+  syntax:
+    content: public static string RemoveAliasEntry(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Public Shared Function RemoveAliasEntry(ConnectionString As String) As String
+  overload: Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry*
+  nameWithType.vb: ConnectionStringBuilder.RemoveAliasEntry(String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry(String)
+  name.vb: RemoveAliasEntry(String)
+- uid: Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder(System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder(System.String)
+  id: CreateConnectionStringBuilder(System.String)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: CreateConnectionStringBuilder(string)
+  nameWithType: ConnectionStringBuilder.CreateConnectionStringBuilder(string)
+  fullName: Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateConnectionStringBuilder
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 128
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Creates a new connection string builder initialized from the specified connection string.
+
+    If no alias is present, the current alias is copied to the new builder.
+  example: []
+  syntax:
+    content: public virtual ConnectionStringBuilder CreateConnectionStringBuilder(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    return:
+      type: Tripous.Data.ConnectionStringBuilder
+    content.vb: Public Overridable Function CreateConnectionStringBuilder(ConnectionString As String) As ConnectionStringBuilder
+  overload: Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder*
+  nameWithType.vb: ConnectionStringBuilder.CreateConnectionStringBuilder(String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder(String)
+  name.vb: CreateConnectionStringBuilder(String)
+- uid: Tripous.Data.ConnectionStringBuilder.SetConnectionString(System.String)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.SetConnectionString(System.String)
+  id: SetConnectionString(System.String)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: SetConnectionString(string)
+  nameWithType: ConnectionStringBuilder.SetConnectionString(string)
+  fullName: Tripous.Data.ConnectionStringBuilder.SetConnectionString(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetConnectionString
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 138
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Sets the connection string.
+  example: []
+  syntax:
+    content: public void SetConnectionString(string ConnectionString)
+    parameters:
+    - id: ConnectionString
+      type: System.String
+    content.vb: Public Sub SetConnectionString(ConnectionString As String)
+  overload: Tripous.Data.ConnectionStringBuilder.SetConnectionString*
+  nameWithType.vb: ConnectionStringBuilder.SetConnectionString(String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.SetConnectionString(String)
+  name.vb: SetConnectionString(String)
+- uid: Tripous.Data.ConnectionStringBuilder.TryGetValue(System.String,System.String@)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.TryGetValue(System.String,System.String@)
+  id: TryGetValue(System.String,System.String@)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: TryGetValue(string, out string)
+  nameWithType: ConnectionStringBuilder.TryGetValue(string, out string)
+  fullName: Tripous.Data.ConnectionStringBuilder.TryGetValue(string, out string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryGetValue
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 145
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Tries to retrieve a value associated with the specified key.
+  example: []
+  syntax:
+    content: public bool TryGetValue(string Key, out string Value)
+    parameters:
+    - id: Key
+      type: System.String
+    - id: Value
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function TryGetValue(Key As String, Value As String) As Boolean
+  overload: Tripous.Data.ConnectionStringBuilder.TryGetValue*
+  nameWithType.vb: ConnectionStringBuilder.TryGetValue(String, String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.TryGetValue(String, String)
+  name.vb: TryGetValue(String, String)
+- uid: Tripous.Data.ConnectionStringBuilder.GetFirst(System.String[])
+  commentId: M:Tripous.Data.ConnectionStringBuilder.GetFirst(System.String[])
+  id: GetFirst(System.String[])
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: GetFirst(string[])
+  nameWithType: ConnectionStringBuilder.GetFirst(string[])
+  fullName: Tripous.Data.ConnectionStringBuilder.GetFirst(string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetFirst
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 160
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the first non-empty value found among the specified keys.
+  example: []
+  syntax:
+    content: public string GetFirst(string[] Keys)
+    parameters:
+    - id: Keys
+      type: System.String[]
+    return:
+      type: System.String
+    content.vb: Public Function GetFirst(Keys As String()) As String
+  overload: Tripous.Data.ConnectionStringBuilder.GetFirst*
+  nameWithType.vb: ConnectionStringBuilder.GetFirst(String())
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.GetFirst(String())
+  name.vb: GetFirst(String())
+- uid: Tripous.Data.ConnectionStringBuilder.RemoveKeys(System.String[])
+  commentId: M:Tripous.Data.ConnectionStringBuilder.RemoveKeys(System.String[])
+  id: RemoveKeys(System.String[])
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: RemoveKeys(string[])
+  nameWithType: ConnectionStringBuilder.RemoveKeys(string[])
+  fullName: Tripous.Data.ConnectionStringBuilder.RemoveKeys(string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemoveKeys
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 173
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Removes all specified keys from the connection string.
+  example: []
+  syntax:
+    content: public void RemoveKeys(string[] Keys)
+    parameters:
+    - id: Keys
+      type: System.String[]
+    content.vb: Public Sub RemoveKeys(Keys As String())
+  overload: Tripous.Data.ConnectionStringBuilder.RemoveKeys*
+  nameWithType.vb: ConnectionStringBuilder.RemoveKeys(String())
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.RemoveKeys(String())
+  name.vb: RemoveKeys(String())
+- uid: Tripous.Data.ConnectionStringBuilder.ToDataTable
+  commentId: M:Tripous.Data.ConnectionStringBuilder.ToDataTable
+  id: ToDataTable
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ToDataTable()
+  nameWithType: ConnectionStringBuilder.ToDataTable()
+  fullName: Tripous.Data.ConnectionStringBuilder.ToDataTable()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToDataTable
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 184
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts the connection string entries to a new data table.
+  example: []
+  syntax:
+    content: public DataTable ToDataTable()
+    return:
+      type: System.Data.DataTable
+    content.vb: Public Function ToDataTable() As DataTable
+  overload: Tripous.Data.ConnectionStringBuilder.ToDataTable*
+- uid: Tripous.Data.ConnectionStringBuilder.ToDataTable(System.Data.DataTable)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.ToDataTable(System.Data.DataTable)
+  id: ToDataTable(System.Data.DataTable)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ToDataTable(DataTable)
+  nameWithType: ConnectionStringBuilder.ToDataTable(DataTable)
+  fullName: Tripous.Data.ConnectionStringBuilder.ToDataTable(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToDataTable
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 196
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Populates the specified data table with the connection string entries.
+  example: []
+  syntax:
+    content: public void ToDataTable(DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    content.vb: Public Sub ToDataTable(Table As DataTable)
+  overload: Tripous.Data.ConnectionStringBuilder.ToDataTable*
+- uid: Tripous.Data.ConnectionStringBuilder.FromDataTable(System.Data.DataTable)
+  commentId: M:Tripous.Data.ConnectionStringBuilder.FromDataTable(System.Data.DataTable)
+  id: FromDataTable(System.Data.DataTable)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: FromDataTable(DataTable)
+  nameWithType: ConnectionStringBuilder.FromDataTable(DataTable)
+  fullName: Tripous.Data.ConnectionStringBuilder.FromDataTable(System.Data.DataTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FromDataTable
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 213
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Loads connection string entries from a data table.
+  example: []
+  syntax:
+    content: public void FromDataTable(DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    content.vb: Public Sub FromDataTable(Table As DataTable)
+  overload: Tripous.Data.ConnectionStringBuilder.FromDataTable*
+- uid: Tripous.Data.ConnectionStringBuilder.Item(System.String)
+  commentId: P:Tripous.Data.ConnectionStringBuilder.Item(System.String)
+  id: Item(System.String)
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: this[string]
+  nameWithType: ConnectionStringBuilder.this[string]
+  fullName: Tripous.Data.ConnectionStringBuilder.this[string]
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: this[]
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 226
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets or sets a value associated with the specified key.
+
+    Returns an empty string when the key does not exist.
+  example: []
+  syntax:
+    content: public override object this[string Key] { get; set; }
+    parameters:
+    - id: Key
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Public Overrides Default Property this[](Key As String) As Object
+  overridden: System.Data.Common.DbConnectionStringBuilder.Item(System.String)
+  overload: Tripous.Data.ConnectionStringBuilder.Item*
+  nameWithType.vb: ConnectionStringBuilder.this[](String)
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.this[](String)
+  name.vb: this[](String)
+- uid: Tripous.Data.ConnectionStringBuilder.Alias
+  commentId: P:Tripous.Data.ConnectionStringBuilder.Alias
+  id: Alias
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: Alias
+  nameWithType: ConnectionStringBuilder.Alias
+  fullName: Tripous.Data.ConnectionStringBuilder.Alias
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Alias
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 234
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the connection alias.
+  example: []
+  syntax:
+    content: public string Alias { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property [Alias] As String
+  overload: Tripous.Data.ConnectionStringBuilder.Alias*
+- uid: Tripous.Data.ConnectionStringBuilder.User
+  commentId: P:Tripous.Data.ConnectionStringBuilder.User
+  id: User
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: User
+  nameWithType: ConnectionStringBuilder.User
+  fullName: Tripous.Data.ConnectionStringBuilder.User
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: User
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 243
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets the user name from the connection string.
+
+    Supports common key variations such as User, UserId, User ID and UID.
+  example: []
+  syntax:
+    content: public string User { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property User As String
+  overload: Tripous.Data.ConnectionStringBuilder.User*
+- uid: Tripous.Data.ConnectionStringBuilder.Password
+  commentId: P:Tripous.Data.ConnectionStringBuilder.Password
+  id: Password
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: Password
+  nameWithType: ConnectionStringBuilder.Password
+  fullName: Tripous.Data.ConnectionStringBuilder.Password
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Password
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 257
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the password from the connection string.
+  example: []
+  syntax:
+    content: public string Password { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Password As String
+  overload: Tripous.Data.ConnectionStringBuilder.Password*
+- uid: Tripous.Data.ConnectionStringBuilder.Database
+  commentId: P:Tripous.Data.ConnectionStringBuilder.Database
+  id: Database
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: Database
+  nameWithType: ConnectionStringBuilder.Database
+  fullName: Tripous.Data.ConnectionStringBuilder.Database
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Database
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 269
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the database name or database file path, depending on the provider.
+  example: []
+  syntax:
+    content: public string Database { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Database As String
+  overload: Tripous.Data.ConnectionStringBuilder.Database*
+- uid: Tripous.Data.ConnectionStringBuilder.Server
+  commentId: P:Tripous.Data.ConnectionStringBuilder.Server
+  id: Server
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: Server
+  nameWithType: ConnectionStringBuilder.Server
+  fullName: Tripous.Data.ConnectionStringBuilder.Server
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Server
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 285
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets the database server name or address.
+  example: []
+  syntax:
+    content: public string Server { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Server As String
+  overload: Tripous.Data.ConnectionStringBuilder.Server*
+- uid: Tripous.Data.ConnectionStringBuilder.OleDbProvider
+  commentId: P:Tripous.Data.ConnectionStringBuilder.OleDbProvider
+  id: OleDbProvider
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: OleDbProvider
+  nameWithType: ConnectionStringBuilder.OleDbProvider
+  fullName: Tripous.Data.ConnectionStringBuilder.OleDbProvider
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OleDbProvider
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 312
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the OLE DB provider name.
+  example: []
+  syntax:
+    content: public string OleDbProvider { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property OleDbProvider As String
+  overload: Tripous.Data.ConnectionStringBuilder.OleDbProvider*
+- uid: Tripous.Data.ConnectionStringBuilder.ExtendedProperties
+  commentId: P:Tripous.Data.ConnectionStringBuilder.ExtendedProperties
+  id: ExtendedProperties
+  parent: Tripous.Data.ConnectionStringBuilder
+  langs:
+  - csharp
+  - vb
+  name: ExtendedProperties
+  nameWithType: ConnectionStringBuilder.ExtendedProperties
+  fullName: Tripous.Data.ConnectionStringBuilder.ExtendedProperties
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/ConnectionStringBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ExtendedProperties
+    path: ../Tripous.Data/ConnectionStringBuilder.cs
+    startLine: 320
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the OLE DB extended properties value.
+  example: []
+  syntax:
+    content: public string ExtendedProperties { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ExtendedProperties As String
+  overload: Tripous.Data.ConnectionStringBuilder.ExtendedProperties*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Data.Common.DbConnectionStringBuilder
+  commentId: T:System.Data.Common.DbConnectionStringBuilder
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder
+  name: DbConnectionStringBuilder
+  nameWithType: DbConnectionStringBuilder
+  fullName: System.Data.Common.DbConnectionStringBuilder
+- uid: System.Collections.IDictionary
+  commentId: T:System.Collections.IDictionary
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  name: IDictionary
+  nameWithType: IDictionary
+  fullName: System.Collections.IDictionary
+- uid: System.Collections.ICollection
+  commentId: T:System.Collections.ICollection
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.icollection
+  name: ICollection
+  nameWithType: ICollection
+  fullName: System.Collections.ICollection
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.ComponentModel.ICustomTypeDescriptor
+  commentId: T:System.ComponentModel.ICustomTypeDescriptor
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor
+  name: ICustomTypeDescriptor
+  nameWithType: ICustomTypeDescriptor
+  fullName: System.ComponentModel.ICustomTypeDescriptor
+- uid: System.Data.Common.DbConnectionStringBuilder.Add(System.String,System.Object)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.Add(System.String,System.Object)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.add
+  name: Add(string, object)
+  nameWithType: DbConnectionStringBuilder.Add(string, object)
+  fullName: System.Data.Common.DbConnectionStringBuilder.Add(string, object)
+  nameWithType.vb: DbConnectionStringBuilder.Add(String, Object)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.Add(String, Object)
+  name.vb: Add(String, Object)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.Add(System.String,System.Object)
+    name: Add
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.add
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.Add(System.String,System.Object)
+    name: Add
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.add
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.appendkeyvaluepair#system-data-common-dbconnectionstringbuilder-appendkeyvaluepair(system-text-stringbuilder-system-string-system-string)
+  name: AppendKeyValuePair(StringBuilder, string, string)
+  nameWithType: DbConnectionStringBuilder.AppendKeyValuePair(StringBuilder, string, string)
+  fullName: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder, string, string)
+  nameWithType.vb: DbConnectionStringBuilder.AppendKeyValuePair(StringBuilder, String, String)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder, String, String)
+  name.vb: AppendKeyValuePair(StringBuilder, String, String)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String)
+    name: AppendKeyValuePair
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.appendkeyvaluepair#system-data-common-dbconnectionstringbuilder-appendkeyvaluepair(system-text-stringbuilder-system-string-system-string)
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String)
+    name: AppendKeyValuePair
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.appendkeyvaluepair#system-data-common-dbconnectionstringbuilder-appendkeyvaluepair(system-text-stringbuilder-system-string-system-string)
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String,System.Boolean)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String,System.Boolean)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.appendkeyvaluepair#system-data-common-dbconnectionstringbuilder-appendkeyvaluepair(system-text-stringbuilder-system-string-system-string-system-boolean)
+  name: AppendKeyValuePair(StringBuilder, string, string, bool)
+  nameWithType: DbConnectionStringBuilder.AppendKeyValuePair(StringBuilder, string, string, bool)
+  fullName: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder, string, string, bool)
+  nameWithType.vb: DbConnectionStringBuilder.AppendKeyValuePair(StringBuilder, String, String, Boolean)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder, String, String, Boolean)
+  name.vb: AppendKeyValuePair(StringBuilder, String, String, Boolean)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String,System.Boolean)
+    name: AppendKeyValuePair
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.appendkeyvaluepair#system-data-common-dbconnectionstringbuilder-appendkeyvaluepair(system-text-stringbuilder-system-string-system-string-system-boolean)
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.AppendKeyValuePair(System.Text.StringBuilder,System.String,System.String,System.Boolean)
+    name: AppendKeyValuePair
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.appendkeyvaluepair#system-data-common-dbconnectionstringbuilder-appendkeyvaluepair(system-text-stringbuilder-system-string-system-string-system-boolean)
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.Clear
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.Clear
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.clear
+  name: Clear()
+  nameWithType: DbConnectionStringBuilder.Clear()
+  fullName: System.Data.Common.DbConnectionStringBuilder.Clear()
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.Clear
+    name: Clear
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.Clear
+    name: Clear
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.clear
+  - name: (
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.ClearPropertyDescriptors
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.ClearPropertyDescriptors
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.clearpropertydescriptors
+  name: ClearPropertyDescriptors()
+  nameWithType: DbConnectionStringBuilder.ClearPropertyDescriptors()
+  fullName: System.Data.Common.DbConnectionStringBuilder.ClearPropertyDescriptors()
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ClearPropertyDescriptors
+    name: ClearPropertyDescriptors
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.clearpropertydescriptors
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ClearPropertyDescriptors
+    name: ClearPropertyDescriptors
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.clearpropertydescriptors
+  - name: (
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.ContainsKey(System.String)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.ContainsKey(System.String)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.containskey
+  name: ContainsKey(string)
+  nameWithType: DbConnectionStringBuilder.ContainsKey(string)
+  fullName: System.Data.Common.DbConnectionStringBuilder.ContainsKey(string)
+  nameWithType.vb: DbConnectionStringBuilder.ContainsKey(String)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.ContainsKey(String)
+  name.vb: ContainsKey(String)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ContainsKey(System.String)
+    name: ContainsKey
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.containskey
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ContainsKey(System.String)
+    name: ContainsKey
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.containskey
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.EquivalentTo(System.Data.Common.DbConnectionStringBuilder)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.EquivalentTo(System.Data.Common.DbConnectionStringBuilder)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.equivalentto
+  name: EquivalentTo(DbConnectionStringBuilder)
+  nameWithType: DbConnectionStringBuilder.EquivalentTo(DbConnectionStringBuilder)
+  fullName: System.Data.Common.DbConnectionStringBuilder.EquivalentTo(System.Data.Common.DbConnectionStringBuilder)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.EquivalentTo(System.Data.Common.DbConnectionStringBuilder)
+    name: EquivalentTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.equivalentto
+  - name: (
+  - uid: System.Data.Common.DbConnectionStringBuilder
+    name: DbConnectionStringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.EquivalentTo(System.Data.Common.DbConnectionStringBuilder)
+    name: EquivalentTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.equivalentto
+  - name: (
+  - uid: System.Data.Common.DbConnectionStringBuilder
+    name: DbConnectionStringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.getproperties
+  name: GetProperties(Hashtable)
+  nameWithType: DbConnectionStringBuilder.GetProperties(Hashtable)
+  fullName: System.Data.Common.DbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+    name: GetProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.getproperties
+  - name: (
+  - uid: System.Collections.Hashtable
+    name: Hashtable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.hashtable
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+    name: GetProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.getproperties
+  - name: (
+  - uid: System.Collections.Hashtable
+    name: Hashtable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.hashtable
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.Remove(System.String)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.Remove(System.String)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.remove
+  name: Remove(string)
+  nameWithType: DbConnectionStringBuilder.Remove(string)
+  fullName: System.Data.Common.DbConnectionStringBuilder.Remove(string)
+  nameWithType.vb: DbConnectionStringBuilder.Remove(String)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.Remove(String)
+  name.vb: Remove(String)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.Remove(System.String)
+    name: Remove
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.remove
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.Remove(System.String)
+    name: Remove
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.remove
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.ShouldSerialize(System.String)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.ShouldSerialize(System.String)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.shouldserialize
+  name: ShouldSerialize(string)
+  nameWithType: DbConnectionStringBuilder.ShouldSerialize(string)
+  fullName: System.Data.Common.DbConnectionStringBuilder.ShouldSerialize(string)
+  nameWithType.vb: DbConnectionStringBuilder.ShouldSerialize(String)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.ShouldSerialize(String)
+  name.vb: ShouldSerialize(String)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ShouldSerialize(System.String)
+    name: ShouldSerialize
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.shouldserialize
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ShouldSerialize(System.String)
+    name: ShouldSerialize
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.shouldserialize
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.ToString
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.ToString
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.tostring
+  name: ToString()
+  nameWithType: DbConnectionStringBuilder.ToString()
+  fullName: System.Data.Common.DbConnectionStringBuilder.ToString()
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.tostring
+  - name: (
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.TryGetValue(System.String,System.Object@)
+  commentId: M:System.Data.Common.DbConnectionStringBuilder.TryGetValue(System.String,System.Object@)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.trygetvalue
+  name: TryGetValue(string, out object)
+  nameWithType: DbConnectionStringBuilder.TryGetValue(string, out object)
+  fullName: System.Data.Common.DbConnectionStringBuilder.TryGetValue(string, out object)
+  nameWithType.vb: DbConnectionStringBuilder.TryGetValue(String, Object)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.TryGetValue(String, Object)
+  name.vb: TryGetValue(String, Object)
+  spec.csharp:
+  - uid: System.Data.Common.DbConnectionStringBuilder.TryGetValue(System.String,System.Object@)
+    name: TryGetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.trygetvalue
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.TryGetValue(System.String,System.Object@)
+    name: TryGetValue
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.trygetvalue
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Data.Common.DbConnectionStringBuilder.ConnectionString
+  commentId: P:System.Data.Common.DbConnectionStringBuilder.ConnectionString
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.connectionstring
+  name: ConnectionString
+  nameWithType: DbConnectionStringBuilder.ConnectionString
+  fullName: System.Data.Common.DbConnectionStringBuilder.ConnectionString
+- uid: System.Data.Common.DbConnectionStringBuilder.Count
+  commentId: P:System.Data.Common.DbConnectionStringBuilder.Count
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.count
+  name: Count
+  nameWithType: DbConnectionStringBuilder.Count
+  fullName: System.Data.Common.DbConnectionStringBuilder.Count
+- uid: System.Data.Common.DbConnectionStringBuilder.IsFixedSize
+  commentId: P:System.Data.Common.DbConnectionStringBuilder.IsFixedSize
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.isfixedsize
+  name: IsFixedSize
+  nameWithType: DbConnectionStringBuilder.IsFixedSize
+  fullName: System.Data.Common.DbConnectionStringBuilder.IsFixedSize
+- uid: System.Data.Common.DbConnectionStringBuilder.IsReadOnly
+  commentId: P:System.Data.Common.DbConnectionStringBuilder.IsReadOnly
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.isreadonly
+  name: IsReadOnly
+  nameWithType: DbConnectionStringBuilder.IsReadOnly
+  fullName: System.Data.Common.DbConnectionStringBuilder.IsReadOnly
+- uid: System.Data.Common.DbConnectionStringBuilder.Keys
+  commentId: P:System.Data.Common.DbConnectionStringBuilder.Keys
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.keys
+  name: Keys
+  nameWithType: DbConnectionStringBuilder.Keys
+  fullName: System.Data.Common.DbConnectionStringBuilder.Keys
+- uid: System.Data.Common.DbConnectionStringBuilder.Values
+  commentId: P:System.Data.Common.DbConnectionStringBuilder.Values
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.values
+  name: Values
+  nameWithType: DbConnectionStringBuilder.Values
+  fullName: System.Data.Common.DbConnectionStringBuilder.Values
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsBoolean(System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_
+  name: AsBoolean(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsBoolean(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsBoolean(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, String)
+  name.vb: AsBoolean(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsBoolean(System.String,System.Boolean)
+  commentId: M:Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_System_Boolean_
+  name: AsBoolean(IDictionary, string, bool)
+  nameWithType: DictionaryExtensions.AsBoolean(IDictionary, string, bool)
+  fullName: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, string, bool)
+  nameWithType.vb: DictionaryExtensions.AsBoolean(IDictionary, String, Boolean)
+  fullName.vb: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, String, Boolean)
+  name.vb: AsBoolean(IDictionary, String, Boolean)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_System_Boolean_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_System_Boolean_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsDateTime(System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_
+  name: AsDateTime(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsDateTime(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsDateTime(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, String)
+  name.vb: AsDateTime(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsDateTime(System.String,System.DateTime)
+  commentId: M:Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_System_DateTime_
+  name: AsDateTime(IDictionary, string, DateTime)
+  nameWithType: DictionaryExtensions.AsDateTime(IDictionary, string, DateTime)
+  fullName: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, string, System.DateTime)
+  nameWithType.vb: DictionaryExtensions.AsDateTime(IDictionary, String, Date)
+  fullName.vb: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, String, Date)
+  name.vb: AsDateTime(IDictionary, String, Date)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_System_DateTime_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_System_DateTime_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsFloat(System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_
+  name: AsFloat(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsFloat(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsFloat(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, String)
+  name.vb: AsFloat(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsFloat(System.String,System.Double)
+  commentId: M:Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_System_Double_
+  name: AsFloat(IDictionary, string, double)
+  nameWithType: DictionaryExtensions.AsFloat(IDictionary, string, double)
+  fullName: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, string, double)
+  nameWithType.vb: DictionaryExtensions.AsFloat(IDictionary, String, Double)
+  fullName.vb: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, String, Double)
+  name.vb: AsFloat(IDictionary, String, Double)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_System_Double_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_System_Double_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsInteger(System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_
+  name: AsInteger(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsInteger(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsInteger(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, String)
+  name.vb: AsInteger(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsInteger(System.String,System.Int32)
+  commentId: M:Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_System_Int32_
+  name: AsInteger(IDictionary, string, int)
+  nameWithType: DictionaryExtensions.AsInteger(IDictionary, string, int)
+  fullName: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, string, int)
+  nameWithType.vb: DictionaryExtensions.AsInteger(IDictionary, String, Integer)
+  fullName.vb: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, String, Integer)
+  name.vb: AsInteger(IDictionary, String, Integer)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_System_Int32_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_System_Int32_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsObject(System.String,System.Object)
+  commentId: M:Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsObject_System_Collections_IDictionary_System_String_System_Object_
+  name: AsObject(IDictionary, string, object)
+  nameWithType: DictionaryExtensions.AsObject(IDictionary, string, object)
+  fullName: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary, string, object)
+  nameWithType.vb: DictionaryExtensions.AsObject(IDictionary, String, Object)
+  fullName.vb: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary, String, Object)
+  name.vb: AsObject(IDictionary, String, Object)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+    name: AsObject
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsObject_System_Collections_IDictionary_System_String_System_Object_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+    name: AsObject
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsObject_System_Collections_IDictionary_System_String_System_Object_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsString(System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_
+  name: AsString(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsString(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsString(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, String)
+  name.vb: AsString(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.AsString(System.String,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_System_String_
+  name: AsString(IDictionary, string, string)
+  nameWithType: DictionaryExtensions.AsString(IDictionary, string, string)
+  fullName: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, string, string)
+  nameWithType.vb: DictionaryExtensions.AsString(IDictionary, String, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, String, String)
+  name.vb: AsString(IDictionary, String, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.IDictionary.Tripous.DictionaryExtensions.ValuesToRow(System.Data.DataRow)
+  commentId: M:Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  parent: Tripous.DictionaryExtensions
+  definition: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValuesToRow_System_Collections_IDictionary_System_Data_DataRow_
+  name: ValuesToRow(IDictionary, DataRow)
+  nameWithType: DictionaryExtensions.ValuesToRow(IDictionary, DataRow)
+  fullName: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary, System.Data.DataRow)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+    name: ValuesToRow
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValuesToRow_System_Collections_IDictionary_System_Data_DataRow_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+    name: ValuesToRow
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValuesToRow_System_Collections_IDictionary_System_Data_DataRow_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Data.Common
+  commentId: N:System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data.Common
+  nameWithType: System.Data.Common
+  fullName: System.Data.Common
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_
+  name: AsBoolean(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsBoolean(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsBoolean(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, String)
+  name.vb: AsBoolean(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.DictionaryExtensions
+  commentId: T:Tripous.DictionaryExtensions
+  parent: Tripous
+  href: Tripous.DictionaryExtensions.html
+  name: DictionaryExtensions
+  nameWithType: DictionaryExtensions
+  fullName: Tripous.DictionaryExtensions
+- uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  commentId: M:Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_System_Boolean_
+  name: AsBoolean(IDictionary, string, bool)
+  nameWithType: DictionaryExtensions.AsBoolean(IDictionary, string, bool)
+  fullName: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, string, bool)
+  nameWithType.vb: DictionaryExtensions.AsBoolean(IDictionary, String, Boolean)
+  fullName.vb: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary, String, Boolean)
+  name.vb: AsBoolean(IDictionary, String, Boolean)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_System_Boolean_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsBoolean(System.Collections.IDictionary,System.String,System.Boolean)
+    name: AsBoolean
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsBoolean_System_Collections_IDictionary_System_String_System_Boolean_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_
+  name: AsDateTime(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsDateTime(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsDateTime(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, String)
+  name.vb: AsDateTime(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  commentId: M:Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_System_DateTime_
+  name: AsDateTime(IDictionary, string, DateTime)
+  nameWithType: DictionaryExtensions.AsDateTime(IDictionary, string, DateTime)
+  fullName: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, string, System.DateTime)
+  nameWithType.vb: DictionaryExtensions.AsDateTime(IDictionary, String, Date)
+  fullName.vb: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary, String, Date)
+  name.vb: AsDateTime(IDictionary, String, Date)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_System_DateTime_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: DateTime
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsDateTime(System.Collections.IDictionary,System.String,System.DateTime)
+    name: AsDateTime
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsDateTime_System_Collections_IDictionary_System_String_System_DateTime_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.DateTime
+    name: Date
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.datetime
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_
+  name: AsFloat(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsFloat(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsFloat(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, String)
+  name.vb: AsFloat(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  commentId: M:Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_System_Double_
+  name: AsFloat(IDictionary, string, double)
+  nameWithType: DictionaryExtensions.AsFloat(IDictionary, string, double)
+  fullName: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, string, double)
+  nameWithType.vb: DictionaryExtensions.AsFloat(IDictionary, String, Double)
+  fullName.vb: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary, String, Double)
+  name.vb: AsFloat(IDictionary, String, Double)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_System_Double_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsFloat(System.Collections.IDictionary,System.String,System.Double)
+    name: AsFloat
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsFloat_System_Collections_IDictionary_System_String_System_Double_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_
+  name: AsInteger(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsInteger(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsInteger(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, String)
+  name.vb: AsInteger(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  commentId: M:Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_System_Int32_
+  name: AsInteger(IDictionary, string, int)
+  nameWithType: DictionaryExtensions.AsInteger(IDictionary, string, int)
+  fullName: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, string, int)
+  nameWithType.vb: DictionaryExtensions.AsInteger(IDictionary, String, Integer)
+  fullName.vb: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary, String, Integer)
+  name.vb: AsInteger(IDictionary, String, Integer)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_System_Int32_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsInteger(System.Collections.IDictionary,System.String,System.Int32)
+    name: AsInteger
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsInteger_System_Collections_IDictionary_System_String_System_Int32_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+  commentId: M:Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsObject_System_Collections_IDictionary_System_String_System_Object_
+  name: AsObject(IDictionary, string, object)
+  nameWithType: DictionaryExtensions.AsObject(IDictionary, string, object)
+  fullName: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary, string, object)
+  nameWithType.vb: DictionaryExtensions.AsObject(IDictionary, String, Object)
+  fullName.vb: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary, String, Object)
+  name.vb: AsObject(IDictionary, String, Object)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+    name: AsObject
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsObject_System_Collections_IDictionary_System_String_System_Object_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsObject(System.Collections.IDictionary,System.String,System.Object)
+    name: AsObject
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsObject_System_Collections_IDictionary_System_String_System_Object_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_
+  name: AsString(IDictionary, string)
+  nameWithType: DictionaryExtensions.AsString(IDictionary, string)
+  fullName: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, string)
+  nameWithType.vb: DictionaryExtensions.AsString(IDictionary, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, String)
+  name.vb: AsString(IDictionary, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+  commentId: M:Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_System_String_
+  name: AsString(IDictionary, string, string)
+  nameWithType: DictionaryExtensions.AsString(IDictionary, string, string)
+  fullName: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, string, string)
+  nameWithType.vb: DictionaryExtensions.AsString(IDictionary, String, String)
+  fullName.vb: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary, String, String)
+  name.vb: AsString(IDictionary, String, String)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.AsString(System.Collections.IDictionary,System.String,System.String)
+    name: AsString
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_AsString_System_Collections_IDictionary_System_String_System_String_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  commentId: M:Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+  isExternal: true
+  href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValuesToRow_System_Collections_IDictionary_System_Data_DataRow_
+  name: ValuesToRow(IDictionary, DataRow)
+  nameWithType: DictionaryExtensions.ValuesToRow(IDictionary, DataRow)
+  fullName: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary, System.Data.DataRow)
+  spec.csharp:
+  - uid: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+    name: ValuesToRow
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValuesToRow_System_Collections_IDictionary_System_Data_DataRow_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: )
+  spec.vb:
+  - uid: Tripous.DictionaryExtensions.ValuesToRow(System.Collections.IDictionary,System.Data.DataRow)
+    name: ValuesToRow
+    href: Tripous.DictionaryExtensions.html#Tripous_DictionaryExtensions_ValuesToRow_System_Collections_IDictionary_System_Data_DataRow_
+  - name: (
+  - uid: System.Collections.IDictionary
+    name: IDictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.idictionary
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.ConnectionStringBuilder.#ctor*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.#ctor
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder__ctor
+  name: ConnectionStringBuilder
+  nameWithType: ConnectionStringBuilder.ConnectionStringBuilder
+  fullName: Tripous.Data.ConnectionStringBuilder.ConnectionStringBuilder
+  nameWithType.vb: ConnectionStringBuilder.New
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_NormalizeConnectionString_System_String_
+  name: NormalizeConnectionString
+  nameWithType: ConnectionStringBuilder.NormalizeConnectionString
+  fullName: Tripous.Data.ConnectionStringBuilder.NormalizeConnectionString
+- uid: Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_ReplacePathPlaceholders_System_String_
+  name: ReplacePathPlaceholders
+  nameWithType: ConnectionStringBuilder.ReplacePathPlaceholders
+  fullName: Tripous.Data.ConnectionStringBuilder.ReplacePathPlaceholders
+- uid: Tripous.Data.ConnectionStringBuilder.ExtractAlias*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.ExtractAlias
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_ExtractAlias_System_String_System_String__System_String__
+  name: ExtractAlias
+  nameWithType: ConnectionStringBuilder.ExtractAlias
+  fullName: Tripous.Data.ConnectionStringBuilder.ExtractAlias
+- uid: Tripous.Data.ConnectionStringBuilder.GetAlias*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.GetAlias
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_GetAlias_System_String_
+  name: GetAlias
+  nameWithType: ConnectionStringBuilder.GetAlias
+  fullName: Tripous.Data.ConnectionStringBuilder.GetAlias
+- uid: Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_RemoveAliasEntry_System_String_
+  name: RemoveAliasEntry
+  nameWithType: ConnectionStringBuilder.RemoveAliasEntry
+  fullName: Tripous.Data.ConnectionStringBuilder.RemoveAliasEntry
+- uid: Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_CreateConnectionStringBuilder_System_String_
+  name: CreateConnectionStringBuilder
+  nameWithType: ConnectionStringBuilder.CreateConnectionStringBuilder
+  fullName: Tripous.Data.ConnectionStringBuilder.CreateConnectionStringBuilder
+- uid: Tripous.Data.ConnectionStringBuilder
+  commentId: T:Tripous.Data.ConnectionStringBuilder
+  parent: Tripous.Data
+  href: Tripous.Data.ConnectionStringBuilder.html
+  name: ConnectionStringBuilder
+  nameWithType: ConnectionStringBuilder
+  fullName: Tripous.Data.ConnectionStringBuilder
+- uid: Tripous.Data.ConnectionStringBuilder.SetConnectionString*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.SetConnectionString
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_SetConnectionString_System_String_
+  name: SetConnectionString
+  nameWithType: ConnectionStringBuilder.SetConnectionString
+  fullName: Tripous.Data.ConnectionStringBuilder.SetConnectionString
+- uid: Tripous.Data.ConnectionStringBuilder.TryGetValue*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.TryGetValue
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_TryGetValue_System_String_System_String__
+  name: TryGetValue
+  nameWithType: ConnectionStringBuilder.TryGetValue
+  fullName: Tripous.Data.ConnectionStringBuilder.TryGetValue
+- uid: Tripous.Data.ConnectionStringBuilder.GetFirst*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.GetFirst
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_GetFirst_System_String___
+  name: GetFirst
+  nameWithType: ConnectionStringBuilder.GetFirst
+  fullName: Tripous.Data.ConnectionStringBuilder.GetFirst
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: Tripous.Data.ConnectionStringBuilder.RemoveKeys*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.RemoveKeys
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_RemoveKeys_System_String___
+  name: RemoveKeys
+  nameWithType: ConnectionStringBuilder.RemoveKeys
+  fullName: Tripous.Data.ConnectionStringBuilder.RemoveKeys
+- uid: Tripous.Data.ConnectionStringBuilder.ToDataTable*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.ToDataTable
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_ToDataTable
+  name: ToDataTable
+  nameWithType: ConnectionStringBuilder.ToDataTable
+  fullName: Tripous.Data.ConnectionStringBuilder.ToDataTable
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data.ConnectionStringBuilder.FromDataTable*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.FromDataTable
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_FromDataTable_System_Data_DataTable_
+  name: FromDataTable
+  nameWithType: ConnectionStringBuilder.FromDataTable
+  fullName: Tripous.Data.ConnectionStringBuilder.FromDataTable
+- uid: System.Data.Common.DbConnectionStringBuilder.Item(System.String)
+  commentId: P:System.Data.Common.DbConnectionStringBuilder.Item(System.String)
+  parent: System.Data.Common.DbConnectionStringBuilder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: this[string]
+  nameWithType: DbConnectionStringBuilder.this[string]
+  fullName: System.Data.Common.DbConnectionStringBuilder.this[string]
+  nameWithType.vb: DbConnectionStringBuilder.this[](String)
+  fullName.vb: System.Data.Common.DbConnectionStringBuilder.this[](String)
+  name.vb: this[](String)
+  spec.csharp:
+  - name: this
+  - name: '['
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ']'
+  spec.vb:
+  - uid: System.Data.Common.DbConnectionStringBuilder.Item(System.String)
+    name: this[]
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbconnectionstringbuilder.item
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.ConnectionStringBuilder.Item*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.Item
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_Item_System_String_
+  name: this
+  nameWithType: ConnectionStringBuilder.this
+  fullName: Tripous.Data.ConnectionStringBuilder.this
+  nameWithType.vb: ConnectionStringBuilder.this[]
+  fullName.vb: Tripous.Data.ConnectionStringBuilder.this[]
+  name.vb: this[]
+- uid: Tripous.Data.ConnectionStringBuilder.Alias*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.Alias
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_Alias
+  name: Alias
+  nameWithType: ConnectionStringBuilder.Alias
+  fullName: Tripous.Data.ConnectionStringBuilder.Alias
+- uid: Tripous.Data.ConnectionStringBuilder.User*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.User
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_User
+  name: User
+  nameWithType: ConnectionStringBuilder.User
+  fullName: Tripous.Data.ConnectionStringBuilder.User
+- uid: Tripous.Data.ConnectionStringBuilder.Password*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.Password
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_Password
+  name: Password
+  nameWithType: ConnectionStringBuilder.Password
+  fullName: Tripous.Data.ConnectionStringBuilder.Password
+- uid: Tripous.Data.ConnectionStringBuilder.Database*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.Database
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_Database
+  name: Database
+  nameWithType: ConnectionStringBuilder.Database
+  fullName: Tripous.Data.ConnectionStringBuilder.Database
+- uid: Tripous.Data.ConnectionStringBuilder.Server*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.Server
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_Server
+  name: Server
+  nameWithType: ConnectionStringBuilder.Server
+  fullName: Tripous.Data.ConnectionStringBuilder.Server
+- uid: Tripous.Data.ConnectionStringBuilder.OleDbProvider*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.OleDbProvider
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_OleDbProvider
+  name: OleDbProvider
+  nameWithType: ConnectionStringBuilder.OleDbProvider
+  fullName: Tripous.Data.ConnectionStringBuilder.OleDbProvider
+- uid: Tripous.Data.ConnectionStringBuilder.ExtendedProperties*
+  commentId: Overload:Tripous.Data.ConnectionStringBuilder.ExtendedProperties
+  href: Tripous.Data.ConnectionStringBuilder.html#Tripous_Data_ConnectionStringBuilder_ExtendedProperties
+  name: ExtendedProperties
+  nameWithType: ConnectionStringBuilder.ExtendedProperties
+  fullName: Tripous.Data.ConnectionStringBuilder.ExtendedProperties

@@ -114,6 +114,8 @@ namespace Tripous
         /// </summary>
         static public void Exchange(this IList List, int SourceIndex, int DestIndex)
         {
+            if (List == null)
+                return;
 
             if ((SourceIndex >= 0) && (SourceIndex <= List.Count - 1) && (DestIndex >= 0) && (DestIndex <= List.Count - 1))
             {
@@ -131,6 +133,9 @@ namespace Tripous
         /// </summary>
         static public void Exchange(this IList List, object Source, object Dest)
         {
+            if (List == null)
+                return;
+
             Exchange(List, List.IndexOf(Source), List.IndexOf(Dest));
         }
         /// <summary>
@@ -139,16 +144,22 @@ namespace Tripous
         /// </summary>
         static public bool CanMove(this IList List, int Index, bool Down)
         {
+            if (List == null)
+                return false;
+
             if (Down)   // towards to 0
                 return (Index > 0);
             else        // towards to List.Count   
-                return ((Index >= 0) && (Index <= List.Count - 1));
+                return ((Index >= 0) && (Index < List.Count - 1));
         }
         /// <summary>
         /// Returns true if item can change position.
         /// </summary>
         static public bool CanMove(this IList List, object Obj, bool Down)
         {
+            if (List == null)
+                return false;
+
             return CanMove(List, List.IndexOf(Obj), Down);
         }
         /// <summary>
@@ -158,6 +169,8 @@ namespace Tripous
         static public bool Move(this IList List, int Index, bool Down)
         {
             bool Res = CanMove(List, Index, Down);
+            if (!Res)
+                return false;
 
             int NewIndex;
 
@@ -168,7 +181,7 @@ namespace Tripous
 
             Exchange(List, Index, NewIndex);
 
-            return Res;
+            return true;
 
         }
         /// <summary>
@@ -177,6 +190,9 @@ namespace Tripous
         /// </summary>
         static public bool Move(this IList List, object Obj, bool Down)
         {
+            if (List == null)
+                return false;
+
             return Move(List, List.IndexOf(Obj), Down);
         }
         /// <summary>
@@ -184,6 +200,9 @@ namespace Tripous
         /// </summary>
         static public void SaveToFile(this IList List, string FileName)
         {
+            if (List == null)
+                return;
+
             StringBuilder SB = new StringBuilder();
             for (int i = 0; i < List.Count; i++)
             {
@@ -194,6 +213,10 @@ namespace Tripous
                 }
             }
 
+            string Folder = Path.GetDirectoryName(FileName);
+            if (!string.IsNullOrWhiteSpace(Folder))
+                Directory.CreateDirectory(Folder);
+
             File.WriteAllText(FileName, SB.ToString());
         }
         /// <summary>
@@ -201,15 +224,15 @@ namespace Tripous
         /// </summary>
         static public void LoadFromFile(this IList List, string FileName)
         {
-            if (!List.IsReadOnly)
-            {
-                List.Clear();
+            if (List == null || List.IsReadOnly || !File.Exists(FileName))
+                return;
 
-                string Text = File.ReadAllText(FileName); // Streams.LoadTextFromFile(FileName, Encoding.Default);
-                string[] Lines = Text.Split(Environment.NewLine);
-                for (int i = 0; i < Lines.Length; i++)
-                    List.Add(Lines[i]);
-            }
+            List.Clear();
+
+            string Text = File.ReadAllText(FileName); // Streams.LoadTextFromFile(FileName, Encoding.Default);
+            string[] Lines = Text.Split(Environment.NewLine);
+            for (int i = 0; i < Lines.Length; i++)
+                List.Add(Lines[i]);
         }
 
         /// <summary>
@@ -224,9 +247,15 @@ namespace Tripous
             foreach (PropertyDescriptor PropDes in PropList)
                 Result.Columns.Add(PropDes.Name, Nullable.GetUnderlyingType(PropDes.PropertyType) ?? PropDes.PropertyType);
 
+            if (SourceList == null)
+                return Result;
+
             DataRow Row;
             foreach (T Item in SourceList)
             {
+                if (Item == null)
+                    continue;
+
                 Row = Result.NewRow();
                 foreach (PropertyDescriptor PropDes in PropList)
                     Row[PropDes.Name] = PropDes.GetValue(Item) ?? DBNull.Value;
@@ -250,11 +279,9 @@ namespace Tripous
                 {
                     if (!string.IsNullOrWhiteSpace(TitleKey))
                     {
-                        Parts = TitleKey.Split('=', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                        if (Parts.Length >= 2)
-                        {
+                        Parts = TitleKey.Split('=', 2, StringSplitOptions.TrimEntries);
+                        if (Parts.Length == 2 && !string.IsNullOrWhiteSpace(Parts[0]))
                             Dictionary[Parts[0]] = Parts[1];
-                        }
                     }
                 }
             }
@@ -274,6 +301,11 @@ namespace Tripous
         /// </summary>
         static public List<List<T>> Split<T>(this IEnumerable<T> Source, int ChunkSize)
         {
+            if (Source == null)
+                return new List<List<T>>();
+            if (ChunkSize <= 0)
+                throw new ArgumentOutOfRangeException(nameof(ChunkSize));
+
             int i = 0;
             IEnumerable<IGrouping<int, T>> Groups = Source.GroupBy(item => i++ / ChunkSize);
             IEnumerable<List<T>> Lists = Groups.Select(group => group.ToList());
@@ -287,10 +319,17 @@ namespace Tripous
         ///  <para><c>  where FIELD_NAME in (...)</c></para>
         ///  This method limits the number of elements inside the in (...) according to the passed in ModValue, in order
         ///  to avoid problems with database servers that have such a limit.
-        ///  <para>It returns a string array where each element contains no more than ModValue of the FieldName values from Table.</para>
+        ///  <para>It returns a string array where each element contains no more than ModValue values from SourceList.</para>
         /// </summary>
-        static public string[] GetKeyValuesList(this IList<object> SourceList, string FieldName, int ModValue, bool DiscardBelowZeroes)
+        static public string[] GetKeyValuesList(this IList<object> SourceList, int ModValue, bool DiscardBelowZeroes)
         {
+            // ----------------------------------------------------------------------------
+            string SqlStr(string Value) => "'" + Value.Replace("'", "''") + "'";
+            // ----------------------------------------------------------------------------
+
+            if (ModValue <= 0)
+                throw new ArgumentOutOfRangeException(nameof(ModValue));
+
             List<string> List = new List<string>();
 
             if ((SourceList != null) && (SourceList.Count > 0))
@@ -306,54 +345,52 @@ namespace Tripous
                     }
                 }
 
-
                 int Counter = 0;
-                string S = "";
+                StringBuilder SB = new StringBuilder();
                 object Value;
 
                 for (int i = 0; i < SourceList.Count; i++)
                 {
-                    if (SourceList[i] != null)
+                    if (SourceList[i] == null)
+                        continue;
+
+                    Value = SourceList[i];
+                    if (!IsString && DiscardBelowZeroes && Sys.AsInteger(Value, -1) <= 0)
+                        continue;
+
+                    if (Counter > 0 && Counter % ModValue == 0)
                     {
-                        Value = SourceList[i];
-                        if (IsString)
-                        {
-                            S = S + string.Format("'{0}', ", Value.ToString());
-                            Counter++;
-                        }
-                        else if ((!DiscardBelowZeroes) || (DiscardBelowZeroes && (Sys.AsInteger(Value, -1) > 0)))
-                        {
-                            S = S + string.Format("{0}, ", Value);
-                            Counter++;
-                        }
+                        List.Add(SB.ToString());
+                        SB.Clear();
                     }
 
-                    if (Counter % ModValue == 0)
-                    {
-                        List.Add(S);
-                        S = "";
-                    }
+                    if (SB.Length > 0)
+                        SB.Append(", ");
 
+                    if (IsString)
+                        SB.Append(SqlStr(Value.ToString()));
+                    else
+                        SB.Append(Sys.AsString(Value));
+
+                    Counter++;
                 }
 
-
-                if (S != "")
-                    List.Add(S);
-
-
-                // remove last comma
-                for (int i = 0; i < List.Count; i++)
-                {
-                    S = List[i].Trim();
-                    if (S.Length > 1)
-                        S = S.Remove(S.Length - 1, 1);
-
-                    List[i] = string.Format(" ({0}) ", S);
-                }
-
+                if (SB.Length > 0)
+                    List.Add(SB.ToString());
             }
 
             return List.ToArray();
+        }
+        /// <summary>
+        ///  Used in constructing SQL statements that contain a WHERE clause of the type
+        ///  <para><c>  where FIELD_NAME in (...)</c></para>
+        ///  This method limits the number of elements inside the in (...) according to the passed in ModValue, in order
+        ///  to avoid problems with database servers that have such a limit.
+        ///  <para>It returns a string array where each element contains no more than ModValue values from SourceList.</para>
+        /// </summary>
+        static public string[] GetKeyValuesList(this IList<object> SourceList, string FieldName, int ModValue, bool DiscardBelowZeroes)
+        {
+            return GetKeyValuesList(SourceList, ModValue, DiscardBelowZeroes);
         }
     }
 }

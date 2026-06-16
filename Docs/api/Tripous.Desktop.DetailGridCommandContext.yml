@@ -1,0 +1,522 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.DetailGridCommandContext
+  commentId: T:Tripous.Desktop.DetailGridCommandContext
+  id: DetailGridCommandContext
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.DetailGridCommandContext.DetailInfo
+  - Tripous.Desktop.DetailGridCommandContext.ItemContext
+  langs:
+  - csharp
+  - vb
+  name: DetailGridCommandContext
+  nameWithType: DetailGridCommandContext
+  fullName: Tripous.Desktop.DetailGridCommandContext
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GridCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailGridCommandContext
+    path: ../Tripous.Desktop/DataGrid/GridCommand.cs
+    startLine: 104
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides the runtime context used by detail table grid commands.
+  example: []
+  syntax:
+    content: 'public class DetailGridCommandContext : GridCommandContext'
+    content.vb: Public Class DetailGridCommandContext Inherits GridCommandContext
+  inheritance:
+  - System.Object
+  - Tripous.Desktop.GridCommandContext
+  inheritedMembers:
+  - Tripous.Desktop.GridCommandContext.Command
+  - Tripous.Desktop.GridCommandContext.Grid
+  - Tripous.Desktop.GridCommandContext.Table
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.DetailGridCommandContext.DetailInfo
+  commentId: P:Tripous.Desktop.DetailGridCommandContext.DetailInfo
+  id: DetailInfo
+  parent: Tripous.Desktop.DetailGridCommandContext
+  langs:
+  - csharp
+  - vb
+  name: DetailInfo
+  nameWithType: DetailGridCommandContext.DetailInfo
+  fullName: Tripous.Desktop.DetailGridCommandContext.DetailInfo
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GridCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailInfo
+    path: ../Tripous.Desktop/DataGrid/GridCommand.cs
+    startLine: 110
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the detail table information.
+  example: []
+  syntax:
+    content: public UiDetailTableInfo DetailInfo { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.UiDetailTableInfo
+    content.vb: Public Property DetailInfo As UiDetailTableInfo
+  overload: Tripous.Desktop.DetailGridCommandContext.DetailInfo*
+- uid: Tripous.Desktop.DetailGridCommandContext.ItemContext
+  commentId: P:Tripous.Desktop.DetailGridCommandContext.ItemContext
+  id: ItemContext
+  parent: Tripous.Desktop.DetailGridCommandContext
+  langs:
+  - csharp
+  - vb
+  name: ItemContext
+  nameWithType: DetailGridCommandContext.ItemContext
+  fullName: Tripous.Desktop.DetailGridCommandContext.ItemContext
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GridCommand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemContext
+    path: ../Tripous.Desktop/DataGrid/GridCommand.cs
+    startLine: 114
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the item context.
+  example: []
+  syntax:
+    content: public UiItemContext ItemContext { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.UiItemContext
+    content.vb: Public Property ItemContext As UiItemContext
+  overload: Tripous.Desktop.DetailGridCommandContext.ItemContext*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.Desktop.GridCommandContext
+  commentId: T:Tripous.Desktop.GridCommandContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.GridCommandContext.html
+  name: GridCommandContext
+  nameWithType: GridCommandContext
+  fullName: Tripous.Desktop.GridCommandContext
+- uid: Tripous.Desktop.GridCommandContext.Command
+  commentId: P:Tripous.Desktop.GridCommandContext.Command
+  parent: Tripous.Desktop.GridCommandContext
+  href: Tripous.Desktop.GridCommandContext.html#Tripous_Desktop_GridCommandContext_Command
+  name: Command
+  nameWithType: GridCommandContext.Command
+  fullName: Tripous.Desktop.GridCommandContext.Command
+- uid: Tripous.Desktop.GridCommandContext.Grid
+  commentId: P:Tripous.Desktop.GridCommandContext.Grid
+  parent: Tripous.Desktop.GridCommandContext
+  href: Tripous.Desktop.GridCommandContext.html#Tripous_Desktop_GridCommandContext_Grid
+  name: Grid
+  nameWithType: GridCommandContext.Grid
+  fullName: Tripous.Desktop.GridCommandContext.Grid
+- uid: Tripous.Desktop.GridCommandContext.Table
+  commentId: P:Tripous.Desktop.GridCommandContext.Table
+  parent: Tripous.Desktop.GridCommandContext
+  href: Tripous.Desktop.GridCommandContext.html#Tripous_Desktop_GridCommandContext_Table
+  name: Table
+  nameWithType: GridCommandContext.Table
+  fullName: Tripous.Desktop.GridCommandContext.Table
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.DetailGridCommandContext.DetailInfo*
+  commentId: Overload:Tripous.Desktop.DetailGridCommandContext.DetailInfo
+  href: Tripous.Desktop.DetailGridCommandContext.html#Tripous_Desktop_DetailGridCommandContext_DetailInfo
+  name: DetailInfo
+  nameWithType: DetailGridCommandContext.DetailInfo
+  fullName: Tripous.Desktop.DetailGridCommandContext.DetailInfo
+- uid: Tripous.Desktop.UiDetailTableInfo
+  commentId: T:Tripous.Desktop.UiDetailTableInfo
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.UiDetailTableInfo.html
+  name: UiDetailTableInfo
+  nameWithType: UiDetailTableInfo
+  fullName: Tripous.Desktop.UiDetailTableInfo
+- uid: Tripous.Desktop.DetailGridCommandContext.ItemContext*
+  commentId: Overload:Tripous.Desktop.DetailGridCommandContext.ItemContext
+  href: Tripous.Desktop.DetailGridCommandContext.html#Tripous_Desktop_DetailGridCommandContext_ItemContext
+  name: ItemContext
+  nameWithType: DetailGridCommandContext.ItemContext
+  fullName: Tripous.Desktop.DetailGridCommandContext.ItemContext
+- uid: Tripous.Desktop.UiItemContext
+  commentId: T:Tripous.Desktop.UiItemContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.UiItemContext.html
+  name: UiItemContext
+  nameWithType: UiItemContext
+  fullName: Tripous.Desktop.UiItemContext

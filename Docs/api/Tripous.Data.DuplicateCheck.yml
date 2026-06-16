@@ -1,0 +1,1279 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.DuplicateCheck
+  commentId: T:Tripous.Data.DuplicateCheck
+  id: DuplicateCheck
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.DuplicateCheck.CodeProvider
+  - Tripous.Data.DuplicateCheck.Enum
+  - Tripous.Data.DuplicateCheck.Form
+  - Tripous.Data.DuplicateCheck.Locator
+  - Tripous.Data.DuplicateCheck.Lookup
+  - Tripous.Data.DuplicateCheck.Module
+  - Tripous.Data.DuplicateCheck.None
+  langs:
+  - csharp
+  - vb
+  name: DuplicateCheck
+  nameWithType: DuplicateCheck
+  fullName: Tripous.Data.DuplicateCheck
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DuplicateCheck
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 84
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Defines generated duplicate registry checks.
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum DuplicateCheck
+    content.vb: >-
+      <Flags>
+
+      Public Enum DuplicateCheck
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.Add``1(Tripous.Data.DuplicateCheck)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.HasAny``1(Tripous.Data.DuplicateCheck)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.HasNone``1(Tripous.Data.DuplicateCheck)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.Has``1(Tripous.Data.DuplicateCheck)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.In``1(Tripous.Data.DuplicateCheck)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.IsExactly``1(Tripous.Data.DuplicateCheck)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.IsZero``1
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.Remove``1(Tripous.Data.DuplicateCheck)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.Set``1(Tripous.Data.DuplicateCheck,System.Boolean)
+  - Tripous.Data.DuplicateCheck.Tripous.BitFields.Toggle``1(Tripous.Data.DuplicateCheck)
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.DuplicateCheck.None
+  commentId: F:Tripous.Data.DuplicateCheck.None
+  id: None
+  parent: Tripous.Data.DuplicateCheck
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: DuplicateCheck.None
+  fullName: Tripous.Data.DuplicateCheck.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: None
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Data.DuplicateCheck
+- uid: Tripous.Data.DuplicateCheck.Lookup
+  commentId: F:Tripous.Data.DuplicateCheck.Lookup
+  id: Lookup
+  parent: Tripous.Data.DuplicateCheck
+  langs:
+  - csharp
+  - vb
+  name: Lookup
+  nameWithType: DuplicateCheck.Lookup
+  fullName: Tripous.Data.DuplicateCheck.Lookup
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Lookup
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 94
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Lookup
+  example: []
+  syntax:
+    content: Lookup = 1
+    return:
+      type: Tripous.Data.DuplicateCheck
+- uid: Tripous.Data.DuplicateCheck.Enum
+  commentId: F:Tripous.Data.DuplicateCheck.Enum
+  id: Enum
+  parent: Tripous.Data.DuplicateCheck
+  langs:
+  - csharp
+  - vb
+  name: Enum
+  nameWithType: DuplicateCheck.Enum
+  fullName: Tripous.Data.DuplicateCheck.Enum
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Enum
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 98
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Enum
+  example: []
+  syntax:
+    content: Enum = 2
+    return:
+      type: Tripous.Data.DuplicateCheck
+- uid: Tripous.Data.DuplicateCheck.Form
+  commentId: F:Tripous.Data.DuplicateCheck.Form
+  id: Form
+  parent: Tripous.Data.DuplicateCheck
+  langs:
+  - csharp
+  - vb
+  name: Form
+  nameWithType: DuplicateCheck.Form
+  fullName: Tripous.Data.DuplicateCheck.Form
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Form
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 102
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Form
+  example: []
+  syntax:
+    content: Form = 4
+    return:
+      type: Tripous.Data.DuplicateCheck
+- uid: Tripous.Data.DuplicateCheck.Module
+  commentId: F:Tripous.Data.DuplicateCheck.Module
+  id: Module
+  parent: Tripous.Data.DuplicateCheck
+  langs:
+  - csharp
+  - vb
+  name: Module
+  nameWithType: DuplicateCheck.Module
+  fullName: Tripous.Data.DuplicateCheck.Module
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Module
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 106
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Module
+  example: []
+  syntax:
+    content: Module = 8
+    return:
+      type: Tripous.Data.DuplicateCheck
+- uid: Tripous.Data.DuplicateCheck.Locator
+  commentId: F:Tripous.Data.DuplicateCheck.Locator
+  id: Locator
+  parent: Tripous.Data.DuplicateCheck
+  langs:
+  - csharp
+  - vb
+  name: Locator
+  nameWithType: DuplicateCheck.Locator
+  fullName: Tripous.Data.DuplicateCheck.Locator
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Locator
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 110
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Locator
+  example: []
+  syntax:
+    content: Locator = 16
+    return:
+      type: Tripous.Data.DuplicateCheck
+- uid: Tripous.Data.DuplicateCheck.CodeProvider
+  commentId: F:Tripous.Data.DuplicateCheck.CodeProvider
+  id: CodeProvider
+  parent: Tripous.Data.DuplicateCheck
+  langs:
+  - csharp
+  - vb
+  name: CodeProvider
+  nameWithType: DuplicateCheck.CodeProvider
+  fullName: Tripous.Data.DuplicateCheck.CodeProvider
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CodeProvider
+    path: ../Tripous.Data/Registry/SchemaRegistrationBuilder.cs
+    startLine: 114
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: CodeProvider
+  example: []
+  syntax:
+    content: CodeProvider = 32
+    return:
+      type: Tripous.Data.DuplicateCheck
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.Add``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.Add<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.Add<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.Add(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: Add(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.HasAny``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.HasAny<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.HasAny(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: HasAny(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.HasNone``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.HasNone<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.HasNone(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: HasNone(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.Has``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.Has<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.Has<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.Has(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: Has(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.In``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.In<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.In<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.In(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: In(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.IsExactly``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.IsExactly<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.IsExactly(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: IsExactly(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<DuplicateCheck>(DuplicateCheck)
+  nameWithType: BitFields.IsZero<DuplicateCheck>(DuplicateCheck)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.IsZero(Of DuplicateCheck)(DuplicateCheck)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck)
+  name.vb: IsZero(Of DuplicateCheck)(DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.DuplicateCheck)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.DuplicateCheck)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.Remove``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.Remove<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.Remove(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: Remove(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.Set``1(Tripous.Data.DuplicateCheck,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<DuplicateCheck>(DuplicateCheck, DuplicateCheck, bool)
+  nameWithType: BitFields.Set<DuplicateCheck>(DuplicateCheck, DuplicateCheck, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck, bool)
+  nameWithType.vb: BitFields.Set(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck, Boolean)
+  name.vb: Set(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.DuplicateCheck.Tripous.BitFields.Toggle``1(Tripous.Data.DuplicateCheck)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  nameWithType: BitFields.Toggle<DuplicateCheck>(DuplicateCheck, DuplicateCheck)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.DuplicateCheck>(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  nameWithType.vb: BitFields.Toggle(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.DuplicateCheck)(Tripous.Data.DuplicateCheck, Tripous.Data.DuplicateCheck)
+  name.vb: Toggle(Of DuplicateCheck)(DuplicateCheck, DuplicateCheck)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.DuplicateCheck,Tripous.Data.DuplicateCheck)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DuplicateCheck
+    name: DuplicateCheck
+    href: Tripous.Data.DuplicateCheck.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.DuplicateCheck
+  commentId: T:Tripous.Data.DuplicateCheck
+  parent: Tripous.Data
+  href: Tripous.Data.DuplicateCheck.html
+  name: DuplicateCheck
+  nameWithType: DuplicateCheck
+  fullName: Tripous.Data.DuplicateCheck

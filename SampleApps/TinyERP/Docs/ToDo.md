@@ -2,18 +2,19 @@
 
 ## Next Work
 
-- Complete manual UI verification for generated Journal Entries, Finance Movements, and Finance Balances.
-- Design payment documents for customer receipts and supplier payments.
-- Add payments and settlements.
-- Continue remaining stock modules after finance, accounting, and payment basics.
+- Prepare tester guide and release documentation.
+- Add database setup, reset, and regeneration instructions for testers.
+- Add a demo checklist for Sales, Purchases, Stock, Accounting, Finance, Payments, and Settlements.
+- Verify master modules with a quick List, Edit, Save smoke test.
+- Verify reports and views for Finance Movements, Finance Balances, Stock Movements, Stock Balances, and Journal Entries.
+- Continue remaining supporting modules after tester documentation.
 
 ## Current Limitations
 
 - `ExchangeRate` is entered manually.
 - Price lists and sales documents should currently use the same currency.
 - Currency conversion is not performed automatically.
-- Payments and settlements are not implemented.
-- Cash and bank finance movements are reserved for payment documents.
+- Payment settlement is amount-based for the first cycle and does not yet allocate exchange-rate differences.
 - The first accounting cycle uses fixed posting accounts.
 
 ## Future Extensions

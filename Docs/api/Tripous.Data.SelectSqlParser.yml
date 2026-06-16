@@ -1,0 +1,853 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.SelectSqlParser
+  commentId: T:Tripous.Data.SelectSqlParser
+  id: SelectSqlParser
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.SelectSqlParser.#ctor(System.String)
+  - Tripous.Data.SelectSqlParser.Clear
+  - Tripous.Data.SelectSqlParser.Execute(System.String)
+  - Tripous.Data.SelectSqlParser.From
+  - Tripous.Data.SelectSqlParser.GroupBy
+  - Tripous.Data.SelectSqlParser.Having
+  - Tripous.Data.SelectSqlParser.OrderBy
+  - Tripous.Data.SelectSqlParser.Parse(System.String)
+  - Tripous.Data.SelectSqlParser.Select
+  - Tripous.Data.SelectSqlParser.ToString
+  - Tripous.Data.SelectSqlParser.Where
+  langs:
+  - csharp
+  - vb
+  name: SelectSqlParser
+  nameWithType: SelectSqlParser
+  fullName: Tripous.Data.SelectSqlParser
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectSqlParser
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    A simple SELECT Sql parser. It parses a SELECT statement into its constituents parts.
+
+    The SELECT statement can contain nested sub-SELECTs or column names in double quotes or angle brackets.
+  example: []
+  syntax:
+    content: public class SelectSqlParser
+    content.vb: Public Class SelectSqlParser
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.SelectSqlParser.#ctor(System.String)
+  commentId: M:Tripous.Data.SelectSqlParser.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: SelectSqlParser(string)
+  nameWithType: SelectSqlParser.SelectSqlParser(string)
+  fullName: Tripous.Data.SelectSqlParser.SelectSqlParser(string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 217
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor. Text can not be null or empty.
+  example: []
+  syntax:
+    content: public SelectSqlParser(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Sub New(Text As String)
+  overload: Tripous.Data.SelectSqlParser.#ctor*
+  nameWithType.vb: SelectSqlParser.New(String)
+  fullName.vb: Tripous.Data.SelectSqlParser.New(String)
+  name.vb: New(String)
+- uid: Tripous.Data.SelectSqlParser.Execute(System.String)
+  commentId: M:Tripous.Data.SelectSqlParser.Execute(System.String)
+  id: Execute(System.String)
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: Execute(string)
+  nameWithType: SelectSqlParser.Execute(string)
+  fullName: Tripous.Data.SelectSqlParser.Execute(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Execute
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 227
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Parses Text into the constituent parts of a SELECT S statement.
+
+
+    <p>Example call: SelectSqlParser.Parse("select * from CUSTOMER").ToString();</p>
+  example: []
+  syntax:
+    content: public static SelectSqlParser Execute(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    return:
+      type: Tripous.Data.SelectSqlParser
+    content.vb: Public Shared Function Execute(Text As String) As SelectSqlParser
+  overload: Tripous.Data.SelectSqlParser.Execute*
+  nameWithType.vb: SelectSqlParser.Execute(String)
+  fullName.vb: Tripous.Data.SelectSqlParser.Execute(String)
+  name.vb: Execute(String)
+- uid: Tripous.Data.SelectSqlParser.Parse(System.String)
+  commentId: M:Tripous.Data.SelectSqlParser.Parse(System.String)
+  id: Parse(System.String)
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: Parse(string)
+  nameWithType: SelectSqlParser.Parse(string)
+  fullName: Tripous.Data.SelectSqlParser.Parse(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Parse
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 236
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Parses Text into the constituent parts of a SELECT S statement.
+  example: []
+  syntax:
+    content: public void Parse(string Text)
+    parameters:
+    - id: Text
+      type: System.String
+    content.vb: Public Sub Parse(Text As String)
+  overload: Tripous.Data.SelectSqlParser.Parse*
+  nameWithType.vb: SelectSqlParser.Parse(String)
+  fullName.vb: Tripous.Data.SelectSqlParser.Parse(String)
+  name.vb: Parse(String)
+- uid: Tripous.Data.SelectSqlParser.Clear
+  commentId: M:Tripous.Data.SelectSqlParser.Clear
+  id: Clear
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: SelectSqlParser.Clear()
+  fullName: Tripous.Data.SelectSqlParser.Clear()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Clear
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 249
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Clears the resulting clauses
+  example: []
+  syntax:
+    content: public void Clear()
+    content.vb: Public Sub Clear()
+  overload: Tripous.Data.SelectSqlParser.Clear*
+- uid: Tripous.Data.SelectSqlParser.ToString
+  commentId: M:Tripous.Data.SelectSqlParser.ToString
+  id: ToString
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: SelectSqlParser.ToString()
+  fullName: Tripous.Data.SelectSqlParser.ToString()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToString
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 261
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string that represents the current object
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: Tripous.Data.SelectSqlParser.ToString*
+- uid: Tripous.Data.SelectSqlParser.Select
+  commentId: P:Tripous.Data.SelectSqlParser.Select
+  id: Select
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: Select
+  nameWithType: SelectSqlParser.Select
+  fullName: Tripous.Data.SelectSqlParser.Select
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Select
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 279
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the SELECT clause of the parsed statement
+  example: []
+  syntax:
+    content: public string Select { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property [Select] As String
+  overload: Tripous.Data.SelectSqlParser.Select*
+- uid: Tripous.Data.SelectSqlParser.From
+  commentId: P:Tripous.Data.SelectSqlParser.From
+  id: From
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: From
+  nameWithType: SelectSqlParser.From
+  fullName: Tripous.Data.SelectSqlParser.From
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: From
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 287
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the FROM clause of the parsed statement
+  example: []
+  syntax:
+    content: public string From { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property From As String
+  overload: Tripous.Data.SelectSqlParser.From*
+- uid: Tripous.Data.SelectSqlParser.Where
+  commentId: P:Tripous.Data.SelectSqlParser.Where
+  id: Where
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: Where
+  nameWithType: SelectSqlParser.Where
+  fullName: Tripous.Data.SelectSqlParser.Where
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Where
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 295
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the WHERE clause of the parsed statement
+  example: []
+  syntax:
+    content: public string Where { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Where As String
+  overload: Tripous.Data.SelectSqlParser.Where*
+- uid: Tripous.Data.SelectSqlParser.GroupBy
+  commentId: P:Tripous.Data.SelectSqlParser.GroupBy
+  id: GroupBy
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: GroupBy
+  nameWithType: SelectSqlParser.GroupBy
+  fullName: Tripous.Data.SelectSqlParser.GroupBy
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupBy
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 303
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the GROUP BY clause of the parsed statement
+  example: []
+  syntax:
+    content: public string GroupBy { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property GroupBy As String
+  overload: Tripous.Data.SelectSqlParser.GroupBy*
+- uid: Tripous.Data.SelectSqlParser.Having
+  commentId: P:Tripous.Data.SelectSqlParser.Having
+  id: Having
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: Having
+  nameWithType: SelectSqlParser.Having
+  fullName: Tripous.Data.SelectSqlParser.Having
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Having
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 311
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the HAVING clause of the parsed statement
+  example: []
+  syntax:
+    content: public string Having { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Having As String
+  overload: Tripous.Data.SelectSqlParser.Having*
+- uid: Tripous.Data.SelectSqlParser.OrderBy
+  commentId: P:Tripous.Data.SelectSqlParser.OrderBy
+  id: OrderBy
+  parent: Tripous.Data.SelectSqlParser
+  langs:
+  - csharp
+  - vb
+  name: OrderBy
+  nameWithType: SelectSqlParser.OrderBy
+  fullName: Tripous.Data.SelectSqlParser.OrderBy
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SelectSqlParser.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OrderBy
+    path: ../Tripous.Data/SelectSqlParser.cs
+    startLine: 319
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the ORDER BY clause of the parsed statement
+  example: []
+  syntax:
+    content: public string OrderBy { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property OrderBy As String
+  overload: Tripous.Data.SelectSqlParser.OrderBy*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.SelectSqlParser.#ctor*
+  commentId: Overload:Tripous.Data.SelectSqlParser.#ctor
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser__ctor_System_String_
+  name: SelectSqlParser
+  nameWithType: SelectSqlParser.SelectSqlParser
+  fullName: Tripous.Data.SelectSqlParser.SelectSqlParser
+  nameWithType.vb: SelectSqlParser.New
+  fullName.vb: Tripous.Data.SelectSqlParser.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.SelectSqlParser.Execute*
+  commentId: Overload:Tripous.Data.SelectSqlParser.Execute
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_Execute_System_String_
+  name: Execute
+  nameWithType: SelectSqlParser.Execute
+  fullName: Tripous.Data.SelectSqlParser.Execute
+- uid: Tripous.Data.SelectSqlParser
+  commentId: T:Tripous.Data.SelectSqlParser
+  parent: Tripous.Data
+  href: Tripous.Data.SelectSqlParser.html
+  name: SelectSqlParser
+  nameWithType: SelectSqlParser
+  fullName: Tripous.Data.SelectSqlParser
+- uid: Tripous.Data.SelectSqlParser.Parse*
+  commentId: Overload:Tripous.Data.SelectSqlParser.Parse
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_Parse_System_String_
+  name: Parse
+  nameWithType: SelectSqlParser.Parse
+  fullName: Tripous.Data.SelectSqlParser.Parse
+- uid: Tripous.Data.SelectSqlParser.Clear*
+  commentId: Overload:Tripous.Data.SelectSqlParser.Clear
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_Clear
+  name: Clear
+  nameWithType: SelectSqlParser.Clear
+  fullName: Tripous.Data.SelectSqlParser.Clear
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: Tripous.Data.SelectSqlParser.ToString*
+  commentId: Overload:Tripous.Data.SelectSqlParser.ToString
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_ToString
+  name: ToString
+  nameWithType: SelectSqlParser.ToString
+  fullName: Tripous.Data.SelectSqlParser.ToString
+- uid: Tripous.Data.SelectSqlParser.Select*
+  commentId: Overload:Tripous.Data.SelectSqlParser.Select
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_Select
+  name: Select
+  nameWithType: SelectSqlParser.Select
+  fullName: Tripous.Data.SelectSqlParser.Select
+- uid: Tripous.Data.SelectSqlParser.From*
+  commentId: Overload:Tripous.Data.SelectSqlParser.From
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_From
+  name: From
+  nameWithType: SelectSqlParser.From
+  fullName: Tripous.Data.SelectSqlParser.From
+- uid: Tripous.Data.SelectSqlParser.Where*
+  commentId: Overload:Tripous.Data.SelectSqlParser.Where
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_Where
+  name: Where
+  nameWithType: SelectSqlParser.Where
+  fullName: Tripous.Data.SelectSqlParser.Where
+- uid: Tripous.Data.SelectSqlParser.GroupBy*
+  commentId: Overload:Tripous.Data.SelectSqlParser.GroupBy
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_GroupBy
+  name: GroupBy
+  nameWithType: SelectSqlParser.GroupBy
+  fullName: Tripous.Data.SelectSqlParser.GroupBy
+- uid: Tripous.Data.SelectSqlParser.Having*
+  commentId: Overload:Tripous.Data.SelectSqlParser.Having
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_Having
+  name: Having
+  nameWithType: SelectSqlParser.Having
+  fullName: Tripous.Data.SelectSqlParser.Having
+- uid: Tripous.Data.SelectSqlParser.OrderBy*
+  commentId: Overload:Tripous.Data.SelectSqlParser.OrderBy
+  href: Tripous.Data.SelectSqlParser.html#Tripous_Data_SelectSqlParser_OrderBy
+  name: OrderBy
+  nameWithType: SelectSqlParser.OrderBy
+  fullName: Tripous.Data.SelectSqlParser.OrderBy

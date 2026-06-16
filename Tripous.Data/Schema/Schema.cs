@@ -80,7 +80,7 @@ public class Schema
     void ExecuteSchema(DbConnectionInfo ConnectionInfo, List<SchemaVersion> VersionList)
     {
         /* get the current version of the database  from the dbIni table */
-        DbIni Ini = Db.MainIni;
+        DbIni Ini = new DbIni(ConnectionInfo);
         string Entry = string.Format("Database.Version.{0}.{1}", ConnectionInfo.Name, Domain);
         int Version = Ini.ReadInteger(Entry, -1);
 
@@ -88,10 +88,11 @@ public class Schema
         {
             if (SV.Version > Version)
             {
-                SchemaExecutor.Execute(SV, ConnectionInfo);
-
-                /* write the version to the dbIni */
-                Ini.WriteInteger(Entry, SV.Version);  
+                SchemaExecutor.Execute(SV, ConnectionInfo, Transaction =>
+                {
+                    /* write the version to the dbIni */
+                    Ini.WriteInteger(Transaction, Entry, SV.Version);
+                });
             }
         }
     }
@@ -100,7 +101,7 @@ public class Schema
     /// </summary>
     internal void Execute()
     { 
-        DbConnectionInfo Connection = Db.Connections.Find(ConnectionName);
+        DbConnectionInfo Connection = Db.GetConnectionInfo(ConnectionName);
         List<SchemaVersion> VersionList = Versions.OrderBy(item => item.Version).ToList();
         ExecuteSchema(Connection, VersionList);
     }

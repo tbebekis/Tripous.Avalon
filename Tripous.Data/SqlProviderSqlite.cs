@@ -223,6 +223,10 @@ public class SqlProviderSqlite : SqlProvider
     /// </summary>
     public override bool SupportsAutoIncFields => true;
     /// <summary>
+    /// Returns a set (bit-field) of the supported alter table operations.
+    /// </summary>
+    public override AlterTableType SupportedAlterTableTypes => AlterTableType.ColumnRename;
+    /// <summary>
     /// The OID mode this provider supports.
     /// </summary>
     public override OidMode OidMode => OidMode.AutoInc;

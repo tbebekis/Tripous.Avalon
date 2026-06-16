@@ -279,14 +279,14 @@ namespace Tripous
         /// </summary>
         static public bool IsDecimal(this Type T)
         {
-            return (T != null) && (T == typeof(decimal)) || (T == typeof(Nullable<decimal>));
+            return T != null && (T == typeof(decimal) || T == typeof(Nullable<decimal>));
         }
         /// <summary>
         /// Returns true if T is double or nullable double
         /// </summary>
         static public bool IsDouble(this Type T)
         {
-            return (T != null) && (T == typeof(double)) || (T == typeof(Nullable<double>));
+            return T != null && (T == typeof(double) || T == typeof(Nullable<double>));
         }
 
         
@@ -310,11 +310,11 @@ namespace Tripous
         /// <summary>
         /// Returns true if a specified type is an integer type, i.e. Byte, SByte, Int16, Int32, Int64, UInt16, UInt32, UInt64
         /// </summary>
-        static public bool IsInteger(this Type DataType) => IntegerTypeSet.Contains(DataType) || IntegerTypeSet.Contains(Nullable.GetUnderlyingType(DataType));
+        static public bool IsInteger(this Type DataType) => DataType != null && (IntegerTypeSet.Contains(DataType) || IntegerTypeSet.Contains(Nullable.GetUnderlyingType(DataType)));
         /// <summary>
         /// Returns true if a specified type is float, double or decimal
         /// </summary>
-        static public bool IsFloat(this Type DataType) => FloatTypeSet.Contains(DataType) || FloatTypeSet.Contains(Nullable.GetUnderlyingType(DataType));
+        static public bool IsFloat(this Type DataType) => DataType != null && (FloatTypeSet.Contains(DataType) || FloatTypeSet.Contains(Nullable.GetUnderlyingType(DataType)));
         /// <summary>
         /// Returns true if a specified type is an integer or float type
         /// </summary>

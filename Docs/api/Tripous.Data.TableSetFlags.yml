@@ -1,0 +1,1205 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.TableSetFlags
+  commentId: T:Tripous.Data.TableSetFlags
+  id: TableSetFlags
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.TableSetFlags.GenerateSql
+  - Tripous.Data.TableSetFlags.NoCascadeDeletes
+  - Tripous.Data.TableSetFlags.None
+  - Tripous.Data.TableSetFlags.PessimisticMode
+  langs:
+  - csharp
+  - vb
+  name: TableSetFlags
+  nameWithType: TableSetFlags
+  fullName: Tripous.Data.TableSetFlags
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/TableSetFlags.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableSetFlags
+    path: ../Tripous.Data/TableSetFlags.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A set of flags that dictate the behavior of a <xref href="Tripous.Data.TableSet" data-throw-if-not-resolved="false"></xref> object.
+  example: []
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum TableSetFlags
+    content.vb: >-
+      <Flags>
+
+      Public Enum TableSetFlags
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.Add``1(Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.HasAny``1(Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.HasNone``1(Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.Has``1(Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.In``1(Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.IsExactly``1(Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.IsZero``1
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.Remove``1(Tripous.Data.TableSetFlags)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.Set``1(Tripous.Data.TableSetFlags,System.Boolean)
+  - Tripous.Data.TableSetFlags.Tripous.BitFields.Toggle``1(Tripous.Data.TableSetFlags)
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+- uid: Tripous.Data.TableSetFlags.None
+  commentId: F:Tripous.Data.TableSetFlags.None
+  id: None
+  parent: Tripous.Data.TableSetFlags
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: TableSetFlags.None
+  fullName: Tripous.Data.TableSetFlags.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/TableSetFlags.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Data/TableSetFlags.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: None of the flags is set
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Data.TableSetFlags
+- uid: Tripous.Data.TableSetFlags.GenerateSql
+  commentId: F:Tripous.Data.TableSetFlags.GenerateSql
+  id: GenerateSql
+  parent: Tripous.Data.TableSetFlags
+  langs:
+  - csharp
+  - vb
+  name: GenerateSql
+  nameWithType: TableSetFlags.GenerateSql
+  fullName: Tripous.Data.TableSetFlags.GenerateSql
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/TableSetFlags.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GenerateSql
+    path: ../Tripous.Data/TableSetFlags.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Indicates that TableSet should use its own methods to generate Sql statements for the table tree.
+  example: []
+  syntax:
+    content: GenerateSql = 1
+    return:
+      type: Tripous.Data.TableSetFlags
+- uid: Tripous.Data.TableSetFlags.PessimisticMode
+  commentId: F:Tripous.Data.TableSetFlags.PessimisticMode
+  id: PessimisticMode
+  parent: Tripous.Data.TableSetFlags
+  langs:
+  - csharp
+  - vb
+  name: PessimisticMode
+  nameWithType: TableSetFlags.PessimisticMode
+  fullName: Tripous.Data.TableSetFlags.PessimisticMode
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/TableSetFlags.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PessimisticMode
+    path: ../Tripous.Data/TableSetFlags.cs
+    startLine: 28
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Indicates that pessimistic mode should be used. That is to flag a row in the database while it is selected
+
+    and de-flag it when saved/deleted.
+  example: []
+  syntax:
+    content: PessimisticMode = 2
+    return:
+      type: Tripous.Data.TableSetFlags
+- uid: Tripous.Data.TableSetFlags.NoCascadeDeletes
+  commentId: F:Tripous.Data.TableSetFlags.NoCascadeDeletes
+  id: NoCascadeDeletes
+  parent: Tripous.Data.TableSetFlags
+  langs:
+  - csharp
+  - vb
+  name: NoCascadeDeletes
+  nameWithType: TableSetFlags.NoCascadeDeletes
+  fullName: Tripous.Data.TableSetFlags.NoCascadeDeletes
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/TableSetFlags.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoCascadeDeletes
+    path: ../Tripous.Data/TableSetFlags.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Indicates that deletes should happen top to bottom, so if any database foreign constraint exists, then let
+
+    an exception to be thrown.
+  example: []
+  syntax:
+    content: NoCascadeDeletes = 4
+    return:
+      type: Tripous.Data.TableSetFlags
+references:
+- uid: Tripous.Data.TableSet
+  commentId: T:Tripous.Data.TableSet
+  parent: Tripous.Data
+  href: Tripous.Data.TableSet.html
+  name: TableSet
+  nameWithType: TableSet
+  fullName: Tripous.Data.TableSet
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.Add``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.Add<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.Add<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.Add(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: Add(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.HasAny``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.HasAny<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.HasAny(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: HasAny(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.HasNone``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.HasNone<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.HasNone(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: HasNone(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.Has``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.Has<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.Has<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.Has(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: Has(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.In``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.In<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.In<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.In(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: In(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.IsExactly``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.IsExactly<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.IsExactly(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: IsExactly(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<TableSetFlags>(TableSetFlags)
+  nameWithType: BitFields.IsZero<TableSetFlags>(TableSetFlags)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.IsZero(Of TableSetFlags)(TableSetFlags)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags)
+  name.vb: IsZero(Of TableSetFlags)(TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.TableSetFlags)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.TableSetFlags)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.Remove``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.Remove<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.Remove(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: Remove(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.Set``1(Tripous.Data.TableSetFlags,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<TableSetFlags>(TableSetFlags, TableSetFlags, bool)
+  nameWithType: BitFields.Set<TableSetFlags>(TableSetFlags, TableSetFlags, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags, bool)
+  nameWithType.vb: BitFields.Set(Of TableSetFlags)(TableSetFlags, TableSetFlags, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags, Boolean)
+  name.vb: Set(Of TableSetFlags)(TableSetFlags, TableSetFlags, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.TableSetFlags.Tripous.BitFields.Toggle``1(Tripous.Data.TableSetFlags)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<TableSetFlags>(TableSetFlags, TableSetFlags)
+  nameWithType: BitFields.Toggle<TableSetFlags>(TableSetFlags, TableSetFlags)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.TableSetFlags>(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  nameWithType.vb: BitFields.Toggle(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.TableSetFlags)(Tripous.Data.TableSetFlags, Tripous.Data.TableSetFlags)
+  name.vb: Toggle(Of TableSetFlags)(TableSetFlags, TableSetFlags)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.TableSetFlags,Tripous.Data.TableSetFlags)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableSetFlags
+    name: TableSetFlags
+    href: Tripous.Data.TableSetFlags.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.TableSetFlags
+  commentId: T:Tripous.Data.TableSetFlags
+  parent: Tripous.Data
+  href: Tripous.Data.TableSetFlags.html
+  name: TableSetFlags
+  nameWithType: TableSetFlags
+  fullName: Tripous.Data.TableSetFlags

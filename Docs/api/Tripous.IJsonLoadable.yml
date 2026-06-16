@@ -1,0 +1,187 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.IJsonLoadable
+  commentId: T:Tripous.IJsonLoadable
+  id: IJsonLoadable
+  parent: Tripous
+  children:
+  - Tripous.IJsonLoadable.JsonLoaded
+  langs:
+  - csharp
+  - vb
+  name: IJsonLoadable
+  nameWithType: IJsonLoadable
+  fullName: Tripous.IJsonLoadable
+  type: Interface
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IJsonLoadable
+    path: ../Tripous/Json.cs
+    startLine: 386
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: A class implements this interface to be notified when the JSON text is loaded.
+  example: []
+  syntax:
+    content: public interface IJsonLoadable
+    content.vb: Public Interface IJsonLoadable
+  derivedClasses:
+  - Tripous.BaseDef
+  - Tripous.Command
+  - Tripous.Data.CodeProviderDef
+  - Tripous.Data.ConfigPropertyDef
+  - Tripous.Data.DocumentHandlerDef
+  - Tripous.Data.FieldDef
+  - Tripous.Data.LocatorDef
+  - Tripous.Data.LocatorFieldDef
+  - Tripous.Data.LookupDef
+  - Tripous.Data.ModuleDef
+  - Tripous.Data.SchemaVersionDef
+  - Tripous.Data.SelectDef
+  - Tripous.Data.SelectDefs
+  - Tripous.Data.SelectSql
+  - Tripous.Data.SqlFilterDef
+  - Tripous.Data.SqlFilterDefs
+  - Tripous.Data.TableDef
+  - Tripous.DefList`1
+  - Tripous.Desktop.FormDef
+  - Tripous.Desktop.GridColumnDef
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.IJsonLoadable.JsonLoaded
+  commentId: M:Tripous.IJsonLoadable.JsonLoaded
+  id: JsonLoaded
+  parent: Tripous.IJsonLoadable
+  langs:
+  - csharp
+  - vb
+  name: JsonLoaded()
+  nameWithType: IJsonLoadable.JsonLoaded()
+  fullName: Tripous.IJsonLoadable.JsonLoaded()
+  type: Method
+  source:
+    remote:
+      path: Tripous/Json.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonLoaded
+    path: ../Tripous/Json.cs
+    startLine: 391
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Called when the JSON text is loaded.
+  example: []
+  syntax:
+    content: void JsonLoaded()
+    content.vb: Sub JsonLoaded()
+  overload: Tripous.IJsonLoadable.JsonLoaded*
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.IJsonLoadable.JsonLoaded*
+  commentId: Overload:Tripous.IJsonLoadable.JsonLoaded
+  href: Tripous.IJsonLoadable.html#Tripous_IJsonLoadable_JsonLoaded
+  name: JsonLoaded
+  nameWithType: IJsonLoadable.JsonLoaded
+  fullName: Tripous.IJsonLoadable.JsonLoaded

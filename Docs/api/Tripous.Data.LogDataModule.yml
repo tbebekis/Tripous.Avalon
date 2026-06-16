@@ -1,0 +1,2084 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.LogDataModule
+  commentId: T:Tripous.Data.LogDataModule
+  id: LogDataModule
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.LogDataModule.#ctor
+  langs:
+  - csharp
+  - vb
+  name: LogDataModule
+  nameWithType: LogDataModule
+  fullName: Tripous.Data.LogDataModule
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/DataModules/LogDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LogDataModule
+    path: ../Tripous.Data/DataModules/LogDataModule.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Just in case anyone wants to derive from this class.
+  example: []
+  syntax:
+    content: 'public class LogDataModule : DataModule'
+    content.vb: Public Class LogDataModule Inherits DataModule
+  inheritance:
+  - System.Object
+  - Tripous.Data.DataModule
+  inheritedMembers:
+  - Tripous.Data.DataModule.fIsInserting
+  - Tripous.Data.DataModule.fIsEditing
+  - Tripous.Data.DataModule.fIsDeleting
+  - Tripous.Data.DataModule.fIsCommiting
+  - Tripous.Data.DataModule.fVariables
+  - Tripous.Data.DataModule.TableSet
+  - Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+  - Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+  - Tripous.Data.DataModule.GetCodeProviderDef
+  - Tripous.Data.DataModule.AssignCodeProviderDef
+  - Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  - Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  - Tripous.Data.DataModule.LoadDefaultValues
+  - Tripous.Data.DataModule.SetDefaultValues
+  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  - Tripous.Data.DataModule.EndEdit
+  - Tripous.Data.DataModule.UpdateTableSchema
+  - Tripous.Data.DataModule.Inserting
+  - Tripous.Data.DataModule.Inserted
+  - Tripous.Data.DataModule.Editing(System.Object)
+  - Tripous.Data.DataModule.Edited(System.Object)
+  - Tripous.Data.DataModule.Deleting(System.Object)
+  - Tripous.Data.DataModule.Deleted(System.Object)
+  - Tripous.Data.DataModule.Commiting(System.Boolean)
+  - Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+  - Tripous.Data.DataModule.MustReselectAfterCommit
+  - Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  - Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  - Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  - Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  - Tripous.Data.DataModule.ToString
+  - Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  - Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  - Tripous.Data.DataModule.ListSelect(System.String)
+  - Tripous.Data.DataModule.ListSave
+  - Tripous.Data.DataModule.ListCancel
+  - Tripous.Data.DataModule.Insert
+  - Tripous.Data.DataModule.Edit(System.Object)
+  - Tripous.Data.DataModule.Delete(System.Object)
+  - Tripous.Data.DataModule.Commit(System.Boolean)
+  - Tripous.Data.DataModule.Cancel
+  - Tripous.Data.DataModule.HasChanges
+  - Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  - Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  - Tripous.Data.DataModule.CheckCanInsert
+  - Tripous.Data.DataModule.CheckCanEdit(System.Object)
+  - Tripous.Data.DataModule.CheckCanDelete(System.Object)
+  - Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+  - Tripous.Data.DataModule.TableExists(System.String)
+  - Tripous.Data.DataModule.FindTable(System.String)
+  - Tripous.Data.DataModule.GetTable(System.String)
+  - Tripous.Data.DataModule.IsInitialized
+  - Tripous.Data.DataModule.ModuleDef
+  - Tripous.Data.DataModule.CodeProviderDef
+  - Tripous.Data.DataModule.Store
+  - Tripous.Data.DataModule.Item(System.String)
+  - Tripous.Data.DataModule.DataSet
+  - Tripous.Data.DataModule.tblList
+  - Tripous.Data.DataModule.tblItem
+  - Tripous.Data.DataModule.Tables
+  - Tripous.Data.DataModule.ItemTables
+  - Tripous.Data.DataModule.Stocks
+  - Tripous.Data.DataModule.Name
+  - Tripous.Data.DataModule.DetailsActive
+  - Tripous.Data.DataModule.RowProviderHost
+  - Tripous.Data.DataModule.State
+  - Tripous.Data.DataModule.IsInserting
+  - Tripous.Data.DataModule.IsEditing
+  - Tripous.Data.DataModule.IsDeleting
+  - Tripous.Data.DataModule.IsCommiting
+  - Tripous.Data.DataModule.Variables
+  - Tripous.Data.DataModule.CurrentRow
+  - Tripous.Data.DataModule.Id
+  - Tripous.Data.DataModule.LastEditedId
+  - Tripous.Data.DataModule.LastCommitedId
+  - Tripous.Data.DataModule.LastDeletedId
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.LogDataModule.#ctor
+  commentId: M:Tripous.Data.LogDataModule.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.LogDataModule
+  langs:
+  - csharp
+  - vb
+  name: LogDataModule()
+  nameWithType: LogDataModule.LogDataModule()
+  fullName: Tripous.Data.LogDataModule.LogDataModule()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/DataModules/LogDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/DataModules/LogDataModule.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor
+  example: []
+  syntax:
+    content: public LogDataModule()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.LogDataModule.#ctor*
+  nameWithType.vb: LogDataModule.New()
+  fullName.vb: Tripous.Data.LogDataModule.New()
+  name.vb: New()
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.Data.DataModule
+  commentId: T:Tripous.Data.DataModule
+  parent: Tripous.Data
+  href: Tripous.Data.DataModule.html
+  name: DataModule
+  nameWithType: DataModule
+  fullName: Tripous.Data.DataModule
+- uid: Tripous.Data.DataModule.fIsInserting
+  commentId: F:Tripous.Data.DataModule.fIsInserting
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_fIsInserting
+  name: fIsInserting
+  nameWithType: DataModule.fIsInserting
+  fullName: Tripous.Data.DataModule.fIsInserting
+- uid: Tripous.Data.DataModule.fIsEditing
+  commentId: F:Tripous.Data.DataModule.fIsEditing
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_fIsEditing
+  name: fIsEditing
+  nameWithType: DataModule.fIsEditing
+  fullName: Tripous.Data.DataModule.fIsEditing
+- uid: Tripous.Data.DataModule.fIsDeleting
+  commentId: F:Tripous.Data.DataModule.fIsDeleting
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_fIsDeleting
+  name: fIsDeleting
+  nameWithType: DataModule.fIsDeleting
+  fullName: Tripous.Data.DataModule.fIsDeleting
+- uid: Tripous.Data.DataModule.fIsCommiting
+  commentId: F:Tripous.Data.DataModule.fIsCommiting
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_fIsCommiting
+  name: fIsCommiting
+  nameWithType: DataModule.fIsCommiting
+  fullName: Tripous.Data.DataModule.fIsCommiting
+- uid: Tripous.Data.DataModule.fVariables
+  commentId: F:Tripous.Data.DataModule.fVariables
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_fVariables
+  name: fVariables
+  nameWithType: DataModule.fVariables
+  fullName: Tripous.Data.DataModule.fVariables
+- uid: Tripous.Data.DataModule.TableSet
+  commentId: F:Tripous.Data.DataModule.TableSet
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet
+  name: TableSet
+  nameWithType: DataModule.TableSet
+  fullName: Tripous.Data.DataModule.TableSet
+- uid: Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+  commentId: M:Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageDelete_System_Object_Tripous_Data_TransactionEventArgs_
+  name: TableSet_TransactionStageDelete(object, TransactionEventArgs)
+  nameWithType: DataModule.TableSet_TransactionStageDelete(object, TransactionEventArgs)
+  fullName: Tripous.Data.DataModule.TableSet_TransactionStageDelete(object, Tripous.Data.TransactionEventArgs)
+  nameWithType.vb: DataModule.TableSet_TransactionStageDelete(Object, TransactionEventArgs)
+  fullName.vb: Tripous.Data.DataModule.TableSet_TransactionStageDelete(Object, Tripous.Data.TransactionEventArgs)
+  name.vb: TableSet_TransactionStageDelete(Object, TransactionEventArgs)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+    name: TableSet_TransactionStageDelete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageDelete_System_Object_Tripous_Data_TransactionEventArgs_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TransactionEventArgs
+    name: TransactionEventArgs
+    href: Tripous.Data.TransactionEventArgs.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
+    name: TableSet_TransactionStageDelete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageDelete_System_Object_Tripous_Data_TransactionEventArgs_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TransactionEventArgs
+    name: TransactionEventArgs
+    href: Tripous.Data.TransactionEventArgs.html
+  - name: )
+- uid: Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+  commentId: M:Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageCommit_System_Object_Tripous_Data_TransactionEventArgs_
+  name: TableSet_TransactionStageCommit(object, TransactionEventArgs)
+  nameWithType: DataModule.TableSet_TransactionStageCommit(object, TransactionEventArgs)
+  fullName: Tripous.Data.DataModule.TableSet_TransactionStageCommit(object, Tripous.Data.TransactionEventArgs)
+  nameWithType.vb: DataModule.TableSet_TransactionStageCommit(Object, TransactionEventArgs)
+  fullName.vb: Tripous.Data.DataModule.TableSet_TransactionStageCommit(Object, Tripous.Data.TransactionEventArgs)
+  name.vb: TableSet_TransactionStageCommit(Object, TransactionEventArgs)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+    name: TableSet_TransactionStageCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageCommit_System_Object_Tripous_Data_TransactionEventArgs_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TransactionEventArgs
+    name: TransactionEventArgs
+    href: Tripous.Data.TransactionEventArgs.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.TableSet_TransactionStageCommit(System.Object,Tripous.Data.TransactionEventArgs)
+    name: TableSet_TransactionStageCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableSet_TransactionStageCommit_System_Object_Tripous_Data_TransactionEventArgs_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TransactionEventArgs
+    name: TransactionEventArgs
+    href: Tripous.Data.TransactionEventArgs.html
+  - name: )
+- uid: Tripous.Data.DataModule.GetCodeProviderDef
+  commentId: M:Tripous.Data.DataModule.GetCodeProviderDef
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetCodeProviderDef
+  name: GetCodeProviderDef()
+  nameWithType: DataModule.GetCodeProviderDef()
+  fullName: Tripous.Data.DataModule.GetCodeProviderDef()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.GetCodeProviderDef
+    name: GetCodeProviderDef
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetCodeProviderDef
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.GetCodeProviderDef
+    name: GetCodeProviderDef
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetCodeProviderDef
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.AssignCodeProviderDef
+  commentId: M:Tripous.Data.DataModule.AssignCodeProviderDef
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeProviderDef
+  name: AssignCodeProviderDef()
+  nameWithType: DataModule.AssignCodeProviderDef()
+  fullName: Tripous.Data.DataModule.AssignCodeProviderDef()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.AssignCodeProviderDef
+    name: AssignCodeProviderDef
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeProviderDef
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.AssignCodeProviderDef
+    name: AssignCodeProviderDef
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeProviderDef
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  commentId: M:Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetNextCodeLocked_System_Data_Common_DbTransaction_
+  name: GetNextCodeLocked(DbTransaction)
+  nameWithType: DataModule.GetNextCodeLocked(DbTransaction)
+  fullName: Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+    name: GetNextCodeLocked
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetNextCodeLocked_System_Data_Common_DbTransaction_
+  - name: (
+  - uid: System.Data.Common.DbTransaction
+    name: DbTransaction
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+    name: GetNextCodeLocked
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetNextCodeLocked_System_Data_Common_DbTransaction_
+  - name: (
+  - uid: System.Data.Common.DbTransaction
+    name: DbTransaction
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  - name: )
+- uid: Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  commentId: M:Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeValue_System_Data_Common_DbTransaction_
+  name: AssignCodeValue(DbTransaction)
+  nameWithType: DataModule.AssignCodeValue(DbTransaction)
+  fullName: Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+    name: AssignCodeValue
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeValue_System_Data_Common_DbTransaction_
+  - name: (
+  - uid: System.Data.Common.DbTransaction
+    name: DbTransaction
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
+    name: AssignCodeValue
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_AssignCodeValue_System_Data_Common_DbTransaction_
+  - name: (
+  - uid: System.Data.Common.DbTransaction
+    name: DbTransaction
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  - name: )
+- uid: Tripous.Data.DataModule.LoadDefaultValues
+  commentId: M:Tripous.Data.DataModule.LoadDefaultValues
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LoadDefaultValues
+  name: LoadDefaultValues()
+  nameWithType: DataModule.LoadDefaultValues()
+  fullName: Tripous.Data.DataModule.LoadDefaultValues()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.LoadDefaultValues
+    name: LoadDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LoadDefaultValues
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.LoadDefaultValues
+    name: LoadDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LoadDefaultValues
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.SetDefaultValues
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues
+  name: SetDefaultValues()
+  nameWithType: DataModule.SetDefaultValues()
+  fullName: Tripous.Data.DataModule.SetDefaultValues()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.SetDefaultValues
+    name: SetDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.SetDefaultValues
+    name: SetDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_Tripous_Data_TableDef_
+  name: SetDefaultValues(DataTable, TableDef)
+  nameWithType: DataModule.SetDefaultValues(DataTable, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, Tripous.Data.TableDef)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+    name: SetDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_Tripous_Data_TableDef_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,Tripous.Data.TableDef)
+    name: SetDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_Tripous_Data_TableDef_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+- uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  name: SetDefaultValues(DataTable, DataRow, TableDef)
+  nameWithType: DataModule.SetDefaultValues(DataTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+    name: SetDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.SetDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+    name: SetDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+- uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  commentId: M:Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  name: SetAuditDefaultValues(DataTable, DataRow, TableDef)
+  nameWithType: DataModule.SetAuditDefaultValues(DataTable, DataRow, TableDef)
+  fullName: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable, System.Data.DataRow, Tripous.Data.TableDef)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+    name: SetAuditDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.SetAuditDefaultValues(System.Data.DataTable,System.Data.DataRow,Tripous.Data.TableDef)
+    name: SetAuditDefaultValues
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_SetAuditDefaultValues_System_Data_DataTable_System_Data_DataRow_Tripous_Data_TableDef_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataRow
+    name: DataRow
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.TableDef
+    name: TableDef
+    href: Tripous.Data.TableDef.html
+  - name: )
+- uid: Tripous.Data.DataModule.EndEdit
+  commentId: M:Tripous.Data.DataModule.EndEdit
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_EndEdit
+  name: EndEdit()
+  nameWithType: DataModule.EndEdit()
+  fullName: Tripous.Data.DataModule.EndEdit()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.EndEdit
+    name: EndEdit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_EndEdit
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.EndEdit
+    name: EndEdit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_EndEdit
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.UpdateTableSchema
+  commentId: M:Tripous.Data.DataModule.UpdateTableSchema
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_UpdateTableSchema
+  name: UpdateTableSchema()
+  nameWithType: DataModule.UpdateTableSchema()
+  fullName: Tripous.Data.DataModule.UpdateTableSchema()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.UpdateTableSchema
+    name: UpdateTableSchema
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_UpdateTableSchema
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.UpdateTableSchema
+    name: UpdateTableSchema
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_UpdateTableSchema
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.Inserting
+  commentId: M:Tripous.Data.DataModule.Inserting
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserting
+  name: Inserting()
+  nameWithType: DataModule.Inserting()
+  fullName: Tripous.Data.DataModule.Inserting()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Inserting
+    name: Inserting
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserting
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Inserting
+    name: Inserting
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserting
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.Inserted
+  commentId: M:Tripous.Data.DataModule.Inserted
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserted
+  name: Inserted()
+  nameWithType: DataModule.Inserted()
+  fullName: Tripous.Data.DataModule.Inserted()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Inserted
+    name: Inserted
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserted
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Inserted
+    name: Inserted
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Inserted
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.Editing(System.Object)
+  commentId: M:Tripous.Data.DataModule.Editing(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Editing_System_Object_
+  name: Editing(object)
+  nameWithType: DataModule.Editing(object)
+  fullName: Tripous.Data.DataModule.Editing(object)
+  nameWithType.vb: DataModule.Editing(Object)
+  fullName.vb: Tripous.Data.DataModule.Editing(Object)
+  name.vb: Editing(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Editing(System.Object)
+    name: Editing
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Editing_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Editing(System.Object)
+    name: Editing
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Editing_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.Edited(System.Object)
+  commentId: M:Tripous.Data.DataModule.Edited(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edited_System_Object_
+  name: Edited(object)
+  nameWithType: DataModule.Edited(object)
+  fullName: Tripous.Data.DataModule.Edited(object)
+  nameWithType.vb: DataModule.Edited(Object)
+  fullName.vb: Tripous.Data.DataModule.Edited(Object)
+  name.vb: Edited(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Edited(System.Object)
+    name: Edited
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edited_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Edited(System.Object)
+    name: Edited
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edited_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.Deleting(System.Object)
+  commentId: M:Tripous.Data.DataModule.Deleting(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleting_System_Object_
+  name: Deleting(object)
+  nameWithType: DataModule.Deleting(object)
+  fullName: Tripous.Data.DataModule.Deleting(object)
+  nameWithType.vb: DataModule.Deleting(Object)
+  fullName.vb: Tripous.Data.DataModule.Deleting(Object)
+  name.vb: Deleting(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Deleting(System.Object)
+    name: Deleting
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleting_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Deleting(System.Object)
+    name: Deleting
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleting_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.Deleted(System.Object)
+  commentId: M:Tripous.Data.DataModule.Deleted(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleted_System_Object_
+  name: Deleted(object)
+  nameWithType: DataModule.Deleted(object)
+  fullName: Tripous.Data.DataModule.Deleted(object)
+  nameWithType.vb: DataModule.Deleted(Object)
+  fullName.vb: Tripous.Data.DataModule.Deleted(Object)
+  name.vb: Deleted(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Deleted(System.Object)
+    name: Deleted
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleted_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Deleted(System.Object)
+    name: Deleted
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Deleted_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.Commiting(System.Boolean)
+  commentId: M:Tripous.Data.DataModule.Commiting(System.Boolean)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commiting_System_Boolean_
+  name: Commiting(bool)
+  nameWithType: DataModule.Commiting(bool)
+  fullName: Tripous.Data.DataModule.Commiting(bool)
+  nameWithType.vb: DataModule.Commiting(Boolean)
+  fullName.vb: Tripous.Data.DataModule.Commiting(Boolean)
+  name.vb: Commiting(Boolean)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Commiting(System.Boolean)
+    name: Commiting
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commiting_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Commiting(System.Boolean)
+    name: Commiting
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commiting_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+  commentId: M:Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commited_System_Boolean_System_Object_
+  name: Commited(bool, object)
+  nameWithType: DataModule.Commited(bool, object)
+  fullName: Tripous.Data.DataModule.Commited(bool, object)
+  nameWithType.vb: DataModule.Commited(Boolean, Object)
+  fullName.vb: Tripous.Data.DataModule.Commited(Boolean, Object)
+  name.vb: Commited(Boolean, Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+    name: Commited
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commited_System_Boolean_System_Object_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
+    name: Commited
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commited_System_Boolean_System_Object_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.MustReselectAfterCommit
+  commentId: M:Tripous.Data.DataModule.MustReselectAfterCommit
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_MustReselectAfterCommit
+  name: MustReselectAfterCommit()
+  nameWithType: DataModule.MustReselectAfterCommit()
+  fullName: Tripous.Data.DataModule.MustReselectAfterCommit()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.MustReselectAfterCommit
+    name: MustReselectAfterCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_MustReselectAfterCommit
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.MustReselectAfterCommit
+    name: MustReselectAfterCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_MustReselectAfterCommit
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  commentId: M:Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanging_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  name: ColumnChanging(MemTable, DataColumnChangeEventArgs)
+  nameWithType: DataModule.ColumnChanging(MemTable, DataColumnChangeEventArgs)
+  fullName: Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable, System.Data.DataColumnChangeEventArgs)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+    name: ColumnChanging
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanging_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataColumnChangeEventArgs
+    name: DataColumnChangeEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumnchangeeventargs
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ColumnChanging(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+    name: ColumnChanging
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanging_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataColumnChangeEventArgs
+    name: DataColumnChangeEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumnchangeeventargs
+  - name: )
+- uid: Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  commentId: M:Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanged_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  name: ColumnChanged(MemTable, DataColumnChangeEventArgs)
+  nameWithType: DataModule.ColumnChanged(MemTable, DataColumnChangeEventArgs)
+  fullName: Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable, System.Data.DataColumnChangeEventArgs)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+    name: ColumnChanged
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanged_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataColumnChangeEventArgs
+    name: DataColumnChangeEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumnchangeeventargs
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ColumnChanged(Tripous.Data.MemTable,System.Data.DataColumnChangeEventArgs)
+    name: ColumnChanged
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ColumnChanged_Tripous_Data_MemTable_System_Data_DataColumnChangeEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataColumnChangeEventArgs
+    name: DataColumnChangeEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumnchangeeventargs
+  - name: )
+- uid: Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  commentId: M:Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdding_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  name: NewRowAdding(MemTable, DataTableNewRowEventArgs)
+  nameWithType: DataModule.NewRowAdding(MemTable, DataTableNewRowEventArgs)
+  fullName: Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable, System.Data.DataTableNewRowEventArgs)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+    name: NewRowAdding
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdding_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataTableNewRowEventArgs
+    name: DataTableNewRowEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatablenewroweventargs
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.NewRowAdding(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+    name: NewRowAdding
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdding_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataTableNewRowEventArgs
+    name: DataTableNewRowEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatablenewroweventargs
+  - name: )
+- uid: Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  commentId: M:Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdded_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  name: NewRowAdded(MemTable, DataTableNewRowEventArgs)
+  nameWithType: DataModule.NewRowAdded(MemTable, DataTableNewRowEventArgs)
+  fullName: Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable, System.Data.DataTableNewRowEventArgs)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+    name: NewRowAdded
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdded_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataTableNewRowEventArgs
+    name: DataTableNewRowEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatablenewroweventargs
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
+    name: NewRowAdded
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_NewRowAdded_Tripous_Data_MemTable_System_Data_DataTableNewRowEventArgs_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: System.Data.DataTableNewRowEventArgs
+    name: DataTableNewRowEventArgs
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatablenewroweventargs
+  - name: )
+- uid: Tripous.Data.DataModule.ToString
+  commentId: M:Tripous.Data.DataModule.ToString
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ToString
+  name: ToString()
+  nameWithType: DataModule.ToString()
+  fullName: Tripous.Data.DataModule.ToString()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ToString
+    name: ToString
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ToString
+    name: ToString
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ToString
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  commentId: M:Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Initialize_Tripous_Data_ModuleDef_
+  name: Initialize(ModuleDef)
+  nameWithType: DataModule.Initialize(ModuleDef)
+  fullName: Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+    name: Initialize
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Initialize_Tripous_Data_ModuleDef_
+  - name: (
+  - uid: Tripous.Data.ModuleDef
+    name: ModuleDef
+    href: Tripous.Data.ModuleDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+    name: Initialize
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Initialize_Tripous_Data_ModuleDef_
+  - name: (
+  - uid: Tripous.Data.ModuleDef
+    name: ModuleDef
+    href: Tripous.Data.ModuleDef.html
+  - name: )
+- uid: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  commentId: M:Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_Tripous_Data_SelectDef_
+  name: ListSelect(SelectDef)
+  nameWithType: DataModule.ListSelect(SelectDef)
+  fullName: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+    name: ListSelect
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_Tripous_Data_SelectDef_
+  - name: (
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
+    name: ListSelect
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_Tripous_Data_SelectDef_
+  - name: (
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: )
+- uid: Tripous.Data.DataModule.ListSelect(System.String)
+  commentId: M:Tripous.Data.DataModule.ListSelect(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_System_String_
+  name: ListSelect(string)
+  nameWithType: DataModule.ListSelect(string)
+  fullName: Tripous.Data.DataModule.ListSelect(string)
+  nameWithType.vb: DataModule.ListSelect(String)
+  fullName.vb: Tripous.Data.DataModule.ListSelect(String)
+  name.vb: ListSelect(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ListSelect(System.String)
+    name: ListSelect
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ListSelect(System.String)
+    name: ListSelect
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.ListSave
+  commentId: M:Tripous.Data.DataModule.ListSave
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSave
+  name: ListSave()
+  nameWithType: DataModule.ListSave()
+  fullName: Tripous.Data.DataModule.ListSave()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ListSave
+    name: ListSave
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSave
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ListSave
+    name: ListSave
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSave
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.ListCancel
+  commentId: M:Tripous.Data.DataModule.ListCancel
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListCancel
+  name: ListCancel()
+  nameWithType: DataModule.ListCancel()
+  fullName: Tripous.Data.DataModule.ListCancel()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ListCancel
+    name: ListCancel
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListCancel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ListCancel
+    name: ListCancel
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListCancel
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.Insert
+  commentId: M:Tripous.Data.DataModule.Insert
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Insert
+  name: Insert()
+  nameWithType: DataModule.Insert()
+  fullName: Tripous.Data.DataModule.Insert()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Insert
+    name: Insert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Insert
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Insert
+    name: Insert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Insert
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.Edit(System.Object)
+  commentId: M:Tripous.Data.DataModule.Edit(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edit_System_Object_
+  name: Edit(object)
+  nameWithType: DataModule.Edit(object)
+  fullName: Tripous.Data.DataModule.Edit(object)
+  nameWithType.vb: DataModule.Edit(Object)
+  fullName.vb: Tripous.Data.DataModule.Edit(Object)
+  name.vb: Edit(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Edit(System.Object)
+    name: Edit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edit_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Edit(System.Object)
+    name: Edit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Edit_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.Delete(System.Object)
+  commentId: M:Tripous.Data.DataModule.Delete(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Delete_System_Object_
+  name: Delete(object)
+  nameWithType: DataModule.Delete(object)
+  fullName: Tripous.Data.DataModule.Delete(object)
+  nameWithType.vb: DataModule.Delete(Object)
+  fullName.vb: Tripous.Data.DataModule.Delete(Object)
+  name.vb: Delete(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Delete(System.Object)
+    name: Delete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Delete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Delete(System.Object)
+    name: Delete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Delete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.Commit(System.Boolean)
+  commentId: M:Tripous.Data.DataModule.Commit(System.Boolean)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commit_System_Boolean_
+  name: Commit(bool)
+  nameWithType: DataModule.Commit(bool)
+  fullName: Tripous.Data.DataModule.Commit(bool)
+  nameWithType.vb: DataModule.Commit(Boolean)
+  fullName.vb: Tripous.Data.DataModule.Commit(Boolean)
+  name.vb: Commit(Boolean)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Commit(System.Boolean)
+    name: Commit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Commit(System.Boolean)
+    name: Commit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Commit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.DataModule.Cancel
+  commentId: M:Tripous.Data.DataModule.Cancel
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Cancel
+  name: Cancel()
+  nameWithType: DataModule.Cancel()
+  fullName: Tripous.Data.DataModule.Cancel()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.Cancel
+    name: Cancel
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Cancel
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Cancel
+    name: Cancel
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Cancel
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.HasChanges
+  commentId: M:Tripous.Data.DataModule.HasChanges
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_HasChanges
+  name: HasChanges()
+  nameWithType: DataModule.HasChanges()
+  fullName: Tripous.Data.DataModule.HasChanges()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.HasChanges
+    name: HasChanges
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_HasChanges
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.HasChanges
+    name: HasChanges
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_HasChanges
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  commentId: M:Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CommitBatch_Tripous_Data_BatchCommitArgs_
+  name: CommitBatch(BatchCommitArgs)
+  nameWithType: DataModule.CommitBatch(BatchCommitArgs)
+  fullName: Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+    name: CommitBatch
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CommitBatch_Tripous_Data_BatchCommitArgs_
+  - name: (
+  - uid: Tripous.Data.BatchCommitArgs
+    name: BatchCommitArgs
+    href: Tripous.Data.BatchCommitArgs.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
+    name: CommitBatch
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CommitBatch_Tripous_Data_BatchCommitArgs_
+  - name: (
+  - uid: Tripous.Data.BatchCommitArgs
+    name: BatchCommitArgs
+    href: Tripous.Data.BatchCommitArgs.html
+  - name: )
+- uid: Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  commentId: M:Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BatchInsert_System_Data_DataTable_
+  name: BatchInsert(DataTable)
+  nameWithType: DataModule.BatchInsert(DataTable)
+  fullName: Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+    name: BatchInsert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BatchInsert_System_Data_DataTable_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+    name: BatchInsert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BatchInsert_System_Data_DataTable_
+  - name: (
+  - uid: System.Data.DataTable
+    name: DataTable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: )
+- uid: Tripous.Data.DataModule.CheckCanInsert
+  commentId: M:Tripous.Data.DataModule.CheckCanInsert
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanInsert
+  name: CheckCanInsert()
+  nameWithType: DataModule.CheckCanInsert()
+  fullName: Tripous.Data.DataModule.CheckCanInsert()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.CheckCanInsert
+    name: CheckCanInsert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanInsert
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.CheckCanInsert
+    name: CheckCanInsert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanInsert
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.CheckCanEdit(System.Object)
+  commentId: M:Tripous.Data.DataModule.CheckCanEdit(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanEdit_System_Object_
+  name: CheckCanEdit(object)
+  nameWithType: DataModule.CheckCanEdit(object)
+  fullName: Tripous.Data.DataModule.CheckCanEdit(object)
+  nameWithType.vb: DataModule.CheckCanEdit(Object)
+  fullName.vb: Tripous.Data.DataModule.CheckCanEdit(Object)
+  name.vb: CheckCanEdit(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.CheckCanEdit(System.Object)
+    name: CheckCanEdit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanEdit_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.CheckCanEdit(System.Object)
+    name: CheckCanEdit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanEdit_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.CheckCanDelete(System.Object)
+  commentId: M:Tripous.Data.DataModule.CheckCanDelete(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanDelete_System_Object_
+  name: CheckCanDelete(object)
+  nameWithType: DataModule.CheckCanDelete(object)
+  fullName: Tripous.Data.DataModule.CheckCanDelete(object)
+  nameWithType.vb: DataModule.CheckCanDelete(Object)
+  fullName.vb: Tripous.Data.DataModule.CheckCanDelete(Object)
+  name.vb: CheckCanDelete(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.CheckCanDelete(System.Object)
+    name: CheckCanDelete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanDelete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.CheckCanDelete(System.Object)
+    name: CheckCanDelete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanDelete_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+  commentId: M:Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanCommit_System_Boolean_
+  name: CheckCanCommit(bool)
+  nameWithType: DataModule.CheckCanCommit(bool)
+  fullName: Tripous.Data.DataModule.CheckCanCommit(bool)
+  nameWithType.vb: DataModule.CheckCanCommit(Boolean)
+  fullName.vb: Tripous.Data.DataModule.CheckCanCommit(Boolean)
+  name.vb: CheckCanCommit(Boolean)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+    name: CheckCanCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanCommit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
+    name: CheckCanCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CheckCanCommit_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.DataModule.TableExists(System.String)
+  commentId: M:Tripous.Data.DataModule.TableExists(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableExists_System_String_
+  name: TableExists(string)
+  nameWithType: DataModule.TableExists(string)
+  fullName: Tripous.Data.DataModule.TableExists(string)
+  nameWithType.vb: DataModule.TableExists(String)
+  fullName.vb: Tripous.Data.DataModule.TableExists(String)
+  name.vb: TableExists(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.TableExists(System.String)
+    name: TableExists
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableExists_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.TableExists(System.String)
+    name: TableExists
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_TableExists_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.FindTable(System.String)
+  commentId: M:Tripous.Data.DataModule.FindTable(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_FindTable_System_String_
+  name: FindTable(string)
+  nameWithType: DataModule.FindTable(string)
+  fullName: Tripous.Data.DataModule.FindTable(string)
+  nameWithType.vb: DataModule.FindTable(String)
+  fullName.vb: Tripous.Data.DataModule.FindTable(String)
+  name.vb: FindTable(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.FindTable(System.String)
+    name: FindTable
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_FindTable_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.FindTable(System.String)
+    name: FindTable
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_FindTable_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.GetTable(System.String)
+  commentId: M:Tripous.Data.DataModule.GetTable(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetTable_System_String_
+  name: GetTable(string)
+  nameWithType: DataModule.GetTable(string)
+  fullName: Tripous.Data.DataModule.GetTable(string)
+  nameWithType.vb: DataModule.GetTable(String)
+  fullName.vb: Tripous.Data.DataModule.GetTable(String)
+  name.vb: GetTable(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.GetTable(System.String)
+    name: GetTable
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetTable_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.GetTable(System.String)
+    name: GetTable
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetTable_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.IsInitialized
+  commentId: P:Tripous.Data.DataModule.IsInitialized
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsInitialized
+  name: IsInitialized
+  nameWithType: DataModule.IsInitialized
+  fullName: Tripous.Data.DataModule.IsInitialized
+- uid: Tripous.Data.DataModule.ModuleDef
+  commentId: P:Tripous.Data.DataModule.ModuleDef
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ModuleDef
+  name: ModuleDef
+  nameWithType: DataModule.ModuleDef
+  fullName: Tripous.Data.DataModule.ModuleDef
+- uid: Tripous.Data.DataModule.CodeProviderDef
+  commentId: P:Tripous.Data.DataModule.CodeProviderDef
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CodeProviderDef
+  name: CodeProviderDef
+  nameWithType: DataModule.CodeProviderDef
+  fullName: Tripous.Data.DataModule.CodeProviderDef
+- uid: Tripous.Data.DataModule.Store
+  commentId: P:Tripous.Data.DataModule.Store
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Store
+  name: Store
+  nameWithType: DataModule.Store
+  fullName: Tripous.Data.DataModule.Store
+- uid: Tripous.Data.DataModule.Item(System.String)
+  commentId: P:Tripous.Data.DataModule.Item(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: this[string]
+  nameWithType: DataModule.this[string]
+  fullName: Tripous.Data.DataModule.this[string]
+  nameWithType.vb: DataModule.this[](String)
+  fullName.vb: Tripous.Data.DataModule.this[](String)
+  name.vb: this[](String)
+  spec.csharp:
+  - name: this
+  - name: '['
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ']'
+  spec.vb:
+  - uid: Tripous.Data.DataModule.Item(System.String)
+    name: this[]
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Item_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.DataSet
+  commentId: P:Tripous.Data.DataModule.DataSet
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_DataSet
+  name: DataSet
+  nameWithType: DataModule.DataSet
+  fullName: Tripous.Data.DataModule.DataSet
+- uid: Tripous.Data.DataModule.tblList
+  commentId: P:Tripous.Data.DataModule.tblList
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_tblList
+  name: tblList
+  nameWithType: DataModule.tblList
+  fullName: Tripous.Data.DataModule.tblList
+- uid: Tripous.Data.DataModule.tblItem
+  commentId: P:Tripous.Data.DataModule.tblItem
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_tblItem
+  name: tblItem
+  nameWithType: DataModule.tblItem
+  fullName: Tripous.Data.DataModule.tblItem
+- uid: Tripous.Data.DataModule.Tables
+  commentId: P:Tripous.Data.DataModule.Tables
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Tables
+  name: Tables
+  nameWithType: DataModule.Tables
+  fullName: Tripous.Data.DataModule.Tables
+- uid: Tripous.Data.DataModule.ItemTables
+  commentId: F:Tripous.Data.DataModule.ItemTables
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ItemTables
+  name: ItemTables
+  nameWithType: DataModule.ItemTables
+  fullName: Tripous.Data.DataModule.ItemTables
+- uid: Tripous.Data.DataModule.Stocks
+  commentId: P:Tripous.Data.DataModule.Stocks
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Stocks
+  name: Stocks
+  nameWithType: DataModule.Stocks
+  fullName: Tripous.Data.DataModule.Stocks
+- uid: Tripous.Data.DataModule.Name
+  commentId: P:Tripous.Data.DataModule.Name
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Name
+  name: Name
+  nameWithType: DataModule.Name
+  fullName: Tripous.Data.DataModule.Name
+- uid: Tripous.Data.DataModule.DetailsActive
+  commentId: P:Tripous.Data.DataModule.DetailsActive
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_DetailsActive
+  name: DetailsActive
+  nameWithType: DataModule.DetailsActive
+  fullName: Tripous.Data.DataModule.DetailsActive
+- uid: Tripous.Data.DataModule.RowProviderHost
+  commentId: P:Tripous.Data.DataModule.RowProviderHost
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_RowProviderHost
+  name: RowProviderHost
+  nameWithType: DataModule.RowProviderHost
+  fullName: Tripous.Data.DataModule.RowProviderHost
+- uid: Tripous.Data.DataModule.State
+  commentId: P:Tripous.Data.DataModule.State
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_State
+  name: State
+  nameWithType: DataModule.State
+  fullName: Tripous.Data.DataModule.State
+- uid: Tripous.Data.DataModule.IsInserting
+  commentId: P:Tripous.Data.DataModule.IsInserting
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsInserting
+  name: IsInserting
+  nameWithType: DataModule.IsInserting
+  fullName: Tripous.Data.DataModule.IsInserting
+- uid: Tripous.Data.DataModule.IsEditing
+  commentId: P:Tripous.Data.DataModule.IsEditing
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsEditing
+  name: IsEditing
+  nameWithType: DataModule.IsEditing
+  fullName: Tripous.Data.DataModule.IsEditing
+- uid: Tripous.Data.DataModule.IsDeleting
+  commentId: P:Tripous.Data.DataModule.IsDeleting
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsDeleting
+  name: IsDeleting
+  nameWithType: DataModule.IsDeleting
+  fullName: Tripous.Data.DataModule.IsDeleting
+- uid: Tripous.Data.DataModule.IsCommiting
+  commentId: P:Tripous.Data.DataModule.IsCommiting
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_IsCommiting
+  name: IsCommiting
+  nameWithType: DataModule.IsCommiting
+  fullName: Tripous.Data.DataModule.IsCommiting
+- uid: Tripous.Data.DataModule.Variables
+  commentId: P:Tripous.Data.DataModule.Variables
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Variables
+  name: Variables
+  nameWithType: DataModule.Variables
+  fullName: Tripous.Data.DataModule.Variables
+- uid: Tripous.Data.DataModule.CurrentRow
+  commentId: P:Tripous.Data.DataModule.CurrentRow
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CurrentRow
+  name: CurrentRow
+  nameWithType: DataModule.CurrentRow
+  fullName: Tripous.Data.DataModule.CurrentRow
+- uid: Tripous.Data.DataModule.Id
+  commentId: P:Tripous.Data.DataModule.Id
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_Id
+  name: Id
+  nameWithType: DataModule.Id
+  fullName: Tripous.Data.DataModule.Id
+- uid: Tripous.Data.DataModule.LastEditedId
+  commentId: P:Tripous.Data.DataModule.LastEditedId
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LastEditedId
+  name: LastEditedId
+  nameWithType: DataModule.LastEditedId
+  fullName: Tripous.Data.DataModule.LastEditedId
+- uid: Tripous.Data.DataModule.LastCommitedId
+  commentId: P:Tripous.Data.DataModule.LastCommitedId
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LastCommitedId
+  name: LastCommitedId
+  nameWithType: DataModule.LastCommitedId
+  fullName: Tripous.Data.DataModule.LastCommitedId
+- uid: Tripous.Data.DataModule.LastDeletedId
+  commentId: P:Tripous.Data.DataModule.LastDeletedId
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_LastDeletedId
+  name: LastDeletedId
+  nameWithType: DataModule.LastDeletedId
+  fullName: Tripous.Data.DataModule.LastDeletedId
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.LogDataModule.#ctor*
+  commentId: Overload:Tripous.Data.LogDataModule.#ctor
+  href: Tripous.Data.LogDataModule.html#Tripous_Data_LogDataModule__ctor
+  name: LogDataModule
+  nameWithType: LogDataModule.LogDataModule
+  fullName: Tripous.Data.LogDataModule.LogDataModule
+  nameWithType.vb: LogDataModule.New
+  fullName.vb: Tripous.Data.LogDataModule.New
+  name.vb: New

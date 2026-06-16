@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SqlProviderPostgreSql | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SqlProviderPostgreSql | Tripous Framework Documentation ">
+      
+      <meta name="description" content="SqlProvider for PostgreSQL databases.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/tbebekis/Tripous.Avalon/new/main/apiSpec/new?filename=Tripous_Data_SqlProviderPostgreSql.md&amp;value=---%0Auid%3A%20Tripous.Data.SqlProviderPostgreSql%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.Data.SqlProviderPostgreSql">
+
+
+
+  <h1 id="Tripous_Data_SqlProviderPostgreSql" data-uid="Tripous.Data.SqlProviderPostgreSql" class="text-break">
+Class SqlProviderPostgreSql  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a>.<a class="xref" href="Tripous.Data.html">Data</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.Data.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>SqlProvider for PostgreSQL databases.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SqlProviderPostgreSql : SqlProvider</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Tripous.Data.SqlProvider.html">SqlProvider</a></div>
+      <div><span class="xref">SqlProviderPostgreSql</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_GlobalPrefix">SqlProvider.GlobalPrefix</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDecimalPlaceholders_System_String_">SqlProvider.ReplaceDecimalPlaceholders(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateParamMap_Tripous_Data_SqlParams_">SqlProvider.CreateParamMap(SqlParams)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_FindParam_System_Collections_Generic_Dictionary_System_String_Tripous_Data_SqlParam__System_String_System_String_">SqlProvider.FindParam(Dictionary&lt;string, SqlParam&gt;, string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_GetNativeParameterName_System_String_">SqlProvider.GetNativeParameterName(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_GetSqlParameterToken_System_String_">SqlProvider.GetSqlParameterToken(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateDbParameter_System_Data_Common_DbCommand_Tripous_Data_SqlParam_">SqlProvider.CreateDbParameter(DbCommand, SqlParam)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_PrepareCommand_System_Data_Common_DbCommand_System_String_Tripous_Data_SqlParams_">SqlProvider.PrepareCommand(DbCommand, string, SqlParams)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_DecimalWithArgsSql_System_String_">SqlProvider.DecimalWithArgsSql(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Log_System_Exception_System_String_System_Object___Tripous_Data_MemTable_">SqlProvider.Log(Exception, string, object[], MemTable)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_FormatSqlLogValue_System_Object_">SqlProvider.FormatSqlLogValue(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_FormatSqlParameters_System_Data_Common_DbParameterCollection_">SqlProvider.FormatSqlParameters(DbParameterCollection)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CanLogSql_System_String_">SqlProvider.CanLogSql(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_LogSql_System_Data_Common_DbCommand_">SqlProvider.LogSql(DbCommand)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateSqlParams_System_String_System_Object___">SqlProvider.CreateSqlParams(string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_WaitUntilDatabaseReady_System_String_System_Int32_System_Int32_">SqlProvider.WaitUntilDatabaseReady(string, int, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ReplaceDataTypePlaceholders_System_String_">SqlProvider.ReplaceDataTypePlaceholders(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateConnectionStringBuilder_System_String_">SqlProvider.CreateConnectionStringBuilder(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_GetDatabaseName_System_String_">SqlProvider.GetDatabaseName(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateConnection_System_String_">SqlProvider.CreateConnection(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateCommand_System_Data_Common_DbConnection_System_String_System_Object___">SqlProvider.CreateCommand(DbConnection, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateCommand_System_Data_Common_DbConnection_System_String_Tripous_Data_SqlParams_">SqlProvider.CreateCommand(DbConnection, string, SqlParams)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CanConnect_System_String_System_Boolean_">SqlProvider.CanConnect(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_DatabaseExists_System_String_">SqlProvider.DatabaseExists(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_EnsureConnection_System_String_">SqlProvider.EnsureConnection(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_OpenConnection_Tripous_Data_DbConnectionInfo_">SqlProvider.OpenConnection(DbConnectionInfo)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_OpenConnection_System_String_">SqlProvider.OpenConnection(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_">SqlProvider.BeginTransaction(DbConnectionInfo)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_System_String_">SqlProvider.BeginTransaction(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_NormalizeConnectionString_System_String_">SqlProvider.NormalizeConnectionString(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_CreateConnectionString_System_String_System_String_System_String_System_String_">SqlProvider.CreateConnectionString(string, string, string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Select_Tripous_Data_DbConnectionInfo_System_String_">SqlProvider.Select(DbConnectionInfo, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Select_Tripous_Data_DbConnectionInfo_System_String_System_Object___">SqlProvider.Select(DbConnectionInfo, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Select_System_String_System_String_">SqlProvider.Select(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Select_System_String_System_String_System_Object___">SqlProvider.Select(string, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Select_System_String_System_String_System_Int32_System_Object___">SqlProvider.Select(string, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Select_System_Data_Common_DbTransaction_System_String_System_Int32_System_Object___">SqlProvider.Select(DbTransaction, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectTo_Tripous_Data_DbConnectionInfo_Tripous_Data_MemTable_System_String_">SqlProvider.SelectTo(DbConnectionInfo, MemTable, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectTo_Tripous_Data_DbConnectionInfo_Tripous_Data_MemTable_System_String_System_Object___">SqlProvider.SelectTo(DbConnectionInfo, MemTable, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectTo_System_String_Tripous_Data_MemTable_System_String_System_Object___">SqlProvider.SelectTo(string, MemTable, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectTo_System_String_Tripous_Data_MemTable_System_String_System_Int32_System_Object___">SqlProvider.SelectTo(string, MemTable, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectTo_System_Data_Common_DbTransaction_Tripous_Data_MemTable_System_String_System_Int32_System_Object___">SqlProvider.SelectTo(DbTransaction, MemTable, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_Tripous_Data_DbConnectionInfo_System_String_">SqlProvider.ExecSql(DbConnectionInfo, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_Tripous_Data_DbConnectionInfo_System_String_System_Object___">SqlProvider.ExecSql(DbConnectionInfo, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_String_System_String_">SqlProvider.ExecSql(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_String_System_String_System_Object___">SqlProvider.ExecSql(string, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_String_System_String_System_Int32_System_Object___">SqlProvider.ExecSql(string, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_Tripous_Data_DbConnectionInfo_System_Collections_Generic_IEnumerable_System_String__">SqlProvider.ExecSql(DbConnectionInfo, IEnumerable&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_String_System_Collections_Generic_IEnumerable_System_String__">SqlProvider.ExecSql(string, IEnumerable&lt;string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_Data_Common_DbTransaction_System_String_">SqlProvider.ExecSql(DbTransaction, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_Data_Common_DbTransaction_System_String_System_Object___">SqlProvider.ExecSql(DbTransaction, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_Data_Common_DbTransaction_System_String_System_Int32_System_Object___">SqlProvider.ExecSql(DbTransaction, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_Tripous_Data_DbConnectionInfo_System_Action_System_Data_Common_DbTransaction__">SqlProvider.ExecSql(DbConnectionInfo, Action&lt;DbTransaction&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ExecSql_System_String_System_Action_System_Data_Common_DbTransaction__">SqlProvider.ExecSql(string, Action&lt;DbTransaction&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectResults_System_String_System_String_">SqlProvider.SelectResults(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectResults_System_String_System_String_System_Object___">SqlProvider.SelectResults(string, string, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectResults_System_Data_Common_DbTransaction_System_String_System_Int32_System_Object___">SqlProvider.SelectResults(DbTransaction, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectResult_System_String_System_String_">SqlProvider.SelectResult(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectResult_System_String_System_String_System_Object_">SqlProvider.SelectResult(string, string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectResult_System_String_System_String_System_Object_System_Object___">SqlProvider.SelectResult(string, string, object, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectResult_System_Data_Common_DbTransaction_System_String_System_Int32_System_Object_System_Object___">SqlProvider.SelectResult(DbTransaction, string, int, object, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_IntegerResult_System_String_System_String_System_Int32_">SqlProvider.IntegerResult(string, string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_IntegerResult_System_String_System_String_System_Int32_System_Object___">SqlProvider.IntegerResult(string, string, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_IntegerResult_System_Data_Common_DbTransaction_System_String_System_Int32_System_Int32_System_Object___">SqlProvider.IntegerResult(DbTransaction, string, int, int, params object[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectForUpdateSql_System_String_System_String_">SqlProvider.SelectForUpdateSql(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectForUpdate_System_Data_Common_DbTransaction_System_String_System_String_System_Object_">SqlProvider.SelectForUpdate(DbTransaction, string, string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectForUpdate_System_Data_Common_DbTransaction_System_String_System_String_System_Int32_System_Object_">SqlProvider.SelectForUpdate(DbTransaction, string, string, int, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectIncrementLocked_Tripous_Data_DbConnectionInfo_System_String_System_String_System_Object_System_String_">SqlProvider.SelectIncrementLocked(DbConnectionInfo, string, string, object, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectIncrementLocked_System_String_System_String_System_String_System_Object_System_String_System_Int32_">SqlProvider.SelectIncrementLocked(string, string, string, object, string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectIncrementLocked_System_Data_Common_DbTransaction_System_String_System_String_System_Object_System_String_System_Int32_">SqlProvider.SelectIncrementLocked(DbTransaction, string, string, object, string, int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_NormalizeRowLimit_System_Int32_">SqlProvider.NormalizeRowLimit(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_QuoteName_System_String_">SqlProvider.QuoteName(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Concat_System_String___">SqlProvider.Concat(params string[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_GetServerDateTime_Tripous_Data_DbConnectionInfo_">SqlProvider.GetServerDateTime(DbConnectionInfo)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_QSDate_System_DateTime_">SqlProvider.QSDate(DateTime)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_QSDateTime_System_DateTime_">SqlProvider.QSDateTime(DateTime)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SupportsAlterTableType_Tripous_Data_AlterTableType_">SqlProvider.SupportsAlterTableType(AlterTableType)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_AddColumnSql_System_String_System_String_">SqlProvider.AddColumnSql(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_DropColumnSql_System_String_System_String_">SqlProvider.DropColumnSql(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SetDefaultBeforeNotNullUpdateSql_System_String_System_String_System_String_System_Boolean_">SqlProvider.SetDefaultBeforeNotNullUpdateSql(string, string, string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_AddUniqueConstraintSql_System_String_System_String_System_String_">SqlProvider.AddUniqueConstraintSql(string, string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_DropUniqueConstraintSql_System_String_System_String_">SqlProvider.DropUniqueConstraintSql(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_AddForeignKeySql_System_String_System_String_System_String_System_String_System_String_">SqlProvider.AddForeignKeySql(string, string, string, string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_DropForeignKeySql_System_String_System_String_">SqlProvider.DropForeignKeySql(string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Name">SqlProvider.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Factory">SqlProvider.Factory</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ServerType">SqlProvider.ServerType</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_ConnectionStringAdapter">SqlProvider.ConnectionStringAdapter</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_PositionalParameters">SqlProvider.PositionalParameters</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_Description">SqlProvider.Description</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SupportsTransactions">SqlProvider.SupportsTransactions</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SupportedAlterTableTypes">SqlProvider.SupportedAlterTableTypes</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_DefaultCommandTimeoutSeconds">SqlProvider.DefaultCommandTimeoutSeconds</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_">TypeExtensions.InheritsFrom(object, Type)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_AutoIncSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.AutoIncSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_AutoIncSql" data-uid="Tripous.Data.SqlProviderPostgreSql.AutoIncSql">
+  AutoIncSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L273"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string AutoIncSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_BlobSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.BlobSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_BlobSql" data-uid="Tripous.Data.SqlProviderPostgreSql.BlobSql">
+  BlobSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L305"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string BlobSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_BlobTextSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.BlobTextSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_BlobTextSql" data-uid="Tripous.Data.SqlProviderPostgreSql.BlobTextSql">
+  BlobTextSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L309"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string BlobTextSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_BoolSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.BoolSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_BoolSql" data-uid="Tripous.Data.SqlProviderPostgreSql.BoolSql">
+  BoolSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L301"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string BoolSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_CanCreateDatabases_" data-uid="Tripous.Data.SqlProviderPostgreSql.CanCreateDatabases*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_CanCreateDatabases" data-uid="Tripous.Data.SqlProviderPostgreSql.CanCreateDatabases">
+  CanCreateDatabases
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L226"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the provider can create databases.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool CanCreateDatabases { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_ConnectionStringTemplate_" data-uid="Tripous.Data.SqlProviderPostgreSql.ConnectionStringTemplate*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_ConnectionStringTemplate" data-uid="Tripous.Data.SqlProviderPostgreSql.ConnectionStringTemplate">
+  ConnectionStringTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L213"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The connection string template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ConnectionStringTemplate { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_DatabaseKeys_" data-uid="Tripous.Data.SqlProviderPostgreSql.DatabaseKeys*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_DatabaseKeys" data-uid="Tripous.Data.SqlProviderPostgreSql.DatabaseKeys">
+  DatabaseKeys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L247"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A list of strings used as database name key in connection strings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string[] DatabaseKeys { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_DateSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.DateSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_DateSql" data-uid="Tripous.Data.SqlProviderPostgreSql.DateSql">
+  DateSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L293"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string DateSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_DateTimeSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.DateTimeSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_DateTimeSql" data-uid="Tripous.Data.SqlProviderPostgreSql.DateTimeSql">
+  DateTimeSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L297"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string DateTimeSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_DecimalSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.DecimalSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_DecimalSql" data-uid="Tripous.Data.SqlProviderPostgreSql.DecimalSql">
+  DecimalSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L289"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string DecimalSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_FloatSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.FloatSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_FloatSql" data-uid="Tripous.Data.SqlProviderPostgreSql.FloatSql">
+  FloatSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L285"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string FloatSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_LastIdSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.LastIdSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_LastIdSql" data-uid="Tripous.Data.SqlProviderPostgreSql.LastIdSql">
+  LastIdSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L264"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The SQL used to get the last inserted id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string LastIdSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_NBlobTextSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.NBlobTextSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_NBlobTextSql" data-uid="Tripous.Data.SqlProviderPostgreSql.NBlobTextSql">
+  NBlobTextSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L313"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string NBlobTextSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_NVarcharSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.NVarcharSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_NVarcharSql" data-uid="Tripous.Data.SqlProviderPostgreSql.NVarcharSql">
+  NVarcharSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L281"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string NVarcharSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_NativePrefix_" data-uid="Tripous.Data.SqlProviderPostgreSql.NativePrefix*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_NativePrefix" data-uid="Tripous.Data.SqlProviderPostgreSql.NativePrefix">
+  NativePrefix
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The prefix used for native parameters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string NativePrefix { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_NotNullSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.NotNullSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_NotNullSql" data-uid="Tripous.Data.SqlProviderPostgreSql.NotNullSql">
+  NotNullSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L317"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string NotNullSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_NullSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.NullSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_NullSql" data-uid="Tripous.Data.SqlProviderPostgreSql.NullSql">
+  NullSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L321"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string NullSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_ObjectEndDelimiter_" data-uid="Tripous.Data.SqlProviderPostgreSql.ObjectEndDelimiter*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_ObjectEndDelimiter" data-uid="Tripous.Data.SqlProviderPostgreSql.ObjectEndDelimiter">
+  ObjectEndDelimiter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L208"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The delimiter used to quote object names.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ObjectEndDelimiter { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_ObjectStartDelimiter_" data-uid="Tripous.Data.SqlProviderPostgreSql.ObjectStartDelimiter*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_ObjectStartDelimiter" data-uid="Tripous.Data.SqlProviderPostgreSql.ObjectStartDelimiter">
+  ObjectStartDelimiter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The delimiter used to quote object names.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ObjectStartDelimiter { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_OidMode_" data-uid="Tripous.Data.SqlProviderPostgreSql.OidMode*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_OidMode" data-uid="Tripous.Data.SqlProviderPostgreSql.OidMode">
+  OidMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L238"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The OidMode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override OidMode OidMode { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.OidMode.html">OidMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_PasswordKeys_" data-uid="Tripous.Data.SqlProviderPostgreSql.PasswordKeys*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_PasswordKeys" data-uid="Tripous.Data.SqlProviderPostgreSql.PasswordKeys">
+  PasswordKeys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L255"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A list of strings used as password key in connection strings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string[] PasswordKeys { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_PrimaryKeySql_" data-uid="Tripous.Data.SqlProviderPostgreSql.PrimaryKeySql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_PrimaryKeySql" data-uid="Tripous.Data.SqlProviderPostgreSql.PrimaryKeySql">
+  PrimaryKeySql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L269"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string PrimaryKeySql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_ServerDateTimeSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.ServerDateTimeSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_ServerDateTimeSql" data-uid="Tripous.Data.SqlProviderPostgreSql.ServerDateTimeSql">
+  ServerDateTimeSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L260"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The SQL used to get the current date and time of the database server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ServerDateTimeSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_ServerKeys_" data-uid="Tripous.Data.SqlProviderPostgreSql.ServerKeys*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_ServerKeys" data-uid="Tripous.Data.SqlProviderPostgreSql.ServerKeys">
+  ServerKeys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L243"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A list of strings used as server name key in connection strings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string[] ServerKeys { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SuperUser_" data-uid="Tripous.Data.SqlProviderPostgreSql.SuperUser*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SuperUser" data-uid="Tripous.Data.SqlProviderPostgreSql.SuperUser">
+  SuperUser
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The super user name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string SuperUser { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SuperUserPassword_" data-uid="Tripous.Data.SqlProviderPostgreSql.SuperUserPassword*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SuperUserPassword" data-uid="Tripous.Data.SqlProviderPostgreSql.SuperUserPassword">
+  SuperUserPassword
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L221"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The super user password.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string SuperUserPassword { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SupportsAutoIncFields_" data-uid="Tripous.Data.SqlProviderPostgreSql.SupportsAutoIncFields*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SupportsAutoIncFields" data-uid="Tripous.Data.SqlProviderPostgreSql.SupportsAutoIncFields">
+  SupportsAutoIncFields
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L234"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if the provider supports auto-increment fields.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool SupportsAutoIncFields { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SupportsGenerators_" data-uid="Tripous.Data.SqlProviderPostgreSql.SupportsGenerators*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SupportsGenerators" data-uid="Tripous.Data.SqlProviderPostgreSql.SupportsGenerators">
+  SupportsGenerators
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if the provider supports generators.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool SupportsGenerators { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_UserNameKeys_" data-uid="Tripous.Data.SqlProviderPostgreSql.UserNameKeys*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_UserNameKeys" data-uid="Tripous.Data.SqlProviderPostgreSql.UserNameKeys">
+  UserNameKeys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L251"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A list of strings used as user name key in connection strings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string[] UserNameKeys { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_VarcharSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.VarcharSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_VarcharSql" data-uid="Tripous.Data.SqlProviderPostgreSql.VarcharSql">
+  VarcharSql
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L277"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyword, used in replacing a placeholder</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string VarcharSql { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_ApplyRowLimit_" data-uid="Tripous.Data.SqlProviderPostgreSql.ApplyRowLimit*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_ApplyRowLimit_System_String_System_Int32_" data-uid="Tripous.Data.SqlProviderPostgreSql.ApplyRowLimit(System.String,System.Int32)">
+  ApplyRowLimit(string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies a row limit to the SqlText.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ApplyRowLimit(string SqlText, int RowLimit)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>RowLimit</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_CreateDatabase_" data-uid="Tripous.Data.SqlProviderPostgreSql.CreateDatabase*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_CreateDatabase_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.CreateDatabase(System.String)">
+  CreateDatabase(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool CreateDatabase(string ConnectionString)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_CreateGenerator_" data-uid="Tripous.Data.SqlProviderPostgreSql.CreateGenerator*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_CreateGenerator_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.CreateGenerator(System.String,System.String)">
+  CreateGenerator(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates the GeneratorName generator to the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void CreateGenerator(string ConnectionString, string GeneratorName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>GeneratorName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_DropColumnDefaultSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.DropColumnDefaultSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_DropColumnDefaultSql_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.DropColumnDefaultSql(System.String,System.String)">
+  DropColumnDefaultSql(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an &quot;alter column&quot; SQL statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string DropColumnDefaultSql(string TableName, string ColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_DropNotNullSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.DropNotNullSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_DropNotNullSql_System_String_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.DropNotNullSql(System.String,System.String,System.String)">
+  DropNotNullSql(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L123"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an &quot;alter column&quot; SQL statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string DropNotNullSql(string TableName, string ColumnName, string DataType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>DataType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_GeneratorExists_" data-uid="Tripous.Data.SqlProviderPostgreSql.GeneratorExists*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_GeneratorExists_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.GeneratorExists(System.String,System.String)">
+  GeneratorExists(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the GeneratorName exists in a database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool GeneratorExists(string ConnectionString, string GeneratorName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>GeneratorName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_GetServerDateTime_" data-uid="Tripous.Data.SqlProviderPostgreSql.GetServerDateTime*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_GetServerDateTime_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.GetServerDateTime(System.String)">
+  GetServerDateTime(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the current date and time of the database server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DateTime GetServerDateTime(string ConnectionString)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_LastId_" data-uid="Tripous.Data.SqlProviderPostgreSql.LastId*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_LastId_System_Data_Common_DbTransaction_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.LastId(System.Data.Common.DbTransaction,System.String)">
+  LastId(DbTransaction, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the last id produced by an INSERT Sqlt statement.</p>
+<p>It should be used only with databases that support identity (auto-increment) columns</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int LastId(DbTransaction Transaction, string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_NextIdByGenerator_" data-uid="Tripous.Data.SqlProviderPostgreSql.NextIdByGenerator*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_NextIdByGenerator_System_Data_Common_DbTransaction_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.NextIdByGenerator(System.Data.Common.DbTransaction,System.String)">
+  NextIdByGenerator(DbTransaction, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the next value of the GeneratorName generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int NextIdByGenerator(DbTransaction Transaction, string GeneratorName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Transaction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction">DbTransaction</a></dt>
+    <dd></dd>
+    <dt><code>GeneratorName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_RenameColumnSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.RenameColumnSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_RenameColumnSql_System_String_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.RenameColumnSql(System.String,System.String,System.String)">
+  RenameColumnSql(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an &quot;alter column&quot; SQL statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string RenameColumnSql(string TableName, string ColumnName, string NewColumnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>NewColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SetColumnDefaultSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetColumnDefaultSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SetColumnDefaultSql_System_String_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetColumnDefaultSql(System.String,System.String,System.String)">
+  SetColumnDefaultSql(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an &quot;alter column&quot; SQL statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string SetColumnDefaultSql(string TableName, string ColumnName, string DefaultExpression)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>DefaultExpression</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SetColumnLengthSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetColumnLengthSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SetColumnLengthSql_System_String_System_String_System_String_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetColumnLengthSql(System.String,System.String,System.String,System.String,System.String)">
+  SetColumnLengthSql(string, string, string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an &quot;alter column&quot; SQL statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string SetColumnLengthSql(string TableName, string ColumnName, string DataType, string Required, string DefaultExpression)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>DataType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Required</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>DefaultExpression</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SetGeneratorTo_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetGeneratorTo*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SetGeneratorTo_System_String_System_String_System_Int32_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetGeneratorTo(System.String,System.String,System.Int32)">
+  SetGeneratorTo(string, string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to set a generator/sequencer to Value.</p>
+<p>DANGEROOUS.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void SetGeneratorTo(string ConnectionString, string GeneratorName, int Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>GeneratorName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SetNotNullSql_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetNotNullSql*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SetNotNullSql_System_String_System_String_System_String_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetNotNullSql(System.String,System.String,System.String)">
+  SetNotNullSql(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an &quot;alter column&quot; SQL statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string SetNotNullSql(string TableName, string ColumnName, string DataType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>ColumnName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>DataType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SqlProviderPostgreSql_SetTableGeneratorTo_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetTableGeneratorTo*"></a>
+
+  <h3 id="Tripous_Data_SqlProviderPostgreSql_SetTableGeneratorTo_System_String_System_String_System_Int32_" data-uid="Tripous.Data.SqlProviderPostgreSql.SetTableGeneratorTo(System.String,System.String,System.Int32)">
+  SetTableGeneratorTo(string, string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to set a generator/sequencer or identity column to Value.</p>
+<p>VERY DANGEROOUS.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void SetTableGeneratorTo(string ConnectionString, string TableName, int Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ConnectionString</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SqlProviderPostgreSql.cs/#L14" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

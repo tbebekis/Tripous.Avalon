@@ -81,13 +81,23 @@ public class DataTableDef
 
 
     /// <summary>
-    /// Creates or alters a specified table in the database.
-    /// <para>When only the new definition is passed a new database table is created.</para>
-    /// <para>When both the new and the old definitions are passed, the function compares their fields and adds, drops or alters columns accordingly.</para>
+    /// Creates or alters a specified table in the default database connection.
+    /// <para>Use the overload with a <see cref="DbConnectionInfo"/> parameter to target a specific database connection.</para>
     /// </summary>
     static public void CreateOrAlterTable(DataTableDef NewTableDef, DataTableDef OldTableDef = null)
     {
+        CreateOrAlterTable(Db.GetDefaultConnectionInfo(), NewTableDef, OldTableDef);
+    }
+    /// <summary>
+    /// Creates or alters a specified table in the specified database connection.
+    /// <para>When only the new definition is passed a new database table is created.</para>
+    /// <para>When both the new and the old definitions are passed, the function compares their fields and adds, drops or alters columns accordingly.</para>
+    /// </summary>
+    static public void CreateOrAlterTable(DbConnectionInfo ConnectionInfo, DataTableDef NewTableDef, DataTableDef OldTableDef = null)
+    {
         // EDW: Test alter table with various databases
+        if (ConnectionInfo == null)
+            throw new TripousArgumentNullException(nameof(ConnectionInfo));
 
         void Throw(string Text)
         {
@@ -104,7 +114,7 @@ public class DataTableDef
             SqlText = NewTableDef.GetDefText();
             SchemaVersion SV = new SchemaVersion();
             SV.AddTable(SqlText);
-            SV.Execute();
+            SV.Execute(ConnectionInfo);
         }
         // is alter table columns
         else
@@ -116,7 +126,7 @@ public class DataTableDef
             string ForeignTableName;
             string ForeignFieldName;
 
-            SqlStore SqlStore = SqlStores.Default;
+            SqlStore SqlStore = SqlStores.CreateSqlStore(ConnectionInfo);
             SqlProvider Provider = SqlStore.Provider;
 
             List<string> SqlTextList = new List<string>();
@@ -134,7 +144,7 @@ public class DataTableDef
             foreach (var OldField in OldTableDef.Fields)
             {
                 var NewField = NewTableDef.Fields.FirstOrDefault(item => Sys.IsSameText(item.Id, OldField.Id));
-                if (OldField == null)
+                if (NewField == null)
                 {
                     if (OldField.Unique && Provider.SupportsAlterTableType(AlterTableType.TableUniqueConstraint))
                     {
@@ -377,6 +387,7 @@ public class DataTableDef
             string FieldName = field.Name.ToLowerInvariant();
             if (FieldNames.Contains(FieldName))
                 Throw($"Column: {field.Name}. Duplicate column name");
+            FieldNames.Add(FieldName);
         });
 
 
@@ -390,6 +401,8 @@ public class DataTableDef
 
         // primary key data-type
         DataFieldDef F = Fields.FirstOrDefault(field => field.IsPrimaryKey);
+        if (F == null)
+            Throw($"No primary key.");
         if (!(F.DataType == DataFieldType.String || F.DataType == DataFieldType.Integer))
             Throw($"Not supported data-type for primary key: {F.DataType.ToString()}");
 
@@ -516,7 +529,7 @@ public class DataTableDef
     /// </summary>
     public DataFieldDef AddStringId(string FieldName = "Id", int Length = 40, string TitleKey = null)
     {
-        return AddId(FieldName, DataFieldType.String, 0, TitleKey);
+        return AddId(FieldName, DataFieldType.String, Length, TitleKey);
     }
 
     /// <summary>
@@ -660,6 +673,3 @@ public class DataTableDef
     static public int IdentifierMaxLength { get; set; } = 30;
 
 }
-
-
-

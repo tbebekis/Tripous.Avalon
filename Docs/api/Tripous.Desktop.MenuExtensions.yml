@@ -1,0 +1,1357 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.MenuExtensions
+  commentId: T:Tripous.Desktop.MenuExtensions
+  id: MenuExtensions
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String)
+  - Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Action)
+  - Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean)
+  - Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action)
+  - Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action,System.Object)
+  - Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  - Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action,System.Object)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.Action)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.Action,System.Object)
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  - Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  - Tripous.Desktop.MenuExtensions.AddSeparator(Avalonia.Controls.MenuItem)
+  - Tripous.Desktop.MenuExtensions.AddSeparator(System.Collections.IList)
+  langs:
+  - csharp
+  - vb
+  name: MenuExtensions
+  nameWithType: MenuExtensions
+  fullName: Tripous.Desktop.MenuExtensions
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MenuExtensions
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides extension methods for creating menu items.
+  example: []
+  syntax:
+    content: public static class MenuExtensions
+    content.vb: Public Module MenuExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String)
+  id: AddMenuItem(System.Collections.IList,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(IList, string)
+  nameWithType: MenuExtensions.AddMenuItem(IList, string)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this IList Items, string Header)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(Items As IList, Header As String) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(IList, String)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, String)
+  name.vb: AddMenuItem(IList, String)
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  id: AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(IList, string, EventHandler<RoutedEventArgs>)
+  nameWithType: MenuExtensions.AddMenuItem(IList, string, EventHandler<RoutedEventArgs>)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, string, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this IList Items, string Header, EventHandler<RoutedEventArgs> Click)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Click
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The click event handler.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(Items As IList, Header As String, Click As EventHandler(Of RoutedEventArgs)) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(IList, String, EventHandler(Of RoutedEventArgs))
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, String, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs))
+  name.vb: AddMenuItem(IList, String, EventHandler(Of RoutedEventArgs))
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  id: AddMenuItem(System.Collections.IList,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(IList, string, EventHandler<RoutedEventArgs>, object)
+  nameWithType: MenuExtensions.AddMenuItem(IList, string, EventHandler<RoutedEventArgs>, object)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, string, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this IList Items, string Header, EventHandler<RoutedEventArgs> Click, object Tag)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Click
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The click event handler.
+    - id: Tag
+      type: System.Object
+      description: The menu item tag.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(Items As IList, Header As String, Click As EventHandler(Of RoutedEventArgs), Tag As Object) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(IList, String, EventHandler(Of RoutedEventArgs), Object)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, String, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs), Object)
+  name.vb: AddMenuItem(IList, String, EventHandler(Of RoutedEventArgs), Object)
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.Action)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.Action)
+  id: AddMenuItem(System.Collections.IList,System.String,System.Action)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(IList, string, Action)
+  nameWithType: MenuExtensions.AddMenuItem(IList, string, Action)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, string, System.Action)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 61
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this IList Items, string Header, Action Action)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(Items As IList, Header As String, Action As Action) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(IList, String, Action)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, String, System.Action)
+  name.vb: AddMenuItem(IList, String, Action)
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.Action,System.Object)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList,System.String,System.Action,System.Object)
+  id: AddMenuItem(System.Collections.IList,System.String,System.Action,System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(IList, string, Action, object)
+  nameWithType: MenuExtensions.AddMenuItem(IList, string, Action, object)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, string, System.Action, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this IList Items, string Header, Action Action, object Tag)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    - id: Tag
+      type: System.Object
+      description: The menu item tag.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(Items As IList, Header As String, Action As Action, Tag As Object) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(IList, String, Action, Object)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(System.Collections.IList, String, System.Action, Object)
+  name.vb: AddMenuItem(IList, String, Action, Object)
+- uid: Tripous.Desktop.MenuExtensions.AddSeparator(System.Collections.IList)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddSeparator(System.Collections.IList)
+  id: AddSeparator(System.Collections.IList)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddSeparator(IList)
+  nameWithType: MenuExtensions.AddSeparator(IList)
+  fullName: Tripous.Desktop.MenuExtensions.AddSeparator(System.Collections.IList)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddSeparator
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 87
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a separator to an item list.
+  example: []
+  syntax:
+    content: public static Separator AddSeparator(this IList Items)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    return:
+      type: Avalonia.Controls.Separator
+      description: The created separator.
+    content.vb: Public Shared Function AddSeparator(Items As IList) As Separator
+  overload: Tripous.Desktop.MenuExtensions.AddSeparator*
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String)
+  id: AddMenuItem(Avalonia.Controls.MenuItem,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(MenuItem, string)
+  nameWithType: MenuExtensions.AddMenuItem(MenuItem, string)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 100
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a child menu item to a menu item.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this MenuItem MenuItem, string Header)
+    parameters:
+    - id: MenuItem
+      type: Avalonia.Controls.MenuItem
+      description: The parent menu item.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(MenuItem As MenuItem, Header As String) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(MenuItem, String)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, String)
+  name.vb: AddMenuItem(MenuItem, String)
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  id: AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(MenuItem, string, EventHandler<RoutedEventArgs>)
+  nameWithType: MenuExtensions.AddMenuItem(MenuItem, string, EventHandler<RoutedEventArgs>)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, string, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 112
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a child menu item to a menu item.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this MenuItem MenuItem, string Header, EventHandler<RoutedEventArgs> Click)
+    parameters:
+    - id: MenuItem
+      type: Avalonia.Controls.MenuItem
+      description: The parent menu item.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Click
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The click event handler.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(MenuItem As MenuItem, Header As String, Click As EventHandler(Of RoutedEventArgs)) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(MenuItem, String, EventHandler(Of RoutedEventArgs))
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, String, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs))
+  name.vb: AddMenuItem(MenuItem, String, EventHandler(Of RoutedEventArgs))
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  id: AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(MenuItem, string, EventHandler<RoutedEventArgs>, object)
+  nameWithType: MenuExtensions.AddMenuItem(MenuItem, string, EventHandler<RoutedEventArgs>, object)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, string, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 125
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a child menu item to a menu item.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this MenuItem MenuItem, string Header, EventHandler<RoutedEventArgs> Click, object Tag)
+    parameters:
+    - id: MenuItem
+      type: Avalonia.Controls.MenuItem
+      description: The parent menu item.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Click
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The click event handler.
+    - id: Tag
+      type: System.Object
+      description: The menu item tag.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(MenuItem As MenuItem, Header As String, Click As EventHandler(Of RoutedEventArgs), Tag As Object) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(MenuItem, String, EventHandler(Of RoutedEventArgs), Object)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, String, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs), Object)
+  name.vb: AddMenuItem(MenuItem, String, EventHandler(Of RoutedEventArgs), Object)
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action)
+  id: AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(MenuItem, string, Action)
+  nameWithType: MenuExtensions.AddMenuItem(MenuItem, string, Action)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, string, System.Action)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 136
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a child menu item to a menu item.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this MenuItem MenuItem, string Header, Action Action)
+    parameters:
+    - id: MenuItem
+      type: Avalonia.Controls.MenuItem
+      description: The parent menu item.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(MenuItem As MenuItem, Header As String, Action As Action) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(MenuItem, String, Action)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, String, System.Action)
+  name.vb: AddMenuItem(MenuItem, String, Action)
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action,System.Object)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action,System.Object)
+  id: AddMenuItem(Avalonia.Controls.MenuItem,System.String,System.Action,System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddMenuItem(MenuItem, string, Action, object)
+  nameWithType: MenuExtensions.AddMenuItem(MenuItem, string, Action, object)
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, string, System.Action, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 149
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a child menu item to a menu item.
+  example: []
+  syntax:
+    content: public static MenuItem AddMenuItem(this MenuItem MenuItem, string Header, Action Action, object Tag)
+    parameters:
+    - id: MenuItem
+      type: Avalonia.Controls.MenuItem
+      description: The parent menu item.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    - id: Tag
+      type: System.Object
+      description: The menu item tag.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddMenuItem(MenuItem As MenuItem, Header As String, Action As Action, Tag As Object) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  nameWithType.vb: MenuExtensions.AddMenuItem(MenuItem, String, Action, Object)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddMenuItem(Avalonia.Controls.MenuItem, String, System.Action, Object)
+  name.vb: AddMenuItem(MenuItem, String, Action, Object)
+- uid: Tripous.Desktop.MenuExtensions.AddSeparator(Avalonia.Controls.MenuItem)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddSeparator(Avalonia.Controls.MenuItem)
+  id: AddSeparator(Avalonia.Controls.MenuItem)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddSeparator(MenuItem)
+  nameWithType: MenuExtensions.AddSeparator(MenuItem)
+  fullName: Tripous.Desktop.MenuExtensions.AddSeparator(Avalonia.Controls.MenuItem)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddSeparator
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a separator to a menu item.
+  example: []
+  syntax:
+    content: public static Separator AddSeparator(this MenuItem MenuItem)
+    parameters:
+    - id: MenuItem
+      type: Avalonia.Controls.MenuItem
+      description: The parent menu item.
+    return:
+      type: Avalonia.Controls.Separator
+      description: The created separator.
+    content.vb: Public Shared Function AddSeparator(MenuItem As MenuItem) As Separator
+  overload: Tripous.Desktop.MenuExtensions.AddSeparator*
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String)
+  id: AddCheckBoxMenuItem(System.Collections.IList,System.String)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBoxMenuItem(IList, string)
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem(IList, string)
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBoxMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 169
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddCheckBoxMenuItem(this IList Items, string Header)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddCheckBoxMenuItem(Items As IList, Header As String) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  nameWithType.vb: MenuExtensions.AddCheckBoxMenuItem(IList, String)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, String)
+  name.vb: AddCheckBoxMenuItem(IList, String)
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean)
+  id: AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBoxMenuItem(IList, string, bool)
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem(IList, string, bool)
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBoxMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 181
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddCheckBoxMenuItem(this IList Items, string Header, bool IsChecked)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: IsChecked
+      type: System.Boolean
+      description: True when the menu item is checked.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddCheckBoxMenuItem(Items As IList, Header As String, IsChecked As Boolean) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  nameWithType.vb: MenuExtensions.AddCheckBoxMenuItem(IList, String, Boolean)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, String, Boolean)
+  name.vb: AddCheckBoxMenuItem(IList, String, Boolean)
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  commentId: M:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  id: AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs})
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBoxMenuItem(IList, string, bool, EventHandler<RoutedEventArgs>)
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem(IList, string, bool, EventHandler<RoutedEventArgs>)
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, string, bool, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBoxMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 194
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddCheckBoxMenuItem(this IList Items, string Header, bool IsChecked, EventHandler<RoutedEventArgs> Click)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: IsChecked
+      type: System.Boolean
+      description: True when the menu item is checked.
+    - id: Click
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The click event handler.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddCheckBoxMenuItem(Items As IList, Header As String, IsChecked As Boolean, Click As EventHandler(Of RoutedEventArgs)) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  nameWithType.vb: MenuExtensions.AddCheckBoxMenuItem(IList, String, Boolean, EventHandler(Of RoutedEventArgs))
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, String, Boolean, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs))
+  name.vb: AddCheckBoxMenuItem(IList, String, Boolean, EventHandler(Of RoutedEventArgs))
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  id: AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.EventHandler{Avalonia.Interactivity.RoutedEventArgs},System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBoxMenuItem(IList, string, bool, EventHandler<RoutedEventArgs>, object)
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem(IList, string, bool, EventHandler<RoutedEventArgs>, object)
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, string, bool, System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBoxMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 208
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddCheckBoxMenuItem(this IList Items, string Header, bool IsChecked, EventHandler<RoutedEventArgs> Click, object Tag)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: IsChecked
+      type: System.Boolean
+      description: True when the menu item is checked.
+    - id: Click
+      type: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+      description: The click event handler.
+    - id: Tag
+      type: System.Object
+      description: The menu item tag.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddCheckBoxMenuItem(Items As IList, Header As String, IsChecked As Boolean, Click As EventHandler(Of RoutedEventArgs), Tag As Object) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  nameWithType.vb: MenuExtensions.AddCheckBoxMenuItem(IList, String, Boolean, EventHandler(Of RoutedEventArgs), Object)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, String, Boolean, System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs), Object)
+  name.vb: AddCheckBoxMenuItem(IList, String, Boolean, EventHandler(Of RoutedEventArgs), Object)
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Action)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Action)
+  id: AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Action)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBoxMenuItem(IList, string, Action)
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem(IList, string, Action)
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, string, System.Action)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBoxMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 228
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddCheckBoxMenuItem(this IList Items, string Header, Action Action)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddCheckBoxMenuItem(Items As IList, Header As String, Action As Action) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  nameWithType.vb: MenuExtensions.AddCheckBoxMenuItem(IList, String, Action)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, String, System.Action)
+  name.vb: AddCheckBoxMenuItem(IList, String, Action)
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action)
+  id: AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBoxMenuItem(IList, string, bool, Action)
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem(IList, string, bool, Action)
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, string, bool, System.Action)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBoxMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 241
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddCheckBoxMenuItem(this IList Items, string Header, bool IsChecked, Action Action)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: IsChecked
+      type: System.Boolean
+      description: True when the menu item is checked.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddCheckBoxMenuItem(Items As IList, Header As String, IsChecked As Boolean, Action As Action) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  nameWithType.vb: MenuExtensions.AddCheckBoxMenuItem(IList, String, Boolean, Action)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, String, Boolean, System.Action)
+  name.vb: AddCheckBoxMenuItem(IList, String, Boolean, Action)
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action,System.Object)
+  commentId: M:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action,System.Object)
+  id: AddCheckBoxMenuItem(System.Collections.IList,System.String,System.Boolean,System.Action,System.Object)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.MenuExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddCheckBoxMenuItem(IList, string, bool, Action, object)
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem(IList, string, bool, Action, object)
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, string, bool, System.Action, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Extensions/MenuExtensions.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddCheckBoxMenuItem
+    path: ../Tripous.Desktop/Extensions/MenuExtensions.cs
+    startLine: 255
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Adds a check box menu item to an item list.
+  example: []
+  syntax:
+    content: public static MenuItem AddCheckBoxMenuItem(this IList Items, string Header, bool IsChecked, Action Action, object Tag)
+    parameters:
+    - id: Items
+      type: System.Collections.IList
+      description: The item list.
+    - id: Header
+      type: System.String
+      description: The menu item header.
+    - id: IsChecked
+      type: System.Boolean
+      description: True when the menu item is checked.
+    - id: Action
+      type: System.Action
+      description: The click action.
+    - id: Tag
+      type: System.Object
+      description: The menu item tag.
+    return:
+      type: Avalonia.Controls.MenuItem
+      description: The created menu item.
+    content.vb: Public Shared Function AddCheckBoxMenuItem(Items As IList, Header As String, IsChecked As Boolean, Action As Action, Tag As Object) As MenuItem
+  overload: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  nameWithType.vb: MenuExtensions.AddCheckBoxMenuItem(IList, String, Boolean, Action, Object)
+  fullName.vb: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem(System.Collections.IList, String, Boolean, System.Action, Object)
+  name.vb: AddCheckBoxMenuItem(IList, String, Boolean, Action, Object)
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Desktop.MenuExtensions.AddMenuItem*
+  commentId: Overload:Tripous.Desktop.MenuExtensions.AddMenuItem
+  href: Tripous.Desktop.MenuExtensions.html#Tripous_Desktop_MenuExtensions_AddMenuItem_System_Collections_IList_System_String_
+  name: AddMenuItem
+  nameWithType: MenuExtensions.AddMenuItem
+  fullName: Tripous.Desktop.MenuExtensions.AddMenuItem
+- uid: System.Collections.IList
+  commentId: T:System.Collections.IList
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ilist
+  name: IList
+  nameWithType: IList
+  fullName: System.Collections.IList
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.MenuItem
+  commentId: T:Avalonia.Controls.MenuItem
+  parent: Avalonia.Controls
+  isExternal: true
+  name: MenuItem
+  nameWithType: MenuItem
+  fullName: Avalonia.Controls.MenuItem
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+  commentId: T:System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<RoutedEventArgs>
+  nameWithType: EventHandler<RoutedEventArgs>
+  fullName: System.EventHandler<Avalonia.Interactivity.RoutedEventArgs>
+  nameWithType.vb: EventHandler(Of RoutedEventArgs)
+  fullName.vb: System.EventHandler(Of Avalonia.Interactivity.RoutedEventArgs)
+  name.vb: EventHandler(Of RoutedEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - uid: Avalonia.Interactivity.RoutedEventArgs
+    name: RoutedEventArgs
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Interactivity.RoutedEventArgs
+    name: RoutedEventArgs
+    isExternal: true
+  - name: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )
+- uid: System.Action
+  commentId: T:System.Action
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action
+  name: Action
+  nameWithType: Action
+  fullName: System.Action
+- uid: Tripous.Desktop.MenuExtensions.AddSeparator*
+  commentId: Overload:Tripous.Desktop.MenuExtensions.AddSeparator
+  href: Tripous.Desktop.MenuExtensions.html#Tripous_Desktop_MenuExtensions_AddSeparator_System_Collections_IList_
+  name: AddSeparator
+  nameWithType: MenuExtensions.AddSeparator
+  fullName: Tripous.Desktop.MenuExtensions.AddSeparator
+- uid: Avalonia.Controls.Separator
+  commentId: T:Avalonia.Controls.Separator
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Separator
+  nameWithType: Separator
+  fullName: Avalonia.Controls.Separator
+- uid: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem*
+  commentId: Overload:Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem
+  href: Tripous.Desktop.MenuExtensions.html#Tripous_Desktop_MenuExtensions_AddCheckBoxMenuItem_System_Collections_IList_System_String_
+  name: AddCheckBoxMenuItem
+  nameWithType: MenuExtensions.AddCheckBoxMenuItem
+  fullName: Tripous.Desktop.MenuExtensions.AddCheckBoxMenuItem
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

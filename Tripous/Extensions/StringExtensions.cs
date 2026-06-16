@@ -65,15 +65,14 @@ namespace Tripous
         }
         
         /// <summary>
-        /// Splits the specified Text into lines, taking the Environment.NewLine as separator.
+        /// Splits the specified text into lines using common line separators.
         /// </summary>
         static public string[] ToLines(this string Text)
         {
             if (string.IsNullOrWhiteSpace(Text))
                 return new string[0];
 
-            Regex rx = new Regex(Environment.NewLine);
-            return rx.Split(Text);
+            return Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
         }
         
@@ -82,8 +81,11 @@ namespace Tripous
         /// </summary>
         static public string Quote(this string S)
         {
+            if (S == null)
+                return "null";
+
             StringBuilder SB = new StringBuilder(S);
-            SB.Replace('\'', ' ');
+            SB.Replace("'", "''");
             SB.Insert(0, "'");
             SB.Append('\'');
 
@@ -98,7 +100,7 @@ namespace Tripous
         }
         
         /// <summary>
-        /// Quotes a path only if contains spaces.
+        /// Quotes a path if it is not already quoted.
         /// </summary>
         static public string QuotePath(this string Path)
         {
@@ -156,7 +158,7 @@ namespace Tripous
         /// </summary>
         static public string SplitCamelCase(this string Text)
         {
-            return string.IsNullOrWhiteSpace(Text) ? string.Empty : Regex.Replace(Text, "(?<=[a-z])([A-Z])", " $1", RegexOptions.Compiled).Trim();
+            return string.Join(" ", Text.SplitToWordList());
         }
         /// <summary>
         /// Splits a string into words at each uppercase letter. 
@@ -199,29 +201,11 @@ namespace Tripous
             return Result;
         }
         /// <summary>
-        /// Splits a string into words at each uppercase letter. 
-        /// Existing spaces are preserved.
+        /// Splits a string into acronym-aware words.
         /// </summary>
         static public string SplitToWords(this string Text)
         {
-            if (string.IsNullOrWhiteSpace(Text))
-                return Text;
-
-            StringBuilder Result = new StringBuilder();
-            Result.Append(Text[0]);
-
-            for (int I = 1; I < Text.Length; I++)
-            {
-                // ● If it's uppercase and the previous character wasn't a space, add a space
-                if (char.IsUpper(Text[I]) && Text[I - 1] != ' ')
-                {
-                    Result.Append(' ');
-                }
-
-                Result.Append(Text[I]);
-            }
-
-            return Result.ToString();
+            return string.Join(" ", Text.SplitToWordList());
         }
         /// <summary>
         /// Converts a word to its plural form.
@@ -230,6 +214,10 @@ namespace Tripous
         {
             if (string.IsNullOrWhiteSpace(Word) || Word.Length < 2)
                 return Word;
+
+            // ● Rule -us: Status -> Statuses
+            if (Word.EndsWith("us", StringComparison.OrdinalIgnoreCase))
+                return Word + "es";
 
             // ● Rule 0: If already plural, do nothing
             // Check for -ies (Categories), -es (Boxes), or just -s (Users)

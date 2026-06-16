@@ -1,0 +1,2676 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.DynamicClass
+  commentId: T:Tripous.DynamicClass
+  id: DynamicClass
+  parent: Tripous
+  children:
+  - Tripous.DynamicClass.#ctor
+  - Tripous.DynamicClass.#ctor(System.String)
+  - Tripous.DynamicClass.FromJson(System.String)
+  - Tripous.DynamicClass.GetAttributes
+  - Tripous.DynamicClass.GetClassName
+  - Tripous.DynamicClass.GetComponentName
+  - Tripous.DynamicClass.GetConverter
+  - Tripous.DynamicClass.GetDefaultEvent
+  - Tripous.DynamicClass.GetDefaultProperty
+  - Tripous.DynamicClass.GetEditor(System.Type)
+  - Tripous.DynamicClass.GetEvents
+  - Tripous.DynamicClass.GetEvents(System.Attribute[])
+  - Tripous.DynamicClass.GetProperties
+  - Tripous.DynamicClass.GetProperties(System.Attribute[])
+  - Tripous.DynamicClass.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  - Tripous.DynamicClass.Item(System.String)
+  - Tripous.DynamicClass.Properties
+  - Tripous.DynamicClass.PropertyChanged
+  - Tripous.DynamicClass.PropertyCount
+  - Tripous.DynamicClass.RemoveAllProperties
+  - Tripous.DynamicClass.ToJson
+  - Tripous.DynamicClass.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+  - Tripous.DynamicClass.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+  langs:
+  - csharp
+  - vb
+  name: DynamicClass
+  nameWithType: DynamicClass
+  fullName: Tripous.DynamicClass
+  type: Class
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DynamicClass
+    path: ../Tripous/DynamicClass.cs
+    startLine: 15
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: >-
+    Represents a dynamic object whose properties are stored in a dictionary.
+
+
+    Supports dynamic member access, property change notifications,
+
+    custom type descriptors and JSON serialization.
+  example: []
+  syntax:
+    content: 'public class DynamicClass : DynamicObject, IDynamicMetaObjectProvider, INotifyPropertyChanged, ICustomTypeDescriptor'
+    content.vb: Public Class DynamicClass Inherits DynamicObject Implements IDynamicMetaObjectProvider, INotifyPropertyChanged, ICustomTypeDescriptor
+  inheritance:
+  - System.Object
+  - System.Dynamic.DynamicObject
+  implements:
+  - System.Dynamic.IDynamicMetaObjectProvider
+  - System.ComponentModel.INotifyPropertyChanged
+  - System.ComponentModel.ICustomTypeDescriptor
+  inheritedMembers:
+  - System.Dynamic.DynamicObject.GetDynamicMemberNames
+  - System.Dynamic.DynamicObject.GetMetaObject(System.Linq.Expressions.Expression)
+  - System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder,System.Object,System.Object@)
+  - System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder,System.Object@)
+  - System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder,System.Object[],System.Object@)
+  - System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder,System.Object[])
+  - System.Dynamic.DynamicObject.TryDeleteMember(System.Dynamic.DeleteMemberBinder)
+  - System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder,System.Object[],System.Object@)
+  - System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder,System.Object[],System.Object@)
+  - System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)
+  - System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder,System.Object[],System.Object)
+  - System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder,System.Object@)
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.DynamicClass.#ctor
+  commentId: M:Tripous.DynamicClass.#ctor
+  id: '#ctor'
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: DynamicClass()
+  nameWithType: DynamicClass.DynamicClass()
+  fullName: Tripous.DynamicClass.DynamicClass()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/DynamicClass.cs
+    startLine: 41
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public DynamicClass()
+    content.vb: Public Sub New()
+  overload: Tripous.DynamicClass.#ctor*
+  nameWithType.vb: DynamicClass.New()
+  fullName.vb: Tripous.DynamicClass.New()
+  name.vb: New()
+- uid: Tripous.DynamicClass.#ctor(System.String)
+  commentId: M:Tripous.DynamicClass.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: DynamicClass(string)
+  nameWithType: DynamicClass.DynamicClass(string)
+  fullName: Tripous.DynamicClass.DynamicClass(string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous/DynamicClass.cs
+    startLine: 47
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Constructs an instance from a JSON string.
+  example: []
+  syntax:
+    content: public DynamicClass(string JsonText)
+    parameters:
+    - id: JsonText
+      type: System.String
+    content.vb: Public Sub New(JsonText As String)
+  overload: Tripous.DynamicClass.#ctor*
+  nameWithType.vb: DynamicClass.New(String)
+  fullName.vb: Tripous.DynamicClass.New(String)
+  name.vb: New(String)
+- uid: Tripous.DynamicClass.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+  commentId: M:Tripous.DynamicClass.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+  id: TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: TryGetMember(GetMemberBinder, out object)
+  nameWithType: DynamicClass.TryGetMember(GetMemberBinder, out object)
+  fullName: Tripous.DynamicClass.TryGetMember(System.Dynamic.GetMemberBinder, out object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TryGetMember
+    path: ../Tripous/DynamicClass.cs
+    startLine: 56
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets a dynamic member value.
+  example: []
+  syntax:
+    content: public override bool TryGetMember(GetMemberBinder Binder, out object Result)
+    parameters:
+    - id: Binder
+      type: System.Dynamic.GetMemberBinder
+    - id: Result
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function TryGetMember(Binder As GetMemberBinder, Result As Object) As Boolean
+  overridden: System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+  overload: Tripous.DynamicClass.TryGetMember*
+  nameWithType.vb: DynamicClass.TryGetMember(GetMemberBinder, Object)
+  fullName.vb: Tripous.DynamicClass.TryGetMember(System.Dynamic.GetMemberBinder, Object)
+  name.vb: TryGetMember(GetMemberBinder, Object)
+- uid: Tripous.DynamicClass.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+  commentId: M:Tripous.DynamicClass.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+  id: TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: TrySetMember(SetMemberBinder, object)
+  nameWithType: DynamicClass.TrySetMember(SetMemberBinder, object)
+  fullName: Tripous.DynamicClass.TrySetMember(System.Dynamic.SetMemberBinder, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TrySetMember
+    path: ../Tripous/DynamicClass.cs
+    startLine: 63
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Sets a dynamic member value.
+  example: []
+  syntax:
+    content: public override bool TrySetMember(SetMemberBinder Binder, object Value)
+    parameters:
+    - id: Binder
+      type: System.Dynamic.SetMemberBinder
+    - id: Value
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function TrySetMember(Binder As SetMemberBinder, Value As Object) As Boolean
+  overridden: System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+  overload: Tripous.DynamicClass.TrySetMember*
+  nameWithType.vb: DynamicClass.TrySetMember(SetMemberBinder, Object)
+  fullName.vb: Tripous.DynamicClass.TrySetMember(System.Dynamic.SetMemberBinder, Object)
+  name.vb: TrySetMember(SetMemberBinder, Object)
+- uid: Tripous.DynamicClass.GetAttributes
+  commentId: M:Tripous.DynamicClass.GetAttributes
+  id: GetAttributes
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetAttributes()
+  nameWithType: DynamicClass.GetAttributes()
+  fullName: Tripous.DynamicClass.GetAttributes()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetAttributes
+    path: ../Tripous/DynamicClass.cs
+    startLine: 74
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the attributes of this instance.
+  example: []
+  syntax:
+    content: public AttributeCollection GetAttributes()
+    return:
+      type: System.ComponentModel.AttributeCollection
+    content.vb: Public Function GetAttributes() As AttributeCollection
+  overload: Tripous.DynamicClass.GetAttributes*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetAttributes
+- uid: Tripous.DynamicClass.GetClassName
+  commentId: M:Tripous.DynamicClass.GetClassName
+  id: GetClassName
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetClassName()
+  nameWithType: DynamicClass.GetClassName()
+  fullName: Tripous.DynamicClass.GetClassName()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetClassName
+    path: ../Tripous/DynamicClass.cs
+    startLine: 81
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the class name.
+  example: []
+  syntax:
+    content: public string GetClassName()
+    return:
+      type: System.String
+    content.vb: Public Function GetClassName() As String
+  overload: Tripous.DynamicClass.GetClassName*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetClassName
+- uid: Tripous.DynamicClass.GetComponentName
+  commentId: M:Tripous.DynamicClass.GetComponentName
+  id: GetComponentName
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetComponentName()
+  nameWithType: DynamicClass.GetComponentName()
+  fullName: Tripous.DynamicClass.GetComponentName()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetComponentName
+    path: ../Tripous/DynamicClass.cs
+    startLine: 88
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the component name.
+  example: []
+  syntax:
+    content: public string GetComponentName()
+    return:
+      type: System.String
+    content.vb: Public Function GetComponentName() As String
+  overload: Tripous.DynamicClass.GetComponentName*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetComponentName
+- uid: Tripous.DynamicClass.GetConverter
+  commentId: M:Tripous.DynamicClass.GetConverter
+  id: GetConverter
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetConverter()
+  nameWithType: DynamicClass.GetConverter()
+  fullName: Tripous.DynamicClass.GetConverter()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetConverter
+    path: ../Tripous/DynamicClass.cs
+    startLine: 95
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the type converter.
+  example: []
+  syntax:
+    content: public TypeConverter GetConverter()
+    return:
+      type: System.ComponentModel.TypeConverter
+    content.vb: Public Function GetConverter() As TypeConverter
+  overload: Tripous.DynamicClass.GetConverter*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetConverter
+- uid: Tripous.DynamicClass.GetDefaultEvent
+  commentId: M:Tripous.DynamicClass.GetDefaultEvent
+  id: GetDefaultEvent
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetDefaultEvent()
+  nameWithType: DynamicClass.GetDefaultEvent()
+  fullName: Tripous.DynamicClass.GetDefaultEvent()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDefaultEvent
+    path: ../Tripous/DynamicClass.cs
+    startLine: 102
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the default event.
+  example: []
+  syntax:
+    content: public EventDescriptor GetDefaultEvent()
+    return:
+      type: System.ComponentModel.EventDescriptor
+    content.vb: Public Function GetDefaultEvent() As EventDescriptor
+  overload: Tripous.DynamicClass.GetDefaultEvent*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent
+- uid: Tripous.DynamicClass.GetDefaultProperty
+  commentId: M:Tripous.DynamicClass.GetDefaultProperty
+  id: GetDefaultProperty
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetDefaultProperty()
+  nameWithType: DynamicClass.GetDefaultProperty()
+  fullName: Tripous.DynamicClass.GetDefaultProperty()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDefaultProperty
+    path: ../Tripous/DynamicClass.cs
+    startLine: 109
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the default property.
+  example: []
+  syntax:
+    content: public PropertyDescriptor GetDefaultProperty()
+    return:
+      type: System.ComponentModel.PropertyDescriptor
+    content.vb: Public Function GetDefaultProperty() As PropertyDescriptor
+  overload: Tripous.DynamicClass.GetDefaultProperty*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty
+- uid: Tripous.DynamicClass.GetEditor(System.Type)
+  commentId: M:Tripous.DynamicClass.GetEditor(System.Type)
+  id: GetEditor(System.Type)
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetEditor(Type)
+  nameWithType: DynamicClass.GetEditor(Type)
+  fullName: Tripous.DynamicClass.GetEditor(System.Type)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetEditor
+    path: ../Tripous/DynamicClass.cs
+    startLine: 116
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns an editor of the specified base type.
+  example: []
+  syntax:
+    content: public object GetEditor(Type EditorBaseType)
+    parameters:
+    - id: EditorBaseType
+      type: System.Type
+    return:
+      type: System.Object
+    content.vb: Public Function GetEditor(EditorBaseType As Type) As Object
+  overload: Tripous.DynamicClass.GetEditor*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetEditor(System.Type)
+- uid: Tripous.DynamicClass.GetEvents
+  commentId: M:Tripous.DynamicClass.GetEvents
+  id: GetEvents
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetEvents()
+  nameWithType: DynamicClass.GetEvents()
+  fullName: Tripous.DynamicClass.GetEvents()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetEvents
+    path: ../Tripous/DynamicClass.cs
+    startLine: 123
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the events of this instance.
+  example: []
+  syntax:
+    content: public EventDescriptorCollection GetEvents()
+    return:
+      type: System.ComponentModel.EventDescriptorCollection
+    content.vb: Public Function GetEvents() As EventDescriptorCollection
+  overload: Tripous.DynamicClass.GetEvents*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetEvents
+- uid: Tripous.DynamicClass.GetEvents(System.Attribute[])
+  commentId: M:Tripous.DynamicClass.GetEvents(System.Attribute[])
+  id: GetEvents(System.Attribute[])
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetEvents(Attribute[])
+  nameWithType: DynamicClass.GetEvents(Attribute[])
+  fullName: Tripous.DynamicClass.GetEvents(System.Attribute[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetEvents
+    path: ../Tripous/DynamicClass.cs
+    startLine: 130
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the events of this instance matching the specified attributes.
+  example: []
+  syntax:
+    content: public EventDescriptorCollection GetEvents(Attribute[] Attributes)
+    parameters:
+    - id: Attributes
+      type: System.Attribute[]
+    return:
+      type: System.ComponentModel.EventDescriptorCollection
+    content.vb: Public Function GetEvents(Attributes As Attribute()) As EventDescriptorCollection
+  overload: Tripous.DynamicClass.GetEvents*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetEvents(System.Attribute[])
+  nameWithType.vb: DynamicClass.GetEvents(Attribute())
+  fullName.vb: Tripous.DynamicClass.GetEvents(System.Attribute())
+  name.vb: GetEvents(Attribute())
+- uid: Tripous.DynamicClass.GetProperties
+  commentId: M:Tripous.DynamicClass.GetProperties
+  id: GetProperties
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetProperties()
+  nameWithType: DynamicClass.GetProperties()
+  fullName: Tripous.DynamicClass.GetProperties()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetProperties
+    path: ../Tripous/DynamicClass.cs
+    startLine: 137
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the dynamic properties of this instance.
+  example: []
+  syntax:
+    content: public PropertyDescriptorCollection GetProperties()
+    return:
+      type: System.ComponentModel.PropertyDescriptorCollection
+    content.vb: Public Function GetProperties() As PropertyDescriptorCollection
+  overload: Tripous.DynamicClass.GetProperties*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetProperties
+- uid: Tripous.DynamicClass.GetProperties(System.Attribute[])
+  commentId: M:Tripous.DynamicClass.GetProperties(System.Attribute[])
+  id: GetProperties(System.Attribute[])
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetProperties(Attribute[])
+  nameWithType: DynamicClass.GetProperties(Attribute[])
+  fullName: Tripous.DynamicClass.GetProperties(System.Attribute[])
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetProperties
+    path: ../Tripous/DynamicClass.cs
+    startLine: 144
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the dynamic properties of this instance matching the specified attributes.
+  example: []
+  syntax:
+    content: public PropertyDescriptorCollection GetProperties(Attribute[] Attributes)
+    parameters:
+    - id: Attributes
+      type: System.Attribute[]
+    return:
+      type: System.ComponentModel.PropertyDescriptorCollection
+    content.vb: Public Function GetProperties(Attributes As Attribute()) As PropertyDescriptorCollection
+  overload: Tripous.DynamicClass.GetProperties*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetProperties(System.Attribute[])
+  nameWithType.vb: DynamicClass.GetProperties(Attribute())
+  fullName.vb: Tripous.DynamicClass.GetProperties(System.Attribute())
+  name.vb: GetProperties(Attribute())
+- uid: Tripous.DynamicClass.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  commentId: M:Tripous.DynamicClass.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  id: GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: GetPropertyOwner(PropertyDescriptor)
+  nameWithType: DynamicClass.GetPropertyOwner(PropertyDescriptor)
+  fullName: Tripous.DynamicClass.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetPropertyOwner
+    path: ../Tripous/DynamicClass.cs
+    startLine: 155
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Returns the owner of the specified property descriptor.
+  example: []
+  syntax:
+    content: public object GetPropertyOwner(PropertyDescriptor Pd)
+    parameters:
+    - id: Pd
+      type: System.ComponentModel.PropertyDescriptor
+    return:
+      type: System.Object
+    content.vb: Public Function GetPropertyOwner(Pd As PropertyDescriptor) As Object
+  overload: Tripous.DynamicClass.GetPropertyOwner*
+  implements:
+  - System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+- uid: Tripous.DynamicClass.ToJson
+  commentId: M:Tripous.DynamicClass.ToJson
+  id: ToJson
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: ToJson()
+  nameWithType: DynamicClass.ToJson()
+  fullName: Tripous.DynamicClass.ToJson()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToJson
+    path: ../Tripous/DynamicClass.cs
+    startLine: 164
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Serializes this instance to JSON.
+  example: []
+  syntax:
+    content: public string ToJson()
+    return:
+      type: System.String
+    content.vb: Public Function ToJson() As String
+  overload: Tripous.DynamicClass.ToJson*
+- uid: Tripous.DynamicClass.FromJson(System.String)
+  commentId: M:Tripous.DynamicClass.FromJson(System.String)
+  id: FromJson(System.String)
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: FromJson(string)
+  nameWithType: DynamicClass.FromJson(string)
+  fullName: Tripous.DynamicClass.FromJson(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FromJson
+    path: ../Tripous/DynamicClass.cs
+    startLine: 171
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Loads this instance from a JSON string.
+  example: []
+  syntax:
+    content: public void FromJson(string JsonText)
+    parameters:
+    - id: JsonText
+      type: System.String
+    content.vb: Public Sub FromJson(JsonText As String)
+  overload: Tripous.DynamicClass.FromJson*
+  nameWithType.vb: DynamicClass.FromJson(String)
+  fullName.vb: Tripous.DynamicClass.FromJson(String)
+  name.vb: FromJson(String)
+- uid: Tripous.DynamicClass.RemoveAllProperties
+  commentId: M:Tripous.DynamicClass.RemoveAllProperties
+  id: RemoveAllProperties
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: RemoveAllProperties()
+  nameWithType: DynamicClass.RemoveAllProperties()
+  fullName: Tripous.DynamicClass.RemoveAllProperties()
+  type: Method
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RemoveAllProperties
+    path: ../Tripous/DynamicClass.cs
+    startLine: 180
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Removes all dynamic properties.
+  example: []
+  syntax:
+    content: public void RemoveAllProperties()
+    content.vb: Public Sub RemoveAllProperties()
+  overload: Tripous.DynamicClass.RemoveAllProperties*
+- uid: Tripous.DynamicClass.Item(System.String)
+  commentId: P:Tripous.DynamicClass.Item(System.String)
+  id: Item(System.String)
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: this[string]
+  nameWithType: DynamicClass.this[string]
+  fullName: Tripous.DynamicClass.this[string]
+  type: Property
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: this[]
+    path: ../Tripous/DynamicClass.cs
+    startLine: 189
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets a dynamic property value by property name.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public object this[string PropName] { get; set; }
+    parameters:
+    - id: PropName
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: >-
+      <JsonIgnore>
+
+      Public Default Property this[](PropName As String) As Object
+  overload: Tripous.DynamicClass.Item*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+  nameWithType.vb: DynamicClass.this[](String)
+  fullName.vb: Tripous.DynamicClass.this[](String)
+  name.vb: this[](String)
+- uid: Tripous.DynamicClass.Properties
+  commentId: P:Tripous.DynamicClass.Properties
+  id: Properties
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: Properties
+  nameWithType: DynamicClass.Properties
+  fullName: Tripous.DynamicClass.Properties
+  type: Property
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Properties
+    path: ../Tripous/DynamicClass.cs
+    startLine: 209
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets or sets the dictionary that stores dynamic properties.
+  example: []
+  syntax:
+    content: public Dictionary<string, object> Properties { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Property Properties As Dictionary(Of String, Object)
+  overload: Tripous.DynamicClass.Properties*
+- uid: Tripous.DynamicClass.PropertyCount
+  commentId: P:Tripous.DynamicClass.PropertyCount
+  id: PropertyCount
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: PropertyCount
+  nameWithType: DynamicClass.PropertyCount
+  fullName: Tripous.DynamicClass.PropertyCount
+  type: Property
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PropertyCount
+    path: ../Tripous/DynamicClass.cs
+    startLine: 213
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Gets the number of dynamic properties.
+  example: []
+  syntax:
+    content: >-
+      [JsonIgnore]
+
+      public int PropertyCount { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: >-
+      <JsonIgnore>
+
+      Public ReadOnly Property PropertyCount As Integer
+  overload: Tripous.DynamicClass.PropertyCount*
+  attributes:
+  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
+    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
+    arguments: []
+- uid: Tripous.DynamicClass.PropertyChanged
+  commentId: E:Tripous.DynamicClass.PropertyChanged
+  id: PropertyChanged
+  parent: Tripous.DynamicClass
+  langs:
+  - csharp
+  - vb
+  name: PropertyChanged
+  nameWithType: DynamicClass.PropertyChanged
+  fullName: Tripous.DynamicClass.PropertyChanged
+  type: Event
+  source:
+    remote:
+      path: Tripous/DynamicClass.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PropertyChanged
+    path: ../Tripous/DynamicClass.cs
+    startLine: 220
+  assemblies:
+  - Tripous
+  namespace: Tripous
+  summary: Occurs when a dynamic property value changes.
+  example: []
+  syntax:
+    content: public event PropertyChangedEventHandler PropertyChanged
+    return:
+      type: System.ComponentModel.PropertyChangedEventHandler
+    content.vb: Public Event PropertyChanged As PropertyChangedEventHandler
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+references:
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Dynamic.DynamicObject
+  commentId: T:System.Dynamic.DynamicObject
+  parent: System.Dynamic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject
+  name: DynamicObject
+  nameWithType: DynamicObject
+  fullName: System.Dynamic.DynamicObject
+- uid: System.Dynamic.IDynamicMetaObjectProvider
+  commentId: T:System.Dynamic.IDynamicMetaObjectProvider
+  parent: System.Dynamic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.idynamicmetaobjectprovider
+  name: IDynamicMetaObjectProvider
+  nameWithType: IDynamicMetaObjectProvider
+  fullName: System.Dynamic.IDynamicMetaObjectProvider
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: System.ComponentModel.ICustomTypeDescriptor
+  commentId: T:System.ComponentModel.ICustomTypeDescriptor
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor
+  name: ICustomTypeDescriptor
+  nameWithType: ICustomTypeDescriptor
+  fullName: System.ComponentModel.ICustomTypeDescriptor
+- uid: System.Dynamic.DynamicObject.GetDynamicMemberNames
+  commentId: M:System.Dynamic.DynamicObject.GetDynamicMemberNames
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.getdynamicmembernames
+  name: GetDynamicMemberNames()
+  nameWithType: DynamicObject.GetDynamicMemberNames()
+  fullName: System.Dynamic.DynamicObject.GetDynamicMemberNames()
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.GetDynamicMemberNames
+    name: GetDynamicMemberNames
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.getdynamicmembernames
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.GetDynamicMemberNames
+    name: GetDynamicMemberNames
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.getdynamicmembernames
+  - name: (
+  - name: )
+- uid: System.Dynamic.DynamicObject.GetMetaObject(System.Linq.Expressions.Expression)
+  commentId: M:System.Dynamic.DynamicObject.GetMetaObject(System.Linq.Expressions.Expression)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.getmetaobject
+  name: GetMetaObject(Expression)
+  nameWithType: DynamicObject.GetMetaObject(Expression)
+  fullName: System.Dynamic.DynamicObject.GetMetaObject(System.Linq.Expressions.Expression)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.GetMetaObject(System.Linq.Expressions.Expression)
+    name: GetMetaObject
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.getmetaobject
+  - name: (
+  - uid: System.Linq.Expressions.Expression
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.GetMetaObject(System.Linq.Expressions.Expression)
+    name: GetMetaObject
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.getmetaobject
+  - name: (
+  - uid: System.Linq.Expressions.Expression
+    name: Expression
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder,System.Object,System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder,System.Object,System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trybinaryoperation
+  name: TryBinaryOperation(BinaryOperationBinder, object, out object)
+  nameWithType: DynamicObject.TryBinaryOperation(BinaryOperationBinder, object, out object)
+  fullName: System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder, object, out object)
+  nameWithType.vb: DynamicObject.TryBinaryOperation(BinaryOperationBinder, Object, Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder, Object, Object)
+  name.vb: TryBinaryOperation(BinaryOperationBinder, Object, Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder,System.Object,System.Object@)
+    name: TryBinaryOperation
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trybinaryoperation
+  - name: (
+  - uid: System.Dynamic.BinaryOperationBinder
+    name: BinaryOperationBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.binaryoperationbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryBinaryOperation(System.Dynamic.BinaryOperationBinder,System.Object,System.Object@)
+    name: TryBinaryOperation
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trybinaryoperation
+  - name: (
+  - uid: System.Dynamic.BinaryOperationBinder
+    name: BinaryOperationBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.binaryoperationbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder,System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder,System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryconvert
+  name: TryConvert(ConvertBinder, out object)
+  nameWithType: DynamicObject.TryConvert(ConvertBinder, out object)
+  fullName: System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder, out object)
+  nameWithType.vb: DynamicObject.TryConvert(ConvertBinder, Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder, Object)
+  name.vb: TryConvert(ConvertBinder, Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder,System.Object@)
+    name: TryConvert
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryconvert
+  - name: (
+  - uid: System.Dynamic.ConvertBinder
+    name: ConvertBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.convertbinder
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryConvert(System.Dynamic.ConvertBinder,System.Object@)
+    name: TryConvert
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryconvert
+  - name: (
+  - uid: System.Dynamic.ConvertBinder
+    name: ConvertBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.convertbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder,System.Object[],System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder,System.Object[],System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trycreateinstance
+  name: TryCreateInstance(CreateInstanceBinder, object[], out object)
+  nameWithType: DynamicObject.TryCreateInstance(CreateInstanceBinder, object[], out object)
+  fullName: System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder, object[], out object)
+  nameWithType.vb: DynamicObject.TryCreateInstance(CreateInstanceBinder, Object(), Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder, Object(), Object)
+  name.vb: TryCreateInstance(CreateInstanceBinder, Object(), Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder,System.Object[],System.Object@)
+    name: TryCreateInstance
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trycreateinstance
+  - name: (
+  - uid: System.Dynamic.CreateInstanceBinder
+    name: CreateInstanceBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.createinstancebinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryCreateInstance(System.Dynamic.CreateInstanceBinder,System.Object[],System.Object@)
+    name: TryCreateInstance
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trycreateinstance
+  - name: (
+  - uid: System.Dynamic.CreateInstanceBinder
+    name: CreateInstanceBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.createinstancebinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder,System.Object[])
+  commentId: M:System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder,System.Object[])
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trydeleteindex
+  name: TryDeleteIndex(DeleteIndexBinder, object[])
+  nameWithType: DynamicObject.TryDeleteIndex(DeleteIndexBinder, object[])
+  fullName: System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder, object[])
+  nameWithType.vb: DynamicObject.TryDeleteIndex(DeleteIndexBinder, Object())
+  fullName.vb: System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder, Object())
+  name.vb: TryDeleteIndex(DeleteIndexBinder, Object())
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder,System.Object[])
+    name: TryDeleteIndex
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trydeleteindex
+  - name: (
+  - uid: System.Dynamic.DeleteIndexBinder
+    name: DeleteIndexBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.deleteindexbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryDeleteIndex(System.Dynamic.DeleteIndexBinder,System.Object[])
+    name: TryDeleteIndex
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trydeleteindex
+  - name: (
+  - uid: System.Dynamic.DeleteIndexBinder
+    name: DeleteIndexBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.deleteindexbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryDeleteMember(System.Dynamic.DeleteMemberBinder)
+  commentId: M:System.Dynamic.DynamicObject.TryDeleteMember(System.Dynamic.DeleteMemberBinder)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trydeletemember
+  name: TryDeleteMember(DeleteMemberBinder)
+  nameWithType: DynamicObject.TryDeleteMember(DeleteMemberBinder)
+  fullName: System.Dynamic.DynamicObject.TryDeleteMember(System.Dynamic.DeleteMemberBinder)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryDeleteMember(System.Dynamic.DeleteMemberBinder)
+    name: TryDeleteMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trydeletemember
+  - name: (
+  - uid: System.Dynamic.DeleteMemberBinder
+    name: DeleteMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.deletememberbinder
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryDeleteMember(System.Dynamic.DeleteMemberBinder)
+    name: TryDeleteMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trydeletemember
+  - name: (
+  - uid: System.Dynamic.DeleteMemberBinder
+    name: DeleteMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.deletememberbinder
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder,System.Object[],System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder,System.Object[],System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trygetindex
+  name: TryGetIndex(GetIndexBinder, object[], out object)
+  nameWithType: DynamicObject.TryGetIndex(GetIndexBinder, object[], out object)
+  fullName: System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder, object[], out object)
+  nameWithType.vb: DynamicObject.TryGetIndex(GetIndexBinder, Object(), Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder, Object(), Object)
+  name.vb: TryGetIndex(GetIndexBinder, Object(), Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder,System.Object[],System.Object@)
+    name: TryGetIndex
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trygetindex
+  - name: (
+  - uid: System.Dynamic.GetIndexBinder
+    name: GetIndexBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.getindexbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryGetIndex(System.Dynamic.GetIndexBinder,System.Object[],System.Object@)
+    name: TryGetIndex
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trygetindex
+  - name: (
+  - uid: System.Dynamic.GetIndexBinder
+    name: GetIndexBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.getindexbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder,System.Object[],System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder,System.Object[],System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryinvoke
+  name: TryInvoke(InvokeBinder, object[], out object)
+  nameWithType: DynamicObject.TryInvoke(InvokeBinder, object[], out object)
+  fullName: System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder, object[], out object)
+  nameWithType.vb: DynamicObject.TryInvoke(InvokeBinder, Object(), Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder, Object(), Object)
+  name.vb: TryInvoke(InvokeBinder, Object(), Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder,System.Object[],System.Object@)
+    name: TryInvoke
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryinvoke
+  - name: (
+  - uid: System.Dynamic.InvokeBinder
+    name: InvokeBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.invokebinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryInvoke(System.Dynamic.InvokeBinder,System.Object[],System.Object@)
+    name: TryInvoke
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryinvoke
+  - name: (
+  - uid: System.Dynamic.InvokeBinder
+    name: InvokeBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.invokebinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryinvokemember
+  name: TryInvokeMember(InvokeMemberBinder, object[], out object)
+  nameWithType: DynamicObject.TryInvokeMember(InvokeMemberBinder, object[], out object)
+  fullName: System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder, object[], out object)
+  nameWithType.vb: DynamicObject.TryInvokeMember(InvokeMemberBinder, Object(), Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder, Object(), Object)
+  name.vb: TryInvokeMember(InvokeMemberBinder, Object(), Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)
+    name: TryInvokeMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryinvokemember
+  - name: (
+  - uid: System.Dynamic.InvokeMemberBinder
+    name: InvokeMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.invokememberbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryInvokeMember(System.Dynamic.InvokeMemberBinder,System.Object[],System.Object@)
+    name: TryInvokeMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryinvokemember
+  - name: (
+  - uid: System.Dynamic.InvokeMemberBinder
+    name: InvokeMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.invokememberbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder,System.Object[],System.Object)
+  commentId: M:System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder,System.Object[],System.Object)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trysetindex
+  name: TrySetIndex(SetIndexBinder, object[], object)
+  nameWithType: DynamicObject.TrySetIndex(SetIndexBinder, object[], object)
+  fullName: System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder, object[], object)
+  nameWithType.vb: DynamicObject.TrySetIndex(SetIndexBinder, Object(), Object)
+  fullName.vb: System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder, Object(), Object)
+  name.vb: TrySetIndex(SetIndexBinder, Object(), Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder,System.Object[],System.Object)
+    name: TrySetIndex
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trysetindex
+  - name: (
+  - uid: System.Dynamic.SetIndexBinder
+    name: SetIndexBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.setindexbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '['
+  - name: ']'
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TrySetIndex(System.Dynamic.SetIndexBinder,System.Object[],System.Object)
+    name: TrySetIndex
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trysetindex
+  - name: (
+  - uid: System.Dynamic.SetIndexBinder
+    name: SetIndexBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.setindexbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: (
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder,System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder,System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryunaryoperation
+  name: TryUnaryOperation(UnaryOperationBinder, out object)
+  nameWithType: DynamicObject.TryUnaryOperation(UnaryOperationBinder, out object)
+  fullName: System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder, out object)
+  nameWithType.vb: DynamicObject.TryUnaryOperation(UnaryOperationBinder, Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder, Object)
+  name.vb: TryUnaryOperation(UnaryOperationBinder, Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder,System.Object@)
+    name: TryUnaryOperation
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryunaryoperation
+  - name: (
+  - uid: System.Dynamic.UnaryOperationBinder
+    name: UnaryOperationBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.unaryoperationbinder
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryUnaryOperation(System.Dynamic.UnaryOperationBinder,System.Object@)
+    name: TryUnaryOperation
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.tryunaryoperation
+  - name: (
+  - uid: System.Dynamic.UnaryOperationBinder
+    name: UnaryOperationBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.unaryoperationbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Dynamic
+  commentId: N:System.Dynamic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Dynamic
+  nameWithType: System.Dynamic
+  fullName: System.Dynamic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Dynamic
+    name: Dynamic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Dynamic
+    name: Dynamic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.DynamicClass.#ctor*
+  commentId: Overload:Tripous.DynamicClass.#ctor
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass__ctor
+  name: DynamicClass
+  nameWithType: DynamicClass.DynamicClass
+  fullName: Tripous.DynamicClass.DynamicClass
+  nameWithType.vb: DynamicClass.New
+  fullName.vb: Tripous.DynamicClass.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+  commentId: M:System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trygetmember
+  name: TryGetMember(GetMemberBinder, out object)
+  nameWithType: DynamicObject.TryGetMember(GetMemberBinder, out object)
+  fullName: System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder, out object)
+  nameWithType.vb: DynamicObject.TryGetMember(GetMemberBinder, Object)
+  fullName.vb: System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder, Object)
+  name.vb: TryGetMember(GetMemberBinder, Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+    name: TryGetMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trygetmember
+  - name: (
+  - uid: System.Dynamic.GetMemberBinder
+    name: GetMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.getmemberbinder
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)
+    name: TryGetMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trygetmember
+  - name: (
+  - uid: System.Dynamic.GetMemberBinder
+    name: GetMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.getmemberbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DynamicClass.TryGetMember*
+  commentId: Overload:Tripous.DynamicClass.TryGetMember
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_TryGetMember_System_Dynamic_GetMemberBinder_System_Object__
+  name: TryGetMember
+  nameWithType: DynamicClass.TryGetMember
+  fullName: Tripous.DynamicClass.TryGetMember
+- uid: System.Dynamic.GetMemberBinder
+  commentId: T:System.Dynamic.GetMemberBinder
+  parent: System.Dynamic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.getmemberbinder
+  name: GetMemberBinder
+  nameWithType: GetMemberBinder
+  fullName: System.Dynamic.GetMemberBinder
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+  commentId: M:System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+  parent: System.Dynamic.DynamicObject
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trysetmember
+  name: TrySetMember(SetMemberBinder, object)
+  nameWithType: DynamicObject.TrySetMember(SetMemberBinder, object)
+  fullName: System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder, object)
+  nameWithType.vb: DynamicObject.TrySetMember(SetMemberBinder, Object)
+  fullName.vb: System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder, Object)
+  name.vb: TrySetMember(SetMemberBinder, Object)
+  spec.csharp:
+  - uid: System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+    name: TrySetMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trysetmember
+  - name: (
+  - uid: System.Dynamic.SetMemberBinder
+    name: SetMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.setmemberbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Dynamic.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)
+    name: TrySetMember
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.dynamicobject.trysetmember
+  - name: (
+  - uid: System.Dynamic.SetMemberBinder
+    name: SetMemberBinder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.dynamic.setmemberbinder
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.DynamicClass.TrySetMember*
+  commentId: Overload:Tripous.DynamicClass.TrySetMember
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_TrySetMember_System_Dynamic_SetMemberBinder_System_Object_
+  name: TrySetMember
+  nameWithType: DynamicClass.TrySetMember
+  fullName: Tripous.DynamicClass.TrySetMember
+- uid: System.Dynamic.SetMemberBinder
+  commentId: T:System.Dynamic.SetMemberBinder
+  parent: System.Dynamic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.dynamic.setmemberbinder
+  name: SetMemberBinder
+  nameWithType: SetMemberBinder
+  fullName: System.Dynamic.SetMemberBinder
+- uid: Tripous.DynamicClass.GetAttributes*
+  commentId: Overload:Tripous.DynamicClass.GetAttributes
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetAttributes
+  name: GetAttributes
+  nameWithType: DynamicClass.GetAttributes
+  fullName: Tripous.DynamicClass.GetAttributes
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetAttributes
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetAttributes
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getattributes
+  name: GetAttributes()
+  nameWithType: ICustomTypeDescriptor.GetAttributes()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetAttributes()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetAttributes
+    name: GetAttributes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getattributes
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetAttributes
+    name: GetAttributes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getattributes
+  - name: (
+  - name: )
+- uid: System.ComponentModel.AttributeCollection
+  commentId: T:System.ComponentModel.AttributeCollection
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.attributecollection
+  name: AttributeCollection
+  nameWithType: AttributeCollection
+  fullName: System.ComponentModel.AttributeCollection
+- uid: Tripous.DynamicClass.GetClassName*
+  commentId: Overload:Tripous.DynamicClass.GetClassName
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetClassName
+  name: GetClassName
+  nameWithType: DynamicClass.GetClassName
+  fullName: Tripous.DynamicClass.GetClassName
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetClassName
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetClassName
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getclassname
+  name: GetClassName()
+  nameWithType: ICustomTypeDescriptor.GetClassName()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetClassName()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetClassName
+    name: GetClassName
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getclassname
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetClassName
+    name: GetClassName
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getclassname
+  - name: (
+  - name: )
+- uid: Tripous.DynamicClass.GetComponentName*
+  commentId: Overload:Tripous.DynamicClass.GetComponentName
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetComponentName
+  name: GetComponentName
+  nameWithType: DynamicClass.GetComponentName
+  fullName: Tripous.DynamicClass.GetComponentName
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetComponentName
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetComponentName
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getcomponentname
+  name: GetComponentName()
+  nameWithType: ICustomTypeDescriptor.GetComponentName()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetComponentName()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetComponentName
+    name: GetComponentName
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getcomponentname
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetComponentName
+    name: GetComponentName
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getcomponentname
+  - name: (
+  - name: )
+- uid: Tripous.DynamicClass.GetConverter*
+  commentId: Overload:Tripous.DynamicClass.GetConverter
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetConverter
+  name: GetConverter
+  nameWithType: DynamicClass.GetConverter
+  fullName: Tripous.DynamicClass.GetConverter
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetConverter
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetConverter
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getconverter
+  name: GetConverter()
+  nameWithType: ICustomTypeDescriptor.GetConverter()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetConverter()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetConverter
+    name: GetConverter
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getconverter
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetConverter
+    name: GetConverter
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getconverter
+  - name: (
+  - name: )
+- uid: System.ComponentModel.TypeConverter
+  commentId: T:System.ComponentModel.TypeConverter
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.typeconverter
+  name: TypeConverter
+  nameWithType: TypeConverter
+  fullName: System.ComponentModel.TypeConverter
+- uid: Tripous.DynamicClass.GetDefaultEvent*
+  commentId: Overload:Tripous.DynamicClass.GetDefaultEvent
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetDefaultEvent
+  name: GetDefaultEvent
+  nameWithType: DynamicClass.GetDefaultEvent
+  fullName: Tripous.DynamicClass.GetDefaultEvent
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getdefaultevent
+  name: GetDefaultEvent()
+  nameWithType: ICustomTypeDescriptor.GetDefaultEvent()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent
+    name: GetDefaultEvent
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getdefaultevent
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetDefaultEvent
+    name: GetDefaultEvent
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getdefaultevent
+  - name: (
+  - name: )
+- uid: System.ComponentModel.EventDescriptor
+  commentId: T:System.ComponentModel.EventDescriptor
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.eventdescriptor
+  name: EventDescriptor
+  nameWithType: EventDescriptor
+  fullName: System.ComponentModel.EventDescriptor
+- uid: Tripous.DynamicClass.GetDefaultProperty*
+  commentId: Overload:Tripous.DynamicClass.GetDefaultProperty
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetDefaultProperty
+  name: GetDefaultProperty
+  nameWithType: DynamicClass.GetDefaultProperty
+  fullName: Tripous.DynamicClass.GetDefaultProperty
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getdefaultproperty
+  name: GetDefaultProperty()
+  nameWithType: ICustomTypeDescriptor.GetDefaultProperty()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty
+    name: GetDefaultProperty
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getdefaultproperty
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetDefaultProperty
+    name: GetDefaultProperty
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getdefaultproperty
+  - name: (
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptor
+  commentId: T:System.ComponentModel.PropertyDescriptor
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor
+  name: PropertyDescriptor
+  nameWithType: PropertyDescriptor
+  fullName: System.ComponentModel.PropertyDescriptor
+- uid: Tripous.DynamicClass.GetEditor*
+  commentId: Overload:Tripous.DynamicClass.GetEditor
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetEditor_System_Type_
+  name: GetEditor
+  nameWithType: DynamicClass.GetEditor
+  fullName: Tripous.DynamicClass.GetEditor
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetEditor(System.Type)
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetEditor(System.Type)
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.geteditor
+  name: GetEditor(Type)
+  nameWithType: ICustomTypeDescriptor.GetEditor(Type)
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetEditor(System.Type)
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetEditor(System.Type)
+    name: GetEditor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.geteditor
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetEditor(System.Type)
+    name: GetEditor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.geteditor
+  - name: (
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: Tripous.DynamicClass.GetEvents*
+  commentId: Overload:Tripous.DynamicClass.GetEvents
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetEvents
+  name: GetEvents
+  nameWithType: DynamicClass.GetEvents
+  fullName: Tripous.DynamicClass.GetEvents
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetEvents
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetEvents
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getevents#system-componentmodel-icustomtypedescriptor-getevents
+  name: GetEvents()
+  nameWithType: ICustomTypeDescriptor.GetEvents()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetEvents()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetEvents
+    name: GetEvents
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getevents#system-componentmodel-icustomtypedescriptor-getevents
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetEvents
+    name: GetEvents
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getevents#system-componentmodel-icustomtypedescriptor-getevents
+  - name: (
+  - name: )
+- uid: System.ComponentModel.EventDescriptorCollection
+  commentId: T:System.ComponentModel.EventDescriptorCollection
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.eventdescriptorcollection
+  name: EventDescriptorCollection
+  nameWithType: EventDescriptorCollection
+  fullName: System.ComponentModel.EventDescriptorCollection
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetEvents(System.Attribute[])
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetEvents(System.Attribute[])
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getevents#system-componentmodel-icustomtypedescriptor-getevents(system-attribute())
+  name: GetEvents(Attribute[])
+  nameWithType: ICustomTypeDescriptor.GetEvents(Attribute[])
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetEvents(System.Attribute[])
+  nameWithType.vb: ICustomTypeDescriptor.GetEvents(Attribute())
+  fullName.vb: System.ComponentModel.ICustomTypeDescriptor.GetEvents(System.Attribute())
+  name.vb: GetEvents(Attribute())
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetEvents(System.Attribute[])
+    name: GetEvents
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getevents#system-componentmodel-icustomtypedescriptor-getevents(system-attribute())
+  - name: (
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetEvents(System.Attribute[])
+    name: GetEvents
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getevents#system-componentmodel-icustomtypedescriptor-getevents(system-attribute())
+  - name: (
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: (
+  - name: )
+  - name: )
+- uid: System.Attribute[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.attribute
+  name: Attribute[]
+  nameWithType: Attribute[]
+  fullName: System.Attribute[]
+  nameWithType.vb: Attribute()
+  fullName.vb: System.Attribute()
+  name.vb: Attribute()
+  spec.csharp:
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: (
+  - name: )
+- uid: Tripous.DynamicClass.GetProperties*
+  commentId: Overload:Tripous.DynamicClass.GetProperties
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetProperties
+  name: GetProperties
+  nameWithType: DynamicClass.GetProperties
+  fullName: Tripous.DynamicClass.GetProperties
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetProperties
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetProperties
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getproperties#system-componentmodel-icustomtypedescriptor-getproperties
+  name: GetProperties()
+  nameWithType: ICustomTypeDescriptor.GetProperties()
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetProperties()
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetProperties
+    name: GetProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getproperties#system-componentmodel-icustomtypedescriptor-getproperties
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetProperties
+    name: GetProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getproperties#system-componentmodel-icustomtypedescriptor-getproperties
+  - name: (
+  - name: )
+- uid: System.ComponentModel.PropertyDescriptorCollection
+  commentId: T:System.ComponentModel.PropertyDescriptorCollection
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptorcollection
+  name: PropertyDescriptorCollection
+  nameWithType: PropertyDescriptorCollection
+  fullName: System.ComponentModel.PropertyDescriptorCollection
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetProperties(System.Attribute[])
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetProperties(System.Attribute[])
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getproperties#system-componentmodel-icustomtypedescriptor-getproperties(system-attribute())
+  name: GetProperties(Attribute[])
+  nameWithType: ICustomTypeDescriptor.GetProperties(Attribute[])
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetProperties(System.Attribute[])
+  nameWithType.vb: ICustomTypeDescriptor.GetProperties(Attribute())
+  fullName.vb: System.ComponentModel.ICustomTypeDescriptor.GetProperties(System.Attribute())
+  name.vb: GetProperties(Attribute())
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetProperties(System.Attribute[])
+    name: GetProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getproperties#system-componentmodel-icustomtypedescriptor-getproperties(system-attribute())
+  - name: (
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetProperties(System.Attribute[])
+    name: GetProperties
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getproperties#system-componentmodel-icustomtypedescriptor-getproperties(system-attribute())
+  - name: (
+  - uid: System.Attribute
+    name: Attribute
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.attribute
+  - name: (
+  - name: )
+  - name: )
+- uid: Tripous.DynamicClass.GetPropertyOwner*
+  commentId: Overload:Tripous.DynamicClass.GetPropertyOwner
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_GetPropertyOwner_System_ComponentModel_PropertyDescriptor_
+  name: GetPropertyOwner
+  nameWithType: DynamicClass.GetPropertyOwner
+  fullName: Tripous.DynamicClass.GetPropertyOwner
+- uid: System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  commentId: M:System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  parent: System.ComponentModel.ICustomTypeDescriptor
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getpropertyowner
+  name: GetPropertyOwner(PropertyDescriptor)
+  nameWithType: ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor)
+  fullName: System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+  spec.csharp:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+    name: GetPropertyOwner
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getpropertyowner
+  - name: (
+  - uid: System.ComponentModel.PropertyDescriptor
+    name: PropertyDescriptor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor
+  - name: )
+  spec.vb:
+  - uid: System.ComponentModel.ICustomTypeDescriptor.GetPropertyOwner(System.ComponentModel.PropertyDescriptor)
+    name: GetPropertyOwner
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.icustomtypedescriptor.getpropertyowner
+  - name: (
+  - uid: System.ComponentModel.PropertyDescriptor
+    name: PropertyDescriptor
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertydescriptor
+  - name: )
+- uid: Tripous.DynamicClass.ToJson*
+  commentId: Overload:Tripous.DynamicClass.ToJson
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_ToJson
+  name: ToJson
+  nameWithType: DynamicClass.ToJson
+  fullName: Tripous.DynamicClass.ToJson
+- uid: Tripous.DynamicClass.FromJson*
+  commentId: Overload:Tripous.DynamicClass.FromJson
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_FromJson_System_String_
+  name: FromJson
+  nameWithType: DynamicClass.FromJson
+  fullName: Tripous.DynamicClass.FromJson
+- uid: Tripous.DynamicClass.RemoveAllProperties*
+  commentId: Overload:Tripous.DynamicClass.RemoveAllProperties
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_RemoveAllProperties
+  name: RemoveAllProperties
+  nameWithType: DynamicClass.RemoveAllProperties
+  fullName: Tripous.DynamicClass.RemoveAllProperties
+- uid: Tripous.DynamicClass.Item*
+  commentId: Overload:Tripous.DynamicClass.Item
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_Item_System_String_
+  name: this
+  nameWithType: DynamicClass.this
+  fullName: Tripous.DynamicClass.this
+  nameWithType.vb: DynamicClass.this[]
+  fullName.vb: Tripous.DynamicClass.this[]
+  name.vb: this[]
+- uid: Tripous.DynamicClass.Properties*
+  commentId: Overload:Tripous.DynamicClass.Properties
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_Properties
+  name: Properties
+  nameWithType: DynamicClass.Properties
+  fullName: Tripous.DynamicClass.Properties
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.DynamicClass.PropertyCount*
+  commentId: Overload:Tripous.DynamicClass.PropertyCount
+  href: Tripous.DynamicClass.html#Tripous_DynamicClass_PropertyCount
+  name: PropertyCount
+  nameWithType: DynamicClass.PropertyCount
+  fullName: Tripous.DynamicClass.PropertyCount
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  commentId: E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  parent: System.ComponentModel.INotifyPropertyChanged
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged
+  name: PropertyChanged
+  nameWithType: INotifyPropertyChanged.PropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+- uid: System.ComponentModel.PropertyChangedEventHandler
+  commentId: T:System.ComponentModel.PropertyChangedEventHandler
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertychangedeventhandler
+  name: PropertyChangedEventHandler
+  nameWithType: PropertyChangedEventHandler
+  fullName: System.ComponentModel.PropertyChangedEventHandler

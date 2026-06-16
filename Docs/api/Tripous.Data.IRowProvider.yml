@@ -1,0 +1,375 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.IRowProvider
+  commentId: T:Tripous.Data.IRowProvider
+  id: IRowProvider
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.IRowProvider.CurrentRow
+  - Tripous.Data.IRowProvider.CurrentRowChanged
+  - Tripous.Data.IRowProvider.TableName
+  - Tripous.Data.IRowProvider.UpdateCurrentRow
+  langs:
+  - csharp
+  - vb
+  name: IRowProvider
+  nameWithType: IRowProvider
+  fullName: Tripous.Data.IRowProvider
+  type: Interface
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IRowProvider
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Provides a <xref href="Tripous.Data.IRowProvider.CurrentRow" data-throw-if-not-resolved="false"></xref> property.
+
+
+    <p>Useful for single-row tables, and not only.</p>
+  example: []
+  syntax:
+    content: public interface IRowProvider
+    content.vb: Public Interface IRowProvider
+  derivedClasses:
+  - Tripous.Data.MemTable
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.IRowProvider.TableName
+  commentId: P:Tripous.Data.IRowProvider.TableName
+  id: TableName
+  parent: Tripous.Data.IRowProvider
+  langs:
+  - csharp
+  - vb
+  name: TableName
+  nameWithType: IRowProvider.TableName
+  fullName: Tripous.Data.IRowProvider.TableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TableName
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The name of the table this provider refers to.
+  example: []
+  syntax:
+    content: string TableName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: ReadOnly Property TableName As String
+  overload: Tripous.Data.IRowProvider.TableName*
+- uid: Tripous.Data.IRowProvider.CurrentRow
+  commentId: P:Tripous.Data.IRowProvider.CurrentRow
+  id: CurrentRow
+  parent: Tripous.Data.IRowProvider
+  langs:
+  - csharp
+  - vb
+  name: CurrentRow
+  nameWithType: IRowProvider.CurrentRow
+  fullName: Tripous.Data.IRowProvider.CurrentRow
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CurrentRow
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 23
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The current row, if any, else null.
+  example: []
+  syntax:
+    content: DataRow CurrentRow { get; }
+    parameters: []
+    return:
+      type: System.Data.DataRow
+    content.vb: ReadOnly Property CurrentRow As DataRow
+  overload: Tripous.Data.IRowProvider.CurrentRow*
+- uid: Tripous.Data.IRowProvider.CurrentRowChanged
+  commentId: E:Tripous.Data.IRowProvider.CurrentRowChanged
+  id: CurrentRowChanged
+  parent: Tripous.Data.IRowProvider
+  langs:
+  - csharp
+  - vb
+  name: CurrentRowChanged
+  nameWithType: IRowProvider.CurrentRowChanged
+  fullName: Tripous.Data.IRowProvider.CurrentRowChanged
+  type: Event
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CurrentRowChanged
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 28
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Occurs when the <xref href="Tripous.Data.IRowProvider.CurrentRow" data-throw-if-not-resolved="false"></xref> changes.
+  example: []
+  syntax:
+    content: event EventHandler CurrentRowChanged
+    return:
+      type: System.EventHandler
+    content.vb: Event CurrentRowChanged As EventHandler
+- uid: Tripous.Data.IRowProvider.UpdateCurrentRow
+  commentId: M:Tripous.Data.IRowProvider.UpdateCurrentRow
+  id: UpdateCurrentRow
+  parent: Tripous.Data.IRowProvider
+  langs:
+  - csharp
+  - vb
+  name: UpdateCurrentRow()
+  nameWithType: IRowProvider.UpdateCurrentRow()
+  fullName: Tripous.Data.IRowProvider.UpdateCurrentRow()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/IRowProvider.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateCurrentRow
+    path: ../Tripous.Data/IRowProvider.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Updates the <xref href="Tripous.Data.IRowProvider.CurrentRow" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: void UpdateCurrentRow()
+    content.vb: Sub UpdateCurrentRow()
+  overload: Tripous.Data.IRowProvider.UpdateCurrentRow*
+references:
+- uid: Tripous.Data.IRowProvider.CurrentRow
+  commentId: P:Tripous.Data.IRowProvider.CurrentRow
+  parent: Tripous.Data.IRowProvider
+  href: Tripous.Data.IRowProvider.html#Tripous_Data_IRowProvider_CurrentRow
+  name: CurrentRow
+  nameWithType: IRowProvider.CurrentRow
+  fullName: Tripous.Data.IRowProvider.CurrentRow
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.IRowProvider
+  commentId: T:Tripous.Data.IRowProvider
+  parent: Tripous.Data
+  href: Tripous.Data.IRowProvider.html
+  name: IRowProvider
+  nameWithType: IRowProvider
+  fullName: Tripous.Data.IRowProvider
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.IRowProvider.TableName*
+  commentId: Overload:Tripous.Data.IRowProvider.TableName
+  href: Tripous.Data.IRowProvider.html#Tripous_Data_IRowProvider_TableName
+  name: TableName
+  nameWithType: IRowProvider.TableName
+  fullName: Tripous.Data.IRowProvider.TableName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Data.IRowProvider.CurrentRow*
+  commentId: Overload:Tripous.Data.IRowProvider.CurrentRow
+  href: Tripous.Data.IRowProvider.html#Tripous_Data_IRowProvider_CurrentRow
+  name: CurrentRow
+  nameWithType: IRowProvider.CurrentRow
+  fullName: Tripous.Data.IRowProvider.CurrentRow
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System.EventHandler
+  commentId: T:System.EventHandler
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler
+  name: EventHandler
+  nameWithType: EventHandler
+  fullName: System.EventHandler
+- uid: Tripous.Data.IRowProvider.UpdateCurrentRow*
+  commentId: Overload:Tripous.Data.IRowProvider.UpdateCurrentRow
+  href: Tripous.Data.IRowProvider.html#Tripous_Data_IRowProvider_UpdateCurrentRow
+  name: UpdateCurrentRow
+  nameWithType: IRowProvider.UpdateCurrentRow
+  fullName: Tripous.Data.IRowProvider.UpdateCurrentRow

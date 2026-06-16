@@ -380,6 +380,19 @@ public class SqlStore
         return Result;
     }
     /// <summary>
+    /// Returns a string list with the view names in the database.
+    /// </summary>
+    public List<string> GetViewNames()
+    {
+        DataTable Table = GetSchema("Views");
+        List<string> Result = new List<string>();
+
+        foreach (DataRow Row in Table.Rows)
+            Result.Add(Row["TABLE_NAME"].ToString());
+
+        return Result;
+    }
+    /// <summary>
     /// Returns a string list with the field names of the TableName
     /// </summary>
     public List<string> GetFieldNames(string TableName)

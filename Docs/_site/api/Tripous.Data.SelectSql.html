@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SelectSql | Tripous Framework Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SelectSql | Tripous Framework Documentation ">
+      
+      <meta name="description" content="Represents a SQL SELECT statement.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/tbebekis/Tripous.Avalon/new/main/apiSpec/new?filename=Tripous_Data_SelectSql.md&amp;value=---%0Auid%3A%20Tripous.Data.SelectSql%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Tripous Framework Documentation">
+            Tripous Framework Documentation
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Tripous.Data.SelectSql">
+
+
+
+  <h1 id="Tripous_Data_SelectSql" data-uid="Tripous.Data.SelectSql" class="text-break">
+Class SelectSql  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Tripous.html">Tripous</a>.<a class="xref" href="Tripous.Data.html">Data</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Tripous.Data.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a SQL SELECT statement.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SelectSql : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Tripous.BaseDef.html">BaseDef</a></div>
+      <div><span class="xref">SelectSql</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Tripous.IDef.html">IDef</a></div>
+      <div><a class="xref" href="Tripous.IJsonLoadable.html">IJsonLoadable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_fTitleKey">BaseDef.fTitleKey</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_fName">BaseDef.fName</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_NotifyPropertyChanged_System_String_">BaseDef.NotifyPropertyChanged(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey">BaseDef.GetTitleKey()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_ToString">BaseDef.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_UpdateReferences">BaseDef.UpdateReferences()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_JsonLoaded">BaseDef.JsonLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_CreateNew">BaseDef.CreateNew()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Assign_Tripous_IDef_">BaseDef.Assign(IDef)</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding">BaseDef.SplitTitleKeyToWordsWithPluralEnding()</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Name">BaseDef.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_TitleKey">BaseDef.TitleKey</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_IsTitleKeyEmpty">BaseDef.IsTitleKeyEmpty</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Title">BaseDef.Title</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_Tag">BaseDef.Tag</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_IsSerializable">BaseDef.IsSerializable</a>
+    </div>
+    <div>
+      <a class="xref" href="Tripous.BaseDef.html#Tripous_BaseDef_PropertyChanged">BaseDef.PropertyChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_">TypeExtensions.InheritsFrom(object, Type)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Tripous_Data_SelectSql__ctor_" data-uid="Tripous.Data.SelectSql.#ctor*"></a>
+
+  <h3 id="Tripous_Data_SelectSql__ctor" data-uid="Tripous.Data.SelectSql.#ctor">
+  SelectSql()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SelectSql()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql__ctor_" data-uid="Tripous.Data.SelectSql.#ctor*"></a>
+
+  <h3 id="Tripous_Data_SelectSql__ctor_System_String_" data-uid="Tripous.Data.SelectSql.#ctor(System.String)">
+  SelectSql(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SelectSql(string StatementText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>StatementText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Tripous_Data_SelectSql_DefaultName" data-uid="Tripous.Data.SelectSql.DefaultName">
+  DefaultName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constant</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly string DefaultName</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Data_SelectSql_LB" data-uid="Tripous.Data.SelectSql.LB">
+  LB
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>LineBreak</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly string LB</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Data_SelectSql_SPACE" data-uid="Tripous.Data.SelectSql.SPACE">
+  SPACE
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Space</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly string SPACE</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Tripous_Data_SelectSql_SPACES" data-uid="Tripous.Data.SelectSql.SPACES">
+  SPACES
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Spaces</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly string SPACES</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Tripous_Data_SelectSql_CompanyAware_" data-uid="Tripous.Data.SelectSql.CompanyAware*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_CompanyAware" data-uid="Tripous.Data.SelectSql.CompanyAware">
+  CompanyAware
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L506"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this object</p>
+<p>uses the CompanyFieldName when preparing the statement as a whole</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CompanyAware { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_ConnectionName_" data-uid="Tripous.Data.SelectSql.ConnectionName*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_ConnectionName" data-uid="Tripous.Data.SelectSql.ConnectionName">
+  ConnectionName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L510"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the database connection name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ConnectionName { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_DateRange_" data-uid="Tripous.Data.SelectSql.DateRange*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_DateRange" data-uid="Tripous.Data.SelectSql.DateRange">
+  DateRange
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L527"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A DateRange.</p>
+<p>It works in conjuction with DateRangeColumn property in order to produce
+a fixed part in the WHERE clause of this select statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateRange DateRange { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.DateRange.html">DateRange</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_DateRangeColumn_" data-uid="Tripous.Data.SelectSql.DateRangeColumn*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_DateRangeColumn" data-uid="Tripous.Data.SelectSql.DateRangeColumn">
+  DateRangeColumn
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L521"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>A fully qualified (i.e. TABLE_NAME.FIELD_NAME) column of type date or datetime.</p>
+<p>It works in conjuction with DateRange property in order to produce
+a fixed part in the WHERE clause of this select statement.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DateRangeColumn { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_From_" data-uid="Tripous.Data.SelectSql.From*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_From" data-uid="Tripous.Data.SelectSql.From">
+  From
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L537"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the FROM clause.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string From { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_GroupBy_" data-uid="Tripous.Data.SelectSql.GroupBy*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_GroupBy" data-uid="Tripous.Data.SelectSql.GroupBy">
+  GroupBy
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L552"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the GROUP BY clause.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string GroupBy { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Having_" data-uid="Tripous.Data.SelectSql.Having*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Having" data-uid="Tripous.Data.SelectSql.Having">
+  Having
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L557"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the HAVING clause.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string Having { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_IsEmpty_" data-uid="Tripous.Data.SelectSql.IsEmpty*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_IsEmpty" data-uid="Tripous.Data.SelectSql.IsEmpty">
+  IsEmpty
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L567"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if the statement is empty</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public bool IsEmpty { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_OrderBy_" data-uid="Tripous.Data.SelectSql.OrderBy*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_OrderBy" data-uid="Tripous.Data.SelectSql.OrderBy">
+  OrderBy
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L562"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the ORDER BY clause.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string OrderBy { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Select_" data-uid="Tripous.Data.SelectSql.Select*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Select" data-uid="Tripous.Data.SelectSql.Select">
+  Select
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L532"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the SELECT clause.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string Select { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Table_" data-uid="Tripous.Data.SelectSql.Table*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Table" data-uid="Tripous.Data.SelectSql.Table">
+  Table
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L572"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The DataTable that results after the select execution</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public MemTable Table { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.Data.MemTable.html">MemTable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Text_" data-uid="Tripous.Data.SelectSql.Text*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Text" data-uid="Tripous.Data.SelectSql.Text">
+  Text
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L497"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the statement as a whole.</p>
+<p>Sets clause properties by parsing the passed string value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Text { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Where_" data-uid="Tripous.Data.SelectSql.Where*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Where" data-uid="Tripous.Data.SelectSql.Where">
+  Where
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L542"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the WHERE clause.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string Where { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_WhereUser_" data-uid="Tripous.Data.SelectSql.WhereUser*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_WhereUser" data-uid="Tripous.Data.SelectSql.WhereUser">
+  WhereUser
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L547"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or sets the WHERE clause, that part that is considered user where.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public string WhereUser { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Tripous_Data_SelectSql_AddTo_" data-uid="Tripous.Data.SelectSql.AddTo*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_AddTo_System_String_System_String_System_String_" data-uid="Tripous.Data.SelectSql.AddTo(System.String,System.String,System.String)">
+  AddTo(string, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates Clause + Delimiter + Plus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string AddTo(string Clause, string Delimiter, string Plus)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Clause</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Delimiter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Plus</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_AddToGroupBy_" data-uid="Tripous.Data.SelectSql.AddToGroupBy*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_AddToGroupBy_System_String_" data-uid="Tripous.Data.SelectSql.AddToGroupBy(System.String)">
+  AddToGroupBy(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L418"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates GROUP BY + , + Plus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddToGroupBy(string Plus)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Plus</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_AddToHaving_" data-uid="Tripous.Data.SelectSql.AddToHaving*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_AddToHaving_System_String_" data-uid="Tripous.Data.SelectSql.AddToHaving(System.String)">
+  AddToHaving(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L425"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates HAVING + and + Plus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddToHaving(string Plus)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Plus</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_AddToOrderBy_" data-uid="Tripous.Data.SelectSql.AddToOrderBy*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_AddToOrderBy_System_String_" data-uid="Tripous.Data.SelectSql.AddToOrderBy(System.String)">
+  AddToOrderBy(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L432"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates ORDER BY + , + Plus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddToOrderBy(string Plus)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Plus</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_AddToWhere_" data-uid="Tripous.Data.SelectSql.AddToWhere*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_AddToWhere_System_String_" data-uid="Tripous.Data.SelectSql.AddToWhere(System.String)">
+  AddToWhere(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L397"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates WHERE + and + Plus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddToWhere(string Plus)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Plus</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_AddToWhere_" data-uid="Tripous.Data.SelectSql.AddToWhere*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_AddToWhere_System_String_System_String_" data-uid="Tripous.Data.SelectSql.AddToWhere(System.String,System.String)">
+  AddToWhere(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L411"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates WHERE + Delimiter + Plus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddToWhere(string Plus, string Delimiter)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Plus</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Delimiter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Assign_" data-uid="Tripous.Data.SelectSql.Assign*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Assign_System_Object_" data-uid="Tripous.Data.SelectSql.Assign(System.Object)">
+  Assign(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L306"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Assigns this properties from Source.</p>
+<p>WARNING: We need this because an automated Assign() calls the Text property
+which in turn calls the SelectSqlParser which has no ability to handle fields
+surrounded by double quotes or [] or something.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Assign(object Source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Source</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_CR_" data-uid="Tripous.Data.SelectSql.CR*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_CR_System_String_" data-uid="Tripous.Data.SelectSql.CR(System.String)">
+  CR(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a Carriage Return (LineBreak) after S</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string CR(string S)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>S</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_CheckDescriptor_" data-uid="Tripous.Data.SelectSql.CheckDescriptor*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_CheckDescriptor" data-uid="Tripous.Data.SelectSql.CheckDescriptor">
+  CheckDescriptor()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L274"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Throws an exception if this descriptor is not fully defined</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void CheckDescriptor()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Clear_" data-uid="Tripous.Data.SelectSql.Clear*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Clear" data-uid="Tripous.Data.SelectSql.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L284"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the content of the clause properties</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Clone_" data-uid="Tripous.Data.SelectSql.Clone*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Clone" data-uid="Tripous.Data.SelectSql.Clone">
+  Clone()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L337"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a clone of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BaseDef Clone()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Tripous.BaseDef.html">BaseDef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_DateRangeConstructWhereParams_" data-uid="Tripous.Data.SelectSql.DateRangeConstructWhereParams*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_DateRangeConstructWhereParams_Tripous_DateRange_System_String_" data-uid="Tripous.Data.SelectSql.DateRangeConstructWhereParams(Tripous.DateRange,System.String)">
+  DateRangeConstructWhereParams(DateRange, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L223"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a DateTime param pair (date range params) suitable for thw WHERE part in a SelectSql</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DateRangeConstructWhereParams(DateRange Range, string FieldName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Range</code> <a class="xref" href="Tripous.DateRange.html">DateRange</a></dt>
+    <dd></dd>
+    <dt><code>FieldName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_DateRangeReplaceWhereParams_" data-uid="Tripous.Data.SelectSql.DateRangeReplaceWhereParams*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_DateRangeReplaceWhereParams_System_String__Tripous_Data_SqlProvider_" data-uid="Tripous.Data.SelectSql.DateRangeReplaceWhereParams(System.String@,Tripous.Data.SqlProvider)">
+  DateRangeReplaceWhereParams(ref string, SqlProvider)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L233"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces any DateTime param pair (date range params) found in SqlText with actual values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DateRangeReplaceWhereParams(ref string SqlText, SqlProvider Provider)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>SqlText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Provider</code> <a class="xref" href="Tripous.Data.SqlProvider.html">SqlProvider</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_GetMainTableName_" data-uid="Tripous.Data.SelectSql.GetMainTableName*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_GetMainTableName" data-uid="Tripous.Data.SelectSql.GetMainTableName">
+  GetMainTableName()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L487"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get the main table name from the statement</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetMainTableName()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_GetSqlText_" data-uid="Tripous.Data.SelectSql.GetSqlText*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_GetSqlText" data-uid="Tripous.Data.SelectSql.GetSqlText">
+  GetSqlText()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L346"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates Keyword + Clause for all clauses</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetSqlText()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_IsMasked_" data-uid="Tripous.Data.SelectSql.IsMasked*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_IsMasked_System_String_" data-uid="Tripous.Data.SelectSql.IsMasked(System.String)">
+  IsMasked(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns true if Value contains any of the mask characters (%, ?, *)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsMasked(string Value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_NormalizeClause_" data-uid="Tripous.Data.SelectSql.NormalizeClause*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_NormalizeClause_System_String_System_String_" data-uid="Tripous.Data.SelectSql.NormalizeClause(System.String,System.String)">
+  NormalizeClause(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L188"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates Keyword + Clause</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string NormalizeClause(string Clause, string Keyword)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Clause</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>Keyword</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_OrToWhere_" data-uid="Tripous.Data.SelectSql.OrToWhere*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_OrToWhere_System_String_" data-uid="Tripous.Data.SelectSql.OrToWhere(System.String)">
+  OrToWhere(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L404"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concatenates WHERE + or + Plus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OrToWhere(string Plus)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Plus</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_Parse_" data-uid="Tripous.Data.SelectSql.Parse*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_Parse_System_String_" data-uid="Tripous.Data.SelectSql.Parse(System.String)">
+  Parse(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L455"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parses StatementText and assigns its clause properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Parse(string StatementText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>StatementText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_ParseFromTableName_" data-uid="Tripous.Data.SelectSql.ParseFromTableName*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_ParseFromTableName_System_String_" data-uid="Tripous.Data.SelectSql.ParseFromTableName(System.String)">
+  ParseFromTableName(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L480"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a select * from TableName statement and then calls Parse()</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ParseFromTableName(string TableName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TableName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_RemoveOrderBy_" data-uid="Tripous.Data.SelectSql.RemoveOrderBy*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_RemoveOrderBy" data-uid="Tripous.Data.SelectSql.RemoveOrderBy">
+  RemoveOrderBy()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L440"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the ORDER BY clause.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOrderBy()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_ReplaceLastComma_" data-uid="Tripous.Data.SelectSql.ReplaceLastComma*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_ReplaceLastComma_System_String__" data-uid="Tripous.Data.SelectSql.ReplaceLastComma(System.String@)">
+  ReplaceLastComma(ref string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L134"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces any trailing comma with space in S, ignoring trailing spaces.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReplaceLastComma(ref string S)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>S</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Tripous_Data_SelectSql_SelectFromToString_" data-uid="Tripous.Data.SelectSql.SelectFromToString*"></a>
+
+  <h3 id="Tripous_Data_SelectSql_SelectFromToString" data-uid="Tripous.Data.SelectSql.SelectFromToString">
+  SelectFromToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L448"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns concatenated the SELECT and FROM clauses only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SelectFromToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/tbebekis/Tripous.Avalon/blob/main/Tripous.Data/SelectSql.cs/#L14" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -66,7 +66,7 @@ public class SqlProviderOracle : SqlProvider
     public override string QSDateTime(DateTime Value)
     {
         // to_date('2010-12-14:09:56:53', 'YYYY-MM-DD:HH24:MI:SS')
-        return string.Format("to_date('{0}', 'YYYY-MM-DD:HH24:MI:SS')", Value.ToString("yyyy-MM-dd HH:mm:ss"));
+        return string.Format("to_date('{0}', 'YYYY-MM-DD HH24:MI:SS')", Value.ToString("yyyy-MM-dd HH:mm:ss"));
     }
     
     // ● alter column 

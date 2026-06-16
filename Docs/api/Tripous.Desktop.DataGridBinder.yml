@@ -1,0 +1,1807 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.DataGridBinder
+  commentId: T:Tripous.Desktop.DataGridBinder
+  id: DataGridBinder
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.DataGridBinder.BindGrid(Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataColumn[],System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataTable,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.FieldDef[],System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateGridColumn(Tripous.Data.FieldDef,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateLocatorColumn(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateLookupColumn(System.Data.DataColumn,Tripous.Data.LookupDef,System.Boolean,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.FormatValue(System.Object,System.String)
+  - Tripous.Desktop.DataGridBinder.GetDateAwareFormat(System.String,System.Type,System.String)
+  - Tripous.Desktop.DataGridBinder.GetDateAwareFormat(Tripous.Data.FieldDef)
+  - Tripous.Desktop.DataGridBinder.GetHeader(System.String)
+  - Tripous.Desktop.DataGridBinder.GetHeader(System.String,System.String)
+  - Tripous.Desktop.DataGridBinder.GetInfo(Avalonia.Controls.DataGridColumn)
+  - Tripous.Desktop.DataGridBinder.GetInfoList(Avalonia.Controls.DataGrid)
+  - Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates(Avalonia.Controls.DataGridColumn,Tripous.Data.LookupSource,System.Boolean)
+  - Tripous.Desktop.DataGridBinder.UnBindGrid(Avalonia.Controls.DataGrid)
+  langs:
+  - csharp
+  - vb
+  name: DataGridBinder
+  nameWithType: DataGridBinder
+  fullName: Tripous.Desktop.DataGridBinder
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataGridBinder
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides helper methods for binding data grids to data tables and definitions.
+  example: []
+  syntax:
+    content: public static class DataGridBinder
+    content.vb: Public Module DataGridBinder
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Desktop.DataGridBinder.GetHeader(System.String)
+  commentId: M:Tripous.Desktop.DataGridBinder.GetHeader(System.String)
+  id: GetHeader(System.String)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetHeader(string)
+  nameWithType: DataGridBinder.GetHeader(string)
+  fullName: Tripous.Desktop.DataGridBinder.GetHeader(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetHeader
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 671
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns a display header from a header or column name.
+  example: []
+  syntax:
+    content: public static string GetHeader(string Header)
+    parameters:
+    - id: Header
+      type: System.String
+      description: The header text.
+    return:
+      type: System.String
+      description: The display header.
+    content.vb: Public Shared Function GetHeader(Header As String) As String
+  overload: Tripous.Desktop.DataGridBinder.GetHeader*
+  nameWithType.vb: DataGridBinder.GetHeader(String)
+  fullName.vb: Tripous.Desktop.DataGridBinder.GetHeader(String)
+  name.vb: GetHeader(String)
+- uid: Tripous.Desktop.DataGridBinder.GetHeader(System.String,System.String)
+  commentId: M:Tripous.Desktop.DataGridBinder.GetHeader(System.String,System.String)
+  id: GetHeader(System.String,System.String)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetHeader(string, string)
+  nameWithType: DataGridBinder.GetHeader(string, string)
+  fullName: Tripous.Desktop.DataGridBinder.GetHeader(string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetHeader
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 696
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns a display header from a column name and optional header.
+  example: []
+  syntax:
+    content: public static string GetHeader(string ColumnName, string Header)
+    parameters:
+    - id: ColumnName
+      type: System.String
+      description: The column name.
+    - id: Header
+      type: System.String
+      description: The header text.
+    return:
+      type: System.String
+      description: The display header.
+    content.vb: Public Shared Function GetHeader(ColumnName As String, Header As String) As String
+  overload: Tripous.Desktop.DataGridBinder.GetHeader*
+  nameWithType.vb: DataGridBinder.GetHeader(String, String)
+  fullName.vb: Tripous.Desktop.DataGridBinder.GetHeader(String, String)
+  name.vb: GetHeader(String, String)
+- uid: Tripous.Desktop.DataGridBinder.FormatValue(System.Object,System.String)
+  commentId: M:Tripous.Desktop.DataGridBinder.FormatValue(System.Object,System.String)
+  id: FormatValue(System.Object,System.String)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: FormatValue(object, string)
+  nameWithType: DataGridBinder.FormatValue(object, string)
+  fullName: Tripous.Desktop.DataGridBinder.FormatValue(object, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormatValue
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 704
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Formats a value using the specified format.
+  example: []
+  syntax:
+    content: public static string FormatValue(object Value, string Format)
+    parameters:
+    - id: Value
+      type: System.Object
+      description: The value to format.
+    - id: Format
+      type: System.String
+      description: The display format.
+    return:
+      type: System.String
+      description: The formatted value text.
+    content.vb: Public Shared Function FormatValue(Value As Object, Format As String) As String
+  overload: Tripous.Desktop.DataGridBinder.FormatValue*
+  nameWithType.vb: DataGridBinder.FormatValue(Object, String)
+  fullName.vb: Tripous.Desktop.DataGridBinder.FormatValue(Object, String)
+  name.vb: FormatValue(Object, String)
+- uid: Tripous.Desktop.DataGridBinder.GetDateAwareFormat(System.String,System.Type,System.String)
+  commentId: M:Tripous.Desktop.DataGridBinder.GetDateAwareFormat(System.String,System.Type,System.String)
+  id: GetDateAwareFormat(System.String,System.Type,System.String)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetDateAwareFormat(string, Type, string)
+  nameWithType: DataGridBinder.GetDateAwareFormat(string, Type, string)
+  fullName: Tripous.Desktop.DataGridBinder.GetDateAwareFormat(string, System.Type, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDateAwareFormat
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 719
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns a date-aware display format.
+  example: []
+  syntax:
+    content: public static string GetDateAwareFormat(string FieldName, Type DataType, string Format)
+    parameters:
+    - id: FieldName
+      type: System.String
+      description: The field name.
+    - id: DataType
+      type: System.Type
+      description: The data type.
+    - id: Format
+      type: System.String
+      description: The current format.
+    return:
+      type: System.String
+      description: The date-aware display format.
+    content.vb: Public Shared Function GetDateAwareFormat(FieldName As String, DataType As Type, Format As String) As String
+  overload: Tripous.Desktop.DataGridBinder.GetDateAwareFormat*
+  nameWithType.vb: DataGridBinder.GetDateAwareFormat(String, Type, String)
+  fullName.vb: Tripous.Desktop.DataGridBinder.GetDateAwareFormat(String, System.Type, String)
+  name.vb: GetDateAwareFormat(String, Type, String)
+- uid: Tripous.Desktop.DataGridBinder.GetDateAwareFormat(Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.DataGridBinder.GetDateAwareFormat(Tripous.Data.FieldDef)
+  id: GetDateAwareFormat(Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetDateAwareFormat(FieldDef)
+  nameWithType: DataGridBinder.GetDateAwareFormat(FieldDef)
+  fullName: Tripous.Desktop.DataGridBinder.GetDateAwareFormat(Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDateAwareFormat
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 734
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns a date-aware display format.
+  example: []
+  syntax:
+    content: public static string GetDateAwareFormat(FieldDef FieldDef)
+    parameters:
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+      description: The field definition.
+    return:
+      type: System.String
+      description: The date-aware display format.
+    content.vb: Public Shared Function GetDateAwareFormat(FieldDef As FieldDef) As String
+  overload: Tripous.Desktop.DataGridBinder.GetDateAwareFormat*
+- uid: Tripous.Desktop.DataGridBinder.BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  id: BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: BindGrid(SelectDef, DataGrid, DataView, bool, bool)
+  nameWithType: DataGridBinder.BindGrid(SelectDef, DataGrid, DataView, bool, bool)
+  fullName: Tripous.Desktop.DataGridBinder.BindGrid(Tripous.Data.SelectDef, Avalonia.Controls.DataGrid, System.Data.DataView, bool, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindGrid
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 816
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Binds a data grid to a data view using a select definition.
+  example: []
+  syntax:
+    content: public static List<DataGridColumn> BindGrid(SelectDef SelectDef, DataGrid Grid, DataView DataView, bool SupportsRecycling = false, bool GoToFirst = true)
+    parameters:
+    - id: SelectDef
+      type: Tripous.Data.SelectDef
+      description: The select definition.
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    - id: DataView
+      type: System.Data.DataView
+      description: The data view.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when columns support recycling.
+    - id: GoToFirst
+      type: System.Boolean
+      description: True to select the first row.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+      description: The created data grid columns.
+    content.vb: Public Shared Function BindGrid(SelectDef As SelectDef, Grid As DataGrid, DataView As DataView, SupportsRecycling As Boolean = False, GoToFirst As Boolean = True) As List(Of DataGridColumn)
+  overload: Tripous.Desktop.DataGridBinder.BindGrid*
+  nameWithType.vb: DataGridBinder.BindGrid(SelectDef, DataGrid, DataView, Boolean, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.BindGrid(Tripous.Data.SelectDef, Avalonia.Controls.DataGrid, System.Data.DataView, Boolean, Boolean)
+  name.vb: BindGrid(SelectDef, DataGrid, DataView, Boolean, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.BindGrid(Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.BindGrid(Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  id: BindGrid(Avalonia.Controls.DataGrid,System.Data.DataView,System.Boolean,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: BindGrid(DataGrid, DataView, bool, bool)
+  nameWithType: DataGridBinder.BindGrid(DataGrid, DataView, bool, bool)
+  fullName: Tripous.Desktop.DataGridBinder.BindGrid(Avalonia.Controls.DataGrid, System.Data.DataView, bool, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindGrid
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 853
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Binds a data grid to a data view.
+  example: []
+  syntax:
+    content: public static List<DataGridColumn> BindGrid(DataGrid Grid, DataView DataView, bool SupportsRecycling = false, bool GoToFirst = true)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    - id: DataView
+      type: System.Data.DataView
+      description: The data view.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when columns support recycling.
+    - id: GoToFirst
+      type: System.Boolean
+      description: True to select the first row.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+      description: The created data grid columns.
+    content.vb: Public Shared Function BindGrid(Grid As DataGrid, DataView As DataView, SupportsRecycling As Boolean = False, GoToFirst As Boolean = True) As List(Of DataGridColumn)
+  overload: Tripous.Desktop.DataGridBinder.BindGrid*
+  nameWithType.vb: DataGridBinder.BindGrid(DataGrid, DataView, Boolean, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.BindGrid(Avalonia.Controls.DataGrid, System.Data.DataView, Boolean, Boolean)
+  name.vb: BindGrid(DataGrid, DataView, Boolean, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.UnBindGrid(Avalonia.Controls.DataGrid)
+  commentId: M:Tripous.Desktop.DataGridBinder.UnBindGrid(Avalonia.Controls.DataGrid)
+  id: UnBindGrid(Avalonia.Controls.DataGrid)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: UnBindGrid(DataGrid)
+  nameWithType: DataGridBinder.UnBindGrid(DataGrid)
+  fullName: Tripous.Desktop.DataGridBinder.UnBindGrid(Avalonia.Controls.DataGrid)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UnBindGrid
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 874
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Unbinds a data grid.
+  example: []
+  syntax:
+    content: public static void UnBindGrid(DataGrid Grid)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    content.vb: Public Shared Sub UnBindGrid(Grid As DataGrid)
+  overload: Tripous.Desktop.DataGridBinder.UnBindGrid*
+- uid: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataTable,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataTable,System.Boolean)
+  id: CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataTable,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateColumns(DataGrid, DataTable, bool)
+  nameWithType: DataGridBinder.CreateColumns(DataGrid, DataTable, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, System.Data.DataTable, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateColumns
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 887
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates data grid columns from a data table.
+  example: []
+  syntax:
+    content: public static List<DataGridColumn> CreateColumns(DataGrid Grid, DataTable Table, bool SupportsRecycling = false)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    - id: Table
+      type: System.Data.DataTable
+      description: The data table.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when columns support recycling.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+      description: The created data grid columns.
+    content.vb: Public Shared Function CreateColumns(Grid As DataGrid, Table As DataTable, SupportsRecycling As Boolean = False) As List(Of DataGridColumn)
+  overload: Tripous.Desktop.DataGridBinder.CreateColumns*
+  nameWithType.vb: DataGridBinder.CreateColumns(DataGrid, DataTable, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, System.Data.DataTable, Boolean)
+  name.vb: CreateColumns(DataGrid, DataTable, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataColumn[],System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataColumn[],System.Boolean)
+  id: CreateColumns(Avalonia.Controls.DataGrid,System.Data.DataColumn[],System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateColumns(DataGrid, DataColumn[], bool)
+  nameWithType: DataGridBinder.CreateColumns(DataGrid, DataColumn[], bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, System.Data.DataColumn[], bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateColumns
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 895
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates data grid columns from data columns.
+  example: []
+  syntax:
+    content: public static List<DataGridColumn> CreateColumns(DataGrid Grid, DataColumn[] DataColumns, bool SupportsRecycling = false)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    - id: DataColumns
+      type: System.Data.DataColumn[]
+      description: The data columns.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when columns support recycling.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+      description: The created data grid columns.
+    content.vb: Public Shared Function CreateColumns(Grid As DataGrid, DataColumns As DataColumn(), SupportsRecycling As Boolean = False) As List(Of DataGridColumn)
+  overload: Tripous.Desktop.DataGridBinder.CreateColumns*
+  nameWithType.vb: DataGridBinder.CreateColumns(DataGrid, DataColumn(), Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, System.Data.DataColumn(), Boolean)
+  name.vb: CreateColumns(DataGrid, DataColumn(), Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef,System.Boolean)
+  id: CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateColumns(DataGrid, TableDef, bool)
+  nameWithType: DataGridBinder.CreateColumns(DataGrid, TableDef, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, Tripous.Data.TableDef, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateColumns
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 922
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates data grid columns from a table definition.
+  example: []
+  syntax:
+    content: public static List<DataGridColumn> CreateColumns(DataGrid Grid, TableDef TableDef, bool SupportsRecycling = false)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    - id: TableDef
+      type: Tripous.Data.TableDef
+      description: The table definition.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when columns support recycling.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+      description: The created data grid columns.
+    content.vb: Public Shared Function CreateColumns(Grid As DataGrid, TableDef As TableDef, SupportsRecycling As Boolean = False) As List(Of DataGridColumn)
+  overload: Tripous.Desktop.DataGridBinder.CreateColumns*
+  nameWithType.vb: DataGridBinder.CreateColumns(DataGrid, TableDef, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, Tripous.Data.TableDef, Boolean)
+  name.vb: CreateColumns(DataGrid, TableDef, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.FieldDef[],System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.FieldDef[],System.Boolean)
+  id: CreateColumns(Avalonia.Controls.DataGrid,Tripous.Data.FieldDef[],System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateColumns(DataGrid, FieldDef[], bool)
+  nameWithType: DataGridBinder.CreateColumns(DataGrid, FieldDef[], bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, Tripous.Data.FieldDef[], bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateColumns
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 930
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates data grid columns from field definitions.
+  example: []
+  syntax:
+    content: public static List<DataGridColumn> CreateColumns(DataGrid Grid, FieldDef[] FieldDefs, bool SupportsRecycling = false)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    - id: FieldDefs
+      type: Tripous.Data.FieldDef[]
+      description: The field definitions.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when columns support recycling.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+      description: The created data grid columns.
+    content.vb: Public Shared Function CreateColumns(Grid As DataGrid, FieldDefs As FieldDef(), SupportsRecycling As Boolean = False) As List(Of DataGridColumn)
+  overload: Tripous.Desktop.DataGridBinder.CreateColumns*
+  nameWithType.vb: DataGridBinder.CreateColumns(DataGrid, FieldDef(), Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateColumns(Avalonia.Controls.DataGrid, Tripous.Data.FieldDef(), Boolean)
+  name.vb: CreateColumns(DataGrid, FieldDef(), Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean,System.Boolean)
+  id: CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateGridColumn(DataColumn, string, TextAlignment?, bool, bool)
+  nameWithType: DataGridBinder.CreateGridColumn(DataColumn, string, TextAlignment?, bool, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateGridColumn(System.Data.DataColumn, string, Avalonia.Media.TextAlignment?, bool, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateGridColumn
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 954
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a data grid column from a data column.
+  example: []
+  syntax:
+    content: public static DataGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false, bool SupportsRecycling = false)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+      description: The data column.
+    - id: Format
+      type: System.String
+      description: The display format.
+    - id: Alignment
+      type: System.Nullable{Avalonia.Media.TextAlignment}
+      description: The text alignment.
+    - id: IsReadOnly
+      type: System.Boolean
+      description: True when the column is read-only.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when the column supports recycling.
+    return:
+      type: Avalonia.Controls.DataGridColumn
+      description: The created data grid column.
+    content.vb: Public Shared Function CreateGridColumn(Column As DataColumn, Format As String = Nothing, Alignment As TextAlignment? = Nothing, IsReadOnly As Boolean = False, SupportsRecycling As Boolean = False) As DataGridColumn
+  overload: Tripous.Desktop.DataGridBinder.CreateGridColumn*
+  nameWithType.vb: DataGridBinder.CreateGridColumn(DataColumn, String, TextAlignment?, Boolean, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateGridColumn(System.Data.DataColumn, String, Avalonia.Media.TextAlignment?, Boolean, Boolean)
+  name.vb: CreateGridColumn(DataColumn, String, TextAlignment?, Boolean, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean,System.Boolean)
+  id: CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateGridColumn(string, string, DataFieldType, string, bool, bool)
+  nameWithType: DataGridBinder.CreateGridColumn(string, string, DataFieldType, string, bool, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateGridColumn(string, string, Tripous.Data.DataFieldType, string, bool, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateGridColumn
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 999
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a data grid column.
+  example: []
+  syntax:
+    content: public static DataGridColumn CreateGridColumn(string ColumnName, string Header, DataFieldType DataType, string Format = null, bool IsReadOnly = false, bool SupportsRecycling = false)
+    parameters:
+    - id: ColumnName
+      type: System.String
+      description: The column name.
+    - id: Header
+      type: System.String
+      description: The column header.
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+      description: The data type.
+    - id: Format
+      type: System.String
+      description: The display format.
+    - id: IsReadOnly
+      type: System.Boolean
+      description: True when the column is read-only.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when the column supports recycling.
+    return:
+      type: Avalonia.Controls.DataGridColumn
+      description: The created data grid column.
+    content.vb: Public Shared Function CreateGridColumn(ColumnName As String, Header As String, DataType As DataFieldType, Format As String = Nothing, IsReadOnly As Boolean = False, SupportsRecycling As Boolean = False) As DataGridColumn
+  overload: Tripous.Desktop.DataGridBinder.CreateGridColumn*
+  nameWithType.vb: DataGridBinder.CreateGridColumn(String, String, DataFieldType, String, Boolean, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateGridColumn(String, String, Tripous.Data.DataFieldType, String, Boolean, Boolean)
+  name.vb: CreateGridColumn(String, String, DataFieldType, String, Boolean, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateLocatorColumn(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateLocatorColumn(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
+  id: CreateLocatorColumn(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateLocatorColumn(string, string, FieldDef, LocatorDef, LocatorFieldDef, Dictionary<string, string>, bool, bool)
+  nameWithType: DataGridBinder.CreateLocatorColumn(string, string, FieldDef, LocatorDef, LocatorFieldDef, Dictionary<string, string>, bool, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateLocatorColumn(string, string, Tripous.Data.FieldDef, Tripous.Data.LocatorDef, Tripous.Data.LocatorFieldDef, System.Collections.Generic.Dictionary<string, string>, bool, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLocatorColumn
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 1031
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a locator data grid column.
+  example: []
+  syntax:
+    content: public static DataGridColumn CreateLocatorColumn(string ColumnName, string Header, FieldDef FieldDef, LocatorDef LocatorDef, LocatorFieldDef LocatorFieldDef, Dictionary<string, string> TargetFieldMap, bool IsReadOnly = false, bool SupportsRecycling = false)
+    parameters:
+    - id: ColumnName
+      type: System.String
+      description: The column name.
+    - id: Header
+      type: System.String
+      description: The column header.
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+      description: The field definition.
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+      description: The locator definition.
+    - id: LocatorFieldDef
+      type: Tripous.Data.LocatorFieldDef
+      description: The locator field definition.
+    - id: TargetFieldMap
+      type: System.Collections.Generic.Dictionary{System.String,System.String}
+      description: The target field map.
+    - id: IsReadOnly
+      type: System.Boolean
+      description: True when the column is read-only.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when the column supports recycling.
+    return:
+      type: Avalonia.Controls.DataGridColumn
+      description: The created data grid column.
+    content.vb: Public Shared Function CreateLocatorColumn(ColumnName As String, Header As String, FieldDef As FieldDef, LocatorDef As LocatorDef, LocatorFieldDef As LocatorFieldDef, TargetFieldMap As Dictionary(Of String, String), IsReadOnly As Boolean = False, SupportsRecycling As Boolean = False) As DataGridColumn
+  overload: Tripous.Desktop.DataGridBinder.CreateLocatorColumn*
+  nameWithType.vb: DataGridBinder.CreateLocatorColumn(String, String, FieldDef, LocatorDef, LocatorFieldDef, Dictionary(Of String, String), Boolean, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateLocatorColumn(String, String, Tripous.Data.FieldDef, Tripous.Data.LocatorDef, Tripous.Data.LocatorFieldDef, System.Collections.Generic.Dictionary(Of String, String), Boolean, Boolean)
+  name.vb: CreateLocatorColumn(String, String, FieldDef, LocatorDef, LocatorFieldDef, Dictionary(Of String, String), Boolean, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateGridColumn(Tripous.Data.FieldDef,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateGridColumn(Tripous.Data.FieldDef,System.Boolean)
+  id: CreateGridColumn(Tripous.Data.FieldDef,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateGridColumn(FieldDef, bool)
+  nameWithType: DataGridBinder.CreateGridColumn(FieldDef, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateGridColumn(Tripous.Data.FieldDef, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateGridColumn
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 1057
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a data grid column from a field definition.
+  example: []
+  syntax:
+    content: public static DataGridColumn CreateGridColumn(FieldDef FieldDef, bool SupportsRecycling = false)
+    parameters:
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+      description: The field definition.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when the column supports recycling.
+    return:
+      type: Avalonia.Controls.DataGridColumn
+      description: The created data grid column.
+    content.vb: Public Shared Function CreateGridColumn(FieldDef As FieldDef, SupportsRecycling As Boolean = False) As DataGridColumn
+  overload: Tripous.Desktop.DataGridBinder.CreateGridColumn*
+  nameWithType.vb: DataGridBinder.CreateGridColumn(FieldDef, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateGridColumn(Tripous.Data.FieldDef, Boolean)
+  name.vb: CreateGridColumn(FieldDef, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateLookupColumn(System.Data.DataColumn,Tripous.Data.LookupDef,System.Boolean,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateLookupColumn(System.Data.DataColumn,Tripous.Data.LookupDef,System.Boolean,System.Boolean)
+  id: CreateLookupColumn(System.Data.DataColumn,Tripous.Data.LookupDef,System.Boolean,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateLookupColumn(DataColumn, LookupDef, bool, bool)
+  nameWithType: DataGridBinder.CreateLookupColumn(DataColumn, LookupDef, bool, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateLookupColumn(System.Data.DataColumn, Tripous.Data.LookupDef, bool, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLookupColumn
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 1084
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a lookup data grid column from a data column.
+  example: []
+  syntax:
+    content: public static DataGridColumn CreateLookupColumn(DataColumn Column, LookupDef LookupDef, bool IsReadOnly = false, bool SupportsRecycling = false)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+      description: The data column.
+    - id: LookupDef
+      type: Tripous.Data.LookupDef
+      description: The lookup definition.
+    - id: IsReadOnly
+      type: System.Boolean
+      description: True when the column is read-only.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when the column supports recycling.
+    return:
+      type: Avalonia.Controls.DataGridColumn
+      description: The created data grid column.
+    content.vb: Public Shared Function CreateLookupColumn(Column As DataColumn, LookupDef As LookupDef, IsReadOnly As Boolean = False, SupportsRecycling As Boolean = False) As DataGridColumn
+  overload: Tripous.Desktop.DataGridBinder.CreateLookupColumn*
+  nameWithType.vb: DataGridBinder.CreateLookupColumn(DataColumn, LookupDef, Boolean, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateLookupColumn(System.Data.DataColumn, Tripous.Data.LookupDef, Boolean, Boolean)
+  name.vb: CreateLookupColumn(DataColumn, LookupDef, Boolean, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef,System.Boolean)
+  id: CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateLookupColumn(FieldDef, LookupDef, bool)
+  nameWithType: DataGridBinder.CreateLookupColumn(FieldDef, LookupDef, bool)
+  fullName: Tripous.Desktop.DataGridBinder.CreateLookupColumn(Tripous.Data.FieldDef, Tripous.Data.LookupDef, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLookupColumn
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 1102
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a lookup data grid column from a field definition.
+  example: []
+  syntax:
+    content: public static DataGridColumn CreateLookupColumn(FieldDef FieldDef, LookupDef LookupDef = null, bool SupportsRecycling = false)
+    parameters:
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+      description: The field definition.
+    - id: LookupDef
+      type: Tripous.Data.LookupDef
+      description: The lookup definition.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when the column supports recycling.
+    return:
+      type: Avalonia.Controls.DataGridColumn
+      description: The created data grid column.
+    content.vb: Public Shared Function CreateLookupColumn(FieldDef As FieldDef, LookupDef As LookupDef = Nothing, SupportsRecycling As Boolean = False) As DataGridColumn
+  overload: Tripous.Desktop.DataGridBinder.CreateLookupColumn*
+  nameWithType.vb: DataGridBinder.CreateLookupColumn(FieldDef, LookupDef, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.CreateLookupColumn(Tripous.Data.FieldDef, Tripous.Data.LookupDef, Boolean)
+  name.vb: CreateLookupColumn(FieldDef, LookupDef, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates(Avalonia.Controls.DataGridColumn,Tripous.Data.LookupSource,System.Boolean)
+  commentId: M:Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates(Avalonia.Controls.DataGridColumn,Tripous.Data.LookupSource,System.Boolean)
+  id: ResetLookupColumnTemplates(Avalonia.Controls.DataGridColumn,Tripous.Data.LookupSource,System.Boolean)
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: ResetLookupColumnTemplates(DataGridColumn, LookupSource, bool)
+  nameWithType: DataGridBinder.ResetLookupColumnTemplates(DataGridColumn, LookupSource, bool)
+  fullName: Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates(Avalonia.Controls.DataGridColumn, Tripous.Data.LookupSource, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ResetLookupColumnTemplates
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 1120
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Resets lookup column templates using a lookup source.
+  example: []
+  syntax:
+    content: public static void ResetLookupColumnTemplates(DataGridColumn Column, LookupSource LookupSource, bool SupportsRecycling = false)
+    parameters:
+    - id: Column
+      type: Avalonia.Controls.DataGridColumn
+      description: The data grid column.
+    - id: LookupSource
+      type: Tripous.Data.LookupSource
+      description: The lookup source.
+    - id: SupportsRecycling
+      type: System.Boolean
+      description: True when the column supports recycling.
+    content.vb: Public Shared Sub ResetLookupColumnTemplates(Column As DataGridColumn, LookupSource As LookupSource, SupportsRecycling As Boolean = False)
+  overload: Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates*
+  nameWithType.vb: DataGridBinder.ResetLookupColumnTemplates(DataGridColumn, LookupSource, Boolean)
+  fullName.vb: Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates(Avalonia.Controls.DataGridColumn, Tripous.Data.LookupSource, Boolean)
+  name.vb: ResetLookupColumnTemplates(DataGridColumn, LookupSource, Boolean)
+- uid: Tripous.Desktop.DataGridBinder.GetInfo(Avalonia.Controls.DataGridColumn)
+  commentId: M:Tripous.Desktop.DataGridBinder.GetInfo(Avalonia.Controls.DataGridColumn)
+  id: GetInfo(Avalonia.Controls.DataGridColumn)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetInfo(DataGridColumn)
+  nameWithType: DataGridBinder.GetInfo(DataGridColumn)
+  fullName: Tripous.Desktop.DataGridBinder.GetInfo(Avalonia.Controls.DataGridColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetInfo
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 1138
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the grid column binding associated with a data grid column.
+  example: []
+  syntax:
+    content: public static GridColumnBinding GetInfo(this DataGridColumn Column)
+    parameters:
+    - id: Column
+      type: Avalonia.Controls.DataGridColumn
+      description: The data grid column.
+    return:
+      type: Tripous.Desktop.GridColumnBinding
+      description: The grid column binding, if any; otherwise, null.
+    content.vb: Public Shared Function GetInfo(Column As DataGridColumn) As GridColumnBinding
+  overload: Tripous.Desktop.DataGridBinder.GetInfo*
+- uid: Tripous.Desktop.DataGridBinder.GetInfoList(Avalonia.Controls.DataGrid)
+  commentId: M:Tripous.Desktop.DataGridBinder.GetInfoList(Avalonia.Controls.DataGrid)
+  id: GetInfoList(Avalonia.Controls.DataGrid)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.DataGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetInfoList(DataGrid)
+  nameWithType: DataGridBinder.GetInfoList(DataGrid)
+  fullName: Tripous.Desktop.DataGridBinder.GetInfoList(Avalonia.Controls.DataGrid)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/DataGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetInfoList
+    path: ../Tripous.Desktop/DataGrid/DataGridBinder.cs
+    startLine: 1145
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the grid column bindings associated with a data grid.
+  example: []
+  syntax:
+    content: public static List<GridColumnBinding> GetInfoList(this DataGrid Grid)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.DataGrid
+      description: The data grid.
+    return:
+      type: System.Collections.Generic.List{Tripous.Desktop.GridColumnBinding}
+      description: The grid column bindings.
+    content.vb: Public Shared Function GetInfoList(Grid As DataGrid) As List(Of GridColumnBinding)
+  overload: Tripous.Desktop.DataGridBinder.GetInfoList*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Desktop.DataGridBinder.GetHeader*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.GetHeader
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_GetHeader_System_String_
+  name: GetHeader
+  nameWithType: DataGridBinder.GetHeader
+  fullName: Tripous.Desktop.DataGridBinder.GetHeader
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.DataGridBinder.FormatValue*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.FormatValue
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_FormatValue_System_Object_System_String_
+  name: FormatValue
+  nameWithType: DataGridBinder.FormatValue
+  fullName: Tripous.Desktop.DataGridBinder.FormatValue
+- uid: Tripous.Desktop.DataGridBinder.GetDateAwareFormat*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.GetDateAwareFormat
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_GetDateAwareFormat_System_String_System_Type_System_String_
+  name: GetDateAwareFormat
+  nameWithType: DataGridBinder.GetDateAwareFormat
+  fullName: Tripous.Desktop.DataGridBinder.GetDateAwareFormat
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: Tripous.Desktop.DataGridBinder.BindGrid*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.BindGrid
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_BindGrid_Tripous_Data_SelectDef_Avalonia_Controls_DataGrid_System_Data_DataView_System_Boolean_System_Boolean_
+  name: BindGrid
+  nameWithType: DataGridBinder.BindGrid
+  fullName: Tripous.Desktop.DataGridBinder.BindGrid
+- uid: Tripous.Data.SelectDef
+  commentId: T:Tripous.Data.SelectDef
+  parent: Tripous.Data
+  href: Tripous.Data.SelectDef.html
+  name: SelectDef
+  nameWithType: SelectDef
+  fullName: Tripous.Data.SelectDef
+- uid: Avalonia.Controls.DataGrid
+  commentId: T:Avalonia.Controls.DataGrid
+  parent: Avalonia.Controls
+  isExternal: true
+  name: DataGrid
+  nameWithType: DataGrid
+  fullName: Avalonia.Controls.DataGrid
+- uid: System.Data.DataView
+  commentId: T:System.Data.DataView
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataview
+  name: DataView
+  nameWithType: DataView
+  fullName: System.Data.DataView
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+  commentId: T:System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<DataGridColumn>
+  nameWithType: List<DataGridColumn>
+  fullName: System.Collections.Generic.List<Avalonia.Controls.DataGridColumn>
+  nameWithType.vb: List(Of DataGridColumn)
+  fullName.vb: System.Collections.Generic.List(Of Avalonia.Controls.DataGridColumn)
+  name.vb: List(Of DataGridColumn)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Avalonia.Controls.DataGridColumn
+    name: DataGridColumn
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.DataGridColumn
+    name: DataGridColumn
+    isExternal: true
+  - name: )
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Desktop.DataGridBinder.UnBindGrid*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.UnBindGrid
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_UnBindGrid_Avalonia_Controls_DataGrid_
+  name: UnBindGrid
+  nameWithType: DataGridBinder.UnBindGrid
+  fullName: Tripous.Desktop.DataGridBinder.UnBindGrid
+- uid: Tripous.Desktop.DataGridBinder.CreateColumns*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.CreateColumns
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_CreateColumns_Avalonia_Controls_DataGrid_System_Data_DataTable_System_Boolean_
+  name: CreateColumns
+  nameWithType: DataGridBinder.CreateColumns
+  fullName: Tripous.Desktop.DataGridBinder.CreateColumns
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
+- uid: System.Data.DataColumn[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn[]
+  nameWithType: DataColumn[]
+  fullName: System.Data.DataColumn[]
+  nameWithType.vb: DataColumn()
+  fullName.vb: System.Data.DataColumn()
+  name.vb: DataColumn()
+  spec.csharp:
+  - uid: System.Data.DataColumn
+    name: DataColumn
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Data.DataColumn
+    name: DataColumn
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  - name: (
+  - name: )
+- uid: Tripous.Data.TableDef
+  commentId: T:Tripous.Data.TableDef
+  parent: Tripous.Data
+  href: Tripous.Data.TableDef.html
+  name: TableDef
+  nameWithType: TableDef
+  fullName: Tripous.Data.TableDef
+- uid: Tripous.Data.FieldDef[]
+  isExternal: true
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef[]
+  nameWithType: FieldDef[]
+  fullName: Tripous.Data.FieldDef[]
+  nameWithType.vb: FieldDef()
+  fullName.vb: Tripous.Data.FieldDef()
+  name.vb: FieldDef()
+  spec.csharp:
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Tripous.Data.FieldDef
+    name: FieldDef
+    href: Tripous.Data.FieldDef.html
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.DataGridBinder.CreateGridColumn*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.CreateGridColumn
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_CreateGridColumn_System_Data_DataColumn_System_String_System_Nullable_Avalonia_Media_TextAlignment__System_Boolean_System_Boolean_
+  name: CreateGridColumn
+  nameWithType: DataGridBinder.CreateGridColumn
+  fullName: Tripous.Desktop.DataGridBinder.CreateGridColumn
+- uid: System.Data.DataColumn
+  commentId: T:System.Data.DataColumn
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn
+  nameWithType: DataColumn
+  fullName: System.Data.DataColumn
+- uid: System.Nullable{Avalonia.Media.TextAlignment}
+  commentId: T:System.Nullable{Avalonia.Media.TextAlignment}
+  parent: System
+  definition: System.Nullable`1
+  name: TextAlignment?
+  nameWithType: TextAlignment?
+  fullName: Avalonia.Media.TextAlignment?
+  spec.csharp:
+  - uid: Avalonia.Media.TextAlignment
+    name: TextAlignment
+    isExternal: true
+  - name: '?'
+  spec.vb:
+  - uid: Avalonia.Media.TextAlignment
+    name: TextAlignment
+    isExternal: true
+  - name: '?'
+- uid: Avalonia.Controls.DataGridColumn
+  commentId: T:Avalonia.Controls.DataGridColumn
+  parent: Avalonia.Controls
+  isExternal: true
+  name: DataGridColumn
+  nameWithType: DataGridColumn
+  fullName: Avalonia.Controls.DataGridColumn
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: Tripous.Desktop.DataGridBinder.CreateLocatorColumn*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.CreateLocatorColumn
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_CreateLocatorColumn_System_String_System_String_Tripous_Data_FieldDef_Tripous_Data_LocatorDef_Tripous_Data_LocatorFieldDef_System_Collections_Generic_Dictionary_System_String_System_String__System_Boolean_System_Boolean_
+  name: CreateLocatorColumn
+  nameWithType: DataGridBinder.CreateLocatorColumn
+  fullName: Tripous.Desktop.DataGridBinder.CreateLocatorColumn
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
+- uid: Tripous.Data.LocatorFieldDef
+  commentId: T:Tripous.Data.LocatorFieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorFieldDef.html
+  name: LocatorFieldDef
+  nameWithType: LocatorFieldDef
+  fullName: Tripous.Data.LocatorFieldDef
+- uid: System.Collections.Generic.Dictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, string>
+  nameWithType: Dictionary<string, string>
+  fullName: System.Collections.Generic.Dictionary<string, string>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: Tripous.Desktop.DataGridBinder.CreateLookupColumn*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.CreateLookupColumn
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_CreateLookupColumn_System_Data_DataColumn_Tripous_Data_LookupDef_System_Boolean_System_Boolean_
+  name: CreateLookupColumn
+  nameWithType: DataGridBinder.CreateLookupColumn
+  fullName: Tripous.Desktop.DataGridBinder.CreateLookupColumn
+- uid: Tripous.Data.LookupDef
+  commentId: T:Tripous.Data.LookupDef
+  parent: Tripous.Data
+  href: Tripous.Data.LookupDef.html
+  name: LookupDef
+  nameWithType: LookupDef
+  fullName: Tripous.Data.LookupDef
+- uid: Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_ResetLookupColumnTemplates_Avalonia_Controls_DataGridColumn_Tripous_Data_LookupSource_System_Boolean_
+  name: ResetLookupColumnTemplates
+  nameWithType: DataGridBinder.ResetLookupColumnTemplates
+  fullName: Tripous.Desktop.DataGridBinder.ResetLookupColumnTemplates
+- uid: Tripous.Data.LookupSource
+  commentId: T:Tripous.Data.LookupSource
+  parent: Tripous.Data
+  href: Tripous.Data.LookupSource.html
+  name: LookupSource
+  nameWithType: LookupSource
+  fullName: Tripous.Data.LookupSource
+- uid: Tripous.Desktop.DataGridBinder.GetInfo*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.GetInfo
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_GetInfo_Avalonia_Controls_DataGridColumn_
+  name: GetInfo
+  nameWithType: DataGridBinder.GetInfo
+  fullName: Tripous.Desktop.DataGridBinder.GetInfo
+- uid: Tripous.Desktop.GridColumnBinding
+  commentId: T:Tripous.Desktop.GridColumnBinding
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.GridColumnBinding.html
+  name: GridColumnBinding
+  nameWithType: GridColumnBinding
+  fullName: Tripous.Desktop.GridColumnBinding
+- uid: Tripous.Desktop.DataGridBinder.GetInfoList*
+  commentId: Overload:Tripous.Desktop.DataGridBinder.GetInfoList
+  href: Tripous.Desktop.DataGridBinder.html#Tripous_Desktop_DataGridBinder_GetInfoList_Avalonia_Controls_DataGrid_
+  name: GetInfoList
+  nameWithType: DataGridBinder.GetInfoList
+  fullName: Tripous.Desktop.DataGridBinder.GetInfoList
+- uid: System.Collections.Generic.List{Tripous.Desktop.GridColumnBinding}
+  commentId: T:System.Collections.Generic.List{Tripous.Desktop.GridColumnBinding}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<GridColumnBinding>
+  nameWithType: List<GridColumnBinding>
+  fullName: System.Collections.Generic.List<Tripous.Desktop.GridColumnBinding>
+  nameWithType.vb: List(Of GridColumnBinding)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Desktop.GridColumnBinding)
+  name.vb: List(Of GridColumnBinding)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Desktop.GridColumnBinding
+    name: GridColumnBinding
+    href: Tripous.Desktop.GridColumnBinding.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.GridColumnBinding
+    name: GridColumnBinding
+    href: Tripous.Desktop.GridColumnBinding.html
+  - name: )

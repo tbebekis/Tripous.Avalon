@@ -90,7 +90,7 @@ namespace Tripous
                 if (Dictionary[Key].GetType().Equals(typeof(double)))
                     return (double)Dictionary[Key];
                 else
-                    return Convert.ToInt32(Dictionary[Key]);
+                    return Convert.ToDouble(Dictionary[Key]);
             }
 
             return Default;
@@ -172,27 +172,31 @@ namespace Tripous
         /// </summary>
         static public void TextToDic(this IDictionary<string, string> Dictionary, string Text)
         {
-
             Dictionary.Clear();
 
-            string[] Lines = Text.Split(Environment.NewLine);
+            if (string.IsNullOrWhiteSpace(Text))
+                return;
+
+            string[] Lines = Text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
             string[] KeyValue;
             string Key;
             string Value;
             for (int i = 0; i < Lines.Length; i++)
             {
-                KeyValue = Lines[i].Split('=');
-                if (KeyValue.Length > 0)
-                    Key = KeyValue[0];
-                else
-                    Key = "";
+                if (string.IsNullOrWhiteSpace(Lines[i]))
+                    continue;
+
+                KeyValue = Lines[i].Split('=', 2, StringSplitOptions.TrimEntries);
+                Key = KeyValue.Length > 0 ? KeyValue[0] : "";
+                if (string.IsNullOrWhiteSpace(Key))
+                    continue;
 
                 if (KeyValue.Length > 1)
                     Value = KeyValue[1];
                 else
                     Value = "";
 
-                Dictionary.Add(Key, Value);
+                Dictionary[Key] = Value;
             }
 
 
@@ -211,7 +215,7 @@ namespace Tripous
 
             foreach (string Key in Keys)
             {
-                El = ParentNode.AppendChild(ParentNode.OwnerDocument.CreateElement(ListNodeName)) as XmlElement;
+                El = ParentNode.AppendChild(ParentNode.OwnerDocument.CreateElement(ItemNodeName)) as XmlElement;
                 El.SetAttribute("FlagName", Key);
                 El.SetAttribute("Value", Dictionary[Key]); 
             }
@@ -258,6 +262,9 @@ namespace Tripous
         /// </summary>
         static public void Assign<TKey, TValue>(this IDictionary<TKey, TValue> Source, IDictionary<TKey, TValue> Dest, bool ClearSource = true)
         {
+            if (ReferenceEquals(Source, Dest))
+                return;
+
             if (ClearSource)
                 Source.Clear();
 
@@ -355,7 +362,7 @@ namespace Tripous
                 if (Row.Table.Columns.Contains(FieldName))
                 {
                     Column = Row.Table.Columns[FieldName];
-                    Row[Column] = enumerator.Value;
+                    Row[Column] = enumerator.Value ?? DBNull.Value;
                 }
 
             }

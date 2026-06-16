@@ -1,0 +1,718 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.LoginBoxData
+  commentId: T:Tripous.Desktop.LoginBoxData
+  id: LoginBoxData
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.LoginBoxData.CultureCode
+  - Tripous.Desktop.LoginBoxData.Info
+  - Tripous.Desktop.LoginBoxData.Message
+  - Tripous.Desktop.LoginBoxData.Password
+  - Tripous.Desktop.LoginBoxData.Result
+  - Tripous.Desktop.LoginBoxData.SupportedCultures
+  - Tripous.Desktop.LoginBoxData.UserName
+  langs:
+  - csharp
+  - vb
+  name: LoginBoxData
+  nameWithType: LoginBoxData
+  fullName: Tripous.Desktop.LoginBoxData
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LoginBoxData
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 115
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Contains login dialog data.
+  example: []
+  syntax:
+    content: public class LoginBoxData
+    content.vb: Public Class LoginBoxData
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.LoginBoxData.UserName
+  commentId: P:Tripous.Desktop.LoginBoxData.UserName
+  id: UserName
+  parent: Tripous.Desktop.LoginBoxData
+  langs:
+  - csharp
+  - vb
+  name: UserName
+  nameWithType: LoginBoxData.UserName
+  fullName: Tripous.Desktop.LoginBoxData.UserName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UserName
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 121
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the user name.
+  example: []
+  syntax:
+    content: public string UserName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property UserName As String
+  overload: Tripous.Desktop.LoginBoxData.UserName*
+- uid: Tripous.Desktop.LoginBoxData.Password
+  commentId: P:Tripous.Desktop.LoginBoxData.Password
+  id: Password
+  parent: Tripous.Desktop.LoginBoxData
+  langs:
+  - csharp
+  - vb
+  name: Password
+  nameWithType: LoginBoxData.Password
+  fullName: Tripous.Desktop.LoginBoxData.Password
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Password
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 125
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the password.
+  example: []
+  syntax:
+    content: public string Password { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Password As String
+  overload: Tripous.Desktop.LoginBoxData.Password*
+- uid: Tripous.Desktop.LoginBoxData.CultureCode
+  commentId: P:Tripous.Desktop.LoginBoxData.CultureCode
+  id: CultureCode
+  parent: Tripous.Desktop.LoginBoxData
+  langs:
+  - csharp
+  - vb
+  name: CultureCode
+  nameWithType: LoginBoxData.CultureCode
+  fullName: Tripous.Desktop.LoginBoxData.CultureCode
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CultureCode
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 129
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the selected culture code.
+  example: []
+  syntax:
+    content: public string CultureCode { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property CultureCode As String
+  overload: Tripous.Desktop.LoginBoxData.CultureCode*
+- uid: Tripous.Desktop.LoginBoxData.SupportedCultures
+  commentId: P:Tripous.Desktop.LoginBoxData.SupportedCultures
+  id: SupportedCultures
+  parent: Tripous.Desktop.LoginBoxData
+  langs:
+  - csharp
+  - vb
+  name: SupportedCultures
+  nameWithType: LoginBoxData.SupportedCultures
+  fullName: Tripous.Desktop.LoginBoxData.SupportedCultures
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SupportedCultures
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 133
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the supported culture codes.
+  example: []
+  syntax:
+    content: public string[] SupportedCultures { get; set; }
+    parameters: []
+    return:
+      type: System.String[]
+    content.vb: Public Property SupportedCultures As String()
+  overload: Tripous.Desktop.LoginBoxData.SupportedCultures*
+- uid: Tripous.Desktop.LoginBoxData.Message
+  commentId: P:Tripous.Desktop.LoginBoxData.Message
+  id: Message
+  parent: Tripous.Desktop.LoginBoxData
+  langs:
+  - csharp
+  - vb
+  name: Message
+  nameWithType: LoginBoxData.Message
+  fullName: Tripous.Desktop.LoginBoxData.Message
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Message
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 137
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the dialog message.
+  example: []
+  syntax:
+    content: public string Message { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Message As String
+  overload: Tripous.Desktop.LoginBoxData.Message*
+- uid: Tripous.Desktop.LoginBoxData.Info
+  commentId: P:Tripous.Desktop.LoginBoxData.Info
+  id: Info
+  parent: Tripous.Desktop.LoginBoxData
+  langs:
+  - csharp
+  - vb
+  name: Info
+  nameWithType: LoginBoxData.Info
+  fullName: Tripous.Desktop.LoginBoxData.Info
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Info
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 141
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the dialog information.
+  example: []
+  syntax:
+    content: public DialogInfo Info { get; }
+    parameters: []
+    return:
+      type: Tripous.Desktop.DialogInfo
+    content.vb: Public Property Info As DialogInfo
+  overload: Tripous.Desktop.LoginBoxData.Info*
+- uid: Tripous.Desktop.LoginBoxData.Result
+  commentId: P:Tripous.Desktop.LoginBoxData.Result
+  id: Result
+  parent: Tripous.Desktop.LoginBoxData
+  langs:
+  - csharp
+  - vb
+  name: Result
+  nameWithType: LoginBoxData.Result
+  fullName: Tripous.Desktop.LoginBoxData.Result
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/LoginDialog.axaml.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Result
+    path: ../Tripous.Desktop/LoginDialog.axaml.cs
+    startLine: 145
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets a value indicating whether the dialog result is OK.
+  example: []
+  syntax:
+    content: public bool Result { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property Result As Boolean
+  overload: Tripous.Desktop.LoginBoxData.Result*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.LoginBoxData.UserName*
+  commentId: Overload:Tripous.Desktop.LoginBoxData.UserName
+  href: Tripous.Desktop.LoginBoxData.html#Tripous_Desktop_LoginBoxData_UserName
+  name: UserName
+  nameWithType: LoginBoxData.UserName
+  fullName: Tripous.Desktop.LoginBoxData.UserName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Desktop.LoginBoxData.Password*
+  commentId: Overload:Tripous.Desktop.LoginBoxData.Password
+  href: Tripous.Desktop.LoginBoxData.html#Tripous_Desktop_LoginBoxData_Password
+  name: Password
+  nameWithType: LoginBoxData.Password
+  fullName: Tripous.Desktop.LoginBoxData.Password
+- uid: Tripous.Desktop.LoginBoxData.CultureCode*
+  commentId: Overload:Tripous.Desktop.LoginBoxData.CultureCode
+  href: Tripous.Desktop.LoginBoxData.html#Tripous_Desktop_LoginBoxData_CultureCode
+  name: CultureCode
+  nameWithType: LoginBoxData.CultureCode
+  fullName: Tripous.Desktop.LoginBoxData.CultureCode
+- uid: Tripous.Desktop.LoginBoxData.SupportedCultures*
+  commentId: Overload:Tripous.Desktop.LoginBoxData.SupportedCultures
+  href: Tripous.Desktop.LoginBoxData.html#Tripous_Desktop_LoginBoxData_SupportedCultures
+  name: SupportedCultures
+  nameWithType: LoginBoxData.SupportedCultures
+  fullName: Tripous.Desktop.LoginBoxData.SupportedCultures
+- uid: System.String[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string[]
+  nameWithType: string[]
+  fullName: string[]
+  nameWithType.vb: String()
+  fullName.vb: String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.LoginBoxData.Message*
+  commentId: Overload:Tripous.Desktop.LoginBoxData.Message
+  href: Tripous.Desktop.LoginBoxData.html#Tripous_Desktop_LoginBoxData_Message
+  name: Message
+  nameWithType: LoginBoxData.Message
+  fullName: Tripous.Desktop.LoginBoxData.Message
+- uid: Tripous.Desktop.LoginBoxData.Info*
+  commentId: Overload:Tripous.Desktop.LoginBoxData.Info
+  href: Tripous.Desktop.LoginBoxData.html#Tripous_Desktop_LoginBoxData_Info
+  name: Info
+  nameWithType: LoginBoxData.Info
+  fullName: Tripous.Desktop.LoginBoxData.Info
+- uid: Tripous.Desktop.DialogInfo
+  commentId: T:Tripous.Desktop.DialogInfo
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DialogInfo.html
+  name: DialogInfo
+  nameWithType: DialogInfo
+  fullName: Tripous.Desktop.DialogInfo
+- uid: Tripous.Desktop.LoginBoxData.Result*
+  commentId: Overload:Tripous.Desktop.LoginBoxData.Result
+  href: Tripous.Desktop.LoginBoxData.html#Tripous_Desktop_LoginBoxData_Result
+  name: Result
+  nameWithType: LoginBoxData.Result
+  fullName: Tripous.Desktop.LoginBoxData.Result
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

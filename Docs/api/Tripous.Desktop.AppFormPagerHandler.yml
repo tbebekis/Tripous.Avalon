@@ -1,0 +1,829 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.AppFormPagerHandler
+  commentId: T:Tripous.Desktop.AppFormPagerHandler
+  id: AppFormPagerHandler
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.AppFormPagerHandler.#ctor(Avalonia.Controls.TabControl)
+  - Tripous.Desktop.AppFormPagerHandler.CloseForm(System.String)
+  - Tripous.Desktop.AppFormPagerHandler.FindAppForm(System.String)
+  - Tripous.Desktop.AppFormPagerHandler.FindTabItem(System.String)
+  - Tripous.Desktop.AppFormPagerHandler.Pager
+  - Tripous.Desktop.AppFormPagerHandler.ShowAppForm(Tripous.Desktop.FormContext)
+  - Tripous.Desktop.AppFormPagerHandler.ShowDataForm(System.String,Avalonia.Controls.Control)
+  - Tripous.Desktop.AppFormPagerHandler.ShowDataForm(Tripous.Desktop.DataFormContext)
+  langs:
+  - csharp
+  - vb
+  name: AppFormPagerHandler
+  nameWithType: AppFormPagerHandler
+  fullName: Tripous.Desktop.AppFormPagerHandler
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AppFormPagerHandler
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles a tab control which displays forms (UserControls) embedded in TabItems.
+  example: []
+  syntax:
+    content: public class AppFormPagerHandler
+    content.vb: Public Class AppFormPagerHandler
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Desktop.AppFormPagerHandler.#ctor(Avalonia.Controls.TabControl)
+  commentId: M:Tripous.Desktop.AppFormPagerHandler.#ctor(Avalonia.Controls.TabControl)
+  id: '#ctor(Avalonia.Controls.TabControl)'
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: AppFormPagerHandler(TabControl)
+  nameWithType: AppFormPagerHandler.AppFormPagerHandler(TabControl)
+  fullName: Tripous.Desktop.AppFormPagerHandler.AppFormPagerHandler(Avalonia.Controls.TabControl)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Initializes a new instance of the <xref href="Tripous.Desktop.AppFormPagerHandler" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public AppFormPagerHandler(TabControl Pager)
+    parameters:
+    - id: Pager
+      type: Avalonia.Controls.TabControl
+      description: The tab control handled by this instance.
+    content.vb: Public Sub New(Pager As TabControl)
+  overload: Tripous.Desktop.AppFormPagerHandler.#ctor*
+  nameWithType.vb: AppFormPagerHandler.New(TabControl)
+  fullName.vb: Tripous.Desktop.AppFormPagerHandler.New(Avalonia.Controls.TabControl)
+  name.vb: New(TabControl)
+- uid: Tripous.Desktop.AppFormPagerHandler.FindTabItem(System.String)
+  commentId: M:Tripous.Desktop.AppFormPagerHandler.FindTabItem(System.String)
+  id: FindTabItem(System.String)
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: FindTabItem(string)
+  nameWithType: AppFormPagerHandler.FindTabItem(string)
+  fullName: Tripous.Desktop.AppFormPagerHandler.FindTabItem(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindTabItem
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 61
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Finds a tab item by form identifier.
+  example: []
+  syntax:
+    content: public TabItem FindTabItem(string FormId)
+    parameters:
+    - id: FormId
+      type: System.String
+      description: The form identifier.
+    return:
+      type: Avalonia.Controls.TabItem
+      description: The matching tab item, if any; otherwise, null.
+    content.vb: Public Function FindTabItem(FormId As String) As TabItem
+  overload: Tripous.Desktop.AppFormPagerHandler.FindTabItem*
+  nameWithType.vb: AppFormPagerHandler.FindTabItem(String)
+  fullName.vb: Tripous.Desktop.AppFormPagerHandler.FindTabItem(String)
+  name.vb: FindTabItem(String)
+- uid: Tripous.Desktop.AppFormPagerHandler.FindAppForm(System.String)
+  commentId: M:Tripous.Desktop.AppFormPagerHandler.FindAppForm(System.String)
+  id: FindAppForm(System.String)
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: FindAppForm(string)
+  nameWithType: AppFormPagerHandler.FindAppForm(string)
+  fullName: Tripous.Desktop.AppFormPagerHandler.FindAppForm(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindAppForm
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 83
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Finds an application form by form identifier.
+  example: []
+  syntax:
+    content: public AppForm FindAppForm(string FormId)
+    parameters:
+    - id: FormId
+      type: System.String
+      description: The form identifier.
+    return:
+      type: Tripous.Desktop.AppForm
+      description: The matching form, if any; otherwise, null.
+    content.vb: Public Function FindAppForm(FormId As String) As AppForm
+  overload: Tripous.Desktop.AppFormPagerHandler.FindAppForm*
+  nameWithType.vb: AppFormPagerHandler.FindAppForm(String)
+  fullName.vb: Tripous.Desktop.AppFormPagerHandler.FindAppForm(String)
+  name.vb: FindAppForm(String)
+- uid: Tripous.Desktop.AppFormPagerHandler.ShowAppForm(Tripous.Desktop.FormContext)
+  commentId: M:Tripous.Desktop.AppFormPagerHandler.ShowAppForm(Tripous.Desktop.FormContext)
+  id: ShowAppForm(Tripous.Desktop.FormContext)
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: ShowAppForm(FormContext)
+  nameWithType: AppFormPagerHandler.ShowAppForm(FormContext)
+  fullName: Tripous.Desktop.AppFormPagerHandler.ShowAppForm(Tripous.Desktop.FormContext)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowAppForm
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 106
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows an application form in the pager.
+  example: []
+  syntax:
+    content: public AppForm ShowAppForm(FormContext Context)
+    parameters:
+    - id: Context
+      type: Tripous.Desktop.FormContext
+      description: The form context.
+    return:
+      type: Tripous.Desktop.AppForm
+      description: The shown form.
+    content.vb: Public Function ShowAppForm(Context As FormContext) As AppForm
+  overload: Tripous.Desktop.AppFormPagerHandler.ShowAppForm*
+- uid: Tripous.Desktop.AppFormPagerHandler.ShowDataForm(Tripous.Desktop.DataFormContext)
+  commentId: M:Tripous.Desktop.AppFormPagerHandler.ShowDataForm(Tripous.Desktop.DataFormContext)
+  id: ShowDataForm(Tripous.Desktop.DataFormContext)
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: ShowDataForm(DataFormContext)
+  nameWithType: AppFormPagerHandler.ShowDataForm(DataFormContext)
+  fullName: Tripous.Desktop.AppFormPagerHandler.ShowDataForm(Tripous.Desktop.DataFormContext)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowDataForm
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 134
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows a data form in the pager.
+  example: []
+  syntax:
+    content: public DataForm ShowDataForm(DataFormContext Context)
+    parameters:
+    - id: Context
+      type: Tripous.Desktop.DataFormContext
+      description: The data form context.
+    return:
+      type: Tripous.Desktop.DataForm
+      description: The shown data form.
+    content.vb: Public Function ShowDataForm(Context As DataFormContext) As DataForm
+  overload: Tripous.Desktop.AppFormPagerHandler.ShowDataForm*
+- uid: Tripous.Desktop.AppFormPagerHandler.ShowDataForm(System.String,Avalonia.Controls.Control)
+  commentId: M:Tripous.Desktop.AppFormPagerHandler.ShowDataForm(System.String,Avalonia.Controls.Control)
+  id: ShowDataForm(System.String,Avalonia.Controls.Control)
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: ShowDataForm(string, Control)
+  nameWithType: AppFormPagerHandler.ShowDataForm(string, Control)
+  fullName: Tripous.Desktop.AppFormPagerHandler.ShowDataForm(string, Avalonia.Controls.Control)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowDataForm
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 141
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Shows a data form in the pager.
+  example: []
+  syntax:
+    content: public DataForm ShowDataForm(string RegistryName, Control Caller = null)
+    parameters:
+    - id: RegistryName
+      type: System.String
+      description: The registry name of the data form.
+    - id: Caller
+      type: Avalonia.Controls.Control
+      description: The caller control.
+    return:
+      type: Tripous.Desktop.DataForm
+      description: The shown data form.
+    content.vb: Public Function ShowDataForm(RegistryName As String, Caller As Control = Nothing) As DataForm
+  overload: Tripous.Desktop.AppFormPagerHandler.ShowDataForm*
+  nameWithType.vb: AppFormPagerHandler.ShowDataForm(String, Control)
+  fullName.vb: Tripous.Desktop.AppFormPagerHandler.ShowDataForm(String, Avalonia.Controls.Control)
+  name.vb: ShowDataForm(String, Control)
+- uid: Tripous.Desktop.AppFormPagerHandler.CloseForm(System.String)
+  commentId: M:Tripous.Desktop.AppFormPagerHandler.CloseForm(System.String)
+  id: CloseForm(System.String)
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: CloseForm(string)
+  nameWithType: AppFormPagerHandler.CloseForm(string)
+  fullName: Tripous.Desktop.AppFormPagerHandler.CloseForm(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CloseForm
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 147
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Closes a form by form identifier.
+  example: []
+  syntax:
+    content: public void CloseForm(string FormId)
+    parameters:
+    - id: FormId
+      type: System.String
+      description: The form identifier.
+    content.vb: Public Sub CloseForm(FormId As String)
+  overload: Tripous.Desktop.AppFormPagerHandler.CloseForm*
+  nameWithType.vb: AppFormPagerHandler.CloseForm(String)
+  fullName.vb: Tripous.Desktop.AppFormPagerHandler.CloseForm(String)
+  name.vb: CloseForm(String)
+- uid: Tripous.Desktop.AppFormPagerHandler.Pager
+  commentId: P:Tripous.Desktop.AppFormPagerHandler.Pager
+  id: Pager
+  parent: Tripous.Desktop.AppFormPagerHandler
+  langs:
+  - csharp
+  - vb
+  name: Pager
+  nameWithType: AppFormPagerHandler.Pager
+  fullName: Tripous.Desktop.AppFormPagerHandler.Pager
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/AppFormPagerHandler.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Pager
+    path: ../Tripous.Desktop/AppFormPagerHandler.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets the tab control handled by this instance.
+  example: []
+  syntax:
+    content: public TabControl Pager { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.TabControl
+    content.vb: Public Property Pager As TabControl
+  overload: Tripous.Desktop.AppFormPagerHandler.Pager*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Desktop.AppFormPagerHandler
+  commentId: T:Tripous.Desktop.AppFormPagerHandler
+  href: Tripous.Desktop.AppFormPagerHandler.html
+  name: AppFormPagerHandler
+  nameWithType: AppFormPagerHandler
+  fullName: Tripous.Desktop.AppFormPagerHandler
+- uid: Tripous.Desktop.AppFormPagerHandler.#ctor*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.#ctor
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler__ctor_Avalonia_Controls_TabControl_
+  name: AppFormPagerHandler
+  nameWithType: AppFormPagerHandler.AppFormPagerHandler
+  fullName: Tripous.Desktop.AppFormPagerHandler.AppFormPagerHandler
+  nameWithType.vb: AppFormPagerHandler.New
+  fullName.vb: Tripous.Desktop.AppFormPagerHandler.New
+  name.vb: New
+- uid: Avalonia.Controls.TabControl
+  commentId: T:Avalonia.Controls.TabControl
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TabControl
+  nameWithType: TabControl
+  fullName: Avalonia.Controls.TabControl
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  isExternal: true
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    isExternal: true
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    isExternal: true
+- uid: Tripous.Desktop.AppFormPagerHandler.FindTabItem*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.FindTabItem
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_FindTabItem_System_String_
+  name: FindTabItem
+  nameWithType: AppFormPagerHandler.FindTabItem
+  fullName: Tripous.Desktop.AppFormPagerHandler.FindTabItem
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.TabItem
+  commentId: T:Avalonia.Controls.TabItem
+  parent: Avalonia.Controls
+  isExternal: true
+  name: TabItem
+  nameWithType: TabItem
+  fullName: Avalonia.Controls.TabItem
+- uid: Tripous.Desktop.AppFormPagerHandler.FindAppForm*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.FindAppForm
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_FindAppForm_System_String_
+  name: FindAppForm
+  nameWithType: AppFormPagerHandler.FindAppForm
+  fullName: Tripous.Desktop.AppFormPagerHandler.FindAppForm
+- uid: Tripous.Desktop.AppForm
+  commentId: T:Tripous.Desktop.AppForm
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.AppForm.html
+  name: AppForm
+  nameWithType: AppForm
+  fullName: Tripous.Desktop.AppForm
+- uid: Tripous.Desktop.AppFormPagerHandler.ShowAppForm*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.ShowAppForm
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_ShowAppForm_Tripous_Desktop_FormContext_
+  name: ShowAppForm
+  nameWithType: AppFormPagerHandler.ShowAppForm
+  fullName: Tripous.Desktop.AppFormPagerHandler.ShowAppForm
+- uid: Tripous.Desktop.FormContext
+  commentId: T:Tripous.Desktop.FormContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.FormContext.html
+  name: FormContext
+  nameWithType: FormContext
+  fullName: Tripous.Desktop.FormContext
+- uid: Tripous.Desktop.AppFormPagerHandler.ShowDataForm*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.ShowDataForm
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_ShowDataForm_Tripous_Desktop_DataFormContext_
+  name: ShowDataForm
+  nameWithType: AppFormPagerHandler.ShowDataForm
+  fullName: Tripous.Desktop.AppFormPagerHandler.ShowDataForm
+- uid: Tripous.Desktop.DataFormContext
+  commentId: T:Tripous.Desktop.DataFormContext
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataFormContext.html
+  name: DataFormContext
+  nameWithType: DataFormContext
+  fullName: Tripous.Desktop.DataFormContext
+- uid: Tripous.Desktop.DataForm
+  commentId: T:Tripous.Desktop.DataForm
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.DataForm.html
+  name: DataForm
+  nameWithType: DataForm
+  fullName: Tripous.Desktop.DataForm
+- uid: Avalonia.Controls.Control
+  commentId: T:Avalonia.Controls.Control
+  parent: Avalonia.Controls
+  isExternal: true
+  name: Control
+  nameWithType: Control
+  fullName: Avalonia.Controls.Control
+- uid: Tripous.Desktop.AppFormPagerHandler.CloseForm*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.CloseForm
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_CloseForm_System_String_
+  name: CloseForm
+  nameWithType: AppFormPagerHandler.CloseForm
+  fullName: Tripous.Desktop.AppFormPagerHandler.CloseForm
+- uid: Tripous.Desktop.AppFormPagerHandler.Pager*
+  commentId: Overload:Tripous.Desktop.AppFormPagerHandler.Pager
+  href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_Pager
+  name: Pager
+  nameWithType: AppFormPagerHandler.Pager
+  fullName: Tripous.Desktop.AppFormPagerHandler.Pager

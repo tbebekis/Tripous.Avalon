@@ -64,7 +64,11 @@ public abstract class SettingsBase
         LoadBefore();
             
         if (!File.Exists(SettingsFilePath))
+        {
+            IsLoaded = true;
+            LoadAfter();
             return;
+        }
 
         string JsonText = File.ReadAllText(SettingsFilePath);
         Json.PopulateObject(this, JsonText);

@@ -1,0 +1,1169 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.OidMode
+  commentId: T:Tripous.Data.OidMode
+  id: OidMode
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.OidMode.AutoInc
+  - Tripous.Data.OidMode.Generator
+  - Tripous.Data.OidMode.None
+  langs:
+  - csharp
+  - vb
+  name: OidMode
+  nameWithType: OidMode
+  fullName: Tripous.Data.OidMode
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Enums/OidMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OidMode
+    path: ../Tripous.Data/Enums/OidMode.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Indicates when a numeric ID, which uniquelly identifies a database row, is created: Before or After the
+
+    insertion of the new row. For example, MS Sql identity columns are considered After. Firebird Generators
+
+    and Oracle Sequencers are considered Before.
+
+
+    <p>OidMode has effect only when OIDs are integers.</p>
+
+    <p>An OID (Object Identifier) must uniquely identify a data table row and must has no business meaning at all.</p>
+  example: []
+  syntax:
+    content: public enum OidMode
+    content.vb: Public Enum OidMode
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.OidMode.Tripous.BitFields.Add``1(Tripous.Data.OidMode)
+  - Tripous.Data.OidMode.Tripous.BitFields.HasAny``1(Tripous.Data.OidMode)
+  - Tripous.Data.OidMode.Tripous.BitFields.HasNone``1(Tripous.Data.OidMode)
+  - Tripous.Data.OidMode.Tripous.BitFields.Has``1(Tripous.Data.OidMode)
+  - Tripous.Data.OidMode.Tripous.BitFields.In``1(Tripous.Data.OidMode)
+  - Tripous.Data.OidMode.Tripous.BitFields.IsExactly``1(Tripous.Data.OidMode)
+  - Tripous.Data.OidMode.Tripous.BitFields.IsZero``1
+  - Tripous.Data.OidMode.Tripous.BitFields.Remove``1(Tripous.Data.OidMode)
+  - Tripous.Data.OidMode.Tripous.BitFields.Set``1(Tripous.Data.OidMode,System.Boolean)
+  - Tripous.Data.OidMode.Tripous.BitFields.Toggle``1(Tripous.Data.OidMode)
+- uid: Tripous.Data.OidMode.None
+  commentId: F:Tripous.Data.OidMode.None
+  id: None
+  parent: Tripous.Data.OidMode
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: OidMode.None
+  fullName: Tripous.Data.OidMode.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/OidMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Data/Enums/OidMode.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Not known.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Data.OidMode
+- uid: Tripous.Data.OidMode.Generator
+  commentId: F:Tripous.Data.OidMode.Generator
+  id: Generator
+  parent: Tripous.Data.OidMode
+  langs:
+  - csharp
+  - vb
+  name: Generator
+  nameWithType: OidMode.Generator
+  fullName: Tripous.Data.OidMode.Generator
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/OidMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Generator
+    path: ../Tripous.Data/Enums/OidMode.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Numeric ID values are generated before the insert of the new row, possibly by
+
+    a generator or sequencer mechanism
+  example: []
+  syntax:
+    content: Generator = 1
+    return:
+      type: Tripous.Data.OidMode
+- uid: Tripous.Data.OidMode.AutoInc
+  commentId: F:Tripous.Data.OidMode.AutoInc
+  id: AutoInc
+  parent: Tripous.Data.OidMode
+  langs:
+  - csharp
+  - vb
+  name: AutoInc
+  nameWithType: OidMode.AutoInc
+  fullName: Tripous.Data.OidMode.AutoInc
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Enums/OidMode.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AutoInc
+    path: ../Tripous.Data/Enums/OidMode.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Numeric ID values are generated along with the insert of the new row,  
+
+    by an auto-increment mechanism
+  example: []
+  syntax:
+    content: AutoInc = 2
+    return:
+      type: Tripous.Data.OidMode
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.Add``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.Add<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.Add<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.Add(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: Add(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.HasAny``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.HasAny<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.HasAny(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: HasAny(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.HasNone``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.HasNone<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.HasNone(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: HasNone(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.Has``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.Has<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.Has<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.Has(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: Has(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.In``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.In<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.In<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.In(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: In(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.IsExactly``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.IsExactly<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.IsExactly(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: IsExactly(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<OidMode>(OidMode)
+  nameWithType: BitFields.IsZero<OidMode>(OidMode)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.OidMode>(Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.IsZero(Of OidMode)(OidMode)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.OidMode)(Tripous.Data.OidMode)
+  name.vb: IsZero(Of OidMode)(OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.OidMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.OidMode)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.Remove``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.Remove<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.Remove(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: Remove(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.Set``1(Tripous.Data.OidMode,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<OidMode>(OidMode, OidMode, bool)
+  nameWithType: BitFields.Set<OidMode>(OidMode, OidMode, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode, bool)
+  nameWithType.vb: BitFields.Set(Of OidMode)(OidMode, OidMode, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode, Boolean)
+  name.vb: Set(Of OidMode)(OidMode, OidMode, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.OidMode,Tripous.Data.OidMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.OidMode,Tripous.Data.OidMode,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.OidMode.Tripous.BitFields.Toggle``1(Tripous.Data.OidMode)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<OidMode>(OidMode, OidMode)
+  nameWithType: BitFields.Toggle<OidMode>(OidMode, OidMode)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.OidMode>(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  nameWithType.vb: BitFields.Toggle(Of OidMode)(OidMode, OidMode)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.OidMode)(Tripous.Data.OidMode, Tripous.Data.OidMode)
+  name.vb: Toggle(Of OidMode)(OidMode, OidMode)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.OidMode,Tripous.Data.OidMode)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.OidMode
+    name: OidMode
+    href: Tripous.Data.OidMode.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.OidMode
+  commentId: T:Tripous.Data.OidMode
+  parent: Tripous.Data
+  href: Tripous.Data.OidMode.html
+  name: OidMode
+  nameWithType: OidMode
+  fullName: Tripous.Data.OidMode
