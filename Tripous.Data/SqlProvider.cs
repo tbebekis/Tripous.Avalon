@@ -426,18 +426,25 @@ public abstract class SqlProvider
         return Result;
     }
     /// <summary>
-    /// Creates a DbConnection, opens the connection and begins a transaction.
-    /// Returns the transaction.
+    /// Creates a transaction context that owns both the connection and the transaction.
     /// </summary>
-    public virtual DbTransaction BeginTransaction(DbConnectionInfo ConnectionInfo) => BeginTransaction(ConnectionInfo.ConnectionString);
+    public virtual SqlTransactionContext BeginTransactionContext(DbConnectionInfo ConnectionInfo) => BeginTransactionContext(ConnectionInfo.ConnectionString);
     /// <summary>
-    /// Creates a DbConnection, opens the connection and begins a transaction.
-    /// Returns the transaction.
+    /// Creates a transaction context that owns both the connection and the transaction.
     /// </summary>
-    public virtual DbTransaction BeginTransaction(string ConnectionString)
+    public virtual SqlTransactionContext BeginTransactionContext(string ConnectionString)
     {
-        DbConnection Con = OpenConnection(ConnectionString);
-        return Con.BeginTransaction();
+        SqlTransactionContext Result = new SqlTransactionContext(CreateConnection(ConnectionString));
+        try
+        {
+            Result.BeginTransaction();
+            return Result;
+        }
+        catch
+        {
+            Result.Dispose();
+            throw;
+        }
     }
 
     /// <summary>
@@ -674,7 +681,7 @@ public abstract class SqlProvider
     /// </summary>
     public virtual void ExecSql(string ConnectionString, IEnumerable<string> SqlTextList)
     {
-        using (DbTransaction transaction = this.BeginTransaction(ConnectionString))
+        using (SqlTransactionContext Context = BeginTransactionContext(ConnectionString))
         {
             string SqlText = null;
             try
@@ -682,14 +689,14 @@ public abstract class SqlProvider
                 foreach (string SqlText2 in SqlTextList)
                 {
                     SqlText = SqlText2;
-                    ExecSql(transaction, SqlText2);
+                    ExecSql(Context.Transaction, SqlText2);
                 }
                 
-                transaction.Commit();
+                Context.Commit();
             }
             catch (Exception e)
             {
-                transaction.Rollback();
+                Context.Rollback();
                 Log(e, SqlText, null);
                 throw;
             }
@@ -753,23 +760,18 @@ public abstract class SqlProvider
     /// </summary>
     public void ExecSql(string ConnectionString, Action<DbTransaction> Action)
     {
-        using (DbConnection Connection = CreateConnection(ConnectionString))
+        using (SqlTransactionContext Context = BeginTransactionContext(ConnectionString))
         {
-            Connection.Open();
-
-            using (DbTransaction Transaction = Connection.BeginTransaction())
+            try
             {
-                try
-                {
-                    Action(Transaction);
-                    Transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    Transaction.Rollback();
-                    Log(e, null, null);
-                    throw;
-                }
+                Action(Context.Transaction);
+                Context.Commit();
+            }
+            catch (Exception e)
+            {
+                Context.Rollback();
+                Log(e, null, null);
+                throw;
             }
         }
     }
@@ -949,17 +951,17 @@ public abstract class SqlProvider
     /// </summary>
     public virtual DataRow SelectIncrementLocked(string ConnectionString, string TableName, string KeyFieldName, object KeyValue, string ValueFieldName, int CommandTimeout)
     {
-        using (DbTransaction Transaction = BeginTransaction(ConnectionString))
+        using (SqlTransactionContext Context = BeginTransactionContext(ConnectionString))
         {
             try
             {
-                DataRow Result = SelectIncrementLocked(Transaction, TableName, KeyFieldName, KeyValue, ValueFieldName, CommandTimeout);
-                Transaction.Commit();
+                DataRow Result = SelectIncrementLocked(Context.Transaction, TableName, KeyFieldName, KeyValue, ValueFieldName, CommandTimeout);
+                Context.Commit();
                 return Result;
             }
             catch (Exception e)
             {
-                Transaction.Rollback();
+                Context.Rollback();
                 Log(e, null, null);
                 throw;
             }

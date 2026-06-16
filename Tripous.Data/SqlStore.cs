@@ -40,10 +40,9 @@ public class SqlStore
     /// </summary>
     public DbConnection OpenConnection() => Provider.OpenConnection(ConnectionInfo);
     /// <summary>
-    /// Creates a DbConnection, opens the connection and begins a transaction.
-    /// Returns the transaction.
+    /// Creates a transaction context that owns both the connection and the transaction.
     /// </summary>
-    public virtual DbTransaction BeginTransaction() => Provider.BeginTransaction(ConnectionInfo);
+    public virtual SqlTransactionContext BeginTransactionContext() => Provider.BeginTransactionContext(ConnectionInfo);
     
     /// <summary>
     /// Returns true if this connection info is valid and can connect to a database.
@@ -229,16 +228,16 @@ public class SqlStore
 
         int Result;
 
-        using (DbTransaction Transaction = BeginTransaction())
+        using (SqlTransactionContext Context = BeginTransactionContext())
         {
             try
             {
-                Result = NextId(Transaction, TableName);
-                Transaction.Commit();
+                Result = NextId(Context.Transaction, TableName);
+                Context.Commit();
             }
             catch
             {
-                Transaction.Rollback();
+                Context.Rollback();
                 throw;
             }
         }
@@ -255,16 +254,16 @@ public class SqlStore
 
         int Result;
 
-        using (DbTransaction Transaction = BeginTransaction())
+        using (SqlTransactionContext Context = BeginTransactionContext())
         {
             try
             {
-                Result = LastId(Transaction, TableName);
-                Transaction.Commit();
+                Result = LastId(Context.Transaction, TableName);
+                Context.Commit();
             }
             catch 
             {
-                Transaction.Rollback();
+                Context.Rollback();
                 throw;
             }
         }
@@ -280,16 +279,16 @@ public class SqlStore
 
         int Result = -1;
 
-        using (DbTransaction Transaction = BeginTransaction())
+        using (SqlTransactionContext Context = BeginTransactionContext())
         {
             try
             {
-                Result = NextIdByGenerator(Transaction, GeneratorName);
-                Transaction.Commit();
+                Result = NextIdByGenerator(Context.Transaction, GeneratorName);
+                Context.Commit();
             }
             catch 
             {
-                Transaction.Rollback();
+                Context.Rollback();
                 throw;
             }
         }

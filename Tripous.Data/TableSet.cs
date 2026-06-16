@@ -378,8 +378,9 @@ public class TableSet
             // then, inside a Transaction
             OnTransactionStageDelete(TransactionStage.Start, ExecTime.Before, RowId);
 
-            using (Transaction = Store.BeginTransaction())
+            using (SqlTransactionContext TransactionContext = Store.BeginTransactionContext())
             {
+                Transaction = TransactionContext.Transaction;
                 OnTransactionStageDelete(TransactionStage.Start, ExecTime.After, RowId);
                 try
                 {
@@ -391,16 +392,19 @@ public class TableSet
                     OnTransactionStageDelete(TransactionStage.Post, ExecTime.After, RowId);
 
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.Before, RowId);
-                    Transaction.Commit();
+                    TransactionContext.Commit();
                     AcceptChanges();
                     OnTransactionStageDelete(TransactionStage.Commit, ExecTime.After, RowId);
                 }
                 catch
                 {
                     RejectChanges();
-                    OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.Before, RowId);
-                    Transaction.Rollback();
-                    OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.After, RowId);
+                    if (TransactionContext.IsActive)
+                    {
+                        OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.Before, RowId);
+                        TransactionContext.Rollback();
+                        OnTransactionStageDelete(TransactionStage.Rollback, ExecTime.After, RowId);
+                    }
                     throw;
                 }
             }
@@ -426,8 +430,9 @@ public class TableSet
         {
             OnTransactionStageCommit(TransactionStage.Start, ExecTime.Before);
 
-            using (Transaction = Store.BeginTransaction())
+            using (SqlTransactionContext TransactionContext = Store.BeginTransactionContext())
             {
+                Transaction = TransactionContext.Transaction;
                 OnTransactionStageCommit(TransactionStage.Start, ExecTime.After);
                 try
                 {
@@ -436,15 +441,18 @@ public class TableSet
                     OnTransactionStageCommit(TransactionStage.Post, ExecTime.After);
 
                     OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
-                    Transaction.Commit();
+                    TransactionContext.Commit();
                     AcceptChanges();
                     OnTransactionStageCommit(TransactionStage.Commit, ExecTime.After);
                 }
                 catch
                 {
-                    OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.Before);
-                    Transaction.Rollback();
-                    OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.After);
+                    if (TransactionContext.IsActive)
+                    {
+                        OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.Before);
+                        TransactionContext.Rollback();
+                        OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.After);
+                    }
                     throw;
                 }
             }
@@ -563,41 +571,45 @@ public class TableSet
     /// </summary>
     public void CommitBatch(BatchCommitArgs Args)
     {
+        SqlTransactionContext TransactionContext = null;
+
         // ---------------------------------------
         void CommitBatchTransaction()
         {
-            if (Transaction == null)
+            if (TransactionContext == null)
                 return;
 
             try
             {
                 OnTransactionStageCommit(TransactionStage.Commit, ExecTime.Before);
-                Transaction.Commit();
+                TransactionContext.Commit();
                 ItemTable.DataSet.AcceptChanges();
                 OnTransactionStageCommit(TransactionStage.Commit, ExecTime.After);
             }
             finally
             {
-                Transaction.Dispose();
+                TransactionContext.Dispose();
+                TransactionContext = null;
                 Transaction = null;
             }
         }
         // ---------------------------------------
         void RollbackBatchTransaction()
         {
-            if (Transaction == null)
+            if (TransactionContext == null)
                 return;
 
             try
             {
                 OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.Before);
-                Transaction.Rollback();
+                TransactionContext.Rollback();
                 ItemTable.DataSet.RejectChanges();
                 OnTransactionStageCommit(TransactionStage.Rollback, ExecTime.After);
             }
             finally
             {
-                Transaction.Dispose();
+                TransactionContext.Dispose();
+                TransactionContext = null;
                 Transaction = null;
             }
         }
@@ -624,10 +636,11 @@ public class TableSet
 
                 if (ShouldPost)
                 {
-                    if (Transaction == null)
+                    if (TransactionContext == null)
                     {
                         OnTransactionStageCommit(TransactionStage.Start, ExecTime.Before);
-                        Transaction = Store.BeginTransaction();
+                        TransactionContext = Store.BeginTransactionContext();
+                        Transaction = TransactionContext.Transaction;
                         OnTransactionStageCommit(TransactionStage.Start, ExecTime.After);
                     }
 

@@ -32,8 +32,9 @@
             IndexNamesList = new List<string>(Store.GetIndexNames());
 
             /* start a transaction */
-            using (transaction = Store.BeginTransaction())
+            using (SqlTransactionContext Context = Store.BeginTransactionContext())
             {
+                transaction = Context.Transaction;
                 try
                 {
                     /* database statements -before */
@@ -49,13 +50,17 @@
                         DoView(View);
 
                     /* commit the transaction */
-                    transaction.Commit();
+                    Context.Commit();
 
                 }
                 catch
                 {
-                    transaction.Rollback();
+                    Context.Rollback();
                     throw;
+                }
+                finally
+                {
+                    transaction = null;
                 }
             }
 
@@ -66,8 +71,9 @@
              * This preserves old RDBMS compatibility and avoids changing long-standing schema execution behavior.
              */
             /* start a transaction */
-            using (transaction = Store.BeginTransaction())
+            using (SqlTransactionContext Context = Store.BeginTransactionContext())
             {
+                transaction = Context.Transaction;
                 try
                 {
                     /* database statements -after */
@@ -77,13 +83,17 @@
                     AfterExecute?.Invoke(transaction);
 
                     /* commit the transaction */
-                    transaction.Commit();
+                    Context.Commit();
 
                 }
                 catch
                 {
-                    transaction.Rollback();
+                    Context.Rollback();
                     throw;
+                }
+                finally
+                {
+                    transaction = null;
                 }
             }
 

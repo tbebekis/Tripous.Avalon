@@ -23,6 +23,7 @@ static public class SampleData
     static double RandDouble(double Min, double Max) => Min + fRandom.NextDouble() * (Max - Min);
     static double Round(double Value) => Math.Round(Value, 2);
     static string RandId(List<string> List) => List[Rand(0, List.Count - 1)];
+    static SqlTransactionContext BeginTransaction(SqlStore Store) => Store.BeginTransactionContext();
     static void Exec(SqlStore Store, DbTransaction Transaction, string SqlText, params object[] Params)
     {
         Store.ExecSql(Transaction, SqlText, Params);
@@ -38,35 +39,42 @@ static public class SampleData
         fCustomerIds.Clear();
         fTradeIds.Clear();
 
-        DbTransaction Transaction = Store.BeginTransaction();
+        SqlTransactionContext Context = BeginTransaction(Store);
 
         try
         {
-            InsertMasterData(Store, Transaction);
-            Transaction.Commit();
+            InsertMasterData(Store, Context.Transaction);
+            Context.Commit();
+            Context.Dispose();
 
-            Transaction = Store.BeginTransaction();
+            Context = BeginTransaction(Store);
             int BatchCount = 0;
 
             for (int Index = 0; Index < TradeCount; Index++)
             {
-                InsertTrade(Store, Transaction);
+                InsertTrade(Store, Context.Transaction);
                 BatchCount++;
 
                 if (BatchCount >= 100)
                 {
-                    Transaction.Commit();
-                    Transaction = Store.BeginTransaction();
+                    Context.Commit();
+                    Context.Dispose();
+                    Context = BeginTransaction(Store);
                     BatchCount = 0;
                 }
             }
 
-            Transaction.Commit();
+            Context.Commit();
         }
         catch
         {
-            Transaction.Rollback();
+            if (Context.IsActive)
+                Context.Rollback();
             throw;
+        }
+        finally
+        {
+            Context.Dispose();
         }
     }
 
