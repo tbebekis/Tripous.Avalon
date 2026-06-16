@@ -8,13 +8,25 @@
 
 namespace tERP.Desktop;
 
+/// <summary>
+/// Data form for purchase delivery note documents.
+/// </summary>
 public class PurchaseDeliveryNoteForm : DocumentDataForm
 {
     // ● protected fields
+    /// <summary>
+    /// Button that creates a purchase return from the current delivery note.
+    /// </summary>
     protected Button btnCreateReturn;
+    /// <summary>
+    /// Button that creates a purchase invoice from the current delivery note.
+    /// </summary>
     protected Button btnCreateInvoice;
 
     // ● protected
+    /// <summary>
+    /// Returns true when a purchase invoice can be created.
+    /// </summary>
     protected virtual bool CanCreateInvoice()
     {
         return Module is PurchaseDeliveryNoteDataModule
@@ -24,6 +36,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
                && !CurrentRow.AsBoolean("IsCancelled");
     }
+    /// <summary>
+    /// Returns true when a purchase return can be created.
+    /// </summary>
     protected virtual bool CanCreateReturn()
     {
         return Module is PurchaseDeliveryNoteDataModule
@@ -33,6 +48,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
                && !CurrentRow.AsBoolean("IsCancelled");
     }
+    /// <summary>
+    /// Creates a purchase return from the current delivery note.
+    /// </summary>
     protected virtual async Task ExecuteCreateReturn()
     {
         if (!CanCreateReturn())
@@ -56,6 +74,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Creates a purchase invoice from the current delivery note.
+    /// </summary>
     protected virtual async Task ExecuteCreateInvoice()
     {
         if (!CanCreateInvoice())
@@ -79,6 +100,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Executes a custom purchase delivery note command.
+    /// </summary>
     protected override async Task ExecuteCustom(object Value)
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateReturn)
@@ -88,6 +112,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
 
         await base.ExecuteCustom(Value);
     }
+    /// <summary>
+    /// Updates command state.
+    /// </summary>
     protected override void EnableCommands()
     {
         base.EnableCommands();
@@ -97,6 +124,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
         btnCreateInvoice.IsVisible = true;
         btnCreateInvoice.IsEnabled = CanCreateInvoice();
     }
+    /// <summary>
+    /// Creates the form toolbar.
+    /// </summary>
     protected override bool CreateToolBar()
     {
         if (!base.CreateToolBar())
@@ -110,6 +140,9 @@ public class PurchaseDeliveryNoteForm : DocumentDataForm
     }
 
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public PurchaseDeliveryNoteForm()
     {
     }

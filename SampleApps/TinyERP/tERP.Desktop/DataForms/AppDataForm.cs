@@ -8,9 +8,15 @@
 
 namespace tERP.Desktop;
 
+/// <summary>
+/// Base tERP data form.
+/// </summary>
 public class AppDataForm: DataForm
 {
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public AppDataForm()
     {
     }

@@ -8,9 +8,15 @@
 
 namespace tERP.Desktop;
 
+/// <summary>
+/// Data form for purchase credit note documents.
+/// </summary>
 public class PurchaseCreditNoteForm : DocumentDataForm
 {
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public PurchaseCreditNoteForm()
     {
     }

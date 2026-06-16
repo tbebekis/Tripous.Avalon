@@ -8,9 +8,15 @@
 
 namespace tERP.Desktop;
 
+/// <summary>
+/// Data form for purchase return documents.
+/// </summary>
 public class PurchaseReturnForm : DocumentDataForm
 {
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public PurchaseReturnForm()
     {
     }

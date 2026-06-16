@@ -136,6 +136,9 @@ public class PurchaseInvoiceForm: DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Executes a custom purchase invoice command.
+    /// </summary>
     protected override async Task ExecuteCustom(object Value)
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateCreditNote)
@@ -147,6 +150,9 @@ public class PurchaseInvoiceForm: DocumentDataForm
 
         await base.ExecuteCustom(Value);
     }
+    /// <summary>
+    /// Updates command state.
+    /// </summary>
     protected override void EnableCommands()
     {
         base.EnableCommands();
@@ -158,6 +164,9 @@ public class PurchaseInvoiceForm: DocumentDataForm
         BtnCreateCancellation.IsVisible = true;
         BtnCreateCancellation.IsEnabled = CanCreateCancellation();
     }
+    /// <summary>
+    /// Creates the form toolbar.
+    /// </summary>
     protected override bool CreateToolBar()
     {
         if (!base.CreateToolBar())
@@ -173,6 +182,9 @@ public class PurchaseInvoiceForm: DocumentDataForm
     }
 
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public PurchaseInvoiceForm()
     {
     }

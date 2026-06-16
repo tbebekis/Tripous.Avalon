@@ -8,12 +8,21 @@
 
 namespace tERP.Desktop;
 
+/// <summary>
+/// Data form for purchase order documents.
+/// </summary>
 public class PurchaseOrderForm : DocumentDataForm
 {
     // ● protected fields
+    /// <summary>
+    /// Button that creates a purchase delivery note from the current purchase order.
+    /// </summary>
     protected Button btnCreateDeliveryNote;
 
     // ● protected
+    /// <summary>
+    /// Returns true when a purchase delivery note can be created.
+    /// </summary>
     protected virtual bool CanCreateDeliveryNote()
     {
         return Module is PurchaseOrderDataModule
@@ -23,6 +32,9 @@ public class PurchaseOrderForm : DocumentDataForm
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
                && !CurrentRow.AsBoolean("IsCancelled");
     }
+    /// <summary>
+    /// Creates a purchase delivery note from the current purchase order.
+    /// </summary>
     protected virtual async Task ExecuteCreateDeliveryNote()
     {
         if (!CanCreateDeliveryNote())
@@ -40,6 +52,9 @@ public class PurchaseOrderForm : DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Executes a custom purchase order command.
+    /// </summary>
     protected override async Task ExecuteCustom(object Value)
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateDeliveryNote)
@@ -47,6 +62,9 @@ public class PurchaseOrderForm : DocumentDataForm
 
         await base.ExecuteCustom(Value);
     }
+    /// <summary>
+    /// Updates command state.
+    /// </summary>
     protected override void EnableCommands()
     {
         base.EnableCommands();
@@ -54,6 +72,9 @@ public class PurchaseOrderForm : DocumentDataForm
         btnCreateDeliveryNote.IsVisible = true;
         btnCreateDeliveryNote.IsEnabled = CanCreateDeliveryNote();
     }
+    /// <summary>
+    /// Creates the form toolbar.
+    /// </summary>
     protected override bool CreateToolBar()
     {
         if (!base.CreateToolBar())
@@ -65,6 +86,9 @@ public class PurchaseOrderForm : DocumentDataForm
     }
 
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public PurchaseOrderForm()
     {
     }

@@ -14,6 +14,9 @@ namespace tERP.Desktop;
 public class CustomerReceiptCancellationForm : DocumentDataForm
 {
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public CustomerReceiptCancellationForm()
     {
     }

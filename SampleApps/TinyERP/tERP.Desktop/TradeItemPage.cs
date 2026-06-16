@@ -1,8 +1,14 @@
 namespace tERP.Desktop;
 
+/// <summary>
+/// Item page that applies trade line grid layout defaults.
+/// </summary>
 public class TradeItemPage: ItemPage
 {
     // ● protected
+    /// <summary>
+    /// Applies configured field visibility and order to the trade line grid.
+    /// </summary>
     protected virtual void ApplyTradeLineGridFields()
     {
         if (Context.Module is not SalesDataModule && Context.Module is not PurchaseDataModule)
@@ -38,11 +44,17 @@ public class TradeItemPage: ItemPage
     }
 
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public TradeItemPage()
     {
     }
 
     // ● public
+    /// <summary>
+    /// Binds the item page and applies trade line grid settings.
+    /// </summary>
     public override void Bind(int ColumnCount)
     {
         base.Bind(ColumnCount);

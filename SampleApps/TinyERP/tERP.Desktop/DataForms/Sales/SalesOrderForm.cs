@@ -8,12 +8,21 @@
 
 namespace tERP.Desktop;
 
+/// <summary>
+/// Data form for sales order documents.
+/// </summary>
 public class SalesOrderForm : DocumentDataForm
 {
     // ● protected fields
+    /// <summary>
+    /// Button that creates a sales delivery note from the current sales order.
+    /// </summary>
     protected Button btnCreateDeliveryNote;
 
     // ● protected
+    /// <summary>
+    /// Returns true when a sales delivery note can be created.
+    /// </summary>
     protected virtual bool CanCreateDeliveryNote()
     {
         return Module is SalesOrderDataModule
@@ -23,6 +32,9 @@ public class SalesOrderForm : DocumentDataForm
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
                && !CurrentRow.AsBoolean("IsCancelled");
     }
+    /// <summary>
+    /// Creates a sales delivery note from the current sales order.
+    /// </summary>
     protected virtual async Task ExecuteCreateDeliveryNote()
     {
         if (!CanCreateDeliveryNote())
@@ -40,6 +52,9 @@ public class SalesOrderForm : DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Executes a custom sales order command.
+    /// </summary>
     protected override async Task ExecuteCustom(object Value)
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateDeliveryNote)
@@ -47,6 +62,9 @@ public class SalesOrderForm : DocumentDataForm
 
         await base.ExecuteCustom(Value);
     }
+    /// <summary>
+    /// Updates command state.
+    /// </summary>
     protected override void EnableCommands()
     {
         base.EnableCommands();
@@ -54,6 +72,9 @@ public class SalesOrderForm : DocumentDataForm
         btnCreateDeliveryNote.IsVisible = true;
         btnCreateDeliveryNote.IsEnabled = CanCreateDeliveryNote();
     }
+    /// <summary>
+    /// Creates the form toolbar.
+    /// </summary>
     protected override bool CreateToolBar()
     {
         if (!base.CreateToolBar())
@@ -65,6 +86,9 @@ public class SalesOrderForm : DocumentDataForm
     }
 
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public SalesOrderForm()
     {
     } 

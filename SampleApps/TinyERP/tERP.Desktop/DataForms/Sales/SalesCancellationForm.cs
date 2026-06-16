@@ -14,6 +14,9 @@ namespace tERP.Desktop;
 public class SalesCancellationForm: DocumentDataForm
 {
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public SalesCancellationForm()
     {
     }

@@ -51,24 +51,36 @@ public class SupplierPaymentForm : DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Executes a custom supplier payment command.
+    /// </summary>
     protected override async Task ExecuteCustom(object Value)
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateCancellation)
             await ExecuteCreateCancellation();
         await base.ExecuteCustom(Value);
     }
+    /// <summary>
+    /// Saves the current payment and displays any amount adjustment message.
+    /// </summary>
     protected override async Task ExecuteSave()
     {
         await base.ExecuteSave();
         if (Module is PaymentDataModule PaymentModule && !string.IsNullOrWhiteSpace(PaymentModule.AmountAdjustmentMessage))
             await MessageBox.Info(PaymentModule.AmountAdjustmentMessage, this);
     }
+    /// <summary>
+    /// Updates command state.
+    /// </summary>
     protected override void EnableCommands()
     {
         base.EnableCommands();
         BtnCreateCancellation.IsVisible = true;
         BtnCreateCancellation.IsEnabled = CanCreateCancellation();
     }
+    /// <summary>
+    /// Creates the form toolbar.
+    /// </summary>
     protected override bool CreateToolBar()
     {
         if (!base.CreateToolBar())
@@ -79,6 +91,9 @@ public class SupplierPaymentForm : DocumentDataForm
     }
 
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public SupplierPaymentForm()
     {
     }

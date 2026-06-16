@@ -14,6 +14,9 @@ namespace tERP.Desktop;
 public class JournalEntryForm : DocumentDataForm
 {
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public JournalEntryForm()
     {
     }

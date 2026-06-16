@@ -9,13 +9,25 @@
 namespace tERP.Desktop;
 
 
+/// <summary>
+/// Data form for sales delivery note documents.
+/// </summary>
 public class SalesDeliveryNoteForm : DocumentDataForm
 {
     // ● protected fields
+    /// <summary>
+    /// Button that creates a sales return from the current delivery note.
+    /// </summary>
     protected Button btnCreateReturn;
+    /// <summary>
+    /// Button that creates a sales invoice from the current delivery note.
+    /// </summary>
     protected Button btnCreateInvoice;
 
     // ● protected
+    /// <summary>
+    /// Returns true when a sales invoice can be created.
+    /// </summary>
     protected virtual bool CanCreateInvoice()
     {
         return Module is SalesDeliveryNoteDataModule
@@ -25,6 +37,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
                && !CurrentRow.AsBoolean("IsCancelled");
     }
+    /// <summary>
+    /// Returns true when a sales return can be created.
+    /// </summary>
     protected virtual bool CanCreateReturn()
     {
         return Module is SalesDeliveryNoteDataModule
@@ -34,6 +49,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
                && (TradeStatus)CurrentRow.AsInteger("TradeStatusId") == TradeStatus.Posted
                && !CurrentRow.AsBoolean("IsCancelled");
     }
+    /// <summary>
+    /// Creates a sales return from the current delivery note.
+    /// </summary>
     protected virtual async Task ExecuteCreateReturn()
     {
         if (!CanCreateReturn())
@@ -57,6 +75,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Creates a sales invoice from the current delivery note.
+    /// </summary>
     protected virtual async Task ExecuteCreateInvoice()
     {
         if (!CanCreateInvoice())
@@ -80,6 +101,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
         await AppFormDialog.ShowModalDataForm(Context);
         ItemPage?.Refresh();
     }
+    /// <summary>
+    /// Executes a custom sales delivery note command.
+    /// </summary>
     protected override async Task ExecuteCustom(object Value)
     {
         if (Value is DocumentAction Action && Action == DocumentAction.CreateReturn)
@@ -89,6 +113,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
 
         await base.ExecuteCustom(Value);
     }
+    /// <summary>
+    /// Updates command state.
+    /// </summary>
     protected override void EnableCommands()
     {
         base.EnableCommands();
@@ -98,6 +125,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
         btnCreateInvoice.IsVisible = true;
         btnCreateInvoice.IsEnabled = CanCreateInvoice();
     }
+    /// <summary>
+    /// Creates the form toolbar.
+    /// </summary>
     protected override bool CreateToolBar()
     {
         if (!base.CreateToolBar())
@@ -111,6 +141,9 @@ public class SalesDeliveryNoteForm : DocumentDataForm
     }
 
     // ● construction
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
     public SalesDeliveryNoteForm()
     {
     }
