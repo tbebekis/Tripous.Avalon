@@ -42,11 +42,18 @@ static public partial class AppHost
     /// </summary>
     static async Task<object> ImportCredentials()
     {
-        bool Flag = await MessageBox.YesNo("Import replaces all current credentials. Continue?", MainWindow);
-        if (!Flag)
-            return null;
-        int Count = CredentialTransferService.Import(Store);
-        await MessageBox.Info($"Encrypted credentials imported: {Count}", MainWindow);
+        try
+        {
+            bool Flag = await MessageBox.YesNo("Import replaces all current credentials. Continue?", MainWindow);
+            if (!Flag)
+                return null;
+            int Count = CredentialTransferService.Import(Store);
+            await MessageBox.Info($"Encrypted credentials imported: {Count}", MainWindow);
+        }
+        catch (Exception e)
+        {
+            await MessageBox.Error(e.Message, MainWindow);
+        }
         return null;
     }
     /// <summary>

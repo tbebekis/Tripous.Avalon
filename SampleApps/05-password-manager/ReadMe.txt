@@ -129,8 +129,10 @@ DataModule
 
 Import/export
 
-- Export writes encrypted rows to credential-export.json in the application folder.
-- Import reads encrypted rows from the same file.
+- Export writes categories and encrypted credential rows to credential-export.json in the application folder.
+- Export can create a file even when there are no credential rows.
+- Import reads categories and encrypted credential rows from the same file.
+- Import replaces current categories and credentials inside a single transaction.
 - The sample export is intentionally encrypted.
 - The sample does not produce a plaintext password export.
 - A real application should ask the user for export destination and backup policy.

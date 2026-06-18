@@ -7,18 +7,58 @@ static public class CredentialTransferService
 {
     // ● private
     /// <summary>
-    /// Escapes a value for simple sample SQL statements.
+    /// Creates a transfer category row from a data row.
     /// </summary>
-    static string Q(string Value)
+    static CredentialTransferCategoryRow CreateCategoryRow(DataRow Row)
     {
-        return Value == null ? "null" : $"'{Value.Replace("'", "''")}'";
+        CredentialTransferCategoryRow Result = new();
+        Result.Id = Convert.ToInt32(Row["Id"], CultureInfo.InvariantCulture);
+        Result.Name = Row["Name"].ToString();
+        Result.DisplayOrder = Convert.ToInt32(Row["DisplayOrder"], CultureInfo.InvariantCulture);
+        return Result;
     }
     /// <summary>
-    /// Formats a date-time value for SQL.
+    /// Creates a transfer credential row from a data row.
     /// </summary>
-    static string Q(DateTime Value)
+    static CredentialTransferRow CreateCredentialRow(DataRow Row)
     {
-        return Q(Value.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+        CredentialTransferRow Result = new();
+        Result.Id = Row["Id"].ToString();
+        Result.CategoryId = Convert.ToInt32(Row["CategoryId"], CultureInfo.InvariantCulture);
+        Result.Title = Row["Title"].ToString();
+        Result.UserName = Row["UserName"] == DBNull.Value ? string.Empty : Row["UserName"].ToString();
+        Result.Url = Row["Url"] == DBNull.Value ? string.Empty : Row["Url"].ToString();
+        Result.Password = Row["Password"] == DBNull.Value ? string.Empty : Row["Password"].ToString();
+        Result.Notes = Row["Notes"] == DBNull.Value ? string.Empty : Row["Notes"].ToString();
+        Result.CreatedAt = Convert.ToDateTime(Row["CreatedAt"], CultureInfo.InvariantCulture);
+        Result.UpdatedAt = Convert.ToDateTime(Row["UpdatedAt"], CultureInfo.InvariantCulture);
+        return Result;
+    }
+    /// <summary>
+    /// Inserts a category row inside the current import transaction.
+    /// </summary>
+    static void InsertCategory(SqlStore Store, System.Data.Common.DbTransaction Transaction, CredentialTransferCategoryRow Item)
+    {
+        string SqlText = @"
+                         insert into Category
+                            (Id, Name, DisplayOrder)
+                         values
+                            (:Id, :Name, :DisplayOrder)
+                         ";
+        Store.ExecSql(Transaction, SqlText, Item.Id, Item.Name, Item.DisplayOrder);
+    }
+    /// <summary>
+    /// Inserts a credential row inside the current import transaction.
+    /// </summary>
+    static void InsertCredential(SqlStore Store, System.Data.Common.DbTransaction Transaction, CredentialTransferRow Item)
+    {
+        string SqlText = @"
+                         insert into Credential
+                            (Id, CategoryId, Title, UserName, Url, Password, Notes, CreatedAt, UpdatedAt)
+                         values
+                            (:Id, :CategoryId, :Title, :UserName, :Url, :Password, :Notes, :CreatedAt, :UpdatedAt)
+                         ";
+        Store.ExecSql(Transaction, SqlText, Item.Id, Item.CategoryId, Item.Title, Item.UserName, Item.Url, Item.Password, Item.Notes, Item.CreatedAt, Item.UpdatedAt);
     }
 
     // ● static public
@@ -34,42 +74,38 @@ static public class CredentialTransferService
     /// </summary>
     static public string Export(SqlStore Store)
     {
-        MemTable Table = Store.Select("""
-                                      select
-                                          Id,
-                                          CategoryId,
-                                          Title,
-                                          UserName,
-                                          Url,
-                                          Password,
-                                          Notes,
-                                          CreatedAt,
-                                          UpdatedAt
-                                          from Credential
-                                          order by Title
-                                          """);
-        if (Table.Rows.Count == 0)
-            throw new TripousException("There are no credentials to export.");
-        List<CredentialTransferRow> List = [];
-        foreach (DataRow Row in Table.Rows)
-        {
-            CredentialTransferRow Item = new();
-            Item.Id = Row["Id"].ToString();
-            Item.CategoryId = Convert.ToInt32(Row["CategoryId"], CultureInfo.InvariantCulture);
-            Item.Title = Row["Title"].ToString();
-            Item.UserName = Row["UserName"] == DBNull.Value ? string.Empty : Row["UserName"].ToString();
-            Item.Url = Row["Url"] == DBNull.Value ? string.Empty : Row["Url"].ToString();
-            Item.Password = Row["Password"] == DBNull.Value ? string.Empty : Row["Password"].ToString();
-            Item.Notes = Row["Notes"] == DBNull.Value ? string.Empty : Row["Notes"].ToString();
-            Item.CreatedAt = Convert.ToDateTime(Row["CreatedAt"], CultureInfo.InvariantCulture);
-            Item.UpdatedAt = Convert.ToDateTime(Row["UpdatedAt"], CultureInfo.InvariantCulture);
-            List.Add(Item);
-        }
+        MemTable CategoryTable = Store.Select(@"
+                                             select
+                                                 Id,
+                                                 Name,
+                                                 DisplayOrder
+                                             from Category
+                                             order by DisplayOrder
+                                             ");
+        MemTable CredentialTable = Store.Select(@"
+                                               select
+                                                   Id,
+                                                   CategoryId,
+                                                   Title,
+                                                   UserName,
+                                                   Url,
+                                                   Password,
+                                                   Notes,
+                                                   CreatedAt,
+                                                   UpdatedAt
+                                               from Credential
+                                               order by Title
+                                               ");
+        CredentialTransferFile TransferFile = new();
+        foreach (DataRow Row in CategoryTable.Rows)
+            TransferFile.Categories.Add(CreateCategoryRow(Row));
+        foreach (DataRow Row in CredentialTable.Rows)
+            TransferFile.Credentials.Add(CreateCredentialRow(Row));
 
         string FilePath = GetExportFilePath();
         Directory.CreateDirectory(System.IO.Path.GetDirectoryName(FilePath));
         JsonSerializerOptions Options = new() { WriteIndented = true };
-        File.WriteAllText(FilePath, JsonSerializer.Serialize(List, Options), Encoding.UTF8);
+        File.WriteAllText(FilePath, JsonSerializer.Serialize(TransferFile, Options), Encoding.UTF8);
         return FilePath;
     }
     /// <summary>
@@ -81,19 +117,15 @@ static public class CredentialTransferService
         if (!File.Exists(FilePath))
             throw new TripousException($"Export file not found: {FilePath}");
         string JsonText = File.ReadAllText(FilePath, Encoding.UTF8);
-        List<CredentialTransferRow> List = JsonSerializer.Deserialize<List<CredentialTransferRow>>(JsonText) ?? [];
-        Store.ExecSql("delete from Credential");
-        foreach (CredentialTransferRow Item in List)
-        {
-            string SqlText = $"""
-                             insert into Credential
-                                (Id, CategoryId, Title, UserName, Url, Password, Notes, CreatedAt, UpdatedAt)
-                             values
-                                ({Q(Item.Id)}, {Item.CategoryId}, {Q(Item.Title)}, {Q(Item.UserName)}, {Q(Item.Url)}, {Q(Item.Password)}, {Q(Item.Notes)}, {Q(Item.CreatedAt)}, {Q(Item.UpdatedAt)})
-                             """;
-            Store.ExecSql(SqlText);
-        }
-
-        return List.Count;
+        CredentialTransferFile TransferFile = JsonSerializer.Deserialize<CredentialTransferFile>(JsonText) ?? new();
+        using SqlTransactionContext Context = Store.BeginTransactionContext();
+        Store.ExecSql(Context.Transaction, "delete from Credential");
+        Store.ExecSql(Context.Transaction, "delete from Category");
+        foreach (CredentialTransferCategoryRow Item in TransferFile.Categories)
+            InsertCategory(Store, Context.Transaction, Item);
+        foreach (CredentialTransferRow Item in TransferFile.Credentials)
+            InsertCredential(Store, Context.Transaction, Item);
+        Context.Commit();
+        return TransferFile.Credentials.Count;
     }
 }

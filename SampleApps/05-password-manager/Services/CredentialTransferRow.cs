@@ -43,3 +43,39 @@ public class CredentialTransferRow
     /// </summary>
     public DateTime UpdatedAt { get; set; }
 }
+
+/// <summary>
+/// DTO used by the encrypted credential import/export sample service.
+/// </summary>
+public class CredentialTransferFile
+{
+    // ● properties
+    /// <summary>
+    /// Gets or sets the exported category rows.
+    /// </summary>
+    public List<CredentialTransferCategoryRow> Categories { get; set; } = [];
+    /// <summary>
+    /// Gets or sets the exported credential rows.
+    /// </summary>
+    public List<CredentialTransferRow> Credentials { get; set; } = [];
+}
+
+/// <summary>
+/// DTO used by the encrypted credential import/export sample service.
+/// </summary>
+public class CredentialTransferCategoryRow
+{
+    // ● properties
+    /// <summary>
+    /// Gets or sets the category id.
+    /// </summary>
+    public int Id { get; set; }
+    /// <summary>
+    /// Gets or sets the category name.
+    /// </summary>
+    public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the display order.
+    /// </summary>
+    public int DisplayOrder { get; set; }
+}

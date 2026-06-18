@@ -48,6 +48,22 @@ static public class VaultService
         string Value = Config.GetValue(Name);
         return int.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int Result) ? Result : DefaultValue;
     }
+    /// <summary>
+    /// Returns true when the specified text contains a valid Base64 value with the expected byte length.
+    /// </summary>
+    static bool IsValidBase64(string Text, int ByteLength)
+    {
+        if (string.IsNullOrWhiteSpace(Text))
+            return false;
+        try
+        {
+            return Convert.FromBase64String(Text).Length == ByteLength;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+    }
 
     // ● static public
     /// <summary>
@@ -55,7 +71,9 @@ static public class VaultService
     /// </summary>
     static public bool HasMasterPassword()
     {
-        return !string.IsNullOrWhiteSpace(Config.GetValue("PasswordManager.MasterHash"));
+        string SaltText = Config.GetValue("PasswordManager.MasterSalt");
+        string HashText = Config.GetValue("PasswordManager.MasterHash");
+        return IsValidBase64(SaltText, 16) && IsValidBase64(HashText, 32);
     }
     /// <summary>
     /// Validates the sample master password policy and returns an error message.
@@ -113,8 +131,17 @@ static public class VaultService
         int Iterations = GetConfigInteger("PasswordManager.KdfIterations", 100000);
         if (string.IsNullOrWhiteSpace(SaltText) || string.IsNullOrWhiteSpace(HashText))
             return false;
-        byte[] Salt = Convert.FromBase64String(SaltText);
-        byte[] StoredVerifier = Convert.FromBase64String(HashText);
+        byte[] Salt;
+        byte[] StoredVerifier;
+        try
+        {
+            Salt = Convert.FromBase64String(SaltText);
+            StoredVerifier = Convert.FromBase64String(HashText);
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
         byte[] Key = DeriveKey(Password, Salt, Iterations);
         byte[] Verifier = CreateVerifier(Key);
         bool Result = CryptographicOperations.FixedTimeEquals(Verifier, StoredVerifier);
