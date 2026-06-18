@@ -57,9 +57,12 @@ public class FormDef: BaseDef
     /// <summary>
     /// Creates a command that displays the form.
     /// </summary>
-    public Command CreateShowCommand(Func<Command, object> ExecuteFunc = null)
+    /// <param name="ExecuteFunc">The command execution callback.</param>
+    /// <param name="ImageFileName">The command image file name.</param>
+    /// <returns>The created command.</returns>
+    public Command CreateShowCommand(Func<Command, object> ExecuteFunc = null, string ImageFileName = null)
     {
-        Command Result = new(Name) { TitleKey = TitleKey, Form = Name, SecurityLevel = SecurityLevel };
+        Command Result = new(Name) { TitleKey = TitleKey, Form = Name, ImageFileName = ImageFileName, SecurityLevel = SecurityLevel };
         Result.ExecuteFunc = ExecuteFunc;
         return Result;
     }

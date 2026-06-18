@@ -1,0 +1,67 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="HelloTripous.MainWindow"
+        Title="Hello Tripous"
+        Width="720"
+        Height="460"
+        MinWidth="560"
+        MinHeight="360"
+        WindowStartupLocation="CenterScreen">
+  <DockPanel>
+    <!-- Menu -->
+    <Menu Name="MainMenu" DockPanel.Dock="Top">
+      <MenuItem Header="_File">
+        <MenuItem Header="_Say Hello" Tag="SayHello" Click="AnyClick" />
+        <MenuItem Header="_Open Dialog" Tag="OpenDialog" Click="AnyClick" />
+        <Separator />
+        <MenuItem Header="_Exit" Tag="Exit" Click="AnyClick" />
+      </MenuItem>
+      <MenuItem Header="_Edit">
+        <MenuItem Header="_Clear Log" Tag="ClearLog" Click="AnyClick" />
+      </MenuItem>
+      <MenuItem Header="_Help">
+        <MenuItem Header="_About" Tag="About" Click="AnyClick" />
+      </MenuItem>
+    </Menu>
+
+    <!-- ToolBar -->
+    <Border DockPanel.Dock="Top" Classes="ToolbarContainer">
+      <StackPanel Name="pnlToolBar" Classes="ToolBar" />
+    </Border>
+
+    <!-- StatusBar -->
+    <Border Name="StatusBar" DockPanel.Dock="Bottom" Height="28" Background="#F0F0F0" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0">
+      <Grid ColumnDefinitions="*,Auto,150">
+        <TextBlock Name="lblStatus" Grid.Column="0" Text="Ready" VerticalAlignment="Center" Margin="5,0" />
+        <Rectangle Grid.Column="1" Width="1" Fill="#CCCCCC" Margin="2" />
+        <TextBlock Name="lblDetails" Grid.Column="2" Text="v1.0" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Center" />
+      </Grid>
+    </Border>
+
+    <!-- Body -->
+    <Grid Name="pnlBody" ColumnDefinitions="260,4,*">
+      <Border Grid.Column="0" Padding="16">
+        <StackPanel Spacing="8">
+          <TextBlock Text="Hello Tripous" FontSize="28" FontWeight="SemiBold" />
+          <TextBlock Text="Use the menu or toolbar to execute the first commands." TextWrapping="Wrap" />
+        </StackPanel>
+      </Border>
+      <GridSplitter Name="Splitter" Grid.Column="1" ResizeDirection="Columns" />
+      <Grid Name="pnlRight" Grid.Column="2" RowDefinitions="*,4,120">
+        <Border Grid.Row="0" Padding="16">
+          <TextBlock Text="This first sample has no database and no RegBuilder output." TextWrapping="Wrap" />
+        </Border>
+        <GridSplitter Name="Splitter2" Grid.Row="1" ResizeDirection="Rows" />
+        <TextBox Name="edtLog" Grid.Row="2"
+                 IsReadOnly="False"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalContentAlignment="Top"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 FontFamily="Cascadia Mono, Cascadia Code, Consolas, Courier New, Monospace"
+                 FontSize="12" />
+      </Grid>
+    </Grid>
+  </DockPanel>
+</Window>

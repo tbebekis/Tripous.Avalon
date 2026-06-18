@@ -1,0 +1,1423 @@
+Οδηγός ελέγχου tERP
+===================
+
+Σκοπός
+------
+
+Αυτός ο οδηγός είναι για τους πρώτους χειροκίνητους ελέγχους του tERP.
+
+Ακολουθήστε τα βήματα όσο γίνεται ακριβώς. Η εφαρμογή περιέχει sample data, άρα τα ονόματα που αναφέρονται παρακάτω πρέπει να υπάρχουν ήδη μετά τη δημιουργία μίας καθαρής βάσης.
+
+Όταν αναφέρετε πρόβλημα, στείλτε:
+
+- Τον τίτλο της ενότητας.
+- Το ακριβές βήμα όπου εμφανίστηκε το πρόβλημα.
+- Τι περιμένατε να συμβεί.
+- Τι συνέβη πραγματικά.
+- Screenshot, αν είναι δυνατόν.
+- Το πλήρες μήνυμα λάθους, αν εμφανίστηκε.
+
+
+Βασικοί κανόνες ελέγχου
+-----------------------
+
+- Ξεκινήστε ένα πλήρες test pass με καθαρή βάση.
+- Μην παραλείπετε το Save πριν από το Post Document.
+- Μετά από κάθε σημαντική ενέργεια, ελέγχετε και το ίδιο το παραστατικό και τα read-only Views.
+- Αν ένα κουμπί είναι ανενεργό, σημειώστε σε ποιο παραστατικό και σε ποια κατάσταση βρίσκεστε.
+- Αν κάτι φαίνεται λάθος, μην διορθώσετε χειροκίνητα τα δεδομένα. Αναφέρετέ το.
+
+
+Εγκατάσταση και πρώτη εκκίνηση
+------------------------------
+
+1. Κάντε unzip το release package σε έναν απλό φάκελο.
+
+   Παράδειγμα:
+
+   C:\Temp\tERP
+
+2. Εκτελέστε το tERP executable από τον φάκελο που έγινε unzip.
+
+3. Στην πρώτη εκκίνηση, η εφαρμογή πρέπει να δημιουργήσει αυτόματα τη SQLite database.
+
+4. Αν η εφαρμογή ζητήσει τον πρώτο admin χρήστη, βάλτε:
+
+   Full name: Test Admin
+   User name: admin
+   Password: admin
+   Culture: en-US
+
+5. Πρέπει να ανοίξει το κύριο παράθυρο.
+
+6. Στο επάνω toolbar πατήστε Dashboard.
+
+7. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει το Dashboard tab χωρίς λάθη.
+
+
+Τοποθεσία βάσης και επαναδημιουργία
+-----------------------------------
+
+Χρησιμοποιήστε αυτό όταν θέλετε να γυρίσετε σε καθαρή test database.
+
+1. Ανοίξτε την εφαρμογή.
+
+2. Πατήστε General > ShowAppFolder.
+
+3. Ανοίγει ο φάκελος δεδομένων της εφαρμογής.
+
+4. Η SQLite database είναι συνήθως:
+
+   Data\tERP.db3
+
+5. Για επαναδημιουργία της βάσης μέσα από την εφαρμογή:
+
+   - Πατήστε General > Regenerate Database.
+   - Επιβεβαιώστε το warning.
+   - Η εφαρμογή πρέπει να εμφανίσει μήνυμα ότι η sample SQLite database διαγράφηκε.
+   - Η εφαρμογή κλείνει.
+   - Ξεκινήστε ξανά την εφαρμογή.
+
+6. Αναμενόμενο αποτέλεσμα μετά την επανεκκίνηση:
+
+   - Η βάση δημιουργείται ξανά.
+   - Τα sample data δημιουργούνται ξανά.
+   - Το Dashboard ανοίγει κανονικά.
+
+
+Κουμπιά toolbar που χρησιμοποιούνται στον οδηγό
+-----------------------------------------------
+
+Οι περισσότερες φόρμες έχουν το ίδιο toolbar.
+
+- List (F5): επιστροφή στη λίστα.
+- Refresh List (Ctrl+F5): ανανέωση λίστας.
+- Find (Ctrl+F): αναζήτηση/filter.
+- Insert (Ctrl+Insert): δημιουργία νέας εγγραφής ή παραστατικού.
+- Edit (Ctrl+Enter): επεξεργασία επιλεγμένης εγγραφής ή παραστατικού.
+- Delete (Ctrl+Delete): διαγραφή επιλεγμένης εγγραφής ή παραστατικού.
+- Save (Ctrl+S): αποθήκευση αλλαγών.
+- Cancel (Escape): ακύρωση επεξεργασίας.
+- Post Document: οριστικοποίηση/καταχώριση αποθηκευμένου παραστατικού.
+- Close: κλείσιμο φόρμας.
+
+Οι φόρμες παραστατικών μπορεί να εμφανίζουν και επιπλέον κουμπιά:
+
+- Create Sales Delivery Note
+- Create Sales Return
+- Create Sales Invoice
+- Create Sales Credit Note
+- Create Sales Cancellation
+- Create Customer Receipt
+- Create Customer Receipt Cancellation
+- Create Purchase Delivery Note
+- Create Purchase Return
+- Create Purchase Invoice
+- Create Purchase Credit Note
+- Create Purchase Cancellation
+- Create Supplier Payment
+- Create Supplier Payment Cancellation
+- Create Stock Cancellation
+
+
+Σημαντικά sample data
+---------------------
+
+Customers:
+
+- CUST-ACME, Acme Retail SA
+- CUST-NORTH, Northwind Traders Ltd
+- CUST-NIKOS, Nikos Demo Customer
+- CUST-LIBERTY, Liberty Retail LLC
+
+Suppliers:
+
+- SUP-HELIOS, Helios Supplies OE
+- SUP-BERLIN, Berlin Components GmbH
+
+Warehouses:
+
+- Main Warehouse
+- Retail Store
+- Goods In Transit
+- Scrap / Damaged Stock
+
+Products:
+
+- Coffee Machine
+- Espresso Beans
+- Laptop Computer 14
+- Monitor 27 Inch
+- Wireless Keyboard
+- Coffee Capsules
+- Mineral Water
+- Orange Juice
+
+Opening stock:
+
+- Main Warehouse / Coffee Machine: 100
+- Retail Store / Coffee Machine: 10
+- Main Warehouse / Espresso Beans: 300
+- Retail Store / Espresso Beans: 40
+- Main Warehouse / Laptop Computer 14: 50
+- Retail Store / Laptop Computer 14: 5
+- Main Warehouse / Monitor 27 Inch: 80
+- Retail Store / Monitor 27 Inch: 12
+- Main Warehouse / Wireless Keyboard: 150
+- Retail Store / Wireless Keyboard: 25
+- Main Warehouse / Coffee Capsules: 400
+- Retail Store / Coffee Capsules: 80
+- Main Warehouse / Mineral Water: 1000
+- Retail Store / Mineral Water: 200
+- Main Warehouse / Orange Juice: 500
+- Retail Store / Orange Juice: 100
+
+Χρήσιμες τιμές:
+
+- Retail / Coffee Machine: 249.00
+- Retail / Espresso Beans: 18.50
+- Retail / Laptop Computer 14: 1299.00
+- Retail / Monitor 27 Inch: 329.90
+- Retail / Wireless Keyboard: 49.95
+- Retail / Coffee Capsules: 8.75
+- Retail / Mineral Water: 1.20
+- Retail / Orange Juice: 2.85
+- Wholesale / Coffee Machine: 229.00
+- Wholesale / Espresso Beans: 16.90
+- Wholesale / Laptop Computer 14: 1249.00
+- Wholesale / Monitor 27 Inch: 309.90
+- Wholesale / Wireless Keyboard: 45.00
+- Wholesale / Coffee Capsules: 7.90
+- Wholesale / Mineral Water: 1.00
+- Wholesale / Orange Juice: 2.50
+
+Χρήσιμοι λογαριασμοί:
+
+- 10-2000, Bank
+- 10-3000, Customers
+- 10-4000, Inventory
+- 10-5000, VAT Receivable
+- 20-1000, Suppliers
+- 20-2000, VAT Payable
+- 60-1000, Purchases
+- 70-1000, Sales Revenue
+
+
+Έλεγχοι login χρηστών
+---------------------
+
+Η εφαρμογή μπορεί να λειτουργήσει σε δύο modes:
+
+- Use Users = false: αυτόματο login.
+- Use Users = true: εμφανίζεται login dialog.
+
+Η ρύθμιση βρίσκεται στο General > Application Settings.
+
+1. Ξεκινήστε από καθαρή βάση.
+
+2. Ανοίξτε General > Application Settings.
+
+3. Βρείτε Application > Use Users.
+
+4. Θέστε Use Users σε false.
+
+5. Πατήστε Save.
+
+6. Κλείστε και ξανανοίξτε την εφαρμογή.
+
+7. Αναμενόμενο αποτέλεσμα:
+
+   Η εφαρμογή ανοίγει χωρίς login dialog.
+
+8. Ανοίξτε Setup > AppUser.
+
+9. Δημιουργήστε νέο χρήστη:
+
+   FullName: Test User
+   UserName: tester
+   UserLevelId: User
+   CultureCode: en-US
+   Email: tester@example.com
+   IsActive: true
+
+10. Πατήστε Save.
+
+11. Πατήστε Edit στη γραμμή του tester.
+
+12. Πατήστε Set Password.
+
+13. Συμπληρώστε:
+
+   Password: tester
+   Confirm password: tester
+
+14. Πατήστε OK.
+
+15. Ανοίξτε ξανά General > Application Settings.
+
+16. Θέστε Application > Use Users σε true.
+
+17. Πατήστε Save.
+
+18. Κλείστε και ξανανοίξτε την εφαρμογή.
+
+19. Αναμενόμενο αποτέλεσμα:
+
+   Εμφανίζεται login dialog.
+
+20. Κάντε login ως:
+
+   User name: tester
+   Password: tester
+
+21. Αναμενόμενο αποτέλεσμα:
+
+   Η εφαρμογή ανοίγει.
+
+22. Ελέγξτε πρόσβαση ως απλός User:
+
+   - Το General > Regenerate Database δεν πρέπει να είναι διαθέσιμο.
+   - Το General > ConnectionInfo δεν πρέπει να είναι διαθέσιμο.
+   - Το Setup > AppUser δεν πρέπει να είναι διαθέσιμο.
+
+23. Κλείστε την εφαρμογή.
+
+24. Κάντε login ως admin.
+
+25. Αναμενόμενο αποτέλεσμα:
+
+   Τα admin-only commands εμφανίζονται ξανά.
+
+
+Master data smoke tests
+-----------------------
+
+1. Ανοίξτε People > Person.
+
+2. Πατήστε Refresh List.
+
+3. Αναμενόμενο αποτέλεσμα:
+
+   Βλέπετε CUST-ACME, CUST-NORTH, CUST-NIKOS, CUST-LIBERTY, SUP-HELIOS και SUP-BERLIN.
+
+4. Ανοίξτε Inventory > Product.
+
+5. Πατήστε Refresh List.
+
+6. Αναμενόμενο αποτέλεσμα:
+
+   Βλέπετε τα οκτώ sample products που αναφέρονται παραπάνω.
+
+7. Ανοίξτε Inventory > Warehouse.
+
+8. Πατήστε Refresh List.
+
+9. Αναμενόμενο αποτέλεσμα:
+
+   Βλέπετε Main Warehouse, Retail Store, Goods In Transit και Scrap / Damaged Stock.
+
+10. Ανοίξτε Views > Stock Balance.
+
+11. Βάλτε filter ProductName contains Laptop.
+
+12. Αναμενόμενο αποτέλεσμα:
+
+   Εμφανίζεται Laptop Computer 14 με:
+
+   Main Warehouse: 50
+   Retail Store: 5
+
+
+Sales Order σε Delivery Note και Invoice
+----------------------------------------
+
+Στόχος:
+
+Δημιουργία Sales Order για Acme Retail SA, μετατροπή σε Sales Delivery Note και μετά σε Sales Invoice.
+
+1. Ανοίξτε Sales > SalesOrder.
+
+2. Πατήστε Insert.
+
+3. Συμπληρώστε header:
+
+   PersonId: CUST-ACME / Acme Retail SA
+   WarehouseId: Main Warehouse
+   CurrencyId: EUR
+   ExchangeRate: 1
+   PaymentMethodId: Payment To Bank Account
+   PaymentTermId: 30 Days
+   OriginTaxJurisdictionId: GR
+   DestinationTaxJurisdictionId: GR
+
+4. Στο grid TradeLine πατήστε Ctrl+Insert ή το κουμπί Add του grid.
+
+5. Προσθέστε γραμμή 1:
+
+   Product: Laptop Computer 14
+   Quantity: 2
+   Warehouse: Main Warehouse
+
+6. Προσθέστε γραμμή 2:
+
+   Product: Wireless Keyboard
+   Quantity: 3
+   Warehouse: Main Warehouse
+
+7. Πατήστε Save.
+
+8. Αναμενόμενο αποτέλεσμα:
+
+   Δίνεται document code.
+   Το status είναι Draft.
+
+9. Πατήστε Post Document.
+
+10. Επιβεβαιώστε την ερώτηση.
+
+11. Αναμενόμενο αποτέλεσμα:
+
+   Το status γίνεται Posted.
+   Το παραστατικό κλειδώνει/read-only.
+   Το κουμπί Create Sales Delivery Note ενεργοποιείται.
+
+12. Πατήστε Create Sales Delivery Note.
+
+13. Επιβεβαιώστε την ερώτηση.
+
+14. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει νέο Sales Delivery Note με τον ίδιο πελάτη και τις ίδιες γραμμές.
+
+15. Στο Sales Delivery Note πατήστε Save.
+
+16. Πατήστε Post Document.
+
+17. Επιβεβαιώστε την ερώτηση.
+
+18. Αναμενόμενο αποτέλεσμα:
+
+   Το status γίνεται Posted.
+   Το stock μειώνεται.
+   Τα κουμπιά Create Sales Invoice και Create Sales Return ενεργοποιούνται.
+
+19. Ανοίξτε Views > Stock Movements.
+
+20. Φιλτράρετε DocumentCode με τον κωδικό του Sales Delivery Note.
+
+21. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχουν δύο stock movements.
+   Το Laptop Computer 14 έχει Direction = Out και Quantity = 2.
+   Το Wireless Keyboard έχει Direction = Out και Quantity = 3.
+
+22. Ανοίξτε Views > Stock Balance.
+
+23. Ελέγξτε:
+
+   Laptop Computer 14 / Main Warehouse μειώθηκε από 50 σε 48.
+   Wireless Keyboard / Main Warehouse μειώθηκε από 150 σε 147.
+
+24. Επιστρέψτε στο posted Sales Delivery Note.
+
+25. Πατήστε Create Sales Invoice.
+
+26. Επιβεβαιώστε την ερώτηση.
+
+27. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει νέο Sales Invoice με τον ίδιο πελάτη και τις ίδιες γραμμές.
+
+28. Πατήστε Save.
+
+29. Πατήστε Post Document.
+
+30. Επιβεβαιώστε την ερώτηση.
+
+31. Αναμενόμενο αποτέλεσμα:
+
+   Το status γίνεται Posted.
+   Τα κουμπιά Create Customer Receipt, Create Sales Credit Note και Create Sales Cancellation ενεργοποιούνται.
+
+32. Ανοίξτε Views > Trade Documents.
+
+33. Φιλτράρετε PartnerCode με CUST-ACME.
+
+34. Αναμενόμενο αποτέλεσμα:
+
+   Sales Order, Sales Delivery Note και Sales Invoice είναι ορατά και Posted.
+
+35. Ανοίξτε Views > Finance Movements.
+
+36. Φιλτράρετε DocumentCode με τον κωδικό του Sales Invoice.
+
+37. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχει ένα Person movement για CUST-ACME.
+   TradeType = Sales.
+   Direction = In.
+
+38. Ανοίξτε Views > Journal Entries.
+
+39. Φιλτράρετε DocumentCode με τον κωδικό του Sales Invoice.
+
+40. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχει ένα posted Journal Entry.
+
+
+Customer Receipt από Sales Invoice
+----------------------------------
+
+Συνεχίστε από posted Sales Invoice.
+
+1. Επιστρέψτε στο posted Sales Invoice.
+
+2. Πατήστε Create Customer Receipt.
+
+3. Επιβεβαιώστε την ερώτηση.
+
+4. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Customer Receipt.
+   Το Person είναι CUST-ACME / Acme Retail SA.
+   Το Amount ισούται με το open invoice amount.
+   Το SettledAmount ισούται με το Amount.
+   Το UnappliedAmount είναι 0.
+   Υπάρχει μία γραμμή PaymentSettlement.
+
+5. Πατήστε Save.
+
+6. Πατήστε Post Document.
+
+7. Επιβεβαιώστε την ερώτηση.
+
+8. Αναμενόμενο αποτέλεσμα:
+
+   Το Customer Receipt γίνεται Posted και κλειδώνει.
+
+9. Ανοίξτε Views > Finance Movements.
+
+10. Φιλτράρετε DocumentCode με τον κωδικό του Customer Receipt.
+
+11. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχουν δύο movements:
+
+   - Person movement για CUST-ACME, TradeType = Sales, Direction = Out.
+   - Bank movement, TradeType = Financial, Direction = In.
+
+12. Ανοίξτε Views > Cash Bank Balance.
+
+13. Αναμενόμενο αποτέλεσμα:
+
+   Το Bank balance αυξήθηκε κατά το ποσό της είσπραξης.
+
+14. Επιστρέψτε στο posted Customer Receipt.
+
+15. Πατήστε Create Customer Receipt Cancellation.
+
+16. Επιβεβαιώστε την ερώτηση.
+
+17. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Customer Receipt Cancellation.
+   Δεν έχει settlement rows.
+
+18. Πατήστε Save.
+
+19. Πατήστε Post Document.
+
+20. Αναμενόμενο αποτέλεσμα:
+
+   Το αρχικό Customer Receipt γίνεται Cancelled.
+   Το cancellation document γίνεται Posted.
+   Το Bank balance επιστρέφει στην τιμή πριν από την είσπραξη.
+
+
+Sales Credit Note
+-----------------
+
+Χρησιμοποιήστε διαφορετικό posted Sales Invoice από αυτό που θα χρησιμοποιηθεί για cancellation.
+
+1. Δημιουργήστε νέο Sales Order για:
+
+   Customer: CUST-ACME / Acme Retail SA
+   Warehouse: Main Warehouse
+
+2. Προσθέστε μία γραμμή:
+
+   Product: Monitor 27 Inch
+   Quantity: 5
+
+3. Πατήστε Save και Post στο Sales Order.
+
+4. Πατήστε Create Sales Delivery Note.
+
+5. Στο Sales Delivery Note κρατήστε Quantity = 5.
+
+6. Πατήστε Save και Post στο Sales Delivery Note.
+
+7. Πατήστε Create Sales Invoice.
+
+8. Στο Sales Invoice κρατήστε Quantity = 5.
+
+9. Πατήστε Save και Post στο Sales Invoice.
+
+10. Πατήστε Create Sales Credit Note.
+
+11. Επιβεβαιώστε την ερώτηση.
+
+12. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Sales Credit Note με Monitor 27 Inch.
+
+13. Αλλάξτε Quantity σε 2.
+
+14. Πατήστε Save.
+
+15. Πατήστε Post Document.
+
+16. Αναμενόμενο αποτέλεσμα:
+
+   Το Sales Credit Note γίνεται Posted.
+   Δημιουργεί finance και accounting reversal movements.
+   Δεν δημιουργεί stock movements.
+
+17. Ανοίξτε Views > Stock Movements.
+
+18. Φιλτράρετε DocumentCode με τον κωδικό του Sales Credit Note.
+
+19. Αναμενόμενο αποτέλεσμα:
+
+   Δεν υπάρχει stock movement για το Sales Credit Note.
+
+20. Επιστρέψτε στο ίδιο Sales Invoice.
+
+21. Πατήστε Create Sales Cancellation.
+
+22. Αναμενόμενο αποτέλεσμα:
+
+   Η εφαρμογή πρέπει να το απορρίψει επειδή υπάρχει posted Credit Note.
+
+
+Sales Cancellation
+------------------
+
+Χρησιμοποιήστε posted Sales Invoice χωρίς Credit Notes.
+
+1. Δημιουργήστε νέο Sales Order για:
+
+   Customer: CUST-NORTH / Northwind Traders Ltd
+   Warehouse: Main Warehouse
+
+2. Προσθέστε μία γραμμή:
+
+   Product: Coffee Machine
+   Quantity: 1
+
+3. Πατήστε Save και Post στο Sales Order.
+
+4. Πατήστε Create Sales Delivery Note.
+
+5. Πατήστε Save και Post στο Sales Delivery Note.
+
+6. Πατήστε Create Sales Invoice.
+
+7. Πατήστε Save και Post στο Sales Invoice.
+
+8. Πατήστε Create Sales Cancellation.
+
+9. Επιβεβαιώστε την ερώτηση.
+
+10. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Sales Cancellation.
+
+11. Πατήστε Save.
+
+12. Πατήστε Post Document.
+
+13. Αναμενόμενο αποτέλεσμα:
+
+   Το Sales Cancellation γίνεται Posted.
+   Το αρχικό Sales Invoice γίνεται Cancelled.
+   Το αρχικό journal entry γίνεται Cancelled.
+   Το finance balance του πελάτη επιστρέφει στην τιμή πριν από το invoice.
+   Δεν δημιουργείται stock movement από το Sales Cancellation.
+
+14. Επιστρέψτε στο αρχικό Sales Invoice.
+
+15. Αναμενόμενο αποτέλεσμα:
+
+   Το Create Sales Cancellation είναι disabled.
+   Το Create Sales Credit Note είναι disabled.
+   Το Create Customer Receipt είναι disabled.
+
+
+Sales Return από Delivery Note
+------------------------------
+
+Χρησιμοποιήστε posted Sales Delivery Note.
+
+1. Δημιουργήστε Sales Order για:
+
+   Customer: CUST-ACME / Acme Retail SA
+   Warehouse: Main Warehouse
+
+2. Προσθέστε μία γραμμή:
+
+   Product: Espresso Beans
+   Quantity: 10
+
+3. Πατήστε Save και Post στο Sales Order.
+
+4. Πατήστε Create Sales Delivery Note.
+
+5. Πατήστε Save και Post στο Sales Delivery Note.
+
+6. Πατήστε Create Sales Return.
+
+7. Επιβεβαιώστε την ερώτηση.
+
+8. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Sales Return με Espresso Beans.
+
+9. Θέστε Quantity σε 4.
+
+10. Πατήστε Save.
+
+11. Πατήστε Post Document.
+
+12. Ανοίξτε Views > Stock Movements.
+
+13. Φιλτράρετε DocumentCode με τον κωδικό του Sales Return.
+
+14. Αναμενόμενο αποτέλεσμα:
+
+   Το Espresso Beans έχει Direction = In και Quantity = 4.
+
+15. Ανοίξτε Views > Stock Balance.
+
+16. Αναμενόμενο αποτέλεσμα:
+
+   Espresso Beans / Main Warehouse αυξήθηκε κατά 4 σε σχέση με μετά το delivery note.
+
+
+Purchase Order σε Delivery Note και Invoice
+-------------------------------------------
+
+Στόχος:
+
+Δημιουργία Purchase Order για Helios Supplies OE, παραλαβή ειδών και δημιουργία Purchase Invoice.
+
+1. Ανοίξτε Purchases > PurchaseOrder.
+
+2. Πατήστε Insert.
+
+3. Συμπληρώστε header:
+
+   PersonId: SUP-HELIOS / Helios Supplies OE
+   WarehouseId: Main Warehouse
+   CurrencyId: EUR
+   ExchangeRate: 1
+   PaymentMethodId: Payment To Bank Account
+   PaymentTermId: 30 Days
+   OriginTaxJurisdictionId: GR
+   DestinationTaxJurisdictionId: GR
+
+4. Προσθέστε γραμμή 1:
+
+   Product: Coffee Capsules
+   Quantity: 20
+   UnitPrice: 6.00
+   Warehouse: Main Warehouse
+
+5. Προσθέστε γραμμή 2:
+
+   Product: Orange Juice
+   Quantity: 30
+   UnitPrice: 1.00
+   Warehouse: Main Warehouse
+
+6. Πατήστε Save.
+
+7. Πατήστε Post Document.
+
+8. Αναμενόμενο αποτέλεσμα:
+
+   Το Purchase Order γίνεται Posted.
+   Το Create Purchase Delivery Note ενεργοποιείται.
+
+9. Πατήστε Create Purchase Delivery Note.
+
+10. Επιβεβαιώστε την ερώτηση.
+
+11. Πατήστε Save και Post στο Purchase Delivery Note.
+
+12. Αναμενόμενο αποτέλεσμα:
+
+   Το stock αυξάνεται.
+
+13. Ανοίξτε Views > Stock Balance.
+
+14. Αναμενόμενο αποτέλεσμα:
+
+   Coffee Capsules / Main Warehouse αυξήθηκε από 400 σε 420.
+   Orange Juice / Main Warehouse αυξήθηκε από 500 σε 530.
+
+15. Επιστρέψτε στο Purchase Delivery Note.
+
+16. Πατήστε Create Purchase Invoice.
+
+17. Πατήστε Save και Post στο Purchase Invoice.
+
+18. Αναμενόμενο αποτέλεσμα:
+
+   Το Purchase Invoice γίνεται Posted.
+   Τα Create Supplier Payment, Create Purchase Credit Note και Create Purchase Cancellation ενεργοποιούνται.
+
+19. Ανοίξτε Views > Finance Movements.
+
+20. Φιλτράρετε DocumentCode με τον κωδικό του Purchase Invoice.
+
+21. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχει ένα Person movement για SUP-HELIOS.
+   TradeType = Purchases.
+   Direction = Out.
+
+22. Ανοίξτε Views > Journal Entries.
+
+23. Φιλτράρετε DocumentCode με τον κωδικό του Purchase Invoice.
+
+24. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχει ένα posted Journal Entry.
+
+
+Supplier Payment και cancellation
+---------------------------------
+
+Συνεχίστε από posted Purchase Invoice.
+
+1. Επιστρέψτε στο posted Purchase Invoice.
+
+2. Πατήστε Create Supplier Payment.
+
+3. Επιβεβαιώστε την ερώτηση.
+
+4. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Supplier Payment.
+   Το Person είναι SUP-HELIOS / Helios Supplies OE.
+   Το Amount ισούται με το open invoice amount.
+   Το SettledAmount ισούται με το Amount.
+   Το UnappliedAmount είναι 0.
+   Υπάρχει μία γραμμή PaymentSettlement.
+
+5. Πατήστε Save.
+
+6. Πατήστε Post Document.
+
+7. Αναμενόμενο αποτέλεσμα:
+
+   Το Supplier Payment γίνεται Posted και κλειδώνει.
+
+8. Ανοίξτε Views > Finance Movements.
+
+9. Φιλτράρετε DocumentCode με τον κωδικό του Supplier Payment.
+
+10. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχουν δύο movements:
+
+   - Person movement για SUP-HELIOS, TradeType = Purchases, Direction = In.
+   - Bank movement, TradeType = Financial, Direction = Out.
+
+11. Επιστρέψτε στο posted Supplier Payment.
+
+12. Πατήστε Create Supplier Payment Cancellation.
+
+13. Επιβεβαιώστε την ερώτηση.
+
+14. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Supplier Payment Cancellation.
+   Δεν έχει settlement rows.
+
+15. Πατήστε Save.
+
+16. Πατήστε Post Document.
+
+17. Αναμενόμενο αποτέλεσμα:
+
+   Το αρχικό Supplier Payment γίνεται Cancelled.
+   Το cancellation document γίνεται Posted.
+   Το Bank balance επιστρέφει στην τιμή πριν από το payment.
+
+
+Purchase Credit Note
+--------------------
+
+Χρησιμοποιήστε posted Purchase Invoice που δεν έχει cancellation.
+
+1. Δημιουργήστε νέο Purchase Order για:
+
+   Supplier: SUP-HELIOS / Helios Supplies OE
+   Warehouse: Main Warehouse
+
+2. Προσθέστε μία γραμμή:
+
+   Product: Mineral Water
+   Quantity: 100
+   UnitPrice: 0.70
+
+3. Πατήστε Save και Post στο Purchase Order.
+
+4. Πατήστε Create Purchase Delivery Note.
+
+5. Πατήστε Save και Post στο Purchase Delivery Note.
+
+6. Πατήστε Create Purchase Invoice.
+
+7. Πατήστε Save και Post στο Purchase Invoice.
+
+8. Πατήστε Create Purchase Credit Note.
+
+9. Επιβεβαιώστε την ερώτηση.
+
+10. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Purchase Credit Note.
+
+11. Θέστε Quantity σε 30.
+
+12. Πατήστε Save.
+
+13. Πατήστε Post Document.
+
+14. Αναμενόμενο αποτέλεσμα:
+
+   Το Purchase Credit Note γίνεται Posted.
+   Δημιουργεί finance και accounting reversal movements.
+   Δεν δημιουργεί stock movements.
+
+15. Ανοίξτε Views > Stock Movements.
+
+16. Φιλτράρετε DocumentCode με τον κωδικό του Purchase Credit Note.
+
+17. Αναμενόμενο αποτέλεσμα:
+
+   Δεν υπάρχει stock movement για το Purchase Credit Note.
+
+18. Επιστρέψτε στο Purchase Invoice.
+
+19. Πατήστε Create Purchase Cancellation.
+
+20. Αναμενόμενο αποτέλεσμα:
+
+   Η εφαρμογή πρέπει να το απορρίψει επειδή υπάρχει posted Credit Note.
+
+
+Purchase Cancellation
+---------------------
+
+Χρησιμοποιήστε posted Purchase Invoice χωρίς Credit Notes.
+
+1. Δημιουργήστε νέο Purchase Order για:
+
+   Supplier: SUP-BERLIN / Berlin Components GmbH
+   Warehouse: Main Warehouse
+
+2. Προσθέστε μία γραμμή:
+
+   Product: Laptop Computer 14
+   Quantity: 1
+   UnitPrice: 900.00
+
+3. Πατήστε Save και Post στο Purchase Order.
+
+4. Πατήστε Create Purchase Delivery Note.
+
+5. Πατήστε Save και Post στο Purchase Delivery Note.
+
+6. Πατήστε Create Purchase Invoice.
+
+7. Πατήστε Save και Post στο Purchase Invoice.
+
+8. Πατήστε Create Purchase Cancellation.
+
+9. Επιβεβαιώστε την ερώτηση.
+
+10. Πατήστε Save και Post στο Purchase Cancellation.
+
+11. Αναμενόμενο αποτέλεσμα:
+
+   Το Purchase Cancellation γίνεται Posted.
+   Το αρχικό Purchase Invoice γίνεται Cancelled.
+   Το αρχικό journal entry γίνεται Cancelled.
+   Το finance balance του supplier επιστρέφει στην τιμή πριν από το invoice.
+   Δεν δημιουργείται stock movement από το Purchase Cancellation.
+
+
+Purchase Return από Delivery Note
+---------------------------------
+
+Χρησιμοποιήστε posted Purchase Delivery Note.
+
+1. Δημιουργήστε Purchase Order για:
+
+   Supplier: SUP-HELIOS / Helios Supplies OE
+   Warehouse: Main Warehouse
+
+2. Προσθέστε μία γραμμή:
+
+   Product: Coffee Capsules
+   Quantity: 50
+   UnitPrice: 6.00
+
+3. Πατήστε Save και Post στο Purchase Order.
+
+4. Πατήστε Create Purchase Delivery Note.
+
+5. Πατήστε Save και Post στο Purchase Delivery Note.
+
+6. Πατήστε Create Purchase Return.
+
+7. Επιβεβαιώστε την ερώτηση.
+
+8. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει Purchase Return με Coffee Capsules.
+
+9. Θέστε Quantity σε 15.
+
+10. Πατήστε Save.
+
+11. Πατήστε Post Document.
+
+12. Ανοίξτε Views > Stock Movements.
+
+13. Φιλτράρετε DocumentCode με τον κωδικό του Purchase Return.
+
+14. Αναμενόμενο αποτέλεσμα:
+
+   Το Coffee Capsules έχει Direction = Out και Quantity = 15.
+
+
+Stock Trade Receipt
+-------------------
+
+1. Ανοίξτε Inventory > StockTrade.
+
+2. Πατήστε Insert.
+
+3. Συμπληρώστε header:
+
+   OperationTypeId: Receipt
+   WarehouseId: Main Warehouse
+   DocumentDate: today
+
+4. Προσθέστε μία γραμμή StockTradeLine:
+
+   Product: Orange Juice
+   Quantity: 5
+   UnitCost: 2.00
+
+5. Πατήστε Save.
+
+6. Πατήστε Post Document.
+
+7. Ανοίξτε Views > Stock Movements.
+
+8. Φιλτράρετε DocumentCode με τον κωδικό του Stock Trade.
+
+9. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχει ένα movement.
+   Product = Orange Juice.
+   Direction = In.
+   Quantity = 5.
+   UnitCost = 2.00.
+
+10. Ανοίξτε Views > Stock Balance.
+
+11. Αναμενόμενο αποτέλεσμα:
+
+   Orange Juice / Main Warehouse αυξήθηκε κατά 5.
+
+
+Stock Trade Issue
+-----------------
+
+1. Ανοίξτε Inventory > StockTrade.
+
+2. Πατήστε Insert.
+
+3. Συμπληρώστε header:
+
+   OperationTypeId: Issue
+   WarehouseId: Main Warehouse
+   DocumentDate: today
+
+4. Προσθέστε μία γραμμή StockTradeLine:
+
+   Product: Orange Juice
+   Quantity: 4
+   UnitCost: 999.00
+
+5. Πατήστε Save.
+
+6. Πατήστε Post Document.
+
+7. Αναμενόμενο αποτέλεσμα:
+
+   Το posting πετυχαίνει.
+   Το issue χρησιμοποιεί το τρέχον average cost, όχι το 999.00 που πληκτρολογήθηκε.
+
+8. Ανοίξτε Views > Stock Movements.
+
+9. Φιλτράρετε DocumentCode με τον κωδικό του Stock Trade.
+
+10. Αναμενόμενο αποτέλεσμα:
+
+   Product = Orange Juice.
+   Direction = Out.
+   Quantity = 4.
+
+
+Stock Trade Transfer
+--------------------
+
+1. Ανοίξτε Inventory > StockTrade.
+
+2. Πατήστε Insert.
+
+3. Συμπληρώστε header:
+
+   OperationTypeId: Transfer
+   WarehouseId: Main Warehouse
+   ToWarehouseId: Retail Store
+   DocumentDate: today
+
+4. Προσθέστε μία γραμμή StockTradeLine:
+
+   Product: Orange Juice
+   Quantity: 4
+   UnitCost: 0.00
+
+5. Πατήστε Save.
+
+6. Πατήστε Post Document.
+
+7. Ανοίξτε Views > Stock Movements.
+
+8. Φιλτράρετε DocumentCode με τον κωδικό του Stock Trade.
+
+9. Αναμενόμενο αποτέλεσμα:
+
+   Υπάρχουν δύο movements.
+   Ένα Out movement από Main Warehouse.
+   Ένα In movement προς Retail Store.
+   Και τα δύο movements χρησιμοποιούν το ίδιο UnitCost.
+
+10. Ανοίξτε Views > Stock Balance.
+
+11. Αναμενόμενο αποτέλεσμα:
+
+   Orange Juice / Main Warehouse μειώθηκε κατά 4.
+   Orange Juice / Retail Store αυξήθηκε κατά 4.
+
+
+Stock Trade Cancellation
+------------------------
+
+1. Χρησιμοποιήστε ένα posted StockTrade από τους προηγούμενους ελέγχους.
+
+2. Πατήστε Create Stock Cancellation.
+
+3. Επιβεβαιώστε την ερώτηση.
+
+4. Αναμενόμενο αποτέλεσμα:
+
+   Ανοίγει νέο StockTrade ως cancellation.
+
+5. Πατήστε Save.
+
+6. Πατήστε Post Document.
+
+7. Αναμενόμενο αποτέλεσμα:
+
+   Το αρχικό StockTrade σημειώνεται ως cancelled.
+   Το cancellation StockTrade γίνεται posted.
+   Το stock balance επιστρέφει στην τιμή πριν από το αρχικό StockTrade.
+
+8. Επιστρέψτε στο αρχικό StockTrade.
+
+9. Αναμενόμενο αποτέλεσμα:
+
+   Το Create Stock Cancellation είναι disabled.
+
+
+Αρνητικός έλεγχος stock
+-----------------------
+
+1. Ανοίξτε Inventory > StockTrade.
+
+2. Πατήστε Insert.
+
+3. Συμπληρώστε header:
+
+   OperationTypeId: Issue
+   WarehouseId: Retail Store
+   DocumentDate: today
+
+4. Προσθέστε μία γραμμή StockTradeLine:
+
+   Product: Laptop Computer 14
+   Quantity: 9999
+   UnitCost: 0.00
+
+5. Πατήστε Save.
+
+6. Πατήστε Post Document.
+
+7. Αναμενόμενο αποτέλεσμα:
+
+   Το posting πρέπει να αποτύχει.
+   Το μήνυμα πρέπει να αναφέρει ανεπαρκές ή αρνητικό stock.
+
+8. Πατήστε Cancel ή κλείστε τη φόρμα.
+
+9. Ανοίξτε Views > Stock Balance.
+
+10. Αναμενόμενο αποτέλεσμα:
+
+   Laptop Computer 14 / Retail Store δεν άλλαξε, επειδή το posting έγινε rollback.
+
+
+Χειροκίνητο Journal Entry
+-------------------------
+
+1. Ανοίξτε Accounting > JournalEntry.
+
+2. Πατήστε Insert.
+
+3. Συμπληρώστε header:
+
+   TradeTypeId: Accounting
+   EntryDate: today
+   DocumentDate: today
+
+4. Προσθέστε γραμμή 1:
+
+   Account: 10-2000 / Bank
+   DebitAmount: 124.00
+   CreditAmount: 0.00
+
+5. Προσθέστε γραμμή 2:
+
+   Account: 70-1000 / Sales Revenue
+   DebitAmount: 0.00
+   CreditAmount: 100.00
+
+6. Προσθέστε γραμμή 3:
+
+   Account: 20-2000 / VAT Payable
+   DebitAmount: 0.00
+   CreditAmount: 24.00
+
+7. Πατήστε Save.
+
+8. Αναμενόμενο αποτέλεσμα:
+
+   TotalDebit = 124.00.
+   TotalCredit = 124.00.
+   Status είναι Draft.
+
+9. Πατήστε Post Document.
+
+10. Αναμενόμενο αποτέλεσμα:
+
+   Το Status γίνεται Posted.
+   Το document κλειδώνει.
+
+
+Αρνητικός έλεγχος Journal Entry
+-------------------------------
+
+1. Ανοίξτε Accounting > JournalEntry.
+
+2. Πατήστε Insert.
+
+3. Προσθέστε γραμμή 1:
+
+   Account: 10-2000 / Bank
+   DebitAmount: 124.00
+   CreditAmount: 0.00
+
+4. Προσθέστε γραμμή 2:
+
+   Account: 70-1000 / Sales Revenue
+   DebitAmount: 0.00
+   CreditAmount: 100.00
+
+5. Πατήστε Save.
+
+6. Αναμενόμενο αποτέλεσμα:
+
+   Το Save ή το posting πρέπει να αποτύχει, επειδή debit και credit δεν είναι ίσα.
+
+7. Κάντε Cancel στο document.
+
+
+Έλεγχος read-only views
+-----------------------
+
+Ανοίξτε κάθε view και πατήστε Execute ή Refresh List.
+
+Views για έλεγχο:
+
+- Views > Sales By Customer
+- Views > Sales By Month
+- Views > Purchases By Supplier
+- Views > Purchases By Month
+- Views > Stock Balance
+- Views > Finance Balance
+- Views > Cash Bank Balance
+- Views > Trade Documents
+- Views > Stock Movements
+- Views > Finance Movements
+- Views > Journal Entries
+
+Για κάθε view:
+
+1. Ανοίξτε το view.
+
+2. Πατήστε Execute ή Refresh List.
+
+3. Χρησιμοποιήστε τουλάχιστον ένα filter.
+
+4. Καθαρίστε το filter.
+
+5. Αναμενόμενο αποτέλεσμα:
+
+   Τα δεδομένα φορτώνουν χωρίς λάθη.
+   Τα filters εφαρμόζονται.
+   Το Clear Filter επαναφέρει την αφιλτράριστη λίστα.
+
+
+Έλεγχος connection dialog
+-------------------------
+
+Μόνο admin users πρέπει να βλέπουν αυτό το command.
+
+1. Κάντε login ως admin.
+
+2. Πατήστε General > ConnectionInfo.
+
+3. Αναμενόμενο αποτέλεσμα:
+
+   Το database connection dialog ανοίγει μπροστά από το main window.
+
+4. Πατήστε Test Connection, αν υπάρχει.
+
+5. Αναμενόμενο αποτέλεσμα:
+
+   Το test πετυχαίνει για το default SQLite connection.
+
+6. Πατήστε Cancel.
+
+7. Κάντε login ως απλός User.
+
+8. Αναμενόμενο αποτέλεσμα:
+
+   Το General > ConnectionInfo δεν είναι διαθέσιμο.
+
+
+Έλεγχος application settings
+----------------------------
+
+1. Ανοίξτε General > Application Settings.
+
+2. Αλλάξτε Show DataForm Log σε true.
+
+3. Πατήστε Save.
+
+4. Ανοίξτε Sales > SalesOrder.
+
+5. Αναμενόμενο αποτέλεσμα:
+
+   Η περιοχή data form log είναι ορατή.
+
+6. Επιστρέψτε στο General > Application Settings.
+
+7. Αλλάξτε Show DataForm Log σε false.
+
+8. Πατήστε Save.
+
+9. Κλείστε και ξανανοίξτε Sales > SalesOrder.
+
+10. Αναμενόμενο αποτέλεσμα:
+
+   Η περιοχή data form log είναι ξανά κρυμμένη.
+
+
+Regression checklist
+--------------------
+
+Πριν ολοκληρώσετε ένα πλήρες test pass, επιβεβαιώστε τα εξής:
+
+- Μπορεί να δημιουργηθεί καθαρή βάση.
+- Τα sample data δημιουργούνται.
+- Το auto-login mode δουλεύει.
+- Το login mode δουλεύει.
+- Τα admin-only commands κρύβονται από απλούς users.
+- Sales Order μπορεί να γίνει posted.
+- Sales Delivery Note μπορεί να δημιουργηθεί από Sales Order.
+- Sales Return μπορεί να δημιουργηθεί από Sales Delivery Note.
+- Sales Invoice μπορεί να δημιουργηθεί από Sales Delivery Note.
+- Customer Receipt μπορεί να δημιουργηθεί από Sales Invoice.
+- Customer Receipt Cancellation αντιστρέφει την είσπραξη.
+- Sales Credit Note μπορεί να δημιουργηθεί από Sales Invoice.
+- Sales Cancellation μπορεί να δημιουργηθεί μόνο όταν δεν υπάρχει Credit Note.
+- Purchase Order μπορεί να γίνει posted.
+- Purchase Delivery Note μπορεί να δημιουργηθεί από Purchase Order.
+- Purchase Return μπορεί να δημιουργηθεί από Purchase Delivery Note.
+- Purchase Invoice μπορεί να δημιουργηθεί από Purchase Delivery Note.
+- Supplier Payment μπορεί να δημιουργηθεί από Purchase Invoice.
+- Supplier Payment Cancellation αντιστρέφει την πληρωμή.
+- Purchase Credit Note μπορεί να δημιουργηθεί από Purchase Invoice.
+- Purchase Cancellation μπορεί να δημιουργηθεί μόνο όταν δεν υπάρχει Credit Note.
+- Stock Receipt αυξάνει το stock.
+- Stock Issue μειώνει το stock.
+- Stock Transfer μεταφέρει stock μεταξύ warehouses.
+- Stock Cancellation αντιστρέφει stock trade.
+- Invalid negative stock απορρίπτεται.
+- Χειροκίνητο balanced Journal Entry μπορεί να γίνει posted.
+- Χειροκίνητο unbalanced Journal Entry απορρίπτεται.
+- Τα read-only views ανοίγουν και φιλτράρουν σωστά.
+- Το Regenerate Database διαγράφει τη βάση και κλείνει την εφαρμογή.
+
+
+Προτεινόμενη μορφή feedback
+---------------------------
+
+Χρησιμοποιήστε αυτή τη μορφή όταν στέλνετε feedback:
+
+Tester:
+Date:
+tERP version:
+Windows version:
+Database was fresh: yes/no
+Use Users setting: true/false
+Test section:
+Step number:
+Expected:
+Actual:
+Screenshot attached: yes/no
+Notes:

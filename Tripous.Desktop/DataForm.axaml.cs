@@ -1050,6 +1050,7 @@ public partial class DataForm : AppForm
             else
                 FilterDefs = SelectDef.FilterDefs;
 
+            SelectDef.ValidateBooleanFilterTypes(Module.Name, Module.Store, FilterDefs);
             FilterDefs = GetSavedFilterValues(SelectDef, FilterDefs);
             FilterPanelHandler.CreateFilterControls(FilterDefs);
         }

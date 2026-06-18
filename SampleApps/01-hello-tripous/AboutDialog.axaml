@@ -1,0 +1,33 @@
+﻿<desktop:DialogWindow xmlns="https://github.com/avaloniaui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:desktop="clr-namespace:Tripous.Desktop;assembly=Tripous.Desktop"
+                      x:Class="HelloTripous.AboutDialog"
+                      Title="About Hello Tripous"
+                      Width="420"
+                      Height="220"
+                      MinWidth="360"
+                      MinHeight="200"
+                      CanResize="False"
+                      WindowStartupLocation="CenterOwner">
+  <Grid RowDefinitions="*,Auto" Margin="20" RowSpacing="16">
+    <StackPanel Spacing="8">
+      <TextBlock Text="Hello Tripous"
+                 FontSize="24"
+                 FontWeight="SemiBold" />
+      <TextBlock Text="The first Tripous sample application."
+                 TextWrapping="Wrap" />
+      <TextBlock Text="It demonstrates a main window, menu, toolbar, modal dialog, and Tripous.Desktop message box without a database."
+                 TextWrapping="Wrap" />
+    </StackPanel>
+    <StackPanel Grid.Row="1"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+      <Button Name="btnClose"
+              Content="Close"
+              Width="90"
+              IsDefault="True"
+              IsCancel="True"
+              Click="Close_Click" />
+    </StackPanel>
+  </Grid>
+</desktop:DialogWindow>

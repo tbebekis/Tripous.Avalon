@@ -11,7 +11,6 @@ namespace Tripous.Logging;
 /// <summary>
 /// The level of log info to issue, display, or persist
 /// </summary>
-[Flags]
 public enum LogLevel
 {
     /// <summary>

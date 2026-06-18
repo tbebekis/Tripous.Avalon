@@ -1,0 +1,1423 @@
+tERP tester guide
+=================
+
+Purpose
+-------
+
+This guide is for the first manual testers of tERP.
+
+Please follow the steps exactly where possible. The application contains sample data, so the names below should already exist after a fresh database is created.
+
+When reporting an issue, send:
+
+- The test section number.
+- The exact step where it happened.
+- What you expected.
+- What actually happened.
+- A screenshot if possible.
+- The full error message if one appeared.
+
+
+Basic rules for testing
+-----------------------
+
+- Use a fresh database before starting a full test pass.
+- Do not skip the Save step before pressing Post Document.
+- After each important action, check both the document itself and the read-only Views.
+- If a button is disabled, hover it or note which document state you are in.
+- If something looks wrong, do not try to fix the data manually. Report it.
+
+
+Installation and first run
+--------------------------
+
+1. Unzip the release package to a normal folder.
+
+   Example:
+
+   C:\Temp\tERP
+
+2. Run the tERP executable from the unzipped folder.
+
+3. On first run, the application should create the SQLite database automatically.
+
+4. If the application asks for the first admin user, enter:
+
+   Full name: Test Admin
+   User name: admin
+   Password: admin
+   Culture: en-US
+
+5. The main window should open.
+
+6. In the top toolbar press Dashboard.
+
+7. Expected result:
+
+   The Dashboard tab opens without errors.
+
+
+Database location and reset
+---------------------------
+
+Use this when you need to return to a clean test database.
+
+1. Open the application.
+
+2. Press General > ShowAppFolder.
+
+3. The application data folder opens.
+
+4. The SQLite database is normally:
+
+   Data\tERP.db3
+
+5. To regenerate the database from inside the application:
+
+   - Press General > Regenerate Database.
+   - Confirm the warning.
+   - The application should say that the sample SQLite database was deleted.
+   - The application closes.
+   - Start the application again.
+
+6. Expected result after restart:
+
+   - Database is recreated.
+   - Sample data is recreated.
+   - Dashboard opens normally.
+
+
+Toolbar buttons used in this guide
+----------------------------------
+
+Most forms use the same toolbar.
+
+- List (F5): returns to the list.
+- Refresh List (Ctrl+F5): reloads the list.
+- Find (Ctrl+F): opens search/filter.
+- Insert (Ctrl+Insert): creates a new item/document.
+- Edit (Ctrl+Enter): edits the selected item/document.
+- Delete (Ctrl+Delete): deletes the selected item/document.
+- Save (Ctrl+S): saves changes.
+- Cancel (Escape): cancels editing.
+- Post Document: posts a saved document.
+- Close: closes the form.
+
+Document forms may also show extra buttons:
+
+- Create Sales Delivery Note
+- Create Sales Return
+- Create Sales Invoice
+- Create Sales Credit Note
+- Create Sales Cancellation
+- Create Customer Receipt
+- Create Customer Receipt Cancellation
+- Create Purchase Delivery Note
+- Create Purchase Return
+- Create Purchase Invoice
+- Create Purchase Credit Note
+- Create Purchase Cancellation
+- Create Supplier Payment
+- Create Supplier Payment Cancellation
+- Create Stock Cancellation
+
+
+Important sample data
+---------------------
+
+Customers:
+
+- CUST-ACME, Acme Retail SA
+- CUST-NORTH, Northwind Traders Ltd
+- CUST-NIKOS, Nikos Demo Customer
+- CUST-LIBERTY, Liberty Retail LLC
+
+Suppliers:
+
+- SUP-HELIOS, Helios Supplies OE
+- SUP-BERLIN, Berlin Components GmbH
+
+Warehouses:
+
+- Main Warehouse
+- Retail Store
+- Goods In Transit
+- Scrap / Damaged Stock
+
+Products:
+
+- Coffee Machine
+- Espresso Beans
+- Laptop Computer 14
+- Monitor 27 Inch
+- Wireless Keyboard
+- Coffee Capsules
+- Mineral Water
+- Orange Juice
+
+Opening stock:
+
+- Main Warehouse / Coffee Machine: 100
+- Retail Store / Coffee Machine: 10
+- Main Warehouse / Espresso Beans: 300
+- Retail Store / Espresso Beans: 40
+- Main Warehouse / Laptop Computer 14: 50
+- Retail Store / Laptop Computer 14: 5
+- Main Warehouse / Monitor 27 Inch: 80
+- Retail Store / Monitor 27 Inch: 12
+- Main Warehouse / Wireless Keyboard: 150
+- Retail Store / Wireless Keyboard: 25
+- Main Warehouse / Coffee Capsules: 400
+- Retail Store / Coffee Capsules: 80
+- Main Warehouse / Mineral Water: 1000
+- Retail Store / Mineral Water: 200
+- Main Warehouse / Orange Juice: 500
+- Retail Store / Orange Juice: 100
+
+Useful prices:
+
+- Retail / Coffee Machine: 249.00
+- Retail / Espresso Beans: 18.50
+- Retail / Laptop Computer 14: 1299.00
+- Retail / Monitor 27 Inch: 329.90
+- Retail / Wireless Keyboard: 49.95
+- Retail / Coffee Capsules: 8.75
+- Retail / Mineral Water: 1.20
+- Retail / Orange Juice: 2.85
+- Wholesale / Coffee Machine: 229.00
+- Wholesale / Espresso Beans: 16.90
+- Wholesale / Laptop Computer 14: 1249.00
+- Wholesale / Monitor 27 Inch: 309.90
+- Wholesale / Wireless Keyboard: 45.00
+- Wholesale / Coffee Capsules: 7.90
+- Wholesale / Mineral Water: 1.00
+- Wholesale / Orange Juice: 2.50
+
+Useful accounts:
+
+- 10-2000, Bank
+- 10-3000, Customers
+- 10-4000, Inventory
+- 10-5000, VAT Receivable
+- 20-1000, Suppliers
+- 20-2000, VAT Payable
+- 60-1000, Purchases
+- 70-1000, Sales Revenue
+
+
+User login tests
+----------------
+
+The application can run in two modes:
+
+- Use Users = false: auto-login.
+- Use Users = true: login dialog.
+
+The setting is in General > Application Settings.
+
+1. Start from a clean database.
+
+2. Open General > Application Settings.
+
+3. Find Application > Use Users.
+
+4. Set Use Users to false.
+
+5. Save the settings.
+
+6. Close and restart the application.
+
+7. Expected result:
+
+   The application opens without a login dialog.
+
+8. Open Setup > AppUser.
+
+9. Insert a new user:
+
+   FullName: Test User
+   UserName: tester
+   UserLevelId: User
+   CultureCode: en-US
+   Email: tester@example.com
+   IsActive: true
+
+10. Press Save.
+
+11. Press Edit on the tester row.
+
+12. Press Set Password.
+
+13. Enter:
+
+   Password: tester
+   Confirm password: tester
+
+14. Press OK.
+
+15. Open General > Application Settings again.
+
+16. Set Application > Use Users to true.
+
+17. Save the settings.
+
+18. Close and restart the application.
+
+19. Expected result:
+
+   The login dialog appears.
+
+20. Login as:
+
+   User name: tester
+   Password: tester
+
+21. Expected result:
+
+   The application opens.
+
+22. Check access as normal user:
+
+   - General > Regenerate Database should not be available.
+   - General > ConnectionInfo should not be available.
+   - Setup > AppUser should not be available.
+
+23. Close the application.
+
+24. Login as admin.
+
+25. Expected result:
+
+   Admin-only commands are visible again.
+
+
+Master data smoke tests
+-----------------------
+
+1. Open People > Person.
+
+2. Press Refresh List.
+
+3. Expected result:
+
+   You can see CUST-ACME, CUST-NORTH, CUST-NIKOS, CUST-LIBERTY, SUP-HELIOS and SUP-BERLIN.
+
+4. Open Inventory > Product.
+
+5. Press Refresh List.
+
+6. Expected result:
+
+   You can see the eight sample products listed above.
+
+7. Open Inventory > Warehouse.
+
+8. Press Refresh List.
+
+9. Expected result:
+
+   You can see Main Warehouse, Retail Store, Goods In Transit and Scrap / Damaged Stock.
+
+10. Open Views > Stock Balance.
+
+11. Filter ProductName contains Laptop.
+
+12. Expected result:
+
+   Laptop Computer 14 appears with:
+
+   Main Warehouse: 50
+   Retail Store: 5
+
+
+Sales order to delivery note to invoice
+---------------------------------------
+
+Goal:
+
+Create a Sales Order for Acme Retail SA, convert it to a Sales Delivery Note, then convert it to a Sales Invoice.
+
+1. Open Sales > SalesOrder.
+
+2. Press Insert.
+
+3. Fill the header:
+
+   PersonId: CUST-ACME / Acme Retail SA
+   WarehouseId: Main Warehouse
+   CurrencyId: EUR
+   ExchangeRate: 1
+   PaymentMethodId: Payment To Bank Account
+   PaymentTermId: 30 Days
+   OriginTaxJurisdictionId: GR
+   DestinationTaxJurisdictionId: GR
+
+4. In the TradeLine grid press Ctrl+Insert or the grid Add button.
+
+5. Add line 1:
+
+   Product: Laptop Computer 14
+   Quantity: 2
+   Warehouse: Main Warehouse
+
+6. Add line 2:
+
+   Product: Wireless Keyboard
+   Quantity: 3
+   Warehouse: Main Warehouse
+
+7. Press Save.
+
+8. Expected result:
+
+   A document code is assigned.
+   Status is Draft.
+
+9. Press Post Document.
+
+10. Confirm the posting question.
+
+11. Expected result:
+
+   Status becomes Posted.
+   The document becomes locked/read-only.
+   The Create Sales Delivery Note button becomes enabled.
+
+12. Press Create Sales Delivery Note.
+
+13. Confirm the question.
+
+14. Expected result:
+
+   A new Sales Delivery Note opens with the same customer and lines.
+
+15. On the Sales Delivery Note press Save.
+
+16. Press Post Document.
+
+17. Confirm the posting question.
+
+18. Expected result:
+
+   Status becomes Posted.
+   Stock is decreased.
+   Create Sales Invoice and Create Sales Return buttons become enabled.
+
+19. Open Views > Stock Movements.
+
+20. Filter DocumentCode by the Sales Delivery Note code.
+
+21. Expected result:
+
+   Two stock movements exist.
+   Laptop Computer 14 has Direction = Out and Quantity = 2.
+   Wireless Keyboard has Direction = Out and Quantity = 3.
+
+22. Open Views > Stock Balance.
+
+23. Check:
+
+   Laptop Computer 14 / Main Warehouse decreased from 50 to 48.
+   Wireless Keyboard / Main Warehouse decreased from 150 to 147.
+
+24. Return to the posted Sales Delivery Note.
+
+25. Press Create Sales Invoice.
+
+26. Confirm the question.
+
+27. Expected result:
+
+   A new Sales Invoice opens with the same customer and lines.
+
+28. Press Save.
+
+29. Press Post Document.
+
+30. Confirm the posting question.
+
+31. Expected result:
+
+   Status becomes Posted.
+   Create Customer Receipt, Create Sales Credit Note and Create Sales Cancellation buttons become enabled.
+
+32. Open Views > Trade Documents.
+
+33. Filter PartnerCode by CUST-ACME.
+
+34. Expected result:
+
+   Sales Order, Sales Delivery Note and Sales Invoice are visible and Posted.
+
+35. Open Views > Finance Movements.
+
+36. Filter DocumentCode by the Sales Invoice code.
+
+37. Expected result:
+
+   One Person movement exists for CUST-ACME.
+   TradeType = Sales.
+   Direction = In.
+
+38. Open Views > Journal Entries.
+
+39. Filter DocumentCode by the Sales Invoice code.
+
+40. Expected result:
+
+   One posted Journal Entry exists.
+
+
+Sales invoice receipt
+---------------------
+
+Continue from a posted Sales Invoice.
+
+1. Return to the posted Sales Invoice.
+
+2. Press Create Customer Receipt.
+
+3. Confirm the question.
+
+4. Expected result:
+
+   A Customer Receipt opens.
+   Person is CUST-ACME / Acme Retail SA.
+   Amount equals the open invoice amount.
+   SettledAmount equals Amount.
+   UnappliedAmount is 0.
+   One PaymentSettlement row exists.
+
+5. Press Save.
+
+6. Press Post Document.
+
+7. Confirm the posting question.
+
+8. Expected result:
+
+   Customer Receipt is Posted and locked.
+
+9. Open Views > Finance Movements.
+
+10. Filter DocumentCode by the Customer Receipt code.
+
+11. Expected result:
+
+   Two movements exist:
+
+   - Person movement for CUST-ACME, TradeType = Sales, Direction = Out.
+   - Bank movement, TradeType = Financial, Direction = In.
+
+12. Open Views > Cash Bank Balance.
+
+13. Expected result:
+
+   Bank balance increased by the receipt amount.
+
+14. Return to the posted Customer Receipt.
+
+15. Press Create Customer Receipt Cancellation.
+
+16. Confirm the question.
+
+17. Expected result:
+
+   A Customer Receipt Cancellation opens.
+   It has no settlement rows.
+
+18. Press Save.
+
+19. Press Post Document.
+
+20. Expected result:
+
+   Original Customer Receipt becomes Cancelled.
+   Cancellation document becomes Posted.
+   Bank balance returns to the value before the receipt.
+
+
+Sales credit note
+-----------------
+
+Use a different posted Sales Invoice than the one used for cancellation.
+
+1. Create a new Sales Order for:
+
+   Customer: CUST-ACME / Acme Retail SA
+   Warehouse: Main Warehouse
+
+2. Add one line:
+
+   Product: Monitor 27 Inch
+   Quantity: 5
+
+3. Save and Post the Sales Order.
+
+4. Press Create Sales Delivery Note.
+
+5. In the Sales Delivery Note keep Quantity = 5.
+
+6. Save and Post the Sales Delivery Note.
+
+7. Press Create Sales Invoice.
+
+8. In the Sales Invoice keep Quantity = 5.
+
+9. Save and Post the Sales Invoice.
+
+10. Press Create Sales Credit Note.
+
+11. Confirm the question.
+
+12. Expected result:
+
+   A Sales Credit Note opens with Monitor 27 Inch.
+
+13. Change Quantity to 2.
+
+14. Press Save.
+
+15. Press Post Document.
+
+16. Expected result:
+
+   Sales Credit Note becomes Posted.
+   It creates finance and accounting reversal movements.
+   It does not create stock movements.
+
+17. Open Views > Stock Movements.
+
+18. Filter DocumentCode by the Sales Credit Note code.
+
+19. Expected result:
+
+   No stock movement exists for the Sales Credit Note.
+
+20. Return to the same Sales Invoice.
+
+21. Press Create Sales Cancellation.
+
+22. Expected result:
+
+   The application should reject it because a posted Credit Note exists.
+
+
+Sales cancellation
+------------------
+
+Use a posted Sales Invoice with no Credit Notes.
+
+1. Create a new Sales Order for:
+
+   Customer: CUST-NORTH / Northwind Traders Ltd
+   Warehouse: Main Warehouse
+
+2. Add one line:
+
+   Product: Coffee Machine
+   Quantity: 1
+
+3. Save and Post the Sales Order.
+
+4. Press Create Sales Delivery Note.
+
+5. Save and Post the Sales Delivery Note.
+
+6. Press Create Sales Invoice.
+
+7. Save and Post the Sales Invoice.
+
+8. Press Create Sales Cancellation.
+
+9. Confirm the question.
+
+10. Expected result:
+
+   A Sales Cancellation opens.
+
+11. Press Save.
+
+12. Press Post Document.
+
+13. Expected result:
+
+   Sales Cancellation becomes Posted.
+   Original Sales Invoice becomes Cancelled.
+   Original journal entry becomes Cancelled.
+   Finance balance for the customer returns to the value before the invoice.
+   No stock movement is created by the Sales Cancellation.
+
+14. Return to the original Sales Invoice.
+
+15. Expected result:
+
+   Create Sales Cancellation is disabled.
+   Create Sales Credit Note is disabled.
+   Create Customer Receipt is disabled.
+
+
+Sales return from delivery note
+-------------------------------
+
+Use a posted Sales Delivery Note.
+
+1. Create a Sales Order for:
+
+   Customer: CUST-ACME / Acme Retail SA
+   Warehouse: Main Warehouse
+
+2. Add one line:
+
+   Product: Espresso Beans
+   Quantity: 10
+
+3. Save and Post the Sales Order.
+
+4. Press Create Sales Delivery Note.
+
+5. Save and Post the Sales Delivery Note.
+
+6. Press Create Sales Return.
+
+7. Confirm the question.
+
+8. Expected result:
+
+   A Sales Return opens with Espresso Beans.
+
+9. Set Quantity to 4.
+
+10. Press Save.
+
+11. Press Post Document.
+
+12. Open Views > Stock Movements.
+
+13. Filter DocumentCode by the Sales Return code.
+
+14. Expected result:
+
+   Espresso Beans has Direction = In and Quantity = 4.
+
+15. Open Views > Stock Balance.
+
+16. Expected result:
+
+   Espresso Beans / Main Warehouse increased by 4 compared with after the delivery note.
+
+
+Purchase order to delivery note to invoice
+------------------------------------------
+
+Goal:
+
+Create a Purchase Order for Helios Supplies OE, receive goods, and create a Purchase Invoice.
+
+1. Open Purchases > PurchaseOrder.
+
+2. Press Insert.
+
+3. Fill the header:
+
+   PersonId: SUP-HELIOS / Helios Supplies OE
+   WarehouseId: Main Warehouse
+   CurrencyId: EUR
+   ExchangeRate: 1
+   PaymentMethodId: Payment To Bank Account
+   PaymentTermId: 30 Days
+   OriginTaxJurisdictionId: GR
+   DestinationTaxJurisdictionId: GR
+
+4. Add line 1:
+
+   Product: Coffee Capsules
+   Quantity: 20
+   UnitPrice: 6.00
+   Warehouse: Main Warehouse
+
+5. Add line 2:
+
+   Product: Orange Juice
+   Quantity: 30
+   UnitPrice: 1.00
+   Warehouse: Main Warehouse
+
+6. Press Save.
+
+7. Press Post Document.
+
+8. Expected result:
+
+   Purchase Order becomes Posted.
+   Create Purchase Delivery Note becomes enabled.
+
+9. Press Create Purchase Delivery Note.
+
+10. Confirm the question.
+
+11. Save and Post the Purchase Delivery Note.
+
+12. Expected result:
+
+   Stock is increased.
+
+13. Open Views > Stock Balance.
+
+14. Expected result:
+
+   Coffee Capsules / Main Warehouse increased from 400 to 420.
+   Orange Juice / Main Warehouse increased from 500 to 530.
+
+15. Return to the Purchase Delivery Note.
+
+16. Press Create Purchase Invoice.
+
+17. Save and Post the Purchase Invoice.
+
+18. Expected result:
+
+   Purchase Invoice becomes Posted.
+   Create Supplier Payment, Create Purchase Credit Note and Create Purchase Cancellation become enabled.
+
+19. Open Views > Finance Movements.
+
+20. Filter DocumentCode by the Purchase Invoice code.
+
+21. Expected result:
+
+   One Person movement exists for SUP-HELIOS.
+   TradeType = Purchases.
+   Direction = Out.
+
+22. Open Views > Journal Entries.
+
+23. Filter DocumentCode by the Purchase Invoice code.
+
+24. Expected result:
+
+   One posted Journal Entry exists.
+
+
+Supplier payment and cancellation
+---------------------------------
+
+Continue from a posted Purchase Invoice.
+
+1. Return to the posted Purchase Invoice.
+
+2. Press Create Supplier Payment.
+
+3. Confirm the question.
+
+4. Expected result:
+
+   A Supplier Payment opens.
+   Person is SUP-HELIOS / Helios Supplies OE.
+   Amount equals the open invoice amount.
+   SettledAmount equals Amount.
+   UnappliedAmount is 0.
+   One PaymentSettlement row exists.
+
+5. Press Save.
+
+6. Press Post Document.
+
+7. Expected result:
+
+   Supplier Payment becomes Posted and locked.
+
+8. Open Views > Finance Movements.
+
+9. Filter DocumentCode by the Supplier Payment code.
+
+10. Expected result:
+
+   Two movements exist:
+
+   - Person movement for SUP-HELIOS, TradeType = Purchases, Direction = In.
+   - Bank movement, TradeType = Financial, Direction = Out.
+
+11. Return to the posted Supplier Payment.
+
+12. Press Create Supplier Payment Cancellation.
+
+13. Confirm the question.
+
+14. Expected result:
+
+   A Supplier Payment Cancellation opens.
+   It has no settlement rows.
+
+15. Press Save.
+
+16. Press Post Document.
+
+17. Expected result:
+
+   Original Supplier Payment becomes Cancelled.
+   Cancellation document becomes Posted.
+   Bank balance returns to the value before the payment.
+
+
+Purchase credit note
+--------------------
+
+Use a posted Purchase Invoice that has no cancellation.
+
+1. Create a new Purchase Order for:
+
+   Supplier: SUP-HELIOS / Helios Supplies OE
+   Warehouse: Main Warehouse
+
+2. Add one line:
+
+   Product: Mineral Water
+   Quantity: 100
+   UnitPrice: 0.70
+
+3. Save and Post the Purchase Order.
+
+4. Press Create Purchase Delivery Note.
+
+5. Save and Post the Purchase Delivery Note.
+
+6. Press Create Purchase Invoice.
+
+7. Save and Post the Purchase Invoice.
+
+8. Press Create Purchase Credit Note.
+
+9. Confirm the question.
+
+10. Expected result:
+
+   A Purchase Credit Note opens.
+
+11. Set Quantity to 30.
+
+12. Press Save.
+
+13. Press Post Document.
+
+14. Expected result:
+
+   Purchase Credit Note becomes Posted.
+   It creates finance and accounting reversal movements.
+   It does not create stock movements.
+
+15. Open Views > Stock Movements.
+
+16. Filter DocumentCode by the Purchase Credit Note code.
+
+17. Expected result:
+
+   No stock movement exists for the Purchase Credit Note.
+
+18. Return to the Purchase Invoice.
+
+19. Press Create Purchase Cancellation.
+
+20. Expected result:
+
+   The application should reject it because a posted Credit Note exists.
+
+
+Purchase cancellation
+---------------------
+
+Use a posted Purchase Invoice with no Credit Notes.
+
+1. Create a new Purchase Order for:
+
+   Supplier: SUP-BERLIN / Berlin Components GmbH
+   Warehouse: Main Warehouse
+
+2. Add one line:
+
+   Product: Laptop Computer 14
+   Quantity: 1
+   UnitPrice: 900.00
+
+3. Save and Post the Purchase Order.
+
+4. Press Create Purchase Delivery Note.
+
+5. Save and Post the Purchase Delivery Note.
+
+6. Press Create Purchase Invoice.
+
+7. Save and Post the Purchase Invoice.
+
+8. Press Create Purchase Cancellation.
+
+9. Confirm the question.
+
+10. Save and Post the Purchase Cancellation.
+
+11. Expected result:
+
+   Purchase Cancellation becomes Posted.
+   Original Purchase Invoice becomes Cancelled.
+   Original journal entry becomes Cancelled.
+   Finance balance for the supplier returns to the value before the invoice.
+   No stock movement is created by the Purchase Cancellation.
+
+
+Purchase return from delivery note
+----------------------------------
+
+Use a posted Purchase Delivery Note.
+
+1. Create a Purchase Order for:
+
+   Supplier: SUP-HELIOS / Helios Supplies OE
+   Warehouse: Main Warehouse
+
+2. Add one line:
+
+   Product: Coffee Capsules
+   Quantity: 50
+   UnitPrice: 6.00
+
+3. Save and Post the Purchase Order.
+
+4. Press Create Purchase Delivery Note.
+
+5. Save and Post the Purchase Delivery Note.
+
+6. Press Create Purchase Return.
+
+7. Confirm the question.
+
+8. Expected result:
+
+   A Purchase Return opens with Coffee Capsules.
+
+9. Set Quantity to 15.
+
+10. Press Save.
+
+11. Press Post Document.
+
+12. Open Views > Stock Movements.
+
+13. Filter DocumentCode by the Purchase Return code.
+
+14. Expected result:
+
+   Coffee Capsules has Direction = Out and Quantity = 15.
+
+
+Stock trade receipt
+-------------------
+
+1. Open Inventory > StockTrade.
+
+2. Press Insert.
+
+3. Fill the header:
+
+   OperationTypeId: Receipt
+   WarehouseId: Main Warehouse
+   DocumentDate: today
+
+4. Add one StockTradeLine row:
+
+   Product: Orange Juice
+   Quantity: 5
+   UnitCost: 2.00
+
+5. Press Save.
+
+6. Press Post Document.
+
+7. Open Views > Stock Movements.
+
+8. Filter DocumentCode by the Stock Trade code.
+
+9. Expected result:
+
+   One movement exists.
+   Product = Orange Juice.
+   Direction = In.
+   Quantity = 5.
+   UnitCost = 2.00.
+
+10. Open Views > Stock Balance.
+
+11. Expected result:
+
+   Orange Juice / Main Warehouse increased by 5.
+
+
+Stock trade issue
+-----------------
+
+1. Open Inventory > StockTrade.
+
+2. Press Insert.
+
+3. Fill the header:
+
+   OperationTypeId: Issue
+   WarehouseId: Main Warehouse
+   DocumentDate: today
+
+4. Add one StockTradeLine row:
+
+   Product: Orange Juice
+   Quantity: 4
+   UnitCost: 999.00
+
+5. Press Save.
+
+6. Press Post Document.
+
+7. Expected result:
+
+   Posting succeeds.
+   The issue uses current average cost, not the entered 999.00 cost.
+
+8. Open Views > Stock Movements.
+
+9. Filter DocumentCode by the Stock Trade code.
+
+10. Expected result:
+
+   Product = Orange Juice.
+   Direction = Out.
+   Quantity = 4.
+
+
+Stock trade transfer
+--------------------
+
+1. Open Inventory > StockTrade.
+
+2. Press Insert.
+
+3. Fill the header:
+
+   OperationTypeId: Transfer
+   WarehouseId: Main Warehouse
+   ToWarehouseId: Retail Store
+   DocumentDate: today
+
+4. Add one StockTradeLine row:
+
+   Product: Orange Juice
+   Quantity: 4
+   UnitCost: 0.00
+
+5. Press Save.
+
+6. Press Post Document.
+
+7. Open Views > Stock Movements.
+
+8. Filter DocumentCode by the Stock Trade code.
+
+9. Expected result:
+
+   Two movements exist.
+   One Out movement from Main Warehouse.
+   One In movement to Retail Store.
+   Both movements use the same UnitCost.
+
+10. Open Views > Stock Balance.
+
+11. Expected result:
+
+   Orange Juice / Main Warehouse decreased by 4.
+   Orange Juice / Retail Store increased by 4.
+
+
+Stock trade cancellation
+------------------------
+
+1. Use a posted StockTrade from one of the previous tests.
+
+2. Press Create Stock Cancellation.
+
+3. Confirm the question.
+
+4. Expected result:
+
+   A new StockTrade opens as a cancellation.
+
+5. Press Save.
+
+6. Press Post Document.
+
+7. Expected result:
+
+   Original StockTrade is marked as cancelled.
+   Cancellation StockTrade is posted.
+   Stock balance returns to the value before the original StockTrade.
+
+8. Return to the original StockTrade.
+
+9. Expected result:
+
+   Create Stock Cancellation is disabled.
+
+
+Stock negative test
+-------------------
+
+1. Open Inventory > StockTrade.
+
+2. Press Insert.
+
+3. Fill the header:
+
+   OperationTypeId: Issue
+   WarehouseId: Retail Store
+   DocumentDate: today
+
+4. Add one StockTradeLine row:
+
+   Product: Laptop Computer 14
+   Quantity: 9999
+   UnitCost: 0.00
+
+5. Press Save.
+
+6. Press Post Document.
+
+7. Expected result:
+
+   Posting must fail.
+   The error should mention insufficient or negative stock.
+
+8. Press Cancel or close the form.
+
+9. Open Views > Stock Balance.
+
+10. Expected result:
+
+   Laptop Computer 14 / Retail Store did not change because posting rolled back.
+
+
+Manual journal entry
+--------------------
+
+1. Open Accounting > JournalEntry.
+
+2. Press Insert.
+
+3. Fill the header:
+
+   TradeTypeId: Accounting
+   EntryDate: today
+   DocumentDate: today
+
+4. Add line 1:
+
+   Account: 10-2000 / Bank
+   DebitAmount: 124.00
+   CreditAmount: 0.00
+
+5. Add line 2:
+
+   Account: 70-1000 / Sales Revenue
+   DebitAmount: 0.00
+   CreditAmount: 100.00
+
+6. Add line 3:
+
+   Account: 20-2000 / VAT Payable
+   DebitAmount: 0.00
+   CreditAmount: 24.00
+
+7. Press Save.
+
+8. Expected result:
+
+   TotalDebit = 124.00.
+   TotalCredit = 124.00.
+   Status is Draft.
+
+9. Press Post Document.
+
+10. Expected result:
+
+   Status becomes Posted.
+   Document is locked.
+
+
+Manual journal entry negative test
+----------------------------------
+
+1. Open Accounting > JournalEntry.
+
+2. Press Insert.
+
+3. Add line 1:
+
+   Account: 10-2000 / Bank
+   DebitAmount: 124.00
+   CreditAmount: 0.00
+
+4. Add line 2:
+
+   Account: 70-1000 / Sales Revenue
+   DebitAmount: 0.00
+   CreditAmount: 100.00
+
+5. Press Save.
+
+6. Expected result:
+
+   Save or posting should fail because debit and credit are not equal.
+
+7. Cancel the document.
+
+
+Read-only views test
+--------------------
+
+Open each view and press Execute or Refresh List.
+
+Views to test:
+
+- Views > Sales By Customer
+- Views > Sales By Month
+- Views > Purchases By Supplier
+- Views > Purchases By Month
+- Views > Stock Balance
+- Views > Finance Balance
+- Views > Cash Bank Balance
+- Views > Trade Documents
+- Views > Stock Movements
+- Views > Finance Movements
+- Views > Journal Entries
+
+For each view:
+
+1. Open the view.
+
+2. Press Execute or Refresh List.
+
+3. Use at least one filter.
+
+4. Clear the filter.
+
+5. Expected result:
+
+   Data loads without errors.
+   Filters apply.
+   Clear Filter restores the unfiltered list.
+
+
+Connection dialog test
+----------------------
+
+Only admin users should see this command.
+
+1. Login as admin.
+
+2. Press General > ConnectionInfo.
+
+3. Expected result:
+
+   The database connection dialog opens in front of the main window.
+
+4. Press Test Connection if available.
+
+5. Expected result:
+
+   Test succeeds for the default SQLite connection.
+
+6. Press Cancel.
+
+7. Login as a normal User.
+
+8. Expected result:
+
+   General > ConnectionInfo is not available.
+
+
+Application settings test
+-------------------------
+
+1. Open General > Application Settings.
+
+2. Change Show DataForm Log to true.
+
+3. Save.
+
+4. Open Sales > SalesOrder.
+
+5. Expected result:
+
+   The data form log area is visible.
+
+6. Return to General > Application Settings.
+
+7. Change Show DataForm Log to false.
+
+8. Save.
+
+9. Close and reopen Sales > SalesOrder.
+
+10. Expected result:
+
+   The data form log area is hidden again.
+
+
+Regression checklist
+--------------------
+
+Before finishing a full test pass, confirm these points:
+
+- A fresh database can be created.
+- Sample data is created.
+- Auto-login mode works.
+- Login mode works.
+- Admin-only commands are hidden from normal users.
+- Sales Order can be posted.
+- Sales Delivery Note can be created from Sales Order.
+- Sales Return can be created from Sales Delivery Note.
+- Sales Invoice can be created from Sales Delivery Note.
+- Customer Receipt can be created from Sales Invoice.
+- Customer Receipt Cancellation reverses the receipt.
+- Sales Credit Note can be created from Sales Invoice.
+- Sales Cancellation can be created only when no Credit Note exists.
+- Purchase Order can be posted.
+- Purchase Delivery Note can be created from Purchase Order.
+- Purchase Return can be created from Purchase Delivery Note.
+- Purchase Invoice can be created from Purchase Delivery Note.
+- Supplier Payment can be created from Purchase Invoice.
+- Supplier Payment Cancellation reverses the payment.
+- Purchase Credit Note can be created from Purchase Invoice.
+- Purchase Cancellation can be created only when no Credit Note exists.
+- Stock Receipt increases stock.
+- Stock Issue decreases stock.
+- Stock Transfer moves stock between warehouses.
+- Stock Cancellation reverses a stock trade.
+- Invalid negative stock is rejected.
+- Manual balanced Journal Entry can be posted.
+- Manual unbalanced Journal Entry is rejected.
+- Read-only views open and filter correctly.
+- Regenerate Database deletes the database and closes the application.
+
+
+Suggested feedback format
+-------------------------
+
+Use this format when sending feedback:
+
+Tester:
+Date:
+tERP version:
+Windows version:
+Database was fresh: yes/no
+Use Users setting: true/false
+Test section:
+Step number:
+Expected:
+Actual:
+Screenshot attached: yes/no
+Notes:

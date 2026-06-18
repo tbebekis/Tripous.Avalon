@@ -38,7 +38,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
     public bool Active
     {
         get => Logger.Active;
-        set { if (Active != value) { Active = value; NotifyPropertyChanged(nameof(Active)); } }
+        set { if (Active != value) { Logger.Active = value; NotifyPropertyChanged(nameof(Active)); } }
     }
     /// <summary>
     /// The level of the accepted log. For a log info to be recorded its log level must be greater or equal to this level. 
@@ -48,7 +48,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
     public LogLevel MinLevel
     {
         get => Logger.MinLevel;
-        set { if (MinLevel != value) { MinLevel = value; NotifyPropertyChanged(nameof(MinLevel)); } }
+        set { if (MinLevel != value) { Logger.MinLevel = value; NotifyPropertyChanged(nameof(MinLevel)); } }
     }
     /// <summary>
     /// Gets or sets the path to the folder where file logs are saved.
@@ -56,7 +56,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
     public string LogFolderPath
     {
         get => Logger.LogFolderPath;
-        set { if (LogFolderPath != value) { LogFolderPath = value; NotifyPropertyChanged(nameof(LogFolderPath)); } }
+        set { if (LogFolderPath != value) { Logger.LogFolderPath = value; NotifyPropertyChanged(nameof(LogFolderPath)); } }
 
     }
     /// <summary>
@@ -65,7 +65,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
     public int RetainPolicyCounter
     {
         get => Logger.RetainPolicyCounter;
-        set { if (RetainPolicyCounter != value) { RetainPolicyCounter = value; NotifyPropertyChanged(nameof(RetainPolicyCounter)); } }
+        set { if (RetainPolicyCounter != value) { Logger.RetainPolicyCounter = value; NotifyPropertyChanged(nameof(RetainPolicyCounter)); } }
     }
     /// <summary>
     /// Gets or sets how many days to retain in the storage medium. Defaults to 7.
@@ -73,7 +73,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
     public int RetainDays
     {
         get => Logger.RetainDays;
-        set { if (RetainDays != value) { RetainDays = value; NotifyPropertyChanged(nameof(RetainDays)); } }
+        set { if (RetainDays != value) { Logger.RetainDays = value; NotifyPropertyChanged(nameof(RetainDays)); } }
     }
     /// <summary>
     /// Gets or sets how many KB to allow a single log file to grow. Defaults to 512 KB.
@@ -81,7 +81,7 @@ public class LogGlobalSettings: SettingsBase, INotifyPropertyChanged
     public int MaxSizeKiloBytes
     {
         get => Logger.MaxSizeKiloBytes;
-        set { if (MaxSizeKiloBytes != value) { MaxSizeKiloBytes = value; NotifyPropertyChanged(nameof(MaxSizeKiloBytes)); } }
+        set { if (MaxSizeKiloBytes != value) { Logger.MaxSizeKiloBytes = value; NotifyPropertyChanged(nameof(MaxSizeKiloBytes)); } }
     }
     
     // ● events

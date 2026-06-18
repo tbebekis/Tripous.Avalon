@@ -47,16 +47,9 @@ public class LogSource
             {
                 this.Properties = new Dictionary<string, object>();
 
-                PropertyInfo[] Properties = ScopeParams.GetType().GetProperties();
-
-                string Name;
-                object Value;
-                foreach (PropertyInfo Prop in Properties)
+                foreach (var Pair in ScopeParams)
                 {
-                    Name = Prop.Name;
-                    Value = Prop.GetValue(ScopeParams);
-
-                    this.Properties[Name] = Value;  
+                    this.Properties[Pair.Key] = Pair.Value;  
                 }
             }
 
@@ -325,6 +318,5 @@ public class LogSource
         }
     }
 }
-
 
 

@@ -121,7 +121,7 @@ static internal partial class AppHost
                 AppRegistry.MenuCommands.Add(cmdGroup);
             }
 
-            Command Cmd = FormDef.CreateShowCommand(ShowFormFunc);
+            Command Cmd = FormDef.CreateShowCommand(ShowFormFunc, ImageFileName: "table.png");
             ModuleDef ModuleDef = DataRegistry.Modules.Find(FormDef.Module);
             if (ModuleDef != null && ModuleDef.SecurityLevel != UserLevel.None)
                 Cmd.SecurityLevel = ModuleDef.SecurityLevel;

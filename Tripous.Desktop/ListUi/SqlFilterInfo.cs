@@ -42,4 +42,8 @@ public class SqlFilterInfo
     /// Gets or sets the condition operator combo box.
     /// </summary>
     public ComboBox ConditionOpCombo { get; set; }
+    /// <summary>
+    /// Gets or sets the boolean value combo box.
+    /// </summary>
+    public ComboBox BooleanValueCombo { get; set; }
 }

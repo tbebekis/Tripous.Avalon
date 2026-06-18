@@ -40,7 +40,7 @@ static internal partial class AppHost
     /// </summary>
     static async Task<bool> ShowDbConnectionEditDialog(DbConnectionInfo ConnectionInfo)
     {
-        return await DbConnectionEditDialog.ShowModal(ConnectionInfo, HiddenMainWindow);
+        return await DbConnectionEditDialog.ShowModal(ConnectionInfo, Ui.MainWindow);
     }
     /// <summary>
     /// Loads database configuration settings.

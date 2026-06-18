@@ -258,6 +258,7 @@ public partial class ConfigDialog : Window
         cboScope.SelectionChanged += (Sender, Args) => ScopeChanged();
         btnSave.Click += (Sender, Args) => SaveButtonClick();
         btnClose.Click += (Sender, Args) => Close();
+        Loaded += (Sender, Args) => btnClose.Focus(NavigationMethod.Tab, KeyModifiers.None);
     }
 
     // ● static public methods

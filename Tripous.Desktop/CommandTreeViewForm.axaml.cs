@@ -115,6 +115,7 @@ public partial class CommandTreeViewForm : AppForm
     protected override void FormInitialize()
     {
         TitleText = "Commands";
+        ClosableByUser = false;
         CreateTreeViewNodes();
         CreateToolBar();
         tv.DoubleTapped += tv_DoubleTapped;

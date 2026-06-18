@@ -24,8 +24,16 @@ public abstract class LogListener
     /// Constructor
     /// </summary>
     public LogListener()
+        : this(true)
     {
-        Register();
+    }
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    protected LogListener(bool AutoRegister)
+    {
+        if (AutoRegister)
+            Register();
     }
 
     // ● public  

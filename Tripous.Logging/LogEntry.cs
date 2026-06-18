@@ -95,7 +95,7 @@ public class LogEntry
     {
         string Result = string.Empty;
 
-        if (Properties == null)
+        if (Properties != null)
         {
             int Count = Properties.Count;
             int i = 0;
@@ -123,7 +123,7 @@ public class LogEntry
     {
         string Result = string.Empty;
 
-        if (Properties == null)
+        if (Properties != null)
         {
             int Count = Properties.Count;
             int i = 0;
@@ -237,4 +237,3 @@ public class LogEntry
 
 
 }
-

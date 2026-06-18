@@ -20,7 +20,7 @@
             <Grid ColumnDefinitions="*,Auto,Auto">
                 <TextBlock Name="txtMessage" Grid.Column="0" VerticalAlignment="Center"/>
                 <Button Name="btnSave" Grid.Column="1" Content="Save" MinWidth="90" Margin="0,0,8,0"/>
-                <Button Name="btnClose" Grid.Column="2" Content="Close" MinWidth="90"/>
+                <Button Name="btnClose" Grid.Column="2" Content="Close" MinWidth="90" IsCancel="True"/>
             </Grid>
         </Border>
         <TabControl Name="tabControl"/>

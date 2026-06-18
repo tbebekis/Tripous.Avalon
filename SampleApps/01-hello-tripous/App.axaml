@@ -1,0 +1,39 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="HelloTripous.App"
+             RequestedThemeVariant="Default">
+  <Application.Styles>
+    <FluentTheme />
+    <Style Selector="Button">
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="MenuItem">
+      <Setter Property="FontSize" Value="13" />
+    </Style>
+    <Style Selector="Border.ToolbarContainer">
+      <Setter Property="Padding" Value="2" />
+      <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+      <Setter Property="BorderThickness" Value="0,0,0,1" />
+      <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+    </Style>
+    <Style Selector="StackPanel.ToolBar">
+      <Setter Property="Orientation" Value="Horizontal" />
+      <Setter Property="Spacing" Value="0" />
+    </Style>
+    <Style Selector="StackPanel.ToolBar > Button">
+      <Setter Property="Width" Value="32" />
+      <Setter Property="Height" Value="32" />
+      <Setter Property="Padding" Value="1" />
+      <Setter Property="Background" Value="White" />
+    </Style>
+    <Style Selector="StackPanel.ToolBar > Button > Image">
+      <Setter Property="Width" Value="24" />
+      <Setter Property="Height" Value="24" />
+      <Setter Property="Stretch" Value="Uniform" />
+    </Style>
+    <Style Selector="GridSplitter">
+      <Setter Property="Background" Value="#CCCCCC" />
+    </Style>
+  </Application.Styles>
+</Application>

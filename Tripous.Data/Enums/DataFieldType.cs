@@ -175,7 +175,7 @@ static public class DataFieldTypeHelper
     /// <summary>
     /// True if Value is a valid filter type.
     /// </summary>
-    static public bool IsValidFilterType(this DataFieldType Value) => Value == DataFieldType.String || Value.IsNumeric() || Value.IsDateTime();
+    static public bool IsValidFilterType(this DataFieldType Value) => Value == DataFieldType.String || Value.IsNumeric() || Value.IsDateTime() || Value == DataFieldType.Boolean;
 
 
 }

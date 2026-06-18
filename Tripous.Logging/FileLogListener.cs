@@ -14,15 +14,16 @@ namespace Tripous.Logging;
 /// </summary>
 public class FileLogListener : LogListener
 {
-    int Counter = 0;
-    WriteLineFile LogFile;
+    readonly System.Threading.Lock fSyncLock = new();
+    int fCounter = 0;
+    WriteLineFile fLogFile;
 
     void ApplyRetainPolicy()
     {
-        if (Counter > RetainPolicyCounter)
+        if (fCounter > RetainPolicyCounter)
         {
-            Counter = 0;
-            LogFile.DeleteFilesOlderThan(RetainDays);
+            fCounter = 0;
+            fLogFile.DeleteFilesOlderThan(RetainDays);
         }
     }
 
@@ -31,9 +32,10 @@ public class FileLogListener : LogListener
     /// Constructor
     /// </summary>
     public FileLogListener(string Folder = "", string DefaultFileName = "", string ColumnLine = "", int MaxSizeKiloBytes = 512)
-            : base()
+            : base(false)
     {
-        LogFile = new WriteLineFile(Folder, DefaultFileName, ColumnLine, MaxSizeKiloBytes);
+        fLogFile = new WriteLineFile(Folder, DefaultFileName, ColumnLine, MaxSizeKiloBytes);
+        Register();
     }
 
     // ● public  
@@ -46,26 +48,28 @@ public class FileLogListener : LogListener
     /// </summary>
     public override void ProcessLog(LogEntry Entry)
     {
-        string Line = Logger.GetAsLine(Entry);
-        LogFile.WriteLine(Line);
+        lock (fSyncLock)
+        {
+            string Line = Logger.GetAsLine(Entry);
+            fLogFile.WriteLine(Line);
 
-        Counter++;
-        ApplyRetainPolicy();
+            fCounter++;
+            ApplyRetainPolicy();
+        }
     }
 
     // ● properties  
     /// <summary>
     /// The folder where log files are placed. Defaults to Sys.AppRootDataFolder/Logs
     /// </summary>
-    public string Folder => LogFile.Folder;
+    public string Folder => fLogFile.Folder;
     /// <summary>
     /// The max size of a log file in MB. When a file reaches that size, a new one is created. Defaults to 5MB.
     /// </summary>
     public override int MaxSizeKiloBytes
     {
-        get => LogFile.MaxSizeKiloBytes;
+        get => fLogFile.MaxSizeKiloBytes;
         set { throw new TripousException($"Changing {nameof(MaxSizeKiloBytes)} is illegal."); }
     }
 }
     
-

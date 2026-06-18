@@ -33,9 +33,10 @@ public class SyncedLogListener : LogListener
     /// Constructor.
     /// </summary>
     public SyncedLogListener()
-        : base()
+        : base(false)
     {
-        fSyncContext = AsyncOperationManager.SynchronizationContext; 
+        fSyncContext = AsyncOperationManager.SynchronizationContext;
+        Register();
     }
 
     // ● public  
@@ -65,4 +66,3 @@ public class SyncedLogListener : LogListener
     /// </summary>
     public event EventHandler<LogEntryArgs> EntryEvent;
 }
-

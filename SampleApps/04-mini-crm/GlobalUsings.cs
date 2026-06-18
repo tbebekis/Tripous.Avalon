@@ -1,0 +1,16 @@
+﻿global using Avalonia;
+global using Avalonia.Controls;
+global using Avalonia.Controls.ApplicationLifetimes;
+global using Avalonia.Controls.Shapes;
+global using Avalonia.Interactivity;
+global using Avalonia.Markup.Xaml;
+global using Avalonia.Threading;
+global using System;
+global using System.Collections.Generic;
+global using System.Data;
+global using System.Globalization;
+global using System.IO;
+global using System.Threading.Tasks;
+global using Tripous;
+global using Tripous.Data;
+global using Tripous.Desktop;

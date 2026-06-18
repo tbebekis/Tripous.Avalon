@@ -73,6 +73,24 @@ public class SqlFilterPanelHandler
         return Result;
     }
     /// <summary>
+    /// Creates a boolean value combo box.
+    /// </summary>
+    /// <param name="FilterDef">The filter definition.</param>
+    /// <returns>The created combo box.</returns>
+    static ComboBox CreateBooleanValueCombo(SqlFilterDef FilterDef)
+    {
+        ComboBox Result = new();
+        Result.ItemsSource = new[] { "All", "True", "False" };
+        Result.HorizontalAlignment = HorizontalAlignment.Stretch;
+        Result.SelectedIndex = 0;
+        if (FilterDef.ConditionOp == ConditionOp.Equal && FilterDef.Value != null)
+        {
+            int Value = Convert.ToInt32(FilterDef.Value, CultureInfo.InvariantCulture);
+            Result.SelectedIndex = Value == 0 ? 2 : 1;
+        }
+        return Result;
+    }
+    /// <summary>
     /// Returns the condition operators supported by a data type.
     /// </summary>
     /// <param name="DataType">The data type.</param>
@@ -107,6 +125,9 @@ public class SqlFilterPanelHandler
     static Control CreateValueControl(SqlFilterDef FilterDef, bool IsSecond)
     {
         object Value = IsSecond ? FilterDef.Value2 : FilterDef.Value;
+
+        if (!IsSecond && FilterDef.FilterDataType == DataFieldType.Boolean)
+            return CreateBooleanValueCombo(FilterDef);
 
         if (FilterDef.FilterDataType.IsDateTime())
         {
@@ -154,6 +175,15 @@ public class SqlFilterPanelHandler
             return Text;
         }
 
+        if (Control is ComboBox ComboBox && DataType == DataFieldType.Boolean)
+        {
+            if (ComboBox.SelectedIndex == 1)
+                return 1;
+            if (ComboBox.SelectedIndex == 2)
+                return 0;
+            return null;
+        }
+
         return null;
     }
     /// <summary>
@@ -179,6 +209,8 @@ public class SqlFilterPanelHandler
         Result.FilterDef = FilterDef;
         Result.Control = CreateValueControl(FilterDef, false);
         Result.Control2 = CreateValueControl(FilterDef, true);
+        if (Result.Control is ComboBox ComboBox && FilterDef.FilterDataType == DataFieldType.Boolean)
+            Result.BooleanValueCombo = ComboBox;
         return Result;
     }
 
@@ -225,6 +257,7 @@ public class SqlFilterPanelHandler
             ComboBox BoolOpCombo = CreateBoolOpCombo(FilterDef);
             TextBlock Label = CreateLabel(FilterDef);
             ComboBox ConditionOpCombo = CreateConditionOpCombo(FilterDef);
+            bool IsBooleanFilter = FilterDef.FilterDataType == DataFieldType.Boolean;
 
             BoolOpCombo.Tag = Info;
             ConditionOpCombo.Tag = Info;
@@ -248,12 +281,13 @@ public class SqlFilterPanelHandler
             Info.BoolOpCombo = BoolOpCombo;
             Info.ConditionOpCombo = ConditionOpCombo;
 
-            SetControlVisible(Info.Control2, FilterDef.ConditionOp == ConditionOp.Between);
+            SetControlVisible(ConditionOpCombo, !IsBooleanFilter);
+            SetControlVisible(Info.Control2, !IsBooleanFilter && FilterDef.ConditionOp == ConditionOp.Between);
 
             ConditionOpCombo.SelectionChanged += (Sender, Args) =>
             {
                 if (ConditionOpCombo.SelectedItem is ConditionOp ConditionOp)
-                    SetControlVisible(Info.Control2, ConditionOp == ConditionOp.Between);
+                    SetControlVisible(Info.Control2, !IsBooleanFilter && ConditionOp == ConditionOp.Between);
             };
 
             Border.Child = FilterPanel;
@@ -299,6 +333,15 @@ public class SqlFilterPanelHandler
             FilterDef.Value = GetControlValue(Info.Control, FilterDef.FilterDataType);
             FilterDef.Value2 = GetControlValue(Info.Control2, FilterDef.FilterDataType);
 
+            if (FilterDef.FilterDataType == DataFieldType.Boolean)
+            {
+                FilterDef.ConditionOp = ConditionOp.Equal;
+                FilterDef.Value2 = null;
+                if (FilterDef.Value != null)
+                    Result.Add(FilterDef);
+                continue;
+            }
+
             if (FilterDef.ConditionOp == ConditionOp.Between)
             {
                 if (FilterDef.Value != null && FilterDef.Value2 != null)
@@ -340,6 +383,15 @@ public class SqlFilterPanelHandler
 
             FilterDef.Value = GetControlValue(Info.Control, FilterDef.FilterDataType);
             FilterDef.Value2 = GetControlValue(Info.Control2, FilterDef.FilterDataType);
+
+            if (FilterDef.FilterDataType == DataFieldType.Boolean)
+            {
+                FilterDef.ConditionOp = ConditionOp.Equal;
+                FilterDef.Value2 = null;
+                if (FilterDef.Value != null)
+                    Result.Add(FilterDef);
+                continue;
+            }
 
             if (FilterDef.ConditionOp == ConditionOp.Between)
             {
@@ -385,6 +437,8 @@ public class SqlFilterPanelHandler
             // combos
             Info.BoolOpCombo.SelectedItem = BoolOp.And;
             Info.ConditionOpCombo.SelectedItem = ConditionOp.Equal;
+            if (Info.BooleanValueCombo != null)
+                Info.BooleanValueCombo.SelectedIndex = 0;
 
             // visibility
             SetControlVisible(Info.Control2, false);

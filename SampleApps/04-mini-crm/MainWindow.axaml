@@ -1,0 +1,48 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MiniCrm.MainWindow"
+        Title="Mini CRM"
+        Width="960"
+        Height="640"
+        MinWidth="760"
+        MinHeight="480"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen">
+  <DockPanel>
+    <!-- Menu -->
+    <Menu Name="MainMenu" DockPanel.Dock="Top" />
+
+    <!-- ToolBar -->
+    <Border DockPanel.Dock="Top" Classes="ToolbarContainer">
+      <StackPanel Name="pnlToolBar" Classes="ToolBar" />
+    </Border>
+
+    <!-- StatusBar -->
+    <Border Name="StatusBar" DockPanel.Dock="Bottom" Height="28" Background="#F0F0F0" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0">
+      <Grid ColumnDefinitions="*,Auto,150">
+        <TextBlock Name="lblStatus" Grid.Column="0" Text="Ready" VerticalAlignment="Center" Margin="5,0" />
+        <Rectangle Grid.Column="1" Width="1" Fill="#CCCCCC" Margin="2" />
+        <TextBlock Name="lblDetails" Grid.Column="2" Text="v1.0" FontSize="11" VerticalAlignment="Center" HorizontalAlignment="Center" />
+      </Grid>
+    </Border>
+
+    <!-- Body -->
+    <Grid Name="pnlBody" ColumnDefinitions="220,4,*">
+      <TabControl Name="pagerSideBar" Grid.Column="0" />
+      <GridSplitter Name="Splitter" Grid.Column="1" ResizeDirection="Columns" />
+      <Grid Name="pnlRight" Grid.Column="2" RowDefinitions="*,4,120">
+        <TabControl Name="pagerContent" Grid.Row="0" />
+        <GridSplitter Name="Splitter2" Grid.Row="1" ResizeDirection="Rows" />
+        <TextBox Name="edtLog" Grid.Row="2"
+                 IsReadOnly="False"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalContentAlignment="Top"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 FontFamily="Cascadia Mono, Cascadia Code, Consolas, Courier New, Monospace"
+                 FontSize="12" />
+      </Grid>
+    </Grid>
+  </DockPanel>
+</Window>
