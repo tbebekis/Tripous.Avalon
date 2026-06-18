@@ -6,6 +6,8 @@ It combines the power of Avalonia UI with a metadata-driven architecture focused
 
 The project is the latest evolution of ideas and technologies that have been developed and refined over many years through several generations of the Tripous framework.
 
+**Documentation**: can be found at https://tbebekis.github.io/Tripous.Avalon/
+
 ## What Is Tripous?
 
 Tripous is not a UI toolkit.
@@ -93,6 +95,63 @@ Database tables, modules, forms, lookups, locators and many other application el
 This allows large parts of an application to be generated automatically while remaining fully customizable.
 
 The result is a development model that combines the productivity of RAD tools with the flexibility of modern .NET development.
+
+## Multi-RDBMS Support
+
+Tripous provides a database abstraction layer that allows the same application to run on multiple relational database management systems.
+
+Currently supported database engines are:
+
+* Microsoft SQL Server
+* MySQL
+* PostgreSQL
+* Firebird SQL
+* Oracle Database
+* SQLite
+
+Applications are developed against a common framework API while database-specific SQL generation is handled internally by provider implementations.
+
+This allows developers to choose the database engine that best fits their requirements without changing application code.
+
+## Database-Neutral Schema Definition
+
+Tripous includes a database-neutral schema definition system based on standard CREATE TABLE statements and metadata annotations.
+
+Instead of maintaining different DDL scripts for different database engines, developers define the schema once using a neutral SQL syntax.
+
+For example:
+
+```sql
+CREATE TABLE Customer (
+    Id @NVARCHAR(40) @NOT_NULL primary key,
+    Name @NVARCHAR(96) @NOT_NULL
+)
+```
+
+The framework translates the schema into the appropriate SQL dialect for the selected database engine.
+
+A single schema definition can therefore be used unchanged with SQL Server, MySQL, PostgreSQL, Firebird, Oracle and SQLite.
+
+## Automatic Registration and Database Generation
+
+Tripous includes the Registration Builder tool.
+
+The Registration Builder processes schema definition files and generates:
+
+* Database creation scripts
+* Table registrations
+* Module definitions
+* Form definitions
+* Lookup registrations
+* Locator registrations
+* Select definitions
+
+The generated registrations are exactly the same declarations that could be written manually.
+
+This means that manual registration and automatic registration are not different architectures. The Registration Builder simply automates the creation of standard Tripous declarations.
+
+The result is a development model that combines productivity with full developer control.
+
 
 ## Documentation
 

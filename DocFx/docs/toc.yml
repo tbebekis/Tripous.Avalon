@@ -84,18 +84,24 @@
     href: manual-declaration/overview.md
   - name: Declaration Order
     href: manual-declaration/declaration-order.md
+  - name: Application Host
+    href: manual-declaration/application-host.md
   - name: Modules
     href: manual-declaration/modules.md
   - name: Tables and Fields
     href: manual-declaration/tables-and-fields.md
   - name: Forms
     href: manual-declaration/forms.md
-  - name: Locators
-    href: manual-declaration/locators.md
   - name: Lookups
     href: manual-declaration/lookups.md
-  - name: Application Host
-    href: manual-declaration/application-host.md
+  - name: Locators
+    href: manual-declaration/locators.md
+  - name: Select Definitions
+    href: manual-declaration/select-definitions.md
+  - name: Code Providers
+    href: manual-declaration/code-providers.md
+  - name: Registration Best Practices
+    href: manual-declaration/registration-best-practices.md
 - name: Automatic Application Declaration
   items:
   - name: Overview
