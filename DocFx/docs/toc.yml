@@ -2,7 +2,7 @@
   href: introduction.md
 - name: Getting Started
   href: getting-started.md
-- name: Tripous Framework
+- name: Overview
   items:
   - name: What Is Tripous?
     href: tripous-framework/what-is-tripous.md
@@ -16,6 +16,48 @@
     href: tripous-framework/tripous-and-data.md
   - name: Desktop Applications and Avalonia
     href: tripous-framework/desktop-applications-and-avalonia.md
+- name: Sample Applications
+  href: sample-applications.md
+- name: Screenshots
+  href: screenshots.md
+- name: Manual Application Declaration
+  items:
+  - name: Overview
+    href: manual-declaration/overview.md
+  - name: Declaration Order
+    href: manual-declaration/declaration-order.md
+  - name: Application Host
+    href: manual-declaration/application-host.md
+  - name: Modules
+    href: manual-declaration/modules.md
+  - name: Tables and Fields
+    href: manual-declaration/tables-and-fields.md
+  - name: Forms
+    href: manual-declaration/forms.md
+  - name: Lookups
+    href: manual-declaration/lookups.md
+  - name: Locators
+    href: manual-declaration/locators.md
+  - name: Select Definitions
+    href: manual-declaration/select-definitions.md
+  - name: Code Providers
+    href: manual-declaration/code-providers.md
+  - name: Registration Best Practices
+    href: manual-declaration/registration-best-practices.md
+- name: Automatic Application Declaration
+  items:
+  - name: Overview
+    href: automatic-declaration/overview.md
+  - name: RegBuilder
+    href: automatic-declaration/reg-builder.md
+  - name: Schema.sql Files
+    href: automatic-declaration/schema-sql-files.md
+  - name: Metadata Comments
+    href: automatic-declaration/metadata-comments.md
+  - name: Generated Declarations
+    href: automatic-declaration/generated-declarations.md
+  - name: Manual Extensions After Generation
+    href: automatic-declaration/manual-extensions-after-generation.md
 - name: Tripous Core Library
   items:
   - name: Overview
@@ -78,41 +120,3 @@
     href: tripous-desktop/menus-and-toolbars.md
   - name: Current Status and Future Controls
     href: tripous-desktop/current-status-and-future-controls.md
-- name: Manual Application Declaration
-  items:
-  - name: Overview
-    href: manual-declaration/overview.md
-  - name: Declaration Order
-    href: manual-declaration/declaration-order.md
-  - name: Application Host
-    href: manual-declaration/application-host.md
-  - name: Modules
-    href: manual-declaration/modules.md
-  - name: Tables and Fields
-    href: manual-declaration/tables-and-fields.md
-  - name: Forms
-    href: manual-declaration/forms.md
-  - name: Lookups
-    href: manual-declaration/lookups.md
-  - name: Locators
-    href: manual-declaration/locators.md
-  - name: Select Definitions
-    href: manual-declaration/select-definitions.md
-  - name: Code Providers
-    href: manual-declaration/code-providers.md
-  - name: Registration Best Practices
-    href: manual-declaration/registration-best-practices.md
-- name: Automatic Application Declaration
-  items:
-  - name: Overview
-    href: automatic-declaration/overview.md
-  - name: RegBuilder
-    href: automatic-declaration/reg-builder.md
-  - name: Schema.sql Files
-    href: automatic-declaration/schema-sql-files.md
-  - name: Metadata Comments
-    href: automatic-declaration/metadata-comments.md
-  - name: Generated Declarations
-    href: automatic-declaration/generated-declarations.md
-  - name: Manual Extensions After Generation
-    href: automatic-declaration/manual-extensions-after-generation.md

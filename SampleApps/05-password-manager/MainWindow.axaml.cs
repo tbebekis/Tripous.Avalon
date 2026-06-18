@@ -113,7 +113,8 @@ public partial class MainWindow : Window
     protected override void OnClosed(EventArgs e)
     {
         base.OnClosed(e);
-        Dispatcher.UIThread.Post(() => AppHost.HiddenMainWindow.Close(), DispatcherPriority.Background);
+        if (CloseHiddenHostOnClosed)
+            Dispatcher.UIThread.Post(() => AppHost.HiddenMainWindow.Close(), DispatcherPriority.Background);
     }
 
     // ● constructor
@@ -159,4 +160,8 @@ public partial class MainWindow : Window
     /// Gets the content pager handler.
     /// </summary>
     public AppFormPagerHandler ContentHandler => fContentHandler;
+    /// <summary>
+    /// Gets or sets a value indicating whether closing this window also closes the hidden host window.
+    /// </summary>
+    public bool CloseHiddenHostOnClosed { get; set; } = true;
 }

@@ -69,12 +69,28 @@ static public partial class AppHost
         return null;
     }
     /// <summary>
-    /// Locks the vault and closes the application.
+    /// Locks the vault and returns to the unlock dialog.
     /// </summary>
-    static object LockVault()
+    static async Task<object> LockVault()
     {
         VaultService.Lock();
+        MainWindow.CloseHiddenHostOnClosed = false;
         MainWindow.Close();
+        MainWindow = null;
+        SideBarHandler = null;
+        ContentHandler = null;
+        Ui.MainWindow = HiddenMainWindow;
+
+        bool Flag = await UnlockVault();
+        if (!Flag)
+        {
+            HiddenMainWindow.Close();
+            return null;
+        }
+
+        MainWindow = new MainWindow();
+        Ui.MainWindow = MainWindow;
+        MainWindow.Show();
         return null;
     }
     /// <summary>
@@ -94,7 +110,7 @@ static public partial class AppHost
         Command cmdClearLog = Command.Create("ClearLog", "draw_eraser.png", Cmd => { LogBox.Clear(); return null; });
         Command cmdToggleLogSqlStatements = Command.Create("Log Sql", "file_extension_log.png", Cmd => { MainWindow.ToggleLogSqlStatements(); return null; });
         cmdToggleLogSqlStatements.IsToggle = true;
-        Command cmdLock = Command.Create("Lock", "lock.png", Cmd => LockVault());
+        Command cmdLock = Command.CreateAsync("Lock", "lock.png", async Cmd => await LockVault());
         Command cmdExit = Command.Create("Exit", "door_out.png", Cmd => { MainWindow.Close(); return null; });
 
         Command cmdGeneral = new("General");
