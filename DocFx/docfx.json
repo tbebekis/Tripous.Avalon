@@ -2,20 +2,20 @@
   "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
   "metadata": [
     {
-        "src": [
+      "src": [
         {
-            "src": "../",
-            "files": [
+          "src": "../",
+          "files": [
             "Tripous/Tripous.csproj",
             "Tripous.Data/Tripous.Data.csproj",
             "Tripous.Logging/Tripous.Logging.csproj",
             "Tripous.Desktop/Tripous.Desktop.csproj"
-            ]
+          ]
         }
-        ],
-        "dest": "api"
+      ],
+      "dest": "api"
     }
-    ],
+  ],
   "build": {
     "content": [
       {
@@ -30,7 +30,11 @@
     "resource": [
       {
         "files": [
-          "images/**"
+          "docs/**/*.{png,jpg,jpeg,gif,svg,webp}",
+          "images/**/*.{png,jpg,jpeg,gif,svg,webp}"
+        ],
+        "exclude": [
+          "_site/**"
         ]
       }
     ],
