@@ -9,7 +9,7 @@ items:
   - Tripous.Desktop.FormDef.ClassName
   - Tripous.Desktop.FormDef.Create
   - Tripous.Desktop.FormDef.CreateReferenceContextMenu
-  - Tripous.Desktop.FormDef.CreateShowCommand(System.Func{Tripous.Command,System.Object})
+  - Tripous.Desktop.FormDef.CreateShowCommand(System.Func{Tripous.Command,System.Object},System.String)
   - Tripous.Desktop.FormDef.GetTitleKey
   - Tripous.Desktop.FormDef.Group
   - Tripous.Desktop.FormDef.IsReadOnly
@@ -167,16 +167,16 @@ items:
       type: Tripous.Desktop.ReferenceContextMenu
     content.vb: Public Function CreateReferenceContextMenu() As ReferenceContextMenu
   overload: Tripous.Desktop.FormDef.CreateReferenceContextMenu*
-- uid: Tripous.Desktop.FormDef.CreateShowCommand(System.Func{Tripous.Command,System.Object})
-  commentId: M:Tripous.Desktop.FormDef.CreateShowCommand(System.Func{Tripous.Command,System.Object})
-  id: CreateShowCommand(System.Func{Tripous.Command,System.Object})
+- uid: Tripous.Desktop.FormDef.CreateShowCommand(System.Func{Tripous.Command,System.Object},System.String)
+  commentId: M:Tripous.Desktop.FormDef.CreateShowCommand(System.Func{Tripous.Command,System.Object},System.String)
+  id: CreateShowCommand(System.Func{Tripous.Command,System.Object},System.String)
   parent: Tripous.Desktop.FormDef
   langs:
   - csharp
   - vb
-  name: CreateShowCommand(Func<Command, object>)
-  nameWithType: FormDef.CreateShowCommand(Func<Command, object>)
-  fullName: Tripous.Desktop.FormDef.CreateShowCommand(System.Func<Tripous.Command, object>)
+  name: CreateShowCommand(Func<Command, object>, string)
+  nameWithType: FormDef.CreateShowCommand(Func<Command, object>, string)
+  fullName: Tripous.Desktop.FormDef.CreateShowCommand(System.Func<Tripous.Command, object>, string)
   type: Method
   source:
     remote:
@@ -185,24 +185,29 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateShowCommand
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 59
+    startLine: 62
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Creates a command that displays the form.
   example: []
   syntax:
-    content: public Command CreateShowCommand(Func<Command, object> ExecuteFunc = null)
+    content: public Command CreateShowCommand(Func<Command, object> ExecuteFunc = null, string ImageFileName = null)
     parameters:
     - id: ExecuteFunc
       type: System.Func{Tripous.Command,System.Object}
+      description: The command execution callback.
+    - id: ImageFileName
+      type: System.String
+      description: The command image file name.
     return:
       type: Tripous.Command
-    content.vb: Public Function CreateShowCommand(ExecuteFunc As Func(Of Command, Object) = Nothing) As Command
+      description: The created command.
+    content.vb: Public Function CreateShowCommand(ExecuteFunc As Func(Of Command, Object) = Nothing, ImageFileName As String = Nothing) As Command
   overload: Tripous.Desktop.FormDef.CreateShowCommand*
-  nameWithType.vb: FormDef.CreateShowCommand(Func(Of Command, Object))
-  fullName.vb: Tripous.Desktop.FormDef.CreateShowCommand(System.Func(Of Tripous.Command, Object))
-  name.vb: CreateShowCommand(Func(Of Command, Object))
+  nameWithType.vb: FormDef.CreateShowCommand(Func(Of Command, Object), String)
+  fullName.vb: Tripous.Desktop.FormDef.CreateShowCommand(System.Func(Of Tripous.Command, Object), String)
+  name.vb: CreateShowCommand(Func(Of Command, Object), String)
 - uid: Tripous.Desktop.FormDef.CanAccess(Tripous.AppUser)
   commentId: M:Tripous.Desktop.FormDef.CanAccess(Tripous.AppUser)
   id: CanAccess(Tripous.AppUser)
@@ -221,7 +226,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanAccess
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 68
+    startLine: 71
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -254,7 +259,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClassName
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 84
+    startLine: 87
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -299,7 +304,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemClassName
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 98
+    startLine: 101
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -344,7 +349,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReferenceMenuClassName
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 106
+    startLine: 109
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -375,7 +380,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 114
+    startLine: 117
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -406,7 +411,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Group
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 123
+    startLine: 126
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -441,7 +446,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnly
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 131
+    startLine: 134
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -472,7 +477,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SecurityLevel
     path: ../Tripous.Desktop/Registry/FormDef.cs
-    startLine: 139
+    startLine: 142
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1210,7 +1215,7 @@ references:
   fullName: Tripous.Desktop.ReferenceContextMenu
 - uid: Tripous.Desktop.FormDef.CreateShowCommand*
   commentId: Overload:Tripous.Desktop.FormDef.CreateShowCommand
-  href: Tripous.Desktop.FormDef.html#Tripous_Desktop_FormDef_CreateShowCommand_System_Func_Tripous_Command_System_Object__
+  href: Tripous.Desktop.FormDef.html#Tripous_Desktop_FormDef_CreateShowCommand_System_Func_Tripous_Command_System_Object__System_String_
   name: CreateShowCommand
   nameWithType: FormDef.CreateShowCommand
   fullName: Tripous.Desktop.FormDef.CreateShowCommand

@@ -99,8 +99,8 @@ items:
   - Tripous.Data.SqlProvider.EnsureConnection(System.String)
   - Tripous.Data.SqlProvider.OpenConnection(Tripous.Data.DbConnectionInfo)
   - Tripous.Data.SqlProvider.OpenConnection(System.String)
-  - Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-  - Tripous.Data.SqlProvider.BeginTransaction(System.String)
+  - Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+  - Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
   - Tripous.Data.SqlProvider.NormalizeConnectionString(System.String)
   - Tripous.Data.SqlProvider.CreateConnectionString(System.String,System.String,System.String,System.String)
   - Tripous.Data.SqlProvider.Select(Tripous.Data.DbConnectionInfo,System.String)
@@ -2635,46 +2635,46 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
-- uid: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-  commentId: M:Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
+- uid: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+  commentId: M:Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
   parent: Tripous.Data.SqlProvider
-  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_
-  name: BeginTransaction(DbConnectionInfo)
-  nameWithType: SqlProvider.BeginTransaction(DbConnectionInfo)
-  fullName: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_Tripous_Data_DbConnectionInfo_
+  name: BeginTransactionContext(DbConnectionInfo)
+  nameWithType: SqlProvider.BeginTransactionContext(DbConnectionInfo)
+  fullName: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
   spec.csharp:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_Tripous_Data_DbConnectionInfo_
   - name: (
   - uid: Tripous.Data.DbConnectionInfo
     name: DbConnectionInfo
     href: Tripous.Data.DbConnectionInfo.html
   - name: )
   spec.vb:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_Tripous_Data_DbConnectionInfo_
   - name: (
   - uid: Tripous.Data.DbConnectionInfo
     name: DbConnectionInfo
     href: Tripous.Data.DbConnectionInfo.html
   - name: )
-- uid: Tripous.Data.SqlProvider.BeginTransaction(System.String)
-  commentId: M:Tripous.Data.SqlProvider.BeginTransaction(System.String)
+- uid: Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+  commentId: M:Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
   parent: Tripous.Data.SqlProvider
   isExternal: true
-  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_System_String_
-  name: BeginTransaction(string)
-  nameWithType: SqlProvider.BeginTransaction(string)
-  fullName: Tripous.Data.SqlProvider.BeginTransaction(string)
-  nameWithType.vb: SqlProvider.BeginTransaction(String)
-  fullName.vb: Tripous.Data.SqlProvider.BeginTransaction(String)
-  name.vb: BeginTransaction(String)
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_System_String_
+  name: BeginTransactionContext(string)
+  nameWithType: SqlProvider.BeginTransactionContext(string)
+  fullName: Tripous.Data.SqlProvider.BeginTransactionContext(string)
+  nameWithType.vb: SqlProvider.BeginTransactionContext(String)
+  fullName.vb: Tripous.Data.SqlProvider.BeginTransactionContext(String)
+  name.vb: BeginTransactionContext(String)
   spec.csharp:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(System.String)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_System_String_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_System_String_
   - name: (
   - uid: System.String
     name: string
@@ -2682,9 +2682,9 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
   spec.vb:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(System.String)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_System_String_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_System_String_
   - name: (
   - uid: System.String
     name: String

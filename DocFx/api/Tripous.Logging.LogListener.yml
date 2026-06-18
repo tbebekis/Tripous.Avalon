@@ -6,6 +6,7 @@ items:
   parent: Tripous.Logging
   children:
   - Tripous.Logging.LogListener.#ctor
+  - Tripous.Logging.LogListener.#ctor(System.Boolean)
   - Tripous.Logging.LogListener.MaxSizeKiloBytes
   - Tripous.Logging.LogListener.ProcessLog(Tripous.Logging.LogEntry)
   - Tripous.Logging.LogListener.Register
@@ -87,6 +88,40 @@ items:
   nameWithType.vb: LogListener.New()
   fullName.vb: Tripous.Logging.LogListener.New()
   name.vb: New()
+- uid: Tripous.Logging.LogListener.#ctor(System.Boolean)
+  commentId: M:Tripous.Logging.LogListener.#ctor(System.Boolean)
+  id: '#ctor(System.Boolean)'
+  parent: Tripous.Logging.LogListener
+  langs:
+  - csharp
+  - vb
+  name: LogListener(bool)
+  nameWithType: LogListener.LogListener(bool)
+  fullName: Tripous.Logging.LogListener.LogListener(bool)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Logging/LogListener.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Logging/LogListener.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Logging
+  namespace: Tripous.Logging
+  summary: Constructor
+  example: []
+  syntax:
+    content: protected LogListener(bool AutoRegister)
+    parameters:
+    - id: AutoRegister
+      type: System.Boolean
+    content.vb: Protected Sub New(AutoRegister As Boolean)
+  overload: Tripous.Logging.LogListener.#ctor*
+  nameWithType.vb: LogListener.New(Boolean)
+  fullName.vb: Tripous.Logging.LogListener.New(Boolean)
+  name.vb: New(Boolean)
 - uid: Tripous.Logging.LogListener.ProcessLog(Tripous.Logging.LogEntry)
   commentId: M:Tripous.Logging.LogListener.ProcessLog(Tripous.Logging.LogEntry)
   id: ProcessLog(Tripous.Logging.LogEntry)
@@ -105,7 +140,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessLog
     path: ../Tripous.Logging/LogListener.cs
-    startLine: 38
+    startLine: 46
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -136,7 +171,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Register
     path: ../Tripous.Logging/LogListener.cs
-    startLine: 43
+    startLine: 51
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -164,7 +199,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Unregister
     path: ../Tripous.Logging/LogListener.cs
-    startLine: 50
+    startLine: 58
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -192,7 +227,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RetainPolicyCounter
     path: ../Tripous.Logging/LogListener.cs
-    startLine: 59
+    startLine: 67
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -223,7 +258,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RetainDays
     path: ../Tripous.Logging/LogListener.cs
-    startLine: 67
+    startLine: 75
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -254,7 +289,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MaxSizeKiloBytes
     path: ../Tripous.Logging/LogListener.cs
-    startLine: 75
+    startLine: 83
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -647,6 +682,17 @@ references:
   nameWithType.vb: LogListener.New
   fullName.vb: Tripous.Logging.LogListener.New
   name.vb: New
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: Tripous.Logging.LogListener.ProcessLog*
   commentId: Overload:Tripous.Logging.LogListener.ProcessLog
   href: Tripous.Logging.LogListener.html#Tripous_Logging_LogListener_ProcessLog_Tripous_Logging_LogEntry_

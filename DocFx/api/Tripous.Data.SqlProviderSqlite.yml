@@ -43,6 +43,7 @@ items:
   - Tripous.Data.SqlProviderSqlite.ServerDateTimeSql
   - Tripous.Data.SqlProviderSqlite.ServerKeys
   - Tripous.Data.SqlProviderSqlite.SetTableGeneratorTo(System.String,System.String,System.Int32)
+  - Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes
   - Tripous.Data.SqlProviderSqlite.SupportsAutoIncFields
   - Tripous.Data.SqlProviderSqlite.SupportsGenerators
   - Tripous.Data.SqlProviderSqlite.UserNameKeys
@@ -100,8 +101,8 @@ items:
   - Tripous.Data.SqlProvider.EnsureConnection(System.String)
   - Tripous.Data.SqlProvider.OpenConnection(Tripous.Data.DbConnectionInfo)
   - Tripous.Data.SqlProvider.OpenConnection(System.String)
-  - Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-  - Tripous.Data.SqlProvider.BeginTransaction(System.String)
+  - Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+  - Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
   - Tripous.Data.SqlProvider.Select(Tripous.Data.DbConnectionInfo,System.String)
   - Tripous.Data.SqlProvider.Select(Tripous.Data.DbConnectionInfo,System.String,System.Object[])
   - Tripous.Data.SqlProvider.Select(System.String,System.String)
@@ -166,7 +167,6 @@ items:
   - Tripous.Data.SqlProvider.PositionalParameters
   - Tripous.Data.SqlProvider.ConnectionStringTemplate
   - Tripous.Data.SqlProvider.SupportsTransactions
-  - Tripous.Data.SqlProvider.SupportedAlterTableTypes
   - Tripous.Data.SqlProvider.SuperUser
   - Tripous.Data.SqlProvider.SuperUserPassword
   - Tripous.Data.SqlProvider.DefaultCommandTimeoutSeconds
@@ -1027,6 +1027,38 @@ items:
     content.vb: Public Overrides ReadOnly Property SupportsAutoIncFields As Boolean
   overridden: Tripous.Data.SqlProvider.SupportsAutoIncFields
   overload: Tripous.Data.SqlProviderSqlite.SupportsAutoIncFields*
+- uid: Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes
+  commentId: P:Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes
+  id: SupportedAlterTableTypes
+  parent: Tripous.Data.SqlProviderSqlite
+  langs:
+  - csharp
+  - vb
+  name: SupportedAlterTableTypes
+  nameWithType: SqlProviderSqlite.SupportedAlterTableTypes
+  fullName: Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/SqlProviderSqlite.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SupportedAlterTableTypes
+    path: ../Tripous.Data/SqlProviderSqlite.cs
+    startLine: 227
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a set (bit-field) of the supported alter table operations.
+  example: []
+  syntax:
+    content: public override AlterTableType SupportedAlterTableTypes { get; }
+    parameters: []
+    return:
+      type: Tripous.Data.AlterTableType
+    content.vb: Public Overrides ReadOnly Property SupportedAlterTableTypes As AlterTableType
+  overridden: Tripous.Data.SqlProvider.SupportedAlterTableTypes
+  overload: Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes*
 - uid: Tripous.Data.SqlProviderSqlite.OidMode
   commentId: P:Tripous.Data.SqlProviderSqlite.OidMode
   id: OidMode
@@ -1045,7 +1077,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OidMode
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 227
+    startLine: 231
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1077,7 +1109,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ServerKeys
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 232
+    startLine: 236
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1109,7 +1141,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DatabaseKeys
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 236
+    startLine: 240
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1141,7 +1173,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UserNameKeys
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 240
+    startLine: 244
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1173,7 +1205,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PasswordKeys
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 244
+    startLine: 248
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1205,7 +1237,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PrimaryKeySql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 249
+    startLine: 253
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1237,7 +1269,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AutoIncSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 253
+    startLine: 257
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1269,7 +1301,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: VarcharSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 257
+    startLine: 261
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1301,7 +1333,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NVarcharSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 261
+    startLine: 265
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1333,7 +1365,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FloatSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 265
+    startLine: 269
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1365,7 +1397,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DecimalSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 269
+    startLine: 273
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1397,7 +1429,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 273
+    startLine: 277
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1429,7 +1461,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateTimeSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 277
+    startLine: 281
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1461,7 +1493,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BoolSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 281
+    startLine: 285
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1493,7 +1525,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BlobSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 285
+    startLine: 289
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1525,7 +1557,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BlobTextSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 289
+    startLine: 293
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1557,7 +1589,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NBlobTextSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 293
+    startLine: 297
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1589,7 +1621,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NotNullSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 297
+    startLine: 301
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1621,7 +1653,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NullSql
     path: ../Tripous.Data/SqlProviderSqlite.cs
-    startLine: 301
+    startLine: 305
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2665,46 +2697,46 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
-- uid: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-  commentId: M:Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
+- uid: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+  commentId: M:Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
   parent: Tripous.Data.SqlProvider
-  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_
-  name: BeginTransaction(DbConnectionInfo)
-  nameWithType: SqlProvider.BeginTransaction(DbConnectionInfo)
-  fullName: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_Tripous_Data_DbConnectionInfo_
+  name: BeginTransactionContext(DbConnectionInfo)
+  nameWithType: SqlProvider.BeginTransactionContext(DbConnectionInfo)
+  fullName: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
   spec.csharp:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_Tripous_Data_DbConnectionInfo_
   - name: (
   - uid: Tripous.Data.DbConnectionInfo
     name: DbConnectionInfo
     href: Tripous.Data.DbConnectionInfo.html
   - name: )
   spec.vb:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_Tripous_Data_DbConnectionInfo_
   - name: (
   - uid: Tripous.Data.DbConnectionInfo
     name: DbConnectionInfo
     href: Tripous.Data.DbConnectionInfo.html
   - name: )
-- uid: Tripous.Data.SqlProvider.BeginTransaction(System.String)
-  commentId: M:Tripous.Data.SqlProvider.BeginTransaction(System.String)
+- uid: Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+  commentId: M:Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
   parent: Tripous.Data.SqlProvider
   isExternal: true
-  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_System_String_
-  name: BeginTransaction(string)
-  nameWithType: SqlProvider.BeginTransaction(string)
-  fullName: Tripous.Data.SqlProvider.BeginTransaction(string)
-  nameWithType.vb: SqlProvider.BeginTransaction(String)
-  fullName.vb: Tripous.Data.SqlProvider.BeginTransaction(String)
-  name.vb: BeginTransaction(String)
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_System_String_
+  name: BeginTransactionContext(string)
+  nameWithType: SqlProvider.BeginTransactionContext(string)
+  fullName: Tripous.Data.SqlProvider.BeginTransactionContext(string)
+  nameWithType.vb: SqlProvider.BeginTransactionContext(String)
+  fullName.vb: Tripous.Data.SqlProvider.BeginTransactionContext(String)
+  name.vb: BeginTransactionContext(String)
   spec.csharp:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(System.String)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_System_String_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_System_String_
   - name: (
   - uid: System.String
     name: string
@@ -2712,9 +2744,9 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
   spec.vb:
-  - uid: Tripous.Data.SqlProvider.BeginTransaction(System.String)
-    name: BeginTransaction
-    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_System_String_
+  - uid: Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+    name: BeginTransactionContext
+    href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_System_String_
   - name: (
   - uid: System.String
     name: String
@@ -6073,13 +6105,6 @@ references:
   name: SupportsTransactions
   nameWithType: SqlProvider.SupportsTransactions
   fullName: Tripous.Data.SqlProvider.SupportsTransactions
-- uid: Tripous.Data.SqlProvider.SupportedAlterTableTypes
-  commentId: P:Tripous.Data.SqlProvider.SupportedAlterTableTypes
-  parent: Tripous.Data.SqlProvider
-  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SupportedAlterTableTypes
-  name: SupportedAlterTableTypes
-  nameWithType: SqlProvider.SupportedAlterTableTypes
-  fullName: Tripous.Data.SqlProvider.SupportedAlterTableTypes
 - uid: Tripous.Data.SqlProvider.SuperUser
   commentId: P:Tripous.Data.SqlProvider.SuperUser
   parent: Tripous.Data.SqlProvider
@@ -7385,6 +7410,26 @@ references:
   name: SupportsAutoIncFields
   nameWithType: SqlProviderSqlite.SupportsAutoIncFields
   fullName: Tripous.Data.SqlProviderSqlite.SupportsAutoIncFields
+- uid: Tripous.Data.SqlProvider.SupportedAlterTableTypes
+  commentId: P:Tripous.Data.SqlProvider.SupportedAlterTableTypes
+  parent: Tripous.Data.SqlProvider
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SupportedAlterTableTypes
+  name: SupportedAlterTableTypes
+  nameWithType: SqlProvider.SupportedAlterTableTypes
+  fullName: Tripous.Data.SqlProvider.SupportedAlterTableTypes
+- uid: Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes*
+  commentId: Overload:Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes
+  href: Tripous.Data.SqlProviderSqlite.html#Tripous_Data_SqlProviderSqlite_SupportedAlterTableTypes
+  name: SupportedAlterTableTypes
+  nameWithType: SqlProviderSqlite.SupportedAlterTableTypes
+  fullName: Tripous.Data.SqlProviderSqlite.SupportedAlterTableTypes
+- uid: Tripous.Data.AlterTableType
+  commentId: T:Tripous.Data.AlterTableType
+  parent: Tripous.Data
+  href: Tripous.Data.AlterTableType.html
+  name: AlterTableType
+  nameWithType: AlterTableType
+  fullName: Tripous.Data.AlterTableType
 - uid: Tripous.Data.SqlProvider.OidMode
   commentId: P:Tripous.Data.SqlProvider.OidMode
   parent: Tripous.Data.SqlProvider

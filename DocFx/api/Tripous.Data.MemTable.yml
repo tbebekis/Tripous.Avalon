@@ -69,7 +69,6 @@ items:
   - Tripous.Data.MemTable.SetAllRowsToNull(System.Data.DataRow)
   - Tripous.Data.MemTable.SetCurrentRowToNull
   - Tripous.Data.MemTable.Sqls
-  - Tripous.Data.MemTable.Stocks
   - Tripous.Data.MemTable.UpdateCurrentRow
   - Tripous.Data.MemTable.UserRowFilter
   - Tripous.Data.MemTable.ValidateRelationSchema
@@ -279,7 +278,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnColumnChanging
     path: ../Tripous.Data/MemTable.cs
-    startLine: 150
+    startLine: 149
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -314,7 +313,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnColumnChanged
     path: ../Tripous.Data/MemTable.cs
-    startLine: 159
+    startLine: 158
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -349,7 +348,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnRowChanging
     path: ../Tripous.Data/MemTable.cs
-    startLine: 189
+    startLine: 188
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -384,7 +383,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnRowChanged
     path: ../Tripous.Data/MemTable.cs
-    startLine: 198
+    startLine: 197
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -419,7 +418,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnRowDeleting
     path: ../Tripous.Data/MemTable.cs
-    startLine: 222
+    startLine: 221
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -454,7 +453,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnRowDeleted
     path: ../Tripous.Data/MemTable.cs
-    startLine: 231
+    startLine: 230
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -489,7 +488,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnTableClearing
     path: ../Tripous.Data/MemTable.cs
-    startLine: 243
+    startLine: 242
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -524,7 +523,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnTableCleared
     path: ../Tripous.Data/MemTable.cs
-    startLine: 252
+    startLine: 251
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -559,7 +558,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OnTableNewRow
     path: ../Tripous.Data/MemTable.cs
-    startLine: 268
+    startLine: 267
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -594,7 +593,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/MemTable.cs
-    startLine: 320
+    startLine: 319
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -625,7 +624,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/MemTable.cs
-    startLine: 327
+    startLine: 326
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -659,7 +658,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/MemTable.cs
-    startLine: 334
+    startLine: 333
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -695,7 +694,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NextTableName
     path: ../Tripous.Data/MemTable.cs
-    startLine: 355
+    startLine: 354
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -725,7 +724,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToDataSet
     path: ../Tripous.Data/MemTable.cs
-    startLine: 363
+    startLine: 362
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -758,7 +757,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GenId
     path: ../Tripous.Data/MemTable.cs
-    startLine: 374
+    startLine: 373
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -798,7 +797,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetAllRowsToNull
     path: ../Tripous.Data/MemTable.cs
-    startLine: 382
+    startLine: 381
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -829,7 +828,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetDataRowView
     path: ../Tripous.Data/MemTable.cs
-    startLine: 390
+    startLine: 389
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -864,7 +863,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UpdateCurrentRow
     path: ../Tripous.Data/MemTable.cs
-    startLine: 396
+    startLine: 395
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -894,7 +893,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetColumns
     path: ../Tripous.Data/MemTable.cs
-    startLine: 404
+    startLine: 403
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -930,7 +929,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InitializeAutoInc
     path: ../Tripous.Data/MemTable.cs
-    startLine: 420
+    startLine: 419
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -963,7 +962,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDetail
     path: ../Tripous.Data/MemTable.cs
-    startLine: 440
+    startLine: 439
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -994,7 +993,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RemoveDetail
     path: ../Tripous.Data/MemTable.cs
-    startLine: 453
+    startLine: 452
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1025,7 +1024,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetDetails
     path: ../Tripous.Data/MemTable.cs
-    startLine: 470
+    startLine: 469
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1056,7 +1055,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetChildRows
     path: ../Tripous.Data/MemTable.cs
-    startLine: 474
+    startLine: 473
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1089,7 +1088,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ValidateRelationSchema
     path: ../Tripous.Data/MemTable.cs
-    startLine: 497
+    startLine: 496
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1121,7 +1120,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterRowChanged
     path: ../Tripous.Data/MemTable.cs
-    startLine: 535
+    startLine: 534
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1149,7 +1148,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RefreshDetails
     path: ../Tripous.Data/MemTable.cs
-    startLine: 564
+    startLine: 563
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1177,7 +1176,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTreeAsFlatList
     path: ../Tripous.Data/MemTable.cs
-    startLine: 574
+    startLine: 573
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1207,7 +1206,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowProviderExists
     path: ../Tripous.Data/MemTable.cs
-    startLine: 596
+    startLine: 595
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1245,7 +1244,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindRowProvider
     path: ../Tripous.Data/MemTable.cs
-    startLine: 600
+    startLine: 599
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1283,7 +1282,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetRowProvider
     path: ../Tripous.Data/MemTable.cs
-    startLine: 610
+    startLine: 609
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1321,7 +1320,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddNewRow
     path: ../Tripous.Data/MemTable.cs
-    startLine: 622
+    startLine: 621
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1351,7 +1350,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CopyFrom
     path: ../Tripous.Data/MemTable.cs
-    startLine: 633
+    startLine: 632
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1387,7 +1386,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetCurrentRowToNull
     path: ../Tripous.Data/MemTable.cs
-    startLine: 672
+    startLine: 671
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1415,7 +1414,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearAll
     path: ../Tripous.Data/MemTable.cs
-    startLine: 679
+    startLine: 678
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1447,7 +1446,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DeleteAll
     path: ../Tripous.Data/MemTable.cs
-    startLine: 691
+    startLine: 690
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1485,7 +1484,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AcceptChangesAll
     path: ../Tripous.Data/MemTable.cs
-    startLine: 704
+    startLine: 703
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1513,7 +1512,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RejectChangesAll
     path: ../Tripous.Data/MemTable.cs
-    startLine: 713
+    startLine: 712
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1541,7 +1540,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasChangesAll
     path: ../Tripous.Data/MemTable.cs
-    startLine: 722
+    startLine: 721
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1571,7 +1570,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTopTableErrors
     path: ../Tripous.Data/MemTable.cs
-    startLine: 741
+    startLine: 740
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1601,7 +1600,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckTopTableErrors
     path: ../Tripous.Data/MemTable.cs
-    startLine: 787
+    startLine: 786
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1629,7 +1628,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyFields
     path: ../Tripous.Data/MemTable.cs
-    startLine: 798
+    startLine: 797
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1660,7 +1659,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterFields
     path: ../Tripous.Data/MemTable.cs
-    startLine: 802
+    startLine: 801
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1691,7 +1690,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailFields
     path: ../Tripous.Data/MemTable.cs
-    startLine: 806
+    startLine: 805
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1722,7 +1721,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyField
     path: ../Tripous.Data/MemTable.cs
-    startLine: 815
+    startLine: 814
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1753,7 +1752,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterField
     path: ../Tripous.Data/MemTable.cs
-    startLine: 826
+    startLine: 825
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1784,7 +1783,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailField
     path: ../Tripous.Data/MemTable.cs
-    startLine: 837
+    startLine: 836
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1815,7 +1814,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataView
     path: ../Tripous.Data/MemTable.cs
-    startLine: 849
+    startLine: 848
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1846,7 +1845,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailRowFilter
     path: ../Tripous.Data/MemTable.cs
-    startLine: 854
+    startLine: 853
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1877,7 +1876,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UserRowFilter
     path: ../Tripous.Data/MemTable.cs
-    startLine: 869
+    startLine: 868
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1908,7 +1907,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Master
     path: ../Tripous.Data/MemTable.cs
-    startLine: 885
+    startLine: 884
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1939,7 +1938,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Details
     path: ../Tripous.Data/MemTable.cs
-    startLine: 902
+    startLine: 901
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1970,7 +1969,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Sqls
     path: ../Tripous.Data/MemTable.cs
-    startLine: 906
+    startLine: 905
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1983,37 +1982,6 @@ items:
       type: Tripous.Data.TableSqls
     content.vb: Public ReadOnly Property Sqls As TableSqls
   overload: Tripous.Data.MemTable.Sqls*
-- uid: Tripous.Data.MemTable.Stocks
-  commentId: P:Tripous.Data.MemTable.Stocks
-  id: Stocks
-  parent: Tripous.Data.MemTable
-  langs:
-  - csharp
-  - vb
-  name: Stocks
-  nameWithType: MemTable.Stocks
-  fullName: Tripous.Data.MemTable.Stocks
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/MemTable.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Stocks
-    path: ../Tripous.Data/MemTable.cs
-    startLine: 910
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Gets the StockTables of this instance.
-  example: []
-  syntax:
-    content: public List<MemTable> Stocks { get; }
-    parameters: []
-    return:
-      type: System.Collections.Generic.List{Tripous.Data.MemTable}
-    content.vb: Public ReadOnly Property Stocks As List(Of MemTable)
-  overload: Tripous.Data.MemTable.Stocks*
 - uid: Tripous.Data.MemTable.IsDetail
   commentId: P:Tripous.Data.MemTable.IsDetail
   id: IsDetail
@@ -2032,7 +2000,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsDetail
     path: ../Tripous.Data/MemTable.cs
-    startLine: 915
+    startLine: 909
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2063,7 +2031,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Level
     path: ../Tripous.Data/MemTable.cs
-    startLine: 921
+    startLine: 915
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2099,7 +2067,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailsActive
     path: ../Tripous.Data/MemTable.cs
-    startLine: 926
+    startLine: 920
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2134,7 +2102,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEmpty
     path: ../Tripous.Data/MemTable.cs
-    startLine: 940
+    startLine: 934
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2165,7 +2133,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EventsDisabled
     path: ../Tripous.Data/MemTable.cs
-    startLine: 946
+    startLine: 940
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2199,7 +2167,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AutoGenerateGuidKeys
     path: ../Tripous.Data/MemTable.cs
-    startLine: 966
+    startLine: 960
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2230,7 +2198,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRow
     path: ../Tripous.Data/MemTable.cs
-    startLine: 971
+    startLine: 965
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2263,7 +2231,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRowView
     path: ../Tripous.Data/MemTable.cs
-    startLine: 985
+    startLine: 979
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2294,7 +2262,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowProviders
     path: ../Tripous.Data/MemTable.cs
-    startLine: 993
+    startLine: 987
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2327,7 +2295,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRowChanged
     path: ../Tripous.Data/MemTable.cs
-    startLine: 999
+    startLine: 993
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2358,7 +2326,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterChanging
     path: ../Tripous.Data/MemTable.cs
-    startLine: 1004
+    startLine: 998
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2387,7 +2355,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterChanged
     path: ../Tripous.Data/MemTable.cs
-    startLine: 1008
+    startLine: 1002
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2416,7 +2384,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NewRowAdding
     path: ../Tripous.Data/MemTable.cs
-    startLine: 1012
+    startLine: 1006
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2445,7 +2413,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NewRowAdded
     path: ../Tripous.Data/MemTable.cs
-    startLine: 1016
+    startLine: 1010
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -9539,12 +9507,6 @@ references:
   name: TableSqls
   nameWithType: TableSqls
   fullName: Tripous.Data.TableSqls
-- uid: Tripous.Data.MemTable.Stocks*
-  commentId: Overload:Tripous.Data.MemTable.Stocks
-  href: Tripous.Data.MemTable.html#Tripous_Data_MemTable_Stocks
-  name: Stocks
-  nameWithType: MemTable.Stocks
-  fullName: Tripous.Data.MemTable.Stocks
 - uid: Tripous.Data.MemTable.IsDetail*
   commentId: Overload:Tripous.Data.MemTable.IsDetail
   href: Tripous.Data.MemTable.html#Tripous_Data_MemTable_IsDetail

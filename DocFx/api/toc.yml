@@ -515,6 +515,9 @@ items:
   - uid: Tripous.Data.SqlStores
     name: SqlStores
     type: Class
+  - uid: Tripous.Data.SqlTransactionContext
+    name: SqlTransactionContext
+    type: Class
   - uid: Tripous.Data.SqlTypeTokens
     name: SqlTypeTokens
     type: Class

@@ -23,7 +23,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LocateOptions
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 689
+    startLine: 686
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -72,7 +72,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: None
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 695
+    startLine: 692
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -100,7 +100,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CaseInsensitive
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 699
+    startLine: 696
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -128,7 +128,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PartialKey
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 703
+    startLine: 700
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -156,7 +156,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Both
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 707
+    startLine: 704
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

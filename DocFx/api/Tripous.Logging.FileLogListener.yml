@@ -71,7 +71,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Logging/FileLogListener.cs
-    startLine: 32
+    startLine: 33
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -111,7 +111,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessLog
     path: ../Tripous.Logging/FileLogListener.cs
-    startLine: 46
+    startLine: 48
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -143,7 +143,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Folder
     path: ../Tripous.Logging/FileLogListener.cs
-    startLine: 59
+    startLine: 64
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -174,7 +174,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MaxSizeKiloBytes
     path: ../Tripous.Logging/FileLogListener.cs
-    startLine: 63
+    startLine: 68
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging

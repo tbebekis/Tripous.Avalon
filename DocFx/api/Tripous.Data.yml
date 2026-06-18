@@ -125,6 +125,7 @@ items:
   - Tripous.Data.SqlStatementBuilder
   - Tripous.Data.SqlStore
   - Tripous.Data.SqlStores
+  - Tripous.Data.SqlTransactionContext
   - Tripous.Data.SqlTypeTokens
   - Tripous.Data.SqlValueProviders
   - Tripous.Data.SqlWhereFilterFormatter
@@ -1007,6 +1008,13 @@ references:
   name: SqlStores
   nameWithType: SqlStores
   fullName: Tripous.Data.SqlStores
+- uid: Tripous.Data.SqlTransactionContext
+  commentId: T:Tripous.Data.SqlTransactionContext
+  parent: Tripous.Data
+  href: Tripous.Data.SqlTransactionContext.html
+  name: SqlTransactionContext
+  nameWithType: SqlTransactionContext
+  fullName: Tripous.Data.SqlTransactionContext
 - uid: Tripous.Data.SqlTypeTokens
   commentId: T:Tripous.Data.SqlTypeTokens
   href: Tripous.Data.SqlTypeTokens.html

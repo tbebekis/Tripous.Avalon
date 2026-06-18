@@ -62,11 +62,17 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectSql
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 13
+    startLine: 15
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: Represents a SQL SELECT statement.
+  summary: >-
+    Represents a SQL SELECT statement.
+
+
+    <p>NOTE: This is not a full SQL parser.</p>
+
+    <p>It supports nested SELECT statements inside parentheses because the parser ignores clause keywords while inside parentheses.</p>
   example: []
   syntax:
     content: 'public class SelectSql : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
@@ -122,7 +128,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LB
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 23
+    startLine: 25
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -151,7 +157,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SPACE
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 27
+    startLine: 29
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -180,7 +186,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SPACES
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 31
+    startLine: 33
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -209,7 +215,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DefaultName
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 35
+    startLine: 37
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -238,7 +244,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 106
+    startLine: 108
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -269,7 +275,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 113
+    startLine: 115
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -303,7 +309,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CR
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 123
+    startLine: 125
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -339,7 +345,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReplaceLastComma
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 133
+    startLine: 135
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -373,7 +379,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddTo
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 164
+    startLine: 166
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -413,7 +419,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NormalizeClause
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 187
+    startLine: 189
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -451,7 +457,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsMasked
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 203
+    startLine: 205
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -487,7 +493,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateRangeConstructWhereParams
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 222
+    startLine: 224
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -525,7 +531,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateRangeReplaceWhereParams
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 232
+    startLine: 234
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -561,7 +567,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckDescriptor
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 273
+    startLine: 275
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -590,7 +596,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Clear
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 283
+    startLine: 285
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -619,7 +625,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Assign
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 305
+    startLine: 307
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -661,7 +667,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Clone
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 336
+    startLine: 338
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -692,7 +698,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetSqlText
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 345
+    startLine: 347
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -722,7 +728,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToWhere
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 396
+    startLine: 398
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -756,7 +762,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OrToWhere
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 403
+    startLine: 405
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -790,7 +796,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToWhere
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 410
+    startLine: 412
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -826,7 +832,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToGroupBy
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 417
+    startLine: 419
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -860,7 +866,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToHaving
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 424
+    startLine: 426
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -894,7 +900,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddToOrderBy
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 431
+    startLine: 433
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -928,7 +934,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RemoveOrderBy
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 439
+    startLine: 441
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -956,7 +962,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectFromToString
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 447
+    startLine: 449
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -986,7 +992,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Parse
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 454
+    startLine: 456
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1020,7 +1026,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ParseFromTableName
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 479
+    startLine: 481
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1054,7 +1060,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetMainTableName
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 486
+    startLine: 488
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1084,7 +1090,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Text
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 496
+    startLine: 498
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1119,7 +1125,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CompanyAware
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 505
+    startLine: 507
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1154,7 +1160,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionName
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 509
+    startLine: 511
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1185,7 +1191,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateRangeColumn
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 520
+    startLine: 522
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1222,7 +1228,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateRange
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 526
+    startLine: 528
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1259,7 +1265,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 531
+    startLine: 533
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1300,7 +1306,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: From
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 536
+    startLine: 538
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1341,7 +1347,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Where
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 541
+    startLine: 543
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1382,7 +1388,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WhereUser
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 546
+    startLine: 548
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1423,7 +1429,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GroupBy
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 551
+    startLine: 553
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1464,7 +1470,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Having
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 556
+    startLine: 558
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1505,7 +1511,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OrderBy
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 561
+    startLine: 563
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1546,7 +1552,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEmpty
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 566
+    startLine: 568
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1587,7 +1593,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Table
     path: ../Tripous.Data/SelectSql.cs
-    startLine: 571
+    startLine: 573
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

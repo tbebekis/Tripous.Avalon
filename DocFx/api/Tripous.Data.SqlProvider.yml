@@ -10,8 +10,8 @@ items:
   - Tripous.Data.SqlProvider.AddUniqueConstraintSql(System.String,System.String,System.String)
   - Tripous.Data.SqlProvider.ApplyRowLimit(System.String,System.Int32)
   - Tripous.Data.SqlProvider.AutoIncSql
-  - Tripous.Data.SqlProvider.BeginTransaction(System.String)
-  - Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
+  - Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+  - Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
   - Tripous.Data.SqlProvider.BlobSql
   - Tripous.Data.SqlProvider.BlobTextSql
   - Tripous.Data.SqlProvider.BoolSql
@@ -1159,81 +1159,75 @@ items:
   nameWithType.vb: SqlProvider.OpenConnection(String)
   fullName.vb: Tripous.Data.SqlProvider.OpenConnection(String)
   name.vb: OpenConnection(String)
-- uid: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-  commentId: M:Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
-  id: BeginTransaction(Tripous.Data.DbConnectionInfo)
+- uid: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+  commentId: M:Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
+  id: BeginTransactionContext(Tripous.Data.DbConnectionInfo)
   parent: Tripous.Data.SqlProvider
   langs:
   - csharp
   - vb
-  name: BeginTransaction(DbConnectionInfo)
-  nameWithType: SqlProvider.BeginTransaction(DbConnectionInfo)
-  fullName: Tripous.Data.SqlProvider.BeginTransaction(Tripous.Data.DbConnectionInfo)
+  name: BeginTransactionContext(DbConnectionInfo)
+  nameWithType: SqlProvider.BeginTransactionContext(DbConnectionInfo)
+  fullName: Tripous.Data.SqlProvider.BeginTransactionContext(Tripous.Data.DbConnectionInfo)
   type: Method
   source:
     remote:
       path: Tripous.Data/SqlProvider.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: BeginTransaction
+    id: BeginTransactionContext
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 431
+    startLine: 430
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: >-
-    Creates a DbConnection, opens the connection and begins a transaction.
-
-    Returns the transaction.
+  summary: Creates a transaction context that owns both the connection and the transaction.
   example: []
   syntax:
-    content: public virtual DbTransaction BeginTransaction(DbConnectionInfo ConnectionInfo)
+    content: public virtual SqlTransactionContext BeginTransactionContext(DbConnectionInfo ConnectionInfo)
     parameters:
     - id: ConnectionInfo
       type: Tripous.Data.DbConnectionInfo
     return:
-      type: System.Data.Common.DbTransaction
-    content.vb: Public Overridable Function BeginTransaction(ConnectionInfo As DbConnectionInfo) As DbTransaction
-  overload: Tripous.Data.SqlProvider.BeginTransaction*
-- uid: Tripous.Data.SqlProvider.BeginTransaction(System.String)
-  commentId: M:Tripous.Data.SqlProvider.BeginTransaction(System.String)
-  id: BeginTransaction(System.String)
+      type: Tripous.Data.SqlTransactionContext
+    content.vb: Public Overridable Function BeginTransactionContext(ConnectionInfo As DbConnectionInfo) As SqlTransactionContext
+  overload: Tripous.Data.SqlProvider.BeginTransactionContext*
+- uid: Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+  commentId: M:Tripous.Data.SqlProvider.BeginTransactionContext(System.String)
+  id: BeginTransactionContext(System.String)
   parent: Tripous.Data.SqlProvider
   langs:
   - csharp
   - vb
-  name: BeginTransaction(string)
-  nameWithType: SqlProvider.BeginTransaction(string)
-  fullName: Tripous.Data.SqlProvider.BeginTransaction(string)
+  name: BeginTransactionContext(string)
+  nameWithType: SqlProvider.BeginTransactionContext(string)
+  fullName: Tripous.Data.SqlProvider.BeginTransactionContext(string)
   type: Method
   source:
     remote:
       path: Tripous.Data/SqlProvider.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: BeginTransaction
+    id: BeginTransactionContext
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 436
+    startLine: 434
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: >-
-    Creates a DbConnection, opens the connection and begins a transaction.
-
-    Returns the transaction.
+  summary: Creates a transaction context that owns both the connection and the transaction.
   example: []
   syntax:
-    content: public virtual DbTransaction BeginTransaction(string ConnectionString)
+    content: public virtual SqlTransactionContext BeginTransactionContext(string ConnectionString)
     parameters:
     - id: ConnectionString
       type: System.String
     return:
-      type: System.Data.Common.DbTransaction
-    content.vb: Public Overridable Function BeginTransaction(ConnectionString As String) As DbTransaction
-  overload: Tripous.Data.SqlProvider.BeginTransaction*
-  nameWithType.vb: SqlProvider.BeginTransaction(String)
-  fullName.vb: Tripous.Data.SqlProvider.BeginTransaction(String)
-  name.vb: BeginTransaction(String)
+      type: Tripous.Data.SqlTransactionContext
+    content.vb: Public Overridable Function BeginTransactionContext(ConnectionString As String) As SqlTransactionContext
+  overload: Tripous.Data.SqlProvider.BeginTransactionContext*
+  nameWithType.vb: SqlProvider.BeginTransactionContext(String)
+  fullName.vb: Tripous.Data.SqlProvider.BeginTransactionContext(String)
+  name.vb: BeginTransactionContext(String)
 - uid: Tripous.Data.SqlProvider.NormalizeConnectionString(System.String)
   commentId: M:Tripous.Data.SqlProvider.NormalizeConnectionString(System.String)
   id: NormalizeConnectionString(System.String)
@@ -1252,7 +1246,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NormalizeConnectionString
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 445
+    startLine: 452
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1288,7 +1282,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateConnectionString
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 449
+    startLine: 456
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1330,7 +1324,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDatabase
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 456
+    startLine: 463
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1366,7 +1360,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 465
+    startLine: 472
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1404,7 +1398,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 469
+    startLine: 476
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1444,7 +1438,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 474
+    startLine: 481
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1482,7 +1476,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 478
+    startLine: 485
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1522,7 +1516,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 482
+    startLine: 489
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1564,7 +1558,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 517
+    startLine: 524
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1606,7 +1600,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 528
+    startLine: 535
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1646,7 +1640,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 532
+    startLine: 539
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1688,7 +1682,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 537
+    startLine: 544
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1730,7 +1724,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 541
+    startLine: 548
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1774,7 +1768,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 585
+    startLine: 592
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1818,7 +1812,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 624
+    startLine: 631
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1856,7 +1850,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 628
+    startLine: 635
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1896,7 +1890,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 633
+    startLine: 640
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1934,7 +1928,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 637
+    startLine: 644
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1974,7 +1968,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 641
+    startLine: 648
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2016,7 +2010,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 670
+    startLine: 677
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2052,7 +2046,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 674
+    startLine: 681
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2088,7 +2082,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 702
+    startLine: 709
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2126,7 +2120,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 706
+    startLine: 713
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2166,7 +2160,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 710
+    startLine: 717
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2208,7 +2202,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 741
+    startLine: 748
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2254,7 +2248,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 753
+    startLine: 760
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2300,7 +2294,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResults
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 781
+    startLine: 783
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2342,7 +2336,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResults
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 791
+    startLine: 793
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2396,7 +2390,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResults
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 808
+    startLine: 810
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2452,7 +2446,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 820
+    startLine: 822
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2490,7 +2484,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 824
+    startLine: 826
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2530,7 +2524,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 828
+    startLine: 830
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2572,7 +2566,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 843
+    startLine: 845
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2616,7 +2610,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IntegerResult
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 859
+    startLine: 861
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2656,7 +2650,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IntegerResult
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 863
+    startLine: 865
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2698,7 +2692,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IntegerResult
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 871
+    startLine: 873
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2742,7 +2736,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectForUpdateSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 882
+    startLine: 884
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2780,7 +2774,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectForUpdate
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 889
+    startLine: 891
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2822,7 +2816,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectForUpdate
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 896
+    startLine: 898
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2866,7 +2860,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectIncrementLocked
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 942
+    startLine: 944
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2910,7 +2904,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectIncrementLocked
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 949
+    startLine: 951
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2956,7 +2950,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectIncrementLocked
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 970
+    startLine: 972
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3002,7 +2996,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ApplyRowLimit
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1008
+    startLine: 1010
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3040,7 +3034,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NormalizeRowLimit
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1015
+    startLine: 1017
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3076,7 +3070,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: QuoteName
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1024
+    startLine: 1026
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3112,7 +3106,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Concat
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1031
+    startLine: 1033
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3156,7 +3150,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetServerDateTime
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1035
+    startLine: 1037
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3189,7 +3183,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetServerDateTime
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1039
+    startLine: 1041
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3225,7 +3219,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: QSDate
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1043
+    startLine: 1045
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3261,7 +3255,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: QSDateTime
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1047
+    startLine: 1049
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3297,7 +3291,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SupportsAlterTableType
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1053
+    startLine: 1055
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3330,7 +3324,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddColumnSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1061
+    startLine: 1063
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3368,7 +3362,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropColumnSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1069
+    startLine: 1071
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3406,7 +3400,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RenameColumnSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1078
+    startLine: 1080
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3446,7 +3440,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetColumnLengthSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1085
+    startLine: 1087
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3490,7 +3484,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetDefaultBeforeNotNullUpdateSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1094
+    startLine: 1096
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3536,7 +3530,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetNotNullSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1102
+    startLine: 1104
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3576,7 +3570,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropNotNullSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1109
+    startLine: 1111
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3616,7 +3610,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetColumnDefaultSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1117
+    startLine: 1119
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3656,7 +3650,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropColumnDefaultSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1124
+    startLine: 1126
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3694,7 +3688,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddUniqueConstraintSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1133
+    startLine: 1135
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3734,7 +3728,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropUniqueConstraintSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1140
+    startLine: 1142
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3772,7 +3766,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddForeignKeySql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1148
+    startLine: 1150
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3816,7 +3810,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DropForeignKeySql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1155
+    startLine: 1157
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3854,7 +3848,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GeneratorExists
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1164
+    startLine: 1166
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3892,7 +3886,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateGenerator
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1171
+    startLine: 1173
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3928,7 +3922,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetGeneratorTo
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1178
+    startLine: 1180
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3970,7 +3964,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetTableGeneratorTo
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1185
+    startLine: 1187
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4012,7 +4006,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastId
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1192
+    startLine: 1194
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4054,7 +4048,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NextIdByGenerator
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1199
+    startLine: 1201
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4092,7 +4086,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1208
+    startLine: 1210
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4123,7 +4117,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Factory
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1212
+    startLine: 1214
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4154,7 +4148,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ServerType
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1216
+    startLine: 1218
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4185,7 +4179,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionStringAdapter
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1220
+    startLine: 1222
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4216,7 +4210,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NativePrefix
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1224
+    startLine: 1226
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4247,7 +4241,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PositionalParameters
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1228
+    startLine: 1230
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4278,7 +4272,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ObjectStartDelimiter
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1232
+    startLine: 1234
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4309,7 +4303,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ObjectEndDelimiter
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1236
+    startLine: 1238
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4340,7 +4334,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Description
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1240
+    startLine: 1242
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4371,7 +4365,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionStringTemplate
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1244
+    startLine: 1246
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4402,7 +4396,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SupportsTransactions
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1250
+    startLine: 1252
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4433,7 +4427,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanCreateDatabases
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1254
+    startLine: 1256
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4464,7 +4458,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SupportsGenerators
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1258
+    startLine: 1260
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4495,7 +4489,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SupportsAutoIncFields
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1262
+    startLine: 1264
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4526,7 +4520,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SupportedAlterTableTypes
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1266
+    startLine: 1268
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4557,7 +4551,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SuperUser
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1271
+    startLine: 1273
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4588,7 +4582,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SuperUserPassword
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1275
+    startLine: 1277
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4619,7 +4613,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OidMode
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1279
+    startLine: 1281
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4650,7 +4644,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ServerKeys
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1283
+    startLine: 1285
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4681,7 +4675,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DatabaseKeys
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1287
+    startLine: 1289
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4712,7 +4706,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UserNameKeys
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1291
+    startLine: 1293
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4743,7 +4737,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PasswordKeys
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1295
+    startLine: 1297
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4774,7 +4768,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ServerDateTimeSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1300
+    startLine: 1302
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4805,7 +4799,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastIdSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1304
+    startLine: 1306
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4836,7 +4830,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PrimaryKeySql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1308
+    startLine: 1310
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4867,7 +4861,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AutoIncSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1312
+    startLine: 1314
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4898,7 +4892,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: VarcharSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1316
+    startLine: 1318
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4929,7 +4923,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NVarcharSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1320
+    startLine: 1322
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4960,7 +4954,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FloatSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1324
+    startLine: 1326
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -4991,7 +4985,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DecimalSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1328
+    startLine: 1330
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5022,7 +5016,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1332
+    startLine: 1334
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5053,7 +5047,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DateTimeSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1336
+    startLine: 1338
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5084,7 +5078,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BoolSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1340
+    startLine: 1342
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5115,7 +5109,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BlobSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1344
+    startLine: 1346
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5146,7 +5140,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BlobTextSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1348
+    startLine: 1350
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5177,7 +5171,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NBlobTextSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1352
+    startLine: 1354
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5208,7 +5202,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NotNullSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1356
+    startLine: 1358
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5239,7 +5233,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NullSql
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1360
+    startLine: 1362
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -5270,7 +5264,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DefaultCommandTimeoutSeconds
     path: ../Tripous.Data/SqlProvider.cs
-    startLine: 1365
+    startLine: 1367
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -6069,20 +6063,19 @@ references:
   name: DbConnectionInfo
   nameWithType: DbConnectionInfo
   fullName: Tripous.Data.DbConnectionInfo
-- uid: Tripous.Data.SqlProvider.BeginTransaction*
-  commentId: Overload:Tripous.Data.SqlProvider.BeginTransaction
-  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransaction_Tripous_Data_DbConnectionInfo_
-  name: BeginTransaction
-  nameWithType: SqlProvider.BeginTransaction
-  fullName: Tripous.Data.SqlProvider.BeginTransaction
-- uid: System.Data.Common.DbTransaction
-  commentId: T:System.Data.Common.DbTransaction
-  parent: System.Data.Common
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
-  name: DbTransaction
-  nameWithType: DbTransaction
-  fullName: System.Data.Common.DbTransaction
+- uid: Tripous.Data.SqlProvider.BeginTransactionContext*
+  commentId: Overload:Tripous.Data.SqlProvider.BeginTransactionContext
+  href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_BeginTransactionContext_Tripous_Data_DbConnectionInfo_
+  name: BeginTransactionContext
+  nameWithType: SqlProvider.BeginTransactionContext
+  fullName: Tripous.Data.SqlProvider.BeginTransactionContext
+- uid: Tripous.Data.SqlTransactionContext
+  commentId: T:Tripous.Data.SqlTransactionContext
+  parent: Tripous.Data
+  href: Tripous.Data.SqlTransactionContext.html
+  name: SqlTransactionContext
+  nameWithType: SqlTransactionContext
+  fullName: Tripous.Data.SqlTransactionContext
 - uid: Tripous.Data.SqlProvider.NormalizeConnectionString*
   commentId: Overload:Tripous.Data.SqlProvider.NormalizeConnectionString
   href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_NormalizeConnectionString_System_String_
@@ -6107,6 +6100,14 @@ references:
   name: Select
   nameWithType: SqlProvider.Select
   fullName: Tripous.Data.SqlProvider.Select
+- uid: System.Data.Common.DbTransaction
+  commentId: T:System.Data.Common.DbTransaction
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  name: DbTransaction
+  nameWithType: DbTransaction
+  fullName: System.Data.Common.DbTransaction
 - uid: Tripous.Data.SqlProvider.SelectTo*
   commentId: Overload:Tripous.Data.SqlProvider.SelectTo
   href: Tripous.Data.SqlProvider.html#Tripous_Data_SqlProvider_SelectTo_Tripous_Data_DbConnectionInfo_Tripous_Data_MemTable_System_String_

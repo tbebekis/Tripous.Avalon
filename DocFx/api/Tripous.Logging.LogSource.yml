@@ -100,7 +100,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 94
+    startLine: 87
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -134,7 +134,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Create
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 109
+    startLine: 102
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -170,7 +170,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EnterScope
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 119
+    startLine: 112
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -212,7 +212,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExitScope
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 133
+    startLine: 126
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -240,7 +240,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Log
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 148
+    startLine: 141
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -282,7 +282,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Log
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 172
+    startLine: 165
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -322,7 +322,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Log
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 180
+    startLine: 173
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -362,7 +362,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Log
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 188
+    startLine: 181
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -400,7 +400,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Trace
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 198
+    startLine: 191
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -436,7 +436,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Trace
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 205
+    startLine: 198
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -470,7 +470,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Debug
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 214
+    startLine: 207
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -506,7 +506,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Debug
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 221
+    startLine: 214
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -540,7 +540,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Info
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 230
+    startLine: 223
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -576,7 +576,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Info
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 237
+    startLine: 230
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -610,7 +610,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Warn
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 246
+    startLine: 239
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -646,7 +646,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Warn
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 253
+    startLine: 246
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -680,7 +680,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Error
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 262
+    startLine: 255
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -716,7 +716,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Error
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 270
+    startLine: 263
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -747,7 +747,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Error
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 280
+    startLine: 273
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -783,7 +783,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Error
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 287
+    startLine: 280
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -817,7 +817,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 298
+    startLine: 291
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -848,7 +848,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Active
     path: ../Tripous.Logging/LogSource.cs
-    startLine: 302
+    startLine: 295
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging

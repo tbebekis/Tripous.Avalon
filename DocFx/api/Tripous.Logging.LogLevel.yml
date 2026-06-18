@@ -33,14 +33,8 @@ items:
   summary: The level of log info to issue, display, or persist
   example: []
   syntax:
-    content: >-
-      [Flags]
-
-      public enum LogLevel
-    content.vb: >-
-      <Flags>
-
-      Public Enum LogLevel
+    content: public enum LogLevel
+    content.vb: Public Enum LogLevel
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
   - Tripous.Logging.LogLevel.Tripous.BitFields.Add``1(Tripous.Logging.LogLevel)
@@ -53,10 +47,6 @@ items:
   - Tripous.Logging.LogLevel.Tripous.BitFields.Remove``1(Tripous.Logging.LogLevel)
   - Tripous.Logging.LogLevel.Tripous.BitFields.Set``1(Tripous.Logging.LogLevel,System.Boolean)
   - Tripous.Logging.LogLevel.Tripous.BitFields.Toggle``1(Tripous.Logging.LogLevel)
-  attributes:
-  - type: System.FlagsAttribute
-    ctor: System.FlagsAttribute.#ctor
-    arguments: []
 - uid: Tripous.Logging.LogLevel.None
   commentId: F:Tripous.Logging.LogLevel.None
   id: None
@@ -75,7 +65,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: None
     path: ../Tripous.Logging/LogLevel.cs
-    startLine: 19
+    startLine: 18
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -103,7 +93,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Trace
     path: ../Tripous.Logging/LogLevel.cs
-    startLine: 23
+    startLine: 22
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -131,7 +121,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Debug
     path: ../Tripous.Logging/LogLevel.cs
-    startLine: 27
+    startLine: 26
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -159,7 +149,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Info
     path: ../Tripous.Logging/LogLevel.cs
-    startLine: 31
+    startLine: 30
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -187,7 +177,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Warning
     path: ../Tripous.Logging/LogLevel.cs
-    startLine: 35
+    startLine: 34
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -215,7 +205,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Error
     path: ../Tripous.Logging/LogLevel.cs
-    startLine: 39
+    startLine: 38
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging
@@ -243,7 +233,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Fatal
     path: ../Tripous.Logging/LogLevel.cs
-    startLine: 43
+    startLine: 42
   assemblies:
   - Tripous.Logging
   namespace: Tripous.Logging

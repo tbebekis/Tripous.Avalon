@@ -6,7 +6,7 @@ items:
   parent: Tripous.Data
   children:
   - Tripous.Data.SqlStore.#ctor(Tripous.Data.DbConnectionInfo)
-  - Tripous.Data.SqlStore.BeginTransaction
+  - Tripous.Data.SqlStore.BeginTransactionContext
   - Tripous.Data.SqlStore.CanConnect(System.Boolean)
   - Tripous.Data.SqlStore.ConnectionInfo
   - Tripous.Data.SqlStore.CreateTable(System.String)
@@ -27,6 +27,7 @@ items:
   - Tripous.Data.SqlStore.GetSchema(System.String,System.String[])
   - Tripous.Data.SqlStore.GetServerDateTime
   - Tripous.Data.SqlStore.GetTableNames
+  - Tripous.Data.SqlStore.GetViewNames
   - Tripous.Data.SqlStore.IndexExists(System.String)
   - Tripous.Data.SqlStore.IntegerResult(System.Data.Common.DbTransaction,System.String,System.Int32,System.Object[])
   - Tripous.Data.SqlStore.IntegerResult(System.String,System.Int32)
@@ -175,39 +176,36 @@ items:
       type: System.Data.Common.DbConnection
     content.vb: Public Function OpenConnection() As DbConnection
   overload: Tripous.Data.SqlStore.OpenConnection*
-- uid: Tripous.Data.SqlStore.BeginTransaction
-  commentId: M:Tripous.Data.SqlStore.BeginTransaction
-  id: BeginTransaction
+- uid: Tripous.Data.SqlStore.BeginTransactionContext
+  commentId: M:Tripous.Data.SqlStore.BeginTransactionContext
+  id: BeginTransactionContext
   parent: Tripous.Data.SqlStore
   langs:
   - csharp
   - vb
-  name: BeginTransaction()
-  nameWithType: SqlStore.BeginTransaction()
-  fullName: Tripous.Data.SqlStore.BeginTransaction()
+  name: BeginTransactionContext()
+  nameWithType: SqlStore.BeginTransactionContext()
+  fullName: Tripous.Data.SqlStore.BeginTransactionContext()
   type: Method
   source:
     remote:
       path: Tripous.Data/SqlStore.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: BeginTransaction
+    id: BeginTransactionContext
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 45
+    startLine: 44
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: >-
-    Creates a DbConnection, opens the connection and begins a transaction.
-
-    Returns the transaction.
+  summary: Creates a transaction context that owns both the connection and the transaction.
   example: []
   syntax:
-    content: public virtual DbTransaction BeginTransaction()
+    content: public virtual SqlTransactionContext BeginTransactionContext()
     return:
-      type: System.Data.Common.DbTransaction
-    content.vb: Public Overridable Function BeginTransaction() As DbTransaction
-  overload: Tripous.Data.SqlStore.BeginTransaction*
+      type: Tripous.Data.SqlTransactionContext
+    content.vb: Public Overridable Function BeginTransactionContext() As SqlTransactionContext
+  overload: Tripous.Data.SqlStore.BeginTransactionContext*
 - uid: Tripous.Data.SqlStore.CanConnect(System.Boolean)
   commentId: M:Tripous.Data.SqlStore.CanConnect(System.Boolean)
   id: CanConnect(System.Boolean)
@@ -226,7 +224,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CanConnect
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 50
+    startLine: 49
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -262,7 +260,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EnsureConnection
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 54
+    startLine: 53
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -296,7 +294,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 60
+    startLine: 59
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -332,7 +330,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 64
+    startLine: 63
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -370,7 +368,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 68
+    startLine: 67
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -410,7 +408,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 74
+    startLine: 73
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -448,7 +446,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 78
+    startLine: 77
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -488,7 +486,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectTo
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 82
+    startLine: 81
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -530,7 +528,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 88
+    startLine: 87
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -566,7 +564,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 92
+    startLine: 91
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -604,7 +602,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 97
+    startLine: 96
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -638,7 +636,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 102
+    startLine: 101
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -676,7 +674,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 106
+    startLine: 105
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -716,7 +714,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ExecSql
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 120
+    startLine: 119
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -760,7 +758,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectIncrementLocked
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 128
+    startLine: 127
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -808,7 +806,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResults
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 138
+    startLine: 137
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -848,7 +846,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResults
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 148
+    startLine: 147
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -900,7 +898,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResults
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 158
+    startLine: 157
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -954,7 +952,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 163
+    startLine: 162
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -990,7 +988,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 167
+    startLine: 166
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1028,7 +1026,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 171
+    startLine: 170
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1068,7 +1066,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectResult
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 175
+    startLine: 174
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1110,7 +1108,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IntegerResult
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 180
+    startLine: 179
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1148,7 +1146,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IntegerResult
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 184
+    startLine: 183
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1188,7 +1186,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IntegerResult
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 189
+    startLine: 188
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1230,7 +1228,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetServerDateTime
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 194
+    startLine: 193
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1260,7 +1258,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NextId
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 201
+    startLine: 200
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1302,7 +1300,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastId
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 209
+    startLine: 208
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1344,7 +1342,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NextIdByGenerator
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 216
+    startLine: 215
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1382,7 +1380,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NextId
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 226
+    startLine: 225
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1422,7 +1420,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastId
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 252
+    startLine: 251
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1462,7 +1460,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: NextIdByGenerator
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 277
+    startLine: 276
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1498,7 +1496,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetSchema
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 303
+    startLine: 302
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1528,7 +1526,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetSchema
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 312
+    startLine: 311
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1567,7 +1565,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetSchema
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 322
+    startLine: 321
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1610,7 +1608,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetNativeSchemaFromTableName
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 331
+    startLine: 330
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1648,7 +1646,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetNativeSchemaFromSelect
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 341
+    startLine: 340
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1686,7 +1684,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTableNames
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 371
+    startLine: 370
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1698,6 +1696,36 @@ items:
       type: System.Collections.Generic.List{System.String}
     content.vb: Public Function GetTableNames() As List(Of String)
   overload: Tripous.Data.SqlStore.GetTableNames*
+- uid: Tripous.Data.SqlStore.GetViewNames
+  commentId: M:Tripous.Data.SqlStore.GetViewNames
+  id: GetViewNames
+  parent: Tripous.Data.SqlStore
+  langs:
+  - csharp
+  - vb
+  name: GetViewNames()
+  nameWithType: SqlStore.GetViewNames()
+  fullName: Tripous.Data.SqlStore.GetViewNames()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/SqlStore.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetViewNames
+    path: ../Tripous.Data/SqlStore.cs
+    startLine: 383
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a string list with the view names in the database.
+  example: []
+  syntax:
+    content: public List<string> GetViewNames()
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Function GetViewNames() As List(Of String)
+  overload: Tripous.Data.SqlStore.GetViewNames*
 - uid: Tripous.Data.SqlStore.GetFieldNames(System.String)
   commentId: M:Tripous.Data.SqlStore.GetFieldNames(System.String)
   id: GetFieldNames(System.String)
@@ -1716,7 +1744,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetFieldNames
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 384
+    startLine: 396
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1752,7 +1780,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetIndexNames
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 400
+    startLine: 412
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1782,7 +1810,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TableExists
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 418
+    startLine: 430
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1820,7 +1848,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ResetTable
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 445
+    startLine: 457
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1858,7 +1886,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TableIsEmpty
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 453
+    startLine: 465
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1894,7 +1922,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateTable
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 466
+    startLine: 478
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1940,7 +1968,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FieldExists
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 493
+    startLine: 505
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1978,7 +2006,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IndexExists
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 501
+    startLine: 513
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2014,7 +2042,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Provider
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 513
+    startLine: 525
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2045,7 +2073,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionInfo
     path: ../Tripous.Data/SqlStore.cs
-    startLine: 517
+    startLine: 529
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2568,20 +2596,19 @@ references:
     name: Common
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.data.common
-- uid: Tripous.Data.SqlStore.BeginTransaction*
-  commentId: Overload:Tripous.Data.SqlStore.BeginTransaction
-  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_BeginTransaction
-  name: BeginTransaction
-  nameWithType: SqlStore.BeginTransaction
-  fullName: Tripous.Data.SqlStore.BeginTransaction
-- uid: System.Data.Common.DbTransaction
-  commentId: T:System.Data.Common.DbTransaction
-  parent: System.Data.Common
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
-  name: DbTransaction
-  nameWithType: DbTransaction
-  fullName: System.Data.Common.DbTransaction
+- uid: Tripous.Data.SqlStore.BeginTransactionContext*
+  commentId: Overload:Tripous.Data.SqlStore.BeginTransactionContext
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_BeginTransactionContext
+  name: BeginTransactionContext
+  nameWithType: SqlStore.BeginTransactionContext
+  fullName: Tripous.Data.SqlStore.BeginTransactionContext
+- uid: Tripous.Data.SqlTransactionContext
+  commentId: T:Tripous.Data.SqlTransactionContext
+  parent: Tripous.Data
+  href: Tripous.Data.SqlTransactionContext.html
+  name: SqlTransactionContext
+  nameWithType: SqlTransactionContext
+  fullName: Tripous.Data.SqlTransactionContext
 - uid: Tripous.Data.SqlStore.CanConnect*
   commentId: Overload:Tripous.Data.SqlStore.CanConnect
   href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_CanConnect_System_Boolean_
@@ -2652,6 +2679,14 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: (
   - name: )
+- uid: System.Data.Common.DbTransaction
+  commentId: T:System.Data.Common.DbTransaction
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  name: DbTransaction
+  nameWithType: DbTransaction
+  fullName: System.Data.Common.DbTransaction
 - uid: Tripous.Data.SqlStore.SelectTo*
   commentId: Overload:Tripous.Data.SqlStore.SelectTo
   href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_SelectTo_Tripous_Data_MemTable_System_String_
@@ -3015,6 +3050,12 @@ references:
   - name: " "
   - name: T
   - name: )
+- uid: Tripous.Data.SqlStore.GetViewNames*
+  commentId: Overload:Tripous.Data.SqlStore.GetViewNames
+  href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetViewNames
+  name: GetViewNames
+  nameWithType: SqlStore.GetViewNames
+  fullName: Tripous.Data.SqlStore.GetViewNames
 - uid: Tripous.Data.SqlStore.GetFieldNames*
   commentId: Overload:Tripous.Data.SqlStore.GetFieldNames
   href: Tripous.Data.SqlStore.html#Tripous_Data_SqlStore_GetFieldNames_System_String_

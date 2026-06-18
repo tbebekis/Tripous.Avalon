@@ -16,6 +16,7 @@ items:
   - Tripous.Data.SelectDef.Owner
   - Tripous.Data.SelectDef.SqlText
   - Tripous.Data.SelectDef.UseFilters
+  - Tripous.Data.SelectDef.ValidateBooleanFilterTypes(System.String,Tripous.Data.SqlStore,Tripous.Data.SqlFilterDefs)
   langs:
   - csharp
   - vb
@@ -92,7 +93,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 27
+    startLine: 59
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -123,7 +124,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckDescriptor
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 35
+    startLine: 67
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -152,7 +153,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddFilter
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 45
+    startLine: 77
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -198,7 +199,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddFilter
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 50
+    startLine: 82
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -213,6 +214,47 @@ items:
       type: Tripous.Data.SqlFilterDef
     content.vb: Public Function AddFilter(FieldDef As FieldDef) As SqlFilterDef
   overload: Tripous.Data.SelectDef.AddFilter*
+- uid: Tripous.Data.SelectDef.ValidateBooleanFilterTypes(System.String,Tripous.Data.SqlStore,Tripous.Data.SqlFilterDefs)
+  commentId: M:Tripous.Data.SelectDef.ValidateBooleanFilterTypes(System.String,Tripous.Data.SqlStore,Tripous.Data.SqlFilterDefs)
+  id: ValidateBooleanFilterTypes(System.String,Tripous.Data.SqlStore,Tripous.Data.SqlFilterDefs)
+  parent: Tripous.Data.SelectDef
+  langs:
+  - csharp
+  - vb
+  name: ValidateBooleanFilterTypes(string, SqlStore, SqlFilterDefs)
+  nameWithType: SelectDef.ValidateBooleanFilterTypes(string, SqlStore, SqlFilterDefs)
+  fullName: Tripous.Data.SelectDef.ValidateBooleanFilterTypes(string, Tripous.Data.SqlStore, Tripous.Data.SqlFilterDefs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/SelectDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValidateBooleanFilterTypes
+    path: ../Tripous.Data/Registry/SelectDef.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Validates that boolean filters are backed by integer-compatible schema columns.
+  example: []
+  syntax:
+    content: public void ValidateBooleanFilterTypes(string ModuleName, SqlStore Store, SqlFilterDefs FilterDefs)
+    parameters:
+    - id: ModuleName
+      type: System.String
+      description: The module name.
+    - id: Store
+      type: Tripous.Data.SqlStore
+      description: The SQL store.
+    - id: FilterDefs
+      type: Tripous.Data.SqlFilterDefs
+      description: The filter definitions to validate.
+    content.vb: Public Sub ValidateBooleanFilterTypes(ModuleName As String, Store As SqlStore, FilterDefs As SqlFilterDefs)
+  overload: Tripous.Data.SelectDef.ValidateBooleanFilterTypes*
+  nameWithType.vb: SelectDef.ValidateBooleanFilterTypes(String, SqlStore, SqlFilterDefs)
+  fullName.vb: Tripous.Data.SelectDef.ValidateBooleanFilterTypes(String, Tripous.Data.SqlStore, Tripous.Data.SqlFilterDefs)
+  name.vb: ValidateBooleanFilterTypes(String, SqlStore, SqlFilterDefs)
 - uid: Tripous.Data.SelectDef.DefineFilters(System.String,Tripous.Data.SqlStore)
   commentId: M:Tripous.Data.SelectDef.DefineFilters(System.String,Tripous.Data.SqlStore)
   id: DefineFilters(System.String,Tripous.Data.SqlStore)
@@ -231,7 +273,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DefineFilters
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 58
+    startLine: 114
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -277,7 +319,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SqlText
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 106
+    startLine: 162
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -308,7 +350,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DisplayLabels
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 121
+    startLine: 177
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -339,7 +381,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ColumnTypes
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 129
+    startLine: 185
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -370,7 +412,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FilterDefs
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 137
+    startLine: 193
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -401,7 +443,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UseFilters
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 152
+    startLine: 208
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -432,7 +474,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Owner
     path: ../Tripous.Data/Registry/SelectDef.cs
-    startLine: 167
+    startLine: 223
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1202,6 +1244,26 @@ references:
   name: FieldDef
   nameWithType: FieldDef
   fullName: Tripous.Data.FieldDef
+- uid: Tripous.Data.SelectDef.ValidateBooleanFilterTypes*
+  commentId: Overload:Tripous.Data.SelectDef.ValidateBooleanFilterTypes
+  href: Tripous.Data.SelectDef.html#Tripous_Data_SelectDef_ValidateBooleanFilterTypes_System_String_Tripous_Data_SqlStore_Tripous_Data_SqlFilterDefs_
+  name: ValidateBooleanFilterTypes
+  nameWithType: SelectDef.ValidateBooleanFilterTypes
+  fullName: Tripous.Data.SelectDef.ValidateBooleanFilterTypes
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
+  parent: Tripous.Data
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore
+- uid: Tripous.Data.SqlFilterDefs
+  commentId: T:Tripous.Data.SqlFilterDefs
+  parent: Tripous.Data
+  href: Tripous.Data.SqlFilterDefs.html
+  name: SqlFilterDefs
+  nameWithType: SqlFilterDefs
+  fullName: Tripous.Data.SqlFilterDefs
 - uid: Tripous.Data.SelectDef.FilterDefs
   commentId: P:Tripous.Data.SelectDef.FilterDefs
   href: Tripous.Data.SelectDef.html#Tripous_Data_SelectDef_FilterDefs
@@ -1262,20 +1324,6 @@ references:
   name: DefineFilters
   nameWithType: SelectDef.DefineFilters
   fullName: Tripous.Data.SelectDef.DefineFilters
-- uid: Tripous.Data.SqlStore
-  commentId: T:Tripous.Data.SqlStore
-  parent: Tripous.Data
-  href: Tripous.Data.SqlStore.html
-  name: SqlStore
-  nameWithType: SqlStore
-  fullName: Tripous.Data.SqlStore
-- uid: Tripous.Data.SqlFilterDefs
-  commentId: T:Tripous.Data.SqlFilterDefs
-  parent: Tripous.Data
-  href: Tripous.Data.SqlFilterDefs.html
-  name: SqlFilterDefs
-  nameWithType: SqlFilterDefs
-  fullName: Tripous.Data.SqlFilterDefs
 - uid: Tripous.Data.SelectDef.SqlText*
   commentId: Overload:Tripous.Data.SelectDef.SqlText
   href: Tripous.Data.SelectDef.html#Tripous_Data_SelectDef_SqlText

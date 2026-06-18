@@ -541,7 +541,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowModal
     path: ../Tripous.Desktop/Dialogs/ConfigDialog.axaml.cs
-    startLine: 266
+    startLine: 267
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop

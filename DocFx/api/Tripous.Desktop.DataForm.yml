@@ -2914,7 +2914,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetSavedFilterValues
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1062
+    startLine: 1063
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2952,7 +2952,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessEscapeKey
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1073
+    startLine: 1074
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -2990,7 +2990,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UiLog
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1088
+    startLine: 1089
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3025,7 +3025,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1101
+    startLine: 1102
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3056,7 +3056,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataFormContext
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1110
+    startLine: 1111
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3087,7 +3087,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormDef
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1114
+    startLine: 1115
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3118,7 +3118,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleDef
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1118
+    startLine: 1119
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3149,7 +3149,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1122
+    startLine: 1123
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3180,7 +3180,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: InvalidActions
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1127
+    startLine: 1128
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3215,7 +3215,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: StartAction
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1131
+    startLine: 1132
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3246,7 +3246,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemPage
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1135
+    startLine: 1136
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3277,7 +3277,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListCurrentRow
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1140
+    startLine: 1141
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3308,7 +3308,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRow
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1144
+    startLine: 1145
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3339,7 +3339,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormState
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1148
+    startLine: 1149
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3370,7 +3370,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsInListState
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1164
+    startLine: 1165
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3401,7 +3401,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnlyForm
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1169
+    startLine: 1170
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3432,7 +3432,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEditableForm
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1173
+    startLine: 1174
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3463,7 +3463,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsSingleSelect
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1177
+    startLine: 1178
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3494,7 +3494,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsListEmpty
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1181
+    startLine: 1182
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3525,7 +3525,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListIsDirty
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1185
+    startLine: 1186
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3556,7 +3556,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IdColumnsVisible
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1190
+    startLine: 1191
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -3587,7 +3587,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FiltersSideBarVisible
     path: ../Tripous.Desktop/DataForm.axaml.cs
-    startLine: 1205
+    startLine: 1206
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop

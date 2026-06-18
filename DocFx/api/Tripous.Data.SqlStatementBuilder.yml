@@ -113,7 +113,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BuildSql
     path: ../Tripous.Data/SqlStatementBuilder.cs
-    startLine: 107
+    startLine: 115
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -163,7 +163,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BuildSql
     path: ../Tripous.Data/SqlStatementBuilder.cs
-    startLine: 119
+    startLine: 127
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

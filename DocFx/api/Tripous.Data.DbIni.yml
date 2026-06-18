@@ -7,6 +7,7 @@ items:
   children:
   - Tripous.Data.DbIni.#ctor(Tripous.Data.DbConnectionInfo)
   - Tripous.Data.DbIni.Delete(System.String)
+  - Tripous.Data.DbIni.Exists(System.Data.Common.DbTransaction,System.String)
   - Tripous.Data.DbIni.Exists(System.String)
   - Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream)
   - Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream,System.String@)
@@ -16,13 +17,21 @@ items:
   - Tripous.Data.DbIni.ReadInstance(System.String,System.Object)
   - Tripous.Data.DbIni.ReadInteger(System.String,System.Int32)
   - Tripous.Data.DbIni.ReadString(System.String,System.String)
+  - Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream)
+  - Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream,System.String)
   - Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream)
   - Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream,System.String)
+  - Tripous.Data.DbIni.WriteBool(System.Data.Common.DbTransaction,System.String,System.Boolean)
   - Tripous.Data.DbIni.WriteBool(System.String,System.Boolean)
+  - Tripous.Data.DbIni.WriteDateTime(System.Data.Common.DbTransaction,System.String,System.DateTime)
   - Tripous.Data.DbIni.WriteDateTime(System.String,System.DateTime)
+  - Tripous.Data.DbIni.WriteFloat(System.Data.Common.DbTransaction,System.String,System.Double)
   - Tripous.Data.DbIni.WriteFloat(System.String,System.Double)
+  - Tripous.Data.DbIni.WriteInstance(System.Data.Common.DbTransaction,System.String,System.Object)
   - Tripous.Data.DbIni.WriteInstance(System.String,System.Object)
+  - Tripous.Data.DbIni.WriteInteger(System.Data.Common.DbTransaction,System.String,System.Int32)
   - Tripous.Data.DbIni.WriteInteger(System.String,System.Int32)
+  - Tripous.Data.DbIni.WriteString(System.Data.Common.DbTransaction,System.String,System.String)
   - Tripous.Data.DbIni.WriteString(System.String,System.String)
   langs:
   - csharp
@@ -77,7 +86,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/DbIni.cs
-    startLine: 48
+    startLine: 75
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -111,7 +120,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Exists
     path: ../Tripous.Data/DbIni.cs
-    startLine: 59
+    startLine: 86
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -129,6 +138,44 @@ items:
   nameWithType.vb: DbIni.Exists(String)
   fullName.vb: Tripous.Data.DbIni.Exists(String)
   name.vb: Exists(String)
+- uid: Tripous.Data.DbIni.Exists(System.Data.Common.DbTransaction,System.String)
+  commentId: M:Tripous.Data.DbIni.Exists(System.Data.Common.DbTransaction,System.String)
+  id: Exists(System.Data.Common.DbTransaction,System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: Exists(DbTransaction, string)
+  nameWithType: DbIni.Exists(DbTransaction, string)
+  fullName: Tripous.Data.DbIni.Exists(System.Data.Common.DbTransaction, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Exists
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true if Entry exists in table, using the specified transaction.
+  example: []
+  syntax:
+    content: public bool Exists(DbTransaction Transaction, string Entry)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Public Function Exists(Transaction As DbTransaction, Entry As String) As Boolean
+  overload: Tripous.Data.DbIni.Exists*
+  nameWithType.vb: DbIni.Exists(DbTransaction, String)
+  fullName.vb: Tripous.Data.DbIni.Exists(System.Data.Common.DbTransaction, String)
+  name.vb: Exists(DbTransaction, String)
 - uid: Tripous.Data.DbIni.Delete(System.String)
   commentId: M:Tripous.Data.DbIni.Delete(System.String)
   id: Delete(System.String)
@@ -147,7 +194,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Delete
     path: ../Tripous.Data/DbIni.cs
-    startLine: 68
+    startLine: 99
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -181,7 +228,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteString
     path: ../Tripous.Data/DbIni.cs
-    startLine: 77
+    startLine: 108
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -199,6 +246,44 @@ items:
   nameWithType.vb: DbIni.WriteString(String, String)
   fullName.vb: Tripous.Data.DbIni.WriteString(String, String)
   name.vb: WriteString(String, String)
+- uid: Tripous.Data.DbIni.WriteString(System.Data.Common.DbTransaction,System.String,System.String)
+  commentId: M:Tripous.Data.DbIni.WriteString(System.Data.Common.DbTransaction,System.String,System.String)
+  id: WriteString(System.Data.Common.DbTransaction,System.String,System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteString(DbTransaction, string, string)
+  nameWithType: DbIni.WriteString(DbTransaction, string, string)
+  fullName: Tripous.Data.DbIni.WriteString(System.Data.Common.DbTransaction, string, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteString
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 112
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteString(DbTransaction Transaction, string Entry, string Value)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.String
+    content.vb: Public Sub WriteString(Transaction As DbTransaction, Entry As String, Value As String)
+  overload: Tripous.Data.DbIni.WriteString*
+  nameWithType.vb: DbIni.WriteString(DbTransaction, String, String)
+  fullName.vb: Tripous.Data.DbIni.WriteString(System.Data.Common.DbTransaction, String, String)
+  name.vb: WriteString(DbTransaction, String, String)
 - uid: Tripous.Data.DbIni.ReadString(System.String,System.String)
   commentId: M:Tripous.Data.DbIni.ReadString(System.String,System.String)
   id: ReadString(System.String,System.String)
@@ -217,7 +302,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadString
     path: ../Tripous.Data/DbIni.cs
-    startLine: 91
+    startLine: 126
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -255,7 +340,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteInteger
     path: ../Tripous.Data/DbIni.cs
-    startLine: 104
+    startLine: 139
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -273,6 +358,44 @@ items:
   nameWithType.vb: DbIni.WriteInteger(String, Integer)
   fullName.vb: Tripous.Data.DbIni.WriteInteger(String, Integer)
   name.vb: WriteInteger(String, Integer)
+- uid: Tripous.Data.DbIni.WriteInteger(System.Data.Common.DbTransaction,System.String,System.Int32)
+  commentId: M:Tripous.Data.DbIni.WriteInteger(System.Data.Common.DbTransaction,System.String,System.Int32)
+  id: WriteInteger(System.Data.Common.DbTransaction,System.String,System.Int32)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteInteger(DbTransaction, string, int)
+  nameWithType: DbIni.WriteInteger(DbTransaction, string, int)
+  fullName: Tripous.Data.DbIni.WriteInteger(System.Data.Common.DbTransaction, string, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteInteger
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 143
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteInteger(DbTransaction Transaction, string Entry, int Value)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.Int32
+    content.vb: Public Sub WriteInteger(Transaction As DbTransaction, Entry As String, Value As Integer)
+  overload: Tripous.Data.DbIni.WriteInteger*
+  nameWithType.vb: DbIni.WriteInteger(DbTransaction, String, Integer)
+  fullName.vb: Tripous.Data.DbIni.WriteInteger(System.Data.Common.DbTransaction, String, Integer)
+  name.vb: WriteInteger(DbTransaction, String, Integer)
 - uid: Tripous.Data.DbIni.ReadInteger(System.String,System.Int32)
   commentId: M:Tripous.Data.DbIni.ReadInteger(System.String,System.Int32)
   id: ReadInteger(System.String,System.Int32)
@@ -291,7 +414,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadInteger
     path: ../Tripous.Data/DbIni.cs
-    startLine: 111
+    startLine: 147
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -329,7 +452,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteFloat
     path: ../Tripous.Data/DbIni.cs
-    startLine: 119
+    startLine: 155
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -347,6 +470,44 @@ items:
   nameWithType.vb: DbIni.WriteFloat(String, Double)
   fullName.vb: Tripous.Data.DbIni.WriteFloat(String, Double)
   name.vb: WriteFloat(String, Double)
+- uid: Tripous.Data.DbIni.WriteFloat(System.Data.Common.DbTransaction,System.String,System.Double)
+  commentId: M:Tripous.Data.DbIni.WriteFloat(System.Data.Common.DbTransaction,System.String,System.Double)
+  id: WriteFloat(System.Data.Common.DbTransaction,System.String,System.Double)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteFloat(DbTransaction, string, double)
+  nameWithType: DbIni.WriteFloat(DbTransaction, string, double)
+  fullName: Tripous.Data.DbIni.WriteFloat(System.Data.Common.DbTransaction, string, double)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteFloat
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 159
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteFloat(DbTransaction Transaction, string Entry, double Value)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.Double
+    content.vb: Public Sub WriteFloat(Transaction As DbTransaction, Entry As String, Value As Double)
+  overload: Tripous.Data.DbIni.WriteFloat*
+  nameWithType.vb: DbIni.WriteFloat(DbTransaction, String, Double)
+  fullName.vb: Tripous.Data.DbIni.WriteFloat(System.Data.Common.DbTransaction, String, Double)
+  name.vb: WriteFloat(DbTransaction, String, Double)
 - uid: Tripous.Data.DbIni.ReadFloat(System.String,System.Double)
   commentId: M:Tripous.Data.DbIni.ReadFloat(System.String,System.Double)
   id: ReadFloat(System.String,System.Double)
@@ -365,7 +526,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadFloat
     path: ../Tripous.Data/DbIni.cs
-    startLine: 126
+    startLine: 163
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -403,7 +564,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteBool
     path: ../Tripous.Data/DbIni.cs
-    startLine: 134
+    startLine: 171
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -421,6 +582,44 @@ items:
   nameWithType.vb: DbIni.WriteBool(String, Boolean)
   fullName.vb: Tripous.Data.DbIni.WriteBool(String, Boolean)
   name.vb: WriteBool(String, Boolean)
+- uid: Tripous.Data.DbIni.WriteBool(System.Data.Common.DbTransaction,System.String,System.Boolean)
+  commentId: M:Tripous.Data.DbIni.WriteBool(System.Data.Common.DbTransaction,System.String,System.Boolean)
+  id: WriteBool(System.Data.Common.DbTransaction,System.String,System.Boolean)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteBool(DbTransaction, string, bool)
+  nameWithType: DbIni.WriteBool(DbTransaction, string, bool)
+  fullName: Tripous.Data.DbIni.WriteBool(System.Data.Common.DbTransaction, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteBool
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 175
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteBool(DbTransaction Transaction, string Entry, bool Value)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.Boolean
+    content.vb: Public Sub WriteBool(Transaction As DbTransaction, Entry As String, Value As Boolean)
+  overload: Tripous.Data.DbIni.WriteBool*
+  nameWithType.vb: DbIni.WriteBool(DbTransaction, String, Boolean)
+  fullName.vb: Tripous.Data.DbIni.WriteBool(System.Data.Common.DbTransaction, String, Boolean)
+  name.vb: WriteBool(DbTransaction, String, Boolean)
 - uid: Tripous.Data.DbIni.ReadBool(System.String,System.Boolean)
   commentId: M:Tripous.Data.DbIni.ReadBool(System.String,System.Boolean)
   id: ReadBool(System.String,System.Boolean)
@@ -439,7 +638,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadBool
     path: ../Tripous.Data/DbIni.cs
-    startLine: 141
+    startLine: 179
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -477,7 +676,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteDateTime
     path: ../Tripous.Data/DbIni.cs
-    startLine: 149
+    startLine: 187
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -495,6 +694,44 @@ items:
   nameWithType.vb: DbIni.WriteDateTime(String, Date)
   fullName.vb: Tripous.Data.DbIni.WriteDateTime(String, Date)
   name.vb: WriteDateTime(String, Date)
+- uid: Tripous.Data.DbIni.WriteDateTime(System.Data.Common.DbTransaction,System.String,System.DateTime)
+  commentId: M:Tripous.Data.DbIni.WriteDateTime(System.Data.Common.DbTransaction,System.String,System.DateTime)
+  id: WriteDateTime(System.Data.Common.DbTransaction,System.String,System.DateTime)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteDateTime(DbTransaction, string, DateTime)
+  nameWithType: DbIni.WriteDateTime(DbTransaction, string, DateTime)
+  fullName: Tripous.Data.DbIni.WriteDateTime(System.Data.Common.DbTransaction, string, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteDateTime
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 191
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value to the Entry inside a transaction. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteDateTime(DbTransaction Transaction, string Entry, DateTime Value)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Value
+      type: System.DateTime
+    content.vb: Public Sub WriteDateTime(Transaction As DbTransaction, Entry As String, Value As Date)
+  overload: Tripous.Data.DbIni.WriteDateTime*
+  nameWithType.vb: DbIni.WriteDateTime(DbTransaction, String, Date)
+  fullName.vb: Tripous.Data.DbIni.WriteDateTime(System.Data.Common.DbTransaction, String, Date)
+  name.vb: WriteDateTime(DbTransaction, String, Date)
 - uid: Tripous.Data.DbIni.ReadDateTime(System.String,System.DateTime)
   commentId: M:Tripous.Data.DbIni.ReadDateTime(System.String,System.DateTime)
   id: ReadDateTime(System.String,System.DateTime)
@@ -513,7 +750,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadDateTime
     path: ../Tripous.Data/DbIni.cs
-    startLine: 156
+    startLine: 195
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -551,7 +788,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteBlob
     path: ../Tripous.Data/DbIni.cs
-    startLine: 164
+    startLine: 203
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -571,6 +808,46 @@ items:
   nameWithType.vb: DbIni.WriteBlob(String, Stream, String)
   fullName.vb: Tripous.Data.DbIni.WriteBlob(String, System.IO.Stream, String)
   name.vb: WriteBlob(String, Stream, String)
+- uid: Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream,System.String)
+  commentId: M:Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream,System.String)
+  id: WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream,System.String)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteBlob(DbTransaction, string, Stream, string)
+  nameWithType: DbIni.WriteBlob(DbTransaction, string, Stream, string)
+  fullName: Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction, string, System.IO.Stream, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteBlob
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 207
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Value and Stream to the Entry inside a transaction. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteBlob(DbTransaction Transaction, string Entry, Stream Stream, string Value)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    - id: Value
+      type: System.String
+    content.vb: Public Sub WriteBlob(Transaction As DbTransaction, Entry As String, Stream As Stream, Value As String)
+  overload: Tripous.Data.DbIni.WriteBlob*
+  nameWithType.vb: DbIni.WriteBlob(DbTransaction, String, Stream, String)
+  fullName.vb: Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction, String, System.IO.Stream, String)
+  name.vb: WriteBlob(DbTransaction, String, Stream, String)
 - uid: Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream)
   commentId: M:Tripous.Data.DbIni.WriteBlob(System.String,System.IO.Stream)
   id: WriteBlob(System.String,System.IO.Stream)
@@ -589,7 +866,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteBlob
     path: ../Tripous.Data/DbIni.cs
-    startLine: 195
+    startLine: 238
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -607,6 +884,44 @@ items:
   nameWithType.vb: DbIni.WriteBlob(String, Stream)
   fullName.vb: Tripous.Data.DbIni.WriteBlob(String, System.IO.Stream)
   name.vb: WriteBlob(String, Stream)
+- uid: Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream)
+  commentId: M:Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream)
+  id: WriteBlob(System.Data.Common.DbTransaction,System.String,System.IO.Stream)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteBlob(DbTransaction, string, Stream)
+  nameWithType: DbIni.WriteBlob(DbTransaction, string, Stream)
+  fullName: Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction, string, System.IO.Stream)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteBlob
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 242
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Writes the Stream to the Entry inside a transaction. If the Entry does not exist, it created.
+  example: []
+  syntax:
+    content: public void WriteBlob(DbTransaction Transaction, string Entry, Stream Stream)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Stream
+      type: System.IO.Stream
+    content.vb: Public Sub WriteBlob(Transaction As DbTransaction, Entry As String, Stream As Stream)
+  overload: Tripous.Data.DbIni.WriteBlob*
+  nameWithType.vb: DbIni.WriteBlob(DbTransaction, String, Stream)
+  fullName.vb: Tripous.Data.DbIni.WriteBlob(System.Data.Common.DbTransaction, String, System.IO.Stream)
+  name.vb: WriteBlob(DbTransaction, String, Stream)
 - uid: Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream,System.String@)
   commentId: M:Tripous.Data.DbIni.ReadBlob(System.String,System.IO.Stream,System.String@)
   id: ReadBlob(System.String,System.IO.Stream,System.String@)
@@ -625,7 +940,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadBlob
     path: ../Tripous.Data/DbIni.cs
-    startLine: 202
+    startLine: 246
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -665,7 +980,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadBlob
     path: ../Tripous.Data/DbIni.cs
-    startLine: 233
+    startLine: 277
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -703,7 +1018,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ReadInstance
     path: ../Tripous.Data/DbIni.cs
-    startLine: 242
+    startLine: 286
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -741,7 +1056,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WriteInstance
     path: ../Tripous.Data/DbIni.cs
-    startLine: 269
+    startLine: 313
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -759,6 +1074,44 @@ items:
   nameWithType.vb: DbIni.WriteInstance(String, Object)
   fullName.vb: Tripous.Data.DbIni.WriteInstance(String, Object)
   name.vb: WriteInstance(String, Object)
+- uid: Tripous.Data.DbIni.WriteInstance(System.Data.Common.DbTransaction,System.String,System.Object)
+  commentId: M:Tripous.Data.DbIni.WriteInstance(System.Data.Common.DbTransaction,System.String,System.Object)
+  id: WriteInstance(System.Data.Common.DbTransaction,System.String,System.Object)
+  parent: Tripous.Data.DbIni
+  langs:
+  - csharp
+  - vb
+  name: WriteInstance(DbTransaction, string, object)
+  nameWithType: DbIni.WriteInstance(DbTransaction, string, object)
+  fullName: Tripous.Data.DbIni.WriteInstance(System.Data.Common.DbTransaction, string, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DbIni.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WriteInstance
+    path: ../Tripous.Data/DbIni.cs
+    startLine: 317
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Saves Instance to a DbIni blob inside a transaction.
+  example: []
+  syntax:
+    content: public void WriteInstance(DbTransaction Transaction, string Entry, object Instance)
+    parameters:
+    - id: Transaction
+      type: System.Data.Common.DbTransaction
+    - id: Entry
+      type: System.String
+    - id: Instance
+      type: System.Object
+    content.vb: Public Sub WriteInstance(Transaction As DbTransaction, Entry As String, Instance As Object)
+  overload: Tripous.Data.DbIni.WriteInstance*
+  nameWithType.vb: DbIni.WriteInstance(DbTransaction, String, Object)
+  fullName.vb: Tripous.Data.DbIni.WriteInstance(System.Data.Common.DbTransaction, String, Object)
+  name.vb: WriteInstance(DbTransaction, String, Object)
 references:
 - uid: Tripous.Data
   commentId: N:Tripous.Data
@@ -1161,6 +1514,51 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: System.Data.Common.DbTransaction
+  commentId: T:System.Data.Common.DbTransaction
+  parent: System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.common.dbtransaction
+  name: DbTransaction
+  nameWithType: DbTransaction
+  fullName: System.Data.Common.DbTransaction
+- uid: System.Data.Common
+  commentId: N:System.Data.Common
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data.Common
+  nameWithType: System.Data.Common
+  fullName: System.Data.Common
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  - name: .
+  - uid: System.Data.Common
+    name: Common
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.common
 - uid: Tripous.Data.DbIni.Delete*
   commentId: Overload:Tripous.Data.DbIni.Delete
   href: Tripous.Data.DbIni.html#Tripous_Data_DbIni_Delete_System_String_

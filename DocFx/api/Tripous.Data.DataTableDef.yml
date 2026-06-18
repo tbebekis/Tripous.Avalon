@@ -24,6 +24,7 @@ items:
   - Tripous.Data.DataTableDef.Check
   - Tripous.Data.DataTableDef.CheckIsValidDatabaseObjectIdentifier(System.String)
   - Tripous.Data.DataTableDef.CreateOrAlterTable(Tripous.Data.DataTableDef,Tripous.Data.DataTableDef)
+  - Tripous.Data.DataTableDef.CreateOrAlterTable(Tripous.Data.DbConnectionInfo,Tripous.Data.DataTableDef,Tripous.Data.DataTableDef)
   - Tripous.Data.DataTableDef.EnsureIdentifierValidLength(System.String)
   - Tripous.Data.DataTableDef.Fields
   - Tripous.Data.DataTableDef.GetDefText
@@ -226,17 +227,15 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateOrAlterTable
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 87
+    startLine: 86
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
   summary: >-
-    Creates or alters a specified table in the database.
+    Creates or alters a specified table in the default database connection.
 
 
-    <p>When only the new definition is passed a new database table is created.</p>
-
-    <p>When both the new and the old definitions are passed, the function compares their fields and adds, drops or alters columns accordingly.</p>
+    <p>Use the overload with a <xref href="Tripous.Data.DbConnectionInfo" data-throw-if-not-resolved="false"></xref> parameter to target a specific database connection.</p>
   example: []
   syntax:
     content: public static void CreateOrAlterTable(DataTableDef NewTableDef, DataTableDef OldTableDef = null)
@@ -246,6 +245,47 @@ items:
     - id: OldTableDef
       type: Tripous.Data.DataTableDef
     content.vb: Public Shared Sub CreateOrAlterTable(NewTableDef As DataTableDef, OldTableDef As DataTableDef = Nothing)
+  overload: Tripous.Data.DataTableDef.CreateOrAlterTable*
+- uid: Tripous.Data.DataTableDef.CreateOrAlterTable(Tripous.Data.DbConnectionInfo,Tripous.Data.DataTableDef,Tripous.Data.DataTableDef)
+  commentId: M:Tripous.Data.DataTableDef.CreateOrAlterTable(Tripous.Data.DbConnectionInfo,Tripous.Data.DataTableDef,Tripous.Data.DataTableDef)
+  id: CreateOrAlterTable(Tripous.Data.DbConnectionInfo,Tripous.Data.DataTableDef,Tripous.Data.DataTableDef)
+  parent: Tripous.Data.DataTableDef
+  langs:
+  - csharp
+  - vb
+  name: CreateOrAlterTable(DbConnectionInfo, DataTableDef, DataTableDef)
+  nameWithType: DataTableDef.CreateOrAlterTable(DbConnectionInfo, DataTableDef, DataTableDef)
+  fullName: Tripous.Data.DataTableDef.CreateOrAlterTable(Tripous.Data.DbConnectionInfo, Tripous.Data.DataTableDef, Tripous.Data.DataTableDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Schema/DataTableDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateOrAlterTable
+    path: ../Tripous.Data/Schema/DataTableDef.cs
+    startLine: 95
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Creates or alters a specified table in the specified database connection.
+
+
+    <p>When only the new definition is passed a new database table is created.</p>
+
+    <p>When both the new and the old definitions are passed, the function compares their fields and adds, drops or alters columns accordingly.</p>
+  example: []
+  syntax:
+    content: public static void CreateOrAlterTable(DbConnectionInfo ConnectionInfo, DataTableDef NewTableDef, DataTableDef OldTableDef = null)
+    parameters:
+    - id: ConnectionInfo
+      type: Tripous.Data.DbConnectionInfo
+    - id: NewTableDef
+      type: Tripous.Data.DataTableDef
+    - id: OldTableDef
+      type: Tripous.Data.DataTableDef
+    content.vb: Public Shared Sub CreateOrAlterTable(ConnectionInfo As DbConnectionInfo, NewTableDef As DataTableDef, OldTableDef As DataTableDef = Nothing)
   overload: Tripous.Data.DataTableDef.CreateOrAlterTable*
 - uid: Tripous.Data.DataTableDef.ToString
   commentId: M:Tripous.Data.DataTableDef.ToString
@@ -265,7 +305,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToString
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 317
+    startLine: 327
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -296,7 +336,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddUniqueConstraint
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 326
+    startLine: 336
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -338,7 +378,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Check
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 342
+    startLine: 352
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -366,7 +406,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetDefText
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 428
+    startLine: 441
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -400,7 +440,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddId
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 481
+    startLine: 494
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -446,7 +486,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddId
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 501
+    startLine: 514
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -490,7 +530,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddIntegerId
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 509
+    startLine: 522
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -528,7 +568,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddStringId
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 516
+    startLine: 529
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -568,7 +608,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddField
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 524
+    startLine: 537
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -612,7 +652,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddString
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 539
+    startLine: 552
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -656,7 +696,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddInteger
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 554
+    startLine: 567
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -698,7 +738,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddFloat
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 561
+    startLine: 574
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -740,7 +780,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDecimal
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 569
+    startLine: 582
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -788,7 +828,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDateTime
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 578
+    startLine: 591
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -830,7 +870,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDate
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 585
+    startLine: 598
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -872,7 +912,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddBoolean
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 592
+    startLine: 605
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -914,7 +954,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddBlob
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 599
+    startLine: 612
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -954,7 +994,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddTextBlob
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 606
+    startLine: 619
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -994,7 +1034,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Id
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 615
+    startLine: 628
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1025,7 +1065,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 619
+    startLine: 632
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1056,7 +1096,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TitleKey
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 631
+    startLine: 644
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1087,7 +1127,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Title
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 640
+    startLine: 653
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1122,7 +1162,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Fields
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 649
+    startLine: 662
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1153,7 +1193,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UniqueConstraints
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 654
+    startLine: 667
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1188,7 +1228,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IdentifierMaxLength
     path: ../Tripous.Data/Schema/DataTableDef.cs
-    startLine: 659
+    startLine: 672
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1573,6 +1613,13 @@ references:
   name: SplitForeignKey
   nameWithType: DataTableDef.SplitForeignKey
   fullName: Tripous.Data.DataTableDef.SplitForeignKey
+- uid: Tripous.Data.DbConnectionInfo
+  commentId: T:Tripous.Data.DbConnectionInfo
+  parent: Tripous.Data
+  href: Tripous.Data.DbConnectionInfo.html
+  name: DbConnectionInfo
+  nameWithType: DbConnectionInfo
+  fullName: Tripous.Data.DbConnectionInfo
 - uid: Tripous.Data.DataTableDef.CreateOrAlterTable*
   commentId: Overload:Tripous.Data.DataTableDef.CreateOrAlterTable
   href: Tripous.Data.DataTableDef.html#Tripous_Data_DataTableDef_CreateOrAlterTable_Tripous_Data_DataTableDef_Tripous_Data_DataTableDef_

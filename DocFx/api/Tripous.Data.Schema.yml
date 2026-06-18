@@ -251,7 +251,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Domain
     path: ../Tripous.Data/Schema/Schema.cs
-    startLine: 113
+    startLine: 114
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -286,7 +286,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConnectionName
     path: ../Tripous.Data/Schema/Schema.cs
-    startLine: 117
+    startLine: 118
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -317,7 +317,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Versions
     path: ../Tripous.Data/Schema/Schema.cs
-    startLine: 121
+    startLine: 122
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

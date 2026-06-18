@@ -449,7 +449,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Setup
     path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
-    startLine: 126
+    startLine: 127
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -482,7 +482,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessKeyDown
     path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
-    startLine: 138
+    startLine: 139
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -522,7 +522,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
-    startLine: 148
+    startLine: 149
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -553,7 +553,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateFormContext
     path: ../Tripous.Desktop/CommandTreeViewForm.axaml.cs
-    startLine: 159
+    startLine: 160
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop

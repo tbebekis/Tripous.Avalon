@@ -66,7 +66,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateFilterInfo
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 175
+    startLine: 205
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -101,7 +101,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 189
+    startLine: 221
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -136,7 +136,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateFilterControls
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 199
+    startLine: 231
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -168,7 +168,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CollectValues_OLD
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 268
+    startLine: 302
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -199,7 +199,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CollectValues
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 321
+    startLine: 364
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -230,7 +230,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetWhere
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 364
+    startLine: 416
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -261,7 +261,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Clear
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 373
+    startLine: 425
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -289,7 +289,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FilterInfos
     path: ../Tripous.Desktop/ListUi/SqlFilterPanelHandler.cs
-    startLine: 397
+    startLine: 451
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop

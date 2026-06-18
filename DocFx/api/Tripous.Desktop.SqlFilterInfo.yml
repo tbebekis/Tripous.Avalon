@@ -7,6 +7,7 @@ items:
   children:
   - Tripous.Desktop.SqlFilterInfo.#ctor
   - Tripous.Desktop.SqlFilterInfo.BoolOpCombo
+  - Tripous.Desktop.SqlFilterInfo.BooleanValueCombo
   - Tripous.Desktop.SqlFilterInfo.ConditionOpCombo
   - Tripous.Desktop.SqlFilterInfo.Control
   - Tripous.Desktop.SqlFilterInfo.Control2
@@ -232,6 +233,37 @@ items:
       type: Avalonia.Controls.ComboBox
     content.vb: Public Property ConditionOpCombo As ComboBox
   overload: Tripous.Desktop.SqlFilterInfo.ConditionOpCombo*
+- uid: Tripous.Desktop.SqlFilterInfo.BooleanValueCombo
+  commentId: P:Tripous.Desktop.SqlFilterInfo.BooleanValueCombo
+  id: BooleanValueCombo
+  parent: Tripous.Desktop.SqlFilterInfo
+  langs:
+  - csharp
+  - vb
+  name: BooleanValueCombo
+  nameWithType: SqlFilterInfo.BooleanValueCombo
+  fullName: Tripous.Desktop.SqlFilterInfo.BooleanValueCombo
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/ListUi/SqlFilterInfo.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BooleanValueCombo
+    path: ../Tripous.Desktop/ListUi/SqlFilterInfo.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Gets or sets the boolean value combo box.
+  example: []
+  syntax:
+    content: public ComboBox BooleanValueCombo { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.ComboBox
+    content.vb: Public Property BooleanValueCombo As ComboBox
+  overload: Tripous.Desktop.SqlFilterInfo.BooleanValueCombo*
 references:
 - uid: Tripous.Desktop
   commentId: N:Tripous.Desktop
@@ -701,3 +733,9 @@ references:
   name: ConditionOpCombo
   nameWithType: SqlFilterInfo.ConditionOpCombo
   fullName: Tripous.Desktop.SqlFilterInfo.ConditionOpCombo
+- uid: Tripous.Desktop.SqlFilterInfo.BooleanValueCombo*
+  commentId: Overload:Tripous.Desktop.SqlFilterInfo.BooleanValueCombo
+  href: Tripous.Desktop.SqlFilterInfo.html#Tripous_Desktop_SqlFilterInfo_BooleanValueCombo
+  name: BooleanValueCombo
+  nameWithType: SqlFilterInfo.BooleanValueCombo
+  fullName: Tripous.Desktop.SqlFilterInfo.BooleanValueCombo

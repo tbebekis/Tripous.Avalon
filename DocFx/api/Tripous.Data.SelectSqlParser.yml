@@ -30,14 +30,19 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectSqlParser
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 14
+    startLine: 16
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
   summary: >-
     A simple SELECT Sql parser. It parses a SELECT statement into its constituents parts.
 
-    The SELECT statement can contain nested sub-SELECTs or column names in double quotes or angle brackets.
+
+    <p>NOTE: This is not a full SQL parser.</p>
+
+    <p>It supports nested SELECT statements inside parentheses because it ignores clause keywords while inside parentheses.</p>
+
+    <p>It also skips string literals, comments, double quoted identifiers, bracketed identifiers, and backtick quoted identifiers.</p>
   example: []
   syntax:
     content: public class SelectSqlParser
@@ -71,7 +76,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 217
+    startLine: 219
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -105,7 +110,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Execute
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 227
+    startLine: 229
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -145,7 +150,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Parse
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 236
+    startLine: 238
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -179,7 +184,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Clear
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 249
+    startLine: 251
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -207,7 +212,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToString
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 261
+    startLine: 263
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -238,7 +243,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Select
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 279
+    startLine: 281
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -269,7 +274,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: From
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 287
+    startLine: 289
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -300,7 +305,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Where
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 295
+    startLine: 297
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -331,7 +336,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GroupBy
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 303
+    startLine: 305
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -362,7 +367,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Having
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 311
+    startLine: 313
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -393,7 +398,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OrderBy
     path: ../Tripous.Data/SelectSqlParser.cs
-    startLine: 319
+    startLine: 321
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

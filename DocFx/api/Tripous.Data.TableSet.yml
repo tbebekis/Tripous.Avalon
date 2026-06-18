@@ -83,7 +83,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/TableSet.cs
-    startLine: 244
+    startLine: 237
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -127,7 +127,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSelect
     path: ../Tripous.Data/TableSet.cs
-    startLine: 273
+    startLine: 266
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -163,7 +163,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSelect
     path: ../Tripous.Data/TableSet.cs
-    startLine: 279
+    startLine: 272
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -207,7 +207,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSave
     path: ../Tripous.Data/TableSet.cs
-    startLine: 310
+    startLine: 303
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -235,7 +235,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSave
     path: ../Tripous.Data/TableSet.cs
-    startLine: 314
+    startLine: 307
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -266,7 +266,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListCancel
     path: ../Tripous.Data/TableSet.cs
-    startLine: 323
+    startLine: 316
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -294,7 +294,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListCancel
     path: ../Tripous.Data/TableSet.cs
-    startLine: 327
+    startLine: 320
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -325,7 +325,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Load
     path: ../Tripous.Data/TableSet.cs
-    startLine: 334
+    startLine: 327
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -365,7 +365,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Delete
     path: ../Tripous.Data/TableSet.cs
-    startLine: 378
+    startLine: 360
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -403,7 +403,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Commit
     path: ../Tripous.Data/TableSet.cs
-    startLine: 436
+    startLine: 422
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -439,7 +439,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AcceptChanges
     path: ../Tripous.Data/TableSet.cs
-    startLine: 492
+    startLine: 482
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -467,7 +467,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RejectChanges
     path: ../Tripous.Data/TableSet.cs
-    startLine: 496
+    startLine: 486
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -495,7 +495,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasChanges
     path: ../Tripous.Data/TableSet.cs
-    startLine: 500
+    startLine: 490
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -525,7 +525,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PostChanges
     path: ../Tripous.Data/TableSet.cs
-    startLine: 505
+    startLine: 495
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -557,7 +557,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessEmpty
     path: ../Tripous.Data/TableSet.cs
-    startLine: 516
+    startLine: 506
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -589,7 +589,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessInsert
     path: ../Tripous.Data/TableSet.cs
-    startLine: 539
+    startLine: 529
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -621,7 +621,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ProcessCancel
     path: ../Tripous.Data/TableSet.cs
-    startLine: 566
+    startLine: 556
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -653,7 +653,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CommitBatch
     path: ../Tripous.Data/TableSet.cs
-    startLine: 581
+    startLine: 571
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -692,7 +692,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleName
     path: ../Tripous.Data/TableSet.cs
-    startLine: 689
+    startLine: 685
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -728,7 +728,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Store
     path: ../Tripous.Data/TableSet.cs
-    startLine: 693
+    startLine: 689
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -759,7 +759,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Transaction
     path: ../Tripous.Data/TableSet.cs
-    startLine: 697
+    startLine: 693
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -790,7 +790,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastCommitedId
     path: ../Tripous.Data/TableSet.cs
-    startLine: 702
+    startLine: 698
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -821,7 +821,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HideUntitledDisplayLabels
     path: ../Tripous.Data/TableSet.cs
-    startLine: 706
+    startLine: 702
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -852,7 +852,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TransactionStageDelete
     path: ../Tripous.Data/TableSet.cs
-    startLine: 712
+    startLine: 708
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -881,7 +881,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TransactionStageCommit
     path: ../Tripous.Data/TableSet.cs
-    startLine: 716
+    startLine: 712
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

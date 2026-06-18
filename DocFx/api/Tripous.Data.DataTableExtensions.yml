@@ -996,7 +996,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CopyExactState
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 425
+    startLine: 417
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1030,7 +1030,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToTable
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 436
+    startLine: 428
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1071,7 +1071,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetDeletedRows
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 464
+    startLine: 458
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1113,7 +1113,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SplitToChunks
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 473
+    startLine: 467
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1152,7 +1152,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddNewRow
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 489
+    startLine: 483
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1186,7 +1186,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetColumnCaptionsFrom
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 500
+    startLine: 494
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1228,7 +1228,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetColumnsVisible
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 527
+    startLine: 521
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1265,7 +1265,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetKeyValuesList
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 541
+    startLine: 535
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1318,7 +1318,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsStringField
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 595
+    startLine: 589
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1357,7 +1357,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ToObservableCollection
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 603
+    startLine: 597
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1391,7 +1391,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Locate
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 608
+    startLine: 602
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1434,7 +1434,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Locate
     path: ../Tripous.Data/Extensions/DataTableExtensions.cs
-    startLine: 681
+    startLine: 678
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

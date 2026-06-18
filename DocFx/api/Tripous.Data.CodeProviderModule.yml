@@ -37,6 +37,7 @@ items:
   - Tripous.Data.DataModule.fIsEditing
   - Tripous.Data.DataModule.fIsDeleting
   - Tripous.Data.DataModule.fIsCommiting
+  - Tripous.Data.DataModule.fStocks
   - Tripous.Data.DataModule.fVariables
   - Tripous.Data.DataModule.TableSet
   - Tripous.Data.DataModule.TableSet_TransactionStageDelete(System.Object,Tripous.Data.TransactionEventArgs)
@@ -226,6 +227,13 @@ references:
   name: fIsCommiting
   nameWithType: DataModule.fIsCommiting
   fullName: Tripous.Data.DataModule.fIsCommiting
+- uid: Tripous.Data.DataModule.fStocks
+  commentId: F:Tripous.Data.DataModule.fStocks
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_fStocks
+  name: fStocks
+  nameWithType: DataModule.fStocks
+  fullName: Tripous.Data.DataModule.fStocks
 - uid: Tripous.Data.DataModule.fVariables
   commentId: F:Tripous.Data.DataModule.fVariables
   parent: Tripous.Data.DataModule
