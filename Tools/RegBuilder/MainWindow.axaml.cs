@@ -3,8 +3,10 @@ namespace RegBuilder;
 public partial class MainWindow : Window
 {
     bool IsWindowInitialized = false;
-    AppSettings Settings = new();
-    string OutputFolderPath = Path.Combine(AppContext.BaseDirectory, "Output");
+    RegBuilderSettings Settings = new();
+    RegBuilderProject LastGeneratedProject;
+    readonly string SettingsFilePath = Path.Combine(AppContext.BaseDirectory, "AppSettings.json");
+    readonly string WorkingFolderPath = Path.Combine(AppContext.BaseDirectory, "Output");
     
     // ● private
     void WindowInitialize()
@@ -15,16 +17,18 @@ public partial class MainWindow : Window
         //FilePath = Path.GetFullPath(FilePath);
         //LogBox.AppendLine(FilePath);
         
-        if (!Directory.Exists(OutputFolderPath))
-            Directory.CreateDirectory(OutputFolderPath);
+        if (!Directory.Exists(WorkingFolderPath))
+            Directory.CreateDirectory(WorkingFolderPath);
 
-        btnOpenOutputFolder.Click += (sender, args) => ShowOutputFolder();
+        btnOpenWorkingFolder.Click += (sender, args) => ShowWorkingFolder();
+        btnCopyToOutputFolder.Click += (sender, args) => CopyToOutputFolder();
         btnExecute.Click += (sender, args) => Execute();    
         btnAdd.Click += async (sender, args) => await Add();    
         btnEdit.Click += async (sender, args) => await Edit();
         btnDelete.Click += async (sender, args) => await Delete();
         
         btnExecute.IsEnabled = false;
+        btnCopyToOutputFolder.IsEnabled = false;
  
         Ui.Post(() =>
         {
@@ -50,7 +54,7 @@ public partial class MainWindow : Window
         edtProjectLog.Text = $"Executing project: {Project.Name}. Please wait...";
         LogBox.AppendLine(edtProjectLog.Text);
 
-        SchemaParserResult ParserResults = SchemaRegistrationBuilder.Parse(Project, OutputFolderPath);
+        SchemaParserResult ParserResults = SchemaRegistrationBuilder.Parse(Project, WorkingFolderPath);
         
         StringBuilder SB = new();
         
@@ -79,12 +83,53 @@ public partial class MainWindow : Window
         edtLocators.Text = ParserResults.LocatorDefsSourceCode ?? string.Empty;
         edtCodeProviders.Text = ParserResults.CodeProviderDefsSourceCode ?? string.Empty;
         edtSql.Text = ParserResults.SchemaSql ?? string.Empty;
- 
+        LastGeneratedProject = Project;
+        btnCopyToOutputFolder.IsEnabled = !ParserResults.HasErrors;
     }
-    void ShowOutputFolder()
+    void ShowWorkingFolder()
     {        
-        if (Directory.Exists(OutputFolderPath))
-        Sys.OpenFileExplorer(OutputFolderPath);
+        if (Directory.Exists(WorkingFolderPath))
+            Sys.OpenFileExplorer(WorkingFolderPath);
+    }
+    void CopyToOutputFolder()
+    {
+        try
+        {
+            RegBuilderProject Project = cboProjects.SelectedItem as RegBuilderProject;
+            if (Project == null)
+            {
+                LogBox.AppendLine("No project selected.");
+                return;
+            }
+            if (!ReferenceEquals(Project, LastGeneratedProject))
+            {
+                LogBox.AppendLine("Execute the selected project before copying generated files.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Project.OutputFolderPath))
+            {
+                LogBox.AppendLine("No output folder configured for project: " + Project.Name);
+                return;
+            }
+
+            string OutputFolderPath = ResolvePath(Project.OutputFolderPath);
+            Directory.CreateDirectory(OutputFolderPath);
+
+            foreach (string FileName in SchemaRegistrationBuilder.GetGeneratedSourceFileNames(Project.SchemaVersion))
+            {
+                string SourceFilePath = Path.Combine(WorkingFolderPath, FileName);
+                string TargetFilePath = Path.Combine(OutputFolderPath, FileName);
+                if (!File.Exists(SourceFilePath))
+                    throw new FileNotFoundException("Generated source file was not found.", SourceFilePath);
+                File.Copy(SourceFilePath, TargetFilePath, true);
+            }
+
+            LogBox.AppendLine($"Copied generated files: {Project.Name} -> {OutputFolderPath}");
+        }
+        catch (Exception Ex)
+        {
+            LogBox.AppendLine("Copy failed: " + Ex.Message);
+        }
     }
     async Task Add()
     {
@@ -92,8 +137,10 @@ public partial class MainWindow : Window
         RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(RegBuilderProject, this);
         if (BoxData.Result)
         {
-            Settings.Projects.Add(BoxData.RegBuilderProject);
-            Settings.Save();
+            List<RegBuilderProject> Projects = Settings.Projects.ToList();
+            Projects.Add(BoxData.RegBuilderProject);
+            Settings.Projects = Projects.ToArray();
+            Settings.Save(SettingsFilePath);
             
             cboProjects.SelectedItem = RegBuilderProject;
         }
@@ -106,7 +153,7 @@ public partial class MainWindow : Window
             RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(RegBuilderProject, this);
             if (BoxData.Result)
             {
-                Settings.Save();
+                Settings.Save(SettingsFilePath);
             }
         }
     }
@@ -118,8 +165,10 @@ public partial class MainWindow : Window
             bool Flag = await MessageBox.YesNo($"Delete the selected project: {RegBuilderProject.Name}?", this);
             if (Flag)
             {
-                Settings.Projects.Remove(RegBuilderProject);
-                Settings.Save();
+                List<RegBuilderProject> Projects = Settings.Projects.ToList();
+                Projects.Remove(RegBuilderProject);
+                Settings.Projects = Projects.ToArray();
+                Settings.Save(SettingsFilePath);
             }
         }
     }
@@ -153,12 +202,14 @@ public partial class MainWindow : Window
     }
     void LoadSettings()
     {
-        Settings.Load();
+        Settings = RegBuilderSettings.Load(SettingsFilePath);
         cboProjects.ItemsSource = Settings.Projects;
 
-        if (Settings.Projects.Count > 0)
+        if (Settings.Projects.Length > 0)
             cboProjects.SelectedIndex = 0;
     }
+    string ResolvePath(string FilePath)
+        => Path.GetFullPath(FilePath, AppContext.BaseDirectory);
 
     // ● overrides
     protected override void OnOpened(EventArgs e)

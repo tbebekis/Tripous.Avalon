@@ -1,190 +1,208 @@
 # Tripous.Avalon
 
-Tripous.Avalon is a cross-platform .NET application framework for building structured desktop business applications.
+Tripous.Avalon is a .NET framework for building data-centric applications, business systems, desktop applications and service-ready data layers.
 
-It combines the power of Avalonia UI with a metadata-driven architecture focused on data management, business modules, automatic user interface generation, and rapid application development.
+It combines SQL-first data access, database metadata, application descriptors, reusable data modules, generated or manual application registration, and an Avalonia-based desktop layer.
 
-The project is the latest evolution of ideas and technologies that have been developed and refined over many years through several generations of the Tripous framework.
+Documentation:
 
-**Documentation**: can be found at https://tbebekis.github.io/Tripous.Avalon/
+- https://tbebekis.github.io/Tripous.Avalon/
 
 ## What Is Tripous?
 
-Tripous is not a UI toolkit.
-
 Tripous is an application framework.
 
-Its goal is to provide the infrastructure required by data-centric desktop applications so developers can focus on business logic instead of repeatedly implementing the same application plumbing.
+It is not just a UI toolkit and it is not an ORM.
 
-The framework provides:
+The framework provides infrastructure commonly needed by business applications:
 
-* Metadata-based application definition
-* Declarative database schema registration
-* Data modules and business modules
-* Automatic form generation
-* Lookup and locator systems
-* SQL-oriented data access
-* Master-detail data management
-* Business document workflows
-* Cross-platform desktop deployment
+- Database schema registration.
+- SQL-oriented data access.
+- Metadata descriptors and registries.
+- Data modules.
+- Modules, tables, fields and forms.
+- Lookups and locators.
+- Select definitions and filters.
+- Code providers and number series.
+- Master/detail data management.
+- Application configuration.
+- Logging infrastructure.
+- Avalonia desktop application infrastructure.
 
-The framework is designed primarily for applications such as:
+The goal is to let developers describe the application structure explicitly, while keeping full control over business logic and application behavior.
 
-* ERP systems
-* CRM systems
-* Inventory management
-* Accounting applications
-* Internal business tools
-* Administrative systems
-* Data-entry intensive applications
+## Main Libraries
 
-## Why Avalonia?
+The repository contains the following main framework libraries.
 
-Avalonia UI provides a modern cross-platform desktop foundation for .NET applications.
+- `Tripous`: Core utilities, configuration, type services, collections, descriptors and shared infrastructure.
+- `Tripous.Data`: Database access, schema execution, SQL providers, data modules, table sets, lookups, locators and data descriptors.
+- `Tripous.Logging`: Logging infrastructure and diagnostics.
+- `Tripous.Desktop`: Avalonia-based desktop layer with forms, menus, toolbars, commands, data forms and application UI infrastructure.
 
-Tripous.Avalon uses Avalonia as its presentation layer while providing a much higher-level application architecture above it.
+## Application Declaration
 
-In simple terms:
+Tripous applications are built from descriptors.
 
-Avalonia provides windows, controls, layouts, styling and rendering.
+Descriptors define:
 
-Tripous provides application structure, metadata, business modules, data modules, automatic forms, lookups, locators, database integration and workflow infrastructure.
+- Modules.
+- Tables and fields.
+- Forms.
+- Lookups.
+- Locators.
+- Select definitions.
+- Code providers.
+- Configuration properties.
 
-The relationship is similar to how traditional enterprise frameworks were built on top of desktop UI frameworks in the past.
+There are two declaration paths.
 
-## Design Philosophy
+- Manual declaration: The developer writes the descriptors directly in C#.
+- Automatic declaration: The Registration Builder reads schema files and metadata comments, then generates the same descriptors automatically.
 
-The framework follows several core principles:
+Both paths use the same runtime model.
 
-* Simplicity over complexity
-* Explicit behavior over hidden magic
-* SQL as a first-class citizen
-* Metadata over repetitive code
-* Reusability through descriptors and registries
-* Productivity without sacrificing control
-* Long-term maintainability
-
-Tripous intentionally avoids excessive abstraction and favors deterministic behavior that can be understood, debugged and extended.
-
-## Architecture Overview
-
-The framework is organized into several major layers.
-
-### Tripous
-
-Core utilities, descriptors, registries, infrastructure services and common functionality.
-
-### Tripous.Data
-
-Database access, schema registration, SQL generation, data modules, lookups, locators and data-related services.
-
-### Tripous.Logging
-
-Logging infrastructure and diagnostics.
-
-### Tripous.Desktop
-
-Avalonia-based desktop framework including forms, controls, application shell, menus, toolbars, navigation and automatic UI generation.
-
-## Metadata-Driven Development
-
-One of the central ideas behind Tripous is that applications should be described declaratively whenever possible.
-
-Database tables, modules, forms, lookups, locators and many other application elements are registered through metadata descriptors.
-
-This allows large parts of an application to be generated automatically while remaining fully customizable.
-
-The result is a development model that combines the productivity of RAD tools with the flexibility of modern .NET development.
-
-## Multi-RDBMS Support
-
-Tripous provides a database abstraction layer that allows the same application to run on multiple relational database management systems.
-
-Currently supported database engines are:
-
-* Microsoft SQL Server
-* MySQL
-* PostgreSQL
-* Firebird SQL
-* Oracle Database
-* SQLite
-
-Applications are developed against a common framework API while database-specific SQL generation is handled internally by provider implementations.
-
-This allows developers to choose the database engine that best fits their requirements without changing application code.
-
-## Database-Neutral Schema Definition
-
-Tripous includes a database-neutral schema definition system based on standard CREATE TABLE statements and metadata annotations.
-
-Instead of maintaining different DDL scripts for different database engines, developers define the schema once using a neutral SQL syntax.
-
-For example:
-
-```sql
-CREATE TABLE Customer (
-    Id @NVARCHAR(40) @NOT_NULL primary key,
-    Name @NVARCHAR(96) @NOT_NULL
-)
-```
-
-The framework translates the schema into the appropriate SQL dialect for the selected database engine.
-
-A single schema definition can therefore be used unchanged with SQL Server, MySQL, PostgreSQL, Firebird, Oracle and SQLite.
-
-## Automatic Registration and Database Generation
-
-Tripous includes the Registration Builder tool.
-
-The Registration Builder processes schema definition files and generates:
-
-* Database creation scripts
-* Table registrations
-* Module definitions
-* Form definitions
-* Lookup registrations
-* Locator registrations
-* Select definitions
-
-The generated registrations are exactly the same declarations that could be written manually.
-
-This means that manual registration and automatic registration are not different architectures. The Registration Builder simply automates the creation of standard Tripous declarations.
-
-The result is a development model that combines productivity with full developer control.
-
-
-## Documentation
-
-Project documentation is available through the DocFX documentation site.
-
-The documentation includes:
-
-* Conceptual documentation
-* Architecture guides
-* Framework reference
-* API documentation
-* Tutorials and examples
+The Registration Builder is not a separate architecture. It writes the declarations a developer could otherwise write by hand.
 
 ## Sample Applications
 
-The repository contains several sample applications demonstrating different aspects of the framework, from simple desktop applications to larger business-oriented systems.
+The `SampleApps` folder contains progressively larger samples.
 
-The TinyERP sample application demonstrates how a complete business application can be built using the framework.
+- `01-hello-tripous`: Smallest desktop shell. No database.
+- `02-notes`: First SQLite-backed module and form.
+- `03-todo`: Lookups, filters, configuration and a more realistic startup flow.
+- `04-mini-crm`: Main manual declaration sample with master/detail forms, locators, lookups and code providers.
+- `05-password-manager`: Services, encrypted fields, import/export and vault locking. Educational sample only.
+- `TinyERP`: Larger multi-project ERP-style sample using the Registration Builder and generated declarations.
 
-## Project Status
+Sample applications are educational material, not production applications.
 
-Tripous.Avalon is an active long-term project.
+## TinyERP
 
-The framework is currently focused on:
+`SampleApps/TinyERP` is the largest sample.
 
-* Framework stabilization
-* Documentation
-* Sample applications
-* Automated testing
-* Public releases
+It demonstrates:
+
+- Multi-project application structure.
+- Automatic registration with the Registration Builder.
+- Schema metadata comments.
+- Generated modules, forms, lookups, locators, select definitions and code providers.
+- Sales and purchase documents.
+- Stock documents.
+- Journal entries.
+- Finance movements and balances.
+- Customer receipts and supplier payments.
+- Unit tests and UI-oriented workflow tests.
+
+See:
+
+- `SampleApps/TinyERP/ReadMe.md`
+
+## Documentation Project
+
+The documentation site is under:
+
+- `DocFx`
+
+Important files:
+
+- `DocFx/index.md`
+- `DocFx/toc.yml`
+- `DocFx/docs/toc.yml`
+- `DocFx/docfx.json`
+
+Conceptual documentation lives under:
+
+- `DocFx/docs`
+
+Generated API documentation is produced by DocFX from XML comments.
+
+Do not manually edit generated output under:
+
+- `DocFx/_site`
+- `DocFx/api`
+
+## Tools
+
+The `Tools` folder contains developer tools.
+
+The most important tool is the Registration Builder console.
+
+Useful command:
+
+```text
+dotnet run --project Tools/RegBuilderConsole -- --project tERP.Version2
+```
+
+The tool reads configured schema files and generates Tripous registry code.
+
+## Database Support
+
+Tripous uses SQL providers and database-neutral schema tokens.
+
+Supported relational database engines include:
+
+- SQLite.
+- Microsoft SQL Server.
+- MySQL.
+- PostgreSQL.
+- Firebird SQL.
+- Oracle Database.
+
+Schema SQL can use provider-neutral tokens such as:
+
+- `@NVARCHAR(size)`
+- `@DATE`
+- `@DATE_TIME`
+- `@BOOL`
+- `@NBLOB_TEXT`
+- `@NOT_NULL`
+- `@NULL`
+
+Providers translate those tokens to the target RDBMS dialect.
+
+## Development Notes
+
+The solution file is:
+
+- `Tripous.Avalon.sln`
+
+Useful folders:
+
+- `Tripous`
+- `Tripous.Data`
+- `Tripous.Logging`
+- `Tripous.Desktop`
+- `SampleApps`
+- `Tools`
+- `UnitTests`
+- `DocFx`
+
+For Tripous.Desktop-focused work, a scoped build is usually enough.
+
+```text
+dotnet build Tripous.Desktop/Tripous.Desktop.csproj
+```
+
+Do not edit generated Registration Builder output directly.
+
+For tERP schema changes, edit the existing schema files and regenerate registry files.
+
+## Current Focus
+
+Current project focus:
+
+- Framework stabilization.
+- Conceptual documentation.
+- Sample applications.
+- Registration Builder workflow.
+- XML documentation cleanup.
+- Automated tests.
 
 ## License
 
 Tripous.Avalon is licensed under the Tripous.Avalon Community License v1.0.
 
-See LICENSE.txt for details.
+See:
+
+- `LICENSE.txt`

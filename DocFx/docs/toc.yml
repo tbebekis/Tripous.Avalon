@@ -20,6 +20,8 @@
   href: sample-applications.md
 - name: Screenshots
   href: screenshots.md
+- name: Generated vs Manual Registration
+  href: generated-vs-manual-registration.md
 - name: Manual Application Declaration
   items:
   - name: Overview
@@ -48,16 +50,38 @@
   items:
   - name: Overview
     href: automatic-declaration/overview.md
-  - name: RegBuilder
-    href: automatic-declaration/reg-builder.md
   - name: Schema.sql Files
     href: automatic-declaration/schema-sql-files.md
   - name: Metadata Comments
     href: automatic-declaration/metadata-comments.md
-  - name: Generated Declarations
-    href: automatic-declaration/generated-declarations.md
+  - name: RegBuilder Cheat Sheet
+    href: automatic-declaration/reg-builder-cheat-sheet.md
+  - name: Registration Builder
+    href: automatic-declaration/reg-builder.md
+  - name: Generation Workflow
+    href: automatic-declaration/generation-workflow.md
+  - name: Generated Artifacts
+    href: automatic-declaration/generated-artifacts.md
+  - name: Generated Schema Versions
+    href: automatic-declaration/generated-schema-versions.md
+  - name: Generated Registry Versions
+    href: automatic-declaration/generated-registry-versions.md
+  - name: Generated Modules
+    href: automatic-declaration/generated-modules.md
+  - name: Generated Forms
+    href: automatic-declaration/generated-forms.md
+  - name: Generated Lookups
+    href: automatic-declaration/generated-lookups.md
+  - name: Generated Locators
+    href: automatic-declaration/generated-locators.md
+  - name: Generated Select Definitions
+    href: automatic-declaration/generated-select-definitions.md
+  - name: Generated Code Providers
+    href: automatic-declaration/generated-code-providers.md
   - name: Manual Extensions After Generation
     href: automatic-declaration/manual-extensions-after-generation.md
+  - name: Best Practices
+    href: automatic-declaration/best-practices.md
 - name: Tripous Core Library
   items:
   - name: Overview

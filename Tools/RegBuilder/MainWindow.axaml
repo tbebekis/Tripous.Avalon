@@ -33,7 +33,8 @@
                 <ComboBox Name="cboProjects" Width="200" PlaceholderText="Select Project..."/>
                 
                 <Button Name="btnExecute" Content="Execute" Width="100" HorizontalContentAlignment="Center"/>
-                <Button Name="btnOpenOutputFolder" Content="Open Output Folder" HorizontalContentAlignment="Center"/>
+                <Button Name="btnOpenWorkingFolder" Content="Open Working Folder" HorizontalContentAlignment="Center"/>
+                <Button Name="btnCopyToOutputFolder" Content="Copy To Output Folder" HorizontalContentAlignment="Center"/>
             </WrapPanel>
         </Border>
 

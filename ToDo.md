@@ -6,6 +6,8 @@
 - Add conceptual documentation for Tripous.Avalon architecture and main subsystems.
 - Document data-module rules and UI-layer boundaries.
 - Document `Tripous.Desktop` form, grid, locator, and toolbar infrastructure.
+- Consider RegBuilder `ListFields:` metadata for controlling generated list SELECT columns.
+- If `ListFields:` is added, require `Id`, allow top fields, enum display columns and join aliases, and require `FilterFields` to be a subset of final list fields.
 - Later apply XML documentation cleanup to tERP types.
 
 ## User Interface Preferences

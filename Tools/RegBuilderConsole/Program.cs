@@ -8,8 +8,6 @@
 
 using System.Diagnostics;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Tripous;
 using Tripous.Data;
 
@@ -40,20 +38,10 @@ static public class Program
     /// <summary>
     /// Loads the console configuration.
     /// </summary>
-    static AppSettings LoadSettings()
+    static RegBuilderSettings LoadSettings()
     {
         string FilePath = Path.Combine(AppContext.BaseDirectory, "AppSettings.json");
-        if (!File.Exists(FilePath))
-            throw new FileNotFoundException("AppSettings.json was not found.", FilePath);
-
-        JsonSerializerOptions Options = new()
-        {
-            PropertyNameCaseInsensitive = true
-        };
-        Options.Converters.Add(new JsonStringEnumConverter());
-
-        AppSettings Result = JsonSerializer.Deserialize<AppSettings>(File.ReadAllText(FilePath), Options);
-        return Result ?? throw new InvalidOperationException("AppSettings.json is empty or invalid.");
+        return RegBuilderSettings.Load(FilePath);
     }
     /// <summary>
     /// Resolves a configured path relative to the application folder.
@@ -66,7 +54,7 @@ static public class Program
     /// <summary>
     /// Builds all configured projects.
     /// </summary>
-    static void BuildProjects(AppSettings Settings, string Configuration)
+    static void BuildProjects(RegBuilderSettings Settings, string Configuration)
     {
         foreach (string ConfiguredPath in Settings.BuildProjectFilePaths)
         {
@@ -91,7 +79,7 @@ static public class Program
     /// <summary>
     /// Loads and registers configured assemblies.
     /// </summary>
-    static void LoadAssemblies(AppSettings Settings, string Configuration)
+    static void LoadAssemblies(RegBuilderSettings Settings, string Configuration)
     {
         TypeStore.RegisterLoadedAssemblies();
 
@@ -109,7 +97,7 @@ static public class Program
     /// <summary>
     /// Generates and copies the source files of a configured project.
     /// </summary>
-    static void GenerateProject(RegBuilderConsoleProject Project, string Configuration)
+    static void GenerateProject(RegBuilderProject Project, string Configuration)
     {
         RegBuilderProject BuilderProject = new()
         {
@@ -134,7 +122,7 @@ static public class Program
 
         string OutputFolderPath = ResolvePath(Project.OutputFolderPath, Configuration);
         Directory.CreateDirectory(OutputFolderPath);
-        foreach (string FileName in GetGeneratedFileNames(Project.SchemaVersion))
+        foreach (string FileName in SchemaRegistrationBuilder.GetGeneratedSourceFileNames(Project.SchemaVersion))
         {
             string SourceFilePath = Path.Combine(TempFolderPath, FileName);
             string TargetFilePath = Path.Combine(OutputFolderPath, FileName);
@@ -143,24 +131,6 @@ static public class Program
 
         Console.WriteLine($"Generated: {Project.Name} -> {OutputFolderPath}");
     }
-    /// <summary>
-    /// Returns the generated source file names for a schema version.
-    /// </summary>
-    static string[] GetGeneratedFileNames(int SchemaVersion)
-    {
-        string Prefix = $"RegistryVersion{SchemaVersion}";
-        return
-        [
-            $"SchemaVersion{SchemaVersion}.cs",
-            $"{Prefix}.cs",
-            $"{Prefix}.Modules.cs",
-            $"{Prefix}.Forms.cs",
-            $"{Prefix}.Lookups.cs",
-            $"{Prefix}.Locators.cs",
-            $"{Prefix}.CodeProviders.cs"
-        ];
-    }
-
     // ● static public
     /// <summary>
     /// Application entry point.
@@ -180,18 +150,18 @@ static public class Program
             string ProjectName = GetOptionValue(Args, "--project");
             bool Build = !Args.Any(Value => string.Equals(Value, "--no-build", StringComparison.OrdinalIgnoreCase));
 
-            AppSettings Settings = LoadSettings();
+            RegBuilderSettings Settings = LoadSettings();
             if (Build)
                 BuildProjects(Settings, Configuration);
             LoadAssemblies(Settings, Configuration);
 
-            RegBuilderConsoleProject[] Projects = string.IsNullOrWhiteSpace(ProjectName)
+            RegBuilderProject[] Projects = string.IsNullOrWhiteSpace(ProjectName)
                 ? Settings.Projects
                 : Settings.Projects.Where(Project => string.Equals(Project.Name, ProjectName, StringComparison.OrdinalIgnoreCase)).ToArray();
             if (Projects.Length == 0)
                 throw new InvalidOperationException($"RegBuilder project was not found: {ProjectName}");
 
-            foreach (RegBuilderConsoleProject Project in Projects)
+            foreach (RegBuilderProject Project in Projects)
                 GenerateProject(Project, Configuration);
 
             Console.WriteLine("RegBuilderConsole completed.");

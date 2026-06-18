@@ -39,6 +39,11 @@
                 </StackPanel>
 
                 <StackPanel Spacing="5">
+                    <TextBlock Text="Output Folder Path:" FontWeight="SemiBold"/>
+                    <TextBox Name="edtOutputFolderPath"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
                     <TextBlock Text="Duplicate Checks:" FontWeight="SemiBold"/>
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10">
                         <WrapPanel Orientation="Horizontal" ItemSpacing="15" LineSpacing="10">
