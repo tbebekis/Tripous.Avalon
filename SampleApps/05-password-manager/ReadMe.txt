@@ -1,5 +1,13 @@
 # Password Manager
 
+Disclaimer
+
+- This is an educational Tripous sample application.
+- This is not an audited production password manager.
+- Do not use this sample to store real secrets.
+- The security choices are intentionally simple so the code remains readable.
+- A production password manager requires expert security review, threat modeling, secure backup design and careful platform integration.
+
 This is the fifth Tripous sample application.
 
 Purpose
@@ -44,6 +52,8 @@ Encryption
 
 - The SQLite database itself is not encrypted.
 - Only credential secret fields are encrypted.
+- This sample is not a complete security product.
+- This sample is not security-audited.
 - Credential.Password is encrypted before commit.
 - Credential.Notes is encrypted before commit.
 - Credential.Password is decrypted after edit load.
