@@ -1,3 +1,0 @@
-# Avalonia Desktop Layer
-
-TODO.

@@ -144,6 +144,8 @@
     href: tripous-data/descriptors.md
   - name: Select and Filter Descriptors
     href: tripous-data/select-filters.md
+  - name: SQL Filter Expressions
+    href: tripous-data/sql-filter-expressions.md
   - name: Lookups
     href: tripous-data/lookups.md
   - name: Locators

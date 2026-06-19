@@ -1,3 +1,0 @@
-# SqlProvider and SqlStore
-
-TODO.

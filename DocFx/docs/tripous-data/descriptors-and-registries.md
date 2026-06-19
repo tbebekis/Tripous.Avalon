@@ -1,3 +1,0 @@
-# Descriptors and Registries
-
-TODO.
