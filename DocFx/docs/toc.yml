@@ -2,6 +2,10 @@
   href: introduction.md
 - name: Getting Started
   href: getting-started.md
+- name: Creating Tripous Avalonia Applications
+  href: creating-tripous-avalonia-applications.md
+- name: Template Tripous Avalonia Application
+  href: template-tripous-avalonia-application.md
 - name: Overview
   items:
   - name: What Is Tripous?

@@ -12,6 +12,8 @@ The framework combines explicit C# registration, database metadata, SQL-first da
 
 - [Introduction](docs/introduction.md)
 - [Getting Started](docs/getting-started.md)
+- [Creating Tripous Avalonia Applications](docs/creating-tripous-avalonia-applications.md)
+- [Template Tripous Avalonia Application](docs/template-tripous-avalonia-application.md)
 - [Overview](docs/tripous-framework/what-is-tripous.md)
 - [Sample Applications](docs/sample-applications.md)
 - [Screenshots](docs/screenshots.md)

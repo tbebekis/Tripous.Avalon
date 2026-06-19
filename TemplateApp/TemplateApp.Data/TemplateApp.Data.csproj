@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>$(NoWarn);NU1510;NU1903</NoWarn>
+    <CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="10.3.2" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.170" />
+    <PackageReference Include="MySql.Data" Version="9.1.0" />
+    <PackageReference Include="Npgsql" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tripous\Tripous.csproj" />
+    <ProjectReference Include="..\..\Tripous.Data\Tripous.Data.csproj" />
+    <ProjectReference Include="..\..\Tripous.Desktop\Tripous.Desktop.csproj" />
+    <ProjectReference Include="..\..\Tripous.Logging\Tripous.Logging.csproj" />
+  </ItemGroup>
+
+</Project>
