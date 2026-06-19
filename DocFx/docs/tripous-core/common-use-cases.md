@@ -1,3 +1,0 @@
-# Common Use Cases
-
-TODO.

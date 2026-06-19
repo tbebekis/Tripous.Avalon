@@ -107,6 +107,8 @@ The registration process starts with the database schema.
 
 Tripous schema declarations use SQL, but the SQL may contain RDBMS-neutral tokens such as `@NVARCHAR`, `@DATE`, `@DATE_TIME`, `@BOOL`, `@NOT_NULL` and `@NULL`.
 
+This token model exists because Tripous supports six different RDBMS engines: SQL Server, SQLite, PostgreSQL, MySQL, Firebird and Oracle.
+
 The active `SqlProvider` replaces those tokens with the proper database-specific SQL when the schema is executed.
 
 The `03-todo` sample registers the `TodoTask` table like this:

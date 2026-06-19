@@ -82,65 +82,123 @@
     href: automatic-declaration/manual-extensions-after-generation.md
   - name: Best Practices
     href: automatic-declaration/best-practices.md
-- name: Tripous Core Library
+- name: Tripous Core
   items:
   - name: Overview
     href: tripous-core/overview.md
-  - name: Sys
+  - name: Sys, SysConfig and SysGlobalSettings
     href: tripous-core/sys.md
-  - name: Configuration and Settings
-    href: tripous-core/configuration-and-settings.md
-  - name: Utility Classes
-    href: tripous-core/utility-classes.md
-  - name: Collections
-    href: tripous-core/collections.md
-  - name: DynamicClass
-    href: tripous-core/dynamic-class.md
   - name: Json
     href: tripous-core/json.md
+  - name: SettingsBase
+    href: tripous-core/settings-base.md
+  - name: DynamicClass
+    href: tripous-core/dynamic-class.md
   - name: TypeStore
     href: tripous-core/type-store.md
-  - name: Common Use Cases
-    href: tripous-core/common-use-cases.md
+  - name: AppAssemblies
+    href: tripous-core/app-assemblies.md
+  - name: ResourceFiles
+    href: tripous-core/resource-files.md
+  - name: Texts and ILocalizer
+    href: tripous-core/localization.md
+  - name: BaseDef and IDef
+    href: tripous-core/descriptors.md
+  - name: DefList and ReadOnlyDefList
+    href: tripous-core/def-lists.md
+  - name: AppRegistry and Command
+    href: tripous-core/app-registry.md
+  - name: TripousList
+    href: tripous-core/collections.md
+  - name: Sec and Passwords
+    href: tripous-core/security.md
+  - name: Extension Methods
+    href: tripous-core/extension-methods.md
 - name: Tripous.Data
   items:
   - name: Overview
     href: tripous-data/overview.md
-  - name: Db
+  - name: Db, DbConfig and DbGlobalSettings
     href: tripous-data/db.md
   - name: SQL Instead of ORM
     href: tripous-data/sql-instead-of-orm.md
   - name: Connections
     href: tripous-data/connections.md
-  - name: SelectSql
+  - name: SqlProvider and SqlProviders
+    href: tripous-data/sql-providers.md
+  - name: SqlStore and Transactions
+    href: tripous-data/sql-store.md
+  - name: SQL Helpers
+    href: tripous-data/sql-helpers.md
+  - name: SelectSql and SelectSqlParser
     href: tripous-data/select-sql.md
-  - name: MemTable
+  - name: MemTable and Row Providers
     href: tripous-data/mem-table.md
-  - name: Locators and Lookups
-    href: tripous-data/locators-and-lookups.md
-  - name: Database Schema Information
-    href: tripous-data/database-schema-information.md
-  - name: Schema Creation
-    href: tripous-data/schema-creation.md
-  - name: SqlProvider and SqlStore
-    href: tripous-data/sql-provider-and-sql-store.md
   - name: TableSet
     href: tripous-data/table-set.md
-  - name: Descriptors and Registries
-    href: tripous-data/descriptors-and-registries.md
   - name: DataModule
     href: tripous-data/data-module.md
+  - name: DataRegistry
+    href: tripous-data/data-registry.md
+  - name: Descriptors
+    href: tripous-data/descriptors.md
+  - name: Select and Filter Descriptors
+    href: tripous-data/select-filters.md
+  - name: Lookups
+    href: tripous-data/lookups.md
+  - name: Locators
+    href: tripous-data/locators.md
+  - name: Schema Creation
+    href: tripous-data/schema-creation.md
+  - name: Database Schema Information
+    href: tripous-data/database-schema-information.md
+  - name: Config System
+    href: tripous-data/config-system.md
+  - name: Code Providers
+    href: tripous-data/code-providers.md
+  - name: DbIni
+    href: tripous-data/db-ini.md
+  - name: Data Extensions
+    href: tripous-data/data-extensions.md
 - name: Tripous.Desktop
   items:
   - name: Overview
     href: tripous-desktop/overview.md
-  - name: Avalonia Desktop Layer
-    href: tripous-desktop/avalonia-desktop-layer.md
-  - name: Forms
-    href: tripous-desktop/forms.md
-  - name: Commands
-    href: tripous-desktop/commands.md
-  - name: Menus and Toolbars
-    href: tripous-desktop/menus-and-toolbars.md
-  - name: Current Status and Future Controls
-    href: tripous-desktop/current-status-and-future-controls.md
+  - name: Form Registration
+    href: tripous-desktop/form-registration.md
+  - name: AppForm and AppFormDialog
+    href: tripous-desktop/app-forms.md
+  - name: DataForm
+    href: tripous-desktop/data-forms.md
+  - name: ItemPage
+    href: tripous-desktop/item-page.md
+  - name: Generated Item UI
+    href: tripous-desktop/generated-item-ui.md
+  - name: Bindings
+    href: tripous-desktop/bindings.md
+  - name: DataGrid Binding
+    href: tripous-desktop/data-grid-binding.md
+  - name: Detail Grid Commands
+    href: tripous-desktop/detail-grid-commands.md
+  - name: Locators
+    href: tripous-desktop/locators.md
+  - name: Reference Context Menu
+    href: tripous-desktop/reference-context-menu.md
+  - name: SQL Filter Panel
+    href: tripous-desktop/sql-filter-panel.md
+  - name: Toolbars, Menus and Commands
+    href: tripous-desktop/toolbars-menus-commands.md
+  - name: Dialogs
+    href: tripous-desktop/dialogs.md
+  - name: AvaloniaAssets
+    href: tripous-desktop/avalonia-assets.md
+  - name: DesktopExceptionHandler
+    href: tripous-desktop/desktop-exception-handler.md
+- name: Tripous.Logging
+  items:
+  - name: Overview
+    href: tripous-logging/overview.md
+  - name: Sources and Entries
+    href: tripous-logging/sources-and-entries.md
+  - name: Listeners
+    href: tripous-logging/listeners.md

@@ -27,7 +27,9 @@ Descriptors define modules, tables, fields, forms, lookups, locators, select def
 
 Manual declaration and generated declaration use the same runtime model.
 
-The Registration Builder generates the same declarations a developer can write by hand.
+The [Registration Builder](docs/automatic-declaration/reg-builder.md) generates the same declarations a developer can write by hand.
+
+Tripous supports six RDBMS engines: SQL Server, SQLite, PostgreSQL, MySQL, Firebird and Oracle.
 
 ## Sample Applications
 
@@ -42,7 +44,7 @@ The repository includes progressively larger samples.
 
 ## Framework Libraries
 
-- [Tripous Core Library](docs/tripous-core/overview.md)
+- [Tripous Core](docs/tripous-core/overview.md)
 - [Tripous.Data](docs/tripous-data/overview.md)
 - [Tripous.Desktop](docs/tripous-desktop/overview.md)
 - [API Reference](api/)
@@ -50,6 +52,7 @@ The repository includes progressively larger samples.
 ## Core Ideas
 
 - SQL-first database access.
+- Six supported RDBMS engines: SQL Server, SQLite, PostgreSQL, MySQL, Firebird and Oracle.
 - Explicit descriptors instead of hidden conventions.
 - Declarative metadata where it helps.
 - Manual and generated registration share the same model.
