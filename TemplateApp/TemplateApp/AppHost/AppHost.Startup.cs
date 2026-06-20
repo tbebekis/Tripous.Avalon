@@ -14,7 +14,6 @@ static public partial class AppHost
         SysConfig.ApplicationMode = ApplicationMode.Desktop;
         SysConfig.MainAssembly = typeof(AppHost).Assembly;
         SysConfig.AppName = "TemplateApp";
-        SysConfig.CompanyName = "Tripous";
     }
     /// <summary>
     /// Creates the default SQLite connection.

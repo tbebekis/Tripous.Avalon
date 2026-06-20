@@ -1,6 +1,6 @@
 # Tripous.Avalon
 
-Tripous.Avalon is a .NET framework for building data-centric applications, business systems, desktop applications and service-ready data layers.
+Tripous.Avalon is a .NET framework for building data-centric business applications on desktop, service, and database platforms.
 
 It combines SQL-first data access, database metadata, application descriptors, reusable data modules, generated or manual application registration, and an Avalonia-based desktop layer.
 
@@ -8,11 +8,13 @@ Documentation:
 
 - https://tbebekis.github.io/Tripous.Avalon/
 
+> First public release of the sixth-generation Tripous framework family, built on .NET and Avalonia UI.
+
 ## What Is Tripous?
 
 Tripous is an application framework.
 
-It is not just a UI toolkit and it is not an ORM.
+It is neither a UI toolkit nor an ORM.
 
 The framework provides infrastructure commonly needed by business applications:
 
@@ -29,11 +31,11 @@ The framework provides infrastructure commonly needed by business applications:
 - Logging infrastructure.
 - Avalonia desktop application infrastructure.
 
-The goal is to let developers describe the application structure explicitly, while keeping full control over business logic and application behavior.
+The goal is to let developers describe the application structure explicitly while keeping full control over business logic and application behavior.
 
 ## Main Libraries
 
-The repository contains the following main framework libraries.
+The repository contains the following framework libraries.
 
 - `Tripous`: Core utilities, configuration, type services, collections, descriptors and shared infrastructure.
 - `Tripous.Data`: Database access, schema execution, SQL providers, data modules, table sets, lookups, locators and data descriptors.
@@ -57,12 +59,12 @@ Descriptors define:
 
 There are two declaration paths.
 
-- Manual declaration: The developer writes the descriptors directly in C#.
-- Automatic declaration: The Registration Builder reads schema files and metadata comments, then generates the same descriptors automatically.
+- Manual declaration: the developer writes the descriptors directly in C#.
+- Automatic declaration: the Registration Builder reads schema files and metadata comments, then generates the same descriptors automatically.
 
 Both paths use the same runtime model.
 
-The Registration Builder is not a separate architecture. It writes the declarations a developer could otherwise write by hand.
+The Registration Builder is not a separate architecture. It generates the same declarations a developer could otherwise write by hand.
 
 ## Sample Applications
 
@@ -72,14 +74,14 @@ The `SampleApps` folder contains progressively larger samples.
 - `02-notes`: First SQLite-backed module and form.
 - `03-todo`: Lookups, filters, configuration and a more realistic startup flow.
 - `04-mini-crm`: Main manual declaration sample with master/detail forms, locators, lookups and code providers.
-- `05-password-manager`: Services, encrypted fields, import/export and vault locking. Educational sample only.
+- `05-password-manager`: Services, encrypted fields, import/export and vault locking. Educational sample only and not intended for production security use.
 - `TinyERP`: Larger multi-project ERP-style sample using the Registration Builder and generated declarations.
 
-Sample applications are educational material, not production applications.
+Sample applications are educational material and reference implementations, not production applications.
 
 ## TinyERP
 
-`SampleApps/TinyERP` is the largest sample.
+`SampleApps/TinyERP` is the largest sample application.
 
 It demonstrates:
 
@@ -92,7 +94,7 @@ It demonstrates:
 - Journal entries.
 - Finance movements and balances.
 - Customer receipts and supplier payments.
-- Unit tests and UI-oriented workflow tests.
+- Unit tests and workflow-oriented tests.
 
 See:
 
@@ -100,7 +102,7 @@ See:
 
 ## Documentation Project
 
-The documentation site is under:
+The documentation site is located under:
 
 - `DocFx`
 
@@ -128,7 +130,7 @@ The `Tools` folder contains developer tools.
 
 The most important tool is the Registration Builder console.
 
-Useful command:
+Example:
 
 ```text
 dotnet run --project Tools/RegBuilderConsole -- --project tERP.Version2
@@ -159,7 +161,7 @@ Schema SQL can use provider-neutral tokens such as:
 - `@NOT_NULL`
 - `@NULL`
 
-Providers translate those tokens to the target RDBMS dialect.
+Providers translate those tokens into the target RDBMS dialect.
 
 ## Development Notes
 
@@ -178,7 +180,7 @@ Useful folders:
 - `UnitTests`
 - `DocFx`
 
-For Tripous.Desktop-focused work, a scoped build is usually enough.
+For Tripous.Desktop-focused work, a scoped build is usually sufficient.
 
 ```text
 dotnet build Tripous.Desktop/Tripous.Desktop.csproj
@@ -186,18 +188,21 @@ dotnet build Tripous.Desktop/Tripous.Desktop.csproj
 
 Do not edit generated Registration Builder output directly.
 
-For tERP schema changes, edit the existing schema files and regenerate registry files.
+For TinyERP schema changes, edit the schema files and regenerate the registry source code.
 
-## Current Focus
+## Status
 
-Current project focus:
+Tripous.Avalon is actively developed.
+
+Current priorities include:
 
 - Framework stabilization.
 - Conceptual documentation.
 - Sample applications.
 - Registration Builder workflow.
 - XML documentation cleanup.
-- Automated tests.
+- Automated testing.
+- Preparation for the future Tripous.Web platform.
 
 ## License
 
