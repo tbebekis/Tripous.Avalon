@@ -31,28 +31,48 @@ Basic rules for testing
 Installation and first run
 --------------------------
 
-1. Unzip the release package to a normal folder.
+1. Download the package for your operating system:
+
+   Windows x64:
+
+   https://github.com/tbebekis/Tripous.Avalon/releases/download/v1.0.0/tERP.win-x64.zip
+
+   Linux x64:
+
+   https://github.com/tbebekis/Tripous.Avalon/releases/download/v1.0.0/tERP.linux-x64.zip
+
+2. Unzip the release package to a normal folder.
 
    Example:
 
    C:\Temp\tERP
 
-2. Run the tERP executable from the unzipped folder.
+3. Run the tERP executable from the unzipped folder.
 
-3. On first run, the application should create the SQLite database automatically.
+4. On first run, wait a few seconds until the application starts.
 
-4. If the application asks for the first admin user, enter:
+   The application will show a series of information boxes while it creates the database.
+
+5. On first run, the application should create the SQLite database automatically.
+
+6. On first run, the application will also insert the sample data and then close.
+
+7. Run the tERP executable again.
+
+8. After the database is created, the application will ask for the first admin user.
+
+   Enter:
 
    Full name: Test Admin
    User name: admin
    Password: admin
    Culture: en-US
 
-5. The main window should open.
+9. The main window should open.
 
-6. In the top toolbar press Dashboard.
+10. In the top toolbar press Dashboard.
 
-7. Expected result:
+11. Expected result:
 
    The Dashboard tab opens without errors.
 
