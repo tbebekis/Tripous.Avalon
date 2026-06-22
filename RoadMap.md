@@ -1,14 +1,21 @@
-# Tripous.Avalon To-Do And Roadmap
+# Tripous.Avalon Roadmap
+
+## Current Status
+
+- Tripous.Avalon v1.0.0 has been released.
+- The first public release cycle is closed.
+- The solution has been upgraded from Avalonia 11.3.12 to Avalonia 12.0.4.
+- AvaloniaEdit has been upgraded from 11.4.1 to 12.0.0.
+- All sample applications and tERP have been smoke-tested after the Avalonia upgrade.
 
 ## Documentation
 
 - Continue XML documentation cleanup in small batches.
-- Add conceptual documentation for Tripous.Avalon architecture and main subsystems.
-- Document data-module rules and UI-layer boundaries.
-- Document `Tripous.Desktop` form, grid, locator, and toolbar infrastructure.
+- Later apply XML documentation cleanup to tERP types.
+- Add tester guide and release documentation for tERP.
+- Keep DocFX conceptual documentation aligned with framework changes.
 - Consider RegBuilder `ListFields:` metadata for controlling generated list SELECT columns.
 - If `ListFields:` is added, require `Id`, allow top fields, enum display columns and join aliases, and require `FilterFields` to be a subset of final list fields.
-- Later apply XML documentation cleanup to tERP types.
 
 ## User Interface Preferences
 
@@ -26,6 +33,12 @@
 - Continue polishing `LocatorBox`.
 - Add `GroupGrid`.
 - Add `PivotGrid`.
+
+## tERP
+
+- Collect tester feedback from zipped Linux and Windows executables.
+- Add tester guide and release notes.
+- Continue remaining supporting modules and smoke tests.
 
 ## Extensibility
 
