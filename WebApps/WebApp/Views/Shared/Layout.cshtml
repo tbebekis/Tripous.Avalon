@@ -1,0 +1,27 @@
+﻿@{
+    string PageTitle = ViewData["Title"] as string ?? "WebDesk";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@PageTitle</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/js/tp.js" asp-append-version="true"></script>
+</head>
+<body>
+    <div class="tp-BodyInterior">
+        @await Html.PartialAsync("Layout.Header")
+        @RenderBody()
+        @await Html.PartialAsync("Layout.Footer")
+
+        <section id="CommonHtmlContainer" style="display: none;">
+            @await Html.PartialAsync("Layout.Common")
+        </section>
+
+        @await Html.PartialAsync("Layout.MessageList")
+    </div>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

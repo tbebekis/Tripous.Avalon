@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "tp Object";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp Object</h1>
+
+<p>This demo checks the first core helpers of the global <code>tp</code> object.</p>
+
+<div class="html-code">
+    <div class="demo-panel">
+        <label for="DemoInput">Value</label>
+        <input id="DemoInput" type="text" value="Tripous" />
+        <button id="DemoButton" type="button">Run</button>
+        <pre id="DemoOutput"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        tp.On("#DemoButton", "click", function () {
+            var Value = tp.Value("#DemoInput");
+            var Lines = [
+                "tp.Version = " + tp.Version,
+                "tp.IsString(Value) = " + tp.IsString(Value),
+                "tp.IsBlank(Value) = " + tp.IsBlank(Value),
+                "tp(\"#DemoInput\") found = " + (tp("#DemoInput") !== null)
+            ];
+
+            tp.Text("#DemoOutput", Lines.join("\n"));
+        });
+    });
+</script>

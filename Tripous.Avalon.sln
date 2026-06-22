@@ -78,6 +78,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Data", "WebApps\WebA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApps\WebApp\WebApp.csproj", "{2F14A095-06A6-4438-BF57-03B7634866DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Web", "Tripous.Web\Tripous.Web.csproj", "{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -364,6 +366,18 @@ Global
 		{2F14A095-06A6-4438-BF57-03B7634866DD}.Release|x64.Build.0 = Release|Any CPU
 		{2F14A095-06A6-4438-BF57-03B7634866DD}.Release|x86.ActiveCfg = Release|Any CPU
 		{2F14A095-06A6-4438-BF57-03B7634866DD}.Release|x86.Build.0 = Release|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Debug|x64.Build.0 = Debug|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Debug|x86.Build.0 = Debug|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Release|x64.ActiveCfg = Release|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Release|x64.Build.0 = Release|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Release|x86.ActiveCfg = Release|Any CPU
+		{BC9EFA88-CC0A-482D-8BA3-B0D5A167D237}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

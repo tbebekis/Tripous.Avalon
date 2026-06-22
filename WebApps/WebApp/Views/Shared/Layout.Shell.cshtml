@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "Layout";
+}
+
+<main class="tp-DeskShell">
+    <aside class="tp-DeskSidebar">
+        <div class="tp-DeskTree"></div>
+    </aside>
+    <section class="tp-DeskMain">
+        <div class="tp-DeskToolBar"></div>
+        <section class="tp-DeskContent">
+            <div class="tp-DeskTabs">
+                @RenderBody()
+            </div>
+        </section>
+        <section class="tp-DeskLog"></section>
+        <footer class="tp-DeskStatusBar"></footer>
+    </section>
+</main>
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}
