@@ -63,7 +63,7 @@
                              AcceptsReturn="True" 
                              Height="170" 
                              TextWrapping="NoWrap" 
-                             Watermark="C:\Path\To\File1.json&#x0a;C:\Path\To\File2.json"/>
+                             PlaceholderText="C:\Path\To\File1.json&#x0a;C:\Path\To\File2.json"/>
                 </StackPanel>
                 
             </StackPanel>

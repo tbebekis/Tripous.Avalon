@@ -43,7 +43,7 @@
             <TabControl Grid.Row="0">
                 <TabItem Header="Project Log" Name="tabProjectLog">
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
-                        <TextBox Name="edtProjectLog" AcceptsReturn="True" TextWrapping="Wrap" BorderThickness="0" Watermark="Project log details..."/>
+                        <TextBox Name="edtProjectLog" AcceptsReturn="True" TextWrapping="Wrap" BorderThickness="0" PlaceholderText="Project log details..."/>
                     </Border>
                 </TabItem>
                 
@@ -93,7 +93,7 @@
             <GridSplitter Grid.Row="1" Background="Transparent" ResizeDirection="Rows"/>
 
             <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
-                <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" BorderThickness="0" Watermark="System log..."/>
+                <TextBox Name="edtLog" AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" BorderThickness="0" PlaceholderText="System log..."/>
             </Border>
             
         </Grid>

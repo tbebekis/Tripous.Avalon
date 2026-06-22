@@ -26,7 +26,7 @@
                                        FontSize="12" 
                                        Foreground="Gray"/>
                                 <TextBox Name="edtValue" 
-                                         Watermark="Enter value here..."
+                                         PlaceholderText="Enter value here..."
                                          VerticalAlignment="Center"/>
                         </StackPanel>
                 </ScrollViewer>

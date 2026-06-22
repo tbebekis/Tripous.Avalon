@@ -139,7 +139,7 @@ public class LocatorBox: UserControl
     {
         TextBox Result = new();
         Result.Tag = FieldDef;
-        Result.Watermark = FieldDef.Title;
+        Result.PlaceholderText = FieldDef.Title;
         Result.IsReadOnly = IsReadOnly || !FieldDef.IsSearchable;
         Result.KeyDown += TextBox_KeyDown;
         Result.TextChanged += TextBox_TextChanged;

@@ -1,4 +1,6 @@
-﻿namespace PasswordManager;
+﻿using Avalonia.Input.Platform;
+
+namespace PasswordManager;
 
 /// <summary>
 /// Registers application commands.

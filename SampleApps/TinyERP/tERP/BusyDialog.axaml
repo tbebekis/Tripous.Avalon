@@ -5,7 +5,7 @@
         Height="150"
         CanResize="False"
         ShowInTaskbar="False"
-        SystemDecorations="None"
+        WindowDecorations="None"
         WindowStartupLocation="CenterOwner"
         Title="Please wait">
     <Border Padding="20">
