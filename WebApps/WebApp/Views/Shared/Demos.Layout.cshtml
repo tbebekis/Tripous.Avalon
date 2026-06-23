@@ -1,5 +1,6 @@
 ﻿@{
     string PageTitle = ViewData["Title"] as string ?? "Tripous Web Demos";
+    bool IsDemoShell = ViewData["IsDemoShell"] as bool? == true;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -8,32 +9,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@PageTitle</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tp/css/tp-Variables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tp/css/tp.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tp/css/tp-UI.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/demos.css" asp-append-version="true" />
     <script src="~/ace-1.4.13/src-min-noconflict/ace.js"></script>
-    <script src="~/js/tp.js" asp-append-version="true"></script>
-    <script src="~/js/demos.js" asp-append-version="true"></script>
+    <script src="~/tp/js/tp.js" asp-append-version="true"></script>
+    <script src="~/tp/js/tp-UI.js" asp-append-version="true"></script>
+    <script src="~/tp/demos/demos.js" asp-append-version="true"></script>
 </head>
 <body class="demo-page">
     <script>
-        Demos.RegisterSourcePreview();
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
     </script>
 
-    <main class="demo-body">
-        @RenderBody()
-    </main>
+    @if (!IsDemoShell)
+    {
+        <script>
+            Demos.RegisterSourcePreview();
+        </script>
+    }
 
-    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
-        <div class="demo-source-tabs">
-            <button type="button" data-demo-source-tab="html">HTML</button>
-            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
-        </div>
-        <div class="demo-source-page" data-demo-source-page="html">
-            <pre id="DemoHtmlEditor"></pre>
-        </div>
-        <div class="demo-source-page" data-demo-source-page="javascript">
-            <pre id="DemoJavaScriptEditor"></pre>
-        </div>
-    </section>
+    @if (IsDemoShell)
+    {
+        @RenderBody()
+    }
+    else
+    {
+        <main class="demo-body">
+            @RenderBody()
+        </main>
+
+        <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+            <div class="demo-source-tabs">
+                <button type="button" data-demo-source-tab="html">HTML</button>
+                <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+            </div>
+            <div class="demo-source-page" data-demo-source-page="html">
+                <pre id="DemoHtmlEditor"></pre>
+            </div>
+            <div class="demo-source-page" data-demo-source-page="javascript">
+                <pre id="DemoJavaScriptEditor"></pre>
+            </div>
+        </section>
+    }
 
     <section id="CommonHtmlContainer" style="display: none;">
         @await Html.PartialAsync("Demos.Common")

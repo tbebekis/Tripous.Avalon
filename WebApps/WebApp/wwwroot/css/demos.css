@@ -4,10 +4,98 @@
     background: #f6f7f8;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+.demo-shell {
+    position: relative;
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #f6f7f8;
+}
+.demo-sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    border-right: 1px solid #c8d0d8;
+    background: #ffffff;
+}
+.demo-sidebar-header {
+    padding: 16px;
+    border-bottom: 1px solid #d8dee4;
+}
+.demo-sidebar-header h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+.demo-nav-group {
+    border-bottom: 1px solid #e3e7eb;
+}
+.demo-nav-group-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 16px;
+    border: 0;
+    background: #f6f8fa;
+    color: #1f2328;
+    font-weight: 600;
+    text-align: left;
+}
+.demo-nav-group-button::after {
+    content: "›";
+    font-size: 18px;
+    line-height: 1;
+    transform: rotate(0deg);
+}
+.demo-nav-group.is-expanded > .demo-nav-group-button::after {
+    transform: rotate(90deg);
+}
+.demo-nav-group-items {
+    display: none;
+    padding: 4px;
+}
+.demo-nav-group.is-expanded > .demo-nav-group-items {
+    display: block;
+}
+.demo-nav-group-items a {
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 6px 12px;
+    color: #1f2328;
+    border-radius: 4px;
+}
+.demo-nav-group-items a:hover,
+.demo-nav-group-items a.is-selected {
+    background: #dbeafe;
+}
+.demo-workspace {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+.demo-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #f6f7f8;
+}
 .demo-body {
     max-width: 1100px;
     margin: 0 auto;
     padding: 24px;
+}
+.demo-page.is-embedded .demo-body {
+    max-width: none;
+    margin: 0;
+    padding: 18px 20px;
 }
 .demo-list {
     margin-top: 24px;
@@ -15,19 +103,39 @@
 .demo-index-link {
     margin-bottom: 18px;
 }
+.demo-page.is-embedded .demo-index-link {
+    display: none;
+}
 .demo-panel {
     display: grid;
-    grid-template-columns: 80px minmax(220px, 320px) auto;
+    grid-template-columns: 80px minmax(220px, 320px) 140px minmax(0, 1fr);
     gap: 8px;
     align-items: center;
+    box-sizing: border-box;
     max-width: 620px;
     padding: 16px;
     border: 1px solid #d0d7de;
     background: white;
 }
+.demo-panel button {
+    min-width: 120px;
+}
+.demo-page.is-embedded .demo-panel {
+    width: 100%;
+    max-width: none;
+}
+.demo-panel-wide {
+    grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+}
+.demo-panel-wide pre {
+    grid-column: 1 / -1;
+}
 .demo-panel pre {
     grid-column: 1 / -1;
-    min-height: 96px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 192px;
     margin: 8px 0 0 0;
     padding: 12px;
     overflow: auto;
@@ -37,6 +145,11 @@
     max-width: 1100px;
     margin: 0 auto 32px auto;
     padding: 0 24px 24px 24px;
+}
+.demo-page.is-embedded .demo-source-panel {
+    max-width: none;
+    margin: 0;
+    padding: 0 20px 20px 20px;
 }
 .demo-source-tabs {
     display: flex;
@@ -68,4 +181,7 @@
     width: 100%;
     height: 560px;
     margin: 0;
+}
+.ace_editor {
+    font-size: 17px;
 }

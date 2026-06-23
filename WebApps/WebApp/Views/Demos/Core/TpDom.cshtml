@@ -1,12 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "tp Core";
+    ViewData["Title"] = "tp DOM";
 }
 
 @await Html.PartialAsync("Demos.IndexLink")
 
-<h1>tp Core</h1>
+<h1>tp DOM</h1>
 
-<p>This demo checks the global <code>tp</code> object and the first runtime helpers.</p>
+<p>This demo checks the first DOM helper functions.</p>
 
 <div class="html-code">
     <div class="demo-panel">
@@ -19,13 +19,16 @@
 
 <script class="js-code">
     tp.Ready(function () {
+        var ClickCount = 0;
+
         tp.On("#DemoButton", "click", function () {
-            var Value = tp.Value("#DemoInput");
+            ClickCount++;
             var Lines = [
-                "tp.Version = " + tp.Version,
-                "tp.IsString(Value) = " + tp.IsString(Value),
-                "tp.IsBlank(Value) = " + tp.IsBlank(Value),
-                "tp(\"#DemoInput\") found = " + (tp("#DemoInput") !== null)
+                "tp(\"#DemoInput\") found = " + (tp("#DemoInput") !== null),
+                "tp.SelectAll(\"button\").length = " + tp.SelectAll("button").length,
+                "tp.Value(\"#DemoInput\") = " + tp.Value("#DemoInput"),
+                "click count = " + ClickCount,
+                "tp.Ready executed = true"
             ];
 
             tp.Text("#DemoOutput", Lines.join("\n"));

@@ -1,0 +1,260 @@
+// ● cursors
+/**
+ * CSS cursor values.
+ * See: https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
+ * @type {object}
+ */
+tp.Cursors = {
+    Default: "default",
+    Pointer: "pointer",
+    Text: "text",
+    VerticalText: "vertical-text",
+    Help: "help",
+    Move: "move",
+    Wait: "wait",
+    Progress: "progress",
+    CrossHair: "crosshair",
+    ResizeN: "n-resize",
+    ResizeE: "e-resize",
+    ResizeW: "w-resize",
+    ResizeS: "s-resize",
+    ResizeNE: "ne-resize",
+    ResizeNW: "nw-resize",
+    ResizeSE: "se-resize",
+    ResizeSW: "sw-resize",
+    ResizeCol: "col-resize",
+    ResizeRow: "row-resize",
+    AllScroll: "all-scroll",
+    NotAllowed: "not-allowed",
+    NoDrop: "no-drop",
+    Auto: "auto",
+    Inherit: "inherit"
+};
+Object.freeze(tp.Cursors);
+
+// ● style
+/**
+ * Returns the computed style of an element.
+ * See: https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+ * @param {Element|string} Selector The target selector or element.
+ * @returns {CSSStyleDeclaration|null} Returns the computed style or null.
+ */
+tp.GetComputedStyle = function (Selector) {
+    var Element = tp(Selector);
+    if (tp.IsElement(Element))
+        return Element.ownerDocument.defaultView.getComputedStyle(Element, "");
+    return null;
+};
+/**
+ * Gets or sets a style property of an element.
+ * See: https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string} Name The style property name.
+ * @param {*} Value The optional value to set.
+ * @returns {*} Returns the property value when getting; otherwise, returns the assigned value.
+ */
+tp.StyleProp = function (Selector, Name, Value) {
+    var Element = tp(Selector);
+    var Style;
+    if (!tp.IsElement(Element) || !tp.IsString(Name) || tp.IsBlank(Name))
+        return null;
+    if (arguments.length < 3) {
+        Style = tp.GetComputedStyle(Element);
+        if (!Style)
+            return null;
+        return Name in Style ? Style[Name] : Style.getPropertyValue(Name);
+    }
+    if (Name in Element.style)
+        Element.style[Name] = Value;
+    else
+        Element.style.setProperty(Name, Value);
+    return Value;
+};
+/**
+ * Sets multiple inline style properties of an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {object|null|undefined} Values The style property values.
+ * @returns {void}
+ */
+tp.SetStyle = function (Selector, Values) {
+    var Element = tp(Selector);
+    var Name;
+    if (tp.IsElement(Element) && tp.IsObject(Values)) {
+        for (Name in Values) {
+            if (Object.prototype.propertyIsEnumerable.call(Values, Name) && !tp.IsFunction(Values[Name]))
+                tp.StyleProp(Element, Name, Values[Name]);
+        }
+    }
+};
+/**
+ * Gets or sets the inline CSS text of an element.
+ * See: https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/cssText
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string} Value The optional CSS text to set.
+ * @returns {string} Returns the CSS text when getting; otherwise, returns the assigned CSS text.
+ */
+tp.StyleText = function (Selector, Value) {
+    var Element = tp(Selector);
+    if (!tp.IsElement(Element))
+        return "";
+    if (arguments.length < 2)
+        return Element.style.cssText;
+    Element.style.cssText = tp.IsNil(Value) ? "" : String(Value);
+    return Element.style.cssText;
+};
+/**
+ * Gets or sets the display style property of an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string} Value The optional display value to set.
+ * @returns {string} Returns the display value when getting; otherwise, returns the assigned display value.
+ */
+tp.Display = function (Selector, Value) {
+    var Element = tp(Selector);
+    if (!tp.IsElement(Element))
+        return "";
+    if (arguments.length < 2)
+        return tp.GetComputedStyle(Element).display;
+    Element.style.display = tp.IsNil(Value) ? "" : String(Value);
+    return Element.style.display;
+};
+/**
+ * Gets or sets element visibility through the CSS visibility property.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {boolean} Value The optional visibility flag.
+ * @returns {boolean} Returns true when the element is visible.
+ */
+tp.Visibility = function (Selector, Value) {
+    var Element = tp(Selector);
+    if (!tp.IsElement(Element))
+        return false;
+    if (arguments.length < 2)
+        return tp.GetComputedStyle(Element).visibility === "visible";
+    Element.style.visibility = Value === true ? "visible" : "hidden";
+    return Value === true;
+};
+/**
+ * Gets or sets element visibility through the CSS display property.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {boolean} Value The optional visibility flag.
+ * @returns {boolean} Returns true when the element is visible.
+ */
+tp.Visible = function (Selector, Value) {
+    var Element = tp(Selector);
+    if (!tp.IsElement(Element))
+        return false;
+    if (arguments.length < 2)
+        return tp.GetComputedStyle(Element).display !== "none";
+    Element.style.display = Value === true ? "" : "none";
+    return Value === true;
+};
+
+// ● css classes
+/**
+ * Returns an array of CSS class names from a string or array.
+ * @param {string|string[]|null|undefined} Names The class names.
+ * @returns {string[]} Returns the class names.
+ */
+tp.GetCssClassList = function (Names) {
+    var Result = [];
+    var Add = function (Value) {
+        if (tp.IsArray(Value)) {
+            Value.forEach(Add);
+        } else if (tp.IsString(Value)) {
+            Value.split(/\s+/).forEach(function (Item) {
+                if (!tp.IsBlank(Item))
+                    Result.push(Item);
+            });
+        }
+    };
+    Add(Names);
+    return Result;
+};
+/**
+ * Returns true if an element has a specified CSS class.
+ * See: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string} Name The CSS class name.
+ * @returns {boolean} Returns true when the element has the class.
+ */
+tp.HasClass = function (Selector, Name) {
+    var Element = tp(Selector);
+    return tp.IsElement(Element) && !tp.IsBlank(Name) && Element.classList.contains(Name);
+};
+/**
+ * Adds one or more CSS classes to an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string|string[]} Names The CSS class name or names.
+ * @returns {void}
+ */
+tp.AddClass = function (Selector, Names) {
+    var Element = tp(Selector);
+    if (tp.IsElement(Element)) {
+        tp.GetCssClassList(Names).forEach(function (Name) {
+            Element.classList.add(Name);
+        });
+    }
+};
+/**
+ * Removes one or more CSS classes from an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string|string[]} Names The CSS class name or names.
+ * @returns {void}
+ */
+tp.RemoveClass = function (Selector, Names) {
+    var Element = tp(Selector);
+    if (tp.IsElement(Element)) {
+        tp.GetCssClassList(Names).forEach(function (Name) {
+            Element.classList.remove(Name);
+        });
+    }
+};
+/**
+ * Toggles a CSS class on an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string} Name The CSS class name.
+ * @returns {boolean} Returns true when the class is present after toggling.
+ */
+tp.ToggleClass = function (Selector, Name) {
+    var Element = tp(Selector);
+    if (tp.IsElement(Element) && !tp.IsBlank(Name))
+        return Element.classList.toggle(Name);
+    return false;
+};
+/**
+ * Adds one or more CSS classes to an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {...(string|string[])} Names The CSS class names.
+ * @returns {void}
+ */
+tp.AddClasses = function (Selector) {
+    var Args = Array.prototype.slice.call(arguments, 1);
+    tp.AddClass(Selector, Args);
+};
+/**
+ * Removes one or more CSS classes from an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @param {...(string|string[])} Names The CSS class names.
+ * @returns {void}
+ */
+tp.RemoveClasses = function (Selector) {
+    var Args = Array.prototype.slice.call(arguments, 1);
+    tp.RemoveClass(Selector, Args);
+};
+/**
+ * Clears all CSS classes from an element.
+ * @param {Element|string} Selector The target selector or element.
+ * @returns {void}
+ */
+tp.ClearClasses = function (Selector) {
+    var Element = tp(Selector);
+    if (tp.IsElement(Element))
+        Element.className = "";
+};
+/**
+ * Concatenates CSS class names into a single space-delimited string.
+ * @param {...(string|string[])} Names The CSS class names.
+ * @returns {string} Returns the concatenated CSS class names.
+ */
+tp.ConcatClasses = function () {
+    return tp.GetCssClassList(Array.prototype.slice.call(arguments)).join(" ");
+};

@@ -1,5 +1,10 @@
-﻿using Avalonia;
-using System;
+﻿/*
+ * Tripous.Avalon
+ * Copyright (c) Theo Bebekis
+ *
+ * Licensed under the Tripous License.
+ * See License.txt for details.
+ */
 
 namespace RegBuilder;
 

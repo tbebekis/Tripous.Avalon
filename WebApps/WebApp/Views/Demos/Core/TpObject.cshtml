@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "tp.Object";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.Object</h1>
+
+<p>This demo checks the first behavior of the <code>tp.Object</code> base class.</p>
+
+<div class="html-code">
+    <div class="demo-panel demo-panel-wide">
+        <button id="DemoButton" type="button">Run</button>
+        <pre id="DemoOutput"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        tp.On("#DemoButton", "click", function () {
+            var Item = new tp.Object();
+            var EventCount = 0;
+            var OnceCount = 0;
+            var Handler = function () {
+                EventCount++;
+            };
+
+            Item.On("Changed", Handler);
+            Item.Once("Changed", function () {
+                OnceCount++;
+            });
+            Item.Trigger("Changed");
+            Item.Trigger("Changed");
+
+            Item.EventsEnabled = false;
+            Item.Trigger("Changed");
+            Item.EventsEnabled = true;
+            Item.Trigger("Changed");
+
+            var Bound = Item.FuncBind(function () {
+                return this.tpClass;
+            });
+            var Clone = Item.Clone();
+            var Json = JSON.stringify(Item);
+
+            var Lines = [
+                "Item.tpClass = " + Item.tpClass,
+                "Item.EventsEnabled = " + Item.EventsEnabled,
+                "Changed event count = " + EventCount,
+                "Once listener count = " + OnceCount,
+                "Has Changed listeners = " + Item.HasListeners("Changed"),
+                "Bound function returns = " + Bound(),
+                "Clone is same class = " + Item.IsSameClass(Clone),
+                "JSON = " + Json
+            ];
+
+            tp.Text("#DemoOutput", Lines.join("\n"));
+        });
+    });
+</script>

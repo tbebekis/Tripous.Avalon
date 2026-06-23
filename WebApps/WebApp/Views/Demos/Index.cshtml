@@ -1,12 +1,39 @@
 ﻿@{
     ViewData["Title"] = "Tripous Web Demos";
+    ViewData["IsDemoShell"] = true;
 }
 
-<h1>Tripous Web Demos</h1>
+<div class="demo-shell">
+    <aside class="demo-sidebar">
+        <header class="demo-sidebar-header">
+            <h1>Tripous Web Demos</h1>
+        </header>
+        <section class="demo-nav-group is-expanded">
+            <button type="button" class="demo-nav-group-button" data-demo-group-button>
+                <span>Core</span>
+            </button>
+            <div class="demo-nav-group-items">
+                <a href="/demo/tp" target="DemoFrame" data-demo-link data-demo-url="/demo/tp">tp core</a>
+                <a href="/demo/tp-ready" target="DemoFrame" data-demo-link data-demo-url="/demo/tp-ready">tp.Ready</a>
+                <a href="/demo/tp-helpers" target="DemoFrame" data-demo-link data-demo-url="/demo/tp-helpers">tp helpers</a>
+                <a href="/demo/tp-dom" target="DemoFrame" data-demo-link data-demo-url="/demo/tp-dom">tp DOM</a>
+                <a href="/demo/tp-object" target="DemoFrame" data-demo-link data-demo-url="/demo/tp-object">tp.Object</a>
+            </div>
+        </section>
+        <section class="demo-nav-group is-expanded">
+            <button type="button" class="demo-nav-group-button" data-demo-group-button>
+                <span>UI</span>
+            </button>
+            <div class="demo-nav-group-items">
+                <a href="/demo/tp-ui-overlay-spinner" target="DemoFrame" data-demo-link data-demo-url="/demo/tp-ui-overlay-spinner">overlay / spinner</a>
+            </div>
+        </section>
+    </aside>
+    <main class="demo-workspace">
+        <iframe id="DemoFrame" name="DemoFrame" class="demo-frame" src="/demo/tp" title="Tripous Web Demo"></iframe>
+    </main>
+</div>
 
-<section class="demo-list">
-    <h2>Core</h2>
-    <ul>
-        <li><a href="/demo/tp">tp object</a></li>
-    </ul>
-</section>
+<script>
+    Demos.RegisterShell();
+</script>
