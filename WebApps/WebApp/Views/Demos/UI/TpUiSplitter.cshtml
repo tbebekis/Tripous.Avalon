@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "tp.Splitter";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.Splitter</h1>
+
+<p>The splitter bar sits between two panels and resizes the first panel while the second panel fills the remaining space.</p>
+
+<p>The <code>tp.Splitter</code> is just a splitter bar.</p>
+
+<p>Place the splitter bar between two divs and let it auto-config.</p>
+
+<p>
+    You may define the <code>Panel1MinSize</code> constraint.
+    And if <code>UseBothPanels</code> is set to <code>false</code>, (<code>true</code> is the default),
+    then you may define the <code>Panel1MaxSize</code> constraint too.
+</p>
+
+<p>
+    If <code>UseBothPanels</code> is set to <code>true</code>, the default, then you may define the
+    <code>Panel2MinSize</code> constraint too.
+</p>
+
+<style>
+    .splitter-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .splitter-demo-actions button {
+        min-width: 120px;
+    }
+    .splitter-demo-container {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        width: 100%;
+        height: 440px;
+        min-height: 260px;
+        border: 1px solid #8c959f;
+        background: #ffffff;
+    }
+    .splitter-demo-panel {
+        position: relative;
+        box-sizing: border-box;
+        min-width: 0;
+        min-height: 0;
+        padding: 14px;
+        overflow: auto;
+    }
+    .splitter-demo-panel h2 {
+        margin: 0 0 8px 0;
+        font-size: 18px;
+    }
+    .splitter-demo-panel p {
+        margin: 0 0 8px 0;
+    }
+    #SplitterPanel1 {
+        width: 180px;
+        background: lightcoral;
+    }
+    #SplitterPanel2 {
+        flex: 1 1 auto;
+        background: lightblue;
+    }
+    .splitter-demo-log {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 90px;
+        margin-top: 12px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="splitter-demo-actions">
+        <button id="ToggleSplitterButton" type="button">Toggle Splitter</button>
+        <button id="ResetSplitterButton" type="button">Reset</button>
+    </div>
+
+    <div id="SplitterContainer" class="splitter-demo-container">
+        <div id="SplitterPanel1" class="splitter-demo-panel">
+            <h2>Panel 1</h2>
+            <p>This is the resizable panel.</p>
+            <p>Drag the splitter bar to resize it.</p>
+        </div>
+        <div class="tp-Splitter"></div>
+        <div id="SplitterPanel2" class="splitter-demo-panel">
+            <h2>Panel 2</h2>
+            <p>This panel fills the remaining space.</p>
+            <p>The same splitter can switch between vertical and horizontal orientation.</p>
+        </div>
+    </div>
+
+    <pre id="SplitterOutput" class="splitter-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Splitter = new tp.Splitter(".tp-Splitter");
+
+        var WriteLog = function () {
+            var Lines = [
+                "orientation = " + (Splitter.IsHorizontal ? "horizontal" : "vertical"),
+                "panel1 width = " + Splitter.Panel1.offsetWidth + "px",
+                "panel1 height = " + Splitter.Panel1.offsetHeight + "px",
+                "panel2 width = " + Splitter.Panel2.offsetWidth + "px",
+                "panel2 height = " + Splitter.Panel2.offsetHeight + "px"
+            ];
+
+            tp.Text("#SplitterOutput", Lines.join("\n"));
+        };
+
+        var AdjustSplitter = function () {
+            if (Splitter.IsHorizontal) {
+                tp.SetStyle("#SplitterContainer", { flexDirection: "column" });
+                tp.SetStyle("#SplitterPanel1", { width: "100%", minWidth: "0", height: "150px", minHeight: "150px" });
+            } else {
+                tp.SetStyle("#SplitterContainer", { flexDirection: "row" });
+                tp.SetStyle("#SplitterPanel1", { width: "180px", minWidth: "180px", height: "", minHeight: "" });
+            }
+
+            WriteLog();
+        };
+
+        tp.On("#ToggleSplitterButton", "click", function () {
+            Splitter.IsHorizontal = !Splitter.IsHorizontal;
+            AdjustSplitter();
+        });
+
+        tp.On("#ResetSplitterButton", "click", function () {
+            Splitter.IsHorizontal = false;
+            AdjustSplitter();
+        });
+
+        Splitter.On(tp.Events.DragOver, WriteLog);
+        Splitter.On(tp.Events.DragEnd, WriteLog);
+
+        AdjustSplitter();
+    });
+</script>

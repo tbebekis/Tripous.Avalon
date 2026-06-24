@@ -1,0 +1,183 @@
+@{
+    ViewData["Title"] = "tp.TabControl";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.TabControl</h1>
+
+<p>A TabControl.</p>
+
+<p>
+    TabControl uses a <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver" target="_blank">ResizeObserver</a>,
+    through <code>tp.ItemBar</code> and <code>tp.ResizeDetector</code>, to detect whether tabs fit in the tab-bar width.
+    It provides three rendering modes: Normal, Toggle, and NextPrev.
+    The user defines the <code>ResponsiveMode</code>, and the control moves from Normal to that mode depending on the width.
+</p>
+
+<p>You can add a new tab page, remove a page, get or set tab text, and set the selected tab page.</p>
+
+<style>
+    .tab-control-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .tab-control-demo-actions label {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        font-weight: 600;
+    }
+    .tab-control-demo-actions input {
+        width: 64px;
+    }
+    .tab-control-demo-host {
+        width: 100%;
+        max-width: 760px;
+    }
+    .tab-control-demo-host.is-narrow {
+        max-width: 420px;
+    }
+    #TabControl {
+        height: 180px;
+        border: 1px solid #8c959f;
+        background: #ffffff;
+    }
+    #TabControl .tp-TabPage {
+        font-weight: 600;
+    }
+    .tab-page-a {
+        background: #eff6ff;
+    }
+    .tab-page-b {
+        background: #f0fdf4;
+    }
+    .tab-page-c {
+        background: #fff7ed;
+    }
+    .tab-page-d {
+        background: #f8fafc;
+    }
+    .tab-control-demo-log {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 760px;
+        min-height: 110px;
+        margin-top: 12px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="tab-control-demo-actions">
+        <label for="ResponsiveModeSelect">Responsive Mode</label>
+        <select id="ResponsiveModeSelect">
+            <option value="2">Toggle</option>
+            <option value="4" selected>NextPrev</option>
+        </select>
+        <button id="ToggleWidthButton" type="button">Toggle Width</button>
+        <button id="AddPageButton" type="button">Add Page</button>
+        <label for="RemoveIndexEdit">Remove Index</label>
+        <input id="RemoveIndexEdit" type="text" value="0" />
+        <button id="RemovePageButton" type="button">Remove</button>
+    </div>
+
+    <div id="TabControlHost" class="tab-control-demo-host">
+        <div id="TabControl">
+            <div>
+                <div>Customers</div>
+                <div>Orders</div>
+                <div>Invoices</div>
+                <div>Reports</div>
+            </div>
+            <div>
+                <div class="tab-page-a">Customer entry and lookup content.</div>
+                <div class="tab-page-b">Order processing content.</div>
+                <div class="tab-page-c">Invoice review content.</div>
+                <div class="tab-page-d">Report filters and output content.</div>
+            </div>
+        </div>
+    </div>
+
+    <pre id="TabControlOutput" class="tab-control-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Control = new tp.TabControl("#TabControl");
+        var Counter = Control.GetPageCount();
+
+        var RenderModeName = function (Mode) {
+            switch (Mode) {
+                case tp.ItemBarRenderMode.Normal: return "Normal";
+                case tp.ItemBarRenderMode.Toggle: return "Toggle";
+                case tp.ItemBarRenderMode.NextPrev: return "NextPrev";
+                default: return "None";
+            }
+        };
+
+        var WriteLog = function (Message) {
+            var Page = Control.SelectedPage;
+
+            tp.Text("#TabControlOutput", [
+                Message || "Ready.",
+                "render mode = " + RenderModeName(Control.RenderMode),
+                "responsive mode = " + RenderModeName(Control.ResponsiveMode),
+                "selected index = " + Control.SelectedIndex,
+                "selected title = " + (Page ? Page.Title : "(none)"),
+                "page count = " + Control.GetPageCount()
+            ].join("\n"));
+        };
+
+        tp.On("#ResponsiveModeSelect", "change", function () {
+            Control.ResponsiveMode = Number(tp.Value("#ResponsiveModeSelect"));
+            Control.TabBar.OnElementSizeChanged();
+            WriteLog("Responsive mode changed.");
+        });
+
+        tp.On("#ToggleWidthButton", "click", function () {
+            tp("#TabControlHost").classList.toggle("is-narrow");
+            setTimeout(function () {
+                Control.TabBar.OnElementSizeChanged();
+                WriteLog("Host width changed.");
+            }, 0);
+        });
+
+        tp.On("#AddPageButton", "click", function () {
+            var Page;
+
+            Counter++;
+            Page = Control.AddPage("Page " + Counter);
+            Page.Handle.className = "tp-TabPage tab-page-d";
+            Page.Handle.innerHTML = "Dynamic content for page " + Counter + ".";
+            WriteLog("Page added.");
+        });
+
+        tp.On("#RemovePageButton", "click", function () {
+            var Index = tp.StrToInt(tp.Value("#RemoveIndexEdit"), -1);
+
+            Control.RemovePageAt(Index);
+            WriteLog("Page removed.");
+        });
+
+        Control.On("SelectedIndexChanged", function () {
+            WriteLog("Selection changed.");
+        });
+
+        Control.On("PageAdded", function () {
+            WriteLog("Page added.");
+        });
+
+        Control.On("PageRemoved", function () {
+            WriteLog("Page removed.");
+        });
+
+        WriteLog();
+    });
+</script>

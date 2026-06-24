@@ -6,12 +6,12 @@
  */
 tp.SizeMode = {
     None: "",
-    XSmall: tp.Classes.XSmall,
-    Small: tp.Classes.Small,
-    Medium: tp.Classes.Medium,
-    Large: tp.Classes.Large,
-    XLarge: tp.Classes.XLarge,
-    XXLarge: tp.Classes.XXLarge
+    XSmall: "tp-XSmall",
+    Small: "tp-Small",
+    Medium: "tp-Medium",
+    Large: "tp-Large",
+    XLarge: "tp-XLarge",
+    XXLarge: "tp-XXLarge"
 };
 Object.freeze(tp.SizeMode);
 /**
@@ -30,15 +30,15 @@ tp.SizeModes = [
 Object.freeze(tp.SizeModes);
 /**
  * Default container width breakpoints.
- * These values follow the Tripous CSS/viewport breakpoint thresholds.
+ * These values match the Tripous viewport breakpoint thresholds.
  * @type {number[]}
  */
 tp.DefaultBreakpoints = [
-    tp.ScreenWidthsMax.XSmall,
-    tp.ScreenWidthsMax.Small,
-    tp.ScreenWidthsMax.Medium,
-    tp.ScreenWidthsMax.Large,
-    tp.ScreenWidthsMax.XLarge
+    575.98,
+    767.98,
+    991.98,
+    1199.98,
+    1399.98
 ];
 Object.freeze(tp.DefaultBreakpoints);
 
@@ -111,6 +111,8 @@ tp.SizeChart = class {
         }
     }
 };
+
+// ● prototype
 /**
  * The current size mode.
  * @type {string}

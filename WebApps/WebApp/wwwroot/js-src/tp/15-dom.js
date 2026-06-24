@@ -175,6 +175,24 @@ tp.ContainsElement = function (Parent, Element) {
 tp.ContainsEventTarget = function (Element, Target) {
     return Element === Target || tp.IsHTMLElement(Target) && tp.ContainsElement(Element, Target);
 };
+/**
+ * Returns true when an element is the active element in its document.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element is focused.
+ */
+tp.IsFocused = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    return tp.IsHTMLElement(Element) && Element.ownerDocument.activeElement === Element;
+};
+/**
+ * Returns true when an element or one of its children is the active element in its document.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element contains focus.
+ */
+tp.HasFocused = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    return tp.IsHTMLElement(Element) && (Element.ownerDocument.activeElement === Element || tp.ContainsElement(Element, Element.ownerDocument.activeElement));
+};
 
 // ● creation and removal
 /**
@@ -229,6 +247,19 @@ tp.Paragraph = function (ParentOrSelector, Text) {
  */
 tp.Break = function (ParentOrSelector) {
     return tp.el(ParentOrSelector, "br");
+};
+/**
+ * Removes the border from an iframe element.
+ * @see {@link http://stackoverflow.com/questions/1516803/how-to-remove-border-from-iframe-in-ie-using-javascript|stackoverflow}
+ * @param {string|Element} ElementOrSelector The iframe element or selector.
+ * @returns {void}
+ */
+tp.FrameRemoveBorder = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    if (Element instanceof HTMLIFrameElement) {
+        Element.frameBorder = "0";
+        Element.setAttribute("frameBorder", "0");
+    }
 };
 /**
  * Removes an HTMLElement from the DOM.

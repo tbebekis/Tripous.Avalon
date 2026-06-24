@@ -1,0 +1,136 @@
+@{
+    ViewData["Title"] = "tp.ToolBar and tp.ButtonEx";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.ToolBar and tp.ButtonEx</h1>
+
+<p>
+    The <code>tp.ButtonEx</code> control is a button class with icon and text. It actually is an anchor element and is used by the
+    <code>tp.ToolBar</code> control.
+</p>
+
+<p>
+    The <code>tp.ToolBar</code> control is a toolbar. Both classes provide properties to handle button display regarding text and icon.
+</p>
+
+<style>
+    .toolbar-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .toolbar-demo-area {
+        display: grid;
+        gap: 12px;
+        max-width: 980px;
+    }
+    .toolbar-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 760px);
+        min-height: 90px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="toolbar-demo-actions">
+        <button id="ToggleNoTextButton" type="button">Toggle NoText</button>
+        <button id="ToggleIcoModeButton" type="button">Toggle IcoMode</button>
+        <button id="AddButtonButton" type="button">Add Button</button>
+    </div>
+
+    <div class="toolbar-demo-area">
+        <div id="ToolBar1" class="tp-ToolBar">
+            <a data-command="Home" data-ico-classes="fa fa-home" data-no-text="true">Home</a>
+            <a data-command="List" data-ico-classes="fa fa-list" data-no-text="true">List</a>
+            <a data-command="Filter" data-ico-classes="fa fa-search" data-no-text="true">Filter</a>
+            <a data-command="First" data-ico-classes="fa fa-step-backward" data-no-text="true">First</a>
+            <a data-command="Prior" data-ico-classes="fa fa-caret-left" data-no-text="true">Prior</a>
+            <a data-command="Next" data-ico-classes="fa fa-caret-right" data-no-text="true">Next</a>
+            <a data-command="Last" data-ico-classes="fa fa-step-forward" data-no-text="true">Last</a>
+            <a data-command="Edit" data-ico-classes="fa fa-edit" data-no-text="true">Edit</a>
+            <a data-command="Insert" data-ico-classes="fa fa-plus" data-no-text="true">Insert</a>
+            <a data-command="Delete" data-ico-classes="fa fa-minus" data-no-text="true">Delete</a>
+            <a data-command="Save" data-ico-classes="fa fa-floppy-o" data-no-text="true">Save</a>
+            <a data-command="Cancel" data-ico-classes="fa fa-times" data-no-text="true">Cancel</a>
+            <a data-command="Close" data-ico-classes="fa fa-sign-out" data-no-text="true">Close</a>
+        </div>
+
+        <div id="ToolBar2" class="tp-ToolBar">
+            <a data-command="Home" data-image-url="/tp/images/demos/Home.png" data-no-text="true">Home</a>
+            <a data-command="List" data-image-url="/tp/images/demos/List.png" data-no-text="true">List</a>
+            <a data-command="Filter" data-image-url="/tp/images/demos/Filter.png" data-no-text="true">Filter</a>
+            <a data-command="First" data-image-url="/tp/images/demos/First.png" data-no-text="true">First</a>
+            <a data-command="Prior" data-image-url="/tp/images/demos/Prior.png" data-no-text="true">Prior</a>
+            <a data-command="Next" data-image-url="/tp/images/demos/Next.png" data-no-text="true">Next</a>
+            <a data-command="Last" data-image-url="/tp/images/demos/Last.png" data-no-text="true">Last</a>
+            <a data-command="Edit" data-image-url="/tp/images/demos/Edit.png" data-no-text="true">Edit</a>
+            <a data-command="Insert" data-image-url="/tp/images/demos/Insert.png" data-no-text="true">Insert</a>
+            <a data-command="Delete" data-image-url="/tp/images/demos/Delete.png" data-no-text="true">Delete</a>
+            <a data-command="Save" data-image-url="/tp/images/demos/Save.png" data-no-text="true">Save</a>
+            <a data-command="Cancel" data-image-url="/tp/images/demos/Cancel.png" data-no-text="true">Cancel</a>
+            <a data-command="Close" data-image-url="/tp/images/demos/Close.png" data-no-text="true">Close</a>
+        </div>
+
+        <pre id="ToolBarOutput" class="toolbar-demo-log"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var NoText = true;
+        var IcoMode = tp.ButtonExIcoMode.Left;
+        var Counter = 0;
+        var ToolBar1 = new tp.ToolBar("#ToolBar1");
+        var ToolBar2 = new tp.ToolBar("#ToolBar2");
+
+        var WriteLog = function (Message) {
+            tp.Text("#ToolBarOutput", [
+                Message || "Ready.",
+                "no text = " + NoText,
+                "icon mode = " + tp.EnumNameOf(tp.ButtonExIcoMode, IcoMode)
+            ].join("\n"));
+        };
+
+        var ItemClick = function (Args) {
+            WriteLog("Command: " + Args.Command);
+            tp.InfoNote("Command: " + Args.Command);
+        };
+
+        ToolBar1.On("ButtonClick", ItemClick);
+        ToolBar2.On("ButtonClick", ItemClick);
+
+        tp.On("#ToggleNoTextButton", "click", function () {
+            NoText = !NoText;
+            ToolBar1.SetNoText(NoText);
+            ToolBar2.SetNoText(NoText);
+            WriteLog("NoText changed.");
+        });
+
+        tp.On("#ToggleIcoModeButton", "click", function () {
+            if (IcoMode === tp.ButtonExIcoMode.Left)
+                IcoMode = tp.ButtonExIcoMode.Top;
+            else if (IcoMode === tp.ButtonExIcoMode.Top)
+                IcoMode = tp.ButtonExIcoMode.None;
+            else
+                IcoMode = tp.ButtonExIcoMode.Left;
+            ToolBar1.SetIcoMode(IcoMode);
+            ToolBar2.SetIcoMode(IcoMode);
+            WriteLog("IcoMode changed.");
+        });
+
+        tp.On("#AddButtonButton", "click", function () {
+            Counter++;
+            ToolBar1.AddButton("Dynamic" + Counter, "Dynamic " + Counter, "Dynamic " + Counter, "fa fa-bolt");
+            WriteLog("Dynamic button added.");
+        });
+
+        WriteLog();
+    });
+</script>

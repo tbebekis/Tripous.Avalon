@@ -148,6 +148,115 @@ tp.Visible = function (Selector, Value) {
     return Value === true;
 };
 
+// ● z-index
+/**
+ * Gets or sets the z-index of an element.
+ * See: http://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+ * See: https://www.w3.org/TR/CSS2/visuren.html#z-index
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string|number|null|undefined} Value The optional z-index value to set.
+ * @returns {number} Returns the numeric z-index when getting; otherwise, returns the assigned numeric z-index.
+ */
+tp.ZIndex = function (Selector, Value) {
+    var Element = tp(Selector);
+    var Style;
+    if (!tp.IsElement(Element))
+        return 0;
+    if (arguments.length < 2 || tp.IsNil(Value)) {
+        Style = tp.GetComputedStyle(Element);
+        return Style ? tp.StrToInt(Style.zIndex, 0) : 0;
+    }
+    Value = tp.ToInt(Value);
+    Element.style.zIndex = String(Value);
+    return Value;
+};
+/**
+ * Returns the maximum computed z-index under a container element.
+ * @param {Element|Document|string|null|undefined} Container The optional container. Defaults to document.
+ * @returns {number} Returns the maximum z-index.
+ */
+tp.MaxZIndexOf = function (Container) {
+    var Parent = tp.IsNil(Container) ? document : tp(Container);
+    var Result = 0;
+    var List;
+    var Index;
+    var Element;
+    var Value;
+    if (!tp.IsNodeSelector(Parent))
+        Parent = document;
+    List = Parent.querySelectorAll("*");
+    for (Index = 0; Index < List.length; Index++) {
+        Element = List[Index];
+        Value = Element.ownerDocument.defaultView.getComputedStyle(Element, "").getPropertyValue("z-index");
+        if (Value === "auto")
+            Value = Index;
+        Value = tp.ExtractNumber(Value);
+        Result = Math.max(Result, Value);
+    }
+    return Result;
+};
+/**
+ * Returns the minimum computed z-index under a container element.
+ * @param {Element|Document|string|null|undefined} Container The optional container. Defaults to document.
+ * @returns {number} Returns the minimum z-index.
+ */
+tp.MinZIndexOf = function (Container) {
+    var Parent = tp.IsNil(Container) ? document : tp(Container);
+    var Result = 0;
+    var List;
+    var Index;
+    var Element;
+    var Value;
+    if (!tp.IsNodeSelector(Parent))
+        Parent = document;
+    List = Parent.querySelectorAll("*");
+    for (Index = 0; Index < List.length; Index++) {
+        Element = List[Index];
+        Value = Element.ownerDocument.defaultView.getComputedStyle(Element, "").getPropertyValue("z-index");
+        if (Value === "auto")
+            Value = Index;
+        Value = tp.ExtractNumber(Value);
+        Result = Math.min(Result, Value);
+    }
+    return Result;
+};
+/**
+ * Brings an element in front of all siblings and returns the assigned z-index.
+ * @param {Element|string} Selector The target selector or element.
+ * @returns {number} Returns the assigned z-index.
+ */
+tp.BringToFront = function (Selector) {
+    var Element = tp(Selector);
+    var Max;
+    var Current;
+    if (tp.IsElement(Element) && tp.IsElement(Element.parentNode)) {
+        Max = tp.MaxZIndexOf(Element.parentNode);
+        Current = tp.ZIndex(Element);
+        if (Current < Max) {
+            Max++;
+            tp.ZIndex(Element, Max);
+            return Max;
+        }
+        return Current;
+    }
+    return 0;
+};
+/**
+ * Sends an element behind all siblings and returns the assigned z-index.
+ * @param {Element|string} Selector The target selector or element.
+ * @returns {number} Returns the assigned z-index.
+ */
+tp.SendToBack = function (Selector) {
+    var Element = tp(Selector);
+    var Min;
+    if (tp.IsElement(Element) && tp.IsElement(Element.parentNode)) {
+        Min = tp.MinZIndexOf(Element.parentNode) - 1;
+        tp.ZIndex(Element, Min);
+        return Min;
+    }
+    return 0;
+};
+
 // ● css classes
 /**
  * Returns an array of CSS class names from a string or array.

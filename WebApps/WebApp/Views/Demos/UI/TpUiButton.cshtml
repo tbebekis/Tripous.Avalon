@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "tp.Button";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.Button</h1>
+
+<p>
+    A button control built upon a <code>button</code> element.
+</p>
+
+<p>
+    Properties: <code>Command</code>, <code>Tag</code>.
+    You can get the value of the <code>Command</code> property of a button by passing the
+    <code>tp.EventArgs</code> parameter of an event to the <code>tp.GetCommand(...)</code> function.
+</p>
+
+<style>
+    .button-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .button-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 760px);
+        min-height: 110px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="button-demo-actions">
+        <button id="Button1" data-command="TEST_COMMAND">Button1</button>
+        <button id="Button2" data-command="SAVE_COMMAND">Save</button>
+        <span id="DynamicButtonHost"></span>
+    </div>
+
+    <pre id="ButtonOutput" class="button-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Button1 = new tp.Button("#Button1");
+        var Button2 = new tp.Button("#Button2", { Tag: { Source: "markup" } });
+        var DynamicButton = new tp.Button({ Parent: "#DynamicButtonHost", Text: "Dynamic", Command: "DYNAMIC_COMMAND" });
+
+        var WriteLog = function (Button, Args) {
+            tp.Text("#ButtonOutput", [
+                "button text = " + Button.Text,
+                "command = " + tp.GetCommand(Args),
+                "tag = " + JSON.stringify(Button.Tag)
+            ].join("\n"));
+        };
+
+        Button1.On(tp.Events.Click, function (Args) {
+            WriteLog(Button1, Args);
+        });
+
+        Button2.On(tp.Events.Click, function (Args) {
+            WriteLog(Button2, Args);
+        });
+
+        DynamicButton.On(tp.Events.Click, function (Args) {
+            WriteLog(DynamicButton, Args);
+        });
+
+        tp.Text("#ButtonOutput", "Click a button.");
+    });
+</script>

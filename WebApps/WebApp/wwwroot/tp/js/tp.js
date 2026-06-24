@@ -2412,6 +2412,24 @@ tp.ContainsElement = function (Parent, Element) {
 tp.ContainsEventTarget = function (Element, Target) {
     return Element === Target || tp.IsHTMLElement(Target) && tp.ContainsElement(Element, Target);
 };
+/**
+ * Returns true when an element is the active element in its document.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element is focused.
+ */
+tp.IsFocused = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    return tp.IsHTMLElement(Element) && Element.ownerDocument.activeElement === Element;
+};
+/**
+ * Returns true when an element or one of its children is the active element in its document.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element contains focus.
+ */
+tp.HasFocused = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    return tp.IsHTMLElement(Element) && (Element.ownerDocument.activeElement === Element || tp.ContainsElement(Element, Element.ownerDocument.activeElement));
+};
 
 // ● creation and removal
 /**
@@ -2466,6 +2484,19 @@ tp.Paragraph = function (ParentOrSelector, Text) {
  */
 tp.Break = function (ParentOrSelector) {
     return tp.el(ParentOrSelector, "br");
+};
+/**
+ * Removes the border from an iframe element.
+ * @see {@link http://stackoverflow.com/questions/1516803/how-to-remove-border-from-iframe-in-ie-using-javascript|stackoverflow}
+ * @param {string|Element} ElementOrSelector The iframe element or selector.
+ * @returns {void}
+ */
+tp.FrameRemoveBorder = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    if (Element instanceof HTMLIFrameElement) {
+        Element.frameBorder = "0";
+        Element.setAttribute("frameBorder", "0");
+    }
 };
 /**
  * Removes an HTMLElement from the DOM.
@@ -3968,7 +3999,7 @@ tp.Object = class {
         if (InvocationList.length === 0)
             return null;
         Args = Args instanceof tp.EventArgs ? Args : new tp.EventArgs(Args || {});
-        Args.EventName = tp.IsBlank(Args.EventName) ? String(EventName) : Args.EventName;
+        Args.EventName = String(EventName);
         Args.Sender = tp.IsNil(Args.Sender) ? this : Args.Sender;
         for (Index = 0; Index < InvocationList.length; Index++) {
             Listener = InvocationList[Index];
@@ -4106,6 +4137,140 @@ tp.Object.prototype.fEvents = null;
  */
 tp.Object.prototype.fBinds = null;
 
+// ● 22-events.js
+// ● events
+/**
+ * Common Tripous event names and DOM event name mappings.
+ * @type {object}
+ */
+tp.Events = {
+    Unknown: "Unknown",
+    Click: "Click",
+    AuxClick: "AuxClick",
+    DoubleClick: "DoubleClick",
+    MouseDown: "MouseDown",
+    MouseUp: "MouseUp",
+    MouseEnter: "MouseEnter",
+    MouseMove: "MouseMove",
+    MouseLeave: "MouseLeave",
+    KeyDown: "KeyDown",
+    KeyPress: "KeyPress",
+    KeyUp: "KeyUp",
+    MouseWheel: "MouseWheel",
+    Scroll: "Scroll",
+    ContextMenu: "ContextMenu",
+    Load: "Load",
+    Resize: "Resize",
+    Activate: "Activate",
+    Focus: "Focus",
+    LostFocus: "LostFocus",
+    InputChanged: "InputChanged",
+    TextSelected: "TextSelected",
+    Change: "Change",
+    DragStart: "DragStart",
+    Drag: "Drag",
+    DragEnd: "DragEnd",
+    DragEnter: "DragEnter",
+    DragOver: "DragOver",
+    DragLeave: "DragLeave",
+    DragDrop: "DragDrop",
+    Cut: "Cut",
+    Copy: "Copy",
+    Paste: "Paste",
+    Custom: "Custom",
+
+    /**
+     * Maps DOM event names to Tripous event names.
+     * @type {object[]}
+     */
+    Map: [],
+
+    /**
+     * Returns the index of a DOM event name in the event map.
+     * @param {string} DomEventName The DOM event name.
+     * @returns {number} Returns the event map index or -1.
+     */
+    DomIndex: function (DomEventName) {
+        var Index;
+        for (Index = 0; Index < tp.Events.Map.length; Index++) {
+            if (tp.IsSameText(tp.Events.Map[Index].dom, DomEventName))
+                return Index;
+        }
+        return -1;
+    },
+    /**
+     * Returns the index of a Tripous event name in the event map.
+     * @param {string} TripousEventName The Tripous event name.
+     * @returns {number} Returns the event map index or -1.
+     */
+    TripousIndex: function (TripousEventName) {
+        var Index;
+        for (Index = 0; Index < tp.Events.Map.length; Index++) {
+            if (tp.IsSameText(tp.Events.Map[Index].tp, TripousEventName))
+                return Index;
+        }
+        return -1;
+    },
+    /**
+     * Converts a Tripous event name to a DOM event name.
+     * @param {string} TripousEventName The Tripous event name.
+     * @returns {string} Returns the DOM event name, or tp.Events.Unknown.
+     */
+    ToDom: function (TripousEventName) {
+        var Index = tp.Events.TripousIndex(TripousEventName);
+        return Index > -1 ? tp.Events.Map[Index].dom : tp.Events.Unknown;
+    },
+    /**
+     * Converts a DOM event name to a Tripous event name.
+     * @param {string} DomEventName The DOM event name.
+     * @returns {string} Returns the Tripous event name, or tp.Events.Unknown.
+     */
+    ToTripous: function (DomEventName) {
+        var Index = tp.Events.DomIndex(DomEventName);
+        return Index > -1 ? tp.Events.Map[Index].tp : tp.Events.Unknown;
+    }
+};
+
+tp.Events.Map = [
+    { dom: "click", tp: tp.Events.Click },
+    { dom: "auxclick", tp: tp.Events.AuxClick },
+    { dom: "dblclick", tp: tp.Events.DoubleClick },
+    { dom: "mousedown", tp: tp.Events.MouseDown },
+    { dom: "mouseup", tp: tp.Events.MouseUp },
+    { dom: "mouseover", tp: tp.Events.MouseEnter },
+    { dom: "mousemove", tp: tp.Events.MouseMove },
+    { dom: "mouseout", tp: tp.Events.MouseLeave },
+    { dom: "keydown", tp: tp.Events.KeyDown },
+    { dom: "keypress", tp: tp.Events.KeyPress },
+    { dom: "keyup", tp: tp.Events.KeyUp },
+    { dom: "scroll", tp: tp.Events.Scroll },
+    { dom: "mousewheel", tp: tp.Events.MouseWheel },
+    { dom: "DOMMouseScroll", tp: tp.Events.MouseWheel },
+    { dom: "contextmenu", tp: tp.Events.ContextMenu },
+    { dom: "load", tp: tp.Events.Load },
+    { dom: "resize", tp: tp.Events.Resize },
+    { dom: "activate", tp: tp.Events.Activate },
+    { dom: "DOMActivate", tp: tp.Events.Activate },
+    { dom: "focus", tp: tp.Events.Focus },
+    { dom: "blur", tp: tp.Events.LostFocus },
+    { dom: "change", tp: tp.Events.Change },
+    { dom: "input", tp: tp.Events.InputChanged },
+    { dom: "select", tp: tp.Events.TextSelected },
+    { dom: "dragstart", tp: tp.Events.DragStart },
+    { dom: "drag", tp: tp.Events.Drag },
+    { dom: "dragend", tp: tp.Events.DragEnd },
+    { dom: "dragenter", tp: tp.Events.DragEnter },
+    { dom: "dragover", tp: tp.Events.DragOver },
+    { dom: "dragleave", tp: tp.Events.DragLeave },
+    { dom: "drop", tp: tp.Events.DragDrop },
+    { dom: "copy", tp: tp.Events.Copy },
+    { dom: "cut", tp: tp.Events.Cut },
+    { dom: "paste", tp: tp.Events.Paste }
+];
+
+Object.freeze(tp.Events.Map);
+Object.freeze(tp.Events);
+
 // ● 25-broadcaster.js
 // ● broadcaster listener
 /**
@@ -4199,6 +4364,300 @@ tp.Broadcaster = class {
  */
 tp.Broadcaster.fListeners = [];
 
+// ● 27-size-chart.js
+// ● size mode
+/**
+ * Container size mode CSS class names.
+ * A size mode describes a component/container width, not the browser viewport.
+ * @type {object}
+ */
+tp.SizeMode = {
+    None: "",
+    XSmall: "tp-XSmall",
+    Small: "tp-Small",
+    Medium: "tp-Medium",
+    Large: "tp-Large",
+    XLarge: "tp-XLarge",
+    XXLarge: "tp-XXLarge"
+};
+Object.freeze(tp.SizeMode);
+/**
+ * Ordered size mode values.
+ * @type {string[]}
+ */
+tp.SizeModes = [
+    tp.SizeMode.None,
+    tp.SizeMode.XSmall,
+    tp.SizeMode.Small,
+    tp.SizeMode.Medium,
+    tp.SizeMode.Large,
+    tp.SizeMode.XLarge,
+    tp.SizeMode.XXLarge
+];
+Object.freeze(tp.SizeModes);
+/**
+ * Default container width breakpoints.
+ * These values match the Tripous viewport breakpoint thresholds.
+ * @type {number[]}
+ */
+tp.DefaultBreakpoints = [
+    575.98,
+    767.98,
+    991.98,
+    1199.98,
+    1399.98
+];
+Object.freeze(tp.DefaultBreakpoints);
+
+// ● size chart
+/**
+ * Detects container size mode changes from a width value.
+ * This is used by UI containers and controls whose layout depends on their own width.
+ */
+tp.SizeChart = class {
+    // ● constructor
+    /**
+     * Creates a size chart.
+     * @param {number[]|null|undefined} Source Optional breakpoint values.
+     */
+    constructor(Source) {
+        this.Breakpoints = tp.DefaultBreakpoints.slice();
+        this.Mode = tp.SizeMode.None;
+        this.LastMode = tp.SizeMode.None;
+        this.Assign(Source);
+    }
+
+    // ● protected
+    /**
+     * Returns the size mode for a width.
+     * @param {number} Width The width.
+     * @returns {string} Returns a tp.SizeMode value.
+     * @protected
+     */
+    GetMode(Width) {
+        var Index;
+        var Limit;
+        if (!tp.IsNumber(Width) || Width <= 0)
+            return tp.SizeMode.None;
+        for (Index = 0; Index < this.Breakpoints.length; Index++) {
+            Limit = this.Breakpoints[Index];
+            if (tp.IsNumber(Limit) && Width <= Limit)
+                return tp.SizeModes[Index + 1];
+        }
+        return tp.SizeMode.XXLarge;
+    }
+
+    // ● public
+    /**
+     * Returns true when a width changes the current size mode.
+     * @param {number} Width The width.
+     * @returns {boolean} Returns true when the size mode changed.
+     */
+    IsModeChange(Width) {
+        var NewMode = this.GetMode(Width);
+        if (NewMode !== tp.SizeMode.None && this.Mode !== NewMode) {
+            this.LastMode = this.Mode;
+            this.Mode = NewMode;
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Assigns custom breakpoints.
+     * The source may contain up to five numbers: XSmall, Small, Medium, Large, and XLarge upper bounds.
+     * @param {number[]|null|undefined} Source The breakpoint values.
+     * @returns {void}
+     */
+    Assign(Source) {
+        var Index;
+        if (tp.IsArray(Source) && Source.length > 0 && Source.length <= tp.DefaultBreakpoints.length) {
+            for (Index = 0; Index < Source.length; Index++) {
+                if (tp.IsNumber(Source[Index]))
+                    this.Breakpoints[Index] = Source[Index];
+            }
+        }
+    }
+};
+
+// ● prototype
+/**
+ * The current size mode.
+ * @type {string}
+ */
+tp.SizeChart.prototype.Mode = tp.SizeMode.None;
+/**
+ * The last size mode before the current mode.
+ * @type {string}
+ */
+tp.SizeChart.prototype.LastMode = tp.SizeMode.None;
+/**
+ * The breakpoint values.
+ * @type {number[]}
+ */
+tp.SizeChart.prototype.Breakpoints = [];
+
+// ● 28-resize-detector.js
+// ● resize detector
+/**
+ * Detects size changes in an HTMLElement and sends notifications to a listener function.
+ * Uses the ResizeObserver API.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API|MDN Resize Observer API}
+ */
+tp.ResizeDetector = class {
+    // ● constructor
+    /**
+     * Creates a resize detector.
+     * @param {string|HTMLElement} SelectorOrElement The element to observe.
+     * @param {Function} OnResizeFunc A callback receiving { Width: boolean, Height: boolean }.
+     * @param {object|null|undefined} Context The callback context.
+     * @param {boolean|null|undefined} ImmediateStart True to start observing immediately.
+     */
+    constructor(SelectorOrElement, OnResizeFunc, Context, ImmediateStart) {
+        this.Element = tp.Select(SelectorOrElement);
+        this.OnResizeFunc = OnResizeFunc;
+        this.Context = Context || null;
+        this.Observer = null;
+        this.Width = 0;
+        this.Height = 0;
+        this.fObserving = false;
+        if (!tp.IsHTMLElement(this.Element))
+            tp.Throw("ResizeDetector requires an HTMLElement.");
+        if (!tp.IsFunction(this.OnResizeFunc))
+            tp.Throw("ResizeDetector requires a callback function.");
+        if (typeof ResizeObserver === "undefined")
+            tp.Throw("ResizeObserver is not available.");
+        this.Observer = new ResizeObserver(this.ObserverCallback.bind(this));
+        if (ImmediateStart !== false)
+            this.Start();
+    }
+
+    // ● protected
+    /**
+     * Reads the size from a ResizeObserver entry.
+     * @param {ResizeObserverEntry} Entry The observer entry.
+     * @returns {tp.Size} Returns the observed size.
+     * @protected
+     */
+    GetEntrySize(Entry) {
+        var BoxSize;
+        var Rect;
+        if (Entry && Entry.borderBoxSize) {
+            BoxSize = tp.IsArray(Entry.borderBoxSize) ? Entry.borderBoxSize[0] : Entry.borderBoxSize;
+            if (BoxSize)
+                return new tp.Size(BoxSize.inlineSize, BoxSize.blockSize);
+        }
+        Rect = Entry && Entry.contentRect ? Entry.contentRect : this.Element.getBoundingClientRect();
+        return new tp.Size(Rect.width, Rect.height);
+    }
+    /**
+     * Observer callback.
+     * @param {ResizeObserverEntry[]} Entries The observer entries.
+     * @param {ResizeObserver} Observer The observer instance.
+     * @returns {void}
+     * @protected
+     */
+    ObserverCallback(Entries, Observer) {
+        var Size;
+        var ResizeInfo;
+        if (!Entries || Entries.length === 0)
+            return;
+        Size = this.GetEntrySize(Entries[0]);
+        if (Size.Width !== this.Width || Size.Height !== this.Height) {
+            ResizeInfo = {
+                Width: Size.Width !== this.Width,
+                Height: Size.Height !== this.Height
+            };
+            this.Width = Size.Width;
+            this.Height = Size.Height;
+            tp.Call(this.OnResizeFunc, this.Context, ResizeInfo);
+        }
+    }
+
+    // ● public
+    /**
+     * Starts observing the element.
+     * @returns {void}
+     */
+    Start() {
+        var Options;
+        if (!this.fObserving) {
+            this.Width = this.Element.offsetWidth;
+            this.Height = this.Element.offsetHeight;
+            Options = { box: "border-box" };
+            this.Observer.observe(this.Element, Options);
+            this.fObserving = true;
+        }
+    }
+    /**
+     * Stops observing the element.
+     * @returns {void}
+     */
+    Stop() {
+        if (this.fObserving) {
+            this.Observer.unobserve(this.Element);
+            this.Observer.disconnect();
+            this.fObserving = false;
+        }
+    }
+    /**
+     * Stops observing and clears references.
+     * @returns {void}
+     */
+    Dispose() {
+        this.Stop();
+        this.Observer = null;
+        this.Element = null;
+        this.OnResizeFunc = null;
+        this.Context = null;
+    }
+
+    // ● properties
+    /**
+     * Returns true while observing.
+     * @returns {boolean} Returns true while observing.
+     */
+    get Observing() {
+        return this.fObserving;
+    }
+};
+
+// ● prototype
+/**
+ * The observer.
+ * @type {ResizeObserver|null}
+ */
+tp.ResizeDetector.prototype.Observer = null;
+/**
+ * The observed element.
+ * @type {HTMLElement|null}
+ */
+tp.ResizeDetector.prototype.Element = null;
+/**
+ * The resize callback.
+ * @type {Function|null}
+ */
+tp.ResizeDetector.prototype.OnResizeFunc = null;
+/**
+ * The callback context.
+ * @type {object|null}
+ */
+tp.ResizeDetector.prototype.Context = null;
+/**
+ * The last observed width.
+ * @type {number}
+ */
+tp.ResizeDetector.prototype.Width = 0;
+/**
+ * The last observed height.
+ * @type {number}
+ */
+tp.ResizeDetector.prototype.Height = 0;
+/**
+ * True while observing.
+ * @type {boolean}
+ */
+tp.ResizeDetector.prototype.fObserving = false;
+
 // ● 30-component.js
 // ● create params
 /**
@@ -4271,16 +4730,40 @@ tp.CreateParams.prototype.Tag = null;
 // ● component
 /**
  * Represents an HTML element wrapper without data binding.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
  */
 tp.Component = class extends tp.Object {
+    // ● private
+    /**
+     * Creates component create parameters from a handle, selector, plain object, or tp.CreateParams instance.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} Value The source value.
+     * @returns {tp.CreateParams} Returns create parameters.
+     */
+    static CreateParams(Value) {
+        if (Value instanceof tp.CreateParams)
+            return Value;
+        if (tp.IsString(Value) || tp.IsHTMLElement(Value))
+            return new tp.CreateParams({ Handle: Value });
+        return new tp.CreateParams(Value);
+    }
+
     // ● constructor
     /**
      * Creates a new component.
-     * @param {tp.CreateParams|object} CreateParams The component creation parameters. A valid Handle is required.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The component creation parameters, handle, or selector. A valid Handle is required.
      */
     constructor(CreateParams) {
         super();
-        this.CreateParams = CreateParams instanceof tp.CreateParams ? CreateParams : new tp.CreateParams(CreateParams);
+        this.CreateParams = tp.Component.CreateParams(CreateParams);
+        this.fSizeChart = new tp.SizeChart();
         this.CreateHandle(this.CreateParams.Handle);
         this.ApplyCreateParams(this.CreateParams);
     }
@@ -4338,6 +4821,10 @@ tp.Component = class extends tp.Object {
             this.Tag = Params.Tag;
         if (!tp.IsNil(Params.Parent))
             this.Parent = Params.Parent;
+        if (!tp.IsNil(Params.Breakpoints))
+            this.Breakpoints = Params.Breakpoints;
+        if (!tp.IsNil(Params.IsElementResizeListener))
+            this.IsElementResizeListener = Params.IsElementResizeListener;
     }
     /**
      * Resolves a parent value to an HTMLElement.
@@ -4385,6 +4872,10 @@ tp.Component = class extends tp.Object {
      */
     DoDispose() {
         var Element = this.fHandle;
+        if (this.fResizeDetector) {
+            this.fResizeDetector.Dispose();
+            this.fResizeDetector = null;
+        }
         if (Element instanceof HTMLElement) {
             if (tp.Component.GetComponent(Element) === this)
                 tp.Component.SetComponent(Element, null);
@@ -4435,6 +4926,53 @@ tp.Component = class extends tp.Object {
     OnVisibleChanged() {
         this.Trigger("VisibleChanged", {});
     }
+    /**
+     * Notification sent by tp.ResizeDetector when this component size changes.
+     * This method is called only when IsElementResizeListener is true.
+     * @param {object|null|undefined} ResizeInfo The resize info object.
+     * @returns {void}
+     */
+    OnElementSizeChanged(ResizeInfo) {
+        this.Trigger("ElementSizeChanged", ResizeInfo || {});
+        if (this.fSizeChart && this.HasHandle && this.fSizeChart.IsModeChange(this.Handle.offsetWidth))
+            this.OnSizeModeChanged();
+    }
+    /**
+     * Notification called when SizeMode changes.
+     * @returns {void}
+     */
+    OnSizeModeChanged() {
+        var List;
+        this.Trigger("SizeModeChanged", { SizeMode: this.SizeMode });
+        if (tp.DebugMode === true && this.HasHandle) {
+            tp.RemoveClasses(this.Handle, tp.SizeModes);
+            tp.AddClass(this.Handle, this.SizeMode);
+        }
+        List = this.GetComponentList();
+        List.forEach(function (Component) {
+            Component.ParentSizeModeChanged(this.SizeMode);
+        }, this);
+    }
+    /**
+     * Notification called by a parent component when its SizeMode changes.
+     * @param {string} ParentSizeMode A tp.SizeMode value.
+     * @returns {void}
+     */
+    ParentSizeModeChanged(ParentSizeMode) {
+    }
+    /**
+     * Broadcasts SizeModeChanged to this component and nested listening components.
+     * @returns {void}
+     */
+    BroadcastSizeModeChanged() {
+        var List;
+        this.OnSizeModeChanged();
+        List = this.GetAllComponents();
+        List.forEach(function (Component) {
+            if (Component.IsElementResizeListener === true)
+                Component.OnSizeModeChanged();
+        });
+    }
 
     // ● properties
     /**
@@ -4464,6 +5002,20 @@ tp.Component = class extends tp.Object {
      */
     get NodeType() {
         return this.HasHandle ? this.Handle.nodeName : "";
+    }
+    /**
+     * Returns true when this component has focus.
+     * @returns {boolean} Returns true when focused.
+     */
+    get IsFocused() {
+        return this.HasHandle && tp.IsFocused(this.Handle);
+    }
+    /**
+     * Returns true when this component or one of its children has focus.
+     * @returns {boolean} Returns true when this component contains focus.
+     */
+    get HasFocused() {
+        return this.HasHandle && tp.HasFocused(this.Handle);
     }
     /**
      * Gets or sets the component id.
@@ -4560,7 +5112,7 @@ tp.Component = class extends tp.Object {
     get Text() {
         if (!this.HasHandle)
             return "";
-        return "value" in this.Handle ? this.Handle.value : this.Handle.textContent;
+        return this.HasValueText ? this.Handle.value : this.Handle.textContent;
     }
     /**
      * Sets text or value depending on the handle.
@@ -4571,10 +5123,19 @@ tp.Component = class extends tp.Object {
         if (!this.HasHandle)
             return;
         Value = tp.IsNil(Value) ? "" : String(Value);
-        if ("value" in this.Handle)
+        if (this.HasValueText)
             this.Handle.value = Value;
         else
             this.Handle.textContent = Value;
+    }
+    /**
+     * Returns true when Text should use the value property.
+     * @returns {boolean} Returns true when Text should use the value property.
+     */
+    get HasValueText() {
+        return this.HasHandle
+            && ("value" in this.Handle)
+            && ["input", "select", "textarea", "option"].indexOf(this.NodeType.toLowerCase()) !== -1;
     }
     /**
      * Gets or sets the tooltip.
@@ -4703,6 +5264,55 @@ tp.Component = class extends tp.Object {
         return this.HasHandle ? this.Handle.style : null;
     }
     /**
+     * Gets or sets a value indicating whether this component listens to element resize changes.
+     * @returns {boolean} Returns true when this component listens to element resize changes.
+     */
+    get IsElementResizeListener() {
+        return this.fResizeDetector instanceof tp.ResizeDetector && this.fResizeDetector.Observing === true;
+    }
+    /**
+     * Gets or sets a value indicating whether this component listens to element resize changes.
+     * @param {boolean} Value True to start listening; false to stop.
+     * @returns {void}
+     */
+    set IsElementResizeListener(Value) {
+        Value = Value === true;
+        if (this.HasHandle && Value !== this.IsElementResizeListener) {
+            if (Value) {
+                if (!this.fResizeDetector)
+                    this.fResizeDetector = new tp.ResizeDetector(this.Handle, this.OnElementSizeChanged, this, true);
+                else
+                    this.fResizeDetector.Start();
+                this.OnElementSizeChanged();
+            } else if (this.fResizeDetector) {
+                this.fResizeDetector.Stop();
+            }
+        }
+    }
+    /**
+     * Gets the current size mode.
+     * @returns {string} Returns a tp.SizeMode value.
+     */
+    get SizeMode() {
+        return this.fSizeChart ? this.fSizeChart.Mode : tp.SizeMode.None;
+    }
+    /**
+     * Gets or sets size mode breakpoint values.
+     * @returns {number[]} Returns the breakpoint values.
+     */
+    get Breakpoints() {
+        return this.fSizeChart ? this.fSizeChart.Breakpoints : [];
+    }
+    /**
+     * Gets or sets size mode breakpoint values.
+     * @param {number[]} Value The breakpoint values.
+     * @returns {void}
+     */
+    set Breakpoints(Value) {
+        if (this.fSizeChart)
+            this.fSizeChart.Assign(Value);
+    }
+    /**
      * Gets a value indicating whether this component is disposed.
      * @returns {boolean} Returns true when disposed.
      */
@@ -4788,6 +5398,20 @@ tp.Component = class extends tp.Object {
      */
     RemoveComponent(Child) {
         this.RemoveElement(Child);
+    }
+    /**
+     * Returns all nested component children.
+     * @returns {tp.Component[]} Returns all nested components.
+     */
+    GetAllComponents() {
+        return this.HasHandle ? tp.GetAllComponents(this.Handle) : [];
+    }
+    /**
+     * Returns all direct component children.
+     * @returns {tp.Component[]} Returns all direct child components.
+     */
+    GetComponentList() {
+        return this.HasHandle ? tp.GetComponentList(this.Handle) : [];
     }
 
     // ● child elements
@@ -4924,6 +5548,16 @@ tp.Component.prototype.fEnabled = true;
  */
 tp.Component.prototype.fIsDisposed = false;
 /**
+ * Gets the resize detector field.
+ * @type {tp.ResizeDetector|null}
+ */
+tp.Component.prototype.fResizeDetector = null;
+/**
+ * Gets the size chart field.
+ * @type {tp.SizeChart|null}
+ */
+tp.Component.prototype.fSizeChart = null;
+/**
  * Gets or sets a user-defined value.
  * @type {*}
  */
@@ -4981,6 +5615,64 @@ tp.Component.SetComponent = function (Element, Component) {
  */
 tp.Component.GetComponent = function (Element) {
     return Element instanceof HTMLElement && Element.__tpComponent instanceof tp.Component ? Element.__tpComponent : null;
+};
+/**
+ * Returns the component associated with an element.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {tp.Component|null} Returns the associated component or null.
+ */
+tp.GetComponent = function (ElementOrSelector) {
+    return tp.Component.GetComponent(tp.Select(ElementOrSelector));
+};
+/**
+ * Returns true when an element is associated with a component.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element is associated with a component.
+ */
+tp.HasComponent = function (ElementOrSelector) {
+    return tp.GetComponent(ElementOrSelector) instanceof tp.Component;
+};
+/**
+ * Returns all nested component children of a parent element.
+ * @param {HTMLElement|string|null|undefined} ParentElementOrSelector The parent element or selector.
+ * @returns {tp.Component[]} Returns all nested components.
+ */
+tp.GetAllComponents = function (ParentElementOrSelector) {
+    var Parent = tp.Select(ParentElementOrSelector);
+    var Result = [];
+    var List;
+    var Index;
+    var Component;
+    if (tp.IsHTMLElement(Parent)) {
+        List = Parent.querySelectorAll("*");
+        for (Index = 0; Index < List.length; Index++) {
+            Component = tp.Component.GetComponent(List[Index]);
+            if (Component instanceof tp.Component)
+                Result.push(Component);
+        }
+    }
+    return Result;
+};
+/**
+ * Returns all direct component children of a parent element.
+ * @param {HTMLElement|string|null|undefined} ParentElementOrSelector The parent element or selector.
+ * @returns {tp.Component[]} Returns all direct child components.
+ */
+tp.GetComponentList = function (ParentElementOrSelector) {
+    var Parent = tp.Select(ParentElementOrSelector);
+    var Result = [];
+    var List;
+    var Index;
+    var Component;
+    if (tp.IsHTMLElement(Parent)) {
+        List = Parent.children;
+        for (Index = 0; Index < List.length; Index++) {
+            Component = tp.Component.GetComponent(List[Index]);
+            if (Component instanceof tp.Component)
+                Result.push(Component);
+        }
+    }
+    return Result;
 };
 
 // ● 31-storage.js
@@ -5123,6 +5815,217 @@ tp.Session = class extends tp.BrowserStorage {
             return window.sessionStorage;
         } catch (e) {
             return null;
+        }
+    }
+};
+
+// ● 32-static-files.js
+// ● static files
+/**
+ * Loads and unloads JavaScript and CSS files dynamically in the document head.
+ * Dynamically loaded files are reference counted and removed when the counter reaches zero.
+ * @type {object}
+ */
+tp.StaticFiles = {
+    /**
+     * Gets the dynamically loaded JavaScript files.
+     * @type {object[]}
+     */
+    JavascriptFiles: [],
+    /**
+     * Gets the dynamically loaded CSS files.
+     * @type {object[]}
+     */
+    CssFiles: [],
+
+    // ● protected
+    /**
+     * Normalizes a file URL for lookups.
+     * @param {string} Url The file URL.
+     * @returns {string} Returns the normalized URL.
+     */
+    NormalizeUrl: function (Url) {
+        return tp.IsString(Url) ? Url.toLowerCase() : "";
+    },
+    /**
+     * Gets the current document head element.
+     * @returns {HTMLHeadElement|null} Returns the document head element or null.
+     */
+    GetHead: function () {
+        if (typeof document === "undefined")
+            return null;
+        return document.head || tp.Select("head");
+    },
+    /**
+     * Finds a loaded file registration by URL.
+     * @param {object[]} List The registration list.
+     * @param {string} FileUrl The normalized file URL.
+     * @returns {object|null} Returns the registration or null.
+     */
+    FindFile: function (List, FileUrl) {
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (List[Index].FileUrl === FileUrl)
+                return List[Index];
+        }
+        return null;
+    },
+
+    // ● public
+    /**
+     * Loads a JavaScript file dynamically.
+     * @param {string} Url The file URL.
+     * @returns {Promise<void>} Returns a promise resolved when the file is loaded.
+     */
+    LoadJavascriptFile: async function (Url) {
+        var FileUrl = tp.StaticFiles.NormalizeUrl(Url);
+        var File = tp.StaticFiles.FindFile(tp.StaticFiles.JavascriptFiles, FileUrl);
+        var Head;
+        var Element;
+        if (tp.IsBlank(FileUrl))
+            return Promise.resolve();
+        if (tp.IsValid(File)) {
+            File.Counter += 1;
+            return Promise.resolve();
+        }
+        Head = tp.StaticFiles.GetHead();
+        if (!Head)
+            return Promise.reject(new Error("Document head element not found."));
+        Element = document.createElement("script");
+        Element.src = Url;
+        return new Promise(function (Resolve, Reject) {
+            Element.onload = function () {
+                tp.StaticFiles.JavascriptFiles.push({
+                    FileUrl: FileUrl,
+                    Counter: 1,
+                    Element: Element
+                });
+                Resolve();
+            };
+            Element.onerror = function (e) {
+                Reject(e);
+            };
+            Head.appendChild(Element);
+        });
+    },
+    /**
+     * Unloads a dynamically loaded JavaScript file.
+     * @param {string} Url The file URL.
+     * @returns {void}
+     */
+    UnLoadJavascriptFile: function (Url) {
+        var FileUrl = tp.StaticFiles.NormalizeUrl(Url);
+        var File = tp.StaticFiles.FindFile(tp.StaticFiles.JavascriptFiles, FileUrl);
+        if (tp.IsValid(File)) {
+            File.Counter -= 1;
+            if (File.Counter <= 0) {
+                if (File.Element.parentNode)
+                    File.Element.parentNode.removeChild(File.Element);
+                tp.ListRemove(tp.StaticFiles.JavascriptFiles, File);
+            }
+        }
+    },
+    /**
+     * Loads a list of JavaScript files dynamically.
+     * @param {string[]} UrlList The file URL list.
+     * @returns {Promise<void>} Returns a promise resolved when all files are loaded.
+     */
+    LoadJavascriptFiles: async function (UrlList) {
+        var Index;
+        if (tp.IsArray(UrlList)) {
+            for (Index = 0; Index < UrlList.length; Index++)
+                await tp.StaticFiles.LoadJavascriptFile(UrlList[Index]);
+        }
+    },
+    /**
+     * Unloads a list of dynamically loaded JavaScript files.
+     * @param {string[]} UrlList The file URL list.
+     * @returns {void}
+     */
+    UnLoadJavascriptFiles: function (UrlList) {
+        var Index;
+        if (tp.IsArray(UrlList)) {
+            for (Index = 0; Index < UrlList.length; Index++)
+                tp.StaticFiles.UnLoadJavascriptFile(UrlList[Index]);
+        }
+    },
+    /**
+     * Loads a CSS file dynamically.
+     * @param {string} Url The file URL.
+     * @returns {Promise<void>} Returns a promise resolved when the file is loaded.
+     */
+    LoadCssFile: async function (Url) {
+        var FileUrl = tp.StaticFiles.NormalizeUrl(Url);
+        var File = tp.StaticFiles.FindFile(tp.StaticFiles.CssFiles, FileUrl);
+        var Head;
+        var Element;
+        if (tp.IsBlank(FileUrl))
+            return Promise.resolve();
+        if (tp.IsValid(File)) {
+            File.Counter += 1;
+            return Promise.resolve();
+        }
+        Head = tp.StaticFiles.GetHead();
+        if (!Head)
+            return Promise.reject(new Error("Document head element not found."));
+        Element = document.createElement("link");
+        Element.href = Url;
+        Element.rel = "stylesheet";
+        Element.type = "text/css";
+        return new Promise(function (Resolve, Reject) {
+            Element.onload = function () {
+                tp.StaticFiles.CssFiles.push({
+                    FileUrl: FileUrl,
+                    Counter: 1,
+                    Element: Element
+                });
+                Resolve();
+            };
+            Element.onerror = function (e) {
+                Reject(e);
+            };
+            Head.appendChild(Element);
+        });
+    },
+    /**
+     * Unloads a dynamically loaded CSS file.
+     * @param {string} Url The file URL.
+     * @returns {void}
+     */
+    UnLoadCssFile: function (Url) {
+        var FileUrl = tp.StaticFiles.NormalizeUrl(Url);
+        var File = tp.StaticFiles.FindFile(tp.StaticFiles.CssFiles, FileUrl);
+        if (tp.IsValid(File)) {
+            File.Counter -= 1;
+            if (File.Counter <= 0) {
+                if (File.Element.parentNode)
+                    File.Element.parentNode.removeChild(File.Element);
+                tp.ListRemove(tp.StaticFiles.CssFiles, File);
+            }
+        }
+    },
+    /**
+     * Loads a list of CSS files dynamically.
+     * @param {string[]} UrlList The file URL list.
+     * @returns {Promise<void>} Returns a promise resolved when all files are loaded.
+     */
+    LoadCssFiles: async function (UrlList) {
+        var Index;
+        if (tp.IsArray(UrlList)) {
+            for (Index = 0; Index < UrlList.length; Index++)
+                await tp.StaticFiles.LoadCssFile(UrlList[Index]);
+        }
+    },
+    /**
+     * Unloads a list of dynamically loaded CSS files.
+     * @param {string[]} UrlList The file URL list.
+     * @returns {void}
+     */
+    UnLoadCssFiles: function (UrlList) {
+        var Index;
+        if (tp.IsArray(UrlList)) {
+            for (Index = 0; Index < UrlList.length; Index++)
+                tp.StaticFiles.UnLoadCssFile(UrlList[Index]);
         }
     }
 };
@@ -6623,6 +7526,115 @@ tp.Visible = function (Selector, Value) {
         return tp.GetComputedStyle(Element).display !== "none";
     Element.style.display = Value === true ? "" : "none";
     return Value === true;
+};
+
+// ● z-index
+/**
+ * Gets or sets the z-index of an element.
+ * See: http://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+ * See: https://www.w3.org/TR/CSS2/visuren.html#z-index
+ * @param {Element|string} Selector The target selector or element.
+ * @param {string|number|null|undefined} Value The optional z-index value to set.
+ * @returns {number} Returns the numeric z-index when getting; otherwise, returns the assigned numeric z-index.
+ */
+tp.ZIndex = function (Selector, Value) {
+    var Element = tp(Selector);
+    var Style;
+    if (!tp.IsElement(Element))
+        return 0;
+    if (arguments.length < 2 || tp.IsNil(Value)) {
+        Style = tp.GetComputedStyle(Element);
+        return Style ? tp.StrToInt(Style.zIndex, 0) : 0;
+    }
+    Value = tp.ToInt(Value);
+    Element.style.zIndex = String(Value);
+    return Value;
+};
+/**
+ * Returns the maximum computed z-index under a container element.
+ * @param {Element|Document|string|null|undefined} Container The optional container. Defaults to document.
+ * @returns {number} Returns the maximum z-index.
+ */
+tp.MaxZIndexOf = function (Container) {
+    var Parent = tp.IsNil(Container) ? document : tp(Container);
+    var Result = 0;
+    var List;
+    var Index;
+    var Element;
+    var Value;
+    if (!tp.IsNodeSelector(Parent))
+        Parent = document;
+    List = Parent.querySelectorAll("*");
+    for (Index = 0; Index < List.length; Index++) {
+        Element = List[Index];
+        Value = Element.ownerDocument.defaultView.getComputedStyle(Element, "").getPropertyValue("z-index");
+        if (Value === "auto")
+            Value = Index;
+        Value = tp.ExtractNumber(Value);
+        Result = Math.max(Result, Value);
+    }
+    return Result;
+};
+/**
+ * Returns the minimum computed z-index under a container element.
+ * @param {Element|Document|string|null|undefined} Container The optional container. Defaults to document.
+ * @returns {number} Returns the minimum z-index.
+ */
+tp.MinZIndexOf = function (Container) {
+    var Parent = tp.IsNil(Container) ? document : tp(Container);
+    var Result = 0;
+    var List;
+    var Index;
+    var Element;
+    var Value;
+    if (!tp.IsNodeSelector(Parent))
+        Parent = document;
+    List = Parent.querySelectorAll("*");
+    for (Index = 0; Index < List.length; Index++) {
+        Element = List[Index];
+        Value = Element.ownerDocument.defaultView.getComputedStyle(Element, "").getPropertyValue("z-index");
+        if (Value === "auto")
+            Value = Index;
+        Value = tp.ExtractNumber(Value);
+        Result = Math.min(Result, Value);
+    }
+    return Result;
+};
+/**
+ * Brings an element in front of all siblings and returns the assigned z-index.
+ * @param {Element|string} Selector The target selector or element.
+ * @returns {number} Returns the assigned z-index.
+ */
+tp.BringToFront = function (Selector) {
+    var Element = tp(Selector);
+    var Max;
+    var Current;
+    if (tp.IsElement(Element) && tp.IsElement(Element.parentNode)) {
+        Max = tp.MaxZIndexOf(Element.parentNode);
+        Current = tp.ZIndex(Element);
+        if (Current < Max) {
+            Max++;
+            tp.ZIndex(Element, Max);
+            return Max;
+        }
+        return Current;
+    }
+    return 0;
+};
+/**
+ * Sends an element behind all siblings and returns the assigned z-index.
+ * @param {Element|string} Selector The target selector or element.
+ * @returns {number} Returns the assigned z-index.
+ */
+tp.SendToBack = function (Selector) {
+    var Element = tp(Selector);
+    var Min;
+    if (tp.IsElement(Element) && tp.IsElement(Element.parentNode)) {
+        Min = tp.MinZIndexOf(Element.parentNode) - 1;
+        tp.ZIndex(Element, Min);
+        return Min;
+    }
+    return 0;
 };
 
 // ● css classes

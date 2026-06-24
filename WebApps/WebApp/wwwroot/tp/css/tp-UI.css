@@ -3,6 +3,709 @@
 ---------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------------------------------------------------
+  group box
+---------------------------------------------------------------------------------------*/
+fieldset.tp-GroupBox {
+    border: var(--Border);
+    overflow: auto;
+}
+
+fieldset.tp-GroupBox legend {
+    padding: 0 4px;
+}
+
+/*---------------------------------------------------------------------------------------
+  accordion
+---------------------------------------------------------------------------------------*/
+.tp-Accordion {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    overflow: hidden;
+}
+
+.tp-Accordion > * {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tp-Accordion > * > :nth-child(1) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--BackColor);
+    line-height: 1.8em;
+    cursor: pointer;
+}
+
+.tp-Accordion > * > :nth-child(1)::after {
+    content: "›";
+    flex: 0 0 auto;
+    padding-left: 8px;
+    font-size: 18px;
+    line-height: 1;
+    transform: rotate(0deg);
+}
+
+.tp-Accordion > .tp-Expanded > :nth-child(1)::after {
+    transform: rotate(90deg);
+}
+
+.tp-Accordion > * > :nth-child(2) {
+    display: none;
+    overflow: auto;
+}
+
+.tp-Accordion > .tp-Expanded > :nth-child(2) {
+    display: block;
+}
+
+.tp-Accordion > * > * {
+    padding: 4px;
+}
+
+.tp-Accordion > * > :nth-child(1) {
+    padding-right: 16px;
+}
+
+/*---------------------------------------------------------------------------------------
+  panel list
+---------------------------------------------------------------------------------------*/
+.tp-PanelList {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--BackColor);
+}
+
+.tp-PanelList > * {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+/*---------------------------------------------------------------------------------------
+  item bar
+---------------------------------------------------------------------------------------*/
+.tp-Button {
+    cursor: pointer;
+}
+
+.tp-Button:disabled {
+    cursor: default;
+}
+
+/*---------------------------------------------------------------------------------------
+  tool-bar and tool-button
+---------------------------------------------------------------------------------------*/
+.tp-ToolBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+.tp-ToolButton {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 2.2em;
+    min-height: 2.2em;
+    margin: 0 1px;
+    padding: 0 4px;
+    border: var(--Border);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tp-ToolButton.tp-Disabled {
+    background-color: var(--DisabledColor);
+}
+
+.tp-TabBar .tp-ToolButton.tp-Selected {
+    background-color: var(--SelectedColor);
+}
+
+/*---------------------------------------------------------------------------------------
+  button-ex
+---------------------------------------------------------------------------------------*/
+.tp-ButtonEx {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-width: 2.4em;
+    min-height: 2.4em;
+    height: auto;
+    margin: 0 1px;
+    border: 1px solid #cccccc;
+    color: inherit;
+    text-decoration: none;
+}
+
+.tp-ButtonEx.tp-Disabled {
+    color: var(--DisabledColor);
+}
+
+.tp-ButtonEx > :nth-child(1) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6em;
+    height: 1.6em;
+    margin: 6px;
+    font-size: 18px;
+}
+
+.tp-ButtonEx > :nth-child(2) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0 15px 0 0;
+    font: inherit;
+}
+
+.tp-ButtonEx.tp-NoIco > :nth-child(1) {
+    display: none;
+}
+
+.tp-ButtonEx.tp-NoIco > :nth-child(2) {
+    margin: 0 6px;
+}
+
+.tp-ButtonEx.tp-NoText > :nth-child(2) {
+    display: none;
+}
+
+.tp-ButtonEx.tp-IcoTop {
+    flex-direction: column;
+}
+
+.tp-ButtonEx.tp-IcoTop > :nth-child(1) {
+    margin: 4px 0 0 0;
+}
+
+.tp-ButtonEx.tp-IcoTop > :nth-child(2) {
+    margin: 3px 6px;
+}
+
+/*---------------------------------------------------------------------------------------
+  menu
+---------------------------------------------------------------------------------------*/
+.tp-Menu {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: auto;
+    border: var(--Border);
+    outline: none;
+    background-color: var(--BackColor);
+}
+
+.tp-ContextMenu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    border: var(--Border);
+    outline: none;
+    box-shadow: 5px 5px 16px 0 var(--ShadowColor);
+    background-color: var(--BackColor);
+}
+
+.tp-MenuItem {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    height: 2.5em;
+    cursor: default;
+}
+
+.tp-Menu > .tp-MenuItem {
+    border-right: var(--Border);
+}
+
+.tp-MenuItem:hover {
+    background-color: var(--HoverColor);
+}
+
+.tp-MenuItem.tp-Disabled {
+    color: var(--DisabledColor);
+}
+
+.tp-MenuItem > .tp-MenuItemImage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 2.5em;
+    overflow: hidden;
+    border-right: var(--Border);
+}
+
+.tp-Menu > .tp-MenuItem > .tp-MenuItemImage {
+    display: none;
+}
+
+.tp-MenuItem > .tp-MenuItemText {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0 4px 0 6px;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tp-MenuItem > .tp-MenuItemArrow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 18px;
+    font-size: 16px;
+}
+
+.tp-MenuItem:not(.tp-HasChildren) > .tp-MenuItemArrow {
+    visibility: hidden;
+}
+
+.tp-MenuItem > .tp-MenuItemList {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    left: 0;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    min-width: 180px;
+    border: var(--Border);
+    box-shadow: 5px 5px 16px 0 var(--ShadowColor);
+    background-color: var(--BackColor);
+}
+
+.tp-MenuSeparator {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.tp-MenuSeparator > hr {
+    position: relative;
+    flex-grow: 1;
+}
+
+/*---------------------------------------------------------------------------------------
+  site menu
+---------------------------------------------------------------------------------------*/
+.tp-SiteMenu {
+    position: relative;
+    height: auto;
+}
+
+.tp-SiteMenu > .tp-Toggle {
+    position: relative;
+    display: none;
+    align-items: center;
+    min-height: 42px;
+    background-color: #ffffff;
+    border: var(--Border);
+    cursor: default;
+}
+
+.tp-SiteMenu > .tp-Toggle > .tp-Btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 58px;
+    height: 42px;
+    padding: 0 12px;
+    border-right: var(--Border);
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+    color: #1f2328;
+    cursor: pointer;
+}
+
+.tp-SiteMenu > .tp-Toggle > .tp-Btn::before {
+    content: "☰";
+}
+
+.tp-SiteMenu > .tp-Toggle > .tp-Btn:not(:empty)::before {
+    margin-right: 8px;
+}
+
+.tp-SiteMenu .tp-Strip {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    background-color: #3f474f;
+    color: #ffffff;
+}
+
+.tp-SiteMenu .tp-Strip.tp-Hide {
+    display: none;
+}
+
+.tp-SiteMenu .tp-Strip > .tp-Item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 18px;
+    white-space: nowrap;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tp-SiteMenu .tp-Strip > .tp-Item:hover,
+.tp-SiteMenu .tp-Strip > .tp-Item.tp-Active {
+    background-color: #237a57;
+}
+
+.tp-SiteMenu .tp-Strip .tp-Item > .tp-Content {
+    display: none;
+    color: var(--FontColor);
+    background-color: var(--BackColor);
+}
+
+.tp-SiteMenu .tp-Strip > .tp-Item > .tp-Content {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+    min-width: 260px;
+    padding: 12px;
+    border: var(--Border);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.tp-SiteMenu .tp-Strip > .tp-Item.tp-Right > .tp-Content {
+    left: auto;
+    right: 0;
+}
+
+.tp-SiteMenu .tp-Strip > .tp-Item.tp-Active > .tp-Content {
+    display: block;
+}
+
+.tp-SiteMenu .tp-Strip .tp-Content .tp-Item {
+    display: block;
+    min-height: 28px;
+    padding: 3px 8px;
+    line-height: 28px;
+    color: var(--FontColor);
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.tp-SiteMenu .tp-Strip .tp-Content .tp-Item:hover {
+    background-color: var(--HoverColor);
+}
+
+.tp-SiteMenu .tp-Strip .tp-Content .tp-Item.tp-Title {
+    padding-top: 0;
+    padding-bottom: 8px;
+    color: var(--FontColor2);
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: default;
+}
+
+.tp-SiteMenu .tp-Strip .tp-Content .tp-Item.tp-Title:hover {
+    background-color: transparent;
+}
+
+.tp-SiteMenu .tp-Columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-width: 520px;
+}
+
+.tp-SiteMenu .tp-Column {
+    display: flex;
+    flex: 1 1 150px;
+    flex-direction: column;
+    min-width: 140px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #535353;
+}
+
+.tp-SiteMenu.tp-Small {
+    display: flex;
+    flex-direction: column;
+}
+
+.tp-SiteMenu.tp-Small > .tp-Toggle {
+    display: flex;
+}
+
+.tp-SiteMenu.tp-Small .tp-Strip {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    border-top: 0;
+}
+
+.tp-SiteMenu.tp-Small .tp-Strip > .tp-Item {
+    display: block;
+    min-height: 40px;
+    padding: 0 12px;
+    line-height: 40px;
+}
+
+.tp-SiteMenu.tp-Small .tp-Strip > .tp-Item > .tp-Content {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    min-width: 0;
+    padding: 8px;
+    box-shadow: none;
+}
+
+.tp-SiteMenu.tp-Small .tp-Columns {
+    min-width: 0;
+}
+
+.tp-SiteMenu.tp-Small .tp-Column {
+    flex-basis: 100%;
+}
+
+.tp-ItemBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 2.3em;
+    gap: 2px;
+    user-select: none;
+}
+
+.tp-ItemBar > .tp-Toggle {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: var(--BackColor);
+    border: var(--Border);
+    user-select: none;
+}
+
+.tp-ItemBar > .tp-Toggle > .tp-Btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.3em;
+    height: 100%;
+    border-right: var(--Border);
+    cursor: pointer;
+}
+
+.tp-ItemBar > .tp-Toggle > .tp-Btn > .tp-Ico {
+    display: block;
+    color: #1f2328;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.tp-ItemBar > .tp-Toggle > .tp-Text {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 6px;
+}
+
+.tp-ItemBar > .tp-Prev,
+.tp-ItemBar > .tp-Next {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8em;
+    min-width: 1.8em;
+    height: 100%;
+    font-size: 19px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tp-ItemBar > .tp-ItemList {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    min-height: 100%;
+    height: 100%;
+    gap: 2px;
+    overflow: hidden;
+}
+
+.tp-ItemBar > .tp-ToggleItemList {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 2px);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+    max-height: 220px;
+    padding: 4px;
+    gap: 4px;
+    overflow: auto;
+    border: var(--Border);
+    background-color: var(--BackColor);
+    user-select: none;
+}
+
+.tp-ItemBar > .tp-ToggleItemList > * {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 1.8em;
+    padding: 0 8px 0 3px;
+    cursor: pointer;
+}
+
+.tp-ItemBar > .tp-ToggleItemList > *.tp-Selected {
+    background-color: var(--SelectedColor);
+}
+
+.tp-DropDownBox > .tp-ToggleItemList {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: none;
+    gap: 4px;
+    overflow: auto;
+}
+
+.tp-DropDownBox > .tp-ToggleItemList > * {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 1.8em;
+    padding: 0 8px 0 3px;
+    cursor: pointer;
+}
+
+.tp-DropDownBox > .tp-ToggleItemList > *.tp-Selected {
+    background-color: var(--SelectedColor);
+}
+
+/*---------------------------------------------------------------------------------------
+  drop-down box
+---------------------------------------------------------------------------------------*/
+.tp-DropDownBox {
+    position: fixed;
+    display: none;
+    box-sizing: border-box;
+    min-width: 80px;
+    min-height: 32px;
+    padding: 4px;
+    overflow: hidden;
+    border: var(--Border);
+    background-color: var(--BackColor);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+    cursor: default;
+}
+
+.tp-DropDownBox.tp-Visible {
+    display: block;
+}
+
+.tp-DropDownBox > :first-child {
+    position: relative;
+    overflow: auto;
+}
+
+.tp-DropDownBoxItem {
+    position: relative;
+    min-height: 1.8em;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.tp-DropDownBoxItem:hover {
+    background-color: var(--SelectedColor);
+}
+
+/*---------------------------------------------------------------------------------------
+  tab control
+---------------------------------------------------------------------------------------*/
+.tp-TabControl {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tp-TabControl > .tp-TabBar {
+    flex: 0 0 auto;
+    border-bottom: var(--Border);
+}
+
+.tp-TabControl > .tp-TabBar .tp-ItemList > *,
+.tp-TabControl > .tp-TabBar .tp-ToggleItemList > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2em;
+    padding: 0 12px;
+    border: var(--Border);
+    border-bottom: 0;
+    background-color: var(--BackColor);
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.tp-TabControl > .tp-TabBar > .tp-Toggle > .tp-Text {
+    justify-content: center;
+}
+
+.tp-TabControl > .tp-TabBar .tp-ItemList > *.tp-Selected,
+.tp-TabControl > .tp-TabBar .tp-ToggleItemList > *.tp-Selected {
+    background-color: var(--SelectedColor);
+}
+
+.tp-TabControl > .tp-List {
+    position: relative;
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.tp-TabControl > .tp-List > .tp-TabPage {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    overflow: auto;
+}
+
+/*---------------------------------------------------------------------------------------
   screen overlay
 ---------------------------------------------------------------------------------------*/
 .tp-ScreenOverlay {
@@ -41,4 +744,167 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+/*---------------------------------------------------------------------------------------
+  splitter
+---------------------------------------------------------------------------------------*/
+.tp-Splitter {
+    position: relative;
+    background-color: gray;
+}
+
+.tp-Splitter.tp-Vertical {
+    width: 5px;
+    min-width: 5px;
+    cursor: col-resize;
+}
+
+.tp-Splitter.tp-Horizontal {
+    height: 5px;
+    min-height: 5px;
+    cursor: row-resize;
+}
+
+/*---------------------------------------------------------------------------------------
+  image slider
+---------------------------------------------------------------------------------------*/
+.tp-ImageSlider {
+    position: relative;
+    overflow: hidden;
+    background-color: #000000;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.tp-ImageSlider .tp-Next,
+.tp-ImageSlider .tp-Prev {
+    position: absolute;
+    top: 50%;
+    box-sizing: border-box;
+    width: 42px;
+    height: 42px;
+    margin-top: -21px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.35);
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 39px;
+    text-align: center;
+    opacity: 0.7;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tp-ImageSlider .tp-Next:hover,
+.tp-ImageSlider .tp-Prev:hover {
+    opacity: 1;
+}
+
+.tp-ImageSlider .tp-Next {
+    right: 12px;
+}
+
+.tp-ImageSlider .tp-Prev {
+    left: 12px;
+}
+
+.tp-ImageSlider .tp-Next::after {
+    content: "›";
+}
+
+.tp-ImageSlider .tp-Prev::after {
+    content: "‹";
+}
+
+/*---------------------------------------------------------------------------------------
+  frame
+---------------------------------------------------------------------------------------*/
+.tp-Frame {
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    border: 0;
+}
+
+/*---------------------------------------------------------------------------------------
+  notification box
+---------------------------------------------------------------------------------------*/
+.tp-NotificationBox {
+    position: fixed;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-width: 180px;
+    min-height: 70px;
+    margin: 4px;
+    overflow: hidden;
+    border: 1px solid currentColor;
+    border-left-width: 6px;
+    opacity: 0;
+    transition: opacity 0.25s ease-in;
+    user-select: none;
+}
+
+.tp-NotificationBox.tp-Visible {
+    opacity: 1;
+}
+
+.tp-NotificationBox.tp-Pinned {
+    transition: none;
+}
+
+.tp-NotificationBox.tp-Selected {
+    outline: 2px solid rgba(31, 35, 40, 0.35);
+    outline-offset: 1px;
+}
+
+.tp-NotificationBox > .tp-Caption {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 6px;
+    border-bottom: 1px solid currentColor;
+    cursor: move;
+}
+
+.tp-NotificationBox > .tp-Caption > .tp-Close {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    line-height: 22px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tp-NotificationBox > .tp-Content {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 4px;
+}
+
+.tp-NotificationBox > .tp-Content > textarea {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 42px;
+    padding: 4px;
+    overflow: auto;
+    border: 0;
+    outline: none;
+    resize: none;
+    background: rgba(255, 255, 255, 0.35);
+    color: inherit;
+    font-family: monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
 }

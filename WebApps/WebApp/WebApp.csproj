@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\js-src\" />
+    <Folder Include="wwwroot\tp\js\" />
   </ItemGroup>
 
   <Target Name="BuildTripousWebJavaScriptBundles"

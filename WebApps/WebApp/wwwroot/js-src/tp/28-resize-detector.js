@@ -121,6 +121,8 @@ tp.ResizeDetector = class {
         return this.fObserving;
     }
 };
+
+// ● prototype
 /**
  * The observer.
  * @type {ResizeObserver|null}

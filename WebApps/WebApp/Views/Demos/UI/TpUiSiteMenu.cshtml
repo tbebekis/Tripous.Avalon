@@ -1,0 +1,121 @@
+@{
+    ViewData["Title"] = "tp.SiteMenu";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.SiteMenu</h1>
+
+<p>
+    The <code>tp.SiteMenu</code> control is a document-like menu with a toggle button for small screens.
+    It supports top menu items, drop-down content panels, and column layouts inside menu item content.
+</p>
+
+<p>
+    The control is useful for web site navigation and larger document-like menus. It is intentionally simpler than
+    <code>tp.Menu</code>, which targets desktop-style application menus.
+</p>
+
+<style>
+    .site-menu-demo-area {
+        display: grid;
+        gap: 16px;
+        max-width: 980px;
+    }
+    .site-menu-demo-card {
+        box-sizing: border-box;
+        padding: 14px;
+        border: 1px solid #d0d7de;
+        background: #f6f8fa;
+    }
+    .site-menu-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 760px);
+        min-height: 100px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="site-menu-demo-area">
+        <div id="SiteMenu" data-break-point="720">
+            <div class="tp-Toggle">
+                <div class="tp-Btn">Menu</div>
+                <div class="tp-FlexFill"></div>
+            </div>
+
+            <div class="tp-Strip tp-Normal">
+                <div class="tp-Item" data-command="Home">Home</div>
+                <div class="tp-Item" data-command="Products">
+                    Products
+                    <div class="tp-Content">
+                        <div class="tp-Columns">
+                            <div class="tp-Column">
+                                <div class="tp-Item tp-Title">Building</div>
+                                <div class="tp-Item" data-command="Cement">Cement</div>
+                                <div class="tp-Item" data-command="Bricks">Bricks</div>
+                                <div class="tp-Item" data-command="Insulation">Insulation</div>
+                            </div>
+                            <div class="tp-Column">
+                                <div class="tp-Item tp-Title">Tools</div>
+                                <div class="tp-Item" data-command="PowerTools">Power tools</div>
+                                <div class="tp-Item" data-command="HandTools">Hand tools</div>
+                                <div class="tp-Item" data-command="Workwear">Workwear</div>
+                            </div>
+                            <div class="tp-Column">
+                                <div class="tp-Item tp-Title">Garden</div>
+                                <div class="tp-Item" data-command="Watering">Watering</div>
+                                <div class="tp-Item" data-command="Outdoor">Outdoor living</div>
+                                <div class="tp-Item" data-command="Lighting">Lighting</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tp-Item" data-command="Services">
+                    Services
+                    <div class="tp-Content">
+                        <div class="tp-Item tp-Title">Customer services</div>
+                        <div class="tp-Item" data-command="Delivery">Delivery</div>
+                        <div class="tp-Item" data-command="Installation">Installation</div>
+                        <div class="tp-Item" data-command="Returns">Returns</div>
+                    </div>
+                </div>
+                <div class="tp-Item" data-command="Offers">Offers</div>
+                <div class="tp-Item tp-Right" data-command="Account">
+                    Account
+                    <div class="tp-Content">
+                        <div class="tp-Item" data-command="SignIn">Sign in</div>
+                        <div class="tp-Item" data-command="Orders">Orders</div>
+                        <div class="tp-Item" data-command="Profile">Profile</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-menu-demo-card">
+            Resize the browser or narrow this frame to see the responsive toggle mode.
+        </div>
+
+        <pre id="SiteMenuOutput" class="site-menu-demo-log"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Menu = new tp.SiteMenu("#SiteMenu");
+
+        Menu.On("ItemClick", function (Args) {
+            var Text = [
+                "site menu item = " + Args.ItemText,
+                "command = " + Args.Command
+            ].join("\n");
+            tp.Text("#SiteMenuOutput", Text);
+            tp.InfoNote("SiteMenu command: " + Args.Command);
+        });
+
+        tp.Text("#SiteMenuOutput", "Click a SiteMenu item.");
+    });
+</script>

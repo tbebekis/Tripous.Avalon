@@ -226,7 +226,7 @@ tp.Object = class {
         if (InvocationList.length === 0)
             return null;
         Args = Args instanceof tp.EventArgs ? Args : new tp.EventArgs(Args || {});
-        Args.EventName = tp.IsBlank(Args.EventName) ? String(EventName) : Args.EventName;
+        Args.EventName = String(EventName);
         Args.Sender = tp.IsNil(Args.Sender) ? this : Args.Sender;
         for (Index = 0; Index < InvocationList.length; Index++) {
             Listener = InvocationList[Index];

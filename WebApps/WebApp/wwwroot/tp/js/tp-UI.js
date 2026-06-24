@@ -31,6 +31,7 @@ tp.Classes = {
     Collapsed: "tp-Collapsed",
     Grouped: "tp-Grouped",
     Marked: "tp-Marked",
+    Pinned: "tp-Pinned",
     Disabled: "tp-Disabled",
     Wrapped: "tp-Wrapped",
     Horizontal: "tp-Horizontal",
@@ -54,11 +55,17 @@ tp.Classes = {
     Edit: "tp-Edit",
     Viewport: "tp-Viewport",
     Container: "tp-Container",
+    Button: "tp-Button",
     Btn: "tp-Btn",
     Ico: "tp-Ico",
     Img: "tp-Img",
     Separator: "tp-Separator",
     Strip: "tp-Strip",
+    SiteMenu: "tp-SiteMenu",
+    ItemBar: "tp-ItemBar",
+    ButtonEx: "tp-ButtonEx",
+    ToolBar: "tp-ToolBar",
+    ToolButton: "tp-ToolButton",
     TabBar: "tp-TabBar",
     Bar: "tp-Bar",
     BarItem: "tp-BarItem",
@@ -102,6 +109,19 @@ tp.Classes = {
     NoIco: "tp-NoIco",
     NoText: "tp-NoText",
     DropDown: "tp-DropDown",
+    DropDownBox: "tp-DropDownBox",
+    DropDownBoxItem: "tp-DropDownBoxItem",
+    Menu: "tp-Menu",
+    ContextMenu: "tp-ContextMenu",
+    MenuItem: "tp-MenuItem",
+    MenuSeparator: "tp-MenuSeparator",
+    MenuItemImage: "tp-MenuItemImage",
+    MenuItemText: "tp-MenuItemText",
+    MenuItemArrow: "tp-MenuItemArrow",
+    MenuItemList: "tp-MenuItemList",
+    HasChildren: "tp-HasChildren",
+    Columns: "tp-Columns",
+    Column: "tp-Column",
     Overlay: "tp-Overlay",
     CenterInParent: "tp-CenterInParent",
     Shadow: "tp-Shadow",
@@ -159,301 +179,207 @@ tp.Classes = {
     Splitter: "tp-Splitter",
     Accordion: "tp-Accordion",
     TabControl: "tp-TabControl",
+    TabPage: "tp-TabPage",
+    ImageSlider: "tp-ImageSlider",
     TreeView: "tp-TreeView",
     Node: "tp-Node",
     Leaf: "tp-Leaf"
 };
 Object.freeze(tp.Classes);
 
-// ● 10-size-chart.js
-// ● size mode
+// ● 25-row-col.js
+// ● row
 /**
- * Container size mode CSS class names.
- * A size mode describes a component/container width, not the browser viewport.
- * @type {object}
+ * A responsive row.
+ * A row listens to its own element resize changes and propagates SizeMode changes to direct child components.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ *
+ * @example
+ * <div id="Row">
+ *     <div class="tp-Col"></div>
+ *     <div class="tp-Col"></div>
+ * </div>
+ * <script>
+ *     var Row = new tp.Row("#Row", { Breakpoints: [400, 700, 1000, 1200, 1400] });
+ * </script>
  */
-tp.SizeMode = {
-    None: "",
-    XSmall: tp.Classes.XSmall,
-    Small: tp.Classes.Small,
-    Medium: tp.Classes.Medium,
-    Large: tp.Classes.Large,
-    XLarge: tp.Classes.XLarge,
-    XXLarge: tp.Classes.XXLarge
-};
-Object.freeze(tp.SizeMode);
-/**
- * Ordered size mode values.
- * @type {string[]}
- */
-tp.SizeModes = [
-    tp.SizeMode.None,
-    tp.SizeMode.XSmall,
-    tp.SizeMode.Small,
-    tp.SizeMode.Medium,
-    tp.SizeMode.Large,
-    tp.SizeMode.XLarge,
-    tp.SizeMode.XXLarge
-];
-Object.freeze(tp.SizeModes);
-/**
- * Default container width breakpoints.
- * These values follow the Tripous CSS/viewport breakpoint thresholds.
- * @type {number[]}
- */
-tp.DefaultBreakpoints = [
-    tp.ScreenWidthsMax.XSmall,
-    tp.ScreenWidthsMax.Small,
-    tp.ScreenWidthsMax.Medium,
-    tp.ScreenWidthsMax.Large,
-    tp.ScreenWidthsMax.XLarge
-];
-Object.freeze(tp.DefaultBreakpoints);
-
-// ● size chart
-/**
- * Detects container size mode changes from a width value.
- * This is used by UI containers and controls whose layout depends on their own width.
- */
-tp.SizeChart = class {
+tp.Row = class extends tp.Component {
     // ● constructor
     /**
-     * Creates a size chart.
-     * @param {number[]|null|undefined} Source Optional breakpoint values.
+     * Creates a responsive row.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The row create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
      */
-    constructor(Source) {
-        this.Breakpoints = tp.DefaultBreakpoints.slice();
-        this.Mode = tp.SizeMode.None;
-        this.LastMode = tp.SizeMode.None;
-        this.Assign(Source);
+    constructor(CreateParams, Options) {
+        var Params = tp.Row.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.Row";
+        tp.AddClass(this.Handle, tp.Classes.Row);
+        this.IsElementResizeListener = true;
     }
 
     // ● protected
     /**
-     * Returns the size mode for a width.
-     * @param {number} Width The width.
-     * @returns {string} Returns a tp.SizeMode value.
-     * @protected
+     * Creates normalized row create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
      */
-    GetMode(Width) {
-        var Index;
-        var Limit;
-        if (!tp.IsNumber(Width) || Width <= 0)
-            return tp.SizeMode.None;
-        for (Index = 0; Index < this.Breakpoints.length; Index++) {
-            Limit = this.Breakpoints[Index];
-            if (tp.IsNumber(Limit) && Width <= Limit)
-                return tp.SizeModes[Index + 1];
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
         }
-        return tp.SizeMode.XXLarge;
+        return Params;
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.Row.prototype.tpClass = "tp.Row";
+
+// ● column
+/**
+ * A responsive column.
+ * WidthPercents contains one percent width for each size mode:
+ * XSmall, Small, Medium, Large, XLarge, and XXLarge.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ *
+ * @example
+ * <div id="Col"></div>
+ * <script>
+ *     var Col = new tp.Col("#Col", { WidthPercents: [100, 100, 50, 33.33, 33.33, 25] });
+ * </script>
+ */
+tp.Col = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a responsive column.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The column create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.Col.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.Col";
+        tp.AddClass(this.Handle, tp.Classes.Col);
+        this.ApplyColParams(this.CreateParams);
     }
 
-    // ● public
+    // ● protected
     /**
-     * Returns true when a width changes the current size mode.
-     * @param {number} Width The width.
-     * @returns {boolean} Returns true when the size mode changed.
+     * Creates normalized column create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
      */
-    IsModeChange(Width) {
-        var NewMode = this.GetMode(Width);
-        if (NewMode !== tp.SizeMode.None && this.Mode !== NewMode) {
-            this.LastMode = this.Mode;
-            this.Mode = NewMode;
-            return true;
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
         }
-        return false;
+        return Params;
     }
     /**
-     * Assigns custom breakpoints.
-     * The source may contain up to five numbers: XSmall, Small, Medium, Large, and XLarge upper bounds.
-     * @param {number[]|null|undefined} Source The breakpoint values.
+     * Applies create parameters specific to tp.Col.
+     * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
      * @returns {void}
      */
-    Assign(Source) {
+    ApplyColParams(Params) {
+        if (!Params)
+            return;
+        if (tp.IsArray(Params.WidthPercents))
+            this.WidthPercents = this.NormalizePercents(Params.WidthPercents, this.WidthPercents);
+        if (tp.IsArray(Params.ControlWidthPercents))
+            this.ControlWidthPercents = this.NormalizePercents(Params.ControlWidthPercents, this.ControlWidthPercents);
+    }
+    /**
+     * Normalizes a percent array to the number of supported size modes.
+     * @param {number[]} Source The source percent array.
+     * @param {number[]} Default The default percent array.
+     * @returns {number[]} Returns a normalized percent array.
+     */
+    NormalizePercents(Source, Default) {
+        var Result = Default.slice();
         var Index;
-        if (tp.IsArray(Source) && Source.length > 0 && Source.length <= tp.DefaultBreakpoints.length) {
-            for (Index = 0; Index < Source.length; Index++) {
+        if (tp.IsArray(Source)) {
+            for (Index = 0; Index < Source.length && Index < Result.length; Index++) {
                 if (tp.IsNumber(Source[Index]))
-                    this.Breakpoints[Index] = Source[Index];
+                    Result[Index] = Source[Index];
             }
         }
-    }
-};
-/**
- * The current size mode.
- * @type {string}
- */
-tp.SizeChart.prototype.Mode = tp.SizeMode.None;
-/**
- * The last size mode before the current mode.
- * @type {string}
- */
-tp.SizeChart.prototype.LastMode = tp.SizeMode.None;
-/**
- * The breakpoint values.
- * @type {number[]}
- */
-tp.SizeChart.prototype.Breakpoints = [];
-
-// ● 20-resize-detector.js
-// ● resize detector
-/**
- * Detects size changes in an HTMLElement and sends notifications to a listener function.
- * Uses the ResizeObserver API.
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API|MDN Resize Observer API}
- */
-tp.ResizeDetector = class {
-    // ● constructor
-    /**
-     * Creates a resize detector.
-     * @param {string|HTMLElement} SelectorOrElement The element to observe.
-     * @param {Function} OnResizeFunc A callback receiving { Width: boolean, Height: boolean }.
-     * @param {object|null|undefined} Context The callback context.
-     * @param {boolean|null|undefined} ImmediateStart True to start observing immediately.
-     */
-    constructor(SelectorOrElement, OnResizeFunc, Context, ImmediateStart) {
-        this.Element = tp.Select(SelectorOrElement);
-        this.OnResizeFunc = OnResizeFunc;
-        this.Context = Context || null;
-        this.Observer = null;
-        this.Width = 0;
-        this.Height = 0;
-        this.fObserving = false;
-        if (!tp.IsHTMLElement(this.Element))
-            tp.Throw("ResizeDetector requires an HTMLElement.");
-        if (!tp.IsFunction(this.OnResizeFunc))
-            tp.Throw("ResizeDetector requires a callback function.");
-        if (typeof ResizeObserver === "undefined")
-            tp.Throw("ResizeObserver is not available.");
-        this.Observer = new ResizeObserver(this.ObserverCallback.bind(this));
-        if (ImmediateStart !== false)
-            this.Start();
-    }
-
-    // ● protected
-    /**
-     * Reads the size from a ResizeObserver entry.
-     * @param {ResizeObserverEntry} Entry The observer entry.
-     * @returns {tp.Size} Returns the observed size.
-     * @protected
-     */
-    GetEntrySize(Entry) {
-        var BoxSize;
-        var Rect;
-        if (Entry && Entry.borderBoxSize) {
-            BoxSize = tp.IsArray(Entry.borderBoxSize) ? Entry.borderBoxSize[0] : Entry.borderBoxSize;
-            if (BoxSize)
-                return new tp.Size(BoxSize.inlineSize, BoxSize.blockSize);
-        }
-        Rect = Entry && Entry.contentRect ? Entry.contentRect : this.Element.getBoundingClientRect();
-        return new tp.Size(Rect.width, Rect.height);
-    }
-    /**
-     * Observer callback.
-     * @param {ResizeObserverEntry[]} Entries The observer entries.
-     * @param {ResizeObserver} Observer The observer instance.
-     * @returns {void}
-     * @protected
-     */
-    ObserverCallback(Entries, Observer) {
-        var Size;
-        var ResizeInfo;
-        if (!Entries || Entries.length === 0)
-            return;
-        Size = this.GetEntrySize(Entries[0]);
-        if (Size.Width !== this.Width || Size.Height !== this.Height) {
-            ResizeInfo = {
-                Width: Size.Width !== this.Width,
-                Height: Size.Height !== this.Height
-            };
-            this.Width = Size.Width;
-            this.Height = Size.Height;
-            tp.Call(this.OnResizeFunc, this.Context, ResizeInfo);
-        }
+        return Result;
     }
 
     // ● public
     /**
-     * Starts observing the element.
+     * Notification called by a parent component when its SizeMode changes.
+     * @param {string} ParentSizeMode A tp.SizeMode value.
      * @returns {void}
      */
-    Start() {
-        var Options;
-        if (!this.fObserving) {
-            this.Width = this.Element.offsetWidth;
-            this.Height = this.Element.offsetHeight;
-            Options = { box: "border-box" };
-            this.Observer.observe(this.Element, Options);
-            this.fObserving = true;
+    ParentSizeModeChanged(ParentSizeMode) {
+        var Index = tp.SizeModes.indexOf(ParentSizeMode);
+        var Percent;
+        var List;
+        if (Index > 0) {
+            Percent = this.WidthPercents[Index - 1];
+            if (tp.IsNumber(Percent))
+                this.Handle.style.width = Percent + "%";
+            List = this.GetComponentList();
+            List.forEach(function (Component) {
+                if (tp.IsFunction(tp.CtrlRow) && Component instanceof tp.CtrlRow && tp.IsFunction(Component.SetControlPercentWidth)) {
+                    Percent = this.ControlWidthPercents[Index - 1];
+                    if (tp.IsNumber(Percent))
+                        Component.SetControlPercentWidth(Percent + "%");
+                }
+            }, this);
         }
-    }
-    /**
-     * Stops observing the element.
-     * @returns {void}
-     */
-    Stop() {
-        if (this.fObserving) {
-            this.Observer.unobserve(this.Element);
-            this.Observer.disconnect();
-            this.fObserving = false;
-        }
-    }
-    /**
-     * Stops observing and clears references.
-     * @returns {void}
-     */
-    Dispose() {
-        this.Stop();
-        this.Observer = null;
-        this.Element = null;
-        this.OnResizeFunc = null;
-        this.Context = null;
-    }
-
-    // ● properties
-    /**
-     * Returns true while observing.
-     * @returns {boolean} Returns true while observing.
-     */
-    get Observing() {
-        return this.fObserving;
     }
 };
+
+// ● prototype
 /**
- * The observer.
- * @type {ResizeObserver|null}
+ * Gets the Tripous class name.
+ * @type {string}
  */
-tp.ResizeDetector.prototype.Observer = null;
+tp.Col.prototype.tpClass = "tp.Col";
 /**
- * The observed element.
- * @type {HTMLElement|null}
+ * Percent widths to occupy from parent row according to size mode.
+ * Values correspond to XSmall, Small, Medium, Large, XLarge, and XXLarge.
+ * @type {number[]}
  */
-tp.ResizeDetector.prototype.Element = null;
+tp.Col.prototype.WidthPercents = [100, 100, 50, 33.33, 33.33, 25];
 /**
- * The resize callback.
- * @type {Function|null}
+ * Percent widths for the control part of a child tp.CtrlRow according to size mode.
+ * Values correspond to XSmall, Small, Medium, Large, XLarge, and XXLarge.
+ * @type {number[]}
  */
-tp.ResizeDetector.prototype.OnResizeFunc = null;
-/**
- * The callback context.
- * @type {object|null}
- */
-tp.ResizeDetector.prototype.Context = null;
-/**
- * The last observed width.
- * @type {number}
- */
-tp.ResizeDetector.prototype.Width = 0;
-/**
- * The last observed height.
- * @type {number}
- */
-tp.ResizeDetector.prototype.Height = 0;
-/**
- * True while observing.
- * @type {boolean}
- */
-tp.ResizeDetector.prototype.fObserving = false;
+tp.Col.prototype.ControlWidthPercents = [100, 100, 60, 65, 65, 65];
 
 // ● 30-wrap-observer.js
 // ● wrap observer
@@ -969,5 +895,6879 @@ tp.ShowSpinner = function (Flag) {
  */
 tp.ForceHideSpinner = function () {
     tp.Spinner.ForceHide();
+};
+
+// ● 60-dragger.js
+// ● dragger mode
+/**
+ * Indicates the active operations of a dragger.
+ * @enum {number}
+ */
+tp.DraggerMode = {
+    Drag: 1,
+    Resize: 2,
+    Both: 1 | 2
+};
+Object.freeze(tp.DraggerMode);
+
+// ● drag context listener
+/**
+ * Interface-like base class for tp.DragContext listeners.
+ * @interface
+ */
+tp.IDragContextListener = class {
+    // ● constructor
+    /**
+     * Creates a drag context listener.
+     */
+    constructor() {
+    }
+
+    // ● public
+    /**
+     * Called by tp.DragContext to decide if dragging should start.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {boolean} Returns true to start dragging.
+     */
+    IsDragStart(e) {
+        return false;
+    }
+    /**
+     * Called by tp.DragContext when dragging starts.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragStart(e) {
+    }
+    /**
+     * Called by tp.DragContext while dragging.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragMove(e) {
+    }
+    /**
+     * Called by tp.DragContext when dragging ends.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragEnd(e) {
+    }
+};
+
+// ● drag context
+/**
+ * Tracks a mouse drag operation and delegates drag notifications to a listener.
+ */
+tp.DragContext = class {
+    // ● constructor
+    /**
+     * Creates a drag context.
+     * @param {string|Element} ElementOrSelector The element of this context.
+     * @param {tp.IDragContextListener|object} Listener The drag context listener.
+     */
+    constructor(ElementOrSelector, Listener) {
+        this.fElement = tp.Select(ElementOrSelector);
+        this.fListener = Listener;
+        if (!tp.IsHTMLElement(this.fElement))
+            tp.Throw("tp.DragContext requires a valid HTMLElement.");
+        if (tp.IsNil(Listener) || !tp.IsFunction(Listener.IsDragStart) || !tp.IsFunction(Listener.DragStart) || !tp.IsFunction(Listener.DragMove) || !tp.IsFunction(Listener.DragEnd))
+            tp.Throw("tp.DragContext requires a valid listener.");
+        this.fElement.addEventListener("mousedown", this);
+        this.fElement.ownerDocument.addEventListener("mousemove", this, true);
+        this.fElement.ownerDocument.addEventListener("mouseup", this, true);
+    }
+
+    // ● protected
+    /**
+     * Updates the stored mouse information.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    UpdateMouseInfo(e) {
+        if (tp.IsNil(this.fMouseInfo))
+            this.fMouseInfo = new tp.MouseInfo(e);
+        else
+            this.fMouseInfo.Update(e);
+    }
+    /**
+     * Handles a mouse down event.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    OnMouseDown(e) {
+        if (tp.Mouse.IsLeft(e)) {
+            this.UpdateMouseInfo(e);
+            this.fIsMouseDown = true;
+            this.fDragging = this.fListener.IsDragStart(e) === true;
+            if (this.Dragging)
+                this.fListener.DragStart(e);
+        }
+    }
+    /**
+     * Handles a mouse move event.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    OnMouseMove(e) {
+        if (this.fIsMouseDown && this.Dragging) {
+            this.UpdateMouseInfo(e);
+            this.fListener.DragMove(e);
+        }
+    }
+    /**
+     * Handles a mouse up event.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    OnMouseUp(e) {
+        if (this.fIsMouseDown) {
+            this.fIsMouseDown = false;
+            if (this.Dragging) {
+                this.UpdateMouseInfo(e);
+                this.fDragging = false;
+                this.fListener.DragEnd(e);
+            }
+        }
+    }
+
+    // ● properties
+    /**
+     * Returns true while dragging.
+     * @returns {boolean} Returns true while dragging.
+     */
+    get Dragging() {
+        return this.fDragging;
+    }
+    /**
+     * Gets mouse information regarding the last handled mouse event.
+     * @returns {tp.MouseInfo|null} Returns mouse information or null.
+     */
+    get MouseInfo() {
+        return this.fMouseInfo;
+    }
+    /**
+     * Returns true after Dispose() is called.
+     * @returns {boolean} Returns true when this instance is disposed.
+     */
+    get IsDisposed() {
+        return this.fIsDisposed;
+    }
+
+    // ● event handler
+    /**
+     * Handles DOM events.
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    handleEvent(e) {
+        if (this.IsDisposed)
+            return;
+        if (tp.IsSameText("mousedown", e.type))
+            this.OnMouseDown(e);
+        else if (tp.IsSameText("mousemove", e.type))
+            this.OnMouseMove(e);
+        else if (tp.IsSameText("mouseup", e.type))
+            this.OnMouseUp(e);
+    }
+
+    // ● public
+    /**
+     * Disposes this instance and removes event listeners.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.fIsDisposed === false && tp.IsHTMLElement(this.fElement)) {
+            this.fElement.removeEventListener("mousedown", this);
+            this.fElement.ownerDocument.removeEventListener("mousemove", this, true);
+            this.fElement.ownerDocument.removeEventListener("mouseup", this, true);
+            this.fElement = null;
+            this.fListener = null;
+            this.fMouseInfo = null;
+            this.fIsDisposed = true;
+        }
+    }
+};
+
+// ● prototype
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.DragContext.prototype.fIsMouseDown = false;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.DragContext.prototype.fDragging = false;
+/**
+ * Private field.
+ * @type {tp.IDragContextListener|object|null}
+ */
+tp.DragContext.prototype.fListener = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.DragContext.prototype.fElement = null;
+/**
+ * Private field.
+ * @type {tp.MouseInfo|null}
+ */
+tp.DragContext.prototype.fMouseInfo = null;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.DragContext.prototype.fIsDisposed = false;
+
+// ● dragger
+/**
+ * Moves and resizes an element with mouse interaction.
+ *
+ * Events:
+ * - DragStart
+ * - DragOver
+ * - DragEnd
+ *
+ * @example
+ * var Dragger = new tp.Dragger(tp.DraggerMode.Both, ".Box", ".Caption");
+ */
+tp.Dragger = class extends tp.Object {
+    // ● constructor
+    /**
+     * Creates a dragger.
+     * @param {number} Mode The active operations. A bit-field of tp.DraggerMode values.
+     * @param {string|Element} ElementOrSelector The element to move or resize.
+     * @param {string|Element|null|undefined} DragElementOrSelector Optional drag handle. When omitted, the main element is used.
+     */
+    constructor(Mode, ElementOrSelector, DragElementOrSelector) {
+        var Element;
+        super();
+        this.fMode = tp.IsNumber(Mode) ? Mode : tp.DraggerMode.Both;
+        this.fHandle = tp.Select(ElementOrSelector);
+        if (!tp.IsHTMLElement(this.fHandle))
+            tp.Throw("tp.Dragger requires a valid HTMLElement.");
+        if (this.IsDraggable) {
+            Element = tp.Select(DragElementOrSelector);
+            this.fDragHandle = tp.IsHTMLElement(Element) ? Element : this.Handle;
+        }
+        this.fOldCursor = tp.Mouse.Cursor;
+        this.Active = true;
+    }
+
+    // ● protected
+    /**
+     * Returns true when a width is inside the allowed limits.
+     * @param {number} Value The width to check.
+     * @returns {boolean} Returns true when the width is valid.
+     */
+    IsValidWidth(Value) {
+        return Value >= this.MinWidth && Value <= this.MaxWidth;
+    }
+    /**
+     * Returns true when a height is inside the allowed limits.
+     * @param {number} Value The height to check.
+     * @returns {boolean} Returns true when the height is valid.
+     */
+    IsValidHeight(Value) {
+        return Value >= this.MinHeight && Value <= this.MaxHeight;
+    }
+    /**
+     * Sets the cursor on the handle, its parent, and the document body.
+     * @param {string} Cursor The CSS cursor value.
+     * @returns {void}
+     */
+    SetCursor(Cursor) {
+        var Body;
+        if (tp.IsHTMLElement(this.Handle)) {
+            Body = this.Handle.ownerDocument.body;
+            if (Body)
+                Body.style.cursor = Cursor;
+            this.Handle.style.cursor = Cursor;
+            if (tp.IsHTMLElement(this.Handle.parentNode))
+                this.Handle.parentNode.style.cursor = Cursor;
+        }
+    }
+    /**
+     * Activates or deactivates this dragger.
+     * @param {boolean} Value True to activate; false to deactivate.
+     * @returns {void}
+     */
+    SetActive(Value) {
+        Value = Value === true;
+        if (Value !== this.Active) {
+            if (Value) {
+                this.fHandle.addEventListener("scroll", this, true);
+                this.fHandle.addEventListener("mousedown", this, true);
+                this.fHandle.addEventListener("mouseout", this, true);
+                this.fHandle.ownerDocument.addEventListener("mousemove", this, true);
+            } else {
+                this.fHandle.removeEventListener("scroll", this, true);
+                this.fHandle.removeEventListener("mousedown", this, true);
+                this.fHandle.removeEventListener("mouseout", this, true);
+                this.fHandle.ownerDocument.removeEventListener("mousemove", this, true);
+                this.fHandle.ownerDocument.removeEventListener("mouseup", this, true);
+                this.SetCursor(this.fOldCursor);
+            }
+            this.fActive = Value;
+        }
+    }
+    /**
+     * Starts the current drag or resize operation.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragStart(e) {
+        var Parent;
+        var Mouse;
+        var Style;
+        if (this.Dragging === true || this.Resizing === true) {
+            Parent = this.fHandle.parentNode;
+            Mouse = tp.Mouse.ToElement(e, Parent);
+            Style = tp.GetComputedStyle(this.Handle);
+            this.fDelta = new tp.Point(Mouse.X - tp.ExtractNumber(Style ? Style.left : 0), Mouse.Y - tp.ExtractNumber(Style ? Style.top : 0));
+            this.OnDragStart(e);
+        }
+    }
+    /**
+     * Moves the current drag or resize operation.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragMove(e) {
+        var L;
+        var T;
+        var W;
+        var H;
+        var Mouse;
+        var Style;
+        var Rect;
+        if (this.IsDraggable && this.Dragging) {
+            Mouse = tp.Mouse.ToElement(e, this.fHandle.parentNode);
+            L = Mouse.X - this.fDelta.X;
+            T = Mouse.Y - this.fDelta.Y;
+            this.fHandle.style.left = tp.px(L);
+            this.fHandle.style.top = tp.px(T);
+            this.OnDragMove(e);
+        } else if (this.IsResizable && this.Resizing) {
+            Style = tp.GetComputedStyle(this.fHandle);
+            Rect = this.fHandle.getBoundingClientRect();
+            L = tp.ExtractNumber(Style ? Style.left : 0);
+            T = tp.ExtractNumber(Style ? Style.top : 0);
+            W = tp.ExtractNumber(Style ? Style.width : Rect.width);
+            H = tp.ExtractNumber(Style ? Style.height : Rect.height);
+
+            if (e.clientX < Rect.left) {
+                L -= Rect.left - e.clientX;
+                W += Rect.left - e.clientX;
+            } else if (e.clientX > Rect.left && e.clientX < Rect.right) {
+                if (tp.Edge.IsLeft(this.fEdge)) {
+                    L += e.clientX - Rect.left;
+                    W -= e.clientX - Rect.left;
+                } else if (tp.Edge.IsRight(this.fEdge)) {
+                    W -= Rect.right - e.clientX;
+                }
+            } else if (e.clientX > Rect.right) {
+                W += e.clientX - Rect.right;
+            }
+
+            if (e.clientY < Rect.top) {
+                T -= Rect.top - e.clientY;
+                H += Rect.top - e.clientY;
+            } else if (e.clientY > Rect.top && e.clientY < Rect.bottom) {
+                if (tp.Edge.IsTop(this.fEdge)) {
+                    T += e.clientY - Rect.top;
+                    H -= e.clientY - Rect.top;
+                } else if (tp.Edge.IsBottom(this.fEdge)) {
+                    H -= Rect.bottom - e.clientY;
+                }
+            } else if (e.clientY > Rect.bottom) {
+                H += e.clientY - Rect.bottom;
+            }
+
+            if (this.IsValidWidth(W) && this.IsValidHeight(H)) {
+                this.fHandle.style.left = tp.px(L);
+                this.fHandle.style.width = tp.px(W);
+                this.fHandle.style.top = tp.px(T);
+                this.fHandle.style.height = tp.px(H);
+            }
+            this.OnDragMove(e);
+        }
+    }
+    /**
+     * Ends the current drag or resize operation.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragEnd(e) {
+        this.SetCursor(this.fOldCursor);
+        this.OnDragEnd(e);
+    }
+    /**
+     * Event trigger called when a drag or resize operation starts.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    OnDragStart(e) {
+        this.Trigger(tp.Events.DragStart, { e: e });
+    }
+    /**
+     * Event trigger called while a drag or resize operation moves.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    OnDragMove(e) {
+        this.Trigger(tp.Events.DragOver, { e: e });
+    }
+    /**
+     * Event trigger called when a drag or resize operation ends.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    OnDragEnd(e) {
+        this.Trigger(tp.Events.DragEnd, { e: e });
+    }
+
+    // ● properties
+    /**
+     * Gets or sets a value indicating whether this instance is active.
+     * @returns {boolean} Returns true when this instance is active.
+     */
+    get Active() {
+        return this.fActive;
+    }
+    /**
+     * Gets or sets a value indicating whether this instance is active.
+     * @param {boolean} Value True to activate; false to deactivate.
+     * @returns {void}
+     */
+    set Active(Value) {
+        this.SetActive(Value);
+    }
+    /**
+     * Gets the active operations of this dragger.
+     * @returns {number} Returns a bit-field of tp.DraggerMode values.
+     */
+    get Mode() {
+        return this.fMode;
+    }
+    /**
+     * Returns true when this dragger can move its handle.
+     * @returns {boolean} Returns true when moving is enabled.
+     */
+    get IsDraggable() {
+        return tp.Bf.In(tp.DraggerMode.Drag, this.Mode);
+    }
+    /**
+     * Returns true when this dragger can resize its handle.
+     * @returns {boolean} Returns true when resizing is enabled.
+     */
+    get IsResizable() {
+        return tp.Bf.In(tp.DraggerMode.Resize, this.Mode);
+    }
+    /**
+     * Returns true while resizing.
+     * @returns {boolean} Returns true while resizing.
+     */
+    get Resizing() {
+        return this.fResizing;
+    }
+    /**
+     * Returns true while dragging.
+     * @returns {boolean} Returns true while dragging.
+     */
+    get Dragging() {
+        return this.fDragging;
+    }
+    /**
+     * Gets the element to move or resize.
+     * @returns {HTMLElement|null} Returns the handle element.
+     */
+    get Handle() {
+        return this.fHandle;
+    }
+    /**
+     * Gets the element used as the drag handle.
+     * @returns {HTMLElement|null} Returns the drag handle element.
+     */
+    get DragHandle() {
+        return this.fDragHandle;
+    }
+
+    // ● event handler
+    /**
+     * Handles DOM events.
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    handleEvent(e) {
+        var Edge;
+        var Dif;
+        if (this.Active !== true)
+            return;
+        if (tp.IsSameText("scroll", e.type) && (this.Resizing || this.Dragging)) {
+            e.preventDefault();
+            return;
+        }
+        if (tp.IsSameText("mousedown", e.type)) {
+            if (tp.Mouse.IsLeft(e)) {
+                Edge = tp.Edge.ResizeHitTest(e, this.fHandle, this.HandleSize);
+                if (this.IsDraggable && Edge === tp.Edge.None && tp.ContainsEventTarget(this.fDragHandle, e.target)) {
+                    this.fDragging = true;
+                    this.SetCursor(tp.Cursors.Move);
+                    this.DragStart(e);
+                } else if (this.IsResizable && tp.Bf.In(Edge, this.Edges)) {
+                    this.fResizing = true;
+                    this.fEdge = Edge;
+                    this.SetCursor(tp.Edge.ToCursor(Edge));
+                    this.DragStart(e);
+                }
+                if (this.Dragging === true || this.Resizing === true) {
+                    this.fMouseInfo = new tp.MouseInfo(e);
+                    this.fHandle.ownerDocument.addEventListener("mouseup", this, true);
+                }
+            }
+        } else if (tp.IsSameText("mousemove", e.type)) {
+            if (!this.InMove) {
+                this.InMove = true;
+                try {
+                    if (tp.Mouse.IsLeft(e) && (this.fDragging || this.fResizing)) {
+                        Dif = this.fMouseInfo.Dif(e);
+                        if (!(Math.abs(Dif.X) > 5 || Math.abs(Dif.Y) > 5))
+                            return;
+                        this.DragMove(e);
+                    } else if (this.IsResizable) {
+                        Edge = tp.Edge.ResizeHitTest(e, this.fHandle, this.HandleSize);
+                        this.SetCursor(tp.Bf.In(Edge, this.Edges) ? tp.Edge.ToCursor(Edge) : this.fOldCursor);
+                    }
+                } finally {
+                    this.InMove = false;
+                }
+            }
+        } else if (tp.IsSameText("mouseout", e.type)) {
+            if (!this.fResizing)
+                this.SetCursor(this.fOldCursor);
+        } else if (tp.IsSameText("mouseup", e.type)) {
+            if (this.fDragging || this.fResizing) {
+                this.fHandle.ownerDocument.removeEventListener("mouseup", this, true);
+                this.DragEnd(e);
+            }
+            this.fDragging = false;
+            this.fResizing = false;
+            this.fEdge = tp.Edge.None;
+            this.fMouseInfo = null;
+        }
+    }
+
+    // ● public
+    /**
+     * Disposes this instance and removes event listeners.
+     * @returns {void}
+     */
+    Dispose() {
+        this.Active = false;
+        this.fHandle = null;
+        this.fDragHandle = null;
+        this.fMouseInfo = null;
+    }
+};
+
+// ● prototype
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.Dragger.prototype.fActive = false;
+/**
+ * Private field.
+ * @type {number}
+ */
+tp.Dragger.prototype.fMode = tp.DraggerMode.Both;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.Dragger.prototype.fDragging = false;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.Dragger.prototype.fResizing = false;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.Dragger.prototype.fHandle = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.Dragger.prototype.fDragHandle = null;
+/**
+ * Private field.
+ * @type {string}
+ */
+tp.Dragger.prototype.fOldCursor = "";
+/**
+ * Private field.
+ * @type {number}
+ */
+tp.Dragger.prototype.fEdge = tp.Edge.None;
+/**
+ * Private field.
+ * @type {tp.Point|null}
+ */
+tp.Dragger.prototype.fDelta = null;
+/**
+ * Private field.
+ * @type {tp.MouseInfo|null}
+ */
+tp.Dragger.prototype.fMouseInfo = null;
+/**
+ * True while this instance handles a mouse move event.
+ * @type {boolean}
+ */
+tp.Dragger.prototype.InMove = false;
+/**
+ * Bit-field with the edges to use as valid resize handles.
+ * @type {number}
+ */
+tp.Dragger.prototype.Edges = tp.Edge.All;
+/**
+ * The minimum resize width.
+ * @type {number}
+ */
+tp.Dragger.prototype.MinWidth = 50;
+/**
+ * The maximum resize width.
+ * @type {number}
+ */
+tp.Dragger.prototype.MaxWidth = 6000;
+/**
+ * The minimum resize height.
+ * @type {number}
+ */
+tp.Dragger.prototype.MinHeight = 50;
+/**
+ * The maximum resize height.
+ * @type {number}
+ */
+tp.Dragger.prototype.MaxHeight = 6000;
+/**
+ * The resize handle hit-test size in pixels.
+ * @type {number}
+ */
+tp.Dragger.prototype.HandleSize = 8;
+
+// ● 70-splitter.js
+// ● splitter
+/**
+ * A splitter bar placed between two sibling panels.
+ * @example
+ * <div id="Container" style="display: flex;">
+ *     <div id="Panel1">Panel 1</div>
+ *     <div class="tp-Splitter"></div>
+ *     <div id="Panel2">Panel 2</div>
+ * </div>
+ * <script>
+ *     var Splitter = new tp.Splitter(".tp-Splitter");
+ * </script>
+ */
+tp.Splitter = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a splitter.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The splitter create parameters, handle, or selector.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+        this.Initialize();
+    }
+
+    // ● protected
+    /**
+     * Initializes this splitter after handle creation and create parameter application.
+     * @returns {void}
+     */
+    Initialize() {
+        this.tpClass = "tp.Splitter";
+        tp.AddClass(this.Handle, tp.Classes.Splitter);
+        this.FindPanels();
+        this.ValidatePanels();
+        this.NormalizeSizeLimits();
+        this.fDragContext = new tp.DragContext(this.Handle, this);
+        this.SetHorizontal();
+    }
+    /**
+     * Finds the sibling panels around the splitter handle.
+     * @returns {void}
+     */
+    FindPanels() {
+        var List;
+        var Index;
+        this.Panel1 = null;
+        this.Panel2 = null;
+        if (tp.IsHTMLElement(this.ParentHandle)) {
+            List = tp.ChildHTMLElements(this.ParentHandle);
+            Index = List.indexOf(this.Handle);
+            if (Index !== -1) {
+                if (Index - 1 >= 0)
+                    this.Panel1 = List[Index - 1];
+                if (this.UseBothPanels === true && Index + 1 <= List.length - 1)
+                    this.Panel2 = List[Index + 1];
+            }
+        }
+    }
+    /**
+     * Validates that required panels exist.
+     * @returns {void}
+     */
+    ValidatePanels() {
+        if (!tp.IsHTMLElement(this.Panel1))
+            tp.Throw("Splitter Panel1 is not found.");
+        if (this.UseBothPanels === true && !tp.IsHTMLElement(this.Panel2))
+            tp.Throw("Splitter Panel2 is not found.");
+    }
+    /**
+     * Normalizes panel size constraints.
+     * @returns {void}
+     */
+    NormalizeSizeLimits() {
+        this.Panel1MinSize = tp.IsNumber(this.Panel1MinSize) ? this.Panel1MinSize : 100;
+        this.Panel1MaxSize = tp.IsNumber(this.Panel1MaxSize) ? this.Panel1MaxSize : 500;
+        this.Panel2MinSize = tp.IsNumber(this.Panel2MinSize) ? this.Panel2MinSize : 100;
+    }
+    /**
+     * Applies the orientation CSS classes.
+     * @returns {void}
+     */
+    SetHorizontal() {
+        if (this.HasHandle) {
+            if (this.IsHorizontal) {
+                tp.RemoveClass(this.Handle, tp.Classes.Vertical);
+                tp.AddClass(this.Handle, tp.Classes.Horizontal);
+            } else {
+                tp.RemoveClass(this.Handle, tp.Classes.Horizontal);
+                tp.AddClass(this.Handle, tp.Classes.Vertical);
+            }
+        }
+    }
+    /**
+     * Returns true when the splitter can move.
+     * @returns {boolean} Returns true when the splitter can move.
+     */
+    CanMoveSplitter() {
+        var Result = tp.IsHTMLElement(this.Panel1);
+        if (this.UseBothPanels === true)
+            Result = Result && tp.IsHTMLElement(this.Panel2);
+        if (Result) {
+            if (this.IsHorizontal) {
+                Result = this.Panel1.offsetHeight > this.Panel1MinSize;
+                if (this.UseBothPanels === true)
+                    Result = Result && this.Panel2.offsetHeight > this.Panel2MinSize;
+                else
+                    Result = Result && this.Panel1.offsetHeight < this.Panel1MaxSize;
+            } else {
+                Result = this.Panel1.offsetWidth > this.Panel1MinSize;
+                if (this.UseBothPanels === true)
+                    Result = Result && this.Panel2.offsetWidth > this.Panel2MinSize;
+                else
+                    Result = Result && this.Panel1.offsetWidth < this.Panel1MaxSize;
+            }
+        }
+        return Result;
+    }
+    /**
+     * Returns true when Panel1 can be resized to a specified mouse position.
+     * @param {number} MousePos The mouse position inside the parent element.
+     * @returns {boolean} Returns true when resizing is allowed.
+     */
+    CanResizePanel(MousePos) {
+        var ParentSize;
+        var SplitterSize = this.IsHorizontal ? this.Handle.offsetHeight : this.Handle.offsetWidth;
+        var Result = MousePos > this.Panel1MinSize + SplitterSize;
+        if (Result) {
+            if (this.UseBothPanels === true) {
+                ParentSize = this.IsHorizontal ? this.ParentHandle.offsetHeight : this.ParentHandle.offsetWidth;
+                Result = ParentSize - MousePos > this.Panel2MinSize + SplitterSize;
+            } else {
+                Result = MousePos <= this.Panel1MaxSize;
+            }
+        }
+        return Result;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets a value indicating whether this splitter is horizontal.
+     * @returns {boolean} Returns true when this splitter is horizontal.
+     */
+    get IsHorizontal() {
+        return this.fIsHorizontal === true;
+    }
+    /**
+     * Gets or sets a value indicating whether this splitter is horizontal.
+     * @param {boolean} Value True for horizontal; false for vertical.
+     * @returns {void}
+     */
+    set IsHorizontal(Value) {
+        Value = Value === true;
+        if (Value !== this.IsHorizontal) {
+            this.fIsHorizontal = Value;
+            this.SetHorizontal();
+        }
+    }
+
+    // ● drag context listener
+    /**
+     * Called by tp.DragContext to decide if dragging should start.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {boolean} Returns true to start dragging.
+     */
+    IsDragStart(e) {
+        return this.CanMoveSplitter();
+    }
+    /**
+     * Called by tp.DragContext when dragging starts.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragStart(e) {
+        tp.AddClass(this.Document.body, tp.Classes.UnSelectable);
+        this.fOldCursor = this.Document.body.style.cursor;
+        this.Document.body.style.cursor = this.IsHorizontal ? tp.Cursors.ResizeRow : tp.Cursors.ResizeCol;
+    }
+    /**
+     * Called by tp.DragContext while dragging.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragMove(e) {
+        var P = tp.Mouse.ToElement(e, this.ParentHandle);
+        var Pos;
+        if (this.IsHorizontal) {
+            Pos = P.Y;
+            if (this.CanResizePanel(Pos)) {
+                this.Panel1.style.height = tp.px(Pos);
+                this.Panel1.style.minHeight = this.Panel1.style.height;
+            }
+        } else {
+            Pos = P.X;
+            if (this.CanResizePanel(Pos)) {
+                this.Panel1.style.width = tp.px(Pos);
+                this.Panel1.style.minWidth = this.Panel1.style.width;
+            }
+        }
+    }
+    /**
+     * Called by tp.DragContext when dragging ends.
+     * @param {MouseEvent|PointerEvent} e The mouse or pointer event.
+     * @returns {void}
+     */
+    DragEnd(e) {
+        tp.RemoveClass(this.Document.body, tp.Classes.UnSelectable);
+        this.Document.body.style.cursor = this.fOldCursor;
+    }
+
+    // ● public
+    /**
+     * Disposes this splitter.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.fDragContext) {
+            this.fDragContext.Dispose();
+            this.fDragContext = null;
+        }
+        super.Dispose();
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.Splitter.prototype.tpClass = "tp.Splitter";
+/**
+ * Private field.
+ * @type {tp.DragContext|null}
+ */
+tp.Splitter.prototype.fDragContext = null;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.Splitter.prototype.fIsHorizontal = false;
+/**
+ * Private field.
+ * @type {string}
+ */
+tp.Splitter.prototype.fOldCursor = "";
+/**
+ * True to constrain movement using both panels; false to constrain only Panel1.
+ * @type {boolean}
+ */
+tp.Splitter.prototype.UseBothPanels = true;
+/**
+ * The panel before the splitter.
+ * @type {HTMLElement|null}
+ */
+tp.Splitter.prototype.Panel1 = null;
+/**
+ * The panel after the splitter.
+ * @type {HTMLElement|null}
+ */
+tp.Splitter.prototype.Panel2 = null;
+/**
+ * The minimum size of Panel1.
+ * @type {number}
+ */
+tp.Splitter.prototype.Panel1MinSize = 40;
+/**
+ * The maximum size of Panel1 when UseBothPanels is false.
+ * @type {number}
+ */
+tp.Splitter.prototype.Panel1MaxSize = 400;
+/**
+ * The minimum size of Panel2 when UseBothPanels is true.
+ * @type {number}
+ */
+tp.Splitter.prototype.Panel2MinSize = 40;
+
+// ● 80-group-box.js
+// ● group box
+/**
+ * A fieldset container with a legend title element.
+ * @example
+ * <fieldset id="GroupBox"></fieldset>
+ * <script>
+ *     var GroupBox = new tp.GroupBox("#GroupBox");
+ *     GroupBox.Text = "Title";
+ * </script>
+ */
+tp.GroupBox = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a group box.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The group box create parameters, handle, or selector.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+        this.tpClass = "tp.GroupBox";
+        tp.AddClass(this.Handle, tp.Classes.GroupBox);
+    }
+
+    // ● protected
+    /**
+     * Ensures this group box has a legend element.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        var Legend;
+        super.OnHandleCreated();
+        Legend = tp.Select(this.Handle, "legend");
+        if (Legend instanceof HTMLLegendElement) {
+            this.fLegend = Legend;
+        } else {
+            this.fLegend = this.Document.createElement("legend");
+            this.Handle.insertBefore(this.fLegend, this.Handle.firstChild);
+        }
+        this.fLegend.style.display = tp.IsBlank(this.Text) ? "none" : "";
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the group box title.
+     * @returns {string} Returns the title.
+     */
+    get Text() {
+        return this.fLegend instanceof HTMLLegendElement ? this.fLegend.innerHTML : "";
+    }
+    /**
+     * Gets or sets the group box title.
+     * @param {string} Value The title.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (tp.IsString(Value) && this.fLegend instanceof HTMLLegendElement) {
+            this.fLegend.innerHTML = Value;
+            this.fLegend.style.display = tp.IsBlank(Value) ? "none" : "";
+        }
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.GroupBox.prototype.tpClass = "tp.GroupBox";
+/**
+ * The legend element.
+ * @type {HTMLLegendElement|null}
+ */
+tp.GroupBox.prototype.fLegend = null;
+
+// ● 90-accordion.js
+// ● accordion
+/**
+ * An accordion container.
+ * Each child item is a div containing two divs: a title div and a content div.
+ *
+ * Events:
+ * - ChildCreating
+ * - ChildCreated
+ *
+ * @example
+ * <div id="Accordion" class="tp-Accordion">
+ *     <div>
+ *         <div>Item 1</div>
+ *         <div>Content of item 1</div>
+ *     </div>
+ * </div>
+ */
+tp.Accordion = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates an accordion.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The accordion create parameters, handle, or selector.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+        this.tpClass = "tp.Accordion";
+        tp.AddClass(this.Handle, tp.Classes.Accordion);
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+
+    // ● protected
+    /**
+     * Finds and returns the item whose title was clicked.
+     * @param {Event} e The DOM event.
+     * @returns {HTMLElement|null} Returns the clicked item or null.
+     */
+    FindClickedChild(e) {
+        var List = this.GetElementList();
+        var Index;
+        var Item;
+        var TitleElement;
+        for (Index = 0; Index < List.length; Index++) {
+            Item = List[Index];
+            TitleElement = this.TitleElementOf(Item);
+            if (tp.IsHTMLElement(TitleElement) && tp.ContainsEventTarget(TitleElement, e.target))
+                return Item;
+        }
+        return null;
+    }
+    /**
+     * Returns the title element of an item.
+     * @param {HTMLElement|null|undefined} Item The item element.
+     * @returns {HTMLElement|null} Returns the title element or null.
+     */
+    TitleElementOf(Item) {
+        return tp.IsHTMLElement(Item) && Item.children.length > 0 && tp.IsHTMLElement(Item.children[0]) ? Item.children[0] : null;
+    }
+    /**
+     * Returns the content element of an item.
+     * @param {HTMLElement|null|undefined} Item The item element.
+     * @returns {HTMLElement|null} Returns the content element or null.
+     */
+    ContentElementOf(Item) {
+        return tp.IsHTMLElement(Item) && Item.children.length > 1 && tp.IsHTMLElement(Item.children[1]) ? Item.children[1] : null;
+    }
+    /**
+     * Creates and returns an item element.
+     * @param {string|null|undefined} Title Optional item title.
+     * @returns {HTMLElement} Returns the created item.
+     */
+    CreateChild(Title) {
+        var Args = this.OnChildCreating(Title);
+        var Result = Args && tp.IsHTMLElement(Args.Child) ? Args.Child : null;
+        var Element;
+        if (!Result) {
+            Result = this.Document.createElement("div");
+            Element = this.Document.createElement("div");
+            Element.innerHTML = tp.IsString(Title) && !tp.IsBlank(Title) ? Title : "no-name";
+            Result.appendChild(Element);
+            Element = this.Document.createElement("div");
+            Result.appendChild(Element);
+        }
+        this.OnChildCreated(Result);
+        return Result;
+    }
+    /**
+     * Handles click events on item title elements.
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var Item = this.FindClickedChild(e);
+        var Index;
+        var IsExpanded;
+        if (Item) {
+            Index = this.IndexOfElement(Item);
+            IsExpanded = tp.HasClass(Item, tp.Classes.Expanded);
+            this.Expand(!IsExpanded, Index);
+        }
+    }
+    /**
+     * Event trigger called before a child item is created.
+     * A listener may set Args.Child to an HTMLElement.
+     * @param {string|null|undefined} Title Optional item title.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnChildCreating(Title) {
+        return this.Trigger("ChildCreating", { Title: Title, Child: null });
+    }
+    /**
+     * Event trigger called after a child item is created.
+     * @param {HTMLElement} Child The created child.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnChildCreated(Child) {
+        return this.Trigger("ChildCreated", { Child: Child });
+    }
+
+    // ● public
+    /**
+     * Expands or collapses one or all items.
+     * @param {boolean} Flag True to expand; false to collapse.
+     * @param {number|null|undefined} ChildIndex The item index, or -1 for all items.
+     * @returns {void}
+     */
+    Expand(Flag, ChildIndex) {
+        var List = this.GetElementList();
+        var Index;
+        var Item;
+        ChildIndex = tp.IsNumber(ChildIndex) ? ChildIndex : -1;
+        if (ChildIndex < 0) {
+            for (Index = 0; Index < List.length; Index++)
+                tp.RemoveClass(List[Index], tp.Classes.Expanded);
+            if (Flag === true) {
+                for (Index = 0; Index < List.length; Index++)
+                    tp.AddClass(List[Index], tp.Classes.Expanded);
+            }
+        } else {
+            if (!this.AllowMultiExpand) {
+                for (Index = 0; Index < List.length; Index++)
+                    tp.RemoveClass(List[Index], tp.Classes.Expanded);
+            }
+            Item = List[ChildIndex];
+            if (tp.IsHTMLElement(Item)) {
+                if (Flag === true)
+                    tp.AddClass(Item, tp.Classes.Expanded);
+                else
+                    tp.RemoveClass(Item, tp.Classes.Expanded);
+            }
+        }
+    }
+    /**
+     * Toggles the expansion of an item.
+     * @param {number} Index The item index.
+     * @returns {void}
+     */
+    Toggle(Index) {
+        if (this.GetElementAt(Index))
+            this.Expand(!this.IsExpanded(Index), Index);
+    }
+    /**
+     * Returns true when an item is expanded.
+     * @param {number} Index The item index.
+     * @returns {boolean} Returns true when the item is expanded.
+     */
+    IsExpanded(Index) {
+        var Item = this.GetElementAt(Index);
+        return tp.IsHTMLElement(Item) && tp.HasClass(Item, tp.Classes.Expanded);
+    }
+    /**
+     * Adds an item and returns it.
+     * @param {string|null|undefined} Title Optional item title.
+     * @returns {HTMLElement|null} Returns the added item or null.
+     */
+    AddItem(Title) {
+        return this.InsertItem(this.Count, Title);
+    }
+    /**
+     * Inserts an item and returns it.
+     * @param {number} Index The insert index.
+     * @param {string|null|undefined} Title Optional item title.
+     * @returns {HTMLElement|null} Returns the inserted item or null.
+     */
+    InsertItem(Index, Title) {
+        var List;
+        var Child;
+        var ReferenceChild;
+        if (!this.HasHandle)
+            return null;
+        List = this.GetElementList();
+        Child = this.CreateChild(Title);
+        if (List.length === 0 || Index < 0 || Index >= List.length) {
+            Index = List.length;
+            this.Handle.appendChild(Child);
+        } else {
+            ReferenceChild = List[Index];
+            this.Handle.insertBefore(Child, ReferenceChild);
+        }
+        this.Expand(true, Index);
+        return Child;
+    }
+    /**
+     * Returns the title element of an item.
+     * @param {number} Index The item index.
+     * @returns {HTMLElement|null} Returns the title element or null.
+     */
+    TitleElementAt(Index) {
+        return this.TitleElementOf(this.GetElementAt(Index));
+    }
+    /**
+     * Returns the content element of an item.
+     * @param {number} Index The item index.
+     * @returns {HTMLElement|null} Returns the content element or null.
+     */
+    ContentElementAt(Index) {
+        return this.ContentElementOf(this.GetElementAt(Index));
+    }
+    /**
+     * Returns the title text of an item.
+     * @param {number} Index The item index.
+     * @returns {string} Returns the title text.
+     */
+    GetTitleAt(Index) {
+        var Element = this.TitleElementAt(Index);
+        return tp.IsHTMLElement(Element) ? Element.innerHTML : "";
+    }
+    /**
+     * Sets the title text of an item.
+     * @param {number} Index The item index.
+     * @param {string} Text The title text.
+     * @returns {void}
+     */
+    SetTitleAt(Index, Text) {
+        var Element = this.TitleElementAt(Index);
+        if (tp.IsHTMLElement(Element))
+            Element.innerHTML = Text;
+    }
+    /**
+     * Returns all title elements.
+     * @returns {HTMLElement[]} Returns title elements.
+     */
+    GetTitleElements() {
+        var Result = [];
+        this.GetElementList().forEach(function (Item) {
+            var TitleElement = this.TitleElementOf(Item);
+            if (tp.IsHTMLElement(TitleElement))
+                Result.push(TitleElement);
+        }, this);
+        return Result;
+    }
+    /**
+     * Returns all content panel elements.
+     * @returns {HTMLElement[]} Returns content panel elements.
+     */
+    GetPanelElements() {
+        var Result = [];
+        this.GetElementList().forEach(function (Item) {
+            var ContentElement = this.ContentElementOf(Item);
+            if (tp.IsHTMLElement(ContentElement))
+                Result.push(ContentElement);
+        }, this);
+        return Result;
+    }
+    /**
+     * Disposes this accordion.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.HasHandle && this.fClickHandler)
+            this.Handle.removeEventListener("click", this.fClickHandler);
+        this.fClickHandler = null;
+        super.Dispose();
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.Accordion.prototype.tpClass = "tp.Accordion";
+/**
+ * True to allow multiple expanded items.
+ * @type {boolean}
+ */
+tp.Accordion.prototype.AllowMultiExpand = false;
+/**
+ * The cached click handler.
+ * @type {Function|null}
+ */
+tp.Accordion.prototype.fClickHandler = null;
+
+// ● 100-item-bar.js
+// ● item bar render mode
+/**
+ * Indicates how an item bar renders its items.
+ * @enum {number}
+ */
+tp.ItemBarRenderMode = {
+    None: 0,
+    Normal: 1,
+    Toggle: 2,
+    NextPrev: 4
+};
+Object.freeze(tp.ItemBarRenderMode);
+
+// ● item bar
+/**
+ * A bar that displays selectable items.
+ * Uses ResizeObserver through tp.ResizeDetector to detect whether items fit in the available width.
+ *
+ * Events:
+ * - RenderModeChanged
+ * - SelectedIndexChanging
+ * - SelectedIndexChanged
+ * - ItemClicked
+ */
+tp.ItemBar = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates an item bar.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The item bar create parameters, handle, or selector.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+        this.tpClass = "tp.ItemBar";
+        tp.AddClass(this.Handle, tp.Classes.ItemBar);
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.fAuxClickHandler = this.FuncBind(this.HandleAuxClick);
+        this.CreateControls();
+        this.Handle.addEventListener("click", this.fClickHandler);
+        this.Handle.addEventListener("auxclick", this.fAuxClickHandler);
+        this.fResizeDetector = new tp.ResizeDetector(this.Handle, this.OnElementSizeChanged, this);
+        this.RenderMode = tp.ItemBarRenderMode.Normal;
+    }
+
+    // ● protected
+    /**
+     * Creates the internal item bar elements and moves existing direct children into the item container.
+     * @returns {void}
+     */
+    CreateControls() {
+        var List = this.GetElementList();
+        var Index;
+        var Item;
+        for (Index = 0; Index < List.length; Index++) {
+            Item = List[Index];
+            if (Item.parentNode)
+                Item.parentNode.removeChild(Item);
+        }
+
+        this.ToggleContainer = this.Document.createElement("div");
+        this.ToggleContainer.className = tp.Classes.Toggle;
+        this.ToggleButton = this.Document.createElement("div");
+        this.ToggleButton.className = tp.Classes.Btn;
+        this.ToggleButtonIcon = this.Document.createElement("span");
+        this.ToggleButtonIcon.className = tp.Classes.Ico;
+        this.ToggleButtonIcon.textContent = "☰";
+        this.ToggleButton.appendChild(this.ToggleButtonIcon);
+        this.ToggleTextZone = this.Document.createElement("div");
+        this.ToggleTextZone.className = tp.Classes.Text;
+        this.ToggleContainer.appendChild(this.ToggleButton);
+        this.ToggleContainer.appendChild(this.ToggleTextZone);
+        this.Handle.appendChild(this.ToggleContainer);
+
+        this.btnToLeft = this.Document.createElement("div");
+        this.btnToLeft.className = tp.Classes.Prev;
+        this.btnToLeft.textContent = "◂";
+        this.Handle.appendChild(this.btnToLeft);
+
+        this.ItemContainer = this.Document.createElement("div");
+        this.ItemContainer.className = tp.Classes.ItemList;
+        this.Handle.appendChild(this.ItemContainer);
+
+        this.btnToRight = this.Document.createElement("div");
+        this.btnToRight.className = tp.Classes.Next;
+        this.btnToRight.textContent = "▸";
+        this.Handle.appendChild(this.btnToRight);
+
+        this.ToggleItemList = this.Document.createElement("div");
+        this.ToggleItemList.className = tp.Classes.ToggleItemList;
+        this.ToggleItemList.addEventListener("click", this.fClickHandler);
+
+        for (Index = 0; Index < List.length; Index++)
+            this.ItemContainer.appendChild(List[Index]);
+    }
+    /**
+     * Handles element size changes.
+     * @returns {void}
+     */
+    OnElementSizeChanged() {
+        var ItemTotalWidth = this.GetItemTotalWidth();
+        var ContainerWidth = this.Handle.offsetWidth;
+        if (this.ChangingMode)
+            return;
+        if (this.RenderMode === tp.ItemBarRenderMode.Normal && ItemTotalWidth > ContainerWidth) {
+            this.RenderMode = this.ResponsiveMode;
+        } else if (this.RenderMode !== tp.ItemBarRenderMode.Normal && ContainerWidth > ItemTotalWidth) {
+            this.RenderMode = tp.ItemBarRenderMode.Normal;
+        } else if (this.RenderMode !== tp.ItemBarRenderMode.Normal && this.RenderMode !== this.ResponsiveMode) {
+            this.RenderMode = this.ResponsiveMode;
+        } else if (this.RenderMode === tp.ItemBarRenderMode.NextPrev) {
+            this.Arrange();
+        }
+    }
+    /**
+     * Handles click events.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var Index;
+        var Item;
+        if (tp.ContainsEventTarget(this.ToggleButton, e.target)) {
+            this.ToggleClicked();
+        } else if (this.ToggleItemList && tp.ContainsEventTarget(this.ToggleItemList, e.target)) {
+            if (this.IsToggleDropDownBusy()) {
+                e.preventDefault();
+                e.stopPropagation();
+                return;
+            }
+            Index = this.FindToggleItemIndex(e.target);
+            if (Index !== -1) {
+                Item = this.GetItemElementList()[Index];
+                this.SelectedIndex = Index;
+                this.CloseToggle();
+                this.OnItemClicked(Item, e, tp.Mouse.LEFT);
+            }
+        } else if (tp.ContainsEventTarget(this.btnToLeft, e.target)) {
+            if (this.CanShowNext())
+                this.ShowNext();
+        } else if (tp.ContainsEventTarget(this.btnToRight, e.target)) {
+            if (this.CanHideNext())
+                this.HideNext();
+        } else {
+            Item = this.FindClickedItem(e.target);
+            if (Item) {
+                Index = this.IndexOfItem(Item);
+                this.SelectedIndex = Index;
+                this.OnItemClicked(Item, e, tp.Mouse.LEFT);
+            }
+        }
+    }
+    /**
+     * Handles auxclick events.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleAuxClick(e) {
+        var Item = this.FindClickedItem(e.target);
+        if (Item) {
+            if (tp.Mouse.IsMid(e))
+                this.OnItemClicked(Item, e, tp.Mouse.MID);
+            else if (tp.Mouse.IsRight(e))
+                this.OnItemClicked(Item, e, tp.Mouse.RIGHT);
+        }
+    }
+    /**
+     * Finds the clicked item.
+     * @param {EventTarget} Target The event target.
+     * @returns {HTMLElement|null} Returns the item or null.
+     */
+    FindClickedItem(Target) {
+        var List = this.GetItemElementList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (tp.ContainsEventTarget(List[Index], Target))
+                return List[Index];
+        }
+        return null;
+    }
+    /**
+     * Finds the clicked toggle item index.
+     * @param {EventTarget} Target The event target.
+     * @returns {number} Returns the item index or -1.
+     */
+    FindToggleItemIndex(Target) {
+        var List = tp.ChildHTMLElements(this.ToggleItemList);
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (tp.ContainsEventTarget(List[Index], Target))
+                return Index;
+        }
+        return -1;
+    }
+    /**
+     * Returns true when the toggle drop-down is resizing.
+     * @returns {boolean} Returns true when toggle list clicks should be ignored.
+     */
+    IsToggleDropDownBusy() {
+        return this.ToggleDropDownBox && this.ToggleDropDownBox.Resizing;
+    }
+    /**
+     * Sets the selected item by index without triggering events.
+     * @param {number} Index The item index.
+     * @returns {void}
+     */
+    SetSelectedIndex(Index) {
+        var List = this.GetItemElementList();
+        var Item;
+        var i;
+        for (i = 0; i < List.length; i++)
+            tp.RemoveClass(List[i], tp.Classes.Selected);
+        Item = List[Index];
+        if (tp.IsHTMLElement(Item)) {
+            tp.AddClass(Item, tp.Classes.Selected);
+            if (this.ToggleTextZone)
+                this.ToggleTextZone.innerHTML = this.GetItemTextAt(Index);
+        } else if (this.ToggleTextZone) {
+            this.ToggleTextZone.innerHTML = "";
+        }
+    }
+    /**
+     * Returns true when an item is visible.
+     * @param {HTMLElement} Element The item.
+     * @returns {boolean} Returns true when visible.
+     */
+    IsItemVisible(Element) {
+        return tp.IsHTMLElement(Element) && Element.style.display !== "none";
+    }
+    /**
+     * Returns the gap between items.
+     * @returns {number} Returns the item gap in pixels.
+     */
+    GetItemGap() {
+        var Style = tp.GetComputedStyle(this.ItemContainer);
+        return Style ? tp.ToInt(Style.gap) : 0;
+    }
+    /**
+     * Returns total item width.
+     * @returns {number} Returns total item width in pixels.
+     */
+    GetItemTotalWidth() {
+        var List = this.GetItemElementList();
+        var Gap = this.GetItemGap();
+        var Total = 0;
+        var ContainerDisplay = this.ItemContainer.style.display;
+        var OldDisplay;
+        var Index;
+        var Item;
+        this.ItemContainer.style.display = "";
+        for (Index = 0; Index < List.length; Index++) {
+            Item = List[Index];
+            OldDisplay = Item.style.display;
+            Item.style.display = "";
+            Total += Item.offsetWidth + Gap;
+            Item.style.display = OldDisplay;
+        }
+        this.ItemContainer.style.display = ContainerDisplay;
+        return Total;
+    }
+    /**
+     * Returns the total width of visible items.
+     * @returns {number} Returns total visible item width in pixels.
+     */
+    GetVisibleItemTotalWidth() {
+        var List = this.GetItemElementList();
+        var Gap = this.GetItemGap();
+        var Total = 0;
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (this.IsItemVisible(List[Index]))
+                Total += List[Index].offsetWidth + Gap;
+        }
+        return Total;
+    }
+    /**
+     * Returns true when an item can be hidden from the left edge.
+     * @returns {boolean} Returns true when an item can be hidden.
+     */
+    CanHideNext() {
+        var List = this.GetItemElementList();
+        var Index;
+        if (this.RenderMode !== tp.ItemBarRenderMode.NextPrev)
+            return false;
+        for (Index = 0; Index < List.length - 1; Index++) {
+            if (this.IsItemVisible(List[Index]))
+                return true;
+        }
+        return false;
+    }
+    /**
+     * Returns true when a hidden item can be shown.
+     * @returns {boolean} Returns true when a hidden item can be shown.
+     */
+    CanShowNext() {
+        var List = this.GetItemElementList();
+        var Index;
+        if (this.RenderMode !== tp.ItemBarRenderMode.NextPrev)
+            return false;
+        for (Index = 0; Index < List.length; Index++) {
+            if (!this.IsItemVisible(List[Index]))
+                return true;
+        }
+        return false;
+    }
+    /**
+     * Hides the next visible item from the left edge.
+     * @returns {void}
+     */
+    HideNext() {
+        var List = this.GetItemElementList();
+        var Index;
+        for (Index = 0; Index < List.length - 1; Index++) {
+            if (this.IsItemVisible(List[Index])) {
+                List[Index].style.display = "none";
+                break;
+            }
+        }
+    }
+    /**
+     * Shows the previous hidden item.
+     * @returns {void}
+     */
+    ShowNext() {
+        var List = this.GetItemElementList();
+        var Index;
+        for (Index = List.length - 1; Index >= 0; Index--) {
+            if (!this.IsItemVisible(List[Index])) {
+                List[Index].style.display = "";
+                break;
+            }
+        }
+    }
+    /**
+     * Arranges visible and hidden items for NextPrev mode.
+     * @returns {void}
+     */
+    Arrange() {
+        var List = this.GetItemElementList();
+        var Index;
+        var AvailableWidth;
+        for (Index = 0; Index < List.length; Index++)
+            List[Index].style.display = "";
+        AvailableWidth = this.Handle.offsetWidth - this.btnToLeft.offsetWidth - this.btnToRight.offsetWidth;
+        while (this.GetVisibleItemTotalWidth() > AvailableWidth && this.CanHideNext())
+            this.HideNext();
+    }
+    /**
+     * Opens or closes the toggle list.
+     * @returns {void}
+     */
+    ToggleClicked() {
+        if (this.ToggleDropDownBox && this.ToggleDropDownBox.IsOpen)
+            this.CloseToggle();
+        else
+            this.OpenToggle();
+    }
+    /**
+     * Opens the toggle list.
+     * @returns {void}
+     */
+    OpenToggle() {
+        var List = this.GetItemElementList();
+        var Index;
+        var ToggleItem;
+        if (!this.ToggleDropDownBox) {
+            this.ToggleDropDownBox = new tp.DropDownBox(null, {
+                Associate: this.ToggleContainer,
+                Width: this.ToggleContainer.getBoundingClientRect().width,
+                Height: "auto"
+            });
+            this.ToggleDropDownBox.Handle.appendChild(this.ToggleItemList);
+        }
+        tp.RemoveChildren(this.ToggleItemList);
+        for (Index = 0; Index < List.length; Index++) {
+            ToggleItem = this.Document.createElement("div");
+            ToggleItem.innerHTML = this.GetItemTextAt(Index);
+            ToggleItem.classList.toggle(tp.Classes.Selected, Index === this.SelectedIndex);
+            this.ToggleItemList.appendChild(ToggleItem);
+        }
+        this.ToggleDropDownBox.Width = Math.max(this.ToggleContainer.getBoundingClientRect().width, 180);
+        this.ToggleDropDownBox.Height = "auto";
+        this.ToggleDropDownBox.Open();
+        this.ToggleDropDownBox.Height = Math.min(this.ToggleDropDownBox.Handle.getBoundingClientRect().height, 220);
+    }
+    /**
+     * Closes the toggle list.
+     * @returns {void}
+     */
+    CloseToggle() {
+        if (this.IsToggleDropDownBusy())
+            return;
+        if (this.ToggleDropDownBox)
+            this.ToggleDropDownBox.Close();
+    }
+    /**
+     * Called when items are added or removed.
+     * @returns {void}
+     */
+    ItemListChanged() {
+        if (this.RenderMode === tp.ItemBarRenderMode.NextPrev)
+            this.Arrange();
+        else
+            this.OnElementSizeChanged();
+        this.SetSelectedIndex(this.SelectedIndex);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the render mode.
+     * @returns {number} Returns a tp.ItemBarRenderMode value.
+     */
+    get RenderMode() {
+        return this.fRenderMode;
+    }
+    /**
+     * Gets or sets the render mode.
+     * @param {number} Value The render mode.
+     * @returns {void}
+     */
+    set RenderMode(Value) {
+        var List;
+        var Index;
+        if (tp.IsNumber(Value) && Value !== this.fRenderMode && this.ChangingMode === false) {
+            this.ChangingMode = true;
+            try {
+                this.fRenderMode = Value;
+                this.CloseToggle();
+                List = this.GetItemElementList();
+                for (Index = 0; Index < List.length; Index++)
+                    List[Index].style.display = "";
+                this.ToggleContainer.style.display = Value === tp.ItemBarRenderMode.Toggle ? "" : "none";
+                this.btnToLeft.style.display = Value === tp.ItemBarRenderMode.NextPrev ? "" : "none";
+                this.btnToRight.style.display = Value === tp.ItemBarRenderMode.NextPrev ? "" : "none";
+                this.ItemContainer.style.display = Value === tp.ItemBarRenderMode.Toggle ? "none" : "";
+                if (Value === tp.ItemBarRenderMode.NextPrev)
+                    this.Arrange();
+                this.SetSelectedIndex(this.SelectedIndex);
+                this.OnRenderModeChanged();
+            } finally {
+                this.ChangingMode = false;
+            }
+        }
+    }
+    /**
+     * Gets or sets the responsive render mode to use when items exceed the available width.
+     * @returns {number} Returns a tp.ItemBarRenderMode value.
+     */
+    get ResponsiveMode() {
+        return this.fResponsiveMode;
+    }
+    /**
+     * Gets or sets the responsive render mode to use when items exceed the available width.
+     * @param {number} Value The responsive render mode.
+     * @returns {void}
+     */
+    set ResponsiveMode(Value) {
+        if (tp.IsNumber(Value) && Value !== this.fResponsiveMode) {
+            this.fResponsiveMode = Value;
+            if (this.RenderMode !== tp.ItemBarRenderMode.Normal)
+                this.RenderMode = Value;
+        }
+    }
+    /**
+     * Gets or sets the selected item index.
+     * @returns {number} Returns the selected item index.
+     */
+    get SelectedIndex() {
+        var List = this.GetItemElementList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (tp.HasClass(List[Index], tp.Classes.Selected))
+                return Index;
+        }
+        return -1;
+    }
+    /**
+     * Gets or sets the selected item index.
+     * @param {number} Value The selected item index.
+     * @returns {void}
+     */
+    set SelectedIndex(Value) {
+        var CurrentIndex = this.SelectedIndex;
+        var Args;
+        if (Value !== CurrentIndex) {
+            Args = this.OnSelectedIndexChanging(CurrentIndex, Value);
+            if (Args && Args.Cancel === true)
+                return;
+            this.SetSelectedIndex(Value);
+            this.OnSelectedIndexChanged(CurrentIndex, Value);
+        }
+    }
+    /**
+     * Gets or sets the selected item.
+     * @returns {HTMLElement|null} Returns the selected item.
+     */
+    get SelectedItem() {
+        return this.GetItemElementList()[this.SelectedIndex] || null;
+    }
+    /**
+     * Gets or sets the selected item.
+     * @param {HTMLElement|tp.Component|null|undefined} Value The item or component.
+     * @returns {void}
+     */
+    set SelectedItem(Value) {
+        var Element = tp.IsHTMLElement(Value) ? Value : Value && tp.IsHTMLElement(Value.Handle) ? Value.Handle : null;
+        var Index = this.IndexOfItem(Element);
+        if (Index >= 0)
+            this.SelectedIndex = Index;
+    }
+
+    // ● public
+    /**
+     * Returns the item elements.
+     * @returns {HTMLElement[]} Returns item elements.
+     */
+    GetItemElementList() {
+        return tp.IsHTMLElement(this.ItemContainer) ? tp.ChildHTMLElements(this.ItemContainer) : [];
+    }
+    /**
+     * Returns the item text at an index.
+     * @param {number} Index The item index.
+     * @returns {string} Returns item text.
+     */
+    GetItemTextAt(Index) {
+        var Item = this.GetItemElementList()[Index];
+        var Component = tp.Component.GetComponent(Item);
+        if (Component && "Text" in Component)
+            return Component.Text;
+        return tp.IsHTMLElement(Item) ? Item.innerHTML : "";
+    }
+    /**
+     * Adds an item.
+     * @param {HTMLElement|tp.Component} Item The item element or component.
+     * @returns {void}
+     */
+    AddItem(Item) {
+        var Element = Item instanceof tp.Component ? Item.Handle : Item;
+        if (tp.IsHTMLElement(Element)) {
+            this.ItemContainer.appendChild(Element);
+            this.ItemListChanged();
+        }
+    }
+    /**
+     * Adds a list of items.
+     * @param {HTMLElement[]|tp.Component[]} ItemList The item list.
+     * @returns {void}
+     */
+    AddRange(ItemList) {
+        var Index;
+        var Element;
+        if (tp.IsArray(ItemList)) {
+            for (Index = 0; Index < ItemList.length; Index++) {
+                Element = ItemList[Index] instanceof tp.Component ? ItemList[Index].Handle : ItemList[Index];
+                if (tp.IsHTMLElement(Element))
+                    this.ItemContainer.appendChild(Element);
+            }
+            this.ItemListChanged();
+        }
+    }
+    /**
+     * Inserts an item.
+     * @param {HTMLElement|tp.Component} Item The item element or component.
+     * @param {number} Index The insert index.
+     * @returns {void}
+     */
+    InsertItem(Item, Index) {
+        var Element = Item instanceof tp.Component ? Item.Handle : Item;
+        var List = this.GetItemElementList();
+        var Reference = Index >= 0 && Index < List.length ? List[Index] : null;
+        if (tp.IsHTMLElement(Element)) {
+            if (Reference)
+                this.ItemContainer.insertBefore(Element, Reference);
+            else
+                this.ItemContainer.appendChild(Element);
+            this.ItemListChanged();
+        }
+    }
+    /**
+     * Removes an item at an index.
+     * @param {number} Index The item index.
+     * @returns {void}
+     */
+    RemoveItemAt(Index) {
+        var Item = this.GetItemElementList()[Index];
+        if (tp.IsHTMLElement(Item)) {
+            this.ItemContainer.removeChild(Item);
+            this.ItemListChanged();
+        }
+    }
+    /**
+     * Returns the index of an item.
+     * @param {HTMLElement|null|undefined} Item The item element.
+     * @returns {number} Returns the item index or -1.
+     */
+    IndexOfItem(Item) {
+        return this.GetItemElementList().indexOf(Item);
+    }
+    /**
+     * Disposes this item bar.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.fResizeDetector) {
+            this.fResizeDetector.Dispose();
+            this.fResizeDetector = null;
+        }
+        if (this.HasHandle) {
+            this.Handle.removeEventListener("click", this.fClickHandler);
+            this.Handle.removeEventListener("auxclick", this.fAuxClickHandler);
+        }
+        if (this.ToggleItemList)
+            this.ToggleItemList.removeEventListener("click", this.fClickHandler);
+        if (this.ToggleDropDownBox) {
+            this.ToggleDropDownBox.Dispose();
+            this.ToggleDropDownBox = null;
+        }
+        this.fClickHandler = null;
+        this.fAuxClickHandler = null;
+        super.Dispose();
+    }
+
+    // ● events
+    /**
+     * Event trigger called when RenderMode changes.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnRenderModeChanged() {
+        return this.Trigger("RenderModeChanged", { RenderMode: this.RenderMode });
+    }
+    /**
+     * Event trigger called before SelectedIndex changes.
+     * @param {number} CurrentIndex The current index.
+     * @param {number} NewIndex The new index.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnSelectedIndexChanging(CurrentIndex, NewIndex) {
+        return this.Trigger("SelectedIndexChanging", { CurrentIndex: CurrentIndex, NewIndex: NewIndex });
+    }
+    /**
+     * Event trigger called after SelectedIndex changes.
+     * @param {number} CurrentIndex The previous index.
+     * @param {number} NewIndex The new index.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnSelectedIndexChanged(CurrentIndex, NewIndex) {
+        return this.Trigger("SelectedIndexChanged", { CurrentIndex: CurrentIndex, NewIndex: NewIndex });
+    }
+    /**
+     * Event trigger called when an item is clicked.
+     * @param {HTMLElement} Item The clicked item.
+     * @param {MouseEvent} e The mouse event.
+     * @param {number} MouseButton The tp.Mouse button value.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnItemClicked(Item, e, MouseButton) {
+        var Args = new tp.EventArgs("ItemClicked", this, e);
+        Args.Item = Item;
+        Args.el = Item;
+        Args.ItemIndex = this.IndexOfItem(Item);
+        Args.MouseButton = MouseButton;
+        return this.Trigger("ItemClicked", Args);
+    }
+};
+
+// ● prototype
+/**
+ * True while changing render mode.
+ * @type {boolean}
+ */
+tp.ItemBar.prototype.ChangingMode = false;
+/**
+ * Private field.
+ * @type {number}
+ */
+tp.ItemBar.prototype.fRenderMode = tp.ItemBarRenderMode.None;
+/**
+ * Private field.
+ * @type {number}
+ */
+tp.ItemBar.prototype.fResponsiveMode = tp.ItemBarRenderMode.NextPrev;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.ToggleContainer = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.ToggleButton = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.ToggleButtonIcon = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.ToggleTextZone = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.ToggleItemList = null;
+/**
+ * Private field.
+ * @type {tp.DropDownBox|null}
+ */
+tp.ItemBar.prototype.ToggleDropDownBox = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.btnToLeft = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.btnToRight = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ItemBar.prototype.ItemContainer = null;
+/**
+ * Private field.
+ * @type {tp.ResizeDetector|null}
+ */
+tp.ItemBar.prototype.fResizeDetector = null;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.ItemBar.prototype.fClickHandler = null;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.ItemBar.prototype.fAuxClickHandler = null;
+
+// ● 110-dropdown-box.js
+// ● drop-down box listener
+/**
+ * Interface implemented by objects that listen to tp.DropDownBox stage changes.
+ */
+tp.IDropDownBoxListener = class {
+    // ● public
+    /**
+     * Handles a drop-down box stage change.
+     * @param {tp.DropDownBox} Sender The sender.
+     * @param {number} Stage The tp.DropDownBoxStage value.
+     * @returns {void}
+     */
+    OnDropDownBoxEvent(Sender, Stage) {
+    }
+};
+/**
+ * Returns true when a value implements tp.IDropDownBoxListener.
+ * @param {*} Value The value to check.
+ * @returns {boolean} Returns true when the value is a drop-down box listener.
+ */
+tp.IsDropDownBoxListener = function (Value) {
+    return !tp.IsEmpty(Value) && tp.IsFunction(Value.OnDropDownBoxEvent);
+};
+
+// ● drop-down box stage
+/**
+ * Indicates the stage of a drop-down box operation.
+ * @enum {number}
+ */
+tp.DropDownBoxStage = {
+    Opening: 1,
+    Opened: 2,
+    Closing: 4,
+    Closed: 8
+};
+Object.freeze(tp.DropDownBoxStage);
+
+// ● drop-down box
+/**
+ * A resizable fixed-position drop-down box associated with another element.
+ * It keeps itself inside the viewport and closes when the user clicks outside or scrolls the page.
+ *
+ * Events:
+ * - Opening
+ * - Opened
+ * - Closing
+ * - Closed
+ */
+tp.DropDownBox = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a drop-down box.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The drop-down box create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.DropDownBox.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.DropDownBox";
+        tp.AddClass(this.Handle, tp.Classes.DropDownBox);
+        this.fWindowScrollHandler = this.FuncBind(this.Window_Scroll);
+        this.fDocumentClickHandler = this.FuncBind(this.Document_Click);
+        this.Associate = this.CreateParams.Associate;
+        this.Owner = this.CreateParams.Owner;
+        this.ApplySizeParams(this.CreateParams);
+        this.Handle.tabIndex = -1;
+        this.Handle.style.position = "fixed";
+        this.CreateDragger();
+        if (tp.IsBlank(this.Id))
+            this.Id = tp.SafeId("DropDown");
+    }
+
+    // ● protected
+    /**
+     * Creates normalized drop-down box create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        if (!tp.IsHTMLElement(tp(Params.Handle)))
+            Params.Handle = document.createElement("div");
+        return Params;
+    }
+    /**
+     * Applies size create parameters.
+     * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
+     * @returns {void}
+     */
+    ApplySizeParams(Params) {
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Width))
+            this.Width = Params.Width;
+        if (!tp.IsNil(Params.Height))
+            this.Height = Params.Height;
+    }
+    /**
+     * Creates the internal dragger.
+     * @returns {void}
+     */
+    CreateDragger() {
+        this.fDragger = new tp.Dragger(tp.DraggerMode.Resize, this.Handle);
+        this.fDragger.Edges = tp.Edge.Bottom | tp.Edge.Right;
+        this.fDragger.MinHeight = 100;
+        this.fDragger.MinWidth = 100;
+        this.fDragger.On(tp.Events.DragStart, this.FuncBind(this.AnyDraggerEvent));
+        this.fDragger.On(tp.Events.DragEnd, this.FuncBind(this.AnyDraggerEvent));
+    }
+    /**
+     * Resolves a value to an owner listener.
+     * @param {*} Value The value to resolve.
+     * @returns {object|null} Returns the owner listener or null.
+     */
+    ResolveOwner(Value) {
+        var Element;
+        var Component;
+        if (tp.IsDropDownBoxListener(Value))
+            return Value;
+        Element = tp(Value);
+        Component = tp.Component.GetComponent(Element);
+        if (tp.IsDropDownBoxListener(Component))
+            return Component;
+        if (tp.IsDropDownBoxListener(Element))
+            return Element;
+        return null;
+    }
+    /**
+     * Notifies the owner and triggers the matching Tripous event.
+     * @param {number} Stage The tp.DropDownBoxStage value.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnOwnerEvent(Stage) {
+        var EventName = this.StageToEventName(Stage);
+        if (tp.IsDropDownBoxListener(this.Owner))
+            this.Owner.OnDropDownBoxEvent(this, Stage);
+        return EventName ? this.Trigger(EventName, { Stage: Stage }) : null;
+    }
+    /**
+     * Returns the event name for a stage.
+     * @param {number} Stage The tp.DropDownBoxStage value.
+     * @returns {string} Returns the event name.
+     */
+    StageToEventName(Stage) {
+        switch (Stage) {
+            case tp.DropDownBoxStage.Opening: return "Opening";
+            case tp.DropDownBoxStage.Opened: return "Opened";
+            case tp.DropDownBoxStage.Closing: return "Closing";
+            case tp.DropDownBoxStage.Closed: return "Closed";
+            default: return "";
+        }
+    }
+    /**
+     * Handles dragger events.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    AnyDraggerEvent(Args) {
+        if (Args.EventName === tp.Events.DragStart) {
+            this.fResizing = true;
+        } else if (Args.EventName === tp.Events.DragEnd) {
+            setTimeout(function (Self) {
+                Self.fResizing = false;
+            }, 600, this);
+        }
+    }
+    /**
+     * Handles window scroll events.
+     * @param {Event} e The event.
+     * @returns {void}
+     */
+    Window_Scroll(e) {
+        if (!tp.ContainsEventTarget(this.Handle, e.target)) {
+            if (this.IsOpen && this.StyleProp("position") === "fixed")
+                this.Close();
+        }
+    }
+    /**
+     * Handles document click events.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    Document_Click(e) {
+        if (!tp.ContainsEventTarget(this.Handle, e.target)) {
+            if (this.IsOpen) {
+                this.Close();
+                e.stopPropagation();
+            }
+        }
+    }
+    /**
+     * Updates the z-index to place this box above existing body children.
+     * @returns {void}
+     */
+    UpdateZIndex() {
+        this.ZIndex = tp.MaxZIndexOf(this.Document.body) + 1;
+    }
+    /**
+     * Repositions this box so it stays inside the viewport.
+     * @returns {void}
+     */
+    KeepInsideViewport() {
+        var Rect = this.Handle.getBoundingClientRect();
+        var Left = Rect.left;
+        var Top = Rect.top;
+        if (Rect.bottom > tp.Viewport.Height)
+            Top = Math.max(0, Rect.top - Rect.height);
+        if (Rect.right > tp.Viewport.Width)
+            Left = Math.max(0, tp.Viewport.Width - Rect.width);
+        this.X = Left;
+        this.Y = Top;
+    }
+
+    // ● public
+    /**
+     * Adds a div child element to the box.
+     * @returns {HTMLElement|null} Returns the added element.
+     */
+    AddDivElement() {
+        return this.AddElement("div");
+    }
+    /**
+     * Opens the drop-down box.
+     * @returns {void}
+     */
+    Open() {
+        var Style;
+        if (!this.IsOpen && tp.IsHTMLElement(this.Associate)) {
+            if (!this.ParentHandle)
+                this.Document.body.appendChild(this.Handle);
+            this.OnOwnerEvent(tp.DropDownBoxStage.Opening);
+            tp.AddClass(this.Handle, tp.Classes.Visible);
+            this.UpdateTop();
+            if (this.fIsFirstOpen === true) {
+                Style = tp.GetComputedStyle(this.Handle);
+                if (Style.position !== "fixed")
+                    this.Position = "fixed";
+                if (!this.Handle.style.width)
+                    this.Width = Math.max(this.Associate.getBoundingClientRect().width, 100);
+                this.fIsFirstOpen = false;
+            }
+            this.OnOwnerEvent(tp.DropDownBoxStage.Opened);
+            this.KeepInsideViewport();
+            this.UpdateZIndex();
+            setTimeout(function (Self) {
+                window.addEventListener("scroll", Self.fWindowScrollHandler);
+                Self.Document.addEventListener("click", Self.fDocumentClickHandler, true);
+            }, 0, this);
+        }
+    }
+    /**
+     * Closes the drop-down box.
+     * @returns {void}
+     */
+    Close() {
+        if (this.IsOpen && !this.Resizing) {
+            this.OnOwnerEvent(tp.DropDownBoxStage.Closing);
+            tp.RemoveClass(this.Handle, tp.Classes.Visible);
+            this.OnOwnerEvent(tp.DropDownBoxStage.Closed);
+            try {
+                window.removeEventListener("scroll", this.fWindowScrollHandler);
+            } catch (e) {
+                //
+            }
+            try {
+                this.Document.removeEventListener("click", this.fDocumentClickHandler, true);
+            } catch (e) {
+                //
+            }
+        }
+    }
+    /**
+     * Opens or closes the drop-down box.
+     * @returns {void}
+     */
+    Toggle() {
+        if (this.IsOpen)
+            this.Close();
+        else
+            this.Open();
+    }
+    /**
+     * Updates the top-left position using the associate element.
+     * @returns {void}
+     */
+    UpdateTop() {
+        var Rect;
+        if (this.IsOpen && tp.IsHTMLElement(this.Associate)) {
+            Rect = this.Associate.getBoundingClientRect();
+            this.X = Math.round(Rect.left);
+            this.Y = Math.round(Rect.top + Rect.height);
+        }
+    }
+    /**
+     * Gets or sets a style property.
+     * @param {string} Name The style property name.
+     * @param {*} Value The optional value to set.
+     * @returns {*} Returns the value.
+     */
+    StyleProp(Name, Value) {
+        if (arguments.length < 2)
+            return tp.StyleProp(this.Handle, Name);
+        return tp.StyleProp(this.Handle, Name, Value);
+    }
+    /**
+     * Disposes this drop-down box.
+     * @returns {void}
+     */
+    Dispose() {
+        this.fResizing = false;
+        if (this.IsOpen)
+            tp.RemoveClass(this.Handle, tp.Classes.Visible);
+        try {
+            window.removeEventListener("scroll", this.fWindowScrollHandler);
+        } catch (e) {
+            //
+        }
+        try {
+            this.Document.removeEventListener("click", this.fDocumentClickHandler, true);
+        } catch (e) {
+            //
+        }
+        if (this.fDragger) {
+            this.fDragger.Dispose();
+            this.fDragger = null;
+        }
+        this.fWindowScrollHandler = null;
+        this.fDocumentClickHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the associate element.
+     * @returns {HTMLElement|null} Returns the associate element.
+     */
+    get Associate() {
+        return this.fAssociate;
+    }
+    /**
+     * Gets or sets the associate element.
+     * @param {HTMLElement|string|null|undefined} Value The associate element or selector.
+     * @returns {void}
+     */
+    set Associate(Value) {
+        var Element = tp(Value);
+        if (Element !== this.fAssociate) {
+            this.fAssociate = tp.IsHTMLElement(Element) ? Element : null;
+            this.fIsFirstOpen = true;
+        }
+    }
+    /**
+     * Gets or sets the owner listener.
+     * @returns {object|null} Returns the owner listener.
+     */
+    get Owner() {
+        return this.fOwner;
+    }
+    /**
+     * Gets or sets the owner listener.
+     * @param {*} Value The owner listener, component, element, or selector.
+     * @returns {void}
+     */
+    set Owner(Value) {
+        this.fOwner = this.ResolveOwner(Value);
+    }
+    /**
+     * Returns true while the drop-down box is open.
+     * @returns {boolean} Returns true when open.
+     */
+    get IsOpen() {
+        return tp.HasClass(this.Handle, tp.Classes.Visible);
+    }
+    /**
+     * Returns true while the drop-down box is resizing.
+     * @returns {boolean} Returns true when resizing.
+     */
+    get Resizing() {
+        return this.fResizing === true;
+    }
+    /**
+     * Gets the dragger used for resizing.
+     * @returns {tp.Dragger|null} Returns the dragger.
+     */
+    get Dragger() {
+        return this.fDragger;
+    }
+    /**
+     * Gets or sets the left coordinate.
+     * @returns {number} Returns the left coordinate.
+     */
+    get X() {
+        return this.HasHandle ? this.Handle.getBoundingClientRect().left : 0;
+    }
+    /**
+     * Gets or sets the left coordinate.
+     * @param {number} Value The left coordinate.
+     * @returns {void}
+     */
+    set X(Value) {
+        if (this.HasHandle)
+            this.Handle.style.left = tp.px(Math.round(tp.StrToFloat(Value, 0)));
+    }
+    /**
+     * Gets or sets the top coordinate.
+     * @returns {number} Returns the top coordinate.
+     */
+    get Y() {
+        return this.HasHandle ? this.Handle.getBoundingClientRect().top : 0;
+    }
+    /**
+     * Gets or sets the top coordinate.
+     * @param {number} Value The top coordinate.
+     * @returns {void}
+     */
+    set Y(Value) {
+        if (this.HasHandle)
+            this.Handle.style.top = tp.px(Math.round(tp.StrToFloat(Value, 0)));
+    }
+    /**
+     * Gets or sets the width.
+     * @returns {number} Returns the width.
+     */
+    get Width() {
+        return this.HasHandle ? this.Handle.getBoundingClientRect().width : 0;
+    }
+    /**
+     * Gets or sets the width.
+     * @param {number|string} Value The width value.
+     * @returns {void}
+     */
+    set Width(Value) {
+        if (this.HasHandle)
+            this.Handle.style.width = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+    /**
+     * Gets or sets the height.
+     * @returns {number} Returns the height.
+     */
+    get Height() {
+        return this.HasHandle ? this.Handle.getBoundingClientRect().height : 0;
+    }
+    /**
+     * Gets or sets the height.
+     * @param {number|string} Value The height value.
+     * @returns {void}
+     */
+    set Height(Value) {
+        if (this.HasHandle)
+            this.Handle.style.height = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+    /**
+     * Gets or sets the z-index.
+     * @returns {number} Returns the z-index.
+     */
+    get ZIndex() {
+        return tp.ZIndex(this.Handle);
+    }
+    /**
+     * Gets or sets the z-index.
+     * @param {number} Value The z-index.
+     * @returns {void}
+     */
+    set ZIndex(Value) {
+        if (this.HasHandle)
+            tp.ZIndex(this.Handle, Value);
+    }
+};
+
+// ● prototype
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.DropDownBox.prototype.fAssociate = null;
+/**
+ * Private field.
+ * @type {object|null}
+ */
+tp.DropDownBox.prototype.fOwner = null;
+/**
+ * Private field.
+ * @type {tp.Dragger|null}
+ */
+tp.DropDownBox.prototype.fDragger = null;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.DropDownBox.prototype.fResizing = false;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.DropDownBox.prototype.fIsFirstOpen = true;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.DropDownBox.prototype.fWindowScrollHandler = null;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.DropDownBox.prototype.fDocumentClickHandler = null;
+
+// ● 120-tab-control.js
+// ● tab page
+/**
+ * Represents a tab page, a child of a tp.TabControl.
+ */
+tp.TabPage = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a tab page.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The tab page create parameters, handle, or selector.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+        this.tpClass = "tp.TabPage";
+        tp.AddClass(this.Handle, tp.Classes.TabPage);
+        this.Tab = this.CreateParams.Tab;
+    }
+
+    // ● protected
+    /**
+     * Destroys the handle and the tab element.
+     * @returns {void}
+     */
+    DoDispose() {
+        if (tp.IsHTMLElement(this.Tab) && this.Tab.parentNode)
+            this.Tab.parentNode.removeChild(this.Tab);
+        super.DoDispose();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the title of the tab.
+     * @returns {string} Returns the title.
+     */
+    get Title() {
+        return tp.IsHTMLElement(this.Tab) ? this.Tab.innerHTML : "";
+    }
+    /**
+     * Gets or sets the title of the tab.
+     * @param {string} Value The title.
+     * @returns {void}
+     */
+    set Title(Value) {
+        if (tp.IsHTMLElement(this.Tab))
+            this.Tab.innerHTML = tp.IsNil(Value) ? "" : String(Value);
+    }
+};
+
+// ● prototype
+/**
+ * The tab caption element.
+ * @type {HTMLElement|null}
+ */
+tp.TabPage.prototype.Tab = null;
+
+// ● tab control
+/**
+ * A tab control with a responsive tab bar.
+ * It uses tp.ItemBar for its tab bar, and tp.ResizeDetector through tp.ItemBar to detect whether tabs fit.
+ * The tab bar can render in Normal, Toggle, or NextPrev mode.
+ *
+ * Events:
+ * - SelectedIndexChanging
+ * - SelectedIndexChanged
+ * - PageAdded
+ * - PageRemoving
+ * - PageRemoved
+ *
+ * @example
+ * <div id="TabControl" class="tp-TabControl">
+ *     <div><div>Page 1</div><div>Page 2</div></div>
+ *     <div><div>Content 1</div><div>Content 2</div></div>
+ * </div>
+ */
+tp.TabControl = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a tab control.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The tab control create parameters, handle, or selector.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+        this.tpClass = "tp.TabControl";
+        tp.AddClass(this.Handle, tp.Classes.TabControl);
+        this.CreateControls();
+        if (tp.IsNumber(this.CreateParams.SelectedIndex))
+            this.SelectedIndex = this.CreateParams.SelectedIndex;
+        else if (this.GetPageCount() > 0)
+            this.SelectedIndex = 0;
+    }
+
+    // ● protected
+    /**
+     * Creates child controls.
+     * @returns {void}
+     */
+    CreateControls() {
+        var List = this.GetElementList();
+        var TabBarElement;
+        var TabList;
+        var PageList;
+        var Index;
+        var Tab;
+        var PageElement;
+        if (List.length === 2) {
+            TabBarElement = List[0];
+            this.PageContainer = List[1];
+        } else if (List.length === 0) {
+            TabBarElement = this.Document.createElement("div");
+            this.PageContainer = this.Document.createElement("div");
+            this.Handle.appendChild(TabBarElement);
+            this.Handle.appendChild(this.PageContainer);
+        } else {
+            tp.Throw("Wrong TabControl structure. Should be empty or have two child DIVs.");
+        }
+        tp.AddClass(TabBarElement, tp.Classes.TabBar);
+        tp.AddClass(this.PageContainer, tp.Classes.List);
+        this.TabBar = new tp.ItemBar(TabBarElement);
+        this.TabBar.On("SelectedIndexChanging", this.OnSelectedIndexChanging, this);
+        this.TabBar.On("SelectedIndexChanged", this.OnSelectedIndexChanged, this);
+        TabList = this.GetTabElementList();
+        PageList = this.GetPageElementList();
+        if (TabList.length !== PageList.length)
+            tp.Throw("Tabs and pages should be equal in number.");
+        for (Index = 0; Index < PageList.length; Index++) {
+            Tab = TabList[Index];
+            PageElement = PageList[Index];
+            this.CreateTabPage(PageElement, Tab);
+        }
+    }
+    /**
+     * Creates a tp.TabPage from a page element and tab element.
+     * @param {HTMLElement} PageElement The page element.
+     * @param {HTMLElement} TabElement The tab element.
+     * @returns {tp.TabPage} Returns the tab page.
+     */
+    CreateTabPage(PageElement, TabElement) {
+        var Page = new tp.TabPage({ Handle: PageElement, Tab: TabElement });
+        TabElement.TabPage = Page;
+        PageElement.TabPage = Page;
+        return Page;
+    }
+    /**
+     * Creates and returns a new page without adding it.
+     * @param {string|null|undefined} Title Optional title.
+     * @returns {tp.TabPage} Returns the new page.
+     */
+    CreatePage(Title) {
+        var Tab = this.Document.createElement("div");
+        var PageElement = this.Document.createElement("div");
+        Tab.innerHTML = tp.IsString(Title) && !tp.IsBlank(Title) ? Title : "no-name";
+        return this.CreateTabPage(PageElement, Tab);
+    }
+    /**
+     * Shows the selected page and hides all other pages without triggering ItemBar selection events.
+     * @param {number} Index The selected index.
+     * @returns {void}
+     */
+    SetSelectedIndex(Index) {
+        var PageList = this.GetPageElementList();
+        var Page;
+        var i;
+        this.TabBar.SetSelectedIndex(Index);
+        for (i = 0; i < PageList.length; i++) {
+            Page = PageList[i];
+            Page.style.display = i === Index ? "" : "none";
+        }
+    }
+    /**
+     * Event trigger called before SelectedIndex changes.
+     * @param {tp.EventArgs} Args The item bar event arguments.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnSelectedIndexChanging(Args) {
+        return this.Trigger("SelectedIndexChanging", Args);
+    }
+    /**
+     * Event trigger called after SelectedIndex changes.
+     * @param {tp.EventArgs} Args The item bar event arguments.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnSelectedIndexChanged(Args) {
+        this.SetSelectedIndex(Args.NewIndex);
+        return this.Trigger("SelectedIndexChanged", Args);
+    }
+    /**
+     * Event trigger called after a page is added.
+     * @param {tp.TabPage} Page The page.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnPageAdded(Page) {
+        return this.Trigger("PageAdded", { Child: Page, Page: Page });
+    }
+    /**
+     * Event trigger called before a page is removed.
+     * @param {tp.TabPage} Page The page.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnPageRemoving(Page) {
+        return this.Trigger("PageRemoving", { Child: Page, Page: Page });
+    }
+    /**
+     * Event trigger called after a page is removed.
+     * @param {tp.TabPage} Page The page.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnPageRemoved(Page) {
+        return this.Trigger("PageRemoved", { Child: Page, Page: Page });
+    }
+
+    // ● public
+    /**
+     * Shows or hides the tab bar.
+     * @param {boolean} Flag True to show; false to hide.
+     * @returns {void}
+     */
+    ShowTabBar(Flag) {
+        this.TabBar.Visible = Flag === true;
+    }
+    /**
+     * Returns tab elements.
+     * @returns {HTMLElement[]} Returns tab elements.
+     */
+    GetTabElementList() {
+        return this.TabBar ? this.TabBar.GetItemElementList() : [];
+    }
+    /**
+     * Returns page elements.
+     * @returns {HTMLElement[]} Returns page elements.
+     */
+    GetPageElementList() {
+        return tp.IsHTMLElement(this.PageContainer) ? tp.ChildHTMLElements(this.PageContainer) : [];
+    }
+    /**
+     * Returns tab pages.
+     * @returns {tp.TabPage[]} Returns tab pages.
+     */
+    GetPageList() {
+        var Result = [];
+        this.GetPageElementList().forEach(function (Element) {
+            if (Element.TabPage instanceof tp.TabPage)
+                Result.push(Element.TabPage);
+        });
+        return Result;
+    }
+    /**
+     * Returns page count.
+     * @returns {number} Returns page count.
+     */
+    GetPageCount() {
+        return this.GetPageList().length;
+    }
+    /**
+     * Adds a page.
+     * @param {string|null|undefined} Title Optional title.
+     * @returns {tp.TabPage|null} Returns the added page.
+     */
+    AddPage(Title) {
+        return this.InsertPage(this.GetPageCount(), Title);
+    }
+    /**
+     * Inserts a page.
+     * @param {number} Index The insert index.
+     * @param {string|null|undefined} Title Optional title.
+     * @returns {tp.TabPage|null} Returns the inserted page.
+     */
+    InsertPage(Index, Title) {
+        var PageList;
+        var Page;
+        var ReferencePage;
+        if (!this.HasHandle)
+            return null;
+        PageList = this.GetPageElementList();
+        Page = this.CreatePage(Title);
+        if (PageList.length === 0 || Index < 0 || Index >= PageList.length) {
+            Index = PageList.length;
+            this.TabBar.AddItem(Page.Tab);
+            this.PageContainer.appendChild(Page.Handle);
+        } else {
+            ReferencePage = PageList[Index];
+            this.TabBar.InsertItem(Page.Tab, Index);
+            this.PageContainer.insertBefore(Page.Handle, ReferencePage);
+        }
+        this.OnPageAdded(Page);
+        this.SelectedIndex = Index;
+        return Page;
+    }
+    /**
+     * Removes a page by index.
+     * @param {number} Index The page index.
+     * @returns {void}
+     */
+    RemovePageAt(Index) {
+        var List = this.GetPageList();
+        var Page;
+        var NewIndex;
+        if (tp.IsNumber(Index) && Index >= 0 && Index < List.length) {
+            Page = List[Index];
+            this.OnPageRemoving(Page);
+            this.TabBar.RemoveItemAt(Index);
+            Page.Dispose();
+            this.OnPageRemoved(Page);
+            List = this.GetPageList();
+            if (List.length === 0) {
+                this.SelectedIndex = -1;
+            } else {
+                NewIndex = Math.min(Index, List.length - 1);
+                this.SelectedIndex = NewIndex;
+            }
+        }
+    }
+    /**
+     * Removes a page.
+     * @param {tp.TabPage} Page The page.
+     * @returns {void}
+     */
+    RemovePage(Page) {
+        var Index = this.GetPageList().indexOf(Page);
+        this.RemovePageAt(Index);
+    }
+    /**
+     * Returns a page by index.
+     * @param {number} Index The page index.
+     * @returns {tp.TabPage|null} Returns the page or null.
+     */
+    PageAt(Index) {
+        var List = this.GetPageList();
+        return Index >= 0 && Index < List.length ? List[Index] : null;
+    }
+    /**
+     * Returns the title at an index.
+     * @param {number} Index The page index.
+     * @returns {string} Returns the title.
+     */
+    GetTitleAt(Index) {
+        var Page = this.PageAt(Index);
+        return Page ? Page.Title : "";
+    }
+    /**
+     * Sets the title at an index.
+     * @param {number} Index The page index.
+     * @param {string} Text The title text.
+     * @returns {void}
+     */
+    SetTitleAt(Index, Text) {
+        var Page = this.PageAt(Index);
+        if (Page)
+            Page.Title = Text;
+    }
+    /**
+     * Disposes this tab control.
+     * @returns {void}
+     */
+    Dispose() {
+        this.GetPageList().forEach(function (Page) {
+            Page.Dispose();
+        });
+        if (this.TabBar) {
+            this.TabBar.Dispose();
+            this.TabBar = null;
+        }
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Gets current tab render mode.
+     * @returns {number} Returns a tp.ItemBarRenderMode value.
+     */
+    get RenderMode() {
+        return this.TabBar ? this.TabBar.RenderMode : tp.ItemBarRenderMode.None;
+    }
+    /**
+     * Gets or sets the responsive render mode.
+     * @returns {number} Returns a tp.ItemBarRenderMode value.
+     */
+    get ResponsiveMode() {
+        return this.TabBar ? this.TabBar.ResponsiveMode : tp.ItemBarRenderMode.NextPrev;
+    }
+    /**
+     * Gets or sets the responsive render mode.
+     * @param {number} Value The responsive render mode.
+     * @returns {void}
+     */
+    set ResponsiveMode(Value) {
+        if (this.TabBar)
+            this.TabBar.ResponsiveMode = Value;
+    }
+    /**
+     * Gets or sets selected page index.
+     * @returns {number} Returns selected page index.
+     */
+    get SelectedIndex() {
+        return this.TabBar ? this.TabBar.SelectedIndex : -1;
+    }
+    /**
+     * Gets or sets selected page index.
+     * @param {number} Value The selected page index.
+     * @returns {void}
+     */
+    set SelectedIndex(Value) {
+        if (this.TabBar)
+            this.TabBar.SelectedIndex = Value;
+    }
+    /**
+     * Gets or sets the selected page.
+     * @returns {tp.TabPage|null} Returns the selected page.
+     */
+    get SelectedPage() {
+        return this.PageAt(this.SelectedIndex);
+    }
+    /**
+     * Gets or sets the selected page.
+     * @param {tp.TabPage|null|undefined} Value The selected page.
+     * @returns {void}
+     */
+    set SelectedPage(Value) {
+        var Index;
+        if (Value instanceof tp.TabPage) {
+            Index = this.GetPageList().indexOf(Value);
+            if (Index >= 0)
+                this.SelectedIndex = Index;
+        }
+    }
+};
+
+// ● prototype
+/**
+ * The tab bar.
+ * @type {tp.ItemBar|null}
+ */
+tp.TabControl.prototype.TabBar = null;
+/**
+ * The page container.
+ * @type {HTMLElement|null}
+ */
+tp.TabControl.prototype.PageContainer = null;
+
+// ● 130-panel-list.js
+// ● selected index contract
+/**
+ * Interface-like base class for objects that provide a SelectedIndex property and a SelectedIndexChanged event.
+ */
+tp.ISelectedIndex = class {
+    // ● constructor
+    /**
+     * Creates a selected-index contract instance.
+     */
+    constructor() {
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the selected index.
+     * @returns {number} Returns the selected index.
+     */
+    get SelectedIndex() {
+        return -1;
+    }
+    /**
+     * Gets or sets the selected index.
+     * @param {number} Value The selected index.
+     * @returns {void}
+     */
+    set SelectedIndex(Value) {
+    }
+};
+/**
+ * Returns true when a value provides the selected-index contract.
+ * @param {*} Value The value to check.
+ * @returns {boolean} Returns true when the value provides SelectedIndex and Tripous events.
+ */
+tp.IsISelectedIndex = function (Value) {
+    return Value instanceof tp.Object && "SelectedIndex" in Value;
+};
+
+// ● panel list
+/**
+ * A list of panels where only one panel is visible at a time.
+ * An Associate object with a SelectedIndex property and SelectedIndexChanged event may control the selected panel.
+ *
+ * Events:
+ * - SelectedIndexChanged
+ *
+ * @implements {tp.ISelectedIndex}
+ */
+tp.PanelList = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a panel list.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The panel list create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.PanelList.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.PanelList";
+        this.fUpdateAssociate = true;
+        tp.AddClass(this.Handle, tp.Classes.PanelList);
+        this.InitializePanels();
+        if (!tp.IsNil(this.CreateParams.Associate))
+            this.Associate = this.CreateParams.Associate;
+        if (!tp.IsNil(this.CreateParams.SelectedIndex))
+            this.SelectedIndex = this.CreateParams.SelectedIndex;
+        else if (this.Count > 0)
+            this.SelectedIndex = 0;
+    }
+
+    // ● protected
+    /**
+     * Creates normalized panel list create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        return Params;
+    }
+    /**
+     * Initializes child panel elements.
+     * @returns {void}
+     */
+    InitializePanels() {
+        var List = this.GetPanelList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            tp.AddClass(List[Index], tp.Classes.PanelListItem);
+            List[Index].style.display = "none";
+        }
+    }
+    /**
+     * Resolves a value to a selected-index associate.
+     * @param {*} Value The value to resolve.
+     * @returns {tp.Object|null} Returns the associate or null.
+     */
+    ResolveAssociate(Value) {
+        var Element;
+        var Component;
+        if (tp.IsISelectedIndex(Value))
+            return Value;
+        Element = tp(Value);
+        Component = tp.Component.GetComponent(Element);
+        return tp.IsISelectedIndex(Component) ? Component : null;
+    }
+    /**
+     * Unhooks the current associate listener.
+     * @returns {void}
+     */
+    UnhookAssociate() {
+        if (this.fAssociate instanceof tp.Object && this.fSelectedIndexListener instanceof tp.Listener)
+            this.fAssociate.Off("SelectedIndexChanged", this.fSelectedIndexListener);
+        this.fSelectedIndexListener = null;
+    }
+    /**
+     * Sets the selected index.
+     * @param {number} Index The index to set.
+     * @returns {void}
+     */
+    SetSelectedIndex(Index) {
+        var List = this.GetPanelList();
+        var CurrentIndex = this.SelectedIndex;
+        var NewIndex = tp.ToInt(Index);
+        var IndexOfPanel;
+        if (NewIndex < -1 || NewIndex >= List.length)
+            return;
+        for (IndexOfPanel = 0; IndexOfPanel < List.length; IndexOfPanel++) {
+            tp.RemoveClass(List[IndexOfPanel], tp.Classes.Selected);
+            List[IndexOfPanel].style.display = "none";
+        }
+        if (NewIndex >= 0) {
+            tp.AddClass(List[NewIndex], tp.Classes.Selected);
+            List[NewIndex].style.display = "";
+        }
+        if (tp.IsISelectedIndex(this.fAssociate) && this.fUpdateAssociate === true)
+            this.fAssociate.SelectedIndex = NewIndex;
+        this.OnSelectedIndexChanged(CurrentIndex, NewIndex);
+    }
+    /**
+     * Handles the SelectedIndexChanged event of the associate.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    Associate_SelectedIndexChanged(Args) {
+        if (tp.IsISelectedIndex(this.fAssociate)) {
+            this.fUpdateAssociate = false;
+            try {
+                this.SelectedIndex = this.fAssociate.SelectedIndex;
+            } finally {
+                this.fUpdateAssociate = true;
+            }
+        }
+    }
+    /**
+     * Event trigger called after SelectedIndex changes.
+     * @param {number} CurrentIndex The previous selected index.
+     * @param {number} NewIndex The new selected index.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnSelectedIndexChanged(CurrentIndex, NewIndex) {
+        return this.Trigger("SelectedIndexChanged", { CurrentIndex: CurrentIndex, NewIndex: NewIndex });
+    }
+
+    // ● public
+    /**
+     * Adds and returns a panel.
+     * @returns {HTMLElement|null} Returns the newly added panel.
+     */
+    AddPanel() {
+        return this.InsertPanel(this.Count);
+    }
+    /**
+     * Inserts a panel at a specified index.
+     * @param {number} Index The index where the panel is inserted.
+     * @returns {HTMLElement|null} Returns the newly inserted panel.
+     */
+    InsertPanel(Index) {
+        var Element = this.InsertElement(tp.ToInt(Index), "div");
+        if (Element instanceof HTMLElement) {
+            tp.AddClass(Element, tp.Classes.PanelListItem);
+            Element.style.display = "none";
+            this.SetSelectedIndex(this.IndexOfElement(Element));
+        }
+        return Element;
+    }
+    /**
+     * Returns the panel element list.
+     * @returns {HTMLElement[]} Returns the panel elements.
+     */
+    GetPanelList() {
+        return this.GetElementList();
+    }
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        this.UnhookAssociate();
+        this.fAssociate = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the object that controls SelectedIndex.
+     * @returns {tp.Object|null} Returns the associate object.
+     */
+    get Associate() {
+        return this.fAssociate;
+    }
+    /**
+     * Gets or sets the object that controls SelectedIndex.
+     * @param {*} Value The associate object, component, element, or selector.
+     * @returns {void}
+     */
+    set Associate(Value) {
+        var Associate;
+        if (Value !== this.fAssociate) {
+            this.UnhookAssociate();
+            this.fAssociate = null;
+            Associate = this.ResolveAssociate(Value);
+            if (tp.IsISelectedIndex(Associate)) {
+                this.fAssociate = Associate;
+                if (Associate instanceof tp.Object)
+                    this.fSelectedIndexListener = Associate.On("SelectedIndexChanged", this.Associate_SelectedIndexChanged, this);
+                this.SelectedIndex = Associate.SelectedIndex;
+            }
+        }
+    }
+    /**
+     * Gets or sets the selected index.
+     * @returns {number} Returns the selected index.
+     */
+    get SelectedIndex() {
+        var List = this.GetPanelList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (tp.HasClass(List[Index], tp.Classes.Selected))
+                return Index;
+        }
+        return -1;
+    }
+    /**
+     * Gets or sets the selected index.
+     * @param {number} Value The selected index.
+     * @returns {void}
+     */
+    set SelectedIndex(Value) {
+        Value = tp.ToInt(Value);
+        if (Value !== this.SelectedIndex)
+            this.SetSelectedIndex(Value);
+    }
+    /**
+     * Gets or sets the selected panel.
+     * @returns {HTMLElement|null} Returns the selected panel or null.
+     */
+    get SelectedPanel() {
+        return this.GetElementAt(this.SelectedIndex);
+    }
+    /**
+     * Gets or sets the selected panel.
+     * @param {HTMLElement|string|null|undefined} Value The selected panel.
+     * @returns {void}
+     */
+    set SelectedPanel(Value) {
+        var Element = tp(Value);
+        var Index = this.GetPanelList().indexOf(Element);
+        if (Index >= 0)
+            this.SelectedIndex = Index;
+    }
+};
+
+// ● prototype
+/**
+ * Private field.
+ * @type {tp.Object|null}
+ */
+tp.PanelList.prototype.fAssociate = null;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.PanelList.prototype.fUpdateAssociate = false;
+/**
+ * Private field.
+ * @type {tp.Listener|null}
+ */
+tp.PanelList.prototype.fSelectedIndexListener = null;
+
+// ● 140-image-slider.js
+// ● image size mode
+/**
+ * Indicates how an image is sized inside its container.
+ * @enum {number}
+ */
+tp.ImageSizeMode = {
+    Unknown: 0,
+    Crop: 1,
+    Scale: 2,
+    Stretch: 4
+};
+Object.freeze(tp.ImageSizeMode);
+
+// ● image slider
+/**
+ * Displays a list of images as a background-image slider.
+ *
+ * Events:
+ * - SelectedIndexChanged
+ *
+ * @implements {tp.ISelectedIndex}
+ */
+tp.ImageSlider = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates an image slider.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The image slider create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.ImageSlider.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.ImageSlider";
+        tp.AddClass(this.Handle, tp.Classes.ImageSlider);
+        this.fImages = [];
+        this.fSelectedIndex = -1;
+        this.fAutoCycleInterval = 6000;
+        this.fAutoCycle = true;
+        this.PauseOnHover = true;
+        this.ChangeOnClick = true;
+        this.fDisplayCycleButtons = true;
+        this.fMouseEnterHandler = this.FuncBind(this.HandleMouseEnter);
+        this.fMouseLeaveHandler = this.FuncBind(this.HandleMouseLeave);
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.CreateCycleButtons();
+        this.ApplyImageSliderParams(this.CreateParams);
+        this.Handle.addEventListener("mouseenter", this.fMouseEnterHandler);
+        this.Handle.addEventListener("mouseleave", this.fMouseLeaveHandler);
+        this.Handle.addEventListener("click", this.fClickHandler);
+        this.DoAutoCycle(this.AutoCycle);
+    }
+
+    // ● protected
+    /**
+     * Creates normalized image slider create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        return Params;
+    }
+    /**
+     * Applies create parameters specific to tp.ImageSlider.
+     * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
+     * @returns {void}
+     */
+    ApplyImageSliderParams(Params) {
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Width))
+            this.Handle.style.width = tp.IsNumber(Params.Width) ? tp.px(Params.Width) : String(Params.Width);
+        if (!tp.IsNil(Params.Height))
+            this.Handle.style.height = tp.IsNumber(Params.Height) ? tp.px(Params.Height) : String(Params.Height);
+        if (!tp.IsNil(Params.ImageMode))
+            this.ImageMode = Params.ImageMode;
+        if (!tp.IsNil(Params.PauseOnHover))
+            this.PauseOnHover = Params.PauseOnHover === true;
+        if (!tp.IsNil(Params.ChangeOnClick))
+            this.ChangeOnClick = Params.ChangeOnClick === true;
+        if (!tp.IsNil(Params.DisplayCycleButtons))
+            this.DisplayCycleButtons = Params.DisplayCycleButtons;
+        if (!tp.IsNil(Params.AutoCycleMSecs))
+            this.AutoCycleMSecs = Params.AutoCycleMSecs;
+        if (!tp.IsNil(Params.AutoCycle))
+            this.fAutoCycle = Params.AutoCycle === true;
+        if (tp.IsArray(Params.Images))
+            this.Images = Params.Images;
+        if (!tp.IsNil(Params.SelectedIndex))
+            this.SelectedIndex = Params.SelectedIndex;
+        else if (this.ImageCount > 0)
+            this.SelectedIndex = 0;
+    }
+    /**
+     * Creates the previous and next buttons.
+     * @returns {void}
+     */
+    CreateCycleButtons() {
+        this.fPrev = this.Document.createElement("div");
+        this.fPrev.className = tp.Classes.Prev;
+        this.Handle.appendChild(this.fPrev);
+        this.fNext = this.Document.createElement("div");
+        this.fNext.className = tp.Classes.Next;
+        this.Handle.appendChild(this.fNext);
+        this.DisplayCycleButtonsChanged();
+    }
+    /**
+     * Returns a CSS background-image value for an image URL.
+     * @param {string} Url The image URL.
+     * @returns {string} Returns a CSS background-image value.
+     */
+    GetBackgroundImage(Url) {
+        if (tp.IsBlank(Url))
+            return "";
+        Url = String(Url);
+        return tp.StartsWith(Url, "url(", false) ? Url : "url(\"" + Url.replace(/"/g, "\\\"") + "\")";
+    }
+    /**
+     * Starts or stops the auto-cycling of images.
+     * @param {boolean} Flag True starts auto-cycling; false stops it.
+     * @returns {void}
+     */
+    DoAutoCycle(Flag) {
+        if (!tp.IsNil(this.fAutoCycleId)) {
+            clearInterval(this.fAutoCycleId);
+            this.fAutoCycleId = null;
+        }
+        if (Flag === true && this.ImageCount > 1) {
+            this.fAutoCycleId = setInterval(function (Self) {
+                Self.SelectNext();
+            }, this.AutoCycleMSecs, this);
+        }
+    }
+    /**
+     * Updates the previous and next button display.
+     * @returns {void}
+     */
+    DisplayCycleButtonsChanged() {
+        if (tp.IsHTMLElement(this.fNext) && tp.IsHTMLElement(this.fPrev)) {
+            this.fNext.style.display = this.DisplayCycleButtons ? "" : "none";
+            this.fPrev.style.display = this.DisplayCycleButtons ? "" : "none";
+        }
+    }
+    /**
+     * Handles mouse-enter events.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleMouseEnter(e) {
+        if (this.AutoCycle && this.PauseOnHover)
+            this.DoAutoCycle(false);
+    }
+    /**
+     * Handles mouse-leave events.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleMouseLeave(e) {
+        if (this.AutoCycle && this.PauseOnHover)
+            this.DoAutoCycle(true);
+    }
+    /**
+     * Handles click events.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        if (this.ImageCount <= 1)
+            return;
+        if (e.target === this.fPrev)
+            this.SelectPrevious();
+        else if (e.target === this.fNext || this.ChangeOnClick === true)
+            this.SelectNext();
+    }
+    /**
+     * Event trigger called after SelectedIndex changes.
+     * @param {number} CurrentIndex The previous selected index.
+     * @param {number} NewIndex The new selected index.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnSelectedIndexChanged(CurrentIndex, NewIndex) {
+        return this.Trigger("SelectedIndexChanged", { CurrentIndex: CurrentIndex, NewIndex: NewIndex });
+    }
+
+    // ● public
+    /**
+     * Selects the next image.
+     * @returns {void}
+     */
+    SelectNext() {
+        var Index;
+        if (this.ImageCount > 0) {
+            Index = this.SelectedIndex + 1;
+            if (Index > this.ImageCount - 1)
+                Index = 0;
+            this.SelectedIndex = Index;
+        }
+    }
+    /**
+     * Selects the previous image.
+     * @returns {void}
+     */
+    SelectPrevious() {
+        var Index;
+        if (this.ImageCount > 0) {
+            Index = this.SelectedIndex - 1;
+            if (Index < 0)
+                Index = this.ImageCount - 1;
+            this.SelectedIndex = Index;
+        }
+    }
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        this.DoAutoCycle(false);
+        if (this.HasHandle) {
+            this.Handle.removeEventListener("mouseenter", this.fMouseEnterHandler);
+            this.Handle.removeEventListener("mouseleave", this.fMouseLeaveHandler);
+            this.Handle.removeEventListener("click", this.fClickHandler);
+        }
+        this.fNext = null;
+        this.fPrev = null;
+        this.fMouseEnterHandler = null;
+        this.fMouseLeaveHandler = null;
+        this.fClickHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Returns the number of images.
+     * @returns {number} Returns the image count.
+     */
+    get ImageCount() {
+        return this.Images.length;
+    }
+    /**
+     * Gets or sets the image URL array.
+     * @returns {string[]} Returns the image URL array.
+     */
+    get Images() {
+        if (!tp.IsArray(this.fImages))
+            this.fImages = [];
+        return this.fImages;
+    }
+    /**
+     * Gets or sets the image URL array.
+     * @param {string[]} Value The image URL array.
+     * @returns {void}
+     */
+    set Images(Value) {
+        if (tp.IsArray(Value)) {
+            this.fImages = Value.slice();
+            if (this.SelectedIndex >= this.ImageCount)
+                this.fSelectedIndex = -1;
+            if (this.ImageCount > 0 && this.SelectedIndex < 0)
+                this.SelectedIndex = 0;
+        }
+    }
+    /**
+     * Gets or sets the selected image index.
+     * @returns {number} Returns the selected image index.
+     */
+    get SelectedIndex() {
+        return this.fSelectedIndex;
+    }
+    /**
+     * Gets or sets the selected image index.
+     * @param {number} Value The selected image index.
+     * @returns {void}
+     */
+    set SelectedIndex(Value) {
+        var CurrentIndex = this.fSelectedIndex;
+        var NewIndex = tp.ToInt(Value);
+        var ImageUrl;
+        if (NewIndex >= 0 && NewIndex < this.ImageCount && NewIndex !== CurrentIndex) {
+            this.fSelectedIndex = NewIndex;
+            ImageUrl = this.Images[NewIndex];
+            this.Handle.style.backgroundImage = this.GetBackgroundImage(ImageUrl);
+            this.OnSelectedIndexChanged(CurrentIndex, NewIndex);
+        }
+    }
+    /**
+     * Gets or sets the image size mode.
+     * @returns {number} Returns a tp.ImageSizeMode value.
+     */
+    get ImageMode() {
+        var Value = tp.StyleProp(this.Handle, "backgroundSize");
+        if (Value === "cover")
+            return tp.ImageSizeMode.Crop;
+        if (Value === "contain")
+            return tp.ImageSizeMode.Scale;
+        if (Value === "100% 100%")
+            return tp.ImageSizeMode.Stretch;
+        return tp.ImageSizeMode.Unknown;
+    }
+    /**
+     * Gets or sets the image size mode.
+     * @param {number|string} Value The tp.ImageSizeMode value or enum name.
+     * @returns {void}
+     */
+    set ImageMode(Value) {
+        if (tp.IsString(Value)) {
+            if (tp.IsSameText(Value, "Crop"))
+                Value = tp.ImageSizeMode.Crop;
+            else if (tp.IsSameText(Value, "Scale"))
+                Value = tp.ImageSizeMode.Scale;
+            else if (tp.IsSameText(Value, "Stretch"))
+                Value = tp.ImageSizeMode.Stretch;
+            else
+                Value = tp.ImageSizeMode.Unknown;
+        }
+        if (Value === tp.ImageSizeMode.Crop)
+            this.Handle.style.backgroundSize = "cover";
+        else if (Value === tp.ImageSizeMode.Scale)
+            this.Handle.style.backgroundSize = "contain";
+        else if (Value === tp.ImageSizeMode.Stretch)
+            this.Handle.style.backgroundSize = "100% 100%";
+    }
+    /**
+     * Gets or sets a value indicating whether images auto-cycle.
+     * @returns {boolean} Returns true when auto-cycle is enabled.
+     */
+    get AutoCycle() {
+        return this.fAutoCycle === true;
+    }
+    /**
+     * Gets or sets a value indicating whether images auto-cycle.
+     * @param {boolean} Value True to enable auto-cycle.
+     * @returns {void}
+     */
+    set AutoCycle(Value) {
+        Value = Value === true;
+        if (Value !== this.AutoCycle) {
+            this.fAutoCycle = Value;
+            this.DoAutoCycle(Value);
+        }
+    }
+    /**
+     * Gets or sets the auto-cycle interval in milliseconds.
+     * @returns {number} Returns the auto-cycle interval.
+     */
+    get AutoCycleMSecs() {
+        return this.fAutoCycleInterval;
+    }
+    /**
+     * Gets or sets the auto-cycle interval in milliseconds.
+     * @param {number} Value The auto-cycle interval.
+     * @returns {void}
+     */
+    set AutoCycleMSecs(Value) {
+        Value = Math.max(100, tp.ToInt(Value));
+        if (Value !== this.fAutoCycleInterval) {
+            this.fAutoCycleInterval = Value;
+            if (this.AutoCycle) {
+                this.DoAutoCycle(false);
+                this.DoAutoCycle(true);
+            }
+        }
+    }
+    /**
+     * Gets or sets whether previous and next buttons are visible.
+     * @returns {boolean} Returns true when cycle buttons are visible.
+     */
+    get DisplayCycleButtons() {
+        return this.fDisplayCycleButtons === true;
+    }
+    /**
+     * Gets or sets whether previous and next buttons are visible.
+     * @param {boolean} Value True to display cycle buttons.
+     * @returns {void}
+     */
+    set DisplayCycleButtons(Value) {
+        Value = Value === true;
+        if (Value !== this.DisplayCycleButtons) {
+            this.fDisplayCycleButtons = Value;
+            this.DisplayCycleButtonsChanged();
+        }
+    }
+};
+
+// ● prototype
+/**
+ * Gets or sets whether auto-cycle pauses while the mouse is over the control.
+ * @type {boolean}
+ */
+tp.ImageSlider.prototype.PauseOnHover = true;
+/**
+ * Gets or sets whether clicking the image selects the next image.
+ * @type {boolean}
+ */
+tp.ImageSlider.prototype.ChangeOnClick = true;
+/**
+ * Private field.
+ * @type {string[]}
+ */
+tp.ImageSlider.prototype.fImages = [];
+/**
+ * Private field.
+ * @type {number}
+ */
+tp.ImageSlider.prototype.fSelectedIndex = -1;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.ImageSlider.prototype.fAutoCycle = true;
+/**
+ * Private field.
+ * @type {number|null}
+ */
+tp.ImageSlider.prototype.fAutoCycleId = null;
+/**
+ * Private field.
+ * @type {number}
+ */
+tp.ImageSlider.prototype.fAutoCycleInterval = 6000;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ImageSlider.prototype.fNext = null;
+/**
+ * Private field.
+ * @type {HTMLElement|null}
+ */
+tp.ImageSlider.prototype.fPrev = null;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.ImageSlider.prototype.fDisplayCycleButtons = true;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.ImageSlider.prototype.fMouseEnterHandler = null;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.ImageSlider.prototype.fMouseLeaveHandler = null;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.ImageSlider.prototype.fClickHandler = null;
+
+// ● 150-iframe.js
+// ● iframe
+/**
+ * Wraps an iframe element.
+ *
+ * Events:
+ * - Loaded
+ *
+ * @example
+ * <iframe id="IFrame"></iframe>
+ * <script>
+ *     var Frame = new tp.IFrame("#IFrame", {
+ *         Width: 800,
+ *         Height: 600,
+ *         Url: "/demo/tp-ready"
+ *     });
+ * </script>
+ */
+tp.IFrame = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates an iframe component.
+     * @param {tp.CreateParams|object|HTMLIFrameElement|string} CreateParams The iframe create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.IFrame.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.IFrame";
+        this.fLoadHandler = this.FuncBind(this.DocumentLoaded);
+        tp.AddClass(this.Handle, tp.Classes.Frame);
+        this.Handle.addEventListener("load", this.fLoadHandler);
+        this.ApplyIFrameParams(this.CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates normalized iframe create parameters.
+     * @param {tp.CreateParams|object|HTMLIFrameElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        return Params;
+    }
+    /**
+     * Applies create parameters specific to tp.IFrame.
+     * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
+     * @returns {void}
+     */
+    ApplyIFrameParams(Params) {
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Width))
+            this.Width = Params.Width;
+        if (!tp.IsNil(Params.Height))
+            this.Height = Params.Height;
+        if (!tp.IsNil(Params.UseSpinner))
+            this.UseSpinner = Params.UseSpinner === true;
+        if (!tp.IsNil(Params.Content))
+            this.Content = Params.Content;
+        if (!tp.IsNil(Params.Url))
+            this.Url = Params.Url;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        if (!(this.Handle instanceof HTMLIFrameElement))
+            tp.Throw("tp.IFrame requires an HTMLIFrameElement handle.");
+        tp.FrameRemoveBorder(this.Handle);
+    }
+    /**
+     * Handles the iframe load event.
+     * @param {Event} e The event object.
+     * @returns {void}
+     */
+    DocumentLoaded(e) {
+        this.HideLoadSpinner();
+        this.OnLoaded(e);
+    }
+    /**
+     * Event trigger called after the iframe document is loaded.
+     * @param {Event} e The load event.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnLoaded(e) {
+        return this.Trigger("Loaded", { e: e });
+    }
+    /**
+     * Shows the global spinner when an external load starts.
+     * @param {string} Url The URL to load.
+     * @returns {void}
+     */
+    ShowLoadSpinner(Url) {
+        if (tp.IsString(Url) && !tp.IsBlank(Url) && this.UseSpinner === true && this.fSpinnerVisible !== true) {
+            tp.ShowSpinner(true);
+            this.fSpinnerVisible = true;
+        }
+    }
+    /**
+     * Hides the global spinner when this instance has shown it.
+     * @returns {void}
+     */
+    HideLoadSpinner() {
+        if (this.fSpinnerVisible === true) {
+            tp.ShowSpinner(false);
+            this.fSpinnerVisible = false;
+        }
+    }
+
+    // ● public
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        this.HideLoadSpinner();
+        if (this.HasHandle && this.fLoadHandler)
+            this.Handle.removeEventListener("load", this.fLoadHandler);
+        this.fLoadHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Retrieves the document object of the page or frame.
+     * @returns {Document|null} Returns the iframe content document.
+     */
+    get ContentDoc() {
+        return this.Handle instanceof HTMLIFrameElement ? this.Handle.contentDocument : null;
+    }
+    /**
+     * Returns the Window object of the iframe element.
+     * @returns {Window|null} Returns the iframe window.
+     */
+    get Window() {
+        return this.Handle instanceof HTMLIFrameElement ? this.Handle.contentWindow : null;
+    }
+    /**
+     * Gets or sets the iframe width.
+     * @returns {string|null} Returns the width attribute.
+     */
+    get Width() {
+        return this.Handle instanceof HTMLIFrameElement ? this.Handle.width : null;
+    }
+    /**
+     * Gets or sets the iframe width.
+     * @param {string|number} Value The width value. A number is treated as pixels.
+     * @returns {void}
+     */
+    set Width(Value) {
+        if (this.Handle instanceof HTMLIFrameElement)
+            this.Handle.width = tp.IsNumber(Value) ? tp.px(Value) : Value;
+    }
+    /**
+     * Gets or sets the iframe height.
+     * @returns {string|null} Returns the height attribute.
+     */
+    get Height() {
+        return this.Handle instanceof HTMLIFrameElement ? this.Handle.height : null;
+    }
+    /**
+     * Gets or sets the iframe height.
+     * @param {string|number} Value The height value. A number is treated as pixels.
+     * @returns {void}
+     */
+    set Height(Value) {
+        if (this.Handle instanceof HTMLIFrameElement)
+            this.Handle.height = tp.IsNumber(Value) ? tp.px(Value) : Value;
+    }
+    /**
+     * Gets or sets the URL loaded by this iframe.
+     * @returns {string} Returns the URL.
+     */
+    get Url() {
+        return this.fUrl;
+    }
+    /**
+     * Gets or sets the URL loaded by this iframe.
+     * @param {string} Value The URL.
+     * @returns {void}
+     */
+    set Url(Value) {
+        if (this.Handle instanceof HTMLIFrameElement) {
+            if (tp.IsBlank(Value))
+                this.HideLoadSpinner();
+            else
+                this.ShowLoadSpinner(Value);
+            this.fUrl = Value;
+            this.Handle.src = Value;
+            if (!tp.IsBlank(Value))
+                this.Handle.removeAttribute("srcdoc");
+        }
+    }
+    /**
+     * Returns true when the browser supports the iframe srcdoc attribute.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/srcdoc|MDN HTMLIFrameElement.srcdoc}
+     * @see {@link https://stackoverflow.com/questions/19739001/which-is-the-difference-between-srcdoc-and-src-datatext-html-in-an|stackoverflow}
+     * @returns {boolean} Returns true when srcdoc is supported.
+     */
+    get SupportsSrcDoc() {
+        return this.Handle instanceof HTMLIFrameElement && "srcdoc" in this.Handle;
+    }
+    /**
+     * Gets or sets the HTML content of the page shown in the iframe.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/srcdoc|MDN HTMLIFrameElement.srcdoc}
+     * @see {@link https://stackoverflow.com/questions/19739001/which-is-the-difference-between-srcdoc-and-src-datatext-html-in-an|stackoverflow}
+     * @returns {string} Returns the iframe HTML content.
+     */
+    get Content() {
+        return this.SupportsSrcDoc ? this.Handle.srcdoc : this.Handle.src;
+    }
+    /**
+     * Gets or sets the HTML content of the page shown in the iframe.
+     * @param {string} Value The HTML content.
+     * @returns {void}
+     */
+    set Content(Value) {
+        var Doc;
+        if (this.Handle instanceof HTMLIFrameElement) {
+            this.HideLoadSpinner();
+            this.fUrl = "";
+            if (this.SupportsSrcDoc) {
+                this.Handle.srcdoc = Value;
+            } else {
+                Doc = this.ContentDoc;
+                if (Doc) {
+                    Doc.open();
+                    Doc.write(Value);
+                    Doc.close();
+                }
+            }
+        }
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.IFrame.prototype.tpClass = "tp.IFrame";
+/**
+ * Private field.
+ * @type {string}
+ */
+tp.IFrame.prototype.fUrl = "";
+/**
+ * A value indicating whether to display a global spinner while loading a document to the iframe.
+ * @type {boolean}
+ */
+tp.IFrame.prototype.UseSpinner = true;
+/**
+ * Private field.
+ * @type {Function|null}
+ */
+tp.IFrame.prototype.fLoadHandler = null;
+/**
+ * Private field.
+ * @type {boolean}
+ */
+tp.IFrame.prototype.fSpinnerVisible = false;
+
+// ● 160-button.js
+// ● command property
+/**
+ * Interface-like base class for objects that provide a Command string property.
+ */
+tp.ICommandProperty = class {
+    // ● constructor
+    /**
+     * Creates a command-property contract instance.
+     */
+    constructor() {
+    }
+};
+/**
+ * Returns true when a value provides a Command property.
+ * @param {*} Value The value to check.
+ * @returns {boolean} Returns true when the value provides a Command property.
+ */
+tp.HasCommandProperty = function (Value) {
+    return Value instanceof tp.Object && "Command" in Value;
+};
+/**
+ * Returns a command string from a value, if any.
+ * @param {HTMLElement|Event|string|tp.EventArgs|object|null|undefined} Value The value to inspect.
+ * @returns {string} Returns the command string or an empty string.
+ */
+tp.GetCommand = function (Value) {
+    var Args = null;
+    var EventValue = null;
+    var Element = null;
+    var Component = null;
+    if (Value instanceof tp.EventArgs) {
+        Args = Value;
+        EventValue = Args.e;
+    } else if (typeof Event !== "undefined" && Value instanceof Event) {
+        EventValue = Value;
+    } else if (Value instanceof HTMLElement) {
+        Element = Value;
+    } else if (tp.IsString(Value)) {
+        Element = tp.Select(Value);
+    }
+    if (EventValue instanceof Event && EventValue.target instanceof HTMLElement)
+        Element = EventValue.target;
+    if (Args) {
+        if (!tp.IsBlank(Args.Command))
+            return Args.Command;
+        if (tp.HasCommandProperty(Args.Sender) && !tp.IsBlank(Args.Sender.Command))
+            return Args.Sender.Command;
+        if (tp.HasCommandProperty(Args.Button) && !tp.IsBlank(Args.Button.Command))
+            return Args.Button.Command;
+        if (tp.HasCommandProperty(Args.MenuItem) && !tp.IsBlank(Args.MenuItem.Command))
+            return Args.MenuItem.Command;
+    }
+    while (Element instanceof HTMLElement) {
+        if (!tp.IsBlank(tp.Data(Element, "command")))
+            return tp.Data(Element, "command");
+        Component = tp.Component.GetComponent(Element);
+        if (tp.HasCommandProperty(Component) && !tp.IsBlank(Component.Command))
+            return Component.Command;
+        Element = Element.parentElement;
+    }
+    return "";
+};
+
+// ● button
+/**
+ * A button control built on a button element.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ * - Click
+ *
+ * @implements {tp.ICommandProperty}
+ * @example
+ * <button id="Button1" data-command="TEST_COMMAND">Button1</button>
+ * <script>
+ *     var Button = new tp.Button("#Button1");
+ * </script>
+ */
+tp.Button = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a button.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The button create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.Button.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.Button";
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        tp.AddClass(this.Handle, tp.Classes.Button);
+        this.Handle.type = "button";
+        if (!tp.IsNil(Params.Command))
+            this.Command = Params.Command;
+        this.ReadCommand();
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+
+    // ● protected
+    /**
+     * Creates normalized button create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        var Element;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        Element = tp(Params.Handle);
+        if (!(Element instanceof HTMLElement))
+            Params.Handle = document.createElement("button");
+        return Params;
+    }
+    /**
+     * Reads the command from data-command, when the property is empty.
+     * @returns {void}
+     */
+    ReadCommand() {
+        if (tp.IsBlank(this.Command))
+            this.Command = tp.Data(this.Handle, "command") || "";
+    }
+
+    // ● event handler
+    /**
+     * Handles DOM click events.
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        this.Trigger(tp.Events.Click, {
+            e: e,
+            el: e.target,
+            Button: this,
+            Command: this.Command
+        });
+    }
+
+    // ● public
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.IsDisposed)
+            return;
+        if (this.HasHandle && this.fClickHandler)
+            this.Handle.removeEventListener("click", this.fClickHandler);
+        this.fClickHandler = null;
+        super.Dispose();
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.Button.prototype.tpClass = "tp.Button";
+/**
+ * Button command.
+ * @type {string}
+ */
+tp.Button.prototype.Command = "";
+/**
+ * A user-defined value.
+ * @type {*}
+ */
+tp.Button.prototype.Tag = null;
+/**
+ * Click handler.
+ * @type {Function|null}
+ */
+tp.Button.prototype.fClickHandler = null;
+
+// ● 170-toolbar.js
+// ● button-ex ico mode
+/**
+ * Indicates the existence and position of a ButtonEx icon.
+ * @enum {number}
+ */
+tp.ButtonExIcoMode = {
+    None: 0,
+    Left: 1,
+    Top: 2
+};
+Object.freeze(tp.ButtonExIcoMode);
+
+// ● toolbar event args
+/**
+ * Event arguments for toolbar button clicks.
+ */
+tp.ToolBarItemClickEventArgs = class extends tp.EventArgs {
+    // ● constructor
+    /**
+     * Creates toolbar item click event arguments.
+     * @param {tp.Component|null|undefined} Item The clicked item.
+     * @param {string|null|undefined} Command The item command.
+     */
+    constructor(Item, Command) {
+        super(tp.Events.Click, null, null);
+        this.Item = tp.IsNil(Item) ? null : Item;
+        this.Button = this.Item;
+        this.Command = tp.IsNil(Command) ? "" : String(Command);
+    }
+};
+
+// ● prototype
+/**
+ * The clicked item.
+ * @type {tp.Component|null}
+ */
+tp.ToolBarItemClickEventArgs.prototype.Item = null;
+/**
+ * The clicked button.
+ * @type {tp.Component|null}
+ */
+tp.ToolBarItemClickEventArgs.prototype.Button = null;
+
+// ● button-ex
+/**
+ * A button control with icon and text, built on an anchor element.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ * - Click
+ *
+ * @implements {tp.ICommandProperty}
+ * @example
+ * <a id="ButtonEx1" data-command="Home" data-ico-classes="fa fa-home">Home</a>
+ * <script>
+ *     var Button = new tp.ButtonEx("#ButtonEx1");
+ * </script>
+ */
+tp.ButtonEx = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a ButtonEx instance.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.ButtonEx.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.ButtonEx";
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        tp.AddClass(this.Handle, tp.Classes.ButtonEx);
+        this.ApplyButtonParams(Params);
+        this.ReadMarkupParams();
+        this.ApplyIcoModeDefault();
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+
+    // ● protected
+    /**
+     * Creates normalized ButtonEx create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        var Element;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        Element = tp(Params.Handle);
+        if (!(Element instanceof HTMLElement))
+            Params.Handle = document.createElement("a");
+        return Params;
+    }
+    /**
+     * Creates child elements after the handle is created.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        var TextNode;
+        var Text;
+        super.OnHandleCreated();
+        TextNode = tp.FindTextNode(this.Handle);
+        Text = TextNode ? TextNode.nodeValue || "" : "";
+        if (TextNode)
+            TextNode.nodeValue = "";
+        if (this.Handle instanceof HTMLAnchorElement && (tp.IsBlank(this.Handle.getAttribute("href")) || this.Handle.getAttribute("href") === "#"))
+            this.Handle.href = "javascript:void(0);";
+        this.fImageElement = this.Document.createElement("div");
+        this.fTextElement = this.Document.createElement("div");
+        this.Handle.appendChild(this.fImageElement);
+        this.Handle.appendChild(this.fTextElement);
+        this.fTextElement.textContent = Text.trim();
+    }
+    /**
+     * Applies ButtonEx-specific create params.
+     * @param {tp.CreateParams|object} Params The create params.
+     * @returns {void}
+     */
+    ApplyButtonParams(Params) {
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Command))
+            this.Command = Params.Command;
+        if (!tp.IsNil(Params.Url))
+            this.Url = Params.Url;
+        if (!tp.IsNil(Params.IcoClasses))
+            this.IcoClasses = Params.IcoClasses;
+        if (!tp.IsNil(Params.ImageUrl))
+            this.ImageUrl = Params.ImageUrl;
+        if (!tp.IsNil(Params.IcoMode))
+            this.IcoMode = Params.IcoMode;
+        if (!tp.IsNil(Params.Ico))
+            this.ApplyIcoParam(Params.Ico);
+        if (!tp.IsNil(Params.NoText))
+            this.NoText = Params.NoText;
+    }
+    /**
+     * Reads ButtonEx-specific settings from data-* attributes.
+     * @returns {void}
+     */
+    ReadMarkupParams() {
+        var Value;
+        if (tp.IsBlank(this.Command))
+            this.Command = tp.Data(this.Handle, "command") || "";
+        Value = tp.Data(this.Handle, "url");
+        if (!tp.IsBlank(Value))
+            this.Url = Value;
+        Value = tp.Data(this.Handle, "ico-classes");
+        if (!tp.IsBlank(Value))
+            this.IcoClasses = Value;
+        Value = tp.Data(this.Handle, "image-url");
+        if (!tp.IsBlank(Value))
+            this.ImageUrl = Value;
+        Value = tp.Data(this.Handle, "ico");
+        if (!tp.IsBlank(Value))
+            this.ApplyIcoParam(Value);
+        Value = tp.Data(this.Handle, "no-text");
+        if (!tp.IsBlank(Value))
+            this.NoText = tp.IsSameText(Value, "true") || tp.IsSameText(Value, "1");
+    }
+    /**
+     * Applies a legacy Ico parameter value.
+     * @param {string|number|null|undefined} Value The icon mode value.
+     * @returns {void}
+     */
+    ApplyIcoParam(Value) {
+        if (tp.IsNumber(Value)) {
+            this.IcoMode = Value;
+        } else if (tp.IsSameText(Value, "Top")) {
+            this.IcoMode = tp.ButtonExIcoMode.Top;
+        } else if (tp.IsSameText(Value, "No") || tp.IsSameText(Value, "NoIco") || tp.IsSameText(Value, "None")) {
+            this.IcoMode = tp.ButtonExIcoMode.None;
+        } else if (tp.IsSameText(Value, "Left")) {
+            this.IcoMode = tp.ButtonExIcoMode.Left;
+        }
+    }
+    /**
+     * Applies the default icon mode based on icon values.
+     * @returns {void}
+     */
+    ApplyIcoModeDefault() {
+        if (tp.IsBlank(this.IcoClasses) && tp.IsBlank(this.ImageUrl))
+            this.IcoMode = tp.ButtonExIcoMode.None;
+    }
+    /**
+     * Handles DOM click events.
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var Args;
+        e.preventDefault();
+        if (!this.Enabled)
+            return;
+        Args = this.Trigger(tp.Events.Click, {
+            e: e,
+            el: e.target,
+            Button: this,
+            Command: this.Command
+        });
+        if (this.Parent instanceof tp.ToolBar)
+            this.Parent.OnButtonClick(new tp.ToolBarItemClickEventArgs(this, Args && !tp.IsBlank(Args.Command) ? Args.Command : this.Command));
+    }
+
+    // ● public
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.IsDisposed)
+            return;
+        if (this.HasHandle && this.fClickHandler)
+            this.Handle.removeEventListener("click", this.fClickHandler);
+        this.fClickHandler = null;
+        this.fImageElement = null;
+        this.fTextElement = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the visible button text.
+     * @returns {string} Returns the text.
+     */
+    get Text() {
+        return this.fTextElement instanceof HTMLElement ? this.fTextElement.textContent : "";
+    }
+    /**
+     * Gets or sets the visible button text.
+     * @param {string} Value The text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.fTextElement instanceof HTMLElement)
+            this.fTextElement.textContent = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the anchor href.
+     * @returns {string} Returns the URL.
+     */
+    get Url() {
+        if (this.Handle instanceof HTMLAnchorElement)
+            return this.Handle.href !== "javascript:void(0);" ? this.Handle.href : "";
+        return "";
+    }
+    /**
+     * Gets or sets the anchor href.
+     * @param {string} Value The URL.
+     * @returns {void}
+     */
+    set Url(Value) {
+        if (this.Handle instanceof HTMLAnchorElement)
+            this.Handle.href = tp.IsBlank(Value) ? "javascript:void(0);" : String(Value);
+    }
+    /**
+     * Gets or sets the icon CSS classes.
+     * @returns {string} Returns the icon CSS classes.
+     */
+    get IcoClasses() {
+        return this.fIcoClasses;
+    }
+    /**
+     * Gets or sets the icon CSS classes.
+     * @param {string} Value The icon CSS classes.
+     * @returns {void}
+     */
+    set IcoClasses(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (this.fImageElement instanceof HTMLElement) {
+            tp.RemoveClasses(this.fImageElement, this.fIcoClasses);
+            this.fImageElement.style.background = "";
+            this.fImageUrl = "";
+            tp.AddClasses(this.fImageElement, Value);
+        }
+        this.fIcoClasses = Value;
+    }
+    /**
+     * Gets or sets the icon image URL.
+     * @returns {string} Returns the image URL.
+     */
+    get ImageUrl() {
+        return this.fImageUrl;
+    }
+    /**
+     * Gets or sets the icon image URL.
+     * @param {string} Value The image URL.
+     * @returns {void}
+     */
+    set ImageUrl(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (this.fImageElement instanceof HTMLElement) {
+            tp.RemoveClasses(this.fImageElement, this.fIcoClasses);
+            this.fImageElement.style.background = "";
+            this.fIcoClasses = "";
+            this.fImageElement.style.backgroundImage = tp.IsBlank(Value) ? "" : "url(\"" + Value + "\")";
+            this.fImageElement.style.backgroundRepeat = "no-repeat";
+            this.fImageElement.style.backgroundPosition = "center center";
+            this.fImageElement.style.backgroundSize = "90%";
+        }
+        this.fImageUrl = Value;
+    }
+    /**
+     * Gets or sets the icon mode.
+     * @returns {number} Returns a tp.ButtonExIcoMode value.
+     */
+    get IcoMode() {
+        return this.fIcoMode;
+    }
+    /**
+     * Gets or sets the icon mode.
+     * @param {number} Value A tp.ButtonExIcoMode value.
+     * @returns {void}
+     */
+    set IcoMode(Value) {
+        this.fIcoMode = tp.IsNumber(Value) ? Value : tp.ButtonExIcoMode.Left;
+        tp.RemoveClasses(this.Handle, tp.Classes.NoIco, tp.Classes.IcoTop);
+        if (this.fIcoMode === tp.ButtonExIcoMode.None)
+            tp.AddClass(this.Handle, tp.Classes.NoIco);
+        else if (this.fIcoMode === tp.ButtonExIcoMode.Top)
+            tp.AddClass(this.Handle, tp.Classes.IcoTop);
+    }
+    /**
+     * Gets or sets whether text is hidden.
+     * @returns {boolean} Returns true when text is hidden.
+     */
+    get NoText() {
+        return this.fNoText === true;
+    }
+    /**
+     * Gets or sets whether text is hidden.
+     * @param {boolean} Value True to hide the text.
+     * @returns {void}
+     */
+    set NoText(Value) {
+        this.fNoText = Value === true;
+        tp.RemoveClass(this.Handle, tp.Classes.NoText);
+        if (this.fNoText)
+            tp.AddClass(this.Handle, tp.Classes.NoText);
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.ButtonEx.prototype.tpClass = "tp.ButtonEx";
+/**
+ * Button command.
+ * @type {string}
+ */
+tp.ButtonEx.prototype.Command = "";
+/**
+ * A user-defined value.
+ * @type {*}
+ */
+tp.ButtonEx.prototype.Tag = null;
+/**
+ * Icon element.
+ * @type {HTMLElement|null}
+ */
+tp.ButtonEx.prototype.fImageElement = null;
+/**
+ * Text element.
+ * @type {HTMLElement|null}
+ */
+tp.ButtonEx.prototype.fTextElement = null;
+/**
+ * Icon mode.
+ * @type {number}
+ */
+tp.ButtonEx.prototype.fIcoMode = tp.ButtonExIcoMode.Left;
+/**
+ * True when text is hidden.
+ * @type {boolean}
+ */
+tp.ButtonEx.prototype.fNoText = false;
+/**
+ * Icon CSS classes.
+ * @type {string}
+ */
+tp.ButtonEx.prototype.fIcoClasses = "";
+/**
+ * Icon image URL.
+ * @type {string}
+ */
+tp.ButtonEx.prototype.fImageUrl = "";
+/**
+ * Click handler.
+ * @type {Function|null}
+ */
+tp.ButtonEx.prototype.fClickHandler = null;
+
+// ● toolbar
+/**
+ * A toolbar containing ButtonEx items.
+ *
+ * Events:
+ * - ButtonClick
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ */
+tp.ToolBar = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a toolbar.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.ToolBar.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.ToolBar";
+        tp.AddClass(this.Handle, tp.Classes.ToolBar);
+        this.CreateMarkupButtons();
+    }
+
+    // ● protected
+    /**
+     * Creates normalized toolbar create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        var Element;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        Element = tp(Params.Handle);
+        if (!(Element instanceof HTMLElement))
+            Params.Handle = document.createElement("div");
+        return Params;
+    }
+    /**
+     * Creates internal toolbar elements.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        this.fRightAligner = this.Document.createElement("div");
+        this.fRightAligner.className = tp.Classes.FlexFill;
+        this.Handle.appendChild(this.fRightAligner);
+    }
+    /**
+     * Converts direct anchor children to ButtonEx components.
+     * @returns {void}
+     */
+    CreateMarkupButtons() {
+        var List = this.GetElementList();
+        var Index;
+        var Element;
+        var Button;
+        for (Index = 0; Index < List.length; Index++) {
+            Element = List[Index];
+            if (Element === this.fRightAligner)
+                continue;
+            if (Element instanceof HTMLAnchorElement && !(tp.Component.GetComponent(Element) instanceof tp.ButtonEx)) {
+                Button = new tp.ButtonEx(Element);
+                tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+            }
+        }
+    }
+
+    // ● public
+    /**
+     * Adds and returns a new ButtonEx to the toolbar.
+     * @param {string} Command The button command.
+     * @param {string} Text The button text.
+     * @param {string|null|undefined} ToolTip The tooltip.
+     * @param {string|null|undefined} IcoClasses The icon CSS classes.
+     * @param {string|null|undefined} CssClasses Extra CSS classes.
+     * @param {boolean|null|undefined} ToRight True to align to the right.
+     * @returns {tp.ButtonEx} Returns the new button.
+     */
+    AddButton(Command, Text, ToolTip, IcoClasses, CssClasses, ToRight) {
+        var Button = new tp.ButtonEx({
+            Text: Text || "",
+            ToolTip: ToolTip || "",
+            Command: Command || "",
+            IcoClasses: IcoClasses || ""
+        });
+        tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+        if (!tp.IsBlank(CssClasses))
+            tp.AddClasses(Button.Handle, CssClasses);
+        this.AddItem(Button, ToRight === true);
+        return Button;
+    }
+    /**
+     * Adds a component to the toolbar.
+     * @param {tp.Component} Control The component to add.
+     * @param {boolean|null|undefined} ToRight True to align to the right.
+     * @returns {void}
+     */
+    AddItem(Control, ToRight) {
+        if (!(Control instanceof tp.Component))
+            return;
+        if (ToRight === true)
+            this.Handle.appendChild(Control.Handle);
+        else
+            this.Handle.insertBefore(Control.Handle, this.fRightAligner);
+    }
+    /**
+     * Sets the icon mode to all ButtonEx children.
+     * @param {number} Value The tp.ButtonExIcoMode value.
+     * @returns {void}
+     */
+    SetIcoMode(Value) {
+        this.GetAllComponents().forEach(function (Item) {
+            if (Item instanceof tp.ButtonEx)
+                Item.IcoMode = Value;
+        });
+    }
+    /**
+     * Sets the NoText flag to all ButtonEx children.
+     * @param {boolean} Value True to hide text.
+     * @returns {void}
+     */
+    SetNoText(Value) {
+        this.GetAllComponents().forEach(function (Item) {
+            if (Item instanceof tp.ButtonEx)
+                Item.NoText = Value === true;
+        });
+    }
+    /**
+     * Finds a child item by command.
+     * @param {string} Command The command to find.
+     * @returns {tp.ButtonEx|tp.Component|null} Returns the found item or null.
+     */
+    FindItemByCommand(Command) {
+        var List = this.GetAllComponents();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (tp.HasCommandProperty(List[Index]) && tp.IsSameText(List[Index].Command, Command))
+                return List[Index];
+        }
+        return null;
+    }
+    /**
+     * Triggers the ButtonClick event.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    OnButtonClick(Args) {
+        this.Trigger("ButtonClick", Args);
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.ToolBar.prototype.tpClass = "tp.ToolBar";
+/**
+ * Right aligner element.
+ * @type {HTMLElement|null}
+ */
+tp.ToolBar.prototype.fRightAligner = null;
+
+// ● 180-menu.js
+// ● menu item type
+/**
+ * Menu item type values.
+ * @enum {number}
+ */
+tp.MenuItemType = {
+    Item: 1,
+    Separator: 2
+};
+Object.freeze(tp.MenuItemType);
+
+// ● menu event args
+/**
+ * Event arguments for menu item events.
+ */
+tp.MenuEventArgs = class extends tp.EventArgs {
+    // ● constructor
+    /**
+     * Creates menu event arguments.
+     * @param {tp.MenuItem} MenuItem The menu item.
+     * @param {MouseEvent|null|undefined} e The DOM event.
+     */
+    constructor(MenuItem, e) {
+        super(tp.Events.Click, null, e);
+        this.MenuItem = MenuItem;
+        this.Command = MenuItem instanceof tp.MenuItem ? MenuItem.Command : "";
+    }
+};
+
+// ● prototype
+/**
+ * The clicked menu item.
+ * @type {tp.MenuItem|null}
+ */
+tp.MenuEventArgs.prototype.MenuItem = null;
+
+// ● menu item list
+/**
+ * Internal menu item list.
+ */
+tp.MenuItemList = class {
+    // ● constructor
+    /**
+     * Creates a menu item list.
+     * @param {HTMLElement} Handle The item container element.
+     * @param {tp.MenuBase|tp.MenuItem} Owner The owner.
+     */
+    constructor(Handle, Owner) {
+        this.Handle = Handle;
+        this.Owner = Owner;
+        this.Items = [];
+    }
+
+    // ● public
+    /**
+     * Returns the item index.
+     * @param {tp.MenuItemBase} Item The item.
+     * @returns {number} Returns the item index or -1.
+     */
+    IndexOf(Item) {
+        return this.Items.indexOf(Item);
+    }
+    /**
+     * Returns an item by index.
+     * @param {number} Index The index.
+     * @returns {tp.MenuItemBase|null} Returns the item or null.
+     */
+    ByIndex(Index) {
+        return Index >= 0 && Index < this.Items.length ? this.Items[Index] : null;
+    }
+    /**
+     * Returns an item by command.
+     * @param {string} Command The command.
+     * @returns {tp.MenuItem|null} Returns the menu item or null.
+     */
+    ByCommand(Command) {
+        var Index;
+        var Result;
+        for (Index = 0; Index < this.Items.length; Index++) {
+            Result = this.Items[Index].ByCommand(Command);
+            if (Result)
+                return Result;
+        }
+        return null;
+    }
+    /**
+     * Returns true when the list contains an item.
+     * @param {tp.MenuItemBase} Item The item.
+     * @returns {boolean} Returns true when contained.
+     */
+    Contains(Item) {
+        return this.Items.indexOf(Item) !== -1;
+    }
+    /**
+     * Updates owner CSS state after list changes.
+     * @returns {void}
+     */
+    UpdateOwnerState() {
+        if (this.Owner instanceof tp.MenuItem) {
+            if (this.Count > 0)
+                tp.AddClass(this.Owner.Handle, tp.Classes.HasChildren);
+            else
+                tp.RemoveClass(this.Owner.Handle, tp.Classes.HasChildren);
+        }
+    }
+    /**
+     * Adds an item.
+     * @param {tp.MenuItemBase} Item The item.
+     * @returns {void}
+     */
+    Add(Item) {
+        this.Insert(this.Items.length, Item);
+    }
+    /**
+     * Inserts an item.
+     * @param {number} Index The index.
+     * @param {tp.MenuItemBase} Item The item.
+     * @returns {void}
+     */
+    Insert(Index, Item) {
+        var RefNode;
+        if (!(Item instanceof tp.MenuItemBase) || this.Contains(Item))
+            return;
+        Index = Math.max(0, Math.min(tp.ToInt(Index), this.Items.length));
+        Item.Parent = this.Owner;
+        if (Index === this.Items.length) {
+            this.Items.push(Item);
+            this.Handle.appendChild(Item.Handle);
+        } else {
+            this.Items.splice(Index, 0, Item);
+            RefNode = this.Handle.children[Index];
+            this.Handle.insertBefore(Item.Handle, RefNode);
+        }
+        this.UpdateOwnerState();
+    }
+    /**
+     * Removes an item.
+     * @param {tp.MenuItemBase} Item The item.
+     * @returns {void}
+     */
+    Remove(Item) {
+        if (!this.Contains(Item))
+            return;
+        tp.ListRemove(this.Items, Item);
+        if (Item.Handle && Item.Handle.parentNode)
+            Item.Handle.parentNode.removeChild(Item.Handle);
+        Item.Parent = null;
+        this.UpdateOwnerState();
+    }
+    /**
+     * Removes all items.
+     * @returns {void}
+     */
+    Clear() {
+        while (this.Items.length > 0)
+            this.Remove(this.Items[0]);
+    }
+    /**
+     * Adds a menu item.
+     * @param {string} Text The text.
+     * @param {string|null|undefined} Command The command.
+     * @returns {tp.MenuItem} Returns the menu item.
+     */
+    AddMenuItem(Text, Command) {
+        var Result = tp.MenuItemBase.CreateMenuItem(Text);
+        Result.Command = Command || "";
+        this.Add(Result);
+        return Result;
+    }
+    /**
+     * Adds a separator.
+     * @returns {tp.MenuSeparator} Returns the separator.
+     */
+    AddSeparator() {
+        var Result = tp.MenuItemBase.CreateSeparator();
+        this.Add(Result);
+        return Result;
+    }
+    /**
+     * Inserts a menu item.
+     * @param {number} Index The index.
+     * @param {string} Text The text.
+     * @param {string|null|undefined} Command The command.
+     * @returns {tp.MenuItem} Returns the menu item.
+     */
+    InsertMenuItem(Index, Text, Command) {
+        var Result = tp.MenuItemBase.CreateMenuItem(Text);
+        Result.Command = Command || "";
+        this.Insert(Index, Result);
+        return Result;
+    }
+    /**
+     * Inserts a separator.
+     * @param {number} Index The index.
+     * @returns {tp.MenuSeparator} Returns the separator.
+     */
+    InsertSeparator(Index) {
+        var Result = tp.MenuItemBase.CreateSeparator();
+        this.Insert(Index, Result);
+        return Result;
+    }
+
+    // ● properties
+    /**
+     * Returns the item count.
+     * @returns {number} Returns the item count.
+     */
+    get Count() {
+        return this.Items.length;
+    }
+};
+
+// ● prototype
+/**
+ * Container element.
+ * @type {HTMLElement|null}
+ */
+tp.MenuItemList.prototype.Handle = null;
+/**
+ * Owner menu or item.
+ * @type {tp.MenuBase|tp.MenuItem|null}
+ */
+tp.MenuItemList.prototype.Owner = null;
+/**
+ * Items.
+ * @type {tp.MenuItemBase[]}
+ */
+tp.MenuItemList.prototype.Items = null;
+
+// ● menu item base
+/**
+ * Base class for menu items and separators.
+ */
+tp.MenuItemBase = class extends tp.Object {
+    // ● constructor
+    /**
+     * Creates a menu item base instance.
+     * @param {number} Type The tp.MenuItemType value.
+     * @param {HTMLElement|null|undefined} Handle The handle.
+     */
+    constructor(Type, Handle) {
+        super();
+        this.Type = Type;
+        this.Handle = Handle instanceof HTMLElement ? Handle : document.createElement("div");
+        this.NormalizeHandle();
+    }
+
+    // ● protected
+    /**
+     * Normalizes the item handle.
+     * @returns {void}
+     */
+    NormalizeHandle() {
+        var TextNode = tp.FindTextNode(this.Handle);
+        var Text = TextNode ? TextNode.nodeValue || "" : "";
+        var Children = tp.ToArray(this.Handle.children);
+        var Index;
+        if (TextNode)
+            TextNode.nodeValue = "";
+        Children.forEach(function (Child) {
+            Child.parentNode.removeChild(Child);
+        });
+        this.Handle.__tpMenuItem = this;
+        if (this.IsSeparator) {
+            this.Handle.className = tp.Classes.MenuSeparator;
+            this.fSeparatorElement = document.createElement("hr");
+            this.Handle.appendChild(this.fSeparatorElement);
+        } else {
+            this.Handle.className = tp.Classes.MenuItem;
+            this.CreateElements(Text.trim());
+            this.ReadMarkupParams();
+            for (Index = 0; Index < Children.length; Index++)
+                this.Items.Add(tp.MenuItemBase.FromElement(Children[Index]));
+        }
+    }
+    /**
+     * Creates menu item child elements.
+     * @param {string} Text The item text.
+     * @returns {void}
+     */
+    CreateElements(Text) {
+        this.fImageElement = document.createElement("div");
+        this.fImageElement.className = tp.Classes.MenuItemImage;
+        this.fTextElement = document.createElement("a");
+        this.fTextElement.className = tp.Classes.MenuItemText;
+        this.fTextElement.href = "javascript:void(0);";
+        this.fTextElement.textContent = Text;
+        this.fArrowElement = document.createElement("div");
+        this.fArrowElement.className = tp.Classes.MenuItemArrow;
+        this.fArrowElement.textContent = "›";
+        this.fListElement = document.createElement("div");
+        this.fListElement.className = tp.Classes.MenuItemList;
+        this.fListElement.style.display = "none";
+        this.Handle.appendChild(this.fImageElement);
+        this.Handle.appendChild(this.fTextElement);
+        this.Handle.appendChild(this.fArrowElement);
+        this.Handle.appendChild(this.fListElement);
+        this.Items = new tp.MenuItemList(this.fListElement, this);
+    }
+    /**
+     * Reads menu item settings from data-* attributes.
+     * @returns {void}
+     */
+    ReadMarkupParams() {
+        var Value;
+        this.Command = tp.Data(this.Handle, "command") || "";
+        Value = tp.Data(this.Handle, "url");
+        if (!tp.IsBlank(Value))
+            this.Url = Value;
+        Value = tp.Data(this.Handle, "ico-classes");
+        if (!tp.IsBlank(Value))
+            this.IcoClasses = Value;
+        Value = tp.Data(this.Handle, "image-url");
+        if (!tp.IsBlank(Value))
+            this.ImageUrl = Value;
+        Value = tp.Data(this.Handle, "enabled");
+        if (!tp.IsBlank(Value))
+            this.Enabled = !(tp.IsSameText(Value, "false") || tp.IsSameText(Value, "0"));
+    }
+    /**
+     * Returns a menu item from an element.
+     * @param {HTMLElement} Element The element.
+     * @returns {tp.MenuItemBase} Returns a menu item or separator.
+     */
+    static FromElement(Element) {
+        return tp.MenuItemBase.IsSeparator(Element) ? new tp.MenuSeparator(Element) : new tp.MenuItem(Element);
+    }
+    /**
+     * Returns true when an element is a separator marker.
+     * @param {HTMLElement} Element The element.
+     * @returns {boolean} Returns true when the element is a separator marker.
+     */
+    static IsSeparator(Element) {
+        var TextNode = tp.FindTextNode(Element);
+        return !!TextNode && (TextNode.nodeValue || "").trim() === "-";
+    }
+    /**
+     * Ensures item text.
+     * @param {string|null|undefined} Text The source text.
+     * @returns {string} Returns non-empty text.
+     */
+    static EnsureMenuItemText(Text) {
+        if (tp.IsBlank(Text)) {
+            Text = "MenuItem " + tp.MenuItemBase.MenuItemCounter;
+            tp.MenuItemBase.MenuItemCounter++;
+        }
+        return Text;
+    }
+    /**
+     * Creates a menu item.
+     * @param {string} Text The item text.
+     * @returns {tp.MenuItem} Returns the menu item.
+     */
+    static CreateMenuItem(Text) {
+        var Element = document.createElement("div");
+        Element.textContent = tp.MenuItemBase.EnsureMenuItemText(Text);
+        return new tp.MenuItem(Element);
+    }
+    /**
+     * Creates a separator.
+     * @returns {tp.MenuSeparator} Returns the separator.
+     */
+    static CreateSeparator() {
+        var Element = document.createElement("div");
+        Element.textContent = "-";
+        return new tp.MenuSeparator(Element);
+    }
+
+    // ● public
+    /**
+     * Returns an item by command.
+     * @param {string} Command The command.
+     * @returns {tp.MenuItem|null} Returns the item or null.
+     */
+    ByCommand(Command) {
+        if (this.IsMenuItem && tp.IsSameText(this.Command, Command))
+            return this;
+        return this.Items ? this.Items.ByCommand(Command) : null;
+    }
+    /**
+     * Adds a menu item.
+     * @param {string} Text The text.
+     * @param {string|null|undefined} Command The command.
+     * @returns {tp.MenuItem} Returns the added item.
+     */
+    AddMenuItem(Text, Command) {
+        return this.Items.AddMenuItem(Text, Command);
+    }
+    /**
+     * Adds a separator.
+     * @returns {tp.MenuSeparator} Returns the separator.
+     */
+    AddSeparator() {
+        return this.Items.AddSeparator();
+    }
+    /**
+     * Returns this item as string.
+     * @returns {string} Returns the item text.
+     */
+    toString() {
+        return this.Text;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets item text.
+     * @returns {string} Returns the text.
+     */
+    get Text() {
+        return this.fTextElement instanceof HTMLElement ? this.fTextElement.textContent : "-";
+    }
+    /**
+     * Gets or sets item text.
+     * @param {string} Value The text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.fTextElement instanceof HTMLElement)
+            this.fTextElement.textContent = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets item visibility.
+     * @returns {boolean} Returns true when visible.
+     */
+    get Visible() {
+        return this.Handle.style.display !== "none";
+    }
+    /**
+     * Gets or sets item visibility.
+     * @param {boolean} Value True to show.
+     * @returns {void}
+     */
+    set Visible(Value) {
+        this.Handle.style.display = Value === true ? "" : "none";
+    }
+    /**
+     * Gets or sets enabled state.
+     * @returns {boolean} Returns true when enabled.
+     */
+    get Enabled() {
+        return !this.Handle.classList.contains(tp.Classes.Disabled);
+    }
+    /**
+     * Gets or sets enabled state.
+     * @param {boolean} Value True to enable.
+     * @returns {void}
+     */
+    set Enabled(Value) {
+        if (Value === true)
+            tp.RemoveClass(this.Handle, tp.Classes.Disabled);
+        else
+            tp.AddClass(this.Handle, tp.Classes.Disabled);
+    }
+    /**
+     * Returns true for menu items.
+     * @returns {boolean} Returns true for menu items.
+     */
+    get IsMenuItem() {
+        return !this.IsSeparator;
+    }
+    /**
+     * Returns true for separators.
+     * @returns {boolean} Returns true for separators.
+     */
+    get IsSeparator() {
+        return this.Type === tp.MenuItemType.Separator;
+    }
+    /**
+     * Returns true when item has children.
+     * @returns {boolean} Returns true when item has children.
+     */
+    get HasChildren() {
+        return this.Items && this.Items.Count > 0;
+    }
+    /**
+     * Returns the child count.
+     * @returns {number} Returns the child count.
+     */
+    get Count() {
+        return this.Items ? this.Items.Count : 0;
+    }
+    /**
+     * Gets or sets submenu visibility.
+     * @returns {boolean} Returns true when visible.
+     */
+    get IsListVisible() {
+        return this.fListElement instanceof HTMLElement && this.fListElement.style.display !== "none";
+    }
+    /**
+     * Gets or sets submenu visibility.
+     * @param {boolean} Value True to show.
+     * @returns {void}
+     */
+    set IsListVisible(Value) {
+        if (this.fListElement instanceof HTMLElement)
+            this.fListElement.style.display = Value === true ? "" : "none";
+    }
+};
+
+// ● prototype
+tp.MenuItemBase.prototype.Type = tp.MenuItemType.Item;
+tp.MenuItemBase.prototype.Handle = null;
+tp.MenuItemBase.prototype.Parent = null;
+tp.MenuItemBase.prototype.Items = null;
+tp.MenuItemBase.prototype.Command = "";
+tp.MenuItemBase.prototype.Tag = null;
+tp.MenuItemBase.prototype.fImageElement = null;
+tp.MenuItemBase.prototype.fTextElement = null;
+tp.MenuItemBase.prototype.fArrowElement = null;
+tp.MenuItemBase.prototype.fListElement = null;
+tp.MenuItemBase.prototype.fSeparatorElement = null;
+tp.MenuItemBase.prototype.fIcoClasses = "";
+tp.MenuItemBase.prototype.fImageUrl = "";
+tp.MenuItemBase.MenuItemCounter = 0;
+
+// ● menu item
+/**
+ * Represents a menu item.
+ *
+ * @implements {tp.ICommandProperty}
+ */
+tp.MenuItem = class extends tp.MenuItemBase {
+    // ● constructor
+    /**
+     * Creates a menu item.
+     * @param {HTMLElement|null|undefined} Handle The item handle.
+     */
+    constructor(Handle) {
+        super(tp.MenuItemType.Item, Handle);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the item URL.
+     * @returns {string} Returns the URL.
+     */
+    get Url() {
+        if (this.fTextElement instanceof HTMLAnchorElement)
+            return this.fTextElement.href !== "javascript:void(0);" ? this.fTextElement.href : "";
+        return "";
+    }
+    /**
+     * Gets or sets the item URL.
+     * @param {string} Value The URL.
+     * @returns {void}
+     */
+    set Url(Value) {
+        if (this.fTextElement instanceof HTMLAnchorElement)
+            this.fTextElement.href = tp.IsBlank(Value) ? "javascript:void(0);" : String(Value);
+    }
+    /**
+     * Gets or sets icon CSS classes.
+     * @returns {string} Returns icon CSS classes.
+     */
+    get IcoClasses() {
+        return this.fIcoClasses;
+    }
+    /**
+     * Gets or sets icon CSS classes.
+     * @param {string} Value The icon CSS classes.
+     * @returns {void}
+     */
+    set IcoClasses(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (this.fImageElement instanceof HTMLElement) {
+            tp.RemoveClasses(this.fImageElement, this.fIcoClasses);
+            this.fImageElement.style.background = "";
+            this.fImageUrl = "";
+            tp.AddClasses(this.fImageElement, Value);
+        }
+        this.fIcoClasses = Value;
+    }
+    /**
+     * Gets or sets icon image URL.
+     * @returns {string} Returns the image URL.
+     */
+    get ImageUrl() {
+        return this.fImageUrl;
+    }
+    /**
+     * Gets or sets icon image URL.
+     * @param {string} Value The image URL.
+     * @returns {void}
+     */
+    set ImageUrl(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (this.fImageElement instanceof HTMLElement) {
+            tp.RemoveClasses(this.fImageElement, this.fIcoClasses);
+            this.fImageElement.style.background = "";
+            this.fIcoClasses = "";
+            this.fImageElement.style.backgroundImage = tp.IsBlank(Value) ? "" : "url(\"" + Value + "\")";
+            this.fImageElement.style.backgroundRepeat = "no-repeat";
+            this.fImageElement.style.backgroundPosition = "center center";
+            this.fImageElement.style.backgroundSize = "75%";
+        }
+        this.fImageUrl = Value;
+    }
+};
+
+// ● menu separator
+/**
+ * Represents a menu separator.
+ */
+tp.MenuSeparator = class extends tp.MenuItemBase {
+    // ● constructor
+    /**
+     * Creates a menu separator.
+     * @param {HTMLElement|null|undefined} Handle The separator handle.
+     */
+    constructor(Handle) {
+        super(tp.MenuItemType.Separator, Handle);
+    }
+};
+
+// ● menu base
+/**
+ * Base class for main menus and context menus.
+ *
+ * Events:
+ * - ItemClick
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ */
+tp.MenuBase = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a menu base instance.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.MenuBase.CreateParams(CreateParams, Options);
+        super(Params);
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.fMouseOverHandler = this.FuncBind(this.HandleMouseOver);
+        this.fDocumentClickHandler = this.FuncBind(this.HandleDocumentClick);
+        this.Handle.addEventListener("click", this.fClickHandler);
+        this.Handle.addEventListener("mouseover", this.fMouseOverHandler);
+    }
+
+    // ● protected
+    /**
+     * Creates normalized menu create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        var Element;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.Handle = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        Element = tp(Params.Handle);
+        if (!(Element instanceof HTMLElement))
+            Params.Handle = document.createElement("div");
+        return Params;
+    }
+    /**
+     * Creates menu items from markup.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        var Children;
+        var Index;
+        super.OnHandleCreated();
+        this.Handle.tabIndex = 0;
+        Children = tp.ToArray(this.Handle.children);
+        Children.forEach(function (Child) {
+            Child.parentNode.removeChild(Child);
+        });
+        this.Items = new tp.MenuItemList(this.Handle, this);
+        for (Index = 0; Index < Children.length; Index++)
+            this.Items.Add(tp.MenuItemBase.FromElement(Children[Index]));
+    }
+    /**
+     * Returns the menu item for an element.
+     * @param {HTMLElement|null|undefined} Element The element.
+     * @returns {tp.MenuItem|null} Returns the menu item or null.
+     */
+    FindMenuItemByElement(Element) {
+        while (Element instanceof HTMLElement && Element !== this.Handle) {
+            if (Element.__tpMenuItem instanceof tp.MenuItem)
+                return Element.__tpMenuItem;
+            Element = Element.parentElement;
+        }
+        return null;
+    }
+    /**
+     * Hides all submenu lists.
+     * @returns {void}
+     */
+    HideAllLists() {
+        this.GetAllItems().forEach(function (Item) {
+            if (Item instanceof tp.MenuItem)
+                Item.IsListVisible = false;
+        });
+    }
+    /**
+     * Returns all menu items recursively.
+     * @returns {tp.MenuItemBase[]} Returns the items.
+     */
+    GetAllItems() {
+        var Result = [];
+        var AddList = function (List) {
+            if (!List)
+                return;
+            List.Items.forEach(function (Item) {
+                Result.push(Item);
+                if (Item.Items)
+                    AddList(Item.Items);
+            });
+        };
+        AddList(this.Items);
+        return Result;
+    }
+    /**
+     * Opens the submenu path for an item.
+     * @param {tp.MenuItem} Item The item.
+     * @returns {void}
+     */
+    OpenItemPath(Item) {
+        var Parent = Item;
+        while (Parent instanceof tp.MenuItem) {
+            if (Parent.HasChildren)
+                Parent.IsListVisible = true;
+            Parent = Parent.Parent;
+        }
+    }
+    /**
+     * Positions a submenu list.
+     * @param {tp.MenuItem} Item The item.
+     * @returns {void}
+     */
+    PositionSubMenu(Item) {
+        var IsTop = Item.Parent === this;
+        if (!(Item instanceof tp.MenuItem) || !Item.HasChildren)
+            return;
+        if (IsTop && this.IsMenu) {
+            Item.fListElement.style.left = "0";
+            Item.fListElement.style.top = "calc(100% - 1px)";
+        } else {
+            Item.fListElement.style.left = "calc(100% - 2px)";
+            Item.fListElement.style.top = "0";
+        }
+        tp.BringToFront(Item.fListElement);
+    }
+    /**
+     * Handles item activation.
+     * @param {tp.MenuItem} Item The item.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    ActivateItem(Item, e) {
+        if (!(Item instanceof tp.MenuItem) || !Item.Enabled)
+            return;
+        if (Item.HasChildren) {
+            this.HideSiblingLists(Item);
+            if (Item.IsListVisible) {
+                this.HideItemList(Item);
+            } else {
+                Item.IsListVisible = true;
+                this.PositionSubMenu(Item);
+                this.OpenItemPath(Item);
+            }
+        } else {
+            if (tp.IsBlank(Item.Url))
+                e.preventDefault();
+            this.OnItemClick(e, Item);
+            this.HideAfterItemClick();
+        }
+        e.stopPropagation();
+    }
+    /**
+     * Hides menu UI after an item click.
+     * @returns {void}
+     */
+    HideAfterItemClick() {
+        this.HideAllLists();
+    }
+    /**
+     * Handles DOM click events.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var Item = this.FindMenuItemByElement(e.target);
+        if (Item) {
+            this.Handle.focus();
+            this.ActivateItem(Item, e);
+            this.HookDocumentClick();
+        }
+    }
+    /**
+     * Handles document clicks.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleDocumentClick(e) {
+        if (!tp.ContainsEventTarget(this.Handle, e.target)) {
+            this.HideAllLists();
+            this.UnhookDocumentClick();
+        }
+    }
+    /**
+     * Handles mouse-over events.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleMouseOver(e) {
+        var Item = this.FindMenuItemByElement(e.target);
+        if (!(Item instanceof tp.MenuItem) || !Item.Enabled || !this.HasFocused)
+            return;
+        this.HideSiblingLists(Item);
+        this.OpenItemPath(Item);
+        if (Item.HasChildren) {
+            Item.IsListVisible = true;
+            this.PositionSubMenu(Item);
+        }
+    }
+    /**
+     * Hides an item submenu and all nested submenu lists.
+     * @param {tp.MenuItem} Item The menu item.
+     * @returns {void}
+     */
+    HideItemList(Item) {
+        if (!(Item instanceof tp.MenuItem))
+            return;
+        Item.IsListVisible = false;
+        if (Item.Items) {
+            Item.Items.Items.forEach(function (Child) {
+                this.HideItemList(Child);
+            }, this);
+        }
+    }
+    /**
+     * Hides sibling submenu lists.
+     * @param {tp.MenuItem} Item The active item.
+     * @returns {void}
+     */
+    HideSiblingLists(Item) {
+        var Parent = Item.Parent;
+        if (!Parent || !Parent.Items)
+            return;
+        Parent.Items.Items.forEach(function (Sibling) {
+            if (Sibling !== Item && Sibling instanceof tp.MenuItem)
+                this.HideItemList(Sibling);
+        }, this);
+    }
+    /**
+     * Hooks the document click event.
+     * @returns {void}
+     */
+    HookDocumentClick() {
+        this.Document.addEventListener("click", this.fDocumentClickHandler);
+    }
+    /**
+     * Unhooks the document click event.
+     * @returns {void}
+     */
+    UnhookDocumentClick() {
+        this.Document.removeEventListener("click", this.fDocumentClickHandler);
+    }
+
+    // ● public
+    /**
+     * Adds a menu item.
+     * @param {string} Text The text.
+     * @param {string|null|undefined} Command The command.
+     * @returns {tp.MenuItem} Returns the added item.
+     */
+    AddMenuItem(Text, Command) {
+        return this.Items.AddMenuItem(Text, Command);
+    }
+    /**
+     * Adds a separator.
+     * @returns {tp.MenuSeparator} Returns the separator.
+     */
+    AddSeparator() {
+        return this.Items.AddSeparator();
+    }
+    /**
+     * Returns an item by command.
+     * @param {string} Command The command.
+     * @returns {tp.MenuItem|null} Returns the item or null.
+     */
+    ByCommand(Command) {
+        return this.Items.ByCommand(Command);
+    }
+    /**
+     * Triggers the ItemClick event.
+     * @param {MouseEvent} e The DOM event.
+     * @param {tp.MenuItem} Item The item.
+     * @returns {void}
+     */
+    OnItemClick(e, Item) {
+        this.Trigger("ItemClick", new tp.MenuEventArgs(Item, e));
+    }
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.IsDisposed)
+            return;
+        if (this.HasHandle) {
+            this.Handle.removeEventListener("click", this.fClickHandler);
+            this.Handle.removeEventListener("mouseover", this.fMouseOverHandler);
+        }
+        this.UnhookDocumentClick();
+        this.fClickHandler = null;
+        this.fMouseOverHandler = null;
+        this.fDocumentClickHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Returns true for main menus.
+     * @returns {boolean} Returns true for main menus.
+     */
+    get IsMenu() {
+        return false;
+    }
+    /**
+     * Returns true for context menus.
+     * @returns {boolean} Returns true for context menus.
+     */
+    get IsContextMenu() {
+        return false;
+    }
+    /**
+     * Returns the item count.
+     * @returns {number} Returns the item count.
+     */
+    get Count() {
+        return this.Items ? this.Items.Count : 0;
+    }
+};
+
+// ● prototype
+tp.MenuBase.prototype.Items = null;
+tp.MenuBase.prototype.fClickHandler = null;
+tp.MenuBase.prototype.fMouseOverHandler = null;
+tp.MenuBase.prototype.fDocumentClickHandler = null;
+
+// ● main menu
+/**
+ * Represents a desktop-like main menu.
+ */
+tp.Menu = class extends tp.MenuBase {
+    // ● constructor
+    /**
+     * Creates a menu.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings.
+     */
+    constructor(CreateParams, Options) {
+        super(CreateParams, Options);
+        this.tpClass = "tp.Menu";
+        tp.AddClass(this.Handle, tp.Classes.Menu);
+    }
+
+    // ● properties
+    /**
+     * Returns true for main menus.
+     * @returns {boolean} Returns true for main menus.
+     */
+    get IsMenu() {
+        return true;
+    }
+};
+
+// ● context menu
+/**
+ * Represents a desktop-like context menu.
+ */
+tp.ContextMenu = class extends tp.MenuBase {
+    // ● constructor
+    /**
+     * Creates a context menu.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings.
+     */
+    constructor(CreateParams, Options) {
+        super(CreateParams, Options);
+        this.tpClass = "tp.ContextMenu";
+        this.fDocumentKeyDownHandler = this.FuncBind(this.HandleDocumentKeyDown);
+        tp.AddClass(this.Handle, tp.Classes.ContextMenu);
+        this.Visible = false;
+    }
+
+    // ● protected
+    /**
+     * Handles document clicks.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleDocumentClick(e) {
+        if (!tp.ContainsEventTarget(this.Handle, e.target))
+            this.Visible = false;
+    }
+    /**
+     * Handles document key-down events.
+     * @param {KeyboardEvent} e The event.
+     * @returns {void}
+     */
+    HandleDocumentKeyDown(e) {
+        if (tp.IsKey(e, tp.Keys.Escape)) {
+            this.Visible = false;
+            e.preventDefault();
+        }
+    }
+    /**
+     * Hides menu UI after an item click.
+     * @returns {void}
+     */
+    HideAfterItemClick() {
+        this.Visible = false;
+        this.HideAllLists();
+    }
+
+    // ● public
+    /**
+     * Shows the context menu at event coordinates.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    Show(e) {
+        if (e instanceof MouseEvent) {
+            e.preventDefault();
+            this.ShowAt(e.clientX + 1, e.clientY + 1);
+        }
+    }
+    /**
+     * Shows the context menu at viewport coordinates.
+     * @param {number} X The viewport X coordinate.
+     * @param {number} Y The viewport Y coordinate.
+     * @returns {void}
+     */
+    ShowAt(X, Y) {
+        var Rect;
+        if (!(this.Handle.parentNode instanceof HTMLElement))
+            this.Document.body.appendChild(this.Handle);
+        this.Position = "fixed";
+        this.Handle.style.left = tp.px(X);
+        this.Handle.style.top = tp.px(Y);
+        this.Handle.style.zIndex = String(tp.MaxZIndexOf(this.Document.body) + 1);
+        this.Visible = true;
+        Rect = this.Handle.getBoundingClientRect();
+        if (Rect.bottom > tp.Viewport.Height)
+            this.Handle.style.top = tp.px(Math.max(0, Y - Rect.height));
+        if (Rect.right > tp.Viewport.Width)
+            this.Handle.style.left = tp.px(Math.max(0, tp.Viewport.Width - Rect.width));
+        this.Handle.focus();
+        setTimeout(function (Self) {
+            Self.HookDocumentClick();
+            Self.Document.addEventListener("keydown", Self.fDocumentKeyDownHandler);
+        }, 0, this);
+    }
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        this.Document.removeEventListener("click", this.fDocumentClickHandler);
+        this.Document.removeEventListener("keydown", this.fDocumentKeyDownHandler);
+        this.fDocumentClickHandler = null;
+        this.fDocumentKeyDownHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Returns true for context menus.
+     * @returns {boolean} Returns true for context menus.
+     */
+    get IsContextMenu() {
+        return true;
+    }
+    /**
+     * Sets visibility and document hooks.
+     * @param {boolean} Value True to show.
+     * @returns {void}
+     */
+    set Visible(Value) {
+        super.Visible = Value;
+        if (Value !== true) {
+            this.UnhookDocumentClick();
+            this.Document.removeEventListener("keydown", this.fDocumentKeyDownHandler);
+        }
+    }
+    /**
+     * Gets visibility.
+     * @returns {boolean} Returns true when visible.
+     */
+    get Visible() {
+        return super.Visible;
+    }
+};
+
+// ● prototype
+tp.ContextMenu.prototype.fDocumentKeyDownHandler = null;
+
+// ● site menu event args
+/**
+ * Event arguments for tp.SiteMenu item clicks.
+ */
+tp.SiteMenuEventArgs = class extends tp.EventArgs {
+    // ● constructor
+    /**
+     * Creates site menu event arguments.
+     * @param {HTMLElement} Element The clicked item element.
+     * @param {MouseEvent|null|undefined} e The DOM event.
+     */
+    constructor(Element, e) {
+        super("ItemClick", null, e);
+        this.Element = Element instanceof HTMLElement ? Element : null;
+        this.Command = this.Element ? tp.Data(this.Element, "command") || "" : "";
+        this.ItemText = this.Element ? tp.SiteMenu.GetItemText(this.Element) : "";
+    }
+};
+
+// ● prototype
+/**
+ * The clicked item element.
+ * @type {HTMLElement|null}
+ */
+tp.SiteMenuEventArgs.prototype.Element = null;
+/**
+ * The clicked item command.
+ * @type {string}
+ */
+tp.SiteMenuEventArgs.prototype.Command = "";
+/**
+ * The clicked item text.
+ * @type {string}
+ */
+tp.SiteMenuEventArgs.prototype.ItemText = "";
+
+// ● site menu
+/**
+ * Represents a document/site menu with a responsive toggle button and content columns.
+ *
+ * Events:
+ * - ItemClick
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ */
+tp.SiteMenu = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a site menu.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings.
+     */
+    constructor(CreateParams, Options) {
+        var Params = arguments.length > 1 ? new tp.CreateParams(Options) : tp.Component.CreateParams(CreateParams);
+        if (arguments.length > 1)
+            Params.Handle = CreateParams;
+        super(Params);
+        this.tpClass = "tp.SiteMenu";
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.fMouseOverHandler = this.FuncBind(this.HandleMouseOver);
+        this.fDocumentClickHandler = this.FuncBind(this.HandleDocumentClick);
+        this.fWindowResizeHandler = this.FuncBind(this.HandleWindowResize);
+        tp.AddClass(this.Handle, tp.Classes.SiteMenu);
+        this.ReadMarkupParams();
+        this.EnsureMarkup();
+        this.Handle.addEventListener("click", this.fClickHandler);
+        this.Handle.addEventListener("mouseover", this.fMouseOverHandler);
+        this.Document.addEventListener("click", this.fDocumentClickHandler);
+        window.addEventListener("resize", this.fWindowResizeHandler);
+        this.UpdateScreenMode(true);
+    }
+
+    // ● protected
+    /**
+     * Reads menu settings from data-* attributes.
+     * @returns {void}
+     */
+    ReadMarkupParams() {
+        var Value = tp.Data(this.Handle, "break-point");
+        if (!tp.IsBlank(Value))
+            this.BreakPoint = tp.ToInt(Value);
+    }
+    /**
+     * Ensures the required menu child elements.
+     * @returns {void}
+     */
+    EnsureMarkup() {
+        if (!this.ToggleElement) {
+            this.fToggleElement = document.createElement("div");
+            this.fToggleElement.className = tp.Classes.Toggle;
+            this.fToggleElement.innerHTML = "<div class=\"" + tp.Classes.Btn + "\">Menu</div><div class=\"" + tp.Classes.FlexFill + "\"></div>";
+            this.Handle.insertBefore(this.fToggleElement, this.Handle.firstChild);
+        }
+        if (!this.MenuStrip) {
+            this.fMenuStrip = document.createElement("div");
+            this.fMenuStrip.className = tp.Classes.Strip + " " + tp.Classes.Normal;
+            this.Handle.appendChild(this.fMenuStrip);
+        }
+    }
+    /**
+     * Returns the closest site menu item for an event target.
+     * @param {EventTarget|null|undefined} Target The event target.
+     * @returns {HTMLElement|null} Returns the item element or null.
+     */
+    FindItemElement(Target) {
+        var Element = Target;
+        while (Element instanceof HTMLElement && Element !== this.Handle) {
+            if (Element.classList.contains(tp.Classes.Item) && tp.ContainsElement(this.Handle, Element))
+                return Element;
+            Element = Element.parentElement;
+        }
+        return null;
+    }
+    /**
+     * Returns true when an item is a top menu item.
+     * @param {HTMLElement|null|undefined} Item The item.
+     * @returns {boolean} Returns true when the item belongs directly to the strip.
+     */
+    IsTopItem(Item) {
+        return Item instanceof HTMLElement && Item.parentElement === this.MenuStrip;
+    }
+    /**
+     * Returns true when an item has a content panel.
+     * @param {HTMLElement|null|undefined} Item The item.
+     * @returns {boolean} Returns true when item has content.
+     */
+    HasContent(Item) {
+        return this.GetItemContent(Item) instanceof HTMLElement;
+    }
+    /**
+     * Returns an item content panel.
+     * @param {HTMLElement|null|undefined} Item The item.
+     * @returns {HTMLElement|null} Returns the content element or null.
+     */
+    GetItemContent(Item) {
+        return Item instanceof HTMLElement ? tp.Select(Item, "." + tp.Classes.Content) : null;
+    }
+    /**
+     * Sets an item as the active top item.
+     * @param {HTMLElement} Item The item.
+     * @returns {void}
+     */
+    SetActiveItem(Item) {
+        this.ClearActiveItem();
+        if (this.IsTopItem(Item) && this.HasContent(Item))
+            tp.AddClass(Item, tp.Classes.Active);
+    }
+    /**
+     * Clears the active item.
+     * @returns {void}
+     */
+    ClearActiveItem() {
+        var Item = this.ActiveItem;
+        if (Item)
+            tp.RemoveClass(Item, tp.Classes.Active);
+    }
+    /**
+     * Toggles small-screen strip visibility.
+     * @returns {void}
+     */
+    ToggleStrip() {
+        this.ClearActiveItem();
+        if (this.MenuStrip)
+            tp.ToggleClass(this.MenuStrip, tp.Classes.Hide);
+    }
+    /**
+     * Updates small-screen state.
+     * @param {boolean} Force True to force update.
+     * @returns {void}
+     */
+    UpdateScreenMode(Force) {
+        var IsSmall = window.innerWidth <= this.BreakPoint;
+        if (Force === true || IsSmall !== this.fIsSmallScreen) {
+            this.fIsSmallScreen = IsSmall;
+            this.ClearActiveItem();
+            if (IsSmall) {
+                tp.AddClass(this.Handle, tp.Classes.Small);
+                tp.AddClass(this.MenuStrip, tp.Classes.Hide);
+            } else {
+                tp.RemoveClass(this.Handle, tp.Classes.Small);
+                tp.RemoveClass(this.MenuStrip, tp.Classes.Hide);
+            }
+        }
+    }
+    /**
+     * Handles DOM click events.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var Item;
+        if (this.ToggleElement && tp.ContainsEventTarget(this.ToggleElement, e.target)) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.ToggleStrip();
+            return;
+        }
+        Item = this.FindItemElement(e.target);
+        if (!Item)
+            return;
+        e.preventDefault();
+        e.stopPropagation();
+        if (Item.classList.contains(tp.Classes.Title))
+            return;
+        if (this.IsTopItem(Item) && this.HasContent(Item)) {
+            if (Item === this.ActiveItem)
+                this.ClearActiveItem();
+            else
+                this.SetActiveItem(Item);
+        } else if (!this.IsSmallScreen) {
+            this.ClearActiveItem();
+        }
+        this.OnItemClick(Item, e);
+    }
+    /**
+     * Handles mouse-over events.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleMouseOver(e) {
+        var Item = this.FindItemElement(e.target);
+        if (!this.IsSmallScreen && this.ActiveItem && this.IsTopItem(Item) && Item !== this.ActiveItem)
+            this.SetActiveItem(Item);
+    }
+    /**
+     * Handles document click events.
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleDocumentClick(e) {
+        if (!tp.ContainsEventTarget(this.Handle, e.target))
+            this.ClearActiveItem();
+    }
+    /**
+     * Handles window resize events.
+     * @returns {void}
+     */
+    HandleWindowResize() {
+        this.UpdateScreenMode(false);
+    }
+    /**
+     * Triggers the ItemClick event.
+     * @param {HTMLElement} Item The item.
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    OnItemClick(Item, e) {
+        this.Trigger("ItemClick", new tp.SiteMenuEventArgs(Item, e));
+    }
+
+    // ● public
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.IsDisposed)
+            return;
+        this.Handle.removeEventListener("click", this.fClickHandler);
+        this.Handle.removeEventListener("mouseover", this.fMouseOverHandler);
+        this.Document.removeEventListener("click", this.fDocumentClickHandler);
+        window.removeEventListener("resize", this.fWindowResizeHandler);
+        this.fClickHandler = null;
+        this.fMouseOverHandler = null;
+        this.fDocumentClickHandler = null;
+        this.fWindowResizeHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Returns the active top item.
+     * @returns {HTMLElement|null} Returns the active top item or null.
+     */
+    get ActiveItem() {
+        return this.MenuStrip ? tp.Select(this.MenuStrip, "." + tp.Classes.Item + "." + tp.Classes.Active) : null;
+    }
+    /**
+     * Returns the toggle element.
+     * @returns {HTMLElement|null} Returns the toggle element.
+     */
+    get ToggleElement() {
+        if (!this.fToggleElement && this.HasHandle)
+            this.fToggleElement = tp.Select(this.Handle, "." + tp.Classes.Toggle);
+        return this.fToggleElement;
+    }
+    /**
+     * Returns the menu strip element.
+     * @returns {HTMLElement|null} Returns the menu strip element.
+     */
+    get MenuStrip() {
+        if (!this.fMenuStrip && this.HasHandle)
+            this.fMenuStrip = tp.Select(this.Handle, "." + tp.Classes.Strip);
+        return this.fMenuStrip;
+    }
+    /**
+     * Returns true when the menu is in small-screen mode.
+     * @returns {boolean} Returns true when small.
+     */
+    get IsSmallScreen() {
+        return this.fIsSmallScreen === true;
+    }
+    /**
+     * Gets or sets the responsive breakpoint.
+     * @returns {number} Returns the breakpoint width.
+     */
+    get BreakPoint() {
+        return this.fBreakPoint;
+    }
+    /**
+     * Gets or sets the responsive breakpoint.
+     * @param {number} Value The breakpoint width.
+     * @returns {void}
+     */
+    set BreakPoint(Value) {
+        this.fBreakPoint = Math.max(1, tp.ToInt(Value));
+    }
+    /**
+     * Returns direct item text.
+     * @param {HTMLElement} Item The item.
+     * @returns {string} Returns the item text.
+     */
+    static GetItemText(Item) {
+        var TextNode = tp.FindTextNode(Item);
+        return TextNode ? (TextNode.nodeValue || "").trim() : "";
+    }
+};
+
+// ● prototype
+tp.SiteMenu.prototype.fToggleElement = null;
+tp.SiteMenu.prototype.fMenuStrip = null;
+tp.SiteMenu.prototype.fClickHandler = null;
+tp.SiteMenu.prototype.fMouseOverHandler = null;
+tp.SiteMenu.prototype.fDocumentClickHandler = null;
+tp.SiteMenu.prototype.fWindowResizeHandler = null;
+tp.SiteMenu.prototype.fIsSmallScreen = false;
+tp.SiteMenu.prototype.fBreakPoint = 768;
+
+// ● 200-notifications.js
+// ● notification type
+/**
+ * Notification type values.
+ * @enum {number}
+ */
+tp.NotificationType = {
+    Information: 1,
+    Warning: 2,
+    Error: 4,
+    Success: 5
+};
+Object.freeze(tp.NotificationType);
+
+// ● notification setup
+/**
+ * Global settings for notification boxes.
+ * @type {object}
+ */
+tp.NotificationBoxSetup = {
+    Information: {
+        Title: "Information",
+        BackColor: "#ffffd7",
+        BorderColor: "#ffeb3b"
+    },
+    Warning: {
+        Title: "Warning",
+        BackColor: "#e7ffe7",
+        BorderColor: "#4caf50"
+    },
+    Error: {
+        Title: "Error",
+        BackColor: "#ffe7e7",
+        BorderColor: "#f44336"
+    },
+    Success: {
+        Title: "Success",
+        BackColor: "#e7ffff",
+        BorderColor: "#2196f3"
+    },
+    ToTop: false,
+    DurationSecs: 10,
+    MaxVisible: 5,
+    Height: 100,
+    Width: 350
+};
+
+// ● notification boxes
+/**
+ * Tracks and places notification boxes.
+ * @type {object}
+ */
+tp.NotificationBoxes = {
+    Boxes: [],
+    Queue: [],
+    SelectedBox: null,
+    fKeyDownHandler: null,
+    /**
+     * Adds a notification box.
+     * @param {tp.NotificationBox} Box The notification box.
+     * @returns {void}
+     */
+    Add: function (Box) {
+        if (!Box || Box.IsDisposed)
+            return;
+        if (tp.NotificationBoxes.Boxes.indexOf(Box) === -1 && tp.NotificationBoxes.Queue.indexOf(Box) === -1) {
+            tp.NotificationBoxes.HookDocumentKeyDown();
+            if (tp.NotificationBoxes.Boxes.length < tp.NotificationBoxes.VisibleLimit)
+                tp.NotificationBoxes.Show(Box);
+            else
+                tp.NotificationBoxes.Enqueue(Box);
+        }
+    },
+    /**
+     * Removes a notification box.
+     * @param {tp.NotificationBox} Box The notification box.
+     * @param {boolean} ActivateNext True to activate the next queued box.
+     * @returns {void}
+     */
+    Remove: function (Box, ActivateNext) {
+        tp.ListRemove(tp.NotificationBoxes.Boxes, Box);
+        tp.ListRemove(tp.NotificationBoxes.Queue, Box);
+        if (tp.NotificationBoxes.SelectedBox === Box)
+            tp.NotificationBoxes.ClearSelectedBox(Box);
+        tp.NotificationBoxes.Reflow();
+        if (ActivateNext === true)
+            tp.NotificationBoxes.ShowNext();
+        if (tp.NotificationBoxes.Boxes.length === 0 && tp.NotificationBoxes.Queue.length === 0)
+            tp.NotificationBoxes.UnhookDocumentKeyDown();
+    },
+    /**
+     * Displays a notification box.
+     * @param {tp.NotificationBox} Box The notification box.
+     * @returns {void}
+     */
+    Show: function (Box) {
+        if (!Box || Box.IsDisposed)
+            return;
+        Box.Handle.style.display = "";
+        tp.NotificationBoxes.Place(Box.Handle);
+        tp.NotificationBoxes.Boxes.push(Box);
+        Box.BringToFront();
+        Box.StartTimer();
+        Box.ShowVisible();
+    },
+    /**
+     * Adds a notification box to the queue.
+     * @param {tp.NotificationBox} Box The notification box.
+     * @returns {void}
+     */
+    Enqueue: function (Box) {
+        if (!Box || Box.IsDisposed)
+            return;
+        Box.Handle.style.display = "none";
+        tp.NotificationBoxes.Queue.push(Box);
+    },
+    /**
+     * Displays the next queued notification box, if any.
+     * @returns {void}
+     */
+    ShowNext: function () {
+        var Box;
+        while (tp.NotificationBoxes.Boxes.length < tp.NotificationBoxes.VisibleLimit && tp.NotificationBoxes.Queue.length > 0) {
+            Box = tp.NotificationBoxes.Queue.shift();
+            if (Box && !Box.IsDisposed)
+                tp.NotificationBoxes.Show(Box);
+        }
+    },
+    /**
+     * Selects a notification box.
+     * @param {tp.NotificationBox} Box The notification box.
+     * @returns {void}
+     */
+    SelectBox: function (Box) {
+        if (tp.NotificationBoxes.SelectedBox && tp.NotificationBoxes.SelectedBox !== Box)
+            tp.NotificationBoxes.ClearSelectedBox(tp.NotificationBoxes.SelectedBox);
+        tp.NotificationBoxes.HookDocumentKeyDown();
+        tp.NotificationBoxes.SelectedBox = Box;
+        if (Box && Box.HasHandle)
+            Box.Handle.classList.add(tp.Classes.Selected);
+    },
+    /**
+     * Clears the selected notification box.
+     * @param {tp.NotificationBox|null|undefined} Box The notification box.
+     * @returns {void}
+     */
+    ClearSelectedBox: function (Box) {
+        if (Box && Box.HasHandle)
+            Box.Handle.classList.remove(tp.Classes.Selected);
+        if (tp.NotificationBoxes.SelectedBox === Box)
+            tp.NotificationBoxes.SelectedBox = null;
+    },
+    /**
+     * Places a notification box element.
+     * @param {HTMLElement} Element The notification box element.
+     * @returns {void}
+     */
+    Place: function (Element) {
+        var List = tp.NotificationBoxes.Boxes;
+        var RefBox = List.length > 0 ? List[List.length - 1] : null;
+        var Rect;
+        var Top;
+        if (!tp.IsHTMLElement(Element))
+            return;
+        if (tp.NotificationBoxSetup.ToTop === true) {
+            Top = 10;
+            if (RefBox) {
+                Rect = RefBox.Handle.getBoundingClientRect();
+                Top = Rect.top + Rect.height + 10;
+            }
+        } else {
+            Top = tp.Viewport.Height - 10;
+            if (RefBox)
+                Top = RefBox.Handle.getBoundingClientRect().top - 10;
+            Rect = Element.getBoundingClientRect();
+            Top -= Rect.height;
+        }
+        Element.style.top = tp.px(Math.max(10, Top));
+    },
+    /**
+     * Reflows non-moved notification boxes.
+     * @returns {void}
+     */
+    Reflow: function () {
+        var Boxes = tp.NotificationBoxes.Boxes.slice();
+        var Index;
+        tp.NotificationBoxes.Boxes = [];
+        for (Index = 0; Index < Boxes.length; Index++) {
+            if (Boxes[Index] && !Boxes[Index].IsDisposed && Boxes[Index].HasHandle) {
+                tp.NotificationBoxes.Place(Boxes[Index].Handle);
+                tp.NotificationBoxes.Boxes.push(Boxes[Index]);
+            }
+        }
+    },
+    /**
+     * Returns the highest z-index used by notification boxes.
+     * @returns {number} Returns the maximum z-index.
+     */
+    get MaxZIndex() {
+        var Result = tp.MaxZIndexOf(document.body);
+        var Index;
+        var Value;
+        for (Index = 0; Index < tp.NotificationBoxes.Boxes.length; Index++) {
+            Value = tp.ZIndex(tp.NotificationBoxes.Boxes[Index].Handle);
+            Result = Math.max(Result, tp.ExtractNumber(Value));
+        }
+        return Result;
+    },
+    /**
+     * Returns the visible notification limit.
+     * @returns {number} Returns the visible notification limit.
+     */
+    get VisibleLimit() {
+        return Math.max(1, tp.ToInt(tp.NotificationBoxSetup.MaxVisible));
+    },
+    /**
+     * Hooks document key-down.
+     * @returns {void}
+     */
+    HookDocumentKeyDown: function () {
+        if (!tp.NotificationBoxes.fKeyDownHandler) {
+            tp.NotificationBoxes.fKeyDownHandler = tp.NotificationBoxes.HandleDocumentKeyDown.bind(tp.NotificationBoxes);
+            document.addEventListener("keydown", tp.NotificationBoxes.fKeyDownHandler);
+        }
+    },
+    /**
+     * Unhooks document key-down.
+     * @returns {void}
+     */
+    UnhookDocumentKeyDown: function () {
+        if (tp.NotificationBoxes.fKeyDownHandler) {
+            document.removeEventListener("keydown", tp.NotificationBoxes.fKeyDownHandler);
+            tp.NotificationBoxes.fKeyDownHandler = null;
+        }
+    },
+    /**
+     * Handles document key-down events.
+     * @param {KeyboardEvent} e The event object.
+     * @returns {void}
+     */
+    HandleDocumentKeyDown: function (e) {
+        var Box = tp.NotificationBoxes.SelectedBox;
+        if (tp.IsKey(e, tp.Keys.Escape) && Box && !Box.IsDisposed) {
+            Box.Dispose();
+            e.preventDefault();
+        }
+    }
+};
+
+// ● notification box
+/**
+ * Displays a non-modal notification message.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ */
+tp.NotificationBox = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a notification box.
+     * @param {string} Message The notification message.
+     * @param {number|null|undefined} Type The tp.NotificationType value.
+     */
+    constructor(Message, Type) {
+        var Element = tp.NotificationBox.CreateElement(Message, Type);
+        super({ Handle: Element });
+        this.tpClass = "tp.NotificationBox";
+        this.Type = tp.NotificationBox.NormalizeType(Type);
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.fKeyDownHandler = this.FuncBind(this.HandleKeyDown);
+        this.fMouseDownHandler = this.FuncBind(this.HandleMouseDown);
+        this.divCaption = tp.Select(this.Handle, "." + tp.Classes.Caption);
+        this.divClose = tp.Select(this.Handle, "." + tp.Classes.Close);
+        this.divContent = tp.Select(this.Handle, "." + tp.Classes.Content);
+        this.edtMessage = tp.Select(this.Handle, "textarea");
+        this.Setup();
+    }
+
+    // ● protected
+    /**
+     * Creates the notification box element.
+     * @param {string} Message The notification message.
+     * @param {number|null|undefined} Type The tp.NotificationType value.
+     * @returns {HTMLElement} Returns the notification box element.
+     */
+    static CreateElement(Message, Type) {
+        var Element = document.createElement("div");
+        var Setup = tp.NotificationBox.GetSetup(Type);
+        var TypeName = tp.NotificationBox.GetTypeName(Type);
+        var Caption = document.createElement("div");
+        var Title = document.createElement("div");
+        var Spacer = document.createElement("div");
+        var Close = document.createElement("button");
+        var Content = document.createElement("div");
+        var TextArea = document.createElement("textarea");
+        Element.id = tp.SafeId("tp-NotificationBox");
+        Element.className = "tp-NotificationBox tp-" + TypeName;
+        Element.style.backgroundColor = Setup.BackColor;
+        Element.style.borderColor = Setup.BorderColor;
+        Element.style.borderLeftColor = Setup.BorderColor;
+        Element.style.height = tp.px(tp.NotificationBoxSetup.Height);
+        if (tp.Viewport.IsXSmall) {
+            Element.style.left = "2px";
+            Element.style.right = "2px";
+        } else {
+            Element.style.width = tp.px(tp.NotificationBoxSetup.Width);
+        }
+        Caption.className = tp.Classes.Caption;
+        Title.textContent = Setup.Title;
+        Spacer.className = tp.Classes.FlexFill;
+        Close.type = "button";
+        Close.className = tp.Classes.Close;
+        Close.textContent = "x";
+        Content.className = tp.Classes.Content;
+        TextArea.value = tp.IsNil(Message) ? "" : String(Message);
+        TextArea.spellcheck = false;
+        TextArea.setAttribute("autocorrect", "off");
+        Caption.appendChild(Title);
+        Caption.appendChild(Spacer);
+        Caption.appendChild(Close);
+        Content.appendChild(TextArea);
+        Element.appendChild(Caption);
+        Element.appendChild(Content);
+        document.body.appendChild(Element);
+        return Element;
+    }
+    /**
+     * Returns a normalized notification type.
+     * @param {number|null|undefined} Type The notification type.
+     * @returns {number} Returns a tp.NotificationType value.
+     */
+    static NormalizeType(Type) {
+        return tp.IsNumber(Type) && !tp.IsBlank(tp.EnumNameOf(tp.NotificationType, Type))
+            ? Type
+            : tp.NotificationType.Information;
+    }
+    /**
+     * Returns the setup object for a notification type.
+     * @param {number|null|undefined} Type The notification type.
+     * @returns {object} Returns the setup object.
+     */
+    static GetSetup(Type) {
+        var Name = tp.NotificationBox.GetTypeName(Type);
+        return tp.NotificationBoxSetup[Name] || tp.NotificationBoxSetup.Information;
+    }
+    /**
+     * Returns the enum name for a notification type.
+     * @param {number|null|undefined} Type The notification type.
+     * @returns {string} Returns the enum name.
+     */
+    static GetTypeName(Type) {
+        var Name = tp.EnumNameOf(tp.NotificationType, tp.NotificationBox.NormalizeType(Type));
+        return tp.IsBlank(Name) ? "Information" : Name;
+    }
+    /**
+     * Completes notification box setup.
+     * @returns {void}
+     */
+    Setup() {
+        this.Handle.addEventListener("click", this.fClickHandler);
+        this.Handle.addEventListener("keydown", this.fKeyDownHandler);
+        this.Handle.addEventListener("mousedown", this.fMouseDownHandler);
+        this.Dragger = new tp.Dragger(tp.DraggerMode.Both, this.Handle, this.divCaption);
+        this.Dragger.MinWidth = 180;
+        this.Dragger.MinHeight = 70;
+        this.Dragger.On(tp.Events.DragStart, this.HandleDragStart, this);
+        this.Handle.tabIndex = 0;
+        this.divCaption.tabIndex = 0;
+        this.BringToFront();
+        tp.NotificationBoxes.Add(this);
+    }
+    /**
+     * Shows this notification box.
+     * @returns {void}
+     */
+    ShowVisible() {
+        var Self = this;
+        requestAnimationFrame(function () {
+            if (!Self.IsDisposed)
+                Self.Handle.classList.add(tp.Classes.Visible);
+        });
+    }
+    /**
+     * Starts the close timer.
+     * @returns {void}
+     */
+    StartTimer() {
+        if (this.fTimerId)
+            clearTimeout(this.fTimerId);
+        this.fTimerId = setTimeout(function (Self) {
+            if (Self.Clicked !== true)
+                Self.Dispose();
+        }, tp.NotificationBoxSetup.DurationSecs * 1000, this);
+    }
+    /**
+     * Handles click events.
+     * @param {MouseEvent} e The event object.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        tp.NotificationBoxes.SelectBox(this);
+        this.Clicked = true;
+        this.Handle.classList.add(tp.Classes.Pinned);
+        if (this.fTimerId) {
+            clearTimeout(this.fTimerId);
+            this.fTimerId = null;
+        }
+        if (this.divClose.contains(e.target))
+            this.Dispose();
+    }
+    /**
+     * Handles key-down events.
+     * @param {KeyboardEvent} e The event object.
+     * @returns {void}
+     */
+    HandleKeyDown(e) {
+        if (tp.IsKey(e, tp.Keys.Escape)) {
+            this.Dispose();
+            e.preventDefault();
+        }
+    }
+    /**
+     * Handles mouse-down events.
+     * @param {MouseEvent} e The event object.
+     * @returns {void}
+     */
+    HandleMouseDown(e) {
+        tp.NotificationBoxes.SelectBox(this);
+        this.BringToFront();
+    }
+    /**
+     * Handles drag-start notifications.
+     * @returns {void}
+     */
+    HandleDragStart() {
+        var Rect = this.Handle.getBoundingClientRect();
+        this.Clicked = true;
+        tp.NotificationBoxes.Remove(this, true);
+        tp.NotificationBoxes.SelectBox(this);
+        this.Handle.style.left = tp.px(Rect.left);
+        this.Handle.style.top = tp.px(Rect.top);
+        this.Handle.style.right = "auto";
+        this.Handle.style.position = "fixed";
+        this.Handle.classList.add(tp.Classes.Pinned);
+        if (this.fTimerId) {
+            clearTimeout(this.fTimerId);
+            this.fTimerId = null;
+        }
+    }
+
+    // ● public
+    /**
+     * Brings this notification box to front.
+     * @returns {void}
+     */
+    BringToFront() {
+        this.Handle.style.zIndex = String(tp.NotificationBoxes.MaxZIndex + 1);
+    }
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.IsDisposed)
+            return;
+        if (this.fTimerId) {
+            clearTimeout(this.fTimerId);
+            this.fTimerId = null;
+        }
+        if (this.Dragger) {
+            this.Dragger.Dispose();
+            this.Dragger = null;
+        }
+        if (this.HasHandle) {
+            this.Handle.removeEventListener("click", this.fClickHandler);
+            this.Handle.removeEventListener("keydown", this.fKeyDownHandler);
+            this.Handle.removeEventListener("mousedown", this.fMouseDownHandler);
+            tp.NotificationBoxes.Remove(this, true);
+        }
+        this.divCaption = null;
+        this.divClose = null;
+        this.divContent = null;
+        this.edtMessage = null;
+        this.fClickHandler = null;
+        this.fKeyDownHandler = null;
+        this.fMouseDownHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Returns the notification type name.
+     * @returns {string} Returns the notification type name.
+     */
+    get TypeText() {
+        return tp.NotificationBox.GetTypeName(this.Type);
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.NotificationBox.prototype.tpClass = "tp.NotificationBox";
+/**
+ * Notification type.
+ * @type {number}
+ */
+tp.NotificationBox.prototype.Type = tp.NotificationType.Information;
+/**
+ * Caption element.
+ * @type {HTMLElement|null}
+ */
+tp.NotificationBox.prototype.divCaption = null;
+/**
+ * Close button element.
+ * @type {HTMLElement|null}
+ */
+tp.NotificationBox.prototype.divClose = null;
+/**
+ * Content element.
+ * @type {HTMLElement|null}
+ */
+tp.NotificationBox.prototype.divContent = null;
+/**
+ * Message textarea element.
+ * @type {HTMLTextAreaElement|null}
+ */
+tp.NotificationBox.prototype.edtMessage = null;
+/**
+ * True when clicked or moved.
+ * @type {boolean}
+ */
+tp.NotificationBox.prototype.Clicked = false;
+/**
+ * Dragger instance.
+ * @type {tp.Dragger|null}
+ */
+tp.NotificationBox.prototype.Dragger = null;
+/**
+ * Close timeout id.
+ * @type {number|null}
+ */
+tp.NotificationBox.prototype.fTimerId = null;
+/**
+ * Click handler.
+ * @type {Function|null}
+ */
+tp.NotificationBox.prototype.fClickHandler = null;
+/**
+ * Key-down handler.
+ * @type {Function|null}
+ */
+tp.NotificationBox.prototype.fKeyDownHandler = null;
+/**
+ * Mouse-down handler.
+ * @type {Function|null}
+ */
+tp.NotificationBox.prototype.fMouseDownHandler = null;
+
+// ● helpers
+/**
+ * Displays a notification message.
+ * @param {string} Message The notification message.
+ * @param {number|null|undefined} Type The tp.NotificationType value.
+ * @returns {tp.NotificationBox} Returns the notification box.
+ */
+tp.NotifyFunc = function (Message, Type) {
+    return new tp.NotificationBox(Message, Type);
+};
+/**
+ * Displays a notification message.
+ * @param {string} Message The notification message.
+ * @param {number|null|undefined} Type The tp.NotificationType value.
+ * @returns {tp.NotificationBox|null} Returns the notification box, if any.
+ */
+tp.Notify = function (Message, Type) {
+    if (tp.IsFunction(tp.NotifyFunc))
+        return tp.NotifyFunc(Message, Type);
+    return null;
+};
+/**
+ * Displays an information notification.
+ * @param {string} Message The notification message.
+ * @returns {tp.NotificationBox|null} Returns the notification box, if any.
+ */
+tp.InfoNote = function (Message) {
+    return tp.Notify(Message, tp.NotificationType.Information);
+};
+/**
+ * Displays a warning notification.
+ * @param {string} Message The notification message.
+ * @returns {tp.NotificationBox|null} Returns the notification box, if any.
+ */
+tp.WarningNote = function (Message) {
+    return tp.Notify(Message, tp.NotificationType.Warning);
+};
+/**
+ * Displays an error notification.
+ * @param {string} Message The notification message.
+ * @returns {tp.NotificationBox|null} Returns the notification box, if any.
+ */
+tp.ErrorNote = function (Message) {
+    return tp.Notify(Message, tp.NotificationType.Error);
+};
+/**
+ * Displays a success notification.
+ * @param {string} Message The notification message.
+ * @returns {tp.NotificationBox|null} Returns the notification box, if any.
+ */
+tp.SuccessNote = function (Message) {
+    return tp.Notify(Message, tp.NotificationType.Success);
 };
 

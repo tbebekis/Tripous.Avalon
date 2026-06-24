@@ -69,16 +69,40 @@ tp.CreateParams.prototype.Tag = null;
 // ● component
 /**
  * Represents an HTML element wrapper without data binding.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
  */
 tp.Component = class extends tp.Object {
+    // ● private
+    /**
+     * Creates component create parameters from a handle, selector, plain object, or tp.CreateParams instance.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} Value The source value.
+     * @returns {tp.CreateParams} Returns create parameters.
+     */
+    static CreateParams(Value) {
+        if (Value instanceof tp.CreateParams)
+            return Value;
+        if (tp.IsString(Value) || tp.IsHTMLElement(Value))
+            return new tp.CreateParams({ Handle: Value });
+        return new tp.CreateParams(Value);
+    }
+
     // ● constructor
     /**
      * Creates a new component.
-     * @param {tp.CreateParams|object} CreateParams The component creation parameters. A valid Handle is required.
+     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The component creation parameters, handle, or selector. A valid Handle is required.
      */
     constructor(CreateParams) {
         super();
-        this.CreateParams = CreateParams instanceof tp.CreateParams ? CreateParams : new tp.CreateParams(CreateParams);
+        this.CreateParams = tp.Component.CreateParams(CreateParams);
+        this.fSizeChart = new tp.SizeChart();
         this.CreateHandle(this.CreateParams.Handle);
         this.ApplyCreateParams(this.CreateParams);
     }
@@ -136,6 +160,10 @@ tp.Component = class extends tp.Object {
             this.Tag = Params.Tag;
         if (!tp.IsNil(Params.Parent))
             this.Parent = Params.Parent;
+        if (!tp.IsNil(Params.Breakpoints))
+            this.Breakpoints = Params.Breakpoints;
+        if (!tp.IsNil(Params.IsElementResizeListener))
+            this.IsElementResizeListener = Params.IsElementResizeListener;
     }
     /**
      * Resolves a parent value to an HTMLElement.
@@ -183,6 +211,10 @@ tp.Component = class extends tp.Object {
      */
     DoDispose() {
         var Element = this.fHandle;
+        if (this.fResizeDetector) {
+            this.fResizeDetector.Dispose();
+            this.fResizeDetector = null;
+        }
         if (Element instanceof HTMLElement) {
             if (tp.Component.GetComponent(Element) === this)
                 tp.Component.SetComponent(Element, null);
@@ -233,6 +265,53 @@ tp.Component = class extends tp.Object {
     OnVisibleChanged() {
         this.Trigger("VisibleChanged", {});
     }
+    /**
+     * Notification sent by tp.ResizeDetector when this component size changes.
+     * This method is called only when IsElementResizeListener is true.
+     * @param {object|null|undefined} ResizeInfo The resize info object.
+     * @returns {void}
+     */
+    OnElementSizeChanged(ResizeInfo) {
+        this.Trigger("ElementSizeChanged", ResizeInfo || {});
+        if (this.fSizeChart && this.HasHandle && this.fSizeChart.IsModeChange(this.Handle.offsetWidth))
+            this.OnSizeModeChanged();
+    }
+    /**
+     * Notification called when SizeMode changes.
+     * @returns {void}
+     */
+    OnSizeModeChanged() {
+        var List;
+        this.Trigger("SizeModeChanged", { SizeMode: this.SizeMode });
+        if (tp.DebugMode === true && this.HasHandle) {
+            tp.RemoveClasses(this.Handle, tp.SizeModes);
+            tp.AddClass(this.Handle, this.SizeMode);
+        }
+        List = this.GetComponentList();
+        List.forEach(function (Component) {
+            Component.ParentSizeModeChanged(this.SizeMode);
+        }, this);
+    }
+    /**
+     * Notification called by a parent component when its SizeMode changes.
+     * @param {string} ParentSizeMode A tp.SizeMode value.
+     * @returns {void}
+     */
+    ParentSizeModeChanged(ParentSizeMode) {
+    }
+    /**
+     * Broadcasts SizeModeChanged to this component and nested listening components.
+     * @returns {void}
+     */
+    BroadcastSizeModeChanged() {
+        var List;
+        this.OnSizeModeChanged();
+        List = this.GetAllComponents();
+        List.forEach(function (Component) {
+            if (Component.IsElementResizeListener === true)
+                Component.OnSizeModeChanged();
+        });
+    }
 
     // ● properties
     /**
@@ -262,6 +341,20 @@ tp.Component = class extends tp.Object {
      */
     get NodeType() {
         return this.HasHandle ? this.Handle.nodeName : "";
+    }
+    /**
+     * Returns true when this component has focus.
+     * @returns {boolean} Returns true when focused.
+     */
+    get IsFocused() {
+        return this.HasHandle && tp.IsFocused(this.Handle);
+    }
+    /**
+     * Returns true when this component or one of its children has focus.
+     * @returns {boolean} Returns true when this component contains focus.
+     */
+    get HasFocused() {
+        return this.HasHandle && tp.HasFocused(this.Handle);
     }
     /**
      * Gets or sets the component id.
@@ -358,7 +451,7 @@ tp.Component = class extends tp.Object {
     get Text() {
         if (!this.HasHandle)
             return "";
-        return "value" in this.Handle ? this.Handle.value : this.Handle.textContent;
+        return this.HasValueText ? this.Handle.value : this.Handle.textContent;
     }
     /**
      * Sets text or value depending on the handle.
@@ -369,10 +462,19 @@ tp.Component = class extends tp.Object {
         if (!this.HasHandle)
             return;
         Value = tp.IsNil(Value) ? "" : String(Value);
-        if ("value" in this.Handle)
+        if (this.HasValueText)
             this.Handle.value = Value;
         else
             this.Handle.textContent = Value;
+    }
+    /**
+     * Returns true when Text should use the value property.
+     * @returns {boolean} Returns true when Text should use the value property.
+     */
+    get HasValueText() {
+        return this.HasHandle
+            && ("value" in this.Handle)
+            && ["input", "select", "textarea", "option"].indexOf(this.NodeType.toLowerCase()) !== -1;
     }
     /**
      * Gets or sets the tooltip.
@@ -501,6 +603,55 @@ tp.Component = class extends tp.Object {
         return this.HasHandle ? this.Handle.style : null;
     }
     /**
+     * Gets or sets a value indicating whether this component listens to element resize changes.
+     * @returns {boolean} Returns true when this component listens to element resize changes.
+     */
+    get IsElementResizeListener() {
+        return this.fResizeDetector instanceof tp.ResizeDetector && this.fResizeDetector.Observing === true;
+    }
+    /**
+     * Gets or sets a value indicating whether this component listens to element resize changes.
+     * @param {boolean} Value True to start listening; false to stop.
+     * @returns {void}
+     */
+    set IsElementResizeListener(Value) {
+        Value = Value === true;
+        if (this.HasHandle && Value !== this.IsElementResizeListener) {
+            if (Value) {
+                if (!this.fResizeDetector)
+                    this.fResizeDetector = new tp.ResizeDetector(this.Handle, this.OnElementSizeChanged, this, true);
+                else
+                    this.fResizeDetector.Start();
+                this.OnElementSizeChanged();
+            } else if (this.fResizeDetector) {
+                this.fResizeDetector.Stop();
+            }
+        }
+    }
+    /**
+     * Gets the current size mode.
+     * @returns {string} Returns a tp.SizeMode value.
+     */
+    get SizeMode() {
+        return this.fSizeChart ? this.fSizeChart.Mode : tp.SizeMode.None;
+    }
+    /**
+     * Gets or sets size mode breakpoint values.
+     * @returns {number[]} Returns the breakpoint values.
+     */
+    get Breakpoints() {
+        return this.fSizeChart ? this.fSizeChart.Breakpoints : [];
+    }
+    /**
+     * Gets or sets size mode breakpoint values.
+     * @param {number[]} Value The breakpoint values.
+     * @returns {void}
+     */
+    set Breakpoints(Value) {
+        if (this.fSizeChart)
+            this.fSizeChart.Assign(Value);
+    }
+    /**
      * Gets a value indicating whether this component is disposed.
      * @returns {boolean} Returns true when disposed.
      */
@@ -586,6 +737,20 @@ tp.Component = class extends tp.Object {
      */
     RemoveComponent(Child) {
         this.RemoveElement(Child);
+    }
+    /**
+     * Returns all nested component children.
+     * @returns {tp.Component[]} Returns all nested components.
+     */
+    GetAllComponents() {
+        return this.HasHandle ? tp.GetAllComponents(this.Handle) : [];
+    }
+    /**
+     * Returns all direct component children.
+     * @returns {tp.Component[]} Returns all direct child components.
+     */
+    GetComponentList() {
+        return this.HasHandle ? tp.GetComponentList(this.Handle) : [];
     }
 
     // ● child elements
@@ -722,6 +887,16 @@ tp.Component.prototype.fEnabled = true;
  */
 tp.Component.prototype.fIsDisposed = false;
 /**
+ * Gets the resize detector field.
+ * @type {tp.ResizeDetector|null}
+ */
+tp.Component.prototype.fResizeDetector = null;
+/**
+ * Gets the size chart field.
+ * @type {tp.SizeChart|null}
+ */
+tp.Component.prototype.fSizeChart = null;
+/**
  * Gets or sets a user-defined value.
  * @type {*}
  */
@@ -779,4 +954,62 @@ tp.Component.SetComponent = function (Element, Component) {
  */
 tp.Component.GetComponent = function (Element) {
     return Element instanceof HTMLElement && Element.__tpComponent instanceof tp.Component ? Element.__tpComponent : null;
+};
+/**
+ * Returns the component associated with an element.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {tp.Component|null} Returns the associated component or null.
+ */
+tp.GetComponent = function (ElementOrSelector) {
+    return tp.Component.GetComponent(tp.Select(ElementOrSelector));
+};
+/**
+ * Returns true when an element is associated with a component.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element is associated with a component.
+ */
+tp.HasComponent = function (ElementOrSelector) {
+    return tp.GetComponent(ElementOrSelector) instanceof tp.Component;
+};
+/**
+ * Returns all nested component children of a parent element.
+ * @param {HTMLElement|string|null|undefined} ParentElementOrSelector The parent element or selector.
+ * @returns {tp.Component[]} Returns all nested components.
+ */
+tp.GetAllComponents = function (ParentElementOrSelector) {
+    var Parent = tp.Select(ParentElementOrSelector);
+    var Result = [];
+    var List;
+    var Index;
+    var Component;
+    if (tp.IsHTMLElement(Parent)) {
+        List = Parent.querySelectorAll("*");
+        for (Index = 0; Index < List.length; Index++) {
+            Component = tp.Component.GetComponent(List[Index]);
+            if (Component instanceof tp.Component)
+                Result.push(Component);
+        }
+    }
+    return Result;
+};
+/**
+ * Returns all direct component children of a parent element.
+ * @param {HTMLElement|string|null|undefined} ParentElementOrSelector The parent element or selector.
+ * @returns {tp.Component[]} Returns all direct child components.
+ */
+tp.GetComponentList = function (ParentElementOrSelector) {
+    var Parent = tp.Select(ParentElementOrSelector);
+    var Result = [];
+    var List;
+    var Index;
+    var Component;
+    if (tp.IsHTMLElement(Parent)) {
+        List = Parent.children;
+        for (Index = 0; Index < List.length; Index++) {
+            Component = tp.Component.GetComponent(List[Index]);
+            if (Component instanceof tp.Component)
+                Result.push(Component);
+        }
+    }
+    return Result;
 };

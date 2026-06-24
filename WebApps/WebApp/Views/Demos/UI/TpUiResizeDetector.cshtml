@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "tp.ResizeDetector";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.ResizeDetector</h1>
+
+<p>Detects size changes in an HTMLElement and sends notifications to a listener function.</p>
+
+<p>
+    Uses the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API" target="_blank">ResizeObserver API</a>.
+    The callback receives a resize info object with <code>Width</code> and <code>Height</code> boolean flags.
+</p>
+
+<style>
+    .resize-detector-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .resize-detector-demo-actions button {
+        min-width: 110px;
+    }
+    .resize-detector-demo-stage {
+        position: relative;
+        box-sizing: border-box;
+        width: min(100%, 860px);
+        min-height: 360px;
+        padding: 14px;
+        overflow: auto;
+        border: 1px solid #8c959f;
+        background: #ffffff;
+    }
+    #ResizeTarget {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 450px;
+        height: 220px;
+        max-width: 100%;
+        min-width: 180px;
+        min-height: 120px;
+        padding: 14px;
+        overflow: auto;
+        border: 1px solid #8c959f;
+        background: #8b4513;
+        color: #ffffff;
+        font-weight: 600;
+        resize: both;
+    }
+    .resize-detector-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 860px);
+        min-height: 130px;
+        margin-top: 12px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="resize-detector-demo-actions">
+        <button id="WiderButton" type="button">Wider</button>
+        <button id="NarrowerButton" type="button">Narrower</button>
+        <button id="TallerButton" type="button">Taller</button>
+        <button id="ShorterButton" type="button">Shorter</button>
+        <button id="ToggleObserverButton" type="button">Stop</button>
+    </div>
+
+    <div class="resize-detector-demo-stage">
+        <div id="ResizeTarget">Resize me</div>
+    </div>
+
+    <pre id="ResizeDetectorOutput" class="resize-detector-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Target = tp("#ResizeTarget");
+        var EventCount = 0;
+        var Detector;
+
+        var WriteLog = function (Message, ResizeInfo) {
+            var Rect = Target.getBoundingClientRect();
+            var Lines = [
+                Message || "Ready.",
+                "observing = " + Detector.Observing,
+                "event count = " + EventCount,
+                "width = " + Math.round(Rect.width) + "px",
+                "height = " + Math.round(Rect.height) + "px"
+            ];
+
+            if (ResizeInfo) {
+                Lines.push("width changed = " + ResizeInfo.Width);
+                Lines.push("height changed = " + ResizeInfo.Height);
+            }
+
+            tp.Text("#ResizeDetectorOutput", Lines.join("\n"));
+            tp.Text("#ToggleObserverButton", Detector.Observing ? "Stop" : "Start");
+        };
+
+        var ResizeDetectorFunc = function (ResizeInfo) {
+            EventCount++;
+            WriteLog("Resize detected.", ResizeInfo);
+        };
+
+        var ChangeTargetSize = function (WidthDelta, HeightDelta) {
+            var Rect = Target.getBoundingClientRect();
+            var Width = Math.max(180, Math.round(Rect.width + WidthDelta));
+            var Height = Math.max(120, Math.round(Rect.height + HeightDelta));
+
+            Target.style.width = Width + "px";
+            Target.style.height = Height + "px";
+            WriteLog("Size changed by button.");
+        };
+
+        Detector = new tp.ResizeDetector(Target, ResizeDetectorFunc, null, true);
+
+        tp.On("#WiderButton", "click", function () {
+            ChangeTargetSize(80, 0);
+        });
+
+        tp.On("#NarrowerButton", "click", function () {
+            ChangeTargetSize(-80, 0);
+        });
+
+        tp.On("#TallerButton", "click", function () {
+            ChangeTargetSize(0, 60);
+        });
+
+        tp.On("#ShorterButton", "click", function () {
+            ChangeTargetSize(0, -60);
+        });
+
+        tp.On("#ToggleObserverButton", "click", function () {
+            if (Detector.Observing)
+                Detector.Stop();
+            else
+                Detector.Start();
+            WriteLog("Observer toggled.");
+        });
+
+        WriteLog();
+    });
+</script>
