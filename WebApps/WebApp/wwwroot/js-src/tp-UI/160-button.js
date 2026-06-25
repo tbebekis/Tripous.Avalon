@@ -90,7 +90,7 @@ tp.Button = class extends tp.Component {
      * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
      */
     constructor(CreateParams, Options) {
-        var Params = tp.Button.CreateParams(CreateParams, Options);
+        var Params = arguments.length > 1 ? tp.Button.CreateParams(CreateParams, Options) : tp.Button.CreateParams(CreateParams);
         super(Params);
         this.tpClass = "tp.Button";
         this.fClickHandler = this.FuncBind(this.HandleClick);
@@ -112,15 +112,15 @@ tp.Button = class extends tp.Component {
     static CreateParams(CreateParams, Options) {
         var Params;
         var Element;
-        if (arguments.length > 1) {
+        if (arguments.length > 1 && !tp.IsNil(Options)) {
             Params = new tp.CreateParams(Options);
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
         }
-        Element = tp(Params.Handle);
+        Element = tp(Params.ElementOrSelector);
         if (!(Element instanceof HTMLElement))
-            Params.Handle = document.createElement("button");
+            Params.ElementOrSelector = "button";
         return Params;
     }
     /**

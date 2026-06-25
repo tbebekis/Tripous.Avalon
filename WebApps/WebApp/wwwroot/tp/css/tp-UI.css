@@ -908,3 +908,130 @@ fieldset.tp-GroupBox legend {
     font-size: 13px;
     white-space: pre-wrap;
 }
+
+/*---------------------------------------------------------------------------------------
+  window
+---------------------------------------------------------------------------------------*/
+.tp-Window {
+    position: absolute;
+    box-sizing: border-box;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+    outline: none;
+    background-color: white;
+    border: 1px solid #cccccc;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.tp-WindowCaption {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    padding-right: 3px;
+    border-bottom: 1px solid #cccccc;
+    user-select: none;
+}
+
+.tp-WindowCaptionText {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2px 4px;
+    overflow: hidden;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.tp-WindowCaptionButtonBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: auto;
+    gap: 4px;
+    user-select: none;
+}
+
+.tp-WindowCaptionButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    line-height: 1;
+    cursor: pointer;
+    font-family: Arial, "Segoe UI Symbol", "Noto Sans Symbols", sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    user-select: none;
+}
+
+.tp-WindowContentContainer {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.tp-WindowContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+.tp-WindowFooter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-height: 30px;
+    height: auto;
+    padding: 0.15em;
+    gap: 0.15em;
+    border-top: 1px solid #cccccc;
+    user-select: none;
+}
+
+.tp-WindowFooter > .tp-FlexFill {
+    position: relative;
+    flex-grow: 1;
+}
+
+.tp-WindowFooter > .tp-Button {
+    box-sizing: border-box;
+    min-width: 72px;
+    height: 24px;
+    padding: 2px 12px;
+    line-height: 18px;
+}
+
+.tp-MessageDialog textarea {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    min-height: 0;
+    margin: 3px;
+    padding: 4px;
+    overflow: auto;
+    border: 0;
+    outline: none;
+    resize: none;
+    font-family: monospace;
+    white-space: pre-wrap;
+}

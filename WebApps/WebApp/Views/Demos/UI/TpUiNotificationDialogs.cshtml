@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "tp.Notification Dialogs";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.Notification Dialogs</h1>
+
+<p>
+    Notification dialogs display information as modal windows. They are movable and resizable, and the async helpers return when the dialog closes.
+</p>
+
+<style>
+    .notification-dialogs-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .notification-dialogs-demo-actions button {
+        min-width: 130px;
+    }
+    .notification-dialogs-demo-message {
+        box-sizing: border-box;
+        width: min(100%, 760px);
+        min-height: 96px;
+        margin-bottom: 12px;
+        padding: 10px;
+        border: 1px solid #d0d7de;
+        resize: vertical;
+    }
+    .notification-dialogs-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 760px);
+        min-height: 130px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <textarea id="DialogMessage" class="notification-dialogs-demo-message">Tripous Web notification dialog.
+
+The dialog can be moved, resized, closed with Escape, or closed with a footer button.</textarea>
+
+    <div class="notification-dialogs-demo-actions">
+        <button id="InfoDialogButton" type="button">Info</button>
+        <button id="ErrorDialogButton" type="button">Error</button>
+        <button id="YesNoDialogButton" type="button">Yes / No</button>
+        <button id="CallbackDialogButton" type="button">Callback</button>
+    </div>
+
+    <pre id="DialogOutput" class="notification-dialogs-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Counter = 0;
+
+        var Message = function () {
+            return tp("#DialogMessage").value;
+        };
+
+        var WriteLog = function (MessageText) {
+            Counter++;
+            var Output = tp("#DialogOutput");
+            var Lines = [
+                "#" + Counter + " " + MessageText,
+                "time = " + new Date().toLocaleTimeString()
+            ];
+
+            if (!tp.IsBlank(Output.textContent))
+                Lines.push("", Output.textContent);
+
+            tp.Text(Output, Lines.join("\n"));
+        };
+
+        tp.On("#InfoDialogButton", "click", async function () {
+            var Dialog = await tp.InfoBoxAsync(Message());
+            WriteLog("Info dialog closed with result " + Dialog.DialogResult + ".");
+        });
+
+        tp.On("#ErrorDialogButton", "click", async function () {
+            var Dialog = await tp.ErrorBoxAsync(Message());
+            WriteLog("Error dialog closed with result " + Dialog.DialogResult + ".");
+        });
+
+        tp.On("#YesNoDialogButton", "click", async function () {
+            var Result = await tp.YesNoBoxAsync(Message());
+            WriteLog("Yes / No dialog returned " + Result + ".");
+            tp.Notify(Result ? "The answer was Yes." : "The answer was No.", Result ? tp.NotificationType.Success : tp.NotificationType.Warning);
+        });
+
+        tp.On("#CallbackDialogButton", "click", function () {
+            tp.InfoBox(Message(), function (Dialog) {
+                WriteLog("Callback dialog closed with result " + Dialog.DialogResult + ".");
+            });
+        });
+
+        WriteLog("Ready.");
+    });
+</script>

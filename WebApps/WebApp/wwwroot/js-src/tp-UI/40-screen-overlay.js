@@ -23,7 +23,7 @@ tp.ScreenOverlay = class extends tp.Component {
         var ParentElement = tp(Parent) || document.body;
         var Element = ParentElement.ownerDocument.createElement("div");
         return new tp.CreateParams({
-            Handle: Element,
+            ElementOrSelector: Element,
             Parent: ParentElement,
             Id: tp.SafeId(tp.Classes.ScreenOverlay),
             CssClasses: tp.Classes.ScreenOverlay

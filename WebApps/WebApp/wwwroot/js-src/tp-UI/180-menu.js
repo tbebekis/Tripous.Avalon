@@ -655,13 +655,13 @@ tp.MenuBase = class extends tp.Component {
         var Element;
         if (arguments.length > 1) {
             Params = new tp.CreateParams(Options);
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
         }
-        Element = tp(Params.Handle);
+        Element = tp(Params.ElementOrSelector);
         if (!(Element instanceof HTMLElement))
-            Params.Handle = document.createElement("div");
+            Params.ElementOrSelector = "div";
         return Params;
     }
     /**
@@ -1170,7 +1170,7 @@ tp.SiteMenu = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = arguments.length > 1 ? new tp.CreateParams(Options) : tp.Component.CreateParams(CreateParams);
         if (arguments.length > 1)
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         super(Params);
         this.tpClass = "tp.SiteMenu";
         this.fClickHandler = this.FuncBind(this.HandleClick);

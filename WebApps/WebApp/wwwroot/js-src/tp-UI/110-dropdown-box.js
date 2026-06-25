@@ -81,12 +81,12 @@ tp.DropDownBox = class extends tp.Component {
         var Params;
         if (arguments.length > 1) {
             Params = new tp.CreateParams(Options);
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
         }
-        if (!tp.IsHTMLElement(tp(Params.Handle)))
-            Params.Handle = document.createElement("div");
+        if (!tp.IsHTMLElement(tp(Params.ElementOrSelector)))
+            Params.ElementOrSelector = "div";
         return Params;
     }
     /**

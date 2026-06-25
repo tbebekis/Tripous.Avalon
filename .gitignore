@@ -36,5 +36,12 @@ AGENTS.md
 ## [ Documentation build output ]
 DocFx/_site/
 
+## [ Playwright ]
+package.json
+package-lock.json
+node_modules
+
 Publish
 WebMaterial
+
+

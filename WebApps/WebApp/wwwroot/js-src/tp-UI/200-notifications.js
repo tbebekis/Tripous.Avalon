@@ -268,7 +268,7 @@ tp.NotificationBox = class extends tp.Component {
      */
     constructor(Message, Type) {
         var Element = tp.NotificationBox.CreateElement(Message, Type);
-        super({ Handle: Element });
+        super({ ElementOrSelector: Element });
         this.tpClass = "tp.NotificationBox";
         this.Type = tp.NotificationBox.NormalizeType(Type);
         this.fClickHandler = this.FuncBind(this.HandleClick);

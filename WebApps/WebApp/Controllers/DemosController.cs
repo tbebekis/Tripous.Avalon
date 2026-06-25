@@ -192,4 +192,28 @@ public class DemosController : Controller
     {
         return View("UI/TpUiNotifications");
     }
+    /// <summary>
+    /// Displays the notification dialogs demo.
+    /// </summary>
+    [Route("/demo/tp-ui-notification-dialogs")]
+    public IActionResult TpUiNotificationDialogs()
+    {
+        return View("UI/TpUiNotificationDialogs");
+    }
+    /// <summary>
+    /// Displays the frame box demo.
+    /// </summary>
+    [Route("/demo/tp-ui-frame-box")]
+    public IActionResult TpUiFrameBox()
+    {
+        return View("UI/TpUiFrameBox");
+    }
+    /// <summary>
+    /// Displays the content window demo.
+    /// </summary>
+    [Route("/demo/tp-ui-content-window")]
+    public IActionResult TpUiContentWindow()
+    {
+        return View("UI/TpUiContentWindow");
+    }
 }

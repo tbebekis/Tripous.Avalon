@@ -78,7 +78,7 @@ tp.PanelList = class extends tp.Component {
         var Params;
         if (arguments.length > 1) {
             Params = new tp.CreateParams(Options);
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
         }

@@ -4677,10 +4677,13 @@ tp.CreateParams = class {
 
 // ● prototype
 /**
- * Gets or sets the component handle.
+ * Gets or sets the component element, selector, or tag name.
+ * When it is an HTMLElement, or a selector that resolves to an HTMLElement, the component wraps the existing element and FromMarkup returns true.
+ * When it is a standard tag name, a new element of that type is created.
+ * When it is null, a new div element is created.
  * @type {HTMLElement|string|null}
  */
-tp.CreateParams.prototype.Handle = null;
+tp.CreateParams.prototype.ElementOrSelector = null;
 /**
  * Gets or sets the component parent.
  * @type {HTMLElement|tp.Component|string|null}
@@ -4697,7 +4700,7 @@ tp.CreateParams.prototype.Id = "";
  */
 tp.CreateParams.prototype.Name = "";
 /**
- * Gets or sets the component HTML.
+ * Gets or sets the component innerHTML.
  * @type {string}
  */
 tp.CreateParams.prototype.Html = "";
@@ -4726,6 +4729,11 @@ tp.CreateParams.prototype.CssText = "";
  * @type {*}
  */
 tp.CreateParams.prototype.Tag = null;
+/**
+ * When true the constructor does not create the handle.
+ * @type {boolean}
+ */
+tp.CreateParams.prototype.DeferHandleCreation = false;
 
 // ● component
 /**
@@ -4743,7 +4751,7 @@ tp.CreateParams.prototype.Tag = null;
 tp.Component = class extends tp.Object {
     // ● private
     /**
-     * Creates component create parameters from a handle, selector, plain object, or tp.CreateParams instance.
+     * Creates component create parameters from an element, selector, tag name, plain object, or tp.CreateParams instance.
      * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} Value The source value.
      * @returns {tp.CreateParams} Returns create parameters.
      */
@@ -4751,21 +4759,21 @@ tp.Component = class extends tp.Object {
         if (Value instanceof tp.CreateParams)
             return Value;
         if (tp.IsString(Value) || tp.IsHTMLElement(Value))
-            return new tp.CreateParams({ Handle: Value });
+            return new tp.CreateParams({ ElementOrSelector: Value });
         return new tp.CreateParams(Value);
     }
 
     // ● constructor
     /**
      * Creates a new component.
-     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The component creation parameters, handle, or selector. A valid Handle is required.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The component creation parameters, element, selector, or tag name.
      */
     constructor(CreateParams) {
         super();
         this.CreateParams = tp.Component.CreateParams(CreateParams);
         this.fSizeChart = new tp.SizeChart();
-        this.CreateHandle(this.CreateParams.Handle);
-        this.ApplyCreateParams(this.CreateParams);
+        if (this.CreateParams.DeferHandleCreation !== true)
+            this.CreateHandle();
     }
 
     // ● protected
@@ -4780,20 +4788,38 @@ tp.Component = class extends tp.Object {
     }
     /**
      * Creates the component handle.
-     * @param {HTMLElement|string|null|undefined} Handle The handle or selector.
+     * @param {HTMLElement|string|null|undefined} ElementOrSelector The element, selector, or tag name.
      * @returns {void}
      */
-    CreateHandle(Handle) {
+    CreateHandle(ElementOrSelector) {
         var Element;
+        var Params;
+        var Source;
         if (this.fHandle instanceof HTMLElement)
             tp.Throw("Component handle is already assigned.");
-        Element = this.ResolveHandle(Handle);
+        Params = this.CreateParams || {};
+        Source = !tp.IsNil(ElementOrSelector) ? ElementOrSelector : Params.ElementOrSelector;
+        this.fFromMarkup = false;
+        if (tp.IsHTMLElement(Source)) {
+            Element = Source;
+            this.fFromMarkup = true;
+        } else if (tp.IsString(Source) && !tp.IsBlank(Source)) {
+            if (this.IsStandardNodeType(Source)) {
+                Element = this.Document.createElement(Source.toLowerCase());
+            } else {
+                Element = this.ResolveHandle(Source);
+                this.fFromMarkup = Element instanceof HTMLElement;
+            }
+        }
         if (!(Element instanceof HTMLElement))
-            tp.Throw("tp.Component requires a valid HTMLElement handle.");
+            Element = this.Document.createElement(this.ElementType);
+        if ((Element instanceof HTMLInputElement || Element instanceof HTMLButtonElement || Element instanceof HTMLSelectElement) && !tp.IsBlank(this.ElementSubType))
+            Element.type = this.ElementSubType;
         this.fHandle = Element;
         this.fDocument = Element.ownerDocument;
         tp.Component.SetComponent(Element, this);
         this.OnHandleCreated();
+        this.ApplyCreateParams(Params);
     }
     /**
      * Applies explicit create params to this component.
@@ -4990,6 +5016,20 @@ tp.Component = class extends tp.Object {
         return this.Handle instanceof HTMLElement;
     }
     /**
+     * Returns true when the handle comes from existing markup.
+     * @returns {boolean} Returns true when the handle comes from existing markup.
+     */
+    get FromMarkup() {
+        return this.fFromMarkup === true;
+    }
+    /**
+     * Returns true when the handle comes from existing markup.
+     * @returns {boolean} Returns true when the handle comes from existing markup.
+     */
+    get FormMarkup() {
+        return this.FromMarkup;
+    }
+    /**
      * Gets the document this component belongs to.
      * @returns {Document} Returns the owner document.
      */
@@ -5002,6 +5042,20 @@ tp.Component = class extends tp.Object {
      */
     get NodeType() {
         return this.HasHandle ? this.Handle.nodeName : "";
+    }
+    /**
+     * Gets the default element tag name for this component class.
+     * @returns {string} Returns the default element tag name.
+     */
+    get ElementType() {
+        return this.fElementType;
+    }
+    /**
+     * Gets the input/button type used when creating applicable elements.
+     * @returns {string} Returns the element subtype.
+     */
+    get ElementSubType() {
+        return this.fElementSubType;
     }
     /**
      * Returns true when this component has focus.
@@ -5110,9 +5164,7 @@ tp.Component = class extends tp.Object {
      * @returns {string} Returns the text.
      */
     get Text() {
-        if (!this.HasHandle)
-            return "";
-        return this.HasValueText ? this.Handle.value : this.Handle.textContent;
+        return this.HasHandle ? tp.val(this.Handle) : "";
     }
     /**
      * Sets text or value depending on the handle.
@@ -5120,22 +5172,8 @@ tp.Component = class extends tp.Object {
      * @returns {void}
      */
     set Text(Value) {
-        if (!this.HasHandle)
-            return;
-        Value = tp.IsNil(Value) ? "" : String(Value);
-        if (this.HasValueText)
-            this.Handle.value = Value;
-        else
-            this.Handle.textContent = Value;
-    }
-    /**
-     * Returns true when Text should use the value property.
-     * @returns {boolean} Returns true when Text should use the value property.
-     */
-    get HasValueText() {
-        return this.HasHandle
-            && ("value" in this.Handle)
-            && ["input", "select", "textarea", "option"].indexOf(this.NodeType.toLowerCase()) !== -1;
+        if (this.HasHandle)
+            tp.val(this.Handle, Value);
     }
     /**
      * Gets or sets the tooltip.
@@ -5365,7 +5403,7 @@ tp.Component = class extends tp.Object {
         var Element;
         if (tp.IsString(Child) && this.IsStandardNodeType(Child)) {
             Element = this.Document.createElement(Child.toLowerCase());
-            Child = new tp.Component({ Handle: Element });
+            Child = new tp.Component({ ElementOrSelector: Element });
         }
         if (Child instanceof tp.Component && Child.Handle) {
             this.Handle.appendChild(Child.Handle);
@@ -5383,7 +5421,7 @@ tp.Component = class extends tp.Object {
         var Element;
         if (tp.IsString(Child) && this.IsStandardNodeType(Child)) {
             Element = this.Document.createElement(Child.toLowerCase());
-            Child = new tp.Component({ Handle: Element });
+            Child = new tp.Component({ ElementOrSelector: Element });
         }
         if (Child instanceof tp.Component && Child.Handle) {
             this.InsertElement(IndexOrNode, Child.Handle);
@@ -5558,10 +5596,25 @@ tp.Component.prototype.fResizeDetector = null;
  */
 tp.Component.prototype.fSizeChart = null;
 /**
+ * Default element tag name.
+ * @type {string}
+ */
+tp.Component.prototype.fElementType = "div";
+/**
+ * Default input/button subtype.
+ * @type {string}
+ */
+tp.Component.prototype.fElementSubType = "";
+/**
  * Gets or sets a user-defined value.
  * @type {*}
  */
 tp.Component.prototype.Tag = null;
+/**
+ * True when the handle comes from existing markup.
+ * @type {boolean}
+ */
+tp.Component.prototype.fFromMarkup = false;
 /**
  * Gets standard node types.
  * @type {string[]}

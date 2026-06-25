@@ -134,7 +134,7 @@ tp.TabControl = class extends tp.Component {
      * @returns {tp.TabPage} Returns the tab page.
      */
     CreateTabPage(PageElement, TabElement) {
-        var Page = new tp.TabPage({ Handle: PageElement, Tab: TabElement });
+        var Page = new tp.TabPage({ ElementOrSelector: PageElement, Tab: TabElement });
         TabElement.TabPage = Page;
         PageElement.TabPage = Page;
         return Page;

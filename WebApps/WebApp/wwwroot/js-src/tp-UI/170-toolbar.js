@@ -93,13 +93,13 @@ tp.ButtonEx = class extends tp.Component {
         var Element;
         if (arguments.length > 1) {
             Params = new tp.CreateParams(Options);
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
         }
-        Element = tp(Params.Handle);
+        Element = tp(Params.ElementOrSelector);
         if (!(Element instanceof HTMLElement))
-            Params.Handle = document.createElement("a");
+            Params.ElementOrSelector = "a";
         return Params;
     }
     /**
@@ -444,13 +444,13 @@ tp.ToolBar = class extends tp.Component {
         var Element;
         if (arguments.length > 1) {
             Params = new tp.CreateParams(Options);
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
         }
-        Element = tp(Params.Handle);
+        Element = tp(Params.ElementOrSelector);
         if (!(Element instanceof HTMLElement))
-            Params.Handle = document.createElement("div");
+            Params.ElementOrSelector = "div";
         return Params;
     }
     /**

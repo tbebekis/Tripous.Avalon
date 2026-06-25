@@ -23,7 +23,7 @@ tp.IFrame = class extends tp.Component {
      * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
      */
     constructor(CreateParams, Options) {
-        var Params = tp.IFrame.CreateParams(CreateParams, Options);
+        var Params = arguments.length > 1 ? tp.IFrame.CreateParams(CreateParams, Options) : tp.IFrame.CreateParams(CreateParams);
         super(Params);
         this.tpClass = "tp.IFrame";
         this.fLoadHandler = this.FuncBind(this.DocumentLoaded);
@@ -41,9 +41,9 @@ tp.IFrame = class extends tp.Component {
      */
     static CreateParams(CreateParams, Options) {
         var Params;
-        if (arguments.length > 1) {
+        if (arguments.length > 1 && !tp.IsNil(Options)) {
             Params = new tp.CreateParams(Options);
-            Params.Handle = CreateParams;
+            Params.ElementOrSelector = CreateParams;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
         }
