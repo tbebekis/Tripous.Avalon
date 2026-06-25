@@ -784,6 +784,104 @@ public class DataModule
         Args = new BatchCommitArgs(BeforeFunc, AfterFunc);
         CommitBatch(Args);
     }
+
+    // ● json
+    /// <summary>
+    /// Converts a string row id to the key field data type of the item table.
+    /// </summary>
+    protected virtual object JsonConvertRowId(string Id)
+    {
+        if (tblItem == null || string.IsNullOrWhiteSpace(tblItem.KeyField) || !tblItem.Columns.Contains(tblItem.KeyField))
+            return Id;
+
+        DataColumn Column = tblItem.Columns[tblItem.KeyField];
+        if (Column.DataType == typeof(int))
+            return Convert.ToInt32(Id, CultureInfo.InvariantCulture);
+        if (Column.DataType == typeof(long))
+            return Convert.ToInt64(Id, CultureInfo.InvariantCulture);
+        if (Column.DataType == typeof(Guid))
+            return Guid.Parse(Id);
+        return Id;
+    }
+    /// <summary>
+    /// Applies JSON row data to a table and its detail tables.
+    /// </summary>
+    protected virtual void JsonApplyTableRows(MemTable Table, JsonDataModule Source)
+    {
+        if (Table == null || Source == null || Source.DataSet == null || Source.DataSet.Tables == null)
+            return;
+
+        JsonDataTable JsonTable = Source.DataSet.Tables.FirstOrDefault(item => Table.TableName.IsSameText(item.Name));
+        if (JsonTable != null)
+        {
+            JsonTable.RowsTo(Table);
+            foreach (MemTable DetailTable in Table.Details)
+                JsonApplyTableRows(DetailTable, Source);
+        }
+    }
+
+    /// <summary>
+    /// Returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonInitialize()
+    {
+        JsonDataModule Result = new(this);
+        return Result;
+    }
+    /// <summary>
+    /// Starts an insert operation and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonInsert()
+    {
+        Insert();
+        JsonDataModule Result = new(this);
+        return Result;
+    }
+    /// <summary>
+    /// Starts an edit operation and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonEdit(string Id)
+    {
+        object RowId = JsonConvertRowId(Id);
+        Edit(RowId);
+        JsonDataModule Result = new(this);
+        return Result;
+    }
+    /// <summary>
+    /// Deletes an item.
+    /// </summary>
+    public virtual void JsonDelete(string Id)
+    {
+        object RowId = JsonConvertRowId(Id);
+        Delete(RowId);
+    }
+    /// <summary>
+    /// Applies a JSON contract object, commits the changes, and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonCommit(JsonDataModule Source)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+        JsonApplyTableRows(tblItem, Source);
+        Commit(true);
+
+        JsonDataModule Result = new(this);
+        return Result;
+    }
+    /// <summary>
+    /// Selects the list table and returns it as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataTable JsonSelectList(string SqlText, int RowLimit = 0)
+    {
+        if (!string.IsNullOrWhiteSpace(SqlText) && RowLimit > 0)
+            SqlText = Store.Provider.ApplyRowLimit(SqlText, RowLimit);
+
+        ListSelect(SqlText);
+        JsonDataTable Result = new(tblList);
+        return Result;
+    }
     
     // ● item checks
     /// <summary>
