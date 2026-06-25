@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "tp.DataTable Serialization";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.DataTable Serialization</h1>
+
+<p>
+    Creates a <code>tp.DataTable</code>, serializes it to JSON, deserializes it back to a new
+    <code>tp.DataTable</code> instance, and renders the deserialized table.
+</p>
+
+<pre><code>var SourceTable = CreateTable();
+var JsonText = JSON.stringify(SourceTable);
+var DeserializedTable = new tp.DataTable(JSON.parse(JsonText));</code></pre>
+
+<style>
+    .data-table-serialization-wrap {
+        max-width: 900px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+    }
+    .data-table-serialization-grid {
+        width: 100%;
+        border-collapse: collapse;
+        background: #ffffff;
+    }
+    .data-table-serialization-grid th,
+    .data-table-serialization-grid td {
+        padding: 7px 9px;
+        border-bottom: 1px solid #d0d7de;
+        text-align: left;
+        white-space: nowrap;
+    }
+    .data-table-serialization-grid th {
+        background: #f0f3f6;
+        font-weight: 600;
+    }
+    .data-table-serialization-grid td[data-align="right"] {
+        text-align: right;
+    }
+    .data-table-serialization-grid td[data-align="center"] {
+        text-align: center;
+    }
+</style>
+
+<div class="html-code">
+    <div id="DataTableSerializationHost" class="data-table-serialization-wrap"></div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var FormatValue = function (Column, Value) {
+            if (tp.IsNil(Value))
+                return "";
+            if (Column.IsBoolean)
+                return Value === true || Value === 1 ? "Yes" : "No";
+            if (Column.IsNumeric)
+                return Number(Value).toLocaleString(undefined, { minimumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 0, maximumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 2 });
+            return String(Value);
+        };
+
+        var CellAlign = function (Column) {
+            if (Column.IsBoolean)
+                return "center";
+            if (Column.IsNumeric || Column.IsDateTime)
+                return "right";
+            return "left";
+        };
+
+        var CreateTable = function () {
+            var Result = new tp.DataTable("Customers");
+            Result.KeyField = "Id";
+
+            Result.AddColumn({ Name: "Id", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required | tp.FieldFlags.Hidden });
+            Result.AddColumn({ Name: "Code", Title: "Code", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+            Result.AddColumn({ Name: "Name", Title: "Customer", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+            Result.AddColumn({ Name: "Balance", Title: "Balance", DataType: tp.DataType.Decimal, Decimals: 2 });
+            Result.AddColumn({ Name: "IsActive", Title: "Active", DataType: tp.DataType.Boolean, Flags: tp.FieldFlags.Boolean });
+
+            Result.AddRow(["C-100", "CUS-100", "Northwind", 1830.45, true]);
+            Result.AddRow(["C-200", "CUS-200", "Contoso", 420, true]);
+            Result.AddRow(["C-300", "CUS-300", "Adventure Works", 0, false]);
+            Result.AcceptChanges();
+            return Result;
+        };
+
+        var RenderTable = function (Table) {
+            var VisibleColumns = Table.Columns.filter(function (Column) { return Column.IsVisible; });
+            var Html = [];
+            Html.push("<table class=\"data-table-serialization-grid\"><thead><tr>");
+            VisibleColumns.forEach(function (Column) {
+                Html.push("<th>" + Column.DisplayTitle + "</th>");
+            });
+            Html.push("</tr></thead><tbody>");
+            Table.Rows.forEach(function (Row) {
+                Html.push("<tr>");
+                VisibleColumns.forEach(function (Column) {
+                    Html.push("<td data-align=\"" + CellAlign(Column) + "\">" + FormatValue(Column, Row.Get(Column)) + "</td>");
+                });
+                Html.push("</tr>");
+            });
+            Html.push("</tbody></table>");
+            tp.Html("#DataTableSerializationHost", Html.join(""));
+        };
+
+        var SourceTable = CreateTable();
+        var JsonText = JSON.stringify(SourceTable);
+        var DeserializedTable = new tp.DataTable(JSON.parse(JsonText));
+
+        RenderTable(DeserializedTable);
+    });
+</script>

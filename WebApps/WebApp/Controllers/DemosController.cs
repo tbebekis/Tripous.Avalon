@@ -57,6 +57,30 @@ public class DemosController : Controller
         return View("Core/TpObject");
     }
     /// <summary>
+    /// Displays the basic tp.DataTable demo.
+    /// </summary>
+    [Route("/demo/tp-data-table-basic")]
+    public IActionResult TpDataTableBasic()
+    {
+        return View("Data/TpDataTableBasic");
+    }
+    /// <summary>
+    /// Displays the tp.DataTable serialization demo.
+    /// </summary>
+    [Route("/demo/tp-data-table-serialization")]
+    public IActionResult TpDataTableSerialization()
+    {
+        return View("Data/TpDataTableSerialization");
+    }
+    /// <summary>
+    /// Displays the basic tp.DataSet demo.
+    /// </summary>
+    [Route("/demo/tp-data-set-basic")]
+    public IActionResult TpDataSetBasic()
+    {
+        return View("Data/TpDataSetBasic");
+    }
+    /// <summary>
     /// Displays the screen overlay and spinner demo.
     /// </summary>
     [Route("/demo/tp-ui-overlay-spinner")]

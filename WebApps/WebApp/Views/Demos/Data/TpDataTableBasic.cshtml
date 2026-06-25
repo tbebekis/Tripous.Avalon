@@ -1,0 +1,234 @@
+﻿@{
+    ViewData["Title"] = "tp.DataTable";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.DataTable</h1>
+
+<p>
+    Creates a <code>tp.DataTable</code> with column metadata, sample rows, and renders a table using the metadata.
+</p>
+
+<style>
+    .data-table-demo-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        max-width: 1100px;
+    }
+    .data-table-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+    .data-table-demo-grid-wrap {
+        overflow: auto;
+        border: 1px solid #d0d7de;
+    }
+    .data-table-demo-grid {
+        width: 100%;
+        border-collapse: collapse;
+        background: #ffffff;
+    }
+    .data-table-demo-grid th,
+    .data-table-demo-grid td {
+        padding: 7px 9px;
+        border-bottom: 1px solid #d0d7de;
+        text-align: left;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+    .data-table-demo-grid th {
+        background: #f0f3f6;
+        font-weight: 600;
+    }
+    .data-table-demo-grid td[data-align="right"] {
+        text-align: right;
+    }
+    .data-table-demo-grid td[data-align="center"] {
+        text-align: center;
+    }
+    .data-table-demo-meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 8px;
+    }
+    .data-table-demo-meta div {
+        padding: 8px 10px;
+        border: 1px solid #d0d7de;
+        background: #f7f9fb;
+    }
+    .data-table-demo-json {
+        box-sizing: border-box;
+        min-height: 220px;
+        max-height: 420px;
+        margin: 0;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+        white-space: pre;
+    }
+</style>
+
+<div class="html-code">
+    <div class="data-table-demo-layout">
+        <div class="data-table-demo-actions">
+            <button id="DataTableRebuildButton" type="button">Rebuild Table</button>
+            <button id="DataTableModifyButton" type="button">Modify Row</button>
+        </div>
+        <div id="DataTableMeta" class="data-table-demo-meta"></div>
+        <div id="DataTableHost" class="data-table-demo-grid-wrap"></div>
+        <pre id="DataTableJson" class="data-table-demo-json"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Table;
+
+        var TypeName = function (Value) {
+            return tp.DataType.TypeName(Value);
+        };
+
+        var FormatValue = function (Column, Value) {
+            if (tp.IsNil(Value))
+                return "";
+            if (Column.IsBoolean)
+                return Value === true || Value === 1 ? "Yes" : "No";
+            if (Column.DataType === tp.DataType.Date || Column.DataType === tp.DataType.DateTime) {
+                var DateValue = Value instanceof Date ? Value : new Date(Value);
+                return isNaN(DateValue.getTime()) ? String(Value) : DateValue.toLocaleDateString();
+            }
+            if (Column.IsNumeric)
+                return Number(Value).toLocaleString(undefined, { minimumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 0, maximumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 2 });
+            return String(Value);
+        };
+
+        var CellAlign = function (Column) {
+            if (Column.IsBoolean)
+                return "center";
+            if (Column.IsNumeric || Column.IsDateTime)
+                return "right";
+            return "left";
+        };
+
+        var CreateTable = function () {
+            var Result = new tp.DataTable("Products");
+            Result.KeyField = "Id";
+
+            Result.AddColumn({
+                Name: "Id",
+                Title: "Id",
+                DataType: tp.DataType.String,
+                Flags: tp.FieldFlags.Required | tp.FieldFlags.Hidden
+            });
+            Result.AddColumn({
+                Name: "Code",
+                Title: "Code",
+                DataType: tp.DataType.String,
+                MaxLength: 32,
+                Flags: tp.FieldFlags.Required | tp.FieldFlags.Searchable,
+                DisplayWidth: 110
+            });
+            Result.AddColumn({
+                Name: "Name",
+                Title: "Product",
+                DataType: tp.DataType.String,
+                MaxLength: 96,
+                Flags: tp.FieldFlags.Required | tp.FieldFlags.Searchable,
+                Group: "General"
+            });
+            Result.AddColumn({
+                Name: "Price",
+                Title: "Price",
+                DataType: tp.DataType.Decimal,
+                Decimals: 2,
+                ColumnType: tp.DataColumnType.Currency,
+                DisplayFormat: "n2"
+            });
+            Result.AddColumn({
+                Name: "IsActive",
+                Title: "Active",
+                DataType: tp.DataType.Boolean,
+                Flags: tp.FieldFlags.Boolean
+            });
+            Result.AddColumn({
+                Name: "CreatedOn",
+                Title: "Created",
+                DataType: tp.DataType.Date,
+                ColumnType: tp.DataColumnType.Date
+            });
+            Result.AddColumn({
+                Name: "Notes",
+                Title: "Notes",
+                DataType: tp.DataType.TextBlob,
+                Flags: tp.FieldFlags.Memo,
+                Group: "Details"
+            });
+
+            Result.AddRow(["P-100", "SKU-100", "Desk chair", 129.9, true, "2026-01-08", "Adjustable back."]);
+            Result.AddRow(["P-200", "SKU-200", "Monitor arm", 79.5, true, "2026-02-14", "Dual mount."]);
+            Result.AddRow(["P-300", "SKU-300", "Cable tray", 22.35, false, "2026-03-02", "Under desk."]);
+            Result.AddRow(["P-400", "SKU-400", "Standing desk", 480, true, "2026-04-18", "Electric frame."]);
+            Result.AcceptChanges();
+            return Result;
+        };
+
+        var RenderMeta = function () {
+            var VisibleColumns = Table.Columns.filter(function (Column) { return Column.IsVisible; });
+            var RequiredColumns = Table.Columns.filter(function (Column) { return Column.IsRequired; });
+            tp.Html("#DataTableMeta", ""
+                + "<div><strong>Table</strong><br>" + Table.Name + "</div>"
+                + "<div><strong>Columns</strong><br>" + Table.ColumnCount + " total, " + VisibleColumns.length + " visible</div>"
+                + "<div><strong>Rows</strong><br>" + Table.RowCount + "</div>"
+                + "<div><strong>Required</strong><br>" + RequiredColumns.map(function (Column) { return Column.Name; }).join(", ") + "</div>");
+        };
+
+        var RenderGrid = function () {
+            var VisibleColumns = Table.Columns.filter(function (Column) { return Column.IsVisible; });
+            var Html = [];
+            Html.push("<table class=\"data-table-demo-grid\"><thead><tr>");
+            VisibleColumns.forEach(function (Column) {
+                Html.push("<th title=\"" + Column.DisplayToolTip + "\">" + Column.DisplayTitle + "<br><small>" + TypeName(Column.DataType) + "</small></th>");
+            });
+            Html.push("</tr></thead><tbody>");
+            Table.Rows.forEach(function (Row) {
+                Html.push("<tr>");
+                VisibleColumns.forEach(function (Column) {
+                    Html.push("<td data-align=\"" + CellAlign(Column) + "\">" + FormatValue(Column, Row.Get(Column)) + "</td>");
+                });
+                Html.push("</tr>");
+            });
+            Html.push("</tbody></table>");
+            tp.Html("#DataTableHost", Html.join(""));
+        };
+
+        var RenderJson = function () {
+            tp.Text("#DataTableJson", JSON.stringify(Table.toJSON(), null, 2));
+        };
+
+        var Render = function () {
+            RenderMeta();
+            RenderGrid();
+            RenderJson();
+        };
+
+        tp.On("#DataTableRebuildButton", "click", function () {
+            Table = CreateTable();
+            Render();
+        });
+
+        tp.On("#DataTableModifyButton", "click", function () {
+            if (Table && Table.Rows.length > 0) {
+                Table.Rows[0].Set("Price", Table.Rows[0].Get("Price") + 5);
+                Render();
+            }
+        });
+
+        Table = CreateTable();
+        Render();
+    });
+</script>
