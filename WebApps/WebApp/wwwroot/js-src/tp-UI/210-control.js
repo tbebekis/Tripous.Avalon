@@ -86,8 +86,9 @@ tp.Control = class extends tp.Component {
      */
     OnHandleCreated() {
         super.OnHandleCreated();
-        if (this.Handle)
-            this.Handle.tabIndex = 0;
+        // Old Tripous made controls part of the tab order by default.
+        // -1 keeps an element focusable by code, 0 follows document tab order, > 0 follows explicit tab order.
+        this.TabIndex = 0;
     }
     /**
      * Binds the control to its data source.

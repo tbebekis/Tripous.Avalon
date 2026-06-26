@@ -5316,6 +5316,11 @@ tp.CreateParams.prototype.CssClasses = "";
  */
 tp.CreateParams.prototype.CssText = "";
 /**
+ * Gets or sets the component tab index.
+ * @type {number|null}
+ */
+tp.CreateParams.prototype.TabIndex = null;
+/**
  * Gets or sets a user-defined value.
  * @type {*}
  */
@@ -5548,6 +5553,8 @@ tp.Component = class extends tp.Object {
             this.CssClasses = Params.CssClasses;
         if (!tp.IsBlank(Params.CssText))
             this.CssText = Params.CssText;
+        if (!tp.IsNil(Params.TabIndex))
+            this.TabIndex = Params.TabIndex;
         if (!tp.IsNil(Params.Tag))
             this.Tag = Params.Tag;
         if (!tp.IsNil(Params.Parent))
@@ -5775,6 +5782,23 @@ tp.Component = class extends tp.Object {
      */
     get HasFocused() {
         return this.HasHandle && tp.HasFocused(this.Handle);
+    }
+    /**
+     * Gets or sets the component tab index.
+     * A negative value keeps the element programmatically focusable without adding it to the tab order.
+     * @returns {number} Returns the tab index.
+     */
+    get TabIndex() {
+        return this.HasHandle ? this.Handle.tabIndex : 0;
+    }
+    /**
+     * Gets or sets the component tab index.
+     * @param {number|string} Value The tab index.
+     * @returns {void}
+     */
+    set TabIndex(Value) {
+        if (this.HasHandle)
+            this.Handle.tabIndex = tp.StrToInt(Value, 0);
     }
     /**
      * Gets or sets the component id.
@@ -6096,6 +6120,14 @@ tp.Component = class extends tp.Object {
             this.DoDispose();
             this.OnDisposed();
         }
+    }
+    /**
+     * Makes the handle of this component the focused element.
+     * @returns {void}
+     */
+    Focus() {
+        if (this.HasHandle)
+            this.Handle.focus();
     }
 
     // ● child components

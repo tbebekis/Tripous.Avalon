@@ -143,6 +143,14 @@ public class DemosController : Controller
         return View("Core/TpObject");
     }
     /// <summary>
+    /// Displays the tp reflection demo.
+    /// </summary>
+    [Route("/demo/tp-reflection")]
+    public IActionResult TpReflection()
+    {
+        return View("Core/TpReflection");
+    }
+    /// <summary>
     /// Displays the basic tp.DataTable demo.
     /// </summary>
     [Route("/demo/tp-data-table-basic")]
@@ -296,6 +304,14 @@ public class DemosController : Controller
         return View("UI/TpUiImageBox");
     }
     /// <summary>
+    /// Displays the tp.CtrlRow and tp.CheckBoxRow demo.
+    /// </summary>
+    [Route("/demo/tp-ui-ctrl-row")]
+    public IActionResult TpUiCtrlRow()
+    {
+        return View("UI/TpUiCtrlRow");
+    }
+    /// <summary>
     /// Displays the tp.AutocompleteList demo.
     /// </summary>
     [Route("/demo/tp-ui-autocomplete-list")]
@@ -334,6 +350,14 @@ public class DemosController : Controller
     public IActionResult TpUiElementSizeMode()
     {
         return View("UI/TpUiElementSizeMode");
+    }
+    /// <summary>
+    /// Displays the tab index and focus behavior demo.
+    /// </summary>
+    [Route("/demo/tp-ui-tab-index-and-focus")]
+    public IActionResult TpUiTabIndexAndFocus()
+    {
+        return View("UI/TpUiTabIndexAndFocus");
     }
     /// <summary>
     /// Displays the tp.Splitter demo.

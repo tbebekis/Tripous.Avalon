@@ -139,6 +139,18 @@ tp.ListBox = class extends tp.ListControl {
     HandleKeyDown(e) {
         this.HandleScrollerKeyDown(e);
     }
+
+    // ● public
+    /**
+     * Makes the list box the focused control.
+     * @returns {void}
+     */
+    Focus() {
+        if (this.fScroller && this.fScroller.Viewport)
+            this.fScroller.Viewport.focus();
+        else
+            super.Focus();
+    }
 };
 
 tp.Ui.RegisterType(["ListBox", "tp-ListBox"], tp.ListBox);

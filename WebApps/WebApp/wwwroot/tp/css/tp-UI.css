@@ -130,6 +130,21 @@ fieldset.tp-GroupBox legend {
     margin: 0;
 }
 
+.tp-CheckBox:focus,
+.tp-CheckBox:focus-within {
+    outline: 2px solid var(--FocusColor);
+    outline-offset: 2px;
+}
+
+.tp-TextBox:focus,
+.tp-Memo:focus,
+.tp-ImageBox:focus,
+.tp-HtmlComboBox:focus,
+.tp-HtmlListBox:focus {
+    outline: 2px solid var(--FocusColor);
+    outline-offset: 2px;
+}
+
 /*---------------------------------------------------------------------------------------
   list control
 ---------------------------------------------------------------------------------------*/
@@ -141,6 +156,12 @@ fieldset.tp-GroupBox legend {
     border: var(--Border);
     background-color: var(--BackColor);
     overflow: auto;
+}
+
+.tp-ListControl:focus,
+.tp-ListControl:focus-within {
+    outline: 2px solid var(--FocusColor);
+    outline-offset: 1px;
 }
 
 .tp-ListControl > .tp-List > .tp-Item,

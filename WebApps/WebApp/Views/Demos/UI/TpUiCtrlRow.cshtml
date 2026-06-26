@@ -1,0 +1,125 @@
+@{
+    ViewData["Title"] = "tp.CtrlRow";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.CtrlRow</h1>
+
+<p>
+    This demo shows <code>tp.CtrlRow</code> with controls of different heights, plus <code>tp.CheckBoxRow</code>.
+    Use Wide and Narrow to check the label/control layout.
+</p>
+
+<style>
+    .ctrl-row-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .ctrl-row-demo-frame {
+        box-sizing: border-box;
+        width: min(100%, 820px);
+        padding: 12px;
+        border: 1px solid #d0d7de;
+        background: #ffffff;
+    }
+    .ctrl-row-demo-frame.narrow {
+        width: min(100%, 460px);
+    }
+    .ctrl-row-demo-frame.narrow .tp-CtrlRow {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .ctrl-row-demo-frame.narrow .tp-CtrlRow > .tp-CText {
+        padding-top: 0;
+    }
+    .ctrl-row-demo-frame .tp-CtrlRow,
+    .ctrl-row-demo-frame .tp-CheckBoxRow {
+        margin-bottom: 10px;
+    }
+    .ctrl-row-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 820px);
+        min-height: 120px;
+        margin-top: 12px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+        white-space: pre-wrap;
+    }
+</style>
+
+<div class="html-code">
+    <div class="ctrl-row-demo-actions">
+        <button id="CtrlRowWideButton" type="button">Wide</button>
+        <button id="CtrlRowNarrowButton" type="button">Narrow</button>
+        <button id="CtrlRowLogButton" type="button">Log</button>
+    </div>
+
+    <div id="CtrlRowFrame" class="ctrl-row-demo-frame">
+        <div id="CtrlRowName" data-setup="{Text: 'Name', Control: { TypeName: 'TextBox', Id: 'CtrlRowNameTextBox', Text: 'Desk chair', Placeholder: 'Type a name' }}"></div>
+        <div id="CtrlRowCountry" data-setup="{Text: 'Country', Control: { TypeName: 'ComboBox', Id: 'CtrlRowCountryComboBox', ListOnly: true, ListValueField: 'Id', ListDisplayField: 'Name', List: [{Id: 'GR', Name: 'Greece'}, {Id: 'CY', Name: 'Cyprus'}, {Id: 'IT', Name: 'Italy'}, {Id: 'FR', Name: 'France'}], SelectedIndex: 0 }}"></div>
+        <div id="CtrlRowCity" data-setup="{Text: 'City list', Control: { TypeName: 'ListBox', Id: 'CtrlRowCityListBox', CssText: 'height: 145px;', List: ['Athens', 'Thessaloniki', 'Patras', 'Heraklion', 'Larissa', 'Volos', 'Ioannina'], SelectedIndex: 2 }}"></div>
+        <div id="CtrlRowImage" data-setup="{Text: 'Image', Control: { TypeName: 'ImageBox', Id: 'CtrlRowImageBox', Url: '/tp/images/demos/Kefalonia.jpg', ImageMode: 'Crop', Height: 160 }}"></div>
+        <div id="CtrlRowNotes" data-setup="{Text: 'Notes', Control: { TypeName: 'Memo', Id: 'CtrlRowNotesMemo', Rows: 5, Text: 'A memo demonstrates a taller text input inside the same CtrlRow grid.' }}"></div>
+        <div id="CtrlRowActive" data-setup="{Text: 'Active record with a longer checkbox label that wraps to the next line when the row becomes narrow.', Control: { TypeName: 'CheckBox', Id: 'CtrlRowActiveCheckBox', Checked: true }}"></div>
+    </div>
+
+    <pre id="CtrlRowLog" class="ctrl-row-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Frame = tp("#CtrlRowFrame");
+        var Rows = [
+            new tp.CtrlRow({ ElementOrSelector: "#CtrlRowName" }),
+            new tp.CtrlRow({ ElementOrSelector: "#CtrlRowCountry" }),
+            new tp.CtrlRow({ ElementOrSelector: "#CtrlRowCity" }),
+            new tp.CtrlRow({ ElementOrSelector: "#CtrlRowImage" }),
+            new tp.CtrlRow({ ElementOrSelector: "#CtrlRowNotes" }),
+            new tp.CheckBoxRow({ ElementOrSelector: "#CtrlRowActive" })
+        ];
+
+        var WriteLog = function (Message) {
+            var Name = Rows[0].Control.Text;
+            var Country = Rows[1].Control.SelectedValue;
+            var City = Rows[2].Control.SelectedValue;
+            var Notes = Rows[4].Control.Text;
+            var Active = Rows[5].Control.Checked;
+
+            tp.Text("#CtrlRowLog", [
+                Message || "Ready.",
+                "name = " + Name,
+                "country = " + Country,
+                "city = " + City,
+                "notes length = " + Notes.length,
+                "active = " + Active
+            ].join("\n"));
+        };
+
+        tp.On("#CtrlRowWideButton", "click", function () {
+            tp.RemoveClass(Frame, "narrow");
+            WriteLog("Wide layout.");
+        });
+
+        tp.On("#CtrlRowNarrowButton", "click", function () {
+            tp.AddClass(Frame, "narrow");
+            WriteLog("Narrow layout.");
+        });
+
+        tp.On("#CtrlRowLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        Rows.forEach(function (Row) {
+            if (Row.Control && tp.IsFunction(Row.Control.On)) {
+                Row.Control.On("SelectedIndexChanged", function () { WriteLog("Selection changed."); });
+                Row.Control.On("ValueChanged", function () { WriteLog("Value changed."); });
+            }
+        });
+
+        WriteLog();
+    });
+</script>

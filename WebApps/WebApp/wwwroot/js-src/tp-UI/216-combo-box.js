@@ -460,6 +460,16 @@ tp.ComboBox = class extends tp.ListControl {
             this.fDropDownBox.Toggle();
     }
     /**
+     * Makes the combo box the focused control.
+     * @returns {void}
+     */
+    Focus() {
+        if (this.fTextBox)
+            this.fTextBox.focus();
+        else
+            super.Focus();
+    }
+    /**
      * Called by the drop-down box when its stage changes.
      * @param {tp.DropDownBox} Sender The sender.
      * @param {number} Stage One of the tp.DropDownBoxStage values.
