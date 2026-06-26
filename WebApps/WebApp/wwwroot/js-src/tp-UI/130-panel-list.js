@@ -55,16 +55,6 @@ tp.PanelList = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = tp.PanelList.CreateParams(CreateParams, Options);
         super(Params);
-        this.tpClass = "tp.PanelList";
-        this.fUpdateAssociate = true;
-        tp.AddClass(this.Handle, tp.Classes.PanelList);
-        this.InitializePanels();
-        if (!tp.IsNil(this.CreateParams.Associate))
-            this.Associate = this.CreateParams.Associate;
-        if (!tp.IsNil(this.CreateParams.SelectedIndex))
-            this.SelectedIndex = this.CreateParams.SelectedIndex;
-        else if (this.Count > 0)
-            this.SelectedIndex = 0;
     }
 
     // ● protected
@@ -83,6 +73,47 @@ tp.PanelList = class extends tp.Component {
             Params = tp.Component.CreateParams(CreateParams);
         }
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fUpdateAssociate = true;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.PanelList);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.InitializePanels();
+    }
+    /**
+     * Applies explicit create params to this panel list.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Associate))
+            this.Associate = Params.Associate;
+        if (!tp.IsNil(Params.SelectedIndex))
+            this.SelectedIndex = Params.SelectedIndex;
+        else if (this.Count > 0)
+            this.SelectedIndex = 0;
     }
     /**
      * Initializes child panel elements.
@@ -293,3 +324,8 @@ tp.PanelList.prototype.fUpdateAssociate = false;
  * @type {tp.Listener|null}
  */
 tp.PanelList.prototype.fSelectedIndexListener = null;
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.PanelList.prototype.tpClass = "tp.PanelList";

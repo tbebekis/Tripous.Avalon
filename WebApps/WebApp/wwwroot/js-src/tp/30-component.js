@@ -1,16 +1,18 @@
 // ● create params
 /**
  * Represents initialization options passed to a tp.Component constructor.
+ * This object is intentionally open-ended: derived component classes may add
+ * any extra create-param properties they support.
  */
 tp.CreateParams = class {
     // ● constructor
     /**
-     * Creates a new create params instance.
+     * Creates a new create params instance by merging all source properties into this instance.
      * @param {object|null|undefined} Source The optional source object.
      */
     constructor(Source) {
         if (tp.IsObject(Source))
-            tp.Assign(this, Source);
+            tp.MergePropsShallow(this, Source);
     }
 };
 
@@ -78,6 +80,67 @@ tp.CreateParams.prototype.DeferHandleCreation = false;
 /**
  * Represents an HTML element wrapper without data binding.
  *
+ * Initialization call order:
+ * - constructor(CreateParams)
+ * - CreateHandle()
+ * - OnHandleCreated()
+ * - InitializeFields()
+ * - OnFieldsInitialized()
+ * - ApplyCreateParams(Params)
+ *
+ * constructor(CreateParams):
+ * - Do: normalize input parameters into a params object and call super(Params).
+ * - Do: add any extra derived-class create params to that same params object before
+ *   calling super(Params), so the base construction cycle can preserve and apply them.
+ * - Do: set defaults that are needed before the handle is created, such as ElementOrSelector.
+ * - Avoid: initializing instance fields after super() when those fields are needed by
+ *   InitializeFields(), OnFieldsInitialized(), or ApplyCreateParams(). Those methods have
+ *   already run by the time super() returns.
+ * - Avoid: applying custom component options after super(). Use ApplyCreateParams() instead.
+ *
+ * CreateHandle():
+ * - Do: let the base implementation resolve ElementOrSelector.
+ * - Do: let the base implementation read data-setup and merge it over the same params object.
+ * - Do: override only with great care. Most classes should use the hooks below instead.
+ * - Avoid: duplicating data-setup or create-param processing in derived classes.
+ *
+ * OnHandleCreated():
+ * - Do: call super.OnHandleCreated() first.
+ * - Do: apply CSS classes, simple handle attributes, and handle-only setup.
+ * - Avoid: using fields that should be initialized in InitializeFields(), because this
+ *   method runs before InitializeFields().
+ * - Avoid: applying create params here. data-setup has been merged, but ApplyCreateParams()
+ *   is the place that consumes params.
+ *
+ * InitializeFields():
+ * - Do: call super.InitializeFields() first.
+ * - Do: initialize all per-instance fields, flags, arrays, handlers, and default values.
+ * - Do: create bound handler functions such as this.FuncBind(...).
+ * - Avoid: reading DOM layout or creating child DOM that depends on field values from
+ *   derived constructors.
+ * - Avoid: applying create params here.
+ *
+ * OnFieldsInitialized():
+ * - Do: call super.OnFieldsInitialized() first.
+ * - Do: create inner DOM, child controls, event listeners, and helper objects that must
+ *   exist before create params are applied.
+ * - Do: build markup that ApplyCreateParams() may target, for example label elements,
+ *   inner inputs, drop-down boxes, or scrollers.
+ * - Avoid: applying constructor params or data-setup params here. ApplyCreateParams()
+ *   runs next and owns that work.
+ *
+ * ApplyCreateParams(Params):
+ * - Do: call super.ApplyCreateParams(Params) first.
+ * - Do: explicitly apply every supported create-param property of the current class.
+ * - Do: treat Params as the final initialization object: derived constructor params plus data-setup.
+ * - Do: support every property that server-side markup is allowed to place in data-setup.
+ * - Avoid: relying on this.CreateParams inside constructors for custom derived params.
+ * - Avoid: generic assignment of all params. Explicit assignment keeps initialization
+ *   visible and makes unsupported params obvious.
+ *
+ * The explicit ApplyCreateParams() step replaces the old generic prototype-field-driven
+ * ProcessCreateParams() pattern. See ApplyCreateParams() for the migration note.
+ *
  * Events:
  * - Disposing
  * - Disposed
@@ -95,8 +158,6 @@ tp.Component = class extends tp.Object {
      * @returns {tp.CreateParams} Returns create parameters.
      */
     static CreateParams(Value) {
-        if (Value instanceof tp.CreateParams)
-            return Value;
         if (tp.IsString(Value) || tp.IsHTMLElement(Value))
             return new tp.CreateParams({ ElementOrSelector: Value });
         return new tp.CreateParams(Value);
@@ -110,7 +171,6 @@ tp.Component = class extends tp.Object {
     constructor(CreateParams) {
         super();
         this.CreateParams = tp.Component.CreateParams(CreateParams);
-        this.fSizeChart = new tp.SizeChart();
         if (this.CreateParams.DeferHandleCreation !== true)
             this.CreateHandle();
     }
@@ -156,12 +216,68 @@ tp.Component = class extends tp.Object {
             Element.type = this.ElementSubType;
         this.fHandle = Element;
         this.fDocument = Element.ownerDocument;
+        // Keep the same params object and merge data-setup over it.
+        // Derived constructors may have added custom properties before calling super().
+        tp.MergePropsShallow(Params, tp.GetDataSetupObject(Element));
+        this.CreateParams = Params;
         tp.Component.SetComponent(Element, this);
         this.OnHandleCreated();
+        this.InitializeFields();
+        this.OnFieldsInitialized();
         this.ApplyCreateParams(Params);
     }
     /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        this.fEnabled = true;
+        this.fSizeChart = new tp.SizeChart();
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     *
+     * This hook exists for derived classes that must create inner DOM, listeners, or helper
+     * objects after their fields are initialized, but before ApplyCreateParams() assigns
+     * values such as Items, SelectedIndex, or DataSource.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+    }
+    /**
      * Applies explicit create params to this component.
+     *
+     * Migration note:
+     *
+     * The old Tripous JavaScript runtime used a generic ProcessCreateParams() method.
+     * That method walked through this.CreateParams and tried to assign each entry to
+     * a same-named property of the component instance.
+     *
+     * That old mechanism had an important JavaScript construction-order problem. It
+     * was called from inside the base tp.Component constructor, while a derived class
+     * constructor had not completed yet. At that point, instance fields declared or
+     * assigned by the derived class constructor did not exist. Only members already
+     * available through the base class and the prototype chain were visible.
+     *
+     * This is the main historical reason the old code contains many declarations such
+     * as MyControl.prototype.SomeProperty = ... . Those prototype declarations made
+     * properties visible early enough for ProcessCreateParams() to see and assign them.
+     * In other words, many prototype fields were not primarily a design preference;
+     * they were a workaround for generic create-param processing during construction.
+     *
+     * In the migrated runtime we prefer explicit instance initialization plus
+     * class-specific ApplyCreateParams() overrides. This costs a little more code in
+     * each class, but it keeps the class easier to read at a glance and avoids adding
+     * prototype fields only for construction-time visibility. Derived classes should
+     * call super.ApplyCreateParams(Params) first and then explicitly apply only their
+     * own supported create-param properties.
+     *
+     * Prototype defaults are still acceptable for argument/default descriptor classes
+     * such as tp.CreateParams and tp.WindowArgs, and for real class-level metadata.
+     * For component/control classes, do not add new prototype fields just so create
+     * params can see them.
+     *
      * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
      * @returns {void}
      */

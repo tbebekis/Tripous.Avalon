@@ -1,0 +1,80 @@
+@{
+    ViewData["Title"] = "tp.Label";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.Label</h1>
+
+<p>
+    A control class around the HTML <code>label</code> element.
+    The <code>AssociateId</code> property reflects the <code>for</code> HTML attribute.
+</p>
+
+<style>
+    .label-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .label-demo-actions input {
+        width: 220px;
+    }
+    .label-demo-field {
+        display: grid;
+        grid-template-columns: 120px minmax(180px, 280px);
+        gap: 8px;
+        align-items: center;
+        max-width: 430px;
+        margin-bottom: 12px;
+    }
+    .label-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 640px);
+        min-height: 100px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="label-demo-actions">
+        <input id="LabelTextInput" type="text" value="New Text" />
+        <button id="LabelChangeButton" type="button">Change Text</button>
+    </div>
+
+    <div class="label-demo-field">
+        <label id="Label" for="LabelAssociate">Label text</label>
+        <input id="LabelAssociate" type="text" value="Associated input" />
+    </div>
+
+    <pre id="LabelOutput" class="label-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Label = new tp.Label({
+            ElementOrSelector: "#Label"
+        });
+
+        var WriteLog = function (Message) {
+            tp.Text("#LabelOutput", [
+                Message || "Ready.",
+                "text = " + Label.Text,
+                "associate id = " + Label.AssociateId,
+                "has associate = " + (Label.Associate instanceof HTMLElement)
+            ].join("\n"));
+        };
+
+        tp.On("#LabelChangeButton", "click", function () {
+            Label.Text = tp("#LabelTextInput").value;
+            WriteLog("Text changed.");
+        });
+
+        WriteLog();
+    });
+</script>

@@ -25,11 +25,6 @@ tp.IFrame = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = arguments.length > 1 ? tp.IFrame.CreateParams(CreateParams, Options) : tp.IFrame.CreateParams(CreateParams);
         super(Params);
-        this.tpClass = "tp.IFrame";
-        this.fLoadHandler = this.FuncBind(this.DocumentLoaded);
-        tp.AddClass(this.Handle, tp.Classes.Frame);
-        this.Handle.addEventListener("load", this.fLoadHandler);
-        this.ApplyIFrameParams(this.CreateParams);
     }
 
     // ● protected
@@ -50,6 +45,43 @@ tp.IFrame = class extends tp.Component {
         return Params;
     }
     /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fLoadHandler = this.FuncBind(this.DocumentLoaded);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        if (!(this.Handle instanceof HTMLIFrameElement))
+            tp.Throw("tp.IFrame requires an HTMLIFrameElement handle.");
+        tp.AddClass(this.Handle, tp.Classes.Frame);
+        tp.FrameRemoveBorder(this.Handle);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.Handle.addEventListener("load", this.fLoadHandler);
+    }
+    /**
+     * Applies explicit create params to this iframe.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        this.ApplyIFrameParams(Params);
+    }
+    /**
      * Applies create parameters specific to tp.IFrame.
      * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
      * @returns {void}
@@ -67,16 +99,6 @@ tp.IFrame = class extends tp.Component {
             this.Content = Params.Content;
         if (!tp.IsNil(Params.Url))
             this.Url = Params.Url;
-    }
-    /**
-     * Notification called after handle creation.
-     * @returns {void}
-     */
-    OnHandleCreated() {
-        super.OnHandleCreated();
-        if (!(this.Handle instanceof HTMLIFrameElement))
-            tp.Throw("tp.IFrame requires an HTMLIFrameElement handle.");
-        tp.FrameRemoveBorder(this.Handle);
     }
     /**
      * Handles the iframe load event.

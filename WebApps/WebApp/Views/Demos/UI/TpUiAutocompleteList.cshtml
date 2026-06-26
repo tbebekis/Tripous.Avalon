@@ -1,0 +1,122 @@
+@{
+    ViewData["Title"] = "tp.AutocompleteList";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.AutocompleteList</h1>
+
+<p>
+    Represents an autocomplete list used with text boxes.
+    The data list can contain primitives or plain JavaScript objects.
+    When the list contains objects, <code>ListDisplayField</code> specifies which property is displayed.
+</p>
+
+<p>
+    The height of the dropdown list is controlled by the <code>MaxDropdownItems</code> property.
+</p>
+
+<p>
+    Try one of these words:
+    <code>javascript</code>, <code>typescript</code>, <code>script</code>, <code>scriptable</code>,
+    <code>html</code>, and <code>css rules</code>.
+</p>
+
+<p>
+    Type a few characters in the search box. Clear the check box to search anywhere in the word,
+    or select it to match only words that start with the typed text.
+</p>
+
+<style>
+    .autocomplete-list-demo-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .autocomplete-list-demo-options label {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+    }
+    .autocomplete-list-demo-row {
+        display: grid;
+        grid-template-columns: 120px minmax(220px, 340px);
+        gap: 8px;
+        align-items: center;
+        max-width: 500px;
+        margin-bottom: 12px;
+    }
+    .autocomplete-list-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 700px);
+        min-height: 130px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="autocomplete-list-demo-options">
+        <label>
+            <input id="AutocompleteStartsWith" type="checkbox" />
+            Use starts-with filter
+        </label>
+        <button id="AutocompleteLogButton" type="button">Log</button>
+    </div>
+
+    <div class="autocomplete-list-demo-row">
+        <label for="AutocompleteTextBox">Search</label>
+        <input id="AutocompleteTextBox" type="text" value="" placeholder="autocomplete list" />
+    </div>
+
+    <pre id="AutocompleteOutput" class="autocomplete-list-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var CheckBox = tp.Select("#AutocompleteStartsWith");
+        var TextBox = tp.Select("#AutocompleteTextBox");
+        var AutocompleteList = new tp.AutocompleteList(TextBox);
+
+        var WriteLog = function (Message) {
+            tp.Text("#AutocompleteOutput", [
+                Message || "Ready.",
+                "active = " + AutocompleteList.Active,
+                "starts with = " + AutocompleteList.UseStartsWithFilter,
+                "display field = " + AutocompleteList.ListDisplayField,
+                "max dropdown items = " + AutocompleteList.MaxDropdownItems,
+                "selected item valid = " + AutocompleteList.IsSelectedItemValid,
+                "selected item = " + JSON.stringify(AutocompleteList.SelectedItem)
+            ].join("\n"));
+        };
+
+        AutocompleteList.DataList = [
+            { Id: 1, Name: "javascript" },
+            { Id: 2, Name: "typescript" },
+            { Id: 3, Name: "script" },
+            { Id: 4, Name: "scriptable" },
+            { Id: 5, Name: "html" },
+            { Id: 6, Name: "css rules" }
+        ];
+
+        AutocompleteList.ListDisplayField = "Name";
+        AutocompleteList.MaxDropdownItems = 6;
+        AutocompleteList.Active = true;
+        TextBox.focus();
+
+        tp.On(CheckBox, "change", function () {
+            AutocompleteList.UseStartsWithFilter = CheckBox.checked === true;
+            WriteLog("Filter mode changed.");
+        });
+
+        tp.On("#AutocompleteLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

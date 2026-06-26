@@ -92,14 +92,6 @@ tp.Button = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = arguments.length > 1 ? tp.Button.CreateParams(CreateParams, Options) : tp.Button.CreateParams(CreateParams);
         super(Params);
-        this.tpClass = "tp.Button";
-        this.fClickHandler = this.FuncBind(this.HandleClick);
-        tp.AddClass(this.Handle, tp.Classes.Button);
-        this.Handle.type = "button";
-        if (!tp.IsNil(Params.Command))
-            this.Command = Params.Command;
-        this.ReadCommand();
-        this.Handle.addEventListener("click", this.fClickHandler);
     }
 
     // ● protected
@@ -122,6 +114,45 @@ tp.Button = class extends tp.Component {
         if (!(Element instanceof HTMLElement))
             Params.ElementOrSelector = "button";
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.Button);
+        this.Handle.type = "button";
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.ReadCommand();
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+    /**
+     * Applies explicit create params to this button.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Command))
+            this.Command = Params.Command;
     }
     /**
      * Reads the command from data-command, when the property is empty.

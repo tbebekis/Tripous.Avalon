@@ -156,12 +156,13 @@
         var RowElement = tp("#SizeModeRow");
         var Splitter = new tp.Splitter(".tp-Splitter");
         var Cols = [
-            new tp.Col("#SizeModeCol1", { WidthPercents: WidthPercents[0] }),
-            new tp.Col("#SizeModeCol2", { WidthPercents: WidthPercents[1] }),
-            new tp.Col("#SizeModeCol3", { WidthPercents: WidthPercents[2] }),
-            new tp.Col("#SizeModeCol4", { WidthPercents: WidthPercents[3] })
+            new tp.Col({ ElementOrSelector: "#SizeModeCol1", WidthPercents: WidthPercents[0] }),
+            new tp.Col({ ElementOrSelector: "#SizeModeCol2", WidthPercents: WidthPercents[1] }),
+            new tp.Col({ ElementOrSelector: "#SizeModeCol3", WidthPercents: WidthPercents[2] }),
+            new tp.Col({ ElementOrSelector: "#SizeModeCol4", WidthPercents: WidthPercents[3] })
         ];
-        var Row = new tp.Row(RowElement, {
+        var Row = new tp.Row({
+            ElementOrSelector: RowElement,
             Breakpoints: Breakpoints
         });
         Splitter.Panel1MinSize = 220;

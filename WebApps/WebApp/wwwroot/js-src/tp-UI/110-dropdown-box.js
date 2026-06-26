@@ -56,18 +56,6 @@ tp.DropDownBox = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = tp.DropDownBox.CreateParams(CreateParams, Options);
         super(Params);
-        this.tpClass = "tp.DropDownBox";
-        tp.AddClass(this.Handle, tp.Classes.DropDownBox);
-        this.fWindowScrollHandler = this.FuncBind(this.Window_Scroll);
-        this.fDocumentClickHandler = this.FuncBind(this.Document_Click);
-        this.Associate = this.CreateParams.Associate;
-        this.Owner = this.CreateParams.Owner;
-        this.ApplySizeParams(this.CreateParams);
-        this.Handle.tabIndex = -1;
-        this.Handle.style.position = "fixed";
-        this.CreateDragger();
-        if (tp.IsBlank(this.Id))
-            this.Id = tp.SafeId("DropDown");
     }
 
     // ● protected
@@ -79,15 +67,71 @@ tp.DropDownBox = class extends tp.Component {
      */
     static CreateParams(CreateParams, Options) {
         var Params;
+        var Source;
         if (arguments.length > 1) {
             Params = new tp.CreateParams(Options);
             Params.ElementOrSelector = CreateParams;
+            Source = Options;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
+            Source = CreateParams;
+        }
+        if (tp.IsObject(Source) && !tp.IsHTMLElement(Source)) {
+            if (!tp.IsNil(Source.Associate))
+                Params.Associate = Source.Associate;
+            if (!tp.IsNil(Source.Owner))
+                Params.Owner = Source.Owner;
+            if (!tp.IsNil(Source.Width))
+                Params.Width = Source.Width;
+            if (!tp.IsNil(Source.Height))
+                Params.Height = Source.Height;
         }
         if (!tp.IsHTMLElement(tp(Params.ElementOrSelector)))
             Params.ElementOrSelector = "div";
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fWindowScrollHandler = this.FuncBind(this.Window_Scroll);
+        this.fDocumentClickHandler = this.FuncBind(this.Document_Click);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.DropDownBox);
+        this.Handle.tabIndex = -1;
+        this.Handle.style.position = "fixed";
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateDragger();
+        if (tp.IsBlank(this.Id))
+            this.Id = tp.SafeId("DropDown");
+    }
+    /**
+     * Applies explicit create params to this drop-down box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        this.Associate = Params.Associate;
+        this.Owner = Params.Owner;
+        this.ApplySizeParams(Params);
     }
     /**
      * Applies size create parameters.
@@ -350,9 +394,13 @@ tp.DropDownBox = class extends tp.Component {
      * @returns {void}
      */
     set Associate(Value) {
-        var Element = tp(Value);
+        var Element = null;
+        if (tp.IsString(Value))
+            Element = tp.Select(Value);
+        else if (tp.IsHTMLElement(Value))
+            Element = Value;
         if (Element !== this.fAssociate) {
-            this.fAssociate = tp.IsHTMLElement(Element) ? Element : null;
+            this.fAssociate = Element;
             this.fIsFirstOpen = true;
         }
     }

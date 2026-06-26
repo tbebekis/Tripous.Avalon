@@ -224,12 +224,100 @@ public class DemosController : Controller
         return View("UI/TpUiSiteMenu");
     }
     /// <summary>
+    /// Displays the tp.Label demo.
+    /// </summary>
+    [Route("/demo/tp-ui-label")]
+    public IActionResult TpUiLabel()
+    {
+        return View("UI/TpUiLabel");
+    }
+    /// <summary>
+    /// Displays the tp.CheckBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-check-box")]
+    public IActionResult TpUiCheckBox()
+    {
+        return View("UI/TpUiCheckBox");
+    }
+    /// <summary>
+    /// Displays the tp.ListBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-list-box")]
+    public IActionResult TpUiListBox()
+    {
+        return View("UI/TpUiListBox");
+    }
+    /// <summary>
+    /// Displays the tp.ComboBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-combo-box")]
+    public IActionResult TpUiComboBox()
+    {
+        return View("UI/TpUiComboBox");
+    }
+    /// <summary>
+    /// Displays the tp.HtmlComboBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-html-combo-box")]
+    public IActionResult TpUiHtmlComboBox()
+    {
+        return View("UI/TpUiHtmlComboBox");
+    }
+    /// <summary>
+    /// Displays the tp.HtmlListBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-html-list-box")]
+    public IActionResult TpUiHtmlListBox()
+    {
+        return View("UI/TpUiHtmlListBox");
+    }
+    /// <summary>
+    /// Displays the tp.TextBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-text-box")]
+    public IActionResult TpUiTextBox()
+    {
+        return View("UI/TpUiTextBox");
+    }
+    /// <summary>
+    /// Displays the tp.Memo demo.
+    /// </summary>
+    [Route("/demo/tp-ui-memo")]
+    public IActionResult TpUiMemo()
+    {
+        return View("UI/TpUiMemo");
+    }
+    /// <summary>
+    /// Displays the tp.ImageBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-image-box")]
+    public IActionResult TpUiImageBox()
+    {
+        return View("UI/TpUiImageBox");
+    }
+    /// <summary>
+    /// Displays the tp.AutocompleteList demo.
+    /// </summary>
+    [Route("/demo/tp-ui-autocomplete-list")]
+    public IActionResult TpUiAutocompleteList()
+    {
+        return View("UI/TpUiAutocompleteList");
+    }
+    /// <summary>
     /// Displays the tp.DropDownBox demo.
     /// </summary>
     [Route("/demo/tp-ui-dropdown-box")]
     public IActionResult TpUiDropDownBox()
     {
         return View("UI/TpUiDropDownBox");
+    }
+    /// <summary>
+    /// Displays the tp.VirtualScroller demo.
+    /// </summary>
+    [Route("/demo/tp-ui-virtual-scroller")]
+    public IActionResult TpUiVirtualScroller()
+    {
+        return View("UI/TpUiVirtualScroller");
     }
     /// <summary>
     /// Displays the tp.ResizeDetector demo.

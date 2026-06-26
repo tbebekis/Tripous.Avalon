@@ -18,40 +18,35 @@
  *     <div class="tp-Col"></div>
  * </div>
  * <script>
- *     var Row = new tp.Row("#Row", { Breakpoints: [400, 700, 1000, 1200, 1400] });
+ *     var Row = new tp.Row({ ElementOrSelector: "#Row", Breakpoints: [400, 700, 1000, 1200, 1400] });
  * </script>
  */
 tp.Row = class extends tp.Component {
     // ● constructor
     /**
      * Creates a responsive row.
-     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The row create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The row create parameters.
      */
-    constructor(CreateParams, Options) {
-        var Params = tp.Row.CreateParams(CreateParams, Options);
-        super(Params);
-        this.tpClass = "tp.Row";
-        tp.AddClass(this.Handle, tp.Classes.Row);
-        this.IsElementResizeListener = true;
+    constructor(CreateParams) {
+        super(CreateParams);
     }
 
     // ● protected
     /**
-     * Creates normalized row create parameters.
-     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
-     * @returns {tp.CreateParams} Returns normalized create parameters.
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
      */
-    static CreateParams(CreateParams, Options) {
-        var Params;
-        if (arguments.length > 1) {
-            Params = new tp.CreateParams(Options);
-            Params.ElementOrSelector = CreateParams;
-        } else {
-            Params = tp.Component.CreateParams(CreateParams);
-        }
-        return Params;
+    InitializeFields() {
+        super.InitializeFields();
+        this.IsElementResizeListener = true;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.Row);
     }
 };
 
@@ -80,47 +75,35 @@ tp.Row.prototype.tpClass = "tp.Row";
  * @example
  * <div id="Col"></div>
  * <script>
- *     var Col = new tp.Col("#Col", { WidthPercents: [100, 100, 50, 33.33, 33.33, 25] });
+ *     var Col = new tp.Col({ ElementOrSelector: "#Col", WidthPercents: [100, 100, 50, 33.33, 33.33, 25] });
  * </script>
  */
 tp.Col = class extends tp.Component {
     // ● constructor
     /**
      * Creates a responsive column.
-     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The column create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The column create parameters.
      */
-    constructor(CreateParams, Options) {
-        var Params = tp.Col.CreateParams(CreateParams, Options);
-        super(Params);
-        this.tpClass = "tp.Col";
-        tp.AddClass(this.Handle, tp.Classes.Col);
-        this.ApplyColParams(this.CreateParams);
+    constructor(CreateParams) {
+        super(CreateParams);
     }
 
     // ● protected
     /**
-     * Creates normalized column create parameters.
-     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
-     * @returns {tp.CreateParams} Returns normalized create parameters.
-     */
-    static CreateParams(CreateParams, Options) {
-        var Params;
-        if (arguments.length > 1) {
-            Params = new tp.CreateParams(Options);
-            Params.ElementOrSelector = CreateParams;
-        } else {
-            Params = tp.Component.CreateParams(CreateParams);
-        }
-        return Params;
-    }
-    /**
-     * Applies create parameters specific to tp.Col.
-     * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
+     * Notification called after handle creation.
      * @returns {void}
      */
-    ApplyColParams(Params) {
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.Col);
+    }
+    /**
+     * Applies explicit create params to this column.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
         if (!Params)
             return;
         if (tp.IsArray(Params.WidthPercents))
@@ -190,3 +173,230 @@ tp.Col.prototype.WidthPercents = [100, 100, 50, 33.33, 33.33, 25];
  * @type {number[]}
  */
 tp.Col.prototype.ControlWidthPercents = [100, 100, 60, 65, 65, 65];
+
+// ● control row
+/**
+ * A responsive control row with a label, required mark, and one child control.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ *
+ * @example
+ * <div class="tp-CtrlRow" data-setup="{Text: 'Trader', Control: { TypeName: 'TextBox', Id: 'Name', DataField: 'Name' } }"></div>
+ */
+tp.CtrlRow = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a control row.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The row create parameters.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.Control = null;
+        this.elTextContainer = null;
+        this.elCtrlContainer = null;
+        this.elRequiredMark = null;
+        this.elText = null;
+        this.fText = "";
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.CtrlRow);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.EnsureContent();
+    }
+    /**
+     * Applies explicit create params to this control row.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        var BaseParams;
+        if (!Params) {
+            super.ApplyCreateParams(Params);
+            return;
+        }
+        BaseParams = new tp.CreateParams(Params);
+        delete BaseParams.Text;
+        super.ApplyCreateParams(BaseParams);
+        if (!tp.IsNil(Params.Text)) {
+            if (this.elText instanceof HTMLElement)
+                this.Text = Params.Text;
+            else
+                this.fText = String(Params.Text);
+        }
+    }
+    /**
+     * Ensures the row markup and child control exist.
+     * @returns {void}
+     */
+    EnsureContent() {
+        var Setup = this.GetSetup();
+        if (!this.HasHandle)
+            return;
+        if (this.Handle.children.length === 0)
+            this.BuildContent(Setup);
+        else
+            this.ResolveContent();
+    }
+    /**
+     * Returns normalized row setup.
+     * @returns {object} Returns the setup object.
+     */
+    GetSetup() {
+        var Setup = this.CreateParams || {};
+        Setup.Text = tp.IsString(Setup.Text) ? Setup.Text.trim() : this.fText;
+        Setup.Control = tp.IsObject(Setup.Control) ? Setup.Control : {};
+        return Setup;
+    }
+    /**
+     * Builds the row markup and creates the child control.
+     * @param {object} Setup The normalized setup.
+     * @returns {void}
+     */
+    BuildContent(Setup) {
+        var TypeName = Setup.Control.TypeName;
+        var Type = tp.Ui.GetType(TypeName);
+        var DataField;
+        var Prefix;
+        var Params;
+        if (!tp.IsFunction(Type))
+            tp.Throw("Control type name not registered in tp.Ui.Types: " + TypeName);
+        DataField = tp.IsString(Setup.Control.DataField) ? Setup.Control.DataField.trim() : "";
+        Prefix = !tp.IsBlank(DataField) ? tp.Prefix + "CtrlRow-" + DataField + "-" : tp.Prefix + "CtrlRow-";
+        if (tp.IsBlank(this.Handle.id))
+            this.Handle.id = tp.SafeId(Prefix);
+        if (tp.IsBlank(Setup.Control.Id))
+            Setup.Control.Id = tp.SafeId(tp.Prefix + TypeName + "-");
+        this.Handle.innerHTML =
+            "<div class=\"" + tp.Classes.CText + "\">" +
+            "<label for=\"" + Setup.Control.Id + "\"></label>" +
+            "<span class=\"" + tp.Classes.RequiredMark + "\" style=\"display: none;\">*</span>" +
+            "</div>" +
+            "<div class=\"" + tp.Classes.Ctrl + "\"></div>";
+        this.ResolveContent();
+        this.Text = Setup.Text;
+        Params = new tp.CreateParams(Setup.Control);
+        Params.Parent = this.elCtrlContainer;
+        Params.elText = this.elText;
+        Params.elRequiredMark = this.elRequiredMark;
+        this.Control = new Type(Params);
+    }
+    /**
+     * Resolves the row child elements.
+     * @returns {void}
+     */
+    ResolveContent() {
+        this.elCtrlContainer = tp.Select(this.Handle, "." + tp.Classes.Ctrl);
+        this.elTextContainer = tp.Select(this.Handle, "." + tp.Classes.CText);
+        this.elRequiredMark = tp.Select(this.elTextContainer, "." + tp.Classes.RequiredMark);
+        this.elText = tp.Select(this.elTextContainer, "label");
+        if (this.elText instanceof HTMLLabelElement)
+            this.fText = this.elText.textContent || "";
+    }
+
+    // ● public
+    /**
+     * Sets the width of the control part of the row.
+     * @param {string} Width The width to apply, e.g. "50%".
+     * @returns {void}
+     */
+    SetControlPercentWidth(Width) {
+        var ControlPercent = parseFloat(Width);
+        var LabelPercent;
+        if (!this.HasHandle || isNaN(ControlPercent))
+            return;
+        ControlPercent = Math.max(0, Math.min(100, ControlPercent));
+        LabelPercent = 100 - ControlPercent;
+
+        /*
+         * Old flex layout code:
+         * if (this.elCtrlContainer instanceof HTMLElement)
+         *     this.elCtrlContainer.style.width = Width;
+         *
+         * CtrlRow now uses CSS grid, so the row controls the two columns.
+         */
+        this.Handle.style.gridTemplateColumns = "minmax(120px, " + LabelPercent + "%) minmax(0, " + ControlPercent + "%)";
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the row label text.
+     * @returns {string} Returns the label text.
+     */
+    get Text() {
+        return this.elText instanceof HTMLElement ? this.elText.textContent || "" : this.fText;
+    }
+    /**
+     * Gets or sets the row label text.
+     * @param {*} Value The label text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        this.fText = tp.IsNil(Value) ? "" : String(Value);
+        if (this.elText instanceof HTMLElement)
+            this.elText.textContent = this.fText;
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.CtrlRow.prototype.tpClass = "tp.CtrlRow";
+/**
+ * The control hosted by this row.
+ * @type {tp.Component|null}
+ */
+tp.CtrlRow.prototype.Control = null;
+/**
+ * Caption text container.
+ * @type {HTMLDivElement|null}
+ */
+tp.CtrlRow.prototype.elTextContainer = null;
+/**
+ * Control container.
+ * @type {HTMLDivElement|null}
+ */
+tp.CtrlRow.prototype.elCtrlContainer = null;
+/**
+ * Element with the required mark.
+ * @type {HTMLSpanElement|null}
+ */
+tp.CtrlRow.prototype.elRequiredMark = null;
+/**
+ * Label with the caption text.
+ * @type {HTMLLabelElement|null}
+ */
+tp.CtrlRow.prototype.elText = null;
+
+tp.Ui.RegisterType(["Row", "tp-Row"], tp.Row);
+tp.Ui.RegisterType(["Col", "tp-Col"], tp.Col);
+tp.Ui.RegisterType(["CtrlRow", "tp-CtrlRow"], tp.CtrlRow);

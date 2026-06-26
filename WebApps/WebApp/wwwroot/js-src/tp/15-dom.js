@@ -97,6 +97,235 @@ tp.FindElementWithIdEnding = function (IdEnding, ParentElement) {
     return null;
 };
 
+// ● document position
+/**
+ * Node document position bit flags.
+ * See: https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+ * @type {object}
+ */
+tp.DocumentPosition = {
+    /** Elements are identical. */
+    Identical: 0,
+    /** The nodes are in different documents, or one is outside of a document. */
+    Disconnected: 1,
+    /** The second node is before the first node. */
+    Preceding: 2,
+    /** The first node is before the second node. */
+    Following: 4,
+    /** The second node contains the first node. */
+    Ancestor: 8,
+    /** The first node contains the second node. */
+    Descendant: 16,
+    /** Browser-specific result bit. */
+    ImplementationSpecific: 32,
+    /**
+     * Compares the position of two nodes.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {number} Returns a bitmask.
+     */
+    Compare: function (elA, elB) {
+        return elA.compareDocumentPosition(elB);
+    },
+    /**
+     * Returns true if elA contains elB.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elA contains elB.
+     */
+    Contains: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Ancestor, tp.DocumentPosition.Compare(elA, elB));
+    },
+    /**
+     * Returns true if elB contains elA.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elB contains elA.
+     */
+    ContainedBy: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Descendant, tp.DocumentPosition.Compare(elA, elB));
+    },
+    /**
+     * Returns true if elB is before elA.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elB is before elA.
+     */
+    IsBefore: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Preceding, tp.DocumentPosition.Compare(elA, elB));
+    },
+    /**
+     * Returns true if elA is before elB.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elA is before elB.
+     */
+    IsAfter: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Following, tp.DocumentPosition.Compare(elA, elB));
+    }
+};
+Object.freeze(tp.DocumentPosition);
+
+// ● alignment
+/**
+ * Alignment helper.
+ * @type {object}
+ */
+tp.Alignment = {
+    /** Near alignment. */
+    Near: 1,
+    /** Middle alignment. */
+    Mid: 2,
+    /** Far alignment. */
+    Far: 4,
+    /**
+     * Gets justify alignment.
+     * @returns {number} Returns tp.Alignment.Mid.
+     */
+    get Justify() { return tp.Alignment.Mid; },
+    /**
+     * Gets top alignment.
+     * @returns {number} Returns tp.Alignment.Near.
+     */
+    get Top() { return tp.Alignment.Near; },
+    /**
+     * Gets center alignment.
+     * @returns {number} Returns tp.Alignment.Mid.
+     */
+    get Center() { return tp.Alignment.Mid; },
+    /**
+     * Gets bottom alignment.
+     * @returns {number} Returns tp.Alignment.Far.
+     */
+    get Bottom() { return tp.Alignment.Far; },
+    /**
+     * Gets left alignment.
+     * @returns {number} Returns tp.Alignment.Near.
+     */
+    get Left() { return tp.Alignment.Near; },
+    /**
+     * Gets right alignment.
+     * @returns {number} Returns tp.Alignment.Far.
+     */
+    get Right() { return tp.Alignment.Far; },
+    /**
+     * Converts an alignment to a flex alignment value.
+     * @param {number} Value The alignment value.
+     * @param {boolean} Reverse True to reverse near and far.
+     * @returns {string} Returns a flex alignment value.
+     */
+    ToFlex: function (Value, Reverse) {
+        if (Value === tp.Alignment.Near)
+            return Reverse === true ? "flex-end" : "flex-start";
+        if (Value === tp.Alignment.Far)
+            return Reverse === true ? "flex-start" : "flex-end";
+        return "center";
+    },
+    /**
+     * Converts an alignment to a text-align value.
+     * @param {number} Value The alignment value.
+     * @param {boolean} Reverse True to reverse near and far.
+     * @returns {string} Returns a text-align value.
+     */
+    ToText: function (Value, Reverse) {
+        if (Value === tp.Alignment.Near)
+            return Reverse === true ? "right" : "left";
+        if (Value === tp.Alignment.Far)
+            return Reverse === true ? "left" : "right";
+        return "center";
+    }
+};
+Object.freeze(tp.Alignment);
+
+// ● text size
+/**
+ * Text metrics helper.
+ * @type {object}
+ */
+tp.TextSizeInfo = {
+    /**
+     * Measures text using a hidden ruler element copied from a source element.
+     * @param {string} Text The text to measure.
+     * @param {Element} SourceElement The source element.
+     * @returns {tp.Size} Returns the measured size.
+     */
+    MeasureText: function (Text, SourceElement) {
+        var Element = tp.TextSizeInfo.CreateRulerElement(SourceElement);
+        var Result = tp.TextSizeInfo.SizeOf(Text, Element);
+        Element.parentNode.removeChild(Element);
+        return Result;
+    },
+    /**
+     * Creates a hidden ruler element copied from a source element.
+     * @param {Element} SourceElement The source element.
+     * @returns {HTMLElement} Returns the ruler element.
+     */
+    CreateRulerElement: function (SourceElement) {
+        var Element = document.createElement("div");
+        var Style;
+        var FontProps;
+        var Index;
+        var Value;
+        Element.style.position = "absolute";
+        Element.style.visibility = "hidden";
+        Element.style.height = "auto";
+        Element.style.width = "auto";
+        document.body.appendChild(Element);
+        Style = Element.ownerDocument.defaultView.getComputedStyle(SourceElement, "");
+        if (SourceElement !== document.body) {
+            Element.style.marginTop = Style.marginTop;
+            Element.style.marginRight = Style.marginRight;
+            Element.style.marginBottom = Style.marginBottom;
+            Element.style.marginLeft = Style.marginLeft;
+            Element.style.borderTop = Style.borderTop;
+            Element.style.borderRight = Style.borderRight;
+            Element.style.borderBottom = Style.borderBottom;
+            Element.style.borderLeft = Style.borderLeft;
+            Element.style.paddingTop = Style.paddingTop;
+            Element.style.paddingRight = Style.paddingRight;
+            Element.style.paddingBottom = Style.paddingBottom;
+            Element.style.paddingLeft = Style.paddingLeft;
+        }
+        FontProps = ["font-size", "font-style", "font-weight", "font-family", "line-height", "text-transform", "letter-spacing"];
+        for (Index = 0; Index < FontProps.length; Index++) {
+            Value = Style.getPropertyValue(FontProps[Index]);
+            Element.style.setProperty(FontProps[Index], Value);
+        }
+        return Element;
+    },
+    /**
+     * Measures text size using a specified element.
+     * @param {string} Text The text to measure.
+     * @param {Element} Element The ruler element.
+     * @returns {tp.Size} Returns the measured size.
+     */
+    SizeOf: function (Text, Element) {
+        Element.innerHTML = Text;
+        return new tp.Size(Element.offsetWidth, Element.offsetHeight);
+    },
+    /**
+     * Measures text width using a specified element.
+     * @param {string} Text The text to measure.
+     * @param {Element} Element The ruler element.
+     * @returns {number} Returns the measured width.
+     */
+    WidthOf: function (Text, Element) {
+        Element.innerHTML = Text;
+        return Element.offsetWidth;
+    },
+    /**
+     * Measures text height using a specified element.
+     * @param {string} Text The text to measure.
+     * @param {Element} Element The ruler element.
+     * @returns {number} Returns the measured height.
+     */
+    HeightOf: function (Text, Element) {
+        Element.innerHTML = Text;
+        return Element.offsetHeight;
+    }
+};
+Object.freeze(tp.TextSizeInfo);
+
 // ● traversal
 /**
  * Returns the index of an element in its parent's children collection.
@@ -174,6 +403,39 @@ tp.ContainsElement = function (Parent, Element) {
  */
 tp.ContainsEventTarget = function (Element, Target) {
     return Element === Target || tp.IsHTMLElement(Target) && tp.ContainsElement(Element, Target);
+};
+/**
+ * Gets associated Tripous element information.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {string} InfoName The optional information property name.
+ * @returns {object|null} Returns the associated information, if any.
+ */
+tp.GetElementInfo = function (ElementOrSelector, InfoName) {
+    var Element = tp.Select(ElementOrSelector);
+    InfoName = tp.IsBlank(InfoName) ? "__tpInfo" : InfoName;
+    return tp.IsElement(Element) && InfoName in Element ? Element[InfoName] : null;
+};
+/**
+ * Sets associated Tripous element information.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {object|null|undefined} Value The information to associate.
+ * @param {string} InfoName The optional information property name.
+ * @returns {void}
+ */
+tp.SetElementInfo = function (ElementOrSelector, Value, InfoName) {
+    var Element = tp.Select(ElementOrSelector);
+    InfoName = tp.IsBlank(InfoName) ? "__tpInfo" : InfoName;
+    if (tp.IsElement(Element))
+        Element[InfoName] = Value;
+};
+/**
+ * Returns true when an element has associated Tripous information.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {string} InfoName The optional information property name.
+ * @returns {boolean} Returns true when information exists.
+ */
+tp.HasElementInfo = function (ElementOrSelector, InfoName) {
+    return tp.GetElementInfo(ElementOrSelector, InfoName) !== null;
 };
 /**
  * Returns true when an element is the active element in its document.
@@ -464,6 +726,36 @@ tp.Data = function (ElementOrSelector, NameOrValues, Value) {
     }
     return "";
 };
+/**
+ * Returns the data-setup attribute text of an element.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @returns {string} Returns the data-setup text.
+ */
+tp.GetDataSetup = function (ElementOrSelector) {
+    return tp.Data(ElementOrSelector, "setup") || "";
+};
+/**
+ * Returns the data-setup object associated with an element.
+ * The attribute uses the old Tripous JavaScript object literal syntax, e.g.
+ * data-setup="{Text: 'Name', Control: { TypeName: 'TextBox' }}".
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @returns {object|null} Returns the setup object or null.
+ */
+tp.GetDataSetupObject = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    var Text;
+    var Result;
+    if (!tp.IsHTMLElement(Element))
+        return null;
+    if (Object.prototype.hasOwnProperty.call(Element, "__DataSetup"))
+        return Element.__DataSetup;
+    Text = tp.GetDataSetup(Element);
+    if (tp.IsBlank(Text))
+        return null;
+    Result = Function("return (" + Text + ");")();
+    Element.__DataSetup = Result;
+    return Result;
+};
 
 // ● values
 /**
@@ -669,4 +961,20 @@ tp.Off = function (ElementOrSelector, EventName, Handler, Options) {
     var Element = tp(ElementOrSelector) || tp.Select(ElementOrSelector);
     if (Element && tp.IsFunction(Element.removeEventListener))
         Element.removeEventListener(EventName, Handler, Options);
+};
+/**
+ * Cancels a DOM event by stopping propagation and marking the legacy cancel flags.
+ * @param {Event|null|undefined} e The event to cancel.
+ * @returns {boolean} Returns false always, matching the old Tripous helper.
+ */
+tp.CancelEvent = function (e) {
+    if (e) {
+        if ("stopPropagation" in e)
+            e.stopPropagation();
+        if ("cancelBubble" in e)
+            e.cancelBubble = true;
+        if ("cancel" in e)
+            e.cancel = true;
+    }
+    return false;
 };

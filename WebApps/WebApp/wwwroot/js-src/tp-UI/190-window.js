@@ -194,6 +194,14 @@ tp.Window = class extends tp.Component {
         this.Handle.addEventListener("keydown", this.fKeyDownHandler);
     }
     /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fModal = false;
+    }
+    /**
      * Disposes internal resources.
      * @returns {void}
      */

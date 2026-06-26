@@ -148,6 +148,18 @@ tp.Classes = {
     ControlLabel: "tp-Col tp-ControlLabel",
     CtrlRow: "tp-CtrlRow",
     CheckBoxRow: "tp-CheckBoxRow",
+    Label: "tp-Label",
+    CheckBox: "tp-CheckBox",
+    TextBox: "tp-TextBox",
+    Memo: "tp-Memo",
+    ImageBox: "tp-ImageBox",
+    ListControl: "tp-ListControl",
+    ListBox: "tp-ListBox",
+    ComboBox: "tp-ComboBox",
+    HtmlListControl: "tp-HtmlListControl",
+    HtmlListBox: "tp-HtmlListBox",
+    HtmlComboBox: "tp-HtmlComboBox",
+    AutocompleteList: "tp-AutocompleteList",
 
     // ● containers
     Block: "tp-Block",
@@ -178,3 +190,77 @@ tp.Classes = {
     Leaf: "tp-Leaf"
 };
 Object.freeze(tp.Classes);
+
+// ● control bind mode
+/**
+ * Indicates the type of data binding a control supports.
+ * @enum {number}
+ */
+tp.ControlBindMode = {
+    /** The control does not support data binding. */
+    None: 0,
+    /** The control binds to a single field value. */
+    Simple: 1,
+    /** The control binds to a list. */
+    List: 2,
+    /** The control binds to a grid. */
+    Grid: 4
+};
+Object.freeze(tp.ControlBindMode);
+
+// ● ui
+/**
+ * Static helper class for Tripous UI.
+ */
+tp.Ui = class {
+    // ● constructor
+    /**
+     * Static class. Do not create instances.
+     */
+    constructor() {
+        tp.Throw("Can not create an instance of a static class.");
+    }
+
+    // ● public
+    /**
+     * Registers a UI type constructor.
+     * @param {string|string[]} TypeNames The type name or names.
+     * @param {Function} Type The constructor.
+     * @returns {void}
+     */
+    static RegisterType(TypeNames, Type) {
+        var List = tp.IsArray(TypeNames) ? TypeNames : [TypeNames];
+        var Index;
+        if (!tp.IsFunction(Type))
+            return;
+        for (Index = 0; Index < List.length; Index++) {
+            if (!tp.IsBlank(List[Index]))
+                tp.Ui.Types[List[Index]] = Type;
+        }
+    }
+    /**
+     * Returns a registered UI type constructor.
+     * @param {string} TypeName The type name.
+     * @returns {Function|null} Returns the constructor or null.
+     */
+    static GetType(TypeName) {
+        return !tp.IsBlank(TypeName) && tp.IsFunction(tp.Ui.Types[TypeName]) ? tp.Ui.Types[TypeName] : null;
+    }
+    /**
+     * Returns the control row element containing a specified element.
+     * @param {HTMLElement|string} ElementOrSelector The element or selector.
+     * @returns {HTMLElement|null} Returns the row element or null.
+     */
+    static GetCtrlRow(ElementOrSelector) {
+        var Element = tp.Select(ElementOrSelector);
+        var Result = tp.Closest(Element, "." + tp.Classes.CtrlRow);
+        if (!tp.IsHTMLElement(Result))
+            Result = tp.Closest(Element, "." + tp.Classes.CheckBoxRow);
+        return Result;
+    }
+};
+/**
+ * Dictionary of registered UI type constructors.
+ * @type {object}
+ */
+tp.Ui.Types = {};

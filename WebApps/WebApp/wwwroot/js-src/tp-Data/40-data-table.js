@@ -56,6 +56,45 @@ tp.DataTable = class extends tp.Object {
             Value = Value.length > 0 ? Value[0] : null;
         return tp.IsBlank(Value) ? DefaultField : String(Value);
     }
+    /**
+     * Creates a table from a list of plain objects.
+     *
+     * Column names and data types are inferred from the first object in the list,
+     * matching the old Tripous ListControl support for object arrays used as list sources.
+     * @param {object[]} SourceList The source object list.
+     * @returns {tp.DataTable|null} Returns the created table, or null when the source list is empty.
+     */
+    static CreateFromList(SourceList) {
+        var SourceObject;
+        var Table;
+        var Prop;
+        var DataType;
+        if (!tp.IsArray(SourceList) || SourceList.length === 0)
+            return null;
+        SourceObject = SourceList[0];
+        if (!tp.IsObject(SourceObject))
+            tp.Throw("Cannot create a tp.DataTable from a list. First item is not an object.");
+        Table = new tp.DataTable();
+        for (Prop in SourceObject) {
+            if (Object.prototype.propertyIsEnumerable.call(SourceObject, Prop)) {
+                if (tp.IsInteger(SourceObject[Prop]))
+                    DataType = tp.DataType.Integer;
+                else if (tp.IsFloat(SourceObject[Prop]))
+                    DataType = tp.DataType.Decimal;
+                else if (tp.IsDate(SourceObject[Prop]))
+                    DataType = tp.DataType.DateTime;
+                else if (tp.IsBoolean(SourceObject[Prop]))
+                    DataType = tp.DataType.Boolean;
+                else if (tp.IsString(SourceObject[Prop]))
+                    DataType = tp.DataType.String;
+                else
+                    tp.Throw("Cannot create a tp.DataTable from a list. DataType not supported for field: " + Prop);
+                Table.AddColumn(Prop, DataType);
+            }
+        }
+        Table.FromObjectList(SourceList);
+        return Table;
+    }
 
     // ● properties
     /**

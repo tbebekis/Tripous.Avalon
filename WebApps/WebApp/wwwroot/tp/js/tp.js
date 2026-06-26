@@ -2130,6 +2130,287 @@ tp.ListClone = function (List, Deep) {
     return JSON.parse(JSON.stringify(List));
 };
 
+// ● array sort and filter
+/**
+ * Information object for array sorting.
+ */
+tp.SortInfo = class {
+    // ● constructor
+    /**
+     * Creates sort information.
+     * @param {string|number|null|undefined} Prop The property name or array index.
+     * @param {boolean|null|undefined} Reverse True to sort in descending order.
+     * @param {Function|null|undefined} GetValueFunc Optional callback returning the sortable value.
+     */
+    constructor(Prop, Reverse, GetValueFunc) {
+        this.Prop = tp.IsNullOrUndefined(Prop) ? "" : Prop;
+        this.Reverse = Reverse === true;
+        this.GetValueFunc = tp.IsFunction(GetValueFunc) ? GetValueFunc : null;
+    }
+};
+/**
+ * The property name or array index.
+ * @type {string|number}
+ */
+tp.SortInfo.prototype.Prop = "";
+/**
+ * True to sort in descending order.
+ * @type {boolean}
+ */
+tp.SortInfo.prototype.Reverse = false;
+/**
+ * Optional callback returning the sortable value.
+ * @type {Function|null}
+ */
+tp.SortInfo.prototype.GetValueFunc = null;
+/**
+ * Sorts an array in place by multiple properties.
+ * @param {object[]} List A collection of plain objects or arrays.
+ * @param {Array<string|number|tp.SortInfo|object>} SortInfos The sort information items.
+ * @returns {void}
+ */
+tp.ListSort = function (List, SortInfos) {
+    var InfoList = [];
+    var Index;
+    var Info;
+    /**
+     * Returns the value to sort by.
+     * @param {object|Array} Row The row being sorted.
+     * @param {tp.SortInfo|object} Item The sort information item.
+     * @returns {*} Returns the value.
+     */
+    function GetValueFunc(Row, Item) {
+        return Row ? Row[Item.Prop] : null;
+    }
+    /**
+     * Compares two rows.
+     * @param {*} A The first row.
+     * @param {*} B The second row.
+     * @returns {number} Returns the comparison result.
+     */
+    function CompareFunc(A, B) {
+        var ItemIndex;
+        var Item;
+        var ValueA;
+        var ValueB;
+        var Result = 0;
+        for (ItemIndex = 0; ItemIndex < InfoList.length; ItemIndex++) {
+            Item = InfoList[ItemIndex];
+            ValueA = Item.GetValueFunc(A, Item);
+            ValueB = Item.GetValueFunc(B, Item);
+            Result = ValueA === ValueB ? 0 : (Item.Reverse ? (ValueA > ValueB ? -1 : 1) : (ValueA < ValueB ? -1 : 1));
+            if (Result !== 0)
+                break;
+        }
+        return Result;
+    }
+    if (!tp.IsArray(List) || !tp.IsArray(SortInfos) || SortInfos.length === 0)
+        return;
+    for (Index = 0; Index < SortInfos.length; Index++) {
+        if (tp.IsNumber(SortInfos[Index]) || tp.IsString(SortInfos[Index])) {
+            Info = new tp.SortInfo(SortInfos[Index], false, GetValueFunc);
+        } else {
+            Info = SortInfos[Index];
+            if (!tp.IsFunction(Info.GetValueFunc))
+                Info.GetValueFunc = GetValueFunc;
+        }
+        InfoList.push(Info);
+    }
+    List.sort(CompareFunc);
+};
+/**
+ * Filter comparison operators.
+ * @enum {number}
+ */
+tp.FilterOp = {
+    None: 0,
+    /** Greater than. */
+    GT: 1,
+    /** Greater than or equal. */
+    GE: 2,
+    /** Equal. */
+    EQ: 4,
+    /** Not equal. */
+    NE: 8,
+    /** Less than. */
+    LT: 0x10,
+    /** Less than or equal. */
+    LE: 0x20,
+    /** Contains. */
+    CO: 0x40,
+    /** Starts with. */
+    SW: 0x80,
+    /** Ends with. */
+    EW: 0x100
+};
+/**
+ * Greater than.
+ * @type {number}
+ */
+tp.FilterOp.Greater = tp.FilterOp.GT;
+/**
+ * Greater than or equal.
+ * @type {number}
+ */
+tp.FilterOp.GreaterOrEqual = tp.FilterOp.GE;
+/**
+ * Equal.
+ * @type {number}
+ */
+tp.FilterOp.Equal = tp.FilterOp.EQ;
+/**
+ * Not equal.
+ * @type {number}
+ */
+tp.FilterOp.NotEqual = tp.FilterOp.NE;
+/**
+ * Less than.
+ * @type {number}
+ */
+tp.FilterOp.Less = tp.FilterOp.LT;
+/**
+ * Less than or equal.
+ * @type {number}
+ */
+tp.FilterOp.LessOrEqual = tp.FilterOp.LE;
+/**
+ * Contains.
+ * @type {number}
+ */
+tp.FilterOp.Contains = tp.FilterOp.CO;
+/**
+ * Starts with.
+ * @type {number}
+ */
+tp.FilterOp.StartsWith = tp.FilterOp.SW;
+/**
+ * Ends with.
+ * @type {number}
+ */
+tp.FilterOp.EndsWith = tp.FilterOp.EW;
+/**
+ * Compares two values using a filter operator.
+ * @param {number} Operator The comparison operator.
+ * @param {*} A The first value.
+ * @param {*} B The second value.
+ * @returns {boolean} Returns true when the comparison passes.
+ */
+tp.FilterOp.Compare = function (Operator, A, B) {
+    if (A === tp.Undefined)
+        A = null;
+    if (B === tp.Undefined)
+        B = null;
+    if (A instanceof Date)
+        A = A.valueOf();
+    if (B instanceof Date)
+        B = B.valueOf();
+    switch (Operator) {
+        case tp.FilterOp.Greater: return A > B;
+        case tp.FilterOp.GreaterOrEqual: return A >= B;
+        case tp.FilterOp.Equal: return A === B;
+        case tp.FilterOp.NotEqual: return A !== B;
+        case tp.FilterOp.Less: return A < B;
+        case tp.FilterOp.LessOrEqual: return A <= B;
+        case tp.FilterOp.Contains: return tp.ContainsText(A, B, true);
+        case tp.FilterOp.StartsWith: return tp.StartsWith(A, B, true);
+        case tp.FilterOp.EndsWith: return tp.EndsWith(A, B, true);
+    }
+    return false;
+};
+Object.freeze(tp.FilterOp);
+/**
+ * Information object for array filtering.
+ */
+tp.FilterInfo = class {
+    // ● constructor
+    /**
+     * Creates filter information.
+     * @param {string|number|null|undefined} Prop The property name or array index.
+     * @param {*} Value The filter value.
+     * @param {number|null|undefined} Operator The filter operator.
+     * @param {Function|null|undefined} FilterFunc Optional callback returning whether the row passes.
+     */
+    constructor(Prop, Value, Operator, FilterFunc) {
+        this.Prop = tp.IsNullOrUndefined(Prop) ? "" : Prop;
+        this.Value = Value;
+        this.Operator = Operator || tp.FilterOp.Equal;
+        this.FilterFunc = tp.IsFunction(FilterFunc) ? FilterFunc : null;
+    }
+};
+/**
+ * The property name or array index.
+ * @type {string|number}
+ */
+tp.FilterInfo.prototype.Prop = "";
+/**
+ * The filter value.
+ * @type {*}
+ */
+tp.FilterInfo.prototype.Value = null;
+/**
+ * The filter operator.
+ * @type {number}
+ */
+tp.FilterInfo.prototype.Operator = tp.FilterOp.Equal;
+/**
+ * Optional callback returning whether the row passes.
+ * @type {Function|null}
+ */
+tp.FilterInfo.prototype.FilterFunc = null;
+/**
+ * Filters an array by multiple properties.
+ * @param {object[]} List A collection of plain objects or arrays.
+ * @param {Array<tp.FilterInfo|object>} FilterInfos The filter information items.
+ * @param {boolean|null|undefined} OrLogic True to apply OR logic; false to apply AND logic.
+ * @returns {object[]} Returns a new filtered array.
+ */
+tp.ListFilter = function (List, FilterInfos, OrLogic) {
+    var InfoList = [];
+    var Index;
+    var Info;
+    /**
+     * Tests whether a row passes a filter item.
+     * @param {object|Array} Row The row being filtered.
+     * @param {tp.FilterInfo|object} Item The filter information item.
+     * @returns {boolean} Returns true when the row passes.
+     */
+    function FilterFunc(Row, Item) {
+        var Value = Row ? Row[Item.Prop] : null;
+        return tp.FilterOp.Compare(Item.Operator, Value, Item.Value);
+    }
+    /**
+     * Tests whether a row passes all filter items.
+     * @param {object|Array} Row The row being filtered.
+     * @returns {boolean} Returns true when the row passes.
+     */
+    function ArrayFilterFunc(Row) {
+        var ItemIndex;
+        var Item;
+        var Result = OrLogic === true ? false : true;
+        for (ItemIndex = 0; ItemIndex < InfoList.length; ItemIndex++) {
+            Item = InfoList[ItemIndex];
+            Result = Item.FilterFunc(Row, Item);
+            if (OrLogic !== true && Result !== true)
+                break;
+            if (OrLogic === true && Result === true)
+                break;
+        }
+        return Result;
+    }
+    if (!tp.IsArray(List))
+        return [];
+    if (!tp.IsArray(FilterInfos) || FilterInfos.length === 0)
+        return List.slice();
+    for (Index = 0; Index < FilterInfos.length; Index++) {
+        Info = FilterInfos[Index];
+        Info.Operator = Info.Operator || tp.FilterOp.Equal;
+        if (!tp.IsFunction(Info.FilterFunc))
+            Info.FilterFunc = FilterFunc;
+        InfoList.push(Info);
+    }
+    return List.filter(ArrayFilterFunc);
+};
+
 // ● array predicates and transforms
 /**
  * Returns true when any item passes a predicate.
@@ -2334,6 +2615,235 @@ tp.FindElementWithIdEnding = function (IdEnding, ParentElement) {
     return null;
 };
 
+// ● document position
+/**
+ * Node document position bit flags.
+ * See: https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+ * @type {object}
+ */
+tp.DocumentPosition = {
+    /** Elements are identical. */
+    Identical: 0,
+    /** The nodes are in different documents, or one is outside of a document. */
+    Disconnected: 1,
+    /** The second node is before the first node. */
+    Preceding: 2,
+    /** The first node is before the second node. */
+    Following: 4,
+    /** The second node contains the first node. */
+    Ancestor: 8,
+    /** The first node contains the second node. */
+    Descendant: 16,
+    /** Browser-specific result bit. */
+    ImplementationSpecific: 32,
+    /**
+     * Compares the position of two nodes.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {number} Returns a bitmask.
+     */
+    Compare: function (elA, elB) {
+        return elA.compareDocumentPosition(elB);
+    },
+    /**
+     * Returns true if elA contains elB.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elA contains elB.
+     */
+    Contains: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Ancestor, tp.DocumentPosition.Compare(elA, elB));
+    },
+    /**
+     * Returns true if elB contains elA.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elB contains elA.
+     */
+    ContainedBy: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Descendant, tp.DocumentPosition.Compare(elA, elB));
+    },
+    /**
+     * Returns true if elB is before elA.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elB is before elA.
+     */
+    IsBefore: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Preceding, tp.DocumentPosition.Compare(elA, elB));
+    },
+    /**
+     * Returns true if elA is before elB.
+     * @param {Node} elA The base node.
+     * @param {Node} elB The node to compare.
+     * @returns {boolean} Returns true if elA is before elB.
+     */
+    IsAfter: function (elA, elB) {
+        return tp.Bf.In(tp.DocumentPosition.Following, tp.DocumentPosition.Compare(elA, elB));
+    }
+};
+Object.freeze(tp.DocumentPosition);
+
+// ● alignment
+/**
+ * Alignment helper.
+ * @type {object}
+ */
+tp.Alignment = {
+    /** Near alignment. */
+    Near: 1,
+    /** Middle alignment. */
+    Mid: 2,
+    /** Far alignment. */
+    Far: 4,
+    /**
+     * Gets justify alignment.
+     * @returns {number} Returns tp.Alignment.Mid.
+     */
+    get Justify() { return tp.Alignment.Mid; },
+    /**
+     * Gets top alignment.
+     * @returns {number} Returns tp.Alignment.Near.
+     */
+    get Top() { return tp.Alignment.Near; },
+    /**
+     * Gets center alignment.
+     * @returns {number} Returns tp.Alignment.Mid.
+     */
+    get Center() { return tp.Alignment.Mid; },
+    /**
+     * Gets bottom alignment.
+     * @returns {number} Returns tp.Alignment.Far.
+     */
+    get Bottom() { return tp.Alignment.Far; },
+    /**
+     * Gets left alignment.
+     * @returns {number} Returns tp.Alignment.Near.
+     */
+    get Left() { return tp.Alignment.Near; },
+    /**
+     * Gets right alignment.
+     * @returns {number} Returns tp.Alignment.Far.
+     */
+    get Right() { return tp.Alignment.Far; },
+    /**
+     * Converts an alignment to a flex alignment value.
+     * @param {number} Value The alignment value.
+     * @param {boolean} Reverse True to reverse near and far.
+     * @returns {string} Returns a flex alignment value.
+     */
+    ToFlex: function (Value, Reverse) {
+        if (Value === tp.Alignment.Near)
+            return Reverse === true ? "flex-end" : "flex-start";
+        if (Value === tp.Alignment.Far)
+            return Reverse === true ? "flex-start" : "flex-end";
+        return "center";
+    },
+    /**
+     * Converts an alignment to a text-align value.
+     * @param {number} Value The alignment value.
+     * @param {boolean} Reverse True to reverse near and far.
+     * @returns {string} Returns a text-align value.
+     */
+    ToText: function (Value, Reverse) {
+        if (Value === tp.Alignment.Near)
+            return Reverse === true ? "right" : "left";
+        if (Value === tp.Alignment.Far)
+            return Reverse === true ? "left" : "right";
+        return "center";
+    }
+};
+Object.freeze(tp.Alignment);
+
+// ● text size
+/**
+ * Text metrics helper.
+ * @type {object}
+ */
+tp.TextSizeInfo = {
+    /**
+     * Measures text using a hidden ruler element copied from a source element.
+     * @param {string} Text The text to measure.
+     * @param {Element} SourceElement The source element.
+     * @returns {tp.Size} Returns the measured size.
+     */
+    MeasureText: function (Text, SourceElement) {
+        var Element = tp.TextSizeInfo.CreateRulerElement(SourceElement);
+        var Result = tp.TextSizeInfo.SizeOf(Text, Element);
+        Element.parentNode.removeChild(Element);
+        return Result;
+    },
+    /**
+     * Creates a hidden ruler element copied from a source element.
+     * @param {Element} SourceElement The source element.
+     * @returns {HTMLElement} Returns the ruler element.
+     */
+    CreateRulerElement: function (SourceElement) {
+        var Element = document.createElement("div");
+        var Style;
+        var FontProps;
+        var Index;
+        var Value;
+        Element.style.position = "absolute";
+        Element.style.visibility = "hidden";
+        Element.style.height = "auto";
+        Element.style.width = "auto";
+        document.body.appendChild(Element);
+        Style = Element.ownerDocument.defaultView.getComputedStyle(SourceElement, "");
+        if (SourceElement !== document.body) {
+            Element.style.marginTop = Style.marginTop;
+            Element.style.marginRight = Style.marginRight;
+            Element.style.marginBottom = Style.marginBottom;
+            Element.style.marginLeft = Style.marginLeft;
+            Element.style.borderTop = Style.borderTop;
+            Element.style.borderRight = Style.borderRight;
+            Element.style.borderBottom = Style.borderBottom;
+            Element.style.borderLeft = Style.borderLeft;
+            Element.style.paddingTop = Style.paddingTop;
+            Element.style.paddingRight = Style.paddingRight;
+            Element.style.paddingBottom = Style.paddingBottom;
+            Element.style.paddingLeft = Style.paddingLeft;
+        }
+        FontProps = ["font-size", "font-style", "font-weight", "font-family", "line-height", "text-transform", "letter-spacing"];
+        for (Index = 0; Index < FontProps.length; Index++) {
+            Value = Style.getPropertyValue(FontProps[Index]);
+            Element.style.setProperty(FontProps[Index], Value);
+        }
+        return Element;
+    },
+    /**
+     * Measures text size using a specified element.
+     * @param {string} Text The text to measure.
+     * @param {Element} Element The ruler element.
+     * @returns {tp.Size} Returns the measured size.
+     */
+    SizeOf: function (Text, Element) {
+        Element.innerHTML = Text;
+        return new tp.Size(Element.offsetWidth, Element.offsetHeight);
+    },
+    /**
+     * Measures text width using a specified element.
+     * @param {string} Text The text to measure.
+     * @param {Element} Element The ruler element.
+     * @returns {number} Returns the measured width.
+     */
+    WidthOf: function (Text, Element) {
+        Element.innerHTML = Text;
+        return Element.offsetWidth;
+    },
+    /**
+     * Measures text height using a specified element.
+     * @param {string} Text The text to measure.
+     * @param {Element} Element The ruler element.
+     * @returns {number} Returns the measured height.
+     */
+    HeightOf: function (Text, Element) {
+        Element.innerHTML = Text;
+        return Element.offsetHeight;
+    }
+};
+Object.freeze(tp.TextSizeInfo);
+
 // ● traversal
 /**
  * Returns the index of an element in its parent's children collection.
@@ -2411,6 +2921,39 @@ tp.ContainsElement = function (Parent, Element) {
  */
 tp.ContainsEventTarget = function (Element, Target) {
     return Element === Target || tp.IsHTMLElement(Target) && tp.ContainsElement(Element, Target);
+};
+/**
+ * Gets associated Tripous element information.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {string} InfoName The optional information property name.
+ * @returns {object|null} Returns the associated information, if any.
+ */
+tp.GetElementInfo = function (ElementOrSelector, InfoName) {
+    var Element = tp.Select(ElementOrSelector);
+    InfoName = tp.IsBlank(InfoName) ? "__tpInfo" : InfoName;
+    return tp.IsElement(Element) && InfoName in Element ? Element[InfoName] : null;
+};
+/**
+ * Sets associated Tripous element information.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {object|null|undefined} Value The information to associate.
+ * @param {string} InfoName The optional information property name.
+ * @returns {void}
+ */
+tp.SetElementInfo = function (ElementOrSelector, Value, InfoName) {
+    var Element = tp.Select(ElementOrSelector);
+    InfoName = tp.IsBlank(InfoName) ? "__tpInfo" : InfoName;
+    if (tp.IsElement(Element))
+        Element[InfoName] = Value;
+};
+/**
+ * Returns true when an element has associated Tripous information.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {string} InfoName The optional information property name.
+ * @returns {boolean} Returns true when information exists.
+ */
+tp.HasElementInfo = function (ElementOrSelector, InfoName) {
+    return tp.GetElementInfo(ElementOrSelector, InfoName) !== null;
 };
 /**
  * Returns true when an element is the active element in its document.
@@ -2701,6 +3244,36 @@ tp.Data = function (ElementOrSelector, NameOrValues, Value) {
     }
     return "";
 };
+/**
+ * Returns the data-setup attribute text of an element.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @returns {string} Returns the data-setup text.
+ */
+tp.GetDataSetup = function (ElementOrSelector) {
+    return tp.Data(ElementOrSelector, "setup") || "";
+};
+/**
+ * Returns the data-setup object associated with an element.
+ * The attribute uses the old Tripous JavaScript object literal syntax, e.g.
+ * data-setup="{Text: 'Name', Control: { TypeName: 'TextBox' }}".
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @returns {object|null} Returns the setup object or null.
+ */
+tp.GetDataSetupObject = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    var Text;
+    var Result;
+    if (!tp.IsHTMLElement(Element))
+        return null;
+    if (Object.prototype.hasOwnProperty.call(Element, "__DataSetup"))
+        return Element.__DataSetup;
+    Text = tp.GetDataSetup(Element);
+    if (tp.IsBlank(Text))
+        return null;
+    Result = Function("return (" + Text + ");")();
+    Element.__DataSetup = Result;
+    return Result;
+};
 
 // ● values
 /**
@@ -2906,6 +3479,22 @@ tp.Off = function (ElementOrSelector, EventName, Handler, Options) {
     var Element = tp(ElementOrSelector) || tp.Select(ElementOrSelector);
     if (Element && tp.IsFunction(Element.removeEventListener))
         Element.removeEventListener(EventName, Handler, Options);
+};
+/**
+ * Cancels a DOM event by stopping propagation and marking the legacy cancel flags.
+ * @param {Event|null|undefined} e The event to cancel.
+ * @returns {boolean} Returns false always, matching the old Tripous helper.
+ */
+tp.CancelEvent = function (e) {
+    if (e) {
+        if ("stopPropagation" in e)
+            e.stopPropagation();
+        if ("cancelBubble" in e)
+            e.cancelBubble = true;
+        if ("cancel" in e)
+            e.cancel = true;
+    }
+    return false;
 };
 
 // ● 16-helpers-units.js
@@ -4662,16 +5251,18 @@ tp.ResizeDetector.prototype.fObserving = false;
 // ● create params
 /**
  * Represents initialization options passed to a tp.Component constructor.
+ * This object is intentionally open-ended: derived component classes may add
+ * any extra create-param properties they support.
  */
 tp.CreateParams = class {
     // ● constructor
     /**
-     * Creates a new create params instance.
+     * Creates a new create params instance by merging all source properties into this instance.
      * @param {object|null|undefined} Source The optional source object.
      */
     constructor(Source) {
         if (tp.IsObject(Source))
-            tp.Assign(this, Source);
+            tp.MergePropsShallow(this, Source);
     }
 };
 
@@ -4739,6 +5330,67 @@ tp.CreateParams.prototype.DeferHandleCreation = false;
 /**
  * Represents an HTML element wrapper without data binding.
  *
+ * Initialization call order:
+ * - constructor(CreateParams)
+ * - CreateHandle()
+ * - OnHandleCreated()
+ * - InitializeFields()
+ * - OnFieldsInitialized()
+ * - ApplyCreateParams(Params)
+ *
+ * constructor(CreateParams):
+ * - Do: normalize input parameters into a params object and call super(Params).
+ * - Do: add any extra derived-class create params to that same params object before
+ *   calling super(Params), so the base construction cycle can preserve and apply them.
+ * - Do: set defaults that are needed before the handle is created, such as ElementOrSelector.
+ * - Avoid: initializing instance fields after super() when those fields are needed by
+ *   InitializeFields(), OnFieldsInitialized(), or ApplyCreateParams(). Those methods have
+ *   already run by the time super() returns.
+ * - Avoid: applying custom component options after super(). Use ApplyCreateParams() instead.
+ *
+ * CreateHandle():
+ * - Do: let the base implementation resolve ElementOrSelector.
+ * - Do: let the base implementation read data-setup and merge it over the same params object.
+ * - Do: override only with great care. Most classes should use the hooks below instead.
+ * - Avoid: duplicating data-setup or create-param processing in derived classes.
+ *
+ * OnHandleCreated():
+ * - Do: call super.OnHandleCreated() first.
+ * - Do: apply CSS classes, simple handle attributes, and handle-only setup.
+ * - Avoid: using fields that should be initialized in InitializeFields(), because this
+ *   method runs before InitializeFields().
+ * - Avoid: applying create params here. data-setup has been merged, but ApplyCreateParams()
+ *   is the place that consumes params.
+ *
+ * InitializeFields():
+ * - Do: call super.InitializeFields() first.
+ * - Do: initialize all per-instance fields, flags, arrays, handlers, and default values.
+ * - Do: create bound handler functions such as this.FuncBind(...).
+ * - Avoid: reading DOM layout or creating child DOM that depends on field values from
+ *   derived constructors.
+ * - Avoid: applying create params here.
+ *
+ * OnFieldsInitialized():
+ * - Do: call super.OnFieldsInitialized() first.
+ * - Do: create inner DOM, child controls, event listeners, and helper objects that must
+ *   exist before create params are applied.
+ * - Do: build markup that ApplyCreateParams() may target, for example label elements,
+ *   inner inputs, drop-down boxes, or scrollers.
+ * - Avoid: applying constructor params or data-setup params here. ApplyCreateParams()
+ *   runs next and owns that work.
+ *
+ * ApplyCreateParams(Params):
+ * - Do: call super.ApplyCreateParams(Params) first.
+ * - Do: explicitly apply every supported create-param property of the current class.
+ * - Do: treat Params as the final initialization object: derived constructor params plus data-setup.
+ * - Do: support every property that server-side markup is allowed to place in data-setup.
+ * - Avoid: relying on this.CreateParams inside constructors for custom derived params.
+ * - Avoid: generic assignment of all params. Explicit assignment keeps initialization
+ *   visible and makes unsupported params obvious.
+ *
+ * The explicit ApplyCreateParams() step replaces the old generic prototype-field-driven
+ * ProcessCreateParams() pattern. See ApplyCreateParams() for the migration note.
+ *
  * Events:
  * - Disposing
  * - Disposed
@@ -4756,8 +5408,6 @@ tp.Component = class extends tp.Object {
      * @returns {tp.CreateParams} Returns create parameters.
      */
     static CreateParams(Value) {
-        if (Value instanceof tp.CreateParams)
-            return Value;
         if (tp.IsString(Value) || tp.IsHTMLElement(Value))
             return new tp.CreateParams({ ElementOrSelector: Value });
         return new tp.CreateParams(Value);
@@ -4771,7 +5421,6 @@ tp.Component = class extends tp.Object {
     constructor(CreateParams) {
         super();
         this.CreateParams = tp.Component.CreateParams(CreateParams);
-        this.fSizeChart = new tp.SizeChart();
         if (this.CreateParams.DeferHandleCreation !== true)
             this.CreateHandle();
     }
@@ -4817,12 +5466,68 @@ tp.Component = class extends tp.Object {
             Element.type = this.ElementSubType;
         this.fHandle = Element;
         this.fDocument = Element.ownerDocument;
+        // Keep the same params object and merge data-setup over it.
+        // Derived constructors may have added custom properties before calling super().
+        tp.MergePropsShallow(Params, tp.GetDataSetupObject(Element));
+        this.CreateParams = Params;
         tp.Component.SetComponent(Element, this);
         this.OnHandleCreated();
+        this.InitializeFields();
+        this.OnFieldsInitialized();
         this.ApplyCreateParams(Params);
     }
     /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        this.fEnabled = true;
+        this.fSizeChart = new tp.SizeChart();
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     *
+     * This hook exists for derived classes that must create inner DOM, listeners, or helper
+     * objects after their fields are initialized, but before ApplyCreateParams() assigns
+     * values such as Items, SelectedIndex, or DataSource.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+    }
+    /**
      * Applies explicit create params to this component.
+     *
+     * Migration note:
+     *
+     * The old Tripous JavaScript runtime used a generic ProcessCreateParams() method.
+     * That method walked through this.CreateParams and tried to assign each entry to
+     * a same-named property of the component instance.
+     *
+     * That old mechanism had an important JavaScript construction-order problem. It
+     * was called from inside the base tp.Component constructor, while a derived class
+     * constructor had not completed yet. At that point, instance fields declared or
+     * assigned by the derived class constructor did not exist. Only members already
+     * available through the base class and the prototype chain were visible.
+     *
+     * This is the main historical reason the old code contains many declarations such
+     * as MyControl.prototype.SomeProperty = ... . Those prototype declarations made
+     * properties visible early enough for ProcessCreateParams() to see and assign them.
+     * In other words, many prototype fields were not primarily a design preference;
+     * they were a workaround for generic create-param processing during construction.
+     *
+     * In the migrated runtime we prefer explicit instance initialization plus
+     * class-specific ApplyCreateParams() overrides. This costs a little more code in
+     * each class, but it keeps the class easier to read at a glance and avoids adding
+     * prototype fields only for construction-time visibility. Derived classes should
+     * call super.ApplyCreateParams(Params) first and then explicitly apply only their
+     * own supported create-param properties.
+     *
+     * Prototype defaults are still acceptable for argument/default descriptor classes
+     * such as tp.CreateParams and tp.WindowArgs, and for real class-level metadata.
+     * For component/control classes, do not add new prototype fields just so create
+     * params can see them.
+     *
      * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
      * @returns {void}
      */
@@ -7579,6 +8284,32 @@ tp.Visible = function (Selector, Value) {
         return tp.GetComputedStyle(Element).display !== "none";
     Element.style.display = Value === true ? "" : "none";
     return Value === true;
+};
+/**
+ * Returns the height of a text line based on the font size of an element.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {number} Factor The optional multiplication factor. Defaults to 1.8.
+ * @returns {number} Returns the calculated line height.
+ */
+tp.GetLineHeight = function (ElementOrSelector, Factor) {
+    var Element = tp.Select(ElementOrSelector);
+    var FontSize;
+    var BodyFontSize;
+    var Result;
+    if (!tp.IsHTMLElement(Element))
+        return 24;
+    Factor = tp.IsNumber(Factor) && Factor > 0 ? Factor : 1.8;
+    FontSize = tp.StyleProp(Element, "font-size");
+    if (tp.IsEm(FontSize)) {
+        BodyFontSize = tp.StyleProp(Element.ownerDocument.body, "font-size");
+        if (!tp.IsPixel(BodyFontSize))
+            tp.Throw("document.body font-size is not defined in pixels.");
+        FontSize = tp.ExtractNumber(FontSize) * tp.ExtractNumber(BodyFontSize);
+    } else {
+        FontSize = tp.ExtractNumber(FontSize);
+    }
+    Result = Math.ceil(FontSize * Factor);
+    return Result > 0 ? Result : 24;
 };
 
 // ● z-index

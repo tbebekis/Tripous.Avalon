@@ -646,37 +646,44 @@ script {
 .tp-CtrlRow,
 .tp-CheckBoxRow {
     position: relative;
-    display: flex;
     padding: 0 4px 0 0;
 }
 
 .tp-CtrlRow {
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 2px;
+    display: grid;
+    grid-template-columns: minmax(120px, 35%) minmax(0, 1fr);
+    column-gap: 6px;
     row-gap: 2px;
+    align-items: start;
 }
 
 .tp-CtrlRow > .tp-CText {
     position: relative;
     display: inline-flex;
-    align-items: center;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 35%;
+    align-items: flex-start;
+    min-width: 0;
+    padding-top: 0.35em;
 }
 
 .tp-CtrlRow > .tp-Ctrl {
     position: relative;
     display: inline-flex;
-    align-items: center;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 65%;
+    align-items: flex-start;
+    min-width: 0;
 }
 
 .tp-CtrlRow > .tp-Ctrl > *:first-child {
     width: 100%;
+}
+
+@media (max-width: 600px) {
+    .tp-CtrlRow {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tp-CtrlRow > .tp-CText {
+        padding-top: 0;
+    }
 }
 
 .tp-GridCtrlRow {

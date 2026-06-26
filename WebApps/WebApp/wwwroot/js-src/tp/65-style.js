@@ -147,6 +147,32 @@ tp.Visible = function (Selector, Value) {
     Element.style.display = Value === true ? "" : "none";
     return Value === true;
 };
+/**
+ * Returns the height of a text line based on the font size of an element.
+ * @param {Element|string} ElementOrSelector The element or selector.
+ * @param {number} Factor The optional multiplication factor. Defaults to 1.8.
+ * @returns {number} Returns the calculated line height.
+ */
+tp.GetLineHeight = function (ElementOrSelector, Factor) {
+    var Element = tp.Select(ElementOrSelector);
+    var FontSize;
+    var BodyFontSize;
+    var Result;
+    if (!tp.IsHTMLElement(Element))
+        return 24;
+    Factor = tp.IsNumber(Factor) && Factor > 0 ? Factor : 1.8;
+    FontSize = tp.StyleProp(Element, "font-size");
+    if (tp.IsEm(FontSize)) {
+        BodyFontSize = tp.StyleProp(Element.ownerDocument.body, "font-size");
+        if (!tp.IsPixel(BodyFontSize))
+            tp.Throw("document.body font-size is not defined in pixels.");
+        FontSize = tp.ExtractNumber(FontSize) * tp.ExtractNumber(BodyFontSize);
+    } else {
+        FontSize = tp.ExtractNumber(FontSize);
+    }
+    Result = Math.ceil(FontSize * Factor);
+    return Result > 0 ? Result : 24;
+};
 
 // ● z-index
 /**

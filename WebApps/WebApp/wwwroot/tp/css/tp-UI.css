@@ -103,6 +103,135 @@ fieldset.tp-GroupBox legend {
 }
 
 /*---------------------------------------------------------------------------------------
+  check box
+---------------------------------------------------------------------------------------*/
+.tp-CheckBox {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 6px;
+    align-items: start;
+    cursor: pointer;
+}
+
+.tp-CheckBox > .tp-Ctrl {
+    display: inline-flex;
+    align-items: flex-start;
+    padding-top: 0.15em;
+}
+
+.tp-CheckBox > .tp-Text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    user-select: text;
+}
+
+.tp-CheckBox input[type=checkbox] {
+    margin: 0;
+}
+
+/*---------------------------------------------------------------------------------------
+  list control
+---------------------------------------------------------------------------------------*/
+.tp-ListControl {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 140px;
+    border: var(--Border);
+    background-color: var(--BackColor);
+    overflow: auto;
+}
+
+.tp-ListControl > .tp-List > .tp-Item,
+.tp-ListControl > .tp-DropDownBox > .tp-List > .tp-Item {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tp-ListControl > .tp-List > .tp-Item.tp-Selected,
+.tp-ListControl > .tp-DropDownBox > .tp-List > .tp-Item.tp-Selected {
+    background-color: var(--SelectedListItemColor);
+}
+
+.tp-ListControl > .tp-List > .tp-Item:focus,
+.tp-ListControl > .tp-DropDownBox > .tp-List > .tp-Item:focus {
+    outline: thin dotted;
+    background-color: lightblue;
+}
+
+.tp-ListControl > .tp-List > .tp-Item:hover,
+.tp-ListControl > .tp-DropDownBox > .tp-List > .tp-Item:hover {
+    outline: thin dotted;
+    background-color: var(--HoverColor);
+}
+
+/*---------------------------------------------------------------------------------------
+  list box
+---------------------------------------------------------------------------------------*/
+.tp-ListBox {
+    min-height: 40px;
+}
+
+/*---------------------------------------------------------------------------------------
+  combo box
+---------------------------------------------------------------------------------------*/
+.tp-ComboBox {
+    overflow: visible;
+}
+
+.tp-ComboBox .tp-Strip {
+    position: relative;
+    display: flex;
+    height: 100%;
+}
+
+.tp-ComboBox .tp-Strip input.tp-Text {
+    position: relative;
+    display: flex;
+    width: 1px;
+    flex-grow: 1;
+    align-items: center;
+    border: none;
+}
+
+.tp-ComboBox .tp-Strip .tp-Btn {
+    position: relative;
+    display: flex;
+    padding: 0 5px;
+    background-color: var(--BackColor);
+    font-family: monospace;
+    border-left: var(--Border);
+    cursor: default;
+    justify-content: center;
+    align-items: center;
+}
+
+/*---------------------------------------------------------------------------------------
+  memo
+---------------------------------------------------------------------------------------*/
+.tp-Memo {
+    position: relative;
+}
+
+/*---------------------------------------------------------------------------------------
+  image box
+---------------------------------------------------------------------------------------*/
+.tp-ImageBox {
+    position: relative;
+    display: inline-block;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/*---------------------------------------------------------------------------------------
   tool-bar and tool-button
 ---------------------------------------------------------------------------------------*/
 .tp-ToolBar {

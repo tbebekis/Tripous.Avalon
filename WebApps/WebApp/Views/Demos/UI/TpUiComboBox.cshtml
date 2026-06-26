@@ -1,0 +1,165 @@
+@{
+    ViewData["Title"] = "tp.ComboBox";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.ComboBox</h1>
+
+<p>
+    This demo shows the custom Tripous combo box. The first combo is list-only, the second allows free text, and the third uses a larger object list.
+    Open the dropdown with the arrow button or Alt+ArrowDown/Alt+ArrowUp. Use ArrowUp/ArrowDown without Alt to move selection when the combo is enabled and not read-only.
+</p>
+
+<style>
+    .demo-combo-grid {
+        display: grid;
+        grid-template-columns: 160px minmax(240px, 320px);
+        gap: 12px 16px;
+        align-items: start;
+        max-width: 560px;
+        margin-bottom: 16px;
+    }
+
+    .demo-combo-grid label {
+        padding-top: 6px;
+        font-weight: 600;
+    }
+
+    .demo-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0;
+    }
+
+    #ComboLog {
+        min-height: 160px;
+        white-space: pre-wrap;
+    }
+</style>
+
+<div class="demo-combo-grid">
+    <label for="ListOnlyCombo">List-only</label>
+    <div id="ListOnlyCombo"></div>
+
+    <label for="EditableCombo">Editable</label>
+    <div id="EditableCombo"></div>
+
+    <label for="LargeCombo">Large list</label>
+    <div id="LargeCombo"></div>
+</div>
+
+<div class="demo-buttons">
+    <button id="ComboSelectFirstButton" type="button">Select First</button>
+    <button id="ComboSelectMiddleButton" type="button">Select Middle</button>
+    <button id="ComboSetLargeListButton" type="button">Set 100 Items</button>
+    <button id="ComboLogButton" type="button">Log</button>
+</div>
+
+<pre id="ComboLog"></pre>
+
+<script>
+    tp.Ready(function () {
+        var Countries = [
+            { Id: "GR", Name: "Greece" },
+            { Id: "CY", Name: "Cyprus" },
+            { Id: "IT", Name: "Italy" },
+            { Id: "FR", Name: "France" },
+            { Id: "ES", Name: "Spain" },
+            { Id: "PT", Name: "Portugal" },
+            { Id: "DE", Name: "Germany" },
+            { Id: "NL", Name: "Netherlands" }
+        ];
+
+        var CreateLargeList = function (Count) {
+            var Result = [];
+            for (var i = 0; i < Count; i++)
+                Result.push({ Id: i + 1, Name: "Item " + tp.PadLeft(i + 1, "0", 3) });
+            return Result;
+        };
+
+        var ListOnlyCombo = new tp.ComboBox({
+            ElementOrSelector: "#ListOnlyCombo",
+            ListOnly: true,
+            List: Countries,
+            ListValueField: "Id",
+            ListDisplayField: "Name",
+            SelectedIndex: 0
+        });
+
+        var EditableCombo = new tp.ComboBox({
+            ElementOrSelector: "#EditableCombo",
+            ListOnly: false,
+            Placeholder: "Type or select a country",
+            List: Countries,
+            ListValueField: "Id",
+            ListDisplayField: "Name",
+            SelectedIndex: 1
+        });
+
+        var LargeCombo = new tp.ComboBox({
+            ElementOrSelector: "#LargeCombo",
+            ListOnly: true,
+            MaxDropdownItems: 8,
+            List: CreateLargeList(40),
+            ListValueField: "Id",
+            ListDisplayField: "Name",
+            SelectedIndex: 20
+        });
+
+        var ComboList = [ListOnlyCombo, EditableCombo, LargeCombo];
+
+        var GetComboText = function (Combo) {
+            return Combo.SelectedItem === null ? "" : Combo.GetItemText(Combo.SelectedItem);
+        };
+
+        var WriteLog = function (Message) {
+            var Lines = [];
+            if (Message)
+                Lines.push(Message);
+
+            Lines.push("List-only: count=" + ListOnlyCombo.Count + ", index=" + ListOnlyCombo.SelectedIndex + ", value=" + ListOnlyCombo.SelectedValue + ", text=" + GetComboText(ListOnlyCombo));
+            Lines.push("Editable: count=" + EditableCombo.Count + ", index=" + EditableCombo.SelectedIndex + ", value=" + EditableCombo.SelectedValue + ", text=" + EditableCombo.Text);
+            Lines.push("Large list: count=" + LargeCombo.Count + ", index=" + LargeCombo.SelectedIndex + ", value=" + LargeCombo.SelectedValue + ", text=" + GetComboText(LargeCombo));
+
+            tp.Select("#ComboLog").textContent = Lines.join("\n");
+        };
+
+        ComboList.forEach(function (Combo) {
+            Combo.On("SelectedIndexChanged", function () {
+                WriteLog("Selection changed.");
+            });
+        });
+
+        EditableCombo.On("TextNotFound", function (Args) {
+            WriteLog("Text not found: " + Args.Text);
+        });
+
+        tp.On("#ComboSelectFirstButton", "click", function () {
+            ComboList.forEach(function (Combo) {
+                Combo.SelectedIndex = 0;
+            });
+            WriteLog("First items selected.");
+        });
+
+        tp.On("#ComboSelectMiddleButton", "click", function () {
+            ListOnlyCombo.SelectedIndex = Math.floor(ListOnlyCombo.Count / 2);
+            EditableCombo.SelectedIndex = Math.floor(EditableCombo.Count / 2);
+            LargeCombo.SelectedIndex = Math.floor(LargeCombo.Count / 2);
+            WriteLog("Middle items selected.");
+        });
+
+        tp.On("#ComboSetLargeListButton", "click", function () {
+            LargeCombo.Items = CreateLargeList(100);
+            LargeCombo.SelectedIndex = 50;
+            WriteLog("Large combo list replaced with 100 items.");
+        });
+
+        tp.On("#ComboLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

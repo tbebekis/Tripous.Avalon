@@ -1,0 +1,141 @@
+@{
+    ViewData["Title"] = "tp.Memo";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.Memo</h1>
+
+<p>
+    A control class around the HTML <code>textarea</code> element.
+    It provides properties such as <code>Cols</code>, <code>Rows</code>, <code>MaxLength</code>,
+    <code>Placeholder</code>, <code>SelectionStart</code>, <code>SelectionEnd</code>,
+    <code>WordWrap</code>, and <code>Resizable</code>.
+</p>
+
+<p>
+    Use the buttons to test selection, appending lines, wrapping, resizing, and current property values.
+</p>
+
+<style>
+    .memo-demo-row {
+        display: grid;
+        grid-template-columns: 120px minmax(240px, 420px);
+        gap: 8px;
+        align-items: start;
+        max-width: 580px;
+        margin-bottom: 12px;
+    }
+    .memo-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 12px 0;
+    }
+    .memo-demo-actions label {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+    }
+    .memo-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 700px);
+        min-height: 140px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="memo-demo-row">
+        <label for="Memo">Memo</label>
+        <textarea id="Memo" data-setup="{Width: 380, Height: 160, Placeholder: 'memo text', MaxLength: 500}">This is memo content.
+It has more than one line.</textarea>
+    </div>
+
+    <div class="memo-demo-actions">
+        <button id="MemoSelectButton" type="button">Select</button>
+        <button id="MemoRangeButton" type="button">Select 0..8</button>
+        <button id="MemoAppendButton" type="button">Append Line</button>
+        <label>
+            <input id="MemoWordWrap" type="checkbox" checked />
+            Word wrap
+        </label>
+        <label>
+            <input id="MemoResizable" type="checkbox" checked />
+            Resizable
+        </label>
+        <button id="MemoLogButton" type="button">Log</button>
+    </div>
+
+    <pre id="MemoOutput" class="memo-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var Memo = new tp.Memo({
+            ElementOrSelector: "#Memo",
+            Rows: 5,
+            WordWrap: true,
+            Resizable: true
+        });
+        var WordWrap = tp("#MemoWordWrap");
+        var Resizable = tp("#MemoResizable");
+        var AppendIndex = 1;
+
+        var WriteLog = function (Message) {
+            tp.Text("#MemoOutput", [
+                Message || "Ready.",
+                "text length = " + Memo.Text.length,
+                "line count = " + Memo.GetLines(false).length,
+                "cols = " + Memo.Cols,
+                "rows = " + Memo.Rows,
+                "max length = " + Memo.MaxLength,
+                "placeholder = " + Memo.Placeholder,
+                "word wrap = " + Memo.WordWrap,
+                "resizable = " + Memo.Resizable,
+                "selection start = " + Memo.SelectionStart,
+                "selection end = " + Memo.SelectionEnd
+            ].join("\n"));
+        };
+
+        Memo.On("ValueChanged", function () {
+            WriteLog("Value changed.");
+        });
+
+        tp.On("#MemoSelectButton", "click", function () {
+            Memo.Select();
+            WriteLog("Text selected.");
+        });
+
+        tp.On("#MemoRangeButton", "click", function () {
+            Memo.SetSelectionRange(0, 8);
+            WriteLog("Selection range set.");
+        });
+
+        tp.On("#MemoAppendButton", "click", function () {
+            Memo.AppendLine("Appended line " + AppendIndex);
+            AppendIndex++;
+            WriteLog("Line appended.");
+        });
+
+        tp.On(WordWrap, "change", function () {
+            Memo.WordWrap = WordWrap.checked === true;
+            WriteLog("Word wrap changed.");
+        });
+
+        tp.On(Resizable, "change", function () {
+            Memo.Resizable = Resizable.checked === true;
+            WriteLog("Resizable changed.");
+        });
+
+        tp.On("#MemoLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

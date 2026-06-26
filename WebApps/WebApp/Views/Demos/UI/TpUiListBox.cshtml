@@ -1,0 +1,171 @@
+@{
+    ViewData["Title"] = "tp.ListBox";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.ListBox</h1>
+
+<p>
+    A virtual-scroller based list-box control.
+    It supports primitive item arrays, object arrays with <code>ListDisplayField</code> and <code>ListValueField</code>,
+    and large lists rendered through <code>tp.VirtualScroller</code>.
+</p>
+
+<p>
+    Click any item. The log shows <code>SelectedIndex</code>, <code>SelectedValue</code>, and the selected item text.
+    The large list verifies that only visible rows are rendered while the list can contain many items.
+</p>
+
+<style>
+    .list-box-demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+        align-items: start;
+        max-width: 960px;
+    }
+    .list-box-demo-card {
+        min-width: 0;
+    }
+    .list-box-demo-card h2 {
+        margin: 0 0 8px 0;
+        font-size: 1rem;
+    }
+    .list-box-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 14px 0;
+    }
+    .list-box-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 760px);
+        min-height: 150px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="list-box-demo-grid">
+        <section class="list-box-demo-card">
+            <h2>Primitive items</h2>
+            <div id="PrimitiveListBox" style="width: 220px; height: 170px;"></div>
+        </section>
+
+        <section class="list-box-demo-card">
+            <h2>Object items</h2>
+            <div id="ObjectListBox" style="width: 240px; height: 170px;"></div>
+        </section>
+
+        <section class="list-box-demo-card">
+            <h2>Large object list</h2>
+            <div id="LargeListBox" style="width: 260px; height: 240px;"></div>
+        </section>
+    </div>
+
+    <div class="list-box-demo-actions">
+        <button id="ListBoxSelectFirstButton" type="button">Select First</button>
+        <button id="ListBoxSelectMiddleButton" type="button">Select Middle</button>
+        <button id="ListBoxLogButton" type="button">Log</button>
+    </div>
+
+    <pre id="ListBoxOutput" class="list-box-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var LargeItems = [];
+        var Index;
+        for (Index = 1; Index <= 250; Index++) {
+            LargeItems.push({
+                Id: Index,
+                Name: "Product " + tp.FormatNumber(Index, "000")
+            });
+        }
+
+        var PrimitiveListBox = new tp.ListBox({
+            ElementOrSelector: "#PrimitiveListBox",
+            Items: ["Athens", "Thessaloniki", "Patras", "Heraklion", "Larissa", "Volos", "Ioannina"],
+            SelectedIndex: 1
+        });
+
+        var ObjectListBox = new tp.ListBox({
+            ElementOrSelector: "#ObjectListBox",
+            ListDisplayField: "Name",
+            ListValueField: "Id",
+            List: [
+                { Id: 100, Name: "All" },
+                { Id: 0, Name: "No stops" },
+                { Id: 1, Name: "1 stop" },
+                { Id: 2, Name: "2 stops" },
+                { Id: 3, Name: "3 stops" }
+            ],
+            SelectedValue: 1
+        });
+
+        var LargeListBox = new tp.ListBox({
+            ElementOrSelector: "#LargeListBox",
+            ListDisplayField: "Name",
+            ListValueField: "Id",
+            ListSource: LargeItems,
+            SelectedValue: 42
+        });
+
+        var Describe = function (Title, ListBox) {
+            return [
+                Title,
+                "  selected index = " + ListBox.SelectedIndex,
+                "  selected value = " + ListBox.SelectedValue,
+                "  selected text = " + ListBox.GetItemText(ListBox.SelectedItem),
+                "  item count = " + ListBox.Items.length
+            ].join("\n");
+        };
+
+        var WriteLog = function (Message) {
+            tp.Text("#ListBoxOutput", [
+                Message || "Ready.",
+                "",
+                Describe("Primitive items", PrimitiveListBox),
+                "",
+                Describe("Object items", ObjectListBox),
+                "",
+                Describe("Large object list", LargeListBox)
+            ].join("\n"));
+        };
+
+        PrimitiveListBox.On("SelectedIndexChanged", function () {
+            WriteLog("Primitive list selection changed.");
+        });
+        ObjectListBox.On("SelectedIndexChanged", function () {
+            WriteLog("Object list selection changed.");
+        });
+        LargeListBox.On("SelectedIndexChanged", function () {
+            WriteLog("Large list selection changed.");
+        });
+
+        tp.On("#ListBoxSelectFirstButton", "click", function () {
+            PrimitiveListBox.SelectedIndex = 0;
+            ObjectListBox.SelectedIndex = 0;
+            LargeListBox.SelectedIndex = 0;
+            WriteLog("First items selected.");
+        });
+
+        tp.On("#ListBoxSelectMiddleButton", "click", function () {
+            PrimitiveListBox.SelectedIndex = 3;
+            ObjectListBox.SelectedValue = 2;
+            LargeListBox.SelectedValue = 125;
+            WriteLog("Middle items selected.");
+        });
+
+        tp.On("#ListBoxLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

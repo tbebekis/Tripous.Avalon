@@ -30,24 +30,6 @@ tp.ImageSlider = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = tp.ImageSlider.CreateParams(CreateParams, Options);
         super(Params);
-        this.tpClass = "tp.ImageSlider";
-        tp.AddClass(this.Handle, tp.Classes.ImageSlider);
-        this.fImages = [];
-        this.fSelectedIndex = -1;
-        this.fAutoCycleInterval = 6000;
-        this.fAutoCycle = true;
-        this.PauseOnHover = true;
-        this.ChangeOnClick = true;
-        this.fDisplayCycleButtons = true;
-        this.fMouseEnterHandler = this.FuncBind(this.HandleMouseEnter);
-        this.fMouseLeaveHandler = this.FuncBind(this.HandleMouseLeave);
-        this.fClickHandler = this.FuncBind(this.HandleClick);
-        this.CreateCycleButtons();
-        this.ApplyImageSliderParams(this.CreateParams);
-        this.Handle.addEventListener("mouseenter", this.fMouseEnterHandler);
-        this.Handle.addEventListener("mouseleave", this.fMouseLeaveHandler);
-        this.Handle.addEventListener("click", this.fClickHandler);
-        this.DoAutoCycle(this.AutoCycle);
     }
 
     // ● protected
@@ -66,6 +48,53 @@ tp.ImageSlider = class extends tp.Component {
             Params = tp.Component.CreateParams(CreateParams);
         }
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fImages = [];
+        this.fSelectedIndex = -1;
+        this.fAutoCycleInterval = 6000;
+        this.fAutoCycle = true;
+        this.PauseOnHover = true;
+        this.ChangeOnClick = true;
+        this.fDisplayCycleButtons = true;
+        this.fMouseEnterHandler = this.FuncBind(this.HandleMouseEnter);
+        this.fMouseLeaveHandler = this.FuncBind(this.HandleMouseLeave);
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ImageSlider);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateCycleButtons();
+        this.Handle.addEventListener("mouseenter", this.fMouseEnterHandler);
+        this.Handle.addEventListener("mouseleave", this.fMouseLeaveHandler);
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+    /**
+     * Applies explicit create params to this image slider.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        this.ApplyImageSliderParams(Params);
+        this.DoAutoCycle(this.AutoCycle);
     }
     /**
      * Applies create parameters specific to tp.ImageSlider.
@@ -389,6 +418,11 @@ tp.ImageSlider = class extends tp.Component {
 };
 
 // ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.ImageSlider.prototype.tpClass = "tp.ImageSlider";
 /**
  * Gets or sets whether auto-cycle pauses while the mouse is over the control.
  * @type {boolean}

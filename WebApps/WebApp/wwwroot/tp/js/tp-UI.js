@@ -156,6 +156,18 @@ tp.Classes = {
     ControlLabel: "tp-Col tp-ControlLabel",
     CtrlRow: "tp-CtrlRow",
     CheckBoxRow: "tp-CheckBoxRow",
+    Label: "tp-Label",
+    CheckBox: "tp-CheckBox",
+    TextBox: "tp-TextBox",
+    Memo: "tp-Memo",
+    ImageBox: "tp-ImageBox",
+    ListControl: "tp-ListControl",
+    ListBox: "tp-ListBox",
+    ComboBox: "tp-ComboBox",
+    HtmlListControl: "tp-HtmlListControl",
+    HtmlListBox: "tp-HtmlListBox",
+    HtmlComboBox: "tp-HtmlComboBox",
+    AutocompleteList: "tp-AutocompleteList",
 
     // ● containers
     Block: "tp-Block",
@@ -187,6 +199,80 @@ tp.Classes = {
 };
 Object.freeze(tp.Classes);
 
+// ● control bind mode
+/**
+ * Indicates the type of data binding a control supports.
+ * @enum {number}
+ */
+tp.ControlBindMode = {
+    /** The control does not support data binding. */
+    None: 0,
+    /** The control binds to a single field value. */
+    Simple: 1,
+    /** The control binds to a list. */
+    List: 2,
+    /** The control binds to a grid. */
+    Grid: 4
+};
+Object.freeze(tp.ControlBindMode);
+
+// ● ui
+/**
+ * Static helper class for Tripous UI.
+ */
+tp.Ui = class {
+    // ● constructor
+    /**
+     * Static class. Do not create instances.
+     */
+    constructor() {
+        tp.Throw("Can not create an instance of a static class.");
+    }
+
+    // ● public
+    /**
+     * Registers a UI type constructor.
+     * @param {string|string[]} TypeNames The type name or names.
+     * @param {Function} Type The constructor.
+     * @returns {void}
+     */
+    static RegisterType(TypeNames, Type) {
+        var List = tp.IsArray(TypeNames) ? TypeNames : [TypeNames];
+        var Index;
+        if (!tp.IsFunction(Type))
+            return;
+        for (Index = 0; Index < List.length; Index++) {
+            if (!tp.IsBlank(List[Index]))
+                tp.Ui.Types[List[Index]] = Type;
+        }
+    }
+    /**
+     * Returns a registered UI type constructor.
+     * @param {string} TypeName The type name.
+     * @returns {Function|null} Returns the constructor or null.
+     */
+    static GetType(TypeName) {
+        return !tp.IsBlank(TypeName) && tp.IsFunction(tp.Ui.Types[TypeName]) ? tp.Ui.Types[TypeName] : null;
+    }
+    /**
+     * Returns the control row element containing a specified element.
+     * @param {HTMLElement|string} ElementOrSelector The element or selector.
+     * @returns {HTMLElement|null} Returns the row element or null.
+     */
+    static GetCtrlRow(ElementOrSelector) {
+        var Element = tp.Select(ElementOrSelector);
+        var Result = tp.Closest(Element, "." + tp.Classes.CtrlRow);
+        if (!tp.IsHTMLElement(Result))
+            Result = tp.Closest(Element, "." + tp.Classes.CheckBoxRow);
+        return Result;
+    }
+};
+/**
+ * Dictionary of registered UI type constructors.
+ * @type {object}
+ */
+tp.Ui.Types = {};
+
 // ● 25-row-col.js
 // ● row
 /**
@@ -208,40 +294,35 @@ Object.freeze(tp.Classes);
  *     <div class="tp-Col"></div>
  * </div>
  * <script>
- *     var Row = new tp.Row("#Row", { Breakpoints: [400, 700, 1000, 1200, 1400] });
+ *     var Row = new tp.Row({ ElementOrSelector: "#Row", Breakpoints: [400, 700, 1000, 1200, 1400] });
  * </script>
  */
 tp.Row = class extends tp.Component {
     // ● constructor
     /**
      * Creates a responsive row.
-     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The row create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The row create parameters.
      */
-    constructor(CreateParams, Options) {
-        var Params = tp.Row.CreateParams(CreateParams, Options);
-        super(Params);
-        this.tpClass = "tp.Row";
-        tp.AddClass(this.Handle, tp.Classes.Row);
-        this.IsElementResizeListener = true;
+    constructor(CreateParams) {
+        super(CreateParams);
     }
 
     // ● protected
     /**
-     * Creates normalized row create parameters.
-     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
-     * @returns {tp.CreateParams} Returns normalized create parameters.
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
      */
-    static CreateParams(CreateParams, Options) {
-        var Params;
-        if (arguments.length > 1) {
-            Params = new tp.CreateParams(Options);
-            Params.ElementOrSelector = CreateParams;
-        } else {
-            Params = tp.Component.CreateParams(CreateParams);
-        }
-        return Params;
+    InitializeFields() {
+        super.InitializeFields();
+        this.IsElementResizeListener = true;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.Row);
     }
 };
 
@@ -270,47 +351,35 @@ tp.Row.prototype.tpClass = "tp.Row";
  * @example
  * <div id="Col"></div>
  * <script>
- *     var Col = new tp.Col("#Col", { WidthPercents: [100, 100, 50, 33.33, 33.33, 25] });
+ *     var Col = new tp.Col({ ElementOrSelector: "#Col", WidthPercents: [100, 100, 50, 33.33, 33.33, 25] });
  * </script>
  */
 tp.Col = class extends tp.Component {
     // ● constructor
     /**
      * Creates a responsive column.
-     * @param {tp.CreateParams|object|HTMLElement|string} CreateParams The column create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The column create parameters.
      */
-    constructor(CreateParams, Options) {
-        var Params = tp.Col.CreateParams(CreateParams, Options);
-        super(Params);
-        this.tpClass = "tp.Col";
-        tp.AddClass(this.Handle, tp.Classes.Col);
-        this.ApplyColParams(this.CreateParams);
+    constructor(CreateParams) {
+        super(CreateParams);
     }
 
     // ● protected
     /**
-     * Creates normalized column create parameters.
-     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
-     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
-     * @returns {tp.CreateParams} Returns normalized create parameters.
-     */
-    static CreateParams(CreateParams, Options) {
-        var Params;
-        if (arguments.length > 1) {
-            Params = new tp.CreateParams(Options);
-            Params.ElementOrSelector = CreateParams;
-        } else {
-            Params = tp.Component.CreateParams(CreateParams);
-        }
-        return Params;
-    }
-    /**
-     * Applies create parameters specific to tp.Col.
-     * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
+     * Notification called after handle creation.
      * @returns {void}
      */
-    ApplyColParams(Params) {
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.Col);
+    }
+    /**
+     * Applies explicit create params to this column.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
         if (!Params)
             return;
         if (tp.IsArray(Params.WidthPercents))
@@ -380,6 +449,233 @@ tp.Col.prototype.WidthPercents = [100, 100, 50, 33.33, 33.33, 25];
  * @type {number[]}
  */
 tp.Col.prototype.ControlWidthPercents = [100, 100, 60, 65, 65, 65];
+
+// ● control row
+/**
+ * A responsive control row with a label, required mark, and one child control.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ *
+ * @example
+ * <div class="tp-CtrlRow" data-setup="{Text: 'Trader', Control: { TypeName: 'TextBox', Id: 'Name', DataField: 'Name' } }"></div>
+ */
+tp.CtrlRow = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a control row.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The row create parameters.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.Control = null;
+        this.elTextContainer = null;
+        this.elCtrlContainer = null;
+        this.elRequiredMark = null;
+        this.elText = null;
+        this.fText = "";
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.CtrlRow);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.EnsureContent();
+    }
+    /**
+     * Applies explicit create params to this control row.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        var BaseParams;
+        if (!Params) {
+            super.ApplyCreateParams(Params);
+            return;
+        }
+        BaseParams = new tp.CreateParams(Params);
+        delete BaseParams.Text;
+        super.ApplyCreateParams(BaseParams);
+        if (!tp.IsNil(Params.Text)) {
+            if (this.elText instanceof HTMLElement)
+                this.Text = Params.Text;
+            else
+                this.fText = String(Params.Text);
+        }
+    }
+    /**
+     * Ensures the row markup and child control exist.
+     * @returns {void}
+     */
+    EnsureContent() {
+        var Setup = this.GetSetup();
+        if (!this.HasHandle)
+            return;
+        if (this.Handle.children.length === 0)
+            this.BuildContent(Setup);
+        else
+            this.ResolveContent();
+    }
+    /**
+     * Returns normalized row setup.
+     * @returns {object} Returns the setup object.
+     */
+    GetSetup() {
+        var Setup = this.CreateParams || {};
+        Setup.Text = tp.IsString(Setup.Text) ? Setup.Text.trim() : this.fText;
+        Setup.Control = tp.IsObject(Setup.Control) ? Setup.Control : {};
+        return Setup;
+    }
+    /**
+     * Builds the row markup and creates the child control.
+     * @param {object} Setup The normalized setup.
+     * @returns {void}
+     */
+    BuildContent(Setup) {
+        var TypeName = Setup.Control.TypeName;
+        var Type = tp.Ui.GetType(TypeName);
+        var DataField;
+        var Prefix;
+        var Params;
+        if (!tp.IsFunction(Type))
+            tp.Throw("Control type name not registered in tp.Ui.Types: " + TypeName);
+        DataField = tp.IsString(Setup.Control.DataField) ? Setup.Control.DataField.trim() : "";
+        Prefix = !tp.IsBlank(DataField) ? tp.Prefix + "CtrlRow-" + DataField + "-" : tp.Prefix + "CtrlRow-";
+        if (tp.IsBlank(this.Handle.id))
+            this.Handle.id = tp.SafeId(Prefix);
+        if (tp.IsBlank(Setup.Control.Id))
+            Setup.Control.Id = tp.SafeId(tp.Prefix + TypeName + "-");
+        this.Handle.innerHTML =
+            "<div class=\"" + tp.Classes.CText + "\">" +
+            "<label for=\"" + Setup.Control.Id + "\"></label>" +
+            "<span class=\"" + tp.Classes.RequiredMark + "\" style=\"display: none;\">*</span>" +
+            "</div>" +
+            "<div class=\"" + tp.Classes.Ctrl + "\"></div>";
+        this.ResolveContent();
+        this.Text = Setup.Text;
+        Params = new tp.CreateParams(Setup.Control);
+        Params.Parent = this.elCtrlContainer;
+        Params.elText = this.elText;
+        Params.elRequiredMark = this.elRequiredMark;
+        this.Control = new Type(Params);
+    }
+    /**
+     * Resolves the row child elements.
+     * @returns {void}
+     */
+    ResolveContent() {
+        this.elCtrlContainer = tp.Select(this.Handle, "." + tp.Classes.Ctrl);
+        this.elTextContainer = tp.Select(this.Handle, "." + tp.Classes.CText);
+        this.elRequiredMark = tp.Select(this.elTextContainer, "." + tp.Classes.RequiredMark);
+        this.elText = tp.Select(this.elTextContainer, "label");
+        if (this.elText instanceof HTMLLabelElement)
+            this.fText = this.elText.textContent || "";
+    }
+
+    // ● public
+    /**
+     * Sets the width of the control part of the row.
+     * @param {string} Width The width to apply, e.g. "50%".
+     * @returns {void}
+     */
+    SetControlPercentWidth(Width) {
+        var ControlPercent = parseFloat(Width);
+        var LabelPercent;
+        if (!this.HasHandle || isNaN(ControlPercent))
+            return;
+        ControlPercent = Math.max(0, Math.min(100, ControlPercent));
+        LabelPercent = 100 - ControlPercent;
+
+        /*
+         * Old flex layout code:
+         * if (this.elCtrlContainer instanceof HTMLElement)
+         *     this.elCtrlContainer.style.width = Width;
+         *
+         * CtrlRow now uses CSS grid, so the row controls the two columns.
+         */
+        this.Handle.style.gridTemplateColumns = "minmax(120px, " + LabelPercent + "%) minmax(0, " + ControlPercent + "%)";
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the row label text.
+     * @returns {string} Returns the label text.
+     */
+    get Text() {
+        return this.elText instanceof HTMLElement ? this.elText.textContent || "" : this.fText;
+    }
+    /**
+     * Gets or sets the row label text.
+     * @param {*} Value The label text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        this.fText = tp.IsNil(Value) ? "" : String(Value);
+        if (this.elText instanceof HTMLElement)
+            this.elText.textContent = this.fText;
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.CtrlRow.prototype.tpClass = "tp.CtrlRow";
+/**
+ * The control hosted by this row.
+ * @type {tp.Component|null}
+ */
+tp.CtrlRow.prototype.Control = null;
+/**
+ * Caption text container.
+ * @type {HTMLDivElement|null}
+ */
+tp.CtrlRow.prototype.elTextContainer = null;
+/**
+ * Control container.
+ * @type {HTMLDivElement|null}
+ */
+tp.CtrlRow.prototype.elCtrlContainer = null;
+/**
+ * Element with the required mark.
+ * @type {HTMLSpanElement|null}
+ */
+tp.CtrlRow.prototype.elRequiredMark = null;
+/**
+ * Label with the caption text.
+ * @type {HTMLLabelElement|null}
+ */
+tp.CtrlRow.prototype.elText = null;
+
+tp.Ui.RegisterType(["Row", "tp-Row"], tp.Row);
+tp.Ui.RegisterType(["Col", "tp-Col"], tp.Col);
+tp.Ui.RegisterType(["CtrlRow", "tp-CtrlRow"], tp.CtrlRow);
 
 // ● 30-wrap-observer.js
 // ● wrap observer
@@ -2945,6 +3241,248 @@ tp.ItemBar.prototype.fClickHandler = null;
  */
 tp.ItemBar.prototype.fAuxClickHandler = null;
 
+// ● 105-virtual-scroller.js
+// ● virtual scroller
+/**
+ * A virtual scroller helper for fixed-height rows.
+ *
+ * The scroller uses a viewport HTMLElement which contains and scrolls a child container.
+ * The container is where rows are rendered.
+ */
+tp.VirtualScroller = class {
+    // ● constructor
+    /**
+     * Creates a virtual scroller.
+     * @param {HTMLElement} Viewport The scrolling viewport.
+     * @param {HTMLElement|null|undefined} Container Optional row container.
+     * @param {object[]|null|undefined} RowList Optional row list.
+     */
+    constructor(Viewport, Container, RowList) {
+        if (!tp.IsHTMLElement(Viewport))
+            tp.Throw("VirtualScroller requires a viewport HTMLElement.");
+        this.fViewport = Viewport;
+        if (!tp.IsHTMLElement(Container)) {
+            Container = Viewport.ownerDocument.createElement("div");
+            Container.tabIndex = -1;
+            Viewport.appendChild(Container);
+        }
+        this.fContainer = Container;
+        this.RowList = tp.IsArray(RowList) ? RowList : [];
+        this.ContainerHeight = 0;
+        this.LastScrollTop = 0;
+        this.RowCache = {};
+        this.IndexTop = 0;
+        this.IndexBottom = 0;
+        this.RowHeight = null;
+        this.Context = null;
+        this.RenderBind = this.Render.bind(this);
+        this.fViewport.style.overflow = "auto";
+        this.fContainer.style.position = "relative";
+        this.fContainer.style.overflow = "hidden";
+        this.fViewport.addEventListener("scroll", this.RenderBind, false);
+    }
+
+    // ● protected
+    /**
+     * Clears rendered row elements.
+     * @returns {void}
+     */
+    ClearCache() {
+        var Prop;
+        var Element;
+        for (Prop in this.RowCache) {
+            if (Object.prototype.propertyIsEnumerable.call(this.RowCache, Prop)) {
+                Element = this.RowCache[Prop];
+                if (Element && Element.parentNode)
+                    Element.parentNode.removeChild(Element);
+                delete this.RowCache[Prop];
+            }
+        }
+    }
+    /**
+     * Renders a row element.
+     * @param {number} RowIndex The row index.
+     * @returns {HTMLElement} Returns the row element.
+     */
+    RenderRow(RowIndex) {
+        var Row = this.RowList[RowIndex];
+        return tp.Call(this.RenderRowFunc, this.Context || this, Row, RowIndex, this.RowHeight);
+    }
+    /**
+     * Renders visible rows.
+     * @returns {void}
+     */
+    Render() {
+        var Height;
+        var TopPosition;
+        var Rect;
+        var BottomPosition;
+        var Top;
+        var Bottom;
+        var Prop;
+        var Element;
+        var Index;
+        var Length;
+        if (!this.RowList || this.RowList.length === 0 || this.LastScrollTop === this.fViewport.scrollTop)
+            return;
+        tp.Call(this.ScrollFunc, this.Context || this, 1);
+        this.LastScrollTop = this.fViewport.scrollTop;
+        Height = this.ContainerHeight;
+        TopPosition = this.fViewport.scrollTop;
+        Rect = this.fViewport.getBoundingClientRect();
+        BottomPosition = TopPosition + Rect.height;
+        Top = Math.abs(Math.floor(TopPosition / this.RowHeight)) - 5;
+        Top = Math.max(0, Top);
+        Bottom = Math.abs(Math.ceil(BottomPosition / this.RowHeight)) + 5;
+        Bottom = Math.min(Height / this.RowHeight, Bottom);
+        for (Prop in this.RowCache) {
+            if (Object.prototype.propertyIsEnumerable.call(this.RowCache, Prop)) {
+                Index = Number(Prop);
+                if (Index < Top || Index > Bottom) {
+                    Element = this.RowCache[Prop];
+                    if (Element && Element.parentNode)
+                        Element.parentNode.removeChild(Element);
+                    delete this.RowCache[Prop];
+                }
+            }
+        }
+        Length = this.RowList.length;
+        for (Index = Top; Index <= Bottom; Index++) {
+            if (Index >= 0 && Index <= Length - 1 && !this.RowCache[Index]) {
+                Element = this.RenderRow(Index);
+                Element.style.position = "absolute";
+                Element.style.top = (Index * this.RowHeight) + "px";
+                Element.style.height = this.RowHeight + "px";
+                Element.style.width = "100%";
+                this.fContainer.appendChild(Element);
+                this.RowCache[Index] = Element;
+            }
+        }
+        this.IndexTop = Top;
+        this.IndexBottom = Bottom;
+        tp.Call(this.ScrollFunc, this.Context || this, 2);
+    }
+
+    // ● overridables
+    /**
+     * Renders a row and returns an HTMLElement.
+     * @param {*} Row The row item.
+     * @param {number} RowIndex The row index.
+     * @param {number} RowHeight The row height.
+     * @returns {HTMLElement} Returns the row element.
+     */
+    RenderRowFunc(Row, RowIndex, RowHeight) {
+        var Element = this.Viewport.ownerDocument.createElement("div");
+        Element.tabIndex = -1;
+        tp.SetStyle(Element, {
+            "border-bottom": "1px dotted lightgray",
+            left: "0",
+            "font-size": "9pt",
+            width: "100%",
+            height: RowHeight + "px",
+            padding: "4px"
+        });
+        Element.innerHTML = "row " + RowIndex;
+        return Element;
+    }
+    /**
+     * Callback called before and after rendering.
+     * @param {number} Phase The render phase. 1 is before, 2 is after.
+     * @returns {void}
+     */
+    ScrollFunc(Phase) {
+    }
+
+    // ● public
+    /**
+     * Sets the row list to display.
+     * @param {object[]|null|undefined} RowList The row list.
+     * @returns {void}
+     */
+    SetRowList(RowList) {
+        var Element;
+        this.ClearCache();
+        this.IndexTop = 0;
+        this.IndexBottom = 0;
+        this.LastScrollTop = null;
+        this.fViewport.scrollTop = 0;
+        this.RowList = tp.IsArray(RowList) ? RowList : [];
+        if (tp.IsEmpty(this.RowHeight) && this.RowList.length > 0) {
+            Element = this.RenderRow(0);
+            this.fContainer.appendChild(Element);
+            this.RowHeight = Element.getBoundingClientRect().height;
+            this.fContainer.removeChild(Element);
+        }
+        if (tp.IsEmpty(this.RowHeight))
+            this.RowHeight = 32;
+        if (!tp.IsEmpty(this.RowList)) {
+            this.ContainerHeight = this.RowList.length * this.RowHeight;
+            this.fContainer.style.height = this.ContainerHeight + "px";
+            this.Render();
+        }
+    }
+    /**
+     * Returns a copy of the row list.
+     * @returns {object[]} Returns the row list.
+     */
+    GetRowList() {
+        return !tp.IsEmpty(this.RowList) ? this.RowList.slice() : [];
+    }
+    /**
+     * Forces a full re-render.
+     * @returns {void}
+     */
+    Update() {
+        this.ClearCache();
+        this.IndexTop = 0;
+        this.IndexBottom = 0;
+        this.LastScrollTop = null;
+        this.fViewport.scrollTop = 0;
+        if (!tp.IsEmpty(this.RowList)) {
+            this.ContainerHeight = this.RowList.length * this.RowHeight;
+            this.fContainer.style.height = this.ContainerHeight + "px";
+            this.Render();
+        }
+    }
+    /**
+     * Releases event handlers and rendered rows.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.fViewport && this.RenderBind)
+            this.fViewport.removeEventListener("scroll", this.RenderBind, false);
+        this.ClearCache();
+        this.RenderBind = null;
+        this.fViewport = null;
+        this.fContainer = null;
+        this.RowList = [];
+        this.RowCache = {};
+    }
+
+    // ● properties
+    /**
+     * Gets the viewport element.
+     * @returns {HTMLElement|null} Returns the viewport.
+     */
+    get Viewport() {
+        return this.fViewport;
+    }
+    /**
+     * Gets the container element.
+     * @returns {HTMLElement|null} Returns the container.
+     */
+    get Container() {
+        return this.fContainer;
+    }
+    /**
+     * Gets the row count.
+     * @returns {number} Returns the row count.
+     */
+    get RowListCount() {
+        return tp.IsArray(this.RowList) ? this.RowList.length : 0;
+    }
+};
+
 // ● 110-dropdown-box.js
 // ● drop-down box listener
 /**
@@ -3004,18 +3542,6 @@ tp.DropDownBox = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = tp.DropDownBox.CreateParams(CreateParams, Options);
         super(Params);
-        this.tpClass = "tp.DropDownBox";
-        tp.AddClass(this.Handle, tp.Classes.DropDownBox);
-        this.fWindowScrollHandler = this.FuncBind(this.Window_Scroll);
-        this.fDocumentClickHandler = this.FuncBind(this.Document_Click);
-        this.Associate = this.CreateParams.Associate;
-        this.Owner = this.CreateParams.Owner;
-        this.ApplySizeParams(this.CreateParams);
-        this.Handle.tabIndex = -1;
-        this.Handle.style.position = "fixed";
-        this.CreateDragger();
-        if (tp.IsBlank(this.Id))
-            this.Id = tp.SafeId("DropDown");
     }
 
     // ● protected
@@ -3027,15 +3553,71 @@ tp.DropDownBox = class extends tp.Component {
      */
     static CreateParams(CreateParams, Options) {
         var Params;
+        var Source;
         if (arguments.length > 1) {
             Params = new tp.CreateParams(Options);
             Params.ElementOrSelector = CreateParams;
+            Source = Options;
         } else {
             Params = tp.Component.CreateParams(CreateParams);
+            Source = CreateParams;
+        }
+        if (tp.IsObject(Source) && !tp.IsHTMLElement(Source)) {
+            if (!tp.IsNil(Source.Associate))
+                Params.Associate = Source.Associate;
+            if (!tp.IsNil(Source.Owner))
+                Params.Owner = Source.Owner;
+            if (!tp.IsNil(Source.Width))
+                Params.Width = Source.Width;
+            if (!tp.IsNil(Source.Height))
+                Params.Height = Source.Height;
         }
         if (!tp.IsHTMLElement(tp(Params.ElementOrSelector)))
             Params.ElementOrSelector = "div";
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fWindowScrollHandler = this.FuncBind(this.Window_Scroll);
+        this.fDocumentClickHandler = this.FuncBind(this.Document_Click);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.DropDownBox);
+        this.Handle.tabIndex = -1;
+        this.Handle.style.position = "fixed";
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateDragger();
+        if (tp.IsBlank(this.Id))
+            this.Id = tp.SafeId("DropDown");
+    }
+    /**
+     * Applies explicit create params to this drop-down box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        this.Associate = Params.Associate;
+        this.Owner = Params.Owner;
+        this.ApplySizeParams(Params);
     }
     /**
      * Applies size create parameters.
@@ -3298,9 +3880,13 @@ tp.DropDownBox = class extends tp.Component {
      * @returns {void}
      */
     set Associate(Value) {
-        var Element = tp(Value);
+        var Element = null;
+        if (tp.IsString(Value))
+            Element = tp.Select(Value);
+        else if (tp.IsHTMLElement(Value))
+            Element = Value;
         if (Element !== this.fAssociate) {
-            this.fAssociate = tp.IsHTMLElement(Element) ? Element : null;
+            this.fAssociate = Element;
             this.fIsFirstOpen = true;
         }
     }
@@ -3459,6 +4045,344 @@ tp.DropDownBox.prototype.fWindowScrollHandler = null;
  */
 tp.DropDownBox.prototype.fDocumentClickHandler = null;
 
+// ● 115-autocomplete-list.js
+// ● autocomplete list
+/**
+ * Drop-down autocomplete list associated with a text input element.
+ */
+tp.AutocompleteList = class extends tp.DropDownBox {
+    // ● constructor
+    /**
+     * Creates an autocomplete list.
+     * @param {HTMLElement|string} Associate The associated input element.
+     */
+    constructor(Associate) {
+        Associate = tp(Associate);
+        if (!tp.IsHTMLElement(Associate))
+            tp.Throw("No Associate defined for AutocompleteList.");
+        super({ Associate: Associate });
+        this.Associate = Associate;
+        this.tpClass = "tp.AutocompleteList";
+        tp.AddClass(this.Handle, tp.Classes.AutocompleteList);
+        this.Active = false;
+        this.ServerFunc = null;
+        this.DataList = null;
+        this.UseStartsWithFilter = false;
+        this.AutocompleteCharCount = 3;
+        this.fContainer = this.Document.createElement("div");
+        this.fContainer.className = tp.Classes.List;
+        this.fContainer.tabIndex = -1;
+        this.Handle.appendChild(this.fContainer);
+        this.fDropDownScroller = new tp.VirtualScroller(this.Handle, this.fContainer);
+        this.fDropDownScroller.Context = this;
+        this.fDropDownScroller.RenderRowFunc = this.ItemRenderFunc;
+        this.fItemHeight = 0;
+        this.fListDisplayField = null;
+        this.fSelectedItem = null;
+        this.fDisplayList = [];
+        this.fAssociateKeyUpHandler = this.FuncBind(this.Associate_KeyUp);
+        this.fAssociateKeyDownHandler = this.FuncBind(this.Associate_KeyDown);
+        this.fContainerClickHandler = this.FuncBind(this.Container_Click);
+        this.Associate.addEventListener("keyup", this.fAssociateKeyUpHandler, true);
+        this.Associate.addEventListener("keydown", this.fAssociateKeyDownHandler, false);
+        this.fContainer.addEventListener("click", this.fContainerClickHandler, false);
+    }
+
+    // ● protected
+    /**
+     * Renders a row item for the virtual scroller.
+     * @param {*} Row The row item.
+     * @param {number} RowIndex The row index.
+     * @returns {HTMLElement} Returns the row element.
+     */
+    ItemRenderFunc(Row, RowIndex) {
+        var Result = this.Document.createElement("div");
+        Result.className = tp.Classes.Item;
+        Result.tabIndex = -1;
+        tp.SetElementInfo(Result, {
+            Item: Row,
+            Index: RowIndex
+        });
+        Result.innerHTML = this.GetItemText(Row);
+        return Result;
+    }
+    /**
+     * Returns the display text of an item.
+     * @param {*} Item The item.
+     * @returns {string} Returns item text.
+     */
+    GetItemText(Item) {
+        if (!tp.IsEmpty(Item)) {
+            if (tp.IsPrimitive(Item))
+                return Item.toString();
+            if (!tp.IsBlank(this.ListDisplayField) && this.ListDisplayField in Item)
+                return Item[this.ListDisplayField];
+            if (tp.IsFunction(Item.ToString))
+                return Item.ToString();
+            if (tp.IsFunction(Item.toString))
+                return Item.toString();
+        }
+        return "";
+    }
+    /**
+     * Updates the virtual scroller row list and opens or closes the list.
+     * @param {string} Text The filter text.
+     * @returns {void}
+     */
+    SetScrollerList(Text) {
+        var List = this.fDisplayList;
+        if (tp.IsEmpty(List) || tp.IsArray(List) && List.length === 0) {
+            this.Close();
+        } else if (tp.IsArray(List)) {
+            if (List.length === 1 && Text === this.GetItemText(List[0])) {
+                this.Close();
+            } else if (List.length > 0) {
+                this.fDropDownScroller.RowHeight = this.ItemHeight;
+                this.fDropDownScroller.SetRowList(List);
+                this.Open();
+            }
+        }
+    }
+    /**
+     * Returns the selected row element, if any.
+     * @returns {HTMLElement|null} Returns the selected row element.
+     */
+    GetItemWithSelectionIndication() {
+        return tp.Select(this.fContainer, "." + tp.Classes.Selected);
+    }
+    /**
+     * Sets selection indication to a row element.
+     * @param {HTMLElement|null|undefined} Element The row element.
+     * @returns {void}
+     */
+    SetSelectionIndicationTo(Element) {
+        var Previous = tp.Select(this.fContainer, "." + tp.Classes.Selected);
+        if (Previous)
+            tp.RemoveClass(Previous, tp.Classes.Selected);
+        if (tp.IsElement(Element) && tp.ContainsElement(this.fContainer, Element))
+            tp.AddClass(Element, tp.Classes.Selected);
+    }
+    /**
+     * Assigns an item to the associate element and closes the list.
+     * @param {*} Item The selected item.
+     * @returns {void}
+     */
+    SelectItem(Item) {
+        this.fSelectedItem = Item;
+        this.Close();
+        tp.val(this.Associate, this.GetItemText(Item));
+        this.Associate.focus();
+    }
+    /**
+     * Handles container clicks.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    Container_Click(e) {
+        var Element = e.target;
+        if (this.Active !== true || this.Resizing === true)
+            return;
+        while (tp.IsHTMLElement(Element) && Element !== this.fContainer) {
+            if (tp.HasClass(Element, tp.Classes.Item) && tp.HasElementInfo(Element)) {
+                this.SelectItem(tp.GetElementInfo(Element).Item);
+                return;
+            }
+            Element = Element.parentNode;
+        }
+    }
+    /**
+     * Handles key-up events on the associate element.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    Associate_KeyUp(e) {
+        var Count;
+        var Text;
+        if (this.Active !== true || e.target !== this.Associate)
+            return;
+        Count = tp.IsNumber(this.AutocompleteCharCount) ? this.AutocompleteCharCount : 3;
+        Text = tp.val(this.Associate) || "";
+        if (Count > 0 && Text.length >= Count) {
+            if (tp.IsPrintableKey(e))
+                this.FilterAsync(Text);
+        } else {
+            this.Close();
+        }
+    }
+    /**
+     * Handles key-down events on the associate element.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    Associate_KeyDown(e) {
+        var Element;
+        if (this.Active !== true || e.target !== this.Associate || this.IsOpen !== true)
+            return;
+        if (tp.IsKey(e, tp.Keys.Up)) {
+            Element = this.GetItemWithSelectionIndication();
+            if (Element && tp.IsElement(Element.previousElementSibling))
+                this.SetSelectionIndicationTo(Element.previousElementSibling);
+            e.preventDefault();
+        } else if (tp.IsKey(e, tp.Keys.Down)) {
+            Element = this.GetItemWithSelectionIndication();
+            if (Element && tp.IsElement(Element.nextElementSibling))
+                this.SetSelectionIndicationTo(Element.nextElementSibling);
+            else if (this.fContainer.children.length > 0)
+                this.SetSelectionIndicationTo(this.fContainer.children[0]);
+            e.preventDefault();
+        } else if (tp.IsKey(e, tp.Keys.Enter)) {
+            Element = this.GetItemWithSelectionIndication();
+            if (Element && tp.HasElementInfo(Element))
+                this.SelectItem(tp.GetElementInfo(Element).Item);
+            e.preventDefault();
+        } else if (tp.IsKey(e, tp.Keys.Escape)) {
+            this.Close();
+            e.preventDefault();
+        }
+    }
+    /**
+     * Called by Open() and Close() to notify the owner about a stage change.
+     * @protected
+     * @param {number} Stage The tp.DropDownBoxStage value.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnOwnerEvent(Stage) {
+        var Count = this.fDisplayList ? Math.min(this.MaxDropdownItems, this.fDisplayList.length) : 0;
+        this.Height = Count > 0 ? Count * this.ItemHeight + 5 : 0;
+        return super.OnOwnerEvent(Stage);
+    }
+
+    // ● public
+    /**
+     * Filters the data list and displays the dropdown.
+     * @param {string} Text The filter text.
+     * @returns {Promise<void>} Returns a promise that completes after filtering.
+     */
+    async FilterAsync(Text) {
+        var Data;
+        var Args;
+        var FilterFunc;
+        var Index;
+        var Item;
+        var ItemText;
+        this.fSelectedItem = null;
+        this.fDisplayList = [];
+        if (!tp.IsBlank(this.ServerFunc)) {
+            if (!tp.Ajax || !tp.Ajax.PostAsync)
+                tp.Throw("tp.Ajax.PostAsync is required for server autocomplete.");
+            Data = {
+                Text: Text,
+                UseStartsWith: this.UseStartsWithFilter === true
+            };
+            Args = await tp.Ajax.PostAsync(this.ServerFunc, Data);
+            this.fDisplayList = Args && tp.IsArray(Args.Packet) ? Args.Packet : [];
+            this.SetScrollerList(Text);
+            return;
+        }
+        if (tp.IsArray(this.DataList)) {
+            FilterFunc = this.UseStartsWithFilter === true ? tp.StartsWith : tp.ContainsText;
+            for (Index = 0; Index < this.DataList.length; Index++) {
+                Item = this.DataList[Index];
+                ItemText = this.GetItemText(Item);
+                if (FilterFunc(ItemText, Text, true))
+                    this.fDisplayList.push(Item);
+            }
+        }
+        this.SetScrollerList(Text);
+    }
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.Associate) {
+            this.Associate.removeEventListener("keyup", this.fAssociateKeyUpHandler, true);
+            this.Associate.removeEventListener("keydown", this.fAssociateKeyDownHandler, false);
+        }
+        if (this.fContainer)
+            this.fContainer.removeEventListener("click", this.fContainerClickHandler, false);
+        if (this.fDropDownScroller) {
+            this.fDropDownScroller.Dispose();
+            this.fDropDownScroller = null;
+        }
+        this.fAssociateKeyUpHandler = null;
+        this.fAssociateKeyDownHandler = null;
+        this.fContainerClickHandler = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets item height.
+     * @returns {number} Returns item height.
+     */
+    get ItemHeight() {
+        if (tp.IsEmpty(this.fItemHeight) || this.fItemHeight <= 0)
+            this.fItemHeight = tp.GetLineHeight(this.Associate);
+        return this.fItemHeight;
+    }
+    /**
+     * Gets or sets item height.
+     * @param {number} Value The item height.
+     * @returns {void}
+     */
+    set ItemHeight(Value) {
+        this.fItemHeight = tp.ToInt(Value);
+    }
+    /**
+     * Gets or sets the item display field name.
+     * @returns {string} Returns the display field.
+     */
+    get ListDisplayField() {
+        return this.fListDisplayField;
+    }
+    /**
+     * Gets or sets the item display field name.
+     * @param {string} Value The display field.
+     * @returns {void}
+     */
+    set ListDisplayField(Value) {
+        this.fListDisplayField = tp.IsBlank(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the maximum number of visible dropdown items.
+     * @returns {number} Returns the maximum number of visible items.
+     */
+    get MaxDropdownItems() {
+        var Result = this.fMaxDropdownItems || 10;
+        return Result > 40 ? 40 : Result;
+    }
+    /**
+     * Gets or sets the maximum number of visible dropdown items.
+     * @param {number} Value The maximum visible item count.
+     * @returns {void}
+     */
+    set MaxDropdownItems(Value) {
+        this.fMaxDropdownItems = tp.ToInt(Value);
+    }
+    /**
+     * Gets the selected item.
+     * @returns {*} Returns the selected item.
+     */
+    get SelectedItem() {
+        return this.fSelectedItem;
+    }
+    /**
+     * Returns true if the selected item text matches the associate value.
+     * @returns {boolean} Returns true when selected item is valid.
+     */
+    get IsSelectedItemValid() {
+        var ItemText;
+        var AssociateText;
+        if (!tp.IsEmpty(this.SelectedItem)) {
+            ItemText = this.GetItemText(this.SelectedItem);
+            AssociateText = !tp.IsEmpty(this.Associate) ? tp.Trim(tp.val(this.Associate)) || "" : "";
+            return !tp.IsBlank(AssociateText) && tp.IsSameText(ItemText, AssociateText);
+        }
+        return false;
+    }
+};
+
 // ● 120-tab-control.js
 // ● tab page
 /**
@@ -3472,12 +4396,29 @@ tp.TabPage = class extends tp.Component {
      */
     constructor(CreateParams) {
         super(CreateParams);
-        this.tpClass = "tp.TabPage";
-        tp.AddClass(this.Handle, tp.Classes.TabPage);
-        this.Tab = this.CreateParams.Tab;
     }
 
     // ● protected
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.TabPage);
+    }
+    /**
+     * Applies explicit create params to this tab page.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (Params.Tab instanceof HTMLElement)
+            this.Tab = Params.Tab;
+    }
     /**
      * Destroys the handle and the tab element.
      * @returns {void}
@@ -3513,6 +4454,11 @@ tp.TabPage = class extends tp.Component {
  * @type {HTMLElement|null}
  */
 tp.TabPage.prototype.Tab = null;
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.TabPage.prototype.tpClass = "tp.TabPage";
 
 // ● tab control
 /**
@@ -3541,16 +4487,38 @@ tp.TabControl = class extends tp.Component {
      */
     constructor(CreateParams) {
         super(CreateParams);
-        this.tpClass = "tp.TabControl";
-        tp.AddClass(this.Handle, tp.Classes.TabControl);
-        this.CreateControls();
-        if (tp.IsNumber(this.CreateParams.SelectedIndex))
-            this.SelectedIndex = this.CreateParams.SelectedIndex;
-        else if (this.GetPageCount() > 0)
-            this.SelectedIndex = 0;
     }
 
     // ● protected
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.TabControl);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateControls();
+    }
+    /**
+     * Applies explicit create params to this tab control.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (Params && tp.IsNumber(Params.SelectedIndex))
+            this.SelectedIndex = Params.SelectedIndex;
+        else if (this.GetPageCount() > 0)
+            this.SelectedIndex = 0;
+    }
     /**
      * Creates child controls.
      * @returns {void}
@@ -3955,16 +4923,6 @@ tp.PanelList = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = tp.PanelList.CreateParams(CreateParams, Options);
         super(Params);
-        this.tpClass = "tp.PanelList";
-        this.fUpdateAssociate = true;
-        tp.AddClass(this.Handle, tp.Classes.PanelList);
-        this.InitializePanels();
-        if (!tp.IsNil(this.CreateParams.Associate))
-            this.Associate = this.CreateParams.Associate;
-        if (!tp.IsNil(this.CreateParams.SelectedIndex))
-            this.SelectedIndex = this.CreateParams.SelectedIndex;
-        else if (this.Count > 0)
-            this.SelectedIndex = 0;
     }
 
     // ● protected
@@ -3983,6 +4941,47 @@ tp.PanelList = class extends tp.Component {
             Params = tp.Component.CreateParams(CreateParams);
         }
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fUpdateAssociate = true;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.PanelList);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.InitializePanels();
+    }
+    /**
+     * Applies explicit create params to this panel list.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Associate))
+            this.Associate = Params.Associate;
+        if (!tp.IsNil(Params.SelectedIndex))
+            this.SelectedIndex = Params.SelectedIndex;
+        else if (this.Count > 0)
+            this.SelectedIndex = 0;
     }
     /**
      * Initializes child panel elements.
@@ -4193,6 +5192,11 @@ tp.PanelList.prototype.fUpdateAssociate = false;
  * @type {tp.Listener|null}
  */
 tp.PanelList.prototype.fSelectedIndexListener = null;
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.PanelList.prototype.tpClass = "tp.PanelList";
 
 // ● 140-image-slider.js
 // ● image size mode
@@ -4227,24 +5231,6 @@ tp.ImageSlider = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = tp.ImageSlider.CreateParams(CreateParams, Options);
         super(Params);
-        this.tpClass = "tp.ImageSlider";
-        tp.AddClass(this.Handle, tp.Classes.ImageSlider);
-        this.fImages = [];
-        this.fSelectedIndex = -1;
-        this.fAutoCycleInterval = 6000;
-        this.fAutoCycle = true;
-        this.PauseOnHover = true;
-        this.ChangeOnClick = true;
-        this.fDisplayCycleButtons = true;
-        this.fMouseEnterHandler = this.FuncBind(this.HandleMouseEnter);
-        this.fMouseLeaveHandler = this.FuncBind(this.HandleMouseLeave);
-        this.fClickHandler = this.FuncBind(this.HandleClick);
-        this.CreateCycleButtons();
-        this.ApplyImageSliderParams(this.CreateParams);
-        this.Handle.addEventListener("mouseenter", this.fMouseEnterHandler);
-        this.Handle.addEventListener("mouseleave", this.fMouseLeaveHandler);
-        this.Handle.addEventListener("click", this.fClickHandler);
-        this.DoAutoCycle(this.AutoCycle);
     }
 
     // ● protected
@@ -4263,6 +5249,53 @@ tp.ImageSlider = class extends tp.Component {
             Params = tp.Component.CreateParams(CreateParams);
         }
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fImages = [];
+        this.fSelectedIndex = -1;
+        this.fAutoCycleInterval = 6000;
+        this.fAutoCycle = true;
+        this.PauseOnHover = true;
+        this.ChangeOnClick = true;
+        this.fDisplayCycleButtons = true;
+        this.fMouseEnterHandler = this.FuncBind(this.HandleMouseEnter);
+        this.fMouseLeaveHandler = this.FuncBind(this.HandleMouseLeave);
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ImageSlider);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateCycleButtons();
+        this.Handle.addEventListener("mouseenter", this.fMouseEnterHandler);
+        this.Handle.addEventListener("mouseleave", this.fMouseLeaveHandler);
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+    /**
+     * Applies explicit create params to this image slider.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        this.ApplyImageSliderParams(Params);
+        this.DoAutoCycle(this.AutoCycle);
     }
     /**
      * Applies create parameters specific to tp.ImageSlider.
@@ -4587,6 +5620,11 @@ tp.ImageSlider = class extends tp.Component {
 
 // ● prototype
 /**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.ImageSlider.prototype.tpClass = "tp.ImageSlider";
+/**
  * Gets or sets whether auto-cycle pauses while the mouse is over the control.
  * @type {boolean}
  */
@@ -4680,11 +5718,6 @@ tp.IFrame = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = arguments.length > 1 ? tp.IFrame.CreateParams(CreateParams, Options) : tp.IFrame.CreateParams(CreateParams);
         super(Params);
-        this.tpClass = "tp.IFrame";
-        this.fLoadHandler = this.FuncBind(this.DocumentLoaded);
-        tp.AddClass(this.Handle, tp.Classes.Frame);
-        this.Handle.addEventListener("load", this.fLoadHandler);
-        this.ApplyIFrameParams(this.CreateParams);
     }
 
     // ● protected
@@ -4705,6 +5738,43 @@ tp.IFrame = class extends tp.Component {
         return Params;
     }
     /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fLoadHandler = this.FuncBind(this.DocumentLoaded);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        if (!(this.Handle instanceof HTMLIFrameElement))
+            tp.Throw("tp.IFrame requires an HTMLIFrameElement handle.");
+        tp.AddClass(this.Handle, tp.Classes.Frame);
+        tp.FrameRemoveBorder(this.Handle);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.Handle.addEventListener("load", this.fLoadHandler);
+    }
+    /**
+     * Applies explicit create params to this iframe.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        this.ApplyIFrameParams(Params);
+    }
+    /**
      * Applies create parameters specific to tp.IFrame.
      * @param {tp.CreateParams|object|null|undefined} Params The create parameters.
      * @returns {void}
@@ -4722,16 +5792,6 @@ tp.IFrame = class extends tp.Component {
             this.Content = Params.Content;
         if (!tp.IsNil(Params.Url))
             this.Url = Params.Url;
-    }
-    /**
-     * Notification called after handle creation.
-     * @returns {void}
-     */
-    OnHandleCreated() {
-        super.OnHandleCreated();
-        if (!(this.Handle instanceof HTMLIFrameElement))
-            tp.Throw("tp.IFrame requires an HTMLIFrameElement handle.");
-        tp.FrameRemoveBorder(this.Handle);
     }
     /**
      * Handles the iframe load event.
@@ -5020,14 +6080,6 @@ tp.Button = class extends tp.Component {
     constructor(CreateParams, Options) {
         var Params = arguments.length > 1 ? tp.Button.CreateParams(CreateParams, Options) : tp.Button.CreateParams(CreateParams);
         super(Params);
-        this.tpClass = "tp.Button";
-        this.fClickHandler = this.FuncBind(this.HandleClick);
-        tp.AddClass(this.Handle, tp.Classes.Button);
-        this.Handle.type = "button";
-        if (!tp.IsNil(Params.Command))
-            this.Command = Params.Command;
-        this.ReadCommand();
-        this.Handle.addEventListener("click", this.fClickHandler);
     }
 
     // ● protected
@@ -5050,6 +6102,45 @@ tp.Button = class extends tp.Component {
         if (!(Element instanceof HTMLElement))
             Params.ElementOrSelector = "button";
         return Params;
+    }
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.Button);
+        this.Handle.type = "button";
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.ReadCommand();
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+    /**
+     * Applies explicit create params to this button.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Command))
+            this.Command = Params.Command;
     }
     /**
      * Reads the command from data-command, when the property is empty.
@@ -7347,6 +8438,14 @@ tp.Window = class extends tp.Component {
         this.Handle.addEventListener("keydown", this.fKeyDownHandler);
     }
     /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fModal = false;
+    }
+    /**
      * Disposes internal resources.
      * @returns {void}
      */
@@ -9015,4 +10114,4406 @@ tp.ErrorNote = function (Message) {
 tp.SuccessNote = function (Message) {
     return tp.Notify(Message, tp.NotificationType.Success);
 };
+
+// ● 210-control.js
+// ● control
+/**
+ * The ultimate ancestor class of data-bindable controls.
+ * Controls are components that may bind to a tp.DataSource through DataField and DataValueProperty.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ */
+tp.Control = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a control.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● static public
+    /**
+     * Adds a required mark beside a control.
+     * @param {tp.Control} Control The control.
+     * @param {HTMLElement|null|undefined} Mark The existing mark element.
+     * @returns {HTMLElement|null} Returns the mark element.
+     */
+    static AddRequiredMark(Control, Mark) {
+        if (!(Mark instanceof HTMLElement) && Control instanceof tp.Control && Control.ParentHandle instanceof HTMLElement) {
+            Mark = Control.Document.createElement("span");
+            Control.ParentHandle.appendChild(Mark);
+            Mark.className = tp.Classes.RequiredMark;
+            Mark.innerHTML = "*";
+            tp.Display(Mark, "none");
+        }
+        return Mark instanceof HTMLElement ? Mark : null;
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.None;
+        this.fDataValueProperty = "";
+        this.fDataSource = null;
+        this.fDataField = "";
+        this.fRequired = false;
+        this.fReadOnly = false;
+        this.TableName = "";
+        this.elRequiredMark = null;
+        this.ReadingDataValue = false;
+        this.WritingDataValue = false;
+    }
+    /**
+     * Applies explicit create params to this control.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.TableName))
+            this.TableName = String(Params.TableName);
+        if (!tp.IsNil(Params.elRequiredMark))
+            this.elRequiredMark = Params.elRequiredMark;
+        if (!tp.IsNil(Params.DataField))
+            this.DataField = String(Params.DataField);
+        if (!tp.IsNil(Params.Required))
+            this.Required = Params.Required === true;
+        if (!tp.IsNil(Params.ReadOnly))
+            this.ReadOnly = Params.ReadOnly === true;
+        if (!tp.IsNil(Params.DataSource))
+            this.DataSource = Params.DataSource;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        if (this.Handle)
+            this.Handle.tabIndex = 0;
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+    }
+    /**
+     * Displays or hides the required mark when Required changes.
+     * This is intentionally minimal until tp.CtrlRow and tp.Ui exist.
+     * @protected
+     * @param {Element|null|undefined} Element The element whose value is required.
+     * @returns {void}
+     */
+    SetRequiredMark(Element) {
+        if (Element && "required" in Element)
+            Element.required = this.Required === true;
+        if (this.elRequiredMark instanceof HTMLElement)
+            this.elRequiredMark.style.display = this.Required === true ? "" : "none";
+    }
+
+    // ● properties
+    /**
+     * Gets the property name used as the control data value.
+     * @returns {string} Returns the data value property name.
+     */
+    get DataValueProperty() {
+        return !tp.IsBlank(this.fDataValueProperty) ? this.fDataValueProperty : "";
+    }
+    /**
+     * Gets the data-binding mode this control supports.
+     * @returns {number} Returns a tp.ControlBindMode value.
+     */
+    get DataBindMode() {
+        return this.fDataBindMode;
+    }
+    /**
+     * Returns true when this control supports simple data binding.
+     * @returns {boolean} Returns true for simple data binding.
+     */
+    get IsDataBindSimple() {
+        return this.DataBindMode === tp.ControlBindMode.Simple;
+    }
+    /**
+     * Returns true when this control supports list data binding.
+     * @returns {boolean} Returns true for list data binding.
+     */
+    get IsDataBindList() {
+        return this.DataBindMode === tp.ControlBindMode.List;
+    }
+    /**
+     * Returns true when this control supports grid data binding.
+     * @returns {boolean} Returns true for grid data binding.
+     */
+    get IsDataBindGrid() {
+        return this.DataBindMode === tp.ControlBindMode.Grid;
+    }
+    /**
+     * Gets or sets the control text.
+     * @returns {string} Returns the text.
+     */
+    get Text() {
+        return super.Text;
+    }
+    /**
+     * Gets or sets the control text.
+     * @param {*} Value The text value.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.Handle)
+            tp.val(this.Handle, "");
+        super.Text = Value;
+    }
+    /**
+     * Gets or sets the data source this control is bound to.
+     * @returns {tp.DataSource|null} Returns the data source.
+     */
+    get DataSource() {
+        return this.fDataSource;
+    }
+    /**
+     * Gets or sets the data source this control is bound to.
+     * @param {tp.DataSource|tp.DataTable|null|undefined} Value The data source or table.
+     * @returns {void}
+     */
+    set DataSource(Value) {
+        var WasDataBound;
+        var IsRemoved;
+        if (Value !== this.fDataSource) {
+            WasDataBound = this.IsDataBound;
+            this.OnDataSourceChanging(Value);
+            if (Value instanceof tp.DataTable)
+                Value = new tp.DataSource(Value);
+            this.fDataSource = Value instanceof tp.DataSource ? Value : null;
+            IsRemoved = !this.fDataSource && WasDataBound === true;
+            if (IsRemoved)
+                this.OnClearDataDisplay();
+            this.OnDataSourceChanged();
+            if (this.fDataSource) {
+                this.Bind();
+                if (this.IsDataBound === true)
+                    this.OnBindCompleted();
+            }
+        }
+    }
+    /**
+     * Gets or sets the bound data field name.
+     * @returns {string} Returns the field name.
+     */
+    get DataField() {
+        return this.fDataField;
+    }
+    /**
+     * Gets or sets the bound data field name.
+     * @param {string} Value The field name.
+     * @returns {void}
+     */
+    set DataField(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (Value !== this.DataField) {
+            this.fDataField = Value;
+            this.OnDataFieldChanged();
+            this.Bind();
+        }
+    }
+    /**
+     * Returns true if this control is bound to a data source.
+     * @returns {boolean} Returns true when data-bound.
+     */
+    get IsDataBound() {
+        if (!this.DataSource)
+            return false;
+        if (this.IsDataBindSimple || this.IsDataBindList)
+            return !tp.IsBlank(this.DataField) && !tp.IsBlank(this.DataValueProperty) && this.DataColumn instanceof tp.DataColumn;
+        if (this.IsDataBindGrid)
+            return true;
+        return false;
+    }
+    /**
+     * Gets the data column this control is bound to.
+     * @returns {tp.DataColumn|null} Returns the data column or null.
+     */
+    get DataColumn() {
+        if (this.DataSource && !tp.IsBlank(this.DataField))
+            return this.DataSource.Table.FindColumn(this.DataField);
+        return null;
+    }
+    /**
+     * Gets or sets whether the control requires a value.
+     * @returns {boolean} Returns true when required.
+     */
+    get Required() {
+        return this.fRequired === true;
+    }
+    /**
+     * Gets or sets whether the control requires a value.
+     * @param {boolean} Value True when required.
+     * @returns {void}
+     */
+    set Required(Value) {
+        Value = Value === true;
+        if (this.Required !== Value) {
+            this.fRequired = Value;
+            this.OnRequiredChanged();
+        }
+    }
+    /**
+     * Gets or sets whether the control is read-only.
+     * @returns {boolean} Returns true when read-only.
+     */
+    get ReadOnly() {
+        return this.fReadOnly === true;
+    }
+    /**
+     * Gets or sets whether the control is read-only.
+     * @param {boolean} Value True when read-only.
+     * @returns {void}
+     */
+    set ReadOnly(Value) {
+        Value = Value === true;
+        if (this.ReadOnly !== Value) {
+            this.fReadOnly = Value;
+            this.OnReadOnlyChanged();
+        }
+    }
+    /**
+     * Gets or sets a single character shortcut key.
+     * @returns {string} Returns the access key.
+     */
+    get AccessKey() {
+        return this.Handle ? this.Handle.accessKey : "";
+    }
+    /**
+     * Gets or sets a single character shortcut key.
+     * @param {string} Value The access key.
+     * @returns {void}
+     */
+    set AccessKey(Value) {
+        if (this.Handle)
+            this.Handle.accessKey = Value;
+    }
+
+    // ● event triggers
+    /**
+     * Called before the data source is assigned.
+     * @protected
+     * @param {tp.DataSource|tp.DataTable|null|undefined} NewDataSource The new data source.
+     * @returns {void}
+     */
+    OnDataSourceChanging(NewDataSource) {
+        this.Trigger("DataSourceChanging", { NewDataSource: NewDataSource });
+        if (this.DataSource)
+            this.DataSource.RemoveDataListener(this);
+    }
+    /**
+     * Called after the data source is assigned.
+     * @protected
+     * @returns {void}
+     */
+    OnDataSourceChanged() {
+        if (this.DataSource) {
+            this.DataSource.AddDataListener(this);
+            this.Trigger("DataSourceChanged");
+        }
+    }
+    /**
+     * Called after DataField changes.
+     * @protected
+     * @returns {void}
+     */
+    OnDataFieldChanged() {
+        this.Trigger("DataFieldChanged");
+    }
+    /**
+     * Called when the control should clear its data display.
+     * @protected
+     * @returns {void}
+     */
+    OnClearDataDisplay() {
+        this.Trigger("ClearDataDisplay");
+    }
+    /**
+     * Called after binding completes.
+     * @protected
+     * @returns {void}
+     */
+    OnBindCompleted() {
+        this.Trigger("BindCompleted");
+    }
+    /**
+     * Called after Required changes.
+     * @protected
+     * @returns {void}
+     */
+    OnRequiredChanged() {
+        this.Trigger("RequiredChanged");
+    }
+    /**
+     * Called after ReadOnly changes.
+     * @protected
+     * @returns {void}
+     */
+    OnReadOnlyChanged() {
+        this.Trigger("ReadOnlyChanged", {});
+    }
+
+    // ● data source listener
+    /**
+     * Notification called when a row is created.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowCreated(Table, Row) {
+    }
+    /**
+     * Notification called when a row is added.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowAdded(Table, Row) {
+        if (this.IsDataBindSimple || this.IsDataBindList)
+            this.ReadDataValue();
+    }
+    /**
+     * Notification called when a row is modified.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @param {tp.DataColumn} Column The data column.
+     * @param {*} OldValue The old value.
+     * @param {*} NewValue The new value.
+     * @returns {void}
+     */
+    DataSourceRowModified(Table, Row, Column, OldValue, NewValue) {
+        if (this.IsDataBindSimple || this.IsDataBindList)
+            this.ReadDataValue();
+    }
+    /**
+     * Notification called when a row is removed.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowRemoved(Table, Row) {
+    }
+    /**
+     * Notification called when position changes.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The current row.
+     * @param {number} Position The new position.
+     * @returns {void}
+     */
+    DataSourcePositionChanged(Table, Row, Position) {
+        if (this.IsDataBindSimple || this.IsDataBindList)
+            this.ReadDataValue();
+    }
+    /**
+     * Notification called after sorting.
+     * @returns {void}
+     */
+    DataSourceSorted() {
+    }
+    /**
+     * Notification called after filtering.
+     * @returns {void}
+     */
+    DataSourceFiltered() {
+    }
+    /**
+     * Notification called after datasource update.
+     * @returns {void}
+     */
+    DataSourceUpdated() {
+        if (this.IsDataBindSimple || this.IsDataBindList)
+            this.ReadDataValue();
+    }
+
+    // ● public
+    /**
+     * Formats a value according to this control data column.
+     * @param {*} Value The value to format.
+     * @returns {string|*} Returns the formatted value.
+     */
+    Format(Value) {
+        return this.DataColumn instanceof tp.DataColumn ? this.DataColumn.Format(Value, this.IsDataBindList || this.IsDataBindGrid) : "";
+    }
+    /**
+     * Parses text according to this control data column.
+     * @param {*} Value The value to parse.
+     * @returns {*} Returns the parsed value.
+     */
+    Parse(Value) {
+        if (this.DataColumn instanceof tp.DataColumn && !tp.IsEmpty(Value)) {
+            Value = !tp.IsString(Value) ? Value.toString() : Value;
+            return this.DataColumn.Parse(Value);
+        }
+        return null;
+    }
+    /**
+     * Converts a data-source value to a control property value.
+     * @param {*} Value The data-source value.
+     * @returns {*} Returns the control property value.
+     */
+    DataValueToDataProperty(Value) {
+        return Value;
+    }
+    /**
+     * Converts a control property value to a data-source value.
+     * @param {*} Value The control property value.
+     * @returns {*} Returns the data-source value.
+     */
+    DataPropertyToDataValue(Value) {
+        return Value;
+    }
+    /**
+     * Reads the value from the data source and assigns it to DataValueProperty.
+     * @returns {void}
+     */
+    ReadDataValue() {
+        var Value;
+        if (this.ReadingDataValue === true || this.WritingDataValue === true)
+            return;
+        if (this.IsDataBound && this.DataSource.Position >= 0) {
+            this.ReadingDataValue = true;
+            try {
+                Value = this.DataSource.Get(this.DataField);
+                Value = this.DataValueToDataProperty(Value);
+                this[this.DataValueProperty] = Value;
+            } finally {
+                this.ReadingDataValue = false;
+            }
+        }
+    }
+    /**
+     * Writes DataValueProperty to the data source.
+     * @returns {void}
+     */
+    WriteDataValue() {
+        var Value;
+        if (this.ReadingDataValue === true || this.WritingDataValue === true)
+            return;
+        if (this.IsDataBound && this.DataSource.Position >= 0) {
+            this.WritingDataValue = true;
+            try {
+                Value = this[this.DataValueProperty];
+                Value = this.DataPropertyToDataValue(Value);
+                this.DataSource.Set(this.DataField, Value);
+            } finally {
+                this.WritingDataValue = false;
+            }
+        }
+    }
+    /**
+     * Returns true if this control is valid.
+     * @returns {boolean} Returns true when valid.
+     */
+    CheckValidity() {
+        return tp.IsValidatableElement(this.Handle) ? this.Handle.checkValidity() : true;
+    }
+    /**
+     * Sets a custom validation message.
+     * @param {string} MessageText The validation message.
+     * @returns {void}
+     */
+    SetValidationMessage(MessageText) {
+        if (tp.IsValidatableElement(this.Handle))
+            this.Handle.setCustomValidity(MessageText);
+    }
+};
+
+// ● 212-list-control.js
+// ● list control
+/**
+ * Base class for list controls such as tp.ListBox and tp.ComboBox.
+ *
+ * The control supports simple item arrays, object arrays, tp.DataTable, and tp.DataSource list sources.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - SelectedIndexChanged
+ */
+tp.ListControl = class extends tp.Control {
+    // ● constructor
+    /**
+     * Creates a list control.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.List;
+        this.fDataValueProperty = "SelectedValue";
+        this.fSelectedIndex = -1;
+        this.fSelectedValue = null;
+        this.fSelectedItem = null;
+        this.fItems = new tp.List();
+        this.fListSource = null;
+        this.fListSourceName = "";
+        this.fListValueField = "";
+        this.fListDisplayField = "";
+        this.fItemHeight = null;
+        this.fCanPostDataValue = true;
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.fItems.On("Changing", this.ListChanging, this);
+        this.fItems.On("Changed", this.ListChanged, this);
+        this.fItems.EventsEnabled = true;
+        this.fListSourceListener = this.CreateListSourceListener();
+    }
+    /**
+     * Applies explicit create params to this list control.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.ListValueField))
+            this.ListValueField = Params.ListValueField;
+        if (!tp.IsNil(Params.ListDisplayField))
+            this.ListDisplayField = Params.ListDisplayField;
+        if (!tp.IsNil(Params.ListSourceName))
+            this.ListSourceName = Params.ListSourceName;
+        if (!tp.IsNil(Params.ItemHeight))
+            this.ItemHeight = Params.ItemHeight;
+        if (!tp.IsNil(Params.List))
+            this.fItems.AddRange(Params.List);
+        if (!tp.IsNil(Params.ListItems))
+            this.fItems.AddRange(Params.ListItems);
+        if (!tp.IsNil(Params.Items))
+            this.fItems.AddRange(Params.Items);
+        if (!tp.IsNil(Params.ListSource))
+            this.ListSource = Params.ListSource;
+        if (!tp.IsNil(Params.SelectedValue))
+            this.SelectedValue = Params.SelectedValue;
+        else if (!tp.IsNil(Params.SelectedItem))
+            this.SelectedItem = Params.SelectedItem;
+        else if (!tp.IsNil(Params.SelectedIndex))
+            this.SelectedIndex = Params.SelectedIndex;
+        else if (!this.IsDataBound && this.Items.length > 0 && this.SelectedIndex < 0)
+            this.SelectedIndex = 0;
+        this.SetScrollerList();
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fListSource instanceof tp.DataSource && this.fListSourceListener)
+            this.fListSource.RemoveDataListener(this.fListSourceListener);
+        if (this.fItems) {
+            this.fItems.Off("Changing", this.ListChanging);
+            this.fItems.Off("Changed", this.ListChanged);
+        }
+        if (this.fScroller && tp.IsFunction(this.fScroller.Dispose))
+            this.fScroller.Dispose();
+        this.fListSourceListener = null;
+        this.fListSource = null;
+        this.fScroller = null;
+        this.fContainer = null;
+        super.DoDispose();
+    }
+    /**
+     * Creates a listener for ListSource notifications.
+     * @protected
+     * @returns {tp.DataSourceListener} Returns the listener.
+     */
+    CreateListSourceListener() {
+        var Listener = new tp.DataSourceListener(this);
+        var Self = this;
+        Listener.DataSourceRowCreated = function (Table, Row) { Self.ListSourceRowCreated(Table, Row); };
+        Listener.DataSourceRowAdded = function (Table, Row) { Self.ListSourceRowAdded(Table, Row); };
+        Listener.DataSourceRowModified = function (Table, Row, Column, OldValue, NewValue) { Self.ListSourceRowModified(Table, Row, Column, OldValue, NewValue); };
+        Listener.DataSourceRowRemoved = function (Table, Row) { Self.ListSourceRowRemoved(Table, Row); };
+        Listener.DataSourcePositionChanged = function (Table, Row, Position) { Self.ListSourcePositionChanged(Table, Row, Position); };
+        Listener.DataSourceSorted = function () { Self.ListSourceSorted(); };
+        Listener.DataSourceFiltered = function () { Self.ListSourceFiltered(); };
+        Listener.DataSourceUpdated = function () { Self.ListSourceUpdated(); };
+        return Listener;
+    }
+    /**
+     * Sets the visual text of the concrete control.
+     * @protected
+     * @param {string} Text The text.
+     * @returns {void}
+     */
+    DoSetText(Text) {
+    }
+    /**
+     * Updates the virtual scroller.
+     * @protected
+     * @returns {void}
+     */
+    UpdateScroller() {
+        if (this.fScroller)
+            this.fScroller.Update();
+    }
+    /**
+     * Applies the current item list to the virtual scroller.
+     * @protected
+     * @returns {void}
+     */
+    SetScrollerList() {
+        if (this.fScroller) {
+            this.fScroller.RowHeight = this.ItemHeight;
+            this.fScroller.SetRowList(this.Items);
+            this.fScroller.Update();
+        }
+    }
+    /**
+     * Returns true if the list contains a field or property.
+     * @protected
+     * @param {string} FieldName The field name.
+     * @returns {boolean} Returns true when found.
+     */
+    ListContainsField(FieldName) {
+        var Item;
+        if (this.ListSource instanceof tp.DataSource && this.ListSource.Table instanceof tp.DataTable)
+            return this.ListSource.Table.ContainsColumn(FieldName);
+        if (this.Items.length > 0) {
+            Item = this.Items[0];
+            return !tp.IsEmpty(Item) && !tp.IsPrimitive(Item) && FieldName in Item;
+        }
+        return false;
+    }
+    /**
+     * Returns the list value field.
+     * @protected
+     * @returns {string} Returns the field name.
+     */
+    GetListValueField() {
+        var Result = this.ListValueField;
+        if (tp.IsBlank(Result) && this.ListContainsField("Id"))
+            Result = "Id";
+        return Result;
+    }
+    /**
+     * Returns the list display field.
+     * @protected
+     * @returns {string} Returns the field name.
+     */
+    GetListDisplayField() {
+        var Result = this.ListDisplayField;
+        if (tp.IsBlank(Result) && this.ListContainsField("Name"))
+            Result = "Name";
+        return Result;
+    }
+    /**
+     * Returns the display text of an item.
+     * @protected
+     * @param {*} Item The item.
+     * @returns {string} Returns the item text.
+     */
+    GetItemText(Item) {
+        var DisplayField;
+        if (!tp.IsEmpty(Item)) {
+            if (tp.IsPrimitive(Item))
+                return Item.toString();
+            DisplayField = this.GetListDisplayField();
+            if (!tp.IsBlank(DisplayField)) {
+                if (this.ListSource instanceof tp.DataSource && Item instanceof tp.DataRow)
+                    return this.ListSource.GetValue(Item, DisplayField, "");
+                return !tp.IsNil(Item[DisplayField]) ? String(Item[DisplayField]) : "";
+            }
+            if (tp.IsFunction(Item.ToString))
+                return Item.ToString();
+        }
+        return "";
+    }
+    /**
+     * Returns the value of an item.
+     * @protected
+     * @param {*} Item The item.
+     * @returns {*} Returns the item value.
+     */
+    GetItemValue(Item) {
+        var ValueField;
+        if (!tp.IsEmpty(Item)) {
+            if (tp.IsPrimitive(Item))
+                return Item;
+            ValueField = this.GetListValueField();
+            if (!tp.IsBlank(ValueField)) {
+                if (this.ListSource instanceof tp.DataSource && Item instanceof tp.DataRow)
+                    return this.ListSource.GetValue(Item, ValueField, null);
+                return Item[ValueField];
+            }
+        }
+        return null;
+    }
+    /**
+     * Returns true if all items are non-primitive objects.
+     * @protected
+     * @returns {boolean} Returns true when the list contains objects.
+     */
+    IsObjectItemList() {
+        return tp.All(this.Items, function (Item) {
+            return !tp.IsEmpty(Item) && !tp.IsPrimitive(Item);
+        });
+    }
+    /**
+     * Returns the index of an item by text.
+     * @protected
+     * @param {string} Text The text.
+     * @returns {number} Returns the index or -1.
+     */
+    IndexOfText(Text) {
+        var Index;
+        var List;
+        var ItemText;
+        if (this.IsObjectItemList() && !tp.IsBlank(this.GetListDisplayField())) {
+            List = this.Items;
+            for (Index = 0; Index < List.length; Index++) {
+                ItemText = this.GetItemText(List[Index]);
+                if (tp.IsSameText(Text, ItemText))
+                    return Index;
+            }
+            return -1;
+        }
+        return tp.ListIndexOfText(this.Items, Text);
+    }
+    /**
+     * Called when SelectedIndex changes.
+     * @protected
+     * @returns {void}
+     */
+    DoSelectedIndexChanged() {
+        var Item = this.Items[this.SelectedIndex];
+        this.fSelectedItem = Item;
+        this.DoSetText(this.GetItemText(Item));
+        if (!tp.IsEmpty(Item))
+            this.fSelectedValue = tp.IsPrimitive(Item) ? Item : this.GetItemValue(Item);
+        else {
+            this.fSelectedValue = null;
+            this.DoSetText("");
+        }
+        this.DoPost();
+        this.OnSelectedIndexChanged();
+    }
+    /**
+     * Called when SelectedValue changes.
+     * @protected
+     * @returns {void}
+     */
+    DoSelectedValueChanged() {
+        var Index;
+        var Item;
+        var Value;
+        var Found = false;
+        var IsObjectList;
+        if (this.Items.length > 0) {
+            IsObjectList = this.IsObjectItemList();
+            if (IsObjectList) {
+                for (Index = 0; Index < this.Items.length; Index++) {
+                    Item = this.Items[Index];
+                    Value = this.GetItemValue(Item);
+                    if (Value === this.SelectedValue) {
+                        this.fSelectedIndex = Index;
+                        this.fSelectedItem = Item;
+                        this.DoSetText(this.GetItemText(Item));
+                        Found = true;
+                        break;
+                    }
+                }
+                if (!Found) {
+                    this.fSelectedIndex = -1;
+                    this.fSelectedItem = null;
+                    this.DoSetText("");
+                }
+            } else {
+                this.fSelectedIndex = this.Items.indexOf(this.SelectedValue);
+                this.fSelectedItem = this.SelectedValue;
+                this.DoSetText(tp.IsPrimitive(this.SelectedValue) ? this.SelectedValue.toString() : "");
+            }
+        } else {
+            this.fSelectedIndex = -1;
+            this.fSelectedItem = null;
+            this.DoSetText("");
+        }
+        this.DoPost();
+        this.OnSelectedIndexChanged();
+    }
+    /**
+     * Called when SelectedItem changes.
+     * @protected
+     * @returns {void}
+     */
+    DoSelectedItemChanged() {
+        var Item = this.SelectedItem;
+        if (!tp.IsEmpty(Item)) {
+            this.fSelectedValue = this.IsObjectItemList() ? this.GetItemValue(Item) : Item;
+            this.fSelectedIndex = this.Items.indexOf(Item);
+            this.DoSetText(this.GetItemText(Item));
+        } else {
+            this.fSelectedIndex = -1;
+            this.fSelectedValue = null;
+            this.DoSetText("");
+        }
+        this.DoPost();
+        this.OnSelectedIndexChanged();
+    }
+    /**
+     * Writes the selection to the bound data source when allowed.
+     * @protected
+     * @returns {void}
+     */
+    DoPost() {
+        if (this.IsDataBound && this.fCanPostDataValue === true)
+            this.WriteDataValue();
+    }
+    /**
+     * Clears selected item, index, and value.
+     * @protected
+     * @param {boolean} PostFlag True to post the change to the data source.
+     * @returns {void}
+     */
+    DoClearValue(PostFlag) {
+        this.fSelectedIndex = -1;
+        this.fSelectedValue = null;
+        this.fSelectedItem = null;
+        if (PostFlag === true)
+            this.DoPost();
+    }
+    /**
+     * Adds or removes visual selection indication.
+     * @protected
+     * @param {boolean} Flag True to set indication.
+     * @returns {void}
+     */
+    SetSelectionIndication(Flag) {
+        this.SetScrollerIndexIndication(this.SelectedIndex, Flag);
+    }
+    /**
+     * Adds or removes visual indication for a specified item index.
+     * @protected
+     * @param {number} Index The item index.
+     * @param {boolean} Flag True to set indication.
+     * @returns {void}
+     */
+    SetScrollerIndexIndication(Index, Flag) {
+        var Element;
+        var List;
+        var i;
+        if (!this.fScroller)
+            return;
+        if (Flag === true) {
+            Element = this.GetElementByIndex(Index);
+            if (Element instanceof HTMLElement)
+                tp.AddClass(Element, tp.Classes.Selected);
+        } else {
+            List = tp.SelectAll(this.fScroller.Container, "." + tp.Classes.Selected);
+            for (i = 0; i < List.length; i++)
+                tp.RemoveClass(List[i], tp.Classes.Selected);
+        }
+    }
+    /**
+     * Scrolls a row index into view when it is outside the virtual scroller viewport.
+     * @protected
+     * @param {number} Index The item index.
+     * @returns {void}
+     */
+    ScrollIndexIntoView(Index) {
+        var RowTop;
+        var RowBottom;
+        var ViewTop;
+        var ViewBottom;
+        var ViewHeight;
+        if (!this.fScroller || !tp.InRange(this.Items, Index))
+            return;
+        ViewHeight = this.fScroller.Viewport.getBoundingClientRect().height;
+        RowTop = Index * this.ItemHeight;
+        RowBottom = RowTop + this.ItemHeight;
+        ViewTop = this.fScroller.Viewport.scrollTop;
+        ViewBottom = ViewTop + ViewHeight;
+        if (RowTop < ViewTop)
+            this.fScroller.Viewport.scrollTop = RowTop;
+        else if (RowBottom > ViewBottom)
+            this.fScroller.Viewport.scrollTop = RowBottom - ViewHeight;
+        this.fScroller.Render();
+        this.SetScrollerIndexIndication(Index, true);
+    }
+    /**
+     * Scrolls the selected row into view when it is outside the virtual scroller viewport.
+     * @protected
+     * @returns {void}
+     */
+    ScrollSelectedIndexIntoView() {
+        this.ScrollIndexIntoView(this.SelectedIndex);
+    }
+    /**
+     * Calculates a new scroller index by a delta.
+     * @protected
+     * @param {number} Index The current index.
+     * @param {number} Delta The index delta.
+     * @returns {number} Returns the new index.
+     */
+    GetMovedScrollerIndex(Index, Delta) {
+        if (!this.fScroller || this.Items.length === 0)
+            return -1;
+        Index = Index < 0 ? 0 : Index + Delta;
+        return Math.max(0, Math.min(Index, this.Items.length - 1));
+    }
+    /**
+     * Moves the selected item by a delta.
+     * @protected
+     * @param {number} Delta The selection delta.
+     * @returns {void}
+     */
+    MoveSelectedIndex(Delta) {
+        var Index;
+        if (!this.fScroller || this.Items.length === 0)
+            return;
+        Index = this.GetMovedScrollerIndex(this.SelectedIndex, Delta);
+        this.SelectedIndex = Index;
+        this.ScrollSelectedIndexIntoView();
+    }
+    /**
+     * Handles a keyboard request to accept the current scroller selection.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {boolean} Returns true when handled.
+     */
+    AcceptScrollerSelection(e) {
+        return false;
+    }
+    /**
+     * Handles virtual scroller keyboard navigation.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {boolean} Returns true when handled.
+     */
+    HandleScrollerKeyDown(e) {
+        if (!(e instanceof KeyboardEvent) || this.Enabled !== true || this.ReadOnly === true)
+            return false;
+        if (tp.IsKey(e, tp.Keys.Up)) {
+            tp.CancelEvent(e);
+            this.MoveSelectedIndex(-1);
+            return true;
+        }
+        if (tp.IsKey(e, tp.Keys.Down)) {
+            tp.CancelEvent(e);
+            this.MoveSelectedIndex(1);
+            return true;
+        }
+        if (tp.IsKey(e, tp.Keys.Enter) || tp.IsKey(e, tp.Keys.Space)) {
+            if (this.AcceptScrollerSelection(e) === true) {
+                tp.CancelEvent(e);
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Notification from the item list before it changes.
+     * @protected
+     * @param {tp.ListEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    ListChanging(Args) {
+        if (this.ListSource instanceof tp.DataSource)
+            tp.Throw("ListItems modification not allowed.");
+    }
+    /**
+     * Notification from the item list after it changes.
+     * @protected
+     * @param {tp.ListEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    ListChanged(Args) {
+        switch (Args.Action) {
+            case tp.ListChangeType.Insert:
+                this.UpdateScroller();
+                break;
+            case tp.ListChangeType.Remove:
+                if (Args.Index === this.SelectedIndex)
+                    this.SelectedIndex = 0;
+                this.UpdateScroller();
+                break;
+            case tp.ListChangeType.Clear:
+                this.SelectedValue = null;
+                this.SetScrollerList();
+                break;
+            case tp.ListChangeType.Assign:
+                if (this.IsDataBound) {
+                    this.fCanPostDataValue = false;
+                    try {
+                        this.DoSelectedValueChanged();
+                    } finally {
+                        this.fCanPostDataValue = true;
+                    }
+                } else {
+                    this.SelectedValue = null;
+                    if (this.Items.length > 0)
+                        this.SelectedIndex = 0;
+                }
+                this.SetScrollerList();
+                break;
+            case tp.ListChangeType.Update:
+            case tp.ListChangeType.AddRange:
+                if (this.IsDataBound) {
+                    this.fCanPostDataValue = false;
+                    try {
+                        this.DoSelectedValueChanged();
+                    } finally {
+                        this.fCanPostDataValue = true;
+                    }
+                }
+                this.SetScrollerList();
+                break;
+        }
+    }
+    /**
+     * Notification from ListSource when a row is created.
+     * @protected
+     * @param {tp.DataTable} Table The table.
+     * @param {tp.DataRow} Row The row.
+     * @returns {void}
+     */
+    ListSourceRowCreated(Table, Row) {
+    }
+    /**
+     * Notification from ListSource when a row is added.
+     * @protected
+     * @param {tp.DataTable} Table The table.
+     * @param {tp.DataRow} Row The row.
+     * @returns {void}
+     */
+    ListSourceRowAdded(Table, Row) {
+        this.UpdateScroller();
+    }
+    /**
+     * Notification from ListSource when a row is modified.
+     * @protected
+     * @param {tp.DataTable} Table The table.
+     * @param {tp.DataRow} Row The row.
+     * @param {tp.DataColumn} Column The column.
+     * @param {*} OldValue The old value.
+     * @param {*} NewValue The new value.
+     * @returns {void}
+     */
+    ListSourceRowModified(Table, Row, Column, OldValue, NewValue) {
+        this.UpdateScroller();
+    }
+    /**
+     * Notification from ListSource when a row is removed.
+     * @protected
+     * @param {tp.DataTable} Table The table.
+     * @param {tp.DataRow} Row The row.
+     * @returns {void}
+     */
+    ListSourceRowRemoved(Table, Row) {
+        var Index = this.Items.indexOf(Row);
+        this.UpdateScroller();
+        if (Index === this.SelectedIndex)
+            this.SelectedIndex = 0;
+    }
+    /**
+     * Notification from ListSource when position changes.
+     * @protected
+     * @param {tp.DataTable} Table The table.
+     * @param {tp.DataRow} Row The row.
+     * @param {number} Position The position.
+     * @returns {void}
+     */
+    ListSourcePositionChanged(Table, Row, Position) {
+    }
+    /**
+     * Notification from ListSource after sorting.
+     * @protected
+     * @returns {void}
+     */
+    ListSourceSorted() {
+        this.UpdateScroller();
+    }
+    /**
+     * Notification from ListSource after filtering.
+     * @protected
+     * @returns {void}
+     */
+    ListSourceFiltered() {
+        if (!tp.InRange(this.Items, this.SelectedIndex))
+            this.SelectedIndex = 0;
+        this.SetScrollerList();
+    }
+    /**
+     * Notification from ListSource after update.
+     * @protected
+     * @returns {void}
+     */
+    ListSourceUpdated() {
+        this.SetScrollerList();
+    }
+    /**
+     * Notification from ListSource after binding.
+     * @protected
+     * @returns {void}
+     */
+    ListSourceBind() {
+        this.SetScrollerList();
+        this.DoSelectedValueChanged();
+    }
+    /**
+     * Returns a rendered row element by item index.
+     * @protected
+     * @param {number} Index The item index.
+     * @returns {HTMLElement|null} Returns the element or null.
+     */
+    GetElementByIndex(Index) {
+        var Selector;
+        var Element;
+        if (this.fScroller && tp.InRange(this.Items, Index)) {
+            Selector = tp.Format("div[data-index=\"{0}\"]", Index);
+            Element = tp.Select(this.fScroller.Container, Selector);
+            if (Element instanceof HTMLElement)
+                return Element;
+        }
+        return null;
+    }
+    /**
+     * Scrolls by a single row and moves focus when possible.
+     * @protected
+     * @param {boolean} Up True to scroll up.
+     * @returns {void}
+     */
+    RowScroll(Up) {
+        var Element;
+        var Index;
+        var PageHeight;
+        var RowRect;
+        var ViewRect;
+        var Element2;
+        if (!this.fScroller || this.Items.length === 0)
+            return;
+        Element = this.Document.activeElement;
+        if (!(Element instanceof HTMLElement) || !tp.ContainsElement(this.fScroller.Container, Element))
+            return;
+        Index = tp.StrToInt(tp.Data(Element, "index"), -1);
+        Index = Up === true ? Index - 1 : Index + 1;
+        if (Index < 0)
+            return;
+        PageHeight = this.fScroller.Viewport.getBoundingClientRect().height;
+        RowRect = Element.getBoundingClientRect();
+        ViewRect = this.fScroller.Viewport.getBoundingClientRect();
+        if (RowRect.top < ViewRect.top || RowRect.bottom > ViewRect.top + PageHeight)
+            this.PageScroll(Up);
+        Element2 = this.GetElementByIndex(Index);
+        if (Element2 instanceof HTMLElement) {
+            this.fScroller.Viewport.focus();
+            Element.blur();
+            Element2.focus();
+        }
+    }
+    /**
+     * Scrolls by a page.
+     * @protected
+     * @param {boolean} Up True to scroll up.
+     * @returns {void}
+     */
+    PageScroll(Up) {
+        var PageHeight;
+        var ScrollTop;
+        if (!this.fScroller || this.Items.length === 0)
+            return;
+        PageHeight = this.fScroller.Viewport.getBoundingClientRect().height;
+        ScrollTop = Up === true ? this.fScroller.Viewport.scrollTop - PageHeight : this.fScroller.Viewport.scrollTop + PageHeight;
+        this.fScroller.Viewport.scrollTop = tp.Truncate(ScrollTop);
+        this.fScroller.Container.focus();
+    }
+    /**
+     * Scrolls to start or end.
+     * @protected
+     * @param {boolean} Start True to scroll to start.
+     * @returns {void}
+     */
+    ControlScroll(Start) {
+        var PageHeight;
+        var ScrollTop;
+        if (!this.fScroller || this.Items.length === 0)
+            return;
+        PageHeight = this.fScroller.Viewport.getBoundingClientRect().height;
+        ScrollTop = Start === true ? 1 : this.ItemHeight * this.Items.length - PageHeight;
+        this.fScroller.Viewport.scrollTop = tp.Truncate(ScrollTop);
+        this.fScroller.Container.focus();
+    }
+    /**
+     * Renders a virtual scroller row.
+     * @protected
+     * @param {*} Row The row item.
+     * @param {number} RowIndex The row index.
+     * @returns {HTMLElement} Returns the row element.
+     */
+    ItemRenderFunc(Row, RowIndex) {
+        var Result = this.Document.createElement("div");
+        Result.className = tp.Classes.Item;
+        Result.tabIndex = -1;
+        tp.SetElementInfo(Result, {
+            Item: Row,
+            Index: RowIndex
+        });
+        tp.Data(Result, "index", RowIndex);
+        Result.innerHTML = this.GetItemText(Row);
+        return Result;
+    }
+    /**
+     * Virtual scroller callback before and after rendering.
+     * @protected
+     * @param {number} Phase The render phase. 1 is before, 2 is after.
+     * @returns {void}
+     */
+    ScrollFunc(Phase) {
+        if (Phase === 1)
+            this.SetSelectionIndication(false);
+        else if (Phase === 2)
+            this.SetSelectionIndication(true);
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+    /**
+     * Reads the bound data value.
+     * @protected
+     * @returns {void}
+     */
+    ReadDataValue() {
+        var Value;
+        if (this.ReadingDataValue === true || this.WritingDataValue === true)
+            return;
+        this.fCanPostDataValue = false;
+        try {
+            if (this.IsDataBound && this.DataSource.Position >= 0) {
+                this.ReadingDataValue = true;
+                try {
+                    Value = this.DataSource.Get(this.DataField);
+                    this[this.DataValueProperty] = Value;
+                } finally {
+                    this.ReadingDataValue = false;
+                }
+            }
+        } finally {
+            this.fCanPostDataValue = true;
+        }
+    }
+
+    // ● public
+    /**
+     * Clears the control.
+     * @returns {void}
+     */
+    Clear() {
+        this.fItems.Clear();
+        this.DoSetText("");
+    }
+    /**
+     * Appends items to the list.
+     * @param {Array|null|undefined} Items The items to append.
+     * @returns {void}
+     */
+    AddRange(Items) {
+        this.fItems.AddRange(Items);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the selected index.
+     * @returns {number} Returns the selected index.
+     */
+    get SelectedIndex() {
+        return this.fSelectedIndex;
+    }
+    /**
+     * Gets or sets the selected index.
+     * @param {number} Value The selected index.
+     * @returns {void}
+     */
+    set SelectedIndex(Value) {
+        Value = tp.StrToInt(Value, -1);
+        if (Value !== this.SelectedIndex && tp.InRange(this.Items, Value)) {
+            this.fSelectedIndex = Value;
+            this.DoSelectedIndexChanged();
+        }
+    }
+    /**
+     * Gets or sets the selected value.
+     * @returns {*} Returns the selected value.
+     */
+    get SelectedValue() {
+        return this.fSelectedValue;
+    }
+    /**
+     * Gets or sets the selected value.
+     * @param {*} Value The selected value.
+     * @returns {void}
+     */
+    set SelectedValue(Value) {
+        if (Value !== this.SelectedValue) {
+            this.fSelectedValue = Value;
+            this.DoSelectedValueChanged();
+        }
+    }
+    /**
+     * Gets or sets the selected item.
+     * @returns {*} Returns the selected item.
+     */
+    get SelectedItem() {
+        return this.fSelectedItem;
+    }
+    /**
+     * Gets or sets the selected item.
+     * @param {*} Value The selected item.
+     * @returns {void}
+     */
+    set SelectedItem(Value) {
+        if (Value !== this.SelectedItem && this.Items.indexOf(Value) !== -1) {
+            this.fSelectedItem = Value;
+            this.DoSelectedItemChanged();
+        }
+    }
+    /**
+     * Gets or sets the non data-bound items.
+     * @returns {Array} Returns the items.
+     */
+    get Items() {
+        return this.fListSource instanceof tp.DataSource ? this.fListSource.Rows : this.fItems;
+    }
+    /**
+     * Gets or sets the non data-bound items.
+     * @param {Array|null|undefined} Value The items.
+     * @returns {void}
+     */
+    set Items(Value) {
+        this.Clear();
+        if (tp.IsArray(Value))
+            this.fItems.AddRange(Value);
+        this.SelectedIndex = 0;
+    }
+    /**
+     * Returns the item count.
+     * @returns {number} Returns the item count.
+     */
+    get Count() {
+        return this.Items.length;
+    }
+    /**
+     * Gets or sets the list source.
+     * @returns {tp.DataSource|null} Returns the list source.
+     */
+    get ListSource() {
+        return this.fListSource;
+    }
+    /**
+     * Gets or sets the list source.
+     * @param {tp.DataSource|tp.DataTable|object[]|null|undefined} Value The list source.
+     * @returns {void}
+     */
+    set ListSource(Value) {
+        if (Value === this.fListSource)
+            return;
+        if (this.fListSource instanceof tp.DataSource && this.fListSourceListener)
+            this.fListSource.RemoveDataListener(this.fListSourceListener);
+        if (tp.IsArray(Value))
+            Value = tp.DataTable.CreateFromList(Value);
+        if (Value instanceof tp.DataTable)
+            Value = new tp.DataSource(Value);
+        this.fListSource = Value instanceof tp.DataSource ? Value : null;
+        if (this.fListSource instanceof tp.DataSource) {
+            this.fListSource.AddDataListener(this.fListSourceListener);
+            this.ListSourceBind();
+        } else {
+            this.Clear();
+        }
+    }
+    /**
+     * Gets or sets the list source name used in declarative scenarios.
+     * @returns {string} Returns the list source name.
+     */
+    get ListSourceName() {
+        return this.fListSourceName;
+    }
+    /**
+     * Gets or sets the list source name used in declarative scenarios.
+     * @param {string} Value The list source name.
+     * @returns {void}
+     */
+    set ListSourceName(Value) {
+        this.fListSourceName = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the value field name.
+     * @returns {string} Returns the value field name.
+     */
+    get ListValueField() {
+        return !tp.IsBlank(this.fListValueField) ? this.fListValueField : this.ListDisplayField;
+    }
+    /**
+     * Gets or sets the value field name.
+     * @param {string} Value The value field name.
+     * @returns {void}
+     */
+    set ListValueField(Value) {
+        this.fListValueField = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the display field name.
+     * @returns {string} Returns the display field name.
+     */
+    get ListDisplayField() {
+        return this.fListDisplayField;
+    }
+    /**
+     * Gets or sets the display field name.
+     * @param {string} Value The display field name.
+     * @returns {void}
+     */
+    set ListDisplayField(Value) {
+        this.fListDisplayField = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the item height.
+     * @returns {number} Returns the item height.
+     */
+    get ItemHeight() {
+        if (tp.IsEmpty(this.fItemHeight) || this.fItemHeight <= 0)
+            this.fItemHeight = tp.GetLineHeight(this.Handle);
+        return this.fItemHeight;
+    }
+    /**
+     * Gets or sets the item height.
+     * @param {number|string} Value The item height.
+     * @returns {void}
+     */
+    set ItemHeight(Value) {
+        this.fItemHeight = tp.StrToInt(Value, 0);
+    }
+
+    // ● event triggers
+    /**
+     * Triggers the SelectedIndexChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnSelectedIndexChanged() {
+        this.SetSelectionIndication(false);
+        this.SetSelectionIndication(true);
+        this.Trigger("SelectedIndexChanged", {});
+    }
+};
+
+// ● 214-list-box.js
+// ● list box
+/**
+ * A virtual-scroller based list-box control.
+ *
+ * Example markup:
+ * <pre>
+ *     <div data-setup="{ListValueField: 'Id', ListDisplayField: 'Name', List: [{Id: 100, Name: 'All'}, {Id: 0, Name: 'No stops'}], SelectedIndex: 0 }"></div>
+ * </pre>
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - SelectedIndexChanged
+ */
+tp.ListBox = class extends tp.ListControl {
+    // ● private
+    /**
+     * Creates list-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateListBoxParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "div";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "div";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a list box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.ListBox.CreateListBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.List;
+        this.fDataValueProperty = "SelectedValue";
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.fKeyDownHandler = this.FuncBind(this.HandleKeyDown);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateScroller();
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ListControl);
+        tp.AddClass(this.Handle, tp.Classes.ListBox);
+    }
+    /**
+     * Creates the row container and virtual scroller.
+     * @protected
+     * @returns {void}
+     */
+    CreateScroller() {
+        if (this.fScroller)
+            return;
+        this.fContainer = this.Document.createElement("div");
+        this.Handle.appendChild(this.fContainer);
+        this.fContainer.className = tp.Classes.List;
+        this.fContainer.tabIndex = -1;
+        this.fScroller = new tp.VirtualScroller(this.Handle, this.fContainer);
+        this.fScroller.RowHeight = this.ItemHeight;
+        this.fScroller.Context = this;
+        this.fScroller.RenderRowFunc = this.ItemRenderFunc;
+        this.fScroller.ScrollFunc = this.ScrollFunc;
+        this.Handle.addEventListener("click", this.fClickHandler, false);
+        this.Handle.addEventListener("keydown", this.fKeyDownHandler, false);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fClickHandler)
+            this.Handle.removeEventListener("click", this.fClickHandler, false);
+        if (this.Handle && this.fKeyDownHandler)
+            this.Handle.removeEventListener("keydown", this.fKeyDownHandler, false);
+        this.fClickHandler = null;
+        this.fKeyDownHandler = null;
+        super.DoDispose();
+    }
+    /**
+     * Handles click events.
+     * @protected
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var Info;
+        var Element = e.target;
+        if (this.Enabled !== true || !this.fScroller)
+            return;
+        if (tp.ContainsEventTarget(this.fScroller.Container, Element)
+            && tp.HasClass(Element, tp.Classes.Item)
+            && tp.HasElementInfo(Element)) {
+            Info = tp.GetElementInfo(Element);
+            this.SelectedIndex = Info.Index;
+            this.fScroller.Viewport.focus();
+        }
+    }
+    /**
+     * Handles keyboard events.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleKeyDown(e) {
+        this.HandleScrollerKeyDown(e);
+    }
+};
+
+tp.Ui.RegisterType(["ListBox", "tp-ListBox"], tp.ListBox);
+
+// ● 215-label.js
+// ● label
+/**
+ * Label control.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ */
+tp.Label = class extends tp.Control {
+    // ● private
+    /**
+     * Creates label create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateLabelParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "label";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "label";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a label.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.Label.CreateLabelParams(CreateParams));
+        this.tpClass = "tp.Label";
+        tp.AddClass(this.Handle, tp.Classes.Label);
+        this.Handle.style.display = "inline-block";
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Text";
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+
+    // ● properties
+    /**
+     * Returns the first text node of this label, if any.
+     * @returns {Text|null} Returns the first text node or null.
+     */
+    get TextNode() {
+        return tp.FindTextNode(this.Handle);
+    }
+    /**
+     * Gets or sets the label text.
+     * @returns {string} Returns the label text.
+     */
+    get Text() {
+        var TextNode = this.TextNode;
+        return TextNode ? TextNode.nodeValue : "";
+    }
+    /**
+     * Gets or sets the label text.
+     * @param {*} Value The label text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        var TextNode = this.TextNode;
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (!TextNode) {
+            TextNode = this.Document.createTextNode(Value);
+            this.Handle.appendChild(TextNode);
+        }
+        if (TextNode)
+            TextNode.nodeValue = Value;
+    }
+    /**
+     * Gets or sets the id of the associated control.
+     * @returns {string} Returns the associated control id.
+     */
+    get AssociateId() {
+        return this.Handle instanceof HTMLLabelElement ? this.Handle.htmlFor : "";
+    }
+    /**
+     * Gets or sets the id of the associated control.
+     * @param {string} Value The associated control id.
+     * @returns {void}
+     */
+    set AssociateId(Value) {
+        if (this.Handle instanceof HTMLLabelElement)
+            this.Handle.htmlFor = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets the associated control element.
+     * @returns {HTMLElement|null} Returns the associated control element.
+     */
+    get Associate() {
+        return this.Handle instanceof HTMLLabelElement ? this.Handle.control : null;
+    }
+};
+
+tp.Ui.RegisterType(["Label", "tp-Label"], tp.Label);
+
+// ● 216-combo-box.js
+// ● combo box
+/**
+ * A virtual-scroller based combo-box control.
+ *
+ * Example markup:
+ * <pre>
+ *     <div data-setup="{ListOnly: true, ListValueField: 'Id', ListDisplayField: 'Name', List: [{Id: 100, Name: 'All'}, {Id: 0, Name: 'No stops'}], SelectedIndex: 0 }"></div>
+ * </pre>
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - SelectedIndexChanged
+ * - TextNotFound
+ *
+ * @implements {tp.IDropDownBoxListener}
+ */
+tp.ComboBox = class extends tp.ListControl {
+    // ● private
+    /**
+     * Creates combo-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateComboBoxParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "div";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "div";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a combo box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.ComboBox.CreateComboBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.List;
+        this.fDataValueProperty = "SelectedValue";
+        this.fListOnly = true;
+        this.fMaxDropdownItems = 10;
+        this.fDropDownSelectedIndex = -1;
+        this.fTextBoxChangeHandler = this.FuncBind(this.HandleTextBoxChange);
+        this.fTextBoxKeyDownHandler = this.FuncBind(this.HandleTextBoxKeyDown);
+        this.fTextBoxKeyPressHandler = this.FuncBind(this.HandleTextBoxKeyPress);
+        this.fButtonClickHandler = this.FuncBind(this.HandleButtonClick);
+        this.fContainerClickHandler = this.FuncBind(this.HandleContainerClick);
+        this.fContainerKeyDownHandler = this.FuncBind(this.HandleContainerKeyDown);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateInnerControls();
+    }
+    /**
+     * Applies explicit create params to this combo box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.ListOnly))
+            this.ListOnly = Params.ListOnly === true;
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = Params.Placeholder;
+        if (!tp.IsNil(Params.MaxDropdownItems))
+            this.MaxDropdownItems = Params.MaxDropdownItems;
+        if (!tp.IsNil(Params.Text))
+            this.Text = Params.Text;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ListControl);
+        tp.AddClass(this.Handle, tp.Classes.ComboBox);
+    }
+    /**
+     * Creates the inner controls and virtual scroller.
+     * @protected
+     * @returns {void}
+     */
+    CreateInnerControls() {
+        var ControlContainer;
+        if (this.fScroller)
+            return;
+        ControlContainer = this.Document.createElement("div");
+        this.Handle.appendChild(ControlContainer);
+        ControlContainer.className = tp.Classes.Strip;
+        this.fControlContainer = ControlContainer;
+        this.fTextBox = this.Document.createElement("input");
+        this.fTextBox.type = "text";
+        this.fTextBox.spellcheck = false;
+        this.fTextBox.className = tp.Classes.Text;
+        this.fTextBox.readOnly = this.ListOnly;
+        ControlContainer.appendChild(this.fTextBox);
+        this.fButton = this.Document.createElement("div");
+        this.fButton.className = tp.Classes.Btn;
+        this.fButton.innerHTML = "&#9662;";
+        ControlContainer.appendChild(this.fButton);
+        this.fDropDownBox = new tp.DropDownBox(null, {
+            Associate: ControlContainer,
+            Owner: this,
+            Parent: this.Handle
+        });
+        this.fContainer = this.Document.createElement("div");
+        this.fDropDownBox.Handle.appendChild(this.fContainer);
+        this.fContainer.className = tp.Classes.List;
+        this.fContainer.tabIndex = -1;
+        this.fScroller = new tp.VirtualScroller(this.fDropDownBox.Handle, this.fContainer);
+        this.fScroller.RowHeight = this.ItemHeight;
+        this.fScroller.Context = this;
+        this.fScroller.RenderRowFunc = this.ItemRenderFunc;
+        this.fScroller.ScrollFunc = this.ScrollFunc;
+        this.fTextBox.addEventListener("change", this.fTextBoxChangeHandler, false);
+        this.fTextBox.addEventListener("keydown", this.fTextBoxKeyDownHandler, false);
+        this.fTextBox.addEventListener("keypress", this.fTextBoxKeyPressHandler, false);
+        this.fButton.addEventListener("click", this.fButtonClickHandler, false);
+        this.fContainer.addEventListener("click", this.fContainerClickHandler, false);
+        this.fDropDownBox.Handle.addEventListener("keydown", this.fContainerKeyDownHandler, false);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fTextBox) {
+            this.fTextBox.removeEventListener("change", this.fTextBoxChangeHandler, false);
+            this.fTextBox.removeEventListener("keydown", this.fTextBoxKeyDownHandler, false);
+            this.fTextBox.removeEventListener("keypress", this.fTextBoxKeyPressHandler, false);
+        }
+        if (this.fButton)
+            this.fButton.removeEventListener("click", this.fButtonClickHandler, false);
+        if (this.fContainer) {
+            this.fContainer.removeEventListener("click", this.fContainerClickHandler, false);
+            this.fDropDownBox.Handle.removeEventListener("keydown", this.fContainerKeyDownHandler, false);
+        }
+        if (this.fDropDownBox) {
+            this.fDropDownBox.Dispose();
+            this.fDropDownBox = null;
+        }
+        this.fTextBoxChangeHandler = null;
+        this.fTextBoxKeyDownHandler = null;
+        this.fTextBoxKeyPressHandler = null;
+        this.fButtonClickHandler = null;
+        this.fContainerClickHandler = null;
+        this.fContainerKeyDownHandler = null;
+        this.fTextBox = null;
+        this.fButton = null;
+        this.fControlContainer = null;
+        super.DoDispose();
+    }
+    /**
+     * Sets a specified text.
+     * @protected
+     * @param {string} Text The text.
+     * @returns {void}
+     */
+    DoSetText(Text) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.value = tp.IsNil(Text) ? "" : String(Text);
+    }
+    /**
+     * Returns the text of an item starting with a specified text.
+     * @protected
+     * @param {string} Text The text.
+     * @returns {string|null} Returns the item text or null.
+     */
+    GetItemTextStartingWith(Text) {
+        var Index;
+        var ItemText;
+        for (Index = 0; Index < this.Items.length; Index++) {
+            ItemText = this.GetItemText(this.Items[Index]);
+            if (!tp.IsBlank(ItemText) && tp.StartsWith(ItemText, Text, true))
+                return ItemText;
+        }
+        return null;
+    }
+    /**
+     * Validates typed text against list items.
+     * @protected
+     * @returns {void}
+     */
+    CommitText() {
+        var Text = tp.Trim(this.Text);
+        var Index;
+        if (!tp.IsBlank(Text)) {
+            Index = this.IndexOfText(Text);
+            if (Index >= 0) {
+                this.SelectedIndex = Index;
+            } else {
+                if (this.IsDataBound)
+                    this.DoClearValue(true);
+                this.OnTextNotFound(Text);
+            }
+        } else if (this.IsDataBound) {
+            this.DoClearValue(true);
+        }
+    }
+    /**
+     * Replaces selected text in the inner text box.
+     * @protected
+     * @param {string} Text The replacement text.
+     * @returns {void}
+     */
+    ReplaceSelectedText(Text) {
+        if (this.fTextBox instanceof HTMLInputElement && tp.IsFunction(this.fTextBox.setRangeText)) {
+            this.fTextBox.setRangeText(Text, this.fTextBox.selectionStart, this.fTextBox.selectionEnd, "end");
+        }
+    }
+    /**
+     * Handles inner text box change.
+     * @protected
+     * @param {Event} e The event.
+     * @returns {void}
+     */
+    HandleTextBoxChange(e) {
+        tp.CancelEvent(e);
+        this.CommitText();
+    }
+    /**
+     * Handles drop-down button click.
+     * @protected
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleButtonClick(e) {
+        if (this.Enabled === true) {
+            tp.CancelEvent(e);
+            this.Toggle();
+            if (this.IsOpen === false && this.fTextBox)
+                this.fTextBox.focus();
+        }
+    }
+    /**
+     * Handles inner text box keydown.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleTextBoxKeyDown(e) {
+        if (this.Enabled !== true || this.ReadOnly === true || e.target !== this.fTextBox)
+            return;
+        if (tp.IsKey(e, tp.Keys.Up) || tp.IsKey(e, tp.Keys.Down)) {
+            tp.CancelEvent(e);
+            if (e.altKey === true) {
+                if (!this.IsOpen)
+                    this.Open();
+            } else if (this.IsOpen) {
+                this.MoveDropDownSelectedIndex(tp.IsKey(e, tp.Keys.Up) ? -1 : 1);
+            } else if (tp.IsKey(e, tp.Keys.Up)) {
+                this.SelectedIndex = this.SelectedIndex - 1;
+            } else {
+                this.SelectedIndex = this.SelectedIndex + 1;
+            }
+        }
+    }
+    /**
+     * Handles inner text box keypress for editable autocomplete behavior.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleTextBoxKeyPress(e) {
+        var Element;
+        var Start;
+        var Text;
+        if (this.Enabled !== true || this.ReadOnly === true || e.target !== this.fTextBox || this.ListOnly === true || !tp.IsPrintableKey(e))
+            return;
+        e.preventDefault();
+        Element = this.fTextBox;
+        this.ReplaceSelectedText(e.key);
+        Start = Element.value.length;
+        Text = this.GetItemTextStartingWith(Element.value);
+        if (!tp.IsBlank(Text)) {
+            Element.value = Text;
+            Element.setSelectionRange(Start, Element.value.length);
+        }
+    }
+    /**
+     * Handles row container click.
+     * @protected
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleContainerClick(e) {
+        var Info;
+        var Element = e.target;
+        if (this.Enabled !== true || !this.fDropDownBox || this.fDropDownBox.Resizing === true)
+            return;
+        if (tp.ContainsEventTarget(this.fScroller.Container, Element)
+            && tp.HasClass(Element, tp.Classes.Item)
+            && tp.HasElementInfo(Element)) {
+            Info = tp.GetElementInfo(Element);
+            this.SelectedIndex = Info.Index;
+            this.Close();
+            this.fTextBox.focus();
+        }
+    }
+    /**
+     * Handles row container keydown.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleContainerKeyDown(e) {
+        var Info;
+        if (!(e instanceof KeyboardEvent))
+            return;
+        if (this.HandleScrollerKeyDown(e) === true)
+            return;
+        if (tp.ContainsEventTarget(this.fScroller.Container, e.target) && tp.HasClass(e.target, tp.Classes.Item)) {
+            if (tp.IsKey(e, tp.Keys.Enter)) {
+                tp.CancelEvent(e);
+                Info = tp.GetElementInfo(e.target);
+                this.SelectedIndex = Info.Index;
+                this.Close();
+                this.fTextBox.focus();
+            } else if (tp.IsKey(e, tp.Keys.Escape)) {
+                e.preventDefault();
+                this.Close();
+                this.fTextBox.focus();
+            }
+        }
+    }
+    /**
+     * Moves the temporary dropdown selection by a delta.
+     * @protected
+     * @param {number} Delta The selection delta.
+     * @returns {void}
+     */
+    MoveDropDownSelectedIndex(Delta) {
+        if (!this.fScroller || this.Items.length === 0)
+            return;
+        this.SetScrollerIndexIndication(this.fDropDownSelectedIndex, false);
+        this.fDropDownSelectedIndex = this.GetMovedScrollerIndex(this.fDropDownSelectedIndex, Delta);
+        this.ScrollIndexIntoView(this.fDropDownSelectedIndex);
+    }
+    /**
+     * Handles virtual scroller keyboard navigation while the dropdown is open.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {boolean} Returns true when handled.
+     */
+    HandleScrollerKeyDown(e) {
+        if (!(e instanceof KeyboardEvent) || this.Enabled !== true || this.ReadOnly === true)
+            return false;
+        if (tp.IsKey(e, tp.Keys.Up)) {
+            tp.CancelEvent(e);
+            this.MoveDropDownSelectedIndex(-1);
+            return true;
+        }
+        if (tp.IsKey(e, tp.Keys.Down)) {
+            tp.CancelEvent(e);
+            this.MoveDropDownSelectedIndex(1);
+            return true;
+        }
+        if (tp.IsKey(e, tp.Keys.Enter) || tp.IsKey(e, tp.Keys.Space)) {
+            if (this.AcceptScrollerSelection(e) === true) {
+                tp.CancelEvent(e);
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Handles a keyboard request to accept the current scroller selection.
+     * @protected
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {boolean} Returns true when handled.
+     */
+    AcceptScrollerSelection(e) {
+        if (tp.InRange(this.Items, this.fDropDownSelectedIndex))
+            this.SelectedIndex = this.fDropDownSelectedIndex;
+        this.Close();
+        if (this.fTextBox)
+            this.fTextBox.focus();
+        return true;
+    }
+    /**
+     * Virtual scroller callback before and after rendering.
+     * @protected
+     * @param {number} Phase The render phase. 1 is before, 2 is after.
+     * @returns {void}
+     */
+    ScrollFunc(Phase) {
+        if (this.IsOpen) {
+            if (Phase === 1)
+                this.SetScrollerIndexIndication(this.fDropDownSelectedIndex, false);
+            else if (Phase === 2)
+                this.SetScrollerIndexIndication(this.fDropDownSelectedIndex, true);
+        } else {
+            super.ScrollFunc(Phase);
+        }
+    }
+    /**
+     * Called after Required changes.
+     * @protected
+     * @returns {void}
+     */
+    OnRequiredChanged() {
+        this.SetRequiredMark(this.fTextBox);
+        super.OnRequiredChanged();
+    }
+
+    // ● public
+    /**
+     * Opens the drop-down list.
+     * @returns {void}
+     */
+    Open() {
+        if (this.ReadOnly !== true && this.Enabled === true && this.fDropDownBox)
+            this.fDropDownBox.Open();
+    }
+    /**
+     * Closes the drop-down list.
+     * @returns {void}
+     */
+    Close() {
+        if (this.ReadOnly !== true && this.Enabled === true && this.fDropDownBox)
+            this.fDropDownBox.Close();
+    }
+    /**
+     * Opens or closes the drop-down list.
+     * @returns {void}
+     */
+    Toggle() {
+        if (this.ReadOnly !== true && this.Enabled === true && this.fDropDownBox)
+            this.fDropDownBox.Toggle();
+    }
+    /**
+     * Called by the drop-down box when its stage changes.
+     * @param {tp.DropDownBox} Sender The sender.
+     * @param {number} Stage One of the tp.DropDownBoxStage values.
+     * @returns {void}
+     */
+    OnDropDownBoxEvent(Sender, Stage) {
+        var Count;
+        var Height;
+        var Index;
+        if (Stage === tp.DropDownBoxStage.Opening) {
+            this.fScroller.RowHeight = this.ItemHeight;
+        } else if (Stage === tp.DropDownBoxStage.Opened) {
+            Count = this.Items.length;
+            Height = Count <= 0 ? 2 : (Count < this.MaxDropdownItems ? Count + 1 : this.MaxDropdownItems);
+            this.fDropDownBox.Height = Height * this.ItemHeight + 5;
+            this.UpdateScroller();
+            this.SetScrollerIndexIndication(-1, false);
+            this.fDropDownSelectedIndex = this.SelectedIndex;
+            Index = this.fDropDownSelectedIndex;
+            if (tp.InRange(this.Items, Index)) {
+                this.fScroller.Viewport.scrollTop = Index * this.fScroller.RowHeight;
+                this.fScroller.Render();
+            }
+            this.SetScrollerIndexIndication(this.fDropDownSelectedIndex, true);
+            this.fScroller.Viewport.focus();
+        }
+    }
+    /**
+     * Returns true if this control is valid.
+     * @returns {boolean} Returns true when valid.
+     */
+    CheckValidity() {
+        return tp.IsValidatableElement(this.fTextBox) ? this.fTextBox.checkValidity() : true;
+    }
+    /**
+     * Sets a custom validation message.
+     * @param {string} MessageText The validation message.
+     * @returns {void}
+     */
+    SetValidationMessage(MessageText) {
+        if (tp.IsValidatableElement(this.fTextBox))
+            this.fTextBox.setCustomValidity(MessageText);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets whether typing is disabled and selection is list-only.
+     * @returns {boolean} Returns true when list-only.
+     */
+    get ListOnly() {
+        return this.fListOnly === true;
+    }
+    /**
+     * Gets or sets whether typing is disabled and selection is list-only.
+     * @param {boolean} Value True for list-only.
+     * @returns {void}
+     */
+    set ListOnly(Value) {
+        Value = Value === true;
+        if (this.fListOnly !== Value) {
+            this.fListOnly = Value;
+            if (this.fTextBox)
+                this.fTextBox.readOnly = this.fListOnly;
+        }
+    }
+    /**
+     * Gets or sets editable text.
+     * @returns {string} Returns the text.
+     */
+    get Text() {
+        return this.fTextBox instanceof HTMLInputElement ? this.fTextBox.value : "";
+    }
+    /**
+     * Gets or sets editable text.
+     * @param {*} Value The text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (!this.ListOnly && this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.value = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets placeholder text.
+     * @returns {string} Returns the placeholder.
+     */
+    get Placeholder() {
+        return this.fTextBox instanceof HTMLInputElement ? this.fTextBox.placeholder : "";
+    }
+    /**
+     * Gets or sets placeholder text.
+     * @param {string} Value The placeholder.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the maximum number of visible dropdown items.
+     * @returns {number} Returns the maximum item count.
+     */
+    get MaxDropdownItems() {
+        var Result = this.fMaxDropdownItems || 10;
+        return Result > 30 ? 30 : Result;
+    }
+    /**
+     * Gets or sets the maximum number of visible dropdown items.
+     * @param {number|string} Value The maximum item count.
+     * @returns {void}
+     */
+    set MaxDropdownItems(Value) {
+        this.fMaxDropdownItems = tp.StrToInt(Value, 10);
+    }
+    /**
+     * Returns true while the dropdown box is visible.
+     * @returns {boolean} Returns true when open.
+     */
+    get IsOpen() {
+        return this.fDropDownBox ? this.fDropDownBox.IsOpen : false;
+    }
+
+    // ● event triggers
+    /**
+     * Triggers the TextNotFound event.
+     * @protected
+     * @param {string} Text The text that was not found.
+     * @returns {void}
+     */
+    OnTextNotFound(Text) {
+        this.Trigger("TextNotFound", { Text: Text });
+    }
+    /**
+     * Triggers the SelectedIndexChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnSelectedIndexChanged() {
+        this.Trigger("SelectedIndexChanged", {});
+    }
+};
+
+tp.Ui.RegisterType(["ComboBox", "tp-ComboBox"], tp.ComboBox);
+
+// ● 217-check-box.js
+// ● check box
+/**
+ * A check box control with a clickable wrapping label and word-wrapping text.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - ValueChanged
+ */
+tp.CheckBox = class extends tp.Control {
+    // ● private
+    /**
+     * Creates check-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateCheckBoxParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "label";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "label";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a check box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.CheckBox.CreateCheckBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Checked";
+    }
+    /**
+     * Applies explicit create params to this check box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        var BaseParams;
+        if (Params) {
+            BaseParams = new tp.CreateParams(Params);
+            delete BaseParams.Text;
+            delete BaseParams.Checked;
+        }
+        super.ApplyCreateParams(BaseParams || Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.elText))
+            this.elText = Params.elText;
+        if (!tp.IsNil(Params.Text))
+            this.Text = Params.Text;
+        if (!tp.IsNil(Params.Checked))
+            this.Checked = Params.Checked === true;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.CheckBox);
+        this.EnsureContent();
+        this.fChangeHandler = this.FuncBind(this.HandleChange);
+        if (this.fCheckBox instanceof HTMLInputElement)
+            this.fCheckBox.addEventListener("change", this.fChangeHandler);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fCheckBox instanceof HTMLInputElement && this.fChangeHandler)
+            this.fCheckBox.removeEventListener("change", this.fChangeHandler);
+        this.fChangeHandler = null;
+        super.DoDispose();
+    }
+    /**
+     * Ensures the check box has the expected internal markup.
+     * @returns {void}
+     */
+    EnsureContent() {
+        var ExistingHtml = this.Handle.innerHTML || "";
+        var CtrlElement;
+        if (!(this.Handle instanceof HTMLLabelElement))
+            return;
+        this.fCheckBox = tp.Select(this.Handle, "input[type=checkbox]");
+        this.elText = tp.Select(this.Handle, "." + tp.Classes.Text);
+        if (!(this.fCheckBox instanceof HTMLInputElement)) {
+            this.Handle.innerHTML =
+                "<span class=\"" + tp.Classes.Ctrl + "\"><input type=\"checkbox\" /></span>" +
+                "<span class=\"" + tp.Classes.Text + "\">" + ExistingHtml + "</span>";
+            this.fCheckBox = tp.Select(this.Handle, "input[type=checkbox]");
+            this.elText = tp.Select(this.Handle, "." + tp.Classes.Text);
+        } else {
+            CtrlElement = tp.Closest(this.fCheckBox, "." + tp.Classes.Ctrl);
+            if (!(CtrlElement instanceof HTMLElement)) {
+                CtrlElement = this.Document.createElement("span");
+                CtrlElement.className = tp.Classes.Ctrl;
+                this.Handle.insertBefore(CtrlElement, this.fCheckBox);
+                CtrlElement.appendChild(this.fCheckBox);
+            }
+            if (!(this.elText instanceof HTMLElement)) {
+                this.elText = this.Document.createElement("span");
+                this.elText.className = tp.Classes.Text;
+                this.Handle.appendChild(this.elText);
+            }
+        }
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+    /**
+     * Converts a data-source value to a checked property value.
+     * @param {*} Value The data-source value.
+     * @returns {boolean} Returns true when checked.
+     */
+    DataValueToDataProperty(Value) {
+        return Value === true || Value === 1 || Value === "1" || Value === "true";
+    }
+    /**
+     * Converts checked state to a data-source value.
+     * @param {*} Value The checked value.
+     * @returns {boolean} Returns true when checked.
+     */
+    DataPropertyToDataValue(Value) {
+        return Value === true;
+    }
+    /**
+     * Called after Required changes.
+     * @protected
+     * @returns {void}
+     */
+    OnRequiredChanged() {
+        this.SetRequiredMark(this.fCheckBox);
+        super.OnRequiredChanged();
+    }
+    /**
+     * Called after ReadOnly changes.
+     * @protected
+     * @returns {void}
+     */
+    OnReadOnlyChanged() {
+        if (this.fCheckBox instanceof HTMLInputElement)
+            this.fCheckBox.disabled = this.ReadOnly === true;
+        super.OnReadOnlyChanged();
+    }
+    /**
+     * Handles input change events.
+     * @protected
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleChange(e) {
+        this.WriteDataValue();
+        this.OnValueChanged();
+    }
+    /**
+     * Triggers the ValueChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnValueChanged() {
+        if (this.ReadingDataValue !== true)
+            this.Trigger("ValueChanged", {});
+    }
+
+    // ● public
+    /**
+     * Sets focus to the inner input element.
+     * @returns {void}
+     */
+    Focus() {
+        if (this.fCheckBox instanceof HTMLInputElement)
+            this.fCheckBox.focus();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the check box text.
+     * @returns {string} Returns the text.
+     */
+    get Text() {
+        return this.elText instanceof HTMLElement ? this.elText.innerHTML : "";
+    }
+    /**
+     * Gets or sets the check box text.
+     * @param {*} Value The text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.elText instanceof HTMLElement)
+            this.elText.innerHTML = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the inner input name.
+     * @returns {string} Returns the input name.
+     */
+    get Name() {
+        return this.fCheckBox instanceof HTMLInputElement ? this.fCheckBox.name || "" : "";
+    }
+    /**
+     * Gets or sets the inner input name.
+     * @param {string} Value The input name.
+     * @returns {void}
+     */
+    set Name(Value) {
+        if (this.fCheckBox instanceof HTMLInputElement)
+            this.fCheckBox.name = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets whether the check box is checked.
+     * @returns {boolean} Returns true when checked.
+     */
+    get Checked() {
+        return this.fCheckBox instanceof HTMLInputElement ? this.fCheckBox.checked === true : false;
+    }
+    /**
+     * Gets or sets whether the check box is checked.
+     * @param {boolean} Value True when checked.
+     * @returns {void}
+     */
+    set Checked(Value) {
+        if (this.fCheckBox instanceof HTMLInputElement)
+            this.fCheckBox.checked = Value === true;
+    }
+};
+
+// ● prototype
+/**
+ * Inner check box input.
+ * @type {HTMLInputElement|null}
+ */
+tp.CheckBox.prototype.fCheckBox = null;
+/**
+ * Text element.
+ * @type {HTMLElement|null}
+ */
+tp.CheckBox.prototype.elText = null;
+/**
+ * Change event handler.
+ * @type {Function|null}
+ */
+tp.CheckBox.prototype.fChangeHandler = null;
+
+tp.Ui.RegisterType(["CheckBox", "tp-CheckBox"], tp.CheckBox);
+
+// ● 218-html-list-control.js
+// ● html list control
+/**
+ * Base class for native HTML select controls.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - SelectedIndexChanged
+ */
+tp.HtmlListControl = class extends tp.Control {
+    // ● private
+    /**
+     * Creates html-list-control create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateHtmlListParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "select";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "select";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates an html list control.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.HtmlListControl.CreateHtmlListParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.List;
+        this.fDataValueProperty = "SelectedIndex";
+        this.fChangeHandler = this.FuncBind(this.HandleChange);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        if (this.Handle instanceof HTMLSelectElement)
+            this.Handle.addEventListener("change", this.fChangeHandler, false);
+    }
+    /**
+     * Applies explicit create params to this html list control.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Width))
+            this.Width = Params.Width;
+        if (!tp.IsNil(Params.Height))
+            this.Height = Params.Height;
+        if (!tp.IsNil(Params.List))
+            this.AddRange(Params.List);
+        if (!tp.IsNil(Params.ListItems))
+            this.AddRange(Params.ListItems);
+        if (!tp.IsNil(Params.Items))
+            this.AddRange(Params.Items);
+        if (!tp.IsNil(Params.SelectedIndex))
+            this.SelectedIndex = Params.SelectedIndex;
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fChangeHandler)
+            this.Handle.removeEventListener("change", this.fChangeHandler, false);
+        this.fChangeHandler = null;
+        super.DoDispose();
+    }
+    /**
+     * Handles change events.
+     * @protected
+     * @param {Event} e The event.
+     * @returns {void}
+     */
+    HandleChange(e) {
+        this.OnSelectedIndexChanged();
+    }
+
+    // ● public
+    /**
+     * Removes all options.
+     * @returns {void}
+     */
+    Clear() {
+        var Index;
+        if (this.Handle instanceof HTMLSelectElement) {
+            for (Index = this.Handle.options.length - 1; Index >= 0; Index--)
+                this.Handle.remove(Index);
+        }
+    }
+    /**
+     * Adds and returns an option.
+     * @param {string} Text The option text.
+     * @param {string} Value The option value.
+     * @returns {HTMLOptionElement|null} Returns the option or null.
+     */
+    Add(Text, Value) {
+        var Result;
+        if (this.Handle instanceof HTMLSelectElement) {
+            Result = this.Handle.ownerDocument.createElement("option");
+            Result.text = tp.IsNil(Text) ? "" : String(Text);
+            Result.value = tp.IsNil(Value) ? "" : String(Value);
+            this.Handle.add(Result);
+            return Result;
+        }
+        return null;
+    }
+    /**
+     * Inserts and returns an option.
+     * @param {number} Index The item index.
+     * @param {string} Text The option text.
+     * @param {string} Value The option value.
+     * @returns {HTMLOptionElement|null} Returns the option or null.
+     */
+    Insert(Index, Text, Value) {
+        var Result;
+        if (this.Handle instanceof HTMLSelectElement) {
+            Result = this.Handle.ownerDocument.createElement("option");
+            Result.text = tp.IsNil(Text) ? "" : String(Text);
+            Result.value = tp.IsNil(Value) ? "" : String(Value);
+            this.Handle.add(Result, tp.StrToInt(Index, this.Handle.options.length));
+            return Result;
+        }
+        return null;
+    }
+    /**
+     * Removes an option by index.
+     * @param {number} Index The item index.
+     * @returns {void}
+     */
+    RemoveAt(Index) {
+        if (this.Handle instanceof HTMLSelectElement)
+            this.Handle.remove(Index);
+    }
+    /**
+     * Adds a range of options from an object list.
+     * Each item may contain Id/Name or Value/Text properties.
+     * @param {object[]} List The source list.
+     * @returns {void}
+     */
+    AddRange(List) {
+        var Index;
+        var Item;
+        var Text;
+        var Value;
+        if (!(this.Handle instanceof HTMLSelectElement) || !tp.IsArray(List))
+            return;
+        for (Index = 0; Index < List.length; Index++) {
+            Item = List[Index];
+            Value = "";
+            Text = "";
+            if (tp.IsObject(Item)) {
+                if ("Id" in Item)
+                    Value = Item.Id;
+                else if ("Value" in Item)
+                    Value = Item.Value;
+                if ("Name" in Item)
+                    Text = Item.Name;
+                else if ("Text" in Item)
+                    Text = Item.Text;
+            } else if (!tp.IsNil(Item)) {
+                Text = String(Item);
+                Value = Text;
+            }
+            if (Text === "")
+                Text = Index.toString();
+            if (Value === "")
+                Value = Text;
+            this.Add(Text, Value);
+        }
+    }
+    /**
+     * Returns the index of an option by text.
+     * @param {string} Text The text.
+     * @returns {number} Returns the index or -1.
+     */
+    IndexOfText(Text) {
+        var Index;
+        var List;
+        if (this.Handle instanceof HTMLSelectElement) {
+            List = this.Handle.options;
+            for (Index = 0; Index < List.length; Index++) {
+                if (Text === List[Index].text)
+                    return Index;
+            }
+        }
+        return -1;
+    }
+    /**
+     * Returns the index of an option by value.
+     * @param {string} Value The value.
+     * @returns {number} Returns the index or -1.
+     */
+    IndexOfValue(Value) {
+        var Index;
+        var List;
+        if (this.Handle instanceof HTMLSelectElement) {
+            Value = tp.IsNil(Value) ? "" : String(Value);
+            List = this.Handle.options;
+            for (Index = 0; Index < List.length; Index++) {
+                if (Value === List[Index].value)
+                    return Index;
+            }
+        }
+        return -1;
+    }
+    /**
+     * Returns an option by index.
+     * @param {number} Index The item index.
+     * @returns {HTMLOptionElement|null} Returns the option or null.
+     */
+    ItemAt(Index) {
+        return this.Handle instanceof HTMLSelectElement ? this.Handle.options[Index] || null : null;
+    }
+    /**
+     * Returns the text of an option.
+     * @param {number} Index The item index.
+     * @returns {string} Returns the option text.
+     */
+    GetTextAt(Index) {
+        var Item = this.ItemAt(Index);
+        return Item ? Item.text : "";
+    }
+    /**
+     * Sets the text of an option.
+     * @param {number} Index The item index.
+     * @param {string} Text The text.
+     * @returns {void}
+     */
+    SetTextAt(Index, Text) {
+        var Item = this.ItemAt(Index);
+        if (Item)
+            Item.text = tp.IsNil(Text) ? "" : String(Text);
+    }
+    /**
+     * Returns the value of an option.
+     * @param {number} Index The item index.
+     * @returns {string} Returns the option value.
+     */
+    GetValueAt(Index) {
+        var Item = this.ItemAt(Index);
+        return Item ? Item.value : "";
+    }
+    /**
+     * Sets the value of an option.
+     * @param {number} Index The item index.
+     * @param {string} Value The value.
+     * @returns {void}
+     */
+    SetValueAt(Index, Value) {
+        var Item = this.ItemAt(Index);
+        if (Item)
+            Item.value = tp.IsNil(Value) ? "" : String(Value);
+    }
+
+    // ● properties
+    /**
+     * Gets the number of options.
+     * @returns {number} Returns the option count.
+     */
+    get Count() {
+        return this.Handle instanceof HTMLSelectElement ? this.Handle.length : 0;
+    }
+    /**
+     * Gets or sets the selected index.
+     * @returns {number} Returns the selected index.
+     */
+    get SelectedIndex() {
+        return this.Handle instanceof HTMLSelectElement ? this.Handle.selectedIndex : -1;
+    }
+    /**
+     * Gets or sets the selected index.
+     * @param {number} Value The selected index.
+     * @returns {void}
+     */
+    set SelectedIndex(Value) {
+        if (this.Handle instanceof HTMLSelectElement)
+            this.Handle.selectedIndex = tp.StrToInt(Value, -1);
+    }
+    /**
+     * Gets the selected option.
+     * @returns {HTMLOptionElement|null} Returns the selected option or null.
+     */
+    get SelectedItem() {
+        return this.Handle instanceof HTMLSelectElement && this.Handle.selectedIndex > -1 ? this.Handle.options[this.Handle.selectedIndex] : null;
+    }
+    /**
+     * Gets the selected value.
+     * @returns {string|null} Returns the selected value or null.
+     */
+    get SelectedValue() {
+        return this.SelectedItem ? this.SelectedItem.value : null;
+    }
+    /**
+     * Gets the option collection.
+     * @returns {HTMLOptionsCollection|null} Returns the options or null.
+     */
+    get Items() {
+        return this.Handle instanceof HTMLSelectElement ? this.Handle.options : null;
+    }
+    /**
+     * Gets or replaces the list items.
+     * @returns {HTMLOptionsCollection|null} Returns the options or null.
+     */
+    get List() {
+        return this.Items;
+    }
+    /**
+     * Gets or replaces the list items.
+     * @param {object[]|string[]|null|undefined} Value The list items.
+     * @returns {void}
+     */
+    set List(Value) {
+        this.Clear();
+        this.AddRange(Value);
+    }
+    /**
+     * Gets or sets CSS width.
+     * @returns {string} Returns the width.
+     */
+    get Width() {
+        return this.Handle instanceof HTMLElement ? this.Handle.style.width || "" : "";
+    }
+    /**
+     * Gets or sets CSS width.
+     * @param {number|string} Value The width.
+     * @returns {void}
+     */
+    set Width(Value) {
+        if (this.Handle instanceof HTMLElement)
+            this.Handle.style.width = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+    /**
+     * Gets or sets CSS height.
+     * @returns {string} Returns the height.
+     */
+    get Height() {
+        return this.Handle instanceof HTMLElement ? this.Handle.style.height || "" : "";
+    }
+    /**
+     * Gets or sets CSS height.
+     * @param {number|string} Value The height.
+     * @returns {void}
+     */
+    set Height(Value) {
+        if (this.Handle instanceof HTMLElement)
+            this.Handle.style.height = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+
+    // ● event triggers
+    /**
+     * Triggers the SelectedIndexChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnSelectedIndexChanged() {
+        this.Trigger("SelectedIndexChanged", {});
+    }
+};
+
+// ● html combo box
+/**
+ * A combo-box built on a native HTML select element.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - SelectedIndexChanged
+ */
+tp.HtmlComboBox = class extends tp.HtmlListControl {
+    // ● constructor
+    /**
+     * Creates an html combo box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.HtmlListControl);
+        tp.AddClass(this.Handle, tp.Classes.HtmlComboBox);
+    }
+};
+
+// ● html list box
+/**
+ * A single-select or multi-select list-box built on a native HTML select element.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - SelectedIndexChanged
+ */
+tp.HtmlListBox = class extends tp.HtmlListControl {
+    // ● constructor
+    /**
+     * Creates an html list box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        if (this.Handle instanceof HTMLSelectElement)
+            this.Handle.size = 8;
+    }
+    /**
+     * Applies explicit create params to this html list box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.VisibleItemCount))
+            this.VisibleItemCount = Params.VisibleItemCount;
+        if (!tp.IsNil(Params.MultiSelect))
+            this.MultiSelect = Params.MultiSelect === true;
+        if (!tp.IsNil(Params.SelectedIndexes))
+            this.SelectedIndexes = Params.SelectedIndexes;
+        if (!tp.IsNil(Params.SelectedValues))
+            this.SelectedValues = Params.SelectedValues;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.HtmlListControl);
+        tp.AddClass(this.Handle, tp.Classes.HtmlListBox);
+    }
+
+    // ● public
+    /**
+     * Selects or deselects all options.
+     * @param {boolean} Flag True to select all.
+     * @returns {void}
+     */
+    SelectAll(Flag) {
+        var Index;
+        var Items;
+        if (this.Handle instanceof HTMLSelectElement) {
+            Items = this.Handle.options;
+            for (Index = 0; Index < Items.length; Index++)
+                Items[Index].selected = Flag === true;
+        }
+    }
+    /**
+     * Returns all selected options.
+     * @returns {HTMLOptionElement[]} Returns the selected options.
+     */
+    GetSelectedItems() {
+        var Result = [];
+        var Index;
+        var Items;
+        if (this.Handle instanceof HTMLSelectElement) {
+            Items = this.Handle.options;
+            for (Index = 0; Index < Items.length; Index++) {
+                if (Items[Index].selected === true)
+                    Result.push(Items[Index]);
+            }
+        }
+        return Result;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the visible item count.
+     * @returns {number} Returns the visible item count.
+     */
+    get VisibleItemCount() {
+        return this.Handle instanceof HTMLSelectElement ? this.Handle.size : 0;
+    }
+    /**
+     * Gets or sets the visible item count.
+     * @param {number|string} Value The visible item count.
+     * @returns {void}
+     */
+    set VisibleItemCount(Value) {
+        if (this.Handle instanceof HTMLSelectElement)
+            this.Handle.size = tp.StrToInt(Value, 0);
+    }
+    /**
+     * Gets or sets whether multiple items can be selected.
+     * @returns {boolean} Returns true when multi-select is enabled.
+     */
+    get MultiSelect() {
+        return this.Handle instanceof HTMLSelectElement ? this.Handle.multiple : false;
+    }
+    /**
+     * Gets or sets whether multiple items can be selected.
+     * @param {boolean} Value True to enable multi-select.
+     * @returns {void}
+     */
+    set MultiSelect(Value) {
+        if (this.Handle instanceof HTMLSelectElement)
+            this.Handle.multiple = Value === true;
+    }
+    /**
+     * Gets or sets selected indexes.
+     * @returns {number[]} Returns selected indexes.
+     */
+    get SelectedIndexes() {
+        var Result = [];
+        var Index;
+        var Items;
+        if (this.Handle instanceof HTMLSelectElement) {
+            Items = this.Handle.options;
+            for (Index = 0; Index < Items.length; Index++) {
+                if (Items[Index].selected === true)
+                    Result.push(Index);
+            }
+        }
+        return Result;
+    }
+    /**
+     * Gets or sets selected indexes.
+     * @param {number[]} Value The selected indexes.
+     * @returns {void}
+     */
+    set SelectedIndexes(Value) {
+        var Index;
+        var Item;
+        if (this.Handle instanceof HTMLSelectElement) {
+            this.SelectAll(false);
+            Value = tp.IsArray(Value) ? Value : [];
+            for (Index = 0; Index < Value.length; Index++) {
+                Item = this.ItemAt(Value[Index]);
+                if (Item)
+                    Item.selected = true;
+            }
+        }
+    }
+    /**
+     * Gets or sets selected values.
+     * @returns {string[]} Returns selected values.
+     */
+    get SelectedValues() {
+        var Result = [];
+        var Index;
+        var Items;
+        if (this.Handle instanceof HTMLSelectElement) {
+            Items = this.Handle.options;
+            for (Index = 0; Index < Items.length; Index++) {
+                if (Items[Index].selected === true)
+                    Result.push(Items[Index].value);
+            }
+        }
+        return Result;
+    }
+    /**
+     * Gets or sets selected values.
+     * @param {string[]} Value The selected values.
+     * @returns {void}
+     */
+    set SelectedValues(Value) {
+        var Index;
+        var ItemIndex;
+        var Item;
+        if (this.Handle instanceof HTMLSelectElement) {
+            this.SelectAll(false);
+            Value = tp.IsArray(Value) ? Value : [];
+            for (Index = 0; Index < Value.length; Index++) {
+                ItemIndex = this.IndexOfValue(Value[Index]);
+                Item = this.ItemAt(ItemIndex);
+                if (Item)
+                    Item.selected = true;
+            }
+        }
+    }
+};
+
+tp.Ui.RegisterType(["HtmlComboBox", "tp-HtmlComboBox"], tp.HtmlComboBox);
+tp.Ui.RegisterType(["HtmlListBox", "tp-HtmlListBox"], tp.HtmlListBox);
+
+// ● 220-input-control.js
+// ● input control
+/**
+ * Base class for input element controls with simple data binding.
+ *
+ * Events:
+ * - ValueChanged
+ */
+tp.InputControl = class extends tp.Control {
+    // ● private
+    /**
+     * Creates input-control create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateInputParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "input";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "input";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates an input control.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.InputControl.CreateInputParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        this.fInputChangedHandler = this.FuncBind(this.HandleInputChanged);
+        if (this.Handle) {
+            this.Handle.addEventListener("change", this.fInputChangedHandler);
+            this.Handle.addEventListener("input", this.fInputChangedHandler);
+        }
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fInputChangedHandler) {
+            this.Handle.removeEventListener("change", this.fInputChangedHandler);
+            this.Handle.removeEventListener("input", this.fInputChangedHandler);
+        }
+        this.fInputChangedHandler = null;
+        super.DoDispose();
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+    /**
+     * Called after ReadOnly changes.
+     * @protected
+     * @returns {void}
+     */
+    OnReadOnlyChanged() {
+        if (this.Handle && "readOnly" in this.Handle)
+            this.Handle.readOnly = this.ReadOnly;
+        super.OnReadOnlyChanged();
+    }
+    /**
+     * Called after Required changes.
+     * @protected
+     * @returns {void}
+     */
+    OnRequiredChanged() {
+        this.SetRequiredMark(this.Handle);
+        super.OnRequiredChanged();
+    }
+    /**
+     * Handles input and change DOM events.
+     * @protected
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleInputChanged(e) {
+        this.WriteDataValue();
+        this.OnValueChanged();
+    }
+    /**
+     * Triggers the ValueChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnValueChanged() {
+        if (this.ReadingDataValue !== true)
+            this.Trigger("ValueChanged", {});
+    }
+
+    // ● properties
+    /**
+     * Gets or sets whether the input should receive focus on page load.
+     * @returns {boolean} Returns true when autofocus is enabled.
+     */
+    get AutoFocus() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.autofocus === true : false;
+    }
+    /**
+     * Gets or sets whether the input should receive focus on page load.
+     * @param {boolean} Value True to enable autofocus.
+     * @returns {void}
+     */
+    set AutoFocus(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.autofocus = Value === true;
+    }
+};
+
+// ● 225-memo.js
+// ● memo
+/**
+ * A multi-line text area control.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - ValueChanged
+ */
+tp.Memo = class extends tp.Control {
+    // ● private
+    /**
+     * Creates memo create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateMemoParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "textarea";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "textarea";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a memo.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.Memo.CreateMemoParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Text";
+        this.Cols = 20;
+        this.Rows = 2;
+        this.SpellCheck = false;
+        this.Autocomplete = false;
+    }
+    /**
+     * Applies explicit create params to this memo.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Width))
+            this.Width = Params.Width;
+        if (!tp.IsNil(Params.Height))
+            this.Height = Params.Height;
+        if (!tp.IsNil(Params.Cols))
+            this.Cols = tp.ToInt(Params.Cols);
+        if (!tp.IsNil(Params.Rows))
+            this.Rows = tp.ToInt(Params.Rows);
+        if (!tp.IsNil(Params.MaxLength))
+            this.MaxLength = tp.ToInt(Params.MaxLength);
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = String(Params.Placeholder);
+        if (!tp.IsNil(Params.SpellCheck))
+            this.SpellCheck = Params.SpellCheck === true;
+        if (!tp.IsNil(Params.Autocomplete))
+            this.Autocomplete = Params.Autocomplete === true;
+        if (!tp.IsNil(Params.WordWrap))
+            this.WordWrap = Params.WordWrap === true;
+        if (!tp.IsNil(Params.Resizable))
+            this.Resizable = Params.Resizable === true;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.Memo);
+        this.fInputChangedHandler = this.FuncBind(this.HandleInputChanged);
+        if (this.Handle) {
+            this.Handle.addEventListener("change", this.fInputChangedHandler);
+            this.Handle.addEventListener("input", this.fInputChangedHandler);
+        }
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fInputChangedHandler) {
+            this.Handle.removeEventListener("change", this.fInputChangedHandler);
+            this.Handle.removeEventListener("input", this.fInputChangedHandler);
+        }
+        this.fInputChangedHandler = null;
+        super.DoDispose();
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+    /**
+     * Called after ReadOnly changes.
+     * @protected
+     * @returns {void}
+     */
+    OnReadOnlyChanged() {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.readOnly = this.ReadOnly;
+        super.OnReadOnlyChanged();
+    }
+    /**
+     * Called after Required changes.
+     * @protected
+     * @returns {void}
+     */
+    OnRequiredChanged() {
+        this.SetRequiredMark(this.Handle);
+        super.OnRequiredChanged();
+    }
+    /**
+     * Handles input and change DOM events.
+     * @protected
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleInputChanged(e) {
+        this.WriteDataValue();
+        this.OnValueChanged();
+    }
+    /**
+     * Converts a data-source value to a memo text value.
+     * @param {*} Value The data-source value.
+     * @returns {string|null} Returns the text value.
+     */
+    DataValueToDataProperty(Value) {
+        return tp.IsString(Value) && tp.Db.NULL !== Value ? Value : null;
+    }
+    /**
+     * Converts a memo text value to a data-source value.
+     * @param {*} Value The memo text value.
+     * @returns {*} Returns the data-source value.
+     */
+    DataPropertyToDataValue(Value) {
+        return Value;
+    }
+    /**
+     * Triggers the ValueChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnValueChanged() {
+        if (this.ReadingDataValue !== true)
+            this.Trigger("ValueChanged", {});
+    }
+
+    // ● public
+    /**
+     * Focuses the memo and selects all text.
+     * @returns {void}
+     */
+    Select() {
+        if (this.Handle instanceof HTMLTextAreaElement && tp.IsFunction(this.Handle.select)) {
+            this.Handle.focus();
+            this.Handle.select();
+        }
+    }
+    /**
+     * Sets the selected text range.
+     * @param {number} Start The start position.
+     * @param {number} End The end position.
+     * @returns {void}
+     */
+    SetSelectionRange(Start, End) {
+        if (this.Handle instanceof HTMLTextAreaElement && tp.IsFunction(this.Handle.setSelectionRange)) {
+            Start = tp.ToInt(Start);
+            End = tp.ToInt(End);
+            this.Handle.focus();
+            this.Handle.setSelectionRange(Start, End);
+        }
+    }
+    /**
+     * Appends text to the memo.
+     * @param {string} Text The text to append.
+     * @returns {void}
+     */
+    Append(Text) {
+        this.Text = this.Text + (tp.IsNil(Text) ? "" : String(Text));
+    }
+    /**
+     * Appends text as a new line.
+     * @param {string} Text The text to append.
+     * @returns {void}
+     */
+    AppendLine(Text) {
+        var S = this.Text;
+        Text = tp.IsNil(Text) ? "" : String(Text);
+        this.Text = tp.IsBlank(S) ? Text : S + "\n" + Text;
+    }
+    /**
+     * Appends each line of a string array.
+     * @param {string[]} StringList The string array.
+     * @returns {void}
+     */
+    AppendLines(StringList) {
+        if (tp.IsArray(StringList))
+            StringList.forEach(function (Line) { this.AppendLine(Line); }, this);
+    }
+    /**
+     * Returns memo text lines.
+     * @param {boolean} RemoveEmptyLines True to remove empty lines.
+     * @returns {string[]} Returns the memo text lines.
+     */
+    GetLines(RemoveEmptyLines) {
+        return tp.Split(this.Text, "\n", RemoveEmptyLines === true);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the visible width in average character widths.
+     * @returns {number} Returns the column count.
+     */
+    get Cols() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.cols : 0;
+    }
+    /**
+     * Gets or sets the visible width in average character widths.
+     * @param {number} Value The column count.
+     * @returns {void}
+     */
+    set Cols(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.cols = tp.ToInt(Value);
+    }
+    /**
+     * Gets or sets the number of visible text lines.
+     * @returns {number} Returns the row count.
+     */
+    get Rows() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.rows : 0;
+    }
+    /**
+     * Gets or sets the number of visible text lines.
+     * @param {number} Value The row count.
+     * @returns {void}
+     */
+    set Rows(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.rows = tp.ToInt(Value);
+    }
+    /**
+     * Gets or sets whether the memo receives focus on page load.
+     * @returns {boolean} Returns true when autofocus is enabled.
+     */
+    get AutoFocus() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.autofocus === true : false;
+    }
+    /**
+     * Gets or sets whether the memo receives focus on page load.
+     * @param {boolean} Value True to enable autofocus.
+     * @returns {void}
+     */
+    set AutoFocus(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.autofocus = Value === true;
+    }
+    /**
+     * Gets or sets the maximum text length.
+     * @returns {number} Returns the maximum text length.
+     */
+    get MaxLength() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.maxLength : 0;
+    }
+    /**
+     * Gets or sets the maximum text length.
+     * @param {number} Value The maximum text length.
+     * @returns {void}
+     */
+    set MaxLength(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.maxLength = tp.ToInt(Value);
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @returns {string} Returns the placeholder text.
+     */
+    get Placeholder() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.placeholder || "" : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @param {string} Value The placeholder text.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets whether spelling checks are enabled.
+     * @returns {boolean} Returns true when spelling checks are enabled.
+     */
+    get SpellCheck() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.spellcheck === true : false;
+    }
+    /**
+     * Gets or sets whether spelling checks are enabled.
+     * @param {boolean} Value True to enable spelling checks.
+     * @returns {void}
+     */
+    set SpellCheck(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.spellcheck = Value === true;
+    }
+    /**
+     * Gets or sets whether browser autocomplete is enabled.
+     * @returns {boolean} Returns true when autocomplete is enabled.
+     */
+    get Autocomplete() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.autocomplete === "on" : false;
+    }
+    /**
+     * Gets or sets whether browser autocomplete is enabled.
+     * @param {boolean} Value True to enable autocomplete.
+     * @returns {void}
+     */
+    set Autocomplete(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.autocomplete = Value === true ? "on" : "off";
+    }
+    /**
+     * Gets or sets the start position of the selected text.
+     * @returns {number} Returns the selection start.
+     */
+    get SelectionStart() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.selectionStart || 0 : 0;
+    }
+    /**
+     * Gets or sets the start position of the selected text.
+     * @param {number} Value The selection start.
+     * @returns {void}
+     */
+    set SelectionStart(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.selectionStart = tp.ToInt(Value);
+    }
+    /**
+     * Gets or sets the end position of the selected text.
+     * @returns {number} Returns the selection end.
+     */
+    get SelectionEnd() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.selectionEnd || 0 : 0;
+    }
+    /**
+     * Gets or sets the end position of the selected text.
+     * @param {number} Value The selection end.
+     * @returns {void}
+     */
+    set SelectionEnd(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.selectionEnd = tp.ToInt(Value);
+    }
+    /**
+     * Returns true when the selection direction is forward.
+     * @returns {boolean} Returns true when the selection direction is forward.
+     */
+    get IsForwardSelection() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.selectionDirection === "forward" : false;
+    }
+    /**
+     * Gets or sets whether the memo applies word-wrap.
+     * @returns {boolean} Returns true when word-wrap is enabled.
+     */
+    get WordWrap() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.wrap === "hard" || this.Handle.wrap === "soft" : true;
+    }
+    /**
+     * Gets or sets whether the memo applies word-wrap.
+     * @param {boolean} Value True to enable word-wrap.
+     * @returns {void}
+     */
+    set WordWrap(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.wrap = Value === true ? "hard" : "off";
+    }
+    /**
+     * Gets or sets whether the memo displays a resize handle.
+     * @returns {boolean} Returns true when resizing is enabled.
+     */
+    get Resizable() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.style.resize !== "" && this.Handle.style.resize !== "none" : false;
+    }
+    /**
+     * Gets or sets whether the memo displays a resize handle.
+     * @param {boolean} Value True to enable resizing.
+     * @returns {void}
+     */
+    set Resizable(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.style.resize = Value === true ? "both" : "none";
+    }
+    /**
+     * Gets or sets CSS width.
+     * @returns {string} Returns the width.
+     */
+    get Width() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.style.width || "" : "";
+    }
+    /**
+     * Gets or sets CSS width.
+     * @param {number|string} Value The width.
+     * @returns {void}
+     */
+    set Width(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.style.width = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+    /**
+     * Gets or sets CSS height.
+     * @returns {string} Returns the height.
+     */
+    get Height() {
+        return this.Handle instanceof HTMLTextAreaElement ? this.Handle.style.height || "" : "";
+    }
+    /**
+     * Gets or sets CSS height.
+     * @param {number|string} Value The height.
+     * @returns {void}
+     */
+    set Height(Value) {
+        if (this.Handle instanceof HTMLTextAreaElement)
+            this.Handle.style.height = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+};
+
+tp.Ui.RegisterType(["Memo", "tp-Memo"], tp.Memo);
+
+// ● 230-text-box.js
+// ● text box
+/**
+ * A single-line text input control.
+ *
+ * Events:
+ * - ValueChanged
+ */
+tp.TextBox = class extends tp.InputControl {
+    // ● constructor
+    /**
+     * Creates a text box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataValueProperty = "Text";
+        this.fAutocompleteList = null;
+        this.SpellCheck = false;
+        this.Autocomplete = false;
+    }
+    /**
+     * Applies explicit create params to this text box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.MaxLength))
+            this.MaxLength = tp.ToInt(Params.MaxLength);
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = String(Params.Placeholder);
+        if (!tp.IsNil(Params.SpellCheck))
+            this.SpellCheck = Params.SpellCheck === true;
+        if (!tp.IsNil(Params.Autocomplete))
+            this.Autocomplete = Params.Autocomplete === true;
+        if (!tp.IsNil(Params.DOMAutocomplete))
+            this.DOMAutocomplete = Params.DOMAutocomplete === true;
+        if (!tp.IsNil(Params.RegexPattern))
+            this.RegexPattern = String(Params.RegexPattern);
+        if (!tp.IsNil(Params.AutocompleteList)) {
+            this.AutocompleteList.DataList = Params.AutocompleteList;
+            this.AutocompleteList.Active = true;
+        }
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.type = "text";
+        tp.AddClass(this.Handle, tp.Classes.TextBox);
+        super.OnHandleCreated();
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fAutocompleteList) {
+            this.fAutocompleteList.Dispose();
+            this.fAutocompleteList = null;
+        }
+        super.DoDispose();
+    }
+    /**
+     * Called after data-binding is completed.
+     * @protected
+     * @returns {void}
+     */
+    OnBindCompleted() {
+        var Alignment;
+        if (this.DataColumn instanceof tp.DataColumn) {
+            Alignment = tp.DataType.DefaultAlignment(this.DataColumn.DataType);
+            this.TextAlign = tp.Alignment.ToText(Alignment);
+        }
+        super.OnBindCompleted();
+    }
+    /**
+     * Converts a data-source value to a text-box text value.
+     * @param {*} Value The data-source value.
+     * @returns {string|null} Returns the text value.
+     */
+    DataValueToDataProperty(Value) {
+        return tp.IsString(Value) && tp.Db.NULL !== Value ? Value : null;
+    }
+    /**
+     * Converts a text-box text value to a data-source value.
+     * @param {*} Value The text-box text value.
+     * @returns {*} Returns the data-source value.
+     */
+    DataPropertyToDataValue(Value) {
+        return Value;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the maximum text length.
+     * @returns {number} Returns the maximum text length.
+     */
+    get MaxLength() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.maxLength : 0;
+    }
+    /**
+     * Gets or sets the maximum text length.
+     * @param {number} Value The maximum text length.
+     * @returns {void}
+     */
+    set MaxLength(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.maxLength = tp.ToInt(Value);
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @returns {string} Returns the placeholder text.
+     */
+    get Placeholder() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.placeholder || "" : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @param {string} Value The placeholder text.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets whether spelling checks are enabled.
+     * @returns {boolean} Returns true when spelling checks are enabled.
+     */
+    get SpellCheck() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.spellcheck === true : false;
+    }
+    /**
+     * Gets or sets whether spelling checks are enabled.
+     * @param {boolean} Value True to enable spelling checks.
+     * @returns {void}
+     */
+    set SpellCheck(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.spellcheck = Value === true;
+    }
+    /**
+     * Gets or sets whether browser autocomplete is enabled.
+     * @returns {boolean} Returns true when autocomplete is enabled.
+     */
+    get Autocomplete() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.autocomplete === "on" : false;
+    }
+    /**
+     * Gets or sets whether browser autocomplete is enabled.
+     * @param {boolean} Value True to enable autocomplete.
+     * @returns {void}
+     */
+    set Autocomplete(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.autocomplete = Value === true ? "on" : "off";
+    }
+    /**
+     * Gets or sets the validation regular expression pattern.
+     * @returns {string} Returns the pattern.
+     */
+    get RegexPattern() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.pattern || "" : "";
+    }
+    /**
+     * Gets or sets the validation regular expression pattern.
+     * @param {string} Value The pattern.
+     * @returns {void}
+     */
+    set RegexPattern(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.pattern = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the start position of the selected text.
+     * @returns {number} Returns the selection start.
+     */
+    get SelectionStart() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.selectionStart || 0 : 0;
+    }
+    /**
+     * Gets or sets the start position of the selected text.
+     * @param {number} Value The selection start.
+     * @returns {void}
+     */
+    set SelectionStart(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.selectionStart = tp.ToInt(Value);
+    }
+    /**
+     * Gets or sets the end position of the selected text.
+     * @returns {number} Returns the selection end.
+     */
+    get SelectionEnd() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.selectionEnd || 0 : 0;
+    }
+    /**
+     * Gets or sets the end position of the selected text.
+     * @param {number} Value The selection end.
+     * @returns {void}
+     */
+    set SelectionEnd(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.selectionEnd = tp.ToInt(Value);
+    }
+    /**
+     * Returns true when the selection direction is forward.
+     * @returns {boolean} Returns true when the selection direction is forward.
+     */
+    get IsForwardSelection() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.selectionDirection === "forward" : false;
+    }
+    /**
+     * Gets or sets whether browser autocomplete is enabled.
+     * @returns {boolean} Returns true when autocomplete is enabled.
+     */
+    get DOMAutocomplete() {
+        return this.Autocomplete;
+    }
+    /**
+     * Gets or sets whether browser autocomplete is enabled.
+     * @param {boolean} Value True to enable autocomplete.
+     * @returns {void}
+     */
+    set DOMAutocomplete(Value) {
+        this.Autocomplete = Value;
+    }
+    /**
+     * Gets the Tripous autocomplete list associated with this text box.
+     * @returns {tp.AutocompleteList|null} Returns the autocomplete list.
+     */
+    get AutocompleteList() {
+        if (this.Handle instanceof HTMLInputElement) {
+            if (tp.IsEmpty(this.fAutocompleteList))
+                this.fAutocompleteList = new tp.AutocompleteList(this.Handle);
+        }
+        return this.fAutocompleteList;
+    }
+    /**
+     * Gets or sets text alignment.
+     * @returns {string} Returns the text-align value.
+     */
+    get TextAlign() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.style.textAlign || "" : "";
+    }
+    /**
+     * Gets or sets text alignment.
+     * @param {string} Value The text-align value.
+     * @returns {void}
+     */
+    set TextAlign(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.style.textAlign = tp.IsNil(Value) ? "" : String(Value);
+    }
+
+    // ● public
+    /**
+     * Focuses the input and selects all text.
+     * @returns {void}
+     */
+    Select() {
+        if (this.Handle instanceof HTMLInputElement && tp.IsFunction(this.Handle.select)) {
+            this.Handle.focus();
+            this.Handle.select();
+        }
+    }
+    /**
+     * Sets the selected text range.
+     * @param {number} Start The start position.
+     * @param {number} End The end position.
+     * @returns {void}
+     */
+    SetSelectionRange(Start, End) {
+        if (this.Handle instanceof HTMLInputElement && tp.IsFunction(this.Handle.setSelectionRange)) {
+            Start = tp.ToInt(Start);
+            End = tp.ToInt(End);
+            this.Handle.focus();
+            this.Handle.setSelectionRange(Start, End);
+        }
+    }
+};
+
+tp.Ui.RegisterType(["TextBox", "tp-TextBox"], tp.TextBox);
+
+// ● 235-image-box.js
+// ● image box
+/**
+ * A background-image based image control.
+ *
+ * The control is a div that uses background-image, background-size, background-position,
+ * and background-repeat instead of an img element.
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ */
+tp.ImageBox = class extends tp.Control {
+    // ● private
+    /**
+     * Creates image-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateImageBoxParams(CreateParams) {
+        var Args;
+        if (CreateParams instanceof tp.CreateParams) {
+            Args = new tp.CreateParams(CreateParams);
+            if (tp.IsNil(Args.ElementOrSelector))
+                Args.ElementOrSelector = "div";
+            return Args;
+        }
+        Args = tp.IsObject(CreateParams) ? tp.Assign({}, CreateParams) : {};
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "div";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates an image box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.ImageBox.CreateImageBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Url";
+    }
+    /**
+     * Applies explicit create params to this image box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Width))
+            this.Width = Params.Width;
+        if (!tp.IsNil(Params.Height))
+            this.Height = Params.Height;
+        if (!tp.IsNil(Params.Url))
+            this.Url = Params.Url;
+        if (!tp.IsNil(Params.ImageMode))
+            this.ImageMode = Params.ImageMode;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ImageBox);
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the image url.
+     * @returns {string} Returns the image url or an empty string.
+     */
+    get Url() {
+        var Value = this.Handle instanceof HTMLElement ? this.Handle.style.backgroundImage || "" : "";
+        if (Value.indexOf("url(") === 0)
+            Value = Value.substring(4, Value.length - 1).replace(/^["']|["']$/g, "");
+        return Value === "none" ? "" : Value;
+    }
+    /**
+     * Gets or sets the image url.
+     * @param {string} Value The image url or data url.
+     * @returns {void}
+     */
+    set Url(Value) {
+        if (this.Handle instanceof HTMLElement) {
+            Value = tp.IsNil(Value) ? "" : String(Value);
+            this.Handle.style.backgroundImage = tp.IsBlank(Value) ? "" : "url(\"" + Value + "\")";
+        }
+    }
+    /**
+     * Gets or sets the image size mode.
+     * @returns {number} Returns a tp.ImageSizeMode value.
+     */
+    get ImageMode() {
+        var Value = this.Handle instanceof HTMLElement ? this.Handle.style.backgroundSize || "" : "";
+        if (Value === "cover")
+            return tp.ImageSizeMode.Crop;
+        if (Value === "contain")
+            return tp.ImageSizeMode.Scale;
+        if (Value === "100% 100%")
+            return tp.ImageSizeMode.Stretch;
+        return tp.ImageSizeMode.Unknown;
+    }
+    /**
+     * Gets or sets the image size mode.
+     * @param {number|string} Value The tp.ImageSizeMode value or enum name.
+     * @returns {void}
+     */
+    set ImageMode(Value) {
+        if (tp.IsString(Value)) {
+            if (tp.IsSameText(Value, "Crop"))
+                Value = tp.ImageSizeMode.Crop;
+            else if (tp.IsSameText(Value, "Scale"))
+                Value = tp.ImageSizeMode.Scale;
+            else if (tp.IsSameText(Value, "Stretch"))
+                Value = tp.ImageSizeMode.Stretch;
+            else
+                Value = tp.ImageSizeMode.Stretch;
+        }
+        if (this.Handle instanceof HTMLElement) {
+            if (Value === tp.ImageSizeMode.Crop)
+                this.Handle.style.backgroundSize = "cover";
+            else if (Value === tp.ImageSizeMode.Scale)
+                this.Handle.style.backgroundSize = "contain";
+            else if (Value === tp.ImageSizeMode.Stretch)
+                this.Handle.style.backgroundSize = "100% 100%";
+        }
+    }
+    /**
+     * Gets or sets CSS width.
+     * @returns {string} Returns the width.
+     */
+    get Width() {
+        return this.Handle instanceof HTMLElement ? this.Handle.style.width || "" : "";
+    }
+    /**
+     * Gets or sets CSS width.
+     * @param {number|string} Value The width.
+     * @returns {void}
+     */
+    set Width(Value) {
+        if (this.Handle instanceof HTMLElement)
+            this.Handle.style.width = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+    /**
+     * Gets or sets CSS height.
+     * @returns {string} Returns the height.
+     */
+    get Height() {
+        return this.Handle instanceof HTMLElement ? this.Handle.style.height || "" : "";
+    }
+    /**
+     * Gets or sets CSS height.
+     * @param {number|string} Value The height.
+     * @returns {void}
+     */
+    set Height(Value) {
+        if (this.Handle instanceof HTMLElement)
+            this.Handle.style.height = tp.IsNumber(Value) ? tp.px(Value) : String(Value);
+    }
+};
+
+tp.Ui.RegisterType(["ImageBox", "tp-ImageBox"], tp.ImageBox);
 

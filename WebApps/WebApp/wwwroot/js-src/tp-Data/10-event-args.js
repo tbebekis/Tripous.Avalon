@@ -68,3 +68,65 @@ tp.DataTableEventArgs = class extends tp.DataEventArgs {
         return this.Sender;
     }
 };
+
+// ● data source event args
+/**
+ * Event arguments for data source events.
+ */
+tp.DataSourceEventArgs = class extends tp.DataEventArgs {
+    // ● constructor
+    /**
+     * Creates event arguments for data source events.
+     * @param {tp.DataColumn|tp.DataTableEventArgs|null|undefined} ColumnOrSource The data column or a data table event source.
+     * @param {tp.DataRow|null|undefined} Row The data row, if applicable.
+     * @param {*} OldValue The old value, if applicable.
+     * @param {*} NewValue The new value, if applicable.
+     */
+    constructor(ColumnOrSource, Row, OldValue, NewValue) {
+        super(null, null, null, null);
+        if (ColumnOrSource instanceof tp.DataTableEventArgs) {
+            this.Column = ColumnOrSource.Column;
+            this.Row = ColumnOrSource.Row;
+            this.OldValue = ColumnOrSource.OldValue;
+            this.NewValue = ColumnOrSource.NewValue;
+        } else {
+            this.Column = ColumnOrSource || null;
+            this.Row = Row || null;
+            this.OldValue = OldValue;
+            this.NewValue = NewValue;
+        }
+    }
+
+    // ● static
+    /**
+     * Creates data source event arguments from data table event arguments.
+     * @param {tp.DataTableEventArgs} Source The source data table event arguments.
+     * @returns {tp.DataSourceEventArgs} Returns the created event arguments.
+     */
+    static Create(Source) {
+        return new tp.DataSourceEventArgs(Source);
+    }
+
+    // ● properties
+    /**
+     * Gets the sender data source.
+     * @returns {tp.DataSource|null} Returns the sender data source.
+     */
+    get DataSource() {
+        return this.Sender;
+    }
+    /**
+     * Gets the bound data table.
+     * @returns {tp.DataTable|null} Returns the bound data table.
+     */
+    get Table() {
+        return this.DataSource ? this.DataSource.Table : null;
+    }
+    /**
+     * Gets the data source position.
+     * @returns {number} Returns the data source position, or -1.
+     */
+    get Position() {
+        return this.DataSource ? this.DataSource.Position : -1;
+    }
+};

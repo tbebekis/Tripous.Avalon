@@ -29,6 +29,8 @@ tp.DataColumn = class extends tp.Object {
         this.DisplayFormat = "";
         this.EditFormat = "";
         this.DisplayWidth = 0;
+        this.LocalDate = true;
+        this.DisplaySeconds = false;
         this.LookupSource = "";
         this.Locator = "";
         this.CodeProvider = "";
@@ -356,6 +358,8 @@ tp.DataColumn = class extends tp.Object {
         this.DisplayFormat = tp.DataColumn.NormalizeString(Source.DisplayFormat, this.DisplayFormat);
         this.EditFormat = tp.DataColumn.NormalizeString(Source.EditFormat, this.EditFormat);
         this.DisplayWidth = tp.DataColumn.NormalizeInteger(Source.DisplayWidth, this.DisplayWidth);
+        this.LocalDate = "LocalDate" in Source ? Source.LocalDate === true : this.LocalDate;
+        this.DisplaySeconds = "DisplaySeconds" in Source ? Source.DisplaySeconds === true : this.DisplaySeconds;
         this.LookupSource = tp.DataColumn.NormalizeString(Source.LookupSource, this.LookupSource);
         this.Locator = tp.DataColumn.NormalizeString(Source.Locator, this.Locator);
         this.CodeProvider = tp.DataColumn.NormalizeString(Source.CodeProvider, this.CodeProvider);
@@ -384,6 +388,8 @@ tp.DataColumn = class extends tp.Object {
             DisplayFormat: this.DisplayFormat,
             EditFormat: this.EditFormat,
             DisplayWidth: this.DisplayWidth,
+            LocalDate: this.LocalDate,
+            DisplaySeconds: this.DisplaySeconds,
             LookupSource: this.LookupSource,
             Locator: this.Locator,
             CodeProvider: this.CodeProvider,
@@ -391,6 +397,23 @@ tp.DataColumn = class extends tp.Object {
             Group: this.Group,
             ToolTip: this.ToolTip
         };
+    }
+    /**
+     * Returns a specified value of this column formatted as text.
+     * @param {*} Value The value to format.
+     * @param {boolean|null|undefined} ForList True when formatting for a list or grid.
+     * @returns {string|*} Returns the formatted value.
+     */
+    Format(Value, ForList) {
+        return tp.Db.Format(Value, this.DataType, this.ColumnType, ForList, this.Decimals, this.LocalDate, this.DisplaySeconds);
+    }
+    /**
+     * Converts text into a value suitable for this column.
+     * @param {*} Value The value to parse.
+     * @returns {*} Returns the parsed value.
+     */
+    Parse(Value) {
+        return tp.Db.Parse(Value, this.DataType);
     }
 };
 

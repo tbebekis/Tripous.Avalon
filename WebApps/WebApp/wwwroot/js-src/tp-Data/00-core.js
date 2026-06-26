@@ -121,6 +121,14 @@ tp.DataType.IsDateStrict = function (Value) {
 tp.DataType.IsBlob = function (Value) {
     return Value === tp.DataType.Blob || Value === tp.DataType.TextBlob;
 };
+/**
+ * Returns the default alignment for a data type.
+ * @param {number} Value The data type value.
+ * @returns {number} Returns a tp.Alignment value.
+ */
+tp.DataType.DefaultAlignment = function (Value) {
+    return tp.DataType.IsNumeric(Value) || Value === tp.DataType.Boolean ? tp.Alignment.Right : tp.Alignment.Left;
+};
 Object.freeze(tp.DataType);
 /**
  * Alias for tp.DataType, matching the C# enum name.
@@ -245,3 +253,129 @@ tp.DataColumnType = {
     Lookup: 0x0200
 };
 Object.freeze(tp.DataColumnType);
+
+// ● db formatting
+/**
+ * Helper methods for data formatting and parsing.
+ */
+tp.Db = class {
+    // ● constructor
+    /**
+     * Prevents instance creation.
+     */
+    constructor() {
+        tp.Throw("Can not create an instance of a static class.");
+    }
+
+    // ● static public
+    /**
+     * Formats a value as text according to a data type and column type.
+     * @param {*} Value The value to format.
+     * @param {number} DataType The data type.
+     * @param {number} ColumnType The data column type.
+     * @param {boolean|null|undefined} ForList True when formatting for a list or grid.
+     * @param {number|null|undefined} Decimals The number of decimal places.
+     * @param {boolean|null|undefined} LocalDate True to use local date formatting.
+     * @param {boolean|null|undefined} DisplaySeconds True to include seconds in date-time formatting.
+     * @returns {string|*} Returns the formatted value.
+     */
+    static Format(Value, DataType, ColumnType, ForList, Decimals, LocalDate, DisplaySeconds) {
+        var DateValue;
+        var Format;
+        if (tp.IsEmpty(Value))
+            return "";
+        if (ColumnType === tp.DataColumnType.Boolean)
+            DataType = tp.DataType.Boolean;
+        switch (DataType) {
+            case tp.DataType.None:
+                return "";
+            case tp.DataType.String:
+                return Value.toString();
+            case tp.DataType.Integer:
+                return ColumnType === tp.DataColumnType.Boolean ? (Value === true || Value === 1 ? "x" : "") : Value.toString();
+            case tp.DataType.Boolean:
+                return Value === true || Value === 1 ? "x" : "";
+            case tp.DataType.Double:
+            case tp.DataType.Decimal:
+            case tp.DataType.Decimal_:
+                Decimals = tp.IsNumber(Decimals) && Decimals >= 0 ? Decimals : 2;
+                return tp.FormatNumber2(tp.StrToFloat(Value, 0), Decimals);
+            case tp.DataType.Date:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    return "";
+                return LocalDate === true ? tp.FormatDateTime(DateValue, tp.GetDateFormat()) : tp.FormatDateTime(DateValue, "yyyy-MM-dd");
+            case tp.DataType.DateTime:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    return "";
+                if (ColumnType === tp.DataColumnType.Date)
+                    return LocalDate === true ? tp.FormatDateTime(DateValue, tp.GetDateFormat()) : tp.FormatDateTime(DateValue, "yyyy-MM-dd");
+                Format = DisplaySeconds === true ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd HH:mm";
+                return LocalDate === true ? tp.FormatDateTime(DateValue, Format) : tp.FormatDateTime(DateValue, Format);
+            case tp.DataType.TextBlob:
+                return ForList === true ? "[memo]" : Value;
+            case tp.DataType.Blob:
+                return ForList === true ? "[blob]" : Value;
+        }
+        return "";
+    }
+    /**
+     * Parses text into a value according to a data type.
+     * @param {*} Value The value to parse.
+     * @param {number} DataType The data type.
+     * @returns {*} Returns the parsed value.
+     */
+    static Parse(Value, DataType) {
+        var Info;
+        var DateValue;
+        if (tp.IsEmpty(Value))
+            return null;
+        switch (DataType) {
+            case tp.DataType.String:
+            case tp.DataType.TextBlob:
+                return Value.toString();
+            case tp.DataType.Integer:
+                Info = tp.TryStrToInt(Value);
+                if (!Info.Result)
+                    tp.Throw("Not an integer: " + Value);
+                return Info.Value;
+            case tp.DataType.Boolean:
+                if (tp.IsSameText(Value, "false") || Value === "0")
+                    return false;
+                if (tp.IsSameText(Value, "true") || tp.IsSameText(Value, "x") || Value === "1")
+                    return true;
+                return false;
+            case tp.DataType.Double:
+            case tp.DataType.Decimal:
+            case tp.DataType.Decimal_:
+                Info = tp.TryStrToFloat(Value);
+                if (!Info.Result)
+                    tp.Throw("Not a float number: " + Value);
+                return Info.Value;
+            case tp.DataType.Date:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    tp.Throw("Not a date: " + Value);
+                return tp.ClearTime(DateValue);
+            case tp.DataType.DateTime:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    tp.Throw("Not a date-time: " + Value);
+                return DateValue;
+        }
+        return null;
+    }
+    /**
+     * Converts a value to a Date.
+     * @param {*} Value The value to convert.
+     * @returns {Date|null} Returns a Date or null.
+     */
+    static ToDate(Value) {
+        var DateValue;
+        if (tp.IsValidDate(Value))
+            return tp.DateClone(Value);
+        DateValue = new Date(Value);
+        return tp.IsValidDate(DateValue) ? DateValue : null;
+    }
+};

@@ -125,6 +125,287 @@ tp.ListClone = function (List, Deep) {
     return JSON.parse(JSON.stringify(List));
 };
 
+// ● array sort and filter
+/**
+ * Information object for array sorting.
+ */
+tp.SortInfo = class {
+    // ● constructor
+    /**
+     * Creates sort information.
+     * @param {string|number|null|undefined} Prop The property name or array index.
+     * @param {boolean|null|undefined} Reverse True to sort in descending order.
+     * @param {Function|null|undefined} GetValueFunc Optional callback returning the sortable value.
+     */
+    constructor(Prop, Reverse, GetValueFunc) {
+        this.Prop = tp.IsNullOrUndefined(Prop) ? "" : Prop;
+        this.Reverse = Reverse === true;
+        this.GetValueFunc = tp.IsFunction(GetValueFunc) ? GetValueFunc : null;
+    }
+};
+/**
+ * The property name or array index.
+ * @type {string|number}
+ */
+tp.SortInfo.prototype.Prop = "";
+/**
+ * True to sort in descending order.
+ * @type {boolean}
+ */
+tp.SortInfo.prototype.Reverse = false;
+/**
+ * Optional callback returning the sortable value.
+ * @type {Function|null}
+ */
+tp.SortInfo.prototype.GetValueFunc = null;
+/**
+ * Sorts an array in place by multiple properties.
+ * @param {object[]} List A collection of plain objects or arrays.
+ * @param {Array<string|number|tp.SortInfo|object>} SortInfos The sort information items.
+ * @returns {void}
+ */
+tp.ListSort = function (List, SortInfos) {
+    var InfoList = [];
+    var Index;
+    var Info;
+    /**
+     * Returns the value to sort by.
+     * @param {object|Array} Row The row being sorted.
+     * @param {tp.SortInfo|object} Item The sort information item.
+     * @returns {*} Returns the value.
+     */
+    function GetValueFunc(Row, Item) {
+        return Row ? Row[Item.Prop] : null;
+    }
+    /**
+     * Compares two rows.
+     * @param {*} A The first row.
+     * @param {*} B The second row.
+     * @returns {number} Returns the comparison result.
+     */
+    function CompareFunc(A, B) {
+        var ItemIndex;
+        var Item;
+        var ValueA;
+        var ValueB;
+        var Result = 0;
+        for (ItemIndex = 0; ItemIndex < InfoList.length; ItemIndex++) {
+            Item = InfoList[ItemIndex];
+            ValueA = Item.GetValueFunc(A, Item);
+            ValueB = Item.GetValueFunc(B, Item);
+            Result = ValueA === ValueB ? 0 : (Item.Reverse ? (ValueA > ValueB ? -1 : 1) : (ValueA < ValueB ? -1 : 1));
+            if (Result !== 0)
+                break;
+        }
+        return Result;
+    }
+    if (!tp.IsArray(List) || !tp.IsArray(SortInfos) || SortInfos.length === 0)
+        return;
+    for (Index = 0; Index < SortInfos.length; Index++) {
+        if (tp.IsNumber(SortInfos[Index]) || tp.IsString(SortInfos[Index])) {
+            Info = new tp.SortInfo(SortInfos[Index], false, GetValueFunc);
+        } else {
+            Info = SortInfos[Index];
+            if (!tp.IsFunction(Info.GetValueFunc))
+                Info.GetValueFunc = GetValueFunc;
+        }
+        InfoList.push(Info);
+    }
+    List.sort(CompareFunc);
+};
+/**
+ * Filter comparison operators.
+ * @enum {number}
+ */
+tp.FilterOp = {
+    None: 0,
+    /** Greater than. */
+    GT: 1,
+    /** Greater than or equal. */
+    GE: 2,
+    /** Equal. */
+    EQ: 4,
+    /** Not equal. */
+    NE: 8,
+    /** Less than. */
+    LT: 0x10,
+    /** Less than or equal. */
+    LE: 0x20,
+    /** Contains. */
+    CO: 0x40,
+    /** Starts with. */
+    SW: 0x80,
+    /** Ends with. */
+    EW: 0x100
+};
+/**
+ * Greater than.
+ * @type {number}
+ */
+tp.FilterOp.Greater = tp.FilterOp.GT;
+/**
+ * Greater than or equal.
+ * @type {number}
+ */
+tp.FilterOp.GreaterOrEqual = tp.FilterOp.GE;
+/**
+ * Equal.
+ * @type {number}
+ */
+tp.FilterOp.Equal = tp.FilterOp.EQ;
+/**
+ * Not equal.
+ * @type {number}
+ */
+tp.FilterOp.NotEqual = tp.FilterOp.NE;
+/**
+ * Less than.
+ * @type {number}
+ */
+tp.FilterOp.Less = tp.FilterOp.LT;
+/**
+ * Less than or equal.
+ * @type {number}
+ */
+tp.FilterOp.LessOrEqual = tp.FilterOp.LE;
+/**
+ * Contains.
+ * @type {number}
+ */
+tp.FilterOp.Contains = tp.FilterOp.CO;
+/**
+ * Starts with.
+ * @type {number}
+ */
+tp.FilterOp.StartsWith = tp.FilterOp.SW;
+/**
+ * Ends with.
+ * @type {number}
+ */
+tp.FilterOp.EndsWith = tp.FilterOp.EW;
+/**
+ * Compares two values using a filter operator.
+ * @param {number} Operator The comparison operator.
+ * @param {*} A The first value.
+ * @param {*} B The second value.
+ * @returns {boolean} Returns true when the comparison passes.
+ */
+tp.FilterOp.Compare = function (Operator, A, B) {
+    if (A === tp.Undefined)
+        A = null;
+    if (B === tp.Undefined)
+        B = null;
+    if (A instanceof Date)
+        A = A.valueOf();
+    if (B instanceof Date)
+        B = B.valueOf();
+    switch (Operator) {
+        case tp.FilterOp.Greater: return A > B;
+        case tp.FilterOp.GreaterOrEqual: return A >= B;
+        case tp.FilterOp.Equal: return A === B;
+        case tp.FilterOp.NotEqual: return A !== B;
+        case tp.FilterOp.Less: return A < B;
+        case tp.FilterOp.LessOrEqual: return A <= B;
+        case tp.FilterOp.Contains: return tp.ContainsText(A, B, true);
+        case tp.FilterOp.StartsWith: return tp.StartsWith(A, B, true);
+        case tp.FilterOp.EndsWith: return tp.EndsWith(A, B, true);
+    }
+    return false;
+};
+Object.freeze(tp.FilterOp);
+/**
+ * Information object for array filtering.
+ */
+tp.FilterInfo = class {
+    // ● constructor
+    /**
+     * Creates filter information.
+     * @param {string|number|null|undefined} Prop The property name or array index.
+     * @param {*} Value The filter value.
+     * @param {number|null|undefined} Operator The filter operator.
+     * @param {Function|null|undefined} FilterFunc Optional callback returning whether the row passes.
+     */
+    constructor(Prop, Value, Operator, FilterFunc) {
+        this.Prop = tp.IsNullOrUndefined(Prop) ? "" : Prop;
+        this.Value = Value;
+        this.Operator = Operator || tp.FilterOp.Equal;
+        this.FilterFunc = tp.IsFunction(FilterFunc) ? FilterFunc : null;
+    }
+};
+/**
+ * The property name or array index.
+ * @type {string|number}
+ */
+tp.FilterInfo.prototype.Prop = "";
+/**
+ * The filter value.
+ * @type {*}
+ */
+tp.FilterInfo.prototype.Value = null;
+/**
+ * The filter operator.
+ * @type {number}
+ */
+tp.FilterInfo.prototype.Operator = tp.FilterOp.Equal;
+/**
+ * Optional callback returning whether the row passes.
+ * @type {Function|null}
+ */
+tp.FilterInfo.prototype.FilterFunc = null;
+/**
+ * Filters an array by multiple properties.
+ * @param {object[]} List A collection of plain objects or arrays.
+ * @param {Array<tp.FilterInfo|object>} FilterInfos The filter information items.
+ * @param {boolean|null|undefined} OrLogic True to apply OR logic; false to apply AND logic.
+ * @returns {object[]} Returns a new filtered array.
+ */
+tp.ListFilter = function (List, FilterInfos, OrLogic) {
+    var InfoList = [];
+    var Index;
+    var Info;
+    /**
+     * Tests whether a row passes a filter item.
+     * @param {object|Array} Row The row being filtered.
+     * @param {tp.FilterInfo|object} Item The filter information item.
+     * @returns {boolean} Returns true when the row passes.
+     */
+    function FilterFunc(Row, Item) {
+        var Value = Row ? Row[Item.Prop] : null;
+        return tp.FilterOp.Compare(Item.Operator, Value, Item.Value);
+    }
+    /**
+     * Tests whether a row passes all filter items.
+     * @param {object|Array} Row The row being filtered.
+     * @returns {boolean} Returns true when the row passes.
+     */
+    function ArrayFilterFunc(Row) {
+        var ItemIndex;
+        var Item;
+        var Result = OrLogic === true ? false : true;
+        for (ItemIndex = 0; ItemIndex < InfoList.length; ItemIndex++) {
+            Item = InfoList[ItemIndex];
+            Result = Item.FilterFunc(Row, Item);
+            if (OrLogic !== true && Result !== true)
+                break;
+            if (OrLogic === true && Result === true)
+                break;
+        }
+        return Result;
+    }
+    if (!tp.IsArray(List))
+        return [];
+    if (!tp.IsArray(FilterInfos) || FilterInfos.length === 0)
+        return List.slice();
+    for (Index = 0; Index < FilterInfos.length; Index++) {
+        Info = FilterInfos[Index];
+        Info.Operator = Info.Operator || tp.FilterOp.Equal;
+        if (!tp.IsFunction(Info.FilterFunc))
+            Info.FilterFunc = FilterFunc;
+        InfoList.push(Info);
+    }
+    return List.filter(ArrayFilterFunc);
+};
+
 // ● array predicates and transforms
 /**
  * Returns true when any item passes a predicate.

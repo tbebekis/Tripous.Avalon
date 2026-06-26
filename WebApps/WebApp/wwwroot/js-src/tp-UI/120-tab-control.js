@@ -10,12 +10,29 @@ tp.TabPage = class extends tp.Component {
      */
     constructor(CreateParams) {
         super(CreateParams);
-        this.tpClass = "tp.TabPage";
-        tp.AddClass(this.Handle, tp.Classes.TabPage);
-        this.Tab = this.CreateParams.Tab;
     }
 
     // ● protected
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.TabPage);
+    }
+    /**
+     * Applies explicit create params to this tab page.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (Params.Tab instanceof HTMLElement)
+            this.Tab = Params.Tab;
+    }
     /**
      * Destroys the handle and the tab element.
      * @returns {void}
@@ -51,6 +68,11 @@ tp.TabPage = class extends tp.Component {
  * @type {HTMLElement|null}
  */
 tp.TabPage.prototype.Tab = null;
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.TabPage.prototype.tpClass = "tp.TabPage";
 
 // ● tab control
 /**
@@ -79,16 +101,38 @@ tp.TabControl = class extends tp.Component {
      */
     constructor(CreateParams) {
         super(CreateParams);
-        this.tpClass = "tp.TabControl";
-        tp.AddClass(this.Handle, tp.Classes.TabControl);
-        this.CreateControls();
-        if (tp.IsNumber(this.CreateParams.SelectedIndex))
-            this.SelectedIndex = this.CreateParams.SelectedIndex;
-        else if (this.GetPageCount() > 0)
-            this.SelectedIndex = 0;
     }
 
     // ● protected
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.TabControl);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateControls();
+    }
+    /**
+     * Applies explicit create params to this tab control.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (Params && tp.IsNumber(Params.SelectedIndex))
+            this.SelectedIndex = Params.SelectedIndex;
+        else if (this.GetPageCount() > 0)
+            this.SelectedIndex = 0;
+    }
     /**
      * Creates child controls.
      * @returns {void}

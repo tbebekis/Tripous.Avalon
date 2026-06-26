@@ -129,6 +129,14 @@ tp.DataType.IsDateStrict = function (Value) {
 tp.DataType.IsBlob = function (Value) {
     return Value === tp.DataType.Blob || Value === tp.DataType.TextBlob;
 };
+/**
+ * Returns the default alignment for a data type.
+ * @param {number} Value The data type value.
+ * @returns {number} Returns a tp.Alignment value.
+ */
+tp.DataType.DefaultAlignment = function (Value) {
+    return tp.DataType.IsNumeric(Value) || Value === tp.DataType.Boolean ? tp.Alignment.Right : tp.Alignment.Left;
+};
 Object.freeze(tp.DataType);
 /**
  * Alias for tp.DataType, matching the C# enum name.
@@ -254,6 +262,132 @@ tp.DataColumnType = {
 };
 Object.freeze(tp.DataColumnType);
 
+// ● db formatting
+/**
+ * Helper methods for data formatting and parsing.
+ */
+tp.Db = class {
+    // ● constructor
+    /**
+     * Prevents instance creation.
+     */
+    constructor() {
+        tp.Throw("Can not create an instance of a static class.");
+    }
+
+    // ● static public
+    /**
+     * Formats a value as text according to a data type and column type.
+     * @param {*} Value The value to format.
+     * @param {number} DataType The data type.
+     * @param {number} ColumnType The data column type.
+     * @param {boolean|null|undefined} ForList True when formatting for a list or grid.
+     * @param {number|null|undefined} Decimals The number of decimal places.
+     * @param {boolean|null|undefined} LocalDate True to use local date formatting.
+     * @param {boolean|null|undefined} DisplaySeconds True to include seconds in date-time formatting.
+     * @returns {string|*} Returns the formatted value.
+     */
+    static Format(Value, DataType, ColumnType, ForList, Decimals, LocalDate, DisplaySeconds) {
+        var DateValue;
+        var Format;
+        if (tp.IsEmpty(Value))
+            return "";
+        if (ColumnType === tp.DataColumnType.Boolean)
+            DataType = tp.DataType.Boolean;
+        switch (DataType) {
+            case tp.DataType.None:
+                return "";
+            case tp.DataType.String:
+                return Value.toString();
+            case tp.DataType.Integer:
+                return ColumnType === tp.DataColumnType.Boolean ? (Value === true || Value === 1 ? "x" : "") : Value.toString();
+            case tp.DataType.Boolean:
+                return Value === true || Value === 1 ? "x" : "";
+            case tp.DataType.Double:
+            case tp.DataType.Decimal:
+            case tp.DataType.Decimal_:
+                Decimals = tp.IsNumber(Decimals) && Decimals >= 0 ? Decimals : 2;
+                return tp.FormatNumber2(tp.StrToFloat(Value, 0), Decimals);
+            case tp.DataType.Date:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    return "";
+                return LocalDate === true ? tp.FormatDateTime(DateValue, tp.GetDateFormat()) : tp.FormatDateTime(DateValue, "yyyy-MM-dd");
+            case tp.DataType.DateTime:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    return "";
+                if (ColumnType === tp.DataColumnType.Date)
+                    return LocalDate === true ? tp.FormatDateTime(DateValue, tp.GetDateFormat()) : tp.FormatDateTime(DateValue, "yyyy-MM-dd");
+                Format = DisplaySeconds === true ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd HH:mm";
+                return LocalDate === true ? tp.FormatDateTime(DateValue, Format) : tp.FormatDateTime(DateValue, Format);
+            case tp.DataType.TextBlob:
+                return ForList === true ? "[memo]" : Value;
+            case tp.DataType.Blob:
+                return ForList === true ? "[blob]" : Value;
+        }
+        return "";
+    }
+    /**
+     * Parses text into a value according to a data type.
+     * @param {*} Value The value to parse.
+     * @param {number} DataType The data type.
+     * @returns {*} Returns the parsed value.
+     */
+    static Parse(Value, DataType) {
+        var Info;
+        var DateValue;
+        if (tp.IsEmpty(Value))
+            return null;
+        switch (DataType) {
+            case tp.DataType.String:
+            case tp.DataType.TextBlob:
+                return Value.toString();
+            case tp.DataType.Integer:
+                Info = tp.TryStrToInt(Value);
+                if (!Info.Result)
+                    tp.Throw("Not an integer: " + Value);
+                return Info.Value;
+            case tp.DataType.Boolean:
+                if (tp.IsSameText(Value, "false") || Value === "0")
+                    return false;
+                if (tp.IsSameText(Value, "true") || tp.IsSameText(Value, "x") || Value === "1")
+                    return true;
+                return false;
+            case tp.DataType.Double:
+            case tp.DataType.Decimal:
+            case tp.DataType.Decimal_:
+                Info = tp.TryStrToFloat(Value);
+                if (!Info.Result)
+                    tp.Throw("Not a float number: " + Value);
+                return Info.Value;
+            case tp.DataType.Date:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    tp.Throw("Not a date: " + Value);
+                return tp.ClearTime(DateValue);
+            case tp.DataType.DateTime:
+                DateValue = tp.Db.ToDate(Value);
+                if (!tp.IsValidDate(DateValue))
+                    tp.Throw("Not a date-time: " + Value);
+                return DateValue;
+        }
+        return null;
+    }
+    /**
+     * Converts a value to a Date.
+     * @param {*} Value The value to convert.
+     * @returns {Date|null} Returns a Date or null.
+     */
+    static ToDate(Value) {
+        var DateValue;
+        if (tp.IsValidDate(Value))
+            return tp.DateClone(Value);
+        DateValue = new Date(Value);
+        return tp.IsValidDate(DateValue) ? DateValue : null;
+    }
+};
+
 // ● 10-event-args.js
 // ● data event args
 /**
@@ -326,6 +460,68 @@ tp.DataTableEventArgs = class extends tp.DataEventArgs {
     }
 };
 
+// ● data source event args
+/**
+ * Event arguments for data source events.
+ */
+tp.DataSourceEventArgs = class extends tp.DataEventArgs {
+    // ● constructor
+    /**
+     * Creates event arguments for data source events.
+     * @param {tp.DataColumn|tp.DataTableEventArgs|null|undefined} ColumnOrSource The data column or a data table event source.
+     * @param {tp.DataRow|null|undefined} Row The data row, if applicable.
+     * @param {*} OldValue The old value, if applicable.
+     * @param {*} NewValue The new value, if applicable.
+     */
+    constructor(ColumnOrSource, Row, OldValue, NewValue) {
+        super(null, null, null, null);
+        if (ColumnOrSource instanceof tp.DataTableEventArgs) {
+            this.Column = ColumnOrSource.Column;
+            this.Row = ColumnOrSource.Row;
+            this.OldValue = ColumnOrSource.OldValue;
+            this.NewValue = ColumnOrSource.NewValue;
+        } else {
+            this.Column = ColumnOrSource || null;
+            this.Row = Row || null;
+            this.OldValue = OldValue;
+            this.NewValue = NewValue;
+        }
+    }
+
+    // ● static
+    /**
+     * Creates data source event arguments from data table event arguments.
+     * @param {tp.DataTableEventArgs} Source The source data table event arguments.
+     * @returns {tp.DataSourceEventArgs} Returns the created event arguments.
+     */
+    static Create(Source) {
+        return new tp.DataSourceEventArgs(Source);
+    }
+
+    // ● properties
+    /**
+     * Gets the sender data source.
+     * @returns {tp.DataSource|null} Returns the sender data source.
+     */
+    get DataSource() {
+        return this.Sender;
+    }
+    /**
+     * Gets the bound data table.
+     * @returns {tp.DataTable|null} Returns the bound data table.
+     */
+    get Table() {
+        return this.DataSource ? this.DataSource.Table : null;
+    }
+    /**
+     * Gets the data source position.
+     * @returns {number} Returns the data source position, or -1.
+     */
+    get Position() {
+        return this.DataSource ? this.DataSource.Position : -1;
+    }
+};
+
 // ● 20-data-column.js
 // ● data column
 /**
@@ -358,6 +554,8 @@ tp.DataColumn = class extends tp.Object {
         this.DisplayFormat = "";
         this.EditFormat = "";
         this.DisplayWidth = 0;
+        this.LocalDate = true;
+        this.DisplaySeconds = false;
         this.LookupSource = "";
         this.Locator = "";
         this.CodeProvider = "";
@@ -685,6 +883,8 @@ tp.DataColumn = class extends tp.Object {
         this.DisplayFormat = tp.DataColumn.NormalizeString(Source.DisplayFormat, this.DisplayFormat);
         this.EditFormat = tp.DataColumn.NormalizeString(Source.EditFormat, this.EditFormat);
         this.DisplayWidth = tp.DataColumn.NormalizeInteger(Source.DisplayWidth, this.DisplayWidth);
+        this.LocalDate = "LocalDate" in Source ? Source.LocalDate === true : this.LocalDate;
+        this.DisplaySeconds = "DisplaySeconds" in Source ? Source.DisplaySeconds === true : this.DisplaySeconds;
         this.LookupSource = tp.DataColumn.NormalizeString(Source.LookupSource, this.LookupSource);
         this.Locator = tp.DataColumn.NormalizeString(Source.Locator, this.Locator);
         this.CodeProvider = tp.DataColumn.NormalizeString(Source.CodeProvider, this.CodeProvider);
@@ -713,6 +913,8 @@ tp.DataColumn = class extends tp.Object {
             DisplayFormat: this.DisplayFormat,
             EditFormat: this.EditFormat,
             DisplayWidth: this.DisplayWidth,
+            LocalDate: this.LocalDate,
+            DisplaySeconds: this.DisplaySeconds,
             LookupSource: this.LookupSource,
             Locator: this.Locator,
             CodeProvider: this.CodeProvider,
@@ -720,6 +922,23 @@ tp.DataColumn = class extends tp.Object {
             Group: this.Group,
             ToolTip: this.ToolTip
         };
+    }
+    /**
+     * Returns a specified value of this column formatted as text.
+     * @param {*} Value The value to format.
+     * @param {boolean|null|undefined} ForList True when formatting for a list or grid.
+     * @returns {string|*} Returns the formatted value.
+     */
+    Format(Value, ForList) {
+        return tp.Db.Format(Value, this.DataType, this.ColumnType, ForList, this.Decimals, this.LocalDate, this.DisplaySeconds);
+    }
+    /**
+     * Converts text into a value suitable for this column.
+     * @param {*} Value The value to parse.
+     * @returns {*} Returns the parsed value.
+     */
+    Parse(Value) {
+        return tp.Db.Parse(Value, this.DataType);
     }
 };
 
@@ -1066,6 +1285,45 @@ tp.DataTable = class extends tp.Object {
         if (tp.IsArray(Value))
             Value = Value.length > 0 ? Value[0] : null;
         return tp.IsBlank(Value) ? DefaultField : String(Value);
+    }
+    /**
+     * Creates a table from a list of plain objects.
+     *
+     * Column names and data types are inferred from the first object in the list,
+     * matching the old Tripous ListControl support for object arrays used as list sources.
+     * @param {object[]} SourceList The source object list.
+     * @returns {tp.DataTable|null} Returns the created table, or null when the source list is empty.
+     */
+    static CreateFromList(SourceList) {
+        var SourceObject;
+        var Table;
+        var Prop;
+        var DataType;
+        if (!tp.IsArray(SourceList) || SourceList.length === 0)
+            return null;
+        SourceObject = SourceList[0];
+        if (!tp.IsObject(SourceObject))
+            tp.Throw("Cannot create a tp.DataTable from a list. First item is not an object.");
+        Table = new tp.DataTable();
+        for (Prop in SourceObject) {
+            if (Object.prototype.propertyIsEnumerable.call(SourceObject, Prop)) {
+                if (tp.IsInteger(SourceObject[Prop]))
+                    DataType = tp.DataType.Integer;
+                else if (tp.IsFloat(SourceObject[Prop]))
+                    DataType = tp.DataType.Decimal;
+                else if (tp.IsDate(SourceObject[Prop]))
+                    DataType = tp.DataType.DateTime;
+                else if (tp.IsBoolean(SourceObject[Prop]))
+                    DataType = tp.DataType.Boolean;
+                else if (tp.IsString(SourceObject[Prop]))
+                    DataType = tp.DataType.String;
+                else
+                    tp.Throw("Cannot create a tp.DataTable from a list. DataType not supported for field: " + Prop);
+                Table.AddColumn(Prop, DataType);
+            }
+        }
+        Table.FromObjectList(SourceList);
+        return Table;
     }
 
     // ● properties
@@ -1931,4 +2189,1155 @@ tp.DataSet = class extends tp.Object {
  * @type {string}
  */
 tp.DataSet.prototype.tpClass = "tp.DataSet";
+
+// ● 60-data-source-info.js
+// ● data source info item
+/**
+ * Base information item for data source sorting and filtering.
+ */
+tp.DataSourceInfoItem = class {
+    // ● constructor
+    /**
+     * Creates an information item.
+     */
+    constructor() {
+        this.Prop = -1;
+        this.DataType = tp.DataType.None;
+        this.LookUpTable = null;
+        this.LookUpValue = null;
+        this.ListValueField = null;
+        this.ListDisplayField = null;
+    }
+};
+// ● data table sort item
+/**
+ * Information item for sorting a data table.
+ */
+tp.DataTableSortItem = class extends tp.DataSourceInfoItem {
+    // ● constructor
+    /**
+     * Creates a data table sort item.
+     */
+    constructor() {
+        super();
+        this.Reverse = false;
+        this.GetValueFunc = null;
+    }
+};
+// ● data table filter item
+/**
+ * Information item for filtering a data table.
+ */
+tp.DataTableFilterItem = class extends tp.DataSourceInfoItem {
+    // ● constructor
+    /**
+     * Creates a data table filter item.
+     */
+    constructor() {
+        super();
+        this.Value = null;
+        this.Operator = tp.FilterOp.Equal;
+        this.FilterFunc = null;
+    }
+};
+// ● data source info list
+/**
+ * Base information list for sorting and filtering a data table.
+ */
+tp.DataSourceInfoList = class {
+    // ● constructor
+    /**
+     * Creates an information list.
+     * @param {tp.DataTable} Table The table to operate on.
+     */
+    constructor(Table) {
+        this.Table = Table;
+        this.List = [];
+        this.fGetFieldValueFuncBind = this.GetFieldValueFunc.bind(this);
+    }
+
+    // ● protected
+    /**
+     * Returns a row field value.
+     * @protected
+     * @param {tp.DataRow} Row The row.
+     * @param {tp.DataSourceInfoItem} Info The information item.
+     * @returns {*} Returns the field value.
+     */
+    GetFieldValueFunc(Row, Info) {
+        return Row ? Row.Data[Info.Prop] : null;
+    }
+    /**
+     * Returns a data column index.
+     * @protected
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @returns {number} Returns the column index.
+     */
+    IndexOfColumn(Column) {
+        return this.Table ? this.Table.IndexOfColumn(Column) : -1;
+    }
+    /**
+     * Throws when a column does not exist.
+     * @protected
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @returns {number} Returns the column index.
+     */
+    RequireColumnIndex(Column) {
+        var Index = this.IndexOfColumn(Column);
+        if (Index < 0)
+            tp.Throw("Data column not found.");
+        return Index;
+    }
+
+    // ● properties
+    /**
+     * Gets the number of information items.
+     * @returns {number} Returns the item count.
+     */
+    get Count() {
+        return this.List ? this.List.length : 0;
+    }
+
+    // ● public
+    /**
+     * Clears the list.
+     * @returns {void}
+     */
+    Clear() {
+        this.List.length = 0;
+    }
+    /**
+     * Returns the index of an information item associated with a column.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @returns {number} Returns the item index or -1.
+     */
+    IndexOf(Column) {
+        var DataIndex = this.IndexOfColumn(Column);
+        var Index;
+        for (Index = 0; Index < this.List.length; Index++) {
+            if (this.List[Index].Prop === DataIndex)
+                return Index;
+        }
+        return -1;
+    }
+    /**
+     * Returns true when an information item exists for a column.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @returns {boolean} Returns true when an item exists.
+     */
+    Contains(Column) {
+        return this.IndexOf(Column) !== -1;
+    }
+    /**
+     * Finds an information item associated with a column.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @returns {tp.DataSourceInfoItem|null} Returns the item or null.
+     */
+    Find(Column) {
+        var Index = this.IndexOf(Column);
+        return Index !== -1 ? this.List[Index] : null;
+    }
+    /**
+     * Removes an information item associated with a column.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @returns {void}
+     */
+    Remove(Column) {
+        var Index = this.IndexOf(Column);
+        if (Index !== -1)
+            tp.ListRemoveAt(this.List, Index);
+    }
+};
+
+// ● sort info list
+/**
+ * A list of information items for sorting a data table.
+ */
+tp.SortInfoList = class extends tp.DataSourceInfoList {
+    // ● protected
+    /**
+     * Returns a row field value, using lookup display value when configured.
+     * @protected
+     * @param {tp.DataRow} Row The row.
+     * @param {tp.DataTableSortItem} Info The sort item.
+     * @returns {*} Returns the field value.
+     */
+    GetFieldValueFunc(Row, Info) {
+        var Result = Row ? Row.Data[Info.Prop] : null;
+        var LookUpRow;
+        if (Info.LookUpTable) {
+            LookUpRow = Info.LookUpTable.FindRow(Info.ListValueField, Result);
+            if (LookUpRow)
+                Result = LookUpRow.Get(Info.ListDisplayField);
+        }
+        return Result;
+    }
+
+    // ● public
+    /**
+     * Adds a sort item.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {boolean|null|undefined} Reverse True to sort in descending order.
+     * @param {Function|null|undefined} GetValueFunc Optional callback returning the sortable value.
+     * @returns {tp.DataTableSortItem} Returns the sort item.
+     */
+    Add(Column, Reverse, GetValueFunc) {
+        return this.Insert(this.List.length, Column, Reverse, GetValueFunc);
+    }
+    /**
+     * Inserts a sort item.
+     * @param {number} Index The insert index.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {boolean|null|undefined} Reverse True to sort in descending order.
+     * @param {Function|null|undefined} GetValueFunc Optional callback returning the sortable value.
+     * @returns {tp.DataTableSortItem} Returns the sort item.
+     */
+    Insert(Index, Column, Reverse, GetValueFunc) {
+        var Item = this.Find(Column);
+        var ColumnIndex;
+        if (!Item) {
+            ColumnIndex = this.RequireColumnIndex(Column);
+            Item = new tp.DataTableSortItem();
+            Item.Prop = ColumnIndex;
+            Item.DataType = this.Table.Columns[ColumnIndex].DataType;
+            Item.Reverse = Reverse === true;
+            Item.GetValueFunc = GetValueFunc || this.fGetFieldValueFuncBind;
+            tp.ListInsert(this.List, Index, Item);
+        }
+        return Item;
+    }
+};
+
+// ● filter info list
+/**
+ * A list of information items for filtering a data table.
+ */
+tp.FilterInfoList = class extends tp.DataSourceInfoList {
+    // ● constructor
+    /**
+     * Creates a filter information list.
+     * @param {tp.DataTable} Table The table to operate on.
+     * @param {boolean|null|undefined} OrLogic True to apply OR logic; false to apply AND logic.
+     */
+    constructor(Table, OrLogic) {
+        super(Table);
+        this.OrLogic = OrLogic === true;
+        this.fFilterFuncBind = this.FilterFunc.bind(this);
+    }
+
+    // ● protected
+    /**
+     * Tests whether a row passes a filter item.
+     * @protected
+     * @param {tp.DataRow} Row The row.
+     * @param {tp.DataTableFilterItem} Info The filter item.
+     * @returns {boolean} Returns true when the row passes.
+     */
+    FilterFunc(Row, Info) {
+        var Value = this.GetFieldValueFunc(Row, Info);
+        var LookUpRow;
+        if (!tp.IsEmpty(Value)) {
+            if (Info.DataType === tp.DataType.Date)
+                Value = tp.ClearTime(Value);
+            if (Info.LookUpTable) {
+                LookUpRow = Info.LookUpTable.FindRow(Info.ListValueField, Value);
+                if (LookUpRow)
+                    Value = LookUpRow.Get(Info.ListDisplayField);
+            }
+        }
+        return tp.FilterOp.Compare(Info.Operator, Value, Info.Value);
+    }
+
+    // ● public
+    /**
+     * Adds a filter item.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {number|null|undefined} Operator The filter operator.
+     * @param {*} Value The filter value.
+     * @param {Function|null|undefined} FilterFunc Optional callback returning whether the row passes.
+     * @returns {tp.DataTableFilterItem} Returns the filter item.
+     */
+    Add(Column, Operator, Value, FilterFunc) {
+        return this.Insert(this.List.length, Column, Operator, Value, FilterFunc);
+    }
+    /**
+     * Inserts a filter item.
+     * @param {number} Index The insert index.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {number|null|undefined} Operator The filter operator.
+     * @param {*} Value The filter value.
+     * @param {Function|null|undefined} FilterFunc Optional callback returning whether the row passes.
+     * @returns {tp.DataTableFilterItem} Returns the filter item.
+     */
+    Insert(Index, Column, Operator, Value, FilterFunc) {
+        var Item = this.Find(Column);
+        var ColumnIndex;
+        if (!Item) {
+            ColumnIndex = this.RequireColumnIndex(Column);
+            Item = new tp.DataTableFilterItem();
+            Item.Prop = ColumnIndex;
+            Item.DataType = this.Table.Columns[ColumnIndex].DataType;
+            Item.Operator = Operator || tp.FilterOp.Equal;
+            Item.FilterFunc = FilterFunc || this.fFilterFuncBind;
+            Item.Value = Value;
+            tp.ListInsert(this.List, Index, Item);
+        }
+        return Item;
+    }
+    /**
+     * Finds or adds a filter item.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {number|null|undefined} Operator The filter operator.
+     * @param {*} Value The filter value.
+     * @returns {tp.DataTableFilterItem} Returns the filter item.
+     */
+    FindOrAdd(Column, Operator, Value) {
+        var Item = this.Find(Column);
+        if (!Item)
+            Item = this.Add(Column, Operator, Value, null);
+        else {
+            Item.Operator = Operator;
+            Item.Value = Value;
+        }
+        return Item;
+    }
+};
+
+// ● 70-data-source.js
+// ● data source listener interface
+/**
+ * Interface-like base for objects receiving data source notifications.
+ */
+tp.IDataSourceListener = class {
+    // ● public
+    /**
+     * Notification called when a row is created.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowCreated(Table, Row) {
+    }
+    /**
+     * Notification called when a row is added.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowAdded(Table, Row) {
+    }
+    /**
+     * Notification called when a row is modified.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @param {tp.DataColumn} Column The data column.
+     * @param {*} OldValue The old value.
+     * @param {*} NewValue The new value.
+     * @returns {void}
+     */
+    DataSourceRowModified(Table, Row, Column, OldValue, NewValue) {
+    }
+    /**
+     * Notification called when a row is removed.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowRemoved(Table, Row) {
+    }
+    /**
+     * Notification called when position changes.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The current row.
+     * @param {number} Position The new position.
+     * @returns {void}
+     */
+    DataSourcePositionChanged(Table, Row, Position) {
+    }
+    /**
+     * Notification called after sorting.
+     * @returns {void}
+     */
+    DataSourceSorted() {
+    }
+    /**
+     * Notification called after filtering.
+     * @returns {void}
+     */
+    DataSourceFiltered() {
+    }
+    /**
+     * Notification called after datasource update.
+     * @returns {void}
+     */
+    DataSourceUpdated() {
+    }
+};
+
+// ● data source listener
+/**
+ * Base implementation of a data source listener.
+ */
+tp.DataSourceListener = class extends tp.Object {
+    // ● constructor
+    /**
+     * Creates a data source listener.
+     * @param {object|null|undefined} Owner The owner object.
+     */
+    constructor(Owner) {
+        super();
+        this.Owner = Owner || null;
+    }
+
+    // ● public
+    /**
+     * Notification called when a row is created.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowCreated(Table, Row) {
+    }
+    /**
+     * Notification called when a row is added.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowAdded(Table, Row) {
+    }
+    /**
+     * Notification called when a row is modified.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @param {tp.DataColumn} Column The data column.
+     * @param {*} OldValue The old value.
+     * @param {*} NewValue The new value.
+     * @returns {void}
+     */
+    DataSourceRowModified(Table, Row, Column, OldValue, NewValue) {
+    }
+    /**
+     * Notification called when a row is removed.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {void}
+     */
+    DataSourceRowRemoved(Table, Row) {
+    }
+    /**
+     * Notification called when position changes.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The current row.
+     * @param {number} Position The new position.
+     * @returns {void}
+     */
+    DataSourcePositionChanged(Table, Row, Position) {
+    }
+    /**
+     * Notification called after sorting.
+     * @returns {void}
+     */
+    DataSourceSorted() {
+    }
+    /**
+     * Notification called after filtering.
+     * @returns {void}
+     */
+    DataSourceFiltered() {
+    }
+    /**
+     * Notification called after datasource update.
+     * @returns {void}
+     */
+    DataSourceUpdated() {
+    }
+};
+
+// ● data source
+/**
+ * Data-binding source between a data table and UI controls.
+ * Events:
+ * - RowCreated
+ * - RowAdded
+ * - RowModified
+ * - RowRemoved
+ * - PositionChanged
+ * - Sorted
+ * - Filtered
+ * - Updated
+ */
+tp.DataSource = class extends tp.Object {
+    // ● constructor
+    /**
+     * Creates a data source.
+     * @param {tp.DataTable} Table The source data table.
+     */
+    constructor(Table) {
+        super();
+        if (!(Table instanceof tp.DataTable))
+            tp.Throw("DataSource requires a DataTable.");
+        this.Table = Table;
+        this.fPosition = -1;
+        this.fForcePosition = false;
+        this.fPropagating = false;
+        this.fRows = Table.Rows.slice();
+        this.fListeners = [];
+        this.fSuspendBindingCounter = 0;
+        this.fSortInfoList = new tp.SortInfoList(Table);
+        this.fFilterInfoList = new tp.FilterInfoList(Table, false);
+        this.fMasterSource = null;
+        this.fDetails = [];
+        this.fMasterKeyField = null;
+        this.fDetailKeyField = null;
+        this.Table.On("BatchModified", this.Table_BatchModified, this);
+        this.Table.On("RowCreated", this.Table_RowCreated, this);
+        this.Table.On("RowAdded", this.Table_RowAdded, this);
+        this.Table.On("RowModified", this.Table_RowModified, this);
+        this.Table.On("RowRemoved", this.Table_RowRemoved, this);
+        if (this.fRows.length > 0)
+            this.fPosition = 0;
+    }
+
+    // ● protected
+    /**
+     * Returns the current working row list.
+     * @protected
+     * @returns {tp.DataRow[]} Returns the working rows.
+     */
+    GetWorkingRows() {
+        var MasterKeyIndex;
+        var DetailKeyIndex;
+        var MasterValue;
+        var Result;
+        var Index;
+        var RowValue;
+        if (this.fMasterSource instanceof tp.DataSource) {
+            MasterKeyIndex = this.fMasterSource.Table.IndexOfColumn(this.MasterKeyField);
+            DetailKeyIndex = this.Table.IndexOfColumn(this.DetailKeyField);
+            if (MasterKeyIndex >= 0 && DetailKeyIndex >= 0) {
+                MasterValue = this.fMasterSource.Get(MasterKeyIndex);
+                if (!tp.IsEmpty(MasterValue)) {
+                    Result = [];
+                    for (Index = 0; Index < this.Table.Rows.length; Index++) {
+                        RowValue = this.Table.Rows[Index].Get(DetailKeyIndex);
+                        if (MasterValue === RowValue)
+                            Result.push(this.Table.Rows[Index]);
+                    }
+                    return Result;
+                }
+            }
+        }
+        return this.Table.Rows.slice();
+    }
+    /**
+     * Handles master source position changes.
+     * @protected
+     * @returns {void}
+     */
+    MasterSource_PositionChanged() {
+        this.Update();
+        this.Filter();
+        this.Sort();
+    }
+
+    // ● event handlers
+    /**
+     * Handles table batch modifications.
+     * @param {tp.DataTableEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    Table_BatchModified(Args) {
+        this.Update();
+    }
+    /**
+     * Handles row creation.
+     * @param {tp.DataTableEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    Table_RowCreated(Args) {
+        var Index;
+        if (!this.BindingSuspended && !this.fPropagating) {
+            this.fPropagating = true;
+            try {
+                for (Index = 0; Index < this.fListeners.length; Index++)
+                    this.fListeners[Index].DataSourceRowCreated(Args.Table, Args.Row);
+                this.OnRowCreated(Args);
+            } finally {
+                this.fPropagating = false;
+            }
+        }
+    }
+    /**
+     * Handles row addition.
+     * @param {tp.DataTableEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    Table_RowAdded(Args) {
+        var Index;
+        this.fRows.push(Args.Row);
+        if (!this.BindingSuspended && !this.fPropagating) {
+            this.fPropagating = true;
+            try {
+                for (Index = 0; Index < this.fListeners.length; Index++)
+                    this.fListeners[Index].DataSourceRowAdded(Args.Table, Args.Row);
+                this.OnRowAdded(Args);
+            } finally {
+                this.fPropagating = false;
+            }
+        }
+        if (this.fPosition === -1)
+            this.Position = 0;
+    }
+    /**
+     * Handles row modification.
+     * @param {tp.DataTableEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    Table_RowModified(Args) {
+        var Index;
+        if (!this.BindingSuspended && !this.fPropagating) {
+            this.fPropagating = true;
+            try {
+                for (Index = 0; Index < this.fListeners.length; Index++)
+                    this.fListeners[Index].DataSourceRowModified(Args.Table, Args.Row, Args.Column, Args.OldValue, Args.NewValue);
+                this.OnRowModified(Args);
+            } finally {
+                this.fPropagating = false;
+            }
+        }
+    }
+    /**
+     * Handles row removal.
+     * @param {tp.DataTableEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    Table_RowRemoved(Args) {
+        var NewPosition = -2;
+        var Index;
+        if (Args.Row === this.Current && (this.fPosition === 0 || this.fPosition === this.fRows.length - 1))
+            NewPosition = this.fRows.length === 1 ? -1 : this.fPosition - 1;
+        tp.ListRemove(this.fRows, Args.Row);
+        if (!this.BindingSuspended && !this.fPropagating) {
+            this.fPropagating = true;
+            try {
+                for (Index = 0; Index < this.fListeners.length; Index++)
+                    this.fListeners[Index].DataSourceRowRemoved(Args.Table, Args.Row);
+                this.OnRowRemoved(Args);
+            } finally {
+                this.fPropagating = false;
+            }
+        }
+        if (NewPosition !== -2)
+            this.Position = NewPosition;
+    }
+
+    // ● properties
+    /**
+     * Gets the data source name.
+     * @returns {string} Returns the table name.
+     */
+    get Name() {
+        return this.Table.Name;
+    }
+    /**
+     * Gets or sets the current row.
+     * @returns {tp.DataRow|null} Returns the current row.
+     */
+    get Current() {
+        return tp.InRange(this.fRows, this.fPosition) ? this.fRows[this.fPosition] : null;
+    }
+    /**
+     * Gets or sets the current row.
+     * @param {tp.DataRow} Value The current row.
+     * @returns {void}
+     */
+    set Current(Value) {
+        var Index = this.fRows.indexOf(Value);
+        if (Index !== -1)
+            this.Position = Index;
+    }
+    /**
+     * Gets or sets the current position.
+     * @returns {number} Returns the position.
+     */
+    get Position() {
+        return this.fPosition;
+    }
+    /**
+     * Gets or sets the current position.
+     * @param {number} Value The position.
+     * @returns {void}
+     */
+    set Position(Value) {
+        var CanSet = (Value === -1 && this.fRows.length === 0) || (Value >= 0 && Value <= this.fRows.length - 1);
+        var Index;
+        if (CanSet && (Value !== this.fPosition || this.fForcePosition)) {
+            this.fForcePosition = false;
+            this.fPosition = Value;
+            if (!this.BindingSuspended && !this.fPropagating) {
+                this.fPropagating = true;
+                try {
+                    for (Index = 0; Index < this.fListeners.length; Index++)
+                        this.fListeners[Index].DataSourcePositionChanged(this.Table, this.Current, Value);
+                    for (Index = 0; Index < this.fDetails.length; Index++)
+                        this.fDetails[Index].MasterSource_PositionChanged();
+                    this.OnPositionChanged();
+                } finally {
+                    this.fPropagating = false;
+                }
+            }
+        }
+    }
+    /**
+     * Gets the current row count.
+     * @returns {number} Returns the row count.
+     */
+    get Count() {
+        return this.fRows.length;
+    }
+    /**
+     * Gets the current rows.
+     * @returns {tp.DataRow[]} Returns the current rows.
+     */
+    get Rows() {
+        return this.fRows;
+    }
+    /**
+     * Gets or sets whether binding notifications are suspended.
+     * @returns {boolean} Returns true while binding is suspended.
+     */
+    get BindingSuspended() {
+        return this.fSuspendBindingCounter > 0;
+    }
+    /**
+     * Gets or sets whether binding notifications are suspended.
+     * @param {boolean} Value True to suspend; false to resume.
+     * @returns {void}
+     */
+    set BindingSuspended(Value) {
+        this.fSuspendBindingCounter += Value === true ? 1 : -1;
+        if (this.fSuspendBindingCounter < 0)
+            this.fSuspendBindingCounter = 0;
+        if (this.BindingSuspended === false) {
+            this.fForcePosition = true;
+            this.Position = this.Position;
+        }
+    }
+    /**
+     * Returns true when positioned on the first row.
+     * @returns {boolean} Returns true when first.
+     */
+    get IsFirst() {
+        return this.Count === 0 || this.Position <= 0;
+    }
+    /**
+     * Returns true when positioned on the last row.
+     * @returns {boolean} Returns true when last.
+     */
+    get IsLast() {
+        return this.Count === 0 || this.Position === this.Count - 1;
+    }
+    /**
+     * Gets the sort information list.
+     * @returns {tp.SortInfoList} Returns the sort information list.
+     */
+    get SortInfoList() {
+        return this.fSortInfoList;
+    }
+    /**
+     * Gets the filter information list.
+     * @returns {tp.FilterInfoList} Returns the filter information list.
+     */
+    get FilterInfoList() {
+        return this.fFilterInfoList;
+    }
+    /**
+     * Gets or sets the master data source.
+     * @returns {tp.DataSource|null} Returns the master data source.
+     */
+    get MasterSource() {
+        return this.fMasterSource;
+    }
+    /**
+     * Gets or sets the master data source.
+     * @param {tp.DataSource|null} Value The master data source.
+     * @returns {void}
+     */
+    set MasterSource(Value) {
+        if (this.fMasterSource instanceof tp.DataSource)
+            tp.ListRemove(this.fMasterSource.fDetails, this);
+        this.fMasterSource = Value instanceof tp.DataSource ? Value : null;
+        if (this.fMasterSource instanceof tp.DataSource)
+            this.fMasterSource.fDetails.push(this);
+        this.MasterSource_PositionChanged();
+    }
+    /**
+     * Gets or sets the master key field.
+     * @returns {string} Returns the master key field.
+     */
+    get MasterKeyField() {
+        return !tp.IsBlank(this.fMasterKeyField) ? this.fMasterKeyField : "Id";
+    }
+    /**
+     * Gets or sets the master key field.
+     * @param {string} Value The master key field.
+     * @returns {void}
+     */
+    set MasterKeyField(Value) {
+        this.fMasterKeyField = Value;
+        this.MasterSource_PositionChanged();
+    }
+    /**
+     * Gets or sets the detail key field.
+     * @returns {string} Returns the detail key field.
+     */
+    get DetailKeyField() {
+        return this.fDetailKeyField;
+    }
+    /**
+     * Gets or sets the detail key field.
+     * @param {string} Value The detail key field.
+     * @returns {void}
+     */
+    set DetailKeyField(Value) {
+        this.fDetailKeyField = Value;
+        this.MasterSource_PositionChanged();
+    }
+
+    // ● public
+    /**
+     * Registers a listener.
+     * @param {tp.IDataSourceListener} Listener The listener.
+     * @returns {void}
+     */
+    AddDataListener(Listener) {
+        if (!tp.ListContains(this.fListeners, Listener))
+            this.fListeners.push(Listener);
+    }
+    /**
+     * Removes a listener.
+     * @param {tp.IDataSourceListener} Listener The listener.
+     * @returns {void}
+     */
+    RemoveDataListener(Listener) {
+        tp.ListRemove(this.fListeners, Listener);
+    }
+    /**
+     * Moves to first row.
+     * @returns {void}
+     */
+    First() {
+        if (this.CanFirst())
+            this.Position = 0;
+    }
+    /**
+     * Moves to prior row.
+     * @returns {void}
+     */
+    Prior() {
+        if (this.CanPrior())
+            this.Position = this.fPosition - 1;
+    }
+    /**
+     * Moves to next row.
+     * @returns {void}
+     */
+    Next() {
+        if (this.CanNext())
+            this.Position = this.fPosition + 1;
+    }
+    /**
+     * Moves to last row.
+     * @returns {void}
+     */
+    Last() {
+        if (this.CanLast())
+            this.Position = this.fRows.length - 1;
+    }
+    /**
+     * Moves to a specified position.
+     * @param {number} NewPosition The new position.
+     * @returns {void}
+     */
+    Move(NewPosition) {
+        if (this.CanMoveTo(NewPosition))
+            this.Position = NewPosition;
+    }
+    /**
+     * Returns true when a position can be selected.
+     * @param {number} NewPosition The new position.
+     * @returns {boolean} Returns true when movement is possible.
+     */
+    CanMoveTo(NewPosition) {
+        return NewPosition >= 0 && NewPosition <= this.fRows.length - 1;
+    }
+    /**
+     * Returns true when first row movement is possible.
+     * @returns {boolean} Returns true when movement is possible.
+     */
+    CanFirst() {
+        return !this.IsFirst && this.CanMoveTo(0);
+    }
+    /**
+     * Returns true when next row movement is possible.
+     * @returns {boolean} Returns true when movement is possible.
+     */
+    CanNext() {
+        return !this.IsLast && this.CanMoveTo(this.fPosition + 1);
+    }
+    /**
+     * Returns true when prior row movement is possible.
+     * @returns {boolean} Returns true when movement is possible.
+     */
+    CanPrior() {
+        return !this.IsFirst && this.CanMoveTo(this.fPosition - 1);
+    }
+    /**
+     * Returns true when last row movement is possible.
+     * @returns {boolean} Returns true when movement is possible.
+     */
+    CanLast() {
+        return !this.IsLast && this.CanMoveTo(this.fRows.length - 1);
+    }
+    /**
+     * Clears table rows.
+     * @returns {void}
+     */
+    ClearRows() {
+        this.Table.ClearRows();
+    }
+    /**
+     * Adds an empty row.
+     * @returns {tp.DataRow|null} Returns the added row.
+     */
+    AddEmptyRow() {
+        return this.Table.AddEmptyRow();
+    }
+    /**
+     * Adds a row.
+     * @param {...*} Data The row data.
+     * @returns {tp.DataRow|null} Returns the added row.
+     */
+    AddNew(...Data) {
+        return this.Table.AddRow(...Data);
+    }
+    /**
+     * Creates a new row without adding it.
+     * @param {object[]|object|null|undefined} Data The row data.
+     * @returns {tp.DataRow} Returns the new row.
+     */
+    NewRow(Data) {
+        return this.Table.NewRow(Data);
+    }
+    /**
+     * Returns a row value.
+     * @param {tp.DataRow} Row The row.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {*} Default The default value.
+     * @returns {*} Returns the value.
+     */
+    GetValue(Row, Column, Default) {
+        return Row ? Row.Get(Column, Default) : Default;
+    }
+    /**
+     * Sets a row value.
+     * @param {tp.DataRow} Row The row.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {*} Value The value.
+     * @returns {void}
+     */
+    SetValue(Row, Column, Value) {
+        if (Row)
+            Row.Set(Column, Value);
+    }
+    /**
+     * Returns a current row value.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {*} Default The default value.
+     * @returns {*} Returns the value.
+     */
+    Get(Column, Default) {
+        return this.GetValue(this.Current, Column, Default);
+    }
+    /**
+     * Sets a current row value.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {*} Value The value.
+     * @returns {void}
+     */
+    Set(Column, Value) {
+        this.SetValue(this.Current, Column, Value);
+    }
+    /**
+     * Sorts current rows.
+     * @returns {void}
+     */
+    Sort() {
+        var Index;
+        if (this.SortInfoList && this.SortInfoList.Count > 0) {
+            tp.ListSort(this.fRows, this.SortInfoList.List);
+            if (!this.BindingSuspended) {
+                for (Index = 0; Index < this.fListeners.length; Index++)
+                    this.fListeners[Index].DataSourceSorted();
+                this.OnSorted();
+            }
+        }
+    }
+    /**
+     * Filters current rows.
+     * @returns {void}
+     */
+    Filter() {
+        var Index;
+        var Rows;
+        if (this.FilterInfoList) {
+            Rows = this.GetWorkingRows();
+            this.fRows = this.FilterInfoList.Count > 0 ? tp.ListFilter(Rows, this.FilterInfoList.List, this.FilterInfoList.OrLogic) : Rows;
+            if (this.SortInfoList && this.SortInfoList.Count > 0)
+                tp.ListSort(this.fRows, this.SortInfoList.List);
+            if (this.fRows.length === 0)
+                this.fPosition = -1;
+            else if (!tp.InRange(this.fRows, this.Position))
+                this.Position = 0;
+            if (!this.BindingSuspended) {
+                for (Index = 0; Index < this.fListeners.length; Index++)
+                    this.fListeners[Index].DataSourceFiltered();
+                this.OnFiltered();
+            }
+        }
+    }
+    /**
+     * Cancels any active filter.
+     * @returns {void}
+     */
+    CancelFilter() {
+        var Index;
+        this.fRows = this.GetWorkingRows();
+        if (this.SortInfoList && this.SortInfoList.Count > 0)
+            tp.ListSort(this.fRows, this.SortInfoList.List);
+        if (this.fRows.length === 0)
+            this.fPosition = -1;
+        else if (!tp.InRange(this.fRows, this.Position))
+            this.Position = 0;
+        if (!this.BindingSuspended) {
+            for (Index = 0; Index < this.fListeners.length; Index++)
+                this.fListeners[Index].DataSourceFiltered();
+        }
+    }
+    /**
+     * Updates the current rows from the table.
+     * @returns {void}
+     */
+    Update() {
+        var Index;
+        var Position = this.Position;
+        this.fRows = this.GetWorkingRows();
+        this.fPosition = -1;
+        if (this.fRows.length > 0)
+            this.Position = 0;
+        if (!this.BindingSuspended && !this.fPropagating) {
+            this.fPropagating = true;
+            try {
+                for (Index = 0; Index < this.fListeners.length; Index++)
+                    this.fListeners[Index].DataSourceUpdated();
+                this.OnUpdated();
+            } finally {
+                this.fPropagating = false;
+            }
+        }
+        if (Position >= 0 && tp.InRange(this.fRows, Position))
+            this.Position = Position;
+    }
+    /**
+     * Sorts on a column.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {boolean|null|undefined} Reverse True to sort in descending order.
+     * @returns {void}
+     */
+    SortOn(Column, Reverse) {
+        var ColumnIndex = this.Table.IndexOfColumn(Column);
+        if (ColumnIndex >= 0) {
+            this.SortInfoList.Clear();
+            this.SortInfoList.Add(ColumnIndex, Reverse === true);
+            this.Sort();
+        }
+    }
+    /**
+     * Filters on a column using equality.
+     * @param {number|string|tp.DataColumn} Column The column index, name, or instance.
+     * @param {*} Value The filter value.
+     * @returns {void}
+     */
+    FilterOn(Column, Value) {
+        var ColumnIndex = this.Table.IndexOfColumn(Column);
+        if (ColumnIndex >= 0) {
+            this.FilterInfoList.Clear();
+            this.FilterInfoList.FindOrAdd(ColumnIndex, tp.FilterOp.Equal, Value);
+            this.Filter();
+        }
+    }
+
+    // ● event triggers
+    /**
+     * Triggers RowCreated.
+     * @param {tp.DataTableEventArgs} Source The source event arguments.
+     * @returns {void}
+     */
+    OnRowCreated(Source) {
+        this.Trigger("RowCreated", new tp.DataSourceEventArgs(Source));
+    }
+    /**
+     * Triggers RowAdded.
+     * @param {tp.DataTableEventArgs} Source The source event arguments.
+     * @returns {void}
+     */
+    OnRowAdded(Source) {
+        this.Trigger("RowAdded", new tp.DataSourceEventArgs(Source));
+    }
+    /**
+     * Triggers RowModified.
+     * @param {tp.DataTableEventArgs} Source The source event arguments.
+     * @returns {void}
+     */
+    OnRowModified(Source) {
+        this.Trigger("RowModified", new tp.DataSourceEventArgs(Source));
+    }
+    /**
+     * Triggers RowRemoved.
+     * @param {tp.DataTableEventArgs} Source The source event arguments.
+     * @returns {void}
+     */
+    OnRowRemoved(Source) {
+        this.Trigger("RowRemoved", new tp.DataSourceEventArgs(Source));
+    }
+    /**
+     * Triggers PositionChanged.
+     * @returns {void}
+     */
+    OnPositionChanged() {
+        this.Trigger("PositionChanged", new tp.DataSourceEventArgs());
+    }
+    /**
+     * Triggers Sorted.
+     * @returns {void}
+     */
+    OnSorted() {
+        this.Trigger("Sorted", new tp.DataSourceEventArgs());
+    }
+    /**
+     * Triggers Filtered.
+     * @returns {void}
+     */
+    OnFiltered() {
+        this.Trigger("Filtered", new tp.DataSourceEventArgs());
+    }
+    /**
+     * Triggers Updated.
+     * @returns {void}
+     */
+    OnUpdated() {
+        this.Trigger("Updated", new tp.DataSourceEventArgs());
+    }
+};
 

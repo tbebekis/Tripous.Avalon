@@ -1,0 +1,170 @@
+@{
+    ViewData["Title"] = "tp.VirtualScroller";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.VirtualScroller</h1>
+
+<p>
+    A <a href="https://dev.to/adamklein/build-your-own-virtual-scroll-part-i-11ib" target="_blank">virtual scroller</a>
+    helper class for rows with fixed height.
+</p>
+
+<p>
+    The scroller consists of a viewport HTMLElement which contains and scrolls a child container where rows are rendered.
+    The container must be the single child of the viewport. The <code>RowHeight</code> property defines the height of each row;
+    when it is not specified, the height of the first rendered row is used.
+</p>
+
+<style>
+    .virtual-scroller-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .virtual-scroller-demo-actions button {
+        min-width: 100px;
+    }
+    .virtual-scroller-demo-stage {
+        display: grid;
+        grid-template-columns: minmax(220px, 280px) minmax(240px, 1fr);
+        gap: 14px;
+        align-items: start;
+        max-width: 900px;
+    }
+    #VirtualScrollerViewport {
+        position: relative;
+        box-sizing: border-box;
+        width: 240px;
+        height: 400px;
+        border: 1px solid #8c959f;
+        background: #ffffff;
+        outline: none;
+    }
+    #VirtualScrollerViewport:focus {
+        border-color: #0969da;
+        box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.18);
+    }
+    .virtual-scroller-demo-row {
+        box-sizing: border-box;
+        height: 34px;
+        padding: 7px 10px;
+        border-bottom: 1px dotted #d0d7de;
+        background: #ffffff;
+        color: #24292f;
+        font-size: 13px;
+        line-height: 18px;
+    }
+    .virtual-scroller-demo-row:nth-child(odd) {
+        background: #f6f8fa;
+    }
+    .virtual-scroller-demo-log {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 150px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+    @@media (max-width: 720px) {
+        .virtual-scroller-demo-stage {
+            grid-template-columns: 1fr;
+        }
+        #VirtualScrollerViewport {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="html-code">
+    <div class="virtual-scroller-demo-actions">
+        <button id="VirtualScrollerTopButton" type="button">Top</button>
+        <button id="VirtualScrollerMiddleButton" type="button">Middle</button>
+        <button id="VirtualScrollerBottomButton" type="button">Bottom</button>
+    </div>
+
+    <div class="virtual-scroller-demo-stage">
+        <div id="VirtualScrollerViewport"></div>
+        <pre id="VirtualScrollerOutput" class="virtual-scroller-demo-log"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var RowCount = 1000;
+        var ViewportHeight = 400;
+        var Viewport = tp.Select("#VirtualScrollerViewport");
+        var Container = null;
+        var Rows = [];
+        var Scroller;
+        var Index;
+
+        Viewport.tabIndex = 0;
+
+        tp.SetStyle(Viewport, {
+            position: "relative",
+            width: "240px",
+            height: ViewportHeight + "px"
+        });
+
+        for (Index = 0; Index < RowCount; Index++) {
+            Rows.push({
+                Name: "row " + Index,
+                Num: Index
+            });
+        }
+
+        var WriteLog = function (Message) {
+            tp.Text("#VirtualScrollerOutput", [
+                Message || "Ready.",
+                "row count = " + Scroller.RowListCount,
+                "container height = " + Scroller.ContainerHeight + "px",
+                "row height = " + Scroller.RowHeight + "px",
+                "scroll top = " + Math.round(Viewport.scrollTop) + "px",
+                "rendered top index = " + Scroller.IndexTop,
+                "rendered bottom index = " + Scroller.IndexBottom,
+                "cached row elements = " + Object.keys(Scroller.RowCache).length
+            ].join("\n"));
+        };
+
+        Scroller = new tp.VirtualScroller(Viewport, Container);
+
+        Scroller.RenderRowFunc = function (Row, RowIndex) {
+            var Result = document.createElement("div");
+            Result.className = "virtual-scroller-demo-row";
+            Result.innerHTML = Row.Name + " / " + Row.Num;
+            return Result;
+        };
+
+        Scroller.ScrollFunc = function (Phase) {
+            if (Phase === 2)
+                WriteLog("Rendered range changed.");
+        };
+
+        Scroller.SetRowList(Rows);
+
+        tp.On("#VirtualScrollerTopButton", "click", function () {
+            Viewport.scrollTop = 0;
+            Scroller.Render();
+            WriteLog("Moved to top.");
+        });
+
+        tp.On("#VirtualScrollerMiddleButton", "click", function () {
+            Viewport.scrollTop = Math.round(Scroller.ContainerHeight / 2);
+            Scroller.Render();
+            WriteLog("Moved to middle.");
+        });
+
+        tp.On("#VirtualScrollerBottomButton", "click", function () {
+            Viewport.scrollTop = Scroller.ContainerHeight;
+            Scroller.Render();
+            WriteLog("Moved to bottom.");
+        });
+
+        WriteLog();
+    });
+</script>
