@@ -10453,6 +10453,9 @@ tp.CodeEditor = class extends tp.Component {
      * @returns {void}
      */
     CreateAceEditor() {
+        var Text = this.fText;
+        if (tp.IsBlank(Text))
+            Text = this.GetFallbackText();
         var Editor = ace.edit(this.Handle);
         tp.RemoveClass(this.Handle, tp.Classes.CodeEditorFallback);
         Editor.setTheme("ace/theme/" + this.Theme);
@@ -10460,7 +10463,8 @@ tp.CodeEditor = class extends tp.Component {
         Editor.setFontSize(this.FontSize);
         Editor.setReadOnly(this.ReadOnly);
         Editor.setShowPrintMargin(this.ShowPrintMargin);
-        Editor.setValue(this.Text, -1);
+        Editor.setValue(Text, -1);
+        this.fText = Text;
         this.fEditor = Editor;
         this.fIsAce = true;
         this.Handle.__Editor = Editor;
