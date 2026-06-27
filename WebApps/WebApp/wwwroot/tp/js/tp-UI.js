@@ -77,6 +77,7 @@ tp.Classes = {
     Minus: "tp-Minus",
     Min: "tp-Min",
     Max: "tp-Max",
+    MinusFirst: "tp-MinusFirst",
     From: "tp-From",
     To: "tp-To",
     Next: "tp-Next",
@@ -159,15 +160,34 @@ tp.Classes = {
     Label: "tp-Label",
     CheckBox: "tp-CheckBox",
     TextBox: "tp-TextBox",
+    NumberBox: "tp-NumberBox",
+    HtmlNumberBox: "tp-HtmlNumberBox",
+    HtmlNumberBoxEx: "tp-HtmlNumberBoxEx",
+    HtmlDateBox: "tp-HtmlDateBox",
     Memo: "tp-Memo",
     ImageBox: "tp-ImageBox",
     ListControl: "tp-ListControl",
     ListBox: "tp-ListBox",
     ComboBox: "tp-ComboBox",
+    CheckListControl: "tp-CheckListControl",
+    CheckListBox: "tp-CheckListBox",
+    CheckComboBox: "tp-CheckComboBox",
+    RadioGroup: "tp-RadioGroup",
     HtmlListControl: "tp-HtmlListControl",
     HtmlListBox: "tp-HtmlListBox",
     HtmlComboBox: "tp-HtmlComboBox",
     AutocompleteList: "tp-AutocompleteList",
+    ValueSlider: "tp-ValueSlider",
+    ProgressBar: "tp-ProgressBar",
+    CalendarBox: "tp-CalendarBox",
+    DateBox: "tp-DateBox",
+    DateBoxDropDown: "tp-DateBoxDropDown",
+    CalendarBoxHeaderRow: "tp-HeaderRow",
+    CalendarBoxYearCell: "tp-Year",
+    CalendarBoxMonthCell: "tp-Month",
+    CalendarBoxDaysRow: "tp-DaysRow",
+    CalendarBoxWeekRow: "tp-WeekRow",
+    CalendarBoxDateCell: "tp-DateCell",
 
     // ● containers
     Block: "tp-Block",
@@ -14725,4 +14745,4829 @@ tp.ImageBox = class extends tp.Control {
 };
 
 tp.Ui.RegisterType(["ImageBox", "tp-ImageBox"], tp.ImageBox);
+
+// ● 240-number-box.js
+// ● number box
+/**
+ * A text input control for numeric values.
+ *
+ * Events:
+ * - ValueChanged
+ */
+tp.NumberBox = class extends tp.InputControl {
+    // ● constructor
+    /**
+     * Creates a number box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataValueProperty = "Value";
+        this.fDecimals = 0;
+        this.fLastCommittedText = null;
+        this.fFocusLostHandler = this.FuncBind(this.HandleFocusLost);
+    }
+    /**
+     * Applies explicit create params to this number box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Decimals))
+            this.Decimals = tp.ToInt(Params.Decimals);
+        if (!tp.IsNil(Params.Value))
+            this.Value = Params.Value;
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = String(Params.Placeholder);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        if (this.Handle instanceof HTMLInputElement) {
+            this.Handle.type = "text";
+            this.Handle.inputMode = "decimal";
+            this.Handle.autocomplete = "off";
+            this.Handle.style.textAlign = "right";
+            this.Handle.addEventListener("blur", this.fFocusLostHandler);
+        }
+        tp.AddClass(this.Handle, tp.Classes.NumberBox);
+        super.OnHandleCreated();
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fFocusLostHandler)
+            this.Handle.removeEventListener("blur", this.fFocusLostHandler);
+        this.fFocusLostHandler = null;
+        super.DoDispose();
+    }
+    /**
+     * Handles lost focus.
+     * @protected
+     * @param {FocusEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleFocusLost(e) {
+        this.CommitValue();
+    }
+    /**
+     * Commits the current text to the normalized numeric value.
+     * @protected
+     * @returns {void}
+     */
+    CommitValue() {
+        this.NormalizeText();
+        this.WriteDataValue();
+        if (this.Text !== this.fLastCommittedText) {
+            this.fLastCommittedText = this.Text;
+            this.OnValueChanged();
+        }
+    }
+    /**
+     * Handles input and change DOM events.
+     * @protected
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleInputChanged(e) {
+        if (e && e.type === "change")
+            this.CommitValue();
+    }
+    /**
+     * Returns a strict normalized numeric text.
+     * @protected
+     * @param {*} Value The value to normalize.
+     * @returns {string|null} Returns normalized text or null.
+     */
+    NormalizeNumberText(Value) {
+        var Text;
+        var DecimalSep;
+        var ThousandSep;
+        var DecimalPattern;
+        if (tp.IsNumber(Value))
+            return String(Value);
+        if (tp.IsBlankString(Value))
+            return null;
+        Text = String(Value).trim();
+        DecimalSep = tp.GetDecimalSeparator();
+        ThousandSep = tp.GetThousandSeparator();
+        if (!tp.IsBlank(ThousandSep))
+            Text = Text.replace(new RegExp(tp.RegExEscape(ThousandSep), "g"), "");
+        if (DecimalSep !== ".")
+            Text = Text.replace(DecimalSep, ".");
+        DecimalPattern = /^[+-]?(\d+(\.\d*)?|\.\d+)$/;
+        if (this.Decimals > 0)
+            return DecimalPattern.test(Text) ? Text : null;
+        return /^[+-]?\d+$/.test(Text) ? Text : null;
+    }
+    /**
+     * Converts a data-source value to a number-box value.
+     * @param {*} Value The data-source value.
+     * @returns {number|null} Returns the number value.
+     */
+    DataValueToDataProperty(Value) {
+        if (tp.IsNumber(Value))
+            return Value;
+        return this.Parse(Value);
+    }
+    /**
+     * Converts a number-box value to a data-source value.
+     * @param {*} Value The number-box value.
+     * @returns {number|null} Returns the data-source value.
+     */
+    DataPropertyToDataValue(Value) {
+        return tp.IsNumber(Value) ? Value : this.Parse(Value);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the numeric value.
+     * @returns {number|null} Returns the numeric value.
+     */
+    get Value() {
+        return this.Parse(this.Text);
+    }
+    /**
+     * Gets or sets the numeric value.
+     * @param {number|null|undefined} Value The numeric value.
+     * @returns {void}
+     */
+    set Value(Value) {
+        this.Text = tp.IsNumber(Value) ? this.Format(Value) : "";
+    }
+    /**
+     * Gets or sets the decimal places.
+     * @returns {number} Returns the decimal places.
+     */
+    get Decimals() {
+        return this.DataColumn instanceof tp.DataColumn ? this.DataColumn.Decimals : this.fDecimals;
+    }
+    /**
+     * Gets or sets the decimal places.
+     * @param {number} Value The decimal places.
+     * @returns {void}
+     */
+    set Decimals(Value) {
+        Value = tp.ToInt(Value);
+        if (Value >= 0 && Value !== this.fDecimals) {
+            this.fDecimals = Value;
+            this.NormalizeText();
+        }
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @returns {string} Returns the placeholder text.
+     */
+    get Placeholder() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.placeholder || "" : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @param {string} Value The placeholder text.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+
+    // ● public
+    /**
+     * Normalizes the displayed text using the current decimal places.
+     * Non-empty invalid text is normalized to zero.
+     * @returns {boolean} Returns true when text is normalized.
+     */
+    NormalizeText() {
+        var Text = this.Text;
+        var Value = this.Parse(Text);
+        var NewText;
+        if (tp.IsBlankString(Text))
+            return false;
+        if (!tp.IsNumber(Value))
+            Value = 0;
+        NewText = this.Format(Value);
+        if (Text !== NewText)
+            this.Text = NewText;
+        return true;
+    }
+    /**
+     * Formats a numeric value.
+     * @param {*} Value The value to format.
+     * @returns {string} Returns the formatted text.
+     */
+    Format(Value) {
+        if (tp.IsNumber(Value)) {
+            if (this.DataColumn instanceof tp.DataColumn)
+                return this.DataColumn.Format(Value, false);
+            return tp.FormatNumber2(Value, this.Decimals);
+        }
+        return "";
+    }
+    /**
+     * Parses a value to a number.
+     * @param {*} Value The value to parse.
+     * @returns {number|null} Returns the parsed number or null.
+     */
+    Parse(Value) {
+        var Text;
+        var NumberValue;
+        if (tp.IsNumber(Value))
+            return Value;
+        Text = this.NormalizeNumberText(Value);
+        if (Text !== null) {
+            NumberValue = this.Decimals > 0 ? Number.parseFloat(Text) : Number.parseInt(Text, 10);
+            return Number.isFinite(NumberValue) ? NumberValue : null;
+        }
+        return null;
+    }
+};
+
+tp.Ui.RegisterType(["NumberBox", "tp-NumberBox"], tp.NumberBox);
+
+// ● html number box
+/**
+ * A native HTML number input control.
+ *
+ * Events:
+ * - ValueChanged
+ */
+tp.HtmlNumberBox = class extends tp.InputControl {
+    // ● constructor
+    /**
+     * Creates a HTML number box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataValueProperty = "Value";
+        if (this.Handle instanceof HTMLInputElement) {
+            this.Handle.min = tp.IsBlank(this.Handle.min) ? "" : this.Handle.min;
+            this.Handle.max = tp.IsBlank(this.Handle.max) ? "" : this.Handle.max;
+            this.Handle.step = tp.IsBlank(this.Handle.step) ? "0.1" : this.Handle.step;
+            this.Handle.value = tp.IsBlank(this.Handle.value) ? "0" : this.Handle.value;
+        }
+    }
+    /**
+     * Applies explicit create params to this number box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Min))
+            this.Min = Params.Min;
+        if (!tp.IsNil(Params.Max))
+            this.Max = Params.Max;
+        if (!tp.IsNil(Params.Step))
+            this.Step = Params.Step;
+        if (!tp.IsNil(Params.Value))
+            this.Value = Params.Value;
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = String(Params.Placeholder);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        if (this.Handle instanceof HTMLInputElement) {
+            this.Handle.type = "number";
+            this.Handle.style.textAlign = "right";
+        }
+        tp.AddClass(this.Handle, tp.Classes.HtmlNumberBox);
+        super.OnHandleCreated();
+    }
+    /**
+     * Handles input and change DOM events.
+     * @protected
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleInputChanged(e) {
+        if (this.Handle instanceof HTMLInputElement && !tp.IsBlank(this.Handle.value) && !Number.isFinite(this.Handle.valueAsNumber))
+            this.Value = 0;
+        super.HandleInputChanged(e);
+    }
+    /**
+     * Converts a data-source value to a number-box value.
+     * @param {*} Value The data-source value.
+     * @returns {number|null} Returns the number value.
+     */
+    DataValueToDataProperty(Value) {
+        if (tp.IsNumber(Value))
+            return Value;
+        if (!tp.IsBlankString(Value)) {
+            Value = Number(Value);
+            return Number.isFinite(Value) ? Value : null;
+        }
+        return null;
+    }
+    /**
+     * Converts a number-box value to a data-source value.
+     * @param {*} Value The number-box value.
+     * @returns {number|null} Returns the data-source value.
+     */
+    DataPropertyToDataValue(Value) {
+        return tp.IsNumber(Value) ? Value : null;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the minimum value.
+     * @returns {number|null} Returns the minimum value.
+     */
+    get Min() {
+        return this.Handle instanceof HTMLInputElement && !tp.IsBlank(this.Handle.min) ? Number(this.Handle.min) : null;
+    }
+    /**
+     * Gets or sets the minimum value.
+     * @param {number|null|undefined} Value The minimum value.
+     * @returns {void}
+     */
+    set Min(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.min = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the maximum value.
+     * @returns {number|null} Returns the maximum value.
+     */
+    get Max() {
+        return this.Handle instanceof HTMLInputElement && !tp.IsBlank(this.Handle.max) ? Number(this.Handle.max) : null;
+    }
+    /**
+     * Gets or sets the maximum value.
+     * @param {number|null|undefined} Value The maximum value.
+     * @returns {void}
+     */
+    set Max(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.max = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the native step value.
+     * @returns {string} Returns the step value.
+     */
+    get Step() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.step || "1" : "1";
+    }
+    /**
+     * Gets or sets the native step value.
+     * @param {string|number} Value The step value.
+     * @returns {void}
+     */
+    set Step(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.step = tp.IsNil(Value) ? "1" : String(Value);
+    }
+    /**
+     * Gets or sets the numeric value.
+     * @returns {number|null} Returns the numeric value.
+     */
+    get Value() {
+        if (this.Handle instanceof HTMLInputElement) {
+            if (tp.IsBlank(this.Handle.value))
+                return null;
+            return Number.isFinite(this.Handle.valueAsNumber) ? this.Handle.valueAsNumber : null;
+        }
+        return null;
+    }
+    /**
+     * Gets or sets the numeric value.
+     * @param {number|null|undefined} Value The numeric value.
+     * @returns {void}
+     */
+    set Value(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.value = tp.IsNumber(Value) ? String(Value) : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @returns {string} Returns the placeholder text.
+     */
+    get Placeholder() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.placeholder || "" : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @param {string} Value The placeholder text.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+};
+
+tp.Ui.RegisterType(["HtmlNumberBox", "tp-HtmlNumberBox"], tp.HtmlNumberBox);
+
+// ● html number box ex
+/**
+ * A native HTML number input control with plus and minus buttons.
+ *
+ * Events:
+ * - ValueChanged
+ */
+tp.HtmlNumberBoxEx = class extends tp.Control {
+    // ● constructor
+    /**
+     * Creates a HTML number box with plus and minus buttons.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        var Params = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Params.ElementOrSelector))
+            Params.ElementOrSelector = "div";
+        super(Params);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Value";
+        this.fTextBox = null;
+        this.fMinus = null;
+        this.fPlus = null;
+        this.fTextChangeHandler = this.FuncBind(this.HandleTextChange);
+        this.fMinusClickHandler = this.FuncBind(this.HandleMinusClick);
+        this.fPlusClickHandler = this.FuncBind(this.HandlePlusClick);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateInnerControls();
+    }
+    /**
+     * Applies explicit create params to this number box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Min))
+            this.Min = Params.Min;
+        if (!tp.IsNil(Params.Max))
+            this.Max = Params.Max;
+        if (!tp.IsNil(Params.Step))
+            this.Step = Params.Step;
+        if (!tp.IsNil(Params.Value))
+            this.Value = Params.Value;
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = String(Params.Placeholder);
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.NumberBox);
+        tp.AddClass(this.Handle, tp.Classes.HtmlNumberBoxEx);
+    }
+    /**
+     * Creates inner input and buttons.
+     * @protected
+     * @returns {void}
+     */
+    CreateInnerControls() {
+        this.fTextBox = this.Document.createElement("input");
+        this.fTextBox.type = "number";
+        this.fTextBox.className = tp.Classes.Text;
+        this.fTextBox.step = "0.1";
+        this.fTextBox.value = "0";
+        this.fTextBox.style.textAlign = "right";
+        this.Handle.appendChild(this.fTextBox);
+        this.fMinus = this.Document.createElement("div");
+        this.fMinus.className = tp.Classes.Minus;
+        this.fMinus.innerHTML = tp.HtmlNumberBoxEx.MinusSymbol;
+        this.Handle.appendChild(this.fMinus);
+        this.fPlus = this.Document.createElement("div");
+        this.fPlus.className = tp.Classes.Plus;
+        this.fPlus.innerHTML = tp.HtmlNumberBoxEx.PlusSymbol;
+        this.Handle.appendChild(this.fPlus);
+        this.fTextBox.addEventListener("change", this.fTextChangeHandler);
+        this.fMinus.addEventListener("click", this.fMinusClickHandler);
+        this.fPlus.addEventListener("click", this.fPlusClickHandler);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fTextBox)
+            this.fTextBox.removeEventListener("change", this.fTextChangeHandler);
+        if (this.fMinus)
+            this.fMinus.removeEventListener("click", this.fMinusClickHandler);
+        if (this.fPlus)
+            this.fPlus.removeEventListener("click", this.fPlusClickHandler);
+        this.fTextChangeHandler = null;
+        this.fMinusClickHandler = null;
+        this.fPlusClickHandler = null;
+        this.fTextBox = null;
+        this.fMinus = null;
+        this.fPlus = null;
+        super.DoDispose();
+    }
+    /**
+     * Handles inner input change.
+     * @protected
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleTextChange(e) {
+        this.WriteDataValue();
+        this.OnValueChanged();
+    }
+    /**
+     * Handles minus button click.
+     * @protected
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleMinusClick(e) {
+        this.StepDown();
+        this.WriteDataValue();
+        this.OnValueChanged();
+    }
+    /**
+     * Handles plus button click.
+     * @protected
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandlePlusClick(e) {
+        this.StepUp();
+        this.WriteDataValue();
+        this.OnValueChanged();
+    }
+    /**
+     * Converts a data-source value to a number-box value.
+     * @param {*} Value The data-source value.
+     * @returns {number|null} Returns the number value.
+     */
+    DataValueToDataProperty(Value) {
+        if (tp.IsNumber(Value))
+            return Value;
+        if (!tp.IsBlankString(Value)) {
+            Value = Number(Value);
+            return Number.isFinite(Value) ? Value : null;
+        }
+        return null;
+    }
+    /**
+     * Converts a number-box value to a data-source value.
+     * @param {*} Value The number-box value.
+     * @returns {number|null} Returns the data-source value.
+     */
+    DataPropertyToDataValue(Value) {
+        return tp.IsNumber(Value) ? Value : null;
+    }
+    /**
+     * Triggers the ValueChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnValueChanged() {
+        if (this.ReadingDataValue !== true)
+            this.Trigger("ValueChanged", {});
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the minimum value.
+     * @returns {number|null} Returns the minimum value.
+     */
+    get Min() {
+        return this.fTextBox instanceof HTMLInputElement && !tp.IsBlank(this.fTextBox.min) ? Number(this.fTextBox.min) : null;
+    }
+    /**
+     * Gets or sets the minimum value.
+     * @param {number|null|undefined} Value The minimum value.
+     * @returns {void}
+     */
+    set Min(Value) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.min = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the maximum value.
+     * @returns {number|null} Returns the maximum value.
+     */
+    get Max() {
+        return this.fTextBox instanceof HTMLInputElement && !tp.IsBlank(this.fTextBox.max) ? Number(this.fTextBox.max) : null;
+    }
+    /**
+     * Gets or sets the maximum value.
+     * @param {number|null|undefined} Value The maximum value.
+     * @returns {void}
+     */
+    set Max(Value) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.max = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the native step value.
+     * @returns {string} Returns the step value.
+     */
+    get Step() {
+        return this.fTextBox instanceof HTMLInputElement ? this.fTextBox.step || "1" : "1";
+    }
+    /**
+     * Gets or sets the native step value.
+     * @param {string|number} Value The step value.
+     * @returns {void}
+     */
+    set Step(Value) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.step = tp.IsNil(Value) ? "1" : String(Value);
+    }
+    /**
+     * Gets or sets the numeric value.
+     * @returns {number|null} Returns the numeric value.
+     */
+    get Value() {
+        if (this.fTextBox instanceof HTMLInputElement) {
+            if (tp.IsBlank(this.fTextBox.value))
+                return null;
+            return Number.isFinite(this.fTextBox.valueAsNumber) ? this.fTextBox.valueAsNumber : null;
+        }
+        return null;
+    }
+    /**
+     * Gets or sets the numeric value.
+     * @param {number|null|undefined} Value The numeric value.
+     * @returns {void}
+     */
+    set Value(Value) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.value = tp.IsNumber(Value) ? String(Value) : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @returns {string} Returns the placeholder text.
+     */
+    get Placeholder() {
+        return this.fTextBox instanceof HTMLInputElement ? this.fTextBox.placeholder || "" : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @param {string} Value The placeholder text.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+
+    // ● public
+    /**
+     * Increases the value by the native step.
+     * @returns {void}
+     */
+    StepUp() {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.stepUp();
+    }
+    /**
+     * Decreases the value by the native step.
+     * @returns {void}
+     */
+    StepDown() {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.stepDown();
+    }
+};
+
+/**
+ * The plus button symbol.
+ * @type {string}
+ */
+tp.HtmlNumberBoxEx.PlusSymbol = "▴";
+/**
+ * The minus button symbol.
+ * @type {string}
+ */
+tp.HtmlNumberBoxEx.MinusSymbol = "▾";
+
+tp.Ui.RegisterType(["HtmlNumberBoxEx", "tp-HtmlNumberBoxEx"], tp.HtmlNumberBoxEx);
+
+// ● 250-value-slider.js
+// ● value slider
+/**
+ * A native HTML range input control.
+ *
+ * It can be used either as a numeric position selector, or as a value selector
+ * backed by a ValueList where the range position selects an item index.
+ *
+ * Events:
+ * - ValueChanged
+ */
+tp.ValueSlider = class extends tp.InputControl {
+    // ● constructor
+    /**
+     * Creates a value slider.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataValueProperty = "Value";
+        this.fValueList = null;
+        this.GetValueFunc = null;
+        this.SetValueFunc = null;
+        if (this.Handle instanceof HTMLInputElement) {
+            this.Handle.min = tp.IsBlank(this.Handle.min) ? "0" : this.Handle.min;
+            this.Handle.max = tp.IsBlank(this.Handle.max) ? "100" : this.Handle.max;
+            this.Handle.step = tp.IsBlank(this.Handle.step) ? "1" : this.Handle.step;
+            this.Handle.value = tp.IsBlank(this.Handle.value) ? "0" : this.Handle.value;
+        }
+    }
+    /**
+     * Applies explicit create params to this slider.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.GetValueFunc))
+            this.GetValueFunc = Params.GetValueFunc;
+        if (!tp.IsNil(Params.SetValueFunc))
+            this.SetValueFunc = Params.SetValueFunc;
+        if (!tp.IsNil(Params.ValueList))
+            this.ValueList = Params.ValueList;
+        if (!tp.IsNil(Params.Min))
+            this.Min = Params.Min;
+        if (!tp.IsNil(Params.Max))
+            this.Max = Params.Max;
+        if (!tp.IsNil(Params.Step))
+            this.Step = Params.Step;
+        if (!tp.IsNil(Params.Value))
+            this.Value = Params.Value;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.type = "range";
+        tp.AddClass(this.Handle, tp.Classes.ValueSlider);
+        super.OnHandleCreated();
+    }
+    /**
+     * Handles input and change DOM events.
+     * @protected
+     * @param {Event} e The DOM event.
+     * @returns {void}
+     */
+    HandleInputChanged(e) {
+        this.WriteDataValue();
+        this.OnValueChanged();
+    }
+    /**
+     * Returns the value selected by the slider.
+     * @protected
+     * @returns {*} Returns the selected value.
+     */
+    GetValue() {
+        var Index;
+        if (tp.IsFunction(this.GetValueFunc))
+            return this.GetValueFunc(this);
+        if (this.Handle instanceof HTMLInputElement) {
+            Index = tp.ToInt(this.Handle.value);
+            return this.ValueList[Index];
+        }
+        return null;
+    }
+    /**
+     * Selects a value.
+     * @protected
+     * @param {*} Value The value to select.
+     * @returns {void}
+     */
+    SetValue(Value) {
+        var Index;
+        if (tp.IsFunction(this.SetValueFunc)) {
+            this.SetValueFunc(this, Value);
+            this.OnValueChanged();
+        } else if (this.Handle instanceof HTMLInputElement) {
+            Index = this.ValueList.indexOf(Value);
+            if (Index !== -1) {
+                this.Handle.value = Index.toString();
+                this.OnValueChanged();
+            }
+        }
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the minimum range position.
+     * @returns {number|string} Returns the minimum range position.
+     */
+    get Min() {
+        return this.UsesValueList ? 0 : (this.Handle instanceof HTMLInputElement ? this.Handle.min : 0);
+    }
+    /**
+     * Gets or sets the minimum range position.
+     * @param {number|string} Value The minimum range position.
+     * @returns {void}
+     */
+    set Min(Value) {
+        if (!this.UsesValueList && this.Handle instanceof HTMLInputElement)
+            this.Handle.min = tp.IsNil(Value) ? "0" : String(Value);
+    }
+    /**
+     * Gets or sets the maximum range position.
+     * @returns {number|string} Returns the maximum range position.
+     */
+    get Max() {
+        return this.UsesValueList ? this.ValueList.length - 1 : (this.Handle instanceof HTMLInputElement ? this.Handle.max : 0);
+    }
+    /**
+     * Gets or sets the maximum range position.
+     * @param {number|string} Value The maximum range position.
+     * @returns {void}
+     */
+    set Max(Value) {
+        if (!this.UsesValueList && this.Handle instanceof HTMLInputElement)
+            this.Handle.max = tp.IsNil(Value) ? "100" : String(Value);
+    }
+    /**
+     * Gets or sets the step size.
+     * @returns {number} Returns the step size.
+     */
+    get Step() {
+        return this.Handle instanceof HTMLInputElement ? Number(this.Handle.step) : 1;
+    }
+    /**
+     * Gets or sets the step size.
+     * @param {number|string} Value The step size.
+     * @returns {void}
+     */
+    set Step(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.step = tp.IsNil(Value) ? "1" : String(Value);
+    }
+    /**
+     * Gets or sets the selected value.
+     * @returns {*} Returns the selected value.
+     */
+    get Value() {
+        if (this.Handle instanceof HTMLInputElement)
+            return this.UsesValueList ? this.GetValue() : this.Handle.value;
+        return null;
+    }
+    /**
+     * Gets or sets the selected value.
+     * @param {*} Value The value.
+     * @returns {void}
+     */
+    set Value(Value) {
+        var Min;
+        var Max;
+        var NumberValue;
+        if (!(this.Handle instanceof HTMLInputElement))
+            return;
+        if (this.UsesValueList) {
+            this.SetValue(Value);
+            return;
+        }
+        Min = Number(this.Handle.min);
+        Max = Number(this.Handle.max);
+        NumberValue = Number(Value);
+        if (Number.isFinite(NumberValue) && Min <= NumberValue && NumberValue <= Max) {
+            this.Handle.value = NumberValue.toString();
+            this.OnValueChanged();
+        }
+    }
+    /**
+     * Gets or sets the value list.
+     * @returns {Array} Returns the value list.
+     */
+    get ValueList() {
+        return tp.IsArray(this.fValueList) ? this.fValueList : [];
+    }
+    /**
+     * Gets or sets the value list.
+     * @param {Array|null|undefined} Value The value list.
+     * @returns {void}
+     */
+    set ValueList(Value) {
+        if (!(this.Handle instanceof HTMLInputElement))
+            return;
+        if (tp.IsArray(Value) && Value.length > 0) {
+            this.fValueList = Value;
+            this.Handle.min = "0";
+            this.Handle.max = (Value.length - 1).toString();
+            this.Handle.step = "1";
+            if (tp.ToInt(this.Handle.value) > Value.length - 1)
+                this.Handle.value = "0";
+        } else {
+            this.fValueList = null;
+            this.Handle.min = "0";
+            this.Handle.max = "100";
+            this.Handle.step = "1";
+        }
+        this.OnValueChanged();
+    }
+    /**
+     * Returns true when a value list is used.
+     * @returns {boolean} Returns true when a value list is used.
+     */
+    get UsesValueList() {
+        return tp.IsArray(this.fValueList) && this.fValueList.length > 0;
+    }
+
+    // ● public
+    /**
+     * Increments the slider position.
+     * @param {number|null|undefined} Count The optional step count.
+     * @returns {void}
+     */
+    StepUp(Count) {
+        if (this.Handle instanceof HTMLInputElement) {
+            if (tp.IsNil(Count))
+                this.Handle.stepUp();
+            else
+                this.Handle.stepUp(tp.ToInt(Count));
+            this.WriteDataValue();
+            this.OnValueChanged();
+        }
+    }
+    /**
+     * Decrements the slider position.
+     * @param {number|null|undefined} Count The optional step count.
+     * @returns {void}
+     */
+    StepDown(Count) {
+        if (this.Handle instanceof HTMLInputElement) {
+            if (tp.IsNil(Count))
+                this.Handle.stepDown();
+            else
+                this.Handle.stepDown(tp.ToInt(Count));
+            this.WriteDataValue();
+            this.OnValueChanged();
+        }
+    }
+};
+
+tp.Ui.RegisterType(["ValueSlider", "tp-ValueSlider"], tp.ValueSlider);
+
+// ● 255-progress-bar.js
+// ● progress bar
+/**
+ * A native HTML progress control.
+ */
+tp.ProgressBar = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a progress bar.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        var Params = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Params.ElementOrSelector))
+            Params.ElementOrSelector = "progress";
+        super(Params);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fInfiniteLoopTimer = 0;
+        this.fInfiniteLoopInterval = 150;
+        if (this.Handle instanceof HTMLProgressElement) {
+            this.Handle.max = tp.IsNil(this.Handle.max) || this.Handle.max <= 0 ? 100 : this.Handle.max;
+            this.Handle.value = tp.IsNil(this.Handle.value) ? 0 : this.Handle.value;
+        }
+    }
+    /**
+     * Applies explicit create params to this progress bar.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Max))
+            this.Max = Params.Max;
+        if (!tp.IsNil(Params.Value))
+            this.Value = Params.Value;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ProgressBar);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        this.StopInfiniteLoop();
+        super.DoDispose();
+    }
+    /**
+     * Advances the progress value by one step, wrapping to zero at Max.
+     * @protected
+     * @returns {void}
+     */
+    StepLoop() {
+        if (this.Value < this.Max)
+            this.Value += 1;
+        else
+            this.Value = 0;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the maximum value.
+     * @returns {number} Returns the maximum value.
+     */
+    get Max() {
+        return this.Handle instanceof HTMLProgressElement ? this.Handle.max : 0;
+    }
+    /**
+     * Gets or sets the maximum value.
+     * @param {number} Value The maximum value.
+     * @returns {void}
+     */
+    set Max(Value) {
+        if (this.Handle instanceof HTMLProgressElement)
+            this.Handle.max = tp.IsNil(Value) ? 100 : Number(Value);
+    }
+    /**
+     * Gets or sets the current value.
+     * @returns {number} Returns the current value.
+     */
+    get Value() {
+        return this.Handle instanceof HTMLProgressElement ? this.Handle.value : 0;
+    }
+    /**
+     * Gets or sets the current value.
+     * @param {number} Value The current value.
+     * @returns {void}
+     */
+    set Value(Value) {
+        if (this.Handle instanceof HTMLProgressElement)
+            this.Handle.value = tp.IsNil(Value) ? 0 : Number(Value);
+    }
+    /**
+     * Returns true when the infinite loop is running.
+     * @returns {boolean} Returns true when the infinite loop is running.
+     */
+    get IsInfiniteLoopRunning() {
+        return this.fInfiniteLoopTimer !== 0;
+    }
+
+    // ● public
+    /**
+     * Starts an infinite progress loop.
+     * @param {number|null|undefined} Interval The interval in milliseconds.
+     * @returns {void}
+     */
+    StartInfiniteLoop(Interval) {
+        var Instance = this;
+        this.StopInfiniteLoop();
+        if (tp.IsNumber(Interval) && Interval > 0)
+            this.fInfiniteLoopInterval = Interval;
+        this.fInfiniteLoopTimer = setInterval(function () {
+            Instance.StepLoop();
+        }, this.fInfiniteLoopInterval);
+    }
+    /**
+     * Stops the infinite progress loop.
+     * @returns {void}
+     */
+    StopInfiniteLoop() {
+        if (this.fInfiniteLoopTimer !== 0) {
+            clearInterval(this.fInfiniteLoopTimer);
+            this.fInfiniteLoopTimer = 0;
+        }
+    }
+};
+
+tp.Ui.RegisterType(["ProgressBar", "tp-ProgressBar"], tp.ProgressBar);
+
+// ● 260-check-list-control.js
+// ● check list control
+/**
+ * Base class for multi-select list controls with check boxes.
+ *
+ * Events:
+ * - SelectionChanged
+ */
+tp.CheckListControl = class extends tp.ListControl {
+    // ● constructor
+    /**
+     * Creates a check-list control.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataValueProperty = "SelectedValues";
+        this.fSelectedIndexes = [];
+        this.fChangeHandler = this.FuncBind(this.HandleChange);
+    }
+    /**
+     * Applies explicit create params to this check-list control.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        tp.Control.prototype.ApplyCreateParams.call(this, Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.ListValueField))
+            this.ListValueField = Params.ListValueField;
+        if (!tp.IsNil(Params.ListDisplayField))
+            this.ListDisplayField = Params.ListDisplayField;
+        if (!tp.IsNil(Params.ListSourceName))
+            this.ListSourceName = Params.ListSourceName;
+        if (!tp.IsNil(Params.ItemHeight))
+            this.ItemHeight = Params.ItemHeight;
+        if (!tp.IsNil(Params.List))
+            this.fItems.AddRange(Params.List);
+        if (!tp.IsNil(Params.ListItems))
+            this.fItems.AddRange(Params.ListItems);
+        if (!tp.IsNil(Params.Items))
+            this.fItems.AddRange(Params.Items);
+        if (!tp.IsNil(Params.ListSource))
+            this.ListSource = Params.ListSource;
+        if (!tp.IsNil(Params.SelectedIndexes))
+            this.SelectedIndexes = Params.SelectedIndexes;
+        else if (!tp.IsNil(Params.SelectedValues))
+            this.SelectedValues = Params.SelectedValues;
+        this.SetScrollerList();
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fChangeHandler)
+            this.Handle.removeEventListener("change", this.fChangeHandler, false);
+        this.fChangeHandler = null;
+        super.DoDispose();
+    }
+    /**
+     * Handles checkbox change events.
+     * @protected
+     * @param {Event} e The event.
+     * @returns {void}
+     */
+    HandleChange(e) {
+        var Element = e.target;
+        var Info;
+        var Parent;
+        if (!(Element instanceof HTMLInputElement) || Element.type !== "checkbox" || !tp.HasElementInfo(Element))
+            return;
+        Info = tp.GetElementInfo(Element);
+        this.CheckIndex(Info.Index, Element.checked === true);
+        Parent = tp.Closest(Element, "label");
+        if (Parent instanceof HTMLElement) {
+            if (Element.checked === true)
+                tp.AddClass(Parent, tp.Classes.Selected);
+            else
+                tp.RemoveClass(Parent, tp.Classes.Selected);
+        }
+        if (this.fScroller && this.fScroller.Viewport)
+            this.fScroller.Viewport.focus();
+    }
+    /**
+     * Notification from the item list after it changes.
+     * @protected
+     * @param {tp.ListEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    ListChanged(Args) {
+        switch (Args.Action) {
+            case tp.ListChangeType.Remove:
+                this.RemoveSelectedIndex(Args.Index);
+                this.UpdateScroller();
+                this.OnSelectionChanged();
+                break;
+            case tp.ListChangeType.Clear:
+            case tp.ListChangeType.Assign:
+                this.fSelectedIndexes.length = 0;
+                this.SetScrollerList();
+                this.OnSelectionChanged();
+                break;
+            case tp.ListChangeType.Insert:
+            case tp.ListChangeType.Update:
+            case tp.ListChangeType.AddRange:
+                this.SetScrollerList();
+                this.OnSelectionChanged();
+                break;
+        }
+    }
+    /**
+     * Renders a virtual scroller row.
+     * @protected
+     * @param {*} Row The row item.
+     * @param {number} RowIndex The row index.
+     * @returns {HTMLElement} Returns the row element.
+     */
+    ItemRenderFunc(Row, RowIndex) {
+        var Result = this.Document.createElement("label");
+        var CheckBox = this.Document.createElement("input");
+        var Text = this.Document.createTextNode(this.GetItemText(Row));
+        var Index = this.Items.indexOf(Row);
+        Index = Index === -1 ? RowIndex : Index;
+        Result.className = tp.Classes.Item;
+        Result.tabIndex = -1;
+        tp.Data(Result, "index", Index);
+        CheckBox.type = "checkbox";
+        CheckBox.checked = this.IsChecked(Index);
+        tp.SetElementInfo(CheckBox, {
+            Item: Row,
+            Index: Index
+        });
+        if (CheckBox.checked === true)
+            tp.AddClass(Result, tp.Classes.Selected);
+        Result.appendChild(CheckBox);
+        Result.appendChild(Text);
+        return Result;
+    }
+    /**
+     * Virtual scroller callback before and after rendering.
+     * @protected
+     * @param {number} Phase The render phase. 1 is before, 2 is after.
+     * @returns {void}
+     */
+    ScrollFunc(Phase) {
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        tp.Control.prototype.Bind.call(this);
+        this.ReadDataValue();
+    }
+    /**
+     * Reads the bound data value.
+     * @protected
+     * @returns {void}
+     */
+    ReadDataValue() {
+        var Value;
+        if (this.ReadingDataValue === true || this.WritingDataValue === true)
+            return;
+        this.fCanPostDataValue = false;
+        try {
+            if (this.IsDataBound && this.DataSource.Position >= 0) {
+                this.ReadingDataValue = true;
+                try {
+                    Value = this.DataSource.Get(this.DataField);
+                    this[this.DataValueProperty] = Value;
+                } finally {
+                    this.ReadingDataValue = false;
+                }
+            }
+        } finally {
+            this.fCanPostDataValue = true;
+        }
+    }
+    /**
+     * Removes one selected index.
+     * @protected
+     * @param {number} Index The selected index.
+     * @returns {void}
+     */
+    RemoveSelectedIndex(Index) {
+        var Result = [];
+        var i;
+        for (i = 0; i < this.fSelectedIndexes.length; i++) {
+            if (this.fSelectedIndexes[i] < Index)
+                Result.push(this.fSelectedIndexes[i]);
+            else if (this.fSelectedIndexes[i] > Index)
+                Result.push(this.fSelectedIndexes[i] - 1);
+        }
+        this.fSelectedIndexes = Result;
+    }
+    /**
+     * Writes the selection to the bound data source when allowed.
+     * @protected
+     * @returns {void}
+     */
+    DoPost() {
+        if (this.IsDataBound && this.fCanPostDataValue === true)
+            this.WriteDataValue();
+    }
+
+    // ● public
+    /**
+     * Clears the control.
+     * @returns {void}
+     */
+    Clear() {
+        this.fItems.Clear();
+        this.fSelectedIndexes.length = 0;
+        this.SetScrollerList();
+        this.OnSelectionChanged();
+    }
+    /**
+     * Returns the index of a value, if any.
+     * @param {*} Value The value.
+     * @returns {number} Returns the index or -1.
+     */
+    IndexOfValue(Value) {
+        var Index;
+        var Item;
+        for (Index = 0; Index < this.Items.length; Index++) {
+            Item = this.Items[Index];
+            if (this.GetItemValue(Item) === Value)
+                return Index;
+        }
+        return -1;
+    }
+    /**
+     * Checks or unchecks an item by index.
+     * @param {number} Index The item index.
+     * @param {boolean} Flag True to check.
+     * @returns {void}
+     */
+    CheckIndex(Index, Flag) {
+        var CurrentIndex = this.fSelectedIndexes.indexOf(Index);
+        if (!tp.InRange(this.Items, Index))
+            return;
+        if (Flag === true && CurrentIndex === -1) {
+            this.fSelectedIndexes.push(Index);
+            this.OnSelectionChanged();
+        } else if (Flag !== true && CurrentIndex !== -1) {
+            this.fSelectedIndexes.splice(CurrentIndex, 1);
+            this.OnSelectionChanged();
+        }
+    }
+    /**
+     * Checks or unchecks an item by value.
+     * @param {*} Value The value.
+     * @param {boolean} Flag True to check.
+     * @returns {void}
+     */
+    CheckValue(Value, Flag) {
+        this.CheckIndex(this.IndexOfValue(Value), Flag);
+    }
+    /**
+     * Checks or unchecks an item.
+     * @param {*} Item The item.
+     * @param {boolean} Flag True to check.
+     * @returns {void}
+     */
+    CheckItem(Item, Flag) {
+        this.CheckIndex(this.Items.indexOf(Item), Flag);
+    }
+    /**
+     * Returns true when an item index is checked.
+     * @param {number} Index The item index.
+     * @returns {boolean} Returns true when checked.
+     */
+    IsChecked(Index) {
+        return this.fSelectedIndexes.indexOf(Index) !== -1;
+    }
+    /**
+     * Returns true when an item value is checked.
+     * @param {*} Value The value.
+     * @returns {boolean} Returns true when checked.
+     */
+    IsValueChecked(Value) {
+        return this.IsChecked(this.IndexOfValue(Value));
+    }
+    /**
+     * Returns true when an item is checked.
+     * @param {*} Item The item.
+     * @returns {boolean} Returns true when checked.
+     */
+    IsItemChecked(Item) {
+        return this.IsChecked(this.Items.indexOf(Item));
+    }
+    /**
+     * Returns the selected items.
+     * @returns {Array} Returns the selected items.
+     */
+    GetSelectedItems() {
+        var Result = [];
+        var Index;
+        var i;
+        for (i = 0; i < this.fSelectedIndexes.length; i++) {
+            Index = this.fSelectedIndexes[i];
+            if (tp.InRange(this.Items, Index))
+                Result.push(this.Items[Index]);
+        }
+        return Result;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets selected item indexes.
+     * @returns {number[]} Returns selected indexes.
+     */
+    get SelectedIndexes() {
+        return this.fSelectedIndexes.slice();
+    }
+    /**
+     * Gets or sets selected item indexes.
+     * @param {number[]} Value The selected indexes.
+     * @returns {void}
+     */
+    set SelectedIndexes(Value) {
+        var Index;
+        this.fSelectedIndexes.length = 0;
+        if (tp.IsArray(Value)) {
+            for (Index = 0; Index < Value.length; Index++) {
+                if (tp.InRange(this.Items, Value[Index]) && this.fSelectedIndexes.indexOf(Value[Index]) === -1)
+                    this.fSelectedIndexes.push(Value[Index]);
+            }
+        }
+        this.OnSelectionChanged();
+    }
+    /**
+     * Gets or sets selected item values.
+     * @returns {Array} Returns selected values.
+     */
+    get SelectedValues() {
+        var Result = [];
+        var List = this.GetSelectedItems();
+        var Index;
+        for (Index = 0; Index < List.length; Index++)
+            Result.push(this.GetItemValue(List[Index]));
+        return Result;
+    }
+    /**
+     * Gets or sets selected item values.
+     * @param {Array|null|undefined} Value The selected values.
+     * @returns {void}
+     */
+    set SelectedValues(Value) {
+        var Index;
+        var ItemIndex;
+        this.fSelectedIndexes.length = 0;
+        if (tp.IsArray(Value)) {
+            for (Index = 0; Index < Value.length; Index++) {
+                ItemIndex = this.IndexOfValue(Value[Index]);
+                if (ItemIndex !== -1 && this.fSelectedIndexes.indexOf(ItemIndex) === -1)
+                    this.fSelectedIndexes.push(ItemIndex);
+            }
+        }
+        this.OnSelectionChanged();
+    }
+    /**
+     * Gets or sets the non data-bound items.
+     * @returns {Array} Returns the items.
+     */
+    get Items() {
+        return super.Items;
+    }
+    /**
+     * Gets or sets the non data-bound items.
+     * @param {Array|null|undefined} Value The items.
+     * @returns {void}
+     */
+    set Items(Value) {
+        this.Clear();
+        if (tp.IsArray(Value))
+            this.fItems.AddRange(Value);
+        this.SetScrollerList();
+    }
+
+    // ● event triggers
+    /**
+     * Triggers the SelectionChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnSelectionChanged() {
+        this.DoPost();
+        this.SetScrollerList();
+        this.Trigger("SelectionChanged", {});
+    }
+};
+
+// ● check list box
+/**
+ * A multi-select list box with check boxes.
+ *
+ * Events:
+ * - SelectionChanged
+ */
+tp.CheckListBox = class extends tp.CheckListControl {
+    // ● private
+    /**
+     * Creates check-list-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateCheckListBoxParams(CreateParams) {
+        var Args = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "div";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a check-list box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.CheckListBox.CreateCheckListBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateScroller();
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ListControl);
+        tp.AddClass(this.Handle, tp.Classes.CheckListBox);
+    }
+    /**
+     * Creates the row container and virtual scroller.
+     * @protected
+     * @returns {void}
+     */
+    CreateScroller() {
+        if (this.fScroller)
+            return;
+        this.fContainer = this.Document.createElement("div");
+        this.Handle.appendChild(this.fContainer);
+        this.fContainer.className = tp.Classes.List;
+        this.fContainer.tabIndex = -1;
+        this.fScroller = new tp.VirtualScroller(this.Handle, this.fContainer);
+        this.fScroller.RowHeight = this.ItemHeight;
+        this.fScroller.Context = this;
+        this.fScroller.RenderRowFunc = this.ItemRenderFunc;
+        this.fScroller.ScrollFunc = this.ScrollFunc;
+        this.Handle.addEventListener("change", this.fChangeHandler, false);
+    }
+    /**
+     * Makes the check-list box the focused control.
+     * @returns {void}
+     */
+    Focus() {
+        if (this.fScroller && this.fScroller.Viewport)
+            this.fScroller.Viewport.focus();
+        else
+            super.Focus();
+    }
+};
+
+tp.Ui.RegisterType(["CheckListBox", "tp-CheckListBox"], tp.CheckListBox);
+
+// ● check combo box
+/**
+ * A multi-select combo-box control with check boxes.
+ *
+ * Example markup:
+ * <pre>
+ *     <div data-setup="{ListValueField: 'Id', ListDisplayField: 'Name', List: [{Id: 100, Name: 'All'}, {Id: 0, Name: 'No stops'}], SelectedValues: [100]}"></div>
+ * </pre>
+ *
+ * Events:
+ * - SelectionChanged
+ *
+ * @implements {tp.IDropDownBoxListener}
+ */
+tp.CheckComboBox = class extends tp.CheckListControl {
+    // ● private
+    /**
+     * Creates check-combo-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateCheckComboBoxParams(CreateParams) {
+        var Args = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "div";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a check combo box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.CheckComboBox.CreateCheckComboBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fListOnly = false;
+        this.fMaxDropdownItems = 10;
+        this.fLabels = [];
+        this.fTextBoxInputHandler = this.FuncBind(this.HandleTextBoxInput);
+        this.fTextBoxKeyDownHandler = this.FuncBind(this.HandleTextBoxKeyDown);
+        this.fTextBoxFocusLostHandler = this.FuncBind(this.HandleTextBoxFocusLost);
+        this.fStripClickHandler = this.FuncBind(this.HandleStripClick);
+        this.fDocumentClickHandler = this.FuncBind(this.HandleDocumentClick);
+        this.fContainerKeyDownHandler = this.FuncBind(this.HandleContainerKeyDown);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateInnerControls();
+    }
+    /**
+     * Applies explicit create params to this check combo box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.ListOnly))
+            this.ListOnly = Params.ListOnly === true;
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = Params.Placeholder;
+        if (!tp.IsNil(Params.MaxDropdownItems))
+            this.MaxDropdownItems = Params.MaxDropdownItems;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.ListControl);
+        tp.AddClass(this.Handle, tp.Classes.CheckComboBox);
+    }
+    /**
+     * Creates the inner controls and virtual scroller.
+     * @protected
+     * @returns {void}
+     */
+    CreateInnerControls() {
+        if (this.fScroller)
+            return;
+        this.fControlContainer = this.Document.createElement("div");
+        this.Handle.appendChild(this.fControlContainer);
+        this.fControlContainer.className = tp.Classes.Strip;
+        this.fTextBox = this.Document.createElement("input");
+        this.fTextBox.type = "text";
+        this.fTextBox.spellcheck = false;
+        this.fTextBox.className = tp.Classes.Text;
+        this.fTextBox.readOnly = this.ListOnly;
+        this.fControlContainer.appendChild(this.fTextBox);
+        this.fDropDownBox = new tp.DropDownBox(null, {
+            Associate: this.fControlContainer,
+            Owner: this,
+            Parent: this.Handle
+        });
+        this.fContainer = this.Document.createElement("div");
+        this.fDropDownBox.Handle.appendChild(this.fContainer);
+        this.fContainer.className = tp.Classes.List;
+        this.fContainer.tabIndex = -1;
+        this.fScroller = new tp.VirtualScroller(this.fDropDownBox.Handle, this.fContainer);
+        this.fScroller.RowHeight = this.ItemHeight;
+        this.fScroller.Context = this;
+        this.fScroller.RenderRowFunc = this.ItemRenderFunc;
+        this.fScroller.ScrollFunc = this.ScrollFunc;
+        this.fTextBox.addEventListener("input", this.fTextBoxInputHandler, false);
+        this.fTextBox.addEventListener("keydown", this.fTextBoxKeyDownHandler, false);
+        this.fTextBox.addEventListener("blur", this.fTextBoxFocusLostHandler, false);
+        this.fControlContainer.addEventListener("click", this.fStripClickHandler, false);
+        this.fContainer.addEventListener("change", this.fChangeHandler, false);
+        this.fDropDownBox.Handle.addEventListener("keydown", this.fContainerKeyDownHandler, false);
+        this.Document.addEventListener("click", this.fDocumentClickHandler, false);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fTextBox) {
+            this.fTextBox.removeEventListener("input", this.fTextBoxInputHandler, false);
+            this.fTextBox.removeEventListener("keydown", this.fTextBoxKeyDownHandler, false);
+            this.fTextBox.removeEventListener("blur", this.fTextBoxFocusLostHandler, false);
+        }
+        if (this.fControlContainer)
+            this.fControlContainer.removeEventListener("click", this.fStripClickHandler, false);
+        if (this.fContainer)
+            this.fContainer.removeEventListener("change", this.fChangeHandler, false);
+        if (this.fDropDownBox && this.fDropDownBox.Handle)
+            this.fDropDownBox.Handle.removeEventListener("keydown", this.fContainerKeyDownHandler, false);
+        if (this.Document)
+            this.Document.removeEventListener("click", this.fDocumentClickHandler, false);
+        if (this.fDropDownBox) {
+            this.fDropDownBox.Dispose();
+            this.fDropDownBox = null;
+        }
+        this.fTextBoxInputHandler = null;
+        this.fTextBoxKeyDownHandler = null;
+        this.fTextBoxFocusLostHandler = null;
+        this.fStripClickHandler = null;
+        this.fDocumentClickHandler = null;
+        this.fContainerKeyDownHandler = null;
+        this.fTextBox = null;
+        this.fControlContainer = null;
+        this.fLabels = null;
+        super.DoDispose();
+    }
+    /**
+     * Handles text input for filtering.
+     * @protected
+     * @param {InputEvent} e The event.
+     * @returns {void}
+     */
+    HandleTextBoxInput(e) {
+        if (this.Enabled === true && this.ReadOnly !== true && this.ListOnly !== true)
+            this.FilterScrollerList();
+    }
+    /**
+     * Handles keyboard navigation in the text box.
+     * @protected
+     * @param {KeyboardEvent} e The event.
+     * @returns {void}
+     */
+    HandleTextBoxKeyDown(e) {
+        var List;
+        var Item;
+        var Index;
+        if (this.Enabled !== true || this.ReadOnly === true)
+            return;
+        if (tp.IsKey(e, tp.Keys.Enter)) {
+            if (this.fTextBox.value.length > 2) {
+                List = this.fScroller.GetRowList();
+                if (List.length > 0) {
+                    Item = List[0];
+                    Index = this.Items.indexOf(Item);
+                    if (Index !== -1) {
+                        tp.CancelEvent(e);
+                        this.CheckIndex(Index, true);
+                        this.fTextBox.value = "";
+                        this.ResetScrollerList(this.Items, true);
+                    }
+                }
+            }
+        } else if (tp.IsKey(e, tp.Keys.Backspace)) {
+            if (this.fTextBox.value.length === 0 && this.SelectedIndexes.length > 0) {
+                tp.CancelEvent(e);
+                Index = this.SelectedIndexes[this.SelectedIndexes.length - 1];
+                this.CheckIndex(Index, false);
+                this.FocusTextBox();
+            }
+        } else if (tp.IsKey(e, tp.Keys.Escape)) {
+            tp.CancelEvent(e);
+            this.Close();
+        }
+    }
+    /**
+     * Handles keyboard navigation in the drop-down list.
+     * @protected
+     * @param {KeyboardEvent} e The event.
+     * @returns {void}
+     */
+    HandleContainerKeyDown(e) {
+        if (tp.IsKey(e, tp.Keys.Escape)) {
+            tp.CancelEvent(e);
+            this.Close();
+            this.FocusTextBox();
+        }
+    }
+    /**
+     * Handles text-box focus loss.
+     * @protected
+     * @param {FocusEvent} e The event.
+     * @returns {void}
+     */
+    HandleTextBoxFocusLost(e) {
+        if (this.Enabled === true && this.ReadOnly !== true) {
+            this.fTextBox.value = "";
+            this.ResetScrollerList(this.Items, false);
+        }
+    }
+    /**
+     * Handles clicks on the strip.
+     * @protected
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleStripClick(e) {
+        var Info;
+        if (this.Enabled !== true || this.ReadOnly === true)
+            return;
+        if (tp.HasClass(e.target, tp.Classes.Close) && tp.HasElementInfo(e.target)) {
+            tp.CancelEvent(e);
+            Info = tp.GetElementInfo(e.target);
+            this.CheckIndex(Info.Index, false);
+            this.Close();
+        } else {
+            this.Open();
+            this.FocusTextBox();
+        }
+    }
+    /**
+     * Handles document clicks.
+     * @protected
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleDocumentClick(e) {
+        if (this.Enabled === true && this.fDropDownBox && this.fDropDownBox.Resizing !== true && !tp.ContainsEventTarget(this.Handle, e.target))
+            this.Close();
+    }
+    /**
+     * Updates selected item labels in the strip.
+     * @protected
+     * @returns {void}
+     */
+    UpdateLabels() {
+        var List = this.SelectedIndexes;
+        var Index;
+        var Item;
+        var Label;
+        var Text;
+        var CloseButton;
+        var i;
+        if (!this.fControlContainer || !this.fTextBox)
+            return;
+        for (i = 0; i < this.fLabels.length; i++) {
+            if (this.fLabels[i].parentNode)
+                this.fLabels[i].parentNode.removeChild(this.fLabels[i]);
+        }
+        this.fLabels.length = 0;
+        if (this.fTextBox.parentNode)
+            this.fTextBox.parentNode.removeChild(this.fTextBox);
+        for (i = 0; i < List.length; i++) {
+            Index = List[i];
+            Item = this.Items[Index];
+            if (tp.IsNil(Item))
+                continue;
+            Label = this.Document.createElement("div");
+            Label.className = tp.Classes.Item;
+            Text = this.Document.createElement("div");
+            Text.className = tp.Classes.Text;
+            Text.textContent = this.GetItemText(Item);
+            CloseButton = this.Document.createElement("div");
+            CloseButton.className = tp.Classes.Close;
+            CloseButton.textContent = "x";
+            tp.SetElementInfo(CloseButton, { Index: Index });
+            Label.appendChild(Text);
+            Label.appendChild(CloseButton);
+            this.fControlContainer.appendChild(Label);
+            this.fLabels.push(Label);
+        }
+        this.fControlContainer.appendChild(this.fTextBox);
+        if (this.IsOpen === true)
+            setTimeout(this.FuncBind(function () { this.fDropDownBox.UpdateTop(); }), 0);
+    }
+    /**
+     * Updates the drop-down height.
+     * @protected
+     * @returns {void}
+     */
+    UpdateDropdownHeight() {
+        var Count = this.fScroller ? this.fScroller.RowListCount : 0;
+        var RowCount = Count <= 0 ? 2 : Count < this.MaxDropdownItems ? Count + 1 : this.MaxDropdownItems;
+        this.fDropDownBox.Height = RowCount * this.ItemHeight + 5;
+    }
+    /**
+     * Returns items containing a specified text.
+     * @protected
+     * @param {string} Text The search text.
+     * @returns {Array} Returns matching items.
+     */
+    GetItemsContainingText(Text) {
+        var Result = [];
+        var ItemText;
+        var i;
+        for (i = 0; i < this.Items.length; i++) {
+            ItemText = this.GetItemText(this.Items[i]);
+            if (!tp.IsBlank(ItemText) && tp.ContainsText(ItemText, Text, true))
+                Result.push(this.Items[i]);
+        }
+        return Result;
+    }
+    /**
+     * Filters the scroller list.
+     * @protected
+     * @returns {void}
+     */
+    FilterScrollerList() {
+        var Text = this.fTextBox.value;
+        var List;
+        if (Text.length === 0 || Text.length >= 3) {
+            List = tp.IsBlank(Text) ? this.Items : this.GetItemsContainingText(Text);
+            this.Open();
+            this.fScroller.SetRowList(List);
+            this.UpdateDropdownHeight();
+            this.UpdateScroller();
+        }
+    }
+    /**
+     * Resets the scroller list.
+     * @protected
+     * @param {Array} List The list.
+     * @param {boolean} FocusToTextBox True to focus the text box.
+     * @returns {void}
+     */
+    ResetScrollerList(List, FocusToTextBox) {
+        this.fScroller.SetRowList(List);
+        this.UpdateDropdownHeight();
+        this.UpdateScroller();
+        if (FocusToTextBox === true)
+            this.FocusTextBox();
+    }
+    /**
+     * Focuses the inner text box.
+     * @protected
+     * @returns {void}
+     */
+    FocusTextBox() {
+        setTimeout(this.FuncBind(function () {
+            if (this.fTextBox)
+                this.fTextBox.focus();
+        }), 0);
+    }
+
+    // ● public
+    /**
+     * Displays the drop-down box.
+     * @returns {void}
+     */
+    Open() {
+        if (this.ReadOnly !== true && this.Enabled === true)
+            this.fDropDownBox.Open();
+    }
+    /**
+     * Hides the drop-down box.
+     * @returns {void}
+     */
+    Close() {
+        if (this.ReadOnly !== true && this.Enabled === true)
+            this.fDropDownBox.Close();
+    }
+    /**
+     * Displays or hides the drop-down box.
+     * @returns {void}
+     */
+    Toggle() {
+        if (this.ReadOnly !== true && this.Enabled === true)
+            this.fDropDownBox.Toggle();
+    }
+    /**
+     * Called by the drop-down box to inform its owner about a stage change.
+     * @param {tp.DropDownBox} Sender The sender.
+     * @param {number} Stage One of the tp.DropDownBoxStage constants.
+     * @returns {void}
+     */
+    OnDropDownBoxEvent(Sender, Stage) {
+        switch (Stage) {
+            case tp.DropDownBoxStage.Opening:
+                tp.ZIndex(this.fScroller.Viewport, this.ZIndex + 1);
+                this.fScroller.RowHeight = this.ItemHeight;
+                break;
+            case tp.DropDownBoxStage.Opened:
+                this.UpdateDropdownHeight();
+                this.UpdateScroller();
+                if (this.ListOnly === true)
+                    this.fScroller.Viewport.focus();
+                break;
+        }
+    }
+    /**
+     * Makes the check combo box the focused control.
+     * @returns {void}
+     */
+    Focus() {
+        this.FocusTextBox();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets a value indicating whether the text-box portion is read-only list-only input.
+     * @returns {boolean} Returns true when list-only.
+     */
+    get ListOnly() {
+        return this.fListOnly === true;
+    }
+    /**
+     * Gets or sets a value indicating whether the text-box portion is read-only list-only input.
+     * @param {boolean} Value True to make the text-box read-only.
+     * @returns {void}
+     */
+    set ListOnly(Value) {
+        this.fListOnly = Value === true;
+        if (this.fTextBox)
+            this.fTextBox.readOnly = this.fListOnly;
+    }
+    /**
+     * Gets or sets the maximum number of items shown in the drop-down list.
+     * @returns {number} Returns the maximum number of items.
+     */
+    get MaxDropdownItems() {
+        var Result = tp.IsNumber(this.fMaxDropdownItems) ? this.fMaxDropdownItems : 10;
+        return Result > 30 ? 30 : Result;
+    }
+    /**
+     * Gets or sets the maximum number of items shown in the drop-down list.
+     * @param {number} Value The maximum number of items.
+     * @returns {void}
+     */
+    set MaxDropdownItems(Value) {
+        this.fMaxDropdownItems = tp.IsNumber(Value) ? Value : 10;
+    }
+    /**
+     * Returns true while the drop-down box is visible.
+     * @returns {boolean} Returns true while open.
+     */
+    get IsOpen() {
+        return this.fDropDownBox ? this.fDropDownBox.IsOpen : false;
+    }
+    /**
+     * Gets or sets the text-box placeholder.
+     * @returns {string} Returns the placeholder.
+     */
+    get Placeholder() {
+        return this.fTextBox ? this.fTextBox.placeholder : "";
+    }
+    /**
+     * Gets or sets the text-box placeholder.
+     * @param {string} Value The placeholder.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.fTextBox)
+            this.fTextBox.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+
+    // ● event triggers
+    /**
+     * Triggers the SelectionChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnSelectionChanged() {
+        this.UpdateLabels();
+        super.OnSelectionChanged();
+    }
+};
+
+tp.Ui.RegisterType(["CheckComboBox", "tp-CheckComboBox"], tp.CheckComboBox);
+
+// ● 265-radio-group.js
+// ● radio group
+/**
+ * A radio-group control.
+ *
+ * Example markup:
+ * <pre>
+ *     <fieldset data-setup="{Name: 'group1', SelectedIndex: 0}">
+ *         <legend>Radio Group Title</legend>
+ *         <label><input type="radio" name="group1" value="Male" />Male</label>
+ *         <label><input type="radio" name="group1" value="Female" />Female</label>
+ *     </fieldset>
+ * </pre>
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - SelectedIndexChanged
+ */
+tp.RadioGroup = class extends tp.ListControl {
+    // ● private
+    /**
+     * Creates radio-group create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateRadioGroupParams(CreateParams) {
+        var Args = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "fieldset";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a radio group.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.RadioGroup.CreateRadioGroupParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "SelectedValue";
+        this.fLastName = "";
+        this.fChangeHandler = this.FuncBind(this.HandleChange);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.EnsureContent();
+        this.ImportMarkupItems();
+    }
+    /**
+     * Applies explicit create params to this radio group.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        var HasParamItems;
+        HasParamItems = Params && (!tp.IsNil(Params.List) || !tp.IsNil(Params.ListItems) || !tp.IsNil(Params.Items) || !tp.IsNil(Params.ListSource));
+        if (HasParamItems === true)
+            this.fItems.Clear();
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Name))
+            this.Name = Params.Name;
+        if (!tp.IsNil(Params.Text))
+            this.Text = Params.Text;
+        this.RenderItems();
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.RadioGroup);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fContainer && this.fChangeHandler)
+            this.fContainer.removeEventListener("change", this.fChangeHandler, false);
+        this.fChangeHandler = null;
+        this.fLegend = null;
+        this.fContainer = null;
+        super.DoDispose();
+    }
+    /**
+     * Ensures the expected fieldset content exists.
+     * @protected
+     * @returns {void}
+     */
+    EnsureContent() {
+        var Legend = tp.Select(this.Handle, "legend");
+        var Container = null;
+        var Children = tp.ChildHTMLElements(this.Handle);
+        var Index;
+        this.fLegend = Legend instanceof HTMLLegendElement ? Legend : this.Document.createElement("legend");
+        if (!this.fLegend.parentNode)
+            this.Handle.insertBefore(this.fLegend, this.Handle.firstChild);
+        for (Index = 0; Index < Children.length; Index++) {
+            if (Children[Index] !== this.fLegend && !(Children[Index] instanceof HTMLLabelElement)) {
+                Container = Children[Index];
+                break;
+            }
+        }
+        this.fContainer = Container || this.Document.createElement("div");
+        tp.AddClass(this.fContainer, tp.Classes.List);
+        if (!this.fContainer.parentNode)
+            this.Handle.appendChild(this.fContainer);
+        this.MoveMarkupLabelsToContainer();
+        this.fContainer.addEventListener("change", this.fChangeHandler, false);
+    }
+    /**
+     * Moves top-level radio labels into the radio container.
+     * @protected
+     * @returns {void}
+     */
+    MoveMarkupLabelsToContainer() {
+        var Labels = tp.SelectAll(this.Handle, "label");
+        var Index;
+        for (Index = 0; Index < Labels.length; Index++) {
+            if (Labels[Index].parentNode !== this.fContainer)
+                this.fContainer.appendChild(Labels[Index]);
+        }
+    }
+    /**
+     * Imports existing markup radio labels into the item list.
+     * @protected
+     * @returns {void}
+     */
+    ImportMarkupItems() {
+        var Radios = this.GetRadioList();
+        var Labels;
+        var Label;
+        var Index;
+        var Item;
+        if (this.fItems.length > 0 || Radios.length === 0)
+            return;
+        Labels = tp.SelectAll(this.fContainer, "label");
+        for (Index = 0; Index < Radios.length; Index++) {
+            Label = Labels[Index];
+            Item = {
+                Id: Radios[Index].value,
+                Name: Label instanceof HTMLLabelElement ? this.GetLabelText(Label) : Radios[Index].value
+            };
+            this.fItems.DoInsert(this.fItems.length, Item);
+            if (Radios[Index].checked === true) {
+                this.fSelectedIndex = Index;
+                this.fSelectedValue = Item.Id;
+                this.fSelectedItem = Item;
+            }
+        }
+    }
+    /**
+     * Returns the label text excluding the radio input.
+     * @protected
+     * @param {HTMLLabelElement} Label The label.
+     * @returns {string} Returns the label text.
+     */
+    GetLabelText(Label) {
+        var Result = "";
+        var Index;
+        for (Index = 0; Index < Label.childNodes.length; Index++) {
+            if (Label.childNodes[Index].nodeType === Node.TEXT_NODE)
+                Result += Label.childNodes[Index].nodeValue;
+        }
+        return tp.Trim(Result);
+    }
+    /**
+     * Handles radio input change events.
+     * @protected
+     * @param {Event} e The event.
+     * @returns {void}
+     */
+    HandleChange(e) {
+        var Radio = e.target;
+        var Index;
+        if (!(Radio instanceof HTMLInputElement) || Radio.type !== "radio" || Radio.checked !== true)
+            return;
+        Index = this.GetRadioList().indexOf(Radio);
+        if (tp.InRange(this.Items, Index)) {
+            this.fSelectedIndex = Index;
+            this.DoSelectedIndexChanged();
+        }
+    }
+    /**
+     * Sets the visual text of the concrete control.
+     * @protected
+     * @param {string} Text The text.
+     * @returns {void}
+     */
+    DoSetText(Text) {
+    }
+    /**
+     * Called when SelectedIndex changes.
+     * @protected
+     * @returns {void}
+     */
+    DoSelectedIndexChanged() {
+        var Radio = this.FindItemByIndex(this.SelectedIndex);
+        if (Radio instanceof HTMLInputElement)
+            Radio.checked = true;
+        super.DoSelectedIndexChanged();
+    }
+    /**
+     * Called when SelectedValue changes.
+     * @protected
+     * @returns {void}
+     */
+    DoSelectedValueChanged() {
+        super.DoSelectedValueChanged();
+        this.CheckRadioByIndex(this.SelectedIndex);
+    }
+    /**
+     * Called when SelectedItem changes.
+     * @protected
+     * @returns {void}
+     */
+    DoSelectedItemChanged() {
+        super.DoSelectedItemChanged();
+        this.CheckRadioByIndex(this.SelectedIndex);
+    }
+    /**
+     * Applies the current item list to the DOM.
+     * @protected
+     * @returns {void}
+     */
+    SetScrollerList() {
+        this.RenderItems();
+    }
+    /**
+     * Updates the DOM after list changes.
+     * @protected
+     * @returns {void}
+     */
+    UpdateScroller() {
+        this.RenderItems();
+    }
+    /**
+     * Renders radio labels from the item list.
+     * @protected
+     * @returns {void}
+     */
+    RenderItems() {
+        var SelectedValue = this.SelectedValue;
+        var Index;
+        var Item;
+        if (!this.fContainer)
+            return;
+        this.fContainer.innerHTML = "";
+        for (Index = 0; Index < this.Items.length; Index++) {
+            Item = this.Items[Index];
+            this.fContainer.appendChild(this.CreateRadioLabel(Item, Index));
+        }
+        if (!tp.IsNil(SelectedValue))
+            this.SelectedValue = SelectedValue;
+        else if (this.SelectedIndex >= 0)
+            this.CheckRadioByIndex(this.SelectedIndex);
+    }
+    /**
+     * Creates a radio label for an item.
+     * @protected
+     * @param {*} Item The item.
+     * @param {number} Index The item index.
+     * @returns {HTMLLabelElement} Returns the label.
+     */
+    CreateRadioLabel(Item, Index) {
+        var Label = this.Document.createElement("label");
+        var Radio = this.Document.createElement("input");
+        var Text = this.Document.createElement("span");
+        Radio.type = "radio";
+        Radio.name = this.Name;
+        Radio.value = this.ItemValueToString(this.GetItemValue(Item));
+        Radio.checked = Index === this.SelectedIndex;
+        Text.className = tp.Classes.Text;
+        Text.textContent = this.GetItemText(Item);
+        Label.appendChild(Radio);
+        Label.appendChild(Text);
+        return Label;
+    }
+    /**
+     * Converts an item value to radio value text.
+     * @protected
+     * @param {*} Value The item value.
+     * @returns {string} Returns value text.
+     */
+    ItemValueToString(Value) {
+        return tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Checks a radio by item index.
+     * @protected
+     * @param {number} Index The item index.
+     * @returns {void}
+     */
+    CheckRadioByIndex(Index) {
+        var Radio = this.FindItemByIndex(Index);
+        if (Radio instanceof HTMLInputElement)
+            Radio.checked = true;
+    }
+
+    // ● public
+    /**
+     * Returns the list of child radio buttons.
+     * @returns {HTMLInputElement[]} Returns radio buttons.
+     */
+    GetRadioList() {
+        var Result = [];
+        var List = this.fContainer ? tp.SelectAll(this.fContainer, "input[type=radio]") : [];
+        var Index;
+        for (Index = 0; Index < List.length; Index++)
+            Result.push(List[Index]);
+        return Result;
+    }
+    /**
+     * Finds and returns the checked radio button.
+     * @returns {HTMLInputElement|null} Returns the checked radio button or null.
+     */
+    FindCheckedItem() {
+        var List = this.GetRadioList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (List[Index].checked === true)
+                return List[Index];
+        }
+        return null;
+    }
+    /**
+     * Returns the value of the checked radio button.
+     * @returns {string|null} Returns the checked value or null.
+     */
+    FindCheckedValue() {
+        var Radio = this.FindCheckedItem();
+        return Radio instanceof HTMLInputElement ? Radio.value : null;
+    }
+    /**
+     * Finds and returns a radio button by value.
+     * @param {*} Value The value.
+     * @returns {HTMLInputElement|null} Returns the radio button or null.
+     */
+    FindItemByValue(Value) {
+        var Text = this.ItemValueToString(Value);
+        var List = this.GetRadioList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (List[Index].value === Text)
+                return List[Index];
+        }
+        return null;
+    }
+    /**
+     * Finds and returns a radio button by index.
+     * @param {number} Index The index.
+     * @returns {HTMLInputElement|null} Returns the radio button or null.
+     */
+    FindItemByIndex(Index) {
+        var List = this.GetRadioList();
+        return tp.InRange(List, Index) ? List[Index] : null;
+    }
+    /**
+     * Checks a radio button by value.
+     * @param {*} Value The value.
+     * @returns {void}
+     */
+    CheckItemByValue(Value) {
+        this.SelectedValue = Value;
+    }
+    /**
+     * Checks a radio button by index.
+     * @param {number} Index The index.
+     * @returns {void}
+     */
+    CheckItemByIndex(Index) {
+        this.SelectedIndex = Index;
+    }
+    /**
+     * Removes all radio buttons from this group.
+     * @returns {void}
+     */
+    Clear() {
+        this.fLastName = !tp.IsBlank(this.Name) ? this.Name : this.fLastName;
+        this.fSelectedIndex = -1;
+        this.fSelectedValue = null;
+        this.fSelectedItem = null;
+        this.fItems.Clear();
+        this.RenderItems();
+    }
+    /**
+     * Adds a radio button to this group.
+     * @param {*} Value The value.
+     * @param {string} Text The display text.
+     * @returns {HTMLInputElement|null} Returns the radio input.
+     */
+    AddItem(Value, Text) {
+        return this.InsertItem(this.Count, Value, Text);
+    }
+    /**
+     * Inserts a radio button to this group.
+     * @param {number} Index The index.
+     * @param {*} Value The value.
+     * @param {string} Text The display text.
+     * @returns {HTMLInputElement|null} Returns the radio input.
+     */
+    InsertItem(Index, Value, Text) {
+        var Item = { Id: Value, Name: Text };
+        this.fItems.Insert(Index, Item);
+        return this.FindItemByIndex(Index);
+    }
+    /**
+     * Returns the title text of a radio button by index.
+     * @param {number} Index The index.
+     * @returns {string} Returns the title text.
+     */
+    GetTitleAt(Index) {
+        var Item = this.Items[Index];
+        return !tp.IsNil(Item) ? this.GetItemText(Item) : "";
+    }
+    /**
+     * Sets the title text of a radio button by index.
+     * @param {number} Index The index.
+     * @param {string} Text The text.
+     * @returns {void}
+     */
+    SetTitleAt(Index, Text) {
+        var Item = this.Items[Index];
+        if (tp.IsNil(Item))
+            return;
+        if (tp.IsPrimitive(Item))
+            this.fItems[Index] = Text;
+        else
+            Item[this.GetListDisplayField() || "Name"] = Text;
+        this.RenderItems();
+    }
+    /**
+     * Clears all radio buttons and loads from an enum-like object.
+     * @param {object} EnumType The enum-like object.
+     * @returns {void}
+     */
+    LoadFromEnumType(EnumType) {
+        var List = [];
+        var Name;
+        var Value;
+        if (!tp.IsObject(EnumType))
+            return;
+        for (Name in EnumType) {
+            if (!tp.IsFunction(EnumType[Name])) {
+                Value = EnumType[Name];
+                if (tp.IsNumber(Value) || (tp.IsString(Value) && tp.TryStrToInt(Value).Result === true)) {
+                    List.push({
+                        Id: tp.ToInt(Value),
+                        Name: Name
+                    });
+                }
+            }
+        }
+        this.LoadFrom(List);
+    }
+    /**
+     * Clears all radio buttons and loads from an object array.
+     * @param {object[]} List A list of objects with Id and Name properties.
+     * @returns {void}
+     */
+    LoadFrom(List) {
+        this.Clear();
+        if (tp.IsArray(List))
+            this.fItems.AddRange(List);
+        if (this.Items.length > 0)
+            this.SelectedIndex = 0;
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the title of the group.
+     * @returns {string} Returns the title.
+     */
+    get Text() {
+        return this.fLegend instanceof HTMLLegendElement ? this.fLegend.textContent || "" : "";
+    }
+    /**
+     * Gets or sets the title of the group.
+     * @param {string} Value The title.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.fLegend instanceof HTMLLegendElement)
+            this.fLegend.textContent = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the group name used by all radio buttons.
+     * @returns {string} Returns the group name.
+     */
+    get Name() {
+        var List = this.GetRadioList();
+        if (List.length > 0 && !tp.IsBlank(List[0].name))
+            return List[0].name;
+        return !tp.IsBlank(this.fLastName) ? this.fLastName : this.Id || "group";
+    }
+    /**
+     * Gets or sets the group name used by all radio buttons.
+     * @param {string} Value The group name.
+     * @returns {void}
+     */
+    set Name(Value) {
+        var List = this.GetRadioList();
+        var Index;
+        this.fLastName = tp.IsBlank(Value) ? this.fLastName : String(Value);
+        for (Index = 0; Index < List.length; Index++)
+            List[Index].name = this.fLastName;
+    }
+};
+
+tp.Ui.RegisterType(["RadioGroup", "tp-RadioGroup"], tp.RadioGroup);
+
+// ● 270-date-controls.js
+// ● calendar box event args
+/**
+ * Denotes the type of date change that happened in a calendar because of a mouse click.
+ * @type {object}
+ */
+tp.CalenderBoxClickChangeType = {
+    Date: 1,
+    Month: 2,
+    Year: 4
+};
+Object.freeze(tp.CalenderBoxClickChangeType);
+/**
+ * Alias for the old misspelled tp.CalenderBoxClickChangeType object.
+ * @type {object}
+ */
+tp.CalendarBoxClickChangeType = tp.CalenderBoxClickChangeType;
+/**
+ * Event arguments used by tp.CalendarBox ClickChange.
+ */
+tp.CalendarBoxClickChangeEventArgs = class extends tp.EventArgs {
+    // ● constructor
+    /**
+     * Creates the event arguments.
+     * @param {number} ChangeType One of the tp.CalendarBoxClickChangeType constants.
+     */
+    constructor(ChangeType) {
+        super("ClickChange");
+        this.ChangeType = ChangeType;
+    }
+};
+
+// ● html date box
+/**
+ * A native HTML date input control.
+ *
+ * Example markup:
+ * <pre>
+ *     <input type="date" data-setup="{ Date: '2000-12-25' }" />
+ * </pre>
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - ValueChanged
+ */
+tp.HtmlDateBox = class extends tp.InputControl {
+    // ● private
+    /**
+     * Formats a Date value as native input date text.
+     * @param {Date|string|null|undefined} Value The source value.
+     * @returns {string} Returns yyyy-MM-dd text or empty string.
+     */
+    static ToNativeDateText(Value) {
+        var DateValue = tp.ParseDateText(Value);
+        return tp.IsValidDate(DateValue) ? tp.FormatDateTime(DateValue, tp.DateFormatISO) : "";
+    }
+    /**
+     * Parses native input date text.
+     * @param {string|null|undefined} Value The native date text.
+     * @returns {Date|null} Returns a date or null.
+     */
+    static FromNativeDateText(Value) {
+        return tp.IsBlank(Value) ? null : tp.ParseDateText(String(Value), "ISO");
+    }
+
+    // ● constructor
+    /**
+     * Creates a HTML date box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataValueProperty = "Date";
+    }
+    /**
+     * Applies explicit create params to this date box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Min))
+            this.Min = Params.Min;
+        if (!tp.IsNil(Params.Max))
+            this.Max = Params.Max;
+        if (!tp.IsNil(Params.Step))
+            this.Step = Params.Step;
+        if (!tp.IsNil(Params.Date))
+            this.Date = Params.Date;
+        if (!tp.IsNil(Params.Value))
+            this.Value = Params.Value;
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = String(Params.Placeholder);
+        if (!tp.IsNil(Params.TextAlign))
+            this.TextAlign = Params.TextAlign;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.type = "date";
+        tp.AddClass(this.Handle, tp.Classes.HtmlDateBox);
+        super.OnHandleCreated();
+    }
+    /**
+     * Converts a data-source value to a date-box date.
+     * @param {*} Value The data-source value.
+     * @returns {Date|null} Returns the date value.
+     */
+    DataValueToDataProperty(Value) {
+        return tp.ParseDateText(Value);
+    }
+    /**
+     * Converts a date-box date to a data-source value.
+     * @param {*} Value The date-box date.
+     * @returns {Date|null} Returns the data-source value.
+     */
+    DataPropertyToDataValue(Value) {
+        return tp.ParseDateText(Value);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the selected date.
+     * @returns {Date|null} Returns the selected date.
+     */
+    get Date() {
+        return this.Handle instanceof HTMLInputElement ? tp.HtmlDateBox.FromNativeDateText(this.Handle.value) : null;
+    }
+    /**
+     * Gets or sets the selected date.
+     * @param {Date|string|null|undefined} Value The date value.
+     * @returns {void}
+     */
+    set Date(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.value = tp.HtmlDateBox.ToNativeDateText(Value);
+    }
+    /**
+     * Gets or sets the native input value.
+     * @returns {string} Returns native yyyy-MM-dd text.
+     */
+    get Value() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.value || "" : "";
+    }
+    /**
+     * Gets or sets the native input value.
+     * @param {string|Date|null|undefined} Value The native value or date.
+     * @returns {void}
+     */
+    set Value(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.value = tp.HtmlDateBox.ToNativeDateText(Value);
+    }
+    /**
+     * Gets or sets the minimum allowed date.
+     * @returns {Date|null} Returns the minimum date.
+     */
+    get Min() {
+        return this.Handle instanceof HTMLInputElement ? tp.HtmlDateBox.FromNativeDateText(this.Handle.min) : null;
+    }
+    /**
+     * Gets or sets the minimum allowed date.
+     * @param {Date|string|null|undefined} Value The minimum date.
+     * @returns {void}
+     */
+    set Min(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.min = tp.HtmlDateBox.ToNativeDateText(Value);
+    }
+    /**
+     * Gets or sets the maximum allowed date.
+     * @returns {Date|null} Returns the maximum date.
+     */
+    get Max() {
+        return this.Handle instanceof HTMLInputElement ? tp.HtmlDateBox.FromNativeDateText(this.Handle.max) : null;
+    }
+    /**
+     * Gets or sets the maximum allowed date.
+     * @param {Date|string|null|undefined} Value The maximum date.
+     * @returns {void}
+     */
+    set Max(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.max = tp.HtmlDateBox.ToNativeDateText(Value);
+    }
+    /**
+     * Gets or sets the native step value.
+     * @returns {string} Returns the step value.
+     */
+    get Step() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.step || "1" : "1";
+    }
+    /**
+     * Gets or sets the native step value.
+     * @param {string|number|null|undefined} Value The step value.
+     * @returns {void}
+     */
+    set Step(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.step = tp.IsNil(Value) ? "1" : String(Value);
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @returns {string} Returns the placeholder text.
+     */
+    get Placeholder() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.placeholder || "" : "";
+    }
+    /**
+     * Gets or sets the placeholder text.
+     * @param {string|null|undefined} Value The placeholder text.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the input text alignment.
+     * @returns {string} Returns the CSS text-align value.
+     */
+    get TextAlign() {
+        return this.Handle instanceof HTMLInputElement ? this.Handle.style.textAlign || "" : "";
+    }
+    /**
+     * Gets or sets the input text alignment.
+     * @param {string|null|undefined} Value The CSS text-align value.
+     * @returns {void}
+     */
+    set TextAlign(Value) {
+        if (this.Handle instanceof HTMLInputElement)
+            this.Handle.style.textAlign = tp.IsNil(Value) ? "" : String(Value);
+    }
+};
+
+tp.Ui.RegisterType(["HtmlDateBox", "tp-HtmlDateBox"], tp.HtmlDateBox);
+
+// ● calendar box
+/**
+ * A calendar control.
+ *
+ * Example markup:
+ * <pre>
+ *     <table data-setup="{ Date: '2000-11-18' }"></table>
+ * </pre>
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - DateChanged
+ * - ClickChange
+ */
+tp.CalendarBox = class extends tp.Control {
+    // ● private
+    /**
+     * Creates calendar-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateCalendarBoxParams(CreateParams) {
+        var Args = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "table";
+        return Args;
+    }
+    /**
+     * Converts a value to a local date.
+     * @param {Date|string|null|undefined} Value The value.
+     * @returns {Date} Returns a valid date.
+     */
+    static ToDate(Value) {
+        var Match;
+        var Result;
+        if (tp.IsValidDate(Value))
+            return tp.ClearTime(tp.DateClone(Value));
+        if (tp.IsString(Value)) {
+            Match = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(Value);
+            if (Match) {
+                Result = new Date(tp.ToInt(Match[1]), tp.ToInt(Match[2]) - 1, tp.ToInt(Match[3]));
+                if (tp.IsValidDate(Result))
+                    return tp.ClearTime(Result);
+            }
+            Result = new Date(Value);
+            if (tp.IsValidDate(Result))
+                return tp.ClearTime(Result);
+        }
+        return tp.Today();
+    }
+
+    // ● constructor
+    /**
+     * Creates a calendar box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.CalendarBox.CreateCalendarBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Date";
+        this.fDate = tp.Today();
+        this.fYear = this.fDate.getFullYear();
+        this.fMonth = this.fDate.getMonth();
+        this.fWeekRows = [];
+        this.fDayCells = [];
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateCalendarTable();
+        this.Update();
+    }
+    /**
+     * Applies explicit create params to this calendar box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Date))
+            this.Date = Params.Date;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.CalendarBox);
+        this.elTable = this.Handle;
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fClickHandler)
+            this.Handle.removeEventListener("click", this.fClickHandler, false);
+        this.fClickHandler = null;
+        this.elTable = null;
+        this.fDateRow = null;
+        this.fDaysRow = null;
+        this.fWeekRows = null;
+        this.fDayCells = null;
+        this.fPrevYearCell = null;
+        this.fPrevMonthCell = null;
+        this.fCurDateCell = null;
+        this.fNextMonthCell = null;
+        this.fNextYearCell = null;
+        super.DoDispose();
+    }
+    /**
+     * Creates the calendar table rows and cells.
+     * @protected
+     * @returns {void}
+     */
+    CreateCalendarTable() {
+        var HtmlText;
+        var i;
+        var j;
+        this.Handle.setAttribute("border", "0");
+        HtmlText =
+            "<tbody>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxHeaderRow + "\"><th></th><th></th><th colspan=\"3\"></th><th></th><th></th></tr>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxDaysRow + "\"><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxWeekRow + "\"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxWeekRow + "\"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxWeekRow + "\"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxWeekRow + "\"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxWeekRow + "\"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>" +
+            "<tr class=\"" + tp.Classes.CalendarBoxWeekRow + "\"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>" +
+            "</tbody>";
+        this.Html = HtmlText;
+        this.fDateRow = this.elTable.rows[0];
+        this.fDaysRow = this.elTable.rows[1];
+        this.fWeekRows.length = 0;
+        this.fDayCells.length = 0;
+        for (i = 2; i < 8; i++)
+            this.fWeekRows.push(this.elTable.rows[i]);
+        this.fPrevYearCell = this.fDateRow.cells[0];
+        this.fPrevMonthCell = this.fDateRow.cells[1];
+        this.fCurDateCell = this.fDateRow.cells[2];
+        this.fNextMonthCell = this.fDateRow.cells[3];
+        this.fNextYearCell = this.fDateRow.cells[4];
+        this.fPrevYearCell.textContent = "<";
+        this.fNextYearCell.textContent = ">";
+        this.fPrevMonthCell.textContent = "<";
+        this.fNextMonthCell.textContent = ">";
+        tp.AddClass(this.fPrevYearCell, tp.Classes.CalendarBoxYearCell);
+        tp.AddClass(this.fNextYearCell, tp.Classes.CalendarBoxYearCell);
+        tp.AddClass(this.fPrevMonthCell, tp.Classes.CalendarBoxMonthCell);
+        tp.AddClass(this.fNextMonthCell, tp.Classes.CalendarBoxMonthCell);
+        this.RenderDayNames();
+        for (i = 0; i < this.fWeekRows.length; i++) {
+            for (j = 0; j < this.fWeekRows[i].cells.length; j++)
+                this.fDayCells.push(this.fWeekRows[i].cells[j]);
+        }
+        this.Handle.addEventListener("click", this.fClickHandler, false);
+    }
+    /**
+     * Renders localized day names, Monday first and Sunday last.
+     * @protected
+     * @returns {void}
+     */
+    RenderDayNames() {
+        var Names = tp.Cultures.Current && tp.Cultures.Current.AbbreviatedDayNames.length > 0 ? tp.Cultures.Current.AbbreviatedDayNames : tp.DayNames;
+        var i;
+        this.fDaysRow.cells[6].textContent = Names[0] || "Sun";
+        for (i = 1; i < 7; i++)
+            this.fDaysRow.cells[i - 1].textContent = Names[i] || "";
+    }
+    /**
+     * Handles calendar clicks.
+     * @protected
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var ChangeType = null;
+        var Info;
+        var Value;
+        if (this.ReadOnly === true || this.Enabled !== true)
+            return;
+        if (this.fCurDateCell === e.target) {
+            Value = tp.Today();
+            this.fMonth = Value.getMonth();
+            this.fYear = Value.getFullYear();
+            this.Update();
+            ChangeType = tp.CalendarBoxClickChangeType.Date;
+        } else if (this.fPrevYearCell === e.target) {
+            this.fYear--;
+            this.Update();
+            ChangeType = tp.CalendarBoxClickChangeType.Year;
+        } else if (this.fNextYearCell === e.target) {
+            this.fYear++;
+            this.Update();
+            ChangeType = tp.CalendarBoxClickChangeType.Year;
+        } else if (this.fPrevMonthCell === e.target) {
+            this.fMonth--;
+            ChangeType = tp.CalendarBoxClickChangeType.Month;
+            if (this.fMonth < 0) {
+                this.fMonth = 11;
+                this.fYear--;
+                ChangeType = tp.CalendarBoxClickChangeType.Year;
+            }
+            this.Update();
+        } else if (this.fNextMonthCell === e.target) {
+            this.fMonth++;
+            ChangeType = tp.CalendarBoxClickChangeType.Month;
+            if (this.fMonth > 11) {
+                this.fMonth = 0;
+                this.fYear++;
+                ChangeType = tp.CalendarBoxClickChangeType.Year;
+            }
+            this.Update();
+        } else if (e.target instanceof HTMLTableCellElement && this.fDayCells.indexOf(e.target) !== -1 && tp.HasElementInfo(e.target)) {
+            Info = tp.GetElementInfo(e.target);
+            this.Date = Info.Date;
+            ChangeType = tp.CalendarBoxClickChangeType.Date;
+        }
+        if (ChangeType !== null)
+            this.OnClickChange(ChangeType);
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+    /**
+     * Reads the bound data value.
+     * @protected
+     * @returns {void}
+     */
+    ReadDataValue() {
+        var Value;
+        if (this.ReadingDataValue === true || this.WritingDataValue === true)
+            return;
+        try {
+            if (this.IsDataBound && this.DataSource.Position >= 0) {
+                this.ReadingDataValue = true;
+                try {
+                    Value = this.DataSource.Get(this.DataField);
+                    this[this.DataValueProperty] = Value;
+                } finally {
+                    this.ReadingDataValue = false;
+                }
+            }
+        } finally {
+        }
+    }
+    /**
+     * Writes the date to the bound data source when allowed.
+     * @protected
+     * @returns {void}
+     */
+    DoPost() {
+        if (this.IsDataBound)
+            this.WriteDataValue();
+    }
+    /**
+     * Returns the zero-based cell index for a date day.
+     * @protected
+     * @param {Date} Value The date.
+     * @returns {number} Returns the cell index.
+     */
+    GetDayCellIndex(Value) {
+        var Day = Value.getDay();
+        return Day === 0 ? 6 : Day - 1;
+    }
+
+    // ● public
+    /**
+     * Updates the rendered calendar.
+     * @returns {void}
+     */
+    Update() {
+        var Today = tp.Today();
+        var Month = this.fMonth;
+        var Year = this.fYear;
+        var FirstDate = new Date(Year, Month, 1);
+        var LastDate = new Date(Year, Month, tp.DaysInMonth(Year, Month));
+        var FirstDay = this.GetDayCellIndex(FirstDate);
+        var CurrentDate = tp.AddDays(tp.DateClone(FirstDate), -FirstDay);
+        var CellDate;
+        var MonthNames = tp.Cultures.Current && tp.Cultures.Current.AbbreviatedMonthNames.length > 0 ? tp.Cultures.Current.AbbreviatedMonthNames : tp.MonthNames;
+        var i;
+        this.fCurDateCell.textContent = (MonthNames[Month] || "") + " " + Year;
+        for (i = 0; i < this.fDayCells.length; i++) {
+            CellDate = tp.ClearTime(tp.DateClone(CurrentDate));
+            this.fDayCells[i].textContent = CellDate.getDate();
+            this.fDayCells[i].className = tp.Classes.CalendarBoxDateCell;
+            tp.SetElementInfo(this.fDayCells[i], { Date: CellDate });
+            if (!tp.DateBetween(CellDate, FirstDate, LastDate))
+                tp.AddClass(this.fDayCells[i], tp.Classes.Inactive);
+            if (tp.DateCompare(CellDate, Today) === 0)
+                tp.AddClass(this.fDayCells[i], tp.Classes.Marked);
+            else if (tp.DateCompare(CellDate, this.Date) === 0)
+                tp.AddClass(this.fDayCells[i], tp.Classes.Selected);
+            tp.AddDays(CurrentDate, 1);
+        }
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the selected date.
+     * @returns {Date} Returns the selected date.
+     */
+    get Date() {
+        return tp.DateClone(this.fDate);
+    }
+    /**
+     * Gets or sets the selected date.
+     * @param {Date|string|null|undefined} Value The date value.
+     * @returns {void}
+     */
+    set Date(Value) {
+        var DateValue = tp.CalendarBox.ToDate(Value);
+        if (tp.DateCompare(this.fDate, DateValue) !== 0) {
+            this.fDate = DateValue;
+            this.fMonth = this.fDate.getMonth();
+            this.fYear = this.fDate.getFullYear();
+            this.Update();
+            this.DoPost();
+            this.OnDateChanged();
+        }
+    }
+
+    // ● event triggers
+    /**
+     * Triggers the DateChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnDateChanged() {
+        this.Trigger("DateChanged", {});
+    }
+    /**
+     * Triggers the ClickChange event.
+     * @protected
+     * @param {number} ChangeType One of the tp.CalendarBoxClickChangeType constants.
+     * @returns {void}
+     */
+    OnClickChange(ChangeType) {
+        this.Trigger("ClickChange", new tp.CalendarBoxClickChangeEventArgs(ChangeType));
+    }
+};
+
+tp.Ui.RegisterType(["CalendarBox", "tp-CalendarBox"], tp.CalendarBox);
+
+// ● date box
+/**
+ * A text date box with a drop-down tp.CalendarBox selector.
+ *
+ * Example markup:
+ * <pre>
+ *     <div data-setup="{ Date: '2000-05-08' }"></div>
+ * </pre>
+ *
+ * Events:
+ * - DataSourceChanging
+ * - DataSourceChanged
+ * - DataFieldChanged
+ * - ClearDataDisplay
+ * - BindCompleted
+ * - RequiredChanged
+ * - ReadOnlyChanged
+ * - DateChanged
+ *
+ * @implements {tp.IDropDownBoxListener}
+ */
+tp.DateBox = class extends tp.Control {
+    // ● private
+    /**
+     * Creates date-box create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateDateBoxParams(CreateParams) {
+        var Args = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "div";
+        return Args;
+    }
+    // ● constructor
+    /**
+     * Creates a date box.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.DateBox.CreateDateBoxParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Date";
+        this.fDate = null;
+        this.fTextBoxChangeHandler = this.FuncBind(this.HandleTextBoxChange);
+        this.fTextBoxKeyDownHandler = this.FuncBind(this.HandleTextBoxKeyDown);
+        this.fButtonClickHandler = this.FuncBind(this.HandleButtonClick);
+        this.fDocumentClickHandler = this.FuncBind(this.HandleDocumentClick);
+        this.fCalendarClickChangeHandler = this.FuncBind(this.HandleCalendarClickChange);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateInnerControls();
+    }
+    /**
+     * Applies explicit create params to this date box.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Placeholder))
+            this.Placeholder = Params.Placeholder;
+        if (!tp.IsNil(Params.TextAlign))
+            this.TextAlign = Params.TextAlign;
+        if (!tp.IsNil(Params.Date))
+            this.Date = Params.Date;
+        if (!tp.IsNil(Params.Text))
+            this.Text = Params.Text;
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.DateBox);
+    }
+    /**
+     * Creates inner controls.
+     * @protected
+     * @returns {void}
+     */
+    CreateInnerControls() {
+        var ControlContainer;
+        ControlContainer = this.Document.createElement("div");
+        ControlContainer.className = tp.Classes.Strip;
+        this.Handle.appendChild(ControlContainer);
+        this.fControlContainer = ControlContainer;
+        this.fTextBox = this.Document.createElement("input");
+        this.fTextBox.type = "text";
+        this.fTextBox.spellcheck = false;
+        this.fTextBox.className = tp.Classes.Text;
+        ControlContainer.appendChild(this.fTextBox);
+        this.fButton = this.Document.createElement("div");
+        this.fButton.className = tp.Classes.Btn;
+        this.fButton.innerHTML = "&#9662;";
+        ControlContainer.appendChild(this.fButton);
+        this.fDropDownBox = new tp.DropDownBox(null, {
+            Associate: ControlContainer,
+            Owner: this,
+            Width: 292,
+            Parent: this.Handle
+        });
+        this.fDropDownBox.Dragger.Active = false;
+        tp.AddClass(this.fDropDownBox.Handle, tp.Classes.DateBoxDropDown);
+        this.fCalendar = new tp.CalendarBox();
+        this.fDropDownBox.Handle.appendChild(this.fCalendar.Handle);
+        this.fTextBox.addEventListener("change", this.fTextBoxChangeHandler, false);
+        this.fTextBox.addEventListener("blur", this.fTextBoxChangeHandler, false);
+        this.fTextBox.addEventListener("keydown", this.fTextBoxKeyDownHandler, false);
+        this.fButton.addEventListener("click", this.fButtonClickHandler, false);
+        this.Document.addEventListener("click", this.fDocumentClickHandler, false);
+        this.fCalendar.On("ClickChange", this.fCalendarClickChangeHandler, this);
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.fTextBox) {
+            this.fTextBox.removeEventListener("change", this.fTextBoxChangeHandler, false);
+            this.fTextBox.removeEventListener("blur", this.fTextBoxChangeHandler, false);
+            this.fTextBox.removeEventListener("keydown", this.fTextBoxKeyDownHandler, false);
+        }
+        if (this.fButton)
+            this.fButton.removeEventListener("click", this.fButtonClickHandler, false);
+        if (this.Document)
+            this.Document.removeEventListener("click", this.fDocumentClickHandler, false);
+        if (this.fCalendar)
+            this.fCalendar.Off("ClickChange", this.fCalendarClickChangeHandler);
+        if (this.fDropDownBox) {
+            this.fDropDownBox.Dispose();
+            this.fDropDownBox = null;
+        }
+        this.fTextBoxChangeHandler = null;
+        this.fTextBoxKeyDownHandler = null;
+        this.fButtonClickHandler = null;
+        this.fDocumentClickHandler = null;
+        this.fCalendarClickChangeHandler = null;
+        this.fControlContainer = null;
+        this.fTextBox = null;
+        this.fButton = null;
+        this.fCalendar = null;
+        super.DoDispose();
+    }
+    /**
+     * Binds the control to its data source.
+     * @protected
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+    /**
+     * Notification called after read-only changes.
+     * @protected
+     * @returns {void}
+     */
+    OnReadOnlyChanged() {
+        if (this.fTextBox)
+            this.fTextBox.readOnly = this.ReadOnly;
+        super.OnReadOnlyChanged();
+    }
+    /**
+     * Handles inner text-box change or focus loss.
+     * @protected
+     * @param {Event} e The event.
+     * @returns {void}
+     */
+    HandleTextBoxChange(e) {
+        var DateValue;
+        tp.CancelEvent(e);
+        DateValue = tp.ParseDateText(this.Text);
+        if (DateValue)
+            this.Date = DateValue;
+        else
+            this.Date = null;
+    }
+    /**
+     * Handles inner text-box keyboard input.
+     * @protected
+     * @param {KeyboardEvent} e The event.
+     * @returns {void}
+     */
+    HandleTextBoxKeyDown(e) {
+        if (tp.IsKey(e, tp.Keys.Enter)) {
+            tp.CancelEvent(e);
+            this.HandleTextBoxChange(e);
+            this.Close();
+        } else if (tp.IsKey(e, tp.Keys.Escape)) {
+            tp.CancelEvent(e);
+            this.Close();
+        }
+    }
+    /**
+     * Handles drop-down button click.
+     * @protected
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleButtonClick(e) {
+        if (this.Enabled === true && this.ReadOnly !== true) {
+            tp.CancelEvent(e);
+            this.Toggle();
+        }
+    }
+    /**
+     * Handles document clicks for closing the drop-down.
+     * @protected
+     * @param {MouseEvent} e The event.
+     * @returns {void}
+     */
+    HandleDocumentClick(e) {
+        if (!this.IsOpen)
+            return;
+        if (tp.ContainsEventTarget(this.Handle, e.target) || tp.ContainsEventTarget(this.fDropDownBox.Handle, e.target))
+            return;
+        this.Close();
+    }
+    /**
+     * Handles calendar click changes.
+     * @protected
+     * @param {tp.CalendarBoxClickChangeEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleCalendarClickChange(Args) {
+        if (tp.Bf.In(tp.CalendarBoxClickChangeType.Date, Args.ChangeType)) {
+            this.Date = this.fCalendar.Date;
+            this.Close();
+            this.fTextBox.focus();
+        }
+    }
+    /**
+     * Writes the date to the bound data source when allowed.
+     * @protected
+     * @returns {void}
+     */
+    DoPost() {
+        if (this.IsDataBound)
+            this.WriteDataValue();
+    }
+    /**
+     * Applies visual text from Date.
+     * @protected
+     * @returns {void}
+     */
+    UpdateText() {
+        this.fTextBox.value = tp.IsValidDate(this.fDate) ? tp.FormatDateTime(this.fDate, tp.GetDateFormat()) : "";
+    }
+
+    // ● public
+    /**
+     * Displays the drop-down box.
+     * @returns {void}
+     */
+    Open() {
+        if (this.ReadOnly !== true && this.Enabled === true && this.fDropDownBox)
+            this.fDropDownBox.Open();
+    }
+    /**
+     * Hides the drop-down box.
+     * @returns {void}
+     */
+    Close() {
+        if (this.fDropDownBox)
+            this.fDropDownBox.Close();
+    }
+    /**
+     * Displays or hides the drop-down box.
+     * @returns {void}
+     */
+    Toggle() {
+        if (this.ReadOnly !== true && this.Enabled === true) {
+            if (this.IsOpen)
+                this.Close();
+            else
+                this.Open();
+        }
+    }
+    /**
+     * Called by the drop-down box to inform its owner about a stage change.
+     * @param {tp.DropDownBox} Sender The sender.
+     * @param {number} Stage One of the tp.DropDownBoxStage constants.
+     * @returns {void}
+     */
+    OnDropDownBoxEvent(Sender, Stage) {
+        var Bounds;
+        if (Stage === tp.DropDownBoxStage.Opened) {
+            if (tp.IsValidDate(this.Date))
+                this.fCalendar.Date = this.Date;
+            Bounds = this.fCalendar.Handle.getBoundingClientRect();
+            this.fDropDownBox.Height = Bounds.height + 18;
+            this.fDropDownBox.Width = 292;
+        }
+    }
+    /**
+     * Returns true if this control is valid.
+     * @returns {boolean} Returns true when valid.
+     */
+    CheckValidity() {
+        return tp.IsValidatableElement(this.fTextBox) ? this.fTextBox.checkValidity() : true;
+    }
+    /**
+     * Sets a custom validation message.
+     * @param {string} MessageText The validation message.
+     * @returns {void}
+     */
+    SetValidationMessage(MessageText) {
+        if (tp.IsValidatableElement(this.fTextBox))
+            this.fTextBox.setCustomValidity(MessageText);
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the text of the control.
+     * @returns {string} Returns the text.
+     */
+    get Text() {
+        return this.fTextBox instanceof HTMLInputElement ? this.fTextBox.value : "";
+    }
+    /**
+     * Gets or sets the text of the control.
+     * @param {string|null|undefined} Value The text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.fTextBox)
+            this.fTextBox.value = tp.IsNil(Value) ? "" : String(Value);
+        this.Date = tp.ParseDateText(this.Text);
+    }
+    /**
+     * Gets or sets the selected date.
+     * @returns {Date|null} Returns the date.
+     */
+    get Date() {
+        return tp.IsValidDate(this.fDate) ? tp.DateClone(this.fDate) : null;
+    }
+    /**
+     * Gets or sets the selected date.
+     * @param {Date|string|null|undefined} Value The date value.
+     * @returns {void}
+     */
+    set Date(Value) {
+        var DateValue = tp.ParseDateText(Value);
+        if (tp.DateCompare(this.fDate, DateValue) !== 0) {
+            this.fDate = DateValue;
+            this.UpdateText();
+            if (this.fCalendar && DateValue)
+                this.fCalendar.Date = DateValue;
+            this.DoPost();
+            this.OnDateChanged();
+        } else {
+            this.UpdateText();
+        }
+    }
+    /**
+     * Gets or sets the text-box placeholder.
+     * @returns {string} Returns the placeholder.
+     */
+    get Placeholder() {
+        return this.fTextBox ? this.fTextBox.placeholder : "";
+    }
+    /**
+     * Gets or sets the text-box placeholder.
+     * @param {string|null|undefined} Value The placeholder.
+     * @returns {void}
+     */
+    set Placeholder(Value) {
+        if (this.fTextBox)
+            this.fTextBox.placeholder = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the inner text-box alignment.
+     * @returns {string} Returns the CSS text-align value.
+     */
+    get TextAlign() {
+        return this.fTextBox instanceof HTMLInputElement ? this.fTextBox.style.textAlign || "" : "";
+    }
+    /**
+     * Gets or sets the inner text-box alignment.
+     * @param {string|null|undefined} Value The CSS text-align value.
+     * @returns {void}
+     */
+    set TextAlign(Value) {
+        if (this.fTextBox instanceof HTMLInputElement)
+            this.fTextBox.style.textAlign = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Returns true while the drop-down box is visible.
+     * @returns {boolean} Returns true while open.
+     */
+    get IsOpen() {
+        return this.fDropDownBox ? this.fDropDownBox.IsOpen : false;
+    }
+
+    // ● event triggers
+    /**
+     * Notification called after Required changes.
+     * @protected
+     * @returns {void}
+     */
+    OnRequiredChanged() {
+        this.SetRequiredMark(this.fTextBox);
+        super.OnRequiredChanged();
+    }
+    /**
+     * Triggers the DateChanged event.
+     * @protected
+     * @returns {void}
+     */
+    OnDateChanged() {
+        this.Trigger("DateChanged", {});
+    }
+};
+
+tp.Ui.RegisterType(["DateBox", "tp-DateBox"], tp.DateBox);
+
+// ● 280-tree-view.js
+// ● tree view event args
+/**
+ * Event arguments for tp.TreeView node events.
+ */
+tp.TreeViewEventArgs = class extends tp.EventArgs {
+    // ● constructor
+    /**
+     * Creates the event arguments.
+     * @param {tp.TreeNode|null|undefined} Node The tree node.
+     */
+    constructor(Node) {
+        super("");
+        this.Node = Node instanceof tp.TreeNode ? Node : null;
+    }
+};
+
+// ● tree node
+/**
+ * Represents a tp.TreeView node.
+ *
+ * Example markup:
+ * <pre>
+ *     <div>Node
+ *         <div>Leaf</div>
+ *     </div>
+ * </pre>
+ */
+tp.TreeNode = class extends tp.Object {
+    // ● constructor
+    /**
+     * Creates a tree node.
+     * @param {HTMLElement} Handle The element representing the node.
+     */
+    constructor(Handle) {
+        super();
+        if (!(Handle instanceof HTMLElement))
+            throw new Error("Can not create a TreeNode without handle (HTMLElement).");
+        this.fHandle = Handle;
+        this.fStripElement = null;
+        this.fPlusMinusElement = null;
+        this.fImageElement = null;
+        this.fTextElement = null;
+        this.fItemsElement = null;
+        this.fParentTreeNode = null;
+        this.fItems = [];
+        this.fIcoClasses = "";
+        this.fImageUrl = "";
+        this.Tag = null;
+        this.NormalizeHandle();
+    }
+
+    // ● protected
+    /**
+     * Normalizes the node markup.
+     * @protected
+     * @returns {void}
+     */
+    NormalizeHandle() {
+        var TextNode = tp.FindTextNode(this.Handle);
+        var Text = TextNode ? TextNode.nodeValue || "" : "";
+        var List = tp.ChildHTMLElements(this.Handle);
+        var Params;
+        var i;
+        if (TextNode)
+            TextNode.nodeValue = "";
+        Text = tp.Trim(Text);
+        tp.SetElementInfo(this.Handle, this, "__TreeNode");
+        for (i = 0; i < List.length; i++)
+            this.Handle.removeChild(List[i]);
+        this.CreateElements(Text);
+        for (i = 0; i < List.length; i++)
+            this.Add(new tp.TreeNode(List[i]));
+        tp.AddClass(this.Handle, this.Count > 0 ? tp.Classes.Node : tp.Classes.Leaf);
+        if (this.IsNode)
+            this.fPlusMinusElement.textContent = tp.TreeNode.CollapseSymbol;
+        Params = tp.GetDataSetupObject(this.Handle);
+        if (Params) {
+            this.Handle.removeAttribute("data-setup");
+            if (!tp.IsNil(Params.Text))
+                this.Text = Params.Text;
+            if (!tp.IsNil(Params.IcoClasses))
+                this.IcoClasses = Params.IcoClasses;
+            if (!tp.IsNil(Params.ImageUrl))
+                this.ImageUrl = Params.ImageUrl;
+            if (!tp.IsNil(Params.Url))
+                this.Url = Params.Url;
+            if (!tp.IsNil(Params.ToolTip))
+                this.ToolTip = Params.ToolTip;
+            if (!tp.IsNil(Params.Tag))
+                this.Tag = Params.Tag;
+        }
+        this.IcoChanged();
+        if (tp.IsBlank(this.ToolTip))
+            this.ToolTip = Text;
+    }
+    /**
+     * Creates the node inner elements.
+     * @protected
+     * @param {string} Text The display text.
+     * @returns {void}
+     */
+    CreateElements(Text) {
+        this.fStripElement = this.Handle.ownerDocument.createElement("div");
+        this.fStripElement.className = tp.Classes.Strip;
+        this.Handle.appendChild(this.fStripElement);
+        this.fPlusMinusElement = this.Handle.ownerDocument.createElement("div");
+        this.fStripElement.appendChild(this.fPlusMinusElement);
+        this.fImageElement = this.Handle.ownerDocument.createElement("div");
+        this.fStripElement.appendChild(this.fImageElement);
+        this.fTextElement = this.Handle.ownerDocument.createElement("a");
+        this.fTextElement.href = "javascript:void(0);";
+        this.fStripElement.appendChild(this.fTextElement);
+        if (!tp.IsBlank(Text))
+            this.fTextElement.innerHTML = Text;
+    }
+    /**
+     * Updates image element visibility after icon changes.
+     * @protected
+     * @returns {void}
+     */
+    IcoChanged() {
+        if (this.fImageElement instanceof HTMLElement)
+            this.fImageElement.style.display = tp.IsBlank(this.IcoClasses) && tp.IsBlank(this.ImageUrl) ? "none" : "";
+    }
+    /**
+     * Triggers the Collapsing event through the owning tree view.
+     * @protected
+     * @returns {void}
+     */
+    OnCollapsing() {
+        var Tree = this.TreeView;
+        if (Tree)
+            Tree.OnCollapsing(this);
+    }
+    /**
+     * Triggers the Collapsed event through the owning tree view.
+     * @protected
+     * @returns {void}
+     */
+    OnCollapsed() {
+        var Tree = this.TreeView;
+        if (Tree)
+            Tree.OnCollapsed(this);
+    }
+    /**
+     * Triggers the Expanding event through the owning tree view.
+     * @protected
+     * @returns {void}
+     */
+    OnExpanding() {
+        var Tree = this.TreeView;
+        if (Tree)
+            Tree.OnExpanding(this);
+    }
+    /**
+     * Triggers the Expanded event through the owning tree view.
+     * @protected
+     * @returns {void}
+     */
+    OnExpanded() {
+        var Tree = this.TreeView;
+        if (Tree)
+            Tree.OnExpanded(this);
+    }
+
+    // ● public
+    /**
+     * Removes all child nodes from this node.
+     * @returns {void}
+     */
+    Clear() {
+        var i;
+        tp.RemoveClass(this.Handle, tp.Classes.Expanded);
+        tp.RemoveClass(this.Handle, tp.Classes.Node);
+        tp.AddClass(this.Handle, tp.Classes.Leaf);
+        this.fPlusMinusElement.textContent = "";
+        if (this.fItemsElement)
+            tp.RemoveChildren(this.fItemsElement);
+        for (i = 0; i < this.fItems.length; i++)
+            this.fItems[i].fParentTreeNode = null;
+        this.fItems.length = 0;
+        super.Clear();
+    }
+    /**
+     * Returns true when this node contains a specified child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {boolean} Returns true when the child node exists.
+     */
+    Contains(Node) {
+        return this.IndexOf(Node) >= 0;
+    }
+    /**
+     * Returns the index of a child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {number} Returns the index or -1.
+     */
+    IndexOf(Node) {
+        return this.fItems.indexOf(Node);
+    }
+    /**
+     * Returns a child node by index.
+     * @param {number} Index The child index.
+     * @returns {tp.TreeNode|null} Returns the child node or null.
+     */
+    ByIndex(Index) {
+        return tp.InRange(this.fItems, Index) ? this.fItems[Index] : null;
+    }
+    /**
+     * Adds a child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {void}
+     */
+    Add(Node) {
+        this.Insert(this.Count, Node);
+    }
+    /**
+     * Inserts a child node at an index.
+     * @param {number} Index The child index.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {void}
+     */
+    Insert(Index, Node) {
+        var WasLeaf;
+        var RefNode;
+        if (!(Node instanceof tp.TreeNode) || this.Contains(Node))
+            return;
+        Index = Math.max(0, Math.min(tp.ToInt(Index), this.Count));
+        WasLeaf = this.IsLeaf;
+        if (Node.ParentTreeNode)
+            Node.ParentTreeNode.Remove(Node);
+        if (!this.fItemsElement) {
+            this.fItemsElement = this.Handle.ownerDocument.createElement("div");
+            this.Handle.appendChild(this.fItemsElement);
+        }
+        if (Index >= this.Count) {
+            this.fItems.push(Node);
+            this.fItemsElement.appendChild(Node.Handle);
+        } else if (Index >= 0) {
+            RefNode = this.fItems[Index];
+            tp.ListInsert(this.fItems, Index, Node);
+            this.fItemsElement.insertBefore(Node.Handle, RefNode.Handle);
+        }
+        Node.fParentTreeNode = this;
+        tp.RemoveClass(this.Handle, tp.Classes.Leaf);
+        tp.AddClass(this.Handle, tp.Classes.Node);
+        if (WasLeaf)
+            this.fPlusMinusElement.textContent = tp.TreeNode.CollapseSymbol;
+    }
+    /**
+     * Removes a child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {void}
+     */
+    Remove(Node) {
+        if (!this.Contains(Node))
+            return;
+        if (Node.Handle.parentNode)
+            Node.Handle.parentNode.removeChild(Node.Handle);
+        tp.ListRemove(this.fItems, Node);
+        Node.fParentTreeNode = null;
+        if (this.Count === 0) {
+            tp.RemoveClass(this.Handle, tp.Classes.Expanded);
+            tp.RemoveClass(this.Handle, tp.Classes.Node);
+            tp.AddClass(this.Handle, tp.Classes.Leaf);
+            this.fPlusMinusElement.textContent = "";
+        }
+    }
+    /**
+     * Removes a child node by index.
+     * @param {number} Index The child index.
+     * @returns {void}
+     */
+    RemoveAt(Index) {
+        if (tp.InRange(this.fItems, Index))
+            this.Remove(this.fItems[Index]);
+    }
+    /**
+     * Creates and adds a child node.
+     * @param {string} Text The node display text.
+     * @returns {tp.TreeNode} Returns the new node.
+     */
+    AddNode(Text) {
+        return this.InsertNode(this.Count, Text);
+    }
+    /**
+     * Creates and inserts a child node.
+     * @param {number} Index The child index.
+     * @param {string} Text The node display text.
+     * @returns {tp.TreeNode} Returns the new node.
+     */
+    InsertNode(Index, Text) {
+        var Element = this.Handle.ownerDocument.createElement("div");
+        var Result = new tp.TreeNode(Element);
+        Result.Text = Text;
+        this.Insert(Index, Result);
+        return Result;
+    }
+    /**
+     * Collapses this node.
+     * @returns {void}
+     */
+    Collapse() {
+        if (this.IsNode) {
+            this.fPlusMinusElement.textContent = tp.TreeNode.ExpandSymbol;
+            if (this.IsExpanded) {
+                this.OnCollapsing();
+                tp.RemoveClass(this.Handle, tp.Classes.Expanded);
+                this.OnCollapsed();
+            }
+        }
+    }
+    /**
+     * Expands this node.
+     * @returns {void}
+     */
+    Expand() {
+        if (this.IsNode) {
+            this.fPlusMinusElement.textContent = tp.TreeNode.CollapseSymbol;
+            if (this.IsExpanded !== true) {
+                this.OnExpanding();
+                tp.AddClass(this.Handle, tp.Classes.Expanded);
+                this.OnExpanded();
+            }
+        }
+    }
+    /**
+     * Toggles this node.
+     * @returns {void}
+     */
+    Toggle() {
+        if (this.IsExpanded)
+            this.Collapse();
+        else
+            this.Expand();
+    }
+    /**
+     * Collapses all descendant nodes and this node.
+     * @returns {void}
+     */
+    CollapseAll() {
+        var i;
+        if (this.IsNode) {
+            for (i = 0; i < this.fItems.length; i++)
+                this.fItems[i].CollapseAll();
+            this.Collapse();
+        }
+    }
+    /**
+     * Expands all descendant nodes and this node.
+     * @returns {void}
+     */
+    ExpandAll() {
+        var i;
+        if (this.IsNode) {
+            for (i = 0; i < this.fItems.length; i++)
+                this.fItems[i].ExpandAll();
+            this.Expand();
+        }
+    }
+
+    // ● properties
+    /**
+     * Gets the owning tree view.
+     * @returns {tp.TreeView|null} Returns the owning tree view.
+     */
+    get TreeView() {
+        var Current = this;
+        while (Current && !(Current instanceof tp.TreeView))
+            Current = Current.ParentTreeNode;
+        return Current instanceof tp.TreeView ? Current : null;
+    }
+    /**
+     * Gets or sets the display text.
+     * @returns {string} Returns the display text.
+     */
+    get Text() {
+        return this.fTextElement instanceof HTMLElement ? this.fTextElement.innerHTML : "";
+    }
+    /**
+     * Gets or sets the display text.
+     * @param {string|null|undefined} Value The display text.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.fTextElement instanceof HTMLElement)
+            this.fTextElement.innerHTML = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the tooltip.
+     * @returns {string} Returns the tooltip.
+     */
+    get ToolTip() {
+        return this.Handle ? this.Handle.title || "" : "";
+    }
+    /**
+     * Gets or sets the tooltip.
+     * @param {string|null|undefined} Value The tooltip.
+     * @returns {void}
+     */
+    set ToolTip(Value) {
+        if (this.Handle)
+            this.Handle.title = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the anchor URL.
+     * @returns {string} Returns the URL.
+     */
+    get Url() {
+        var Value = this.fTextElement instanceof HTMLAnchorElement ? this.fTextElement.getAttribute("href") || "" : "";
+        return Value === "javascript:void(0);" ? "" : Value;
+    }
+    /**
+     * Gets or sets the anchor URL.
+     * @param {string|null|undefined} Value The URL.
+     * @returns {void}
+     */
+    set Url(Value) {
+        if (this.fTextElement instanceof HTMLAnchorElement) {
+            if (tp.IsBlank(Value)) {
+                this.fTextElement.href = "javascript:void(0);";
+                this.fTextElement.removeAttribute("target");
+                this.fTextElement.removeAttribute("rel");
+            } else {
+                this.fTextElement.href = String(Value);
+                this.fTextElement.target = "_blank";
+                this.fTextElement.rel = "noopener noreferrer";
+            }
+        }
+    }
+    /**
+     * Gets or sets icon CSS classes.
+     * @returns {string} Returns icon CSS classes.
+     */
+    get IcoClasses() {
+        return this.fIcoClasses;
+    }
+    /**
+     * Gets or sets icon CSS classes.
+     * @param {string|null|undefined} Value The icon CSS classes.
+     * @returns {void}
+     */
+    set IcoClasses(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (this.fImageElement instanceof HTMLElement) {
+            tp.RemoveClasses(this.fImageElement, this.fIcoClasses);
+            this.fImageElement.style.background = "";
+            this.fImageUrl = "";
+            tp.AddClasses(this.fImageElement, Value);
+        }
+        this.fIcoClasses = Value;
+        this.IcoChanged();
+    }
+    /**
+     * Gets or sets image URL.
+     * @returns {string} Returns the image URL.
+     */
+    get ImageUrl() {
+        return this.fImageUrl;
+    }
+    /**
+     * Gets or sets image URL.
+     * @param {string|null|undefined} Value The image URL.
+     * @returns {void}
+     */
+    set ImageUrl(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (this.fImageElement instanceof HTMLElement) {
+            tp.RemoveClasses(this.fImageElement, this.fIcoClasses);
+            this.fIcoClasses = "";
+            this.fImageElement.style.background = "";
+            if (!tp.IsBlank(Value)) {
+                tp.SetStyle(this.fImageElement, {
+                    backgroundImage: "url(\"" + Value + "\")",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center center",
+                    backgroundSize: "75%"
+                });
+            }
+        }
+        this.fImageUrl = Value;
+        this.IcoChanged();
+    }
+    /**
+     * Gets or sets the parent tree node or tree view.
+     * @returns {tp.TreeNode|tp.TreeView|null} Returns the parent.
+     */
+    get ParentTreeNode() {
+        return this.fParentTreeNode;
+    }
+    /**
+     * Gets or sets the parent tree node or tree view.
+     * @param {tp.TreeNode|tp.TreeView|null} Value The parent.
+     * @returns {void}
+     */
+    set ParentTreeNode(Value) {
+        this.fParentTreeNode = Value instanceof tp.TreeNode || Value instanceof tp.TreeView ? Value : null;
+    }
+    /**
+     * Gets the node handle.
+     * @returns {HTMLElement} Returns the handle.
+     */
+    get Handle() {
+        return this.fHandle;
+    }
+    /**
+     * Gets the node text element.
+     * @returns {HTMLAnchorElement|null} Returns the text element.
+     */
+    get TextElement() {
+        return this.fTextElement instanceof HTMLAnchorElement ? this.fTextElement : null;
+    }
+    /**
+     * Gets the child node count.
+     * @returns {number} Returns the child node count.
+     */
+    get Count() {
+        return this.fItems.length;
+    }
+    /**
+     * Returns true when this node has children.
+     * @returns {boolean} Returns true when this node has children.
+     */
+    get HasChildren() {
+        return this.Count > 0;
+    }
+    /**
+     * Returns true when this node is a tree root.
+     * @returns {boolean} Returns true for a root.
+     */
+    get IsRoot() {
+        return tp.HasClass(this.Handle, tp.Classes.TreeView);
+    }
+    /**
+     * Returns true when this node has children.
+     * @returns {boolean} Returns true for a node.
+     */
+    get IsNode() {
+        return !this.IsRoot && this.Count > 0;
+    }
+    /**
+     * Returns true when this node has no children.
+     * @returns {boolean} Returns true for a leaf.
+     */
+    get IsLeaf() {
+        return !this.IsRoot && this.Count === 0;
+    }
+    /**
+     * Returns true when this node is expanded.
+     * @returns {boolean} Returns true when expanded.
+     */
+    get IsExpanded() {
+        return tp.HasClass(this.Handle, tp.Classes.Expanded);
+    }
+    /**
+     * Gets the node level. Root is level 0.
+     * @returns {number} Returns the node level.
+     */
+    get Level() {
+        return this.ParentTreeNode ? this.ParentTreeNode.Level + 1 : 0;
+    }
+    /**
+     * Gets the node index in its parent.
+     * @returns {number} Returns the node index or -1.
+     */
+    get Index() {
+        return this.ParentTreeNode ? this.ParentTreeNode.IndexOf(this) : -1;
+    }
+};
+
+/**
+ * The expand symbol.
+ * @type {string}
+ */
+tp.TreeNode.ExpandSymbol = "\u25B8";
+/**
+ * The collapse symbol.
+ * @type {string}
+ */
+tp.TreeNode.CollapseSymbol = "\u25BE";
+
+// ● tree view
+/**
+ * A tree-view control.
+ *
+ * Example markup:
+ * <pre>
+ *     <div>
+ *         <div>Leaf</div>
+ *         <div>Node
+ *             <div>Leaf</div>
+ *         </div>
+ *     </div>
+ * </pre>
+ *
+ * Events:
+ * - NodeClick
+ * - Collapsing
+ * - Collapsed
+ * - Expanding
+ * - Expanded
+ */
+tp.TreeView = class extends tp.Component {
+    // ● private
+    /**
+     * Creates tree-view create params.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     * @returns {tp.CreateParams|object} Returns normalized create params.
+     */
+    static CreateTreeViewParams(CreateParams) {
+        var Args = tp.Component.CreateParams(CreateParams);
+        if (tp.IsNil(Args.ElementOrSelector))
+            Args.ElementOrSelector = "div";
+        return Args;
+    }
+
+    // ● constructor
+    /**
+     * Creates a tree view.
+     * @param {tp.CreateParams|object|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(tp.TreeView.CreateTreeViewParams(CreateParams));
+    }
+
+    // ● protected
+    /**
+     * Initializes fields and properties before applying create params.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.fItemsElement = null;
+        this.fItems = [];
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+    }
+    /**
+     * Notification called after field initialization and before create params are applied.
+     * @protected
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.NormalizeNodes();
+        this.CollapseAll();
+        this.Handle.addEventListener("click", this.fClickHandler, false);
+    }
+    /**
+     * Applies explicit create params to this tree view.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+     * @returns {void}
+     */
+    ApplyCreateParams(Params) {
+        super.ApplyCreateParams(Params);
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Width))
+            this.Width = Params.Width;
+        if (!tp.IsNil(Params.Height))
+            this.Height = Params.Height;
+        if (!tp.IsNil(Params.Expanded) && Params.Expanded === true)
+            this.ExpandAll();
+    }
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, tp.Classes.TreeView);
+        this.Handle.tabIndex = 0;
+    }
+    /**
+     * Releases resources held by this instance.
+     * @protected
+     * @returns {void}
+     */
+    DoDispose() {
+        if (this.Handle && this.fClickHandler)
+            this.Handle.removeEventListener("click", this.fClickHandler, false);
+        this.fClickHandler = null;
+        this.fItemsElement = null;
+        this.fItems = null;
+        super.DoDispose();
+    }
+    /**
+     * Handles tree clicks.
+     * @protected
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        var Strip;
+        var Node;
+        if (!(e.target instanceof HTMLElement))
+            return;
+        Strip = tp.Closest(e.target, "." + tp.Classes.Strip);
+        if (!Strip || !Strip.parentNode)
+            return;
+        Node = tp.GetElementInfo(Strip.parentNode, "__TreeNode");
+        if (Node instanceof tp.TreeNode)
+            this.OnNodeClick(Node);
+    }
+    /**
+     * Converts direct child elements into tree nodes.
+     * @protected
+     * @returns {void}
+     */
+    NormalizeNodes() {
+        var List = tp.ChildHTMLElements(this.Handle);
+        var i;
+        for (i = 0; i < List.length; i++)
+            this.Handle.removeChild(List[i]);
+        for (i = 0; i < List.length; i++)
+            this.Add(new tp.TreeNode(List[i]));
+    }
+    /**
+     * Sets the focused node.
+     * @protected
+     * @param {tp.TreeNode|null|undefined} Node The node to focus.
+     * @returns {void}
+     */
+    SetFocusedNode(Node) {
+        var List = tp.SelectAll(this.Handle, "." + tp.Classes.Focused);
+        var i;
+        for (i = 0; i < List.length; i++)
+            tp.RemoveClass(List[i], tp.Classes.Focused);
+        if (Node instanceof tp.TreeNode)
+            tp.AddClass(Node.Handle, tp.Classes.Focused);
+    }
+
+    // ● public
+    /**
+     * Removes all child nodes.
+     * @returns {void}
+     */
+    Clear() {
+        var i;
+        tp.RemoveClass(this.Handle, tp.Classes.Expanded);
+        if (this.fItemsElement)
+            tp.RemoveChildren(this.fItemsElement);
+        for (i = 0; i < this.fItems.length; i++)
+            this.fItems[i].ParentTreeNode = null;
+        this.fItems.length = 0;
+    }
+    /**
+     * Returns true when this tree contains a child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {boolean} Returns true when found.
+     */
+    Contains(Node) {
+        return this.IndexOf(Node) >= 0;
+    }
+    /**
+     * Returns the index of a child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {number} Returns the index or -1.
+     */
+    IndexOf(Node) {
+        return this.fItems.indexOf(Node);
+    }
+    /**
+     * Returns a child node by index.
+     * @param {number} Index The child index.
+     * @returns {tp.TreeNode|null} Returns the child node or null.
+     */
+    ByIndex(Index) {
+        return tp.InRange(this.fItems, Index) ? this.fItems[Index] : null;
+    }
+    /**
+     * Adds a child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {void}
+     */
+    Add(Node) {
+        this.Insert(this.Count, Node);
+    }
+    /**
+     * Inserts a child node at an index.
+     * @param {number} Index The child index.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {void}
+     */
+    Insert(Index, Node) {
+        var RefNode;
+        if (!(Node instanceof tp.TreeNode) || this.Contains(Node))
+            return;
+        Index = Math.max(0, Math.min(tp.ToInt(Index), this.Count));
+        if (Node.ParentTreeNode)
+            Node.ParentTreeNode.Remove(Node);
+        if (!this.fItemsElement) {
+            this.fItemsElement = this.Handle.ownerDocument.createElement("div");
+            this.Handle.appendChild(this.fItemsElement);
+        }
+        if (Index >= this.Count) {
+            this.fItems.push(Node);
+            this.fItemsElement.appendChild(Node.Handle);
+        } else if (Index >= 0) {
+            RefNode = this.fItems[Index];
+            tp.ListInsert(this.fItems, Index, Node);
+            this.fItemsElement.insertBefore(Node.Handle, RefNode.Handle);
+        }
+        Node.ParentTreeNode = this;
+    }
+    /**
+     * Removes a child node.
+     * @param {tp.TreeNode} Node The child node.
+     * @returns {void}
+     */
+    Remove(Node) {
+        if (!this.Contains(Node))
+            return;
+        if (Node.Handle.parentNode)
+            Node.Handle.parentNode.removeChild(Node.Handle);
+        tp.ListRemove(this.fItems, Node);
+        Node.ParentTreeNode = null;
+        if (this.Count === 0)
+            tp.RemoveClass(this.Handle, tp.Classes.Expanded);
+    }
+    /**
+     * Removes a child node by index.
+     * @param {number} Index The child index.
+     * @returns {void}
+     */
+    RemoveAt(Index) {
+        if (tp.InRange(this.fItems, Index))
+            this.Remove(this.fItems[Index]);
+    }
+    /**
+     * Creates and adds a child node.
+     * @param {string} Text The display text.
+     * @returns {tp.TreeNode} Returns the new node.
+     */
+    AddNode(Text) {
+        return this.InsertNode(this.Count, Text);
+    }
+    /**
+     * Creates and inserts a child node.
+     * @param {number} Index The child index.
+     * @param {string} Text The display text.
+     * @returns {tp.TreeNode} Returns the new node.
+     */
+    InsertNode(Index, Text) {
+        var Element = this.Handle.ownerDocument.createElement("div");
+        var Result = new tp.TreeNode(Element);
+        Result.Text = Text;
+        this.Insert(Index, Result);
+        return Result;
+    }
+    /**
+     * Collapses root nodes.
+     * @returns {void}
+     */
+    Collapse() {
+        var i;
+        for (i = 0; i < this.fItems.length; i++)
+            this.fItems[i].Collapse();
+        tp.RemoveClass(this.Handle, tp.Classes.Expanded);
+    }
+    /**
+     * Expands root nodes.
+     * @returns {void}
+     */
+    Expand() {
+        var i;
+        for (i = 0; i < this.fItems.length; i++)
+            this.fItems[i].Expand();
+        if (this.HasChildren)
+            tp.AddClass(this.Handle, tp.Classes.Expanded);
+    }
+    /**
+     * Toggles root nodes.
+     * @returns {void}
+     */
+    Toggle() {
+        if (this.IsExpanded)
+            this.Collapse();
+        else
+            this.Expand();
+    }
+    /**
+     * Collapses all nodes.
+     * @returns {void}
+     */
+    CollapseAll() {
+        var i;
+        for (i = 0; i < this.fItems.length; i++)
+            this.fItems[i].CollapseAll();
+        tp.RemoveClass(this.Handle, tp.Classes.Expanded);
+    }
+    /**
+     * Expands all nodes.
+     * @returns {void}
+     */
+    ExpandAll() {
+        var i;
+        for (i = 0; i < this.fItems.length; i++)
+            this.fItems[i].ExpandAll();
+        if (this.HasChildren)
+            tp.AddClass(this.Handle, tp.Classes.Expanded);
+    }
+
+    // ● properties
+    /**
+     * Gets null. Tree view is the root.
+     * @returns {null} Returns null.
+     */
+    get ParentTreeNode() {
+        return null;
+    }
+    /**
+     * Ignores parent assignment. Tree view is the root.
+     * @param {*} Value Ignored.
+     * @returns {void}
+     */
+    set ParentTreeNode(Value) {
+    }
+    /**
+     * Gets the child count.
+     * @returns {number} Returns child count.
+     */
+    get Count() {
+        return this.fItems.length;
+    }
+    /**
+     * Returns true when this tree has children.
+     * @returns {boolean} Returns true when this tree has children.
+     */
+    get HasChildren() {
+        return this.Count > 0;
+    }
+    /**
+     * Returns true. Tree view is the root.
+     * @returns {boolean} Returns true.
+     */
+    get IsRoot() {
+        return true;
+    }
+    /**
+     * Returns false. Tree view is not a normal node.
+     * @returns {boolean} Returns false.
+     */
+    get IsNode() {
+        return false;
+    }
+    /**
+     * Returns false. Tree view is not a leaf.
+     * @returns {boolean} Returns false.
+     */
+    get IsLeaf() {
+        return false;
+    }
+    /**
+     * Returns true when the tree root is expanded.
+     * @returns {boolean} Returns true when expanded.
+     */
+    get IsExpanded() {
+        return tp.HasClass(this.Handle, tp.Classes.Expanded);
+    }
+    /**
+     * Gets the root level.
+     * @returns {number} Returns zero.
+     */
+    get Level() {
+        return 0;
+    }
+    /**
+     * Gets the root index.
+     * @returns {number} Returns -1.
+     */
+    get Index() {
+        return -1;
+    }
+    /**
+     * Gets or sets the tree width.
+     * @returns {string} Returns the CSS width.
+     */
+    get Width() {
+        return this.Handle instanceof HTMLElement ? this.Handle.style.width || "" : "";
+    }
+    /**
+     * Gets or sets the tree width.
+     * @param {string|number|null|undefined} Value The width.
+     * @returns {void}
+     */
+    set Width(Value) {
+        if (this.Handle instanceof HTMLElement)
+            this.Handle.style.width = tp.IsNumber(Value) ? tp.px(Value) : tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets the tree height.
+     * @returns {string} Returns the CSS height.
+     */
+    get Height() {
+        return this.Handle instanceof HTMLElement ? this.Handle.style.height || "" : "";
+    }
+    /**
+     * Gets or sets the tree height.
+     * @param {string|number|null|undefined} Value The height.
+     * @returns {void}
+     */
+    set Height(Value) {
+        if (this.Handle instanceof HTMLElement)
+            this.Handle.style.height = tp.IsNumber(Value) ? tp.px(Value) : tp.IsNil(Value) ? "" : String(Value);
+    }
+
+    // ● event triggers
+    /**
+     * Triggers NodeClick and toggles node expansion.
+     * @param {tp.TreeNode} Node The clicked node.
+     * @returns {void}
+     */
+    OnNodeClick(Node) {
+        var Args;
+        if (Node instanceof tp.TreeNode) {
+            this.SetFocusedNode(Node);
+            Args = new tp.TreeViewEventArgs(Node);
+            Args.EventName = "NodeClick";
+            this.Trigger("NodeClick", Args);
+            if (Node.IsNode)
+                Node.Toggle();
+        }
+    }
+    /**
+     * Triggers Collapsing.
+     * @param {tp.TreeNode} Node The node.
+     * @returns {void}
+     */
+    OnCollapsing(Node) {
+        var Args = new tp.TreeViewEventArgs(Node);
+        Args.EventName = "Collapsing";
+        this.Trigger("Collapsing", Args);
+    }
+    /**
+     * Triggers Collapsed.
+     * @param {tp.TreeNode} Node The node.
+     * @returns {void}
+     */
+    OnCollapsed(Node) {
+        var Args = new tp.TreeViewEventArgs(Node);
+        Args.EventName = "Collapsed";
+        this.Trigger("Collapsed", Args);
+    }
+    /**
+     * Triggers Expanding.
+     * @param {tp.TreeNode} Node The node.
+     * @returns {void}
+     */
+    OnExpanding(Node) {
+        var Args = new tp.TreeViewEventArgs(Node);
+        Args.EventName = "Expanding";
+        this.Trigger("Expanding", Args);
+    }
+    /**
+     * Triggers Expanded.
+     * @param {tp.TreeNode} Node The node.
+     * @returns {void}
+     */
+    OnExpanded(Node) {
+        var Args = new tp.TreeViewEventArgs(Node);
+        Args.EventName = "Expanded";
+        this.Trigger("Expanded", Args);
+    }
+};
+
+tp.Ui.RegisterType(["TreeView", "tp-TreeView"], tp.TreeView);
 

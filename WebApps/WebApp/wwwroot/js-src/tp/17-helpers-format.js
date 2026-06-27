@@ -5,10 +5,16 @@
  * @returns {string} Returns a culture code.
  */
 tp.GetCultureCode = function (CultureCode) {
+    var HtmlLang;
     if (tp.IsString(CultureCode) && !tp.IsBlank(CultureCode))
         return CultureCode;
     if (tp.IsString(tp.CultureCode) && !tp.IsBlank(tp.CultureCode))
         return tp.CultureCode;
+    if (typeof document !== "undefined" && document.documentElement) {
+        HtmlLang = document.documentElement.lang;
+        if (tp.IsString(HtmlLang) && !tp.IsBlank(HtmlLang))
+            return HtmlLang;
+    }
     if (typeof navigator !== "undefined" && tp.IsString(navigator.language) && !tp.IsBlank(navigator.language))
         return navigator.language;
     return "en-US";

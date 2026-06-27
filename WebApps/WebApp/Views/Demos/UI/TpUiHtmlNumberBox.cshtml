@@ -1,0 +1,119 @@
+@{
+    ViewData["Title"] = "tp.HtmlNumberBox";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.HtmlNumberBox</h1>
+
+<p>
+    A native HTML <code>input[type=number]</code> wrapped as a Tripous input control.
+    It exposes <code>Min</code>, <code>Max</code>, <code>Step</code>, and numeric <code>Value</code>.
+</p>
+
+<p>
+    This control follows the browser number-input contract. The native value uses a dot decimal separator.
+</p>
+
+<style>
+    .html-number-box-demo-row {
+        display: grid;
+        grid-template-columns: 120px minmax(180px, 260px);
+        gap: 8px;
+        align-items: center;
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+    .html-number-box-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 12px 0;
+    }
+    .html-number-box-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 680px);
+        min-height: 130px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="html-number-box-demo-row">
+        <label for="HtmlNumberBox">HtmlNumberBox</label>
+        <input id="HtmlNumberBox" type="number" value="50" step="0.100" data-setup="{Width: 220, Min: 0, Max: 100, Placeholder: 'native number'}" />
+    </div>
+
+    <div class="html-number-box-demo-actions">
+        <button id="HtmlNumberBoxSetValueButton" type="button">Set Value</button>
+        <button id="HtmlNumberBoxStepSmallButton" type="button">Step 0.01</button>
+        <button id="HtmlNumberBoxStepLargeButton" type="button">Step 5</button>
+        <button id="HtmlNumberBoxRangeButton" type="button">Range 10..90</button>
+        <button id="HtmlNumberBoxClearButton" type="button">Clear</button>
+        <button id="HtmlNumberBoxLogButton" type="button">Log</button>
+    </div>
+
+    <pre id="HtmlNumberBoxOutput" class="html-number-box-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var HtmlNumberBox = new tp.HtmlNumberBox({
+            ElementOrSelector: "#HtmlNumberBox"
+        });
+        var NextValue = 12.5;
+
+        var WriteLog = function (Message) {
+            tp.Text("#HtmlNumberBoxOutput", [
+                Message || "Ready.",
+                "text = " + HtmlNumberBox.Text,
+                "value = " + HtmlNumberBox.Value,
+                "min = " + HtmlNumberBox.Min,
+                "max = " + HtmlNumberBox.Max,
+                "step = " + HtmlNumberBox.Step,
+                "placeholder = " + HtmlNumberBox.Placeholder
+            ].join("\n"));
+        };
+
+        HtmlNumberBox.On("ValueChanged", function () {
+            WriteLog("Value changed.");
+        });
+
+        tp.On("#HtmlNumberBoxSetValueButton", "click", function () {
+            HtmlNumberBox.Value = NextValue;
+            NextValue += 7.25;
+            WriteLog("Value set.");
+        });
+
+        tp.On("#HtmlNumberBoxStepSmallButton", "click", function () {
+            HtmlNumberBox.Step = "0.01";
+            WriteLog("Step changed.");
+        });
+
+        tp.On("#HtmlNumberBoxStepLargeButton", "click", function () {
+            HtmlNumberBox.Step = "5";
+            WriteLog("Step changed.");
+        });
+
+        tp.On("#HtmlNumberBoxRangeButton", "click", function () {
+            HtmlNumberBox.Min = 10;
+            HtmlNumberBox.Max = 90;
+            WriteLog("Range changed.");
+        });
+
+        tp.On("#HtmlNumberBoxClearButton", "click", function () {
+            HtmlNumberBox.Value = null;
+            WriteLog("Value cleared.");
+        });
+
+        tp.On("#HtmlNumberBoxLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

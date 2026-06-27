@@ -1,0 +1,146 @@
+@{
+    ViewData["Title"] = "tp.DateBox";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.DateBox</h1>
+
+<p>
+    A text date box with a drop-down <code>tp.CalendarBox</code> selector.
+    It exposes <code>Date</code>, <code>Text</code>, <code>TextAlign</code>, <code>Placeholder</code>, and <code>IsOpen</code>.
+</p>
+
+<style>
+    .date-box-demo-layout {
+        display: grid;
+        grid-template-columns: minmax(220px, 320px) minmax(260px, 1fr);
+        gap: 14px;
+        align-items: start;
+        width: min(100%, 760px);
+    }
+    .date-box-demo-control {
+        width: 180px;
+        height: 30px;
+    }
+    .date-box-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 12px 0;
+    }
+    .date-box-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 420px);
+        min-height: 160px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+    @@media (max-width: 720px) {
+        .date-box-demo-layout {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+</style>
+
+<div class="html-code">
+    <div class="date-box-demo-layout">
+        <div>
+            <div id="DateBox" class="date-box-demo-control" data-setup="{ Date: '2000-05-08', Placeholder: 'Date' }"></div>
+
+            <div class="date-box-demo-actions">
+                <button id="DateBoxTodayButton" type="button">Today</button>
+                <button id="DateBoxSetButton" type="button">Set 2000-12-25</button>
+                <button id="DateBoxClearButton" type="button">Clear</button>
+                <button id="DateBoxShortButton" type="button">Text 1</button>
+                <button id="DateBoxSlashButton" type="button">Text 4/1</button>
+                <button id="DateBoxDashButton" type="button">Text 4-1</button>
+                <button id="DateBoxInvalidButton" type="button">Invalid Text</button>
+                <button id="DateBoxLeftButton" type="button">Left</button>
+                <button id="DateBoxRightButton" type="button">Right</button>
+                <button id="DateBoxLogButton" type="button">Log</button>
+            </div>
+        </div>
+
+        <pre id="DateBoxOutput" class="date-box-demo-log"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var DateBox = new tp.DateBox({
+            ElementOrSelector: "#DateBox"
+        });
+
+        var FormatDate = function (Value) {
+            return tp.IsValidDate(Value) ? tp.FormatDateTime(Value, "yyyy-MM-dd") : "";
+        };
+
+        var WriteLog = function (Message) {
+            tp.Text("#DateBoxOutput", [
+                Message || "Ready.",
+                "date = " + FormatDate(DateBox.Date),
+                "text = " + DateBox.Text,
+                "is open = " + DateBox.IsOpen
+            ].join("\n"));
+        };
+
+        DateBox.On("DateChanged", function () {
+            WriteLog("Date changed.");
+        });
+
+        tp.On("#DateBoxTodayButton", "click", function () {
+            DateBox.Date = new Date();
+            WriteLog("Today selected.");
+        });
+
+        tp.On("#DateBoxSetButton", "click", function () {
+            DateBox.Date = "2000-12-25";
+            WriteLog("Date set.");
+        });
+
+        tp.On("#DateBoxClearButton", "click", function () {
+            DateBox.Date = null;
+            WriteLog("Date cleared.");
+        });
+
+        tp.On("#DateBoxShortButton", "click", function () {
+            DateBox.Text = "1";
+            WriteLog("Short text assigned.");
+        });
+
+        tp.On("#DateBoxSlashButton", "click", function () {
+            DateBox.Text = "4/1";
+            WriteLog("Slash text assigned.");
+        });
+
+        tp.On("#DateBoxDashButton", "click", function () {
+            DateBox.Text = "4-1";
+            WriteLog("Dash text assigned.");
+        });
+
+        tp.On("#DateBoxInvalidButton", "click", function () {
+            DateBox.Text = "abc";
+            WriteLog("Invalid text assigned.");
+        });
+
+        tp.On("#DateBoxLeftButton", "click", function () {
+            DateBox.TextAlign = "left";
+            WriteLog("Left aligned.");
+        });
+
+        tp.On("#DateBoxRightButton", "click", function () {
+            DateBox.TextAlign = "right";
+            WriteLog("Right aligned.");
+        });
+
+        tp.On("#DateBoxLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

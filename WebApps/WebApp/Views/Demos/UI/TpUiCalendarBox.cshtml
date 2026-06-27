@@ -1,0 +1,108 @@
+@{
+    ViewData["Title"] = "tp.CalendarBox";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.CalendarBox</h1>
+
+<p>
+    A table-based calendar control.
+    It exposes the <code>Date</code> property and triggers <code>DateChanged</code> and <code>ClickChange</code>.
+</p>
+
+<style>
+    .calendar-box-demo-layout {
+        display: grid;
+        grid-template-columns: max-content minmax(260px, 1fr);
+        gap: 14px;
+        align-items: start;
+        width: min(100%, 760px);
+    }
+    .calendar-box-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 12px 0;
+    }
+    .calendar-box-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 420px);
+        min-height: 160px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+    @@media (max-width: 720px) {
+        .calendar-box-demo-layout {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+</style>
+
+<div class="html-code">
+    <div class="calendar-box-demo-layout">
+        <div>
+            <table id="CalendarBox" data-setup="{ Date: '2000-11-18' }"></table>
+
+            <div class="calendar-box-demo-actions">
+                <button id="CalendarBoxTodayButton" type="button">Today</button>
+                <button id="CalendarBoxChristmasButton" type="button">Set 2000-12-25</button>
+                <button id="CalendarBoxLogButton" type="button">Log</button>
+            </div>
+        </div>
+
+        <pre id="CalendarBoxOutput" class="calendar-box-demo-log"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var CalendarBox = new tp.CalendarBox({
+            ElementOrSelector: "#CalendarBox"
+        });
+
+        var GetChangeTypeText = function (ChangeType) {
+            switch (ChangeType) {
+                case tp.CalendarBoxClickChangeType.Date: return "Date";
+                case tp.CalendarBoxClickChangeType.Month: return "Month";
+                case tp.CalendarBoxClickChangeType.Year: return "Year";
+            }
+            return "";
+        };
+
+        var WriteLog = function (Message) {
+            tp.Text("#CalendarBoxOutput", [
+                Message || "Ready.",
+                "date = " + tp.FormatDateTime(CalendarBox.Date, "yyyy-MM-dd"),
+                "local date = " + tp.FormatDateTime(CalendarBox.Date)
+            ].join("\n"));
+        };
+
+        CalendarBox.On("DateChanged", function () {
+            WriteLog("Date changed.");
+        });
+
+        CalendarBox.On("ClickChange", function (Args) {
+            WriteLog("Click change: " + GetChangeTypeText(Args.ChangeType));
+        });
+
+        tp.On("#CalendarBoxTodayButton", "click", function () {
+            CalendarBox.Date = new Date();
+            WriteLog("Today selected.");
+        });
+
+        tp.On("#CalendarBoxChristmasButton", "click", function () {
+            CalendarBox.Date = "2000-12-25";
+            WriteLog("Christmas selected.");
+        });
+
+        tp.On("#CalendarBoxLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

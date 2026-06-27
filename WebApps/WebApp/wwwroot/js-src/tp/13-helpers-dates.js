@@ -307,3 +307,163 @@ tp.EndOfDay = function (Value) {
     tp.AddSeconds(Value, -1);
     return Value;
 };
+
+// ● date text normalization
+/**
+ * Creates a date and verifies that date parts did not overflow.
+ * @param {number} Year The full year.
+ * @param {number} Month The one-based month.
+ * @param {number} Day The day of month.
+ * @returns {Date|null} Returns a valid date or null.
+ */
+tp.CreateCheckedDate = function (Year, Month, Day) {
+    var Result;
+    Year = tp.ToInt(Year);
+    Month = tp.ToInt(Month);
+    Day = tp.ToInt(Day);
+    Result = new Date(Year, Month - 1, Day);
+    if (tp.IsValidDate(Result) && Result.getFullYear() === Year && Result.getMonth() === Month - 1 && Result.getDate() === Day)
+        return tp.ClearTime(Result);
+    return null;
+};
+/**
+ * Completes a one, two, or four digit year using the current century prefix.
+ * @param {string|null|undefined} Text The year text.
+ * @param {Date} Today Today's date.
+ * @returns {string} Returns a four digit year text.
+ */
+tp.CompleteDateYearText = function (Text, Today) {
+    var Year;
+    var CurrentYear;
+    var Prefix;
+    Text = tp.IsBlank(Text) ? String(Today.getFullYear()) : String(Text);
+    Year = tp.ToInt(Text);
+    if (Text.length >= 4)
+        return ("0000" + Year).slice(-4);
+    CurrentYear = String(Today.getFullYear());
+    Prefix = CurrentYear.substring(0, CurrentYear.length - Text.length);
+    return Prefix + Text;
+};
+/**
+ * Returns true when a date text should be treated as ISO-like.
+ * @param {string} Text The date text.
+ * @returns {boolean} Returns true when ISO-like.
+ */
+tp.IsIsoLikeDateText = function (Text) {
+    var Match;
+    Text = tp.Trim(Text);
+    Match = /[0-9]+/.exec(Text);
+    return !!Match && Match[0].length === 4;
+};
+/**
+ * Normalizes and parses date text using ISO format or the current culture date format.
+ * Missing ISO month or day becomes 01. Missing culture year becomes current year. Culture input follows the current culture date pattern.
+ * @param {string|Date|null|undefined} Text The source text or date.
+ * @param {string|null|undefined} CultureCode Optional culture code.
+ * @returns {{Result: boolean, NormalizedText: string, Date: Date|null}} Returns the parse result.
+ */
+tp.TryNormalizeDateText = function (Text, CultureCode) {
+    var TryPattern;
+    var TryCulturePattern;
+    var CultureFormat = tp.GetDateFormat(CultureCode);
+    var Today = tp.Today();
+    var EscapeRegExp = function (Value) {
+        return String(Value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    };
+    if (tp.IsValidDate(Text)) {
+        return {
+            Result: true,
+            NormalizedText: tp.FormatDateTime(Text, CultureFormat),
+            Date: tp.ClearTime(tp.DateClone(Text))
+        };
+    }
+    Text = tp.Trim(Text);
+    TryPattern = function (SourceText, Format, SourceSeparator) {
+        var Separator = SourceSeparator || (Format === tp.DateFormatISO ? "-" : tp.GetDateSeparator(CultureCode));
+        var Pattern = tp.GetDatePattern(Format);
+        var Parts = SourceText.trim();
+        var InputParts;
+        var Year = null;
+        var Month = null;
+        var Day = null;
+        var DateValue;
+        var NormalizedText;
+        var GetPart;
+        while (Parts.charAt(0) === Separator)
+            Parts = Parts.substring(1);
+        while (Parts.charAt(Parts.length - 1) === Separator)
+            Parts = Parts.substring(0, Parts.length - 1);
+        if (tp.IsBlank(Parts))
+            return null;
+        if (new RegExp("[^0-9" + EscapeRegExp(Separator) + "\\s]").test(Parts))
+            return null;
+        InputParts = Parts.split(Separator).map(function (Part) { return tp.Trim(Part); }).filter(function (Part) { return !tp.IsBlank(Part); });
+        if (InputParts.length === 0 || InputParts.length > 3)
+            return null;
+        GetPart = function (Index) {
+            return Index < InputParts.length ? InputParts[Index] : "";
+        };
+        if (Pattern === tp.DatePattern.YMD) {
+            Year = GetPart(0);
+            Month = GetPart(1);
+            Day = GetPart(2);
+            Month = tp.IsBlank(Month) ? "1" : Month;
+            Day = tp.IsBlank(Day) ? "1" : Day;
+        } else if (Pattern === tp.DatePattern.MDY) {
+            Month = GetPart(0);
+            Day = GetPart(1);
+            Year = GetPart(2);
+            Day = tp.IsBlank(Day) ? "1" : Day;
+        } else {
+            Day = GetPart(0);
+            Month = GetPart(1);
+            Year = GetPart(2);
+            Month = tp.IsBlank(Month) ? "1" : Month;
+        }
+        Year = tp.CompleteDateYearText(Year, Today);
+        DateValue = tp.CreateCheckedDate(Year, Month, Day);
+        if (!DateValue)
+            return null;
+        NormalizedText = tp.FormatDateTime(DateValue, Format);
+        return {
+            Result: true,
+            NormalizedText: NormalizedText,
+            Date: DateValue
+        };
+    };
+    TryCulturePattern = function (SourceText) {
+        var Separators = [tp.GetDateSeparator(CultureCode), "/", "-", "."];
+        var Separator;
+        var Result;
+        var i;
+        for (i = 0; i < Separators.length; i++) {
+            Separator = Separators[i];
+            if (Separators.indexOf(Separator) !== i)
+                continue;
+            Result = TryPattern(SourceText, CultureFormat, Separator);
+            if (Result)
+                return Result;
+        }
+        return null;
+    };
+    if (tp.IsBlank(Text))
+        return { Result: false, NormalizedText: "", Date: null };
+    if (tp.IsIsoLikeDateText(Text)) {
+        return TryPattern(Text, tp.DateFormatISO)
+            || TryCulturePattern(Text)
+            || { Result: false, NormalizedText: "", Date: null };
+    }
+    return TryCulturePattern(Text)
+        || TryPattern(Text, tp.DateFormatISO)
+        || { Result: false, NormalizedText: "", Date: null };
+};
+/**
+ * Parses date text using ISO format or the current culture date format.
+ * @param {string|Date|null|undefined} Text The source text or date.
+ * @param {string|null|undefined} CultureCode Optional culture code.
+ * @returns {Date|null} Returns a date or null.
+ */
+tp.ParseDateText = function (Text, CultureCode) {
+    var Result = tp.TryNormalizeDateText(Text, CultureCode);
+    return Result.Result === true ? Result.Date : null;
+};

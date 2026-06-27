@@ -14,13 +14,14 @@
 <style>
     .reflection-demo-layout {
         display: grid;
-        grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+        grid-template-columns: minmax(234px, 338px) minmax(0, 1fr);
         gap: 14px;
-        width: min(100%, 1100px);
+        width: min(100%, 1200px);
         align-items: stretch;
     }
     .reflection-demo-list {
-        height: 520px;
+        width: 250px;
+        height: 930px;
         min-height: 320px;
     }
     .reflection-demo-info {
@@ -85,14 +86,28 @@
             { Name: "tp.InputControl", Type: tp.InputControl, Description: "Base class for simple input controls with input/change handling and simple data binding." },
             { Name: "tp.Label", Type: tp.Label, Description: "Label control wrapping a label element." },
             { Name: "tp.TextBox", Type: tp.TextBox, Description: "Single-line text input control." },
+            { Name: "tp.NumberBox", Type: tp.NumberBox, Description: "Text input control for numeric values with decimal formatting and parsing." },
+            { Name: "tp.HtmlNumberBox", Type: tp.HtmlNumberBox, Description: "Native HTML number input control with Min, Max, Step, and Value properties." },
+            { Name: "tp.HtmlNumberBoxEx", Type: tp.HtmlNumberBoxEx, Description: "Native HTML number input wrapped with plus and minus step buttons." },
+            { Name: "tp.ValueSlider", Type: tp.ValueSlider, Description: "Native HTML range input used as a numeric slider or as a ValueList selector." },
+            { Name: "tp.ProgressBar", Type: tp.ProgressBar, Description: "Native HTML progress control with Max and Value properties." },
+            { Name: "tp.CalendarBox", Type: tp.CalendarBox, Description: "Table-based calendar control with date selection and month/year navigation." },
+            { Name: "tp.DateBox", Type: tp.DateBox, Description: "Text date input with a drop-down CalendarBox selector." },
+            { Name: "tp.HtmlDateBox", Type: tp.HtmlDateBox, Description: "Native HTML date input control with Date, Min, Max, and Step properties." },
             { Name: "tp.Memo", Type: tp.Memo, Description: "Multi-line text input control based on textarea." },
             { Name: "tp.CheckBox", Type: tp.CheckBox, Description: "Check box control with wrapping label text." },
             { Name: "tp.ListControl", Type: tp.ListControl, Description: "Base class for virtual-scroller based list controls and list data binding." },
             { Name: "tp.ListBox", Type: tp.ListBox, Description: "Virtual-scroller based list box control." },
             { Name: "tp.ComboBox", Type: tp.ComboBox, Description: "Virtual-scroller based combo box with list-only and editable modes." },
+            { Name: "tp.CheckListControl", Type: tp.CheckListControl, Description: "Base class for multi-select check-list controls." },
+            { Name: "tp.CheckListBox", Type: tp.CheckListBox, Description: "Virtual-scroller based multi-select list box with check boxes." },
+            { Name: "tp.CheckComboBox", Type: tp.CheckComboBox, Description: "Virtual-scroller based multi-select combo box with check boxes and selected item labels." },
+            { Name: "tp.RadioGroup", Type: tp.RadioGroup, Description: "Radio-button group control with list-style selected index and selected value support." },
             { Name: "tp.HtmlComboBox", Type: tp.HtmlComboBox, Description: "Native select element wrapped as a Tripous combo box." },
             { Name: "tp.HtmlListBox", Type: tp.HtmlListBox, Description: "Native select element wrapped as a Tripous list box." },
             { Name: "tp.ImageBox", Type: tp.ImageBox, Description: "Div-based image control using CSS background image modes." },
+            { Name: "tp.TreeNode", Type: tp.TreeNode, Description: "Tree node object used by tp.TreeView for hierarchy, text, URL, icon, and child node operations." },
+            { Name: "tp.TreeView", Type: tp.TreeView, Description: "Tree control composed of tp.TreeNode objects with expand, collapse, add, remove, and node click events." },
             { Name: "tp.Row", Type: tp.Row, Description: "Responsive row that listens to its own size and propagates size mode changes." },
             { Name: "tp.Col", Type: tp.Col, Description: "Responsive column with width percentages per size mode." },
             { Name: "tp.CtrlRow", Type: tp.CtrlRow, Description: "Form row with label, required mark, and one hosted control." },

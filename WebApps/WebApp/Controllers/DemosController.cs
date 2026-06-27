@@ -264,6 +264,30 @@ public class DemosController : Controller
         return View("UI/TpUiComboBox");
     }
     /// <summary>
+    /// Displays the tp.CheckListBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-check-list-box")]
+    public IActionResult TpUiCheckListBox()
+    {
+        return View("UI/TpUiCheckListBox");
+    }
+    /// <summary>
+    /// Displays the tp.CheckComboBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-check-combo-box")]
+    public IActionResult TpUiCheckComboBox()
+    {
+        return View("UI/TpUiCheckComboBox");
+    }
+    /// <summary>
+    /// Displays the tp.RadioGroup demo.
+    /// </summary>
+    [Route("/demo/tp-ui-radio-group")]
+    public IActionResult TpUiRadioGroup()
+    {
+        return View("UI/TpUiRadioGroup");
+    }
+    /// <summary>
     /// Displays the tp.HtmlComboBox demo.
     /// </summary>
     [Route("/demo/tp-ui-html-combo-box")]
@@ -288,6 +312,70 @@ public class DemosController : Controller
         return View("UI/TpUiTextBox");
     }
     /// <summary>
+    /// Displays the tp.NumberBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-number-box")]
+    public IActionResult TpUiNumberBox()
+    {
+        return View("UI/TpUiNumberBox");
+    }
+    /// <summary>
+    /// Displays the tp.HtmlNumberBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-html-number-box")]
+    public IActionResult TpUiHtmlNumberBox()
+    {
+        return View("UI/TpUiHtmlNumberBox");
+    }
+    /// <summary>
+    /// Displays the tp.HtmlNumberBoxEx demo.
+    /// </summary>
+    [Route("/demo/tp-ui-html-number-box-ex")]
+    public IActionResult TpUiHtmlNumberBoxEx()
+    {
+        return View("UI/TpUiHtmlNumberBoxEx");
+    }
+    /// <summary>
+    /// Displays the tp.ValueSlider demo.
+    /// </summary>
+    [Route("/demo/tp-ui-value-slider")]
+    public IActionResult TpUiValueSlider()
+    {
+        return View("UI/TpUiValueSlider");
+    }
+    /// <summary>
+    /// Displays the tp.ProgressBar demo.
+    /// </summary>
+    [Route("/demo/tp-ui-progress-bar")]
+    public IActionResult TpUiProgressBar()
+    {
+        return View("UI/TpUiProgressBar");
+    }
+    /// <summary>
+    /// Displays the tp.CalendarBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-calendar-box")]
+    public IActionResult TpUiCalendarBox()
+    {
+        return View("UI/TpUiCalendarBox");
+    }
+    /// <summary>
+    /// Displays the tp.DateBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-date-box")]
+    public IActionResult TpUiDateBox()
+    {
+        return View("UI/TpUiDateBox");
+    }
+    /// <summary>
+    /// Displays the tp.HtmlDateBox demo.
+    /// </summary>
+    [Route("/demo/tp-ui-html-date-box")]
+    public IActionResult TpUiHtmlDateBox()
+    {
+        return View("UI/TpUiHtmlDateBox");
+    }
+    /// <summary>
     /// Displays the tp.Memo demo.
     /// </summary>
     [Route("/demo/tp-ui-memo")]
@@ -304,6 +392,14 @@ public class DemosController : Controller
         return View("UI/TpUiImageBox");
     }
     /// <summary>
+    /// Displays the tp.TreeView demo.
+    /// </summary>
+    [Route("/demo/tp-ui-tree-view")]
+    public IActionResult TpUiTreeView()
+    {
+        return View("UI/TpUiTreeView");
+    }
+    /// <summary>
     /// Displays the tp.CtrlRow and tp.CheckBoxRow demo.
     /// </summary>
     [Route("/demo/tp-ui-ctrl-row")]
@@ -318,6 +414,14 @@ public class DemosController : Controller
     public IActionResult TpUiAutocompleteList()
     {
         return View("UI/TpUiAutocompleteList");
+    }
+    /// <summary>
+    /// Displays the data-setup demo.
+    /// </summary>
+    [Route("/demo/tp-ui-data-setup")]
+    public IActionResult TpUiDataSetup()
+    {
+        return View("UI/TpUiDataSetup");
     }
     /// <summary>
     /// Displays the tp.DropDownBox demo.

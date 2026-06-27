@@ -1,0 +1,134 @@
+@{
+    ViewData["Title"] = "tp.ValueSlider";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.ValueSlider</h1>
+
+<p>
+    A native HTML <code>input[type=range]</code> wrapped as a Tripous input control.
+    It can select a numeric value, or select an item from <code>ValueList</code>.
+</p>
+
+<style>
+    .value-slider-demo-list {
+        display: grid;
+        gap: 14px;
+        max-width: 620px;
+        margin-bottom: 12px;
+    }
+    .value-slider-demo-row {
+        display: grid;
+        grid-template-columns: 130px minmax(220px, 360px) 120px;
+        gap: 10px;
+        align-items: center;
+    }
+    .value-slider-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 12px 0;
+    }
+    .value-slider-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 700px);
+        min-height: 140px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+</style>
+
+<div class="html-code">
+    <div class="value-slider-demo-list">
+        <div class="value-slider-demo-row">
+            <label for="ValueSliderNumeric">Numeric</label>
+            <input id="ValueSliderNumeric" type="range" min="1" max="100" step="1" value="50" />
+            <span id="ValueSliderNumericText"></span>
+        </div>
+        <div class="value-slider-demo-row">
+            <label for="ValueSliderList">ValueList</label>
+            <input id="ValueSliderList" type="range" data-setup="{ValueList: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], Value: 'Wednesday'}" />
+            <span id="ValueSliderListText"></span>
+        </div>
+    </div>
+
+    <div class="value-slider-demo-actions">
+        <button id="ValueSliderSetNumericButton" type="button">Set Numeric</button>
+        <button id="ValueSliderSetListButton" type="button">Set Friday</button>
+        <button id="ValueSliderStepUpButton" type="button">Step Up</button>
+        <button id="ValueSliderStepDownButton" type="button">Step Down</button>
+        <button id="ValueSliderLogButton" type="button">Log</button>
+    </div>
+
+    <pre id="ValueSliderOutput" class="value-slider-demo-log"></pre>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var NumericSlider = new tp.ValueSlider({
+            ElementOrSelector: "#ValueSliderNumeric"
+        });
+        var ListSlider = new tp.ValueSlider({
+            ElementOrSelector: "#ValueSliderList"
+        });
+        var NextNumericValue = 60;
+
+        var WriteLog = function (Message) {
+            tp.Text("#ValueSliderNumericText", NumericSlider.Value);
+            tp.Text("#ValueSliderListText", ListSlider.Value);
+            tp.Text("#ValueSliderOutput", [
+                Message || "Ready.",
+                "numeric value = " + NumericSlider.Value,
+                "numeric min = " + NumericSlider.Min,
+                "numeric max = " + NumericSlider.Max,
+                "numeric step = " + NumericSlider.Step,
+                "list value = " + ListSlider.Value,
+                "list min = " + ListSlider.Min,
+                "list max = " + ListSlider.Max,
+                "list step = " + ListSlider.Step,
+                "uses value list = " + ListSlider.UsesValueList
+            ].join("\n"));
+        };
+
+        NumericSlider.On("ValueChanged", function () {
+            WriteLog("Numeric value changed.");
+        });
+
+        ListSlider.On("ValueChanged", function () {
+            WriteLog("List value changed.");
+        });
+
+        tp.On("#ValueSliderSetNumericButton", "click", function () {
+            NumericSlider.Value = NextNumericValue;
+            NextNumericValue = NextNumericValue >= 90 ? 10 : NextNumericValue + 10;
+            WriteLog("Numeric value set.");
+        });
+
+        tp.On("#ValueSliderSetListButton", "click", function () {
+            ListSlider.Value = "Friday";
+            WriteLog("List value set.");
+        });
+
+        tp.On("#ValueSliderStepUpButton", "click", function () {
+            NumericSlider.StepUp();
+            ListSlider.StepUp();
+            WriteLog("Stepped up.");
+        });
+
+        tp.On("#ValueSliderStepDownButton", "click", function () {
+            NumericSlider.StepDown();
+            ListSlider.StepDown();
+            WriteLog("Stepped down.");
+        });
+
+        tp.On("#ValueSliderLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>

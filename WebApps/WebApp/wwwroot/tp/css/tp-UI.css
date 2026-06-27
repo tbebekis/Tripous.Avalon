@@ -36,6 +36,7 @@ fieldset.tp-GroupBox legend {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 16px;
     background-color: var(--BackColor);
     line-height: 1.8em;
     cursor: pointer;
@@ -65,10 +66,6 @@ fieldset.tp-GroupBox legend {
 
 .tp-Accordion > * > * {
     padding: 4px;
-}
-
-.tp-Accordion > * > :nth-child(1) {
-    padding-right: 16px;
 }
 
 /*---------------------------------------------------------------------------------------
@@ -137,12 +134,286 @@ fieldset.tp-GroupBox legend {
 }
 
 .tp-TextBox:focus,
+.tp-NumberBox:focus,
+.tp-HtmlNumberBox:focus,
+.tp-HtmlDateBox:focus,
 .tp-Memo:focus,
 .tp-ImageBox:focus,
 .tp-HtmlComboBox:focus,
 .tp-HtmlListBox:focus {
     outline: 2px solid var(--FocusColor);
     outline-offset: 2px;
+}
+
+.tp-NumberBox {
+    text-align: right;
+}
+
+.tp-HtmlNumberBox {
+    text-align: right;
+}
+
+.tp-HtmlDateBox {
+    box-sizing: border-box;
+}
+
+.tp-NumberBox.tp-HtmlNumberBoxEx {
+    position: relative;
+    display: inline-flex;
+    text-align: right;
+}
+
+.tp-NumberBox.tp-HtmlNumberBoxEx > .tp-Text {
+    flex-grow: 1;
+    order: 1;
+    min-width: 0;
+    border: var(--Border);
+}
+
+.tp-NumberBox.tp-HtmlNumberBoxEx > .tp-Plus,
+.tp-NumberBox.tp-HtmlNumberBoxEx > .tp-Minus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.2em;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    order: 2;
+    border: var(--Border);
+    border-left: none;
+}
+
+.tp-NumberBox.tp-HtmlNumberBoxEx input[type=number] {
+    -moz-appearance: textfield;
+    margin: 0;
+    text-align: right;
+    padding-right: 0.4em;
+}
+
+.tp-NumberBox.tp-HtmlNumberBoxEx input[type=number]::-webkit-inner-spin-button,
+.tp-NumberBox.tp-HtmlNumberBoxEx input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.tp-NumberBox.tp-HtmlNumberBoxEx.tp-MinusFirst > .tp-Minus {
+    order: 0;
+    border: var(--Border);
+    border-right: none;
+}
+
+.tp-ValueSlider {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tp-ProgressBar {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tp-CalendarBox {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: var(--Border);
+    background-color: var(--BackColor);
+    user-select: none;
+}
+
+.tp-CalendarBox th,
+.tp-CalendarBox td {
+    box-sizing: border-box;
+    width: 38px;
+    height: 30px;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tp-CalendarBox .tp-HeaderRow th {
+    height: 34px;
+    font-weight: normal;
+    background-color: #f0f3f6;
+}
+
+.tp-CalendarBox .tp-Year,
+.tp-CalendarBox .tp-Month,
+.tp-CalendarBox .tp-DateCell {
+    cursor: default;
+}
+
+.tp-CalendarBox .tp-Year:hover,
+.tp-CalendarBox .tp-Month:hover,
+.tp-CalendarBox .tp-DateCell:hover {
+    background-color: var(--HoverColor);
+}
+
+.tp-CalendarBox .tp-DaysRow th {
+    font-size: 12px;
+    font-weight: bold;
+    color: #57606a;
+    border-top: var(--Border);
+    border-bottom: var(--Border);
+}
+
+.tp-CalendarBox .tp-DateCell.tp-Inactive {
+    color: #8c959f;
+}
+
+.tp-CalendarBox .tp-DateCell.tp-Marked {
+    outline: 1px solid var(--FocusColor);
+    outline-offset: -3px;
+}
+
+.tp-CalendarBox .tp-DateCell.tp-Selected {
+    background-color: var(--SelectedListItemColor);
+}
+
+.tp-DateBox {
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    box-sizing: border-box;
+    width: 140px;
+    border: var(--Border);
+    background-color: var(--BackColor);
+}
+
+.tp-DateBox:focus,
+.tp-DateBox:focus-within {
+    outline: 2px solid var(--FocusColor);
+    outline-offset: 1px;
+}
+
+.tp-DateBox .tp-Strip {
+    position: relative;
+    display: flex;
+    min-height: 100%;
+}
+
+.tp-DateBox .tp-Strip input.tp-Text {
+    position: relative;
+    display: flex;
+    width: 1px;
+    flex-grow: 1;
+    align-items: center;
+    border: none;
+    box-sizing: border-box;
+    padding: 0 0.4em;
+}
+
+.tp-DateBox .tp-Strip .tp-Btn {
+    position: relative;
+    display: flex;
+    padding: 0 5px;
+    background-color: var(--BackColor);
+    font-family: monospace;
+    border-left: var(--Border);
+    cursor: default;
+    justify-content: center;
+    align-items: center;
+}
+
+.tp-DateBoxDropDown {
+    width: 292px;
+    padding: 8px;
+}
+
+.tp-DateBoxDropDown .tp-CalendarBox {
+    margin: 0 auto;
+}
+
+/*---------------------------------------------------------------------------------------
+  tree view
+---------------------------------------------------------------------------------------*/
+.tp-TreeView {
+    position: relative;
+    display: block;
+    cursor: default;
+    outline: none;
+    border: var(--Border);
+    background-color: var(--BackColor);
+    overflow: auto;
+}
+
+.tp-TreeView .tp-Node,
+.tp-TreeView .tp-Leaf {
+    position: relative;
+    display: block;
+    padding: 0 0 0 10px;
+    line-height: 1.8;
+    white-space: nowrap;
+    text-overflow: clip;
+}
+
+.tp-TreeView > :first-child > .tp-Node,
+.tp-TreeView > :first-child > .tp-Leaf {
+    padding-left: 0;
+}
+
+.tp-TreeView .tp-Node > .tp-Strip,
+.tp-TreeView .tp-Leaf > .tp-Strip {
+    position: relative;
+    display: flex;
+    width: max-content;
+    min-width: 100%;
+    height: 2em;
+}
+
+.tp-TreeView .tp-Node.tp-Focused > .tp-Strip > :nth-child(3),
+.tp-TreeView .tp-Leaf.tp-Focused > .tp-Strip > :nth-child(3) {
+    background-color: var(--FocusColor);
+}
+
+.tp-TreeView .tp-Node > .tp-Strip > :nth-child(1),
+.tp-TreeView .tp-Leaf > .tp-Strip > :nth-child(1) {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1em;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: #36454f;
+}
+
+.tp-TreeView .tp-Node > .tp-Strip > :nth-child(2),
+.tp-TreeView .tp-Leaf > .tp-Strip > :nth-child(2) {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    min-width: 2em;
+}
+
+.tp-TreeView .tp-Node > .tp-Strip > :nth-child(3),
+.tp-TreeView .tp-Leaf > .tp-Strip > :nth-child(3) {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-left: 4px;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.tp-TreeView > :first-child,
+.tp-TreeView .tp-Node > :nth-child(2) {
+    position: relative;
+    display: block;
+}
+
+.tp-TreeView .tp-Leaf > :nth-child(2) {
+    display: none;
+}
+
+.tp-TreeView .tp-Node:not(.tp-Expanded) > :nth-child(2) {
+    display: none;
 }
 
 /*---------------------------------------------------------------------------------------
@@ -200,26 +471,111 @@ fieldset.tp-GroupBox legend {
     min-height: 40px;
 }
 
+.tp-CheckListBox {
+    min-height: 40px;
+}
+
+.tp-CheckListBox > .tp-List > .tp-Item {
+    gap: 6px;
+}
+
+.tp-CheckListBox > .tp-List > .tp-Item input[type=checkbox] {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+.tp-CheckComboBox > .tp-DropDownBox > .tp-List > .tp-Item {
+    gap: 6px;
+}
+
+.tp-CheckComboBox > .tp-DropDownBox > .tp-List > .tp-Item input[type=checkbox] {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
 /*---------------------------------------------------------------------------------------
   combo box
 ---------------------------------------------------------------------------------------*/
-.tp-ComboBox {
+.tp-ComboBox,
+.tp-CheckComboBox {
     overflow: visible;
 }
 
-.tp-ComboBox .tp-Strip {
+.tp-ComboBox .tp-Strip,
+.tp-CheckComboBox .tp-Strip {
     position: relative;
     display: flex;
-    height: 100%;
+    min-height: 100%;
 }
 
-.tp-ComboBox .tp-Strip input.tp-Text {
+.tp-ComboBox .tp-Strip input.tp-Text,
+.tp-CheckComboBox .tp-Strip input.tp-Text {
     position: relative;
     display: flex;
     width: 1px;
     flex-grow: 1;
     align-items: center;
     border: none;
+}
+
+.tp-CheckComboBox .tp-Strip {
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 2px;
+    align-items: center;
+}
+
+.tp-CheckComboBox .tp-Strip > .tp-Item {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: 20px;
+    box-sizing: border-box;
+    border: var(--Border);
+    background-color: var(--SelectedListItemColor);
+}
+
+.tp-CheckComboBox .tp-Strip > .tp-Item > .tp-Text {
+    max-width: 160px;
+    padding: 0 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tp-CheckComboBox .tp-Strip > .tp-Item > .tp-Close {
+    padding: 0 5px;
+    border-left: var(--Border);
+    cursor: default;
+}
+
+.tp-RadioGroup {
+    display: inline-block;
+    box-sizing: border-box;
+    min-width: 160px;
+    padding: 8px;
+    border: var(--Border);
+}
+
+.tp-RadioGroup > legend {
+    padding: 0 4px;
+}
+
+.tp-RadioGroup > .tp-List {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tp-RadioGroup > .tp-List > label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tp-RadioGroup > .tp-List > label input[type=radio] {
+    flex: 0 0 auto;
+    margin: 0;
 }
 
 .tp-ComboBox .tp-Strip .tp-Btn {

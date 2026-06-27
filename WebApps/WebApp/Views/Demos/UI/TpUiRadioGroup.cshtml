@@ -1,0 +1,128 @@
+@{
+    ViewData["Title"] = "tp.RadioGroup";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.RadioGroup</h1>
+
+<p>
+    A radio-button group control.
+    It exposes <code>Count</code>, <code>SelectedIndex</code>, <code>SelectedValue</code>,
+    <code>AddItem()</code>, <code>InsertItem()</code>, <code>LoadFrom()</code>, and <code>LoadFromEnumType()</code>.
+</p>
+
+<style>
+    .radio-group-demo-layout {
+        display: grid;
+        grid-template-columns: minmax(220px, 320px) minmax(260px, 1fr);
+        gap: 14px;
+        align-items: start;
+        width: min(100%, 760px);
+    }
+    .radio-group-demo-control {
+        width: 240px;
+        min-height: 180px;
+    }
+    .radio-group-demo-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin: 12px 0;
+    }
+    .radio-group-demo-log {
+        box-sizing: border-box;
+        width: min(100%, 420px);
+        min-height: 160px;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+    }
+    @@media (max-width: 720px) {
+        .radio-group-demo-layout {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+</style>
+
+<div class="html-code">
+    <div class="radio-group-demo-layout">
+        <div>
+            <fieldset id="RadioGroup" class="radio-group-demo-control" data-setup="{Name: 'group1', SelectedIndex: 0}">
+                <legend>Radio Group Title</legend>
+                <label><input type="radio" name="group1" value="Male" />Male</label>
+                <label><input type="radio" name="group1" value="Female" />Female</label>
+                <label><input type="radio" name="group1" value="NotSet" />Not Set</label>
+            </fieldset>
+
+            <div class="radio-group-demo-actions">
+                <button id="RadioGroupAddButton" type="button">Add</button>
+                <button id="RadioGroupEnumButton" type="button">Load Enum</button>
+                <button id="RadioGroupSelectFemaleButton" type="button">Select Female</button>
+                <button id="RadioGroupRenameButton" type="button">Rename First</button>
+                <button id="RadioGroupLogButton" type="button">Log</button>
+            </div>
+        </div>
+
+        <pre id="RadioGroupOutput" class="radio-group-demo-log"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var RadioGroup = new tp.RadioGroup({
+            ElementOrSelector: "#RadioGroup"
+        });
+
+        var Token = {
+            None: 0,
+            Plus: 1,
+            Minus: 2,
+            Mul: 3,
+            Div: 4
+        };
+
+        var WriteLog = function (Message) {
+            tp.Text("#RadioGroupOutput", [
+                Message || "Ready.",
+                "count = " + RadioGroup.Count,
+                "selected index = " + RadioGroup.SelectedIndex,
+                "selected value = " + RadioGroup.SelectedValue,
+                "checked value = " + RadioGroup.FindCheckedValue()
+            ].join("\n"));
+        };
+
+        RadioGroup.On("SelectedIndexChanged", function () {
+            WriteLog("Selection changed.");
+        });
+
+        tp.On("#RadioGroupAddButton", "click", function () {
+            var Value = RadioGroup.Count;
+            RadioGroup.AddItem(Value, "radio " + Value);
+            WriteLog("Item added.");
+        });
+
+        tp.On("#RadioGroupEnumButton", "click", function () {
+            RadioGroup.LoadFromEnumType(Token);
+            WriteLog("Enum loaded.");
+        });
+
+        tp.On("#RadioGroupSelectFemaleButton", "click", function () {
+            RadioGroup.CheckItemByValue("Female");
+            WriteLog("Female selected.");
+        });
+
+        tp.On("#RadioGroupRenameButton", "click", function () {
+            RadioGroup.SetTitleAt(0, "First option");
+            WriteLog("First item renamed.");
+        });
+
+        tp.On("#RadioGroupLogButton", "click", function () {
+            WriteLog("Current values.");
+        });
+
+        WriteLog();
+    });
+</script>
