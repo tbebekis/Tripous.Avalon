@@ -243,17 +243,10 @@
     height: 560px;
     margin: 0;
 }
-#DemoHtmlEditor.demo-code-fallback,
-#DemoJavaScriptEditor.demo-code-fallback {
-    box-sizing: border-box;
+#DemoHtmlEditor.tp-CodeEditorFallback,
+#DemoJavaScriptEditor.tp-CodeEditorFallback {
     padding: 14px 16px;
-    overflow: auto;
-    color: #d4d4d4;
-    background: #1e1e1e;
-    font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
     font-size: 15px;
-    line-height: 1.45;
-    white-space: pre;
 }
 .ace_editor {
     font-size: 17px;

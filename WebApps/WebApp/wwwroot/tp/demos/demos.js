@@ -44,30 +44,25 @@ Demos.GetSourceText = function (Selector) {
     return Element.innerHTML.trim();
 };
 /**
- * Creates an Ace editor.
+ * Creates a code editor.
  * @param {string} ElementId The editor host element id.
- * @param {string} Mode The Ace mode name.
+ * @param {string} Mode The source code mode name.
  * @param {string} Text The editor text.
- * @returns {object|null} Returns the Ace editor or null when Ace is not available.
+ * @returns {Promise<tp.CodeEditor|null>} Returns the code editor wrapper or null.
  */
-Demos.CreateEditor = function (ElementId, Mode, Text) {
+Demos.CreateEditor = async function (ElementId, Mode, Text) {
     var Element = tp("#" + ElementId);
     if (!Element)
         return null;
-    if (typeof ace === "undefined") {
-        Element.textContent = Text;
-        Element.classList.add("demo-code-fallback");
-        return null;
-    }
-
-    var Editor = ace.edit(ElementId);
-    Editor.setTheme("ace/theme/twilight");
-    Editor.session.setMode("ace/mode/" + Mode);
-    Editor.setFontSize(17);
-    Editor.setReadOnly(true);
-    Editor.setShowPrintMargin(false);
-    Editor.setValue(Text, -1);
-    return Editor;
+    return await tp.CodeEditor.CreateAsync({
+        ElementOrSelector: Element,
+        Mode: Mode,
+        Theme: "twilight",
+        Text: Text,
+        ReadOnly: true,
+        FontSize: 17,
+        ShowPrintMargin: false
+    });
 };
 
 // ● public
@@ -113,7 +108,7 @@ Demos.InitializeShell = function () {
  * Initializes the source preview panel.
  * @returns {void}
  */
-Demos.InitializeSourcePreview = function () {
+Demos.InitializeSourcePreview = async function () {
     var HtmlText = Demos.GetSourceText(".html-code");
     var JavaScriptText = Demos.GetSourceText(".js-code");
     var Panel = tp("#DemoSourcePanel");
@@ -122,8 +117,8 @@ Demos.InitializeSourcePreview = function () {
         return;
 
     Panel.hidden = false;
-    Demos.HtmlEditor = Demos.CreateEditor("DemoHtmlEditor", "html", HtmlText);
-    Demos.JavaScriptEditor = Demos.CreateEditor("DemoJavaScriptEditor", "javascript", JavaScriptText);
+    Demos.HtmlEditor = await Demos.CreateEditor("DemoHtmlEditor", "html", HtmlText);
+    Demos.JavaScriptEditor = await Demos.CreateEditor("DemoJavaScriptEditor", "javascript", JavaScriptText);
     tp.SelectAll("[data-demo-source-tab]").forEach(function (Button) {
         tp.On(Button, "click", function () {
             Demos.SelectSourceTab(Button.getAttribute("data-demo-source-tab"));

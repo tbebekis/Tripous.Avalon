@@ -3,6 +3,26 @@
 ---------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------------------------------------------------
+  code editor
+---------------------------------------------------------------------------------------*/
+.tp-CodeEditor {
+    box-sizing: border-box;
+}
+
+.tp-CodeEditorFallback {
+    overflow: auto;
+    color: #d4d4d4;
+    background: #1e1e1e;
+    font-family: "Consolas", "Liberation Mono", "Courier New", monospace;
+    line-height: 1.45;
+    white-space: pre;
+}
+
+textarea.tp-CodeEditorFallback {
+    resize: vertical;
+}
+
+/*---------------------------------------------------------------------------------------
   group box
 ---------------------------------------------------------------------------------------*/
 fieldset.tp-GroupBox {

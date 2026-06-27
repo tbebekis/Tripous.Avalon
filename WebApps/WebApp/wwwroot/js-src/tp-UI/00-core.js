@@ -126,6 +126,8 @@ tp.Classes = {
     RequiredMark: "tp-RequiredMark",
     DragSource: "tp-DragSource",
     DropTarget: "tp-DropTarget",
+    CodeEditor: "tp-CodeEditor",
+    CodeEditorFallback: "tp-CodeEditorFallback",
 
     // ● ui services
     ScreenOverlay: "tp-ScreenOverlay",
