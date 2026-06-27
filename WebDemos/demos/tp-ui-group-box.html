@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.GroupBox</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.GroupBox</h1>
+        
+        <p>A group-box container, that is a fieldset element with a legend title element.</p>
+        
+        <p>The <code>Text</code> property controls the legend. When the text is blank, the legend is hidden.</p>
+        
+        <style>
+            .group-box-demo-actions {
+                display: grid;
+                grid-template-columns: max-content minmax(180px, 320px) max-content max-content;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .group-box-demo-actions label {
+                font-weight: 600;
+            }
+            .group-box-demo-actions button {
+                min-width: 120px;
+            }
+            .group-box-demo-fieldset {
+                box-sizing: border-box;
+                width: 100%;
+                min-height: 250px;
+                padding: 16px;
+                background: #ffffff;
+            }
+            .group-box-demo-content {
+                display: grid;
+                grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+                gap: 8px 12px;
+                align-items: center;
+            }
+            .group-box-demo-content span:nth-child(odd) {
+                font-weight: 600;
+            }
+            .group-box-demo-log {
+                grid-column: 1 / -1;
+                box-sizing: border-box;
+                width: 100%;
+                min-height: 90px;
+                margin: 8px 0 0 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="group-box-demo-actions">
+                <label for="GroupBoxTitle">Title</label>
+                <input id="GroupBoxTitle" type="text" value="Customer Details" />
+                <button id="ChangeTitleButton" type="button">Change Title</button>
+                <button id="ClearTitleButton" type="button">Clear Title</button>
+            </div>
+        
+            <fieldset id="GroupBox" class="group-box-demo-fieldset">
+                <legend>Initial Title</legend>
+                <div class="group-box-demo-content">
+                    <span>Name</span>
+                    <span>Northwind Customer</span>
+                    <span>City</span>
+                    <span>Athens</span>
+                    <span>Status</span>
+                    <span>Active</span>
+                    <pre id="GroupBoxOutput" class="group-box-demo-log"></pre>
+                </div>
+            </fieldset>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var GroupBox = new tp.GroupBox("#GroupBox");
+        
+                var WriteLog = function () {
+                    var Lines = [
+                        "text = " + (GroupBox.Text || "(blank)"),
+                        "legend visible = " + !tp.IsBlank(GroupBox.Text),
+                        "class = " + GroupBox.CssClasses
+                    ];
+        
+                    tp.Text("#GroupBoxOutput", Lines.join("\n"));
+                };
+        
+                tp.On("#ChangeTitleButton", "click", function () {
+                    GroupBox.Text = tp.Value("#GroupBoxTitle");
+                    WriteLog();
+                });
+        
+                tp.On("#ClearTitleButton", "click", function () {
+                    tp.Value("#GroupBoxTitle", "");
+                    GroupBox.Text = "";
+                    WriteLog();
+                });
+        
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

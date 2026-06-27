@@ -296,7 +296,7 @@ tp.CtrlRow = class extends tp.Component {
             Setup.Control.Id = tp.SafeId(tp.Prefix + TypeName + "-");
         this.Handle.innerHTML =
             "<div class=\"" + tp.Classes.CText + "\">" +
-            "<label for=\"" + Setup.Control.Id + "\"></label>" +
+            "<label></label>" +
             "<span class=\"" + tp.Classes.RequiredMark + "\" style=\"display: none;\">*</span>" +
             "</div>" +
             "<div class=\"" + tp.Classes.Ctrl + "\"></div>";
@@ -307,6 +307,23 @@ tp.CtrlRow = class extends tp.Component {
         Params.elText = this.elText;
         Params.elRequiredMark = this.elRequiredMark;
         this.Control = new Type(Params);
+        this.UpdateLabelForAttribute();
+    }
+    /**
+     * Updates the label for attribute when the child control handle is a native labelable element.
+     * @returns {void}
+     */
+    UpdateLabelForAttribute() {
+        var TagName;
+        var LabelableTags = ["button", "input", "meter", "output", "progress", "select", "textarea"];
+        if (!(this.elText instanceof HTMLLabelElement))
+            return;
+        this.elText.removeAttribute("for");
+        if (!this.Control || !(this.Control.Handle instanceof HTMLElement) || tp.IsBlank(this.Control.Handle.id))
+            return;
+        TagName = this.Control.Handle.tagName.toLowerCase();
+        if (LabelableTags.indexOf(TagName) !== -1)
+            this.elText.htmlFor = this.Control.Handle.id;
     }
     /**
      * Resolves the row child elements.

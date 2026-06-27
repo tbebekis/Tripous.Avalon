@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.HtmlNumberBoxEx</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.HtmlNumberBoxEx</h1>
+        
+        <p>
+            A native HTML <code>input[type=number]</code> wrapped with plus and minus step buttons.
+            It exposes <code>Min</code>, <code>Max</code>, <code>Step</code>, <code>Value</code>, and <code>Placeholder</code>.
+        </p>
+        
+        <p>
+            The first control uses <code>tp-MinusFirst</code>, placing the minus button before the input.
+        </p>
+        
+        <style>
+            .html-number-box-ex-demo-list {
+                display: grid;
+                gap: 12px;
+                max-width: 460px;
+                margin-bottom: 12px;
+            }
+            .html-number-box-ex-demo-row {
+                display: grid;
+                grid-template-columns: 130px minmax(180px, 260px);
+                gap: 8px;
+                align-items: center;
+            }
+            .html-number-box-ex-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin: 12px 0;
+            }
+            .html-number-box-ex-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 700px);
+                min-height: 140px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="html-number-box-ex-demo-list">
+                <div class="html-number-box-ex-demo-row">
+                    <label>Minus first</label>
+                    <div id="HtmlNumberBoxEx" class="tp-MinusFirst" data-setup="{Width: 220, Min: 0, Max: 200, Value: 100, Step: '0.500', Placeholder: 'native number'}"></div>
+                </div>
+                <div class="html-number-box-ex-demo-row">
+                    <label>Minus last</label>
+                    <div id="HtmlNumberBoxEx2" data-setup="{Width: 220, Min: -20, Max: 20, Value: 0, Step: '1'}"></div>
+                </div>
+            </div>
+        
+            <div class="html-number-box-ex-demo-actions">
+                <button id="HtmlNumberBoxExSetValueButton" type="button">Set Value</button>
+                <button id="HtmlNumberBoxExStepUpButton" type="button">Step Up</button>
+                <button id="HtmlNumberBoxExStepDownButton" type="button">Step Down</button>
+                <button id="HtmlNumberBoxExStepButton" type="button">Step 2.5</button>
+                <button id="HtmlNumberBoxExLogButton" type="button">Log</button>
+            </div>
+        
+            <pre id="HtmlNumberBoxExOutput" class="html-number-box-ex-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var HtmlNumberBoxEx = new tp.HtmlNumberBoxEx({
+                    ElementOrSelector: "#HtmlNumberBoxEx"
+                });
+                var HtmlNumberBoxEx2 = new tp.HtmlNumberBoxEx({
+                    ElementOrSelector: "#HtmlNumberBoxEx2"
+                });
+                var NextValue = 25.5;
+        
+                var WriteLog = function (Message) {
+                    tp.Text("#HtmlNumberBoxExOutput", [
+                        Message || "Ready.",
+                        "first value = " + HtmlNumberBoxEx.Value,
+                        "first min = " + HtmlNumberBoxEx.Min,
+                        "first max = " + HtmlNumberBoxEx.Max,
+                        "first step = " + HtmlNumberBoxEx.Step,
+                        "second value = " + HtmlNumberBoxEx2.Value,
+                        "second min = " + HtmlNumberBoxEx2.Min,
+                        "second max = " + HtmlNumberBoxEx2.Max,
+                        "second step = " + HtmlNumberBoxEx2.Step
+                    ].join("\n"));
+                };
+        
+                HtmlNumberBoxEx.On("ValueChanged", function () {
+                    WriteLog("First value changed.");
+                });
+        
+                HtmlNumberBoxEx2.On("ValueChanged", function () {
+                    WriteLog("Second value changed.");
+                });
+        
+                tp.On("#HtmlNumberBoxExSetValueButton", "click", function () {
+                    HtmlNumberBoxEx.Value = NextValue;
+                    NextValue += 10.5;
+                    WriteLog("Value set.");
+                });
+        
+                tp.On("#HtmlNumberBoxExStepUpButton", "click", function () {
+                    HtmlNumberBoxEx.StepUp();
+                    WriteLog("Stepped up.");
+                });
+        
+                tp.On("#HtmlNumberBoxExStepDownButton", "click", function () {
+                    HtmlNumberBoxEx.StepDown();
+                    WriteLog("Stepped down.");
+                });
+        
+                tp.On("#HtmlNumberBoxExStepButton", "click", function () {
+                    HtmlNumberBoxEx.Step = "2.5";
+                    HtmlNumberBoxEx2.Step = "2.5";
+                    WriteLog("Step changed.");
+                });
+        
+                tp.On("#HtmlNumberBoxExLogButton", "click", function () {
+                    WriteLog("Current values.");
+                });
+        
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

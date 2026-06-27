@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.CheckComboBox</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.CheckComboBox</h1>
+        
+        <p>
+            A virtual-scroller based multi-select combo box with check boxes.
+            It exposes <code>Items</code>, <code>SelectedIndexes</code>, <code>SelectedValues</code>,
+            <code>ListDisplayField</code>, <code>ListValueField</code>, and <code>ListOnly</code>.
+        </p>
+        
+        <style>
+            .check-combo-box-demo-layout {
+                display: grid;
+                grid-template-columns: minmax(260px, 360px) minmax(260px, 1fr);
+                gap: 14px;
+                align-items: start;
+                width: min(100%, 820px);
+            }
+            .check-combo-box-demo-control {
+                width: 330px;
+                min-height: 34px;
+            }
+            .check-combo-box-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin: 12px 0;
+            }
+            .check-combo-box-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 420px);
+                min-height: 160px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .check-combo-box-demo-layout {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+                .check-combo-box-demo-control {
+                    width: min(100%, 330px);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="check-combo-box-demo-layout">
+                <div>
+                    <div id="CheckComboBox" class="check-combo-box-demo-control" data-setup="{ListValueField: 'Id', ListDisplayField: 'Name', Placeholder: 'Type at least 3 letters', SelectedValues: [100, 1], List: [{Id: 100, Name: 'All'}, {Id: 0, Name: 'No stops'}, {Id: 1, Name: '1 stop'}, {Id: 2, Name: '2 stops'}]}"></div>
+        
+                    <div class="check-combo-box-demo-actions">
+                        <button id="CheckComboBoxSetItemsButton" type="button">Set 100 Items</button>
+                        <button id="CheckComboBoxCheckFirstButton" type="button">Check First</button>
+                        <button id="CheckComboBoxClearButton" type="button">Clear Selection</button>
+                        <button id="CheckComboBoxListOnlyButton" type="button">Toggle ListOnly</button>
+                        <button id="CheckComboBoxLogButton" type="button">Log</button>
+                    </div>
+                </div>
+        
+                <pre id="CheckComboBoxOutput" class="check-combo-box-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var CheckComboBox = new tp.CheckComboBox({
+                    ElementOrSelector: "#CheckComboBox"
+                });
+        
+                var CreateList = function (Count) {
+                    var Result = [];
+                    var Index;
+                    for (Index = 0; Index < Count; Index++) {
+                        Result.push({
+                            Id: Index + 1,
+                            Name: "Name " + (Index + 1)
+                        });
+                    }
+                    return Result;
+                };
+        
+                var WriteLog = function (Message) {
+                    tp.Text("#CheckComboBoxOutput", [
+                        Message || "Ready.",
+                        "count = " + CheckComboBox.Count,
+                        "list only = " + CheckComboBox.ListOnly,
+                        "selected indexes = " + CheckComboBox.SelectedIndexes.join(", "),
+                        "selected values = " + CheckComboBox.SelectedValues.join(", ")
+                    ].join("\n"));
+                };
+        
+                CheckComboBox.On("SelectionChanged", function () {
+                    WriteLog("Selection changed.");
+                });
+        
+                tp.On("#CheckComboBoxSetItemsButton", "click", function () {
+                    CheckComboBox.Items = CreateList(100);
+                    CheckComboBox.SelectedValues = [1, 2, 3];
+                    WriteLog("List replaced.");
+                });
+        
+                tp.On("#CheckComboBoxCheckFirstButton", "click", function () {
+                    CheckComboBox.CheckIndex(0, true);
+                    WriteLog("First item checked.");
+                });
+        
+                tp.On("#CheckComboBoxClearButton", "click", function () {
+                    CheckComboBox.SelectedIndexes = [];
+                    WriteLog("Selection cleared.");
+                });
+        
+                tp.On("#CheckComboBoxListOnlyButton", "click", function () {
+                    CheckComboBox.ListOnly = !CheckComboBox.ListOnly;
+                    WriteLog("ListOnly toggled.");
+                });
+        
+                tp.On("#CheckComboBoxLogButton", "click", function () {
+                    WriteLog("Current values.");
+                });
+        
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

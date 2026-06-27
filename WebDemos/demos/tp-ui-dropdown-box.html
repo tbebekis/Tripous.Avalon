@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.DropDownBox</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.DropDownBox</h1>
+        
+        <p>The DropDownBox always gets fixed positioning.</p>
+        
+        <p>
+            The DropDownBox is a resizable dropdown box that can serve any block, inline-block, or flex element, the Associate.
+            It is controlled by an owner object and notifies that owner as it opens and closes.
+        </p>
+        
+        <p>
+            It recalculates its location so it stays inside the viewport, and closes when the user clicks outside it or scrolls the page.
+        </p>
+        
+        <style>
+            .dropdown-box-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .dropdown-box-demo-panel {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                min-width: 220px;
+            }
+            .dropdown-box-demo-panel button {
+                text-align: left;
+            }
+            .dropdown-box-demo-log {
+                box-sizing: border-box;
+                width: 100%;
+                max-width: 760px;
+                min-height: 120px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="dropdown-box-demo-actions">
+                <button id="DropDownButton" type="button" style="width: 220px">Open DropDownBox</button>
+                <button id="MoveButton" type="button">Move Button</button>
+            </div>
+        
+            <div id="DropDownBox">
+                <div class="dropdown-box-demo-panel">
+                    <button type="button">Customers</button>
+                    <button type="button">Orders</button>
+                    <button type="button">Invoices</button>
+                    <button type="button">Reports</button>
+                </div>
+            </div>
+        
+            <pre id="DropDownBoxOutput" class="dropdown-box-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Button = tp("#DropDownButton");
+                var MoveButton = tp("#MoveButton");
+                var Box;
+                var Moved = false;
+        
+                var StageName = function (Stage) {
+                    switch (Stage) {
+                        case tp.DropDownBoxStage.Opening: return "Opening";
+                        case tp.DropDownBoxStage.Opened: return "Opened";
+                        case tp.DropDownBoxStage.Closing: return "Closing";
+                        case tp.DropDownBoxStage.Closed: return "Closed";
+                        default: return "";
+                    }
+                };
+        
+                var WriteLog = function (Message) {
+                    tp.Text("#DropDownBoxOutput", [
+                        Message || "Ready.",
+                        "is open = " + Box.IsOpen,
+                        "width = " + Math.round(Box.Width),
+                        "height = " + Math.round(Box.Height),
+                        "x = " + Math.round(Box.X),
+                        "y = " + Math.round(Box.Y)
+                    ].join("\n"));
+                };
+        
+                var Owner = {
+                    OnDropDownBoxEvent: function (Sender, Stage) {
+                        WriteLog(StageName(Stage));
+                    }
+                };
+        
+                Box = new tp.DropDownBox("#DropDownBox", {
+                    Associate: Button,
+                    Owner: Owner,
+                    Width: Button.getBoundingClientRect().width,
+                    Height: 190
+                });
+        
+                tp.On(Button, "click", function () {
+                    Box.Toggle();
+                    WriteLog("Toggle.");
+                });
+        
+                tp.On(MoveButton, "click", function () {
+                    Moved = !Moved;
+                    Button.style.marginLeft = Moved ? "260px" : "0";
+                    if (Box.IsOpen)
+                        Box.UpdateTop();
+                    WriteLog("Associate moved.");
+                });
+        
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

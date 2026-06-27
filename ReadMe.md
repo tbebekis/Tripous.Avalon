@@ -7,6 +7,7 @@ It combines SQL-first data access, database metadata, application descriptors, r
 Documentation:
 
 - https://tbebekis.github.io/Tripous.Avalon/
+- https://tbebekis.github.io/Tripous.Avalon/web-demos/
 
 > First public release of the sixth-generation Tripous framework family, built on .NET and Avalonia UI.
 
@@ -123,6 +124,15 @@ Do not manually edit generated output under:
 
 - `DocFx/_site`
 - `DocFx/api`
+
+## Tripous.Web Demos
+
+The repository includes a standalone static demo site for the Tripous.Web JavaScript runtime and controls.
+
+- Source: `WebDemos`
+- Published URL: https://tbebekis.github.io/Tripous.Avalon/web-demos/
+
+The WebDemos site is plain HTML, CSS and JavaScript. It is independent from the ASP.NET Core demo application and can be published as part of the DocFX GitHub Pages site.
 
 ## Tools
 

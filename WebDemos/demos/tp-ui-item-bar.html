@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.ItemBar</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.ItemBar</h1>
+        
+        <p>A bar that can display selectable items. It can be used as a base class for tool-bars, tab-bars, and similar item strips.</p>
+        
+        <p>
+            The control uses a <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver" target="_blank">ResizeObserver</a>,
+            through <code>tp.ResizeDetector</code>, to detect whether items fit in the available width.
+        </p>
+        
+        <p>
+            It provides three rendering modes: Normal, Toggle, and NextPrev. The mode changes automatically from Normal
+            to the selected <code>ResponsiveMode</code> when the items exceed the available width.
+        </p>
+        
+        <style>
+            .item-bar-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .item-bar-demo-actions label {
+                display: inline-flex;
+                gap: 6px;
+                align-items: center;
+                font-weight: 600;
+            }
+            .item-bar-demo-actions button {
+                min-width: 110px;
+            }
+            .item-bar-demo-host {
+                box-sizing: border-box;
+                width: 100%;
+                max-width: 760px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .item-bar-demo-host.is-narrow {
+                max-width: 390px;
+            }
+            #ItemBar > .tp-ItemList > *,
+            #ItemBar > .tp-ToggleItemList > * {
+                padding: 0 12px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+                white-space: nowrap;
+            }
+            #ItemBar > .tp-ItemList > *.tp-Selected,
+            #ItemBar > .tp-ToggleItemList > *.tp-Selected {
+                background: #dbeafe;
+            }
+            .item-bar-demo-log {
+                box-sizing: border-box;
+                width: 100%;
+                max-width: 760px;
+                min-height: 120px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="item-bar-demo-actions">
+                <label for="ResponsiveModeSelect">Responsive Mode</label>
+                <select id="ResponsiveModeSelect">
+                    <option value="2">Toggle</option>
+                    <option value="4" selected>NextPrev</option>
+                </select>
+                <button id="ToggleWidthButton" type="button">Toggle Width</button>
+                <button id="AddItemButton" type="button">Add Item</button>
+                <button id="RemoveItemButton" type="button">Remove Selected</button>
+            </div>
+        
+            <div id="ItemBarHost" class="item-bar-demo-host">
+                <div id="ItemBar">
+                    <div>Customers</div>
+                    <div>Orders</div>
+                    <div>Invoices</div>
+                    <div>Payments</div>
+                    <div>Products</div>
+                    <div>Reports</div>
+                </div>
+            </div>
+        
+            <pre id="ItemBarOutput" class="item-bar-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var ItemBar = new tp.ItemBar("#ItemBar");
+                var Counter = ItemBar.GetItemElementList().length;
+        
+                var RenderModeName = function (Mode) {
+                    switch (Mode) {
+                        case tp.ItemBarRenderMode.Normal: return "Normal";
+                        case tp.ItemBarRenderMode.Toggle: return "Toggle";
+                        case tp.ItemBarRenderMode.NextPrev: return "NextPrev";
+                        default: return "None";
+                    }
+                };
+        
+                var WriteLog = function (Message) {
+                    var Selected = ItemBar.SelectedIndex >= 0 ? ItemBar.GetItemTextAt(ItemBar.SelectedIndex) : "(none)";
+        
+                    tp.Text("#ItemBarOutput", [
+                        Message || "Ready.",
+                        "render mode = " + RenderModeName(ItemBar.RenderMode),
+                        "responsive mode = " + RenderModeName(ItemBar.ResponsiveMode),
+                        "selected index = " + ItemBar.SelectedIndex,
+                        "selected item = " + Selected,
+                        "item count = " + ItemBar.GetItemElementList().length
+                    ].join("\n"));
+                };
+        
+                tp.On("#ResponsiveModeSelect", "change", function () {
+                    ItemBar.ResponsiveMode = Number(tp.Value("#ResponsiveModeSelect"));
+                    ItemBar.OnElementSizeChanged();
+                    WriteLog("Responsive mode changed.");
+                });
+        
+                tp.On("#ToggleWidthButton", "click", function () {
+                    tp("#ItemBarHost").classList.toggle("is-narrow");
+                    setTimeout(function () {
+                        ItemBar.OnElementSizeChanged();
+                        WriteLog("Host width changed.");
+                    }, 0);
+                });
+        
+                tp.On("#AddItemButton", "click", function () {
+                    var Element = document.createElement("div");
+        
+                    Counter++;
+                    Element.textContent = "Item " + Counter;
+                    ItemBar.AddItem(Element);
+                    ItemBar.SelectedItem = Element;
+                    WriteLog("Item added.");
+                });
+        
+                tp.On("#RemoveItemButton", "click", function () {
+                    var Index = ItemBar.SelectedIndex;
+        
+                    if (Index >= 0)
+                        ItemBar.RemoveItemAt(Index);
+        
+                    WriteLog("Selected item removed.");
+                });
+        
+                ItemBar.On("RenderModeChanged", function () {
+                    WriteLog("Render mode changed.");
+                });
+        
+                ItemBar.On("SelectedIndexChanged", function () {
+                    WriteLog("Selection changed.");
+                });
+        
+                ItemBar.On("ItemClicked", function (Args) {
+                    WriteLog("Item clicked with button " + Args.MouseButton + ".");
+                });
+        
+                ItemBar.SelectedIndex = 0;
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

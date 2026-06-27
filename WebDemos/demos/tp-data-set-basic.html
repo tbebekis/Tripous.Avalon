@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.DataSet</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.DataSet</h1>
+        
+        <p>
+            Creates a <code>tp.DataSet</code> with two tables, <code>Customers</code> and <code>Orders</code>,
+            and uses <code>Orders.MasterTable</code> to resolve the master table through the owning data set.
+        </p>
+        
+        <style>
+            .data-set-demo-layout {
+                display: grid;
+                gap: 14px;
+                max-width: 980px;
+            }
+            .data-set-demo-summary {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 8px;
+            }
+            .data-set-demo-summary div {
+                padding: 8px 10px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+            .data-set-demo-table-wrap {
+                overflow: auto;
+                border: 1px solid #d0d7de;
+            }
+            .data-set-demo-table {
+                width: 100%;
+                border-collapse: collapse;
+                background: #ffffff;
+            }
+            .data-set-demo-table th,
+            .data-set-demo-table td {
+                padding: 7px 9px;
+                border-bottom: 1px solid #d0d7de;
+                text-align: left;
+                white-space: nowrap;
+            }
+            .data-set-demo-table th {
+                background: #f0f3f6;
+                font-weight: 600;
+            }
+            .data-set-demo-table td[data-align="right"] {
+                text-align: right;
+            }
+            .data-set-demo-table td[data-align="center"] {
+                text-align: center;
+            }
+            .data-set-demo-title {
+                margin: 0 0 6px 0;
+                font-size: 16px;
+                font-weight: 600;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="data-set-demo-layout">
+                <div id="DataSetSummary" class="data-set-demo-summary"></div>
+                <section>
+                    <h2 class="data-set-demo-title">Customers</h2>
+                    <div id="CustomersHost" class="data-set-demo-table-wrap"></div>
+                </section>
+                <section>
+                    <h2 class="data-set-demo-title">Orders</h2>
+                    <div id="OrdersHost" class="data-set-demo-table-wrap"></div>
+                </section>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var FormatValue = function (Column, Value) {
+                    if (tp.IsNil(Value))
+                        return "";
+                    if (Column.IsNumeric)
+                        return Number(Value).toLocaleString(undefined, { minimumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 0, maximumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 2 });
+                    return String(Value);
+                };
+        
+                var CellAlign = function (Column) {
+                    if (Column.IsNumeric || Column.IsDateTime)
+                        return "right";
+                    return "left";
+                };
+        
+                var CreateDataSet = function () {
+                    var Result = new tp.DataSet("Sales");
+                    var Customers = Result.AddTable("Customers");
+                    var Orders = Result.AddTable("Orders");
+        
+                    Customers.KeyField = "Id";
+                    Customers.AddColumn({ Name: "Id", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required | tp.FieldFlags.Hidden });
+                    Customers.AddColumn({ Name: "Code", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+                    Customers.AddColumn({ Name: "Name", Title: "Customer", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+                    Customers.AddRow(["C-100", "CUS-100", "Northwind"]);
+                    Customers.AddRow(["C-200", "CUS-200", "Contoso"]);
+        
+                    Orders.KeyField = "Id";
+                    Orders.MasterTableName = "Customers";
+                    Orders.MasterField = "Id";
+                    Orders.DetailField = "CustomerId";
+                    Orders.AddColumn({ Name: "Id", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required | tp.FieldFlags.Hidden });
+                    Orders.AddColumn({ Name: "CustomerId", Title: "Customer Id", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+                    Orders.AddColumn({ Name: "OrderNo", Title: "Order No", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+                    Orders.AddColumn({ Name: "Amount", DataType: tp.DataType.Decimal, Decimals: 2 });
+                    Orders.AddRow(["O-100", "C-100", "SO-100", 1280.5]);
+                    Orders.AddRow(["O-200", "C-100", "SO-200", 245]);
+                    Orders.AddRow(["O-300", "C-200", "SO-300", 630.75]);
+        
+                    Result.AcceptChanges();
+                    return Result;
+                };
+        
+                var RenderTable = function (Table, HostSelector) {
+                    var VisibleColumns = Table.Columns.filter(function (Column) { return Column.IsVisible; });
+                    var Html = [];
+                    Html.push("<table class=\"data-set-demo-table\"><thead><tr>");
+                    VisibleColumns.forEach(function (Column) {
+                        Html.push("<th>" + Column.DisplayTitle + "</th>");
+                    });
+                    Html.push("</tr></thead><tbody>");
+                    Table.Rows.forEach(function (Row) {
+                        Html.push("<tr>");
+                        VisibleColumns.forEach(function (Column) {
+                            Html.push("<td data-align=\"" + CellAlign(Column) + "\">" + FormatValue(Column, Row.Get(Column)) + "</td>");
+                        });
+                        Html.push("</tr>");
+                    });
+                    Html.push("</tbody></table>");
+                    tp.Html(HostSelector, Html.join(""));
+                };
+        
+                var DataSet = CreateDataSet();
+                var Customers = DataSet.FindTable("Customers");
+                var Orders = DataSet.FindTable("Orders");
+        
+                tp.Html("#DataSetSummary", ""
+                    + "<div><strong>DataSet</strong><br>" + DataSet.Name + "</div>"
+                    + "<div><strong>Tables</strong><br>" + DataSet.TableCount + "</div>"
+                    + "<div><strong>Orders master</strong><br>" + Orders.MasterTable.Name + "</div>"
+                    + "<div><strong>Link</strong><br>" + Orders.MasterField + " -> " + Orders.DetailField + "</div>");
+        
+                RenderTable(Customers, "#CustomersHost");
+                RenderTable(Orders, "#OrdersHost");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

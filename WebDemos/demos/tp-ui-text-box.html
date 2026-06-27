@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.TextBox</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.TextBox</h1>
+        
+        <p>
+            A control class around the HTML <code>input[type=text]</code> element.
+            It provides properties such as <code>MaxLength</code>, <code>Placeholder</code>, <code>RegexPattern</code>,
+            <code>SelectionStart</code>, <code>SelectionEnd</code>, and <code>DOMAutocomplete</code>.
+        </p>
+        
+        <p>
+            The text box below uses a local <code>AutocompleteList</code> of values:
+            <code>javascript</code>, <code>typescript</code>, <code>script</code>, <code>scriptable</code>,
+            <code>html</code>, and <code>css rules</code>.
+        </p>
+        
+        <p>
+            Type text to test value changes and autocomplete.
+            <code>Select</code> selects the whole current text.
+            <code>Select 0..4</code> selects the first four characters, using the text box selection API.
+            <code>Log</code> writes the current control property values below.
+        </p>
+        
+        <style>
+            .text-box-demo-row {
+                display: grid;
+                grid-template-columns: 120px minmax(200px, 320px);
+                gap: 8px;
+                align-items: center;
+                max-width: 460px;
+                margin-bottom: 10px;
+            }
+            .text-box-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin: 12px 0;
+            }
+            .text-box-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 680px);
+                min-height: 130px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="text-box-demo-row">
+                <label for="TextBox">TextBox</label>
+                <input id="TextBox" type="text" value="" />
+            </div>
+        
+            <div class="text-box-demo-actions">
+                <button id="TextBoxSelectButton" type="button">Select</button>
+                <button id="TextBoxRangeButton" type="button">Select 0..4</button>
+                <button id="TextBoxLogButton" type="button">Log</button>
+            </div>
+        
+            <pre id="TextBoxOutput" class="text-box-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var TextBox = new tp.TextBox({
+                    ElementOrSelector: "#TextBox",
+                    MaxLength: 40,
+                    Placeholder: "autocomplete text",
+                    RegexPattern: ".{0,40}",
+                    AutocompleteList: ["javascript", "typescript", "script", "scriptable", "html", "css rules"]
+                });
+        
+                var WriteLog = function (Message) {
+                    tp.Text("#TextBoxOutput", [
+                        Message || "Ready.",
+                        "text = " + TextBox.Text,
+                        "max length = " + TextBox.MaxLength,
+                        "placeholder = " + TextBox.Placeholder,
+                        "regex pattern = " + TextBox.RegexPattern,
+                        "DOM autocomplete = " + TextBox.DOMAutocomplete,
+                        "selection start = " + TextBox.SelectionStart,
+                        "selection end = " + TextBox.SelectionEnd
+                    ].join("\n"));
+                };
+        
+                TextBox.On("ValueChanged", function () {
+                    WriteLog("Value changed.");
+                });
+        
+                tp.On("#TextBoxSelectButton", "click", function () {
+                    TextBox.Select();
+                    WriteLog("Text selected.");
+                });
+        
+                tp.On("#TextBoxRangeButton", "click", function () {
+                    TextBox.SetSelectionRange(0, 4);
+                    WriteLog("Selection range set.");
+                });
+        
+                tp.On("#TextBoxLogButton", "click", function () {
+                    WriteLog("Current values.");
+                });
+        
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

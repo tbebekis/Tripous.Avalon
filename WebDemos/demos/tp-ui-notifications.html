@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Notifications</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Notifications</h1>
+        
+        <p>
+            Notifications are small boxes displayed in the right bottom of the viewport, by default, for a certain period of time.
+            They are also movable and resizable.
+        </p>
+        
+        <p>
+            The background color, the size and the display duration of notifications is controlled by global settings found in the
+            <code>tp.NotificationBoxSetup</code> variable.
+        </p>
+        
+        <style>
+            .notifications-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .notifications-demo-actions button {
+                min-width: 120px;
+            }
+            .notifications-demo-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .notifications-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 760px);
+                min-height: 110px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="notifications-demo-actions">
+                <button id="InfoButton" type="button">Info</button>
+                <button id="WarningButton" type="button">Warning</button>
+                <button id="SuccessButton" type="button">Success</button>
+                <button id="ErrorButton" type="button">Error</button>
+            </div>
+        
+            <div class="notifications-demo-options">
+                <label>
+                    <input id="ToTopCheckBox" type="checkbox" />
+                    ToTop
+                </label>
+                <label>
+                    Duration
+                    <input id="DurationInput" type="number" min="2" max="30" value="10" />
+                </label>
+                <label>
+                    Max visible
+                    <input id="MaxVisibleInput" type="number" min="1" max="10" value="5" />
+                </label>
+            </div>
+        
+            <pre id="NotificationsOutput" class="notifications-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Counter = 0;
+        
+                var WriteLog = function (Message) {
+                    tp.Text("#NotificationsOutput", [
+                        Message || "Ready.",
+                        "duration seconds = " + tp.NotificationBoxSetup.DurationSecs,
+                        "max visible = " + tp.NotificationBoxSetup.MaxVisible,
+                        "to top = " + tp.NotificationBoxSetup.ToTop,
+                        "width = " + tp.NotificationBoxSetup.Width,
+                        "height = " + tp.NotificationBoxSetup.Height
+                    ].join("\n"));
+                };
+        
+                var ApplyOptions = function () {
+                    tp.NotificationBoxSetup.ToTop = tp("#ToTopCheckBox").checked === true;
+                    tp.NotificationBoxSetup.DurationSecs = Math.max(2, tp.ToInt(tp("#DurationInput").value));
+                    tp.NotificationBoxSetup.MaxVisible = Math.max(1, tp.ToInt(tp("#MaxVisibleInput").value));
+                };
+        
+                var Show = function (Type, Text) {
+                    Counter++;
+                    ApplyOptions();
+                    tp.Notify(Text + " #" + Counter, Type);
+                    WriteLog("Notification displayed.");
+                };
+        
+                tp.On("#InfoButton", "click", function () {
+                    Show(tp.NotificationType.Information, "This is an information notification.");
+                });
+        
+                tp.On("#WarningButton", "click", function () {
+                    Show(tp.NotificationType.Warning, "This is a warning notification.");
+                });
+        
+                tp.On("#SuccessButton", "click", function () {
+                    Show(tp.NotificationType.Success, "This is a success notification.");
+                });
+        
+                tp.On("#ErrorButton", "click", function () {
+                    Show(tp.NotificationType.Error, "This is an error notification.");
+                });
+        
+                tp.On("#ToTopCheckBox", "change", function () {
+                    ApplyOptions();
+                    WriteLog("Options changed.");
+                });
+        
+                tp.On("#DurationInput", "change", function () {
+                    ApplyOptions();
+                    WriteLog("Options changed.");
+                });
+        
+                tp.On("#MaxVisibleInput", "change", function () {
+                    ApplyOptions();
+                    WriteLog("Options changed.");
+                });
+        
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

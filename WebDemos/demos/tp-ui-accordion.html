@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Accordion</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Accordion</h1>
+        
+        <p>Accordion.</p>
+        
+        <p>Each child is a div containing two divs, a title and a content div.</p>
+        
+        <p>
+            Click an item title to expand or collapse it. By default only one item is expanded at a time.
+            Turn on <code>AllowMultiExpand</code> to keep multiple items open.
+        </p>
+        
+        <style>
+            .accordion-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .accordion-demo-actions button {
+                min-width: 120px;
+            }
+            .accordion-demo-actions label {
+                display: inline-flex;
+                gap: 6px;
+                align-items: center;
+                font-weight: 600;
+            }
+            .accordion-demo-control {
+                box-sizing: border-box;
+                width: 100%;
+                max-width: 760px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .accordion-demo-control > * > :nth-child(1) {
+                border-bottom: 1px solid #d0d7de;
+                font-weight: 600;
+            }
+            .accordion-demo-control p {
+                margin: 0 0 8px 0;
+            }
+            .accordion-demo-log {
+                box-sizing: border-box;
+                width: 100%;
+                max-width: 760px;
+                min-height: 96px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="accordion-demo-actions">
+                <button id="AddAccordionItemButton" type="button">Add Item</button>
+                <button id="ExpandAllButton" type="button">Expand All</button>
+                <button id="CollapseAllButton" type="button">Collapse All</button>
+                <label>
+                    <input id="AllowMultiExpandCheckBox" type="checkbox" />
+                    Allow Multi Expand
+                </label>
+            </div>
+        
+            <div id="Accordion" class="tp-Accordion accordion-demo-control">
+                <div>
+                    <div><span style="font-weight: bold;">Item 1</span></div>
+                    <div>
+                        <p>Hi there</p>
+                        <p>Content of the first item</p>
+                    </div>
+                </div>
+                <div>
+                    <div>Item 2</div>
+                    <div>
+                        <p>This content belongs to</p>
+                        <p>the second accordion item</p>
+                    </div>
+                </div>
+            </div>
+        
+            <pre id="AccordionOutput" class="accordion-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Accordion = new tp.Accordion("#Accordion");
+                var Counter = Accordion.Count;
+        
+                var WriteLog = function () {
+                    var Expanded = [];
+                    var Index;
+        
+                    for (Index = 0; Index < Accordion.Count; Index++) {
+                        if (Accordion.IsExpanded(Index))
+                            Expanded.push(Accordion.GetTitleAt(Index).replace(/<[^>]*>/g, ""));
+                    }
+        
+                    tp.Text("#AccordionOutput", [
+                        "items = " + Accordion.Count,
+                        "allow multi expand = " + Accordion.AllowMultiExpand,
+                        "expanded = " + (Expanded.length > 0 ? Expanded.join(", ") : "(none)")
+                    ].join("\n"));
+                };
+        
+                tp.On("#AddAccordionItemButton", "click", function () {
+                    var ContentElement;
+        
+                    Counter++;
+                    Accordion.AddItem("Item " + Counter);
+                    ContentElement = Accordion.ContentElementAt(Accordion.Count - 1);
+        
+                    if (ContentElement)
+                        ContentElement.innerHTML = "<p>This content belongs to item " + Counter + ".</p><p>It was added dynamically.</p>";
+        
+                    WriteLog();
+                });
+        
+                tp.On("#ExpandAllButton", "click", function () {
+                    Accordion.AllowMultiExpand = true;
+                    tp.Value("#AllowMultiExpandCheckBox", true);
+                    Accordion.Expand(true);
+                    WriteLog();
+                });
+        
+                tp.On("#CollapseAllButton", "click", function () {
+                    Accordion.Expand(false);
+                    WriteLog();
+                });
+        
+                tp.On("#AllowMultiExpandCheckBox", "change", function () {
+                    Accordion.AllowMultiExpand = tp.Value("#AllowMultiExpandCheckBox") === true;
+        
+                    if (!Accordion.AllowMultiExpand)
+                        Accordion.Expand(false);
+        
+                    WriteLog();
+                });
+        
+                tp.On("#Accordion", "click", function () {
+                    WriteLog();
+                });
+        
+                Accordion.Expand(true, 0);
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

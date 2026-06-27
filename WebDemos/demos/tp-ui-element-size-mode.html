@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Element Size Mode</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Element Size Mode</h1>
+        
+        <p>
+            When a <code>tp.Component</code> instance is an <strong>element resize listener</strong>,
+            by setting its <code>IsElementResizeListener</code> property to <code>true</code>,
+            it gets notifications when its size changes.
+        </p>
+        
+        <p>
+            When a <code>tp.Component</code> gets a notification about a size change it decides whether that size change dictates
+            a <strong>SizeMode</strong> change too, based on its <code>SizeChart</code>.
+            The <code>SizeChart</code> is a configurable number array containing <strong>5</strong> breakpoint values,
+            one for each upper bound before the final largest mode.
+        </p>
+        
+        <p>
+            There are <strong>6</strong> size modes:
+            <code>XSmall</code>, <code>Small</code>, <code>Medium</code>, <code>Large</code>, <code>XLarge</code>, and <code>XXLarge</code>.
+            The <code>XXLarge</code> mode needs no breakpoint, since it means any width greater than the <code>XLarge</code> upper bound.
+        </p>
+        
+        <p>
+            When an <strong>element resize listener</strong> <code>tp.Component</code> changes <strong>SizeMode</strong>,
+            it calls the <code>ParentSizeModeChanged()</code> method of all of its direct <code>tp.Component</code> children,
+            providing a chance to adapt to the <strong>SizeMode</strong> change.
+        </p>
+        
+        <p>
+            The <code>tp.Row</code> class is a <code>tp.Component</code> with its <code>IsElementResizeListener</code> property set to <code>true</code>.
+            That is, a <code>tp.Row</code> is an <strong>element resize listener</strong> and a <strong>SizeMode</strong> change propagator.
+        </p>
+        
+        <p>
+            The <code>tp.Col</code> class gets notified every time its <code>tp.Row</code> parent detects a <strong>SizeMode</strong> change
+            and adjusts its width according to its <code>WidthPercents</code> number array property.
+            The <code>WidthPercents</code> array contains <strong>6</strong> numbers, one for each supported <strong>SizeMode</strong>.
+        </p>
+        
+        <p>
+            In short, the parent <code>tp.Row</code> detects a <strong>SizeMode</strong>, propagates the change to its <code>tp.Col</code> children,
+            and each <code>tp.Col</code> adjusts its width.
+        </p>
+        
+        <style>
+            .size-mode-demo-container {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                box-sizing: border-box;
+                width: min(100%, 940px);
+                height: 390px;
+                min-height: 280px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            #SizeModeRow {
+                position: relative;
+                box-sizing: border-box;
+                width: 55%;
+                min-width: 220px;
+                height: 100%;
+                align-content: flex-start;
+                padding: 10px;
+                overflow: auto;
+                background: #f7d6d6;
+            }
+            #SizeModePanel2 {
+                position: relative;
+                box-sizing: border-box;
+                flex: 1 1 auto;
+                min-width: 0;
+                padding: 14px;
+                overflow: auto;
+                background: #d8ecff;
+            }
+            .size-mode-demo-col {
+                box-sizing: border-box;
+                min-height: 92px;
+                padding: 10px;
+                border: 1px solid rgba(31, 35, 40, 0.25);
+                color: #24292f;
+            }
+            .size-mode-demo-col strong {
+                display: block;
+                margin-bottom: 4px;
+            }
+            #SizeModeCol1 {
+                background: #ffd7a8;
+            }
+            #SizeModeCol2 {
+                background: #b7e4c7;
+            }
+            #SizeModeCol3 {
+                background: #cdb4db;
+            }
+            #SizeModeCol4 {
+                background: #a2d2ff;
+            }
+            .size-mode-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 940px);
+                min-height: 130px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div id="SizeModeContainer" class="size-mode-demo-container">
+                <div id="SizeModeRow">
+                    <div id="SizeModeCol1" class="size-mode-demo-col">
+                        <strong>Column 1</strong>
+                        <span></span>
+                    </div>
+                    <div id="SizeModeCol2" class="size-mode-demo-col">
+                        <strong>Column 2</strong>
+                        <span></span>
+                    </div>
+                    <div id="SizeModeCol3" class="size-mode-demo-col">
+                        <strong>Column 3</strong>
+                        <span></span>
+                    </div>
+                    <div id="SizeModeCol4" class="size-mode-demo-col">
+                        <strong>Column 4</strong>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="tp-Splitter"></div>
+                <div id="SizeModePanel2">
+                    Drag the splitter or use the buttons to resize the row.
+                    The row detects its own width mode and each column adjusts its width.
+                </div>
+            </div>
+        
+            <pre id="SizeModeOutput" class="size-mode-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Breakpoints = [320, 520, 700, 860, 1040];
+                var WidthPercents = [
+                    [100, 100, 50, 50, 25, 25],
+                    [100, 100, 50, 50, 25, 25],
+                    [100, 50, 50, 33.33, 25, 25],
+                    [100, 50, 50, 33.33, 25, 25]
+                ];
+                var RowElement = tp("#SizeModeRow");
+                var Splitter = new tp.Splitter(".tp-Splitter");
+                var Cols = [
+                    new tp.Col({ ElementOrSelector: "#SizeModeCol1", WidthPercents: WidthPercents[0] }),
+                    new tp.Col({ ElementOrSelector: "#SizeModeCol2", WidthPercents: WidthPercents[1] }),
+                    new tp.Col({ ElementOrSelector: "#SizeModeCol3", WidthPercents: WidthPercents[2] }),
+                    new tp.Col({ ElementOrSelector: "#SizeModeCol4", WidthPercents: WidthPercents[3] })
+                ];
+                var Row = new tp.Row({
+                    ElementOrSelector: RowElement,
+                    Breakpoints: Breakpoints
+                });
+                Splitter.Panel1MinSize = 220;
+                Splitter.Panel2MinSize = 160;
+        
+                var ModeName = function (Mode) {
+                    return Mode ? Mode.replace("tp-", "") : "";
+                };
+        
+                var WriteLog = function (Message) {
+                    var Rect = RowElement.getBoundingClientRect();
+                    var Lines = [
+                        Message || "Ready.",
+                        "breakpoints = [" + Breakpoints.join(", ") + "]",
+                        "row width = " + Math.round(Rect.width) + "px",
+                        "size mode = " + ModeName(Row.SizeMode),
+                        "col 1 width = " + Math.round(tp("#SizeModeCol1").getBoundingClientRect().width) + "px",
+                        "col 2 width = " + Math.round(tp("#SizeModeCol2").getBoundingClientRect().width) + "px",
+                        "col 3 width = " + Math.round(tp("#SizeModeCol3").getBoundingClientRect().width) + "px",
+                        "col 4 width = " + Math.round(tp("#SizeModeCol4").getBoundingClientRect().width) + "px"
+                    ];
+        
+                    tp.Text("#SizeModeOutput", Lines.join("\n"));
+        
+                    Cols.forEach(function (Col, Index) {
+                        tp.Text(Col.Handle.querySelector("span"), "mode: " + ModeName(Row.SizeMode)
+                            + ", configured: " + Col.WidthPercents.join(" / "));
+                    });
+                };
+        
+                Row.On("ElementSizeChanged", function () {
+                    WriteLog("Element size changed.");
+                });
+        
+                Row.On("SizeModeChanged", function () {
+                    WriteLog("Size mode changed.");
+                });
+        
+                Splitter.On(tp.Events.DragEnd, function () {
+                    Row.OnElementSizeChanged();
+                    WriteLog("Splitter drag ended.");
+                });
+        
+                Row.OnElementSizeChanged();
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +16,23 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+var WebDemosPath = Path.GetFullPath(Path.Combine(builder.Environment.ContentRootPath, "../../WebDemos"));
+if (Directory.Exists(WebDemosPath))
+{
+    var WebDemosProvider = new PhysicalFileProvider(WebDemosPath);
+    app.UseDefaultFiles(new DefaultFilesOptions()
+    {
+        FileProvider = WebDemosProvider,
+        RequestPath = "/web-demos"
+    });
+    app.UseStaticFiles(new StaticFileOptions()
+    {
+        FileProvider = WebDemosProvider,
+        RequestPath = "/web-demos"
+    });
+}
+
 app.UseRouting();
 
 app.UseAuthorization();

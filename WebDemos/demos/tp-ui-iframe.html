@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.IFrame</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.IFrame</h1>
+        
+        <p>
+            An iframe element.
+            <br />
+            The <code>Url</code> property controls what page the iframe displays.
+            <br />
+            The <code>Content</code> property is used when HTML content is passed to the iframe, instead of a Url.
+            <br />
+            The <code>UseSpinner</code> property controls whether to display a global spinner while loading a document to the iframe.
+        </p>
+        
+        <style>
+            .iframe-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .iframe-demo-actions button {
+                min-width: 120px;
+            }
+            .iframe-demo-host {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            #IFrame {
+                width: 100%;
+                height: 460px;
+                background: #ffffff;
+            }
+            .iframe-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 100px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="iframe-demo-actions">
+                <button id="LoadUrlButton" type="button">Load Local Url</button>
+                <button id="LoadJSDocButton" type="button">Load JSDoc</button>
+                <button id="LoadContentButton" type="button">Load Content</button>
+                <button id="ToggleSpinnerButton" type="button">Use Spinner</button>
+            </div>
+        
+            <div class="iframe-demo-host">
+                <iframe id="IFrame"></iframe>
+            </div>
+        
+            <pre id="IFrameOutput" class="iframe-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var ContentHtml = [
+                    "<main style=\"box-sizing: border-box; max-width: 640px; margin: 24px; padding: 18px; border: 1px solid #d0d7de; background: white; font: 15px Arial, sans-serif; color: #24292f;\">",
+                    "<h1>Inline iframe content</h1>",
+                    "<p>This HTML was assigned through the tp.IFrame Content property.</p>",
+                    "<p>The same component can switch back to Url mode.</p>",
+                    "</main>"
+                ].join("");
+        
+                var Frame = new tp.IFrame("#IFrame", {
+                    Width: "100%",
+                    Height: 460,
+                    Url: "tp-ready.html",
+                    UseSpinner: true
+                });
+                var ShowSpinnerPreview = function () {
+                    tp.ShowSpinner(true);
+                    setTimeout(function () {
+                        tp.ShowSpinner(false);
+                    }, 900);
+                };
+        
+                var UpdateSpinnerButton = function () {
+                    tp.Text("#ToggleSpinnerButton", Frame.UseSpinner ? "Test Spinner: On" : "Test Spinner: Off");
+                };
+        
+                var WriteLog = function (Message) {
+                    UpdateSpinnerButton();
+                    tp.Text("#IFrameOutput", [
+                        Message || "Ready.",
+                        "url = " + (Frame.Url || ""),
+                        "supports srcdoc = " + Frame.SupportsSrcDoc,
+                        "use spinner = " + Frame.UseSpinner,
+                        "width = " + Frame.Width,
+                        "height = " + Frame.Height
+                    ].join("\n"));
+                };
+        
+                tp.On("#LoadUrlButton", "click", function () {
+                    Frame.Url = "tp-ready.html";
+                    WriteLog("Local Url loaded.");
+                });
+        
+                tp.On("#LoadJSDocButton", "click", function () {
+                    Frame.Url = "https://jsdoc.app/";
+                    WriteLog("JSDoc Url loaded.");
+                });
+        
+                tp.On("#LoadContentButton", "click", function () {
+                    Frame.Content = ContentHtml;
+                    WriteLog("Inline content loaded.");
+                });
+        
+                tp.On("#ToggleSpinnerButton", "click", function () {
+                    Frame.UseSpinner = !Frame.UseSpinner;
+                    if (Frame.UseSpinner)
+                        ShowSpinnerPreview();
+                    WriteLog("UseSpinner toggled.");
+                });
+        
+                Frame.On("Loaded", function () {
+                    WriteLog("Frame loaded.");
+                });
+        
+                UpdateSpinnerButton();
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

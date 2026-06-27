@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.DataSet from JsonDataModule</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.DataSet from JsonDataModule</h1>
+        
+        <p>
+            A server-side <code>DataModule</code> can be serialized to a <code>JsonDataModule</code> JSON packet.
+            This static demo page cannot create that server-side packet, so the live server-generated part is intentionally omitted here.
+        </p>
+        
+        <pre><code>var Packet = serverJsonDataModule;
+        var DataSet = new tp.DataSet(Packet.DataSet);</code></pre>
+        
+        <style>
+            .data-module-demo-layout {
+                display: grid;
+                gap: 14px;
+                max-width: 1080px;
+            }
+            .data-module-demo-summary {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 8px;
+            }
+            .data-module-demo-summary div {
+                padding: 8px 10px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+            .data-module-demo-table-wrap {
+                overflow: auto;
+                border: 1px solid #d0d7de;
+            }
+            .data-module-demo-table {
+                width: 100%;
+                border-collapse: collapse;
+                background: #ffffff;
+            }
+            .data-module-demo-table th,
+            .data-module-demo-table td {
+                padding: 7px 9px;
+                border-bottom: 1px solid #d0d7de;
+                text-align: left;
+                white-space: nowrap;
+            }
+            .data-module-demo-table th {
+                background: #f0f3f6;
+                font-weight: 600;
+            }
+            .data-module-demo-table td[data-align="right"] {
+                text-align: right;
+            }
+            .data-module-demo-table td[data-align="center"] {
+                text-align: center;
+            }
+            .data-module-demo-json {
+                box-sizing: border-box;
+                min-height: 220px;
+                max-height: 420px;
+                margin: 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+                white-space: pre;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="data-module-demo-layout">
+                <pre id="DataModuleJsonText" class="data-module-demo-json">This demo needs a server-side DataModule to generate JsonDataModule JSON. The static site keeps the explanation and source shape, but omits the live server-generated packet.</pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                tp.Text("#DataModuleJsonText", "Server-generated JsonDataModule JSON is not available in the static demo site.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

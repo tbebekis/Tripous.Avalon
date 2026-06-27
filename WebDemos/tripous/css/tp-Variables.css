@@ -1,0 +1,44 @@
+:root {
+    /* Font colors */
+    --FontColor: #777;
+    --FontColor1: white;
+    --FontColor2: #444;
+
+    /* Background colors */
+    --BackColor: white;
+    --BackColor1: black;
+    --BackColor2: #e6e6e6;
+    --BackColor3: #bbb;
+
+    /* Semantic colors */
+    --BackGreen: green;
+    --BackRed: red;
+
+    /* State colors */
+    --NotificationColor: #4bb07a;
+    --SuccessColor: #4bb07a;
+    --ErrorColor: #e4444c;
+    --InfoColor: #ff9;
+    --HoverColor: #FFD200;
+    --DisabledColor: var(--BackColor2);
+    --SelectedColor: lightgoldenrodyellow;
+    --SelectedListItemColor: lightblue;
+    --MarkColor: var(--BackGreen);
+    --FocusColor: #4ab2f1;
+    --RequiredMarkColor: var(--ErrorColor);
+
+    /* Border and shadow */
+    --BorderColor: #ccc;
+    --FocusBorderColor: darkgray;
+    --AutofillBackColor: var(--BackColor);
+    --Border: 1px solid var(--BorderColor);
+    --ShadowColor: rgba(0,0,0,0.25);
+
+    /* Sizing and spacing */
+    --ButtonPadding: 0 5px;
+    --TextPadding: 2px 4px;
+    --ControlLineHeight: 1.5;
+
+    /* Grid */
+    --GridDropTargetOutline: var(--SelectedColor) double thick;
+}

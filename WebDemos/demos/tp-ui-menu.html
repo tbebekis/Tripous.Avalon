@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Menu and tp.ContextMenu</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Menu and tp.ContextMenu</h1>
+        
+        <p>
+            The <code>tp.Menu</code> control represents a desktop-like menu. It uses <code>tp.MenuItem</code> items and supports nested child items.
+        </p>
+        
+        <p>
+            The <code>tp.ContextMenu</code> control represents a desktop-like local menu. A <code>tp.MenuItem</code> can have text, icon, URL,
+            command, and child menu items.
+        </p>
+        
+        <style>
+            .menu-demo-area {
+                display: grid;
+                gap: 16px;
+                max-width: 920px;
+            }
+            .menu-demo-target {
+                position: relative;
+                box-sizing: border-box;
+                width: 320px;
+                min-height: 180px;
+                padding: 16px;
+                border: 1px solid #8c959f;
+                background: #f6f8fa;
+            }
+            .menu-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 760px);
+                min-height: 110px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="menu-demo-area">
+                <div id="MainMenu">
+                    <div>
+                        File
+                        <div data-ico-classes="fa fa-university" data-command="Open">Open</div>
+                        <div>
+                            New
+                            <div data-image-url="../tripous/images/demos/Home.png" data-command="NewFile">File</div>
+                            <div data-image-url="../tripous/images/demos/List.png" data-command="NewImage">Image</div>
+                        </div>
+                        <div>-</div>
+                        <div data-command="Exit">Exit</div>
+                    </div>
+                    <div>
+                        Edit
+                        <div data-command="Cut">Cut</div>
+                        <div data-command="Copy">Copy</div>
+                        <div data-command="Paste">Paste</div>
+                    </div>
+                    <div data-command="View">View</div>
+                    <div data-command="Window">Window</div>
+                    <div data-command="Help">Help</div>
+                </div>
+        
+                <div id="ContextTarget" class="menu-demo-target">
+                    Right click inside here to see the context menu.
+                </div>
+        
+                <div id="ContextMenu">
+                    <div>
+                        File
+                        <div data-command="Open">Open</div>
+                        <div>
+                            New
+                            <div data-command="NewFile">File</div>
+                            <div data-command="NewImage">Image</div>
+                        </div>
+                        <div>-</div>
+                        <div data-command="Exit">Exit</div>
+                    </div>
+                    <div>
+                        Edit
+                        <div data-command="Cut">Cut</div>
+                        <div data-command="Copy">Copy</div>
+                        <div data-command="Paste">Paste</div>
+                    </div>
+                    <div data-command="View">View</div>
+                    <div data-command="Window">Window</div>
+                    <div data-command="Help">Help</div>
+                </div>
+        
+                <pre id="MenuOutput" class="menu-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var MainMenu = new tp.Menu("#MainMenu");
+                var LocalMenu = new tp.ContextMenu("#ContextMenu");
+        
+                var WriteLog = function (Args) {
+                    var Item = Args.MenuItem;
+                    tp.Text("#MenuOutput", [
+                        "menu item = " + Item.Text,
+                        "command = " + Args.Command
+                    ].join("\n"));
+                };
+        
+                MainMenu.On("ItemClick", function (Args) {
+                    WriteLog(Args);
+                    tp.InfoNote("Menu command: " + Args.Command);
+                });
+        
+                LocalMenu.On("ItemClick", function (Args) {
+                    WriteLog(Args);
+                    tp.InfoNote("Context command: " + Args.Command);
+                });
+        
+                tp.On("#ContextTarget", "contextmenu", function (e) {
+                    LocalMenu.Show(e);
+                });
+        
+                tp.Text("#MenuOutput", "Click the menu or right click the target box.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

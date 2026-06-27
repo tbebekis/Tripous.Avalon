@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.ContentWindow</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.ContentWindow</h1>
+        
+        <p>
+            The <code>tp.ContentWindow</code> class displays user defined content. The content can be an existing element, a selector, or HTML markup.
+        </p>
+        
+        <style>
+            .content-window-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .content-window-demo-content {
+                box-sizing: border-box;
+                width: min(100%, 760px);
+                min-height: 150px;
+                margin-bottom: 12px;
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                resize: vertical;
+            }
+            .content-window-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 760px);
+                min-height: 100px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            .content-window-demo-sample {
+                padding: 12px;
+                line-height: 1.5;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="content-window-demo-actions">
+                <button id="ContentWindowModalButton" type="button">Show Modal Selector</button>
+                <button id="ContentWindowHtmlButton" type="button">Show HTML Window</button>
+            </div>
+        
+            <textarea id="ContentWindowHtmlInput" class="content-window-demo-content"><div style="padding: 12px; line-height: 1.5;">
+            <h2>HTML markup content</h2>
+            <p>This content is created from a markup string and displayed in a non-modal window.</p>
+            <button type="button">Content button</button>
+            <input type="text" value="text" />
+        </div></textarea>
+        
+            <div hidden>
+                <div id="ContentWindowSample" class="content-window-demo-sample">
+                    <h2>Existing element content</h2>
+                    <p>
+                        This element is moved into the modal window while it is displayed and restored to its original parent when the window closes.
+                    </p>
+                    <button type="button">Hi there</button>
+                    <input type="text" value="text" />
+                </div>
+            </div>
+        
+            <pre id="ContentWindowOutput" class="content-window-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Counter = 0;
+        
+                var WriteLog = function (Message) {
+                    Counter++;
+                    tp.Text("#ContentWindowOutput", "#" + Counter + " " + Message + "\n" + "time = " + new Date().toLocaleTimeString());
+                };
+        
+                tp.On("#ContentWindowModalButton", "click", async function () {
+                    var Dialog = await tp.ContentWindow.ShowModalAsync("#ContentWindowSample", {
+                        Width: 600,
+                        Height: 360,
+                        Text: "Modal Content Window"
+                    });
+                    WriteLog("Modal content window closed with result " + tp.EnumNameOf(tp.DialogResult, Dialog.DialogResult) + ".");
+                    tp.InfoNote("DialogResult = " + tp.EnumNameOf(tp.DialogResult, Dialog.DialogResult));
+                });
+        
+                tp.On("#ContentWindowHtmlButton", "click", function () {
+                    var Window = tp.ContentWindow.Show(false, tp.Value("#ContentWindowHtmlInput"), {
+                        Width: 600,
+                        Height: 360,
+                        Text: "HTML Content Window"
+                    });
+                    WriteLog("Non-modal content window opened: " + Window.Text + ".");
+                });
+        
+                WriteLog("Ready.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp DOM</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp DOM</h1>
+        
+        <p>This demo checks the first DOM helper functions.</p>
+        
+        <div class="html-code">
+            <div class="demo-panel">
+                <label for="DemoInput">Value</label>
+                <input id="DemoInput" type="text" value="Tripous" />
+                <button id="DemoButton" type="button">Run</button>
+                <pre id="DemoOutput"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var ClickCount = 0;
+        
+                tp.On("#DemoButton", "click", function () {
+                    ClickCount++;
+                    var Lines = [
+                        "tp(\"#DemoInput\") found = " + (tp("#DemoInput") !== null),
+                        "tp.SelectAll(\"button\").length = " + tp.SelectAll("button").length,
+                        "tp.Value(\"#DemoInput\") = " + tp.Value("#DemoInput"),
+                        "click count = " + ClickCount,
+                        "tp.Ready executed = true"
+                    ];
+        
+                    tp.Text("#DemoOutput", Lines.join("\n"));
+                });
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

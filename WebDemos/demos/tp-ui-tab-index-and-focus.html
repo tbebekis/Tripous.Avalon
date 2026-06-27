@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Index And Focus</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Tab Index And Focus</h1>
+        
+        <p>
+            This demo studies browser focus behavior for plain <code>div</code> elements with unspecified,
+            negative, zero, and positive <code>tabindex</code> values.
+        </p>
+        
+        <pre>
+        Tab index   &lt; 0         - can be focused either by a mouse click, or the focus() function
+        Tab index   &gt;= 0        - can be focused either by a mouse click, or the focus() function, or the tab key, according to its tab order
+        Tab index   unspecified - IE sets it to 0 and can be focused either by a mouse click, or the focus() function
+                                  Chrome and Firefox set it to -1 and it can NOT be focused at all
+        
+        Clicking on a nested div element with unspecified tab-index
+            IE gives focus always to the child
+            Chrome and Firefox give focus only to the parent, and only if the parent has its tab-index specified explicitly
+        
+        Conclusion:
+            It seems that setting tab-index explicitly to -1 is the best choice when the purpose is to control the focus
+            either by mouse clicks or by the focus() function.
+        </pre>
+        
+        <p>
+            References:
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex" target="_blank">MDN: tabindex</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-navigable_JavaScript_widgets" target="_blank">MDN: keyboard-navigable JavaScript widgets</a>
+        </p>
+        
+        <style>
+            .tab-focus-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin: 12px 0;
+            }
+            .tab-focus-section > div {
+                position: relative;
+                box-sizing: border-box;
+                width: 280px;
+                height: 100px;
+                margin: 20px 0;
+                border: 1px solid #8c959f;
+                outline: none;
+                background: #ffffff;
+            }
+            .tab-focus-section div:focus {
+                border: 3px solid #ff6a00;
+            }
+            .tab-focus-section > div > div:nth-child(1) {
+                position: absolute;
+                left: 10px;
+                top: 40px;
+                width: 105px;
+                height: 50px;
+                padding: 4px;
+                background-color: lavender;
+            }
+            .tab-focus-section > div > div:nth-child(2) {
+                position: absolute;
+                left: 145px;
+                top: 40px;
+                width: 105px;
+                height: 50px;
+                padding: 4px;
+                background-color: lightsalmon;
+            }
+        </style>
+        
+        <div class="tab-focus-buttons">
+            <button id="TabFocusCycleButton" type="button">Cycle Focus</button>
+            <button id="TabFocusNestedButton" type="button">Add Nested Divs</button>
+        </div>
+        
+        <div class="html-code">
+            <section class="tab-focus-section">
+                <div id="TabFocusDiv0"></div>
+                <div id="TabFocusDiv1" tabindex="-1"></div>
+                <div id="TabFocusDiv2" tabindex="0"></div>
+                <div id="TabFocusDiv3" tabindex="1"></div>
+            </section>
+        </div>
+        
+        <script>
+            tp.Ready(function () {
+                var Divs = tp.SelectAll(".tab-focus-section > div");
+                var Index = 0;
+        
+                var WriteLabels = function () {
+                    var Text;
+                    for (var i = 0; i < Divs.length; i++) {
+                        Text = "div" + i + " - tabIndex : " + String(Divs[i].tabIndex);
+                        if (i === 0)
+                            Text += " (unspecified)";
+                        Divs[i].innerHTML = Text;
+                    }
+                };
+        
+                var CycleFocus = function () {
+                    Divs[Index].focus();
+                    Index++;
+                    if (Index > Divs.length - 1)
+                        Index = 0;
+                };
+        
+                var AddNestedDivs = function () {
+                    var Counter = -1;
+                    for (var i = 0; i < Divs.length; i++) {
+                        Divs[i].innerHTML += tp.Format("<div>tabindex unspecified</div><div tabindex=\"{0}\">tabindex = {0}</div>", Counter++);
+                    }
+                };
+        
+                tp.On("#TabFocusCycleButton", "click", CycleFocus);
+                tp.On("#TabFocusNestedButton", "click", AddNestedDivs);
+        
+                WriteLabels();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

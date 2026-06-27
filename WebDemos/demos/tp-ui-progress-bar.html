@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.ProgressBar</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.js"></script>
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.ProgressBar</h1>
+        
+        <p>
+            A native HTML <code>progress</code> element wrapped as a Tripous component.
+            It exposes <code>Max</code> and <code>Value</code>.
+        </p>
+        
+        <style>
+            .progress-bar-demo-row {
+                display: grid;
+                grid-template-columns: 120px minmax(220px, 360px) 80px;
+                gap: 10px;
+                align-items: center;
+                max-width: 580px;
+                margin-bottom: 12px;
+            }
+            .progress-bar-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin: 12px 0;
+            }
+            .progress-bar-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 680px);
+                min-height: 120px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="progress-bar-demo-row">
+                <label for="ProgressBar">ProgressBar</label>
+                <progress id="ProgressBar" data-setup="{Width: 300, Max: 10, Value: 0}"></progress>
+                <span id="ProgressBarText"></span>
+            </div>
+        
+            <div class="progress-bar-demo-actions">
+                <button id="ProgressBarStartButton" type="button">Start</button>
+                <button id="ProgressBarStopButton" type="button">Stop</button>
+                <button id="ProgressBarStartLoopButton" type="button">Start Infinite Loop</button>
+                <button id="ProgressBarStopLoopButton" type="button">Stop Infinite Loop</button>
+                <button id="ProgressBarResetButton" type="button">Reset</button>
+                <button id="ProgressBarSetMaxButton" type="button">Max 20</button>
+                <button id="ProgressBarLogButton" type="button">Log</button>
+            </div>
+        
+            <pre id="ProgressBarOutput" class="progress-bar-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var ProgressBar = new tp.ProgressBar({
+                    ElementOrSelector: "#ProgressBar"
+                });
+                var Timer = 0;
+        
+                var Stop = function () {
+                    if (Timer !== 0) {
+                        clearInterval(Timer);
+                        Timer = 0;
+                    }
+                };
+        
+                var WriteLog = function (Message) {
+                    tp.Text("#ProgressBarText", ProgressBar.Value + " / " + ProgressBar.Max);
+                    tp.Text("#ProgressBarOutput", [
+                        Message || "Ready.",
+                        "value = " + ProgressBar.Value,
+                        "max = " + ProgressBar.Max,
+                        "running = " + (Timer !== 0),
+                        "infinite loop = " + ProgressBar.IsInfiniteLoopRunning
+                    ].join("\n"));
+                };
+        
+                var Tick = function () {
+                    if (ProgressBar.Value < ProgressBar.Max)
+                        ProgressBar.Value += 1;
+                    else {
+                        Stop();
+                        WriteLog("Progress completed.");
+                        return;
+                    }
+                    WriteLog("Progress tick.");
+                };
+        
+                tp.On("#ProgressBarStartButton", "click", function () {
+                    Stop();
+                    ProgressBar.StopInfiniteLoop();
+                    Timer = setInterval(Tick, 150);
+                    WriteLog("Progress started.");
+                });
+        
+                tp.On("#ProgressBarStopButton", "click", function () {
+                    Stop();
+                    ProgressBar.StopInfiniteLoop();
+                    ProgressBar.Value = 0;
+                    WriteLog("Progress stopped and reset.");
+                });
+        
+                tp.On("#ProgressBarStartLoopButton", "click", function () {
+                    Stop();
+                    ProgressBar.StartInfiniteLoop(150);
+                    WriteLog("Infinite loop started.");
+                });
+        
+                tp.On("#ProgressBarStopLoopButton", "click", function () {
+                    ProgressBar.StopInfiniteLoop();
+                    ProgressBar.Value = 0;
+                    WriteLog("Infinite loop stopped and reset.");
+                });
+        
+                tp.On("#ProgressBarResetButton", "click", function () {
+                    Stop();
+                    ProgressBar.StopInfiniteLoop();
+                    ProgressBar.Value = 0;
+                    WriteLog("Progress reset.");
+                });
+        
+                tp.On("#ProgressBarSetMaxButton", "click", function () {
+                    ProgressBar.Max = 20;
+                    if (ProgressBar.Value > ProgressBar.Max)
+                        ProgressBar.Value = ProgressBar.Max;
+                    WriteLog("Max changed.");
+                });
+        
+                tp.On("#ProgressBarLogButton", "click", function () {
+                    WriteLog("Current values.");
+                });
+        
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

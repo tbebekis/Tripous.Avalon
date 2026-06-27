@@ -23,7 +23,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -35,6 +36,14 @@ jobs:
 
       - name: Build DocFX
         run: docfx DocFx/docfx.json
+
+      - name: Copy WebDemos into DocFX site
+        run: |
+          mkdir -p DocFx/_site/web-demos
+          cp -R WebDemos/. DocFx/_site/web-demos/
+
+      - name: Disable Jekyll
+        run: touch DocFx/_site/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
