@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Local and tp.Session</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Local and tp.Session</h1>
+        
+        <p>
+            <code>tp.Local</code> and <code>tp.Session</code> are small wrappers around the browser Web
+            Storage API. <code>tp.Local</code> uses <code>localStorage</code>, which persists for the origin.
+            <code>tp.Session</code> uses <code>sessionStorage</code>, which is kept for the current browser
+            page session.
+        </p>
+        
+        <p>
+            Both classes inherit from <code>tp.BrowserStorage</code> and provide the same static methods:
+            <code>Available</code>, <code>Get()</code>, <code>Set()</code>, <code>Remove()</code>,
+            <code>GetObject()</code>, <code>SetObject()</code>, and <code>Clear()</code>. This demo uses only
+            demo-prefixed keys and removes only those keys, so it does not clear unrelated browser storage.
+        </p>
+        
+        <style>
+            .storage-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .storage-demo-section {
+                margin-bottom: 18px;
+            }
+            .storage-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .storage-demo-section p {
+                margin: 6px 0;
+            }
+            .storage-demo-row {
+                display: grid;
+                grid-template-columns: 100px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .storage-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .storage-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 360px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .storage-demo-grid,
+                .storage-demo-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="storage-demo-grid">
+                    <section class="storage-demo-section">
+                        <p class="storage-demo-title">String values</p>
+                        <p>
+                            <code>Set()</code> stores string values and <code>Get()</code> reads them back.
+                            When a key is missing, <code>Get()</code> returns the supplied default value.
+                        </p>
+                        <label class="storage-demo-row" for="StorageText">
+                            <span>value</span>
+                            <input id="StorageText" type="text" value="Tripous storage value">
+                        </label>
+                        <div class="storage-demo-actions">
+                            <button id="StorageSetLocalButton" type="button">Set local</button>
+                            <button id="StorageSetSessionButton" type="button">Set session</button>
+                            <button id="StorageReadStringsButton" type="button">Read strings</button>
+                        </div>
+                    </section>
+                    
+                    <section class="storage-demo-section">
+                        <p class="storage-demo-title">Object values</p>
+                        <p>
+                            <code>SetObject()</code> serializes with JSON and <code>GetObject()</code>
+                            parses the stored JSON text. Invalid or missing JSON returns the default value.
+                        </p>
+                        <div class="storage-demo-actions">
+                            <button id="StorageSetObjectsButton" type="button">Set objects</button>
+                            <button id="StorageReadObjectsButton" type="button">Read objects</button>
+                        </div>
+                    </section>
+                    
+                    <section class="storage-demo-section">
+                        <p class="storage-demo-title">Availability and cleanup</p>
+                        <p>
+                            <code>Available</code> is false when the browser storage API is blocked or not
+                            available. <code>Remove()</code> deletes one key. <code>Clear()</code> clears all
+                            keys for the origin, so this demo does not call it.
+                        </p>
+                        <div class="storage-demo-actions">
+                            <button id="StorageAvailableButton" type="button">Check availability</button>
+                            <button id="StorageCleanupButton" type="button">Remove demo keys</button>
+                            <button id="StorageClearOutputButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="storage-demo-section">
+                        <p class="storage-demo-title">Demo keys</p>
+                        <p>
+                            The demo uses these keys only:
+                            <code>tp.demo.storage.text</code> and <code>tp.demo.storage.object</code>.
+                        </p>
+                    </section>
+                </div>
+                
+                <pre id="StorageOutput" class="storage-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var TextKey = "tp.demo.storage.text";
+                var ObjectKey = "tp.demo.storage.object";
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#StorageOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var AddJson = function (Caption, Value) {
+                    AddLine(Caption);
+                    AddLine(tp.ToJson(Value, true));
+                };
+        
+                tp.On("#StorageSetLocalButton", "click", function () {
+                    tp.Local.Set(TextKey, tp.Value("#StorageText"));
+                    AddLine("tp.Local.Set(TextKey, value) executed.");
+                    tp.InfoNote("Local value stored.");
+                });
+        
+                tp.On("#StorageSetSessionButton", "click", function () {
+                    tp.Session.Set(TextKey, tp.Value("#StorageText"));
+                    AddLine("tp.Session.Set(TextKey, value) executed.");
+                    tp.InfoNote("Session value stored.");
+                });
+        
+                tp.On("#StorageReadStringsButton", "click", function () {
+                    AddLine("tp.Local.Get(TextKey, \"missing\") = " + JSON.stringify(tp.Local.Get(TextKey, "missing")));
+                    AddLine("tp.Session.Get(TextKey, \"missing\") = " + JSON.stringify(tp.Session.Get(TextKey, "missing")));
+                    AddLine("tp.Local.Get(\"missing-key\", \"default\") = " + JSON.stringify(tp.Local.Get("missing-key", "default")));
+                    tp.InfoNote("String values read.");
+                });
+        
+                tp.On("#StorageSetObjectsButton", "click", function () {
+                    var Value = {
+                        Name: "Tripous",
+                        Time: new Date().toISOString(),
+                        Items: ["local", "session"]
+                    };
+                    tp.Local.SetObject(ObjectKey, Value);
+                    tp.Session.SetObject(ObjectKey, Value);
+                    AddJson("Object stored in local/session:", Value);
+                    tp.InfoNote("Objects stored.");
+                });
+        
+                tp.On("#StorageReadObjectsButton", "click", function () {
+                    AddJson("tp.Local.GetObject(ObjectKey, {}) =", tp.Local.GetObject(ObjectKey, {}));
+                    AddJson("tp.Session.GetObject(ObjectKey, {}) =", tp.Session.GetObject(ObjectKey, {}));
+                    AddJson("tp.Local.GetObject(\"missing-object\", { Missing: true }) =", tp.Local.GetObject("missing-object", { Missing: true }));
+                    tp.InfoNote("Objects read.");
+                });
+        
+                tp.On("#StorageAvailableButton", "click", function () {
+                    AddLine("tp.Local.Available = " + tp.Local.Available);
+                    AddLine("tp.Session.Available = " + tp.Session.Available);
+                    tp.InfoNote("Storage availability checked.");
+                });
+        
+                tp.On("#StorageCleanupButton", "click", function () {
+                    tp.Local.Remove(TextKey);
+                    tp.Local.Remove(ObjectKey);
+                    tp.Session.Remove(TextKey);
+                    tp.Session.Remove(ObjectKey);
+                    AddLine("Demo keys removed from local and session storage.");
+                    tp.InfoNote("Demo keys removed.");
+                });
+        
+                tp.On("#StorageClearOutputButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to use tp.Local and tp.Session.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

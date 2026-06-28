@@ -55,6 +55,7 @@ tp.EventArgs = class {
         return !this.IsDomEvent;
     }
 };
+
 /**
  * Stores a Tripous event listener callback.
  */
@@ -72,6 +73,7 @@ tp.Listener = class {
         this.Once = Once === true;
     }
 };
+
 /**
  * The ultimate Tripous base class.
  */

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strings</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Strings</h1>
+        
+        <p>
+            This demo covers the Tripous string helper functions. These helpers are small wrappers around
+            common operations used throughout Tripous code: text checks, case-insensitive comparisons,
+            safe replacement, splitting and joining, padding, generated ids, Base64 encoding, and simple
+            function creation from source text.
+        </p>
+        
+        <p>
+            URL-related helpers are intentionally not covered here. They have their own
+            <code>Url handling</code> demo. <code>tp.StringBuilder</code> is also handled separately because
+            it is a class with its own behavior.
+        </p>
+        
+        <style>
+            .strings-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .strings-demo-section {
+                margin-bottom: 18px;
+            }
+            .strings-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .strings-demo-section p {
+                margin: 6px 0;
+            }
+            .strings-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .strings-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 300px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .strings-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="strings-demo-grid">
+                    <section class="strings-demo-section">
+                        <p class="strings-demo-title">Checks and search</p>
+                        <p>
+                            These helpers answer common string questions: blank text, whitespace characters,
+                            HTML-looking text, identifier names, case-insensitive equality, contains, starts
+                            with, and ends with.
+                        </p>
+                        <div class="strings-demo-actions">
+                            <button id="StringsChecksButton" type="button">Run checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="strings-demo-section">
+                        <p class="strings-demo-title">Transforms</p>
+                        <p>
+                            These helpers trim, quote, unquote, insert, replace, remove a trailing comma,
+                            truncate text, escape regular expression text, and convert dashed names to camel case.
+                        </p>
+                        <div class="strings-demo-actions">
+                            <button id="StringsTransformsButton" type="button">Run transforms</button>
+                        </div>
+                    </section>
+                    
+                    <section class="strings-demo-section">
+                        <p class="strings-demo-title">Splitting and joining</p>
+                        <p>
+                            <code>tp.Split()</code>, <code>tp.Chunk()</code>, <code>tp.SplitOnUpperCase()</code>,
+                            descriptor splitting, line handling, and join helpers keep common text parsing
+                            predictable.
+                        </p>
+                        <div class="strings-demo-actions">
+                            <button id="StringsSplitButton" type="button">Run split/join</button>
+                        </div>
+                    </section>
+                    
+                    <section class="strings-demo-section">
+                        <p class="strings-demo-title">Padding, generation and encoding</p>
+                        <p>
+                            This group covers repeat/padding helpers, GUID and random string generation,
+                            Base64 encode/decode, and <code>tp.CreateFunction()</code>.
+                        </p>
+                        <div class="strings-demo-actions">
+                            <button id="StringsGenerationButton" type="button">Run generation</button>
+                            <button id="StringsClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="StringsOutput" class="strings-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#StringsOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var ToText = function (Value) {
+                    return JSON.stringify(Value);
+                };
+        
+                tp.On("#StringsChecksButton", "click", function () {
+                    AddLine("tp.IsBlankString(\"   \") = " + tp.IsBlankString("   "));
+                    AddLine("tp.IsBlankString(42) = " + tp.IsBlankString(42));
+                    AddLine("tp.IsWhitespaceChar(\" \") = " + tp.IsWhitespaceChar(" "));
+                    AddLine("tp.IsHtml(\"<strong>Tripous</strong>\") = " + tp.IsHtml("<strong>Tripous</strong>"));
+                    AddLine("tp.IsSameText(\"Tripous\", \"TRIPOUS\") = " + tp.IsSameText("Tripous", "TRIPOUS"));
+                    AddLine("tp.ContainsText(\"Tripous Web\", \"web\") = " + tp.ContainsText("Tripous Web", "web"));
+                    AddLine("tp.StartsWith(\"Tripous\", \"tri\") = " + tp.StartsWith("Tripous", "tri"));
+                    AddLine("tp.EndsWith(\"Tripous\", \"OUS\") = " + tp.EndsWith("Tripous", "OUS"));
+                    AddLine("tp.IsValidIdentifier(\"Customer_Name1\") = " + tp.IsValidIdentifier("Customer_Name1"));
+                    AddLine("tp.IsValidIdentifier(\"1Customer\") = " + tp.IsValidIdentifier("1Customer"));
+                    tp.InfoNote("String checks completed.");
+                });
+        
+                tp.On("#StringsTransformsButton", "click", function () {
+                    AddLine("tp.Trim(\"  Tripous  \") = [" + tp.Trim("  Tripous  ") + "]");
+                    AddLine("tp.TrimStart(\"  Tripous  \") = [" + tp.TrimStart("  Tripous  ") + "]");
+                    AddLine("tp.TrimEnd(\"  Tripous  \") = [" + tp.TrimEnd("  Tripous  ") + "]");
+                    AddLine("tp.InsertText(\" Web\", \"Tripous\", 7) = " + tp.InsertText(" Web", "Tripous", 7));
+                    AddLine("tp.Replace(\"Tripous Web\", \"Web\", \"Avalon\") = " + tp.Replace("Tripous Web", "Web", "Avalon"));
+                    AddLine("tp.ReplaceAll(\"one two one\", \"one\", \"1\") = " + tp.ReplaceAll("one two one", "one", "1"));
+                    AddLine("tp.ReplaceCharAt(\"Tripous\", \"X\", 0) = " + tp.ReplaceCharAt("Tripous", "X", 0));
+                    AddLine("tp.Quote(\"Tripous\", true) = " + tp.Quote("Tripous", true));
+                    AddLine("tp.Unquote(\"\\\"Tripous\\\"\") = " + tp.Unquote("\"Tripous\""));
+                    AddLine("tp.RemoveLastComma(\"Name, Code,\") = " + tp.RemoveLastComma("Name, Code,"));
+                    AddLine("tp.SetLength(\"Tripous\", 4) = " + tp.SetLength("Tripous", 4));
+                    AddLine("tp.RegExEscape(\"a+b*c\") = " + tp.RegExEscape("a+b*c"));
+                    AddLine("tp.DashToCamelCase(\"background-color\") = " + tp.DashToCamelCase("background-color"));
+                    tp.InfoNote("String transforms completed.");
+                });
+        
+                tp.On("#StringsSplitButton", "click", function () {
+                    var Descriptor = tp.SplitDescriptor("Name:Tripous; Version:1; Active:true");
+        
+                    AddLine("tp.Chunk(\"ABCDEFGHI\", 3) = " + ToText(tp.Chunk("ABCDEFGHI", 3)));
+                    AddLine("tp.Split(\"one, two,, three\", \",\", true) = " + ToText(tp.Split("one, two,, three", ",", true)));
+                    AddLine("tp.Split(\"one, two,, three\", \",\", false) = " + ToText(tp.Split("one, two,, three", ",", false)));
+                    AddLine("tp.SplitOnUpperCase(\"CustomerInvoiceLine\") = " + tp.SplitOnUpperCase("CustomerInvoiceLine"));
+                    AddLine("tp.SplitDescriptor(\"Name:Tripous; Version:1; Active:true\") = " + ToText(Descriptor));
+                    AddLine("tp.Join(\" | \", \"one\", \"two\", \"three\") = " + tp.Join(" | ", "one", "two", "three"));
+                    AddLine("tp.CommaText(\"one\", \"two\", \"three\") = " + tp.CommaText("one", "two", "three"));
+                    AddLine("tp.ToLines(\"one\\ntwo\\r\\nthree\") = " + ToText(tp.ToLines("one\ntwo\r\nthree")));
+                    AddLine("tp.ReplaceLineBreaks(\"one\\ntwo\", \" | \") = " + tp.ReplaceLineBreaks("one\ntwo", " | "));
+                    AddLine("tp.LineBreaksToHtml(\"one\\ntwo\") = " + tp.LineBreaksToHtml("one\ntwo"));
+                    tp.InfoNote("Splitting and joining completed.");
+                });
+        
+                tp.On("#StringsGenerationButton", "click", function () {
+                    var Encoded = tp.ToBase64("Tripous Ελληνικά");
+                    var Func = tp.CreateFunction("function (a, b) { return a + b; }");
+        
+                    AddLine("tp.Repeat(\"*\", 5) = " + tp.Repeat("*", 5));
+                    AddLine("tp.PadLeft(\"42\", \"0\", 5) = " + tp.PadLeft("42", "0", 5));
+                    AddLine("tp.PadRight(\"Tripous\", \".\", 10) = " + tp.PadRight("Tripous", ".", 10));
+                    AddLine("tp.Guid(false).length = " + tp.Guid(false).length);
+                    AddLine("tp.Guid(true).startsWith(\"{\") = " + tp.StartsWith(tp.Guid(true), "{", false));
+                    AddLine("tp.GenerateRandomString(6, \"ABC123\").length = " + tp.GenerateRandomString(6, "ABC123").length);
+                    AddLine("tp.ToBase64(\"Tripous Ελληνικά\") = " + Encoded);
+                    AddLine("tp.FromBase64(Encoded) = " + tp.FromBase64(Encoded));
+                    AddLine("tp.CreateFunction(\"function (a, b) { return a + b; }\")(2, 3) = " + Func(2, 3));
+                    tp.InfoNote("Generation and encoding completed.");
+                });
+        
+                tp.On("#StringsClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run string helper checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

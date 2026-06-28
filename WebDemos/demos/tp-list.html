@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.List</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.List</h1>
+        
+        <p>
+            <code>tp.List</code> is an <code>Array</code> subclass with Tripous list operations and optional
+            list events. It can be used like a normal JavaScript array, but it also provides methods such as
+            <code>Add()</code>, <code>Insert()</code>, <code>RemoveAt()</code>, <code>Assign()</code>,
+            <code>AddRange()</code>, <code>FindBy()</code>, and <code>RemoveBy()</code>.
+        </p>
+        
+        <p>
+            Events are disabled by default. Set <code>EventsEnabled = true</code> to receive
+            <code>Changing</code> and <code>Changed</code> events. A batch update can suppress intermediate
+            event notifications by setting <code>Updating = true</code> while multiple changes are made.
+        </p>
+        
+        <style>
+            .list-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .list-demo-section {
+                margin-bottom: 18px;
+            }
+            .list-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .list-demo-section p {
+                margin: 6px 0;
+            }
+            .list-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .list-demo-current {
+                box-sizing: border-box;
+                min-height: 82px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+                white-space: pre-wrap;
+            }
+            .list-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 390px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .list-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="list-demo-grid">
+                    <section class="list-demo-section">
+                        <p class="list-demo-title">Current list</p>
+                        <p>
+                            The list contains small objects with <code>Id</code>, <code>Name</code>, and
+                            <code>Country</code> properties.
+                        </p>
+                        <pre id="ListCurrent" class="list-demo-current"></pre>
+                        <div class="list-demo-actions">
+                            <button id="ListResetButton" type="button">Reset list</button>
+                            <button id="ListClearOutputButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="list-demo-section">
+                        <p class="list-demo-title">Add and remove</p>
+                        <p>
+                            These buttons use <code>Add()</code>, <code>Insert()</code>, <code>RemoveAt()</code>,
+                            <code>AddRange()</code>, and <code>Assign()</code>.
+                        </p>
+                        <div class="list-demo-actions">
+                            <button id="ListAddButton" type="button">Add</button>
+                            <button id="ListInsertButton" type="button">Insert</button>
+                            <button id="ListRemoveButton" type="button">Remove first</button>
+                            <button id="ListRangeButton" type="button">Add range</button>
+                            <button id="ListAssignButton" type="button">Assign</button>
+                        </div>
+                    </section>
+                    
+                    <section class="list-demo-section">
+                        <p class="list-demo-title">Find and enumerate</p>
+                        <p>
+                            <code>FindBy()</code>, <code>ContainsBy()</code>, <code>IndexBy()</code>, and
+                            <code>RemoveBy()</code> operate on object properties. <code>GetEnumerator()</code>
+                            returns a classic enumerator.
+                        </p>
+                        <div class="list-demo-actions">
+                            <button id="ListFindButton" type="button">Run find</button>
+                            <button id="ListEnumeratorButton" type="button">Run enumerator</button>
+                        </div>
+                    </section>
+                    
+                    <section class="list-demo-section">
+                        <p class="list-demo-title">Events and update</p>
+                        <p>
+                            Events use <code>tp.ListEventArgs</code>. The <code>Updating</code> flag suppresses
+                            intermediate events and emits a final <code>Update</code> changed event.
+                        </p>
+                        <div class="list-demo-actions">
+                            <button id="ListBatchButton" type="button">Run batch update</button>
+                            <button id="ListCancelButton" type="button">Try cancelled insert</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="ListOutput" class="list-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var List = new tp.List();
+                var Lines = [];
+                var NextId = 4;
+        
+                var ItemText = function (Item) {
+                    return Item.Id + ":" + Item.Name + ":" + Item.Country;
+                };
+        
+                var ListText = function () {
+                    return List.ToArray().map(ItemText).join("\n");
+                };
+        
+                var Write = function () {
+                    tp.Text("#ListCurrent", ListText() || "(empty)");
+                    tp.Text("#ListOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var AttachEvents = function () {
+                    List.EventsEnabled = true;
+                    List.On("Changing", function (Args) {
+                        AddLine("Changing: " + Args.Action + ", index=" + Args.Index + ", item=" + (Args.Item ? ItemText(Args.Item) : ""));
+                        if (Args.Item && Args.Item.Name === "Blocked")
+                            Args.Cancel = true;
+                    });
+                    List.On("Changed", function (Args) {
+                        AddLine("Changed: " + Args.Action + ", count=" + List.Count);
+                    });
+                };
+        
+                var ResetList = function () {
+                    List.EventsEnabled = false;
+                    List.Assign([
+                        { Id: 1, Name: "Maria", Country: "GR" },
+                        { Id: 2, Name: "John", Country: "US" },
+                        { Id: 3, Name: "Anna", Country: "GR" }
+                    ]);
+                    List.EventsEnabled = true;
+                    NextId = 4;
+                    Write();
+                };
+        
+                tp.On("#ListResetButton", "click", function () {
+                    ResetList();
+                    AddLine("List reset.");
+                    tp.InfoNote("List reset.");
+                });
+        
+                tp.On("#ListAddButton", "click", function () {
+                    List.Add({ Id: NextId, Name: "Item " + NextId, Country: NextId % 2 === 0 ? "IT" : "CY" });
+                    NextId++;
+                    Write();
+                    tp.InfoNote("Item added.");
+                });
+        
+                tp.On("#ListInsertButton", "click", function () {
+                    List.Insert(1, { Id: NextId, Name: "Inserted " + NextId, Country: "DE" });
+                    NextId++;
+                    Write();
+                    tp.InfoNote("Item inserted.");
+                });
+        
+                tp.On("#ListRemoveButton", "click", function () {
+                    List.RemoveAt(0);
+                    Write();
+                    tp.InfoNote("First item removed.");
+                });
+        
+                tp.On("#ListRangeButton", "click", function () {
+                    List.AddRange([
+                        { Id: NextId, Name: "Range " + NextId, Country: "ES" },
+                        { Id: NextId + 1, Name: "Range " + (NextId + 1), Country: "FR" }
+                    ]);
+                    NextId += 2;
+                    Write();
+                    tp.InfoNote("Range added.");
+                });
+        
+                tp.On("#ListAssignButton", "click", function () {
+                    List.Assign([
+                        { Id: 10, Name: "Assigned A", Country: "GR" },
+                        { Id: 11, Name: "Assigned B", Country: "US" }
+                    ]);
+                    Write();
+                    tp.InfoNote("List assigned.");
+                });
+        
+                tp.On("#ListFindButton", "click", function () {
+                    AddLine("List.ContainsBy(\"Country\", \"GR\") = " + List.ContainsBy("Country", "GR"));
+                    AddLine("List.IndexBy(\"Name\", \"John\") = " + List.IndexBy("Name", "John"));
+                    AddLine("List.FindBy(\"Country\", \"US\") = " + ItemText(List.FindBy("Country", "US")));
+                    AddLine("List.RemoveBy(\"Name\", \"Anna\") = " + List.RemoveBy("Name", "Anna"));
+                    Write();
+                    tp.InfoNote("Find helpers completed.");
+                });
+        
+                tp.On("#ListEnumeratorButton", "click", function () {
+                    var Enumerator = List.GetEnumerator();
+                    var Names = [];
+                    while (Enumerator.MoveNext())
+                        Names.push(Enumerator.Current.Name);
+                    AddLine("Enumerator names = " + Names.join(", "));
+                    AddLine("List.ToArray().length = " + List.ToArray().length);
+                    tp.InfoNote("Enumerator completed.");
+                });
+        
+                tp.On("#ListBatchButton", "click", function () {
+                    List.Updating = true;
+                    List.Add({ Id: NextId, Name: "Batch " + NextId, Country: "GR" });
+                    NextId++;
+                    List.Add({ Id: NextId, Name: "Batch " + NextId, Country: "US" });
+                    NextId++;
+                    List.Updating = false;
+                    Write();
+                    tp.InfoNote("Batch update completed.");
+                });
+        
+                tp.On("#ListCancelButton", "click", function () {
+                    List.Add({ Id: NextId, Name: "Blocked", Country: "XX" });
+                    AddLine("Cancelled insert attempted. ContainsBy(\"Name\", \"Blocked\") = " + List.ContainsBy("Name", "Blocked"));
+                    Write();
+                    tp.InfoNote("Cancelled insert attempted.");
+                });
+        
+                tp.On("#ListClearOutputButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AttachEvents();
+                ResetList();
+                AddLine("List ready. EventsEnabled = " + List.EventsEnabled);
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

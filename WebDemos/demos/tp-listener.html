@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Listener</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Listener</h1>
+        
+        <p>
+            <code>tp.Listener</code> is a small record object used by Tripous event systems. It stores a
+            callback function, an optional callback context, and a <code>Once</code> flag. Most application
+            code does not need to create listeners directly. Usually a listener is created and returned by
+            methods such as <code>tp.Object.On()</code>, <code>tp.Object.Once()</code>, or
+            <code>tp.AddReadyListener()</code>.
+        </p>
+        
+        <p>
+            The returned listener object is useful because it can later be passed to <code>Off()</code>.
+            This removes exactly that registration, even when the same function is used in more than one
+            place or with a different context.
+        </p>
+        
+        <style>
+            .listener-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .listener-demo-section {
+                margin-bottom: 18px;
+            }
+            .listener-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .listener-demo-section p {
+                margin: 6px 0;
+            }
+            .listener-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .listener-demo-status {
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                background: #ffffff;
+            }
+            .listener-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 340px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .listener-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="listener-demo-grid">
+                    <section class="listener-demo-section">
+                        <p class="listener-demo-title">Direct listener object</p>
+                        <p>
+                            A direct <code>new tp.Listener(Func, Context, Once)</code> just stores the three
+                            values. The object itself does not call the function. The event owner calls
+                            <code>Listener.Func</code> later.
+                        </p>
+                        <div class="listener-demo-actions">
+                            <button id="ListenerDirectButton" type="button">Inspect direct listener</button>
+                        </div>
+                    </section>
+                    
+                    <section class="listener-demo-section">
+                        <p class="listener-demo-title">On() returns a listener</p>
+                        <p>
+                            <code>tp.Object.On()</code> returns the created listener. Keep that reference and
+                            pass it to <code>Off()</code> when you want to remove exactly that listener.
+                        </p>
+                        <div class="listener-demo-actions">
+                            <button id="ListenerTriggerButton" type="button">Trigger event</button>
+                            <button id="ListenerRemoveButton" type="button">Remove listener</button>
+                        </div>
+                    </section>
+                    
+                    <section class="listener-demo-section">
+                        <p class="listener-demo-title">Once() listener</p>
+                        <p>
+                            <code>tp.Object.Once()</code> creates a listener with <code>Once = true</code>.
+                            After the first event trigger, <code>tp.Object</code> removes it automatically.
+                        </p>
+                        <div class="listener-demo-actions">
+                            <button id="ListenerTriggerOnceButton" type="button">Trigger once event</button>
+                        </div>
+                    </section>
+                    
+                    <section class="listener-demo-section">
+                        <p class="listener-demo-title">Listener state</p>
+                        <p>
+                            This status shows how many listeners are currently registered on the demo object.
+                        </p>
+                        <div id="ListenerStatus" class="listener-demo-status"></div>
+                        <div class="listener-demo-actions">
+                            <button id="ListenerResetButton" type="button">Reset listeners</button>
+                            <button id="ListenerClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="ListenerOutput" class="listener-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var DemoObject = new tp.Object();
+                var Lines = [];
+                var NormalListener = null;
+                var OnceListener = null;
+                var Context = {
+                    Name: "listener-context"
+                };
+        
+                var Write = function () {
+                    tp.Text("#ListenerOutput", Lines.join("\n"));
+                    tp.Text("#ListenerStatus", "DemoEvent listeners: " + DemoObject.GetInvocationList("DemoEvent").length
+                        + " | OnceEvent listeners: " + DemoObject.GetInvocationList("OnceEvent").length);
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var AttachListeners = function () {
+                    if (NormalListener)
+                        DemoObject.Off("DemoEvent", NormalListener);
+                    if (OnceListener)
+                        DemoObject.Off("OnceEvent", OnceListener);
+                    NormalListener = DemoObject.On("DemoEvent", function (Args) {
+                        AddLine("DemoEvent called. this.Name = " + this.Name + ", EventName = " + Args.EventName);
+                    }, Context);
+                    OnceListener = DemoObject.Once("OnceEvent", function (Args) {
+                        AddLine("OnceEvent called once. Listener.Once = " + OnceListener.Once + ", EventName = " + Args.EventName);
+                    }, Context);
+                    Write();
+                };
+        
+                tp.On("#ListenerDirectButton", "click", function () {
+                    var Direct = new tp.Listener(function () {}, Context, true);
+                    AddLine("new tp.Listener(function(){}, Context, true):");
+                    AddLine("  Func is function = " + tp.IsFunction(Direct.Func));
+                    AddLine("  Context.Name = " + Direct.Context.Name);
+                    AddLine("  Once = " + Direct.Once);
+                    tp.InfoNote("Direct listener inspected.");
+                });
+        
+                tp.On("#ListenerTriggerButton", "click", function () {
+                    DemoObject.Trigger("DemoEvent", {});
+                    tp.InfoNote("DemoEvent triggered.");
+                });
+        
+                tp.On("#ListenerRemoveButton", "click", function () {
+                    DemoObject.Off("DemoEvent", NormalListener);
+                    AddLine("DemoObject.Off(\"DemoEvent\", NormalListener) executed.");
+                    Write();
+                    tp.InfoNote("Listener removed.");
+                });
+        
+                tp.On("#ListenerTriggerOnceButton", "click", function () {
+                    DemoObject.Trigger("OnceEvent", {});
+                    Write();
+                    tp.InfoNote("OnceEvent triggered.");
+                });
+        
+                tp.On("#ListenerResetButton", "click", function () {
+                    AttachListeners();
+                    AddLine("Listeners reset.");
+                    tp.InfoNote("Listeners reset.");
+                });
+        
+                tp.On("#ListenerClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AttachListeners();
+                AddLine("Listeners attached.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

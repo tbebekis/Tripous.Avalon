@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merging objects</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Merging objects</h1>
+        
+        <p>
+            Tripous uses object merging in many places where a caller supplies a small options object and
+            the framework has to combine it with defaults. The central helpers are <code>tp.MergeProps()</code>,
+            <code>tp.MergePropsDeep()</code>, and <code>tp.MergePropsShallow()</code>.
+        </p>
+        
+        <p>
+            A shallow merge copies property references. A deep merge copies primitive values as-is, clones
+            dates and arrays, and recursively merges plain objects. The current implementation also checks
+            <code>tp.CanAssignProperty()</code>, so a destination read-only property is not overwritten.
+            Use <code>tp.Assign()</code> only when a simple enumerable-property copy is enough.
+        </p>
+        
+        <style>
+            .merge-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .merge-demo-section {
+                margin-bottom: 18px;
+            }
+            .merge-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .merge-demo-section p {
+                margin: 6px 0;
+            }
+            .merge-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .merge-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 260px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .merge-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="merge-demo-grid">
+                    <section class="merge-demo-section">
+                        <p class="merge-demo-title">Simple assignment</p>
+                        <p>
+                            <code>tp.Assign()</code> copies enumerable source properties to the target object.
+                            It does not deep-copy nested objects.
+                        </p>
+                        <div class="merge-demo-actions">
+                            <button id="MergeAssignButton" type="button">Run assign</button>
+                        </div>
+                    </section>
+                    
+                    <section class="merge-demo-section">
+                        <p class="merge-demo-title">Shallow merge</p>
+                        <p>
+                            <code>tp.MergePropsShallow()</code> copies the source property value directly.
+                            Nested objects remain shared references.
+                        </p>
+                        <div class="merge-demo-actions">
+                            <button id="MergeShallowButton" type="button">Run shallow merge</button>
+                        </div>
+                    </section>
+                    
+                    <section class="merge-demo-section">
+                        <p class="merge-demo-title">Deep merge</p>
+                        <p>
+                            <code>tp.MergePropsDeep()</code> recursively merges plain objects and clones arrays
+                            and dates, so changing the source later does not affect the destination.
+                        </p>
+                        <div class="merge-demo-actions">
+                            <button id="MergeDeepButton" type="button">Run deep merge</button>
+                        </div>
+                    </section>
+                    
+                    <section class="merge-demo-section">
+                        <p class="merge-demo-title">Writable properties</p>
+                        <p>
+                            <code>tp.CanAssignProperty()</code> prevents merge code from writing to read-only
+                            destination properties. Missing properties are considered assignable.
+                        </p>
+                        <div class="merge-demo-actions">
+                            <button id="MergeWritableButton" type="button">Run writable check</button>
+                            <button id="MergeClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="MergeOutput" class="merge-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#MergeOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var ToText = function (Value) {
+                    return JSON.stringify(Value, null, 2);
+                };
+        
+                tp.On("#MergeAssignButton", "click", function () {
+                    var Target = { Name: "Default", Options: { Theme: "light" } };
+                    var Source = { Name: "Tripous", Options: { Density: "normal" } };
+        
+                    tp.Assign(Target, Source);
+                    Source.Options.Density = "compact";
+        
+                    AddLine("tp.Assign(Target, Source)");
+                    AddLine(ToText(Target));
+                    AddLine("Target.Options === Source.Options = " + (Target.Options === Source.Options));
+                    AddLine("After Source.Options.Density = \"compact\", Target.Options.Density = " + Target.Options.Density);
+                    tp.InfoNote("Assign checked.");
+                });
+        
+                tp.On("#MergeShallowButton", "click", function () {
+                    var Target = { Options: { Theme: "light" } };
+                    var Source = { Options: { Density: "normal" } };
+        
+                    tp.MergePropsShallow(Target, Source);
+                    Source.Options.Density = "compact";
+        
+                    AddLine("tp.MergePropsShallow(Target, Source)");
+                    AddLine(ToText(Target));
+                    AddLine("Target.Options === Source.Options = " + (Target.Options === Source.Options));
+                    AddLine("After Source.Options.Density = \"compact\", Target.Options.Density = " + Target.Options.Density);
+                    tp.InfoNote("Shallow merge checked.");
+                });
+        
+                tp.On("#MergeDeepButton", "click", function () {
+                    var DateValue = new Date(2026, 0, 15);
+                    var Target = { Options: { Theme: "light" }, Items: [1] };
+                    var Source = { Options: { Density: "normal" }, Items: [2, 3], DateValue: DateValue };
+        
+                    tp.MergePropsDeep(Target, Source);
+                    Source.Options.Density = "compact";
+                    Source.Items.push(4);
+                    DateValue.setFullYear(2030);
+        
+                    AddLine("tp.MergePropsDeep(Target, Source)");
+                    AddLine(ToText({
+                        Options: Target.Options,
+                        Items: Target.Items,
+                        DateYear: Target.DateValue.getFullYear()
+                    }));
+                    AddLine("Target.Options === Source.Options = " + (Target.Options === Source.Options));
+                    AddLine("Target.Items === Source.Items = " + (Target.Items === Source.Items));
+                    AddLine("Target.DateValue === Source.DateValue = " + (Target.DateValue === Source.DateValue));
+                    AddLine("After source changes, Target.Options.Density = " + Target.Options.Density);
+                    AddLine("After source changes, Target.Items.length = " + Target.Items.length);
+                    AddLine("After source date change, Target.DateValue.getFullYear() = " + Target.DateValue.getFullYear());
+                    tp.InfoNote("Deep merge checked.");
+                });
+        
+                tp.On("#MergeWritableButton", "click", function () {
+                    var Target = {};
+        
+                    Object.defineProperty(Target, "Code", {
+                        value: "LOCKED",
+                        writable: false,
+                        enumerable: true,
+                        configurable: false
+                    });
+        
+                    AddLine("tp.CanAssignProperty(Target, \"Code\") = " + tp.CanAssignProperty(Target, "Code"));
+                    AddLine("tp.CanAssignProperty(Target, \"Name\") = " + tp.CanAssignProperty(Target, "Name"));
+                    tp.MergePropsDeep(Target, { Code: "CHANGED", Name: "Tripous" });
+                    AddLine("After merge, Target.Code = " + Target.Code);
+                    AddLine("After merge, Target.Name = " + Target.Name);
+                    tp.InfoNote("Writable property check completed.");
+                });
+        
+                tp.On("#MergeClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run an object merging check.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Mouse</h1>
+        
+        <p>
+            This demo covers the Tripous mouse helpers. <code>tp.Mouse</code> maps browser mouse buttons to
+            Tripous constants, reads pressed button bit-fields, converts event coordinates, and can find the
+            element under the pointer.
+        </p>
+        
+        <p>
+            <code>tp.MouseInfo</code> captures a mouse or pointer event into a reusable object. It stores
+            modifier keys, the event button, the current pressed buttons, and document, viewport, and screen
+            coordinates.
+        </p>
+        
+        <style>
+            .mouse-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .mouse-demo-section {
+                margin-bottom: 18px;
+            }
+            .mouse-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .mouse-demo-section p {
+                margin: 6px 0;
+            }
+            .mouse-demo-target {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 150px;
+                padding: 14px;
+                border: 2px solid #8c959f;
+                background: #ffffff;
+                user-select: none;
+                font-weight: 700;
+            }
+            .mouse-demo-target:hover {
+                border-color: var(--FocusColor);
+            }
+            .mouse-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .mouse-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 320px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .mouse-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="mouse-demo-grid">
+                    <section class="mouse-demo-section">
+                        <p class="mouse-demo-title">Live mouse event</p>
+                        <p>
+                            Move or click inside the box. Left, middle, and right clicks are identified through
+                            <code>tp.Mouse.Button()</code>, <code>tp.Mouse.IsLeft()</code>,
+                            <code>tp.Mouse.IsMid()</code>, and <code>tp.Mouse.IsRight()</code>.
+                        </p>
+                        <div id="MouseTarget" class="mouse-demo-target">Move or click here</div>
+                    </section>
+                    
+                    <section class="mouse-demo-section">
+                        <p class="mouse-demo-title">Button constants and cursors</p>
+                        <p>
+                            <code>tp.Mouse.LEFT</code>, <code>tp.Mouse.RIGHT</code>, and <code>tp.Mouse.MID</code>
+                            are numeric constants. <code>tp.Cursors</code> contains CSS cursor names.
+                        </p>
+                        <div class="mouse-demo-actions">
+                            <button id="MouseConstantsButton" type="button">Show constants</button>
+                            <button id="MouseCursorButton" type="button">Toggle cursor</button>
+                        </div>
+                    </section>
+                    
+                    <section class="mouse-demo-section">
+                        <p class="mouse-demo-title">Simulated buttons</p>
+                        <p>
+                            These buttons create standard <code>MouseEvent</code> objects and dispatch them to
+                            the target box, so the helper checks are easy to repeat.
+                        </p>
+                        <div class="mouse-demo-actions">
+                            <button id="MouseLeftButton" type="button">Simulate left</button>
+                            <button id="MouseMiddleButton" type="button">Simulate middle</button>
+                            <button id="MouseRightButton" type="button">Simulate right</button>
+                        </div>
+                    </section>
+                    
+                    <section class="mouse-demo-section">
+                        <p class="mouse-demo-title">Coordinates and MouseInfo</p>
+                        <p>
+                            <code>tp.Mouse.ToElement()</code> returns element-relative coordinates.
+                            <code>tp.MouseInfo</code> captures the same event into a structured object.
+                        </p>
+                        <div class="mouse-demo-actions">
+                            <button id="MouseInfoButton" type="button">Simulate MouseInfo</button>
+                            <button id="MouseClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="MouseOutput" class="mouse-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var CursorOn = false;
+        
+                var Write = function () {
+                    tp.Text("#MouseOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var PointText = function (P) {
+                    return "(" + P.X + ", " + P.Y + ")";
+                };
+        
+                var ButtonName = function (Value) {
+                    if (Value === tp.Mouse.LEFT)
+                        return "LEFT";
+                    if (Value === tp.Mouse.RIGHT)
+                        return "RIGHT";
+                    if (Value === tp.Mouse.MID)
+                        return "MID";
+                    return "NONE";
+                };
+        
+                var Describe = function (e) {
+                    var Info = new tp.MouseInfo(e);
+                    var ElementPoint = tp.Mouse.ToElement(e, "#MouseTarget");
+                    var ElementUnderMouse = tp.Mouse.ElementUnderMouse(e);
+                    return "button=" + ButtonName(tp.Mouse.Button(e))
+                        + ", buttons=" + tp.Mouse.Buttons(e)
+                        + ", left=" + tp.Mouse.IsLeft(e)
+                        + ", middle=" + tp.Mouse.IsMid(e)
+                        + ", right=" + tp.Mouse.IsRight(e)
+                        + ", element=" + PointText(ElementPoint)
+                        + ", viewport=" + PointText(Info.Viewport)
+                        + ", ctrl=" + Info.Ctrl
+                        + ", shift=" + Info.Shift
+                        + ", insideTarget=" + tp.Mouse.IsInElement(e, "#MouseTarget")
+                        + ", underMouse=" + (ElementUnderMouse ? ElementUnderMouse.id || ElementUnderMouse.tagName : "");
+                };
+        
+                var Simulate = function (Button, Buttons, Options) {
+                    var Rect = tp("#MouseTarget").getBoundingClientRect();
+                    var EventOptions = tp.MergePropsShallow({
+                        button: Button,
+                        buttons: Buttons,
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: Math.round(Rect.left + Rect.width / 2),
+                        clientY: Math.round(Rect.top + Rect.height / 2),
+                        screenX: 120,
+                        screenY: 160
+                    }, Options || {});
+                    tp("#MouseTarget").dispatchEvent(new MouseEvent("mousedown", EventOptions));
+                };
+        
+                tp.On("#MouseTarget", "contextmenu", function (e) {
+                    e.preventDefault();
+                });
+        
+                tp.On("#MouseTarget", "mousemove", function (e) {
+                    var P = tp.Mouse.ToElement(e, "#MouseTarget");
+                    tp.Text("#MouseTarget", "element position " + PointText(P));
+                });
+        
+                tp.On("#MouseTarget", "mousedown", function (e) {
+                    AddLine("mousedown: " + Describe(e));
+                    if (tp.Mouse.IsRight(e))
+                        tp.InfoNote("Right mouse button detected.");
+                    else if (tp.Mouse.IsLeft(e))
+                        tp.InfoNote("Left mouse button detected.");
+                });
+        
+                tp.On("#MouseConstantsButton", "click", function () {
+                    AddLine("tp.Mouse.LEFT = " + tp.Mouse.LEFT);
+                    AddLine("tp.Mouse.RIGHT = " + tp.Mouse.RIGHT);
+                    AddLine("tp.Mouse.MID = " + tp.Mouse.MID);
+                    AddLine("tp.Cursors.Pointer = " + tp.Cursors.Pointer);
+                    AddLine("tp.Cursors.ResizeCol = " + tp.Cursors.ResizeCol);
+                    tp.InfoNote("Mouse constants shown.");
+                });
+        
+                tp.On("#MouseCursorButton", "click", function () {
+                    CursorOn = !CursorOn;
+                    tp.Mouse.Cursor = CursorOn ? tp.Cursors.CrossHair : "";
+                    AddLine("tp.Mouse.Cursor = " + JSON.stringify(tp.Mouse.Cursor));
+                    tp.InfoNote("Document cursor toggled.");
+                });
+        
+                tp.On("#MouseLeftButton", "click", function () {
+                    Simulate(0, tp.Mouse.LEFT);
+                });
+        
+                tp.On("#MouseMiddleButton", "click", function () {
+                    Simulate(1, tp.Mouse.MID);
+                });
+        
+                tp.On("#MouseRightButton", "click", function () {
+                    Simulate(2, tp.Mouse.RIGHT);
+                });
+        
+                tp.On("#MouseInfoButton", "click", function () {
+                    Simulate(0, tp.Mouse.LEFT, { ctrlKey: true, shiftKey: true });
+                });
+        
+                tp.On("#MouseClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Move or click inside the target box, or use a button to simulate mouse events.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

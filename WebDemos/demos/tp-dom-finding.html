@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM finding</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>DOM finding</h1>
+        
+        <p>
+            This demo covers DOM finding and traversal helpers that build on top of the basic selector helpers.
+            The basic <code>tp()</code>, <code>tp.Select()</code>, and <code>tp.SelectAll()</code> helpers are
+            covered in the main <code>tp</code> demo, so this page focuses on the next layer.
+        </p>
+        
+        <p>
+            These functions are useful when code receives an inner element from an event and needs to locate a
+            containing element, inspect direct child elements, detect containment, find a text node, or find an
+            element by the ending of its id.
+        </p>
+        
+        <style>
+            .dom-finding-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .dom-finding-section {
+                margin-bottom: 18px;
+            }
+            .dom-finding-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dom-finding-section p {
+                margin: 6px 0;
+            }
+            .dom-finding-sample {
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .dom-finding-card {
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .dom-finding-card + .dom-finding-card {
+                margin-top: 8px;
+            }
+            .dom-finding-id {
+                display: block;
+                margin-bottom: 6px;
+                color: #57606a;
+                font-size: 13px;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            }
+            .dom-finding-row {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dom-finding-badge {
+                display: inline-block;
+                padding: 2px 6px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .dom-finding-test-note {
+                margin-top: 8px;
+                padding: 8px 10px;
+                border-left: 3px solid #8c959f;
+                background: #f6f8fa;
+                font-size: 14px;
+            }
+            .dom-finding-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dom-finding-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 340px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dom-finding-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dom-finding-grid">
+                    <section class="dom-finding-section">
+                        <p class="dom-finding-title">Sample DOM</p>
+                        <p>
+                            All buttons inspect the elements below. The visible monospace labels are the actual
+                            element ids used by the JavaScript code.
+                        </p>
+                        <span class="dom-finding-id">#DomFindingHost</span>
+                        <div id="DomFindingHost" class="dom-finding-sample">
+                            <div id="Order_1001_Card" class="dom-finding-card" data-kind="order">
+                                <span class="dom-finding-id">#Order_1001_Card</span>
+                                Text node before elements
+                                <div class="dom-finding-row">
+                                    <span id="Order_1001_Status" class="dom-finding-badge">#Order_1001_Status: open</span>
+                                    <button id="Order_1001_ActionButton" type="button">
+                                        <span id="Order_1001_ActionIcon">#Order_1001_ActionIcon</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="Order_1002_Card" class="dom-finding-card" data-kind="order">
+                                <span class="dom-finding-id">#Order_1002_Card</span>
+                                <span id="Order_1002_Status" class="dom-finding-badge">#Order_1002_Status: closed</span>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-finding-section">
+                        <p class="dom-finding-title">Closest and containment</p>
+                        <p>
+                            <code>tp.Closest()</code> locates an ancestor matching a selector.
+                            <code>tp.ContainsElement()</code> and <code>tp.ContainsEventTarget()</code> test
+                            whether an element owns another element or event target.
+                        </p>
+                        <div class="dom-finding-test-note">
+                            Test input: start from <code>#Order_1001_ActionIcon</code>, then find its
+                            <code>.dom-finding-card</code> ancestor and check whether <code>#DomFindingHost</code>
+                            contains it.
+                        </div>
+                        <div class="dom-finding-actions">
+                            <button id="DomClosestButton" type="button">Run closest</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-finding-section">
+                        <p class="dom-finding-title">Children and indexes</p>
+                        <p>
+                            <code>tp.ChildHTMLElements()</code> returns only direct HTMLElement children.
+                            <code>tp.ChildIndex()</code> returns the child element index inside its parent.
+                        </p>
+                        <div class="dom-finding-test-note">
+                            Test input: inspect the direct children of <code>#DomFindingHost</code>, then ask for
+                            the position of <code>#Order_1002_Card</code> inside that host.
+                        </div>
+                        <div class="dom-finding-actions">
+                            <button id="DomChildrenButton" type="button">Run children</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-finding-section">
+                        <p class="dom-finding-title">Text node and id ending</p>
+                        <p>
+                            <code>tp.FindTextNode()</code> returns the first direct text node.
+                            <code>tp.FindElementWithIdEnding()</code> searches a parent for an element whose id
+                            ends with the specified text.
+                        </p>
+                        <div class="dom-finding-test-note">
+                            Test input: inspect <code>#Order_1001_Status</code> for its first direct text node,
+                            then search <code>#DomFindingHost</code> for ids ending in <code>_Status</code> and
+                            <code>_ActionIcon</code>.
+                        </div>
+                        <div class="dom-finding-actions">
+                            <button id="DomFindButton" type="button">Run find</button>
+                            <button id="DomClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DomFindingOutput" class="dom-finding-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#DomFindingOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var IdOf = function (Element) {
+                    return Element ? Element.id || Element.tagName : "";
+                };
+        
+                tp.On("#DomClosestButton", "click", function () {
+                    var Inner = tp("#Order_1001_ActionIcon");
+                    var Card = tp.Closest(Inner, ".dom-finding-card");
+                    var Host = tp("#DomFindingHost");
+        
+                    AddLine("tp.Closest(Inner, \".dom-finding-card\").id = " + IdOf(Card));
+                    AddLine("tp.ContainsElement(Host, Inner) = " + tp.ContainsElement(Host, Inner));
+                    AddLine("tp.ContainsElement(Card, Host) = " + tp.ContainsElement(Card, Host));
+                    AddLine("tp.ContainsEventTarget(Card, Inner) = " + tp.ContainsEventTarget(Card, Inner));
+                    tp.InfoNote("Closest and containment checks completed.");
+                });
+        
+                tp.On("#DomChildrenButton", "click", function () {
+                    var Host = tp("#DomFindingHost");
+                    var Card = tp("#Order_1001_Card");
+                    var Children = tp.ChildHTMLElements(Host);
+                    var CardChildren = tp.GetElementList(Card);
+        
+                    AddLine("tp.ChildHTMLElements(Host).length = " + Children.length);
+                    AddLine("first host child id = " + IdOf(Children[0]));
+                    AddLine("tp.GetElementList(Card).length = " + CardChildren.length);
+                    AddLine("tp.ChildIndex(Host, \"#Order_1002_Card\") = " + tp.ChildIndex(Host, "#Order_1002_Card"));
+                    tp.InfoNote("Child traversal checks completed.");
+                });
+        
+                tp.On("#DomFindButton", "click", function () {
+                    var StatusBadge = tp("#Order_1001_Status");
+                    var TextNode = tp.FindTextNode(StatusBadge);
+                    var Status = tp.FindElementWithIdEnding("_Status", tp("#DomFindingHost"));
+                    var ActionIcon = tp.FindElementWithIdEnding("_ActionIcon", tp("#DomFindingHost"));
+        
+                    AddLine("tp.FindTextNode(StatusBadge).nodeValue.trim() = " + JSON.stringify(TextNode ? TextNode.nodeValue.trim() : ""));
+                    AddLine("tp.FindElementWithIdEnding(\"_Status\", Host).id = " + IdOf(Status));
+                    AddLine("tp.FindElementWithIdEnding(\"_ActionIcon\", Host).id = " + IdOf(ActionIcon));
+                    tp.InfoNote("Text-node and id-ending checks completed.");
+                });
+        
+                tp.On("#DomClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run DOM finding checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

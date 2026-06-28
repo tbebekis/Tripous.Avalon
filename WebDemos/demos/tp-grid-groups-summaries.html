@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Grid - Groups and Summaries</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../tripous/js/tp-Grid.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Grid - Groups and Summaries</h1>
+
+        <p>This demo uses a small deterministic table so group rows and summary rows can be checked by eye.</p>
+        <p>The grid is grouped first by <code>Department</code> and then by <code>Region</code>. Summaries are applied to <code>Salary</code>, <code>Bonus</code>, and <code>HeadCount</code>.</p>
+        <p>Expected totals: Salary sum <code>5400</code>, Bonus sum <code>580</code>, HeadCount count <code>6</code>. Department totals are: Sales salary <code>3000</code>, Support salary <code>2400</code>.</p>
+
+        <style>
+            .grid-demo-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 12px;
+                max-width: 980px;
+            }
+            .grid-demo-host {
+                min-height: 360px;
+            }
+            .grid-demo-expected {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 8px;
+            }
+            .grid-demo-expected div {
+                padding: 8px 10px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+        </style>
+
+        <div class="html-code">
+            <div class="grid-demo-layout">
+                <div class="grid-demo-expected">
+                    <div><strong>Sales</strong><br>Salary sum = 3000<br>Bonus sum = 300<br>HeadCount count = 3</div>
+                    <div><strong>Support</strong><br>Salary sum = 2400<br>Bonus sum = 280<br>HeadCount count = 3</div>
+                    <div><strong>Total</strong><br>Salary sum = 5400<br>Bonus sum = 580<br>HeadCount count = 6</div>
+                </div>
+                <div id="Grid" class="grid-demo-host"></div>
+            </div>
+        </div>
+
+        <script class="js-code">
+            var Grid;
+            var Table;
+
+            tp.Ready(function () {
+                if (!tp.Grid) {
+                    tp.ErrorNote("tp-Grid.js is not loaded. Build the WebApp project to generate and sync the grid bundle.");
+                    return;
+                }
+
+                Table = CreateSalesTable();
+                Grid = new tp.Grid("#Grid");
+                Grid.Handle.style.height = "360px";
+                Grid.ReadOnly = false;
+                Grid.ToolBarVisible = true;
+                Grid.DataSource = Table;
+
+                Grid.ColumnByName("Id").Visible = false;
+                Grid.ColumnByName("Department").Width = 120;
+                Grid.ColumnByName("Region").Width = 120;
+                Grid.ColumnByName("Name").Width = 150;
+                Grid.ColumnByName("Salary").Width = 100;
+                Grid.ColumnByName("Bonus").Width = 90;
+                Grid.ColumnByName("HeadCount").Width = 100;
+
+                Grid.ColumnGrouped(Grid.ColumnByName("Department"));
+                Grid.ColumnGrouped(Grid.ColumnByName("Region"));
+                Grid.AddAggregate(Grid.ColumnByName("Salary"), tp.AggregateType.Sum);
+                Grid.AddAggregate(Grid.ColumnByName("Bonus"), tp.AggregateType.Sum);
+                Grid.AddAggregate(Grid.ColumnByName("HeadCount"), tp.AggregateType.Count);
+            });
+
+            function CreateSalesTable() {
+                var Result = new tp.DataTable("Sales");
+                Result.AutoGenerateGuidKeys = false;
+                Result.AddColumn("Id", tp.DataType.Integer);
+                Result.AddColumn("Department", tp.DataType.String);
+                Result.AddColumn("Region", tp.DataType.String);
+                Result.AddColumn("Name", tp.DataType.String);
+                Result.AddColumn("Salary", tp.DataType.Double);
+                Result.AddColumn("Bonus", tp.DataType.Double);
+                Result.AddColumn("HeadCount", tp.DataType.Integer);
+                AddRow(Result, 1, "Sales", "North", "Alpha", 1000, 100, 1);
+                AddRow(Result, 2, "Sales", "North", "Beta", 1200, 150, 1);
+                AddRow(Result, 3, "Sales", "South", "Gamma", 800, 50, 1);
+                AddRow(Result, 4, "Support", "North", "Delta", 900, 80, 1);
+                AddRow(Result, 5, "Support", "South", "Epsilon", 700, 90, 1);
+                AddRow(Result, 6, "Support", "South", "Zeta", 800, 110, 1);
+                return Result;
+            }
+
+            function AddRow(Table, Id, Department, Region, Name, Salary, Bonus, HeadCount) {
+                Table.AddRow(Id, Department, Region, Name, Salary, Bonus, HeadCount).AcceptChanges();
+            }
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

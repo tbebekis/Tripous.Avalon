@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Object events</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Object events</h1>
+        
+        <p>
+            <code>tp.Object</code> is not a DOM object and it is not an <code>EventTarget</code>.
+            It has its own small Tripous event mechanism. A class that inherits from
+            <code>tp.Object</code> can call <code>this.Trigger("MyEvent", args)</code>, and subscribers
+            can listen with <code>Object.On("MyEvent", listener)</code>.
+        </p>
+        
+        <p>
+            The listener receives a <code>tp.EventArgs</code> object, not a native browser event.
+            <code>Args.EventName</code> keeps the custom Tripous event name, <code>Args.Sender</code>
+            points to the object that fired the event, and any extra values passed to
+            <code>Trigger()</code> become properties of <code>Args</code>.
+        </p>
+        
+        <p>
+            The example below uses <code>DummyObject</code>. Notice that <code>DummyObject</code>
+            extends <code>tp.Object</code>. That is why it has <code>On()</code>, <code>Off()</code>,
+            <code>Once()</code>, <code>Trigger()</code>, <code>HasListeners()</code>, and
+            <code>EventsEnabled</code>.
+        </p>
+        
+        <style>
+            .object-event-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .object-event-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 960px;
+                align-items: start;
+            }
+            .object-event-section {
+                margin-bottom: 18px;
+            }
+            .object-event-section p {
+                margin: 6px 0;
+            }
+            .object-event-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .object-event-log {
+                box-sizing: border-box;
+                width: min(100%, 880px);
+                min-height: 190px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .object-event-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="object-event-grid">
+                    <section class="object-event-section">
+                        <p class="object-event-title">DummyObject fires MyTotallyCustomEvent</p>
+                        <p>
+                            <code>DummyObject</code> is a very small class that extends <code>tp.Object</code>.
+                            Its <code>Fire()</code> method calls <code>this.Trigger("MyTotallyCustomEvent", ...)</code>.
+                        </p>
+                        <div class="object-event-actions">
+                            <button id="ObjectFireButton" type="button">Fire custom event</button>
+                        </div>
+                    </section>
+                    
+                    <section class="object-event-section">
+                        <p class="object-event-title">Subscriber object with handleEvent(args)</p>
+                        <p>
+                            A subscriber may be an object with a <code>handleEvent(args)</code> method.
+                            We subscribe it with <code>Dummy.On("MyTotallyCustomEvent", Subscriber.handleEvent, Subscriber)</code>
+                            so <code>this</code> inside <code>handleEvent()</code> points to the subscriber object.
+                        </p>
+                        <div class="object-event-actions">
+                            <button id="ObjectSubscriberButton" type="button">Fire for object subscriber</button>
+                        </div>
+                    </section>
+                    
+                    <section class="object-event-section">
+                        <p class="object-event-title">Subscriber function</p>
+                        <p>
+                            A subscriber may also be a simple function. The function receives the same
+                            <code>tp.EventArgs</code> object.
+                        </p>
+                        <div class="object-event-actions">
+                            <button id="FunctionSubscriberButton" type="button">Fire for function subscriber</button>
+                        </div>
+                    </section>
+                    
+                    <section class="object-event-section">
+                        <p class="object-event-title">Once, Off, and EventsEnabled</p>
+                        <p>
+                            <code>Once()</code> removes the listener after the first call.
+                            <code>Off()</code> removes a listener explicitly.
+                            <code>EventsEnabled = false</code> temporarily stops event delivery.
+                        </p>
+                        <div class="object-event-actions">
+                            <button id="ObjectUtilityButton" type="button">Run utility checks</button>
+                            <button id="ObjectClearButton" type="button">Clear log</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="ObjectEventsOutput" class="object-event-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#ObjectEventsOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                class DummyObject extends tp.Object {
+                    constructor() {
+                        super();
+                        this.Count = 0;
+                    }
+                    Fire(Source) {
+                        this.Count++;
+                        return this.Trigger("MyTotallyCustomEvent", {
+                            Source: Source,
+                            Count: this.Count
+                        });
+                    }
+                }
+        
+                class MySubscriber {
+                    constructor(Name) {
+                        this.Name = Name;
+                        this.Count = 0;
+                    }
+                    handleEvent(Args) {
+                        this.Count++;
+                        tp.InfoNote("MySubscriber.handleEvent() received the tp.Object event.");
+                        AddLine("MySubscriber.handleEvent #" + this.Count
+                            + " | EventName=" + Args.EventName
+                            + " | SenderIsDummy=" + (Args.Sender === Dummy)
+                            + " | Source=" + Args.Source
+                            + " | Count=" + Args.Count
+                            + " | this.Name=" + this.Name);
+                    }
+                }
+        
+                var Dummy = new DummyObject();
+                var Subscriber = new MySubscriber("Object subscriber");
+        
+                Dummy.On("MyTotallyCustomEvent", Subscriber.handleEvent, Subscriber);
+        
+                Dummy.On("MyTotallyCustomEvent", function (Args) {
+                    tp.InfoNote("Subscriber function received the tp.Object event.");
+                    AddLine("subscriber function"
+                        + " | EventName=" + Args.EventName
+                        + " | SenderIsDummy=" + (Args.Sender === Dummy)
+                        + " | Source=" + Args.Source
+                        + " | Count=" + Args.Count);
+                });
+        
+                tp.On("#ObjectFireButton", "click", function () {
+                    Dummy.Fire("general button");
+                });
+        
+                tp.On("#ObjectSubscriberButton", "click", function () {
+                    Dummy.Fire("object subscriber button");
+                });
+        
+                tp.On("#FunctionSubscriberButton", "click", function () {
+                    Dummy.Fire("function subscriber button");
+                });
+        
+                tp.On("#ObjectUtilityButton", "click", function () {
+                    var OnceCount = 0;
+                    var RemovedCount = 0;
+                    var RemovedHandler = function () {
+                        RemovedCount++;
+                    };
+        
+                    Dummy.Once("UtilityEvent", function (Args) {
+                        OnceCount++;
+                        AddLine("once listener"
+                            + " | EventName=" + Args.EventName
+                            + " | Step=" + Args.Step);
+                    });
+        
+                    Dummy.On("UtilityEvent", RemovedHandler);
+                    Dummy.Off("UtilityEvent", RemovedHandler);
+        
+                    Dummy.Trigger("UtilityEvent", { Step: 1 });
+                    Dummy.Trigger("UtilityEvent", { Step: 2 });
+                    Dummy.EventsEnabled = false;
+                    Dummy.Trigger("UtilityEvent", { Step: 3 });
+                    Dummy.EventsEnabled = true;
+        
+                    AddLine("utility summary"
+                        + " | once count=" + OnceCount
+                        + " | removed count=" + RemovedCount
+                        + " | has UtilityEvent listeners=" + Dummy.HasListeners("UtilityEvent")
+                        + " | EventsEnabled=" + Dummy.EventsEnabled);
+                });
+        
+                tp.On("#ObjectClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to fire tp.Object events.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

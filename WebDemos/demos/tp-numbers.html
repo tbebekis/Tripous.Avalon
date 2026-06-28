@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Numbers</h1>
+        
+        <p>
+            This demo covers the Tripous number helper functions. They are used when framework code needs
+            predictable conversion from text to numeric values, integer conversion, rounding, truncation,
+            random values, and hexadecimal output.
+        </p>
+        
+        <p>
+            Number display formatting is intentionally not covered here. Formatting belongs to the focused
+            <code>Format</code> demo, where <code>tp.FormatNumber()</code> and related helpers are shown.
+        </p>
+        
+        <style>
+            .numbers-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .numbers-demo-section {
+                margin-bottom: 18px;
+            }
+            .numbers-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .numbers-demo-section p {
+                margin: 6px 0;
+            }
+            .numbers-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .numbers-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 260px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .numbers-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="numbers-demo-grid">
+                    <section class="numbers-demo-section">
+                        <p class="numbers-demo-title">Integer and float conversion</p>
+                        <p>
+                            <code>tp.TryStrToInt()</code> and <code>tp.TryStrToFloat()</code> return a
+                            <code>tp.NumberConversionResult</code> with both the converted value and a success flag.
+                        </p>
+                        <div class="numbers-demo-actions">
+                            <button id="NumbersTryButton" type="button">Run try conversions</button>
+                        </div>
+                    </section>
+                    
+                    <section class="numbers-demo-section">
+                        <p class="numbers-demo-title">Defaulted conversions</p>
+                        <p>
+                            <code>tp.StrToInt()</code>, <code>tp.StrToFloat()</code>, <code>tp.StrToBool()</code>,
+                            and <code>tp.ToInt()</code> return a value directly, using a default when needed.
+                        </p>
+                        <div class="numbers-demo-actions">
+                            <button id="NumbersConvertButton" type="button">Run conversions</button>
+                        </div>
+                    </section>
+                    
+                    <section class="numbers-demo-section">
+                        <p class="numbers-demo-title">Rounding and truncation</p>
+                        <p>
+                            <code>tp.Round()</code> rounds to decimal places while <code>tp.Truncate()</code>
+                            removes the fractional part.
+                        </p>
+                        <div class="numbers-demo-actions">
+                            <button id="NumbersRoundButton" type="button">Run rounding</button>
+                        </div>
+                    </section>
+                    
+                    <section class="numbers-demo-section">
+                        <p class="numbers-demo-title">Random and hexadecimal</p>
+                        <p>
+                            <code>tp.Random()</code> returns an inclusive integer, <code>tp.RandomFloat()</code>
+                            returns a floating point value, and <code>tp.ToHex()</code> returns an uppercase
+                            even-length hexadecimal string.
+                        </p>
+                        <div class="numbers-demo-actions">
+                            <button id="NumbersRandomButton" type="button">Run random/hex</button>
+                            <button id="NumbersClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="NumbersOutput" class="numbers-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#NumbersOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var ConversionText = function (Result) {
+                    return "{ Value: " + Result.Value + ", Result: " + Result.Result + " }";
+                };
+        
+                tp.On("#NumbersTryButton", "click", function () {
+                    AddLine("tp.TryStrToInt(\"42\") = " + ConversionText(tp.TryStrToInt("42")));
+                    AddLine("tp.TryStrToInt(\"42.9\") = " + ConversionText(tp.TryStrToInt("42.9")));
+                    AddLine("tp.TryStrToInt(\"abc\") = " + ConversionText(tp.TryStrToInt("abc")));
+                    AddLine("tp.TryStrToFloat(\"12,50\") = " + ConversionText(tp.TryStrToFloat("12,50")));
+                    AddLine("tp.TryStrToFloat(\"abc\") = " + ConversionText(tp.TryStrToFloat("abc")));
+                    tp.InfoNote("Try conversions completed.");
+                });
+        
+                tp.On("#NumbersConvertButton", "click", function () {
+                    AddLine("tp.StrToInt(\"42\", -1) = " + tp.StrToInt("42", -1));
+                    AddLine("tp.StrToInt(\"abc\", -1) = " + tp.StrToInt("abc", -1));
+                    AddLine("tp.StrToFloat(\"12,50\", -1) = " + tp.StrToFloat("12,50", -1));
+                    AddLine("tp.StrToFloat(\"abc\", -1) = " + tp.StrToFloat("abc", -1));
+                    AddLine("tp.StrToBool(\"yes\", false) = " + tp.StrToBool("yes", false));
+                    AddLine("tp.StrToBool(\"0\", true) = " + tp.StrToBool("0", true));
+                    AddLine("tp.StrToBool(\"unknown\", true) = " + tp.StrToBool("unknown", true));
+                    AddLine("tp.ToInt(\"42.9\") = " + tp.ToInt("42.9"));
+                    AddLine("tp.ToInt(\"abc\") = " + tp.ToInt("abc"));
+                    tp.InfoNote("Defaulted conversions completed.");
+                });
+        
+                tp.On("#NumbersRoundButton", "click", function () {
+                    AddLine("tp.Round(12.3456, 2) = " + tp.Round(12.3456, 2));
+                    AddLine("tp.Round(\"12.3456\", 3) = " + tp.Round("12.3456", 3));
+                    AddLine("tp.Truncate(12.9) = " + tp.Truncate(12.9));
+                    AddLine("tp.Truncate(-12.9) = " + tp.Truncate(-12.9));
+                    tp.InfoNote("Rounding and truncation completed.");
+                });
+        
+                tp.On("#NumbersRandomButton", "click", function () {
+                    var RandomInt = tp.Random(1, 3);
+                    var RandomFloat = tp.RandomFloat(1, 2);
+        
+                    AddLine("tp.Random(1, 3) = " + RandomInt + " ; in range = " + (RandomInt >= 1 && RandomInt <= 3));
+                    AddLine("tp.RandomFloat(1, 2) = " + RandomFloat + " ; in range = " + (RandomFloat >= 1 && RandomFloat < 2));
+                    AddLine("tp.ToHex(15) = " + tp.ToHex(15));
+                    AddLine("tp.ToHex(255) = " + tp.ToHex(255));
+                    AddLine("tp.ToHex(-1) = " + tp.ToHex(-1));
+                    tp.InfoNote("Random and hexadecimal helpers completed.");
+                });
+        
+                tp.On("#NumbersClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run number helper checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

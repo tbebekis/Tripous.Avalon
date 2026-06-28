@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Grid - Thousands of Rows</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../tripous/js/tp-Grid.js"></script>
+    <script src="../assets/js/demos.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Grid - Thousands of Rows</h1>
+
+        <p>The <code>tp.Grid</code> is a data grid control.</p>
+        <p>Some of the features are grouping, summaries, filtering, toolbar and custom buttons, in-place editing, and virtual scrolling.</p>
+        <p>The <code>tp.Grid</code> uses <a href="https://dev.to/adamklein/build-your-own-virtual-scroll-part-i-11ib" target="_blank" rel="noopener noreferrer">virtual scrolling</a> instead of paging.</p>
+        <p>The following example loads 10 thousand rows in a grid. Those rows come from a local <code>tp.DataTable</code>.</p>
+        <p>Grid columns are created automatically based on <code>tp.DataColumn</code> objects defined in the passed <code>tp.DataTable</code>. In this example the configuration of the grid is done by JavaScript code using grid properties.</p>
+        <p>Keyboard shortcuts:</p>
+        <pre>Arrow Up / Arrow Down  Move row focus
+Arrow Left / Arrow Right  Move cell focus
+PageUp / PageDown  Scroll by page
+Home / End  Jump to start or end
+Enter / F2  Open the in-place editor
+Tab  Commit and close the editor
+Escape  Cancel and close the editor</pre>
+
+        <style>
+            .grid-demo-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 12px;
+                max-width: 1200px;
+            }
+            .grid-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+            }
+            .grid-demo-options {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 6px 12px;
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+            .grid-demo-options label {
+                display: flex;
+                gap: 6px;
+                align-items: center;
+                min-width: 0;
+                white-space: nowrap;
+            }
+            .grid-demo-host {
+                min-height: 450px;
+            }
+            .grid-demo-status {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 8px;
+            }
+            .grid-demo-status div {
+                padding: 8px 10px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+        </style>
+
+        <div class="html-code">
+            <div class="grid-demo-layout">
+                <div class="grid-demo-actions">
+                    <button id="ClearRowsButton" type="button">Clear Rows</button>
+                    <button id="RebuildRowsButton" type="button">Rebuild Rows</button>
+                </div>
+                <div class="grid-demo-options">
+                    <label><input type="checkbox" data-grid-option="ToolBarVisible" checked> ToolBarVisible</label>
+                    <label><input type="checkbox" data-grid-option="GroupsVisible" checked> GroupsVisible</label>
+                    <label><input type="checkbox" data-grid-option="ColumnsVisible" checked> ColumnsVisible</label>
+                    <label><input type="checkbox" data-grid-option="FilterVisible" checked> FilterVisible</label>
+                    <label><input type="checkbox" data-grid-option="FooterVisible" checked> FooterVisible</label>
+                    <label><input type="checkbox" data-grid-option="ButtonInsertVisible" checked> ButtonInsertVisible</label>
+                    <label><input type="checkbox" data-grid-option="ButtonDeleteVisible" checked> ButtonDeleteVisible</label>
+                    <label><input type="checkbox" data-grid-option="ButtonEditVisible"> ButtonEditVisible</label>
+                    <label><input type="checkbox" data-grid-option="ButtonFindVisible"> ButtonFindVisible</label>
+                    <label><input type="checkbox" data-grid-option="ReadOnly"> ReadOnly</label>
+                    <label><input type="checkbox" data-grid-option="ConfirmDelete" checked> ConfirmDelete</label>
+                    <label><input type="checkbox" data-grid-option="AllowUserToAddRows" checked> AllowUserToAddRows</label>
+                    <label><input type="checkbox" data-grid-option="AllowUserToDeleteRows" checked> AllowUserToDeleteRows</label>
+                    <label><input type="checkbox" data-grid-option="AllowUserToOrderColumns" checked> AllowUserToOrderColumns</label>
+                    <label><input type="checkbox" data-grid-option="AllowUserToResizeColumns" checked> AllowUserToResizeColumns</label>
+                    <label><input type="checkbox" data-grid-option="GroupFooterVisible" checked> GroupFooterVisible</label>
+                </div>
+                <div id="GridStatus" class="grid-demo-status"></div>
+                <div id="Grid" class="grid-demo-host"></div>
+            </div>
+        </div>
+
+        <script class="js-code">
+            var Grid;
+            var Table;
+
+            tp.Ready(function () {
+                if (!tp.Grid) {
+                    tp.ErrorNote("tp-Grid.js is not loaded. Build the WebApp project to generate and sync the grid bundle.");
+                    return;
+                }
+
+                Grid = new tp.Grid("#Grid");
+                Grid.Handle.style.height = "450px";
+
+                tp.On("#ClearRowsButton", tp.Events.Click, ClearRows);
+                tp.On("#RebuildRowsButton", tp.Events.Click, RebuildRows);
+                tp.SelectAll("[data-grid-option]").forEach(function (Element) {
+                    tp.On(Element, tp.Events.Change, function () {
+                        ApplyGridOption(Element);
+                    });
+                });
+
+                ApplyGridOptions();
+                RebuildRows();
+            });
+
+            function RebuildRows() {
+                var Data;
+                var StartTime;
+                var Duration;
+                Data = DemoData.CreateEmployeeTable(10000);
+                Table = Data.Table;
+                StartTime = Date.now();
+                Grid.DataSource = Table;
+                Duration = Date.now() - StartTime;
+                RenderStatus(Data.MSecs, Duration);
+            }
+
+            function ClearRows() {
+                if (Grid && Grid.DataSource) {
+                    Grid.DataSource.ClearRows();
+                    RenderStatus(0, 0);
+                }
+            }
+
+            function ApplyGridOptions() {
+                tp.SelectAll("[data-grid-option]").forEach(function (Element) {
+                    ApplyGridOption(Element);
+                });
+            }
+
+            function ApplyGridOption(Element) {
+                var Name;
+                if (!Grid)
+                    return;
+                Name = Element.getAttribute("data-grid-option");
+                Grid[Name] = Element.checked === true;
+                if (Name === "GroupFooterVisible" && Grid.DataSource)
+                    Grid.BuildGroups();
+            }
+
+            function RenderStatus(DataMSecs, BindMSecs) {
+                var Status = tp("#GridStatus");
+                var RowCount = Table ? Table.RowCount : 0;
+                Status.innerHTML = "";
+                Status.appendChild(CreateStatusItem("Rows", RowCount.toLocaleString()));
+                Status.appendChild(CreateStatusItem("Data", tp.Round(DataMSecs / 1000, 3) + " sec"));
+                Status.appendChild(CreateStatusItem("Grid bind", tp.Round(BindMSecs / 1000, 3) + " sec"));
+            }
+
+            function CreateStatusItem(Caption, Text) {
+                var Element = document.createElement("div");
+                Element.innerHTML = "<strong>" + Caption + "</strong><br>" + Text;
+                return Element;
+            }
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

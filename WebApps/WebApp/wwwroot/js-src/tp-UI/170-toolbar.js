@@ -41,6 +41,399 @@ tp.ToolBarItemClickEventArgs.prototype.Item = null;
  */
 tp.ToolBarItemClickEventArgs.prototype.Button = null;
 
+// ● control toolbar button
+/**
+ * A compact button for control toolbars used by controls and specialized dialogs.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ * - Click
+ *
+ * @implements {tp.ICommandProperty}
+ */
+tp.ControlToolButton = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a ControlToolButton instance.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.ControlToolButton.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.ControlToolButton";
+        this.fClickHandler = this.FuncBind(this.HandleClick);
+        tp.AddClass(this.Handle, tp.Classes.ControlToolButton);
+        this.ApplyButtonParams(Params);
+        this.ReadMarkupParams();
+        this.UpdatePadding();
+        this.Handle.addEventListener("click", this.fClickHandler);
+    }
+
+    // ● protected
+    /**
+     * Creates normalized control toolbar button create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        var Element;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.ElementOrSelector = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        Element = tp(Params.ElementOrSelector);
+        if (!(Element instanceof HTMLElement))
+            Params.ElementOrSelector = "div";
+        return Params;
+    }
+    /**
+     * Creates child elements after the handle is created.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        var TextNode;
+        var Text;
+        super.OnHandleCreated();
+        TextNode = tp.FindTextNode(this.Handle);
+        Text = TextNode ? TextNode.nodeValue || "" : "";
+        if (TextNode)
+            TextNode.nodeValue = "";
+        this.fImageElement = this.Document.createElement("div");
+        this.fTextElement = this.Document.createElement("div");
+        this.Handle.appendChild(this.fImageElement);
+        this.Handle.appendChild(this.fTextElement);
+        this.fTextElement.textContent = Text.trim();
+    }
+    /**
+     * Applies ControlToolButton-specific create params.
+     * @param {tp.CreateParams|object|null|undefined} Params The create params.
+     * @returns {void}
+     */
+    ApplyButtonParams(Params) {
+        if (!Params)
+            return;
+        if (!tp.IsNil(Params.Command))
+            this.Command = Params.Command;
+        if (!tp.IsNil(Params.IcoClasses))
+            this.IcoClasses = Params.IcoClasses;
+        if (!tp.IsNil(Params.IcoChar))
+            this.IcoChar = Params.IcoChar;
+        if (!tp.IsNil(Params.ToolTip))
+            this.ToolTip = Params.ToolTip;
+        if (!tp.IsNil(Params.Text))
+            this.Text = Params.Text;
+    }
+    /**
+     * Reads button settings from data-* attributes.
+     * @returns {void}
+     */
+    ReadMarkupParams() {
+        var Value;
+        if (tp.IsBlank(this.Command))
+            this.Command = tp.Data(this.Handle, "command") || "";
+        Value = tp.Data(this.Handle, "ico-classes");
+        if (!tp.IsBlank(Value))
+            this.IcoClasses = Value;
+        Value = tp.Data(this.Handle, "tooltip") || this.Handle.getAttribute("title");
+        if (!tp.IsBlank(Value))
+            this.ToolTip = Value;
+    }
+    /**
+     * Handles DOM click events.
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleClick(e) {
+        e.preventDefault();
+        if (!this.Enabled)
+            return;
+        this.Trigger(tp.Events.Click, {
+            e: e,
+            el: e.target,
+            Button: this,
+            Command: this.Command
+        });
+        if (this.Parent instanceof tp.ControlToolBar)
+            this.Parent.OnButtonClick(new tp.ToolBarItemClickEventArgs(this, this.Command));
+    }
+    /**
+     * Updates text padding when both icon and text are visible.
+     * @returns {void}
+     */
+    UpdatePadding() {
+        var HasIcon = !tp.IsBlank(this.IcoClasses);
+        var HasIconChar = !tp.IsBlank(this.IcoChar);
+        var HasText = !tp.IsBlank(this.Text);
+        if (this.fTextElement instanceof HTMLElement)
+            this.fTextElement.style.paddingLeft = (HasIcon || HasIconChar) && HasText ? "4px" : "0";
+    }
+
+    // ● public
+    /**
+     * Disposes this instance.
+     * @returns {void}
+     */
+    Dispose() {
+        if (this.IsDisposed)
+            return;
+        if (this.HasHandle && this.fClickHandler)
+            this.Handle.removeEventListener("click", this.fClickHandler);
+        this.fClickHandler = null;
+        this.fImageElement = null;
+        this.fTextElement = null;
+        super.Dispose();
+    }
+
+    // ● properties
+    /**
+     * Gets or sets the visible button text.
+     * @returns {string} Returns the text.
+     */
+    get Text() {
+        return this.fTextElement instanceof HTMLElement ? this.fTextElement.textContent : "";
+    }
+    /**
+     * Gets or sets the visible button text.
+     * @param {*} Value The text value.
+     * @returns {void}
+     */
+    set Text(Value) {
+        if (this.fTextElement instanceof HTMLElement) {
+            this.fTextElement.textContent = tp.IsNil(Value) ? "" : String(Value);
+            this.UpdatePadding();
+        }
+    }
+    /**
+     * Gets or sets the visible icon character.
+     * @returns {string} Returns the icon character.
+     */
+    get IcoChar() {
+        return this.fImageElement instanceof HTMLElement ? this.fImageElement.textContent : "";
+    }
+    /**
+     * Gets or sets the visible icon character.
+     * @param {*} Value The icon character.
+     * @returns {void}
+     */
+    set IcoChar(Value) {
+        if (this.fImageElement instanceof HTMLElement) {
+            this.fImageElement.textContent = tp.IsNil(Value) ? "" : String(Value);
+            this.UpdatePadding();
+        }
+    }
+    /**
+     * Gets or sets the icon CSS classes.
+     * @returns {string} Returns the icon CSS classes.
+     */
+    get IcoClasses() {
+        return this.fIcoClasses;
+    }
+    /**
+     * Gets or sets the icon CSS classes.
+     * @param {*} Value The icon CSS classes.
+     * @returns {void}
+     */
+    set IcoClasses(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (this.fImageElement instanceof HTMLElement) {
+            tp.RemoveClasses(this.fImageElement, this.fIcoClasses);
+            tp.AddClasses(this.fImageElement, Value);
+        }
+        this.fIcoClasses = Value;
+        this.UpdatePadding();
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.ControlToolButton.prototype.tpClass = "tp.ControlToolButton";
+/**
+ * Button command.
+ * @type {string}
+ */
+tp.ControlToolButton.prototype.Command = "";
+/**
+ * A user-defined value.
+ * @type {*}
+ */
+tp.ControlToolButton.prototype.Tag = null;
+/**
+ * Icon element.
+ * @type {HTMLElement|null}
+ */
+tp.ControlToolButton.prototype.fImageElement = null;
+/**
+ * Text element.
+ * @type {HTMLElement|null}
+ */
+tp.ControlToolButton.prototype.fTextElement = null;
+/**
+ * Icon CSS classes.
+ * @type {string}
+ */
+tp.ControlToolButton.prototype.fIcoClasses = "";
+/**
+ * Click handler.
+ * @type {Function|null}
+ */
+tp.ControlToolButton.prototype.fClickHandler = null;
+
+// ● control toolbar
+/**
+ * A compact toolbar used by controls and specialized dialogs.
+ *
+ * Events:
+ * - ButtonClick
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ */
+tp.ControlToolBar = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a control toolbar.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.ControlToolBar.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.ControlToolBar";
+        this.ButtonClass = tp.ControlToolButton;
+        tp.AddClass(this.Handle, tp.Classes.ControlToolBar);
+        this.CreateMarkupButtons();
+    }
+
+    // ● protected
+    /**
+     * Creates normalized control toolbar create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        var Element;
+        if (arguments.length > 1) {
+            Params = new tp.CreateParams(Options);
+            Params.ElementOrSelector = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        Element = tp(Params.ElementOrSelector);
+        if (!(Element instanceof HTMLElement))
+            Params.ElementOrSelector = "div";
+        return Params;
+    }
+    /**
+     * Creates internal toolbar elements.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        this.fRightAligner = this.Document.createElement("div");
+        this.fRightAligner.className = tp.Classes.FlexFill;
+        this.Handle.appendChild(this.fRightAligner);
+    }
+    /**
+     * Converts direct div children to ControlToolButton components.
+     * @returns {void}
+     */
+    CreateMarkupButtons() {
+        var List = this.GetElementList();
+        var Index;
+        var Element;
+        for (Index = 0; Index < List.length; Index++) {
+            Element = List[Index];
+            if (Element === this.fRightAligner)
+                continue;
+            if (Element instanceof HTMLDivElement && !(tp.Component.GetComponent(Element) instanceof tp.ControlToolButton))
+                new this.ButtonClass(Element);
+        }
+    }
+    // ● public
+    /**
+     * Adds and returns a new control toolbar button.
+     * @param {string} Command The button command.
+     * @param {string|null|undefined} Text The button text.
+     * @param {string|null|undefined} ToolTip The tooltip.
+     * @param {string|null|undefined} IcoClasses The icon CSS classes.
+     * @param {string|null|undefined} CssClasses Extra CSS classes.
+     * @param {boolean|null|undefined} ToRight True to align to the right.
+     * @returns {tp.ControlToolButton} Returns the new button.
+     */
+    AddButton(Command, Text, ToolTip, IcoClasses, CssClasses, ToRight) {
+        var Button = new this.ButtonClass({
+            Text: Text || "",
+            ToolTip: ToolTip || "",
+            Command: Command || "",
+            IcoClasses: IcoClasses || ""
+        });
+        tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+        if (!tp.IsBlank(CssClasses))
+            tp.AddClasses(Button.Handle, CssClasses);
+        this.AddItem(Button, ToRight === true);
+        return Button;
+    }
+    /**
+     * Adds a component to the toolbar.
+     * @param {tp.Component} Control The component to add.
+     * @param {boolean|null|undefined} ToRight True to align to the right.
+     * @returns {void}
+     */
+    AddItem(Control, ToRight) {
+        if (!(Control instanceof tp.Component))
+            return;
+        if (ToRight === true)
+            this.Handle.appendChild(Control.Handle);
+        else
+            this.Handle.insertBefore(Control.Handle, this.fRightAligner);
+    }
+    /**
+     * Triggers the ButtonClick event.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    OnButtonClick(Args) {
+        this.Trigger("ButtonClick", Args);
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.ControlToolBar.prototype.tpClass = "tp.ControlToolBar";
+/**
+ * Right aligner element.
+ * @type {HTMLElement|null}
+ */
+tp.ControlToolBar.prototype.fRightAligner = null;
+/**
+ * Button class.
+ * @type {Function|null}
+ */
+tp.ControlToolBar.prototype.ButtonClass = null;
+
 // ● button-ex
 /**
  * A button control with icon and text, built on an anchor element.

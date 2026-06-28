@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Languages and tp.Cultures</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Languages and tp.Cultures</h1>
+        
+        <p>
+            <code>tp.Language</code> and <code>tp.Languages</code> are about user-interface text.
+            A language stores string resources keyed by name, and the current language is used by
+            <code>tp._L()</code> and <code>tp.Res.GetString()</code>. This is localization.
+        </p>
+        
+        <p>
+            <code>tp.Culture</code> and <code>tp.Cultures</code> are about formatting information:
+            decimal separator, thousand separator, currency symbol, date separator, date format, day names,
+            and month names. This is globalization. A page may use Greek UI text with an English culture,
+            or English UI text with a Greek culture, so the two concepts are deliberately separate.
+        </p>
+        
+        <style>
+            .localization-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 1040px;
+                align-items: start;
+            }
+            .localization-demo-section {
+                margin-bottom: 18px;
+            }
+            .localization-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .localization-demo-section p {
+                margin: 6px 0;
+            }
+            .localization-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .localization-demo-card {
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .localization-demo-card p {
+                margin: 4px 0;
+            }
+            .localization-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 940px);
+                min-height: 360px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .localization-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="localization-demo-grid">
+                    <section class="localization-demo-section">
+                        <p class="localization-demo-title">Language resources</p>
+                        <p>
+                            The demo adds a few resource strings to the built-in English and Greek languages,
+                            then switches <code>tp.Languages.Current</code>.
+                        </p>
+                        <div id="LanguageCard" class="localization-demo-card">
+                            <p id="LanguageTitle">Title</p>
+                            <p id="LanguageMessage">Message</p>
+                        </div>
+                        <div class="localization-demo-actions">
+                            <button id="UseEnglishButton" type="button">Use English</button>
+                            <button id="UseGreekButton" type="button">Use Greek</button>
+                        </div>
+                    </section>
+                    
+                    <section class="localization-demo-section">
+                        <p class="localization-demo-title">Current culture</p>
+                        <p>
+                            The current culture is available through <code>tp.Cultures.Current</code> and
+                            shortcut properties such as <code>tp.DecimalSeparator</code>,
+                            <code>tp.DateFormat</code>, and <code>tp.CurrencySymbol</code>.
+                        </p>
+                        <div id="CultureCard" class="localization-demo-card">
+                            <p id="CultureCodeText">Culture</p>
+                            <p id="CultureNumberText">Number separators</p>
+                            <p id="CultureDateText">Date format</p>
+                            <p id="CultureCurrencyText">Currency</p>
+                        </div>
+                        <div class="localization-demo-actions">
+                            <button id="UseUsCultureButton" type="button">Use en-US</button>
+                            <button id="UseGreekCultureButton" type="button">Use el-GR</button>
+                            <button id="EnsureCultureButton" type="button">Ensure fr-FR</button>
+                        </div>
+                    </section>
+                    
+                    <section class="localization-demo-section">
+                        <p class="localization-demo-title">Lookup helpers</p>
+                        <p>
+                            <code>tp.Languages.Find()</code>, <code>tp.Languages.Exists()</code>,
+                            <code>tp.Cultures.Find()</code>, and <code>tp.Cultures.Ensure()</code> are registry
+                            helpers. <code>Ensure()</code> creates a culture when it is not already registered.
+                        </p>
+                        <div class="localization-demo-actions">
+                            <button id="LookupButton" type="button">Run lookups</button>
+                        </div>
+                    </section>
+                    
+                    <section class="localization-demo-section">
+                        <p class="localization-demo-title">Callback resource access</p>
+                        <p>
+                            <code>tp.Res.GetString()</code> returns a localized resource through a callback.
+                            The callback also receives a user tag, which is useful when the same callback is
+                            used for many resource keys.
+                        </p>
+                        <div class="localization-demo-actions">
+                            <button id="ResourceCallbackButton" type="button">Run callback</button>
+                            <button id="LocalizationClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="LocalizationOutput" class="localization-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var OriginalLanguage = tp.Languages.Current;
+                var OriginalCulture = tp.Cultures.Current;
+        
+                var Write = function () {
+                    tp.Text("#LocalizationOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var AddResources = function () {
+                    tp.Languages.En.AddStringList({
+                        DemoTitle: "Tripous localization",
+                        DemoMessage: "The current language supplies this text."
+                    });
+                    tp.Languages.Gr.AddStringList({
+                        DemoTitle: "Τοπικοποίηση Tripous",
+                        DemoMessage: "Η τρέχουσα γλώσσα δίνει αυτό το κείμενο."
+                    });
+                };
+        
+                var RenderLanguage = function () {
+                    tp.Text("#LanguageTitle", tp._L("DemoTitle"));
+                    tp.Text("#LanguageMessage", tp._L("DemoMessage"));
+                    AddLine("Language = " + tp.Languages.Current.toString());
+                    AddLine("  tp._L(\"DemoTitle\") = " + tp._L("DemoTitle"));
+                    AddLine("  missing key with default = " + tp._L("MissingKey", "Default text"));
+                };
+        
+                var RenderCulture = function () {
+                    var Culture = tp.Cultures.Current;
+                    tp.Text("#CultureCodeText", "Culture: " + Culture.Code + " - " + Culture.Name);
+                    tp.Text("#CultureNumberText", "Decimal: " + tp.DecimalSeparator + " | Thousand: " + tp.ThousandSeparator);
+                    tp.Text("#CultureDateText", "Date format: " + tp.DateFormat + " | Separator: " + tp.DateSeparator);
+                    tp.Text("#CultureCurrencyText", "Currency: " + tp.CurrencyCode + " " + tp.CurrencySymbol + " decimals=" + tp.CurrencyDecimals);
+                    AddLine("Culture = " + Culture.Code + " - " + Culture.Name);
+                    AddLine("  DecimalSeparator = " + tp.DecimalSeparator);
+                    AddLine("  ThousandSeparator = " + tp.ThousandSeparator);
+                    AddLine("  DateFormat = " + tp.DateFormat);
+                    AddLine("  Currency = " + tp.CurrencyCode + " " + tp.CurrencySymbol);
+                };
+        
+                tp.On("#UseEnglishButton", "click", function () {
+                    tp.Languages.Current = tp.Languages.En;
+                    RenderLanguage();
+                    tp.InfoNote("English language selected.");
+                });
+        
+                tp.On("#UseGreekButton", "click", function () {
+                    tp.Languages.Current = tp.Languages.Gr;
+                    RenderLanguage();
+                    tp.InfoNote("Greek language selected.");
+                });
+        
+                tp.On("#UseUsCultureButton", "click", function () {
+                    tp.CultureCode = "en-US";
+                    RenderCulture();
+                    tp.InfoNote("en-US culture selected.");
+                });
+        
+                tp.On("#UseGreekCultureButton", "click", function () {
+                    tp.CultureCode = "el-GR";
+                    RenderCulture();
+                    tp.InfoNote("el-GR culture selected.");
+                });
+        
+                tp.On("#EnsureCultureButton", "click", function () {
+                    tp.CultureCode = "fr-FR";
+                    RenderCulture();
+                    AddLine("fr-FR was created by tp.Cultures.Ensure() when assigned to tp.CultureCode.");
+                    tp.InfoNote("fr-FR culture ensured.");
+                });
+        
+                tp.On("#LookupButton", "click", function () {
+                    AddLine("tp.Languages.Exists(\"el\") = " + tp.Languages.Exists("el"));
+                    AddLine("tp.Languages.Find(\"en\") = " + tp.Languages.Find("en").toString());
+                    AddLine("tp.Cultures.Find(\"el-GR\").CurrencySymbol = " + tp.Cultures.Find("el-GR").CurrencySymbol);
+                    AddLine("tp.Cultures.Ensure(\"de-DE\").Code = " + tp.Cultures.Ensure("de-DE").Code);
+                    AddLine("Registered culture count = " + tp.Cultures.Items.length);
+                    tp.InfoNote("Lookup helpers completed.");
+                });
+        
+                tp.On("#ResourceCallbackButton", "click", function () {
+                    tp.Res.GetString("DemoMessage", function (Value, UserTag) {
+                        AddLine("tp.Res.GetString callback:");
+                        AddLine("  value = " + Value);
+                        AddLine("  user tag = " + UserTag);
+                    }, "Fallback message", null, "message-tag");
+                    tp.InfoNote("Resource callback completed.");
+                });
+        
+                tp.On("#LocalizationClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddResources();
+                tp.Languages.Current = OriginalLanguage;
+                tp.Cultures.Current = OriginalCulture;
+                RenderLanguage();
+                RenderCulture();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

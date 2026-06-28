@@ -163,6 +163,8 @@ tp.Component = class extends tp.Object {
      * @returns {tp.CreateParams} Returns create parameters.
      */
     static CreateParams(Value) {
+        if (Value instanceof tp.CreateParams)
+            return Value;
         if (tp.IsString(Value) || tp.IsHTMLElement(Value))
             return new tp.CreateParams({ ElementOrSelector: Value });
         return new tp.CreateParams(Value);

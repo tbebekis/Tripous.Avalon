@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misc functions</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Misc functions</h1>
+        
+        <p>
+            This demo covers general-purpose Tripous helper functions that do not belong to a more focused
+            area such as strings, numbers, dates, arrays, formatting, URL handling, keyboard, or mouse.
+        </p>
+        
+        <p>
+            These helpers are small building blocks used by the runtime and by application code: safe callback
+            invocation, lightweight overload detection, interface-like member checks, random colors, delayed
+            execution, JSON output, and mutation observer creation.
+        </p>
+        
+        <style>
+            .misc-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .misc-demo-section {
+                margin-bottom: 18px;
+            }
+            .misc-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .misc-demo-section p {
+                margin: 6px 0;
+            }
+            .misc-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .misc-demo-color-box {
+                width: 100%;
+                max-width: 220px;
+                height: 44px;
+                border: 1px solid #8c959f;
+                background: #f0f3f6;
+            }
+            .misc-demo-observed {
+                min-height: 44px;
+                padding: 10px;
+                border: 1px dashed #8c959f;
+                background: #ffffff;
+            }
+            .misc-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 340px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .misc-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="misc-demo-grid">
+                    <section class="misc-demo-section">
+                        <p class="misc-demo-title">Safe function calls</p>
+                        <p>
+                            <code>tp.Call()</code> calls a function only when the value is actually a function.
+                            It also supplies the <code>this</code> context and any arguments.
+                        </p>
+                        <div class="misc-demo-actions">
+                            <button id="MiscCallButton" type="button">Run call</button>
+                        </div>
+                    </section>
+                    
+                    <section class="misc-demo-section">
+                        <p class="misc-demo-title">Overload and member checks</p>
+                        <p>
+                            <code>tp.Overload()</code> returns a compact argument type signature.
+                            <code>tp.ImplementsInterface()</code> checks whether an object contains required
+                            member names.
+                        </p>
+                        <div class="misc-demo-actions">
+                            <button id="MiscChecksButton" type="button">Run checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="misc-demo-section">
+                        <p class="misc-demo-title">Colors and JSON</p>
+                        <p>
+                            <code>tp.RandomColor()</code> returns a random hexadecimal color.
+                            <code>tp.ToJson()</code> serializes a value with optional formatting.
+                        </p>
+                        <div id="MiscColorBox" class="misc-demo-color-box"></div>
+                        <div class="misc-demo-actions">
+                            <button id="MiscColorJsonButton" type="button">Run color/json</button>
+                        </div>
+                    </section>
+                    
+                    <section class="misc-demo-section">
+                        <p class="misc-demo-title">Wait and observe</p>
+                        <p>
+                            <code>tp.WaitAsync()</code> resolves after a delay and can call a callback.
+                            <code>tp.CreateMutationObserver()</code> creates a browser mutation observer when
+                            available.
+                        </p>
+                        <div id="MiscObserved" class="misc-demo-observed">Observed text</div>
+                        <div class="misc-demo-actions">
+                            <button id="MiscWaitButton" type="button">Run wait</button>
+                            <button id="MiscObserverButton" type="button">Run observer</button>
+                            <button id="MiscClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="MiscOutput" class="misc-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var Observer = null;
+                var ObserverCounter = 0;
+        
+                var Write = function () {
+                    tp.Text("#MiscOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#MiscCallButton", "click", function () {
+                    var Receiver = {
+                        Name: "demo",
+                        Format: function (Prefix, Value) {
+                            return Prefix + ":" + this.Name + ":" + Value;
+                        }
+                    };
+        
+                    AddLine("tp.Call(Receiver.Format, Receiver, \"value\", 42) = " + tp.Call(Receiver.Format, Receiver, "value", 42));
+                    AddLine("tp.Call(null, Receiver, \"value\", 42) = " + tp.Call(null, Receiver, "value", 42));
+                    tp.InfoNote("tp.Call checks completed.");
+                });
+        
+                tp.On("#MiscChecksButton", "click", function () {
+                    var Item = {
+                        Name: "Tripous",
+                        Execute: function () {
+                        }
+                    };
+        
+                    AddLine("tp.Overload([\"text\", 10, true, new Date()], true) = " + tp.Overload(["text", 10, true, new Date()], true));
+                    AddLine("tp.Overload([null, /abc/], true) = " + tp.Overload([null, /abc/], true));
+                    AddLine("tp.ImplementsInterface(Item, [\"Name\", \"Execute\"]) = " + tp.ImplementsInterface(Item, ["Name", "Execute"]));
+                    AddLine("tp.ImplementsInterface(Item, [\"Name\", \"Missing\"]) = " + tp.ImplementsInterface(Item, ["Name", "Missing"]));
+                    tp.InfoNote("Overload and member checks completed.");
+                });
+        
+                tp.On("#MiscColorJsonButton", "click", function () {
+                    var Color = tp.RandomColor();
+                    var Value = {
+                        Name: "Tripous",
+                        Active: true,
+                        Color: Color
+                    };
+        
+                    tp.StyleProp("#MiscColorBox", "backgroundColor", Color);
+                    AddLine("tp.RandomColor() = " + Color);
+                    AddLine("tp.ToJson(Value, true) =");
+                    AddLine(tp.ToJson(Value, true));
+                    AddLine("tp.ToJson(Value, false) = " + tp.ToJson(Value, false));
+                    tp.InfoNote("Random color and JSON completed.");
+                });
+        
+                tp.On("#MiscWaitButton", "click", async function () {
+                    AddLine("Waiting 250ms...");
+                    await tp.WaitAsync(250, function () {
+                        AddLine("tp.WaitAsync callback executed.");
+                    });
+                    tp.InfoNote("Wait completed.");
+                });
+        
+                tp.On("#MiscObserverButton", "click", async function () {
+                    var Target = tp("#MiscObserved");
+        
+                    if (!Observer) {
+                        Observer = tp.CreateMutationObserver(function (MutationList) {
+                            AddLine("MutationObserver fired with " + MutationList.length + " mutation(s).");
+                        });
+                        if (Observer)
+                            Observer.observe(Target, { childList: true, characterData: true, subtree: true });
+                    }
+        
+                    if (!Observer) {
+                        AddLine("MutationObserver is not available in this browser.");
+                        return;
+                    }
+        
+                    ObserverCounter++;
+                    tp.Text(Target, "Observed text " + ObserverCounter);
+                    await tp.WaitAsync(50);
+                    tp.InfoNote("Mutation observer check completed.");
+                });
+        
+                tp.On("#MiscClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run misc helper checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

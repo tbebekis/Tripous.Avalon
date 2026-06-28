@@ -35,6 +35,18 @@ tp.Throw = function (Message) {
     throw Ex;
 };
 /**
+ * Returns a readable exception text.
+ * @param {*} Ex The exception or error value.
+ * @returns {string} Returns the exception text.
+ */
+tp.ExceptionText = function (Ex) {
+    if (Ex instanceof Error)
+        return !tp.IsBlank(Ex.message) ? Ex.message : Ex.toString();
+    if (tp.IsString(Ex))
+        return Ex;
+    return tp.IsNil(Ex) ? "" : String(Ex);
+};
+/**
  * Gets a value indicating whether the Tripous JavaScript runtime is ready.
  * @type {boolean}
  */

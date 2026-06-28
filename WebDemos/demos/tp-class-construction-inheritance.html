@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class construction and inheritance</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Class construction and inheritance</h1>
+        
+        <p>
+            This material is the part that survived in <code>tp</code> from the old way Tripous created
+            JavaScript classes, before the <code>class</code> keyword became part of the language.
+            Modern JavaScript has native class syntax now, but these helpers are still present because
+            some Tripous code still uses or explains that earlier pattern.
+        </p>
+        
+        <p>
+            Modern Tripous JavaScript uses normal JavaScript classes and <code>extends</code> wherever possible.
+            Tripous also has a small set of helpers for function-constructor inheritance:
+            <code>tp.SetBaseClass()</code>, <code>tp.Property()</code>, <code>tp.Constant()</code>, and
+            <code>tp.CreateInstance()</code>.
+        </p>
+        
+        <p>
+            These helpers are still useful when reading function-constructor code or when a small constructor
+            function is simpler than a class. This demo shows both styles side by side. The important rule is that
+            <code>class extends</code> is the normal style for new code, while <code>tp.SetBaseClass()</code>
+            is kept mainly for old function-constructor patterns.
+        </p>
+        
+        <style>
+            .class-construction-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .class-construction-section {
+                margin-bottom: 18px;
+            }
+            .class-construction-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .class-construction-section p {
+                margin: 6px 0;
+            }
+            .class-construction-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .class-construction-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 250px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .class-construction-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="class-construction-grid">
+                    <section class="class-construction-section">
+                        <p class="class-construction-title">Modern class inheritance</p>
+                        <p>
+                            A derived class uses JavaScript <code>extends</code>, calls <code>super()</code>,
+                            and can be created directly or through <code>tp.CreateInstance()</code>.
+                        </p>
+                        <div class="class-construction-actions">
+                            <button id="ClassModernButton" type="button">Run modern class</button>
+                        </div>
+                    </section>
+                    
+                    <section class="class-construction-section">
+                        <p class="class-construction-title">Legacy function constructors</p>
+                        <p>
+                            <code>tp.SetBaseClass(Derived, Base)</code> wires the prototype chain for old
+                            function-constructor code and returns the base prototype.
+                        </p>
+                        <div class="class-construction-actions">
+                            <button id="ClassLegacyButton" type="button">Run legacy constructor</button>
+                        </div>
+                    </section>
+                    
+                    <section class="class-construction-section">
+                        <p class="class-construction-title">Property helper</p>
+                        <p>
+                            <code>tp.Property()</code> defines a property on a prototype or object. It can
+                            create either a plain value property or a getter/setter property.
+                        </p>
+                        <div class="class-construction-actions">
+                            <button id="ClassPropertyButton" type="button">Run property helper</button>
+                        </div>
+                    </section>
+                    
+                    <section class="class-construction-section">
+                        <p class="class-construction-title">Constant helper</p>
+                        <p>
+                            <code>tp.Constant()</code> defines a non-writable, non-enumerable property.
+                            It is useful for metadata-style values that should not be changed by normal code.
+                        </p>
+                        <div class="class-construction-actions">
+                            <button id="ClassConstantButton" type="button">Run constant helper</button>
+                            <button id="ClassClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="ClassOutput" class="class-construction-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                class Person {
+                    constructor(Name) {
+                        this.Name = Name;
+                    }
+                    Describe() {
+                        return "Person: " + this.Name;
+                    }
+                }
+        
+                class Employee extends Person {
+                    constructor(Name, Department) {
+                        super(Name);
+                        this.Department = Department;
+                    }
+                    Describe() {
+                        return "Employee: " + this.Name + ", " + this.Department;
+                    }
+                }
+        
+                function Animal(Name) {
+                    this.Name = Name;
+                }
+        
+                Animal.prototype.Describe = function () {
+                    return "Animal: " + this.Name;
+                };
+        
+                function Dog(Name, Breed) {
+                    Animal.call(this, Name);
+                    this.Breed = Breed;
+                }
+        
+                var DogBase = tp.SetBaseClass(Dog, Animal);
+        
+                Dog.prototype.Describe = function () {
+                    return DogBase.Describe.call(this) + ", breed: " + this.Breed;
+                };
+        
+                function SampleValue(Text) {
+                    this.fText = Text || "";
+                }
+        
+                tp.Property("Text", SampleValue.prototype, function () {
+                    return this.fText;
+                }, function (Value) {
+                    this.fText = Value;
+                });
+        
+                function SampleKind() {
+                }
+        
+                tp.Constant("Kind", SampleKind.prototype, "ReadOnlyKind");
+        
+                var Write = function () {
+                    tp.Text("#ClassOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#ClassModernButton", "click", function () {
+                    var Direct = new Employee("Helen", "Sales");
+                    var Created = tp.CreateInstance(Employee, ["John", "Accounting"]);
+        
+                    AddLine("new Employee(\"Helen\", \"Sales\").Describe() = " + Direct.Describe());
+                    AddLine("tp.CreateInstance(Employee, [\"John\", \"Accounting\"]).Describe() = " + Created.Describe());
+                    AddLine("Direct instanceof Employee = " + (Direct instanceof Employee));
+                    AddLine("Direct instanceof Person = " + (Direct instanceof Person));
+                    tp.InfoNote("Modern class inheritance checked.");
+                });
+        
+                tp.On("#ClassLegacyButton", "click", function () {
+                    var Value = new Dog("Rex", "Shepherd");
+        
+                    AddLine("new Dog(\"Rex\", \"Shepherd\").Describe() = " + Value.Describe());
+                    AddLine("Value instanceof Dog = " + (Value instanceof Dog));
+                    AddLine("Value instanceof Animal = " + (Value instanceof Animal));
+                    AddLine("Dog.prototype.constructor === Dog = " + (Dog.prototype.constructor === Dog));
+                    tp.InfoNote("Legacy constructor inheritance checked.");
+                });
+        
+                tp.On("#ClassPropertyButton", "click", function () {
+                    var Value = new SampleValue("initial");
+                    Value.Text = "changed";
+        
+                    AddLine("Value.Text after setter = " + Value.Text);
+                    AddLine("tp.GetPropertyDescriptor(SampleValue.prototype, \"Text\").get is function = " + tp.IsFunction(tp.GetPropertyDescriptor(SampleValue.prototype, "Text").get));
+                    AddLine("tp.GetPropertyDescriptor(SampleValue.prototype, \"Text\").set is function = " + tp.IsFunction(tp.GetPropertyDescriptor(SampleValue.prototype, "Text").set));
+                    tp.InfoNote("Property helper checked.");
+                });
+        
+                tp.On("#ClassConstantButton", "click", function () {
+                    var Value = new SampleKind();
+                    var Descriptor = tp.GetPropertyDescriptor(SampleKind.prototype, "Kind");
+        
+                    AddLine("Value.Kind = " + Value.Kind);
+                    AddLine("Kind descriptor writable = " + Descriptor.writable);
+                    AddLine("Kind descriptor enumerable = " + Descriptor.enumerable);
+                    AddLine("Kind descriptor configurable = " + Descriptor.configurable);
+                    tp.InfoNote("Constant helper checked.");
+                });
+        
+                tp.On("#ClassClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run a class construction check.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

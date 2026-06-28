@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Debug</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Debug</h1>
+        
+        <p>
+            <code>tp.Debug</code> is a small development-time helper for inspecting values while
+            writing demos, controls, and application code. It is intentionally simple: it converts
+            values to readable text, writes values to the browser console, and can display a visible
+            note when the UI notification helper is loaded.
+        </p>
+        
+        <p>
+            Calling <code>tp.Debug(Value)</code> is shorthand for <code>tp.Debug.Log(Value)</code>.
+            <code>tp.Debug.AsText(Value)</code> returns text suitable for objects and primitive
+            values. <code>tp.Debug.Show(Value)</code> uses <code>tp.InfoNote()</code> when available
+            and falls back to <code>console.info()</code>. This is not the old <code>tp.Log</code>
+            mechanism and it does not require a page-level log element.
+        </p>
+        
+        <style>
+            .debug-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .debug-demo-panel {
+                grid-template-columns: minmax(0, 1fr);
+                max-width: 980px;
+            }
+            .demo-page.is-embedded .debug-demo-panel {
+                max-width: none;
+            }
+            .debug-demo-section {
+                margin-bottom: 16px;
+            }
+            .debug-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .debug-demo-section p {
+                margin: 6px 0;
+            }
+            .debug-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .debug-demo-output {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 300px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .debug-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide debug-demo-panel">
+                <div class="debug-demo-grid">
+                    <section class="debug-demo-section">
+                        <p class="debug-demo-title">Convert to text</p>
+                        <p>
+                            Use <code>tp.Debug.AsText()</code> when a value must become readable text
+                            before it is shown in a page log or note.
+                        </p>
+                        <div class="debug-demo-actions">
+                            <button id="DebugAsTextButton" type="button">As text</button>
+                        </div>
+                    </section>
+                    
+                    <section class="debug-demo-section">
+                        <p class="debug-demo-title">Write to console</p>
+                        <p>
+                            <code>tp.Debug()</code> and <code>tp.Debug.Log()</code> write to the browser
+                            console. The demo mirrors the same text below so the result is visible.
+                        </p>
+                        <div class="debug-demo-actions">
+                            <button id="DebugShorthandButton" type="button">Debug shorthand</button>
+                            <button id="DebugLogObjectButton" type="button">Log object</button>
+                        </div>
+                    </section>
+                    
+                    <section class="debug-demo-section">
+                        <p class="debug-demo-title">Show a visible note</p>
+                        <p>
+                            <code>tp.Debug.Show()</code> is useful when the result should be visible
+                            without opening DevTools.
+                        </p>
+                        <div class="debug-demo-actions">
+                            <button id="DebugShowButton" type="button">Show note</button>
+                        </div>
+                    </section>
+                    
+                    <section class="debug-demo-section">
+                        <p class="debug-demo-title">Handle difficult values</p>
+                        <p>
+                            Circular objects cannot be serialized as JSON. <code>tp.Debug.AsText()</code>
+                            handles that case and returns a safe fallback text.
+                        </p>
+                        <div class="debug-demo-actions">
+                            <button id="DebugCircularButton" type="button">Circular object</button>
+                            <button id="DebugClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DebugOutput" class="debug-demo-output"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                
+                var CreateSample = function () {
+                    return {
+                        Name: "Tripous",
+                        Active: true,
+                        Count: 3,
+                        Tags: ["core", "debug", "demo"],
+                        Created: new Date(2026, 0, 20)
+                    };
+                };
+                
+                var Write = function () {
+                    tp.Text("#DebugOutput", Lines.join("\n"));
+                };
+                
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+                
+                tp.On("#DebugAsTextButton", "click", function () {
+                    AddLine("tp.Debug.AsText(sample object) returned:");
+                    AddLine(tp.Debug.AsText(CreateSample()));
+                    AddLine("");
+                    tp.InfoNote("Value converted to text.");
+                });
+                
+                tp.On("#DebugShorthandButton", "click", function () {
+                    tp.Debug("tp.Debug(Value) wrote this string to the console.");
+                    AddLine("tp.Debug(Value) was called. Check the browser console too.");
+                    tp.InfoNote("Debug shorthand executed.");
+                });
+                
+                tp.On("#DebugLogObjectButton", "click", function () {
+                    var Value = CreateSample();
+                    tp.Debug.Log(Value);
+                    AddLine("tp.Debug.Log(sample object) wrote this text to the console:");
+                    AddLine(tp.Debug.AsText(Value));
+                    AddLine("");
+                    tp.InfoNote("Object written to console.");
+                });
+                
+                tp.On("#DebugShowButton", "click", function () {
+                    tp.Debug.Show(CreateSample());
+                    AddLine("tp.Debug.Show(sample object) displayed a note when tp.InfoNote() was available.");
+                });
+                
+                tp.On("#DebugCircularButton", "click", function () {
+                    var Value = { Name: "Circular object" };
+                    Value.Self = Value;
+                    AddLine("tp.Debug.AsText(circular object) returned:");
+                    AddLine(tp.Debug.AsText(Value));
+                    AddLine("");
+                    tp.InfoNote("Circular object handled.");
+                });
+                
+                tp.On("#DebugClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                    tp.InfoNote("Output cleared.");
+                });
+                
+                AddLine("Click a button to run a tp.Debug example.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

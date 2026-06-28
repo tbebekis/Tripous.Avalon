@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Grid - Overview</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../tripous/js/tp-Grid.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Grid - Overview</h1>
+
+        <p>The <code>tp.Grid</code> is a desktop-like data grid control for <code>tp.DataTable</code> and <code>tp.DataSource</code> data.</p>
+        <p>It can display normal data rows, group rows, group summary rows, and total summary rows. It supports grouping, summaries, sorting, filtering, in-place editing, lookup columns, boolean columns, date columns, and virtual scrolling.</p>
+        <p>The grid is organized in panels: toolbar, group panel, column headers, filter row, viewport, summary footer, and bottom horizontal scroll panel.</p>
+
+        <style>
+            .grid-demo-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 12px;
+                max-width: 1200px;
+            }
+            .grid-demo-notes {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 10px;
+            }
+            .grid-demo-note {
+                padding: 10px 12px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+            .grid-demo-note h2 {
+                margin: 0 0 6px 0;
+                font-size: 1rem;
+            }
+            .grid-demo-note ul {
+                margin: 0;
+                padding-left: 18px;
+            }
+            .grid-demo-note li + li {
+                margin-top: 4px;
+            }
+            .grid-demo-shortcuts {
+                box-sizing: border-box;
+                max-width: 100%;
+                margin: 0;
+                padding: 8px;
+                overflow-x: auto;
+                border: 1px solid #d0d7de;
+                background: #fff;
+                font-size: 0.875rem;
+                line-height: 1.45;
+                white-space: pre;
+            }
+            .grid-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+            }
+            .grid-demo-actions input {
+                width: min(320px, 100%);
+            }
+            .grid-demo-host {
+                min-height: 420px;
+            }
+        </style>
+
+        <div class="grid-demo-layout">
+            <section class="grid-demo-notes">
+                <div class="grid-demo-note">
+                    <h2>Try This</h2>
+                    <ul>
+                        <li>Drag <code>Department</code> or <code>Country</code> to the group panel.</li>
+                        <li>Click a column header to sort ascending, descending, or clear sorting.</li>
+                        <li>Type in the filter row under the column you want to filter.</li>
+                        <li>Right-click a summary footer cell to change its aggregate function.</li>
+                    </ul>
+                </div>
+                <div class="grid-demo-note">
+                    <h2>Filters</h2>
+                    <ul>
+                        <li>Text and lookup columns use contains by default: <code>Gree</code> in <code>Country</code> finds Greece.</li>
+                        <li>Numbers use greater-or-equal by default: <code>40</code> in <code>Age</code> means <code>&gt;=40</code>.</li>
+                        <li>Use <code>=</code>, <code>&lt;&gt;</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, or <code>&lt;=</code> for explicit comparisons.</li>
+                        <li>Use <code>?</code> contains, <code>^</code> starts-with, and <code>%</code> ends-with for text.</li>
+                        <li>Booleans accept <code>true</code>, <code>false</code>, <code>1</code>, or <code>0</code>.</li>
+                    </ul>
+                </div>
+                <div class="grid-demo-note">
+                    <h2>Toolbar</h2>
+                    <ul>
+                        <li><code>+</code> inserts an empty row when the grid is editable.</li>
+                        <li><code>-</code> deletes the focused row when deleting is allowed.</li>
+                        <li>Edit and Find are command hooks for application handlers and show a note in this demo.</li>
+                        <li>Custom applications can add their own toolbar buttons.</li>
+                    </ul>
+                </div>
+                <div class="grid-demo-note">
+                    <h2>Keyboard</h2>
+                    <pre class="grid-demo-shortcuts">Up / Down     Move row focus
+Left / Right  Move cell focus
+PageUp/Down   Scroll by page
+Home / End    Jump to start/end
+Enter / F2    Open editor
+Tab           Commit editor
+Escape        Cancel editor</pre>
+                </div>
+            </section>
+
+            <div class="html-code">
+                <div class="grid-demo-layout">
+                    <div class="grid-demo-actions">
+                        <button id="GroupButton" type="button">Group by Department and Country</button>
+                        <button id="ClearGroupButton" type="button">Clear Groups</button>
+                        <button id="ClearRowsButton" type="button">Clear Rows</button>
+                        <input id="FilterHint" type="text" value="Examples: Country=Gree, Age=>=40, Married=true" readonly>
+                    </div>
+                    <div id="Grid" class="grid-demo-host"></div>
+                </div>
+            </div>
+        </div>
+
+        <script class="js-code">
+            var Grid;
+            var Table;
+            var Countries;
+            var Departments;
+
+            tp.Ready(function () {
+                if (!tp.Grid) {
+                    tp.ErrorNote("tp-Grid.js is not loaded. Build the WebApp project to generate and sync the grid bundle.");
+                    return;
+                }
+
+                Countries = CreateLookupTable("Countries", ["Greece", "Italy", "Spain", "France"]);
+                Departments = CreateLookupTable("Departments", ["Sales", "Support", "Finance"]);
+                Table = CreateEmployeeTable();
+
+                Grid = new tp.Grid("#Grid");
+                Grid.Handle.style.height = "420px";
+                Grid.ReadOnly = false;
+                Grid.ToolBarVisible = true;
+                Grid.GroupsVisible = true;
+                Grid.ColumnsVisible = true;
+                Grid.FilterVisible = true;
+                Grid.FooterVisible = true;
+                Grid.ButtonInsertVisible = true;
+                Grid.ButtonDeleteVisible = true;
+                Grid.ButtonEditVisible = true;
+                Grid.ButtonFindVisible = true;
+                Grid.AutoGenerateColumns = false;
+
+                Grid.AddColumn("Code");
+                Grid.AddColumn("Name");
+                Grid.AddLookUpColumn("DepartmentId", "Department", "Id", "Name", Departments);
+                Grid.AddLookUpColumn("CountryId", "Country", "Id", "Name", Countries);
+                Grid.AddColumn("Age");
+                Grid.AddColumn("Salary");
+                Grid.AddColumn("Married");
+                Grid.AddColumn("EntryDate", "Entry Date");
+
+                Grid.DataSource = Table;
+                Grid.ColumnByName("Code").Width = 80;
+                Grid.ColumnByName("Name").Width = 150;
+                Grid.ColumnByName("DepartmentId").Width = 120;
+                Grid.ColumnByName("CountryId").Width = 110;
+                Grid.ColumnByName("Age").Width = 70;
+                Grid.ColumnByName("Salary").Width = 100;
+                Grid.ColumnByName("Married").Width = 80;
+                Grid.ColumnByName("EntryDate").Width = 110;
+                Grid.AddAggregate("Salary", tp.AggregateType.Sum);
+                Grid.AddAggregate("Age", tp.AggregateType.Avg);
+
+                Grid.On("ToolBarButtonClick", function (Args) {
+                    if (Args.Command === "GridRowInsert") {
+                        Grid.InsertEmptyRow();
+                        Args.Handled = true;
+                    } else if (Args.Command === "GridRowDelete") {
+                        Grid.DeleteFocusedRow();
+                        Args.Handled = true;
+                    } else if (Args.Command === "GridRowEdit") {
+                        tp.InfoNote("Edit command clicked. Applications can handle this command.");
+                        Args.Handled = true;
+                    } else if (Args.Command === "GridRowFind") {
+                        tp.InfoNote("Find command clicked. Applications can handle this command.");
+                        Args.Handled = true;
+                    }
+                });
+
+                tp.On("#GroupButton", tp.Events.Click, function () {
+                    Grid.SetGroupColumns(["DepartmentId", "CountryId"]);
+                });
+                tp.On("#ClearGroupButton", tp.Events.Click, function () {
+                    Grid.ClearGroupColumns();
+                });
+                tp.On("#ClearRowsButton", tp.Events.Click, function () {
+                    Grid.DataSource.ClearRows();
+                });
+            });
+
+            function CreateLookupTable(Name, Items) {
+                var Result = new tp.DataTable(Name);
+                var Index;
+                Result.AutoGenerateGuidKeys = false;
+                Result.AddColumn("Id", tp.DataType.Integer);
+                Result.AddColumn("Name", tp.DataType.String);
+                for (Index = 0; Index < Items.length; Index++)
+                    Result.AddRow(Index + 1, Items[Index]).AcceptChanges();
+                return Result;
+            }
+
+            function CreateEmployeeTable() {
+                var Result = new tp.DataTable("Employees");
+                Result.AutoGenerateGuidKeys = false;
+                Result.AddColumn("Code", tp.DataType.String);
+                Result.AddColumn("Name", tp.DataType.String);
+                Result.AddColumn("DepartmentId", tp.DataType.Integer);
+                Result.AddColumn("CountryId", tp.DataType.Integer);
+                Result.AddColumn("Age", tp.DataType.Integer);
+                Result.AddColumn("Salary", tp.DataType.Double);
+                Result.AddColumn("Married", tp.DataType.Boolean);
+                Result.AddColumn("EntryDate", tp.DataType.Date);
+                AddEmployee(Result, "E001", "Anna Rallis", 1, 1, 34, 1200, true, 2024, 0, 12);
+                AddEmployee(Result, "E002", "Marco Bianchi", 1, 2, 41, 1450, false, 2024, 1, 4);
+                AddEmployee(Result, "E003", "Elena Costa", 1, 3, 38, 1320, true, 2024, 2, 8);
+                AddEmployee(Result, "E004", "Nikos Pappas", 2, 1, 29, 980, false, 2024, 3, 15);
+                AddEmployee(Result, "E005", "Sofia Leone", 2, 2, 45, 1560, true, 2024, 4, 20);
+                AddEmployee(Result, "E006", "Luis Martin", 2, 3, 31, 1100, false, 2024, 5, 2);
+                AddEmployee(Result, "E007", "Claire Dubois", 2, 4, 36, 1180, true, 2024, 6, 9);
+                AddEmployee(Result, "E008", "Petros Markou", 3, 1, 48, 1700, true, 2024, 7, 11);
+                AddEmployee(Result, "E009", "Giulia Rossi", 3, 2, 27, 1040, false, 2024, 8, 14);
+                AddEmployee(Result, "E010", "Ines Garcia", 3, 3, 39, 1380, true, 2024, 9, 21);
+                AddEmployee(Result, "E011", "Jean Moreau", 1, 4, 33, 1250, false, 2024, 10, 7);
+                AddEmployee(Result, "E012", "Maria Antoniou", 2, 1, 42, 1490, true, 2024, 11, 18);
+                return Result;
+            }
+
+            function AddEmployee(Table, Code, Name, DepartmentId, CountryId, Age, Salary, Married, Year, Month, Day) {
+                Table.AddRow(Code, Name, DepartmentId, CountryId, Age, Salary, Married, new Date(Year, Month, Day)).AcceptChanges();
+            }
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

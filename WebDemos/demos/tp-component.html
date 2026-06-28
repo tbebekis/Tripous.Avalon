@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Component</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Component</h1>
+        
+        <p>
+            <code>tp.Component</code> is the base class for Tripous objects that wrap an HTML element.
+            It inherits from <code>tp.Object</code>, so it has the Tripous event mechanism, and adds a
+            <code>Handle</code> property that points to a real DOM element.
+        </p>
+        
+        <p>
+            Most visual Tripous classes are components, directly or indirectly. Controls such as
+            <code>tp.Button</code>, <code>tp.TextBox</code>, list controls, panels, menus, and grid panels all
+            build on this idea: a JavaScript object owns or wraps an element, exposes useful properties, and
+            can send Tripous events.
+        </p>
+        
+        <p>
+            This page stays away from construction lifecycle details. It only shows how a programmer can use
+            an already-created component: read its state, change text and tooltip, toggle visibility, change
+            CSS, focus it, and work with child elements and child components.
+        </p>
+        
+        <style>
+            .component-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .component-demo-section {
+                margin-bottom: 18px;
+            }
+            .component-demo-section p {
+                margin: 6px 0;
+            }
+            .component-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .component-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .component-demo-box {
+                box-sizing: border-box;
+                min-height: 88px;
+                margin-top: 8px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                outline: none;
+                background: #ffffff;
+            }
+            .component-demo-box:focus {
+                border-color: #0969da;
+                box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.24);
+            }
+            .component-demo-highlight {
+                border-color: #0969da;
+                background: #ddf4ff;
+            }
+            .component-demo-child {
+                box-sizing: border-box;
+                margin-top: 6px;
+                padding: 6px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .component-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 190px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .component-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="component-demo-grid">
+                    <section class="component-demo-section">
+                        <p class="component-demo-title">Wrap existing markup</p>
+                        <p>
+                            A component may wrap an existing HTML element. Here <code>new tp.Component("#MarkupBox")</code>
+                            creates a component around the markup below.
+                        </p>
+                        <div id="MarkupBox" class="component-demo-box" tabindex="-1">Existing markup box</div>
+                        <div class="component-demo-actions">
+                            <button id="ComponentInspectButton" type="button">Inspect component</button>
+                            <button id="ComponentTextButton" type="button">Change text and tooltip</button>
+                        </div>
+                    </section>
+                    
+                    <section class="component-demo-section">
+                        <p class="component-demo-title">Visibility and style</p>
+                        <p>
+                            <code>Visible</code> controls <code>display</code>. <code>CssClasses</code> replaces
+                            class names. <code>CssText</code> and <code>tp.StyleProp()</code> can be used for
+                            style values such as height.
+                        </p>
+                        <div class="component-demo-actions">
+                            <button id="ComponentVisibleButton" type="button">Toggle visible</button>
+                            <button id="ComponentClassButton" type="button">Toggle CSS class</button>
+                            <button id="ComponentHeightButton" type="button">Toggle height</button>
+                        </div>
+                    </section>
+                    
+                    <section class="component-demo-section">
+                        <p class="component-demo-title">Focus and tab index</p>
+                        <p>
+                            A component can focus its handle with <code>Focus()</code>. A <code>TabIndex</code>
+                            of <code>-1</code> keeps the element programmatically focusable without placing it
+                            in the normal tab order.
+                        </p>
+                        <div class="component-demo-actions">
+                            <button id="ComponentFocusButton" type="button">Focus component</button>
+                            <button id="ComponentFocusStateButton" type="button">Show focus state</button>
+                        </div>
+                    </section>
+                    
+                    <section class="component-demo-section">
+                        <p class="component-demo-title">Child elements and child components</p>
+                        <p>
+                            A component can add plain child elements or child components. <code>Count</code>
+                            returns direct child element count, while <code>GetComponentList()</code> returns
+                            direct child components.
+                        </p>
+                        <div id="ChildHost" class="component-demo-box" tabindex="-1">Child host</div>
+                        <div class="component-demo-actions">
+                            <button id="ComponentAddElementButton" type="button">Add element</button>
+                            <button id="ComponentAddComponentButton" type="button">Add component</button>
+                            <button id="ComponentChildrenButton" type="button">Show child counts</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="ComponentOutput" class="component-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var Box = new tp.Component("#MarkupBox");
+                var ChildHost = new tp.Component("#ChildHost");
+                var TextState = false;
+                var ClassState = false;
+                var TallState = false;
+                var ElementCount = 0;
+                var ComponentCount = 0;
+        
+                var Write = function () {
+                    tp.Text("#ComponentOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var Inspect = function () {
+                    AddLine("Id=" + Box.Id
+                        + " | NodeType=" + Box.NodeType
+                        + " | FromMarkup=" + Box.FromMarkup
+                        + " | Text=" + Box.Text
+                        + " | ToolTip=" + Box.ToolTip
+                        + " | Visible=" + Box.Visible
+                        + " | TabIndex=" + Box.TabIndex);
+                };
+        
+                Box.On("VisibleChanged", function () {
+                    AddLine("VisibleChanged | Visible=" + Box.Visible);
+                });
+        
+                tp.On("#ComponentInspectButton", "click", Inspect);
+        
+                tp.On("#ComponentTextButton", "click", function () {
+                    TextState = !TextState;
+                    Box.Text = TextState ? "Text changed through Box.Text" : "Existing markup box";
+                    Box.ToolTip = TextState ? "Tooltip changed through Box.ToolTip" : "";
+                    tp.InfoNote("Text and tooltip changed.");
+                    Inspect();
+                });
+        
+                tp.On("#ComponentVisibleButton", "click", function () {
+                    Box.Visible = !Box.Visible;
+                    tp.InfoNote("Component visibility changed.");
+                });
+        
+                tp.On("#ComponentClassButton", "click", function () {
+                    ClassState = !ClassState;
+                    Box.CssClasses = ClassState ? "component-demo-box component-demo-highlight" : "component-demo-box";
+                    tp.InfoNote("Component CSS classes changed.");
+                    Inspect();
+                });
+        
+                tp.On("#ComponentHeightButton", "click", function () {
+                    TallState = !TallState;
+                    tp.StyleProp(Box.Handle, "height", TallState ? "150px" : "");
+                    tp.InfoNote("Component height changed with tp.StyleProp().");
+                    Inspect();
+                });
+        
+                tp.On("#ComponentFocusButton", "click", function () {
+                    Box.TabIndex = -1;
+                    Box.Focus();
+                    tp.InfoNote("Component focused.");
+                });
+        
+                tp.On("#ComponentFocusStateButton", "click", function () {
+                    AddLine("IsFocused=" + Box.IsFocused + " | HasFocused=" + Box.HasFocused);
+                });
+        
+                tp.On("#ComponentAddElementButton", "click", function () {
+                    var Element = ChildHost.AddElement("div");
+                    ElementCount++;
+                    Element.className = "component-demo-child";
+                    Element.textContent = "Plain child element " + ElementCount;
+                    tp.InfoNote("Plain child element added.");
+                    AddLine("ChildHost.Count=" + ChildHost.Count + " | direct components=" + ChildHost.GetComponentList().length);
+                });
+        
+                tp.On("#ComponentAddComponentButton", "click", function () {
+                    var Child = ChildHost.AddComponent("div");
+                    ComponentCount++;
+                    Child.CssClasses = "component-demo-child";
+                    Child.Text = "Child tp.Component " + ComponentCount;
+                    tp.InfoNote("Child tp.Component added.");
+                    AddLine("ChildHost.Count=" + ChildHost.Count + " | direct components=" + ChildHost.GetComponentList().length);
+                });
+        
+                tp.On("#ComponentChildrenButton", "click", function () {
+                    AddLine("ChildHost.Count=" + ChildHost.Count
+                        + " | direct elements=" + ChildHost.GetElementList().length
+                        + " | direct components=" + ChildHost.GetComponentList().length
+                        + " | all nested components=" + ChildHost.GetAllComponents().length);
+                });
+        
+                Inspect();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

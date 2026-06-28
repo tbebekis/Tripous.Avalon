@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.NamedItems</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.NamedItems</h1>
+        
+        <p>
+            <code>tp.NamedItem</code> is a <code>tp.CollectionItem</code> with a <code>Name</code> property.
+            <code>tp.NamedItems</code> is a <code>tp.Collection</code> specialized for named items. It keeps
+            the collection ownership behavior and adds name-based helpers.
+        </p>
+        
+        <p>
+            The important convenience is that methods such as <code>Add()</code>, <code>Insert()</code>,
+            <code>Remove()</code>, <code>Contains()</code>, <code>IndexOf()</code>, and <code>Find()</code>
+            can work directly with a string name.
+        </p>
+        
+        <style>
+            .named-items-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .named-items-section {
+                margin-bottom: 18px;
+            }
+            .named-items-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .named-items-section p {
+                margin: 6px 0;
+            }
+            .named-items-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .named-items-current {
+                box-sizing: border-box;
+                min-height: 88px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+                white-space: pre-wrap;
+            }
+            .named-items-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 340px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .named-items-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="named-items-grid">
+                    <section class="named-items-section">
+                        <p class="named-items-title">Current items</p>
+                        <p>
+                            The current collection contains named items. Each item also has a
+                            <code>Collection</code> back-reference.
+                        </p>
+                        <pre id="NamedItemsCurrent" class="named-items-current"></pre>
+                        <div class="named-items-actions">
+                            <button id="NamedItemsResetButton" type="button">Reset</button>
+                            <button id="NamedItemsClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="named-items-section">
+                        <p class="named-items-title">Add and insert by name</p>
+                        <p>
+                            Passing a string to <code>Add()</code> or <code>Insert()</code> creates a new
+                            named item with that name.
+                        </p>
+                        <div class="named-items-actions">
+                            <button id="NamedItemsAddButton" type="button">Add name</button>
+                            <button id="NamedItemsInsertButton" type="button">Insert name</button>
+                        </div>
+                    </section>
+                    
+                    <section class="named-items-section">
+                        <p class="named-items-title">Find by name</p>
+                        <p>
+                            <code>Contains()</code>, <code>IndexOf()</code>, and <code>Find()</code> accept
+                            either an item instance or a name string.
+                        </p>
+                        <div class="named-items-actions">
+                            <button id="NamedItemsFindButton" type="button">Run find</button>
+                        </div>
+                    </section>
+                    
+                    <section class="named-items-section">
+                        <p class="named-items-title">Remove by name</p>
+                        <p>
+                            <code>Remove("Name")</code> removes the item whose <code>Name</code> matches the
+                            supplied string.
+                        </p>
+                        <div class="named-items-actions">
+                            <button id="NamedItemsRemoveButton" type="button">Remove Amount</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="NamedItemsOutput" class="named-items-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Items = new tp.NamedItems();
+                var Lines = [];
+                var Counter = 1;
+        
+                var ItemText = function (Item) {
+                    return Item.Name + " | owns=" + (Item.Collection === Items);
+                };
+        
+                var CurrentText = function () {
+                    return Items.ToArray().map(ItemText).join("\n");
+                };
+        
+                var Write = function () {
+                    tp.Text("#NamedItemsCurrent", CurrentText() || "(empty)");
+                    tp.Text("#NamedItemsOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var Reset = function () {
+                    Items.EventsEnabled = false;
+                    Items.Clear();
+                    Items.Add("Code");
+                    Items.Add("Name");
+                    Items.Add("Amount");
+                    Items.EventsEnabled = true;
+                    Counter = 1;
+                    Write();
+                };
+        
+                Items.EventsEnabled = true;
+                Items.On("Changed", function (Args) {
+                    AddLine("Changed: " + Args.Action + ", count=" + Items.Count);
+                });
+        
+                tp.On("#NamedItemsResetButton", "click", function () {
+                    Reset();
+                    AddLine("Named items reset.");
+                    tp.InfoNote("Named items reset.");
+                });
+        
+                tp.On("#NamedItemsAddButton", "click", function () {
+                    var Item = Items.Add("Extra" + Counter);
+                    Counter++;
+                    AddLine("Items.Add(name) -> " + ItemText(Item));
+                    tp.InfoNote("Named item added.");
+                });
+        
+                tp.On("#NamedItemsInsertButton", "click", function () {
+                    var Item = Items.Insert(1, "Inserted" + Counter);
+                    Counter++;
+                    AddLine("Items.Insert(1, name) -> " + ItemText(Item));
+                    tp.InfoNote("Named item inserted.");
+                });
+        
+                tp.On("#NamedItemsFindButton", "click", function () {
+                    var Found = Items.Find("Name");
+                    AddLine("Items.Contains(\"Name\") = " + Items.Contains("Name"));
+                    AddLine("Items.IndexOf(\"Amount\") = " + Items.IndexOf("Amount"));
+                    AddLine("Items.Find(\"Name\").Name = " + (Found ? Found.Name : "null"));
+                    AddLine("Items.Contains(Found) = " + Items.Contains(Found));
+                    tp.InfoNote("Named item lookup completed.");
+                });
+        
+                tp.On("#NamedItemsRemoveButton", "click", function () {
+                    Items.Remove("Amount");
+                    AddLine("Items.Remove(\"Amount\") executed. Contains(\"Amount\") = " + Items.Contains("Amount"));
+                    Write();
+                    tp.InfoNote("Named item removed.");
+                });
+        
+                tp.On("#NamedItemsClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                Reset();
+                AddLine("NamedItems ready.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

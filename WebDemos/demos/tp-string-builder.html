@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.StringBuilder</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.StringBuilder</h1>
+        
+        <p>
+            <code>tp.StringBuilder</code> is a small helper class for constructing text step by step.
+            It keeps an internal string, appends values, appends line breaks, inserts text, replaces text,
+            and clears the result. It is useful in code that generates reports, diagnostic text, HTML snippets,
+            SQL-like text, or any multi-line output.
+        </p>
+        
+        <p>
+            JavaScript strings are immutable, so every concatenation creates a new string. This class does not
+            try to be a complex buffer implementation. Its value is readability: code that builds text becomes
+            clear and explicit, especially when many lines are involved.
+        </p>
+        
+        <style>
+            .string-builder-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .string-builder-section {
+                margin-bottom: 18px;
+            }
+            .string-builder-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .string-builder-section p {
+                margin: 6px 0;
+            }
+            .string-builder-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .string-builder-input-row {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto auto;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .string-builder-preview {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 170px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+                white-space: pre-wrap;
+            }
+            .string-builder-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 270px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .string-builder-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+                .string-builder-input-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="string-builder-grid">
+                    <section class="string-builder-section">
+                        <p class="string-builder-title">Interactive builder</p>
+                        <p>
+                            Type a string and add it to the builder. Every click writes the current builder
+                            contents to the log, so the change is visible immediately.
+                        </p>
+                        <div class="string-builder-input-row">
+                            <input id="BuilderTextInput" type="text" value="New text">
+                            <button id="BuilderAddTextButton" type="button">Append</button>
+                            <button id="BuilderAddLineButton" type="button">Append line</button>
+                        </div>
+                        <div class="string-builder-actions">
+                            <button id="BuilderClearStringButton" type="button">Clear StringBuilder</button>
+                            <button id="BuilderClearLogButton" type="button">Clear log</button>
+                        </div>
+                    </section>
+                    
+                    <section class="string-builder-section">
+                        <p class="string-builder-title">Append text</p>
+                        <p>
+                            <code>Append()</code> adds text without a line break.
+                            <code>AppendLine()</code> adds optional text and then the builder line break.
+                        </p>
+                        <div class="string-builder-actions">
+                            <button id="BuilderAppendButton" type="button">Append sample</button>
+                            <button id="BuilderLineBreakButton" type="button">Use &lt;br&gt; line break</button>
+                        </div>
+                    </section>
+                    
+                    <section class="string-builder-section">
+                        <p class="string-builder-title">Edit text</p>
+                        <p>
+                            <code>Insert()</code> inserts text at an index. <code>Replace()</code> replaces
+                            all occurrences and may work case-insensitively.
+                        </p>
+                        <div class="string-builder-actions">
+                            <button id="BuilderInsertButton" type="button">Insert header</button>
+                            <button id="BuilderReplaceButton" type="button">Replace text</button>
+                        </div>
+                    </section>
+                    
+                    <section class="string-builder-section">
+                        <p class="string-builder-title">State</p>
+                        <p>
+                            <code>Length</code>, <code>IsEmpty</code>, and <code>LineBreak</code> expose the
+                            current builder state. <code>Clear()</code> resets the internal string.
+                        </p>
+                        <div class="string-builder-actions">
+                            <button id="BuilderStateButton" type="button">Show state</button>
+                            <button id="BuilderClearButton" type="button">Clear</button>
+                        </div>
+                    </section>
+                    
+                    <section class="string-builder-section">
+                        <p class="string-builder-title">Current result</p>
+                        <p>
+                            <code>ToString()</code> and <code>toString()</code> both return the built text.
+                            The preview below displays the current value.
+                        </p>
+                    </section>
+                </div>
+                
+                <pre id="StringBuilderPreview" class="string-builder-preview"></pre>
+                <pre id="StringBuilderOutput" class="string-builder-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Builder = new tp.StringBuilder();
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#StringBuilderPreview", Builder.ToString());
+                    tp.Text("#StringBuilderOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var ShowState = function (Caption) {
+                    AddLine(Caption);
+                    AddLine("  Length = " + Builder.Length);
+                    AddLine("  IsEmpty = " + Builder.IsEmpty);
+                    AddLine("  LineBreak = " + JSON.stringify(Builder.LineBreak));
+                    AddLine("  ToString() = " + JSON.stringify(Builder.ToString()));
+                };
+        
+                var AddInteractiveSnapshot = function (Caption) {
+                    AddLine(Caption);
+                    AddLine("  input = " + JSON.stringify(tp.Value("#BuilderTextInput")));
+                    AddLine("  builder contents:");
+                    AddLine(Builder.ToString() || "(empty)");
+                };
+        
+                tp.On("#BuilderAddTextButton", "click", function () {
+                    Builder.Append(tp.Value("#BuilderTextInput"));
+                    AddInteractiveSnapshot("After interactive Append(input):");
+                    tp.InfoNote("Text appended.");
+                });
+        
+                tp.On("#BuilderAddLineButton", "click", function () {
+                    Builder.AppendLine(tp.Value("#BuilderTextInput"));
+                    AddInteractiveSnapshot("After interactive AppendLine(input):");
+                    tp.InfoNote("Line appended.");
+                });
+        
+                tp.On("#BuilderClearLogButton", "click", function () {
+                    Lines = [];
+                    Builder.Clear();
+                    Write();
+                });
+        
+                tp.On("#BuilderClearStringButton", "click", function () {
+                    Builder.Clear();
+                    ShowState("After interactive Clear StringBuilder:");
+                    tp.InfoNote("StringBuilder cleared.");
+                });
+        
+                tp.On("#BuilderAppendButton", "click", function () {
+                    Builder.LineBreak = "\n";
+                    Builder.Append("Customer: ");
+                    Builder.AppendLine("Acme");
+                    Builder.AppendLine("Amount: 120.50");
+                    Builder.AppendLine("Status: Open");
+                    ShowState("After Append() and AppendLine():");
+                    tp.InfoNote("Text appended.");
+                });
+        
+                tp.On("#BuilderLineBreakButton", "click", function () {
+                    Builder.Clear();
+                    Builder.LineBreak = "<br>";
+                    Builder.AppendLine("Line one");
+                    Builder.AppendLine("Line two");
+                    ShowState("After using a custom <br> LineBreak:");
+                    tp.InfoNote("Custom line break used.");
+                });
+        
+                tp.On("#BuilderInsertButton", "click", function () {
+                    if (Builder.IsEmpty)
+                        Builder.AppendLine("Body line");
+                    Builder.Insert(0, "HEADER" + Builder.LineBreak);
+                    ShowState("After Insert(0, ...):");
+                    tp.InfoNote("Header inserted.");
+                });
+        
+                tp.On("#BuilderReplaceButton", "click", function () {
+                    if (Builder.IsEmpty) {
+                        Builder.AppendLine("Status: Open");
+                        Builder.AppendLine("open items");
+                    }
+                    Builder.Replace("open", "closed", true);
+                    ShowState("After Replace(\"open\", \"closed\", true):");
+                    tp.InfoNote("Text replaced.");
+                });
+        
+                tp.On("#BuilderStateButton", "click", function () {
+                    ShowState("Current builder state:");
+                    tp.InfoNote("State shown.");
+                });
+        
+                tp.On("#BuilderClearButton", "click", function () {
+                    Builder.Clear();
+                    ShowState("After Clear():");
+                    tp.InfoNote("Builder cleared.");
+                });
+        
+                ShowState("Initial builder state:");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

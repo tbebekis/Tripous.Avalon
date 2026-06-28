@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.WrapObserver</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.WrapObserver</h1>
+        
+        <p>
+            <code>tp.WrapObserver</code> watches registered containers whose child elements may wrap to
+            more than one visual row. It does not use <code>ResizeObserver</code>. Instead, when it is
+            asked to process a container, it compares the child element positions and marks wrap
+            boundaries with CSS classes.
+        </p>
+        
+        <p>
+            When wrapping is detected, the container receives <code>tp-Wrapped</code>. The first item of
+            each visual row receives <code>tp-WrapFirst</code>, and the last item before a row break
+            receives <code>tp-WrapLast</code>. This is useful for bars, tool strips, and compact layouts
+            that need special styling at wrap boundaries.
+        </p>
+        
+        <style>
+            .wrap-observer-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .wrap-observer-demo-stage {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                padding: 14px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            #WrapContainer {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                box-sizing: border-box;
+                width: 320px;
+                max-width: 100%;
+                min-width: 220px;
+                padding: 12px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            #WrapContainer.tp-Wrapped {
+                border-color: #0969da;
+                background: #eef6ff;
+            }
+            .wrap-observer-demo-item {
+                box-sizing: border-box;
+                flex: 0 0 88px;
+                width: 88px;
+                padding: 8px 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+                text-align: center;
+                font-weight: 600;
+            }
+            .wrap-observer-demo-item.tp-WrapFirst {
+                border-left: 4px solid #2da44e;
+            }
+            .wrap-observer-demo-item.tp-WrapLast {
+                border-right: 4px solid #cf222e;
+            }
+            .wrap-observer-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 190px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="wrap-observer-demo-actions">
+                <button id="WrapNarrowButton" type="button">Narrower</button>
+                <button id="WrapWideButton" type="button">Wider</button>
+                <button id="WrapProcessButton" type="button">Process</button>
+                <button id="WrapToggleButton" type="button">Remove container</button>
+            </div>
+            
+            <div class="wrap-observer-demo-stage">
+                <div id="WrapContainer">
+                    <div class="wrap-observer-demo-item">Orders</div>
+                    <div class="wrap-observer-demo-item">Invoices</div>
+                    <div class="wrap-observer-demo-item">Customers</div>
+                    <div class="wrap-observer-demo-item">Products</div>
+                    <div class="wrap-observer-demo-item">Reports</div>
+                    <div class="wrap-observer-demo-item">Settings</div>
+                </div>
+            </div>
+            
+            <pre id="WrapObserverOutput" class="wrap-observer-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Container = tp("#WrapContainer");
+                var Registered = true;
+                
+                var WriteLog = function (Message) {
+                    var Rect = Container.getBoundingClientRect();
+                    var Items = tp.ChildHTMLElements(Container);
+                    var Lines = [
+                        Message || "Ready.",
+                        "registered containers = " + tp.WrapObserver.GetContainers().length,
+                        "container width = " + Math.round(Rect.width) + "px",
+                        "container has tp-Wrapped = " + tp.HasClass(Container, tp.Classes.Wrapped)
+                    ];
+                    var Index;
+                    var Item;
+                    var Classes;
+                    for (Index = 0; Index < Items.length; Index++) {
+                        Item = Items[Index];
+                        Classes = [];
+                        if (tp.HasClass(Item, tp.Classes.WrapFirst))
+                            Classes.push("tp-WrapFirst");
+                        if (tp.HasClass(Item, tp.Classes.WrapLast))
+                            Classes.push("tp-WrapLast");
+                        Lines.push(Item.textContent + " : " + (Classes.length > 0 ? Classes.join(", ") : "-"));
+                    }
+                    tp.Text("#WrapObserverOutput", Lines.join("\n"));
+                    tp.Text("#WrapToggleButton", Registered ? "Remove container" : "Add container");
+                };
+                
+                var ChangeWidth = function (Delta) {
+                    var Rect = Container.getBoundingClientRect();
+                    var Width = Math.max(220, Math.min(520, Math.round(Rect.width + Delta)));
+                    Container.style.width = Width + "px";
+                    if (Registered)
+                        tp.WrapObserver.ProcessContainer(Container);
+                    WriteLog("Width changed and container processed.");
+                };
+                
+                tp.WrapObserver.AddContainer(Container);
+                
+                tp.On("#WrapNarrowButton", "click", function () {
+                    ChangeWidth(-120);
+                });
+                
+                tp.On("#WrapWideButton", "click", function () {
+                    ChangeWidth(120);
+                });
+                
+                tp.On("#WrapProcessButton", "click", function () {
+                    tp.WrapObserver.Process();
+                    WriteLog("tp.WrapObserver.Process() executed.");
+                    tp.InfoNote("Wrap observer processed.");
+                });
+                
+                tp.On("#WrapToggleButton", "click", function () {
+                    if (Registered) {
+                        tp.WrapObserver.RemoveContainer(Container);
+                        Registered = false;
+                    } else {
+                        tp.WrapObserver.AddContainer(Container);
+                        Registered = true;
+                    }
+                    if (Registered)
+                        tp.WrapObserver.ProcessContainer(Container);
+                    WriteLog("Container registration toggled.");
+                    tp.InfoNote("Registration changed.");
+                });
+                
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

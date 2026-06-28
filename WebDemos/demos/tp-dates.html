@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dates</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Dates</h1>
+        
+        <p>
+            This demo covers the Tripous date helper functions. They work with native JavaScript
+            <code>Date</code> values and provide validation, date creation, date parts, date arithmetic,
+            comparison, start/end of day helpers, and culture-aware text parsing.
+        </p>
+        
+        <p>
+            The arithmetic and clear helpers modify the <code>Date</code> instance passed to them. Use
+            <code>tp.DateClone()</code> first when the original date must be preserved. Date display formatting
+            is covered in the focused <code>Format</code> demo.
+        </p>
+        
+        <style>
+            .dates-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .dates-demo-section {
+                margin-bottom: 18px;
+            }
+            .dates-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dates-demo-section p {
+                margin: 6px 0;
+            }
+            .dates-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dates-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 300px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dates-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dates-demo-grid">
+                    <section class="dates-demo-section">
+                        <p class="dates-demo-title">Checks, creation and parts</p>
+                        <p>
+                            Use these helpers to validate dates, clone dates, inspect day/month information,
+                            and check leap years.
+                        </p>
+                        <div class="dates-demo-actions">
+                            <button id="DatesChecksButton" type="button">Run checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dates-demo-section">
+                        <p class="dates-demo-title">Arithmetic and mutation</p>
+                        <p>
+                            <code>AddYears</code>, <code>AddMonths</code>, <code>AddDays</code>,
+                            <code>AddWeeks</code>, <code>AddHours</code>, <code>AddMinutes</code>, and
+                            <code>AddSeconds</code> modify the passed date.
+                        </p>
+                        <div class="dates-demo-actions">
+                            <button id="DatesArithmeticButton" type="button">Run arithmetic</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dates-demo-section">
+                        <p class="dates-demo-title">Comparison and day boundaries</p>
+                        <p>
+                            Compare two dates, test a date against a range, and produce start/end of day
+                            values for filtering and date-range logic.
+                        </p>
+                        <div class="dates-demo-actions">
+                            <button id="DatesCompareButton" type="button">Run comparison</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dates-demo-section">
+                        <p class="dates-demo-title">Parsing and normalization</p>
+                        <p>
+                            <code>TryNormalizeDateText</code>, <code>TryParseDateTime</code>, and
+                            <code>ParseDateText</code> parse ISO-like dates and culture-pattern dates.
+                        </p>
+                        <div class="dates-demo-actions">
+                            <button id="DatesParseButton" type="button">Run parsing</button>
+                            <button id="DatesClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DatesOutput" class="dates-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var DateText = function (Value) {
+                    return tp.IsValidDate(Value) ? tp.FormatDateTime(Value, "yyyy-MM-dd HH:mm:ss") : "";
+                };
+        
+                var DateOnlyText = function (Value) {
+                    return tp.IsValidDate(Value) ? tp.FormatDateTime(Value, "yyyy-MM-dd") : "";
+                };
+        
+                var Write = function () {
+                    tp.Text("#DatesOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#DatesChecksButton", "click", function () {
+                    var Value = new Date(2026, 0, 15, 13, 5, 9);
+                    var Clone = tp.DateClone(Value);
+        
+                    AddLine("tp.IsValidDate(new Date(2026, 0, 15)) = " + tp.IsValidDate(new Date(2026, 0, 15)));
+                    AddLine("tp.IsValidDate(new Date(\"bad\")) = " + tp.IsValidDate(new Date("bad")));
+                    AddLine("tp.IsLeapYear(2024) = " + tp.IsLeapYear(2024));
+                    AddLine("tp.IsLeapYear(2026) = " + tp.IsLeapYear(2026));
+                    AddLine("tp.DaysInMonth(2024, 1) = " + tp.DaysInMonth(2024, 1));
+                    AddLine("tp.DayOfWeek(Value) = " + tp.EnumNameOf(tp.Day, tp.DayOfWeek(Value)));
+                    AddLine("tp.DayOfMonth(Value) = " + tp.DayOfMonth(Value));
+                    AddLine("tp.DateClone(Value) !== Value = " + (Clone !== Value));
+                    AddLine("tp.DateClone(Value) = " + DateText(Clone));
+                    AddLine("tp.Today() = " + DateOnlyText(tp.Today()));
+                    AddLine("tp.Time() = " + tp.FormatDateTime(tp.Time(), "HH:mm:ss"));
+                    tp.InfoNote("Date checks completed.");
+                });
+        
+                tp.On("#DatesArithmeticButton", "click", function () {
+                    var Original = new Date(2026, 0, 15, 13, 5, 9);
+                    var Value = tp.DateClone(Original);
+        
+                    AddLine("Original = " + DateText(Original));
+                    AddLine("Value = tp.DateClone(Original)");
+                    AddLine("tp.AddYears(Value, 1) = " + DateText(tp.AddYears(Value, 1)));
+                    AddLine("tp.AddMonths(Value, 2) = " + DateText(tp.AddMonths(Value, 2)));
+                    AddLine("tp.AddWeeks(Value, 1) = " + DateText(tp.AddWeeks(Value, 1)));
+                    AddLine("tp.AddDays(Value, -3) = " + DateText(tp.AddDays(Value, -3)));
+                    AddLine("tp.AddHours(Value, 2) = " + DateText(tp.AddHours(Value, 2)));
+                    AddLine("tp.AddMinutes(Value, 30) = " + DateText(tp.AddMinutes(Value, 30)));
+                    AddLine("tp.AddSeconds(Value, 10) = " + DateText(tp.AddSeconds(Value, 10)));
+                    AddLine("Original after all Add* calls = " + DateText(Original));
+                    AddLine("Value after all Add* calls = " + DateText(Value));
+                    AddLine("tp.ClearTime(tp.DateClone(Value)) = " + DateText(tp.ClearTime(tp.DateClone(Value))));
+                    AddLine("tp.ClearDate(tp.DateClone(Value)) = " + DateText(tp.ClearDate(tp.DateClone(Value))));
+                    tp.InfoNote("Date arithmetic completed.");
+                });
+        
+                tp.On("#DatesCompareButton", "click", function () {
+                    var A = new Date(2026, 0, 10);
+                    var B = new Date(2026, 0, 15);
+                    var C = new Date(2026, 0, 20);
+                    var Value = new Date(2026, 0, 15, 13, 5, 9);
+        
+                    AddLine("tp.DateCompare(A, B) = " + tp.DateCompare(A, B));
+                    AddLine("tp.DateCompare(B, A) = " + tp.DateCompare(B, A));
+                    AddLine("tp.DateCompare(B, new Date(2026, 0, 15)) = " + tp.DateCompare(B, new Date(2026, 0, 15)));
+                    AddLine("tp.DateBetween(B, A, C) = " + tp.DateBetween(B, A, C));
+                    AddLine("tp.StartOfDay(tp.DateClone(Value)) = " + DateText(tp.StartOfDay(tp.DateClone(Value))));
+                    AddLine("tp.EndOfDay(tp.DateClone(Value)) = " + DateText(tp.EndOfDay(tp.DateClone(Value))));
+                    tp.InfoNote("Date comparison completed.");
+                });
+        
+                tp.On("#DatesParseButton", "click", function () {
+                    var IsoInfo = tp.TryNormalizeDateText("2026-04", "en-US");
+                    var GreekInfo = tp.TryNormalizeDateText("15/01/2026", "el-GR");
+                    var ParseInfo = tp.TryParseDateTime("01/15/2026", "en-US");
+                    var InvalidInfo = tp.TryNormalizeDateText("31/02/2026", "el-GR");
+                    var ParsedDate = tp.ParseDateText("2026-04-01", "en-US");
+        
+                    AddLine("tp.CreateCheckedDate(2026, 2, 29) = " + DateOnlyText(tp.CreateCheckedDate(2026, 2, 29)));
+                    AddLine("tp.CreateCheckedDate(2024, 2, 29) = " + DateOnlyText(tp.CreateCheckedDate(2024, 2, 29)));
+                    AddLine("tp.CompleteDateYearText(\"26\", new Date(2026, 0, 1)) = " + tp.CompleteDateYearText("26", new Date(2026, 0, 1)));
+                    AddLine("tp.IsIsoLikeDateText(\"2026-04\") = " + tp.IsIsoLikeDateText("2026-04"));
+                    AddLine("tp.TryNormalizeDateText(\"2026-04\", \"en-US\") = { Result: " + IsoInfo.Result + ", NormalizedText: " + IsoInfo.NormalizedText + " }");
+                    AddLine("tp.TryNormalizeDateText(\"15/01/2026\", \"el-GR\") = { Result: " + GreekInfo.Result + ", NormalizedText: " + GreekInfo.NormalizedText + " }");
+                    AddLine("tp.TryParseDateTime(\"01/15/2026\", \"en-US\") = { Result: " + ParseInfo.Result + ", Value: " + DateOnlyText(ParseInfo.Value) + " }");
+                    AddLine("tp.TryNormalizeDateText(\"31/02/2026\", \"el-GR\") = { Result: " + InvalidInfo.Result + " }");
+                    AddLine("tp.ParseDateText(\"2026-04-01\", \"en-US\") = " + DateOnlyText(ParsedDate));
+                    tp.InfoNote("Date parsing completed.");
+                });
+        
+                tp.On("#DatesClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run date helper checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

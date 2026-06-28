@@ -662,6 +662,342 @@ fieldset.tp-GroupBox legend {
 }
 
 /*---------------------------------------------------------------------------------------
+  control toolbar
+---------------------------------------------------------------------------------------*/
+.tp-ControlToolBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--BackColor);
+}
+
+.tp-ControlToolButton {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-width: 1.8em;
+    min-height: 1.8em;
+    margin: 0 1px;
+    padding: 0 4px;
+    border: var(--Border);
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tp-ControlToolButton.tp-Disabled {
+    color: var(--DisabledColor);
+    cursor: default;
+}
+
+.tp-ControlToolButton > :nth-child(1) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1em;
+    min-height: 1em;
+    font-size: 14px;
+}
+
+.tp-ControlToolButton > :nth-child(2) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font: inherit;
+}
+
+/*---------------------------------------------------------------------------------------
+  grid
+---------------------------------------------------------------------------------------*/
+.tp-Grid {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+    border: var(--Border);
+    font-weight: normal;
+    background-color: var(--BackColor);
+    outline: none;
+    width: 100%;
+    height: 200px;
+}
+
+.tp-Grid:focus {
+    outline: none;
+}
+
+.tp-Grid .tp-Cell-Text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0 4px;
+}
+
+.tp-Grid .tp-Grid-Col {
+    font-size: 0.85em;
+}
+
+.tp-Grid .tp-Grid-Col,
+.tp-Grid .tp-Filter-Cell,
+.tp-Grid .tp-Summary-Cell {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    cursor: default;
+    width: 80px;
+}
+
+.tp-Grid .tp-Grid-Col,
+.tp-Grid .tp-Filter-Cell {
+    border-right: var(--Border);
+}
+
+.tp-Grid .tp-Summary-Cell {
+    align-items: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 4px;
+    border-bottom: var(--Border);
+    font-size: 0.85em;
+}
+
+.tp-Grid .tp-Grid-Col.tp-Grouped {
+    margin-left: 5px;
+}
+
+.tp-Grid .tp-Grid-Col .tp-Text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0 4px;
+}
+
+.tp-Grid .tp-Grid-Col .tp-Sorter {
+    position: relative;
+    width: auto;
+    overflow: hidden;
+    font-family: monospace;
+    font-size: 20px;
+    text-align: center;
+}
+
+.tp-Grid .tp-Grid-Col .tp-Resizer {
+    position: relative;
+    flex: 0 0 8px;
+    width: 8px;
+    min-width: 8px;
+    margin-left: -4px;
+    overflow: hidden;
+    cursor: col-resize;
+    z-index: 1;
+}
+
+.tp-Grid .tp-Filter-TextBox {
+    position: relative;
+    flex-grow: 1;
+    border: none;
+    padding: 0 0 0 3px;
+    font: inherit;
+}
+
+.tp-Grid-InplaceEditor {
+    position: fixed;
+    border: none;
+    padding: 0 3px;
+    font: inherit;
+}
+
+input[type=text].tp-Grid-InplaceEditor {
+    outline: none;
+    border: none;
+}
+
+.tp-Grid-InplaceEditor input[type=text] {
+    outline: none;
+}
+
+.tp-Grid-InplaceEditor-CheckBox {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.tp-Grid-InplaceEditor-Locator {
+    position: fixed;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.tp-Grid-InplaceEditor-Locator > input[type=text] {
+    position: relative;
+    flex-grow: 1;
+    border: none;
+}
+
+.tp-Grid-InplaceEditor-Locator > .tp-Btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 24px;
+    border-left: var(--Border);
+    background-color: var(--BackColor);
+    font-family: monospace;
+    cursor: default;
+}
+
+.tp-Grid .tp-Groups,
+.tp-Grid .tp-Columns,
+.tp-Grid .tp-Filters,
+.tp-Grid .tp-Summaries {
+    position: relative;
+    overflow: hidden;
+}
+
+.tp-Grid .tp-Groups {
+    display: flex;
+    align-items: center;
+}
+
+.tp-Grid .tp-Columns {
+    font-weight: bold;
+}
+
+.tp-Grid .tp-Groups,
+.tp-Grid .tp-Columns,
+.tp-Grid .tp-Filters {
+    border-bottom: var(--Border);
+}
+
+.tp-Grid .tp-Summaries {
+    border-top: var(--Border);
+}
+
+.tp-Grid .tp-Columns .tp-Content,
+.tp-Grid .tp-Filters .tp-Content,
+.tp-Grid .tp-Summaries .tp-Content {
+    position: relative;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+.tp-Grid .tp-Viewport {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-grow: 1;
+    cursor: default;
+}
+
+.tp-Grid .tp-Viewport .tp-Content {
+    position: absolute;
+    overflow: hidden;
+}
+
+.tp-Grid .tp-Bottom {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.tp-Grid .tp-Bottom .tp-Content {
+    position: relative;
+    height: 1px;
+    min-height: 1px;
+}
+
+.tp-Grid-Footer {
+    border-top: var(--Border);
+}
+
+.tp-Grid .tp-Node {
+    position: absolute;
+    display: flex;
+    left: 0;
+    overflow: hidden;
+}
+
+.tp-Grid .tp-Node.tp-Group > .tp-Cell-Text {
+    flex-grow: 1;
+    border-bottom: var(--Border);
+    border-right: var(--Border);
+}
+
+.tp-Grid .tp-Node.tp-Summary {
+    border-right: var(--Border);
+}
+
+.tp-Grid .tp-Group-Cell {
+    position: relative;
+    overflow: hidden;
+    border-right: var(--Border);
+}
+
+.tp-Grid .tp-Group-Cell.tp-Expander {
+    font-family: monospace;
+    font-size: 17px;
+    text-align: center;
+    cursor: default;
+    border-right: none;
+}
+
+.tp-Grid .tp-Group-Cell.tp-Cell-Tube {
+    border-right: none;
+    border-bottom: var(--Border);
+}
+
+.tp-Grid .tp-Grid-Row:hover {
+    background-color: var(--HoverColor);
+}
+
+.tp-Grid .tp-Grid-Row.tp-Focused {
+    background-color: var(--FocusColor);
+}
+
+.tp-Grid-Cell {
+    border-right: var(--Border);
+    border-bottom: var(--Border);
+}
+
+.tp-Grid input:focus,
+.tp-Grid select:focus,
+.tp-Grid textarea:focus {
+    outline: none;
+}
+
+.tp-Grid .tp-DragSource {
+    border: var(--Border);
+}
+
+.tp-Grid .tp-DropTarget {
+    outline: var(--GridDropTargetOutline);
+}
+
+.tp-Grid .tp-Grid-Col.tp-Grouped {
+    border: var(--Border);
+}
+
+.tp-Grid .tp-ControlToolBar {
+    padding: 2px 0;
+    border-bottom: var(--Border);
+}
+
+/*---------------------------------------------------------------------------------------
   button-ex
 ---------------------------------------------------------------------------------------*/
 .tp-ButtonEx {

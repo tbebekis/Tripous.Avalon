@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Colors</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Colors</h1>
+        
+        <p>
+            <code>tp.Colors</code> is a static core helper with named CSS color constants and a few
+            small utility methods. It is useful when Tripous code needs a known color list for
+            controls, demo data, color pickers, or visual samples without hard-coding the same names
+            again and again.
+        </p>
+        
+        <p>
+            <code>tp.Colors.ToOptionList()</code> returns objects in <code>{ Text, Value }</code> form.
+            <code>Shade()</code> and <code>Shade2()</code> produce lighter or darker variants of a hex
+            color. <code>SetGradientStyle()</code> returns a CSS <code>linear-gradient()</code> value and
+            may also apply it to an element.
+        </p>
+        
+        <style>
+            .colors-demo-panel {
+                grid-template-columns: minmax(0, 1fr);
+                max-width: 1020px;
+            }
+            .demo-page.is-embedded .colors-demo-panel {
+                max-width: none;
+            }
+            .colors-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 1020px;
+                align-items: start;
+            }
+            .colors-demo-section {
+                margin-bottom: 18px;
+            }
+            .colors-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .colors-demo-section p {
+                margin: 6px 0;
+            }
+            .colors-demo-row {
+                display: grid;
+                grid-template-columns: 110px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .colors-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .colors-demo-swatch-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 8px;
+                max-height: 260px;
+                overflow: auto;
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                background: #ffffff;
+            }
+            .colors-demo-swatch {
+                display: grid;
+                grid-template-columns: 34px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+                min-width: 0;
+                padding: 6px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+                color: #1f2328;
+                text-align: left;
+                cursor: pointer;
+            }
+            .colors-demo-swatch:hover,
+            .colors-demo-swatch:focus {
+                border-color: #0969da;
+                outline: none;
+            }
+            .colors-demo-chip {
+                width: 34px;
+                height: 24px;
+                border: 1px solid #8c959f;
+            }
+            .colors-demo-swatch span {
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 13px;
+            }
+            .colors-demo-shades {
+                display: grid;
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 8px;
+                margin-top: 8px;
+            }
+            .colors-demo-shade {
+                min-height: 62px;
+                padding: 8px;
+                border: 1px solid #8c959f;
+                color: #111827;
+                font-size: 12px;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+            }
+            .colors-demo-gradient {
+                min-height: 120px;
+                margin-top: 8px;
+                padding: 12px;
+                border: 1px solid #8c959f;
+                color: white;
+                font-weight: 700;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+            }
+            .colors-demo-log {
+                box-sizing: border-box;
+                width: 100%;
+                min-height: 260px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .colors-demo-grid,
+                .colors-demo-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+                .colors-demo-shades {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide colors-demo-panel">
+                <div class="colors-demo-grid">
+                    <section class="colors-demo-section">
+                        <p class="colors-demo-title">Named color list</p>
+                        <p>
+                            <code>ToOptionList()</code> returns all color constants as text/value pairs.
+                            The preview below uses the returned array directly.
+                        </p>
+                        <div class="colors-demo-actions">
+                            <button id="ColorsOptionListButton" type="button">Build option list</button>
+                        </div>
+                    </section>
+                    
+                    <section class="colors-demo-section">
+                        <p class="colors-demo-title">Shade methods</p>
+                        <p>
+                            Enter any hex color and generate darker/lighter variants with
+                            <code>Shade()</code> and <code>Shade2()</code>.
+                        </p>
+                        <label class="colors-demo-row" for="ColorsBaseInput">
+                            <span>base color</span>
+                            <input id="ColorsBaseInput" type="text" value="#4169E1">
+                        </label>
+                        <div class="colors-demo-actions">
+                            <button id="ColorsShadeButton" type="button">Shade</button>
+                            <button id="ColorsShade2Button" type="button">Shade2</button>
+                            <button id="ColorsClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="colors-demo-section">
+                        <p class="colors-demo-title">Swatches</p>
+                        <p>
+                            Click a swatch to copy its value to the base color input and refresh the
+                            shade and gradient previews.
+                        </p>
+                        <div id="ColorsSwatches" class="colors-demo-swatch-list"></div>
+                    </section>
+                    
+                    <section class="colors-demo-section">
+                        <p class="colors-demo-title">Gradient</p>
+                        <p>
+                            <code>SetGradientStyle()</code> returns the CSS value and can apply it to an
+                            element in one call.
+                        </p>
+                        <div class="colors-demo-actions">
+                            <button id="ColorsGradientButton" type="button">Apply gradient</button>
+                        </div>
+                        <div id="ColorsGradientBox" class="colors-demo-gradient">Gradient preview</div>
+                    </section>
+                </div>
+                
+                <div id="ColorsShades" class="colors-demo-shades"></div>
+                <pre id="ColorsOutput" class="colors-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                
+                var Write = function () {
+                    tp.Text("#ColorsOutput", Lines.join("\n"));
+                };
+                
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+                
+                var GetBaseColor = function () {
+                    return tp.Colors.NormalizeHex(tp.Value("#ColorsBaseInput"));
+                };
+                
+                var ApplyBaseColor = function (Color, ColorName) {
+                    Color = tp.Colors.NormalizeHex(Color);
+                    tp.Value("#ColorsBaseInput", Color);
+                    ShowShadeSet(false);
+                    tp.Colors.SetGradientStyle(Color, "#ColorsGradientBox");
+                    AddLine("Base color set from swatch: " + ColorName + " " + Color);
+                    tp.InfoNote("Base color changed.");
+                };
+                
+                var ShowSwatches = function () {
+                    var Host = tp("#ColorsSwatches");
+                    var Options = tp.Colors.ToOptionList();
+                    var Index;
+                    var Item;
+                    var Swatch;
+                    var Chip;
+                    var Text;
+                    Host.innerHTML = "";
+                    for (Index = 0; Index < Options.length; Index++) {
+                        Item = Options[Index];
+                        Swatch = document.createElement("button");
+                        Swatch.type = "button";
+                        Swatch.className = "colors-demo-swatch";
+                        Swatch.title = "Use " + Item.Text + " as base color";
+                        Swatch.dataset.colorName = Item.Text;
+                        Swatch.dataset.colorValue = Item.Value;
+                        Chip = document.createElement("span");
+                        Chip.className = "colors-demo-chip";
+                        Chip.style.backgroundColor = Item.Value;
+                        Text = document.createElement("span");
+                        Text.textContent = Item.Text + " " + Item.Value;
+                        Swatch.appendChild(Chip);
+                        Swatch.appendChild(Text);
+                        Host.appendChild(Swatch);
+                    }
+                    AddLine("tp.Colors.ToOptionList() returned " + Options.length + " items.");
+                };
+                
+                var ShowShadeSet = function (UseShade2) {
+                    var Host = tp("#ColorsShades");
+                    var BaseColor = GetBaseColor();
+                    var Percents = [-40, -20, 0, 20, 40];
+                    var Index;
+                    var Percent;
+                    var Color;
+                    var Box;
+                    Host.innerHTML = "";
+                    AddLine((UseShade2 ? "tp.Colors.Shade2" : "tp.Colors.Shade") + " samples for " + BaseColor + ":");
+                    for (Index = 0; Index < Percents.length; Index++) {
+                        Percent = Percents[Index];
+                        Color = UseShade2 ? tp.Colors.Shade2(BaseColor, Percent) : tp.Colors.Shade(BaseColor, Percent);
+                        Box = document.createElement("div");
+                        Box.className = "colors-demo-shade";
+                        Box.style.backgroundColor = Color;
+                        Box.textContent = Percent + "%\n" + Color;
+                        Host.appendChild(Box);
+                        AddLine("  " + Percent + "% = " + Color);
+                    }
+                    tp.InfoNote("Shade sample created.");
+                };
+                
+                tp.On("#ColorsOptionListButton", "click", function () {
+                    ShowSwatches();
+                    tp.InfoNote("Color option list built.");
+                });
+                
+                tp.On("#ColorsSwatches", "click", function (e) {
+                    var Swatch = e.target.closest(".colors-demo-swatch");
+                    if (Swatch)
+                        ApplyBaseColor(Swatch.dataset.colorValue, Swatch.dataset.colorName);
+                });
+                
+                tp.On("#ColorsShadeButton", "click", function () {
+                    ShowShadeSet(false);
+                });
+                
+                tp.On("#ColorsShade2Button", "click", function () {
+                    ShowShadeSet(true);
+                });
+                
+                tp.On("#ColorsGradientButton", "click", function () {
+                    var Gradient = tp.Colors.SetGradientStyle(GetBaseColor(), "#ColorsGradientBox");
+                    AddLine("tp.Colors.SetGradientStyle(color, element) returned:");
+                    AddLine(Gradient);
+                    tp.InfoNote("Gradient applied.");
+                });
+                
+                tp.On("#ColorsClearButton", "click", function () {
+                    Lines = [];
+                    tp("#ColorsShades").innerHTML = "";
+                    Write();
+                });
+                
+                ShowSwatches();
+                ShowShadeSet(false);
+                tp.Colors.SetGradientStyle(GetBaseColor(), "#ColorsGradientBox");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

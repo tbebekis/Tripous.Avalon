@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Names</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Names</h1>
+        
+        <p>
+            <code>tp.Names</code> is the small Tripous name generator used when runtime code needs a unique
+            generated name or element id. It keeps an internal counter per prefix. Calling
+            <code>tp.Names.Next("Button")</code> repeatedly returns names such as <code>Button2000</code>,
+            <code>Button2001</code>, and so on.
+        </p>
+        
+        <p>
+            Prefix lookup is case-insensitive, so <code>"Panel"</code> and <code>"panel"</code> share the
+            same counter. <code>tp.NextName()</code> is a public shortcut for <code>tp.Names.Next()</code>.
+            <code>tp.SafeId()</code> also generates a name, but replaces dots with dashes so the result is
+            safer to use as an HTML id.
+        </p>
+        
+        <style>
+            .names-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .names-demo-section {
+                margin-bottom: 18px;
+            }
+            .names-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .names-demo-section p {
+                margin: 6px 0;
+            }
+            .names-demo-row {
+                display: grid;
+                grid-template-columns: 90px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .names-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .names-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 340px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .names-demo-grid,
+                .names-demo-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="names-demo-grid">
+                    <section class="names-demo-section">
+                        <p class="names-demo-title">Generate names</p>
+                        <p>
+                            Type a prefix and generate names from that prefix. The counter is internal and
+                            keeps moving forward while the page is loaded.
+                        </p>
+                        <label class="names-demo-row" for="NamesPrefixInput">
+                            <span>prefix</span>
+                            <input id="NamesPrefixInput" type="text" value="Button">
+                        </label>
+                        <div class="names-demo-actions">
+                            <button id="NamesNextButton" type="button">tp.Names.Next</button>
+                            <button id="NamesAliasButton" type="button">tp.NextName</button>
+                        </div>
+                    </section>
+                    
+                    <section class="names-demo-section">
+                        <p class="names-demo-title">Prefix counters</p>
+                        <p>
+                            Each prefix has its own counter, but prefix matching is case-insensitive.
+                            This makes generated names stable enough for readable runtime ids.
+                        </p>
+                        <div class="names-demo-actions">
+                            <button id="NamesCounterButton" type="button">Run counter sample</button>
+                        </div>
+                    </section>
+                    
+                    <section class="names-demo-section">
+                        <p class="names-demo-title">Safe ids</p>
+                        <p>
+                            <code>tp.SafeId()</code> uses <code>tp.Prefix</code> when no prefix is supplied.
+                            It also replaces dots with dashes.
+                        </p>
+                        <label class="names-demo-row" for="SafeIdPrefixInput">
+                            <span>prefix</span>
+                            <input id="SafeIdPrefixInput" type="text" value="Data.Grid.Column">
+                        </label>
+                        <div class="names-demo-actions">
+                            <button id="SafeIdButton" type="button">tp.SafeId</button>
+                        </div>
+                    </section>
+                    
+                    <section class="names-demo-section">
+                        <p class="names-demo-title">Default prefix</p>
+                        <p>
+                            <code>tp.Prefix</code> is the default Tripous id/name prefix. The default
+                            <code>tp.SafeId()</code> call uses it.
+                        </p>
+                        <div class="names-demo-actions">
+                            <button id="NamesDefaultButton" type="button">Run default sample</button>
+                            <button id="NamesClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="NamesOutput" class="names-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#NamesOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#NamesNextButton", "click", function () {
+                    var Prefix = tp.Value("#NamesPrefixInput");
+                    AddLine("tp.Names.Next(" + JSON.stringify(Prefix) + ") = " + tp.Names.Next(Prefix));
+                    tp.InfoNote("Name generated.");
+                });
+        
+                tp.On("#NamesAliasButton", "click", function () {
+                    var Prefix = tp.Value("#NamesPrefixInput");
+                    AddLine("tp.NextName(" + JSON.stringify(Prefix) + ") = " + tp.NextName(Prefix));
+                    tp.InfoNote("Name generated through alias.");
+                });
+        
+                tp.On("#NamesCounterButton", "click", function () {
+                    AddLine("tp.Names.Next(\"Panel\") = " + tp.Names.Next("Panel"));
+                    AddLine("tp.Names.Next(\"Panel\") = " + tp.Names.Next("Panel"));
+                    AddLine("tp.Names.Next(\"panel\") = " + tp.Names.Next("panel"));
+                    AddLine("tp.Names.Next(\"Input\") = " + tp.Names.Next("Input"));
+                    AddLine("The Panel/panel calls share one case-insensitive counter.");
+                    tp.InfoNote("Counter sample completed.");
+                });
+        
+                tp.On("#SafeIdButton", "click", function () {
+                    var Prefix = tp.Value("#SafeIdPrefixInput");
+                    AddLine("tp.SafeId(" + JSON.stringify(Prefix) + ") = " + tp.SafeId(Prefix));
+                    tp.InfoNote("Safe id generated.");
+                });
+        
+                tp.On("#NamesDefaultButton", "click", function () {
+                    AddLine("tp.Prefix = " + JSON.stringify(tp.Prefix));
+                    AddLine("tp.Names.Next() = " + tp.Names.Next());
+                    AddLine("tp.SafeId() = " + tp.SafeId());
+                    tp.InfoNote("Default sample completed.");
+                });
+        
+                tp.On("#NamesClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to generate names and ids.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

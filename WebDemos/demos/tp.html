@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tp Core</title>
+    <title>tp</title>
     <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
     <link rel="stylesheet" href="../tripous/css/tp.css">
     <link rel="stylesheet" href="../tripous/css/font-awesome.css">
@@ -27,32 +27,237 @@
         <p class="demo-index-link">
             <a href="../index.html">Tripous Web Demos</a>
         </p>
-        <h1>tp Core</h1>
+        <h1>tp</h1>
         
-        <p>This demo checks the global <code>tp</code> object and the first runtime helpers.</p>
+        <p>
+            <code>tp</code> is the single global entry point of the Tripous JavaScript runtime.
+            It is both a namespace and a function. As a namespace, it contains constants, classes,
+            type checks, DOM helpers, formatting helpers, event helpers, and the rest of the runtime.
+            As a function, <code>tp(selector)</code> is a very small shortcut for selecting one DOM element.
+        </p>
+        
+        <p>
+            Tripous Web deliberately uses this single global object instead of JavaScript modules.
+            The browser loads generated bundles such as <code>tp.js</code>, <code>tp-Data.js</code>,
+            <code>tp-UI.js</code>, and later specialized bundles such as <code>tp-Grid.js</code>.
+            Those bundles add their types and helpers under the same <code>tp</code> namespace.
+        </p>
+        
+        <p>
+            This first Core demo shows the most basic ideas: the global <code>tp</code> object,
+            the <code>tp()</code> selector function, the more explicit <code>tp.Select()</code> and
+            <code>tp.SelectAll()</code> helpers, and the simple value/text/html helpers.
+        </p>
+        
+        <style>
+            .tp-core-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .tp-core-section {
+                margin-bottom: 18px;
+            }
+            .tp-core-section p {
+                margin: 6px 0;
+            }
+            .tp-core-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .tp-core-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .tp-core-box {
+                box-sizing: border-box;
+                min-height: 72px;
+                margin-top: 8px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .tp-core-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 220px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .tp-core-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
         
         <div class="html-code">
-            <div class="demo-panel">
-                <label for="DemoInput">Value</label>
-                <input id="DemoInput" type="text" value="Tripous" />
-                <button id="DemoButton" type="button">Run</button>
-                <pre id="DemoOutput"></pre>
+            <div class="demo-panel demo-panel-wide">
+                <div class="tp-core-grid">
+                    <section class="tp-core-section">
+                        <p class="tp-core-title">tp as namespace</p>
+                        <p>
+                            <code>tp</code> is a function object. That means it can be called as
+                            <code>tp(...)</code>, but it also carries members such as <code>tp.Version</code>,
+                            <code>tp.Ready()</code>, <code>tp.Object</code>, and <code>tp.Component</code>.
+                        </p>
+                        <div class="tp-core-actions">
+                            <button id="TpNamespaceButton" type="button">Inspect tp</button>
+                        </div>
+                    </section>
+                    
+                    <section class="tp-core-section">
+                        <p class="tp-core-title">tp(selector) as function</p>
+                        <p>
+                            <code>tp("#DemoInput")</code> returns the first element that matches the selector.
+                            Passing an element returns the same element. Passing a missing selector returns
+                            <code>null</code>.
+                        </p>
+                        <div class="tp-core-actions">
+                            <button id="TpFunctionButton" type="button">Run tp() checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="tp-core-section">
+                        <p class="tp-core-title">tp.Select() and tp.SelectAll()</p>
+                        <p>
+                            <code>tp.Select()</code> is the explicit element selector helper.
+                            <code>tp.SelectAll()</code> returns an array of matching elements. Both can search
+                            the whole document or inside a parent element.
+                        </p>
+                        <div id="TpSelectionHost" class="tp-core-box">
+                            <span class="demo-item">One</span>
+                            <span class="demo-item">Two</span>
+                            <span class="demo-item">Three</span>
+                        </div>
+                        <div class="tp-core-actions">
+                            <button id="TpSelectionButton" type="button">Run selection checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="tp-core-section">
+                        <p class="tp-core-title">Value, Text, and Html helpers</p>
+                        <p>
+                            <code>tp.Value()</code> gets or sets an element value. <code>tp.Text()</code>
+                            works with text content. <code>tp.Html()</code> works with inner HTML.
+                        </p>
+                        <input id="DemoInput" type="text" value="Tripous" />
+                        <div id="DemoText" class="tp-core-box">Text target</div>
+                        <div id="DemoHtml" class="tp-core-box"><strong>HTML target</strong></div>
+                        <div class="tp-core-actions">
+                            <button id="TpValueButton" type="button">Change values</button>
+                            <button id="TpReadButton" type="button">Read values</button>
+                        </div>
+                    </section>
+                    
+                    <section class="tp-core-section">
+                        <p class="tp-core-title">Common type helpers</p>
+                        <p>
+                            Core helpers such as <code>tp.IsString()</code>, <code>tp.IsNumber()</code>,
+                            <code>tp.IsBlank()</code>, and <code>tp.IsHTMLElement()</code> are used throughout
+                            the runtime to keep checks readable.
+                        </p>
+                        <div class="tp-core-actions">
+                            <button id="TpTypeButton" type="button">Run type checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="tp-core-section">
+                        <p class="tp-core-title">Clear output</p>
+                        <p>
+                            The output below records what each check did. These examples intentionally use
+                            simple code so the behavior is easy to follow from the source preview.
+                        </p>
+                        <div class="tp-core-actions">
+                            <button id="TpClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DemoOutput" class="tp-core-log"></pre>
             </div>
         </div>
         
         <script class="js-code">
             tp.Ready(function () {
-                tp.On("#DemoButton", "click", function () {
-                    var Value = tp.Value("#DemoInput");
-                    var Lines = [
-                        "tp.Version = " + tp.Version,
-                        "tp.IsString(Value) = " + tp.IsString(Value),
-                        "tp.IsBlank(Value) = " + tp.IsBlank(Value),
-                        "tp(\"#DemoInput\") found = " + (tp("#DemoInput") !== null)
-                    ];
+                var Lines = [];
+                var ChangeCount = 0;
         
+                var Write = function () {
                     tp.Text("#DemoOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#TpNamespaceButton", "click", function () {
+                    AddLine("typeof tp = " + typeof tp);
+                    AddLine("tp.Version = " + tp.Version);
+                    AddLine("typeof tp.Ready = " + typeof tp.Ready);
+                    AddLine("typeof tp.Object = " + typeof tp.Object);
+                    AddLine("typeof tp.Component = " + typeof tp.Component);
+                    tp.InfoNote("tp namespace inspected.");
                 });
+        
+                tp.On("#TpFunctionButton", "click", function () {
+                    var Input = document.getElementById("DemoInput");
+                    AddLine("tp(\"#DemoInput\") === Input = " + (tp("#DemoInput") === Input));
+                    AddLine("tp(Input) === Input = " + (tp(Input) === Input));
+                    AddLine("tp(\"#MissingElement\") === null = " + (tp("#MissingElement") === null));
+                    tp.InfoNote("tp() selector checks completed.");
+                });
+        
+                tp.On("#TpSelectionButton", "click", function () {
+                    var Host = tp.Select("#TpSelectionHost");
+                    var First = tp.Select(Host, ".demo-item");
+                    var List = tp.SelectAll(Host, ".demo-item");
+                    AddLine("tp.Select(\"#TpSelectionHost\") found = " + (Host !== null));
+                    AddLine("tp.Select(Host, \".demo-item\").textContent = " + First.textContent);
+                    AddLine("tp.SelectAll(Host, \".demo-item\").length = " + List.length);
+                    tp.InfoNote("Selection helpers checked.");
+                });
+        
+                tp.On("#TpValueButton", "click", function () {
+                    ChangeCount++;
+                    tp.Value("#DemoInput", "Tripous " + ChangeCount);
+                    tp.Text("#DemoText", "Text changed " + ChangeCount);
+                    tp.Html("#DemoHtml", "<strong>HTML changed " + ChangeCount + "</strong>");
+                    AddLine("Values changed #" + ChangeCount);
+                    tp.InfoNote("Value, Text, and Html changed.");
+                });
+        
+                tp.On("#TpReadButton", "click", function () {
+                    AddLine("tp.Value(\"#DemoInput\") = " + tp.Value("#DemoInput"));
+                    AddLine("tp.Text(\"#DemoText\") = " + tp.Text("#DemoText"));
+                    AddLine("tp.Html(\"#DemoHtml\") = " + tp.Html("#DemoHtml"));
+                    tp.InfoNote("Value, Text, and Html read.");
+                });
+        
+                tp.On("#TpTypeButton", "click", function () {
+                    AddLine("tp.IsString(\"Tripous\") = " + tp.IsString("Tripous"));
+                    AddLine("tp.IsNumber(42) = " + tp.IsNumber(42));
+                    AddLine("tp.IsBlank(\"   \") = " + tp.IsBlank("   "));
+                    AddLine("tp.IsHTMLElement(tp(\"#DemoInput\")) = " + tp.IsHTMLElement(tp("#DemoInput")));
+                    tp.InfoNote("Type helpers checked.");
+                });
+        
+                tp.On("#TpClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to inspect the tp core object.");
             });
         </script>
     </main>

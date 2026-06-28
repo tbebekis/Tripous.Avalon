@@ -211,6 +211,57 @@ tp.ToJson = function (Value, Formatted) {
     return Formatted === false ? JSON.stringify(Value) : JSON.stringify(Value, null, " ");
 };
 
+// ● debug
+/**
+ * Small development-time debug helper.
+ * Calling tp.Debug(Value) is the same as calling tp.Debug.Log(Value).
+ * @param {*} Value The value to write to the console.
+ * @returns {void}
+ */
+tp.Debug = function (Value) {
+    tp.Debug.Log(Value);
+};
+/**
+ * Converts a debug value to readable text.
+ * @param {*} Value The value to convert.
+ * @returns {string} Returns readable text.
+ */
+tp.Debug.AsText = function (Value) {
+    if (tp.IsEmpty(Value))
+        return "...";
+    if (tp.IsString(Value))
+        return Value;
+    if (tp.IsSimple(Value))
+        return String(Value);
+    try {
+        return JSON.stringify(Value, null, " ");
+    } catch (e) {
+        return String(Value);
+    }
+};
+/**
+ * Displays a debug value using tp.InfoNote() when available, otherwise writes it to console.info().
+ * @param {*} Value The value to display.
+ * @returns {void}
+ */
+tp.Debug.Show = function (Value) {
+    var Text = tp.Debug.AsText(Value);
+    if (tp.IsFunction(tp.InfoNote))
+        tp.InfoNote(Text);
+    else if (typeof console !== "undefined" && tp.IsFunction(console.info))
+        console.info(Text);
+};
+/**
+ * Writes a debug value to console.log().
+ * @param {*} Value The value to write.
+ * @returns {void}
+ */
+tp.Debug.Log = function (Value) {
+    var Text = tp.Debug.AsText(Value);
+    if (typeof console !== "undefined" && tp.IsFunction(console.log))
+        console.log(Text);
+};
+
 // ● names
 /**
  * Gets the default Tripous id/name prefix.

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM and component events: tp.On() and Component.On()</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>DOM and component events: tp.On() and Component.On()</h1>
+        
+        <p>
+            This demo compares native browser DOM events with Tripous component events.
+            A DOM event comes from a browser <code>EventTarget</code>, such as a button or input element.
+            A Tripous component event comes from a <code>tp.Object</code> descendant, such as
+            <code>tp.Button</code> or <code>tp.TextBox</code>.
+        </p>
+        
+        <p>
+            Use <code>tp.On(element, "click", handler)</code> when subscribing to a native DOM event.
+            The handler receives the native browser event object. Use <code>Component.On("EventName", handler)</code>
+            when subscribing to a Tripous component event. The handler receives a <code>tp.EventArgs</code>
+            object with <code>EventName</code>, <code>Sender</code>, and any extra event data.
+        </p>
+        
+        <p>
+            Some Tripous components bridge native DOM events to component events. For example,
+            <code>tp.Button</code> listens to the DOM <code>click</code> event of its internal button
+            element and then triggers a Tripous <code>Click</code> event. <code>tp.TextBox</code>
+            listens to DOM <code>input</code> and <code>change</code> events and then triggers
+            <code>ValueChanged</code>.
+        </p>
+        
+        <style>
+            .event-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .event-demo-input {
+                min-width: 220px;
+            }
+            .event-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 960px;
+                align-items: start;
+            }
+            .event-demo-section {
+                margin-bottom: 18px;
+            }
+            .event-demo-section p {
+                margin: 6px 0;
+            }
+            .event-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .event-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 860px);
+                min-height: 190px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .event-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="event-demo-grid">
+                    <section class="event-demo-section">
+                        <p class="event-demo-title">Native DOM event with tp.On()</p>
+                        <p>
+                            This button is a normal HTML button. The listener is attached with
+                            <code>tp.On("#NativeDomButton", "click", function (event) { ... })</code>.
+                            The handler receives the native browser <code>MouseEvent</code>.
+                        </p>
+                        <div class="event-demo-actions">
+                            <button id="NativeDomButton" type="button">Test native DOM click</button>
+                        </div>
+                    </section>
+                    
+                    <section class="event-demo-section">
+                        <p class="event-demo-title">tp.Button component event</p>
+                        <p>
+                            This button is wrapped by <code>new tp.Button("#TripousButton")</code>.
+                            The component listens to the DOM click and then triggers its Tripous
+                            <code>Click</code> event. The listener receives <code>tp.EventArgs</code>.
+                        </p>
+                        <div class="event-demo-actions">
+                            <button id="TripousButton" type="button" data-command="BUTTON_COMMAND">Test tp.Button Click</button>
+                        </div>
+                    </section>
+                    
+                    <section class="event-demo-section">
+                        <p class="event-demo-title">tp.TextBox ValueChanged</p>
+                        <p>
+                            This input is wrapped by <code>tp.TextBox</code>. Typing in the input triggers
+                            native DOM <code>input</code> events and the Tripous <code>ValueChanged</code>
+                            component event.
+                        </p>
+                        <div class="event-demo-actions">
+                            <input id="TripousTextBox" class="event-demo-input" type="text" value="Tripous" />
+                        </div>
+                    </section>
+                    
+                    <section class="event-demo-section">
+                        <p class="event-demo-title">Programmatic dispatch with tp.Trigger()</p>
+                        <p>
+                            <code>tp.Trigger()</code> dispatches a native DOM event. This button triggers the
+                            native DOM button click, the <code>tp.Button</code> click, and an input event on
+                            the text box.
+                        </p>
+                        <div class="event-demo-actions">
+                            <button id="ProgrammaticRunButton" type="button">Run programmatic checks</button>
+                            <button id="ClearLogButton" type="button">Clear log</button>
+                        </div>
+                    </section>
+                </div>
+                <pre id="DomComponentEventsOutput" class="event-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var NativeCount = 0;
+                var ButtonCount = 0;
+                var TextBoxCount = 0;
+                var DomInputCount = 0;
+                var Button = new tp.Button("#TripousButton");
+                var TextBox = new tp.TextBox({ ElementOrSelector: "#TripousTextBox" });
+        
+                var Write = function () {
+                    tp.Text("#DomComponentEventsOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#NativeDomButton", "click", function (e) {
+                    NativeCount++;
+                    tp.InfoNote("Native DOM click received by tp.On().");
+                    AddLine("tp.On native click #" + NativeCount
+                        + " | type=" + e.type
+                        + " | target=" + e.target.id);
+                });
+        
+                Button.On(tp.Events.Click, function (Args) {
+                    ButtonCount++;
+                    tp.InfoNote("tp.Button Click event received by Component.On().");
+                    AddLine("tp.Button Click #" + ButtonCount
+                        + " | EventName=" + Args.EventName
+                        + " | Command=" + Args.Command
+                        + " | SenderIsButton=" + (Args.Sender === Button)
+                        + " | DomType=" + Args.e.type);
+                });
+        
+                TextBox.On("ValueChanged", function (Args) {
+                    TextBoxCount++;
+                    tp.InfoNote("tp.TextBox ValueChanged event received by Component.On().");
+                    AddLine("tp.TextBox ValueChanged #" + TextBoxCount
+                        + " | EventName=" + Args.EventName
+                        + " | SenderIsTextBox=" + (Args.Sender === TextBox)
+                        + " | Text=" + TextBox.Text);
+                });
+        
+                tp.On(TextBox.Handle, "input", function (e) {
+                    DomInputCount++;
+                    tp.InfoNote("Native textbox input event received by tp.On().");
+                    AddLine("tp.On textbox input #" + DomInputCount
+                        + " | type=" + e.type
+                        + " | target=" + e.target.id
+                        + " | value=" + e.target.value);
+                });
+        
+                tp.On("#ProgrammaticRunButton", "click", function () {
+                    tp("#NativeDomButton").click();
+                    Button.Handle.click();
+                    TextBox.Text = "Tripous " + (TextBoxCount + 1);
+                    tp.Trigger(TextBox.Handle, "input");
+                });
+        
+                tp.On("#ClearLogButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click any control, or run the programmatic checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

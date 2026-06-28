@@ -390,6 +390,33 @@ tp.Rect.FromClientRect = function (Value) {
     return new tp.Rect();
 };
 
+// ● element geometry
+/**
+ * Returns the element rectangle relative to the viewport.
+ * @param {string|Element} ElementOrSelector The element or selector.
+ * @returns {tp.Rect} Returns the element rectangle.
+ */
+tp.BoundingRect = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    var Rect;
+    if (tp.IsHTMLElement(Element)) {
+        Rect = Element.getBoundingClientRect();
+        return new tp.Rect(Math.round(Rect.left), Math.round(Rect.top), Math.round(Rect.width), Math.round(Rect.height));
+    }
+    return new tp.Rect();
+};
+/**
+ * Returns the element rectangle relative to its offset parent.
+ * @param {string|Element} ElementOrSelector The element or selector.
+ * @returns {tp.Rect} Returns the element rectangle.
+ */
+tp.OffsetRect = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    if (tp.IsHTMLElement(Element))
+        return new tp.Rect(Math.round(Element.offsetLeft), Math.round(Element.offsetTop), Math.round(Element.offsetWidth), Math.round(Element.offsetHeight));
+    return new tp.Rect();
+};
+
 // ● edge
 /**
  * Edge constants and helpers for resize hit-testing.

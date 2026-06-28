@@ -509,3 +509,91 @@ tp.FirstOrDefault = function (List, Func, Context) {
     }
     return null;
 };
+
+// ● grouping
+/**
+ * Node object returned by tp.GroupBy().
+ */
+tp.GroupByNode = class {
+    // ● constructor
+    /**
+     * Creates a group-by node.
+     * @param {*} Key The group key.
+     * @param {tp.GroupByNode[]|null|undefined} NodeList Child group nodes.
+     * @param {object[]|null|undefined} DataList Data rows in this group.
+     */
+    constructor(Key, NodeList, DataList) {
+        this.Key = Key;
+        this.NodeList = tp.IsArray(NodeList) ? NodeList : [];
+        this.DataList = tp.IsArray(DataList) ? DataList : [];
+    }
+};
+/**
+ * The group key.
+ * @type {*}
+ */
+tp.GroupByNode.prototype.Key = null;
+/**
+ * Child group nodes.
+ * @type {tp.GroupByNode[]}
+ */
+tp.GroupByNode.prototype.NodeList = [];
+/**
+ * Data rows in this group.
+ * @type {object[]}
+ */
+tp.GroupByNode.prototype.DataList = [];
+/**
+ * Groups an array of objects by one or more property names.
+ * @param {object[]} List The source object list.
+ * @param {string[]} PropNames Property names used for grouping, in tree order.
+ * @param {boolean|null|undefined} AlwaysIncludeDataLists True to include a data list in every group node.
+ * @returns {tp.GroupByNode} Returns the root group node.
+ */
+tp.GroupBy = function (List, PropNames, AlwaysIncludeDataLists) {
+    var RootNode = new tp.GroupByNode("___ROOT___", [], []);
+    /**
+     * Groups data rows under a parent node.
+     * @param {tp.GroupByNode} ParentNode The parent group node.
+     * @param {object[]} DataList The data rows.
+     * @param {number} PropNameIndex The property name index.
+     * @returns {void}
+     */
+    function GroupByLevel(ParentNode, DataList, PropNameIndex) {
+        var PropName = PropNames[PropNameIndex];
+        var Groups = {};
+        var Keys;
+        var Data;
+        var Key;
+        var Node;
+        var Index;
+        if (!tp.IsArray(DataList) || tp.IsBlank(PropName))
+            return;
+        for (Index = 0; Index < DataList.length; Index++) {
+            Data = DataList[Index];
+            Key = Data ? Data[PropName] : null;
+            Key = tp.IsNullOrUndefined(Key) ? "" : String(Key);
+            if (!Groups[Key])
+                Groups[Key] = [];
+            Groups[Key].push(Data);
+        }
+        Keys = Object.keys(Groups);
+        for (Index = 0; Index < Keys.length; Index++) {
+            Key = Keys[Index];
+            Node = new tp.GroupByNode(Key, [], []);
+            if (PropNameIndex === PropNames.length - 1 || AlwaysIncludeDataLists === true)
+                Node.DataList = Groups[Key];
+            ParentNode.NodeList.push(Node);
+        }
+        if (PropNameIndex < PropNames.length - 1) {
+            for (Index = 0; Index < ParentNode.NodeList.length; Index++) {
+                Node = ParentNode.NodeList[Index];
+                GroupByLevel(Node, Groups[Node.Key], PropNameIndex + 1);
+            }
+        }
+    }
+    if (!tp.IsArray(List) || !tp.IsArray(PropNames) || PropNames.length === 0)
+        return RootNode;
+    GroupByLevel(RootNode, List, 0);
+    return RootNode;
+};

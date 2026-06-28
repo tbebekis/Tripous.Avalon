@@ -129,6 +129,39 @@ tp.DataType.IsBlob = function (Value) {
 tp.DataType.DefaultAlignment = function (Value) {
     return tp.DataType.IsNumeric(Value) || Value === tp.DataType.Boolean ? tp.Alignment.Right : tp.Alignment.Left;
 };
+/**
+ * Returns true if a specified data type is sortable and filterable in list/grid controls.
+ * @param {number} Value The data type value.
+ * @returns {boolean} Returns true if the value is sortable.
+ */
+tp.DataType.IsSortableType = function (Value) {
+    return Value === tp.DataType.String
+        || Value === tp.DataType.Integer
+        || Value === tp.DataType.Double
+        || Value === tp.DataType.Decimal
+        || Value === tp.DataType.Decimal_
+        || Value === tp.DataType.Date
+        || Value === tp.DataType.DateTime
+        || Value === tp.DataType.Boolean;
+};
+/**
+ * Returns valid aggregate types for a specified data type.
+ * @param {number} Value The data type value.
+ * @returns {number[]} Returns an array of tp.AggregateType values.
+ */
+tp.DataType.ValidAggregates = function (Value) {
+    var Result = [tp.AggregateType.Count];
+    if (Value === tp.DataType.String || Value === tp.DataType.Boolean)
+        Result = [tp.AggregateType.Count];
+    else if (Value === tp.DataType.Integer
+        || Value === tp.DataType.Double
+        || Value === tp.DataType.Decimal
+        || Value === tp.DataType.Decimal_)
+        Result = [tp.AggregateType.Count, tp.AggregateType.Sum, tp.AggregateType.Avg, tp.AggregateType.Min, tp.AggregateType.Max];
+    else if (Value === tp.DataType.Date || Value === tp.DataType.DateTime)
+        Result = [tp.AggregateType.Count, tp.AggregateType.Min, tp.AggregateType.Max];
+    return Result;
+};
 Object.freeze(tp.DataType);
 /**
  * Alias for tp.DataType, matching the C# enum name.

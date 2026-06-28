@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Keyboard</h1>
+        
+        <p>
+            This demo covers the small Tripous keyboard helper API. <code>tp.Keys</code> contains key names
+            based on <code>KeyboardEvent.key</code>, not numeric key codes. Use <code>tp.IsKey()</code> to test
+            a keyboard event against one of those names.
+        </p>
+        
+        <p>
+            <code>tp.IsPrintableKey()</code> returns true for keys whose <code>event.key</code> is a single
+            character, such as <code>a</code>, <code>9</code>, or a typed space. It returns false for command
+            keys such as <code>Enter</code>, <code>Escape</code>, arrows, and function keys.
+        </p>
+        
+        <style>
+            .keyboard-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .keyboard-demo-section {
+                margin-bottom: 18px;
+            }
+            .keyboard-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .keyboard-demo-section p {
+                margin: 6px 0;
+            }
+            .keyboard-demo-target {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 96px;
+                padding: 14px;
+                border: 2px solid #8c959f;
+                background: #ffffff;
+                outline: none;
+                font-weight: 700;
+            }
+            .keyboard-demo-target:focus {
+                border-color: var(--FocusColor);
+                box-shadow: 0 0 0 3px color-mix(in srgb, var(--FocusColor), transparent 75%);
+            }
+            .keyboard-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .keyboard-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 300px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .keyboard-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="keyboard-demo-grid">
+                    <section class="keyboard-demo-section">
+                        <p class="keyboard-demo-title">Live keyboard event</p>
+                        <p>
+                            Focus the box and press keys. The handler uses <code>tp.IsKey()</code> for command
+                            keys and <code>tp.IsPrintableKey()</code> for printable text keys.
+                        </p>
+                        <div id="KeyboardTarget" class="keyboard-demo-target" tabindex="0">Focus here and press keys</div>
+                    </section>
+                    
+                    <section class="keyboard-demo-section">
+                        <p class="keyboard-demo-title">Key constants</p>
+                        <p>
+                            The constants are plain strings that match browser <code>KeyboardEvent.key</code>
+                            values, for example <code>tp.Keys.Escape</code> is <code>Escape</code>.
+                        </p>
+                        <div class="keyboard-demo-actions">
+                            <button id="KeyboardConstantsButton" type="button">Show constants</button>
+                        </div>
+                    </section>
+                    
+                    <section class="keyboard-demo-section">
+                        <p class="keyboard-demo-title">Simulated command keys</p>
+                        <p>
+                            These buttons create standard <code>KeyboardEvent</code> objects so the helper
+                            checks can be demonstrated without using the physical keyboard.
+                        </p>
+                        <div class="keyboard-demo-actions">
+                            <button id="KeyboardEscapeButton" type="button">Simulate Escape</button>
+                            <button id="KeyboardEnterButton" type="button">Simulate Enter</button>
+                            <button id="KeyboardArrowButton" type="button">Simulate ArrowDown</button>
+                        </div>
+                    </section>
+                    
+                    <section class="keyboard-demo-section">
+                        <p class="keyboard-demo-title">Printable keys</p>
+                        <p>
+                            Printable detection is based on the final <code>key</code> value. A letter is
+                            printable, while <code>Enter</code> is not.
+                        </p>
+                        <div class="keyboard-demo-actions">
+                            <button id="KeyboardPrintableButton" type="button">Simulate printable</button>
+                            <button id="KeyboardClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="KeyboardOutput" class="keyboard-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#KeyboardOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var Describe = function (e) {
+                    return "key=" + JSON.stringify(e.key)
+                        + ", printable=" + tp.IsPrintableKey(e)
+                        + ", Escape=" + tp.IsKey(e, tp.Keys.Escape)
+                        + ", Enter=" + tp.IsKey(e, tp.Keys.Enter)
+                        + ", ArrowDown=" + tp.IsKey(e, tp.Keys.Down)
+                        + ", ctrl=" + e.ctrlKey
+                        + ", shift=" + e.shiftKey
+                        + ", alt=" + e.altKey;
+                };
+        
+                var Simulate = function (Key, Options) {
+                    var EventOptions = tp.MergePropsShallow({ key: Key, bubbles: true, cancelable: true }, Options || {});
+                    var e = new KeyboardEvent("keydown", EventOptions);
+                    tp("#KeyboardTarget").dispatchEvent(e);
+                };
+        
+                tp.On("#KeyboardTarget", "keydown", function (e) {
+                    AddLine("keydown: " + Describe(e));
+                    if (tp.IsKey(e, tp.Keys.Escape))
+                        tp.InfoNote("Escape detected.");
+                    else if (tp.IsKey(e, tp.Keys.Enter))
+                        tp.InfoNote("Enter detected.");
+                });
+        
+                tp.On("#KeyboardConstantsButton", "click", function () {
+                    AddLine("tp.Keys.Escape = " + tp.Keys.Escape);
+                    AddLine("tp.Keys.Enter = " + tp.Keys.Enter);
+                    AddLine("tp.Keys.Space = " + JSON.stringify(tp.Keys.Space));
+                    AddLine("tp.Keys.Down = " + tp.Keys.Down);
+                    AddLine("tp.Keys.Delete = " + tp.Keys.Delete);
+                    tp.InfoNote("Keyboard constants shown.");
+                });
+        
+                tp.On("#KeyboardEscapeButton", "click", function () {
+                    Simulate(tp.Keys.Escape);
+                });
+        
+                tp.On("#KeyboardEnterButton", "click", function () {
+                    Simulate(tp.Keys.Enter, { ctrlKey: true });
+                });
+        
+                tp.On("#KeyboardArrowButton", "click", function () {
+                    Simulate(tp.Keys.Down);
+                });
+        
+                tp.On("#KeyboardPrintableButton", "click", function () {
+                    Simulate("a", { shiftKey: true });
+                    Simulate("9");
+                    Simulate(tp.Keys.Space);
+                });
+        
+                tp.On("#KeyboardClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Focus the test box or click a button to run keyboard helper checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

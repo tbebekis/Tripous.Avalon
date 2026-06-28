@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Dictionary</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Dictionary</h1>
+        
+        <p>
+            <code>tp.Dictionary</code> is an ordered key/value store backed by an entry list. It is not the
+            native JavaScript <code>Map</code>; it is a small Tripous class with methods used by other
+            Tripous classes, such as localization and name-value lists.
+        </p>
+        
+        <p>
+            This is a pre-<code>Map</code> class from the older Tripous JavaScript runtime. It remains in the
+            core library because existing Tripous code still depends on it. New general-purpose application
+            code may prefer the native <code>Map</code>, but this class is still part of the current
+            Tripous API.
+        </p>
+        
+        <p>
+            Keys are compared with strict equality. In practice, most Tripous code uses string keys. The
+            dictionary preserves insertion order and can return keys, values, and an enumerator over
+            <code>{ Key, Value }</code> entries.
+        </p>
+        
+        <style>
+            .dictionary-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .dictionary-demo-section {
+                margin-bottom: 18px;
+            }
+            .dictionary-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dictionary-demo-section p {
+                margin: 6px 0;
+            }
+            .dictionary-demo-row {
+                display: grid;
+                grid-template-columns: 90px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dictionary-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dictionary-demo-current {
+                box-sizing: border-box;
+                min-height: 90px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+                white-space: pre-wrap;
+            }
+            .dictionary-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 360px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dictionary-demo-grid,
+                .dictionary-demo-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dictionary-demo-grid">
+                    <section class="dictionary-demo-section">
+                        <p class="dictionary-demo-title">Current dictionary</p>
+                        <p>
+                            The current entries are shown in insertion order.
+                        </p>
+                        <pre id="DictionaryCurrent" class="dictionary-demo-current"></pre>
+                        <div class="dictionary-demo-actions">
+                            <button id="DictionaryResetButton" type="button">Reset</button>
+                            <button id="DictionaryClearOutputButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dictionary-demo-section">
+                        <p class="dictionary-demo-title">Set and get</p>
+                        <p>
+                            <code>Set()</code> adds a new key or replaces an existing key value.
+                            <code>Get()</code> returns <code>null</code> when the key is missing.
+                        </p>
+                        <label class="dictionary-demo-row" for="DictionaryKeyInput">
+                            <span>key</span>
+                            <input id="DictionaryKeyInput" type="text" value="theme">
+                        </label>
+                        <label class="dictionary-demo-row" for="DictionaryValueInput">
+                            <span>value</span>
+                            <input id="DictionaryValueInput" type="text" value="light">
+                        </label>
+                        <div class="dictionary-demo-actions">
+                            <button id="DictionarySetButton" type="button">Set value</button>
+                            <button id="DictionaryGetButton" type="button">Get value</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dictionary-demo-section">
+                        <p class="dictionary-demo-title">Keys and values</p>
+                        <p>
+                            <code>Keys()</code> and <code>Values()</code> return arrays. <code>ValueOf()</code>
+                            accepts a default value.
+                        </p>
+                        <div class="dictionary-demo-actions">
+                            <button id="DictionaryKeysButton" type="button">Run keys/values</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dictionary-demo-section">
+                        <p class="dictionary-demo-title">Enumeration and remove</p>
+                        <p>
+                            <code>GetEnumerator()</code> and the native iterator both enumerate entries.
+                            <code>Remove()</code> deletes by key and <code>Clear()</code> deletes all entries.
+                        </p>
+                        <div class="dictionary-demo-actions">
+                            <button id="DictionaryEnumerateButton" type="button">Enumerate</button>
+                            <button id="DictionaryRemoveButton" type="button">Remove theme</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DictionaryOutput" class="dictionary-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Dictionary = new tp.Dictionary();
+                var Lines = [];
+        
+                var EntryText = function (Entry) {
+                    return Entry.Key + " = " + JSON.stringify(Entry.Value);
+                };
+        
+                var CurrentText = function () {
+                    var Result = [];
+                    for (var Entry of Dictionary)
+                        Result.push(EntryText(Entry));
+                    return Result.join("\n");
+                };
+        
+                var Write = function () {
+                    tp.Text("#DictionaryCurrent", CurrentText() || "(empty)");
+                    tp.Text("#DictionaryOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var Reset = function () {
+                    Dictionary.Clear();
+                    Dictionary.Set("theme", "dark");
+                    Dictionary.Set("pageSize", 25);
+                    Dictionary.Set("options", { compact: true, pinned: ["Name", "Amount"] });
+                    Write();
+                };
+        
+                tp.On("#DictionaryResetButton", "click", function () {
+                    Reset();
+                    AddLine("Dictionary reset.");
+                    tp.InfoNote("Dictionary reset.");
+                });
+        
+                tp.On("#DictionarySetButton", "click", function () {
+                    Dictionary.Set(tp.Value("#DictionaryKeyInput"), tp.Value("#DictionaryValueInput"));
+                    AddLine("Dictionary.Set(key, value) executed.");
+                    Write();
+                    tp.InfoNote("Value set.");
+                });
+        
+                tp.On("#DictionaryGetButton", "click", function () {
+                    var Key = tp.Value("#DictionaryKeyInput");
+                    AddLine("Dictionary.Get(" + JSON.stringify(Key) + ") = " + JSON.stringify(Dictionary.Get(Key)));
+                    AddLine("Dictionary.ContainsKey(" + JSON.stringify(Key) + ") = " + Dictionary.ContainsKey(Key));
+                    tp.InfoNote("Value read.");
+                });
+        
+                tp.On("#DictionaryKeysButton", "click", function () {
+                    AddLine("Dictionary.Count = " + Dictionary.Count);
+                    AddLine("Dictionary.Keys() = " + JSON.stringify(Dictionary.Keys()));
+                    AddLine("Dictionary.Values() = " + JSON.stringify(Dictionary.Values()));
+                    AddLine("Dictionary.ValueOf(\"missing\", \"default\") = " + JSON.stringify(Dictionary.ValueOf("missing", "default")));
+                    tp.InfoNote("Keys and values read.");
+                });
+        
+                tp.On("#DictionaryEnumerateButton", "click", function () {
+                    var Enumerator = Dictionary.GetEnumerator();
+                    var Classic = [];
+                    var Native = [];
+                    while (Enumerator.MoveNext())
+                        Classic.push(EntryText(Enumerator.Current));
+                    for (var Entry of Dictionary)
+                        Native.push(EntryText(Entry));
+                    AddLine("GetEnumerator() -> " + Classic.join(" | "));
+                    AddLine("for...of -> " + Native.join(" | "));
+                    tp.InfoNote("Dictionary enumerated.");
+                });
+        
+                tp.On("#DictionaryRemoveButton", "click", function () {
+                    Dictionary.Remove("theme");
+                    AddLine("Dictionary.Remove(\"theme\") executed. ContainsKey(\"theme\") = " + Dictionary.ContainsKey("theme"));
+                    Write();
+                    tp.InfoNote("Entry removed.");
+                });
+        
+                tp.On("#DictionaryClearOutputButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                Reset();
+                AddLine("Dictionary ready.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

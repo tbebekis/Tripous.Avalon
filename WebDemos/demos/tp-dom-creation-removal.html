@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM creation and removal</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>DOM creation and removal</h1>
+        
+        <p>
+            This demo covers Tripous helpers that create, insert, append, prepend, and remove DOM nodes. Each
+            button resets the sample workspace first, then runs one focused group of helpers so the result is
+            easy to inspect.
+        </p>
+        
+        <p>
+            Some helpers create elements for you, such as <code>tp.Div()</code> and <code>tp.AppendElement()</code>.
+            Others accept an existing <code>Node</code> or an HTML string, such as <code>tp.Append()</code>,
+            <code>tp.Prepend()</code>, <code>tp.AppendNode()</code>, and <code>tp.InsertNode()</code>.
+        </p>
+        
+        <style>
+            .dom-create-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .dom-create-section {
+                margin-bottom: 18px;
+            }
+            .dom-create-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dom-create-section p {
+                margin: 6px 0;
+            }
+            .dom-create-workspace {
+                min-height: 160px;
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .dom-create-item {
+                margin: 6px 0;
+                padding: 6px 8px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .dom-create-item.is-highlight {
+                border-color: #57606a;
+                background: #fff8c5;
+            }
+            .dom-create-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dom-create-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 320px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dom-create-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dom-create-grid">
+                    <section class="dom-create-section">
+                        <p class="dom-create-title">Workspace</p>
+                        <p>
+                            This is the parent element passed to all helpers. Watch this area after each button
+                            click.
+                        </p>
+                        <div id="DomCreateHost" class="dom-create-workspace"></div>
+                    </section>
+                    
+                    <section class="dom-create-section">
+                        <p class="dom-create-title">Create elements</p>
+                        <p>
+                            Uses <code>tp.el()</code>, <code>tp.Div()</code>, <code>tp.Span()</code>,
+                            <code>tp.Paragraph()</code>, and <code>tp.Break()</code>.
+                        </p>
+                        <div class="dom-create-actions">
+                            <button id="DomCreateElementsButton" type="button">Run create</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-create-section">
+                        <p class="dom-create-title">Append and prepend</p>
+                        <p>
+                            Uses <code>tp.Append()</code> and <code>tp.Prepend()</code> with HTML strings and
+                            existing elements.
+                        </p>
+                        <div class="dom-create-actions">
+                            <button id="DomAppendPrependButton" type="button">Run append/prepend</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-create-section">
+                        <p class="dom-create-title">Insert and remove</p>
+                        <p>
+                            Uses <code>tp.AppendElement()</code>, <code>tp.InsertElement()</code>,
+                            <code>tp.AppendNode()</code>, <code>tp.InsertNode()</code>, <code>tp.Remove()</code>,
+                            and <code>tp.RemoveChildren()</code>.
+                        </p>
+                        <div class="dom-create-actions">
+                            <button id="DomInsertRemoveButton" type="button">Run insert/remove</button>
+                            <button id="DomClearButton" type="button">Clear workspace</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DomCreateOutput" class="dom-create-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#DomCreateOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var Reset = function () {
+                    tp.RemoveChildren("#DomCreateHost");
+                    Lines = [];
+                    Write();
+                };
+        
+                var AddClass = function (Element, Name) {
+                    Element.className = "dom-create-item" + (Name ? " " + Name : "");
+                    return Element;
+                };
+        
+                var ChildSummary = function () {
+                    var Items = tp.ChildHTMLElements("#DomCreateHost");
+                    return tp.Transform(Items, function (Item) {
+                        return Item.tagName.toLowerCase() + (Item.id ? "#" + Item.id : "");
+                    }).join(", ");
+                };
+        
+                tp.On("#DomCreateElementsButton", "click", function () {
+                    var Div;
+                    var Span;
+                    var Paragraph;
+        
+                    Reset();
+                    Div = AddClass(tp.Div("#DomCreateHost"), "is-highlight");
+                    Div.id = "CreatedDiv";
+                    Div.textContent = "tp.Div() created this div.";
+                    Span = AddClass(tp.Span("#DomCreateHost"), "");
+                    Span.id = "CreatedSpan";
+                    Span.textContent = "tp.Span() created this span.";
+                    tp.Break("#DomCreateHost");
+                    Paragraph = AddClass(tp.Paragraph("#DomCreateHost", "tp.Paragraph() created this paragraph."), "");
+                    Paragraph.id = "CreatedParagraph";
+                    AddLine("tp.Div(), tp.Span(), tp.Break(), and tp.Paragraph() executed.");
+                    AddLine("children = " + ChildSummary());
+                    tp.InfoNote("DOM create helpers completed.");
+                });
+        
+                tp.On("#DomAppendPrependButton", "click", function () {
+                    var Existing = document.createElement("div");
+                    var Appended;
+        
+                    Reset();
+                    tp.Append("#DomCreateHost", "<div id=\"AppendHtml\" class=\"dom-create-item\">tp.Append() appended this HTML string.</div>");
+                    tp.Prepend("#DomCreateHost", "<div id=\"PrependHtml\" class=\"dom-create-item is-highlight\">tp.Prepend() placed this HTML string first.</div>");
+                    Existing.id = "ExistingNode";
+                    Existing.textContent = "tp.Append() appended this existing element.";
+                    AddClass(Existing, "");
+                    Appended = tp.Append("#DomCreateHost", Existing);
+                    AddLine("tp.Append() and tp.Prepend() executed.");
+                    AddLine("appended existing node id = " + (Appended ? Appended.id : ""));
+                    AddLine("children = " + ChildSummary());
+                    tp.InfoNote("Append/prepend helpers completed.");
+                });
+        
+                tp.On("#DomInsertRemoveButton", "click", function () {
+                    var AppendedElement;
+                    var InsertedElement;
+                    var AppendedNode;
+                    var InsertedNode;
+        
+                    Reset();
+                    AppendedElement = AddClass(tp.AppendElement("#DomCreateHost", "div"), "");
+                    AppendedElement.id = "AppendElement";
+                    AppendedElement.textContent = "tp.AppendElement() appended this div.";
+                    InsertedElement = AddClass(tp.InsertElement("#DomCreateHost", 0, "div"), "is-highlight");
+                    InsertedElement.id = "InsertElement";
+                    InsertedElement.textContent = "tp.InsertElement() inserted this div at element index 0.";
+                    AppendedNode = document.createElement("div");
+                    AppendedNode.id = "AppendNode";
+                    AppendedNode.textContent = "tp.AppendNode() appended this node.";
+                    AddClass(AppendedNode, "");
+                    tp.AppendNode("#DomCreateHost", AppendedNode);
+                    InsertedNode = document.createElement("div");
+                    InsertedNode.id = "InsertNode";
+                    InsertedNode.textContent = "tp.InsertNode() inserted this node at child-node index 1.";
+                    AddClass(InsertedNode, "");
+                    tp.InsertNode("#DomCreateHost", 1, InsertedNode);
+                    AddLine("before remove: " + ChildSummary());
+                    tp.Remove("#AppendNode");
+                    AddLine("after tp.Remove(\"#AppendNode\"): " + ChildSummary());
+                    AddLine("RemoveChildren is used by the Clear workspace button and by each reset.");
+                    tp.InfoNote("Insert/remove helpers completed.");
+                });
+        
+                tp.On("#DomClearButton", "click", function () {
+                    Reset();
+                    AddLine("tp.RemoveChildren(\"#DomCreateHost\") executed.");
+                    tp.InfoNote("Workspace cleared.");
+                });
+        
+                Reset();
+                AddLine("Click a button to run DOM creation/removal checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

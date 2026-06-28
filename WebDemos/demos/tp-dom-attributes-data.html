@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM attributes and data</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>DOM attributes and data</h1>
+        
+        <p>
+            This demo covers Tripous helpers for normal HTML attributes and <code>data-*</code> attributes.
+            These helpers are small wrappers around browser DOM APIs, but they accept either an element or a
+            selector and keep the Tripous code style consistent.
+        </p>
+        
+        <style>
+            .dom-attr-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .dom-attr-section {
+                margin-bottom: 18px;
+            }
+            .dom-attr-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dom-attr-section p {
+                margin: 6px 0;
+            }
+            .dom-attr-target {
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .dom-attr-target[aria-pressed="true"] {
+                border-color: #57606a;
+                background: #fff8c5;
+            }
+            .dom-attr-id {
+                display: block;
+                margin-bottom: 6px;
+                color: #57606a;
+                font-size: 13px;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            }
+            .dom-attr-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dom-attr-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 320px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dom-attr-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dom-attr-grid">
+                    <section class="dom-attr-section">
+                        <p class="dom-attr-title">Target element</p>
+                        <p>
+                            All buttons operate on this element. Inspect it in DevTools after each action to
+                            see the actual attributes.
+                        </p>
+                        <div id="DomAttrTarget" class="dom-attr-target">
+                            <span class="dom-attr-id">#DomAttrTarget</span>
+                            Target element for attribute and <code>data-*</code> tests.
+                        </div>
+                    </section>
+                    
+                    <section class="dom-attr-section">
+                        <p class="dom-attr-title">Normal attributes</p>
+                        <p>
+                            <code>tp.SetAttributes()</code> assigns multiple attributes. <code>tp.Attribute()</code>
+                            gets or sets one attribute. <code>tp.HasAttribute()</code> and
+                            <code>tp.RemoveAttribute()</code> inspect and remove attributes.
+                        </p>
+                        <div class="dom-attr-actions">
+                            <button id="DomAttributesButton" type="button">Run attributes</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-attr-section">
+                        <p class="dom-attr-title">data-* attributes</p>
+                        <p>
+                            <code>tp.Data()</code> gets or sets <code>data-*</code> attributes. It accepts a
+                            single name/value pair or an object with multiple data values.
+                        </p>
+                        <div class="dom-attr-actions">
+                            <button id="DomDataButton" type="button">Run data</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-attr-section">
+                        <p class="dom-attr-title">Clear output</p>
+                        <p>
+                            The clear button only clears the log. Attributes remain on the target so they can
+                            still be inspected in DevTools.
+                        </p>
+                        <div class="dom-attr-actions">
+                            <button id="DomClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DomAttrOutput" class="dom-attr-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#DomAttrOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#DomAttributesButton", "click", function () {
+                    tp.SetAttributes("#DomAttrTarget", {
+                        title: "Assigned by tp.SetAttributes()",
+                        "aria-pressed": "true"
+                    });
+                    tp.Attribute("#DomAttrTarget", "data-extra", "extra-value");
+        
+                    AddLine("tp.Attribute(Target, \"title\") = " + tp.Attribute("#DomAttrTarget", "title"));
+                    AddLine("tp.HasAttribute(Target, \"aria-pressed\") = " + tp.HasAttribute("#DomAttrTarget", "aria-pressed"));
+                    AddLine("tp.Attribute(Target, \"data-extra\") = " + tp.Attribute("#DomAttrTarget", "data-extra"));
+                    tp.RemoveAttribute("#DomAttrTarget", "data-extra");
+                    AddLine("after tp.RemoveAttribute(Target, \"data-extra\"), has data-extra = " + tp.HasAttribute("#DomAttrTarget", "data-extra"));
+                    tp.InfoNote("Attribute helpers completed.");
+                });
+        
+                tp.On("#DomDataButton", "click", function () {
+                    tp.Data("#DomAttrTarget", "kind", "customer");
+                    tp.Data("#DomAttrTarget", {
+                        state: "active",
+                        index: 7
+                    });
+        
+                    AddLine("tp.Data(Target, \"kind\") = " + tp.Data("#DomAttrTarget", "kind"));
+                    AddLine("tp.Data(Target, \"state\") = " + tp.Data("#DomAttrTarget", "state"));
+                    AddLine("tp.Data(Target, \"index\") = " + tp.Data("#DomAttrTarget", "index"));
+                    tp.InfoNote("data-* helpers completed.");
+                });
+        
+                tp.On("#DomClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run DOM attribute/data checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

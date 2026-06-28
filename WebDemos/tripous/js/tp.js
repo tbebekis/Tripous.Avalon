@@ -43,6 +43,18 @@ tp.Throw = function (Message) {
     throw Ex;
 };
 /**
+ * Returns a readable exception text.
+ * @param {*} Ex The exception or error value.
+ * @returns {string} Returns the exception text.
+ */
+tp.ExceptionText = function (Ex) {
+    if (Ex instanceof Error)
+        return !tp.IsBlank(Ex.message) ? Ex.message : Ex.toString();
+    if (tp.IsString(Ex))
+        return Ex;
+    return tp.IsNil(Ex) ? "" : String(Ex);
+};
+/**
  * Gets a value indicating whether the Tripous JavaScript runtime is ready.
  * @type {boolean}
  */
@@ -636,6 +648,57 @@ tp.WaitAsync = async function (MSecsToWait, FuncToCall, Context) {
  */
 tp.ToJson = function (Value, Formatted) {
     return Formatted === false ? JSON.stringify(Value) : JSON.stringify(Value, null, " ");
+};
+
+// ● debug
+/**
+ * Small development-time debug helper.
+ * Calling tp.Debug(Value) is the same as calling tp.Debug.Log(Value).
+ * @param {*} Value The value to write to the console.
+ * @returns {void}
+ */
+tp.Debug = function (Value) {
+    tp.Debug.Log(Value);
+};
+/**
+ * Converts a debug value to readable text.
+ * @param {*} Value The value to convert.
+ * @returns {string} Returns readable text.
+ */
+tp.Debug.AsText = function (Value) {
+    if (tp.IsEmpty(Value))
+        return "...";
+    if (tp.IsString(Value))
+        return Value;
+    if (tp.IsSimple(Value))
+        return String(Value);
+    try {
+        return JSON.stringify(Value, null, " ");
+    } catch (e) {
+        return String(Value);
+    }
+};
+/**
+ * Displays a debug value using tp.InfoNote() when available, otherwise writes it to console.info().
+ * @param {*} Value The value to display.
+ * @returns {void}
+ */
+tp.Debug.Show = function (Value) {
+    var Text = tp.Debug.AsText(Value);
+    if (tp.IsFunction(tp.InfoNote))
+        tp.InfoNote(Text);
+    else if (typeof console !== "undefined" && tp.IsFunction(console.info))
+        console.info(Text);
+};
+/**
+ * Writes a debug value to console.log().
+ * @param {*} Value The value to write.
+ * @returns {void}
+ */
+tp.Debug.Log = function (Value) {
+    var Text = tp.Debug.AsText(Value);
+    if (typeof console !== "undefined" && tp.IsFunction(console.log))
+        console.log(Text);
 };
 
 // ● names
@@ -2152,6 +2215,19 @@ tp.TryNormalizeDateText = function (Text, CultureCode) {
         || { Result: false, NormalizedText: "", Date: null };
 };
 /**
+ * Parses date text into a Date value.
+ * @param {string|Date|null|undefined} Value The value to parse.
+ * @param {string|null|undefined} CultureCode Optional culture code.
+ * @returns {{Result: boolean, Value: Date|null}} Returns the parse result.
+ */
+tp.TryParseDateTime = function (Value, CultureCode) {
+    var Info = tp.TryNormalizeDateText(Value, CultureCode);
+    return {
+        Result: Info.Result === true,
+        Value: Info.Result === true ? Info.Date : null
+    };
+};
+/**
  * Parses date text using ISO format or the current culture date format.
  * @param {string|Date|null|undefined} Text The source text or date.
  * @param {string|null|undefined} CultureCode Optional culture code.
@@ -2675,6 +2751,94 @@ tp.FirstOrDefault = function (List, Func, Context) {
     return null;
 };
 
+// ● grouping
+/**
+ * Node object returned by tp.GroupBy().
+ */
+tp.GroupByNode = class {
+    // ● constructor
+    /**
+     * Creates a group-by node.
+     * @param {*} Key The group key.
+     * @param {tp.GroupByNode[]|null|undefined} NodeList Child group nodes.
+     * @param {object[]|null|undefined} DataList Data rows in this group.
+     */
+    constructor(Key, NodeList, DataList) {
+        this.Key = Key;
+        this.NodeList = tp.IsArray(NodeList) ? NodeList : [];
+        this.DataList = tp.IsArray(DataList) ? DataList : [];
+    }
+};
+/**
+ * The group key.
+ * @type {*}
+ */
+tp.GroupByNode.prototype.Key = null;
+/**
+ * Child group nodes.
+ * @type {tp.GroupByNode[]}
+ */
+tp.GroupByNode.prototype.NodeList = [];
+/**
+ * Data rows in this group.
+ * @type {object[]}
+ */
+tp.GroupByNode.prototype.DataList = [];
+/**
+ * Groups an array of objects by one or more property names.
+ * @param {object[]} List The source object list.
+ * @param {string[]} PropNames Property names used for grouping, in tree order.
+ * @param {boolean|null|undefined} AlwaysIncludeDataLists True to include a data list in every group node.
+ * @returns {tp.GroupByNode} Returns the root group node.
+ */
+tp.GroupBy = function (List, PropNames, AlwaysIncludeDataLists) {
+    var RootNode = new tp.GroupByNode("___ROOT___", [], []);
+    /**
+     * Groups data rows under a parent node.
+     * @param {tp.GroupByNode} ParentNode The parent group node.
+     * @param {object[]} DataList The data rows.
+     * @param {number} PropNameIndex The property name index.
+     * @returns {void}
+     */
+    function GroupByLevel(ParentNode, DataList, PropNameIndex) {
+        var PropName = PropNames[PropNameIndex];
+        var Groups = {};
+        var Keys;
+        var Data;
+        var Key;
+        var Node;
+        var Index;
+        if (!tp.IsArray(DataList) || tp.IsBlank(PropName))
+            return;
+        for (Index = 0; Index < DataList.length; Index++) {
+            Data = DataList[Index];
+            Key = Data ? Data[PropName] : null;
+            Key = tp.IsNullOrUndefined(Key) ? "" : String(Key);
+            if (!Groups[Key])
+                Groups[Key] = [];
+            Groups[Key].push(Data);
+        }
+        Keys = Object.keys(Groups);
+        for (Index = 0; Index < Keys.length; Index++) {
+            Key = Keys[Index];
+            Node = new tp.GroupByNode(Key, [], []);
+            if (PropNameIndex === PropNames.length - 1 || AlwaysIncludeDataLists === true)
+                Node.DataList = Groups[Key];
+            ParentNode.NodeList.push(Node);
+        }
+        if (PropNameIndex < PropNames.length - 1) {
+            for (Index = 0; Index < ParentNode.NodeList.length; Index++) {
+                Node = ParentNode.NodeList[Index];
+                GroupByLevel(Node, Groups[Node.Key], PropNameIndex + 1);
+            }
+        }
+    }
+    if (!tp.IsArray(List) || !tp.IsArray(PropNames) || PropNames.length === 0)
+        return RootNode;
+    GroupByLevel(RootNode, List, 0);
+    return RootNode;
+};
+
 // ● 15-dom.js
 // ● selection
 /**
@@ -3132,6 +3296,87 @@ tp.IsFocused = function (ElementOrSelector) {
 tp.HasFocused = function (ElementOrSelector) {
     var Element = tp.Select(ElementOrSelector);
     return tp.IsHTMLElement(Element) && (Element.ownerDocument.activeElement === Element || tp.ContainsElement(Element, Element.ownerDocument.activeElement));
+};
+
+// ● state
+/**
+ * Returns true if a specified element supports the disabled property.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element supports disabled.
+ */
+tp.HasDisabledProperty = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    return Element instanceof HTMLButtonElement
+        || Element instanceof HTMLInputElement
+        || Element instanceof HTMLTextAreaElement
+        || Element instanceof HTMLSelectElement
+        || Element instanceof HTMLOptionElement
+        || Element instanceof HTMLOptGroupElement
+        || Element instanceof HTMLFieldSetElement
+        || Element instanceof HTMLLinkElement;
+};
+/**
+ * Gets or sets whether an element is enabled.
+ * For elements with a native disabled property, this helper uses that property.
+ * For other HTMLElements, it toggles the tp-Disabled CSS class.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @param {boolean|null|undefined} Value The optional enabled flag.
+ * @returns {boolean} Returns true when the element is enabled.
+ */
+tp.Enabled = function (ElementOrSelector, Value) {
+    var Element = tp.Select(ElementOrSelector);
+    if (!tp.IsHTMLElement(Element))
+        return false;
+    if (arguments.length < 2 || tp.IsNil(Value))
+        return tp.HasDisabledProperty(Element) ? Element.disabled !== true : !tp.HasClass(Element, "tp-Disabled");
+    Value = Value === true;
+    if (tp.HasDisabledProperty(Element)) {
+        Element.disabled = Value !== true;
+    } else {
+        if (Value === true)
+            tp.RemoveClass(Element, "tp-Disabled");
+        else
+            tp.AddClass(Element, "tp-Disabled");
+    }
+    return Value;
+};
+/**
+ * Gets or sets whether an input-like element is read-only.
+ * Checkbox and radio inputs do not support readOnly in a useful way, so this helper uses disabled for them.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @param {boolean|null|undefined} Value The optional read-only flag.
+ * @returns {boolean} Returns true when the element is read-only.
+ */
+tp.ReadOnly = function (ElementOrSelector, Value) {
+    var Element = tp.Select(ElementOrSelector);
+    var IsCheckable = Element instanceof HTMLInputElement && (Element.type === "checkbox" || Element.type === "radio");
+    var SupportsReadOnly = Element instanceof HTMLInputElement || Element instanceof HTMLTextAreaElement;
+    if (!SupportsReadOnly)
+        return false;
+    if (arguments.length < 2 || tp.IsNil(Value))
+        return IsCheckable ? Element.disabled === true : Element.readOnly === true;
+    Value = Value === true;
+    if (IsCheckable)
+        Element.disabled = Value;
+    else
+        Element.readOnly = Value;
+    return Value;
+};
+/**
+ * Gets or sets the tabIndex of an HTMLElement.
+ * A negative value keeps the element programmatically focusable without adding it to the tab order.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @param {number|string|null|undefined} Value The optional tab index.
+ * @returns {number} Returns the tab index or NaN when the element is not an HTMLElement.
+ */
+tp.TabIndex = function (ElementOrSelector, Value) {
+    var Element = tp.Select(ElementOrSelector);
+    if (!tp.IsHTMLElement(Element))
+        return NaN;
+    if (arguments.length < 2 || tp.IsNil(Value))
+        return Element.tabIndex;
+    Element.tabIndex = tp.StrToInt(Value, 0);
+    return Element.tabIndex;
 };
 
 // ● creation and removal
@@ -3615,30 +3860,82 @@ tp.HtmlToElement = function (ElementOrSelectorOrHtmlText) {
 
 // ● events
 /**
- * Adds an event listener to an element.
- * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * Gets the DOM event target represented by a selector, element, document, or window.
+ * @param {string|EventTarget|null|undefined} Sender The event sender.
+ * @returns {EventTarget|null} Returns the resolved event target or null.
+ */
+tp.GetEventTarget = function (Sender) {
+    var Target = null;
+    if (tp.IsString(Sender))
+        Target = tp.Select(Sender);
+    else if (Sender instanceof EventTarget)
+        Target = Sender;
+    else if (Sender && tp.IsFunction(Sender.addEventListener))
+        Target = Sender;
+    return Target;
+};
+/**
+ * Resolves a DOM event name from either a native DOM event name or a tp.Events value.
  * @param {string} EventName The event name.
- * @param {Function} Handler The event handler.
+ * @returns {string} Returns the DOM event name.
+ */
+tp.GetDomEventName = function (EventName) {
+    var Name = tp.Events.ToDom(EventName);
+    return tp.IsSameText(Name, tp.Events.Unknown) ? EventName : Name;
+};
+/**
+ * Adds an event listener to an element.
+ *
+ * The Handler argument may be either a function or a listener object.
+ * A listener object is any object that provides a handleEvent(event) method.
+ * This is standard DOM EventListener behavior. When an event occurs, the browser
+ * calls Handler.handleEvent(event), with this pointing to the Handler object.
+ *
+ * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * @param {string} EventName The DOM event name or tp.Events value.
+ * @param {Function|object} Handler The event handler function or object implementing handleEvent().
  * @param {object|boolean} Options The optional event listener options.
  * @returns {void}
  */
 tp.On = function (ElementOrSelector, EventName, Handler, Options) {
-    var Element = tp(ElementOrSelector) || tp.Select(ElementOrSelector);
+    var Element = tp.GetEventTarget(ElementOrSelector);
     if (Element && tp.IsFunction(Element.addEventListener))
-        Element.addEventListener(EventName, Handler, Options);
+        Element.addEventListener(tp.GetDomEventName(EventName), Handler, Options);
 };
 /**
  * Removes an event listener from an element.
  * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
- * @param {string} EventName The event name.
- * @param {Function} Handler The event handler.
+ * @param {string} EventName The DOM event name or tp.Events value.
+ * @param {Function|object} Handler The event handler function or object implementing handleEvent().
  * @param {object|boolean} Options The optional event listener options.
  * @returns {void}
  */
 tp.Off = function (ElementOrSelector, EventName, Handler, Options) {
-    var Element = tp(ElementOrSelector) || tp.Select(ElementOrSelector);
+    var Element = tp.GetEventTarget(ElementOrSelector);
     if (Element && tp.IsFunction(Element.removeEventListener))
-        Element.removeEventListener(EventName, Handler, Options);
+        Element.removeEventListener(tp.GetDomEventName(EventName), Handler, Options);
+};
+/**
+ * Dispatches a DOM event.
+ * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * @param {Event|string} EventOrName The Event instance or event name.
+ * @returns {boolean} Returns the dispatch result.
+ */
+tp.Trigger = function (ElementOrSelector, EventOrName) {
+    var Element = tp.GetEventTarget(ElementOrSelector);
+    var e = EventOrName;
+    if (tp.IsString(e))
+        e = new Event(tp.GetDomEventName(e));
+    return Element && e instanceof Event ? Element.dispatchEvent(e) : false;
+};
+/**
+ * Dispatches a DOM event.
+ * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * @param {Event|string} EventOrName The Event instance or event name.
+ * @returns {boolean} Returns the dispatch result.
+ */
+tp.TriggerDom = function (ElementOrSelector, EventOrName) {
+    return tp.Trigger(ElementOrSelector, EventOrName);
 };
 /**
  * Cancels a DOM event by stopping propagation and marking the legacy cancel flags.
@@ -4583,6 +4880,7 @@ tp.EventArgs = class {
         return !this.IsDomEvent;
     }
 };
+
 /**
  * Stores a Tripous event listener callback.
  */
@@ -4600,6 +4898,7 @@ tp.Listener = class {
         this.Once = Once === true;
     }
 };
+
 /**
  * The ultimate Tripous base class.
  */
@@ -4891,6 +5190,352 @@ tp.Object.prototype.fEvents = null;
  * @type {object[]|null}
  */
 tp.Object.prototype.fBinds = null;
+
+// ● 21-serialization.js
+// ● form serialization
+/**
+ * Reads the value of an input, select, textarea, or button element and adds a property to a model object.
+ * The property name is taken from the element name or id, in that order.
+ * File and image input elements are ignored.
+ * A multiple select element generates an array value.
+ * @param {HTMLElement} Element The element to read.
+ * @param {object} Model The target model object.
+ * @returns {void}
+ */
+tp.ElementToProperty = function (Element, Model) {
+    var Name;
+    var NodeName;
+    var Type;
+    var List;
+    var Index;
+    var Values;
+    if (!tp.IsHTMLElement(Element) || !tp.IsObject(Model))
+        return;
+    Name = Element.name || Element.id || "";
+    if (tp.IsBlank(Name))
+        return;
+    NodeName = Element.nodeName.toLowerCase();
+    Type = Element.type ? Element.type.toLowerCase() : "";
+    switch (NodeName) {
+        case "input":
+            switch (Type) {
+                case "hidden":
+                case "text":
+                case "password":
+                case "color":
+                case "date":
+                case "datetime-local":
+                case "email":
+                case "month":
+                case "number":
+                case "range":
+                case "search":
+                case "tel":
+                case "time":
+                case "url":
+                case "week":
+                    Model[Name] = Element.value;
+                    break;
+                case "checkbox":
+                    Model[Name] = Element.checked === true;
+                    break;
+                case "radio":
+                    if (Element.checked === true)
+                        Model[Name] = Element.value;
+                    break;
+                case "button":
+                case "submit":
+                case "reset":
+                    Model[Name] = Element.value;
+                    break;
+            }
+            break;
+        case "button":
+            if (Type === "button" || Type === "submit" || Type === "reset")
+                Model[Name] = Element.value;
+            break;
+        case "select":
+            if (Type === "select-one") {
+                Model[Name] = Element.value;
+            } else if (Type === "select-multiple") {
+                Values = [];
+                List = Element.options;
+                for (Index = 0; Index < List.length; Index++) {
+                    if (List[Index].selected === true)
+                        Values.push(List[Index].value);
+                }
+                Model[Name] = Values;
+            }
+            break;
+        case "textarea":
+            Model[Name] = Element.value;
+            break;
+    }
+};
+/**
+ * Serializes a form or container to a plain object.
+ * Child input, select, textarea, and button elements become model properties named by name or id.
+ * File and image input elements are ignored.
+ * A multiple select element generates an array value.
+ * @param {Element|string} ElementOrSelector The form or container element.
+ * @param {object|null|undefined} Model The optional target model.
+ * @returns {object} Returns the model where properties were added.
+ */
+tp.ContainerToModel = function (ElementOrSelector, Model) {
+    var Parent = tp.Select(ElementOrSelector);
+    var Elements;
+    var Index;
+    var Element;
+    Model = tp.IsObject(Model) ? Model : {};
+    if (tp.IsHTMLElement(Parent)) {
+        Elements = Parent.nodeName.toLowerCase() === "form" ? Parent.elements : tp.SelectAll(Parent, "input, select, textarea, button");
+        for (Index = 0; Index < Elements.length; Index++) {
+            Element = Elements[Index];
+            if (!tp.IsBlank(Element.name || Element.id))
+                tp.ElementToProperty(Element, Model);
+        }
+    }
+    return Model;
+};
+/**
+ * Serializes a form or container to a plain object, including input[type=file] elements.
+ * File values are read through tp.ReadFiles() and added as tp.HttpFile arrays.
+ * @param {boolean} ShowSpinner True to show the global spinner while processing files.
+ * @param {Element|string} ElementOrSelector The form or container element.
+ * @returns {Promise<object>} Returns a promise resolved with the model.
+ */
+tp.ContainerToModelAsync = async function (ShowSpinner, ElementOrSelector) {
+    var Model = {};
+    var Parent = tp.Select(ElementOrSelector);
+    var Elements;
+    var ElementList = [];
+    var FileElementList = [];
+    var PromiseList = [];
+    var Index;
+    var Element;
+    var Spinner = function (Flag) {
+        if (ShowSpinner === true && tp.IsFunction(tp.ShowSpinner))
+            tp.ShowSpinner(Flag);
+    };
+    if (!tp.IsHTMLElement(Parent))
+        return Model;
+    Elements = Parent.nodeName.toLowerCase() === "form" ? Parent.elements : tp.SelectAll(Parent, "input, select, textarea, button");
+    for (Index = 0; Index < Elements.length; Index++) {
+        Element = Elements[Index];
+        if (!tp.IsBlank(Element.name || Element.id)) {
+            if (Element instanceof HTMLInputElement && tp.IsSameText(Element.type, "file"))
+                FileElementList.push(Element);
+            else
+                ElementList.push(Element);
+        }
+    }
+    FileElementList.forEach(function (FileElement) {
+        PromiseList.push(tp.ReadFiles(false, FileElement.files).then(function (FileList) {
+            Model[FileElement.name || FileElement.id] = FileList;
+        }));
+    });
+    PromiseList.push(new Promise(function (Resolve) {
+        for (Index = 0; Index < ElementList.length; Index++)
+            tp.ElementToProperty(ElementList[Index], Model);
+        Resolve();
+    }));
+    Spinner(true);
+    return Promise.all(PromiseList).then(function () {
+        Spinner(false);
+        return Model;
+    }).catch(function (e) {
+        if (tp.IsFunction(tp.ForceHideSpinner))
+            tp.ForceHideSpinner();
+        throw e;
+    });
+};
+
+// ● file serialization
+/**
+ * Converts an ArrayBuffer to a hexadecimal string.
+ * @param {ArrayBuffer} Buffer The buffer to convert.
+ * @returns {string} Returns the hexadecimal string.
+ */
+tp.ArrayBufferToHex = function (Buffer) {
+    var Values = new Uint8Array(Buffer);
+    var Result = new Array(Values.length);
+    var Index = Values.length;
+    while (Index--)
+        Result[Index] = (Values[Index] < 16 ? "0" : "") + Values[Index].toString(16);
+    return Result.join("");
+};
+/**
+ * File data prepared for posting to the server.
+ */
+tp.HttpFile = class {
+    /**
+     * Initializes a new instance.
+     */
+    constructor() {
+        /** @type {string} The file name. */
+        this.FileName = "";
+        /** @type {number} The file size in bytes. */
+        this.Size = 0;
+        /** @type {string} The file MIME type. */
+        this.MimeType = "";
+        /** @type {string} The file content as Base64 or hexadecimal text. */
+        this.Data = "";
+    }
+};
+/**
+ * Reads files and returns a list of tp.HttpFile objects.
+ * @param {boolean} ShowSpinner True to show the global spinner while processing files.
+ * @param {string|HTMLInputElement|FileList|File[]} FileListOrSelector An input[type=file], selector, FileList, or File array.
+ * @param {Function|null|undefined} OnDone Optional callback called with the result list.
+ * @param {Function|null|undefined} OnError Optional callback called with the error and current file.
+ * @param {object|null|undefined} Context Optional callback context.
+ * @param {boolean|null|undefined} AsHex True to read file data as hexadecimal text; otherwise, Base64 is used.
+ * @returns {Promise<tp.HttpFile[]>} Returns a promise resolved with the file list.
+ */
+tp.ReadFiles = function (ShowSpinner, FileListOrSelector, OnDone, OnError, Context, AsHex) {
+    var Spinner = function (Flag) {
+        if (ShowSpinner === true && tp.IsFunction(tp.ShowSpinner))
+            tp.ShowSpinner(Flag);
+    };
+    var RejectWith = function (Reject, Error, File) {
+        Spinner(false);
+        if (tp.IsFunction(OnError))
+            tp.Call(OnError, Context, Error, File);
+        Reject(Error);
+    };
+    var GetFileList = function () {
+        var Element;
+        if (tp.IsString(FileListOrSelector) || FileListOrSelector instanceof HTMLInputElement) {
+            Element = tp.Select(FileListOrSelector);
+            return Element instanceof HTMLInputElement ? Element.files : null;
+        }
+        if (tp.IsArrayLike(FileListOrSelector))
+            return FileListOrSelector;
+        return null;
+    };
+    var CreateHttpFile = function (File, Data) {
+        var Result = new tp.HttpFile();
+        Result.FileName = File.name;
+        Result.Size = File.size;
+        Result.MimeType = File.type;
+        Result.Data = Data;
+        return Result;
+    };
+    var ReadAsBase64 = function (ResultList, File, ReadNext, Reject) {
+        var Reader = new FileReader();
+        Reader.onload = function () {
+            var Data = Reader.result || "";
+            var Parts = String(Data).split("base64,");
+            if (Parts.length === 2)
+                Data = Parts[1];
+            ResultList.push(CreateHttpFile(File, Data));
+            ReadNext();
+        };
+        Reader.onerror = function (e) {
+            RejectWith(Reject, e, File);
+        };
+        Reader.onabort = Reader.onerror;
+        Reader.readAsDataURL(File);
+    };
+    var ReadAsHex = function (ResultList, File, ReadNext, Reject) {
+        var Reader = new FileReader();
+        Reader.onload = function () {
+            ResultList.push(CreateHttpFile(File, tp.ArrayBufferToHex(Reader.result)));
+            ReadNext();
+        };
+        Reader.onerror = function (e) {
+            RejectWith(Reject, e, File);
+        };
+        Reader.onabort = Reader.onerror;
+        Reader.readAsArrayBuffer(File);
+    };
+    return new Promise(function (Resolve, Reject) {
+        var FileList;
+        var ResultList = [];
+        var Index = 0;
+        var ReadNext = function () {
+            var File;
+            if (!FileList || Index >= FileList.length) {
+                Spinner(false);
+                if (tp.IsFunction(OnDone))
+                    tp.Call(OnDone, Context, ResultList);
+                Resolve(ResultList);
+                return;
+            }
+            File = FileList[Index++];
+            if (AsHex === true)
+                ReadAsHex(ResultList, File, ReadNext, Reject);
+            else
+                ReadAsBase64(ResultList, File, ReadNext, Reject);
+        };
+        try {
+            FileList = GetFileList();
+            Spinner(true);
+            ReadNext();
+        } catch (e) {
+            RejectWith(Reject, e, null);
+        }
+    });
+};
+
+// ● post
+/**
+ * Creates a temporary HTML form and submits a model to a URL using POST.
+ * Array values become indexed field names such as Name[0], Name[1].
+ * Non-simple values are serialized with JSON.stringify().
+ * @param {string} Url The submit URL.
+ * @param {object} Model The model to post.
+ * @returns {void}
+ */
+tp.PostModelAsForm = function (Url, Model) {
+    var Form;
+    var Data = {};
+    var Name;
+    var Value;
+    var Index;
+    var Input;
+    var NormalizeValue = function (Item) {
+        return tp.IsSimple(Item) ? Item : JSON.stringify(Item);
+    };
+    var AddInput = function (InputName, InputValue) {
+        Input = document.createElement("input");
+        Input.setAttribute("type", "hidden");
+        Input.setAttribute("name", InputName);
+        Input.setAttribute("value", NormalizeValue(InputValue));
+        Form.appendChild(Input);
+    };
+    if (tp.IsBlank(Url) || !tp.IsObject(Model))
+        return;
+    for (Name in Model) {
+        if (Object.prototype.propertyIsEnumerable.call(Model, Name)) {
+            Value = Model[Name];
+            if (!tp.IsEmpty(Value) && !tp.IsFunction(Value)) {
+                if (Value instanceof Date)
+                    Value = Value.toISOString();
+                Data[Name] = Value;
+            }
+        }
+    }
+    Form = document.createElement("form");
+    Form.action = Url;
+    Form.method = "post";
+    for (Name in Data) {
+        if (Object.prototype.propertyIsEnumerable.call(Data, Name)) {
+            Value = Data[Name];
+            if (tp.IsArray(Value)) {
+                for (Index = 0; Index < Value.length; Index++)
+                    AddInput(Name + "[" + Index + "]", Value[Index]);
+            } else {
+                AddInput(Name, Value);
+            }
+        }
+    }
+    document.body.appendChild(Form);
+    Form.submit();
+    setTimeout(function () {
+        tp.Remove(Form);
+    }, 1000 * 3);
+};
 
 // ● 22-events.js
 // ● events
@@ -5579,6 +6224,8 @@ tp.Component = class extends tp.Object {
      * @returns {tp.CreateParams} Returns create parameters.
      */
     static CreateParams(Value) {
+        if (Value instanceof tp.CreateParams)
+            return Value;
         if (tp.IsString(Value) || tp.IsHTMLElement(Value))
             return new tp.CreateParams({ ElementOrSelector: Value });
         return new tp.CreateParams(Value);
@@ -7917,6 +8564,33 @@ tp.Rect.FromClientRect = function (Value) {
     return new tp.Rect();
 };
 
+// ● element geometry
+/**
+ * Returns the element rectangle relative to the viewport.
+ * @param {string|Element} ElementOrSelector The element or selector.
+ * @returns {tp.Rect} Returns the element rectangle.
+ */
+tp.BoundingRect = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    var Rect;
+    if (tp.IsHTMLElement(Element)) {
+        Rect = Element.getBoundingClientRect();
+        return new tp.Rect(Math.round(Rect.left), Math.round(Rect.top), Math.round(Rect.width), Math.round(Rect.height));
+    }
+    return new tp.Rect();
+};
+/**
+ * Returns the element rectangle relative to its offset parent.
+ * @param {string|Element} ElementOrSelector The element or selector.
+ * @returns {tp.Rect} Returns the element rectangle.
+ */
+tp.OffsetRect = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    if (tp.IsHTMLElement(Element))
+        return new tp.Rect(Math.round(Element.offsetLeft), Math.round(Element.offsetTop), Math.round(Element.offsetWidth), Math.round(Element.offsetHeight));
+    return new tp.Rect();
+};
+
 // ● edge
 /**
  * Edge constants and helpers for resize hit-testing.
@@ -8332,6 +9006,269 @@ tp.Viewport = {
             (Body ? Body.clientHeight : 0);
     }
 };
+
+// ● 60-colors.js
+// ● colors
+/**
+ * Static helper for color constants and color utility methods.
+ * @type {object}
+ */
+tp.Colors = {
+    AliceBlue: "#F0F8FF",
+    AntiqueWhite: "#FAEBD7",
+    Aqua: "#00FFFF",
+    Aquamarine: "#7FFFD4",
+    Azure: "#F0FFFF",
+    Beige: "#F5F5DC",
+    Bisque: "#FFE4C4",
+    Black: "#000000",
+    BlanchedAlmond: "#FFEBCD",
+    Blue: "#0000FF",
+    BlueViolet: "#8A2BE2",
+    Brown: "#A52A2A",
+    BurlyWood: "#DEB887",
+    CadetBlue: "#5F9EA0",
+    Chartreuse: "#7FFF00",
+    Chocolate: "#D2691E",
+    Coral: "#FF7F50",
+    CornflowerBlue: "#6495ED",
+    Cornsilk: "#FFF8DC",
+    Crimson: "#DC143C",
+    Cyan: "#00FFFF",
+    DarkBlue: "#00008B",
+    DarkCyan: "#008B8B",
+    DarkGoldenRod: "#B8860B",
+    DarkGray: "#A9A9A9",
+    DarkGreen: "#006400",
+    DarkKhaki: "#BDB76B",
+    DarkMagenta: "#8B008B",
+    DarkOliveGreen: "#556B2F",
+    DarkOrange: "#FF8C00",
+    DarkOrchid: "#9932CC",
+    DarkRed: "#8B0000",
+    DarkSalmon: "#E9967A",
+    DarkSeaGreen: "#8FBC8F",
+    DarkSlateBlue: "#483D8B",
+    DarkSlateGray: "#2F4F4F",
+    DarkTurquoise: "#00CED1",
+    DarkViolet: "#9400D3",
+    DeepPink: "#FF1493",
+    DeepSkyBlue: "#00BFFF",
+    DimGray: "#696969",
+    DodgerBlue: "#1E90FF",
+    FireBrick: "#B22222",
+    FloralWhite: "#FFFAF0",
+    ForestGreen: "#228B22",
+    Fuchsia: "#FF00FF",
+    Gainsboro: "#DCDCDC",
+    GhostWhite: "#F8F8FF",
+    Gold: "#FFD700",
+    GoldenRod: "#DAA520",
+    Gray: "#808080",
+    Green: "#008000",
+    GreenYellow: "#ADFF2F",
+    HoneyDew: "#F0FFF0",
+    HotPink: "#FF69B4",
+    IndianRed: "#CD5C5C",
+    Indigo: "#4B0082",
+    Ivory: "#FFFFF0",
+    Khaki: "#F0E68C",
+    Lavender: "#E6E6FA",
+    LavenderBlush: "#FFF0F5",
+    LawnGreen: "#7CFC00",
+    LemonChiffon: "#FFFACD",
+    LightBlue: "#ADD8E6",
+    LightCoral: "#F08080",
+    LightCyan: "#E0FFFF",
+    LightGoldenRodYellow: "#FAFAD2",
+    LightGray: "#D3D3D3",
+    LightGreen: "#90EE90",
+    LightPink: "#FFB6C1",
+    LightSalmon: "#FFA07A",
+    LightSeaGreen: "#20B2AA",
+    LightSkyBlue: "#87CEFA",
+    LightSlateGray: "#778899",
+    LightSteelBlue: "#B0C4DE",
+    LightYellow: "#FFFFE0",
+    Lime: "#00FF00",
+    LimeGreen: "#32CD32",
+    Linen: "#FAF0E6",
+    Magenta: "#FF00FF",
+    Maroon: "#800000",
+    MediumAquaMarine: "#66CDAA",
+    MediumBlue: "#0000CD",
+    MediumOrchid: "#BA55D3",
+    MediumPurple: "#9370DB",
+    MediumSeaGreen: "#3CB371",
+    MediumSlateBlue: "#7B68EE",
+    MediumSpringGreen: "#00FA9A",
+    MediumTurquoise: "#48D1CC",
+    MediumVioletRed: "#C71585",
+    MidnightBlue: "#191970",
+    MintCream: "#F5FFFA",
+    MistyRose: "#FFE4E1",
+    Moccasin: "#FFE4B5",
+    NavajoWhite: "#FFDEAD",
+    Navy: "#000080",
+    OldLace: "#FDF5E6",
+    Olive: "#808000",
+    OliveDrab: "#6B8E23",
+    Orange: "#FFA500",
+    OrangeRed: "#FF4500",
+    Orchid: "#DA70D6",
+    PaleGoldenRod: "#EEE8AA",
+    PaleGreen: "#98FB98",
+    PaleTurquoise: "#AFEEEE",
+    PaleVioletRed: "#DB7093",
+    PapayaWhip: "#FFEFD5",
+    PeachPuff: "#FFDAB9",
+    Peru: "#CD853F",
+    Pink: "#FFC0CB",
+    Plum: "#DDA0DD",
+    PowderBlue: "#B0E0E6",
+    Purple: "#800080",
+    Red: "#FF0000",
+    RosyBrown: "#BC8F8F",
+    RoyalBlue: "#4169E1",
+    SaddleBrown: "#8B4513",
+    Salmon: "#FA8072",
+    SandyBrown: "#F4A460",
+    SeaGreen: "#2E8B57",
+    SeaShell: "#FFF5EE",
+    Sienna: "#A0522D",
+    Silver: "#C0C0C0",
+    SkyBlue: "#87CEEB",
+    SlateBlue: "#6A5ACD",
+    SlateGray: "#708090",
+    Snow: "#FFFAFA",
+    SpringGreen: "#00FF7F",
+    SteelBlue: "#4682B4",
+    Tan: "#D2B48C",
+    Teal: "#008080",
+    Thistle: "#D8BFD8",
+    Tomato: "#FF6347",
+    Turquoise: "#40E0D0",
+    Violet: "#EE82EE",
+    Wheat: "#F5DEB3",
+    White: "#FFFFFF",
+    WhiteSmoke: "#F5F5F5",
+    Yellow: "#FFFF00",
+    YellowGreen: "#9ACD32",
+    /**
+     * Returns the color list as objects suitable for combo boxes and list boxes.
+     * @returns {{Text: string, Value: string}[]} Returns the color option list.
+     */
+    ToOptionList: function () {
+        var Result = [];
+        var Name;
+        for (Name in tp.Colors) {
+            if (Object.prototype.propertyIsEnumerable.call(tp.Colors, Name) && !tp.IsFunction(tp.Colors[Name]))
+                Result.push({ Text: Name, Value: tp.Colors[Name] });
+        }
+        return Result;
+    },
+    /**
+     * Shades a hex color by a percentage.
+     * @param {string} Color A hex color with a leading #.
+     * @param {number} Percent A number from -100 to 100. Negative values darken the color.
+     * @returns {string} Returns the shaded color.
+     */
+    Shade: function (Color, Percent) {
+        var Hex = tp.Colors.NormalizeHex(Color);
+        var Amount = Math.round(2.55 * tp.StrToFloat(Percent, 0));
+        var Value = parseInt(Hex.slice(1), 16);
+        var R = (Value >> 16) + Amount;
+        var G = (Value >> 8 & 0x00FF) + Amount;
+        var B = (Value & 0x0000FF) + Amount;
+        return tp.Colors.FromRgb(R, G, B);
+    },
+    /**
+     * Shades a hex color by blending it toward black or white.
+     * @param {string} Color A hex color with a leading #.
+     * @param {number} Percent A number from -100 to 100. Negative values darken the color.
+     * @returns {string} Returns the shaded color.
+     */
+    Shade2: function (Color, Percent) {
+        var Ratio = tp.StrToFloat(Percent, 0) / 100;
+        var Hex = tp.Colors.NormalizeHex(Color);
+        var Value = parseInt(Hex.slice(1), 16);
+        var Target = Ratio < 0 ? 0 : 255;
+        var PositiveRatio = Ratio < 0 ? Ratio * -1 : Ratio;
+        var R = Value >> 16;
+        var G = Value >> 8 & 0x00FF;
+        var B = Value & 0x0000FF;
+        return tp.Colors.FromRgb(
+            Math.round((Target - R) * PositiveRatio) + R,
+            Math.round((Target - G) * PositiveRatio) + G,
+            Math.round((Target - B) * PositiveRatio) + B
+        );
+    },
+    /**
+     * Returns a vertical gradient CSS value and optionally applies it to an element.
+     * @param {string} Color A base color.
+     * @param {HTMLElement|string|null|undefined} ElementOrSelector The optional element or selector.
+     * @returns {string} Returns a CSS linear-gradient() value.
+     */
+    SetGradientStyle: function (Color, ElementOrSelector) {
+        var BaseColor = tp.Colors.NormalizeHex(Color);
+        var Stops = [22, 35, 42, 52];
+        var Parts = [BaseColor + " 0%"];
+        var Index;
+        var Shade;
+        var Element;
+        for (Index = 0; Index < Stops.length; Index++) {
+            Shade = tp.Colors.Shade(BaseColor, -(Index + 1) * 3);
+            Parts.push(Shade + " " + Stops[Index] + "%");
+        }
+        var Result = "linear-gradient(to bottom, " + Parts.join(", ") + ")";
+        Element = tp.IsString(ElementOrSelector) ? tp(ElementOrSelector) : ElementOrSelector;
+        if (tp.IsHTMLElement(Element))
+            Element.style.setProperty("background-image", Result);
+        return Result;
+    },
+    /**
+     * Normalizes a hex color to #RRGGBB.
+     * @param {string} Color The color to normalize.
+     * @returns {string} Returns a normalized color.
+     */
+    NormalizeHex: function (Color) {
+        var Text = tp.IsString(Color) ? Color.trim() : "";
+        if (Text.charAt(0) !== "#")
+            Text = "#" + Text;
+        if (/^#[0-9a-fA-F]{3}$/.test(Text))
+            Text = "#" + Text.charAt(1) + Text.charAt(1) + Text.charAt(2) + Text.charAt(2) + Text.charAt(3) + Text.charAt(3);
+        if (!/^#[0-9a-fA-F]{6}$/.test(Text))
+            return "#000000";
+        return Text.toUpperCase();
+    },
+    /**
+     * Converts RGB component values to a hex color.
+     * @param {number} Red The red component.
+     * @param {number} Green The green component.
+     * @param {number} Blue The blue component.
+     * @returns {string} Returns a hex color.
+     */
+    FromRgb: function (Red, Green, Blue) {
+        var R = tp.Colors.ClampColor(Red);
+        var G = tp.Colors.ClampColor(Green);
+        var B = tp.Colors.ClampColor(Blue);
+        return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1).toUpperCase();
+    },
+    /**
+     * Clamps a value to the 0..255 color component range.
+     * @param {number} Value The value to clamp.
+     * @returns {number} Returns the clamped value.
+     */
+    ClampColor: function (Value) {
+        Value = Math.round(tp.StrToFloat(Value, 0));
+        if (Value < 0)
+            return 0;
+        if (Value > 255)
+            return 255;
+        return Value;
+    }
+};
+Object.freeze(tp.Colors);
 
 // ● 65-style.js
 // ● cursors

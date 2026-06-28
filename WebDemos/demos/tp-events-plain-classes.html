@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plain class events: tp.On(), handleEvent() and EventTarget</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Plain class events: tp.On(), handleEvent() and EventTarget</h1>
+        
+        <p>
+            This demo shows how the Tripous DOM event helpers can be used with plain JavaScript code.
+            The classes in this page do not inherit from <code>tp.Object</code>, <code>tp.Component</code>,
+            or any other Tripous class. They use the standard browser event model.
+        </p>
+        
+        <p>
+            <code>tp.On()</code> is a small helper around <code>addEventListener()</code>. It accepts a
+            selector, an element, <code>window</code>, <code>document</code>, or any object that supports
+            <code>addEventListener()</code>. The listener may be a function, or it may be an object with a
+            <code>handleEvent(event)</code> method.
+        </p>
+        
+        <p>
+            <code>EventTarget</code> is the browser base class for objects that can send and receive DOM-style
+            events. A plain class may extend <code>EventTarget</code>, use <code>tp.On()</code> for subscribers,
+            and fire events with <code>tp.Trigger()</code>.
+        </p>
+        
+        <style>
+            .plain-event-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .plain-event-section {
+                margin-bottom: 18px;
+            }
+            .plain-event-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 960px;
+                align-items: start;
+            }
+            .plain-event-section p {
+                max-width: 860px;
+                margin: 6px 0;
+            }
+            .plain-event-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .plain-event-log {
+                box-sizing: border-box;
+                width: min(100%, 880px);
+                min-height: 190px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .plain-event-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="plain-event-grid">
+                    <section class="plain-event-section">
+                        <p class="plain-event-title">Object listener with handleEvent(event)</p>
+                        <p>
+                            A plain object can be a DOM event listener when it has a
+                            <code>handleEvent(event)</code> method. In this case the object itself is passed to
+                            <code>tp.On()</code>. When the button is clicked, the browser calls
+                            <code>MyClass.handleEvent(event)</code>.
+                        </p>
+                        <div class="plain-event-actions">
+                            <button id="PlainClassButton" type="button">Test handleEvent()</button>
+                        </div>
+                    </section>
+                    
+                    <section class="plain-event-section">
+                        <p class="plain-event-title">Listener function</p>
+                        <p>
+                            The most common case is passing a function as the listener. The function receives the
+                            native browser event object.
+                        </p>
+                        <div class="plain-event-actions">
+                            <button id="PlainFunctionButton" type="button">Test listener function</button>
+                        </div>
+                    </section>
+                    
+                    <section class="plain-event-section">
+                        <p class="plain-event-title">Plain sender with EventTarget and tp.Trigger()</p>
+                        <p>
+                            A plain JavaScript class can also send events. It extends <code>EventTarget</code>,
+                            subscribers use <code>tp.On(Sender, "plain-change", ...)</code>, and the sender fires
+                            a <code>CustomEvent</code> with <code>tp.Trigger()</code>.
+                        </p>
+                        <div class="plain-event-actions">
+                            <button id="PlainSenderButton" type="button">Test EventTarget sender</button>
+                        </div>
+                    </section>
+                    
+                    <section class="plain-event-section">
+                        <p class="plain-event-title">Run all checks</p>
+                        <p>
+                            This button uses <code>tp.Trigger()</code> to fire the two button clicks and then asks
+                            the plain sender to fire its custom event.
+                        </p>
+                        <div class="plain-event-actions">
+                            <button id="PlainProgrammaticButton" type="button">Run all programmatically</button>
+                            <button id="PlainClearButton" type="button">Clear log</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="PlainEventsOutput" class="plain-event-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#PlainEventsOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                class MyClass {
+                    constructor(ButtonSelector) {
+                        this.Count = 0;
+                        tp.On(ButtonSelector, "click", this);
+                    }
+                    handleEvent(event) {
+                        this.Count++;
+                        tp.InfoNote("MyClass.handleEvent() received the button click.");
+                        AddLine("MyClass.handleEvent #" + this.Count
+                            + " | event.type=" + event.type
+                            + " | event.target.id=" + event.target.id
+                            + " | thisIsMyClass=" + (this instanceof MyClass));
+                    }
+                }
+        
+                class MySender extends EventTarget {
+                    constructor(Name) {
+                        super();
+                        this.Name = Name;
+                        this.Count = 0;
+                    }
+                    Fire(Value) {
+                        this.Count++;
+                        return tp.Trigger(this, new CustomEvent("plain-change", {
+                            detail: {
+                                Name: this.Name,
+                                Count: this.Count,
+                                Value: Value
+                            }
+                        }));
+                    }
+                }
+        
+                var Listener = new MyClass("#PlainClassButton");
+                var Sender = new MySender("MySender");
+        
+                tp.On("#PlainFunctionButton", "click", function (event) {
+                    tp.InfoNote("Listener function received the button click.");
+                    AddLine("listener function"
+                        + " | event.type=" + event.type
+                        + " | event.target.id=" + event.target.id);
+                });
+        
+                tp.On(Sender, "plain-change", function (e) {
+                    tp.InfoNote("MySender fired a custom event.");
+                    AddLine("MySender event"
+                        + " | type=" + e.type
+                        + " | senderName=" + e.detail.Name
+                        + " | count=" + e.detail.Count
+                        + " | value=" + e.detail.Value
+                        + " | targetIsSender=" + (e.target === Sender));
+                });
+        
+                tp.On("#PlainSenderButton", "click", function () {
+                    Sender.Fire("manual");
+                });
+        
+                tp.On("#PlainProgrammaticButton", "click", function () {
+                    tp.Trigger("#PlainClassButton", "click");
+                    tp.Trigger("#PlainFunctionButton", "click");
+                    Sender.Fire("programmatic");
+                });
+        
+                tp.On("#PlainClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button, or run all programmatically.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Arrays</h1>
+        
+        <p>
+            This demo covers the Tripous array helper functions. They provide small operations for array-like
+            values, list mutation, cloning, sorting, filtering, predicates, transforms, and simple grouping.
+        </p>
+        
+        <p>
+            The list mutation helpers modify the array passed to them. Sort also works in place. Filter,
+            predicate, transform, where, distinct, first, and group helpers return new values.
+        </p>
+        
+        <style>
+            .arrays-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .arrays-demo-section {
+                margin-bottom: 18px;
+            }
+            .arrays-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .arrays-demo-section p {
+                margin: 6px 0;
+            }
+            .arrays-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .arrays-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 320px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .arrays-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="arrays-demo-grid">
+                    <section class="arrays-demo-section">
+                        <p class="arrays-demo-title">Array-like values and mutation</p>
+                        <p>
+                            Convert array-like browser values, check ranges and membership, insert/remove
+                            items, clear lists, and clone arrays.
+                        </p>
+                        <div class="arrays-demo-actions">
+                            <button id="ArraysBasicsButton" type="button">Run basics</button>
+                        </div>
+                    </section>
+                    
+                    <section class="arrays-demo-section">
+                        <p class="arrays-demo-title">Sort and filter</p>
+                        <p>
+                            <code>tp.ListSort()</code> sorts by multiple fields. <code>tp.ListFilter()</code>
+                            filters by <code>tp.FilterInfo</code> and <code>tp.FilterOp</code> definitions.
+                        </p>
+                        <div class="arrays-demo-actions">
+                            <button id="ArraysSortFilterButton" type="button">Run sort/filter</button>
+                        </div>
+                    </section>
+                    
+                    <section class="arrays-demo-section">
+                        <p class="arrays-demo-title">Predicates and transforms</p>
+                        <p>
+                            Use <code>tp.Any()</code>, <code>tp.All()</code>, <code>tp.Transform()</code>,
+                            <code>tp.Distinct()</code>, <code>tp.Where()</code>, <code>tp.WhereAll()</code>,
+                            and <code>tp.FirstOrDefault()</code>.
+                        </p>
+                        <div class="arrays-demo-actions">
+                            <button id="ArraysPredicatesButton" type="button">Run predicates</button>
+                        </div>
+                    </section>
+                    
+                    <section class="arrays-demo-section">
+                        <p class="arrays-demo-title">Grouping</p>
+                        <p>
+                            <code>tp.GroupBy()</code> creates a node tree from an array of objects. Each node
+                            has a key, child nodes, and optionally a data list.
+                        </p>
+                        <div class="arrays-demo-actions">
+                            <button id="ArraysGroupButton" type="button">Run grouping</button>
+                            <button id="ArraysClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="ArraysOutput" class="arrays-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var People = [
+                    { Name: "John", Country: "GR", Department: "IT", Age: 30 },
+                    { Name: "Jane", Country: "US", Department: "Sales", Age: 31 },
+                    { Name: "Jack", Country: "US", Department: "IT", Age: 20 },
+                    { Name: "Josh", Country: "US", Department: "Sales", Age: 36 },
+                    { Name: "Jess", Country: "GR", Department: "Sales", Age: 28 }
+                ];
+        
+                var Write = function () {
+                    tp.Text("#ArraysOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var Names = function (List) {
+                    return tp.Transform(List, function (Item) { return Item.Name; }).join(", ");
+                };
+        
+                var ToText = function (Value) {
+                    return JSON.stringify(Value);
+                };
+        
+                var GroupText = function (Node, Level) {
+                    var Prefix = tp.Repeat("  ", Level);
+                    var Result = [Prefix + Node.Key + " data=" + (Node.DataList ? Node.DataList.length : 0)];
+                    var Index;
+                    if (Node.NodeList) {
+                        for (Index = 0; Index < Node.NodeList.length; Index++)
+                            Result = Result.concat(GroupText(Node.NodeList[Index], Level + 1));
+                    }
+                    return Result;
+                };
+        
+                tp.On("#ArraysBasicsButton", "click", function () {
+                    var NodeList = document.querySelectorAll("button");
+                    var ButtonArray = tp.ToArray(NodeList);
+                    var List = ["one", "two", "three"];
+                    var Shallow;
+                    var DeepSource = [{ Name: "Tripous" }];
+                    var DeepClone;
+        
+                    AddLine("tp.IsArrayLike(NodeList) = " + tp.IsArrayLike(NodeList));
+                    AddLine("tp.IsArray(tp.ToArray(NodeList)) = " + tp.IsArray(ButtonArray));
+                    AddLine("tp.InRange([\"one\", \"two\"], 1) = " + tp.InRange(["one", "two"], 1));
+                    AddLine("tp.ListContains(List, \"two\") = " + tp.ListContains(List, "two"));
+                    AddLine("tp.ListContainsText([\"Tripous\"], \"TRIPOUS\") = " + tp.ListContainsText(["Tripous"], "TRIPOUS"));
+                    AddLine("tp.ListIndexOfText([\"a\", \"B\"], \"b\") = " + tp.ListIndexOfText(["a", "B"], "b"));
+                    tp.ListInsert(List, 1, "inserted");
+                    AddLine("After tp.ListInsert(List, 1, \"inserted\") = " + ToText(List));
+                    tp.ListRemove(List, "two");
+                    AddLine("After tp.ListRemove(List, \"two\") = " + ToText(List));
+                    tp.ListRemoveAt(List, 0);
+                    AddLine("After tp.ListRemoveAt(List, 0) = " + ToText(List));
+                    Shallow = tp.ListClone(List, false);
+                    AddLine("tp.ListClone(List, false) = " + ToText(Shallow));
+                    DeepClone = tp.ListClone(DeepSource, true);
+                    DeepSource[0].Name = "Changed";
+                    AddLine("Deep clone keeps original value = " + DeepClone[0].Name);
+                    tp.ListClear(List);
+                    AddLine("After tp.ListClear(List), List.length = " + List.length);
+                    tp.InfoNote("Array basics completed.");
+                });
+        
+                tp.On("#ArraysSortFilterButton", "click", function () {
+                    var Sorted = tp.ListClone(People, true);
+                    var Filtered;
+                    var OrFiltered;
+        
+                    tp.ListSort(Sorted, [{ Prop: "Country" }, { Prop: "Age", Reverse: true }]);
+                    AddLine("tp.ListSort by Country asc, Age desc = " + Names(Sorted));
+                    AddLine("tp.FilterOp.Compare(tp.FilterOp.Greater, 5, 3) = " + tp.FilterOp.Compare(tp.FilterOp.Greater, 5, 3));
+                    Filtered = tp.ListFilter(People, [
+                        new tp.FilterInfo("Country", "US", tp.FilterOp.Equal),
+                        new tp.FilterInfo("Age", 30, tp.FilterOp.Greater)
+                    ], false);
+                    AddLine("tp.ListFilter Country=US AND Age>30 = " + Names(Filtered));
+                    OrFiltered = tp.ListFilter(People, [
+                        new tp.FilterInfo("Name", "Jo", tp.FilterOp.StartsWith),
+                        new tp.FilterInfo("Department", "IT", tp.FilterOp.Equal)
+                    ], true);
+                    AddLine("tp.ListFilter Name starts Jo OR Department=IT = " + Names(OrFiltered));
+                    tp.InfoNote("Array sort/filter completed.");
+                });
+        
+                tp.On("#ArraysPredicatesButton", "click", function () {
+                    AddLine("tp.Any(People, Age > 35) = " + tp.Any(People, function (Item) { return Item.Age > 35; }));
+                    AddLine("tp.All(People, Age >= 20) = " + tp.All(People, function (Item) { return Item.Age >= 20; }));
+                    AddLine("tp.Transform(People, Name) = " + Names(People));
+                    AddLine("tp.Distinct(People, \"Country\") countries = " + tp.Transform(tp.Distinct(People, "Country"), function (Item) { return Item.Country; }).join(", "));
+                    AddLine("tp.Where(People, \"Country\", \"GR\") = " + Names(tp.Where(People, "Country", "GR")));
+                    AddLine("tp.WhereAll(People, { Country: \"US\", Department: \"IT\" }) = " + Names(tp.WhereAll(People, { Country: "US", Department: "IT" })));
+                    AddLine("tp.FirstOrDefault(People, Age < 25).Name = " + tp.FirstOrDefault(People, function (Item) { return Item.Age < 25; }).Name);
+                    tp.InfoNote("Array predicates completed.");
+                });
+        
+                tp.On("#ArraysGroupButton", "click", function () {
+                    var Group = tp.GroupBy(People, ["Department", "Country"], true);
+                    AddLine("tp.GroupBy(People, [\"Department\", \"Country\"], true)");
+                    AddLine(GroupText(Group, 0).join("\n"));
+                    tp.InfoNote("Array grouping completed.");
+                });
+        
+                tp.On("#ArraysClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run array helper checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

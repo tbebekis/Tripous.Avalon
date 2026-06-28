@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tp Helpers</title>
+    <title>tp helpers</title>
     <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
     <link rel="stylesheet" href="../tripous/css/tp.css">
     <link rel="stylesheet" href="../tripous/css/font-awesome.css">
@@ -27,39 +27,175 @@
         <p class="demo-index-link">
             <a href="../index.html">Tripous Web Demos</a>
         </p>
-        <h1>tp Helpers</h1>
+        <h1>tp helpers</h1>
         
-        <p>This demo checks basic type and object helper functions.</p>
+        <p>
+            The Tripous runtime contains many small helper functions under the <code>tp</code> namespace.
+            They keep the rest of the framework readable by centralizing common checks and small operations:
+            type checks, nil/blank checks, array conversion, object inspection, and other small utilities.
+        </p>
+        
+        <p>
+            These helpers are intentionally small. They are not a replacement for the JavaScript standard
+            library. They exist because framework code repeatedly needs the same safe checks and conversions,
+            and using the same helper everywhere makes behavior easier to read and easier to test.
+        </p>
+        
+        <style>
+            .helpers-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .helpers-demo-section {
+                margin-bottom: 18px;
+            }
+            .helpers-demo-section p {
+                margin: 6px 0;
+            }
+            .helpers-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .helpers-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .helpers-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 220px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .helpers-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
         
         <div class="html-code">
             <div class="demo-panel demo-panel-wide">
-                <button id="DemoButton" type="button">Run</button>
-                <pre id="DemoOutput"></pre>
+                <div class="helpers-demo-grid">
+                    <section class="helpers-demo-section">
+                        <p class="helpers-demo-title">Type checks</p>
+                        <p>
+                            Type helpers answer simple questions in a consistent way:
+                            is this value a string, number, date, array, object, plain object, or DOM element?
+                        </p>
+                        <div class="helpers-demo-actions">
+                            <button id="HelpersTypeButton" type="button">Run type checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="helpers-demo-section">
+                        <p class="helpers-demo-title">Nil and blank checks</p>
+                        <p>
+                            <code>tp.IsNil()</code> checks for <code>null</code> or <code>undefined</code>.
+                            <code>tp.IsBlank()</code> also treats empty or whitespace-only strings as blank.
+                        </p>
+                        <div class="helpers-demo-actions">
+                            <button id="HelpersBlankButton" type="button">Run nil/blank checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="helpers-demo-section">
+                        <p class="helpers-demo-title">Object checks</p>
+                        <p>
+                            <code>tp.GetPropertyNames()</code> returns useful property names from an object
+                            and its prototype chain. <code>tp.Equals()</code> checks whether one object contains
+                            the same values as another small object.
+                        </p>
+                        <div class="helpers-demo-actions">
+                            <button id="HelpersObjectButton" type="button">Run object checks</button>
+                        </div>
+                    </section>
+                    
+                    <section class="helpers-demo-section">
+                        <p class="helpers-demo-title">Focused helper demos</p>
+                        <p>
+                            Some helper areas have their own demos because they are large enough to deserve
+                            a single maintenance point. Formatting, object merging, strings, numbers, dates,
+                            arrays, units, and URL handling are covered separately.
+                        </p>
+                    </section>
+                    
+                    <section class="helpers-demo-section">
+                        <p class="helpers-demo-title">Clear output</p>
+                        <p>
+                            Each button writes the exact helper result below, so the source code and output can
+                            be compared directly.
+                        </p>
+                        <div class="helpers-demo-actions">
+                            <button id="HelpersClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="HelpersOutput" class="helpers-demo-log"></pre>
             </div>
         </div>
         
         <script class="js-code">
             tp.Ready(function () {
-                tp.On("#DemoButton", "click", function () {
-                    var Source = { Name: "Tripous" };
-                    var Target = {};
-                    tp.Assign(Target, Source);
+                var Lines = [];
         
-                    var Values = [
-                        ["string", "Tripous", tp.IsString("Tripous")],
-                        ["array", "[1, 2, 3]", tp.IsArray([1, 2, 3])],
-                        ["object", "{ Name: \"Tripous\" }", tp.IsObject(Source)],
-                        ["nil", "null", tp.IsNil(null)],
-                        ["blank", "\"   \"", tp.IsBlank("   ")],
-                        ["number", "42", tp.IsNumber(42)],
-                        ["ToArray", "NodeList", tp.IsArray(tp.ToArray(document.querySelectorAll("button")))],
-                        ["Assign", "Target.Name", Target.Name === "Tripous"]
-                    ];
+                var Write = function () {
+                    tp.Text("#HelpersOutput", Lines.join("\n"));
+                };
         
-                    tp.Text("#DemoOutput", Values.map(function (Item) {
-                        return Item[0] + " | " + Item[1] + " | " + Item[2];
-                    }).join("\n"));
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#HelpersTypeButton", "click", function () {
+                    AddLine("tp.IsString(\"Tripous\") = " + tp.IsString("Tripous"));
+                    AddLine("tp.IsNumber(42) = " + tp.IsNumber(42));
+                    AddLine("tp.IsDate(new Date()) = " + tp.IsDate(new Date()));
+                    AddLine("tp.IsArray([1, 2, 3]) = " + tp.IsArray([1, 2, 3]));
+                    AddLine("tp.IsObject({ Name: \"Tripous\" }) = " + tp.IsObject({ Name: "Tripous" }));
+                    AddLine("tp.IsPlainObject({ Name: \"Tripous\" }) = " + tp.IsPlainObject({ Name: "Tripous" }));
+                    AddLine("tp.IsHTMLElement(document.body) = " + tp.IsHTMLElement(document.body));
+                    tp.InfoNote("Type helpers checked.");
                 });
+        
+                tp.On("#HelpersBlankButton", "click", function () {
+                    AddLine("tp.IsNil(null) = " + tp.IsNil(null));
+                    AddLine("tp.IsNil(undefined) = " + tp.IsNil(undefined));
+                    AddLine("tp.IsBlank(null) = " + tp.IsBlank(null));
+                    AddLine("tp.IsBlank(\"\") = " + tp.IsBlank(""));
+                    AddLine("tp.IsBlank(\"   \") = " + tp.IsBlank("   "));
+                    AddLine("tp.IsBlank(\"Tripous\") = " + tp.IsBlank("Tripous"));
+                    tp.InfoNote("Nil and blank helpers checked.");
+                });
+        
+                tp.On("#HelpersObjectButton", "click", function () {
+                    var Source = { Name: "Tripous", Version: 1, Active: true };
+                    var Names = tp.GetPropertyNames(Source);
+        
+                    AddLine("tp.GetPropertyNames(Source) = " + Names.join(", "));
+                    AddLine("tp.Equals(Source, { Name: \"Tripous\" }) = " + tp.Equals(Source, { Name: "Tripous" }));
+                    AddLine("tp.Equals(Source, { Version: 2 }) = " + tp.Equals(Source, { Version: 2 }));
+                    tp.InfoNote("Object helpers checked.");
+                });
+        
+                tp.On("#HelpersClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run helper checks.");
             });
         </script>
     </main>

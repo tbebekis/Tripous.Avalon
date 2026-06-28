@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Grid - Direct Properties</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../tripous/js/tp-Grid.js"></script>
+    <script src="../assets/js/demos.js"></script>
+    <script src="../assets/js/demo-data.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Grid - Direct Properties</h1>
+
+        <p>This demo is almost identical to the CreateParams demo.</p>
+        <p>The difference is that grid configuration is done through properties and methods after construction.</p>
+
+        <style>
+            .grid-demo-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 12px;
+                max-width: 1200px;
+            }
+            .grid-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+            }
+            .grid-demo-actions input {
+                width: min(320px, 100%);
+            }
+            .grid-demo-host {
+                min-height: 450px;
+            }
+        </style>
+
+        <div class="html-code">
+            <div class="grid-demo-layout">
+                <div class="grid-demo-actions">
+                    <button id="ClearRowsButton" type="button">Clear Rows</button>
+                    <button id="ClearGroupColumnsButton" type="button">Clear Group Columns</button>
+                    <button id="SetGroupColumnsButton" type="button">Set Group Columns</button>
+                    <input id="ColumnNames" type="text" value="DepartmentId CountryId">
+                </div>
+                <div id="Grid" class="grid-demo-host"></div>
+            </div>
+        </div>
+
+        <script class="js-code">
+            var Grid;
+            var Table;
+            var Countries;
+            var Departments;
+
+            tp.Ready(function () {
+                var Data;
+                if (!tp.Grid) {
+                    tp.ErrorNote("tp-Grid.js is not loaded. Build the WebApp project to generate and sync the grid bundle.");
+                    return;
+                }
+
+                Data = DemoData.CreateEmployeeTable(10);
+                Table = Data.Table;
+                Countries = DemoData.GetCountriesTable();
+                Departments = DemoData.GetDepartmentsTable();
+
+                Grid = new tp.Grid("#Grid");
+                Grid.Handle.style.height = "450px";
+                Grid.ReadOnly = false;
+                Grid.ToolBarVisible = true;
+                Grid.ButtonInsertVisible = true;
+                Grid.ButtonDeleteVisible = true;
+
+                Grid.AddToolBarButton("Custom.Command_1", "", "Custom Command 1", "fa fa-calculator", "", true);
+                Grid.AddToolBarButton("Custom.Command_2", "", "Custom Command 2", "fa fa-film", "", true);
+
+                Grid.AutoGenerateColumns = false;
+                Grid.AddColumn("Name");
+                Grid.AddColumn("Age");
+                Grid.AddColumn("Salary");
+                Grid.AddColumn("Married");
+                Grid.AddColumn("EntryDate", "Entry Date");
+                Grid.AddLookUpColumn("DepartmentId", "Department", "Id", "Name", Departments);
+                Grid.AddLookUpColumn("CountryId", "Country", "Id", "Name", Countries);
+                Grid.DataSource = Table;
+                Grid.AddAggregate("Salary", tp.AggregateType.Sum);
+
+                Grid.On("ToolBarButtonClick", function (Args) {
+                    if (tp.StartsWith(Args.Command, "Custom.", false))
+                        tp.InfoNote("Clicked: " + Args.Command);
+                });
+
+                tp.On("#ClearRowsButton", tp.Events.Click, ClearRows);
+                tp.On("#ClearGroupColumnsButton", tp.Events.Click, ClearGroupColumns);
+                tp.On("#SetGroupColumnsButton", tp.Events.Click, SetGroupColumns);
+            });
+
+            function ClearRows() {
+                if (Grid && Grid.DataSource)
+                    Grid.DataSource.ClearRows();
+            }
+
+            function ClearGroupColumns() {
+                if (Grid)
+                    Grid.ClearGroupColumns();
+            }
+
+            function SetGroupColumns() {
+                var Value = tp("#ColumnNames").value;
+                var Parts;
+                if (!Grid || tp.IsBlank(Value))
+                    return;
+                Parts = tp.Split(Value, " ", true);
+                if (Parts.length > 0)
+                    Grid.SetGroupColumns(Parts);
+            }
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

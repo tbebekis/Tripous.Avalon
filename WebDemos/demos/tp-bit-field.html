@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Bf</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Bf</h1>
+        
+        <p>
+            <code>tp.Bf</code> is the Tripous bit-field helper. A bit-field is a single integer that stores
+            many boolean flags. Each flag must be a power of two: <code>1</code>, <code>2</code>,
+            <code>4</code>, <code>8</code>, and so on. This is useful for options, permissions, state flags,
+            and enum-like sets.
+        </p>
+        
+        <p>
+            The demo uses a small permission set. <code>Read</code>, <code>Write</code>, <code>Delete</code>,
+            and <code>Export</code> are separate flags. A user may have any combination of them, stored in
+            one integer value.
+        </p>
+        
+        <style>
+            .bit-field-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .bit-field-section {
+                margin-bottom: 18px;
+            }
+            .bit-field-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .bit-field-section p {
+                margin: 6px 0;
+            }
+            .bit-field-flags {
+                display: grid;
+                gap: 8px;
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .bit-field-flags label {
+                display: inline-flex;
+                gap: 8px;
+                align-items: center;
+            }
+            .bit-field-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .bit-field-value {
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+                font-weight: 700;
+            }
+            .bit-field-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 360px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .bit-field-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="bit-field-grid">
+                    <section class="bit-field-section">
+                        <p class="bit-field-title">Permission flags</p>
+                        <p>
+                            Select flags and build a single integer value using
+                            <code>tp.Bf.IntegerArrayToSetValue()</code>.
+                        </p>
+                        <div class="bit-field-flags">
+                            <label><input type="checkbox" data-permission="Read" checked> Read = 1</label>
+                            <label><input type="checkbox" data-permission="Write" checked> Write = 2</label>
+                            <label><input type="checkbox" data-permission="Delete"> Delete = 4</label>
+                            <label><input type="checkbox" data-permission="Export"> Export = 8</label>
+                        </div>
+                        <div class="bit-field-actions">
+                            <button id="BitFieldBuildButton" type="button">Build value</button>
+                            <button id="BitFieldClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="bit-field-section">
+                        <p class="bit-field-title">Current value</p>
+                        <p>
+                            <code>tp.Bf.SetToString()</code> converts the integer value back to a readable
+                            comma-delimited flag name list.
+                        </p>
+                        <div id="BitFieldValue" class="bit-field-value">Value: 0</div>
+                    </section>
+                    
+                    <section class="bit-field-section">
+                        <p class="bit-field-title">Set operations</p>
+                        <p>
+                            Run the standard bit-field operations against sample values:
+                            user permissions and required permissions.
+                        </p>
+                        <div class="bit-field-actions">
+                            <button id="BitFieldOperationsButton" type="button">Run operations</button>
+                        </div>
+                    </section>
+                    
+                    <section class="bit-field-section">
+                        <p class="bit-field-title">Membership and arrays</p>
+                        <p>
+                            <code>tp.Bf.In()</code> and <code>tp.Bf.Member()</code> test whether all flags
+                            from one value exist in another. The array helpers convert between a set value
+                            and a list of integer flags.
+                        </p>
+                        <div class="bit-field-actions">
+                            <button id="BitFieldMembershipButton" type="button">Run membership</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="BitFieldOutput" class="bit-field-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Permissions = {
+                    None: 0,
+                    Read: 1,
+                    Write: 2,
+                    Delete: 4,
+                    Export: 8
+                };
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#BitFieldOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var Names = function (Value) {
+                    return tp.Bf.SetToString(Permissions, Value) || "(none)";
+                };
+        
+                var SelectedValue = function () {
+                    var Values = [];
+                    tp.SelectAll("[data-permission]").forEach(function (Element) {
+                        if (Element.checked === true)
+                            Values.push(Permissions[Element.getAttribute("data-permission")]);
+                    });
+                    return tp.Bf.IntegerArrayToSetValue(Values);
+                };
+        
+                var ShowValue = function (Value) {
+                    tp.Text("#BitFieldValue", "Value: " + Value + " | " + Names(Value));
+                };
+        
+                tp.On("#BitFieldBuildButton", "click", function () {
+                    var Value = SelectedValue();
+                    ShowValue(Value);
+                    AddLine("Selected flags -> " + Value + " | " + Names(Value));
+                    AddLine("tp.Bf.SetValueToIntegerArray(Permissions, Value) = " + tp.Bf.SetValueToIntegerArray(Permissions, Value).join(", "));
+                    tp.InfoNote("Bit-field value built.");
+                });
+        
+                tp.On("#BitFieldOperationsButton", "click", function () {
+                    var User = Permissions.Read | Permissions.Write;
+                    var Required = Permissions.Write | Permissions.Delete;
+                    AddLine("User = " + User + " | " + Names(User));
+                    AddLine("Required = " + Required + " | " + Names(Required));
+                    AddLine("tp.Bf.Union(User, Required) = " + tp.Bf.Union(User, Required) + " | " + Names(tp.Bf.Union(User, Required)));
+                    AddLine("tp.Bf.Intersection(User, Required) = " + tp.Bf.Intersection(User, Required) + " | " + Names(tp.Bf.Intersection(User, Required)));
+                    AddLine("tp.Bf.Junction(User, Required) = " + tp.Bf.Junction(User, Required) + " | " + Names(tp.Bf.Junction(User, Required)));
+                    AddLine("tp.Bf.Dif(User, Required) = " + tp.Bf.Dif(User, Required) + " | " + Names(tp.Bf.Dif(User, Required)));
+                    AddLine("tp.Bf.Subtract(User, Required) = " + tp.Bf.Subtract(User, Required) + " | " + Names(tp.Bf.Subtract(User, Required)));
+                    tp.InfoNote("Bit-field operations completed.");
+                });
+        
+                tp.On("#BitFieldMembershipButton", "click", function () {
+                    var Value = Permissions.Read | Permissions.Write | Permissions.Export;
+                    var ArrayValue;
+                    AddLine("Value = " + Value + " | " + Names(Value));
+                    AddLine("tp.Bf.In(Permissions.Read, Value) = " + tp.Bf.In(Permissions.Read, Value));
+                    AddLine("tp.Bf.Member(Permissions.Delete, Value) = " + tp.Bf.Member(Permissions.Delete, Value));
+                    AddLine("tp.Bf.IsEmpty(0) = " + tp.Bf.IsEmpty(0));
+                    AddLine("tp.Bf.IsEmpty(Value) = " + tp.Bf.IsEmpty(Value));
+                    ArrayValue = tp.Bf.SetValueToIntegerArray(Permissions, Value);
+                    AddLine("tp.Bf.SetValueToIntegerArray(Permissions, Value) = " + ArrayValue.join(", "));
+                    AddLine("tp.Bf.IntegerArrayToSetValue(ArrayValue) = " + tp.Bf.IntegerArrayToSetValue(ArrayValue));
+                    tp.InfoNote("Membership helpers completed.");
+                });
+        
+                tp.On("#BitFieldClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                ShowValue(SelectedValue());
+                AddLine("Select flags and click a button.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

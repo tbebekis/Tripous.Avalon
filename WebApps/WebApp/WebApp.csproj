@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js-src\" />
+    <Folder Include="wwwroot\js-src\tp-Grid\" />
     <Folder Include="wwwroot\tp\js\" />
   </ItemGroup>
 
@@ -37,7 +37,7 @@
       <TripousWebDemoFonts Include="$(MSBuildProjectDirectory)/wwwroot/tp/fonts/**" />
       <TripousWebDemoImages Include="$(MSBuildProjectDirectory)/wwwroot/tp/images/**" />
       <TripousWebDemoAssetsCss Include="$(MSBuildProjectDirectory)/wwwroot/css/demos.css" />
-      <TripousWebDemoAssetsJs Include="$(MSBuildProjectDirectory)/wwwroot/tp/demos/demos.js" />
+      <TripousWebDemoAssetsJs Include="$(MSBuildProjectDirectory)/wwwroot/tp/demos/*.js" />
     </ItemGroup>
     <Message Importance="High" Text="Syncing Tripous Web static demo assets." />
     <Copy SourceFiles="@(TripousWebDemoCss)"

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Dragger</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Dragger</h1>
+        
+        <p>
+            <code>tp.Dragger</code> adds mouse-based move and resize behavior to an existing element.
+            It is a low-level helper used by desktop-like UI pieces such as windows, notification
+            boxes, and drop-down surfaces.
+        </p>
+        
+        <p>
+            The constructor receives a mode bit-field, the element to move or resize, and optionally
+            a separate drag handle. In this demo the whole panel can be resized from its edges, but it
+            can be moved only from its caption. The dragger raises <code>DragStart</code>,
+            <code>DragOver</code>, and <code>DragEnd</code> as custom Tripous events.
+        </p>
+        
+        <style>
+            .dragger-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+            .dragger-demo-stage {
+                position: relative;
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                height: 430px;
+                overflow: hidden;
+                border: 1px solid #8c959f;
+                background:
+                    linear-gradient(90deg, rgba(140, 149, 159, 0.14) 1px, transparent 1px),
+                    linear-gradient(rgba(140, 149, 159, 0.14) 1px, transparent 1px),
+                    #ffffff;
+                background-size: 24px 24px;
+            }
+            #DraggerBox {
+                position: absolute;
+                left: 60px;
+                top: 58px;
+                box-sizing: border-box;
+                width: 260px;
+                height: 150px;
+                min-width: 150px;
+                min-height: 90px;
+                border: 1px solid #57606a;
+                background: #ffffff;
+                box-shadow: 0 8px 20px rgba(31, 35, 40, 0.18);
+            }
+            #DraggerCaption {
+                display: flex;
+                align-items: center;
+                box-sizing: border-box;
+                height: 36px;
+                padding: 0 12px;
+                background: #0969da;
+                color: #ffffff;
+                font-weight: 700;
+                cursor: move;
+                user-select: none;
+            }
+            .dragger-demo-content {
+                padding: 12px;
+                line-height: 1.45;
+            }
+            .dragger-demo-corner {
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
+                width: 16px;
+                height: 16px;
+                border-right: 3px solid #8c959f;
+                border-bottom: 3px solid #8c959f;
+                pointer-events: none;
+            }
+            .dragger-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 180px;
+                margin-top: 12px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="dragger-demo-actions">
+                <button id="DraggerToggleButton" type="button">Stop</button>
+                <button id="DraggerResetButton" type="button">Reset</button>
+                <button id="DraggerLogButton" type="button">Log state</button>
+            </div>
+            
+            <div id="DraggerStage" class="dragger-demo-stage">
+                <div id="DraggerBox">
+                    <div id="DraggerCaption">Drag from here</div>
+                    <div class="dragger-demo-content">
+                        Move this panel by dragging the caption. Resize it from its border or corners.
+                    </div>
+                    <div class="dragger-demo-corner"></div>
+                </div>
+            </div>
+            
+            <pre id="DraggerOutput" class="dragger-demo-log"></pre>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Box = tp("#DraggerBox");
+                var Caption = tp("#DraggerCaption");
+                var EventCount = 0;
+                var Dragger = new tp.Dragger(tp.DraggerMode.Both, Box, Caption);
+                Dragger.MinWidth = 150;
+                Dragger.MinHeight = 90;
+                Dragger.MaxWidth = 620;
+                Dragger.MaxHeight = 330;
+                
+                var WriteLog = function (Message) {
+                    var Rect = Box.getBoundingClientRect();
+                    var StageRect = tp("#DraggerStage").getBoundingClientRect();
+                    var Lines = [
+                        Message || "Ready.",
+                        "active = " + Dragger.Active,
+                        "event count = " + EventCount,
+                        "left = " + Math.round(Rect.left - StageRect.left) + "px",
+                        "top = " + Math.round(Rect.top - StageRect.top) + "px",
+                        "width = " + Math.round(Rect.width) + "px",
+                        "height = " + Math.round(Rect.height) + "px"
+                    ];
+                    tp.Text("#DraggerOutput", Lines.join("\n"));
+                    tp.Text("#DraggerToggleButton", Dragger.Active ? "Stop" : "Start");
+                };
+                
+                var HandleDraggerEvent = function (Args) {
+                    EventCount++;
+                    WriteLog(Args.EventName);
+                };
+                
+                Dragger.On(tp.Events.DragStart, HandleDraggerEvent);
+                Dragger.On(tp.Events.DragOver, HandleDraggerEvent);
+                Dragger.On(tp.Events.DragEnd, HandleDraggerEvent);
+                
+                tp.On("#DraggerToggleButton", "click", function () {
+                    Dragger.Active = !Dragger.Active;
+                    WriteLog("Dragger active toggled.");
+                    tp.InfoNote(Dragger.Active ? "Dragger started." : "Dragger stopped.");
+                });
+                
+                tp.On("#DraggerResetButton", "click", function () {
+                    Box.style.left = "60px";
+                    Box.style.top = "58px";
+                    Box.style.width = "260px";
+                    Box.style.height = "150px";
+                    WriteLog("Panel reset.");
+                    tp.InfoNote("Panel reset.");
+                });
+                
+                tp.On("#DraggerLogButton", "click", function () {
+                    WriteLog("Current dragger state.");
+                });
+                
+                WriteLog();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

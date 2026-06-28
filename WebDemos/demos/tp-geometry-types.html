@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Point, tp.Size and tp.Rect</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Point, tp.Size and tp.Rect</h1>
+        
+        <p>
+            <code>tp.Point</code>, <code>tp.Size</code>, and <code>tp.Rect</code> are small geometry value
+            classes used throughout Tripous code. They keep coordinate and dimension calculations readable
+            instead of passing anonymous objects or loose argument lists everywhere.
+        </p>
+        
+        <p>
+            <code>tp.Point</code> represents <code>X/Y</code>. <code>tp.Size</code> represents
+            <code>Width/Height</code>. <code>tp.Rect</code> combines location and size and adds common
+            rectangle operations such as containment, intersection, union, inflation, and offsetting.
+        </p>
+        
+        <style>
+            .geometry-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .geometry-demo-section {
+                margin-bottom: 18px;
+            }
+            .geometry-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .geometry-demo-section p {
+                margin: 6px 0;
+            }
+            .geometry-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .geometry-demo-stage {
+                position: relative;
+                box-sizing: border-box;
+                width: min(100%, 420px);
+                height: 180px;
+                padding: 18px;
+                border: 1px solid #8c959f;
+                background: #f6f8fa;
+            }
+            .geometry-demo-target {
+                position: absolute;
+                left: 64px;
+                top: 42px;
+                width: 190px;
+                height: 78px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid #0969da;
+                background: #ddf4ff;
+                font-weight: 700;
+            }
+            .geometry-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 380px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .geometry-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="geometry-demo-grid">
+                    <section class="geometry-demo-section">
+                        <p class="geometry-demo-title">Point and size</p>
+                        <p>
+                            <code>Point</code> and <code>Size</code> support simple arithmetic, comparison,
+                            clearing, and string output.
+                        </p>
+                        <div class="geometry-demo-actions">
+                            <button id="GeometryPointButton" type="button">Run point</button>
+                            <button id="GeometrySizeButton" type="button">Run size</button>
+                        </div>
+                    </section>
+                    
+                    <section class="geometry-demo-section">
+                        <p class="geometry-demo-title">Rectangle operations</p>
+                        <p>
+                            <code>Rect</code> supports containment, intersection, union, inflation,
+                            offsetting, and calculated <code>Right</code> / <code>Bottom</code> values.
+                        </p>
+                        <div class="geometry-demo-actions">
+                            <button id="GeometryRectButton" type="button">Run rect</button>
+                            <button id="GeometryIntersectionButton" type="button">Run intersection</button>
+                        </div>
+                    </section>
+                    
+                    <section class="geometry-demo-section">
+                        <p class="geometry-demo-title">Element rectangles</p>
+                        <p>
+                            <code>tp.BoundingRect()</code> returns viewport-relative geometry.
+                            <code>tp.OffsetRect()</code> returns geometry relative to the offset parent.
+                        </p>
+                        <div id="GeometryStage" class="geometry-demo-stage">
+                            <div id="GeometryTarget" class="geometry-demo-target">Target</div>
+                        </div>
+                        <div class="geometry-demo-actions">
+                            <button id="GeometryElementButton" type="button">Read element rects</button>
+                        </div>
+                    </section>
+                    
+                    <section class="geometry-demo-section">
+                        <p class="geometry-demo-title">Factory helpers</p>
+                        <p>
+                            <code>tp.Rect.FromValue()</code>, <code>tp.Rect.FromArguments()</code>, and
+                            <code>tp.Rect.FromClientRect()</code> normalize rectangle-like values.
+                        </p>
+                        <div class="geometry-demo-actions">
+                            <button id="GeometryFactoryButton" type="button">Run factories</button>
+                            <button id="GeometryClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="GeometryOutput" class="geometry-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#GeometryOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#GeometryPointButton", "click", function () {
+                    var Point = new tp.Point(10, 20);
+                    AddLine("Point = " + Point.toString());
+                    Point.Add(5, 6);
+                    AddLine("After Point.Add(5, 6): " + Point.toString());
+                    Point.Subtract(3, 4);
+                    AddLine("After Point.Subtract(3, 4): " + Point.toString());
+                    AddLine("Point.Equals(12, 22) = " + Point.Equals(12, 22));
+                    AddLine("Point.IsInBetween(0, 0, 20, 30) = " + Point.IsInBetween(0, 0, 20, 30));
+                    AddLine("tp.Point.PointInRect(Point, new tp.Rect(0, 0, 30, 30)) = " + tp.Point.PointInRect(Point, new tp.Rect(0, 0, 30, 30)));
+                    tp.InfoNote("Point operations completed.");
+                });
+        
+                tp.On("#GeometrySizeButton", "click", function () {
+                    var Size = new tp.Size(120, 80);
+                    AddLine("Size = " + Size.toString());
+                    Size.Add(10, 5);
+                    AddLine("After Size.Add(10, 5): " + Size.toString());
+                    Size.Subtract(30, 15);
+                    AddLine("After Size.Subtract(30, 15): " + Size.toString());
+                    AddLine("Size.Equals(100, 70) = " + Size.Equals(100, 70));
+                    Size.Clear();
+                    AddLine("After Size.Clear(): " + Size.toString());
+                    tp.InfoNote("Size operations completed.");
+                });
+        
+                tp.On("#GeometryRectButton", "click", function () {
+                    var Rect = new tp.Rect(10, 20, 200, 100);
+                    AddLine("Rect = " + Rect.toString());
+                    AddLine("Rect.Right = " + Rect.Right + ", Rect.Bottom = " + Rect.Bottom);
+                    AddLine("Rect.Contains(20, 30) = " + Rect.Contains(20, 30));
+                    AddLine("Rect.Contains(new tp.Point(250, 30)) = " + Rect.Contains(new tp.Point(250, 30)));
+                    AddLine("Rect.Contains(20, 30, 50, 40) = " + Rect.Contains(20, 30, 50, 40));
+                    Rect.Inflate(10, 5);
+                    AddLine("After Rect.Inflate(10, 5): " + Rect.toString());
+                    Rect.Offset(40, 50);
+                    AddLine("After Rect.Offset(40, 50): " + Rect.toString());
+                    tp.InfoNote("Rect operations completed.");
+                });
+        
+                tp.On("#GeometryIntersectionButton", "click", function () {
+                    var A = new tp.Rect(10, 10, 100, 80);
+                    var B = new tp.Rect(60, 40, 100, 80);
+                    var Intersection = tp.Rect.FromValue(A);
+                    var Union = tp.Rect.FromValue(A);
+                    AddLine("A = " + A.toString());
+                    AddLine("B = " + B.toString());
+                    AddLine("A.IntersectsWith(B) = " + A.IntersectsWith(B));
+                    Intersection.Intersect(B);
+                    AddLine("Intersection = " + Intersection.toString());
+                    Union.Union(B);
+                    AddLine("Union = " + Union.toString());
+                    tp.InfoNote("Intersection operations completed.");
+                });
+        
+                tp.On("#GeometryElementButton", "click", function () {
+                    AddLine("tp.BoundingRect(\"#GeometryTarget\") = " + tp.BoundingRect("#GeometryTarget").toString());
+                    AddLine("tp.OffsetRect(\"#GeometryTarget\") = " + tp.OffsetRect("#GeometryTarget").toString());
+                    AddLine("tp.Rect.FromClientRect(tp(\"#GeometryTarget\")) = " + tp.Rect.FromClientRect(tp("#GeometryTarget")).toString());
+                    tp.InfoNote("Element rectangles read.");
+                });
+        
+                tp.On("#GeometryFactoryButton", "click", function () {
+                    AddLine("tp.Rect.FromValue({ X: 1, Y: 2, Width: 3, Height: 4 }) = "
+                        + tp.Rect.FromValue({ X: 1, Y: 2, Width: 3, Height: 4 }).toString());
+                    AddLine("tp.Rect.FromArguments([5, 6, 7, 8]) = " + tp.Rect.FromArguments([5, 6, 7, 8]).toString());
+                    AddLine("tp.Rect.FromClientRect({ left: 9, top: 10, width: 11, height: 12 }) = "
+                        + tp.Rect.FromClientRect({ left: 9, top: 10, width: 11, height: 12 }).toString());
+                    tp.InfoNote("Factory helpers completed.");
+                });
+        
+                tp.On("#GeometryClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run geometry checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

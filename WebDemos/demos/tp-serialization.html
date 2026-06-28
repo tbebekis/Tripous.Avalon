@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serialization</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Serialization</h1>
+        
+        <p>
+            This demo covers the core serialization helpers that turn DOM form values and browser files
+            into plain JavaScript objects. The helpers are intentionally simple. They do not create
+            Tripous data objects; they prepare plain models that can later be posted, inspected, or passed
+            to higher-level application code.
+        </p>
+        
+        <p>
+            <code>tp.ElementToProperty()</code> reads one input, select, textarea, or button element and
+            adds a property to a model object. <code>tp.ContainerToModel()</code> does the same for all
+            matching child elements in a form or container. <code>tp.ContainerToModelAsync()</code> also
+            includes file inputs by using <code>tp.ReadFiles()</code>. <code>tp.PostModelAsForm()</code>
+            creates and submits a real HTML form, so this demo explains it but does not execute it live.
+        </p>
+        
+        <style>
+            .serialization-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 1040px;
+                align-items: start;
+            }
+            .serialization-section {
+                margin-bottom: 18px;
+            }
+            .serialization-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .serialization-section p {
+                margin: 6px 0;
+            }
+            .serialization-form {
+                display: grid;
+                gap: 9px;
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .serialization-row {
+                display: grid;
+                grid-template-columns: 130px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+            }
+            .serialization-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .serialization-code {
+                margin: 8px 0 0 0;
+                padding: 10px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .serialization-log {
+                box-sizing: border-box;
+                width: min(100%, 940px);
+                min-height: 420px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .serialization-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+                .serialization-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="serialization-grid">
+                    <section class="serialization-section">
+                        <p class="serialization-title">Sample form</p>
+                        <p>
+                            The form contains common HTML controls. Property names come from
+                            <code>name</code> first and <code>id</code> second.
+                        </p>
+                        <form id="SerializationForm" class="serialization-form">
+                            <label class="serialization-row" for="SerName">
+                                <span>name</span>
+                                <input id="SerName" name="Name" type="text" value="John">
+                            </label>
+                            <label class="serialization-row" for="SerAge">
+                                <span>age</span>
+                                <input id="SerAge" name="Age" type="number" value="42">
+                            </label>
+                            <label class="serialization-row" for="SerActive">
+                                <span>active</span>
+                                <input id="SerActive" name="Active" type="checkbox" checked>
+                            </label>
+                            <div class="serialization-row">
+                                <span>status</span>
+                                <label>
+                                    <input name="Status" type="radio" value="New" checked>
+                                    New
+                                </label>
+                            </div>
+                            <div class="serialization-row">
+                                <span></span>
+                                <label>
+                                    <input name="Status" type="radio" value="Closed">
+                                    Closed
+                                </label>
+                            </div>
+                            <label class="serialization-row" for="SerCountry">
+                                <span>country</span>
+                                <select id="SerCountry" name="Country">
+                                    <option value="GR" selected>Greece</option>
+                                    <option value="CY">Cyprus</option>
+                                    <option value="IT">Italy</option>
+                                </select>
+                            </label>
+                            <label class="serialization-row" for="SerTags">
+                                <span>tags</span>
+                                <select id="SerTags" name="Tags" multiple size="3">
+                                    <option value="core" selected>core</option>
+                                    <option value="web" selected>web</option>
+                                    <option value="demo">demo</option>
+                                </select>
+                            </label>
+                            <label class="serialization-row" for="SerNotes">
+                                <span>notes</span>
+                                <textarea id="SerNotes" name="Notes">Serialized from DOM.</textarea>
+                            </label>
+                            <div class="serialization-row">
+                                <span>button</span>
+                                <button id="SerButton" name="Action" type="button" value="Preview">Preview</button>
+                            </div>
+                        </form>
+                    </section>
+                    
+                    <section class="serialization-section">
+                        <p class="serialization-title">Form and element helpers</p>
+                        <p>
+                            Use <code>tp.ContainerToModel()</code> for a whole form or container.
+                            Use <code>tp.ElementToProperty()</code> when you want to add just one
+                            element value to an existing model.
+                        </p>
+                        <div class="serialization-actions">
+                            <button id="SerContainerButton" type="button">Container to model</button>
+                            <button id="SerElementButton" type="button">Element to property</button>
+                            <button id="SerAsyncButton" type="button">Async container</button>
+                        </div>
+                    </section>
+                    
+                    <section class="serialization-section">
+                        <p class="serialization-title">File helpers</p>
+                        <p>
+                            <code>tp.ReadFiles()</code> reads browser <code>File</code> objects and returns
+                            <code>tp.HttpFile</code> objects. The demo creates a small in-memory file so no
+                            disk file is required.
+                        </p>
+                        <div class="serialization-actions">
+                            <button id="SerFileBase64Button" type="button">Read file as Base64</button>
+                            <button id="SerFileHexButton" type="button">Read file as Hex</button>
+                        </div>
+                    </section>
+                    
+                    <section class="serialization-section">
+                        <p class="serialization-title">Post as form</p>
+                        <p>
+                            <code>tp.PostModelAsForm()</code> creates a temporary form, adds hidden inputs,
+                            submits it with <code>POST</code>, and removes the form later. It is useful for
+                            classic browser form posting, but it changes the current page, so the demo does
+                            not call it.
+                        </p>
+                        <pre class="serialization-code">tp.PostModelAsForm("/orders/save", {
+    Name: "John",
+    Tags: ["core", "web"],
+    Extra: { Level: 3 }
+});</pre>
+                        <div class="serialization-actions">
+                            <button id="SerPostPreviewButton" type="button">Show post model</button>
+                            <button id="SerClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="SerializationOutput" class="serialization-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#SerializationOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var AddJson = function (Caption, Value) {
+                    AddLine(Caption);
+                    AddLine(tp.ToJson(Value, true));
+                };
+        
+                var CreateDemoFile = function () {
+                    return new File(["Tripous serialization demo"], "tripous-demo.txt", { type: "text/plain" });
+                };
+        
+                tp.On("#SerContainerButton", "click", function () {
+                    var Model = tp.ContainerToModel("#SerializationForm");
+                    AddJson("tp.ContainerToModel(\"#SerializationForm\"):", Model);
+                    tp.InfoNote("Container serialized.");
+                });
+        
+                tp.On("#SerElementButton", "click", function () {
+                    var Model = {
+                        Source: "manual model"
+                    };
+                    tp.ElementToProperty(tp("#SerCountry"), Model);
+                    AddJson("tp.ElementToProperty(Country, Model):", Model);
+                    tp.InfoNote("Element serialized.");
+                });
+        
+                tp.On("#SerAsyncButton", "click", async function () {
+                    var Model = await tp.ContainerToModelAsync(false, "#SerializationForm");
+                    AddJson("await tp.ContainerToModelAsync(false, \"#SerializationForm\"):", Model);
+                    tp.InfoNote("Async container serialized.");
+                });
+        
+                tp.On("#SerFileBase64Button", "click", async function () {
+                    var Files = await tp.ReadFiles(false, [CreateDemoFile()]);
+                    AddJson("await tp.ReadFiles(false, [File]) as Base64:", Files);
+                    tp.InfoNote("File read as Base64.");
+                });
+        
+                tp.On("#SerFileHexButton", "click", async function () {
+                    var Files = await tp.ReadFiles(false, [CreateDemoFile()], null, null, null, true);
+                    AddJson("await tp.ReadFiles(false, [File], null, null, null, true) as Hex:", Files);
+                    AddLine("tp.ArrayBufferToHex(new Uint8Array([1, 15, 255]).buffer) = " + tp.ArrayBufferToHex(new Uint8Array([1, 15, 255]).buffer));
+                    tp.InfoNote("File read as Hex.");
+                });
+        
+                tp.On("#SerPostPreviewButton", "click", function () {
+                    AddJson("Model that could be passed to tp.PostModelAsForm(...):", {
+                        Name: "John",
+                        Tags: ["core", "web"],
+                        Extra: {
+                            Level: 3
+                        }
+                    });
+                    AddLine("The demo does not call tp.PostModelAsForm(), because it performs a real submit and changes the page.");
+                    tp.InfoNote("Post model shown.");
+                });
+        
+                tp.On("#SerClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run serialization helpers.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

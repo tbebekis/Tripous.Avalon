@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM values</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>DOM values</h1>
+        
+        <p>
+            This demo covers Tripous helpers that get, set, and clear element values. Different HTML elements
+            store their user-facing value in different members: text inputs use <code>value</code>, checkboxes
+            use <code>checked</code>, buttons use <code>innerHTML</code>, selects use the selected option, and
+            normal elements use <code>textContent</code>.
+        </p>
+        
+        <p>
+            <code>tp.GetElementValueType()</code> identifies which member is used. <code>tp.val()</code> and
+            <code>tp.Value()</code> get or set through that member. <code>tp.ClearValue()</code> clears through
+            the same rule. <code>tp.Text()</code> and <code>tp.Html()</code> are direct helpers for text and
+            HTML content.
+        </p>
+        
+        <style>
+            .dom-values-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .dom-values-section {
+                margin-bottom: 18px;
+            }
+            .dom-values-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dom-values-section p {
+                margin: 6px 0;
+            }
+            .dom-values-form {
+                display: grid;
+                gap: 8px;
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .dom-values-row {
+                display: grid;
+                grid-template-columns: 120px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+            }
+            .dom-values-display {
+                padding: 8px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .dom-values-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dom-values-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 340px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dom-values-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+                .dom-values-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dom-values-grid">
+                    <section class="dom-values-section">
+                        <p class="dom-values-title">Sample elements</p>
+                        <p>
+                            The buttons operate on these elements and write the results below.
+                        </p>
+                        <div class="dom-values-form">
+                            <label class="dom-values-row" for="DomValueText">
+                                <span>input</span>
+                                <input id="DomValueText" type="text" value="Tripous">
+                            </label>
+                            <label class="dom-values-row" for="DomValueCheck">
+                                <span>checkbox</span>
+                                <input id="DomValueCheck" type="checkbox" checked>
+                            </label>
+                            <label class="dom-values-row" for="DomValueMemo">
+                                <span>textarea</span>
+                                <textarea id="DomValueMemo">Memo text</textarea>
+                            </label>
+                            <label class="dom-values-row" for="DomValueSelect">
+                                <span>select</span>
+                                <select id="DomValueSelect">
+                                    <option value="GR">Greece</option>
+                                    <option value="CY">Cyprus</option>
+                                    <option value="IT">Italy</option>
+                                </select>
+                            </label>
+                            <div class="dom-values-row">
+                                <span>button</span>
+                                <button id="DomValueButton" type="button"><strong>Button HTML</strong></button>
+                            </div>
+                            <div class="dom-values-row">
+                                <span>div</span>
+                                <div id="DomValueDiv" class="dom-values-display">Div text</div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-values-section">
+                        <p class="dom-values-title">Value type</p>
+                        <p>
+                            <code>tp.GetElementValueType()</code> returns a member of
+                            <code>tp.ElementValueType</code>. This tells <code>tp.val()</code> what element
+                            member to read or write.
+                        </p>
+                        <div class="dom-values-actions">
+                            <button id="DomValueTypesButton" type="button">Show value types</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-values-section">
+                        <p class="dom-values-title">Get and set values</p>
+                        <p>
+                            <code>tp.Value()</code> is a public alias over <code>tp.val()</code>. Passing one
+                            argument gets a value. Passing two arguments sets a value.
+                        </p>
+                        <div class="dom-values-actions">
+                            <button id="DomValueGetButton" type="button">Get values</button>
+                            <button id="DomValueSetButton" type="button">Set values</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-values-section">
+                        <p class="dom-values-title">Clear, text, and HTML</p>
+                        <p>
+                            <code>tp.ClearValue()</code> clears through the value type rule.
+                            <code>tp.Text()</code> writes text content and <code>tp.Html()</code> writes HTML.
+                        </p>
+                        <div class="dom-values-actions">
+                            <button id="DomValueTextHtmlButton" type="button">Run text/html</button>
+                            <button id="DomValueClearButton" type="button">Clear values</button>
+                            <button id="DomLogClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DomValueOutput" class="dom-values-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var Selectors = ["#DomValueText", "#DomValueCheck", "#DomValueMemo", "#DomValueSelect", "#DomValueButton", "#DomValueDiv"];
+        
+                var Write = function () {
+                    tp.Text("#DomValueOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var TypeName = function (Selector) {
+                    return tp.EnumNameOf(tp.ElementValueType, tp.GetElementValueType(Selector));
+                };
+        
+                var ValueText = function (Selector) {
+                    return JSON.stringify(tp.Value(Selector));
+                };
+        
+                var ShowValues = function (Caption) {
+                    AddLine(Caption);
+                    AddLine("  text input = " + ValueText("#DomValueText"));
+                    AddLine("  checkbox = " + ValueText("#DomValueCheck"));
+                    AddLine("  textarea = " + ValueText("#DomValueMemo"));
+                    AddLine("  select = " + ValueText("#DomValueSelect"));
+                    AddLine("  button = " + ValueText("#DomValueButton"));
+                    AddLine("  div = " + ValueText("#DomValueDiv"));
+                };
+        
+                tp.On("#DomValueTypesButton", "click", function () {
+                    Selectors.forEach(function (Selector) {
+                        AddLine(Selector + " -> " + TypeName(Selector));
+                    });
+                    tp.InfoNote("Value types shown.");
+                });
+        
+                tp.On("#DomValueGetButton", "click", function () {
+                    ShowValues("Current values:");
+                    tp.InfoNote("Values read.");
+                });
+        
+                tp.On("#DomValueSetButton", "click", function () {
+                    tp.Value("#DomValueText", "Changed text");
+                    tp.Value("#DomValueCheck", false);
+                    tp.Value("#DomValueMemo", "Changed memo");
+                    tp.Value("#DomValueSelect", "IT");
+                    tp.Value("#DomValueButton", "<em>Changed button HTML</em>");
+                    tp.Value("#DomValueDiv", "Changed div text");
+                    ShowValues("After tp.Value(..., value):");
+                    tp.InfoNote("Values changed.");
+                });
+        
+                tp.On("#DomValueTextHtmlButton", "click", function () {
+                    tp.Text("#DomValueDiv", "Text written by tp.Text().");
+                    AddLine("tp.Text(Div) = " + JSON.stringify(tp.Text("#DomValueDiv")));
+                    tp.Html("#DomValueDiv", "<strong>HTML written by tp.Html().</strong>");
+                    AddLine("tp.Html(Div) = " + JSON.stringify(tp.Html("#DomValueDiv")));
+                    tp.InfoNote("Text and HTML helpers completed.");
+                });
+        
+                tp.On("#DomValueClearButton", "click", function () {
+                    Selectors.forEach(function (Selector) {
+                        tp.ClearValue(Selector);
+                    });
+                    ShowValues("After tp.ClearValue(...):");
+                    tp.InfoNote("Values cleared.");
+                });
+        
+                tp.On("#DomLogClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run DOM value checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

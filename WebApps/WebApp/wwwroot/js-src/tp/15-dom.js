@@ -456,6 +456,87 @@ tp.HasFocused = function (ElementOrSelector) {
     return tp.IsHTMLElement(Element) && (Element.ownerDocument.activeElement === Element || tp.ContainsElement(Element, Element.ownerDocument.activeElement));
 };
 
+// ● state
+/**
+ * Returns true if a specified element supports the disabled property.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element supports disabled.
+ */
+tp.HasDisabledProperty = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    return Element instanceof HTMLButtonElement
+        || Element instanceof HTMLInputElement
+        || Element instanceof HTMLTextAreaElement
+        || Element instanceof HTMLSelectElement
+        || Element instanceof HTMLOptionElement
+        || Element instanceof HTMLOptGroupElement
+        || Element instanceof HTMLFieldSetElement
+        || Element instanceof HTMLLinkElement;
+};
+/**
+ * Gets or sets whether an element is enabled.
+ * For elements with a native disabled property, this helper uses that property.
+ * For other HTMLElements, it toggles the tp-Disabled CSS class.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @param {boolean|null|undefined} Value The optional enabled flag.
+ * @returns {boolean} Returns true when the element is enabled.
+ */
+tp.Enabled = function (ElementOrSelector, Value) {
+    var Element = tp.Select(ElementOrSelector);
+    if (!tp.IsHTMLElement(Element))
+        return false;
+    if (arguments.length < 2 || tp.IsNil(Value))
+        return tp.HasDisabledProperty(Element) ? Element.disabled !== true : !tp.HasClass(Element, "tp-Disabled");
+    Value = Value === true;
+    if (tp.HasDisabledProperty(Element)) {
+        Element.disabled = Value !== true;
+    } else {
+        if (Value === true)
+            tp.RemoveClass(Element, "tp-Disabled");
+        else
+            tp.AddClass(Element, "tp-Disabled");
+    }
+    return Value;
+};
+/**
+ * Gets or sets whether an input-like element is read-only.
+ * Checkbox and radio inputs do not support readOnly in a useful way, so this helper uses disabled for them.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @param {boolean|null|undefined} Value The optional read-only flag.
+ * @returns {boolean} Returns true when the element is read-only.
+ */
+tp.ReadOnly = function (ElementOrSelector, Value) {
+    var Element = tp.Select(ElementOrSelector);
+    var IsCheckable = Element instanceof HTMLInputElement && (Element.type === "checkbox" || Element.type === "radio");
+    var SupportsReadOnly = Element instanceof HTMLInputElement || Element instanceof HTMLTextAreaElement;
+    if (!SupportsReadOnly)
+        return false;
+    if (arguments.length < 2 || tp.IsNil(Value))
+        return IsCheckable ? Element.disabled === true : Element.readOnly === true;
+    Value = Value === true;
+    if (IsCheckable)
+        Element.disabled = Value;
+    else
+        Element.readOnly = Value;
+    return Value;
+};
+/**
+ * Gets or sets the tabIndex of an HTMLElement.
+ * A negative value keeps the element programmatically focusable without adding it to the tab order.
+ * @param {Element|string|null|undefined} ElementOrSelector The element or selector.
+ * @param {number|string|null|undefined} Value The optional tab index.
+ * @returns {number} Returns the tab index or NaN when the element is not an HTMLElement.
+ */
+tp.TabIndex = function (ElementOrSelector, Value) {
+    var Element = tp.Select(ElementOrSelector);
+    if (!tp.IsHTMLElement(Element))
+        return NaN;
+    if (arguments.length < 2 || tp.IsNil(Value))
+        return Element.tabIndex;
+    Element.tabIndex = tp.StrToInt(Value, 0);
+    return Element.tabIndex;
+};
+
 // ● creation and removal
 /**
  * Creates an element, appends it to a parent element, and returns it.
@@ -937,30 +1018,82 @@ tp.HtmlToElement = function (ElementOrSelectorOrHtmlText) {
 
 // ● events
 /**
- * Adds an event listener to an element.
- * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * Gets the DOM event target represented by a selector, element, document, or window.
+ * @param {string|EventTarget|null|undefined} Sender The event sender.
+ * @returns {EventTarget|null} Returns the resolved event target or null.
+ */
+tp.GetEventTarget = function (Sender) {
+    var Target = null;
+    if (tp.IsString(Sender))
+        Target = tp.Select(Sender);
+    else if (Sender instanceof EventTarget)
+        Target = Sender;
+    else if (Sender && tp.IsFunction(Sender.addEventListener))
+        Target = Sender;
+    return Target;
+};
+/**
+ * Resolves a DOM event name from either a native DOM event name or a tp.Events value.
  * @param {string} EventName The event name.
- * @param {Function} Handler The event handler.
+ * @returns {string} Returns the DOM event name.
+ */
+tp.GetDomEventName = function (EventName) {
+    var Name = tp.Events.ToDom(EventName);
+    return tp.IsSameText(Name, tp.Events.Unknown) ? EventName : Name;
+};
+/**
+ * Adds an event listener to an element.
+ *
+ * The Handler argument may be either a function or a listener object.
+ * A listener object is any object that provides a handleEvent(event) method.
+ * This is standard DOM EventListener behavior. When an event occurs, the browser
+ * calls Handler.handleEvent(event), with this pointing to the Handler object.
+ *
+ * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * @param {string} EventName The DOM event name or tp.Events value.
+ * @param {Function|object} Handler The event handler function or object implementing handleEvent().
  * @param {object|boolean} Options The optional event listener options.
  * @returns {void}
  */
 tp.On = function (ElementOrSelector, EventName, Handler, Options) {
-    var Element = tp(ElementOrSelector) || tp.Select(ElementOrSelector);
+    var Element = tp.GetEventTarget(ElementOrSelector);
     if (Element && tp.IsFunction(Element.addEventListener))
-        Element.addEventListener(EventName, Handler, Options);
+        Element.addEventListener(tp.GetDomEventName(EventName), Handler, Options);
 };
 /**
  * Removes an event listener from an element.
  * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
- * @param {string} EventName The event name.
- * @param {Function} Handler The event handler.
+ * @param {string} EventName The DOM event name or tp.Events value.
+ * @param {Function|object} Handler The event handler function or object implementing handleEvent().
  * @param {object|boolean} Options The optional event listener options.
  * @returns {void}
  */
 tp.Off = function (ElementOrSelector, EventName, Handler, Options) {
-    var Element = tp(ElementOrSelector) || tp.Select(ElementOrSelector);
+    var Element = tp.GetEventTarget(ElementOrSelector);
     if (Element && tp.IsFunction(Element.removeEventListener))
-        Element.removeEventListener(EventName, Handler, Options);
+        Element.removeEventListener(tp.GetDomEventName(EventName), Handler, Options);
+};
+/**
+ * Dispatches a DOM event.
+ * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * @param {Event|string} EventOrName The Event instance or event name.
+ * @returns {boolean} Returns the dispatch result.
+ */
+tp.Trigger = function (ElementOrSelector, EventOrName) {
+    var Element = tp.GetEventTarget(ElementOrSelector);
+    var e = EventOrName;
+    if (tp.IsString(e))
+        e = new Event(tp.GetDomEventName(e));
+    return Element && e instanceof Event ? Element.dispatchEvent(e) : false;
+};
+/**
+ * Dispatches a DOM event.
+ * @param {Element|Document|Window|string} ElementOrSelector The target selector, element, document, or window.
+ * @param {Event|string} EventOrName The Event instance or event name.
+ * @returns {boolean} Returns the dispatch result.
+ */
+tp.TriggerDom = function (ElementOrSelector, EventOrName) {
+    return tp.Trigger(ElementOrSelector, EventOrName);
 };
 /**
  * Cancels a DOM event by stopping propagation and marking the legacy cancel flags.

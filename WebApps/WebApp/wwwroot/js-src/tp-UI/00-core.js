@@ -51,6 +51,8 @@ tp.Classes = {
     Btn: "tp-Btn",
     Ico: "tp-Ico",
     Img: "tp-Img",
+    ControlToolBar: "tp-ControlToolBar",
+    ControlToolButton: "tp-ControlToolButton",
     Separator: "tp-Separator",
     Strip: "tp-Strip",
     SiteMenu: "tp-SiteMenu",
@@ -104,6 +106,23 @@ tp.Classes = {
     DropDown: "tp-DropDown",
     DropDownBox: "tp-DropDownBox",
     DropDownBoxItem: "tp-DropDownBoxItem",
+    Grid: "tp-Grid",
+    GridColumn: "tp-Grid-Col",
+    GridCell: "tp-Grid-Cell",
+    GridRow: "tp-Grid-Row",
+    CellText: "tp-Cell-Text",
+    Sorter: "tp-Sorter",
+    Resizer: "tp-Resizer",
+    FilterCell: "tp-Filter-Cell",
+    FilterTextBox: "tp-Filter-TextBox",
+    Summary: "tp-Summary",
+    SummaryCell: "tp-Summary-Cell",
+    GroupCell: "tp-Group-Cell",
+    Expander: "tp-Expander",
+    CellTube: "tp-Cell-Tube",
+    GridInplaceEditor: "tp-Grid-InplaceEditor",
+    GridInplaceEditorCheckBox: "tp-Grid-InplaceEditor-CheckBox",
+    GridInplaceEditorLocator: "tp-Grid-InplaceEditor-Locator",
     Menu: "tp-Menu",
     ContextMenu: "tp-ContextMenu",
     MenuItem: "tp-MenuItem",
@@ -115,6 +134,9 @@ tp.Classes = {
     HasChildren: "tp-HasChildren",
     Columns: "tp-Columns",
     Column: "tp-Column",
+    Groups: "tp-Groups",
+    Filters: "tp-Filters",
+    Summaries: "tp-Summaries",
     Overlay: "tp-Overlay",
     CenterInParent: "tp-CenterInParent",
     Shadow: "tp-Shadow",
@@ -212,6 +234,19 @@ tp.Classes = {
     Leaf: "tp-Leaf"
 };
 Object.freeze(tp.Classes);
+
+/**
+ * Small text glyphs used by compact tool buttons.
+ * @type {object}
+ */
+tp.IcoChars = {
+    Insert: "+",
+    Delete: "-",
+    Edit: "E",
+    Find: "F",
+    LargeButtonDown: "\u25BC"
+};
+Object.freeze(tp.IcoChars);
 
 // ● control bind mode
 /**

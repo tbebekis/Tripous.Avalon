@@ -458,6 +458,19 @@ tp.TryNormalizeDateText = function (Text, CultureCode) {
         || { Result: false, NormalizedText: "", Date: null };
 };
 /**
+ * Parses date text into a Date value.
+ * @param {string|Date|null|undefined} Value The value to parse.
+ * @param {string|null|undefined} CultureCode Optional culture code.
+ * @returns {{Result: boolean, Value: Date|null}} Returns the parse result.
+ */
+tp.TryParseDateTime = function (Value, CultureCode) {
+    var Info = tp.TryNormalizeDateText(Value, CultureCode);
+    return {
+        Result: Info.Result === true,
+        Value: Info.Result === true ? Info.Date : null
+    };
+};
+/**
  * Parses date text using ISO format or the current culture date format.
  * @param {string|Date|null|undefined} Text The source text or date.
  * @param {string|null|undefined} CultureCode Optional culture code.

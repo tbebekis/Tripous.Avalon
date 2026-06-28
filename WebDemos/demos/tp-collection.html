@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.Collection</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.Collection</h1>
+        
+        <p>
+            <code>tp.Collection</code> extends <code>tp.List</code>, but it is meant for objects that belong
+            to a parent collection. Its items are <code>tp.CollectionItem</code> objects, or objects with a
+            compatible <code>Collection</code> property. When an item is inserted, the collection sets
+            <code>item.Collection</code> to itself.
+        </p>
+        
+        <p>
+            This makes <code>tp.Collection</code> useful for owned child objects: columns in a grid, menu
+            items, named descriptors, and similar structures. It also supports copying source items through
+            <code>Clone()</code> or <code>Assign()</code>, so assigning one collection to another does not
+            reuse the same item instances.
+        </p>
+        
+        <style>
+            .collection-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .collection-demo-section {
+                margin-bottom: 18px;
+            }
+            .collection-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .collection-demo-section p {
+                margin: 6px 0;
+            }
+            .collection-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .collection-demo-current {
+                box-sizing: border-box;
+                min-height: 96px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+                white-space: pre-wrap;
+            }
+            .collection-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 380px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .collection-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="collection-demo-grid">
+                    <section class="collection-demo-section">
+                        <p class="collection-demo-title">Current collection</p>
+                        <p>
+                            The collection below contains custom <code>DemoColumn</code> items.
+                        </p>
+                        <pre id="CollectionCurrent" class="collection-demo-current"></pre>
+                        <div class="collection-demo-actions">
+                            <button id="CollectionResetButton" type="button">Reset collection</button>
+                            <button id="CollectionClearOutputButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="collection-demo-section">
+                        <p class="collection-demo-title">Owned items</p>
+                        <p>
+                            <code>Add()</code> with no item creates a new item using the configured
+                            <code>ItemClass</code>. Inserted items get a back-reference to the collection.
+                        </p>
+                        <div class="collection-demo-actions">
+                            <button id="CollectionAddNewButton" type="button">Add new item</button>
+                            <button id="CollectionInsertButton" type="button">Insert item</button>
+                            <button id="CollectionRemoveButton" type="button">Remove first</button>
+                        </div>
+                    </section>
+                    
+                    <section class="collection-demo-section">
+                        <p class="collection-demo-title">Copying source items</p>
+                        <p>
+                            <code>AddRange()</code> and <code>Assign()</code> copy collection items. The
+                            demo item implements <code>Clone()</code>, so copied items are new instances.
+                        </p>
+                        <div class="collection-demo-actions">
+                            <button id="CollectionAddRangeButton" type="button">Add range</button>
+                            <button id="CollectionAssignButton" type="button">Assign from source</button>
+                            <button id="CollectionCopyButton" type="button">Copy one item</button>
+                        </div>
+                    </section>
+                    
+                    <section class="collection-demo-section">
+                        <p class="collection-demo-title">List behavior</p>
+                        <p>
+                            Because <code>tp.Collection</code> extends <code>tp.List</code>, it still supports
+                            list events, <code>FindBy()</code>, <code>ContainsBy()</code>, and
+                            <code>GetEnumerator()</code>.
+                        </p>
+                        <div class="collection-demo-actions">
+                            <button id="CollectionFindButton" type="button">Run find/enumerator</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="CollectionOutput" class="collection-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                class DemoColumn extends tp.CollectionItem {
+                    constructor(Name, Title) {
+                        super();
+                        this.Name = Name || "";
+                        this.Title = Title || "";
+                    }
+                    Assign(Source) {
+                        if (Source) {
+                            this.Name = Source.Name || "";
+                            this.Title = Source.Title || "";
+                        }
+                    }
+                    Clone() {
+                        return new DemoColumn(this.Name, this.Title);
+                    }
+                }
+        
+                var Collection = new tp.Collection(DemoColumn);
+                var Lines = [];
+                var NextId = 1;
+        
+                var ItemText = function (Item) {
+                    return Item.Name + ":" + Item.Title + " | owns=" + (Item.Collection === Collection);
+                };
+        
+                var CollectionText = function () {
+                    return Collection.ToArray().map(ItemText).join("\n");
+                };
+        
+                var Write = function () {
+                    tp.Text("#CollectionCurrent", CollectionText() || "(empty)");
+                    tp.Text("#CollectionOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var NewColumn = function (Prefix) {
+                    var Id = NextId++;
+                    return new DemoColumn(Prefix + Id, Prefix + " title " + Id);
+                };
+        
+                var AttachEvents = function () {
+                    Collection.EventsEnabled = true;
+                    Collection.On("Changed", function (Args) {
+                        AddLine("Changed: " + Args.Action + ", count=" + Collection.Count);
+                    });
+                };
+        
+                var ResetCollection = function () {
+                    Collection.EventsEnabled = false;
+                    Collection.Clear();
+                    Collection.Add(new DemoColumn("Code", "Code"));
+                    Collection.Add(new DemoColumn("Name", "Name"));
+                    Collection.Add(new DemoColumn("Amount", "Amount"));
+                    Collection.EventsEnabled = true;
+                    NextId = 1;
+                    Write();
+                };
+        
+                tp.On("#CollectionResetButton", "click", function () {
+                    ResetCollection();
+                    AddLine("Collection reset.");
+                    tp.InfoNote("Collection reset.");
+                });
+        
+                tp.On("#CollectionAddNewButton", "click", function () {
+                    var Item = Collection.Add();
+                    Item.Name = "Auto" + NextId;
+                    Item.Title = "Created by Collection.Add()";
+                    NextId++;
+                    AddLine("Collection.Add() created " + ItemText(Item));
+                    Write();
+                    tp.InfoNote("New collection item added.");
+                });
+        
+                tp.On("#CollectionInsertButton", "click", function () {
+                    var Item = Collection.Insert(1, NewColumn("Inserted"));
+                    AddLine("Collection.Insert(1, item) inserted " + ItemText(Item));
+                    Write();
+                    tp.InfoNote("Item inserted.");
+                });
+        
+                tp.On("#CollectionRemoveButton", "click", function () {
+                    if (Collection.Count > 0)
+                        Collection.RemoveAt(0);
+                    Write();
+                    tp.InfoNote("First item removed.");
+                });
+        
+                tp.On("#CollectionAddRangeButton", "click", function () {
+                    var Source = [new DemoColumn("SourceA", "Source A"), new DemoColumn("SourceB", "Source B")];
+                    Collection.AddRange(Source);
+                    AddLine("Collection.AddRange(Source) copied items.");
+                    AddLine("  source[0] === inserted item = " + (Source[0] === Collection[Collection.Count - 2]));
+                    AddLine("  inserted item owns collection = " + (Collection[Collection.Count - 2].Collection === Collection));
+                    Write();
+                    tp.InfoNote("Range added.");
+                });
+        
+                tp.On("#CollectionAssignButton", "click", function () {
+                    var Source = [new DemoColumn("AssignA", "Assign A"), new DemoColumn("AssignB", "Assign B")];
+                    Collection.Assign(Source);
+                    AddLine("Collection.Assign(Source) replaced items with copies.");
+                    AddLine("  source[0] === collection[0] = " + (Source[0] === Collection[0]));
+                    AddLine("  collection[0].Collection === Collection = " + (Collection[0].Collection === Collection));
+                    Write();
+                    tp.InfoNote("Collection assigned.");
+                });
+        
+                tp.On("#CollectionCopyButton", "click", function () {
+                    var Source = new DemoColumn("CopySource", "Copy source");
+                    var Copy = Collection.CopyItem(Source);
+                    AddLine("Collection.CopyItem(Source) returns new item.");
+                    AddLine("  Source === Copy = " + (Source === Copy));
+                    AddLine("  Copy = " + Copy.Name + ":" + Copy.Title);
+                    tp.InfoNote("Item copied.");
+                });
+        
+                tp.On("#CollectionFindButton", "click", function () {
+                    var Enumerator = Collection.GetEnumerator();
+                    var Names = [];
+                    while (Enumerator.MoveNext())
+                        Names.push(Enumerator.Current.Name);
+                    AddLine("Collection.ContainsBy(\"Name\", \"Name\") = " + Collection.ContainsBy("Name", "Name"));
+                    AddLine("Collection.FindBy(\"Name\", \"Amount\") = " + (Collection.FindBy("Name", "Amount") ? Collection.FindBy("Name", "Amount").Title : "null"));
+                    AddLine("Enumerator names = " + Names.join(", "));
+                    tp.InfoNote("Find/enumerator completed.");
+                });
+        
+                tp.On("#CollectionClearOutputButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AttachEvents();
+                ResetCollection();
+                AddLine("Collection ready. ItemClass = DemoColumn.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Format</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Format</h1>
+        
+        <p>
+            This demo covers the Tripous formatting helpers. They provide C#-style string placeholders,
+            number formatting with standard and simple custom .NET-like patterns, explicit-separator number
+            formatting, and date-time pattern formatting.
+        </p>
+        
+        <p>
+            <code>tp.Format()</code> only replaces placeholders such as <code>{0}</code> and <code>{1}</code>.
+            Number and date values should be formatted first with <code>tp.FormatNumber()</code>,
+            <code>tp.FormatNumber2()</code>, or <code>tp.FormatDateTime()</code>, and then inserted into
+            the final string.
+        </p>
+        
+        <style>
+            .format-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .format-demo-section {
+                margin-bottom: 18px;
+            }
+            .format-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .format-demo-section p {
+                margin: 6px 0;
+            }
+            .format-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .format-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 280px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .format-demo-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="format-demo-grid">
+                    <section class="format-demo-section">
+                        <p class="format-demo-title">String placeholders</p>
+                        <p>
+                            <code>tp.Format()</code> replaces numbered placeholders. <code>tp._F()</code>
+                            is a short alias for the same helper.
+                        </p>
+                        <div class="format-demo-actions">
+                            <button id="FormatStringButton" type="button">Run string format</button>
+                        </div>
+                    </section>
+                    
+                    <section class="format-demo-section">
+                        <p class="format-demo-title">Standard number formats</p>
+                        <p>
+                            <code>tp.FormatNumber()</code> supports standard numeric format strings such as
+                            <code>D</code>, <code>F</code>, <code>N</code>, and <code>C</code>.
+                        </p>
+                        <div class="format-demo-actions">
+                            <button id="FormatNumberButton" type="button">Run number format</button>
+                        </div>
+                    </section>
+                    
+                    <section class="format-demo-section">
+                        <p class="format-demo-title">Custom number formats</p>
+                        <p>
+                            Simple custom patterns such as <code>00000</code>, <code>0.00</code>, and
+                            <code>#,##0.00</code> are also supported.
+                        </p>
+                        <div class="format-demo-actions">
+                            <button id="FormatCustomNumberButton" type="button">Run custom number format</button>
+                        </div>
+                    </section>
+                    
+                    <section class="format-demo-section">
+                        <p class="format-demo-title">Date and culture helpers</p>
+                        <p>
+                            <code>tp.FormatDateTime()</code> uses date-time pattern tokens such as
+                            <code>yyyy</code>, <code>MM</code>, <code>dd</code>, <code>HH</code>, and
+                            <code>mm</code>. Culture helper functions report separators and date formats.
+                        </p>
+                        <div class="format-demo-actions">
+                            <button id="FormatDateButton" type="button">Run date format</button>
+                            <button id="FormatCultureButton" type="button">Run culture helpers</button>
+                            <button id="FormatClearButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="FormatOutput" class="format-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+                var NumberValue = -1234.5678;
+                var DateValue = new Date(2026, 0, 15, 13, 5, 9, 123);
+        
+                var Write = function () {
+                    tp.Text("#FormatOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                tp.On("#FormatStringButton", "click", function () {
+                    var Amount = tp.FormatNumber(1234.5, "N2", "en-US");
+                    var DateText = tp.FormatDateTime(DateValue, "yyyy-MM-dd");
+        
+                    AddLine("tp.Format(\"Name: {0}, Amount: {1}\", \"Tripous\", \"" + Amount + "\") = "
+                        + tp.Format("Name: {0}, Amount: {1}", "Tripous", Amount));
+                    AddLine("tp._F(\"Date: {0}\", \"" + DateText + "\") = " + tp._F("Date: {0}", DateText));
+                    tp.InfoNote("String format checked.");
+                });
+        
+                tp.On("#FormatNumberButton", "click", function () {
+                    AddLine("tp.FormatNumber(1234, \"D6\", \"en-US\") = " + tp.FormatNumber(1234, "D6", "en-US"));
+                    AddLine("tp.FormatNumber(" + NumberValue + ", \"F4\", \"en-US\") = " + tp.FormatNumber(NumberValue, "F4", "en-US"));
+                    AddLine("tp.FormatNumber(" + NumberValue + ", \"N3\", \"en-US\") = " + tp.FormatNumber(NumberValue, "N3", "en-US"));
+                    AddLine("tp.FormatNumber(123.456, \"C\", \"en-US\") = " + tp.FormatNumber(123.456, "C", "en-US"));
+                    tp.InfoNote("Standard number formats checked.");
+                });
+        
+                tp.On("#FormatCustomNumberButton", "click", function () {
+                    AddLine("tp.FormatNumber(1234.5678, \"00000\", \"en-US\") = " + tp.FormatNumber(1234.5678, "00000", "en-US"));
+                    AddLine("tp.FormatNumber(0.45678, \"0.00\", \"en-US\") = " + tp.FormatNumber(0.45678, "0.00", "en-US"));
+                    AddLine("tp.FormatNumber(2147483647, \"#,##0\", \"en-US\") = " + tp.FormatNumber(2147483647, "#,##0", "en-US"));
+                    AddLine("tp.FormatNumber2(1234567.89, 2, \",\", \".\") = " + tp.FormatNumber2(1234567.89, 2, ",", "."));
+                    tp.InfoNote("Custom number formats checked.");
+                });
+        
+                tp.On("#FormatDateButton", "click", function () {
+                    AddLine("tp.FormatDateTime(DateValue, \"yyyy-MM-dd\") = " + tp.FormatDateTime(DateValue, "yyyy-MM-dd"));
+                    AddLine("tp.FormatDateTime(DateValue, \"dd/MM/yyyy HH:mm:ss.fff\") = " + tp.FormatDateTime(DateValue, "dd/MM/yyyy HH:mm:ss.fff"));
+                    AddLine("tp.FormatDateTime(DateValue, \"yyyy/MM/dd HH:mm\") = " + tp.FormatDateTime(DateValue, "yyyy/MM/dd HH:mm"));
+                    tp.InfoNote("Date formats checked.");
+                });
+        
+                tp.On("#FormatCultureButton", "click", function () {
+                    AddLine("tp.GetCultureCode() = " + tp.GetCultureCode());
+                    AddLine("tp.GetDecimalSeparator(\"en-US\") = " + tp.GetDecimalSeparator("en-US"));
+                    AddLine("tp.GetThousandSeparator(\"en-US\") = " + tp.GetThousandSeparator("en-US"));
+                    AddLine("tp.GetDateSeparator(\"en-US\") = " + tp.GetDateSeparator("en-US"));
+                    AddLine("tp.GetDateFormat(\"en-US\") = " + tp.GetDateFormat("en-US"));
+                    AddLine("tp.GetDateFormat(\"el-GR\") = " + tp.GetDateFormat("el-GR"));
+                    AddLine("tp.GetDatePattern(\"yyyy-MM-dd\") = " + tp.EnumNameOf(tp.DatePattern, tp.GetDatePattern("yyyy-MM-dd")));
+                    tp.InfoNote("Culture helpers checked.");
+                });
+        
+                tp.On("#FormatClearButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AddLine("Click a button to run formatting checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

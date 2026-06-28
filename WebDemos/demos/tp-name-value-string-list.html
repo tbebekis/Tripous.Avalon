@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.NameValueStringList</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.NameValueStringList</h1>
+        
+        <p>
+            <code>tp.NameValueStringList</code> stores text lines in <code>Name=Value</code> format. It is
+            useful for compact option lists, old-style setup text, and places where a readable multiline
+            string must become structured name/value data.
+        </p>
+        
+        <p>
+            The class can be assigned from text, an array of lines, another
+            <code>tp.NameValueStringList</code>, or a <code>tp.Dictionary</code>. Names are matched
+            case-insensitively, while stored line text is kept as strings.
+        </p>
+        
+        <style>
+            .nvsl-demo-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .nvsl-demo-section {
+                margin-bottom: 18px;
+            }
+            .nvsl-demo-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .nvsl-demo-section p {
+                margin: 6px 0;
+            }
+            .nvsl-demo-row {
+                display: grid;
+                grid-template-columns: 90px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .nvsl-demo-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .nvsl-demo-textarea {
+                box-sizing: border-box;
+                width: 100%;
+                min-height: 120px;
+                font-family: monospace;
+            }
+            .nvsl-demo-current {
+                box-sizing: border-box;
+                min-height: 120px;
+                padding: 10px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+                white-space: pre-wrap;
+            }
+            .nvsl-demo-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 360px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .nvsl-demo-grid,
+                .nvsl-demo-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="nvsl-demo-grid">
+                    <section class="nvsl-demo-section">
+                        <p class="nvsl-demo-title">Text input</p>
+                        <p>
+                            Assign multiline text to <code>List.Text</code>. Blank lines are ignored.
+                        </p>
+                        <textarea id="NvslText" class="nvsl-demo-textarea">Name=Tripous
+Theme=dark
+PageSize=25</textarea>
+                        <div class="nvsl-demo-actions">
+                            <button id="NvslAssignTextButton" type="button">Assign text</button>
+                            <button id="NvslAssignArrayButton" type="button">Assign array</button>
+                            <button id="NvslAssignDictionaryButton" type="button">Assign dictionary</button>
+                        </div>
+                    </section>
+                    
+                    <section class="nvsl-demo-section">
+                        <p class="nvsl-demo-title">Current list</p>
+                        <p>
+                            The current <code>Text</code> property is shown below.
+                        </p>
+                        <pre id="NvslCurrent" class="nvsl-demo-current"></pre>
+                        <div class="nvsl-demo-actions">
+                            <button id="NvslCloneButton" type="button">Clone</button>
+                            <button id="NvslClearOutputButton" type="button">Clear output</button>
+                        </div>
+                    </section>
+                    
+                    <section class="nvsl-demo-section">
+                        <p class="nvsl-demo-title">Add and set values</p>
+                        <p>
+                            <code>AddLine()</code> parses a line. <code>SetValue()</code> updates an existing
+                            name or adds a new one.
+                        </p>
+                        <label class="nvsl-demo-row" for="NvslNameInput">
+                            <span>name</span>
+                            <input id="NvslNameInput" type="text" value="Theme">
+                        </label>
+                        <label class="nvsl-demo-row" for="NvslValueInput">
+                            <span>value</span>
+                            <input id="NvslValueInput" type="text" value="light">
+                        </label>
+                        <div class="nvsl-demo-actions">
+                            <button id="NvslSetValueButton" type="button">Set value</button>
+                            <button id="NvslAddLineButton" type="button">Add line</button>
+                            <button id="NvslRemoveButton" type="button">Remove name</button>
+                        </div>
+                    </section>
+                    
+                    <section class="nvsl-demo-section">
+                        <p class="nvsl-demo-title">Lookup and conversion</p>
+                        <p>
+                            Read names, values, lines, comma text, and convert to <code>tp.Dictionary</code>.
+                        </p>
+                        <div class="nvsl-demo-actions">
+                            <button id="NvslLookupButton" type="button">Run lookup</button>
+                            <button id="NvslDictionaryButton" type="button">To dictionary</button>
+                            <button id="NvslEnumeratorButton" type="button">Enumerate</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="NvslOutput" class="nvsl-demo-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var List = new tp.NameValueStringList();
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#NvslCurrent", List.Text || "(empty)");
+                    tp.Text("#NvslOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var AssignDefault = function () {
+                    List.Text = tp.Value("#NvslText");
+                    Write();
+                };
+        
+                tp.On("#NvslAssignTextButton", "click", function () {
+                    List.Text = tp.Value("#NvslText");
+                    AddLine("List.Text assigned. Count = " + List.Count);
+                    tp.InfoNote("Text assigned.");
+                });
+        
+                tp.On("#NvslAssignArrayButton", "click", function () {
+                    List.Assign(["Country=GR", "Currency=EUR", "Active=true"]);
+                    AddLine("List.Assign(array) executed. Text:");
+                    AddLine(List.Text);
+                    tp.InfoNote("Array assigned.");
+                });
+        
+                tp.On("#NvslAssignDictionaryButton", "click", function () {
+                    var Dictionary = new tp.Dictionary();
+                    Dictionary.Set("Host", "localhost");
+                    Dictionary.Set("Port", "5000");
+                    Dictionary.Set("UseSsl", "false");
+                    List.Assign(Dictionary);
+                    AddLine("List.Assign(tp.Dictionary) executed. Names = " + List.Names.join(", "));
+                    tp.InfoNote("Dictionary assigned.");
+                });
+        
+                tp.On("#NvslSetValueButton", "click", function () {
+                    List.SetValue(tp.Value("#NvslNameInput"), tp.Value("#NvslValueInput"));
+                    AddLine("List.SetValue(name, value) executed.");
+                    Write();
+                    tp.InfoNote("Value set.");
+                });
+        
+                tp.On("#NvslAddLineButton", "click", function () {
+                    var Line = tp.Value("#NvslNameInput") + "=" + tp.Value("#NvslValueInput");
+                    try {
+                        List.AddLine(Line);
+                        AddLine("List.AddLine(" + JSON.stringify(Line) + ") executed.");
+                    } catch (e) {
+                        AddLine("List.AddLine failed: " + e.message);
+                    }
+                    Write();
+                    tp.InfoNote("Add line attempted.");
+                });
+        
+                tp.On("#NvslRemoveButton", "click", function () {
+                    var Name = tp.Value("#NvslNameInput");
+                    List.Remove(Name);
+                    AddLine("List.Remove(" + JSON.stringify(Name) + ") executed. Contains = " + List.Contains(Name));
+                    Write();
+                    tp.InfoNote("Name removed.");
+                });
+        
+                tp.On("#NvslLookupButton", "click", function () {
+                    AddLine("List.Count = " + List.Count);
+                    AddLine("List.Names = " + JSON.stringify(List.Names));
+                    AddLine("List.CommaText = " + List.CommaText);
+                    AddLine("List.Contains(\"theme\") = " + List.Contains("theme"));
+                    AddLine("List.GetValue(\"Theme\") = " + JSON.stringify(List.GetValue("Theme")));
+                    AddLine("List.NameAt(0) = " + JSON.stringify(List.NameAt(0)));
+                    AddLine("List.ValueAt(0) = " + JSON.stringify(List.ValueAt(0)));
+                    AddLine("List.ContainsLine(\"Name=Tripous\") = " + List.ContainsLine("Name=Tripous"));
+                    tp.InfoNote("Lookup completed.");
+                });
+        
+                tp.On("#NvslDictionaryButton", "click", function () {
+                    var Dictionary = List.ToDictionary();
+                    AddLine("List.ToDictionary().Keys() = " + JSON.stringify(Dictionary.Keys()));
+                    AddLine("List.ToDictionary().Values() = " + JSON.stringify(Dictionary.Values()));
+                    tp.InfoNote("Converted to dictionary.");
+                });
+        
+                tp.On("#NvslEnumeratorButton", "click", function () {
+                    var Enumerator = List.GetEnumerator();
+                    var Items = [];
+                    while (Enumerator.MoveNext())
+                        Items.push(Enumerator.Current);
+                    AddLine("Enumerator lines = " + Items.join(" | "));
+                    AddLine("List.ToArray() = " + JSON.stringify(List.ToArray()));
+                    tp.InfoNote("Enumeration completed.");
+                });
+        
+                tp.On("#NvslCloneButton", "click", function () {
+                    var Clone = List.Clone();
+                    AddLine("Clone.Text =");
+                    AddLine(Clone.Text);
+                    AddLine("Clone !== List = " + (Clone !== List));
+                    tp.InfoNote("List cloned.");
+                });
+        
+                tp.On("#NvslClearOutputButton", "click", function () {
+                    Lines = [];
+                    Write();
+                });
+        
+                AssignDefault();
+                AddLine("NameValueStringList ready.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

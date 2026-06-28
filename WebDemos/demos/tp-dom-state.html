@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM state</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>DOM state</h1>
+        
+        <p>
+            This demo covers small DOM helpers that read and change element state:
+            <code>tp.Enabled()</code>, <code>tp.ReadOnly()</code>, and <code>tp.TabIndex()</code>.
+            These helpers are useful when code works directly with plain DOM elements instead of
+            Tripous components or controls.
+        </p>
+        
+        <p>
+            <code>tp.Enabled()</code> uses the native <code>disabled</code> property when the element
+            supports it. For a plain HTMLElement such as a <code>div</code>, it toggles the
+            <code>tp-Disabled</code> CSS class. <code>tp.ReadOnly()</code> uses the native
+            <code>readOnly</code> property for text inputs and textareas. For checkboxes and radio
+            buttons it uses <code>disabled</code>, because those elements do not have a useful
+            read-only state. <code>tp.TabIndex()</code> reads or writes the browser
+            <code>tabIndex</code> value.
+        </p>
+        
+        <style>
+            .dom-state-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 980px;
+                align-items: start;
+            }
+            .dom-state-section {
+                margin-bottom: 18px;
+            }
+            .dom-state-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dom-state-section p {
+                margin: 6px 0;
+            }
+            .dom-state-form {
+                display: grid;
+                gap: 10px;
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .dom-state-row {
+                display: grid;
+                grid-template-columns: 130px minmax(0, 1fr);
+                gap: 8px;
+                align-items: center;
+            }
+            .dom-state-panel {
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .dom-state-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dom-state-log {
+                box-sizing: border-box;
+                width: min(100%, 900px);
+                min-height: 340px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dom-state-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+                .dom-state-row {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dom-state-grid">
+                    <section class="dom-state-section">
+                        <p class="dom-state-title">Sample elements</p>
+                        <p>
+                            The buttons operate on these plain DOM elements and write the current
+                            state below.
+                        </p>
+                        <div class="dom-state-form">
+                            <label class="dom-state-row" for="DomStateText">
+                                <span>text input</span>
+                                <input id="DomStateText" type="text" value="Tripous">
+                            </label>
+                            <label class="dom-state-row" for="DomStateCheck">
+                                <span>checkbox</span>
+                                <input id="DomStateCheck" type="checkbox" checked>
+                            </label>
+                            <div class="dom-state-row">
+                                <span>button</span>
+                                <button id="DomStateButton" type="button">Native button</button>
+                            </div>
+                            <div class="dom-state-row">
+                                <span>plain div</span>
+                                <div id="DomStatePanel" class="dom-state-panel" tabindex="-1">Plain HTMLElement</div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-state-section">
+                        <p class="dom-state-title">Enabled</p>
+                        <p>
+                            The button and input use their native <code>disabled</code> property.
+                            The plain div receives or loses the <code>tp-Disabled</code> CSS class.
+                        </p>
+                        <div class="dom-state-actions">
+                            <button id="DomStateDisableButton" type="button">Disable targets</button>
+                            <button id="DomStateEnableButton" type="button">Enable targets</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-state-section">
+                        <p class="dom-state-title">Read-only</p>
+                        <p>
+                            Text input read-only state uses <code>readOnly</code>. Checkbox read-only
+                            state uses <code>disabled</code>, matching the old Tripous behavior.
+                        </p>
+                        <div class="dom-state-actions">
+                            <button id="DomStateReadOnlyButton" type="button">Set read-only</button>
+                            <button id="DomStateEditableButton" type="button">Set editable</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-state-section">
+                        <p class="dom-state-title">TabIndex and focus</p>
+                        <p>
+                            The plain div starts with <code>tabindex="-1"</code>. The test sets
+                            <code>tabIndex</code> to <code>0</code>, focuses the div, and checks
+                            <code>tp.IsFocused()</code> and <code>tp.HasFocused()</code>.
+                        </p>
+                        <div class="dom-state-actions">
+                            <button id="DomStateTabIndexButton" type="button">Run focus test</button>
+                            <button id="DomStateResetButton" type="button">Reset</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DomStateOutput" class="dom-state-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#DomStateOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var ShowState = function (Caption) {
+                    AddLine(Caption);
+                    AddLine("  tp.Enabled(button) = " + tp.Enabled("#DomStateButton"));
+                    AddLine("  tp.Enabled(text input) = " + tp.Enabled("#DomStateText"));
+                    AddLine("  tp.Enabled(plain div) = " + tp.Enabled("#DomStatePanel"));
+                    AddLine("  tp.ReadOnly(text input) = " + tp.ReadOnly("#DomStateText"));
+                    AddLine("  tp.ReadOnly(checkbox) = " + tp.ReadOnly("#DomStateCheck"));
+                    AddLine("  tp.TabIndex(plain div) = " + tp.TabIndex("#DomStatePanel"));
+                    AddLine("  tp.IsFocused(plain div) = " + tp.IsFocused("#DomStatePanel"));
+                    AddLine("  tp.HasFocused(form) = " + tp.HasFocused(".dom-state-form"));
+                };
+        
+                var ResetTargets = function () {
+                    tp.Enabled("#DomStateButton", true);
+                    tp.Enabled("#DomStateText", true);
+                    tp.Enabled("#DomStatePanel", true);
+                    tp.ReadOnly("#DomStateText", false);
+                    tp.ReadOnly("#DomStateCheck", false);
+                    tp.TabIndex("#DomStatePanel", -1);
+                };
+        
+                tp.On("#DomStateDisableButton", "click", function () {
+                    tp.Enabled("#DomStateButton", false);
+                    tp.Enabled("#DomStateText", false);
+                    tp.Enabled("#DomStatePanel", false);
+                    ShowState("After tp.Enabled(..., false):");
+                    tp.InfoNote("Targets disabled.");
+                });
+        
+                tp.On("#DomStateEnableButton", "click", function () {
+                    tp.Enabled("#DomStateButton", true);
+                    tp.Enabled("#DomStateText", true);
+                    tp.Enabled("#DomStatePanel", true);
+                    ShowState("After tp.Enabled(..., true):");
+                    tp.InfoNote("Targets enabled.");
+                });
+        
+                tp.On("#DomStateReadOnlyButton", "click", function () {
+                    tp.ReadOnly("#DomStateText", true);
+                    tp.ReadOnly("#DomStateCheck", true);
+                    ShowState("After tp.ReadOnly(..., true):");
+                    tp.InfoNote("Read-only state applied.");
+                });
+        
+                tp.On("#DomStateEditableButton", "click", function () {
+                    tp.ReadOnly("#DomStateText", false);
+                    tp.ReadOnly("#DomStateCheck", false);
+                    ShowState("After tp.ReadOnly(..., false):");
+                    tp.InfoNote("Editable state applied.");
+                });
+        
+                tp.On("#DomStateTabIndexButton", "click", function () {
+                    tp.TabIndex("#DomStatePanel", 0);
+                    tp("#DomStatePanel").focus();
+                    ShowState("After tp.TabIndex(..., 0) and focus():");
+                    tp.InfoNote("Focus test completed.");
+                });
+        
+                tp.On("#DomStateResetButton", "click", function () {
+                    Lines = [];
+                    ResetTargets();
+                    ShowState("Targets reset:");
+                });
+        
+                ResetTargets();
+                ShowState("Initial state:");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

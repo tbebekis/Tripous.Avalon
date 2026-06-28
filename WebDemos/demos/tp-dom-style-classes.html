@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM style and classes</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>DOM style and classes</h1>
+        
+        <p>
+            This demo covers Tripous helpers that work with inline style, computed style, display,
+            visibility, CSS classes, and z-index. These helpers are intentionally small wrappers
+            around normal browser DOM APIs. They accept either a selector or an element and they keep
+            calling code consistent with the rest of the Tripous DOM helpers.
+        </p>
+        
+        <p>
+            The first target shows style, display, and visibility changes. The second target is used
+            only for class operations, so clearing classes does not destroy the layout of the whole
+            demo. The two overlapping boxes show how z-index helpers move elements in front of or
+            behind their siblings.
+        </p>
+        
+        <style>
+            .dom-style-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 22px;
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: 1040px;
+                align-items: start;
+            }
+            .dom-style-section {
+                margin-bottom: 18px;
+            }
+            .dom-style-title {
+                margin: 0 0 6px 0;
+                font-weight: 700;
+            }
+            .dom-style-section p {
+                margin: 6px 0;
+            }
+            .dom-style-target,
+            .dom-style-class-target {
+                min-height: 74px;
+                padding: 12px;
+                border: 2px solid #8c959f;
+                background: #ffffff;
+                color: #24292f;
+            }
+            .dom-style-class-target {
+                display: inline-flex;
+                min-width: 220px;
+                align-items: center;
+                justify-content: center;
+            }
+            .dom-style-highlight {
+                background: #fff8c5;
+                border-color: #9a6700;
+                color: #3b2300;
+            }
+            .dom-style-muted {
+                opacity: 0.72;
+            }
+            .dom-style-rounded {
+                border-radius: 8px;
+            }
+            .dom-style-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                align-items: center;
+                margin-top: 8px;
+            }
+            .dom-style-stack {
+                position: relative;
+                width: min(100%, 360px);
+                height: 170px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .dom-style-layer {
+                position: absolute;
+                display: flex;
+                width: 170px;
+                height: 92px;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid #24292f;
+                font-weight: 700;
+            }
+            #DomStyleBackBox {
+                left: 34px;
+                top: 26px;
+                z-index: 1;
+                background: #ddf4ff;
+            }
+            #DomStyleFrontBox {
+                left: 122px;
+                top: 60px;
+                z-index: 2;
+                background: #dafbe1;
+            }
+            .dom-style-log {
+                box-sizing: border-box;
+                width: min(100%, 940px);
+                min-height: 360px;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            @media (max-width: 760px) {
+                .dom-style-grid {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="demo-panel demo-panel-wide">
+                <div class="dom-style-grid">
+                    <section class="dom-style-section">
+                        <p class="dom-style-title">Inline and computed style</p>
+                        <p>
+                            The buttons below operate on the target box. <code>tp.SetStyle()</code>
+                            and <code>tp.StyleProp()</code> write inline style. <code>tp.StyleProp()</code>
+                            also reads computed style when no value is passed. <code>tp.StyleText()</code>
+                            replaces the whole inline style text.
+                        </p>
+                        <div id="DomStyleTarget" class="dom-style-target">
+                            Style target
+                        </div>
+                        <div class="dom-style-actions">
+                            <button id="DomStyleSetButton" type="button">Set style</button>
+                            <button id="DomStyleTextButton" type="button">Set style text</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-style-section">
+                        <p class="dom-style-title">Display and visibility</p>
+                        <p>
+                            <code>tp.Visibility()</code> changes the CSS <code>visibility</code> property.
+                            <code>tp.Visible()</code> changes the CSS <code>display</code> property.
+                            The test hides the same target briefly and then restores it, so the page
+                            remains usable.
+                        </p>
+                        <div class="dom-style-actions">
+                            <button id="DomDisplayButton" type="button">Run display test</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-style-section">
+                        <p class="dom-style-title">CSS classes</p>
+                        <p>
+                            Class helpers normalize strings and arrays of class names. This target is
+                            separate because <code>tp.ClearClasses()</code> removes every class from an
+                            element.
+                        </p>
+                        <div id="DomClassTarget" class="dom-style-class-target">
+                            Class target
+                        </div>
+                        <div class="dom-style-actions">
+                            <button id="DomClassButton" type="button">Run class test</button>
+                        </div>
+                    </section>
+                    
+                    <section class="dom-style-section">
+                        <p class="dom-style-title">Z-index</p>
+                        <p>
+                            <code>tp.ZIndex()</code> reads or writes z-index. <code>tp.BringToFront()</code>
+                            and <code>tp.SendToBack()</code> calculate a value based on sibling elements.
+                        </p>
+                        <div id="DomStyleStack" class="dom-style-stack">
+                            <div id="DomStyleBackBox" class="dom-style-layer">Blue box</div>
+                            <div id="DomStyleFrontBox" class="dom-style-layer">Green box</div>
+                        </div>
+                        <div class="dom-style-actions">
+                            <button id="DomZIndexButton" type="button">Run z-index test</button>
+                            <button id="DomStyleResetButton" type="button">Reset</button>
+                        </div>
+                    </section>
+                </div>
+                
+                <pre id="DomStyleOutput" class="dom-style-log"></pre>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+        
+                var Write = function () {
+                    tp.Text("#DomStyleOutput", Lines.join("\n"));
+                };
+        
+                var AddLine = function (Text) {
+                    Lines.push(Text);
+                    Write();
+                };
+        
+                var ResetTargets = function () {
+                    tp.StyleText("#DomStyleTarget", "");
+                    tp.Text("#DomStyleTarget", "Style target");
+                    tp.StyleText("#DomClassTarget", "");
+                    tp.ClearClasses("#DomClassTarget");
+                    tp.AddClass("#DomClassTarget", "dom-style-class-target");
+                    tp.Text("#DomClassTarget", "Class target");
+                    tp.ZIndex("#DomStyleBackBox", 1);
+                    tp.ZIndex("#DomStyleFrontBox", 2);
+                };
+        
+                tp.On("#DomStyleSetButton", "click", function () {
+                    tp.SetStyle("#DomStyleTarget", {
+                        backgroundColor: "#fff8c5",
+                        borderColor: "#9a6700",
+                        padding: "18px",
+                        color: "#3b2300"
+                    });
+                    tp.StyleProp("#DomStyleTarget", "fontWeight", "700");
+                    AddLine("tp.SetStyle(...) and tp.StyleProp(..., value) applied.");
+                    AddLine("  computed background-color = " + tp.StyleProp("#DomStyleTarget", "background-color"));
+                    AddLine("  computed font-weight = " + tp.StyleProp("#DomStyleTarget", "fontWeight"));
+                    AddLine("  tp.GetLineHeight(...) = " + tp.GetLineHeight("#DomStyleTarget"));
+                    tp.InfoNote("Style helpers completed.");
+                });
+        
+                tp.On("#DomStyleTextButton", "click", function () {
+                    tp.StyleText("#DomStyleTarget", "padding: 12px; border: 2px solid #0969da; background: #ddf4ff; color: #0969da;");
+                    AddLine("tp.StyleText(...) replaced the full inline style.");
+                    AddLine("  inline cssText = " + tp.StyleText("#DomStyleTarget"));
+                    tp.InfoNote("Style text replaced.");
+                });
+        
+                tp.On("#DomDisplayButton", "click", function () {
+                    AddLine("Before display test:");
+                    AddLine("  tp.Display(...) = " + tp.Display("#DomStyleTarget"));
+                    AddLine("  tp.Visibility(...) = " + tp.Visibility("#DomStyleTarget"));
+                    AddLine("  tp.Visible(...) = " + tp.Visible("#DomStyleTarget"));
+                    tp.Visibility("#DomStyleTarget", false);
+                    AddLine("After tp.Visibility(..., false): " + tp.Visibility("#DomStyleTarget"));
+                    tp.Visibility("#DomStyleTarget", true);
+                    tp.Visible("#DomStyleTarget", false);
+                    AddLine("After tp.Visible(..., false): " + tp.Visible("#DomStyleTarget"));
+                    tp.Visible("#DomStyleTarget", true);
+                    tp.Display("#DomStyleTarget", "block");
+                    AddLine("Restored with tp.Visibility(..., true), tp.Visible(..., true), and tp.Display(..., \"block\").");
+                    tp.InfoNote("Display and visibility restored.");
+                });
+        
+                tp.On("#DomClassButton", "click", function () {
+                    var Classes = tp.ConcatClasses("dom-style-highlight", ["dom-style-rounded", "dom-style-muted"]);
+                    tp.ClearClasses("#DomClassTarget");
+                    tp.AddClass("#DomClassTarget", "dom-style-class-target");
+                    tp.AddClass("#DomClassTarget", Classes);
+                    AddLine("tp.ConcatClasses(...) = " + Classes);
+                    AddLine("After tp.AddClass(...): " + tp("#DomClassTarget").className);
+                    AddLine("tp.HasClass(..., \"dom-style-rounded\") = " + tp.HasClass("#DomClassTarget", "dom-style-rounded"));
+                    AddLine("tp.ToggleClass(..., \"dom-style-muted\") = " + tp.ToggleClass("#DomClassTarget", "dom-style-muted"));
+                    AddLine("After toggle: " + tp("#DomClassTarget").className);
+                    tp.AddClasses("#DomClassTarget", "dom-style-muted", ["dom-style-rounded"]);
+                    AddLine("After tp.AddClasses(...): " + tp("#DomClassTarget").className);
+                    tp.RemoveClasses("#DomClassTarget", "dom-style-highlight", ["dom-style-rounded"]);
+                    AddLine("After tp.RemoveClasses(...): " + tp("#DomClassTarget").className);
+                    AddLine("tp.GetCssClassList(\"a  b\", [\"c\", \"d e\"]) = " + tp.GetCssClassList(["a  b", ["c", "d e"]]).join(", "));
+                    tp.InfoNote("Class helpers completed.");
+                });
+        
+                tp.On("#DomZIndexButton", "click", function () {
+                    AddLine("Initial z-index values:");
+                    AddLine("  blue = " + tp.ZIndex("#DomStyleBackBox"));
+                    AddLine("  green = " + tp.ZIndex("#DomStyleFrontBox"));
+                    AddLine("  max in stack = " + tp.MaxZIndexOf("#DomStyleStack"));
+                    AddLine("  min in stack = " + tp.MinZIndexOf("#DomStyleStack"));
+                    AddLine("tp.BringToFront(blue) = " + tp.BringToFront("#DomStyleBackBox"));
+                    AddLine("After bring-to-front: blue = " + tp.ZIndex("#DomStyleBackBox") + ", green = " + tp.ZIndex("#DomStyleFrontBox"));
+                    AddLine("tp.SendToBack(blue) = " + tp.SendToBack("#DomStyleBackBox"));
+                    AddLine("After send-to-back: blue = " + tp.ZIndex("#DomStyleBackBox") + ", green = " + tp.ZIndex("#DomStyleFrontBox"));
+                    tp.InfoNote("Z-index helpers completed.");
+                });
+        
+                tp.On("#DomStyleResetButton", "click", function () {
+                    Lines = [];
+                    ResetTargets();
+                    AddLine("Targets reset.");
+                });
+        
+                ResetTargets();
+                AddLine("Click a button to run DOM style and class checks.");
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>
