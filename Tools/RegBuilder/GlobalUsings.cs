@@ -55,6 +55,6 @@ global using Avalonia.Controls.ApplicationLifetimes;
 global using Avalonia.Data.Converters;
 
 global using Tripous;
-global using Tripous.Data;
 global using Tripous.Desktop;
+global using Tripous.RegBuilder;
  

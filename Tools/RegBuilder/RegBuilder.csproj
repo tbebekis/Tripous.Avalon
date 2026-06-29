@@ -22,9 +22,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Tripous.Data\Tripous.Data.csproj" />
       <ProjectReference Include="..\..\Tripous.Desktop\Tripous.Desktop.csproj" />
+      <ProjectReference Include="..\..\Tripous.RegBuilder\Tripous.RegBuilder.csproj" />
       <ProjectReference Include="..\..\Tripous\Tripous.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Dialogs\RegBuilderProjectDialog.axaml.cs">
+        <DependentUpon>RegBuilderProjectDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

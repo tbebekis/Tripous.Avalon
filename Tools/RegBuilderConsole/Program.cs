@@ -9,7 +9,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using Tripous;
-using Tripous.Data;
+using Tripous.RegBuilder;
 
 namespace RegBuilderConsole;
 

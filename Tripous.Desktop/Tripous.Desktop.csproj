@@ -39,7 +39,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tripous\Tripous.csproj" />
-    <ProjectReference Include="..\Tripous.Data\Tripous.Data.csproj" />    
+    <ProjectReference Include="..\Tripous.Data\Tripous.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,10 +57,6 @@
     </Compile>
     <Compile Update="Dialogs\FirstRunDialog.axaml.cs">
       <DependentUpon>FirstRunDialog.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Dialogs\RegBuilderProjectDialog.axaml.cs">
-      <DependentUpon>RegBuilderProjectDialog.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

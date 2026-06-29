@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Class="Tripous.Desktop.RegBuilderProjectDialog"
+    x:Class="RegBuilder.RegBuilderProjectDialog"
     Title="Registration Builder Project"
     WindowStartupLocation="CenterOwner"
     CanResize="False"

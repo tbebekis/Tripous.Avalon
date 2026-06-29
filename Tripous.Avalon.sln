@@ -82,6 +82,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.Web", "Tripous.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripousWebBundler", "Tools\TripousWebBundler\TripousWebBundler.csproj", "{CBFCB5FC-3A2C-465E-AE98-5F7834425FE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.RegBuilder", "Tripous.RegBuilder\Tripous.RegBuilder.csproj", "{B6B6CD81-9093-401B-ADB9-9A998F166489}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -392,6 +394,18 @@ Global
 		{CBFCB5FC-3A2C-465E-AE98-5F7834425FE1}.Release|x64.Build.0 = Release|Any CPU
 		{CBFCB5FC-3A2C-465E-AE98-5F7834425FE1}.Release|x86.ActiveCfg = Release|Any CPU
 		{CBFCB5FC-3A2C-465E-AE98-5F7834425FE1}.Release|x86.Build.0 = Release|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Debug|x64.Build.0 = Debug|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Debug|x86.Build.0 = Debug|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Release|x64.ActiveCfg = Release|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Release|x64.Build.0 = Release|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6B6CD81-9093-401B-ADB9-9A998F166489}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Tripous.Data\Tripous.Data.csproj" />
+        <ProjectReference Include="..\..\Tripous.RegBuilder\Tripous.RegBuilder.csproj" />
         <ProjectReference Include="..\..\Tripous\Tripous.csproj" />
     </ItemGroup>
 

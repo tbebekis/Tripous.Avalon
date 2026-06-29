@@ -6,7 +6,7 @@
  * See License.txt for details.
  */
 
-namespace Tripous.Desktop;
+namespace RegBuilder;
 
 /// <summary>
 /// Dialog used to edit a RegBuilder project.
