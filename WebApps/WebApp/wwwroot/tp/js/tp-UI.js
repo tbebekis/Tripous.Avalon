@@ -6248,7 +6248,8 @@ tp.IFrame.prototype.fSpinnerVisible = false;
 // ● 160-button.js
 // ● command property
 /**
- * Interface-like base class for objects that provide a Command string property.
+ * Represents an object with a Command string property.
+ * @interface
  */
 tp.ICommandProperty = class {
     // ● constructor
@@ -6259,9 +6260,14 @@ tp.ICommandProperty = class {
     }
 };
 /**
- * Returns true when a value provides a Command property.
+ * The command.
+ * @type {string}
+ */
+tp.ICommandProperty.prototype.Command = "";
+/**
+ * Type-guard function.
  * @param {*} Value The value to check.
- * @returns {boolean} Returns true when the value provides a Command property.
+ * @returns {boolean} Returns true when the value provides a Command string property.
  */
 tp.HasCommandProperty = function (Value) {
     return Value instanceof tp.Object && "Command" in Value;
@@ -6560,7 +6566,7 @@ tp.ControlToolButton = class extends tp.Component {
     static CreateParams(CreateParams, Options) {
         var Params;
         var Element;
-        if (arguments.length > 1) {
+        if (arguments.length > 1 && !tp.IsNil(Options)) {
             Params = new tp.CreateParams(Options);
             Params.ElementOrSelector = CreateParams;
         } else {
@@ -6806,7 +6812,7 @@ tp.ControlToolBar = class extends tp.Component {
     static CreateParams(CreateParams, Options) {
         var Params;
         var Element;
-        if (arguments.length > 1) {
+        if (arguments.length > 1 && !tp.IsNil(Options)) {
             Params = new tp.CreateParams(Options);
             Params.ElementOrSelector = CreateParams;
         } else {
@@ -6847,7 +6853,7 @@ tp.ControlToolBar = class extends tp.Component {
     /**
      * Adds and returns a new control toolbar button.
      * @param {string} Command The button command.
-     * @param {string|null|undefined} Text The button text.
+     * @param {string|null|undefined} Text Tooltip fallback text for compact icon buttons.
      * @param {string|null|undefined} ToolTip The tooltip.
      * @param {string|null|undefined} IcoClasses The icon CSS classes.
      * @param {string|null|undefined} CssClasses Extra CSS classes.
@@ -6856,8 +6862,8 @@ tp.ControlToolBar = class extends tp.Component {
      */
     AddButton(Command, Text, ToolTip, IcoClasses, CssClasses, ToRight) {
         var Button = new this.ButtonClass({
-            Text: Text || "",
-            ToolTip: ToolTip || "",
+            Text: "",
+            ToolTip: ToolTip || Text || "",
             Command: Command || "",
             IcoClasses: IcoClasses || ""
         });
@@ -6958,7 +6964,7 @@ tp.ButtonEx = class extends tp.Component {
     static CreateParams(CreateParams, Options) {
         var Params;
         var Element;
-        if (arguments.length > 1) {
+        if (arguments.length > 1 && !tp.IsNil(Options)) {
             Params = new tp.CreateParams(Options);
             Params.ElementOrSelector = CreateParams;
         } else {
@@ -7309,7 +7315,7 @@ tp.ToolBar = class extends tp.Component {
     static CreateParams(CreateParams, Options) {
         var Params;
         var Element;
-        if (arguments.length > 1) {
+        if (arguments.length > 1 && !tp.IsNil(Options)) {
             Params = new tp.CreateParams(Options);
             Params.ElementOrSelector = CreateParams;
         } else {

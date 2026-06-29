@@ -44,6 +44,18 @@
                 overflow: auto;
                 border: 1px solid #d0d7de;
             }
+            .data-table-serialization-json {
+                box-sizing: border-box;
+                max-width: 900px;
+                min-height: 260px;
+                max-height: 420px;
+                margin: 12px 0 0 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+                white-space: pre;
+            }
             .data-table-serialization-grid {
                 width: 100%;
                 border-collapse: collapse;
@@ -70,6 +82,7 @@
         
         <div class="html-code">
             <div id="DataTableSerializationHost" class="data-table-serialization-wrap"></div>
+            <pre id="DataTableSerializationJson" class="data-table-serialization-json"></pre>
         </div>
         
         <script class="js-code">
@@ -129,9 +142,10 @@
                 };
         
                 var SourceTable = CreateTable();
-                var JsonText = JSON.stringify(SourceTable);
+                var JsonText = JSON.stringify(SourceTable, null, 2);
                 var DeserializedTable = new tp.DataTable(JSON.parse(JsonText));
         
+                tp.Text("#DataTableSerializationJson", JsonText);
                 RenderTable(DeserializedTable);
             });
         </script>

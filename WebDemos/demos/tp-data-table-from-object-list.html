@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tp.DataTable FromObjectList</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>tp.DataTable FromObjectList</h1>
+
+        <p>This demo creates a <code>tp.DataTable</code> from a plain JavaScript object list.</p>
+        <p>The object list is the browser-side equivalent of a collection of simple customer objects. Only properties that match table columns are copied.</p>
+
+        <style>
+            .data-object-list-demo-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 12px;
+                max-width: 1100px;
+            }
+            .data-object-list-demo-panels {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 12px;
+            }
+            .data-object-list-demo-panel {
+                min-width: 0;
+            }
+            .data-object-list-demo-panel h2 {
+                margin: 0 0 8px 0;
+                font-size: 1rem;
+            }
+            .data-object-list-demo-json {
+                box-sizing: border-box;
+                min-height: 260px;
+                max-height: 420px;
+                margin: 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+                white-space: pre;
+            }
+            .data-object-list-demo-meta {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 8px;
+            }
+            .data-object-list-demo-meta div {
+                padding: 8px 10px;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+            }
+            .data-object-list-demo-wrap {
+                overflow: auto;
+                border: 1px solid #d0d7de;
+            }
+            .data-object-list-demo-grid {
+                width: 100%;
+                border-collapse: collapse;
+                background: #ffffff;
+            }
+            .data-object-list-demo-grid th,
+            .data-object-list-demo-grid td {
+                padding: 7px 9px;
+                border-bottom: 1px solid #d0d7de;
+                text-align: left;
+                vertical-align: top;
+                white-space: nowrap;
+            }
+            .data-object-list-demo-grid th {
+                background: #f0f3f6;
+                font-weight: 600;
+            }
+            .data-object-list-demo-grid td[data-align="right"] {
+                text-align: right;
+            }
+            .data-object-list-demo-grid td[data-align="center"] {
+                text-align: center;
+            }
+        </style>
+
+        <div class="html-code">
+            <div class="data-object-list-demo-layout">
+                <div id="DataTableMeta" class="data-object-list-demo-meta"></div>
+                <div class="data-object-list-demo-panels">
+                    <div class="data-object-list-demo-panel">
+                        <h2>Source Object List</h2>
+                        <pre id="SourceList" class="data-object-list-demo-json"></pre>
+                    </div>
+                    <div class="data-object-list-demo-panel">
+                        <h2>DataTable Rows as Objects</h2>
+                        <pre id="ResultList" class="data-object-list-demo-json"></pre>
+                    </div>
+                </div>
+                <div id="DataTableHost" class="data-object-list-demo-wrap"></div>
+            </div>
+        </div>
+
+        <script class="js-code">
+            tp.Ready(function () {
+                var CustomerList = [
+                    { Id: 1, Code: "CUS-100", Name: "Northwind", Balance: 1830.45, IsActive: true, JoinedOn: "2026-01-08", InternalNote: "Gold account" },
+                    { Id: 2, Code: "CUS-200", Name: "Contoso", Balance: 420, IsActive: true, JoinedOn: "2026-02-14", InternalNote: "Calls monthly" },
+                    { Id: 3, Code: "CUS-300", Name: "Adventure Works", Balance: 0, IsActive: false, JoinedOn: "2026-03-02", InternalNote: "Inactive" },
+                    { Id: 4, Code: "CUS-400", Name: "Fabrikam", Balance: 987.3, IsActive: true, JoinedOn: "2026-04-18", InternalNote: "Online only" }
+                ];
+                var Table = new tp.DataTable("Customers");
+
+                var FormatValue = function (Column, Value) {
+                    if (tp.IsNil(Value))
+                        return "";
+                    if (Column.IsBoolean)
+                        return Value === true || Value === 1 ? "Yes" : "No";
+                    if (Column.DataType === tp.DataType.Date || Column.DataType === tp.DataType.DateTime) {
+                        var DateValue = Value instanceof Date ? Value : new Date(Value);
+                        return isNaN(DateValue.getTime()) ? String(Value) : DateValue.toLocaleDateString();
+                    }
+                    if (Column.IsNumeric)
+                        return Number(Value).toLocaleString(undefined, { minimumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 0, maximumFractionDigits: Column.Decimals > 0 ? Column.Decimals : 2 });
+                    return String(Value);
+                };
+
+                var CellAlign = function (Column) {
+                    if (Column.IsBoolean)
+                        return "center";
+                    if (Column.IsNumeric || Column.IsDateTime)
+                        return "right";
+                    return "left";
+                };
+
+                var ToCleanObjectList = function () {
+                    return Table.ToObjectList().map(function (Item) {
+                        delete Item.__Row;
+                        return Item;
+                    });
+                };
+
+                var RenderMeta = function () {
+                    tp.Html("#DataTableMeta", ""
+                        + "<div><strong>Table</strong><br>" + Table.Name + "</div>"
+                        + "<div><strong>Columns</strong><br>" + Table.ColumnCount + "</div>"
+                        + "<div><strong>Rows</strong><br>" + Table.RowCount + "</div>"
+                        + "<div><strong>Ignored property</strong><br>InternalNote</div>");
+                };
+
+                var RenderGrid = function () {
+                    var Html = [];
+                    Html.push("<table class=\"data-object-list-demo-grid\"><thead><tr>");
+                    Table.Columns.forEach(function (Column) {
+                        Html.push("<th>" + Column.DisplayTitle + "<br><small>" + tp.DataType.TypeName(Column.DataType) + "</small></th>");
+                    });
+                    Html.push("</tr></thead><tbody>");
+                    Table.Rows.forEach(function (Row) {
+                        Html.push("<tr>");
+                        Table.Columns.forEach(function (Column) {
+                            Html.push("<td data-align=\"" + CellAlign(Column) + "\">" + FormatValue(Column, Row.Get(Column)) + "</td>");
+                        });
+                        Html.push("</tr>");
+                    });
+                    Html.push("</tbody></table>");
+                    tp.Html("#DataTableHost", Html.join(""));
+                };
+
+                Table.AutoGenerateGuidKeys = false;
+                Table.KeyField = "Id";
+                Table.AddColumn({ Name: "Id", DataType: tp.DataType.Integer, Flags: tp.FieldFlags.Required });
+                Table.AddColumn({ Name: "Code", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+                Table.AddColumn({ Name: "Name", Title: "Customer", DataType: tp.DataType.String, Flags: tp.FieldFlags.Required });
+                Table.AddColumn({ Name: "Balance", DataType: tp.DataType.Decimal, Decimals: 2 });
+                Table.AddColumn({ Name: "IsActive", Title: "Active", DataType: tp.DataType.Boolean, Flags: tp.FieldFlags.Boolean });
+                Table.AddColumn({ Name: "JoinedOn", Title: "Joined", DataType: tp.DataType.Date });
+
+                Table.FromObjectList(CustomerList);
+                Table.AcceptChanges();
+
+                tp.Text("#SourceList", JSON.stringify(CustomerList, null, 2));
+                tp.Text("#ResultList", JSON.stringify(ToCleanObjectList(), null, 2));
+                RenderMeta();
+                RenderGrid();
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>

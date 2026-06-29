@@ -1,6 +1,7 @@
 // ● command property
 /**
- * Interface-like base class for objects that provide a Command string property.
+ * Represents an object with a Command string property.
+ * @interface
  */
 tp.ICommandProperty = class {
     // ● constructor
@@ -11,9 +12,14 @@ tp.ICommandProperty = class {
     }
 };
 /**
- * Returns true when a value provides a Command property.
+ * The command.
+ * @type {string}
+ */
+tp.ICommandProperty.prototype.Command = "";
+/**
+ * Type-guard function.
  * @param {*} Value The value to check.
- * @returns {boolean} Returns true when the value provides a Command property.
+ * @returns {boolean} Returns true when the value provides a Command string property.
  */
 tp.HasCommandProperty = function (Value) {
     return Value instanceof tp.Object && "Command" in Value;

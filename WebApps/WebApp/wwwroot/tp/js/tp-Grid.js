@@ -2739,10 +2739,10 @@ tp.Grid = class extends tp.Control  {
         this.pnlFooter = new tp.GridSummariesPanel(this, this.Handle);     // footer panel
         this.pnlBottom = new tp.GridBottomPanel(this, this.Handle);        // bottom panel (used just for horizontal scrolling only)
 
-        this.fButtonInsert = this.AddToolBarButton('GridRowInsert', tp.IcoChars.Insert, 'Insert', '', '', false);  // tp.Classes.IcoToolBarInsert
-        this.fButtonDelete = this.AddToolBarButton('GridRowDelete', tp.IcoChars.Delete, 'Delete', '', '', false);  // tp.Classes.IcoToolBarDelete
-        this.fButtonEdit = this.AddToolBarButton('GridRowEdit', tp.IcoChars.Edit, 'Edit', '', '', false);        // tp.Classes.IcoToolBarEdit
-        this.fButtonFind = this.AddToolBarButton('GridRowFind', tp.IcoChars.Find, 'Find', '', '', false);        // tp.Classes.IcoToolBarFind
+        this.fButtonInsert = this.AddToolBarButton('GridRowInsert', '', 'Insert', 'fa fa-plus', '', false);
+        this.fButtonDelete = this.AddToolBarButton('GridRowDelete', '', 'Delete', 'fa fa-minus', '', false);
+        this.fButtonEdit = this.AddToolBarButton('GridRowEdit', '', 'Edit', 'fa fa-edit', '', false);
+        this.fButtonFind = this.AddToolBarButton('GridRowFind', '', 'Find', 'fa fa-search', '', false);
 
         this.fButtonInsert.Visible = false;
         this.fButtonDelete.Visible = false;
