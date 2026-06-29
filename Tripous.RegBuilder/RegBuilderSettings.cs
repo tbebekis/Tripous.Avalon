@@ -14,6 +14,7 @@ namespace Tripous.RegBuilder;
 public class RegBuilderSettings
 {
     RegBuilderProject[] fProjects;
+    RegBuilderOutput[] fTargets;
     string[] fBuildProjectFilePaths;
     string[] fAssemblyFilePaths;
 
@@ -44,6 +45,47 @@ public class RegBuilderSettings
     /// </summary>
     public void Save(string FilePath) => Json.SaveToFile(this, FilePath);
 
+    // ● public
+    /// <summary>
+    /// Returns the resolved outputs of a project.
+    /// </summary>
+    public RegBuilderOutput[] GetOutputs(RegBuilderProject Project)
+    {
+        if (Project == null)
+            throw new TripousArgumentNullException(nameof(Project));
+
+        string[] TargetNames = Project.TargetNames;
+        if (TargetNames.Length == 0)
+            return Project.Outputs;
+
+        List<RegBuilderOutput> Result = [];
+        foreach (string TargetName in TargetNames)
+        {
+            RegBuilderOutput Target = Targets.FirstOrDefault(Item => string.Equals(Item.TargetName, TargetName, StringComparison.OrdinalIgnoreCase));
+            if (Target == null)
+                throw new InvalidOperationException($"RegBuilder target was not found: {TargetName}");
+            Result.Add(Target);
+        }
+
+        return Result.ToArray();
+    }
+    /// <summary>
+    /// Resolves the outputs of a project from its target names.
+    /// </summary>
+    public void ResolveOutputs(RegBuilderProject Project)
+    {
+        if (Project != null)
+            Project.Outputs = GetOutputs(Project);
+    }
+    /// <summary>
+    /// Resolves all project outputs from project target names.
+    /// </summary>
+    public void ResolveOutputs()
+    {
+        foreach (RegBuilderProject Project in Projects)
+            ResolveOutputs(Project);
+    }
+
     // ● properties
     /// <summary>
     /// Gets or sets the projects that must be built before schema generation.
@@ -60,6 +102,14 @@ public class RegBuilderSettings
     {
         get => fAssemblyFilePaths != null ? fAssemblyFilePaths : [];
         set => fAssemblyFilePaths = value;
+    }
+    /// <summary>
+    /// Gets or sets the available output targets.
+    /// </summary>
+    public RegBuilderOutput[] Targets
+    {
+        get => fTargets != null ? fTargets : [];
+        set => fTargets = value;
     }
     /// <summary>
     /// Gets or sets the schema generation projects.

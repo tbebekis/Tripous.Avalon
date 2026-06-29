@@ -14,6 +14,7 @@ namespace Tripous.RegBuilder;
 public class RegBuilderProject
 {
     string[] fReferenceFilePaths;
+    string[] fTargetNames;
     RegBuilderOutput[] fOutputs;
 
     // ● construction
@@ -60,8 +61,17 @@ public class RegBuilderProject
         set => fReferenceFilePaths = value;
     }
     /// <summary>
-    /// Output targets for generated artifacts.
+    /// The names of the selected output targets.
     /// </summary>
+    public string[] TargetNames
+    {
+        get => fTargetNames != null ? fTargetNames : [];
+        set => fTargetNames = value;
+    }
+    /// <summary>
+    /// Resolved output targets for generated artifacts.
+    /// </summary>
+    [JsonIgnore]
     public RegBuilderOutput[] Outputs
     {
         get => fOutputs != null ? fOutputs : [];

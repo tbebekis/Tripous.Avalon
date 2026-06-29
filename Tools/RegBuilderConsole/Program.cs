@@ -129,8 +129,10 @@ static public class Program
     /// <summary>
     /// Generates and copies the source files of a configured project.
     /// </summary>
-    static void GenerateProject(RegBuilderProject Project, string Configuration)
+    static void GenerateProject(RegBuilderSettings Settings, RegBuilderProject Project, string Configuration)
     {
+        Settings.ResolveOutputs(Project);
+
         RegBuilderProject BuilderProject = new()
         {
             Name = Project.Name,
@@ -187,7 +189,7 @@ static public class Program
                 throw new InvalidOperationException($"RegBuilder project was not found: {ProjectName}");
 
             foreach (RegBuilderProject Project in Projects)
-                GenerateProject(Project, Configuration);
+                GenerateProject(Settings, Project, Configuration);
 
             Console.WriteLine("RegBuilderConsole completed.");
             return 0;

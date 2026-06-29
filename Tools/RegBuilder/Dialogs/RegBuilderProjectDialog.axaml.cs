@@ -18,6 +18,10 @@ public partial class RegBuilderProjectDialog : DialogWindow
     /// The dialog data.
     /// </summary>
     RegBuilderProjectData BoxData;
+    /// <summary>
+    /// Target check boxes.
+    /// </summary>
+    List<CheckBox> TargetCheckBoxList = [];
 
     // ● private
     /// <summary>
@@ -38,56 +42,56 @@ public partial class RegBuilderProjectDialog : DialogWindow
     /// </summary>
     string GetOutputsText(RegBuilderProject Project)
     {
-        RegBuilderOutput[] Outputs = Project.Outputs.Length > 0 ? Project.Outputs : [];
+        RegBuilderOutput[] Outputs = BoxData.Settings.GetOutputs(Project);
         return JsonSerializer.Serialize(Outputs, GetJsonOptions());
     }
     /// <summary>
-    /// Parses and validates the outputs editor text.
+    /// Returns output JSON text for the specified target names.
     /// </summary>
-    async Task<RegBuilderOutput[]> GetOutputs()
+    string GetOutputsText(string[] TargetNames)
     {
-        string Text = edtOutputs.GetText();
-        if (string.IsNullOrWhiteSpace(Text))
+        RegBuilderProject Project = new()
         {
-            await MessageBox.Error("Outputs JSON is required.", this);
-            return null;
-        }
+            TargetNames = TargetNames
+        };
+        return GetOutputsText(Project);
+    }
+    /// <summary>
+    /// Updates the outputs preview.
+    /// </summary>
+    void UpdateOutputsText() => edtOutputs.Text = GetOutputsText(GetSelectedTargetNames());
+    /// <summary>
+    /// Creates the target check boxes.
+    /// </summary>
+    void CreateTargetCheckBoxes(RegBuilderProject Project)
+    {
+        TargetCheckBoxList.Clear();
+        panelTargets.Children.Clear();
 
-        try
+        foreach (RegBuilderOutput Target in BoxData.Settings.Targets)
         {
-            RegBuilderOutput[] Result = JsonSerializer.Deserialize<RegBuilderOutput[]>(Text, GetJsonOptions());
-            if (Result == null || Result.Length == 0)
+            CheckBox Box = new()
             {
-                await MessageBox.Error("Outputs JSON must contain at least one output.", this);
-                return null;
-            }
+                Content = Target.TargetName,
+                Tag = Target.TargetName,
+                IsChecked = Project.TargetNames.Any(Item => string.Equals(Item, Target.TargetName, StringComparison.OrdinalIgnoreCase))
+            };
+            Box.GetObservable(ToggleButton.IsCheckedProperty).Subscribe(Value => UpdateOutputsText());
 
-            foreach (RegBuilderOutput Output in Result)
-            {
-                if (string.IsNullOrWhiteSpace(Output.TargetName))
-                {
-                    await MessageBox.Error("Each output must have a TargetName.", this);
-                    return null;
-                }
-                if (string.IsNullOrWhiteSpace(Output.OutputFolderPath))
-                {
-                    await MessageBox.Error($"Output '{Output.TargetName}' must have an OutputFolderPath.", this);
-                    return null;
-                }
-                if (Output.Artifacts == RegBuilderArtifactKind.None)
-                {
-                    await MessageBox.Error($"Output '{Output.TargetName}' must have at least one artifact.", this);
-                    return null;
-                }
-            }
-
-            return Result;
+            TargetCheckBoxList.Add(Box);
+            panelTargets.Children.Add(Box);
         }
-        catch (Exception Ex)
-        {
-            await MessageBox.Error("Invalid Outputs JSON." + Environment.NewLine + Ex.Message, this);
-            return null;
-        }
+    }
+    /// <summary>
+    /// Returns the selected target names.
+    /// </summary>
+    string[] GetSelectedTargetNames()
+    {
+        return TargetCheckBoxList
+            .Where(Box => Box.IsChecked == true)
+            .Select(Box => Box.Tag as string)
+            .Where(Text => !string.IsNullOrWhiteSpace(Text))
+            .ToArray();
     }
     
     // ● event handlers
@@ -142,7 +146,8 @@ public partial class RegBuilderProjectDialog : DialogWindow
 
         string RefPathsText = string.Join(Environment.NewLine, Project.ReferenceFilePaths);
         edtReferenceFilePaths.Text = RefPathsText;
-        edtOutputs.Text = GetOutputsText(Project);
+        CreateTargetCheckBoxes(Project);
+        UpdateOutputsText();
         
         await Task.CompletedTask;
     }
@@ -157,17 +162,23 @@ public partial class RegBuilderProjectDialog : DialogWindow
         string SchemaFilePath = edtSchemaFilePath.GetText();
         int SchemaVersion = edtSchemaVersion.Value.HasValue ? Convert.ToInt32(edtSchemaVersion.Value) : 0;
         string NamespaceName = edtNamespaceName.GetText();
-        RegBuilderOutput[] Outputs = await GetOutputs();
+        string[] TargetNames = GetSelectedTargetNames();
 
-        if (string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(SchemaFilePath) || SchemaVersion <= 0 || string.IsNullOrWhiteSpace(NamespaceName) || Outputs == null)
+        if (string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(SchemaFilePath) || SchemaVersion <= 0 || string.IsNullOrWhiteSpace(NamespaceName))
             return;
+        if (TargetNames.Length == 0)
+        {
+            await MessageBox.Error("At least one target must be selected.", this);
+            return;
+        }
         
         RegBuilderProject Project = BoxData.RegBuilderProject;
         Project.Name = ProjectName;
         Project.SchemaFilePath = SchemaFilePath;
         Project.SchemaVersion = SchemaVersion;
         Project.NamespaceName = NamespaceName;
-        Project.Outputs = Outputs;
+        Project.TargetNames = TargetNames;
+        BoxData.Settings.ResolveOutputs(Project);
         
         DuplicateCheck DuplicateChecks = DuplicateCheck.None;
         if (chLookup.IsChecked == true)
@@ -205,9 +216,9 @@ public partial class RegBuilderProjectDialog : DialogWindow
     /// <param name="RegBuilderProject">The RegBuilder project to edit.</param>
     /// <param name="Caller">The caller control.</param>
     /// <returns>The dialog data.</returns>
-    static public async Task<RegBuilderProjectData> ShowModal(RegBuilderProject RegBuilderProject, Control Caller = null)
+    static public async Task<RegBuilderProjectData> ShowModal(RegBuilderSettings Settings, RegBuilderProject RegBuilderProject, Control Caller = null)
     {
-        RegBuilderProjectData BoxData = new() { RegBuilderProject = RegBuilderProject };
+        RegBuilderProjectData BoxData = new() { Settings = Settings, RegBuilderProject = RegBuilderProject };
         DialogInfo Info = await  ShowModal<RegBuilderProjectDialog>(BoxData, Caller);
         BoxData.Info = Info;
         return BoxData;
@@ -220,6 +231,10 @@ public partial class RegBuilderProjectDialog : DialogWindow
 public class RegBuilderProjectData
 {
     // ● properties
+    /// <summary>
+    /// Gets or sets the RegBuilder settings.
+    /// </summary>
+    public RegBuilderSettings Settings { get; set; }
     /// <summary>
     /// Gets or sets the RegBuilder project.
     /// </summary>

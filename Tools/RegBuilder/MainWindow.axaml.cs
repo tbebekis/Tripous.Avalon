@@ -62,6 +62,7 @@ public partial class MainWindow : Window
         edtProjectLog.Text = $"Executing project: {Project.Name}. Please wait...";
         LogBox.AppendLine(edtProjectLog.Text);
 
+        Settings.ResolveOutputs(Project);
         SchemaParserResult ParserResults = SchemaRegistrationBuilder.Parse(Project, WorkingFolderPath);
         
         StringBuilder SB = new();
@@ -148,7 +149,7 @@ public partial class MainWindow : Window
     async Task Add()
     {
         RegBuilderProject RegBuilderProject = new();
-        RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(RegBuilderProject, this);
+        RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(Settings, RegBuilderProject, this);
         if (BoxData.Result)
         {
             List<RegBuilderProject> Projects = Settings.Projects.ToList();
@@ -164,7 +165,7 @@ public partial class MainWindow : Window
         if (cboProjects.SelectedItem != null)
         {
             RegBuilderProject RegBuilderProject = cboProjects.SelectedItem as RegBuilderProject;
-            RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(RegBuilderProject, this);
+            RegBuilderProjectData BoxData = await RegBuilderProjectDialog.ShowModal(Settings, RegBuilderProject, this);
             if (BoxData.Result)
             {
                 Settings.Save(SettingsFilePath);
@@ -217,6 +218,7 @@ public partial class MainWindow : Window
     void LoadSettings()
     {
         Settings = RegBuilderSettings.Load(SettingsFilePath);
+        Settings.ResolveOutputs();
         cboProjects.ItemsSource = Settings.Projects;
 
         if (Settings.Projects.Length > 0)
