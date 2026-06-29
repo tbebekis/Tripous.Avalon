@@ -40,8 +40,9 @@ DocFx/_site/
 package.json
 package-lock.json
 node_modules
+!UnitTests/Tripous.Web.JavaScript.Tests/package.json
+!UnitTests/Tripous.Web.JavaScript.Tests/package-lock.json
 
 Publish
 WebMaterial
-
 
