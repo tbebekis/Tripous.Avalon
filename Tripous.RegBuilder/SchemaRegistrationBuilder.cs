@@ -18,18 +18,38 @@ static public class SchemaRegistrationBuilder
     /// Returns the generated C# source file names for a schema version.
     /// </summary>
     static public string[] GetGeneratedSourceFileNames(int SchemaVersion)
+        => GetGeneratedFileNames(SchemaVersion, RegBuilderArtifactKind.CSharpSource);
+    /// <summary>
+    /// Returns the generated file names for a schema version and artifact kind set.
+    /// </summary>
+    static public string[] GetGeneratedFileNames(int SchemaVersion, RegBuilderOutput Output)
+        => GetGeneratedFileNames(SchemaVersion, Output != null ? Output.Artifacts : RegBuilderArtifactKind.None);
+    /// <summary>
+    /// Returns the generated file names for a schema version and artifact kind set.
+    /// </summary>
+    static public string[] GetGeneratedFileNames(int SchemaVersion, RegBuilderArtifactKind Artifacts)
     {
         string Prefix = $"RegistryVersion{SchemaVersion}";
-        return
-        [
-            $"SchemaVersion{SchemaVersion}.cs",
-            $"{Prefix}.cs",
-            $"{Prefix}.Modules.cs",
-            $"{Prefix}.Forms.cs",
-            $"{Prefix}.Lookups.cs",
-            $"{Prefix}.Locators.cs",
-            $"{Prefix}.CodeProviders.cs"
-        ];
+        List<string> Result = [];
+
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Schema))
+            Result.Add($"SchemaVersion{SchemaVersion}.cs");
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.RegistryVersion))
+            Result.Add($"{Prefix}.cs");
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Modules))
+            Result.Add($"{Prefix}.Modules.cs");
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Forms))
+            Result.Add($"{Prefix}.Forms.cs");
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Lookups))
+            Result.Add($"{Prefix}.Lookups.cs");
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Locators))
+            Result.Add($"{Prefix}.Locators.cs");
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.CodeProviders))
+            Result.Add($"{Prefix}.CodeProviders.cs");
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.SchemaSql))
+            Result.Add("Schema.sql");
+
+        return Result.ToArray();
     }
     /// <summary>
     /// Parses a Tripous schema script and generates schema, module and form registration source code.
@@ -66,7 +86,15 @@ static public class SchemaRegistrationBuilder
             AddWarning(Result, "REFERENCE_SCHEMA_FILE_NOT_FOUND", "Reference schema file not found: " + ReferenceFilePath);
 
         if (!Result.Messages.Any(x => x.Code == "SCHEMA_PARSE_ERROR"))
-            WriteOutputFiles(Result, Project.SchemaVersion, OutputFolderPath);
+        {
+            RegBuilderOutput Output = new()
+            {
+                TargetName = "Default",
+                OutputFolderPath = OutputFolderPath,
+                Artifacts = RegBuilderArtifactKind.All
+            };
+            WriteOutputFiles(Result, Project.SchemaVersion, Output);
+        }
 
         return Result;
     }
@@ -817,17 +845,51 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath)
     {
+        RegBuilderOutput Output = new()
+        {
+            TargetName = "Default",
+            OutputFolderPath = OutputFolderPath,
+            Artifacts = RegBuilderArtifactKind.All
+        };
+        WriteOutputFiles(Result, SchemaVersion, Output);
+    }
+    /// <summary>
+    /// Writes generated output files.
+    /// </summary>
+    static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, RegBuilderOutput Output)
+    {
+        if (Output == null)
+            throw new TripousArgumentNullException(nameof(Output));
+        if (string.IsNullOrWhiteSpace(Output.OutputFolderPath))
+            throw new TripousArgumentNullException(nameof(Output.OutputFolderPath));
+
+        WriteOutputFiles(Result, SchemaVersion, Output.OutputFolderPath, Output.Artifacts);
+    }
+    /// <summary>
+    /// Writes generated output files.
+    /// </summary>
+    static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts)
+    {
         if (!Directory.Exists(OutputFolderPath))
             Directory.CreateDirectory(OutputFolderPath);
 
-        WriteOutputFile(OutputFolderPath, "SchemaVersion" + SchemaVersion + ".cs", Result.CreateTablesSourceCode);
-        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".cs", Result.RegistryVersionSourceCode);
-        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Modules.cs", Result.ModuleDefsSourceCode);
-        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Forms.cs", Result.FormDefsSourceCode);
-        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Lookups.cs", Result.LookupDefsSourceCode);
-        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".Locators.cs", Result.LocatorDefsSourceCode);
-        WriteOutputFile(OutputFolderPath, "RegistryVersion" + SchemaVersion + ".CodeProviders.cs", Result.CodeProviderDefsSourceCode);
-        WriteOutputFile(OutputFolderPath, "Schema.sql", Result.SchemaSql);
+        string Prefix = "RegistryVersion" + SchemaVersion;
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Schema))
+            WriteOutputFile(OutputFolderPath, "SchemaVersion" + SchemaVersion + ".cs", Result.CreateTablesSourceCode);
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.RegistryVersion))
+            WriteOutputFile(OutputFolderPath, Prefix + ".cs", Result.RegistryVersionSourceCode);
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Modules))
+            WriteOutputFile(OutputFolderPath, Prefix + ".Modules.cs", Result.ModuleDefsSourceCode);
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Forms))
+            WriteOutputFile(OutputFolderPath, Prefix + ".Forms.cs", Result.FormDefsSourceCode);
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Lookups))
+            WriteOutputFile(OutputFolderPath, Prefix + ".Lookups.cs", Result.LookupDefsSourceCode);
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.Locators))
+            WriteOutputFile(OutputFolderPath, Prefix + ".Locators.cs", Result.LocatorDefsSourceCode);
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.CodeProviders))
+            WriteOutputFile(OutputFolderPath, Prefix + ".CodeProviders.cs", Result.CodeProviderDefsSourceCode);
+        if (Artifacts.HasFlag(RegBuilderArtifactKind.SchemaSql))
+            WriteOutputFile(OutputFolderPath, "Schema.sql", Result.SchemaSql);
     }
     /// <summary>
     /// Writes a generated output file.

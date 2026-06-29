@@ -14,6 +14,7 @@ namespace Tripous.RegBuilder;
 public class RegBuilderProject
 {
     string[] fReferenceFilePaths;
+    RegBuilderOutput[] fOutputs;
 
     // ● construction
     /// <summary>
@@ -62,4 +63,12 @@ public class RegBuilderProject
     /// The destination folder for generated source files.
     /// </summary>
     public string OutputFolderPath { get; set; }
+    /// <summary>
+    /// Output targets for generated artifacts.
+    /// </summary>
+    public RegBuilderOutput[] Outputs
+    {
+        get => fOutputs != null ? fOutputs : [];
+        set => fOutputs = value;
+    }
 }
