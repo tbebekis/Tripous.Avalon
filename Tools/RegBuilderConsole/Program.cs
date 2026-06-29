@@ -95,6 +95,48 @@ static public class Program
         }
     }
     /// <summary>
+    /// Returns the effective output targets of a project.
+    /// </summary>
+    static RegBuilderOutput[] GetOutputs(RegBuilderProject Project)
+    {
+        if (Project.Outputs.Length > 0)
+            return Project.Outputs;
+
+        return
+        [
+            new RegBuilderOutput()
+            {
+                TargetName = "Default",
+                OutputFolderPath = Project.OutputFolderPath,
+                Artifacts = RegBuilderArtifactKind.CSharpSource,
+                ClassPrefix = "RegistryVersion",
+                NamespaceName = Project.NamespaceName
+            }
+        ];
+    }
+    /// <summary>
+    /// Copies generated files for an output target.
+    /// </summary>
+    static void CopyOutputFiles(RegBuilderProject Project, RegBuilderOutput Output, string TempFolderPath, string Configuration)
+    {
+        if (string.IsNullOrWhiteSpace(Output.OutputFolderPath))
+            throw new InvalidOperationException($"RegBuilder output has no output folder. Project: {Project.Name}. Target: {Output.TargetName}");
+
+        string OutputFolderPath = ResolvePath(Output.OutputFolderPath, Configuration);
+        Directory.CreateDirectory(OutputFolderPath);
+
+        foreach (string FileName in SchemaRegistrationBuilder.GetGeneratedFileNames(Project.SchemaVersion, Output))
+        {
+            string SourceFilePath = Path.Combine(TempFolderPath, FileName);
+            string TargetFilePath = Path.Combine(OutputFolderPath, FileName);
+            if (!File.Exists(SourceFilePath))
+                throw new FileNotFoundException("Generated source file was not found.", SourceFilePath);
+            File.Copy(SourceFilePath, TargetFilePath, true);
+        }
+
+        Console.WriteLine($"Generated: {Project.Name} [{Output.TargetName}] -> {OutputFolderPath}");
+    }
+    /// <summary>
     /// Generates and copies the source files of a configured project.
     /// </summary>
     static void GenerateProject(RegBuilderProject Project, string Configuration)
@@ -106,7 +148,8 @@ static public class Program
             NamespaceName = Project.NamespaceName,
             SchemaVersion = Project.SchemaVersion,
             DuplicateChecks = Project.DuplicateChecks,
-            ReferenceFilePaths = Project.ReferenceFilePaths.Select(Value => ResolvePath(Value, Configuration)).ToArray()
+            ReferenceFilePaths = Project.ReferenceFilePaths.Select(Value => ResolvePath(Value, Configuration)).ToArray(),
+            Outputs = Project.Outputs
         };
 
         string TempFolderPath = Path.Combine(Path.GetTempPath(), "RegBuilderConsole", Project.Name);
@@ -120,16 +163,8 @@ static public class Program
         if (Result.HasErrors)
             throw new InvalidOperationException(Result.GetErrors());
 
-        string OutputFolderPath = ResolvePath(Project.OutputFolderPath, Configuration);
-        Directory.CreateDirectory(OutputFolderPath);
-        foreach (string FileName in SchemaRegistrationBuilder.GetGeneratedSourceFileNames(Project.SchemaVersion))
-        {
-            string SourceFilePath = Path.Combine(TempFolderPath, FileName);
-            string TargetFilePath = Path.Combine(OutputFolderPath, FileName);
-            File.Copy(SourceFilePath, TargetFilePath, true);
-        }
-
-        Console.WriteLine($"Generated: {Project.Name} -> {OutputFolderPath}");
+        foreach (RegBuilderOutput Output in GetOutputs(Project))
+            CopyOutputFiles(Project, Output, TempFolderPath, Configuration);
     }
     // ● static public
     /// <summary>
