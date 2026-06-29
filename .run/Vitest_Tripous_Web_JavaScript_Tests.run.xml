@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Vitest - Tripous Web JavaScript Tests" type="JavaScriptTestRunnerVitest">
+    <node-interpreter value="project" />
+    <vitest-package value="$PROJECT_DIR$/UnitTests/Tripous.Web.JavaScript.Tests/node_modules/vitest" />
+    <working-dir value="$PROJECT_DIR$/UnitTests/Tripous.Web.JavaScript.Tests" />
+    <envs />
+    <scope-kind value="ALL" />
+    <method v="2" />
+  </configuration>
+</component>
