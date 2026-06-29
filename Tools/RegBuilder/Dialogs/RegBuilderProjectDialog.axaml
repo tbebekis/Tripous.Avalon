@@ -9,7 +9,7 @@
     WindowStartupLocation="CenterOwner"
     CanResize="False"
     Width="800"
-    Height="640"
+    Height="760"
     Padding="15">
 
     <Grid RowDefinitions="*, Auto">
@@ -56,9 +56,17 @@
                     <TextBlock Text="Reference File Paths (One per line):" FontWeight="SemiBold"/>
                     <TextBox Name="edtReferenceFilePaths" 
                              AcceptsReturn="True" 
-                             Height="170" 
+                             Height="120" 
                              TextWrapping="NoWrap" 
                              PlaceholderText="C:\Path\To\File1.json&#x0a;C:\Path\To\File2.json"/>
+                </StackPanel>
+
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Outputs JSON:" FontWeight="SemiBold"/>
+                    <TextBox Name="edtOutputs"
+                             AcceptsReturn="True"
+                             Height="220"
+                             TextWrapping="NoWrap"/>
                 </StackPanel>
                 
             </StackPanel>

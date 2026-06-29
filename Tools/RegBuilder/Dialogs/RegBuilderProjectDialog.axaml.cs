@@ -18,6 +18,77 @@ public partial class RegBuilderProjectDialog : DialogWindow
     /// The dialog data.
     /// </summary>
     RegBuilderProjectData BoxData;
+
+    // ● private
+    /// <summary>
+    /// Returns JSON serializer options for the outputs editor.
+    /// </summary>
+    JsonSerializerOptions GetJsonOptions()
+    {
+        JsonSerializerOptions Result = new()
+        {
+            WriteIndented = true,
+            PropertyNameCaseInsensitive = true
+        };
+        Result.Converters.Add(new JsonStringEnumConverter());
+        return Result;
+    }
+    /// <summary>
+    /// Returns the project outputs as formatted JSON.
+    /// </summary>
+    string GetOutputsText(RegBuilderProject Project)
+    {
+        RegBuilderOutput[] Outputs = Project.Outputs.Length > 0 ? Project.Outputs : [];
+        return JsonSerializer.Serialize(Outputs, GetJsonOptions());
+    }
+    /// <summary>
+    /// Parses and validates the outputs editor text.
+    /// </summary>
+    async Task<RegBuilderOutput[]> GetOutputs()
+    {
+        string Text = edtOutputs.GetText();
+        if (string.IsNullOrWhiteSpace(Text))
+        {
+            await MessageBox.Error("Outputs JSON is required.", this);
+            return null;
+        }
+
+        try
+        {
+            RegBuilderOutput[] Result = JsonSerializer.Deserialize<RegBuilderOutput[]>(Text, GetJsonOptions());
+            if (Result == null || Result.Length == 0)
+            {
+                await MessageBox.Error("Outputs JSON must contain at least one output.", this);
+                return null;
+            }
+
+            foreach (RegBuilderOutput Output in Result)
+            {
+                if (string.IsNullOrWhiteSpace(Output.TargetName))
+                {
+                    await MessageBox.Error("Each output must have a TargetName.", this);
+                    return null;
+                }
+                if (string.IsNullOrWhiteSpace(Output.OutputFolderPath))
+                {
+                    await MessageBox.Error($"Output '{Output.TargetName}' must have an OutputFolderPath.", this);
+                    return null;
+                }
+                if (Output.Artifacts == RegBuilderArtifactKind.None)
+                {
+                    await MessageBox.Error($"Output '{Output.TargetName}' must have at least one artifact.", this);
+                    return null;
+                }
+            }
+
+            return Result;
+        }
+        catch (Exception Ex)
+        {
+            await MessageBox.Error("Invalid Outputs JSON." + Environment.NewLine + Ex.Message, this);
+            return null;
+        }
+    }
     
     // ● event handlers
     /// <summary>
@@ -71,6 +142,7 @@ public partial class RegBuilderProjectDialog : DialogWindow
 
         string RefPathsText = string.Join(Environment.NewLine, Project.ReferenceFilePaths);
         edtReferenceFilePaths.Text = RefPathsText;
+        edtOutputs.Text = GetOutputsText(Project);
         
         await Task.CompletedTask;
     }
@@ -85,8 +157,9 @@ public partial class RegBuilderProjectDialog : DialogWindow
         string SchemaFilePath = edtSchemaFilePath.GetText();
         int SchemaVersion = edtSchemaVersion.Value.HasValue ? Convert.ToInt32(edtSchemaVersion.Value) : 0;
         string NamespaceName = edtNamespaceName.GetText();
+        RegBuilderOutput[] Outputs = await GetOutputs();
 
-        if (string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(SchemaFilePath) || SchemaVersion <= 0 || string.IsNullOrWhiteSpace(NamespaceName))
+        if (string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(SchemaFilePath) || SchemaVersion <= 0 || string.IsNullOrWhiteSpace(NamespaceName) || Outputs == null)
             return;
         
         RegBuilderProject Project = BoxData.RegBuilderProject;
@@ -94,6 +167,7 @@ public partial class RegBuilderProjectDialog : DialogWindow
         Project.SchemaFilePath = SchemaFilePath;
         Project.SchemaVersion = SchemaVersion;
         Project.NamespaceName = NamespaceName;
+        Project.Outputs = Outputs;
         
         DuplicateCheck DuplicateChecks = DuplicateCheck.None;
         if (chLookup.IsChecked == true)
