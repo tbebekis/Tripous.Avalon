@@ -2,21 +2,43 @@
 /**
  * Descriptor for a tp.StatusBar panel.
  */
-tp.StatusBarItem = class {
+tp.StatusBarItem = class extends tp.NamedItem {
     // ● constructor
     /**
      * Creates a status bar item descriptor.
      * @param {object|string|null|undefined} Source The source item or item name.
      */
     constructor(Source) {
+        super(tp.IsString(Source) ? Source : "");
         if (tp.IsString(Source)) {
-            this.Name = Source;
             this.Text = Source;
         } else if (tp.IsObject(Source)) {
             this.Name = tp.IsBlank(Source.Name) ? "" : String(Source.Name);
             this.Text = tp.IsNil(Source.Text) ? "" : String(Source.Text);
             this.Title = tp.IsNil(Source.Title) ? "" : String(Source.Title);
             this.Width = tp.IsNil(Source.Width) ? "" : String(Source.Width);
+            this.TextAlign = tp.IsNil(Source.TextAlign) ? "" : String(Source.TextAlign);
+            this.CssClass = tp.IsNil(Source.CssClass) ? "" : String(Source.CssClass);
+            if (tp.IsBlank(this.CssClass) && !tp.IsNil(Source.CssClasses))
+                this.CssClass = String(Source.CssClasses);
+            this.Visible = Source.Visible !== false;
+            this.Tag = tp.IsNil(Source.Tag) ? null : Source.Tag;
+        }
+    }
+
+    // ● public
+    /**
+     * Assigns a source item to this instance.
+     * @param {tp.StatusBarItem|object|null|undefined} Source The source item.
+     * @returns {void}
+     */
+    Assign(Source) {
+        super.Assign(Source);
+        if (Source) {
+            this.Text = tp.IsNil(Source.Text) ? "" : String(Source.Text);
+            this.Title = tp.IsNil(Source.Title) ? "" : String(Source.Title);
+            this.Width = tp.IsNil(Source.Width) ? "" : String(Source.Width);
+            this.TextAlign = tp.IsNil(Source.TextAlign) ? "" : String(Source.TextAlign);
             this.CssClass = tp.IsNil(Source.CssClass) ? "" : String(Source.CssClass);
             if (tp.IsBlank(this.CssClass) && !tp.IsNil(Source.CssClasses))
                 this.CssClass = String(Source.CssClasses);
@@ -27,11 +49,6 @@ tp.StatusBarItem = class {
 };
 
 // ● prototype
-/**
- * Item name.
- * @type {string}
- */
-tp.StatusBarItem.prototype.Name = "";
 /**
  * Item text.
  * @type {string}
@@ -47,6 +64,11 @@ tp.StatusBarItem.prototype.Title = "";
  * @type {string}
  */
 tp.StatusBarItem.prototype.Width = "";
+/**
+ * CSS text-align value.
+ * @type {string}
+ */
+tp.StatusBarItem.prototype.TextAlign = "";
 /**
  * Additional CSS class applied to the item element.
  * @type {string}
@@ -118,7 +140,7 @@ tp.StatusBar = class extends tp.Component {
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fItems = [];
+        this.fItems = new tp.NamedItems(tp.StatusBarItem);
         this.fDefaultItemName = "Message";
         this.fCompact = false;
         this.fItemAutoIndex = 0;
@@ -129,11 +151,15 @@ tp.StatusBar = class extends tp.Component {
      * @returns {void}
      */
     ApplyCreateParams(Params) {
+        var BaseDefaultItemName = this.DefaultItemName;
         super.ApplyCreateParams(Params);
         if (!Params)
             return;
-        if (!tp.IsBlank(Params.DefaultItemName))
+        if (!tp.IsBlank(Params.DefaultItemName)) {
             this.DefaultItemName = Params.DefaultItemName;
+            if (!tp.IsSameText(BaseDefaultItemName, this.DefaultItemName) && this.ItemCount === 1 && this.Contains(BaseDefaultItemName))
+                this.Remove(BaseDefaultItemName);
+        }
         if (!tp.IsNil(Params.Compact))
             this.Compact = Params.Compact === true;
         if (tp.IsArray(Params.Items))
@@ -149,14 +175,15 @@ tp.StatusBar = class extends tp.Component {
      * @param {*|null|undefined} Text Optional text used when Source is a name.
      * @param {*|null|undefined} Width Optional width used when Source is a name.
      * @param {*|null|undefined} CssClass Optional CSS class used when Source is a name.
+     * @param {*|null|undefined} TextAlign Optional text alignment used when Source is a name.
      * @returns {tp.StatusBarItem} Returns the normalized item.
      */
-    NormalizeItem(Source, Text, Width, CssClass) {
+    NormalizeItem(Source, Text, Width, CssClass, TextAlign) {
         var Item;
         if (Source instanceof tp.StatusBarItem)
             Item = Source;
         else if (tp.IsString(Source))
-            Item = new tp.StatusBarItem({ Name: Source, Text: tp.IsNil(Text) ? "" : Text, Width: Width, CssClass: CssClass });
+            Item = new tp.StatusBarItem({ Name: Source, Text: tp.IsNil(Text) ? "" : Text, Width: Width, CssClass: CssClass, TextAlign: TextAlign });
         else
             Item = new tp.StatusBarItem(Source);
         if (tp.IsBlank(Item.Name)) {
@@ -190,6 +217,7 @@ tp.StatusBar = class extends tp.Component {
         Element.className = tp.Classes.StatusBarItem;
         Element.textContent = Item.Text;
         Element.title = Item.Title || Item.Text;
+        Element.style.textAlign = Item.TextAlign || "";
         if (!tp.IsBlank(Item.CssClass))
             tp.AddClasses(Element, Item.CssClass);
         if (Item.Visible === false)
@@ -219,21 +247,23 @@ tp.StatusBar = class extends tp.Component {
      * @param {*|null|undefined} Text Optional item text when NameOrItem is a name.
      * @param {*|null|undefined} Width Optional item width when NameOrItem is a name.
      * @param {*|null|undefined} CssClass Optional item CSS class when NameOrItem is a name.
+     * @param {*|null|undefined} TextAlign Optional item text alignment when NameOrItem is a name.
      * @returns {tp.StatusBarItem} Returns the added or updated item.
      */
-    Add(NameOrItem, Text, Width, CssClass) {
-        var Item = this.NormalizeItem(NameOrItem, Text, Width, CssClass);
+    Add(NameOrItem, Text, Width, CssClass, TextAlign) {
+        var Item = this.NormalizeItem(NameOrItem, Text, Width, CssClass, TextAlign);
         var Existing = this.Find(Item.Name);
         if (Existing) {
             Existing.Text = Item.Text;
             Existing.Title = Item.Title;
             Existing.Width = Item.Width;
+            Existing.TextAlign = Item.TextAlign;
             Existing.CssClass = Item.CssClass;
             Existing.Visible = Item.Visible;
             Existing.Tag = Item.Tag;
             Item = Existing;
         } else {
-            this.fItems.push(Item);
+            this.fItems.Add(Item);
         }
         this.Render();
         return Item;
@@ -258,7 +288,7 @@ tp.StatusBar = class extends tp.Component {
         this.fItems.forEach(function (Item) {
             Item.Element = null;
         });
-        tp.ListClear(this.fItems);
+        this.fItems.Clear();
         this.Render();
     }
     /**
@@ -271,14 +301,14 @@ tp.StatusBar = class extends tp.Component {
         if (tp.IsNumber(NameOrIndexOrItem)) {
             Index = NameOrIndexOrItem;
         } else if (NameOrIndexOrItem instanceof tp.StatusBarItem) {
-            Index = this.fItems.indexOf(NameOrIndexOrItem);
+            Index = this.fItems.IndexOf(NameOrIndexOrItem);
         } else if (tp.IsString(NameOrIndexOrItem)) {
-            Index = this.fItems.indexOf(this.Find(NameOrIndexOrItem));
+            Index = this.fItems.IndexOf(this.Find(NameOrIndexOrItem));
         }
         if (!tp.InRange(this.fItems, Index))
             return false;
         this.fItems[Index].Element = null;
-        tp.ListRemoveAt(this.fItems, Index);
+        this.fItems.RemoveAt(Index);
         this.Render();
         return true;
     }
@@ -289,7 +319,7 @@ tp.StatusBar = class extends tp.Component {
      */
     Find(Name) {
         var Index;
-        for (Index = 0; Index < this.fItems.length; Index++) {
+        for (Index = 0; Index < this.fItems.Count; Index++) {
             if (tp.IsSameText(this.fItems[Index].Name, Name))
                 return this.fItems[Index];
         }
@@ -369,6 +399,20 @@ tp.StatusBar = class extends tp.Component {
         this.Render();
         return Item;
     }
+    /**
+     * Sets item text alignment.
+     * @param {string} Name The item name.
+     * @param {*} TextAlign The CSS text-align value.
+     * @returns {tp.StatusBarItem} Returns the item.
+     */
+    SetTextAlign(Name, TextAlign) {
+        var Item = this.Find(Name);
+        if (!Item)
+            Item = this.Add(Name, "");
+        Item.TextAlign = tp.IsNil(TextAlign) ? "" : String(TextAlign);
+        this.ApplyItemElement(Item);
+        return Item;
+    }
 
     // ● properties
     /**
@@ -376,14 +420,14 @@ tp.StatusBar = class extends tp.Component {
      * @returns {tp.StatusBarItem[]} Returns a copy of the item list.
      */
     get Items() {
-        return this.fItems.slice();
+        return this.fItems.ToArray();
     }
     /**
      * Gets the number of items.
      * @returns {number} Returns the item count.
      */
     get ItemCount() {
-        return this.fItems.length;
+        return this.fItems.Count;
     }
     /**
      * Gets or sets the default item name used by Text and Message.

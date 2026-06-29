@@ -1897,3 +1897,48 @@ input[type=text].tp-Grid-InplaceEditor {
     font-family: monospace;
     white-space: pre-wrap;
 }
+
+/*---------------------------------------------------------------------------------------
+  StatusBar
+---------------------------------------------------------------------------------------*/
+.tp-StatusBar {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-width: 0;
+    min-height: 24px;
+    border-top: 1px solid #c8c8c8;
+    background: #f0f0f0;
+    color: #222222;
+    font-size: 12px;
+    line-height: 1.2;
+    user-select: none;
+}
+
+.tp-StatusBarItem {
+    box-sizing: border-box;
+    min-width: 0;
+    height: 100%;
+    padding: 5px 8px;
+    overflow: hidden;
+    border-right: 1px solid #c8c8c8;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tp-StatusBarItem:last-child {
+    border-right: 0;
+}
+
+.tp-StatusBarItemHidden {
+    display: none;
+}
+
+.tp-StatusBarCompact {
+    min-height: 20px;
+    font-size: 11px;
+}
+
+.tp-StatusBarCompact > .tp-StatusBarItem {
+    padding: 3px 6px;
+}

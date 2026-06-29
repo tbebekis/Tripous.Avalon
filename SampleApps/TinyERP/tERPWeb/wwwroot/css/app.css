@@ -1,0 +1,230 @@
+html {
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI", Tahoma, Verdana, Arial, sans-serif;
+    font-size: 14px;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    color: #202428;
+}
+
+body:not(.demo-page) {
+    overflow: hidden;
+    background: #d9dde2;
+}
+
+button,
+a,
+textarea {
+    font: inherit;
+}
+
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    min-width: 920px;
+    min-height: 620px;
+    background: #eef0f2;
+}
+
+.app-top-strip {
+    display: flex;
+    flex: 0 0 24px;
+    align-items: center;
+    gap: 0;
+    min-width: 0;
+    padding: 0 8px;
+    border-bottom: 1px solid #b9c1ca;
+    background: #f8f9fa;
+    font-size: 12px;
+}
+
+.app-top-strip a {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    color: #202428;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.app-top-strip a:hover {
+    background: #e2e7ec;
+}
+
+.app-toolbar {
+    flex: 0 0 44px;
+    min-width: 0;
+    border-bottom: 1px solid #aeb7c1;
+    background: #e7ebef;
+}
+
+.app-body {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+}
+
+.app-sidebar {
+    flex: 0 0 auto;
+    width: 300px;
+    min-width: 40px;
+    min-height: 0;
+    background: #f6f7f8;
+}
+
+.app-right-panel {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: #ffffff;
+}
+
+.app-workspace {
+    flex: 0 0 auto;
+    height: calc(100% - 110px);
+    min-width: 0;
+    min-height: 40px;
+}
+
+.app-tab-control.app-workspace {
+    height: calc(100% - 110px);
+}
+
+.app-log-panel {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 40px;
+    background: #f8f9fa;
+}
+
+.app-log {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 8px 10px;
+    overflow: auto;
+    border: 0;
+    outline: 0;
+    resize: none;
+    background: #f8f9fa;
+    color: #30363d;
+    font-family: "Cascadia Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.45;
+    white-space: pre;
+}
+
+.app-status-bar {
+    flex: 0 0 28px;
+    min-width: 0;
+    border-top: 1px solid #b9c1ca;
+    background: #eceff2;
+    color: #30363d;
+    font-size: 12px;
+}
+
+.app-tab-control {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+}
+
+.app-tab-control > .tp-List,
+.app-tab-control > .tp-List > .tp-TabPage {
+    min-width: 0;
+    min-height: 0;
+}
+
+.app-tab-control > .tp-List {
+    overflow: hidden;
+}
+
+.app-tab-control > .tp-List > .tp-TabPage {
+    height: 100%;
+}
+
+.app-command-tree {
+    box-sizing: border-box;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 8px;
+    overflow: auto;
+}
+
+.app-command-tree section {
+    margin-bottom: 10px;
+}
+
+.app-command-tree h2 {
+    margin: 0 0 4px 0;
+    padding: 5px 8px;
+    border: 1px solid #c7ced6;
+    background: #e8edf1;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.app-command-tree a {
+    display: block;
+    min-height: 28px;
+    padding: 6px 8px 6px 18px;
+    color: #202428;
+    text-decoration: none;
+}
+
+.app-command-tree a:hover {
+    background: #dde8f4;
+}
+
+.app-empty-panel {
+    height: 100%;
+    background: #ffffff;
+}
+
+.app-page {
+    box-sizing: border-box;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 16px;
+    overflow: auto;
+    background: #ffffff;
+}
+
+.app-splitter.tp-Splitter.tp-Vertical {
+    flex: 0 0 6px;
+    width: 6px;
+    min-width: 6px;
+}
+
+.app-splitter.tp-Splitter.tp-Horizontal {
+    flex: 0 0 6px;
+    height: 6px;
+    min-height: 6px;
+}
+
+@media (max-width: 960px) {
+    .app-shell {
+        min-width: 0;
+    }
+
+    .app-sidebar {
+        width: 240px;
+        min-width: 40px;
+    }
+}
