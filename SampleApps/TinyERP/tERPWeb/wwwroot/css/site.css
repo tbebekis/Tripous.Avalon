@@ -1,31 +1,360 @@
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    width: 100%;
+    height: 100%;
+    font-family: "Segoe UI", Tahoma, Verdana, Arial, sans-serif;
+    font-size: 14px;
 }
 
 body {
-  margin-bottom: 60px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    color: #202428;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+body:not(.demo-page) {
+    overflow: hidden;
+    background: #d9dde2;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+button,
+a {
+    font: inherit;
+}
+
+.app-shell {
+    display: grid;
+    grid-template-rows: 30px 44px minmax(0, 1fr) 104px 28px;
+    width: 100vw;
+    height: 100vh;
+    min-width: 920px;
+    min-height: 620px;
+    background: #eef0f2;
+}
+
+.app-menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 0;
+    padding: 0 10px;
+    border-bottom: 1px solid #b9c1ca;
+    background: #f8f9fa;
+}
+
+.app-brand {
+    flex: 0 0 auto;
+    color: #202428;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.app-menu {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+.app-menu a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 0 10px;
+    color: #202428;
+    text-decoration: none;
+}
+
+.app-menu a:hover {
+    background: #e2e7ec;
+}
+
+.app-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 4px 8px;
+    border-bottom: 1px solid #aeb7c1;
+    background: #e7ebef;
+}
+
+.app-tool-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 34px;
+    min-width: 34px;
+    padding: 0 8px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    color: #202428;
+    background: transparent;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.app-tool-button:hover {
+    border-color: #9aa8b6;
+    background: #ffffff;
+}
+
+.app-tool-button img {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+}
+
+.app-toolbar-spacer {
+    flex: 1 1 auto;
+    min-width: 12px;
+}
+
+.app-body {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    border-bottom: 1px solid #aeb7c1;
+}
+
+.app-sidebar {
+    display: grid;
+    grid-template-rows: 32px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    border-right: 1px solid #aeb7c1;
+    background: #f6f7f8;
+}
+
+.app-sidebar-tabs {
+    display: flex;
+    align-items: end;
+    gap: 2px;
+    padding: 4px 4px 0 4px;
+    border-bottom: 1px solid #aeb7c1;
+    background: #e4e8ec;
+}
+
+.app-sidebar-tabs button,
+.app-tab-strip button {
+    min-width: 92px;
+    height: 28px;
+    padding: 0 10px;
+    border: 1px solid #aeb7c1;
+    border-bottom: 0;
+    border-radius: 4px 4px 0 0;
+    color: #202428;
+    background: #dfe4e9;
+}
+
+.app-sidebar-tabs button.is-active,
+.app-tab-strip button.is-active {
+    background: #ffffff;
+}
+
+.app-command-tree {
+    min-width: 0;
+    min-height: 0;
+    padding: 8px;
+    overflow: auto;
+}
+
+.app-command-tree section {
+    margin-bottom: 10px;
+}
+
+.app-command-tree h2 {
+    margin: 0 0 4px 0;
+    padding: 5px 8px;
+    border: 1px solid #c7ced6;
+    background: #e8edf1;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.app-command-tree a {
+    display: block;
+    min-height: 28px;
+    padding: 6px 8px 6px 18px;
+    color: #202428;
+    text-decoration: none;
+}
+
+.app-command-tree a:hover {
+    background: #dde8f4;
+}
+
+.app-workspace {
+    display: grid;
+    grid-template-rows: 32px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    background: #ffffff;
+}
+
+.app-tab-strip {
+    display: flex;
+    align-items: end;
+    min-width: 0;
+    padding: 4px 4px 0 4px;
+    border-bottom: 1px solid #aeb7c1;
+    background: #e4e8ec;
+}
+
+.app-page {
+    min-width: 0;
+    min-height: 0;
+    padding: 16px;
+    overflow: auto;
+    background: #ffffff;
+}
+
+.app-log {
+    min-height: 0;
+    padding: 8px 10px;
+    overflow: auto;
+    border-top: 1px solid #c7ced6;
+    background: #f8f9fa;
+    color: #30363d;
+    font-family: "Cascadia Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.app-status-bar {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) 150px 170px minmax(160px, 1fr);
+    align-items: center;
+    min-width: 0;
+    border-top: 1px solid #b9c1ca;
+    background: #eceff2;
+    color: #30363d;
+    font-size: 12px;
+}
+
+.app-status-bar span {
+    min-width: 0;
+    height: 100%;
+    padding: 6px 8px;
+    overflow: hidden;
+    border-right: 1px solid #c7ced6;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-status-bar span:last-child {
+    border-right: 0;
+}
+
+.dashboard {
+    display: grid;
+    gap: 16px;
+    max-width: 1120px;
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #d0d7de;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.dashboard-header p {
+    margin: 4px 0 0 0;
+    color: #66717c;
+}
+
+.dashboard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dashboard-actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 10px;
+    border: 1px solid #aeb7c1;
+    border-radius: 3px;
+    color: #202428;
+    background: #f8f9fa;
+    text-decoration: none;
+}
+
+.dashboard-actions a:hover {
+    background: #e8edf1;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.dashboard-panel {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 4px;
+    background: #ffffff;
+}
+
+.dashboard-panel h2 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.dashboard-panel dl {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+}
+
+.dashboard-panel dl div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 30px;
+    padding: 6px 8px;
+    background: #f6f7f8;
+}
+
+.dashboard-panel dt {
+    color: #4f5a64;
+}
+
+.dashboard-panel dd {
+    margin: 0;
+    font-weight: 600;
+}
+
+@media (max-width: 960px) {
+    .app-shell {
+        min-width: 0;
+    }
+
+    .app-body {
+        grid-template-columns: 240px minmax(0, 1fr);
+    }
+
+    .app-tool-button span {
+        display: none;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
 }

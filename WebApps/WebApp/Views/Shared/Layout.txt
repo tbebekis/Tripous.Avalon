@@ -1,9 +1,0 @@
- ● shows where a normal view is rendered
----------------------------------------------
-Layout
-    Layout.Header
-    Layout.Shell    
-        ● 
-    Layout.Footer
-    Layout.Common
-    Layout.MessageList

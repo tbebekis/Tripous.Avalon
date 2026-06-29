@@ -1,35 +1,117 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string PageTitle = ViewData["Title"] as string ?? "tERP Web";
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - tERPWeb</title>
+    <title>@PageTitle - tERP Web</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/tp/css/tp-Variables.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/tp/css/tp.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/tp/css/font-awesome.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/tp/css/glyphicons.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/tp/css/tp-UI.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <script src="~/tp/js/tp.js" asp-append-version="true"></script>
     <script src="~/tp/js/tp-Data.js" asp-append-version="true"></script>
     <script src="~/tp/js/tp-UI.js" asp-append-version="true"></script>
     <script src="~/tp/js/tp-Grid.js" asp-append-version="true"></script>
 </head>
 <body>
-<header>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
+<div class="app-shell">
+    <header class="app-menu-bar">
+        <a class="app-brand" asp-area="" asp-controller="Home" asp-action="Index">tERP Web</a>
+        <nav class="app-menu">
+            <a href="/demos">MVC Server Demos</a>
+            <a href="/web-demos/">Static JavaScript Demos</a>
+        </nav>
+    </header>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-       
+    <section class="app-toolbar" aria-label="Main toolbar">
+        <a class="app-tool-button" asp-area="" asp-controller="Home" asp-action="Index" title="Dashboard">
+            <img src="~/images/toolbar/chart_bar.png" alt=""/>
+            <span>Dashboard</span>
+        </a>
+        <button class="app-tool-button" type="button" title="Application folder">
+            <img src="~/images/toolbar/folder.png" alt=""/>
+            <span>App Folder</span>
+        </button>
+        <button class="app-tool-button" type="button" title="Application settings">
+            <img src="~/images/toolbar/setting_tools.png" alt=""/>
+            <span>Settings</span>
+        </button>
+        <button class="app-tool-button" type="button" title="Database connection">
+            <img src="~/images/toolbar/database_edit.png" alt=""/>
+            <span>Connection</span>
+        </button>
+        <button class="app-tool-button" type="button" title="Toggle log">
+            <img src="~/images/toolbar/error_log.png" alt=""/>
+            <span>Log</span>
+        </button>
+        <span class="app-toolbar-spacer"></span>
+        <button class="app-tool-button" type="button" title="Exit">
+            <img src="~/images/toolbar/door_out.png" alt=""/>
+            <span>Exit</span>
+        </button>
+    </section>
+
+    <div class="app-body">
+        <aside class="app-sidebar" aria-label="Command tree">
+            <div class="app-sidebar-tabs">
+                <button class="is-active" type="button">Commands</button>
+                <button type="button">Favorites</button>
+            </div>
+            <nav class="app-command-tree">
+                <section>
+                    <h2>General</h2>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                    <a href="/demos">MVC Server Demos</a>
+                    <a href="/web-demos/">Static JavaScript Demos</a>
+                </section>
+                <section>
+                    <h2>Sales</h2>
+                    <a href="#">Sales invoices</a>
+                    <a href="#">Sales orders</a>
+                    <a href="#">Customer receipts</a>
+                </section>
+                <section>
+                    <h2>Purchases</h2>
+                    <a href="#">Purchase invoices</a>
+                    <a href="#">Purchase orders</a>
+                    <a href="#">Supplier payments</a>
+                </section>
+                <section>
+                    <h2>Stock</h2>
+                    <a href="#">Stock movements</a>
+                    <a href="#">Stock count</a>
+                </section>
+            </nav>
+        </aside>
+
+        <main class="app-workspace">
+            <div class="app-tab-strip">
+                <button class="is-active" type="button">@PageTitle</button>
+            </div>
+            <section class="app-page">
+                @RenderBody()
+            </section>
+        </main>
     </div>
-</footer>
+
+    <section class="app-log" aria-label="Application log">
+        <div>Application Started.</div>
+        <div>Ready.</div>
+    </section>
+
+    <footer class="app-status-bar">
+        <span>tERP Web v1.0</span>
+        <span>User: Admin</span>
+        <span>User Role: Admin</span>
+        <span>Ready</span>
+    </footer>
+</div>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
