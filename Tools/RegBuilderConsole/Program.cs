@@ -102,17 +102,7 @@ static public class Program
         if (Project.Outputs.Length > 0)
             return Project.Outputs;
 
-        return
-        [
-            new RegBuilderOutput()
-            {
-                TargetName = "Default",
-                OutputFolderPath = Project.OutputFolderPath,
-                Artifacts = RegBuilderArtifactKind.CSharpSource,
-                ClassPrefix = "RegistryVersion",
-                NamespaceName = Project.NamespaceName
-            }
-        ];
+        throw new InvalidOperationException($"RegBuilder project has no outputs: {Project.Name}");
     }
     /// <summary>
     /// Copies generated files for an output target.

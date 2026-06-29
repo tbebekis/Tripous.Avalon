@@ -861,35 +861,23 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static RegBuilderOutput[] GetOutputs(RegBuilderProject Project, string DefaultOutputFolderPath)
     {
-        if (Project.Outputs.Length > 0)
-        {
-            List<RegBuilderOutput> Result = [];
-            foreach (RegBuilderOutput Output in Project.Outputs)
-            {
-                RegBuilderOutput Item = new()
-                {
-                    TargetName = Output.TargetName,
-                    OutputFolderPath = DefaultOutputFolderPath,
-                    Artifacts = Output.Artifacts,
-                    ClassPrefix = Output.ClassPrefix,
-                    NamespaceName = Output.NamespaceName
-                };
-                Result.Add(Item);
-            }
-            return Result.ToArray();
-        }
+        if (Project.Outputs.Length == 0)
+            throw new InvalidOperationException($"RegBuilder project has no outputs: {Project.Name}");
 
-        return
-        [
-            new RegBuilderOutput()
+        List<RegBuilderOutput> Result = [];
+        foreach (RegBuilderOutput Output in Project.Outputs)
+        {
+            RegBuilderOutput Item = new()
             {
-                TargetName = "Default",
+                TargetName = Output.TargetName,
                 OutputFolderPath = DefaultOutputFolderPath,
-                Artifacts = RegBuilderArtifactKind.All,
-                ClassPrefix = "RegistryVersion",
-                NamespaceName = Project.NamespaceName
-            }
-        ];
+                Artifacts = Output.Artifacts,
+                ClassPrefix = Output.ClassPrefix,
+                NamespaceName = Output.NamespaceName
+            };
+            Result.Add(Item);
+        }
+        return Result.ToArray();
     }
     /// <summary>
     /// Writes generated output files.

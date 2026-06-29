@@ -114,25 +114,31 @@ public partial class MainWindow : Window
                 LogBox.AppendLine("Execute the selected project before copying generated files.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(Project.OutputFolderPath))
+            if (Project.Outputs.Length == 0)
             {
-                LogBox.AppendLine("No output folder configured for project: " + Project.Name);
+                LogBox.AppendLine("No outputs configured for project: " + Project.Name);
                 return;
             }
 
-            string OutputFolderPath = ResolvePath(Project.OutputFolderPath);
-            Directory.CreateDirectory(OutputFolderPath);
-
-            foreach (string FileName in SchemaRegistrationBuilder.GetGeneratedSourceFileNames(Project.SchemaVersion))
+            foreach (RegBuilderOutput Output in Project.Outputs)
             {
-                string SourceFilePath = Path.Combine(WorkingFolderPath, FileName);
-                string TargetFilePath = Path.Combine(OutputFolderPath, FileName);
-                if (!File.Exists(SourceFilePath))
-                    throw new FileNotFoundException("Generated source file was not found.", SourceFilePath);
-                File.Copy(SourceFilePath, TargetFilePath, true);
-            }
+                if (string.IsNullOrWhiteSpace(Output.OutputFolderPath))
+                    throw new InvalidOperationException($"RegBuilder output has no output folder. Project: {Project.Name}. Target: {Output.TargetName}");
 
-            LogBox.AppendLine($"Copied generated files: {Project.Name} -> {OutputFolderPath}");
+                string OutputFolderPath = ResolvePath(Output.OutputFolderPath);
+                Directory.CreateDirectory(OutputFolderPath);
+
+                foreach (string FileName in SchemaRegistrationBuilder.GetGeneratedFileNames(Project.SchemaVersion, Output))
+                {
+                    string SourceFilePath = Path.Combine(WorkingFolderPath, FileName);
+                    string TargetFilePath = Path.Combine(OutputFolderPath, FileName);
+                    if (!File.Exists(SourceFilePath))
+                        throw new FileNotFoundException("Generated source file was not found.", SourceFilePath);
+                    File.Copy(SourceFilePath, TargetFilePath, true);
+                }
+
+                LogBox.AppendLine($"Copied generated files: {Project.Name} [{Output.TargetName}] -> {OutputFolderPath}");
+            }
         }
         catch (Exception Ex)
         {

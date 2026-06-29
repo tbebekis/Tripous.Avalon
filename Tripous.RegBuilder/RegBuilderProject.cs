@@ -60,10 +60,6 @@ public class RegBuilderProject
         set => fReferenceFilePaths = value;
     }
     /// <summary>
-    /// The destination folder for generated source files.
-    /// </summary>
-    public string OutputFolderPath { get; set; }
-    /// <summary>
     /// Output targets for generated artifacts.
     /// </summary>
     public RegBuilderOutput[] Outputs

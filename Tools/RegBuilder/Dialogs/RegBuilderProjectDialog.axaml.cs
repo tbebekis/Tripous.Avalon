@@ -61,7 +61,6 @@ public partial class RegBuilderProjectDialog : DialogWindow
         edtSchemaFilePath.Text = Project.SchemaFilePath;
         edtSchemaVersion.Value = Project.SchemaVersion;
         edtNamespaceName.Text = Project.NamespaceName;
-        edtOutputFolderPath.Text = Project.OutputFolderPath;
         
         chLookup.IsChecked = DuplicateCheck.Lookup.In(Project.DuplicateChecks);
         chEnum.IsChecked = DuplicateCheck.Enum.In(Project.DuplicateChecks);
@@ -86,7 +85,6 @@ public partial class RegBuilderProjectDialog : DialogWindow
         string SchemaFilePath = edtSchemaFilePath.GetText();
         int SchemaVersion = edtSchemaVersion.Value.HasValue ? Convert.ToInt32(edtSchemaVersion.Value) : 0;
         string NamespaceName = edtNamespaceName.GetText();
-        string OutputFolderPath = edtOutputFolderPath.GetText();
 
         if (string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(SchemaFilePath) || SchemaVersion <= 0 || string.IsNullOrWhiteSpace(NamespaceName))
             return;
@@ -96,7 +94,6 @@ public partial class RegBuilderProjectDialog : DialogWindow
         Project.SchemaFilePath = SchemaFilePath;
         Project.SchemaVersion = SchemaVersion;
         Project.NamespaceName = NamespaceName;
-        Project.OutputFolderPath = OutputFolderPath;
         
         DuplicateCheck DuplicateChecks = DuplicateCheck.None;
         if (chLookup.IsChecked == true)
