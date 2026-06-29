@@ -9,68 +9,69 @@
     WindowStartupLocation="CenterOwner"
     CanResize="False"
     Width="800"
-    Height="760"
+    Height="720"
     Padding="15">
 
     <Grid RowDefinitions="*, Auto">
-        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Spacing="15" Margin="0,0,10,0">
-                
-                <StackPanel Spacing="5">
-                    <TextBlock Text="Project Name:" FontWeight="SemiBold"/>
-                    <TextBox Name="edtName"/>
-                </StackPanel>
+        <TabControl Grid.Row="0">
+            <TabItem Header="Project">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="15" Margin="0,0,10,0">
+                        
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Project Name:" FontWeight="SemiBold"/>
+                            <TextBox Name="edtName"/>
+                        </StackPanel>
 
-                <Grid ColumnDefinitions="*, 120">
-                    <StackPanel Grid.Column="0" Spacing="5">
-                        <TextBlock Text="Schema File Path:" FontWeight="SemiBold"/>
-                        <TextBox Name="edtSchemaFilePath"/>
+                        <Grid ColumnDefinitions="*, 120">
+                            <StackPanel Grid.Column="0" Spacing="5">
+                                <TextBlock Text="Schema File Path:" FontWeight="SemiBold"/>
+                                <TextBox Name="edtSchemaFilePath"/>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Column="1" Spacing="5">
+                                <TextBlock Text="Schema Version:" FontWeight="SemiBold"/>
+                                <NumericUpDown Name="edtSchemaVersion" Minimum="1" FormatString="0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Namespace Name:" FontWeight="SemiBold"/>
+                            <TextBox Name="edtNamespaceName"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Duplicate Checks:" FontWeight="SemiBold"/>
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10">
+                                <WrapPanel Orientation="Horizontal" ItemSpacing="15" LineSpacing="10">
+                                    <CheckBox Name="chLookup" Content="Lookup"/>
+                                    <CheckBox Name="chEnum" Content="Enum"/>
+                                    <CheckBox Name="chForm" Content="Form"/>
+                                    <CheckBox Name="chModule" Content="Module"/>
+                                    <CheckBox Name="chLocator" Content="Locator"/>
+                                    <CheckBox Name="chCodeProvider" Content="Code Provider"/>
+                                </WrapPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Reference File Paths (One per line):" FontWeight="SemiBold"/>
+                            <TextBox Name="edtReferenceFilePaths" 
+                                     AcceptsReturn="True" 
+                                     Height="220" 
+                                     TextWrapping="NoWrap" 
+                                     PlaceholderText="C:\Path\To\File1.json&#x0a;C:\Path\To\File2.json"/>
+                        </StackPanel>
                     </StackPanel>
-                    
-                    <StackPanel Grid.Column="1" Spacing="5">
-                        <TextBlock Text="Schema Version:" FontWeight="SemiBold"/>
-                        <NumericUpDown Name="edtSchemaVersion" Minimum="1" FormatString="0"/>
-                    </StackPanel>
-                </Grid>
+                </ScrollViewer>
+            </TabItem>
 
-                <StackPanel Spacing="5">
-                    <TextBlock Text="Namespace Name:" FontWeight="SemiBold"/>
-                    <TextBox Name="edtNamespaceName"/>
-                </StackPanel>
-
-                <StackPanel Spacing="5">
-                    <TextBlock Text="Duplicate Checks:" FontWeight="SemiBold"/>
-                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Padding="10">
-                        <WrapPanel Orientation="Horizontal" ItemSpacing="15" LineSpacing="10">
-                            <CheckBox Name="chLookup" Content="Lookup"/>
-                            <CheckBox Name="chEnum" Content="Enum"/>
-                            <CheckBox Name="chForm" Content="Form"/>
-                            <CheckBox Name="chModule" Content="Module"/>
-                            <CheckBox Name="chLocator" Content="Locator"/>
-                            <CheckBox Name="chCodeProvider" Content="Code Provider"/>
-                        </WrapPanel>
-                    </Border>
-                </StackPanel>
-
-                <StackPanel Spacing="5">
-                    <TextBlock Text="Reference File Paths (One per line):" FontWeight="SemiBold"/>
-                    <TextBox Name="edtReferenceFilePaths" 
-                             AcceptsReturn="True" 
-                             Height="120" 
-                             TextWrapping="NoWrap" 
-                             PlaceholderText="C:\Path\To\File1.json&#x0a;C:\Path\To\File2.json"/>
-                </StackPanel>
-
-                <StackPanel Spacing="5">
-                    <TextBlock Text="Outputs JSON:" FontWeight="SemiBold"/>
-                    <TextBox Name="edtOutputs"
-                             AcceptsReturn="True"
-                             Height="220"
-                             TextWrapping="NoWrap"/>
-                </StackPanel>
-                
-            </StackPanel>
-        </ScrollViewer>
+            <TabItem Header="Outputs JSON">
+                <TextBox Name="edtOutputs"
+                         AcceptsReturn="True"
+                         TextWrapping="NoWrap"/>
+            </TabItem>
+        </TabControl>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,15,0,0">
             <Button Name="btnOK" Content="OK" Width="90" HorizontalContentAlignment="Center" IsDefault="True"/>
