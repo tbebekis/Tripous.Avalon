@@ -160,18 +160,6 @@ where P.IsActive = 1
         
  
     }
-    /// <summary>
-    /// Definitions added by the registration builder may be incomplete.
-    /// <para>This method provides a chance to complete those definitions.</para>
-    /// </summary>
-    static public void UpdateForms()
-    {
-        DesktopRegistry.Forms.Get("SalesDeliveryNote").ClassName = "SalesDeliveryNoteForm";
-    }
-    /// <summary>
-    /// Definitions added by the registration builder may be incomplete.
-    /// <para>This method provides a chance to complete those definitions.</para>
-    /// </summary>
     static public void UpdateModules()
     {
         /*
@@ -239,9 +227,6 @@ where P.IsActive = 1
         ModuleDef AppUserModule = DataRegistry.Modules.Find("AppUser");
         if (AppUserModule != null)
             AppUserModule.SecurityLevel = UserLevel.Admin;
-        FormDef AppUserForm = DesktopRegistry.Forms.Find("AppUser");
-        if (AppUserForm != null)
-            AppUserForm.SecurityLevel = UserLevel.Admin;
 
         // ●  Application Defaults
         string Name = DataLib.SAppDefaultProperties;
@@ -254,20 +239,6 @@ where P.IsActive = 1
         string EditorClassName = "tERP.AppDefaultPropertiesEditor";
         
         ConfigPropertyDef ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, TypeName, EditorClassName);
-        
-        // ●  Show DataForm Log
-        Name = Ui.SShowDataFormLog;
-        TitleKey = "Show DataForm Log";
-        SecurityLevel = UserLevel.User;
-        Kind = ConfigValueKind.Boolean;
-        DefaultValue = "false";
-        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue);
-        ConfigPropertyDef.ApplyValueFunc = (Def, S) =>
-        {
-            bool Value = Convert.ToBoolean(S);
-            Ui.Settings.ShowDataFormLog = Value;
-        };
-
         // ●  Use Users
         Name = DataLib.SUseUsers;
         TitleKey = "Use Users";

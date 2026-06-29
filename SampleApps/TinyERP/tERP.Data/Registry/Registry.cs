@@ -35,7 +35,7 @@ static public partial class Registry
             Version.Register();
     }
     /// <summary>
-    /// Register descriptors, i.e. commands, lookup sources, locators, modules and forms.
+    /// Register descriptors, i.e. commands, lookup sources, locators and modules.
     /// </summary>
     static public void RegisterDescriptors()
     {
@@ -44,17 +44,14 @@ static public partial class Registry
             Version.RegisterLookups();
             Version.RegisterLookupSources();
             Version.RegisterLocators();
-            
             Version.RegisterCodeProviders();
             Version.RegisterModules();
-            Version.RegisterForms();
         }
  
         RegisterDocumentHandlers();
   
         UpdateLookups();
         UpdateLocators();
-        UpdateForms();
         UpdateModules();
 
         RegisterSycConfigProperties();

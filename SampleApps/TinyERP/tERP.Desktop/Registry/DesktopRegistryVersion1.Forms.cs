@@ -11,9 +11,9 @@
  * See License.txt for details.
  */
 
-namespace tERP.Data;
+namespace tERP.Desktop;
 
-public partial class RegistryVersion1: RegistryVersion
+public partial class DesktopRegistryVersion1: RegistryVersion
 {
     // ● public
     public override void RegisterForms()

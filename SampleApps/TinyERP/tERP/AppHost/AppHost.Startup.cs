@@ -242,7 +242,8 @@ static internal partial class AppHost
             
             LoadLibraries();
             TypeStore.RegisterLoadedAssemblies();
-            Registry.RegisterDescriptors();             // Register descriptors, i.e. commands, lookup sources, locators, modules and forms.
+            Registry.RegisterDescriptors();             // Register data descriptors, i.e. commands, lookup sources, locators and modules.
+            DesktopLib.RegisterDescriptors();           // Register desktop descriptors, i.e. forms.
             
             InitializeLibraries();
             
