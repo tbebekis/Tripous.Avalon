@@ -23,13 +23,18 @@ static public class SchemaRegistrationBuilder
     /// Returns the generated file names for a schema version and artifact kind set.
     /// </summary>
     static public string[] GetGeneratedFileNames(int SchemaVersion, RegBuilderOutput Output)
-        => GetGeneratedFileNames(SchemaVersion, Output != null ? Output.Artifacts : RegBuilderArtifactKind.None);
+        => GetGeneratedFileNames(SchemaVersion, Output != null ? Output.Artifacts : RegBuilderArtifactKind.None, GetRegistryClassPrefix(Output));
     /// <summary>
     /// Returns the generated file names for a schema version and artifact kind set.
     /// </summary>
     static public string[] GetGeneratedFileNames(int SchemaVersion, RegBuilderArtifactKind Artifacts)
+        => GetGeneratedFileNames(SchemaVersion, Artifacts, "RegistryVersion");
+    /// <summary>
+    /// Returns the generated file names for a schema version and artifact kind set.
+    /// </summary>
+    static public string[] GetGeneratedFileNames(int SchemaVersion, RegBuilderArtifactKind Artifacts, string RegistryClassPrefix)
     {
-        string Prefix = $"RegistryVersion{SchemaVersion}";
+        string Prefix = GetRegistryClassName(SchemaVersion, RegistryClassPrefix);
         List<string> Result = [];
 
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Schema))
@@ -91,7 +96,8 @@ static public class SchemaRegistrationBuilder
             {
                 TargetName = "Default",
                 OutputFolderPath = OutputFolderPath,
-                Artifacts = RegBuilderArtifactKind.All
+                Artifacts = RegBuilderArtifactKind.All,
+                ClassPrefix = "RegistryVersion"
             };
             WriteOutputFiles(Result, Project.SchemaVersion, Output);
         }
@@ -132,6 +138,8 @@ static public class SchemaRegistrationBuilder
         ValidateScript(Result, Script);
         CollectCodeProviderPatterns(Result, Script);
         Script.ResolveCreationOrders(Result);
+        Result.Script = Script;
+        Result.NamespaceName = NamespaceName;
 
         try
         {
@@ -849,7 +857,8 @@ static public class SchemaRegistrationBuilder
         {
             TargetName = "Default",
             OutputFolderPath = OutputFolderPath,
-            Artifacts = RegBuilderArtifactKind.All
+            Artifacts = RegBuilderArtifactKind.All,
+            ClassPrefix = "RegistryVersion"
         };
         WriteOutputFiles(Result, SchemaVersion, Output);
     }
@@ -863,25 +872,35 @@ static public class SchemaRegistrationBuilder
         if (string.IsNullOrWhiteSpace(Output.OutputFolderPath))
             throw new TripousArgumentNullException(nameof(Output.OutputFolderPath));
 
-        WriteOutputFiles(Result, SchemaVersion, Output.OutputFolderPath, Output.Artifacts);
+        WriteOutputFiles(Result, SchemaVersion, Output.OutputFolderPath, Output.Artifacts, GetRegistryClassPrefix(Output), GetOutputNamespaceName(Result, Output));
     }
     /// <summary>
     /// Writes generated output files.
     /// </summary>
     static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts)
+        => WriteOutputFiles(Result, SchemaVersion, OutputFolderPath, Artifacts, "RegistryVersion", Result.NamespaceName);
+    /// <summary>
+    /// Writes generated output files.
+    /// </summary>
+    static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts, string RegistryClassPrefix)
+        => WriteOutputFiles(Result, SchemaVersion, OutputFolderPath, Artifacts, RegistryClassPrefix, Result.NamespaceName);
+    /// <summary>
+    /// Writes generated output files.
+    /// </summary>
+    static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts, string RegistryClassPrefix, string NamespaceName)
     {
         if (!Directory.Exists(OutputFolderPath))
             Directory.CreateDirectory(OutputFolderPath);
 
-        string Prefix = "RegistryVersion" + SchemaVersion;
+        string Prefix = GetRegistryClassName(SchemaVersion, RegistryClassPrefix);
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Schema))
             WriteOutputFile(OutputFolderPath, "SchemaVersion" + SchemaVersion + ".cs", Result.CreateTablesSourceCode);
         if (Artifacts.HasFlag(RegBuilderArtifactKind.RegistryVersion))
-            WriteOutputFile(OutputFolderPath, Prefix + ".cs", Result.RegistryVersionSourceCode);
+            WriteOutputFile(OutputFolderPath, Prefix + ".cs", BuildRegistryVersionSourceCode(SchemaVersion, NamespaceName, RegistryClassPrefix));
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Modules))
             WriteOutputFile(OutputFolderPath, Prefix + ".Modules.cs", Result.ModuleDefsSourceCode);
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Forms))
-            WriteOutputFile(OutputFolderPath, Prefix + ".Forms.cs", Result.FormDefsSourceCode);
+            WriteOutputFile(OutputFolderPath, Prefix + ".Forms.cs", BuildFormDefsSourceCode((SchemaScript)Result.Script, SchemaVersion, NamespaceName, RegistryClassPrefix));
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Lookups))
             WriteOutputFile(OutputFolderPath, Prefix + ".Lookups.cs", Result.LookupDefsSourceCode);
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Locators))
@@ -934,6 +953,21 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static string GetSqlGeneratedHeader() => GetCSharpGeneratedHeader();
     /// <summary>
+    /// Returns the registry class prefix of an output.
+    /// </summary>
+    static string GetRegistryClassPrefix(RegBuilderOutput Output)
+        => Output != null && !string.IsNullOrWhiteSpace(Output.ClassPrefix) ? Output.ClassPrefix : "RegistryVersion";
+    /// <summary>
+    /// Returns the output namespace name.
+    /// </summary>
+    static string GetOutputNamespaceName(SchemaParserResult Result, RegBuilderOutput Output)
+        => Output != null && !string.IsNullOrWhiteSpace(Output.NamespaceName) ? Output.NamespaceName : Result.NamespaceName;
+    /// <summary>
+    /// Returns the registry class name for a schema version.
+    /// </summary>
+    static string GetRegistryClassName(int SchemaVersion, string ClassPrefix)
+        => (string.IsNullOrWhiteSpace(ClassPrefix) ? "RegistryVersion" : ClassPrefix) + SchemaVersion;
+    /// <summary>
     /// Appends a namespace declaration.
     /// </summary>
     static void AppendNamespace(StringBuilder SB, string NamespaceName)
@@ -948,13 +982,19 @@ static public class SchemaRegistrationBuilder
     /// Builds source code for the registry version root partial class.
     /// </summary>
     static string BuildRegistryVersionSourceCode(int SchemaVersion, string NamespaceName)
+        => BuildRegistryVersionSourceCode(SchemaVersion, NamespaceName, "RegistryVersion");
+    /// <summary>
+    /// Builds source code for the registry version root partial class.
+    /// </summary>
+    static string BuildRegistryVersionSourceCode(int SchemaVersion, string NamespaceName, string ClassPrefix)
     {
         StringBuilder SB = new();
+        string ClassName = GetRegistryClassName(SchemaVersion, ClassPrefix);
         AppendNamespace(SB, NamespaceName);
-        SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+        SB.AppendLine("public partial class " + ClassName + ": RegistryVersion");
         SB.AppendLine("{");
         SB.AppendLine("    // ● construction");
-        SB.AppendLine("    public RegistryVersion" + SchemaVersion + "()");
+        SB.AppendLine("    public " + ClassName + "()");
         SB.AppendLine("    {");
         SB.AppendLine("    }");
         SB.AppendLine();
@@ -1120,6 +1160,11 @@ static public class SchemaRegistrationBuilder
     /// Builds source code for form registration.
     /// </summary>
     static string BuildFormDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName)
+        => BuildFormDefsSourceCode(Script, SchemaVersion, NamespaceName, "RegistryVersion");
+    /// <summary>
+    /// Builds source code for form registration.
+    /// </summary>
+    static string BuildFormDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName, string ClassPrefix)
     {
         StringBuilder SB = new();
         List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
@@ -1131,7 +1176,7 @@ static public class SchemaRegistrationBuilder
         else
         {
             AppendNamespace(SB, NamespaceName);
-            SB.AppendLine("public partial class RegistryVersion" + SchemaVersion + ": RegistryVersion");
+            SB.AppendLine("public partial class " + GetRegistryClassName(SchemaVersion, ClassPrefix) + ": RegistryVersion");
         }
         SB.AppendLine("{");
         SB.AppendLine("    // ● public");

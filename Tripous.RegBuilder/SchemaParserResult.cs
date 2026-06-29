@@ -125,6 +125,16 @@ public class SchemaParserResult
 
         return SB.ToString();
     }
+
+    // ● internal
+    /// <summary>
+    /// Parsed schema script.
+    /// </summary>
+    internal object Script { get; set; }
+    /// <summary>
+    /// Namespace name used by generated C# source.
+    /// </summary>
+    internal string NamespaceName { get; set; }
     
     // ● properties
     /// <summary>

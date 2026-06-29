@@ -27,6 +27,14 @@ public class RegBuilderOutput
     /// </summary>
     public string TargetName { get; set; }
     /// <summary>
+    /// Registry version class prefix. When empty, `RegistryVersion` is used.
+    /// </summary>
+    public string ClassPrefix { get; set; }
+    /// <summary>
+    /// Namespace name used by generated C# source. When empty, the project namespace is used.
+    /// </summary>
+    public string NamespaceName { get; set; }
+    /// <summary>
     /// Destination folder for generated artifacts.
     /// </summary>
     public string OutputFolderPath { get; set; }
