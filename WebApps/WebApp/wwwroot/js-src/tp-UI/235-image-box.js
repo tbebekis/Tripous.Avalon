@@ -46,11 +46,11 @@ tp.ImageBox = class extends tp.Control {
 
     // ● protected
     /**
-     * Initializes fields and properties before applying create params.
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
      * @returns {void}
      */
-    InitializeFields() {
-        super.InitializeFields();
+    InitClass() {
+        super.InitClass();
         this.fDataBindMode = tp.ControlBindMode.Simple;
         this.fDataValueProperty = "Url";
     }

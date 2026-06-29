@@ -79,12 +79,20 @@ tp.HtmlDateBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "date";
+        this.fDataValueProperty = "Date";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Date";
     }
     /**
      * Applies explicit create params to this date box.
@@ -115,8 +123,6 @@ tp.HtmlDateBox = class extends tp.InputControl {
      * @returns {void}
      */
     OnHandleCreated() {
-        if (this.Handle instanceof HTMLInputElement)
-            this.Handle.type = "date";
         tp.AddClass(this.Handle, tp.Classes.HtmlDateBox);
         super.OnHandleCreated();
     }
@@ -322,13 +328,20 @@ tp.CalendarBox = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Date";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Date";
         this.fDate = tp.Today();
         this.fYear = this.fDate.getFullYear();
         this.fMonth = this.fDate.getMonth();
@@ -675,13 +688,20 @@ tp.DateBox = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Date";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Date";
         this.fDate = null;
         this.fTextBoxChangeHandler = this.FuncBind(this.HandleTextBoxChange);
         this.fTextBoxKeyDownHandler = this.FuncBind(this.HandleTextBoxKeyDown);

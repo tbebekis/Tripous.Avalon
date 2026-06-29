@@ -57,8 +57,6 @@ tp.ComboBox = class extends tp.ListControl {
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.List;
-        this.fDataValueProperty = "SelectedValue";
         this.fListOnly = true;
         this.fMaxDropdownItems = 10;
         this.fDropDownSelectedIndex = -1;

@@ -169,7 +169,7 @@ tp.DropDownBox = class extends tp.Component {
         if (tp.IsDropDownBoxListener(Value))
             return Value;
         Element = tp(Value);
-        Component = tp.Component.GetComponent(Element);
+        Component = tp.GetComponent(Element);
         if (tp.IsDropDownBoxListener(Component))
             return Component;
         if (tp.IsDropDownBoxListener(Element))

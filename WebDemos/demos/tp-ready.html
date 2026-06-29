@@ -29,25 +29,100 @@
         </p>
         <h1>tp.Ready</h1>
         
-        <p>This demo checks that a <code>tp.Ready()</code> callback is executed by the Tripous runtime lifecycle.</p>
+        <p>
+            <code>tp.Ready()</code> is the normal place for application startup code. The callback runs after
+            the browser has completed the document initialization cycle and the page is ready for JavaScript
+            code that needs real elements.
+        </p>
+        
+        <p>
+            Inside a <code>tp.Ready()</code> callback you can find DOM elements, create Tripous components,
+            attach DOM or Tripous event handlers, read initial values, apply layout setup, and start the first
+            application workflow. If the page is already ready when <code>tp.Ready()</code> is called, the
+            callback runs immediately.
+        </p>
+        
+        <p>
+            A page may register as many <code>tp.Ready()</code> callbacks as needed. They execute in the same
+            order the browser finds and parses those registrations in the page scripts.
+        </p>
+        
+        <style>
+            .ready-demo-layout {
+                display: grid;
+                grid-template-columns: minmax(280px, 420px) minmax(300px, 1fr);
+                gap: 14px;
+                align-items: start;
+                width: min(100%, 980px);
+            }
+            .ready-demo-code,
+            .ready-demo-log {
+                box-sizing: border-box;
+                min-height: 190px;
+                margin: 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+            }
+            .ready-demo-note {
+                margin-top: 10px;
+            }
+            @media (max-width: 820px) {
+                .ready-demo-layout {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+            }
+        </style>
         
         <div class="html-code">
-            <div class="demo-panel demo-panel-wide">
-                <pre id="DemoOutput"></pre>
+            <div class="ready-demo-layout">
+                <section>
+                    <h2>Typical use</h2>
+                    <pre class="ready-demo-code">tp.Ready(function () {
+    var Button = tp("#SaveButton");
+    var NameBox = new tp.TextBox("#Name");
+
+    tp.On(Button, "click", function () {
+        Save(NameBox.Text);
+    });
+});</pre>
+                    <p class="ready-demo-note">
+                        The callback above can safely use <code>#SaveButton</code> and <code>#Name</code>
+                        because the document is ready when it runs.
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Observed behavior</h2>
+                    <pre id="DemoOutput" class="ready-demo-log"></pre>
+                </section>
             </div>
         </div>
         
         <script class="js-code">
+            var ReadyDemoLines = [];
+
+            function AddLine(Text) {
+                ReadyDemoLines.push(ReadyDemoLines.length + 1 + ". " + Text);
+                tp.Text("#DemoOutput", ReadyDemoLines.join("\n"));
+            }
+
+            AddLine("Inline script started. tp.IsReady = " + tp.IsReady);
+            AddLine("Registering a tp.Ready() callback before the page is ready.");
+
             tp.Ready(function () {
-                var Lines = [
-                    "tp.Ready callback executed.",
-                    "tp.IsReady = " + tp.IsReady,
-                    "document.readyState = " + document.readyState,
-                    "time = " + new Date().toLocaleTimeString()
-                ];
-        
-                tp.Text("#DemoOutput", Lines.join("\n"));
+                AddLine("Queued tp.Ready callback executed. tp.IsReady = " + tp.IsReady);
+                AddLine("document.readyState = " + document.readyState);
+                setTimeout(function () {
+                    AddLine("Timer after ready callback. tp.IsReady = " + tp.IsReady);
+                    tp.Ready(function () {
+                        AddLine("Late tp.Ready callback executed immediately.");
+                    });
+                }, 0);
             });
+
+            AddLine("Code after tp.Ready() registration continues immediately.");
         </script>
     </main>
 

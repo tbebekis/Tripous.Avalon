@@ -522,7 +522,7 @@ tp.ItemBar = class extends tp.Component {
      */
     GetItemTextAt(Index) {
         var Item = this.GetItemElementList()[Index];
-        var Component = tp.Component.GetComponent(Item);
+        var Component = tp.GetComponent(Item);
         if (Component && "Text" in Component)
             return Component.Text;
         return tp.IsHTMLElement(Item) ? Item.innerHTML : "";

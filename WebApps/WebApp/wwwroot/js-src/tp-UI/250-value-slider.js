@@ -20,12 +20,20 @@ tp.ValueSlider = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "range";
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Value";
         this.fValueList = null;
         this.GetValueFunc = null;
         this.SetValueFunc = null;
@@ -65,8 +73,6 @@ tp.ValueSlider = class extends tp.InputControl {
      * @returns {void}
      */
     OnHandleCreated() {
-        if (this.Handle instanceof HTMLInputElement)
-            this.Handle.type = "range";
         tp.AddClass(this.Handle, tp.Classes.ValueSlider);
         super.OnHandleCreated();
     }

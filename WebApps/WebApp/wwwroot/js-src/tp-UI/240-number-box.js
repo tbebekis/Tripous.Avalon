@@ -17,12 +17,20 @@ tp.NumberBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "text";
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Value";
         this.fDecimals = 0;
         this.fLastCommittedText = null;
         this.fFocusLostHandler = this.FuncBind(this.HandleFocusLost);
@@ -49,7 +57,6 @@ tp.NumberBox = class extends tp.InputControl {
      */
     OnHandleCreated() {
         if (this.Handle instanceof HTMLInputElement) {
-            this.Handle.type = "text";
             this.Handle.inputMode = "decimal";
             this.Handle.autocomplete = "off";
             this.Handle.style.textAlign = "right";
@@ -271,12 +278,20 @@ tp.HtmlNumberBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "number";
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Value";
         if (this.Handle instanceof HTMLInputElement) {
             this.Handle.min = tp.IsBlank(this.Handle.min) ? "" : this.Handle.min;
             this.Handle.max = tp.IsBlank(this.Handle.max) ? "" : this.Handle.max;
@@ -310,7 +325,6 @@ tp.HtmlNumberBox = class extends tp.InputControl {
      */
     OnHandleCreated() {
         if (this.Handle instanceof HTMLInputElement) {
-            this.Handle.type = "number";
             this.Handle.style.textAlign = "right";
         }
         tp.AddClass(this.Handle, tp.Classes.HtmlNumberBox);
@@ -462,13 +476,20 @@ tp.HtmlNumberBoxEx = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Value";
         this.fTextBox = null;
         this.fMinus = null;
         this.fPlus = null;

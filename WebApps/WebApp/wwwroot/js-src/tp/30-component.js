@@ -184,6 +184,16 @@ tp.Component = class extends tp.Object {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.tpClass = "tp.Component";
+        this.fElementType = "div";
+        this.fElementSubType = "";
+    }
+    /**
      * Resolves a value to an HTMLElement.
      * @param {HTMLElement|string|null|undefined} Value The value to resolve.
      * @returns {HTMLElement|null} Returns the resolved element or null.
@@ -227,14 +237,23 @@ tp.Component = class extends tp.Object {
         // Derived constructors may have added custom properties before calling super().
         tp.MergePropsShallow(Params, tp.GetDataSetupObject(Element));
         this.CreateParams = Params;
-        tp.Component.SetComponent(Element, this);
+        tp.SetObject(Element, this);
         this.OnHandleCreated();
         this.InitializeFields();
         this.OnFieldsInitialized();
         this.ApplyCreateParams(Params);
     }
     /**
-     * Initializes fields and properties before applying create params.
+     * Initializes per-instance fields before child DOM is created and before create params are applied.
+     *
+     * Override this method to initialize mutable instance state: fields, flags, arrays,
+     * collections, default values, and bound handler functions such as this.FuncBind(...).
+     * Always call super.InitializeFields() first.
+     *
+     * Do not create inner DOM here when that DOM depends on fields from derived classes;
+     * use OnFieldsInitialized() for that. Do not consume constructor params or data-setup
+     * values here; ApplyCreateParams() owns create-param application.
+     *
      * @returns {void}
      */
     InitializeFields() {
@@ -244,9 +263,15 @@ tp.Component = class extends tp.Object {
     /**
      * Notification called after field initialization and before create params are applied.
      *
-     * This hook exists for derived classes that must create inner DOM, listeners, or helper
-     * objects after their fields are initialized, but before ApplyCreateParams() assigns
-     * values such as Items, SelectedIndex, or DataSource.
+     * Override this method to create inner DOM, child controls, event listeners, and helper
+     * objects that must exist before ApplyCreateParams() assigns values. Typical examples
+     * are inner input elements, labels, buttons, drop-down boxes, scrollers, and markup that
+     * later create params will target. Always call super.OnFieldsInitialized() first.
+     *
+     * Do not consume constructor params or data-setup values here. At this point all fields
+     * exist, but create params have not yet been applied; ApplyCreateParams() runs next and
+     * owns that work.
+     *
      * @protected
      * @returns {void}
      */
@@ -254,6 +279,16 @@ tp.Component = class extends tp.Object {
     }
     /**
      * Applies explicit create params to this component.
+     *
+     * Override this method to consume constructor params and data-setup values supported by
+     * the current class. Always call super.ApplyCreateParams(Params) first, then explicitly
+     * apply only the params owned by the derived class.
+     *
+     * Treat Params as the final initialization object: it contains the normalized constructor
+     * params plus any data-setup values merged from the handle. If a property is supported
+     * from server-side markup, it must be handled here. Do not apply params in constructors,
+     * OnHandleCreated(), InitializeFields(), or OnFieldsInitialized(). Do not generic-assign
+     * every param to this; explicit assignment documents the supported initialization surface.
      *
      * Migration note:
      *
@@ -367,8 +402,8 @@ tp.Component = class extends tp.Object {
             this.fResizeDetector = null;
         }
         if (Element instanceof HTMLElement) {
-            if (tp.Component.GetComponent(Element) === this)
-                tp.Component.SetComponent(Element, null);
+            if (tp.GetObject(Element) === this)
+                tp.SetObject(Element, null);
             if (Element.parentNode)
                 Element.parentNode.removeChild(Element);
         }
@@ -376,7 +411,17 @@ tp.Component = class extends tp.Object {
         this.fIsDisposed = true;
     }
     /**
-     * Notification called after handle creation.
+     * Notification called immediately after the component handle has been created or resolved.
+     *
+     * Override this method for handle-only setup: CSS classes, simple attributes, ARIA
+     * attributes, handle event listeners, and DOM state that needs only this.Handle.
+     * Always call super.OnHandleCreated() first.
+     *
+     * At this point this.Handle and this.Document are valid, and data-setup has already been
+     * merged into the create params object. InitializeFields() has not run yet, so do not
+     * rely on fields, handlers, child controls, or helper objects initialized there. Do not
+     * apply create params here; ApplyCreateParams() owns that work.
+     *
      * @returns {void}
      */
     OnHandleCreated() {
@@ -589,7 +634,7 @@ tp.Component = class extends tp.Object {
      * @returns {tp.Component|null} Returns the parent component or null.
      */
     get Parent() {
-        return this.ParentHandle instanceof HTMLElement ? tp.Component.GetComponent(this.ParentHandle) : null;
+        return this.ParentHandle instanceof HTMLElement ? tp.GetComponent(this.ParentHandle) : null;
     }
     /**
      * Sets the parent component or element.
@@ -1137,26 +1182,79 @@ tp.Component.StandardNodeTypes = [
     "video"
 ];
 /**
- * Sets the component associated with an element.
- * @param {HTMLElement} Element The element to mark.
- * @param {tp.Component|null} Component The component to associate.
- * @returns {void}
+ * Returns the Tripous object associated with an element.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {*|null} Returns the associated object or null.
  */
-tp.Component.SetComponent = function (Element, Component) {
-    if (!(Element instanceof HTMLElement))
-        return;
-    if (Component instanceof tp.Component)
-        Element.__tpComponent = Component;
-    else
-        delete Element.__tpComponent;
+tp.GetObject = function (ElementOrSelector) {
+    var Element = tp.Select(ElementOrSelector);
+    return Element instanceof HTMLElement && !tp.IsNil(Element.__tpObject) ? Element.__tpObject : null;
 };
 /**
- * Returns the component associated with an element.
- * @param {HTMLElement|null|undefined} Element The element to inspect.
- * @returns {tp.Component|null} Returns the associated component or null.
+ * Associates an element with a Tripous object.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The element or selector.
+ * @param {*|null} Value The object to associate.
+ * @returns {void}
  */
-tp.Component.GetComponent = function (Element) {
-    return Element instanceof HTMLElement && Element.__tpComponent instanceof tp.Component ? Element.__tpComponent : null;
+tp.SetObject = function (ElementOrSelector, Value) {
+    var Element = tp.Select(ElementOrSelector);
+    if (!(Element instanceof HTMLElement))
+        return;
+    if (!tp.IsNil(Value)) {
+        Element.__tpObject = Value;
+        tp.AddClass(Element, "tp-Object");
+    } else {
+        delete Element.__tpObject;
+        tp.RemoveClass(Element, "tp-Object");
+    }
+};
+/**
+ * Returns true when an element is associated with a Tripous object.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The element or selector.
+ * @returns {boolean} Returns true when the element is associated with a Tripous object.
+ */
+tp.HasObject = function (ElementOrSelector) {
+    return tp.GetObject(ElementOrSelector) !== null;
+};
+/**
+ * Returns all nested Tripous objects of a parent element.
+ * @param {HTMLElement|string|Document|null|undefined} ParentElementOrSelector The parent element or selector.
+ * @returns {object[]} Returns all nested objects.
+ */
+tp.GetAllObjects = function (ParentElementOrSelector) {
+    var Parent = tp.Select(ParentElementOrSelector) || document;
+    var Result = [];
+    var List;
+    var Index;
+    var Value;
+    if (tp.IsNodeSelector(Parent)) {
+        List = Parent.querySelectorAll(".tp-Object");
+        for (Index = 0; Index < List.length; Index++) {
+            Value = tp.GetObject(List[Index]);
+            if (Value !== null)
+                Result.push(Value);
+        }
+    }
+    return Result;
+};
+/**
+ * Returns the first container object of a specified class, searching upward from an element.
+ * @param {HTMLElement|string|null|undefined} ElementOrSelector The starting element or selector.
+ * @param {Function} ObjectClass The object class to match.
+ * @returns {*|null} Returns the matched object or null.
+ */
+tp.GetContainerByClass = function (ElementOrSelector, ObjectClass) {
+    var Element = tp.Select(ElementOrSelector);
+    var Value;
+    while (Element instanceof HTMLElement) {
+        Value = tp.GetObject(Element);
+        if (tp.IsFunction(ObjectClass) && Value instanceof ObjectClass)
+            return Value;
+        if (Element === Element.ownerDocument.body)
+            return null;
+        Element = Element.parentElement;
+    }
+    return null;
 };
 /**
  * Returns the component associated with an element.
@@ -1164,7 +1262,8 @@ tp.Component.GetComponent = function (Element) {
  * @returns {tp.Component|null} Returns the associated component or null.
  */
 tp.GetComponent = function (ElementOrSelector) {
-    return tp.Component.GetComponent(tp.Select(ElementOrSelector));
+    var Value = tp.GetObject(ElementOrSelector);
+    return Value instanceof tp.Component ? Value : null;
 };
 /**
  * Returns true when an element is associated with a component.
@@ -1180,18 +1279,14 @@ tp.HasComponent = function (ElementOrSelector) {
  * @returns {tp.Component[]} Returns all nested components.
  */
 tp.GetAllComponents = function (ParentElementOrSelector) {
-    var Parent = tp.Select(ParentElementOrSelector);
+    var List = tp.GetAllObjects(ParentElementOrSelector);
     var Result = [];
-    var List;
     var Index;
     var Component;
-    if (tp.IsHTMLElement(Parent)) {
-        List = Parent.querySelectorAll("*");
-        for (Index = 0; Index < List.length; Index++) {
-            Component = tp.Component.GetComponent(List[Index]);
-            if (Component instanceof tp.Component)
-                Result.push(Component);
-        }
+    for (Index = 0; Index < List.length; Index++) {
+        Component = List[Index];
+        if (Component instanceof tp.Component)
+            Result.push(Component);
     }
     return Result;
 };
@@ -1201,18 +1296,14 @@ tp.GetAllComponents = function (ParentElementOrSelector) {
  * @returns {tp.Component[]} Returns all direct child components.
  */
 tp.GetComponentList = function (ParentElementOrSelector) {
-    var Parent = tp.Select(ParentElementOrSelector);
     var Result = [];
-    var List;
+    var List = tp.GetElementList(ParentElementOrSelector);
     var Index;
     var Component;
-    if (tp.IsHTMLElement(Parent)) {
-        List = Parent.children;
-        for (Index = 0; Index < List.length; Index++) {
-            Component = tp.Component.GetComponent(List[Index]);
-            if (Component instanceof tp.Component)
-                Result.push(Component);
-        }
+    for (Index = 0; Index < List.length; Index++) {
+        Component = tp.GetComponent(List[Index]);
+        if (Component instanceof tp.Component)
+            Result.push(Component);
     }
     return Result;
 };

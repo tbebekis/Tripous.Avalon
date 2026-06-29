@@ -365,7 +365,7 @@ tp.ControlToolBar = class extends tp.Component {
             Element = List[Index];
             if (Element === this.fRightAligner)
                 continue;
-            if (Element instanceof HTMLDivElement && !(tp.Component.GetComponent(Element) instanceof tp.ControlToolButton))
+            if (Element instanceof HTMLDivElement && !(tp.GetComponent(Element) instanceof tp.ControlToolButton))
                 new this.ButtonClass(Element);
         }
     }
@@ -869,7 +869,7 @@ tp.ToolBar = class extends tp.Component {
             Element = List[Index];
             if (Element === this.fRightAligner)
                 continue;
-            if (Element instanceof HTMLAnchorElement && !(tp.Component.GetComponent(Element) instanceof tp.ButtonEx)) {
+            if (Element instanceof HTMLAnchorElement && !(tp.GetComponent(Element) instanceof tp.ButtonEx)) {
                 Button = new tp.ButtonEx(Element);
                 tp.AddClass(Button.Handle, tp.Classes.ToolButton);
             }

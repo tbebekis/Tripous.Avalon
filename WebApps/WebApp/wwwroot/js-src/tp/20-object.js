@@ -96,7 +96,7 @@ tp.Object = class {
         return tp.IsBlank(EventName) ? "" : String(EventName).toUpperCase();
     }
     /**
-     * Initializes class metadata.
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
      * @returns {void}
      */
     InitClass() {

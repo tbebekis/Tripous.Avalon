@@ -46,13 +46,20 @@ tp.Label = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Text";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Text";
     }
     /**
      * Binds the control to its data source.

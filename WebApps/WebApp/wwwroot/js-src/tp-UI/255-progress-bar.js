@@ -17,6 +17,14 @@ tp.ProgressBar = class extends tp.Component {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementType = "progress";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */

@@ -3,6 +3,20 @@
     color: #1f2328;
     background: #f6f7f8;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    user-select: text;
+}
+.demo-page * {
+    user-select: text;
+}
+.demo-page button,
+.demo-page input,
+.demo-page select,
+.demo-page textarea,
+.demo-page .demo-nav-group-button,
+.demo-page .demo-nav-group-items a,
+.demo-page .ace_editor,
+.demo-page .tp-Component {
+    user-select: auto;
 }
 .demo-shell {
     position: relative;

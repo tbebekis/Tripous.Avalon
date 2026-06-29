@@ -54,8 +54,6 @@ tp.ListBox = class extends tp.ListControl {
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.List;
-        this.fDataValueProperty = "SelectedValue";
         this.fClickHandler = this.FuncBind(this.HandleClick);
         this.fKeyDownHandler = this.FuncBind(this.HandleKeyDown);
     }

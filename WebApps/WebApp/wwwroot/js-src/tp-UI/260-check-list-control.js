@@ -17,12 +17,19 @@ tp.CheckListControl = class extends tp.ListControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataValueProperty = "SelectedValues";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "SelectedValues";
         this.fSelectedIndexes = [];
         this.fChangeHandler = this.FuncBind(this.HandleChange);
     }

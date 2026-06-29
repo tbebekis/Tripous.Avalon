@@ -53,7 +53,7 @@ tp.GetCommand = function (Value) {
     while (Element instanceof HTMLElement) {
         if (!tp.IsBlank(tp.Data(Element, "command")))
             return tp.Data(Element, "command");
-        Component = tp.Component.GetComponent(Element);
+        Component = tp.GetComponent(Element);
         if (tp.HasCommandProperty(Component) && !tp.IsBlank(Component.Command))
             return Component.Command;
         Element = Element.parentElement;
@@ -116,6 +116,15 @@ tp.Button = class extends tp.Component {
         return Params;
     }
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementType = "button";
+        this.fElementSubType = "button";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
@@ -130,7 +139,6 @@ tp.Button = class extends tp.Component {
     OnHandleCreated() {
         super.OnHandleCreated();
         tp.AddClass(this.Handle, tp.Classes.Button);
-        this.Handle.type = "button";
     }
     /**
      * Notification called after field initialization and before create params are applied.

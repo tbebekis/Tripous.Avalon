@@ -138,7 +138,7 @@ tp.PanelList = class extends tp.Component {
         if (tp.IsISelectedIndex(Value))
             return Value;
         Element = tp(Value);
-        Component = tp.Component.GetComponent(Element);
+        Component = tp.GetComponent(Element);
         return tp.IsISelectedIndex(Component) ? Component : null;
     }
     /**

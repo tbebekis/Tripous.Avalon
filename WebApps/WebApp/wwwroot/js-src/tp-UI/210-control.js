@@ -42,13 +42,20 @@ tp.Control = class extends tp.Component {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.None;
+        this.fDataValueProperty = "";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.None;
-        this.fDataValueProperty = "";
         this.fDataSource = null;
         this.fDataField = "";
         this.fRequired = false;

@@ -44,13 +44,20 @@ tp.HtmlListControl = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.List;
+        this.fDataValueProperty = "SelectedIndex";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.List;
-        this.fDataValueProperty = "SelectedIndex";
         this.fChangeHandler = this.FuncBind(this.HandleChange);
     }
     /**

@@ -17,12 +17,20 @@ tp.TextBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "text";
+        this.fDataValueProperty = "Text";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Text";
         this.fAutocompleteList = null;
         this.SpellCheck = false;
         this.Autocomplete = false;
@@ -58,8 +66,6 @@ tp.TextBox = class extends tp.InputControl {
      * @returns {void}
      */
     OnHandleCreated() {
-        if (this.Handle instanceof HTMLInputElement)
-            this.Handle.type = "text";
         tp.AddClass(this.Handle, tp.Classes.TextBox);
         super.OnHandleCreated();
     }

@@ -3285,7 +3285,7 @@ tp.ItemBar = class extends tp.Component {
      */
     GetItemTextAt(Index) {
         var Item = this.GetItemElementList()[Index];
-        var Component = tp.Component.GetComponent(Item);
+        var Component = tp.GetComponent(Item);
         if (Component && "Text" in Component)
             return Component.Text;
         return tp.IsHTMLElement(Item) ? Item.innerHTML : "";
@@ -3915,7 +3915,7 @@ tp.DropDownBox = class extends tp.Component {
         if (tp.IsDropDownBoxListener(Value))
             return Value;
         Element = tp(Value);
-        Component = tp.Component.GetComponent(Element);
+        Component = tp.GetComponent(Element);
         if (tp.IsDropDownBoxListener(Component))
             return Component;
         if (tp.IsDropDownBoxListener(Element))
@@ -5266,7 +5266,7 @@ tp.PanelList = class extends tp.Component {
         if (tp.IsISelectedIndex(Value))
             return Value;
         Element = tp(Value);
-        Component = tp.Component.GetComponent(Element);
+        Component = tp.GetComponent(Element);
         return tp.IsISelectedIndex(Component) ? Component : null;
     }
     /**
@@ -6301,7 +6301,7 @@ tp.GetCommand = function (Value) {
     while (Element instanceof HTMLElement) {
         if (!tp.IsBlank(tp.Data(Element, "command")))
             return tp.Data(Element, "command");
-        Component = tp.Component.GetComponent(Element);
+        Component = tp.GetComponent(Element);
         if (tp.HasCommandProperty(Component) && !tp.IsBlank(Component.Command))
             return Component.Command;
         Element = Element.parentElement;
@@ -6364,6 +6364,15 @@ tp.Button = class extends tp.Component {
         return Params;
     }
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementType = "button";
+        this.fElementSubType = "button";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
@@ -6378,7 +6387,6 @@ tp.Button = class extends tp.Component {
     OnHandleCreated() {
         super.OnHandleCreated();
         tp.AddClass(this.Handle, tp.Classes.Button);
-        this.Handle.type = "button";
     }
     /**
      * Notification called after field initialization and before create params are applied.
@@ -6831,7 +6839,7 @@ tp.ControlToolBar = class extends tp.Component {
             Element = List[Index];
             if (Element === this.fRightAligner)
                 continue;
-            if (Element instanceof HTMLDivElement && !(tp.Component.GetComponent(Element) instanceof tp.ControlToolButton))
+            if (Element instanceof HTMLDivElement && !(tp.GetComponent(Element) instanceof tp.ControlToolButton))
                 new this.ButtonClass(Element);
         }
     }
@@ -7335,7 +7343,7 @@ tp.ToolBar = class extends tp.Component {
             Element = List[Index];
             if (Element === this.fRightAligner)
                 continue;
-            if (Element instanceof HTMLAnchorElement && !(tp.Component.GetComponent(Element) instanceof tp.ButtonEx)) {
+            if (Element instanceof HTMLAnchorElement && !(tp.GetComponent(Element) instanceof tp.ButtonEx)) {
                 Button = new tp.ButtonEx(Element);
                 tp.AddClass(Button.Handle, tp.Classes.ToolButton);
             }
@@ -11179,13 +11187,20 @@ tp.Control = class extends tp.Component {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.None;
+        this.fDataValueProperty = "";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.None;
-        this.fDataValueProperty = "";
         this.fDataSource = null;
         this.fDataField = "";
         this.fRequired = false;
@@ -11688,13 +11703,20 @@ tp.ListControl = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.List;
+        this.fDataValueProperty = "SelectedValue";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.List;
-        this.fDataValueProperty = "SelectedValue";
         this.fSelectedIndex = -1;
         this.fSelectedValue = null;
         this.fSelectedItem = null;
@@ -12720,8 +12742,6 @@ tp.ListBox = class extends tp.ListControl {
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.List;
-        this.fDataValueProperty = "SelectedValue";
         this.fClickHandler = this.FuncBind(this.HandleClick);
         this.fKeyDownHandler = this.FuncBind(this.HandleKeyDown);
     }
@@ -12870,13 +12890,20 @@ tp.Label = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Text";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Text";
     }
     /**
      * Binds the control to its data source.
@@ -13006,8 +13033,6 @@ tp.ComboBox = class extends tp.ListControl {
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.List;
-        this.fDataValueProperty = "SelectedValue";
         this.fListOnly = true;
         this.fMaxDropdownItems = 10;
         this.fDropDownSelectedIndex = -1;
@@ -13609,13 +13634,20 @@ tp.CheckBox = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Checked";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Checked";
     }
     /**
      * Applies explicit create params to this check box.
@@ -13885,13 +13917,20 @@ tp.HtmlListControl = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.List;
+        this.fDataValueProperty = "SelectedIndex";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.List;
-        this.fDataValueProperty = "SelectedIndex";
         this.fChangeHandler = this.FuncBind(this.HandleChange);
     }
     /**
@@ -14510,12 +14549,20 @@ tp.InputControl = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementType = "input";
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
     }
     /**
      * Notification called after handle creation.
@@ -14656,13 +14703,21 @@ tp.Memo = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementType = "textarea";
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Text";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Text";
         this.Cols = 20;
         this.Rows = 2;
         this.SpellCheck = false;
@@ -15089,12 +15144,20 @@ tp.TextBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "text";
+        this.fDataValueProperty = "Text";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Text";
         this.fAutocompleteList = null;
         this.SpellCheck = false;
         this.Autocomplete = false;
@@ -15130,8 +15193,6 @@ tp.TextBox = class extends tp.InputControl {
      * @returns {void}
      */
     OnHandleCreated() {
-        if (this.Handle instanceof HTMLInputElement)
-            this.Handle.type = "text";
         tp.AddClass(this.Handle, tp.Classes.TextBox);
         super.OnHandleCreated();
     }
@@ -15418,11 +15479,11 @@ tp.ImageBox = class extends tp.Control {
 
     // ● protected
     /**
-     * Initializes fields and properties before applying create params.
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
      * @returns {void}
      */
-    InitializeFields() {
-        super.InitializeFields();
+    InitClass() {
+        super.InitClass();
         this.fDataBindMode = tp.ControlBindMode.Simple;
         this.fDataValueProperty = "Url";
     }
@@ -15579,12 +15640,20 @@ tp.NumberBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "text";
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Value";
         this.fDecimals = 0;
         this.fLastCommittedText = null;
         this.fFocusLostHandler = this.FuncBind(this.HandleFocusLost);
@@ -15611,7 +15680,6 @@ tp.NumberBox = class extends tp.InputControl {
      */
     OnHandleCreated() {
         if (this.Handle instanceof HTMLInputElement) {
-            this.Handle.type = "text";
             this.Handle.inputMode = "decimal";
             this.Handle.autocomplete = "off";
             this.Handle.style.textAlign = "right";
@@ -15833,12 +15901,20 @@ tp.HtmlNumberBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "number";
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Value";
         if (this.Handle instanceof HTMLInputElement) {
             this.Handle.min = tp.IsBlank(this.Handle.min) ? "" : this.Handle.min;
             this.Handle.max = tp.IsBlank(this.Handle.max) ? "" : this.Handle.max;
@@ -15872,7 +15948,6 @@ tp.HtmlNumberBox = class extends tp.InputControl {
      */
     OnHandleCreated() {
         if (this.Handle instanceof HTMLInputElement) {
-            this.Handle.type = "number";
             this.Handle.style.textAlign = "right";
         }
         tp.AddClass(this.Handle, tp.Classes.HtmlNumberBox);
@@ -16024,13 +16099,20 @@ tp.HtmlNumberBoxEx = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Value";
         this.fTextBox = null;
         this.fMinus = null;
         this.fPlus = null;
@@ -16327,12 +16409,20 @@ tp.ValueSlider = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "range";
+        this.fDataValueProperty = "Value";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Value";
         this.fValueList = null;
         this.GetValueFunc = null;
         this.SetValueFunc = null;
@@ -16372,8 +16462,6 @@ tp.ValueSlider = class extends tp.InputControl {
      * @returns {void}
      */
     OnHandleCreated() {
-        if (this.Handle instanceof HTMLInputElement)
-            this.Handle.type = "range";
         tp.AddClass(this.Handle, tp.Classes.ValueSlider);
         super.OnHandleCreated();
     }
@@ -16596,6 +16684,14 @@ tp.ProgressBar = class extends tp.Component {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementType = "progress";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
@@ -16741,12 +16837,19 @@ tp.CheckListControl = class extends tp.ListControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataValueProperty = "SelectedValues";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "SelectedValues";
         this.fSelectedIndexes = [];
         this.fChangeHandler = this.FuncBind(this.HandleChange);
     }
@@ -17761,13 +17864,20 @@ tp.RadioGroup = class extends tp.ListControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "SelectedValue";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "SelectedValue";
         this.fLastName = "";
         this.fChangeHandler = this.FuncBind(this.HandleChange);
     }
@@ -18330,12 +18440,20 @@ tp.HtmlDateBox = class extends tp.InputControl {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fElementSubType = "date";
+        this.fDataValueProperty = "Date";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataValueProperty = "Date";
     }
     /**
      * Applies explicit create params to this date box.
@@ -18366,8 +18484,6 @@ tp.HtmlDateBox = class extends tp.InputControl {
      * @returns {void}
      */
     OnHandleCreated() {
-        if (this.Handle instanceof HTMLInputElement)
-            this.Handle.type = "date";
         tp.AddClass(this.Handle, tp.Classes.HtmlDateBox);
         super.OnHandleCreated();
     }
@@ -18573,13 +18689,20 @@ tp.CalendarBox = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Date";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Date";
         this.fDate = tp.Today();
         this.fYear = this.fDate.getFullYear();
         this.fMonth = this.fDate.getMonth();
@@ -18926,13 +19049,20 @@ tp.DateBox = class extends tp.Control {
 
     // ● protected
     /**
+     * Initializes the 'pseudo-static' and 'read-only' class metadata fields such as the ElementType, ElementSubtype and DataValueProperty
+     * @returns {void}
+     */
+    InitClass() {
+        super.InitClass();
+        this.fDataBindMode = tp.ControlBindMode.Simple;
+        this.fDataValueProperty = "Date";
+    }
+    /**
      * Initializes fields and properties before applying create params.
      * @returns {void}
      */
     InitializeFields() {
         super.InitializeFields();
-        this.fDataBindMode = tp.ControlBindMode.Simple;
-        this.fDataValueProperty = "Date";
         this.fDate = null;
         this.fTextBoxChangeHandler = this.FuncBind(this.HandleTextBoxChange);
         this.fTextBoxKeyDownHandler = this.FuncBind(this.HandleTextBoxKeyDown);

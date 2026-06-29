@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component initialization</title>
+    <link rel="stylesheet" href="../tripous/css/tp-Variables.css">
+    <link rel="stylesheet" href="../tripous/css/tp.css">
+    <link rel="stylesheet" href="../tripous/css/font-awesome.css">
+    <link rel="stylesheet" href="../tripous/css/glyphicons.css">
+    <link rel="stylesheet" href="../tripous/css/tp-UI.css">
+    <link rel="stylesheet" href="../assets/css/demos.css">
+    <script src="../tripous/js/tp.js"></script>
+    <script src="../tripous/js/tp-Data.js"></script>
+    <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../assets/js/demos.js"></script>
+</head>
+<body class="demo-page">
+    <script>
+        if (window.top !== window.self) {
+            document.body.classList.add("is-embedded");
+        }
+        Demos.RegisterSourcePreview();
+    </script>
+
+    <main class="demo-body">
+        <p class="demo-index-link">
+            <a href="../index.html">Tripous Web Demos</a>
+        </p>
+        <h1>Component initialization</h1>
+        
+        <p>
+            <code>tp.Component</code> initialization is fed by three sources:
+            <code>InitClass()</code> metadata, the constructor <code>CreateParams</code>, and the
+            <code>data-setup</code> attribute found on markup elements.
+        </p>
+        
+        <p>
+            This demo shows how those sources become one final params object, when the
+            <code>HTMLElement</code> is created or resolved, and what code belongs in each lifecycle hook.
+        </p>
+        
+        <style>
+            .component-init-layout {
+                display: grid;
+                grid-template-columns: minmax(320px, 440px) minmax(420px, 1fr);
+                gap: 14px;
+                align-items: start;
+                width: min(100%, 1180px);
+            }
+            .component-init-handle-layout {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+                align-items: start;
+                width: min(100%, 1180px);
+                margin-bottom: 14px;
+            }
+            .component-init-guide {
+                display: grid;
+                gap: 12px;
+                width: min(100%, 1180px);
+                margin-bottom: 14px;
+            }
+            .component-init-stack {
+                display: grid;
+                gap: 14px;
+            }
+            .component-init-section {
+                min-width: 0;
+            }
+            .component-init-section h2 {
+                margin: 0 0 8px 0;
+                font-size: 18px;
+            }
+            .component-init-section h3 {
+                margin: 10px 0 6px 0;
+                font-size: 15px;
+            }
+            .component-init-box {
+                box-sizing: border-box;
+                min-height: 110px;
+                padding: 12px;
+                border: 1px solid #8c959f;
+                background: #ffffff;
+            }
+            .component-init-created-host {
+                box-sizing: border-box;
+                min-height: 54px;
+                padding: 10px;
+                border: 1px solid #d0d7de;
+                background: #ffffff;
+            }
+            .component-init-created-input {
+                box-sizing: border-box;
+                width: 100%;
+                height: 30px;
+                padding: 4px 8px;
+                border: 1px solid #8c959f;
+            }
+            .component-init-applied {
+                border-color: #0969da;
+                background: #ddf4ff;
+            }
+            .component-init-child {
+                margin-top: 8px;
+                padding: 6px;
+                border: 1px solid #d0d7de;
+                background: #f6f8fa;
+            }
+            .component-init-code,
+            .component-init-log {
+                box-sizing: border-box;
+                width: 100%;
+                min-width: 0;
+                margin: 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f0f3f6;
+                white-space: pre-wrap;
+                overflow-wrap: anywhere;
+            }
+            .component-init-code {
+                min-height: 210px;
+            }
+            .component-init-log {
+                min-height: 430px;
+            }
+            .component-init-note {
+                margin-top: 10px;
+            }
+            .component-init-example {
+                margin-top: 8px;
+            }
+            .component-init-list {
+                margin: 0;
+                padding-left: 18px;
+            }
+            .component-init-list li {
+                margin: 4px 0;
+            }
+            @media (max-width: 820px) {
+                .component-init-layout,
+                .component-init-handle-layout {
+                    grid-template-columns: minmax(0, 1fr);
+                }
+                .component-init-log {
+                    min-height: 300px;
+                }
+            }
+        </style>
+        
+        <div class="html-code">
+            <div class="component-init-guide">
+                <section class="component-init-section">
+                    <h2>1. InitClass()</h2>
+                    <ul class="component-init-list">
+                        <li>Runs from the <code>tp.Object</code> constructor before handle creation.</li>
+                        <li>Initializes pseudo-static, read-only metadata such as <code>ElementType</code>, <code>ElementSubType</code>, <code>DataValueProperty</code>, and <code>DataBindMode</code>.</li>
+                        <li><code>DataValueProperty</code> is the current name for the bindable control property.</li>
+                        <li>Derived classes override it to declare the metadata required by their own control type.</li>
+                    </ul>
+                </section>
+                <section class="component-init-section">
+                    <h2>2. CreateParams</h2>
+                    <ul class="component-init-list">
+                        <li>Every constructor from <code>tp.Component</code> down receives a single <code>CreateParams</code> argument.</li>
+                        <li>It may be a plain object, a <code>tp.CreateParams</code> instance, or null.</li>
+                        <li>When present, its key input is <code>ElementOrSelector</code>: an <code>HTMLElement</code>, selector, or standard tag name.</li>
+                        <li>A derived constructor may normalize and enrich the same params object before passing it to <code>super(Params)</code>.</li>
+                        <li>When <code>DeferHandleCreation</code> is true, the constructor does not call <code>CreateHandle()</code>; caller code must call it later.</li>
+                    </ul>
+                </section>
+                <section class="component-init-section">
+                    <h2>3. data-setup</h2>
+                    <ul class="component-init-list">
+                        <li>Markup may provide a <code>data-setup</code> object with properties supported by the class.</li>
+                        <li><code>CreateHandle()</code> merges it into the same params object; when names collide, <code>data-setup</code> wins.</li>
+                        <li>Only <code>ApplyCreateParams()</code> should consume the final params.</li>
+                    </ul>
+                    <pre class="component-init-code component-init-example">&lt;input id="ProjectName"
+       type="text"
+       data-setup="{ Text: 'Tripous Web',
+                     Placeholder: 'project name',
+                     MaxLength: 40,
+                     ToolTip: 'Initialized by data-setup' }" /&gt;</pre>
+                </section>
+            </div>
+
+            <section class="component-init-section">
+                <h2>Initialization flow</h2>
+                <p>
+                    <code>ElementOrSelector</code> may be an existing <code>HTMLElement</code>, a selector, a standard
+                    tag name such as <code>div</code>, or null. Existing elements and selector matches set
+                    <code>FromMarkup</code> to true. Tag names and null create a new element, using the
+                    class metadata when needed.
+                </p>
+                <p>
+                    After the final <code>HTMLElement</code> exists, <code>CreateHandle()</code> merges
+                    <code>data-setup</code> over the constructor params, assigns <code>this.CreateParams</code>, and calls
+                    <code>tp.SetObject(Element, this)</code>. The element receives the hidden
+                    <code>__tpObject</code> property and the <code>tp-Object</code> CSS class, so Tripous can
+                    find objects associated with page elements.
+                </p>
+                <h3>Hook responsibilities</h3>
+                <ul class="component-init-list">
+                    <li><code>OnHandleCreated()</code>: handle-only setup such as CSS classes, simple attributes, and handle listeners. Fields are not initialized yet.</li>
+                    <li><code>InitializeFields()</code>: mutable instance fields, flags, arrays, collections, defaults, and bound handler functions.</li>
+                    <li><code>OnFieldsInitialized()</code>: inner DOM, child controls, helper objects, and listeners that must exist before params are applied.</li>
+                    <li><code>ApplyCreateParams(Params)</code>: explicitly applies constructor params and <code>data-setup</code> values to object properties.</li>
+                </ul>
+                <h3>Avoid</h3>
+                <ul class="component-init-list">
+                    <li>Do not put metadata such as <code>ElementType</code>, <code>ElementSubType</code>, <code>DataValueProperty</code>, or <code>DataBindMode</code> in <code>InitializeFields()</code>.</li>
+                    <li>Do not create inner controls in <code>OnHandleCreated()</code> when they need initialized fields.</li>
+                    <li>Do not read or apply params in <code>InitializeFields()</code> or <code>OnFieldsInitialized()</code>.</li>
+                    <li>Do not generic-assign all params; each class should explicitly support its own params in <code>ApplyCreateParams()</code>.</li>
+                </ul>
+            </section>
+
+            <br>
+            <div class="component-init-handle-layout">
+                <section class="component-init-section">
+                    <h2>Markup handle</h2>
+                    <div id="LifecycleMarkup"
+                         class="component-init-box"
+                         data-setup="{ Text: 'Text from data-setup', Tag: 'Tag from data-setup', CustomText: 'Custom text from data-setup' }">
+                        Initial markup text
+                    </div>
+                    <p class="component-init-note">
+                        The component wraps this existing element. Its <code>data-setup</code> values are
+                        merged into the same create params object before params are applied.
+                    </p>
+                </section>
+                <section class="component-init-section">
+                    <h2>Created handle</h2>
+                    <div id="CreatedHandleHost" class="component-init-created-host"></div>
+                    <p class="component-init-note">
+                        This component is not created from markup. Its <code>InitClass()</code> metadata
+                        gives the base creation code enough information to create an
+                        <code>&lt;input type="text"&gt;</code>.
+                    </p>
+                </section>
+            </div>
+
+            <div class="component-init-layout">
+                <section class="component-init-section">
+                    <h2>Expected order</h2>
+                    <pre class="component-init-code">1. constructor before super()
+2. InitClass()
+3. CreateHandle() before super
+4. base CreateHandle() resolves or creates
+   the handle
+5. merge data-setup into the same params object
+6. tp.SetObject(Element, this)
+7. OnHandleCreated()
+8. InitializeFields()
+9. OnFieldsInitialized()
+10. ApplyCreateParams(Params)
+11. CreateHandle() after super
+12. constructor after super()</pre>
+                </section>
+                <section class="component-init-section">
+                    <h2>Observed lifecycle</h2>
+                    <pre id="LifecycleOutput" class="component-init-log"></pre>
+                </section>
+            </div>
+        </div>
+        
+        <script class="js-code">
+            tp.Ready(function () {
+                var Lines = [];
+
+                function AddLine(Text) {
+                    Lines.push(Lines.length + 1 + ". " + Text);
+                    tp.Text("#LifecycleOutput", Lines.join("\n"));
+                }
+
+                /**
+                 * Logs the current tp.Component initialization order.
+                 */
+                class DemoLifecycleComponent extends tp.Component {
+                    // ● constructor
+                    /**
+                     * Creates a new lifecycle logging component.
+                     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+                     */
+                    constructor(CreateParams) {
+                        var Params = tp.Component.CreateParams(CreateParams);
+                        AddLine("constructor before super(). Params.Text = " + Params.Text);
+                        super(Params);
+                        AddLine("constructor after super(). fDemoField = " + this.fDemoField);
+                    }
+
+                    // ● protected
+                    /**
+                     * Initializes the pseudo-static metadata used by base handle creation.
+                     * @returns {void}
+                     */
+                    InitClass() {
+                        super.InitClass();
+                        AddLine("InitClass(). ElementType = " + this.ElementType + ", ElementSubType = " + this.ElementSubType);
+                    }
+                    /**
+                     * Creates or wraps the component handle.
+                     * @param {HTMLElement|string|null|undefined} ElementOrSelector The optional element, selector, or tag name.
+                     * @returns {void}
+                     */
+                    CreateHandle(ElementOrSelector) {
+                        AddLine("CreateHandle() before super. ElementType = " + this.ElementType + ", ElementSubType = " + this.ElementSubType + ", Params.Text = " + this.CreateParams.Text);
+                        super.CreateHandle(ElementOrSelector);
+                        AddLine("CreateHandle() after super. Handle.nodeName = " + this.Handle.nodeName + ", Handle.type = " + (this.Handle.type || "") + ", Params.Text = " + this.CreateParams.Text + ", __tpObject set = " + (tp.GetObject(this.Handle) === this));
+                    }
+                    /**
+                     * Notification called after handle creation.
+                     * @returns {void}
+                     */
+                    OnHandleCreated() {
+                        super.OnHandleCreated();
+                        AddLine("OnHandleCreated(). Handle.id = " + this.Handle.id + ", FromMarkup = " + this.FromMarkup + ", has tp-Object class = " + tp.HasClass(this.Handle, "tp-Object") + ", fDemoField = " + this.fDemoField);
+                    }
+                    /**
+                     * Initializes fields and properties before applying create params.
+                     * @returns {void}
+                     */
+                    InitializeFields() {
+                        AddLine("InitializeFields() before super. fSizeChart exists = " + (this.fSizeChart instanceof tp.SizeChart));
+                        super.InitializeFields();
+                        this.fDemoField = "initialized in InitializeFields";
+                        AddLine("InitializeFields() after super. fSizeChart exists = " + (this.fSizeChart instanceof tp.SizeChart));
+                    }
+                    /**
+                     * Notification called after field initialization and before create params are applied.
+                     * @returns {void}
+                     */
+                    OnFieldsInitialized() {
+                        var Child;
+                        super.OnFieldsInitialized();
+                        Child = this.Document.createElement("div");
+                        Child.className = "component-init-child";
+                        Child.textContent = "Child created in OnFieldsInitialized()";
+                        this.Handle.appendChild(Child);
+                        this.fChild = Child;
+                        AddLine("OnFieldsInitialized(). Child exists = " + (this.fChild instanceof HTMLElement));
+                    }
+                    /**
+                     * Applies explicit create params to this component.
+                     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+                     * @returns {void}
+                     */
+                    ApplyCreateParams(Params) {
+                        AddLine("ApplyCreateParams() before super. Params.Text = " + Params.Text + ", Params.Tag = " + Params.Tag + ", Params.CustomText = " + Params.CustomText);
+                        super.ApplyCreateParams(Params);
+                        if (!tp.IsBlank(Params.CustomText))
+                            this.fChild.textContent = Params.CustomText;
+                        AddLine("ApplyCreateParams() after super. Text = " + this.Text + ", Tag = " + this.Tag);
+                    }
+                }
+
+                /**
+                 * Logs base handle creation from class metadata.
+                 */
+                class DemoInputElementComponent extends tp.Component {
+                    // ● protected
+                    /**
+                     * Initializes the pseudo-static metadata used by base handle creation.
+                     * @returns {void}
+                     */
+                    InitClass() {
+                        super.InitClass();
+                        this.fElementType = "input";
+                        this.fElementSubType = "text";
+                        AddLine("Input InitClass(). ElementType = " + this.ElementType + ", ElementSubType = " + this.ElementSubType);
+                    }
+                    /**
+                     * Notification called after handle creation.
+                     * @returns {void}
+                     */
+                    OnHandleCreated() {
+                        AddLine("Input OnHandleCreated(). Handle.nodeName = " + this.Handle.nodeName + ", Handle.type = " + this.Handle.type);
+                        super.OnHandleCreated();
+                    }
+                }
+
+                new DemoLifecycleComponent({
+                    ElementOrSelector: "#LifecycleMarkup",
+                    Text: "Text from constructor params",
+                    Tag: "Tag from constructor params",
+                    CssClasses: "component-init-box component-init-applied",
+                    CustomText: "Custom text from constructor params"
+                });
+
+                new DemoInputElementComponent({
+                    Parent: "#CreatedHandleHost",
+                    CssClasses: "component-init-created-input"
+                });
+            });
+        </script>
+    </main>
+
+    <section id="DemoSourcePanel" class="demo-source-panel" hidden>
+        <div class="demo-source-tabs">
+            <button type="button" data-demo-source-tab="html">HTML</button>
+            <button type="button" data-demo-source-tab="javascript">JavaScript</button>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="html">
+            <pre id="DemoHtmlEditor"></pre>
+        </div>
+        <div class="demo-source-page" data-demo-source-page="javascript">
+            <pre id="DemoJavaScriptEditor"></pre>
+        </div>
+    </section>
+</body>
+</html>
