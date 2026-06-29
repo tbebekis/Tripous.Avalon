@@ -2,17 +2,63 @@
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <NoWarn>$(NoWarn);NU1510;NU1903</NoWarn>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="wwwroot\js-src\tp-Grid\" />
+        <Folder Include="wwwroot\tp\js\" />
+    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Tripous\Tripous.csproj" />
         <ProjectReference Include="..\..\..\Tripous.Data\Tripous.Data.csproj" />
-        <ProjectReference Include="..\..\..\Tripous.Logging\Tripous.Logging.csproj" />
-        <ProjectReference Include="..\..\..\Tripous.Web\Tripous.Web.csproj" />
+        <ProjectReference Include="..\..\..\Tripous.Logging\Tripous.Logging.csproj" />        
         <ProjectReference Include="..\tERP.Common\tERP.Common.csproj" />
-        <ProjectReference Include="..\tERP.Data\tERP.Data.csproj" />
-    </ItemGroup>
+        <ProjectReference Include="..\tERP.Data\tERP.Data.csproj" />      
+    </ItemGroup> 
+
+    <Target Name="BuildTripousWebJavaScriptBundles"
+            BeforeTargets="Build"
+            Condition="Exists('$(MSBuildProjectDirectory)/wwwroot/js-src')">
+        <Message Importance="High" Text="Building Tripous Web JavaScript bundles." />
+        <Exec Command="dotnet run --project &quot;$(MSBuildProjectDirectory)/../../../Tools/TripousWebBundler/TripousWebBundler.csproj&quot; -- --source &quot;$(MSBuildProjectDirectory)/wwwroot/js-src&quot; --output &quot;$(MSBuildProjectDirectory)/wwwroot/tp/js&quot; --extension js" />
+    </Target>
+
+    <Target Name="SyncTripousWebDemosAssets"
+            AfterTargets="Build"
+            Condition="Exists('$(MSBuildProjectDirectory)/../../../WebDemos')">
+        <PropertyGroup>
+            <TripousWebDemosRoot>$(MSBuildProjectDirectory)/../../../WebDemos</TripousWebDemosRoot>
+        </PropertyGroup>
+        <ItemGroup>
+            <TripousWebDemoCss Include="$(MSBuildProjectDirectory)/wwwroot/tp/css/**" />
+            <TripousWebDemoJs Include="$(MSBuildProjectDirectory)/wwwroot/tp/js/**" />
+            <TripousWebDemoFonts Include="$(MSBuildProjectDirectory)/wwwroot/tp/fonts/**" />
+            <TripousWebDemoImages Include="$(MSBuildProjectDirectory)/wwwroot/tp/images/**" />
+            <TripousWebDemoAssetsCss Include="$(MSBuildProjectDirectory)/wwwroot/css/demos.css" />
+            <TripousWebDemoAssetsJs Include="$(MSBuildProjectDirectory)/wwwroot/tp/demos/*.js" />
+        </ItemGroup>
+        <Message Importance="High" Text="Syncing Tripous Web static demo assets." />
+        <Copy SourceFiles="@(TripousWebDemoCss)"
+              DestinationFiles="@(TripousWebDemoCss->'$(TripousWebDemosRoot)/tripous/css/%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(TripousWebDemoJs)"
+              DestinationFiles="@(TripousWebDemoJs->'$(TripousWebDemosRoot)/tripous/js/%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(TripousWebDemoFonts)"
+              DestinationFiles="@(TripousWebDemoFonts->'$(TripousWebDemosRoot)/tripous/fonts/%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(TripousWebDemoImages)"
+              DestinationFiles="@(TripousWebDemoImages->'$(TripousWebDemosRoot)/tripous/images/%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(TripousWebDemoAssetsCss)"
+              DestinationFolder="$(TripousWebDemosRoot)/assets/css"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(TripousWebDemoAssetsJs)"
+              DestinationFolder="$(TripousWebDemosRoot)/assets/js"
+              SkipUnchangedFiles="true" />
+    </Target>
 
 </Project>

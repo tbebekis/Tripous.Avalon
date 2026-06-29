@@ -1,0 +1,737 @@
+/*
+Breakpoints
+
+Name       From       To
+XSmall     0          575.98px
+Small      576px      767.98px
+Medium     768px      991.98px
+Large      992px      1199.98px
+XLarge     1200px     1399.98px
+XXLarge    1400px
+*/
+
+:root {
+/* Column Widths - In percents */
+--p-1: 0.99999%;
+--p-2: 1.99999%;
+--p-3: 2.99999%;
+--p-4: 3.99999%;
+--p-5: 4.99999%;
+--p-10: 9.99999%;
+--p-15: 14.99999%;
+--p-20: 19.99999%;
+--p-25: 24.99999%;
+--p-30: 29.99999%;
+--p-35: 34.99999%;
+--p-40: 39.99999%;
+--p-45: 44.99999%;
+--p-50: 49.99999%;
+--p-55: 54.99999%;
+--p-60: 59.99999%;
+--p-65: 64.99999%;
+--p-70: 69.99999%;
+--p-75: 74.99999%;
+--p-80: 79.99999%;
+--p-85: 84.99999%;
+--p-90: 89.99999%;
+--p-95: 94.99999%;
+--p-100: 99.99999%;
+--p-33: 33.33333%;
+--p-66: 66.66666%;
+}
+
+/*---------------------------------------------------------------------------------------
+  global
+---------------------------------------------------------------------------------------*/
+* {
+    outline: none;
+    text-decoration: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+html {
+    box-sizing: border-box;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    font-family: 'Segoe UI', Tahoma, Verdana, Arial, sans-serif;
+    font-size: 14px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    background-color: var(--BackColor);
+    cursor: default;
+    user-select: none;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tp-BodyInterior {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/*---------------------------------------------------------------------------------------
+  normalization
+---------------------------------------------------------------------------------------*/
+button,
+input,
+textarea,
+select,
+label,
+legend,
+optgroup {
+    font: inherit;
+    line-height: var(--ControlLineHeight);
+}
+
+button,
+input,
+textarea,
+select {
+    border: var(--Border);
+    padding: var(--TextPadding);
+}
+
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    border: 1px solid var(--FocusBorderColor);
+}
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;     /* 1 */
+    font-size: 100%;          /* 1 */
+    margin: 0;                /* 2 */
+}
+
+button,
+select {
+    text-transform: none;         /* Remove the inheritance of text transform in Firefox. */
+}
+
+button,
+input[type=button],
+input[type=submit],
+input[type=reset] {
+    cursor: pointer;
+    -webkit-appearance: button; /* Correct the inability to style clickable types in iOS and Safari. */
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--AutofillBackColor) inset;
+}
+
+/* Remove the inner border and padding in Firefox. */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+}
+
+/* Restore the focus styles unset by the previous rule. */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText;
+}
+
+fieldset {
+    padding: 0.35em 0.75em 0.625em;   /* Correct the padding in Firefox. */
+    border: var(--Border);
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out `fieldset` elements in all browsers.
+ */
+legend {
+    box-sizing: border-box;           /* 1 */
+    color: inherit;                   /* 2 */
+    display: table;                   /* 1 */
+    max-width: 100%;                  /* 1 */
+    padding: 0;                       /* 3 */
+    white-space: normal;              /* 1 */
+}
+
+progress {
+    vertical-align: baseline;         /* Add the correct vertical alignment in Chrome, Firefox, and Opera. */
+}
+
+/* Correct the cursor style of increment and decrement buttons in Chrome. */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+[type="search"] {
+    -webkit-appearance: textfield;    /* Correct the odd appearance in Chrome and Safari. */
+    outline-offset: -2px;             /* Correct the outline style in Safari. */
+}
+
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;         /* Remove the inner padding in Chrome and Safari on macOS. */
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;       /* Correct the inability to style clickable types in iOS and Safari. */
+    font: inherit;                    /* Change font properties to `inherit` in Safari. */
+}
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+    box-sizing: content-box;          /* 1 */
+    height: 0;                        /* 1 */
+    overflow: visible;                /* 2 */
+}
+
+pre {
+    font-family: monospace, monospace;    /* Correct the inheritance and scaling of font size in all browsers. */
+    font-size: 1em;                       /* Correct the odd `em` font sizing in all browsers. */
+}
+
+b, strong {
+    font-weight: bolder;                  /* correct font weight in Chrome, Edge, and Safari */
+}
+
+code, kbd, samp {
+    font-family: monospace, monospace;    /* Correct the inheritance and scaling of font size in all browsers. */
+    font-size: 1em;                       /* Correct the odd `em` font sizing in all browsers. */
+}
+
+/* Prevent `sub` and `sup` elements from affecting the line height in all browsers. */
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+textarea {
+    /* white-space: pre; disable this because we want just the vertical scroll bar*/
+    overflow: auto;
+    resize: none;
+    box-sizing: border-box;
+    min-height: 5em;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+input[type=radio] {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+label > input[type=checkbox],
+label > input[type=radio] {
+    margin: 0 4px 0 2px;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+label {
+    position: relative;
+    padding: var(--TextPadding);
+    user-select: text;
+}
+
+script {
+    display: none;
+}
+
+/*---------------------------------------------------------------------------------------
+  Flex
+---------------------------------------------------------------------------------------*/
+.tp-FlexText {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tp-FlexFill {
+    position: relative;
+    flex-grow: 1;
+}
+
+/*---------------------------------------------------------------------------------------
+  Responsive
+---------------------------------------------------------------------------------------*/
+/* a row that wraps its children */
+.tp-Row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 4px;
+}
+
+/* children vertical alignment */
+.tp-RowCenter {
+    align-items: center;
+}
+
+/* children vertical alignment */
+.tp-RowTop {
+    align-items: flex-start;
+}
+
+/* a row that does NOT wrap its children */
+.tp-RowNoWrap {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.tp-Col {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    row-gap: 4px;
+}
+
+/*---------------------------------------------------------------------------------------
+  Column Widths - In percents
+---------------------------------------------------------------------------------------*/
+.p-1   { width: var(--p-1  ); }
+.p-2   { width: var(--p-2  ); }
+.p-3   { width: var(--p-3  ); }
+.p-4   { width: var(--p-4  ); }
+.p-5   { width: var(--p-5  ); }
+.p-10  { width: var(--p-10 ); }
+.p-15  { width: var(--p-15 ); }
+.p-20  { width: var(--p-20 ); }
+.p-25  { width: var(--p-25 ); }
+.p-30  { width: var(--p-30 ); }
+.p-35  { width: var(--p-35 ); }
+.p-40  { width: var(--p-40 ); }
+.p-45  { width: var(--p-45 ); }
+.p-50  { width: var(--p-50 ); }
+.p-55  { width: var(--p-55 ); }
+.p-60  { width: var(--p-60 ); }
+.p-65  { width: var(--p-65 ); }
+.p-70  { width: var(--p-70 ); }
+.p-75  { width: var(--p-75 ); }
+.p-80  { width: var(--p-80 ); }
+.p-85  { width: var(--p-85 ); }
+.p-90  { width: var(--p-90 ); }
+.p-95  { width: var(--p-95 ); }
+.p-100 { width: var(--p-100); }
+.p-33  { width: var(--p-33 ); }
+.p-66  { width: var(--p-66 ); }
+
+@media (max-width: 575.98px) {
+    .xs-1   { width: var(--p-1  ); }
+    .xs-2   { width: var(--p-2  ); }
+    .xs-3   { width: var(--p-3  ); }
+    .xs-4   { width: var(--p-4  ); }
+    .xs-5   { width: var(--p-5  ); }
+    .xs-10  { width: var(--p-10 ); }
+    .xs-15  { width: var(--p-15 ); }
+    .xs-20  { width: var(--p-20 ); }
+    .xs-25  { width: var(--p-25 ); }
+    .xs-30  { width: var(--p-30 ); }
+    .xs-35  { width: var(--p-35 ); }
+    .xs-40  { width: var(--p-40 ); }
+    .xs-45  { width: var(--p-45 ); }
+    .xs-50  { width: var(--p-50 ); }
+    .xs-55  { width: var(--p-55 ); }
+    .xs-60  { width: var(--p-60 ); }
+    .xs-65  { width: var(--p-65 ); }
+    .xs-70  { width: var(--p-70 ); }
+    .xs-75  { width: var(--p-75 ); }
+    .xs-80  { width: var(--p-80 ); }
+    .xs-85  { width: var(--p-85 ); }
+    .xs-90  { width: var(--p-90 ); }
+    .xs-95  { width: var(--p-95 ); }
+    .xs-100 { width: var(--p-100); }
+    .xs-33  { width: var(--p-33 ); }
+    .xs-66  { width: var(--p-66 ); }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .s-1   { width: var(--p-1  ); }
+    .s-2   { width: var(--p-2  ); }
+    .s-3   { width: var(--p-3  ); }
+    .s-4   { width: var(--p-4  ); }
+    .s-5   { width: var(--p-5  ); }
+    .s-10  { width: var(--p-10 ); }
+    .s-15  { width: var(--p-15 ); }
+    .s-20  { width: var(--p-20 ); }
+    .s-25  { width: var(--p-25 ); }
+    .s-30  { width: var(--p-30 ); }
+    .s-35  { width: var(--p-35 ); }
+    .s-40  { width: var(--p-40 ); }
+    .s-45  { width: var(--p-45 ); }
+    .s-50  { width: var(--p-50 ); }
+    .s-55  { width: var(--p-55 ); }
+    .s-60  { width: var(--p-60 ); }
+    .s-65  { width: var(--p-65 ); }
+    .s-70  { width: var(--p-70 ); }
+    .s-75  { width: var(--p-75 ); }
+    .s-80  { width: var(--p-80 ); }
+    .s-85  { width: var(--p-85 ); }
+    .s-90  { width: var(--p-90 ); }
+    .s-95  { width: var(--p-95 ); }
+    .s-100 { width: var(--p-100); }
+    .s-33  { width: var(--p-33 ); }
+    .s-66  { width: var(--p-66 ); }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .m-1   { width: var(--p-1  ); }
+    .m-2   { width: var(--p-2  ); }
+    .m-3   { width: var(--p-3  ); }
+    .m-4   { width: var(--p-4  ); }
+    .m-5   { width: var(--p-5  ); }
+    .m-10  { width: var(--p-10 ); }
+    .m-15  { width: var(--p-15 ); }
+    .m-20  { width: var(--p-20 ); }
+    .m-25  { width: var(--p-25 ); }
+    .m-30  { width: var(--p-30 ); }
+    .m-35  { width: var(--p-35 ); }
+    .m-40  { width: var(--p-40 ); }
+    .m-45  { width: var(--p-45 ); }
+    .m-50  { width: var(--p-50 ); }
+    .m-55  { width: var(--p-55 ); }
+    .m-60  { width: var(--p-60 ); }
+    .m-65  { width: var(--p-65 ); }
+    .m-70  { width: var(--p-70 ); }
+    .m-75  { width: var(--p-75 ); }
+    .m-80  { width: var(--p-80 ); }
+    .m-85  { width: var(--p-85 ); }
+    .m-90  { width: var(--p-90 ); }
+    .m-95  { width: var(--p-95 ); }
+    .m-100 { width: var(--p-100); }
+    .m-33  { width: var(--p-33 ); }
+    .m-66  { width: var(--p-66 ); }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .l-1   { width: var(--p-1  ); }
+    .l-2   { width: var(--p-2  ); }
+    .l-3   { width: var(--p-3  ); }
+    .l-4   { width: var(--p-4  ); }
+    .l-5   { width: var(--p-5  ); }
+    .l-10  { width: var(--p-10 ); }
+    .l-15  { width: var(--p-15 ); }
+    .l-20  { width: var(--p-20 ); }
+    .l-25  { width: var(--p-25 ); }
+    .l-30  { width: var(--p-30 ); }
+    .l-35  { width: var(--p-35 ); }
+    .l-40  { width: var(--p-40 ); }
+    .l-45  { width: var(--p-45 ); }
+    .l-50  { width: var(--p-50 ); }
+    .l-55  { width: var(--p-55 ); }
+    .l-60  { width: var(--p-60 ); }
+    .l-65  { width: var(--p-65 ); }
+    .l-70  { width: var(--p-70 ); }
+    .l-75  { width: var(--p-75 ); }
+    .l-80  { width: var(--p-80 ); }
+    .l-85  { width: var(--p-85 ); }
+    .l-90  { width: var(--p-90 ); }
+    .l-95  { width: var(--p-95 ); }
+    .l-100 { width: var(--p-100); }
+    .l-33  { width: var(--p-33 ); }
+    .l-66  { width: var(--p-66 ); }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .xl-1   { width: var(--p-1  ); }
+    .xl-2   { width: var(--p-2  ); }
+    .xl-3   { width: var(--p-3  ); }
+    .xl-4   { width: var(--p-4  ); }
+    .xl-5   { width: var(--p-5  ); }
+    .xl-10  { width: var(--p-10 ); }
+    .xl-15  { width: var(--p-15 ); }
+    .xl-20  { width: var(--p-20 ); }
+    .xl-25  { width: var(--p-25 ); }
+    .xl-30  { width: var(--p-30 ); }
+    .xl-35  { width: var(--p-35 ); }
+    .xl-40  { width: var(--p-40 ); }
+    .xl-45  { width: var(--p-45 ); }
+    .xl-50  { width: var(--p-50 ); }
+    .xl-55  { width: var(--p-55 ); }
+    .xl-60  { width: var(--p-60 ); }
+    .xl-65  { width: var(--p-65 ); }
+    .xl-70  { width: var(--p-70 ); }
+    .xl-75  { width: var(--p-75 ); }
+    .xl-80  { width: var(--p-80 ); }
+    .xl-85  { width: var(--p-85 ); }
+    .xl-90  { width: var(--p-90 ); }
+    .xl-95  { width: var(--p-95 ); }
+    .xl-100 { width: var(--p-100); }
+    .xl-33  { width: var(--p-33 ); }
+    .xl-66  { width: var(--p-66 ); }
+}
+
+@media (min-width: 1400px) {
+    .xxl-1   { width: var(--p-1  ); }
+    .xxl-2   { width: var(--p-2  ); }
+    .xxl-3   { width: var(--p-3  ); }
+    .xxl-4   { width: var(--p-4  ); }
+    .xxl-5   { width: var(--p-5  ); }
+    .xxl-10  { width: var(--p-10 ); }
+    .xxl-15  { width: var(--p-15 ); }
+    .xxl-20  { width: var(--p-20 ); }
+    .xxl-25  { width: var(--p-25 ); }
+    .xxl-30  { width: var(--p-30 ); }
+    .xxl-35  { width: var(--p-35 ); }
+    .xxl-40  { width: var(--p-40 ); }
+    .xxl-45  { width: var(--p-45 ); }
+    .xxl-50  { width: var(--p-50 ); }
+    .xxl-55  { width: var(--p-55 ); }
+    .xxl-60  { width: var(--p-60 ); }
+    .xxl-65  { width: var(--p-65 ); }
+    .xxl-70  { width: var(--p-70 ); }
+    .xxl-75  { width: var(--p-75 ); }
+    .xxl-80  { width: var(--p-80 ); }
+    .xxl-85  { width: var(--p-85 ); }
+    .xxl-90  { width: var(--p-90 ); }
+    .xxl-95  { width: var(--p-95 ); }
+    .xxl-100 { width: var(--p-100); }
+    .xxl-33  { width: var(--p-33 ); }
+    .xxl-66  { width: var(--p-66 ); }
+}
+
+/*---------------------------------------------------------------------------------------
+  Width in Pixels
+---------------------------------------------------------------------------------------*/
+.px50  { width:  50px; }
+.px100 { width: 100px; }
+.px150 { width: 150px; }
+.px200 { width: 200px; }
+
+/*---------------------------------------------------------------------------------------
+  Hide
+---------------------------------------------------------------------------------------*/
+.tp-Hide {
+    display: none !important;
+}
+
+@media (max-width: 575.98px) {
+    .xs0, .tp-Hide-xs {
+        display: none !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .s0, .tp-Hide-s {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .m0, .tp-Hide-m {
+        display: none !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .l0, .tp-Hide-l {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .xl0, .tp-Hide-xl {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    .xxl0, .tp-Hide-xxl {
+        display: none !important;
+    }
+}
+
+/*---------------------------------------------------------------------------------------
+  Limiter
+---------------------------------------------------------------------------------------*/
+.tp-Limiter {
+    position: relative;
+    margin: 0 auto !important;
+    padding: 0 8px;
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    .tp-Limiter { width: 970px; }
+}
+
+@media (min-width: 1200px) {
+    .tp-Limiter { width: 1170px; }
+}
+
+@media (min-width: 1400px) {
+    .tp-Limiter { width: 1270px; }
+}
+
+@media (min-width: 1600px) {
+    .tp-Limiter { width: 1470px; }
+}
+
+/*---------------------------------------------------------------------------------------
+  CtrlRow
+---------------------------------------------------------------------------------------*/
+.tp-RequiredMark {
+    color: var(--RequiredMarkColor);
+    font-weight: bolder;
+    padding: 0 3px;
+}
+
+.tp-SqlFilter-Ctrl input[type=text],
+.tp-SqlFilter-Ctrl input[type=number],
+.tp-SqlFilter-Ctrl input[type=date],
+.tp-SqlFilter-Ctrl select,
+.tp-CtrlRow input[type=text],
+.tp-CtrlRow input[type=email],
+.tp-CtrlRow input[type=password],
+.tp-CtrlRow input[type=number],
+.tp-CtrlRow input[type=date],
+.tp-CtrlRow input[type=tel],
+.tp-CtrlRow select {
+    height: 2.2em;
+}
+
+.tp-CtrlRow,
+.tp-CheckBoxRow {
+    position: relative;
+    padding: 0 4px 0 0;
+}
+
+.tp-CtrlRow {
+    display: grid;
+    grid-template-columns: minmax(120px, 35%) minmax(0, 1fr);
+    column-gap: 6px;
+    row-gap: 2px;
+    align-items: start;
+}
+
+.tp-CtrlRow > .tp-CText {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    min-width: 0;
+    padding-top: 0.35em;
+}
+
+.tp-CtrlRow > .tp-Ctrl {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.tp-CtrlRow > .tp-Ctrl > *:first-child {
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .tp-CtrlRow {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tp-CtrlRow > .tp-CText {
+        padding-top: 0;
+    }
+}
+
+.tp-GridCtrlRow {
+    position: relative;
+    display: flex;
+    margin-top: 8px;
+    padding: 0 10px 0 15px;
+}
+
+/*---------------------------------------------------------------------------------------
+  miscs
+---------------------------------------------------------------------------------------*/
+.tp-NoBrowserAppearance {
+    appearance: none;
+}
+
+.tp-Bold {
+    font-weight: bold;
+}
+
+.tp-TextCenter {
+    text-align: center;
+}
+
+.tp-TextRight {
+    text-align: right;
+}
+
+input[type=number] {
+    text-align: right;
+}
+
+.tp-UnSelectable {
+    user-select: none;
+}
+
+.tp-Selectable {
+    user-select: text;
+}
+
+.tp-Disabled {
+    pointer-events: none;
+}
+
+.tp-CancelTransition {
+    transition: none !important;
+}
+
+.tp-Shadow {
+    box-shadow: 5px 5px 16px 0 var(--ShadowColor);
+}

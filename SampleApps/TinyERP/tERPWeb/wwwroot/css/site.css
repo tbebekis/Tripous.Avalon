@@ -1,33 +1,31 @@
-:root {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #202020;
-    background: #f4f5f7;
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-    margin: 0;
+  margin-bottom: 60px;
 }
 
-.app-header {
-    height: 48px;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    background: #1f2937;
-    color: white;
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
 }
 
-.app-title {
-    font-weight: 600;
-}
-
-.app-main {
-    padding: 20px;
-}
-
-.app-shell-placeholder,
-.app-error {
-    background: white;
-    border: 1px solid #d7dce2;
-    padding: 16px;
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
 }

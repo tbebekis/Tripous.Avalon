@@ -36,6 +36,10 @@ AGENTS.md
 ## [ Documentation build output ]
 DocFx/_site/
 
+## [ Tripous Web generated bundles ]
+**/wwwroot/tp/js/*.js
+**/wwwroot/tp/js/*.min.js
+
 ## [ Playwright ]
 package.json
 package-lock.json
@@ -45,4 +49,3 @@ node_modules
 
 Publish
 WebMaterial
-

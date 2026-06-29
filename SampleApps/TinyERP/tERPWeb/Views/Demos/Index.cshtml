@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Tripous Web MVC Server Demos";
+    ViewData["IsDemoShell"] = true;
+}
+
+<div class="demo-shell">
+    <aside class="demo-sidebar">
+        <header class="demo-sidebar-header">
+            <h1>MVC Server Demos</h1>
+        </header>
+        <section class="demo-nav-group is-expanded">
+            <button type="button" class="demo-nav-group-button" data-demo-group-button>
+                <span>Server</span>
+            </button>
+            <div class="demo-nav-group-items">
+                <a href="/demo/tp-data-module-serialization" target="DemoFrame" data-demo-link data-demo-url="/demo/tp-data-module-serialization">data module serialization</a>
+            </div>
+        </section>
+        <section class="demo-nav-group is-expanded">
+            <button type="button" class="demo-nav-group-button" data-demo-group-button>
+                <span>Static Site</span>
+            </button>
+            <div class="demo-nav-group-items">
+                <a href="/web-demos/" target="_top">static JavaScript demos</a>
+            </div>
+        </section>
+    </aside>
+    <main class="demo-workspace">
+        <iframe id="DemoFrame" name="DemoFrame" class="demo-frame" src="/demo/tp-data-module-serialization" title="Tripous Web MVC Server Demo"></iframe>
+    </main>
+</div>
+
+<script>
+    Demos.RegisterShell();
+</script>
