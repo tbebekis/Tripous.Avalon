@@ -1,6 +1,5 @@
-using Microsoft.Extensions.FileProviders;
-
 var builder = WebApplication.CreateBuilder(args);
+App.Initialize(builder);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

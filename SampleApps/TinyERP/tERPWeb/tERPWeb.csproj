@@ -14,6 +14,7 @@
         <ProjectReference Include="..\..\..\Tripous\Tripous.csproj" />
         <ProjectReference Include="..\..\..\Tripous.Data\Tripous.Data.csproj" />
         <ProjectReference Include="..\..\..\Tripous.Logging\Tripous.Logging.csproj" />        
+        <ProjectReference Include="..\..\..\Tripous.Web\Tripous.Web.csproj" />
         <ProjectReference Include="..\tERP.Common\tERP.Common.csproj" />
         <ProjectReference Include="..\tERP.Data\tERP.Data.csproj" />      
     </ItemGroup> 

@@ -31,6 +31,7 @@ Thumbs.db
 *.visualstate
 
 AGENTS.md
+CurrentWork.md
 *.lscache
 
 ## [ Documentation build output ]

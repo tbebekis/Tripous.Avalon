@@ -19,6 +19,10 @@
   <ItemGroup>
     <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.5" />
     <PackageReference Include="ClosedXML" Version="0.105.0" />    
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Http\" />
   </ItemGroup> 
 
 </Project>

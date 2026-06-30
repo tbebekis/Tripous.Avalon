@@ -7,7 +7,6 @@
  */
 
 global using System;
-global using System.Security.Cryptography;
 global using System.Threading.Tasks;
 global using System.IO;
 global using System.Linq;
@@ -21,10 +20,8 @@ global using System.Dynamic;
 global using System.Data;
 global using System.Data.Common;
 global using System.Collections;
-global using System.Collections.Specialized;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
-global using System.Collections.Concurrent;
 global using System.Reflection;
 global using System.Text.Json;
 global using System.Text.Json.Nodes;
@@ -35,19 +32,15 @@ global using System.Runtime.InteropServices;
 global using System.Diagnostics.CodeAnalysis;
 
 global using Microsoft.AspNetCore.Mvc;
-global using Microsoft.AspNetCore.Mvc.Abstractions;
-global using Microsoft.AspNetCore.Mvc.ModelBinding;
-global using Microsoft.AspNetCore.Mvc.Razor;
-global using Microsoft.AspNetCore.Mvc.Rendering;
-global using Microsoft.AspNetCore.Mvc.ViewFeatures;
-global using Microsoft.AspNetCore.Mvc.ViewEngines;
-global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.Extensions.FileProviders;
 
 global using Tripous;
 global using Tripous.Data;
-global using Tripous.Http;
+global using Tripous.Logging;
 global using Tripous.Web;
 global using Tripous.WebDesk;
- 
- 
- 
+
+global using tERP.Common;
+global using tERP.Data;
+global using tERPWeb;
