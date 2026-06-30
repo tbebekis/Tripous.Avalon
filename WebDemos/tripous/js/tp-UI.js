@@ -7356,6 +7356,8 @@ tp.ToolBar = class extends tp.Component {
             if (Element instanceof HTMLAnchorElement && !(tp.GetComponent(Element) instanceof tp.ButtonEx)) {
                 Button = new tp.ButtonEx(Element);
                 tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+                Button.NoText = this.NoText;
+                Button.IcoMode = this.IcoMode;
             }
         }
     }
@@ -7379,6 +7381,8 @@ tp.ToolBar = class extends tp.Component {
             IcoClasses: IcoClasses || ""
         });
         tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+        Button.NoText = this.NoText;
+        Button.IcoMode = this.IcoMode;
         if (!tp.IsBlank(CssClasses))
             tp.AddClasses(Button.Handle, CssClasses);
         this.AddItem(Button, ToRight === true);
@@ -7404,6 +7408,8 @@ tp.ToolBar = class extends tp.Component {
      * @returns {void}
      */
     SetIcoMode(Value) {
+        this.IcoMode = Value;
+        Value = this.IcoMode;
         this.GetAllComponents().forEach(function (Item) {
             if (Item instanceof tp.ButtonEx)
                 Item.IcoMode = Value;
@@ -7415,10 +7421,42 @@ tp.ToolBar = class extends tp.Component {
      * @returns {void}
      */
     SetNoText(Value) {
+        this.NoText = Value === true;
+        Value = this.NoText;
         this.GetAllComponents().forEach(function (Item) {
             if (Item instanceof tp.ButtonEx)
-                Item.NoText = Value === true;
+                Item.NoText = Value;
         });
+    }
+    /**
+     * Gets or sets the default icon mode for toolbar buttons.
+     * @returns {number} Returns a tp.ButtonExIcoMode value.
+     */
+    get IcoMode() {
+        return this.fIcoMode;
+    }
+    /**
+     * Gets or sets the default icon mode for toolbar buttons.
+     * @param {number} Value A tp.ButtonExIcoMode value.
+     * @returns {void}
+     */
+    set IcoMode(Value) {
+        this.fIcoMode = tp.IsNumber(Value) ? Value : tp.ButtonExIcoMode.Top;
+    }
+    /**
+     * Gets or sets the default no-text flag for toolbar buttons.
+     * @returns {boolean} Returns true when toolbar buttons hide text.
+     */
+    get NoText() {
+        return this.fNoText === true;
+    }
+    /**
+     * Gets or sets the default no-text flag for toolbar buttons.
+     * @param {boolean} Value True to hide text.
+     * @returns {void}
+     */
+    set NoText(Value) {
+        this.fNoText = Value === true;
     }
     /**
      * Finds a child item by command.
@@ -7455,6 +7493,16 @@ tp.ToolBar.prototype.tpClass = "tp.ToolBar";
  * @type {HTMLElement|null}
  */
 tp.ToolBar.prototype.fRightAligner = null;
+/**
+ * Default icon mode for toolbar buttons.
+ * @type {number}
+ */
+tp.ToolBar.prototype.fIcoMode = tp.ButtonExIcoMode.Top;
+/**
+ * True when toolbar buttons hide text by default.
+ * @type {boolean}
+ */
+tp.ToolBar.prototype.fNoText = true;
 
 // ● 175-status-bar.js
 // ● status bar item
@@ -20831,6 +20879,7 @@ tp.TreeNode.CollapseSymbol = "\u25BE";
  *
  * Events:
  * - NodeClick
+ * - NodeDoubleClick
  * - Collapsing
  * - Collapsed
  * - Expanding
@@ -20869,6 +20918,7 @@ tp.TreeView = class extends tp.Component {
         this.fItemsElement = null;
         this.fItems = [];
         this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.fDoubleClickHandler = this.FuncBind(this.HandleDoubleClick);
     }
     /**
      * Notification called after field initialization and before create params are applied.
@@ -20880,6 +20930,7 @@ tp.TreeView = class extends tp.Component {
         this.NormalizeNodes();
         this.CollapseAll();
         this.Handle.addEventListener("click", this.fClickHandler, false);
+        this.Handle.addEventListener("dblclick", this.fDoubleClickHandler, false);
     }
     /**
      * Applies explicit create params to this tree view.
@@ -20914,7 +20965,10 @@ tp.TreeView = class extends tp.Component {
     DoDispose() {
         if (this.Handle && this.fClickHandler)
             this.Handle.removeEventListener("click", this.fClickHandler, false);
+        if (this.Handle && this.fDoubleClickHandler)
+            this.Handle.removeEventListener("dblclick", this.fDoubleClickHandler, false);
         this.fClickHandler = null;
+        this.fDoubleClickHandler = null;
         this.fItemsElement = null;
         this.fItems = null;
         super.DoDispose();
@@ -20926,16 +20980,37 @@ tp.TreeView = class extends tp.Component {
      * @returns {void}
      */
     HandleClick(e) {
-        var Strip;
-        var Node;
-        if (!(e.target instanceof HTMLElement))
-            return;
-        Strip = tp.Closest(e.target, "." + tp.Classes.Strip);
-        if (!Strip || !Strip.parentNode)
-            return;
-        Node = tp.GetElementInfo(Strip.parentNode, "__TreeNode");
+        var Node = this.FindNodeFromEventTarget(e.target);
         if (Node instanceof tp.TreeNode)
             this.OnNodeClick(Node);
+    }
+    /**
+     * Handles tree double clicks.
+     * @protected
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleDoubleClick(e) {
+        var Node = this.FindNodeFromEventTarget(e.target);
+        if (Node instanceof tp.TreeNode)
+            this.OnNodeDoubleClick(Node);
+    }
+    /**
+     * Finds a tree node from a DOM event target.
+     * @protected
+     * @param {EventTarget|null} Target The DOM event target.
+     * @returns {tp.TreeNode|null} Returns the tree node or null.
+     */
+    FindNodeFromEventTarget(Target) {
+        var Strip;
+        var Result;
+        if (!(Target instanceof HTMLElement))
+            return null;
+        Strip = tp.Closest(Target, "." + tp.Classes.Strip);
+        if (!Strip || !Strip.parentNode)
+            return null;
+        Result = tp.GetElementInfo(Strip.parentNode, "__TreeNode");
+        return Result instanceof tp.TreeNode ? Result : null;
     }
     /**
      * Converts direct child elements into tree nodes.
@@ -21255,6 +21330,20 @@ tp.TreeView = class extends tp.Component {
             this.Trigger("NodeClick", Args);
             if (Node.IsNode)
                 Node.Toggle();
+        }
+    }
+    /**
+     * Triggers NodeDoubleClick.
+     * @param {tp.TreeNode} Node The clicked node.
+     * @returns {void}
+     */
+    OnNodeDoubleClick(Node) {
+        var Args;
+        if (Node instanceof tp.TreeNode) {
+            this.SetFocusedNode(Node);
+            Args = new tp.TreeViewEventArgs(Node);
+            Args.EventName = "NodeDoubleClick";
+            this.Trigger("NodeDoubleClick", Args);
         }
     }
     /**

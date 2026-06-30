@@ -17,6 +17,14 @@
         <ProjectReference Include="..\..\..\Tripous.Web\Tripous.Web.csproj" />
         <ProjectReference Include="..\tERP.Common\tERP.Common.csproj" />
         <ProjectReference Include="..\tERP.Data\tERP.Data.csproj" />      
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="DbConnections.json" />
+      <EmbeddedResource Include="DbConnections.json" />
+      <None Include="DbConnections.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup> 
 
     <Target Name="BuildTripousWebJavaScriptBundles"

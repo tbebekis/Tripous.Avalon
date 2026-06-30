@@ -60,10 +60,45 @@ textarea {
 }
 
 .app-toolbar {
-    flex: 0 0 44px;
+    box-sizing: border-box;
+    flex: 0 0 46px;
     min-width: 0;
-    border-bottom: 1px solid #aeb7c1;
-    background: #e7ebef;
+    padding: 4px;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #cccccc;
+    background: #f0f0f0;
+}
+
+.app-toolbar.tp-ToolBar {
+    align-items: center;
+}
+
+.app-toolbar .tp-ToolButton,
+.app-toolbar .tp-ButtonEx {
+    box-sizing: border-box;
+    width: 38px;
+    min-width: 38px;
+    height: 36px;
+    min-height: 36px;
+    margin: 0 1px 0 0;
+    padding: 0;
+    border-color: transparent;
+    background: #ffffff;
+}
+
+.app-toolbar .tp-ButtonEx:hover {
+    border-color: #cccccc;
+    background: #f7f7f7;
+}
+
+.app-toolbar .tp-ButtonEx.tp-IcoTop > :nth-child(1) {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+}
+
+.app-toolbar .tp-ButtonEx.tp-IcoTop > :nth-child(2) {
+    margin: 0;
 }
 
 .app-body {
@@ -130,8 +165,8 @@ textarea {
 .app-status-bar {
     flex: 0 0 28px;
     min-width: 0;
-    border-top: 1px solid #b9c1ca;
-    background: #eceff2;
+    border-top: 1px solid #cccccc;
+    background: #f0f0f0;
     color: #30363d;
     font-size: 12px;
 }
@@ -157,38 +192,58 @@ textarea {
     height: 100%;
 }
 
+.app-sidebar .app-tab-control > .tp-List > .tp-TabPage {
+    padding: 0;
+}
+
 .app-command-tree {
     box-sizing: border-box;
-    height: 100%;
+    flex: 1 1 auto;
+    height: auto;
     min-width: 0;
     min-height: 0;
-    padding: 8px;
+    padding: 0;
     overflow: auto;
 }
 
-.app-command-tree section {
-    margin-bottom: 10px;
+.app-command-tree-view {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    background: #ffffff;
 }
 
-.app-command-tree h2 {
-    margin: 0 0 4px 0;
-    padding: 5px 8px;
-    border: 1px solid #c7ced6;
-    background: #e8edf1;
-    font-size: 13px;
-    font-weight: 600;
+.app-command-tree-toolbar.tp-ToolBar {
+    box-sizing: border-box;
+    flex: 0 0 36px;
+    align-items: center;
+    min-width: 0;
+    padding: 2px;
+    border-bottom: 1px solid #cccccc;
+    background: #f0f0f0;
 }
 
-.app-command-tree a {
-    display: block;
-    min-height: 28px;
-    padding: 6px 8px 6px 18px;
-    color: #202428;
-    text-decoration: none;
+.app-command-tree-toolbar .tp-ToolButton,
+.app-command-tree-toolbar .tp-ButtonEx {
+    box-sizing: border-box;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    margin: 0 1px 0 0;
+    padding: 0;
+    border-color: transparent;
+    background: #ffffff;
 }
 
-.app-command-tree a:hover {
-    background: #dde8f4;
+.app-command-tree-toolbar .tp-ButtonEx:hover {
+    border-color: #cccccc;
+    background: #f7f7f7;
 }
 
 .app-empty-panel {
@@ -210,12 +265,14 @@ textarea {
     flex: 0 0 6px;
     width: 6px;
     min-width: 6px;
+    background: #cccccc;
 }
 
 .app-splitter.tp-Splitter.tp-Horizontal {
     flex: 0 0 6px;
     height: 6px;
     min-height: 6px;
+    background: #cccccc;
 }
 
 @media (max-width: 960px) {

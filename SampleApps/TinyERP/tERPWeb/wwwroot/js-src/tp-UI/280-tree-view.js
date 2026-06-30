@@ -594,6 +594,7 @@ tp.TreeNode.CollapseSymbol = "\u25BE";
  *
  * Events:
  * - NodeClick
+ * - NodeDoubleClick
  * - Collapsing
  * - Collapsed
  * - Expanding
@@ -632,6 +633,7 @@ tp.TreeView = class extends tp.Component {
         this.fItemsElement = null;
         this.fItems = [];
         this.fClickHandler = this.FuncBind(this.HandleClick);
+        this.fDoubleClickHandler = this.FuncBind(this.HandleDoubleClick);
     }
     /**
      * Notification called after field initialization and before create params are applied.
@@ -643,6 +645,7 @@ tp.TreeView = class extends tp.Component {
         this.NormalizeNodes();
         this.CollapseAll();
         this.Handle.addEventListener("click", this.fClickHandler, false);
+        this.Handle.addEventListener("dblclick", this.fDoubleClickHandler, false);
     }
     /**
      * Applies explicit create params to this tree view.
@@ -677,7 +680,10 @@ tp.TreeView = class extends tp.Component {
     DoDispose() {
         if (this.Handle && this.fClickHandler)
             this.Handle.removeEventListener("click", this.fClickHandler, false);
+        if (this.Handle && this.fDoubleClickHandler)
+            this.Handle.removeEventListener("dblclick", this.fDoubleClickHandler, false);
         this.fClickHandler = null;
+        this.fDoubleClickHandler = null;
         this.fItemsElement = null;
         this.fItems = null;
         super.DoDispose();
@@ -689,16 +695,37 @@ tp.TreeView = class extends tp.Component {
      * @returns {void}
      */
     HandleClick(e) {
-        var Strip;
-        var Node;
-        if (!(e.target instanceof HTMLElement))
-            return;
-        Strip = tp.Closest(e.target, "." + tp.Classes.Strip);
-        if (!Strip || !Strip.parentNode)
-            return;
-        Node = tp.GetElementInfo(Strip.parentNode, "__TreeNode");
+        var Node = this.FindNodeFromEventTarget(e.target);
         if (Node instanceof tp.TreeNode)
             this.OnNodeClick(Node);
+    }
+    /**
+     * Handles tree double clicks.
+     * @protected
+     * @param {MouseEvent} e The DOM event.
+     * @returns {void}
+     */
+    HandleDoubleClick(e) {
+        var Node = this.FindNodeFromEventTarget(e.target);
+        if (Node instanceof tp.TreeNode)
+            this.OnNodeDoubleClick(Node);
+    }
+    /**
+     * Finds a tree node from a DOM event target.
+     * @protected
+     * @param {EventTarget|null} Target The DOM event target.
+     * @returns {tp.TreeNode|null} Returns the tree node or null.
+     */
+    FindNodeFromEventTarget(Target) {
+        var Strip;
+        var Result;
+        if (!(Target instanceof HTMLElement))
+            return null;
+        Strip = tp.Closest(Target, "." + tp.Classes.Strip);
+        if (!Strip || !Strip.parentNode)
+            return null;
+        Result = tp.GetElementInfo(Strip.parentNode, "__TreeNode");
+        return Result instanceof tp.TreeNode ? Result : null;
     }
     /**
      * Converts direct child elements into tree nodes.
@@ -1018,6 +1045,20 @@ tp.TreeView = class extends tp.Component {
             this.Trigger("NodeClick", Args);
             if (Node.IsNode)
                 Node.Toggle();
+        }
+    }
+    /**
+     * Triggers NodeDoubleClick.
+     * @param {tp.TreeNode} Node The clicked node.
+     * @returns {void}
+     */
+    OnNodeDoubleClick(Node) {
+        var Args;
+        if (Node instanceof tp.TreeNode) {
+            this.SetFocusedNode(Node);
+            Args = new tp.TreeViewEventArgs(Node);
+            Args.EventName = "NodeDoubleClick";
+            this.Trigger("NodeDoubleClick", Args);
         }
     }
     /**

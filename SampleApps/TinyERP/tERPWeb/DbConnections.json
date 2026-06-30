@@ -1,0 +1,11 @@
+{
+  "List": [
+    {
+      "Name": "Default",
+      "DbServerType": "Sqlite",
+      "ConnectionString": "Data Source=\"[Data]/tERP.db3\"",
+      "CommandTimeoutSeconds": 300,
+      "AutoCreateGenerators": false
+    }
+  ]
+}

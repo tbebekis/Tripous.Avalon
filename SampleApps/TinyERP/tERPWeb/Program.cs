@@ -1,8 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
-App.Initialize(builder);
+App.Start(builder);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options => Json.SetupJsonOptions(options.JsonSerializerOptions));
+builder.Services.ConfigureHttpJsonOptions(options => Json.SetupJsonOptions(options.SerializerOptions));
 
 var app = builder.Build();
 

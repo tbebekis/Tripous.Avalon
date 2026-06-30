@@ -872,6 +872,8 @@ tp.ToolBar = class extends tp.Component {
             if (Element instanceof HTMLAnchorElement && !(tp.GetComponent(Element) instanceof tp.ButtonEx)) {
                 Button = new tp.ButtonEx(Element);
                 tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+                Button.NoText = this.NoText;
+                Button.IcoMode = this.IcoMode;
             }
         }
     }
@@ -895,6 +897,8 @@ tp.ToolBar = class extends tp.Component {
             IcoClasses: IcoClasses || ""
         });
         tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+        Button.NoText = this.NoText;
+        Button.IcoMode = this.IcoMode;
         if (!tp.IsBlank(CssClasses))
             tp.AddClasses(Button.Handle, CssClasses);
         this.AddItem(Button, ToRight === true);
@@ -920,6 +924,8 @@ tp.ToolBar = class extends tp.Component {
      * @returns {void}
      */
     SetIcoMode(Value) {
+        this.IcoMode = Value;
+        Value = this.IcoMode;
         this.GetAllComponents().forEach(function (Item) {
             if (Item instanceof tp.ButtonEx)
                 Item.IcoMode = Value;
@@ -931,10 +937,42 @@ tp.ToolBar = class extends tp.Component {
      * @returns {void}
      */
     SetNoText(Value) {
+        this.NoText = Value === true;
+        Value = this.NoText;
         this.GetAllComponents().forEach(function (Item) {
             if (Item instanceof tp.ButtonEx)
-                Item.NoText = Value === true;
+                Item.NoText = Value;
         });
+    }
+    /**
+     * Gets or sets the default icon mode for toolbar buttons.
+     * @returns {number} Returns a tp.ButtonExIcoMode value.
+     */
+    get IcoMode() {
+        return this.fIcoMode;
+    }
+    /**
+     * Gets or sets the default icon mode for toolbar buttons.
+     * @param {number} Value A tp.ButtonExIcoMode value.
+     * @returns {void}
+     */
+    set IcoMode(Value) {
+        this.fIcoMode = tp.IsNumber(Value) ? Value : tp.ButtonExIcoMode.Top;
+    }
+    /**
+     * Gets or sets the default no-text flag for toolbar buttons.
+     * @returns {boolean} Returns true when toolbar buttons hide text.
+     */
+    get NoText() {
+        return this.fNoText === true;
+    }
+    /**
+     * Gets or sets the default no-text flag for toolbar buttons.
+     * @param {boolean} Value True to hide text.
+     * @returns {void}
+     */
+    set NoText(Value) {
+        this.fNoText = Value === true;
     }
     /**
      * Finds a child item by command.
@@ -971,3 +1009,13 @@ tp.ToolBar.prototype.tpClass = "tp.ToolBar";
  * @type {HTMLElement|null}
  */
 tp.ToolBar.prototype.fRightAligner = null;
+/**
+ * Default icon mode for toolbar buttons.
+ * @type {number}
+ */
+tp.ToolBar.prototype.fIcoMode = tp.ButtonExIcoMode.Top;
+/**
+ * True when toolbar buttons hide text by default.
+ * @type {boolean}
+ */
+tp.ToolBar.prototype.fNoText = true;

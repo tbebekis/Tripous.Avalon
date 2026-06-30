@@ -30,7 +30,14 @@
         <h1>tp.DataTable</h1>
         
         <p>
-            Creates a <code>tp.DataTable</code> with column metadata, sample rows, and renders a table using the metadata.
+            <code>tp.DataTable</code> is the Tripous client-side table model. It deliberately follows the
+            C# <code>DataTable</code> idea: a named table contains <code>tp.DataColumn</code> metadata and
+            <code>tp.DataRow</code> rows. UI controls such as grids can inspect the metadata instead of
+            guessing column titles, data types, formatting, visibility, and required flags from plain objects.
+        </p>
+        <p>
+            The smallest useful table has a name, a few columns, and one or more rows. A row can be created
+            from an array whose values follow the column order.
         </p>
         
         <style>
@@ -45,6 +52,15 @@
                 flex-wrap: wrap;
                 gap: 8px;
                 align-items: center;
+            }
+            .data-table-demo-code {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 12px;
+                overflow: auto;
+                border: 1px solid #d0d7de;
+                background: #f7f9fb;
+                white-space: pre;
             }
             .data-table-demo-grid-wrap {
                 overflow: auto;
@@ -98,6 +114,11 @@
         
         <div class="html-code">
             <div class="data-table-demo-layout">
+                <pre class="data-table-demo-code"><code>var Table = new tp.DataTable("Customers");
+Table.AddColumn({ Name: "Code", Title: "Code", DataType: tp.DataType.String });
+Table.AddColumn({ Name: "Name", Title: "Customer", DataType: tp.DataType.String });
+Table.AddRow(["C-001", "Acme Ltd"]);
+Table.AcceptChanges();</code></pre>
                 <div class="data-table-demo-actions">
                     <button id="DataTableRebuildButton" type="button">Rebuild Table</button>
                     <button id="DataTableModifyButton" type="button">Modify Row</button>
