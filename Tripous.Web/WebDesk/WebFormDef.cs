@@ -13,6 +13,18 @@ namespace Tripous.WebDesk;
 /// </summary>
 public class WebFormDef: BaseDef
 {
+    /// <summary>
+    /// Default Razor view name for standard WebDesk data-entry forms.
+    /// </summary>
+    public const string DefaultViewName = "WebDataForm";
+    /// <summary>
+    /// Default Razor partial view name for standard WebDesk item pages.
+    /// </summary>
+    public const string DefaultItemViewName = "WebItemPage";
+
+    // ● private fields
+    string fViewName;
+    string fItemViewName;
     string fModule;
     string fGroup;
     bool fIsReadOnly;
@@ -51,6 +63,22 @@ public class WebFormDef: BaseDef
     }
 
     // ● properties
+    /// <summary>
+    /// The Razor view name or path of the main web form view.
+    /// </summary>
+    public string ViewName
+    {
+        get => !string.IsNullOrWhiteSpace(fViewName) ? fViewName : DefaultViewName;
+        set { if (fViewName != value) { fViewName = value; NotifyPropertyChanged(nameof(ViewName)); } }
+    }
+    /// <summary>
+    /// The optional Razor partial view name or path of the item page used by the main web form view.
+    /// </summary>
+    public string ItemViewName
+    {
+        get => !string.IsNullOrWhiteSpace(fItemViewName) ? fItemViewName : DefaultItemViewName;
+        set { if (fItemViewName != value) { fItemViewName = value; NotifyPropertyChanged(nameof(ItemViewName)); } }
+    }
     /// <summary>
     /// The registration name of the module this web form uses.
     /// </summary>

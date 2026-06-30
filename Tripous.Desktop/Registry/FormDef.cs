@@ -140,7 +140,7 @@ public class FormDef: BaseDef
     /// <summary>
     /// Gets or sets the minimum user level required to access this form.
     /// </summary>
-public UserLevel SecurityLevel
+    public UserLevel SecurityLevel
     {
         get => fSecurityLevel;
         set { if (fSecurityLevel != value) { fSecurityLevel = value; NotifyPropertyChanged(nameof(SecurityLevel)); } }

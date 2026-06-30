@@ -11,7 +11,6 @@ global using System.Threading.Tasks;
 global using System.IO;
 global using System.Linq;
 global using System.Text;
-global using System.Text.RegularExpressions;
 global using System.Xml;
 global using System.Xml.Linq;
 global using System.Globalization;
@@ -30,18 +29,12 @@ global using System.Text.Json.Serialization.Metadata;
 global using System.Diagnostics;
 global using System.Runtime.InteropServices;
 global using System.Diagnostics.CodeAnalysis;
-
-global using Microsoft.AspNetCore.Mvc;
-global using Microsoft.AspNetCore.Builder;
-global using Microsoft.Extensions.FileProviders;
+global using System.Text.RegularExpressions;
 
 global using Tripous;
 global using Tripous.Data;
-global using Tripous.Logging;
 global using Tripous.Web;
 global using Tripous.WebDesk;
 
 global using tERP.Common;
 global using tERP.Data;
-global using tERP.Web;
-global using tERPWeb;

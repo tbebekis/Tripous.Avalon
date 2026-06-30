@@ -889,22 +889,22 @@ static public class SchemaRegistrationBuilder
         if (string.IsNullOrWhiteSpace(Output.OutputFolderPath))
             throw new TripousArgumentNullException(nameof(Output.OutputFolderPath));
 
-        WriteOutputFiles(Result, SchemaVersion, Output.OutputFolderPath, Output.Artifacts, GetRegistryClassPrefix(Output), GetOutputNamespaceName(Result, Output));
+        WriteOutputFiles(Result, SchemaVersion, Output.OutputFolderPath, Output.Artifacts, GetRegistryClassPrefix(Output), GetOutputNamespaceName(Result, Output), IsWebOutput(Output));
     }
     /// <summary>
     /// Writes generated output files.
     /// </summary>
     static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts)
-        => WriteOutputFiles(Result, SchemaVersion, OutputFolderPath, Artifacts, "RegistryVersion", Result.NamespaceName);
+        => WriteOutputFiles(Result, SchemaVersion, OutputFolderPath, Artifacts, "RegistryVersion", Result.NamespaceName, false);
     /// <summary>
     /// Writes generated output files.
     /// </summary>
     static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts, string RegistryClassPrefix)
-        => WriteOutputFiles(Result, SchemaVersion, OutputFolderPath, Artifacts, RegistryClassPrefix, Result.NamespaceName);
+        => WriteOutputFiles(Result, SchemaVersion, OutputFolderPath, Artifacts, RegistryClassPrefix, Result.NamespaceName, false);
     /// <summary>
     /// Writes generated output files.
     /// </summary>
-    static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts, string RegistryClassPrefix, string NamespaceName)
+    static void WriteOutputFiles(SchemaParserResult Result, int SchemaVersion, string OutputFolderPath, RegBuilderArtifactKind Artifacts, string RegistryClassPrefix, string NamespaceName, bool IsWebTarget)
     {
         if (!Directory.Exists(OutputFolderPath))
             Directory.CreateDirectory(OutputFolderPath);
@@ -917,7 +917,7 @@ static public class SchemaRegistrationBuilder
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Modules))
             WriteOutputFile(OutputFolderPath, Prefix + ".Modules.cs", BuildModuleDefsSourceCode((SchemaScript)Result.Script, SchemaVersion, NamespaceName, RegistryClassPrefix));
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Forms))
-            WriteOutputFile(OutputFolderPath, Prefix + ".Forms.cs", BuildFormDefsSourceCode((SchemaScript)Result.Script, SchemaVersion, NamespaceName, RegistryClassPrefix));
+            WriteOutputFile(OutputFolderPath, Prefix + ".Forms.cs", BuildFormDefsSourceCode((SchemaScript)Result.Script, SchemaVersion, NamespaceName, RegistryClassPrefix, IsWebTarget));
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Lookups))
             WriteOutputFile(OutputFolderPath, Prefix + ".Lookups.cs", BuildLookupDefsSourceCode((SchemaScript)Result.Script, SchemaVersion, NamespaceName, RegistryClassPrefix));
         if (Artifacts.HasFlag(RegBuilderArtifactKind.Locators))
@@ -979,6 +979,10 @@ static public class SchemaRegistrationBuilder
     /// </summary>
     static string GetOutputNamespaceName(SchemaParserResult Result, RegBuilderOutput Output)
         => Output != null && !string.IsNullOrWhiteSpace(Output.NamespaceName) ? Output.NamespaceName : Result.NamespaceName;
+    /// <summary>
+    /// Returns true when an output target is a WebDesk target.
+    /// </summary>
+    static bool IsWebOutput(RegBuilderOutput Output) => Output != null && Output.TargetName.IsSameText("Web");
     /// <summary>
     /// Returns the registry class name for a schema version.
     /// </summary>
@@ -1187,6 +1191,11 @@ static public class SchemaRegistrationBuilder
     /// Builds source code for form registration.
     /// </summary>
     static string BuildFormDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName, string ClassPrefix)
+        => BuildFormDefsSourceCode(Script, SchemaVersion, NamespaceName, ClassPrefix, false);
+    /// <summary>
+    /// Builds source code for form registration.
+    /// </summary>
+    static string BuildFormDefsSourceCode(SchemaScript Script, int SchemaVersion, string NamespaceName, string ClassPrefix, bool IsWebTarget)
     {
         StringBuilder SB = new();
         List<SchemaModuleRegistration> Registrations = GetModuleRegistrations(Script)
@@ -1207,7 +1216,7 @@ static public class SchemaRegistrationBuilder
 
         foreach (SchemaModuleRegistration Registration in Registrations)
         {
-            SB.AppendLine("        " + BuildAddFormSource(Registration.Table, Registration.Module));
+            SB.AppendLine("        " + (IsWebTarget ? BuildAddWebFormSource(Registration.Table, Registration.Module) : BuildAddFormSource(Registration.Table, Registration.Module)));
         }
 
         SB.AppendLine("    }");
@@ -1294,6 +1303,29 @@ static public class SchemaRegistrationBuilder
             Args.Add("SecurityLevel: UserLevel." + ModuleBlock.SecurityLevel);
 
         return "DesktopRegistry.AddOrUpdateForm(" + string.Join(", ", Args) + ");";
+    }
+    /// <summary>
+    /// Builds source code that adds a web form definition.
+    /// </summary>
+    static string BuildAddWebFormSource(SchemaTable TopTable, SchemaModuleBlock ModuleBlock)
+    {
+        List<string> Args = [];
+        Args.Add("\"" + EscapeString(ModuleBlock.WebFormName) + "\"");
+        Args.Add("TitleKey: \"" + EscapeString(ModuleBlock.WebFormName) + "\"");
+        Args.Add("Module: \"" + EscapeString(ModuleBlock.ModuleName) + "\"");
+
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.WebViewName))
+            Args.Add("ViewName: \"" + EscapeString(ModuleBlock.WebViewName) + "\"");
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.WebItemViewName))
+            Args.Add("ItemViewName: \"" + EscapeString(ModuleBlock.WebItemViewName) + "\"");
+        if (!string.IsNullOrWhiteSpace(ModuleBlock.GroupName))
+            Args.Add("Group: \"" + EscapeString(ModuleBlock.GroupName) + "\"");
+        if (TopTable.IsReadOnly)
+            Args.Add("IsReadOnly: true");
+        if (ModuleBlock.SecurityLevel != UserLevel.None)
+            Args.Add("SecurityLevel: UserLevel." + ModuleBlock.SecurityLevel);
+
+        return "WebDeskRegistry.AddOrUpdateForm(" + string.Join(", ", Args) + ");";
     }
 
     // ● private - module source
@@ -3420,6 +3452,40 @@ static public class SchemaRegistrationBuilder
             ModuleBlock.ItemPageClassName = Parts[0];
         }
         /// <summary>
+        /// Parses web form header text.
+        /// </summary>
+        void ParseWebFormHeader(SchemaModuleBlock ModuleBlock, string Text)
+        {
+            ModuleBlock.IsWebFormSpecified = !string.IsNullOrWhiteSpace(Text);
+            List<string> Parts = SplitHeaderTokens(Text);
+            if (Parts.Count == 0)
+                return;
+            if (Parts.Count > 3)
+                throw new TripousDataException("Invalid WebForm header syntax: \"" + Text + "\". Expected: WebForm: WebDataForm | FORM_NAME [VIEW_NAME]");
+
+            ModuleBlock.WebFormName = Parts[0];
+
+            if (Parts.Count > 1)
+                ModuleBlock.WebViewName = Parts[1];
+            if (Parts.Count > 2)
+            {
+                if (!string.IsNullOrWhiteSpace(ModuleBlock.WebItemViewName))
+                    throw new TripousDataException("Module block contains duplicate WebItemPage: " + ModuleBlock.ModuleName);
+                ModuleBlock.WebItemViewName = Parts[2];
+            }
+        }
+        /// <summary>
+        /// Parses web item page header text.
+        /// </summary>
+        void ParseWebItemPageHeader(SchemaModuleBlock ModuleBlock, string Text)
+        {
+            List<string> Parts = SplitHeaderTokens(Text);
+            if (Parts.Count != 1)
+                throw new TripousDataException("Invalid WebItemPage header syntax: \"" + Text + "\". Expected: WebItemPage: WebItemPage | ITEM_VIEW_NAME");
+
+            ModuleBlock.WebItemViewName = Parts[0];
+        }
+        /// <summary>
         /// Parses a detail order header.
         /// </summary>
         void ParseDetailOrderHeader(SchemaModuleBlock ModuleBlock, string Text)
@@ -3492,6 +3558,26 @@ static public class SchemaRegistrationBuilder
                     if (!string.IsNullOrWhiteSpace(Current.ItemPageClassName))
                         throw new TripousDataException("Module block contains duplicate ItemPage: " + Current.ModuleName);
                     ParseItemPageHeader(Current, Entry.Value);
+                    continue;
+                }
+
+                if (Entry.Name.IsSameText("WebForm"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("WebForm metadata requires a preceding Module line.");
+                    if (Current.IsWebFormSpecified)
+                        throw new TripousDataException("Module block contains duplicate WebForm: " + Current.ModuleName);
+                    ParseWebFormHeader(Current, Entry.Value);
+                    continue;
+                }
+
+                if (Entry.Name.IsSameText("WebItemPage"))
+                {
+                    if (Current == null)
+                        throw new TripousDataException("WebItemPage metadata requires a preceding Module line.");
+                    if (!string.IsNullOrWhiteSpace(Current.WebItemViewName))
+                        throw new TripousDataException("Module block contains duplicate WebItemPage: " + Current.ModuleName);
+                    ParseWebItemPageHeader(Current, Entry.Value);
                     continue;
                 }
 
@@ -3573,6 +3659,7 @@ static public class SchemaRegistrationBuilder
                     throw new TripousDataException("Module block has no Group: " + ModuleBlock.ModuleName);
 
                 ResolveFormDefaults(ModuleBlock);
+                ResolveWebFormDefaults(ModuleBlock);
             }
 
             SyncPrimaryModuleProperties();
@@ -3591,6 +3678,24 @@ static public class SchemaRegistrationBuilder
                 ModuleBlock.FormName = ModuleBlock.ModuleName;
         }
         /// <summary>
+        /// Resolves default web form values after module parsing.
+        /// </summary>
+        void ResolveWebFormDefaults(SchemaModuleBlock ModuleBlock)
+        {
+            if (string.IsNullOrWhiteSpace(ModuleBlock.ModuleName))
+                return;
+
+            if (string.IsNullOrWhiteSpace(ModuleBlock.WebFormName))
+                ModuleBlock.WebFormName = ModuleBlock.FormName;
+            else if (ModuleBlock.WebFormName.IsSameText("Default") || ModuleBlock.WebFormName.IsSameText("WebDataForm"))
+                ModuleBlock.WebFormName = ModuleBlock.FormName;
+
+            if (ModuleBlock.WebViewName.IsSameText("Default") || ModuleBlock.WebViewName.IsSameText("WebDataForm"))
+                ModuleBlock.WebViewName = string.Empty;
+            if (ModuleBlock.WebItemViewName.IsSameText("Default") || ModuleBlock.WebItemViewName.IsSameText("WebItemPage"))
+                ModuleBlock.WebItemViewName = string.Empty;
+        }
+        /// <summary>
         /// Synchronizes compatibility properties from the first module block.
         /// </summary>
         void SyncPrimaryModuleProperties()
@@ -3605,6 +3710,10 @@ static public class SchemaRegistrationBuilder
             FormClassName = ModuleBlock.FormClassName;
             ItemPageClassName = ModuleBlock.ItemPageClassName;
             IsFormSpecified = ModuleBlock.IsFormSpecified;
+            WebFormName = ModuleBlock.WebFormName;
+            WebViewName = ModuleBlock.WebViewName;
+            WebItemViewName = ModuleBlock.WebItemViewName;
+            IsWebFormSpecified = ModuleBlock.IsWebFormSpecified;
             GroupName = ModuleBlock.GroupName;
         }
         /// <summary>
@@ -3697,6 +3806,22 @@ static public class SchemaRegistrationBuilder
         /// True when Form was explicitly defined.
         /// </summary>
         public bool IsFormSpecified { get; set; }
+        /// <summary>
+        /// Web form name.
+        /// </summary>
+        public string WebFormName { get; set; }
+        /// <summary>
+        /// Web form view name.
+        /// </summary>
+        public string WebViewName { get; set; }
+        /// <summary>
+        /// Web item view name.
+        /// </summary>
+        public string WebItemViewName { get; set; }
+        /// <summary>
+        /// True when WebForm was explicitly defined.
+        /// </summary>
+        public bool IsWebFormSpecified { get; set; }
         /// <summary>
         /// Module group name.
         /// </summary>
@@ -3818,6 +3943,18 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string ItemPageClassName { get; set; }
         /// <summary>
+        /// Web form name.
+        /// </summary>
+        public string WebFormName { get; set; }
+        /// <summary>
+        /// Web form view name.
+        /// </summary>
+        public string WebViewName { get; set; }
+        /// <summary>
+        /// Web item view name.
+        /// </summary>
+        public string WebItemViewName { get; set; }
+        /// <summary>
         /// Minimum user level required for this module and form.
         /// </summary>
         public UserLevel SecurityLevel { get; set; }
@@ -3825,6 +3962,10 @@ static public class SchemaRegistrationBuilder
         /// True when Form was explicitly defined.
         /// </summary>
         public bool IsFormSpecified { get; set; }
+        /// <summary>
+        /// True when WebForm was explicitly defined.
+        /// </summary>
+        public bool IsWebFormSpecified { get; set; }
         /// <summary>
         /// Preferred direct child detail display order, keyed by parent table name.
         /// </summary>

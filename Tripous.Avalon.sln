@@ -80,6 +80,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripous.RegBuilder", "Tripo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tERPWeb", "SampleApps\TinyERP\tERPWeb\tERPWeb.csproj", "{C9AF847B-58BD-4D66-978A-3377A78430CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tERP.Web", "SampleApps\TinyERP\tERP.Web\tERP.Web.csproj", "{3498A829-2775-4397-93EC-CC634E80A2BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -390,6 +392,18 @@ Global
 		{C9AF847B-58BD-4D66-978A-3377A78430CE}.Release|x64.Build.0 = Release|Any CPU
 		{C9AF847B-58BD-4D66-978A-3377A78430CE}.Release|x86.ActiveCfg = Release|Any CPU
 		{C9AF847B-58BD-4D66-978A-3377A78430CE}.Release|x86.Build.0 = Release|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Debug|x64.Build.0 = Debug|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Debug|x86.Build.0 = Debug|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Release|x64.ActiveCfg = Release|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Release|x64.Build.0 = Release|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Release|x86.ActiveCfg = Release|Any CPU
+		{3498A829-2775-4397-93EC-CC634E80A2BE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -421,6 +435,7 @@ Global
 		{2EDF376A-2DF8-49C9-83AB-908A259FF862} = {804C40DD-48EF-5440-C329-E345A48E545B}
 		{CBFCB5FC-3A2C-465E-AE98-5F7834425FE1} = {B48A3B51-4510-4A1A-A62A-E871CBFEF155}
 		{C9AF847B-58BD-4D66-978A-3377A78430CE} = {F37BB221-DC58-433E-AB04-43519CEB1B97}
+		{3498A829-2775-4397-93EC-CC634E80A2BE} = {F37BB221-DC58-433E-AB04-43519CEB1B97}
 	EndGlobalSection
 	GlobalSection(RiderSharedRunConfigurations) = postSolution
 		File = .run\Vitest_Tripous_Web_JavaScript_Tests.run.xml

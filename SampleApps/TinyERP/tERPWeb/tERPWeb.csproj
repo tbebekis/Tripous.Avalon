@@ -17,6 +17,7 @@
         <ProjectReference Include="..\..\..\Tripous.Web\Tripous.Web.csproj" />
         <ProjectReference Include="..\tERP.Common\tERP.Common.csproj" />
         <ProjectReference Include="..\tERP.Data\tERP.Data.csproj" />      
+        <ProjectReference Include="..\tERP.Web\tERP.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup>

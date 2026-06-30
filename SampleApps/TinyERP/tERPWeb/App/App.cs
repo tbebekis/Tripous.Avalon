@@ -107,6 +107,7 @@ static public partial class App
         Tripous.Data.Db.Initialize();
         CommonLib.Load();
         DataLib.Load();
+        WebLib.Load();
     }
     /// <summary>
     /// Registers discoverable types.
@@ -121,6 +122,7 @@ static public partial class App
     static void RegisterDescriptors()
     {
         Registry.RegisterDescriptors();
+        WebLib.RegisterDescriptors();
     }
     /// <summary>
     /// Registers Ajax request handlers.
@@ -136,6 +138,7 @@ static public partial class App
     {
         CommonLib.Initialize();
         DataLib.Initialize();
+        WebLib.Initialize();
     }
 
     // ● static public
