@@ -69,6 +69,8 @@ from
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("AccountType", FieldName: "AccountType", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsPosting", FieldName: "IsPosting", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("NormalBalance", FieldName: "NormalBalance", FilterDataType: DataFieldType.String);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
@@ -718,11 +720,19 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("AccountingDirection", FieldName: "AccountingDirection", FilterDataType: DataFieldType.Integer);
+        SelectDef.AddFilter("AffectsAccounting", FieldName: "AffectsAccounting", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("AffectsFinancial", FieldName: "AffectsFinancial", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("AffectsStock", FieldName: "AffectsStock", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("AllowManualNumber", FieldName: "AllowManualNumber", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("AutoComplete", FieldName: "AutoComplete", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Color", FieldName: "Color", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DisplayOrder", FieldName: "DisplayOrder", FilterDataType: DataFieldType.Integer);
         SelectDef.AddFilter("FinancialDirection", FieldName: "FinancialDirection", FilterDataType: DataFieldType.Integer);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsCancellation", FieldName: "IsCancellation", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsSystem", FieldName: "IsSystem", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("ModuleName", FieldName: "ModuleName", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("NumberSeries__Code", FieldName: "NumberSeries__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("NumberSeries__Name", FieldName: "NumberSeries__Name", FilterDataType: DataFieldType.String);
@@ -1119,6 +1129,8 @@ from
         SelectDef.AddFilter("DocumentType__Code", FieldName: "DocumentType__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DocumentType__Name", FieldName: "DocumentType__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("EntryDate", FieldName: "EntryDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("IsCancelled", FieldName: "IsCancelled", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsLocked", FieldName: "IsLocked", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("ModifiedAt", FieldName: "ModifiedAt", FilterDataType: DataFieldType.DateTime);
         SelectDef.AddFilter("ModifiedBy", FieldName: "ModifiedBy", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("PostedAt", FieldName: "PostedAt", FilterDataType: DataFieldType.DateTime);
@@ -6832,6 +6844,8 @@ from
         SelectDef.AddFilter("DocumentDate", FieldName: "DocumentDate", FilterDataType: DataFieldType.Date);
         SelectDef.AddFilter("DocumentType__Code", FieldName: "DocumentType__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DocumentType__Name", FieldName: "DocumentType__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsCancelled", FieldName: "IsCancelled", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsLocked", FieldName: "IsLocked", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("ModifiedAt", FieldName: "ModifiedAt", FilterDataType: DataFieldType.DateTime);
         SelectDef.AddFilter("ModifiedBy", FieldName: "ModifiedBy", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("PostedAt", FieldName: "PostedAt", FilterDataType: DataFieldType.DateTime);

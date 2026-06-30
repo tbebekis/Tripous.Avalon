@@ -70,6 +70,7 @@ from
         SelectDef.AddFilter("CultureCode", FieldName: "CultureCode", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Email", FieldName: "Email", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("FullName", FieldName: "FullName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("LastLoginAt", FieldName: "LastLoginAt", FilterDataType: DataFieldType.DateTime);
         SelectDef.AddFilter("PasswordChangedAt", FieldName: "PasswordChangedAt", FilterDataType: DataFieldType.DateTime);
         SelectDef.AddFilter("Phone", FieldName: "Phone", FilterDataType: DataFieldType.String);
@@ -112,6 +113,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
@@ -141,6 +143,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
@@ -170,6 +173,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
@@ -232,6 +236,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -283,6 +288,7 @@ from
         SelectDef.AddFilter("CompanyBranch__Name", FieldName: "CompanyBranch__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Currency__Code", FieldName: "Currency__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Currency__Name", FieldName: "Currency__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -348,6 +354,8 @@ from
         SelectDef.AddFilter("Color", FieldName: "Color", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ExpenseAccount", FieldName: "ExpenseAccount", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsSystem", FieldName: "IsSystem", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("LevelNo", FieldName: "LevelNo", FilterDataType: DataFieldType.Integer);
         SelectDef.AddFilter("RevenueAccount", FieldName: "RevenueAccount", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("SortNo", FieldName: "SortNo", FilterDataType: DataFieldType.Integer);
@@ -517,6 +525,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
@@ -576,6 +585,7 @@ from
         SelectDef.AddFilter("Color", FieldName: "Color", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("EndDate", FieldName: "EndDate", FilterDataType: DataFieldType.Date);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("ManagerPerson__Code", FieldName: "ManagerPerson__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ManagerPerson__Name", FieldName: "ManagerPerson__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ManagerPerson__Title", FieldName: "ManagerPerson__Title", FilterDataType: DataFieldType.String);
@@ -788,6 +798,8 @@ from
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("EndDate", FieldName: "EndDate", FilterDataType: DataFieldType.Date);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsClosed", FieldName: "IsClosed", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("StartDate", FieldName: "StartDate", FilterDataType: DataFieldType.Date);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
@@ -867,6 +879,7 @@ from
         SelectDef.AddFilter("AssetLocation__Name", FieldName: "AssetLocation__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DepreciationRate", FieldName: "DepreciationRate", FilterDataType: DataFieldType.Decimal_);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("Manufacturer", FieldName: "Manufacturer", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Model", FieldName: "Model", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("PurchaseDate", FieldName: "PurchaseDate", FilterDataType: DataFieldType.Date);
@@ -974,6 +987,9 @@ from
         SelectDef.AddFilter("Color", FieldName: "Color", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("CultureName", FieldName: "CultureName", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsDefault", FieldName: "IsDefault", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsRightToLeft", FieldName: "IsRightToLeft", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -1092,6 +1108,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("LastResetValue", FieldName: "LastResetValue", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("NextNumber", FieldName: "NextNumber", FilterDataType: DataFieldType.Integer);
         SelectDef.AddFilter("Pattern", FieldName: "Pattern", FilterDataType: DataFieldType.String);
@@ -1134,6 +1151,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -1171,6 +1189,7 @@ from
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Days", FieldName: "Days", FilterDataType: DataFieldType.Integer);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -1271,6 +1290,8 @@ from
         SelectDef.AddFilter("Currency__Name", FieldName: "Currency__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Email", FieldName: "Email", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsCompany", FieldName: "IsCompany", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("Language__Code", FieldName: "Language__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Language__Name", FieldName: "Language__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Mobile", FieldName: "Mobile", FilterDataType: DataFieldType.String);
@@ -1474,6 +1495,7 @@ from
         SelectDef.AddFilter("Customer__Name", FieldName: "Customer__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Customer__Title", FieldName: "Customer__Title", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DiscountCategory__Name", FieldName: "DiscountCategory__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("MinQuantity", FieldName: "MinQuantity", FilterDataType: DataFieldType.Decimal_);
         SelectDef.AddFilter("PriceListType__Code", FieldName: "PriceListType__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("PriceListType__Name", FieldName: "PriceListType__Name", FilterDataType: DataFieldType.String);
@@ -1552,6 +1574,9 @@ from
         SelectDef.AddFilter("Currency__Code", FieldName: "Currency__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Currency__Name", FieldName: "Currency__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsDefault", FieldName: "IsDefault", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsTaxIncluded", FieldName: "IsTaxIncluded", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -1632,6 +1657,7 @@ from
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Color", FieldName: "Color", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("PrimaryUnitOfMeasure__Code", FieldName: "PrimaryUnitOfMeasure__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("PrimaryUnitOfMeasure__Name", FieldName: "PrimaryUnitOfMeasure__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ProductType", FieldName: "ProductType", FilterDataType: DataFieldType.String);
@@ -1796,6 +1822,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DisplayOrder", FieldName: "DisplayOrder", FilterDataType: DataFieldType.Integer);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["DisplayOrder"] = DataColumnType.Integer;
@@ -1852,6 +1879,7 @@ from
         tblTop.AddBoolean("IsActive", Flags: FieldFlags.Required).SetNullable(false).SetDefaultValue("1");
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
         SelectDef.ColumnTypes["IsActive"] = DataColumnType.Boolean;
@@ -1899,6 +1927,8 @@ from
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Color", FieldName: "Color", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsSystem", FieldName: "IsSystem", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -1994,6 +2024,7 @@ from
         SelectDef.AddFilter("Customer__Title", FieldName: "Customer__Title", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("EndDate", FieldName: "EndDate", FilterDataType: DataFieldType.Date);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("ManagerPerson__Code", FieldName: "ManagerPerson__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ManagerPerson__Name", FieldName: "ManagerPerson__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ManagerPerson__Title", FieldName: "ManagerPerson__Title", FilterDataType: DataFieldType.String);
@@ -2080,6 +2111,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -2125,9 +2157,13 @@ from
         tblTop.AddTextBlob("Remarks", Flags: FieldFlags.None).SetNullable(true);
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("AffectsCost", FieldName: "AffectsCost", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Color", FieldName: "Color", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsSystem", FieldName: "IsSystem", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("RequiresRemarks", FieldName: "RequiresRemarks", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("StockDirection", FieldName: "StockDirection", FilterDataType: DataFieldType.Integer);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
@@ -2250,6 +2286,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -2287,6 +2324,7 @@ from
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ClauseText", FieldName: "ClauseText", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -2347,6 +2385,7 @@ from
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Country__Code", FieldName: "Country__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Country__Name", FieldName: "Country__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("PostalCodePattern", FieldName: "PostalCodePattern", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("RegionCode", FieldName: "RegionCode", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("TaxJurisdictionType", FieldName: "TaxJurisdictionType", FilterDataType: DataFieldType.String);
@@ -2422,6 +2461,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Code"] = DataColumnType.Text;
         SelectDef.ColumnTypes["Name"] = DataColumnType.Text;
@@ -2468,6 +2508,7 @@ from
         SelectDef = Module.SelectList[0];
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("Percent", FieldName: "Percent", FilterDataType: DataFieldType.Decimal_);
         SelectDef.AddFilter("TaxType", FieldName: "TaxType", FilterDataType: DataFieldType.String);
         SelectDef.ColumnTypes["Id"] = DataColumnType.Text;
@@ -2568,6 +2609,9 @@ from
         SelectDef.AddFilter("Code", FieldName: "Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DestinationTaxJurisdiction__Code", FieldName: "DestinationTaxJurisdiction__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("DestinationTaxJurisdiction__Name", FieldName: "DestinationTaxJurisdiction__Name", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsExempt", FieldName: "IsExempt", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsReverseCharge", FieldName: "IsReverseCharge", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("OriginTaxJurisdiction__Code", FieldName: "OriginTaxJurisdiction__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("OriginTaxJurisdiction__Name", FieldName: "OriginTaxJurisdiction__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Priority", FieldName: "Priority", FilterDataType: DataFieldType.Integer);
@@ -2739,6 +2783,8 @@ from
         SelectDef.AddFilter("Name", FieldName: "Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("AddressLine1", FieldName: "AddressLine1", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("AddressLine2", FieldName: "AddressLine2", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("AffectsAvailability", FieldName: "AffectsAvailability", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("AllowNegativeStock", FieldName: "AllowNegativeStock", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("Branch__Code", FieldName: "Branch__Code", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Branch__Name", FieldName: "Branch__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("City", FieldName: "City", FilterDataType: DataFieldType.String);
@@ -2751,6 +2797,8 @@ from
         SelectDef.AddFilter("Country__Name", FieldName: "Country__Name", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("Email", FieldName: "Email", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("IconName", FieldName: "IconName", FilterDataType: DataFieldType.String);
+        SelectDef.AddFilter("IsActive", FieldName: "IsActive", FilterDataType: DataFieldType.Boolean);
+        SelectDef.AddFilter("IsVirtual", FieldName: "IsVirtual", FilterDataType: DataFieldType.Boolean);
         SelectDef.AddFilter("Phone", FieldName: "Phone", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("PostalCode", FieldName: "PostalCode", FilterDataType: DataFieldType.String);
         SelectDef.AddFilter("ResponsiblePerson__Code", FieldName: "ResponsiblePerson__Code", FilterDataType: DataFieldType.String);

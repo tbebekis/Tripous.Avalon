@@ -18,28 +18,6 @@ var app = {};
  * - SizeModeChanged
  */
 app.CommandTreeView = class extends tp.Component {
-    // ● fields
-    /**
-     * The commands displayed by this view.
-     * @type {tp.DefList|null}
-     */
-    Commands = null;
-    /**
-     * The view toolbar.
-     * @type {tp.ToolBar|null}
-     */
-    ToolBar = null;
-    /**
-     * The tree view.
-     * @type {tp.TreeView|null}
-     */
-    TreeView = null;
-    /**
-     * The selected tree node.
-     * @type {tp.TreeNode|null}
-     */
-    SelectedNode = null;
-
     // ● constructor
     /**
      * Creates a command tree view.
@@ -57,6 +35,33 @@ app.CommandTreeView = class extends tp.Component {
     OnHandleCreated() {
         super.OnHandleCreated();
         tp.AddClass(this.Handle, "app-command-tree-view");
+    }
+    /**
+     * Initializes instance fields.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        /**
+         * The commands displayed by this view.
+         * @type {tp.DefList|null}
+         */
+        this.Commands = null;
+        /**
+         * The view toolbar.
+         * @type {tp.ToolBar|null}
+         */
+        this.ToolBar = null;
+        /**
+         * The tree view.
+         * @type {tp.TreeView|null}
+         */
+        this.TreeView = null;
+        /**
+         * The selected tree node.
+         * @type {tp.TreeNode|null}
+         */
+        this.SelectedNode = null;
     }
     /**
      * Notification called after field initialization and before create params are applied.
@@ -172,7 +177,7 @@ app.CommandTreeView = class extends tp.Component {
         Node.Tag = Command.HasChildren ? null : Command;
         Node.ToolTip = Command.Title;
         if (Command.HasChildren) {
-            ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "folder.png" });
+            ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "folder16.png" });
             if (!tp.IsBlankString(ImageUrl))
                 Node.ImageUrl = ImageUrl;
             else
@@ -182,7 +187,7 @@ app.CommandTreeView = class extends tp.Component {
                 this.AddCommandNode(Node, ChildCommand);
             }
         } else {
-            ImageUrl = app.App.GetCommandImageUrl(Command);
+            ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "item16.png" });
             if (!tp.IsBlankString(ImageUrl))
                 Node.ImageUrl = ImageUrl;
             else
@@ -217,6 +222,13 @@ app.CommandTreeView = class extends tp.Component {
         if (Command instanceof tp.Command)
             app.App.ExecuteCommand(Command);
     }
+    /**
+     * Refreshes tree nodes from the current command list.
+     * @returns {void}
+     */
+    Refresh() {
+        this.CreateTreeViewNodes();
+    }
 };
 
 // ● main page
@@ -233,48 +245,6 @@ app.CommandTreeView = class extends tp.Component {
  * - SizeModeChanged
  */
 app.MainPage = class extends tp.Component {
-    // ● fields
-    /**
-     * Main toolbar.
-     * @type {tp.ToolBar|null}
-     */
-    MainToolBar = null;
-    /**
-     * Left sidebar tab control.
-     * @type {tp.TabControl|null}
-     */
-    LeftTabControl = null;
-    /**
-     * Main vertical splitter.
-     * @type {tp.Splitter|null}
-     */
-    MainSplitter = null;
-    /**
-     * Workspace tab control.
-     * @type {tp.TabControl|null}
-     */
-    WorkspaceTabControl = null;
-    /**
-     * Log horizontal splitter.
-     * @type {tp.Splitter|null}
-     */
-    LogSplitter = null;
-    /**
-     * Log panel element.
-     * @type {HTMLElement|null}
-     */
-    LogPanel = null;
-    /**
-     * Log text area element.
-     * @type {HTMLTextAreaElement|null}
-     */
-    LogTextArea = null;
-    /**
-     * Status bar.
-     * @type {tp.StatusBar|null}
-     */
-    StatusBar = null;
-
     // ● constructor
     /**
      * Creates the main application shell page.
@@ -285,6 +255,58 @@ app.MainPage = class extends tp.Component {
     }
 
     // ● protected
+    /**
+     * Initializes instance fields.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        /**
+         * Main toolbar.
+         * @type {tp.ToolBar|null}
+         */
+        this.MainToolBar = null;
+        /**
+         * Left sidebar tab control.
+         * @type {tp.TabControl|null}
+         */
+        this.LeftTabControl = null;
+        /**
+         * Main vertical splitter.
+         * @type {tp.Splitter|null}
+         */
+        this.MainSplitter = null;
+        /**
+         * Workspace tab control.
+         * @type {tp.TabControl|null}
+         */
+        this.WorkspaceTabControl = null;
+        /**
+         * Log horizontal splitter.
+         * @type {tp.Splitter|null}
+         */
+        this.LogSplitter = null;
+        /**
+         * Log panel element.
+         * @type {HTMLElement|null}
+         */
+        this.LogPanel = null;
+        /**
+         * Log text area element.
+         * @type {HTMLTextAreaElement|null}
+         */
+        this.LogTextArea = null;
+        /**
+         * Status bar.
+         * @type {tp.StatusBar|null}
+         */
+        this.StatusBar = null;
+        /**
+         * Command tree view.
+         * @type {app.CommandTreeView|null}
+         */
+        this.CommandTreeView = null;
+    }
     /**
      * Creates child controls and stores useful shell element references.
      * @returns {void}
@@ -404,6 +426,43 @@ app.MainPage = class extends tp.Component {
         }
     }
     /**
+     * Loads web forms from the server.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async LoadWebFormsAsync() {
+        var Count;
+        var Text;
+
+        try {
+            if (this.StatusBar)
+                this.StatusBar.Message = "Loading web forms...";
+
+            Count = await app.App.LoadWebFormsAsync();
+            Text = "Loaded web forms: " + Count.toString();
+
+            if (this.CommandTreeView)
+                this.CommandTreeView.Refresh();
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (this.StatusBar)
+                this.StatusBar.Message = Text;
+        } catch (e) {
+            Text = "Load web forms failed: " + tp.ExceptionText(e);
+
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (this.StatusBar)
+                this.StatusBar.Message = Text;
+        }
+    }
+    /**
+     * Loads web forms from the server and logs failures without throwing.
+     * @returns {void}
+     */
+    LoadWebForms() {
+        this.LoadWebFormsAsync();
+    }
+    /**
      * Populates the left side bar tab control.
      * @returns {void}
      */
@@ -417,7 +476,7 @@ app.MainPage = class extends tp.Component {
             return;
         ViewElement = this.Document.createElement("div");
         Page.Handle.appendChild(ViewElement);
-        new app.CommandTreeView({
+        this.CommandTreeView = new app.CommandTreeView({
             ElementOrSelector: ViewElement,
             Commands: app.App.MenuCommands
         });
@@ -483,6 +542,16 @@ app.App = {
      */
     ToolBarCommands: new tp.DefList(tp.Command),
     /**
+     * Web form metadata loaded from the server.
+     * @type {object[]}
+     */
+    WebForms: [],
+    /**
+     * Menu command group names created from web forms.
+     * @type {string[]}
+     */
+    WebFormGroupCommandNames: [],
+    /**
      * Available toolbar image file names.
      * @type {string[]}
      */
@@ -498,8 +567,11 @@ app.App = {
         "error_log.png",
         "file_extension_log.png",
         "folder.png",
+        "folder16.png",
+        "item16.png",
         "lightning.png",
-        "setting_tools.png"
+        "setting_tools.png",
+        "table.png"
     ],
 
     // ● public
@@ -523,6 +595,65 @@ app.App = {
         cmdGeneral.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase]);
         this.MenuCommands.Add(cmdGeneral);
         this.ToolBarCommands.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing]);
+    },
+    /**
+     * Loads web forms from the server and creates command groups.
+     * @returns {Promise<number>} Returns the number of loaded web forms.
+     */
+    LoadWebFormsAsync: async function () {
+        var Packet = await tp.AjaxRequest.ExecuteAsync("App.GetWebForms");
+        var Forms = Packet && tp.IsArray(Packet.WebForms) ? Packet.WebForms : [];
+
+        this.WebForms = Forms;
+        this.BuildWebFormCommands(Forms);
+        return Forms.length;
+    },
+    /**
+     * Builds command groups from web form metadata.
+     * @param {object[]} Forms The web form metadata array.
+     * @returns {void}
+     */
+    BuildWebFormCommands: function (Forms) {
+        var Index;
+        var Form;
+        var GroupName;
+        var GroupCommandName;
+        var GroupCommand;
+        var Groups = {};
+
+        for (Index = 0; Index < this.WebFormGroupCommandNames.length; Index++)
+            this.MenuCommands.Remove(this.WebFormGroupCommandNames[Index]);
+        this.WebFormGroupCommandNames.length = 0;
+
+        for (Index = 0; Index < Forms.length; Index++) {
+            Form = Forms[Index];
+            GroupName = !tp.IsBlankString(Form.Group) ? Form.Group : "General Forms";
+            GroupCommandName = "WebForms." + GroupName;
+            GroupCommand = Groups[GroupCommandName];
+
+            if (!GroupCommand) {
+                GroupCommand = new tp.Command({ Name: GroupCommandName, Title: GroupName, ImageFileName: "folder.png" });
+                Groups[GroupCommandName] = GroupCommand;
+                this.WebFormGroupCommandNames.push(GroupCommandName);
+                this.MenuCommands.Add(GroupCommand);
+            }
+
+            GroupCommand.Add({
+                Name: "WebForm." + Form.Name,
+                TitleKey: Form.TitleKey,
+                Title: Form.Title,
+                ImageFileName: "table.png",
+                Form: Form.Name,
+                Type: "Ui",
+                IsSingleInstance: true,
+                Params: {
+                    Module: Form.Module,
+                    ViewName: Form.ViewName,
+                    ItemViewName: Form.ItemViewName,
+                    IsReadOnly: Form.IsReadOnly === true
+                }
+            });
+        }
     },
     /**
      * Finds a registered command.
@@ -572,6 +703,8 @@ app.App = {
             this.MainPage.PingServerAsync();
         else if (Command.Name === "Toggle Log" && this.MainPage)
             this.MainPage.ToggleLog();
+        else if (Command.IsUiCommand() && tp.LogBox)
+            tp.LogBox.AppendLine("Web form command executed: " + Command.Form);
         else if (tp.LogBox)
             tp.LogBox.AppendLine("Command executed: " + Command.Name);
     },
@@ -631,6 +764,7 @@ app.App = {
     Initialize: function () {
         this.RegisterCommands();
         this.MainPage = new app.MainPage("#AppShell");
+        this.MainPage.LoadWebForms();
     }
 };
 
