@@ -26,7 +26,8 @@ public class WebDeskAjaxController: WebDeskController
 
         try
         {
-            AjaxResponse Response = AjaxRequestHandlers.Handle(Request, this);
+            AjaxOperationContext Context = new(this);
+            AjaxResponse Response = AjaxOperations.Execute(Request, Context);
 
             if (Response == null)
                 throw new TripousException($"Ajax operation not supported: {Request.OperationName}");

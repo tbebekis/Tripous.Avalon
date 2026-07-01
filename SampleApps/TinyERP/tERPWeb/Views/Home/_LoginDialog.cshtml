@@ -1,0 +1,23 @@
+﻿@{
+    string[] Cultures = tERP.Data.DataLib.SupportedCultures;
+}
+<div class="app-startup-dialog" data-dialog-kind="login">
+    <div class="app-dialog-header">
+        <div class="app-dialog-title">Login</div>
+        <div class="app-dialog-subtitle">Please enter your credentials.</div>
+    </div>
+    <div class="app-dialog-grid app-dialog-grid-login">
+        <label for="LoginUserName">User Name</label>
+        <input id="LoginUserName" name="UserName" type="text" autocomplete="username" autofocus/>
+        <label for="LoginPassword">Password</label>
+        <input id="LoginPassword" name="Password" type="password" autocomplete="current-password"/>
+        <label for="LoginCultureCode">Language</label>
+        <select id="LoginCultureCode" name="CultureCode">
+            @foreach (string Culture in Cultures)
+            {
+                <option value="@Culture">@Culture</option>
+            }
+        </select>
+        <div class="app-dialog-message" data-role="message"></div>
+    </div>
+</div>

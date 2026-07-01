@@ -45,3 +45,4 @@ global using tERP.Common;
 global using tERP.Data;
 global using tERP.Web;
 global using tERPWeb;
+global using tERPWeb.AjaxOps;

@@ -156,7 +156,7 @@ app.CommandTreeView = class extends tp.Component {
             Command = this.Commands.Items[Index];
             this.AddCommandNode(this.TreeView, Command);
         }
-        this.TreeView.ExpandAll();
+        this.TreeView.CollapseAll();
     }
     /**
      * Adds a command node to a tree node or tree view.
@@ -346,7 +346,7 @@ app.MainPage = class extends tp.Component {
         this.StatusBar = new tp.StatusBar({
             ElementOrSelector: "#MainStatusBar",
             Items: [
-                { Name: "Application", Text: "tERP Web", Width: "200px", TextAlign: "left" },
+                { Name: "Application", Text: app.App.GetApplicationName(), Width: "200px", TextAlign: "left" },
                 { Name: "User", Text: "User: Admin", Width: "200px", TextAlign: "center" },
                 { Name: "Role", Text: "Role: Admin", Width: "240px", TextAlign: "center" },
                 { Name: "Message", Text: "Ready", Width: "1fr", TextAlign: "center" }
@@ -527,6 +527,21 @@ app.App = {
      */
     MainPage: null,
     /**
+     * True when client commands have been registered.
+     * @type {boolean}
+     */
+    CommandsRegistered: false,
+    /**
+     * Startup information returned by the server.
+     * @type {object|null}
+     */
+    StartupInfo: null,
+    /**
+     * Application name.
+     * @type {string}
+     */
+    ApplicationName: "",
+    /**
      * Command icon source. Use "Image" for disk images or "FontAwesome" for CSS icons.
      * @type {string}
      */
@@ -574,12 +589,15 @@ app.App = {
         "table.png"
     ],
 
-    // ● public
+    // ● commands
     /**
      * Registers client-side commands.
      * @returns {void}
      */
     RegisterCommands: function () {
+        if (this.CommandsRegistered === true)
+            return;
+
         var cmdDashboard = new tp.Command({ Name: "Dashboard", ImageFileName: "chart_bar.png" });
         var cmdAppFolder = new tp.Command({ Name: "ShowAppFolder", ImageFileName: "folder.png" });
         var cmdApplicationSettings = new tp.Command({ Name: "Application Settings", ImageFileName: "setting_tools.png" });
@@ -595,7 +613,202 @@ app.App = {
         cmdGeneral.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase]);
         this.MenuCommands.Add(cmdGeneral);
         this.ToolBarCommands.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing]);
+        this.CommandsRegistered = true;
     },
+
+    // ● startup
+    /**
+     * Updates the startup page message.
+     * @param {string} Text The message text.
+     * @returns {void}
+     */
+    SetStartupMessage: function (Text) {
+        var Element = tp("#AppStartupMessage");
+        if (Element)
+            Element.textContent = Text;
+    },
+    /**
+     * Returns the application name.
+     * @returns {string} Returns the application name.
+     */
+    GetApplicationName: function () {
+        if (!tp.IsBlankString(this.ApplicationName))
+            return this.ApplicationName;
+        if (document.body && !tp.IsBlankString(document.body.dataset.appName))
+            this.ApplicationName = document.body.dataset.appName;
+        return this.ApplicationName;
+    },
+    /**
+     * Loads startup information from the server.
+     * @returns {Promise<object>} Returns the startup information.
+     */
+    LoadStartupInfoAsync: async function () {
+        var Packet = await tp.AjaxRequest.ExecuteAsync("App.GetStartupInfo");
+        this.StartupInfo = Packet || {};
+        if (this.StartupInfo && !tp.IsBlankString(this.StartupInfo.ApplicationName))
+            this.ApplicationName = this.StartupInfo.ApplicationName;
+        return this.StartupInfo;
+    },
+
+    // ● dialogs
+    /**
+     * Sets the message text of a startup dialog.
+     * @param {tp.Window} Window The dialog window.
+     * @param {string} Text The message text.
+     * @returns {void}
+     */
+    SetStartupDialogMessage: function (Window, Text) {
+        var Element = Window && Window.Handle ? Window.Handle.querySelector("[data-role='message']") : null;
+        if (Element)
+            Element.textContent = Text || "";
+    },
+    /**
+     * Collects values from a startup dialog.
+     * @param {tp.Window} Window The dialog window.
+     * @returns {object} Returns a value object.
+     */
+    CollectStartupDialogData: function (Window) {
+        var Result = {};
+        var Elements = Window && Window.Handle ? Window.Handle.querySelectorAll("input[name], select[name]") : [];
+        var Index;
+        var Element;
+        for (Index = 0; Index < Elements.length; Index++) {
+            Element = Elements[Index];
+            Result[Element.name] = Element.value;
+        }
+        return Result;
+    },
+    /**
+     * Handles startup dialog key presses.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @param {tp.Window} Window The dialog window.
+     * @returns {void}
+     */
+    HandleStartupDialogKeyDown: function (e, Window) {
+        if (tp.IsKey(e, tp.Keys.Enter)) {
+            e.preventDefault();
+            Window.DialogResult = tp.DialogResult.OK;
+        }
+    },
+    /**
+     * Shows a startup dialog as a modal content window.
+     * @param {string} Html The dialog HTML.
+     * @param {string} Title The dialog title.
+     * @param {number} Width The dialog width.
+     * @param {number} Height The dialog height.
+     * @param {string} Message The message text.
+     * @returns {Promise<object|null>} Returns dialog data or null when cancelled.
+     */
+    ShowStartupDialogAsync: async function (Html, Title, Width, Height, Message) {
+        var Self = this;
+        var Args = {
+            Text: Title,
+            Width: Width,
+            Height: Height,
+            ResizeEdges: tp.Edge.None,
+            InitialFocusSelector: "input[autofocus], input",
+            ShowFunc: function (Window) {
+                Self.SetStartupDialogMessage(Window, Message);
+                Window.StartupDialogKeyDownHandler = function (e) {
+                    Self.HandleStartupDialogKeyDown(e, Window);
+                };
+                Window.Handle.addEventListener("keydown", Window.StartupDialogKeyDownHandler);
+            },
+            CloseFunc: function (Window) {
+                if (Window.StartupDialogKeyDownHandler)
+                    Window.Handle.removeEventListener("keydown", Window.StartupDialogKeyDownHandler);
+                if (Window.DialogResult === tp.DialogResult.OK)
+                    Window.ResultData = Self.CollectStartupDialogData(Window);
+            }
+        };
+        var Window = await tp.ContentWindow.ShowModalAsync(Html, Args);
+        return Window.DialogResult === tp.DialogResult.OK ? Window.ResultData : null;
+    },
+    /**
+     * Shows the first run administrator dialog.
+     * @param {object} Info The startup information.
+     * @param {string} Message The message text.
+     * @returns {Promise<object|null>} Returns dialog data or null.
+     */
+    ShowFirstRunDialogAsync: function (Info, Message) {
+        return this.ShowStartupDialogAsync(Info.FirstRunHtml, "First Application Run", 420, 400, Message);
+    },
+    /**
+     * Shows the login dialog.
+     * @param {object} Info The startup information.
+     * @param {string} Message The message text.
+     * @returns {Promise<object|null>} Returns dialog data or null.
+     */
+    ShowLoginDialogAsync: function (Info, Message) {
+        return this.ShowStartupDialogAsync(Info.LoginHtml, "Login", 400, 300, Message);
+    },
+
+    // ● startup flow
+    /**
+     * Starts the application bootstrap flow.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    Start: async function () {
+        var Info;
+        var DialogData;
+        var Packet;
+        var Message = "";
+
+        if (tp("#AppShell")) {
+            this.Initialize();
+            return;
+        }
+
+        if (!tp("#AppStartup"))
+            return;
+
+        try {
+            while (true) {
+                this.SetStartupMessage("Checking startup state...");
+                Info = await this.LoadStartupInfoAsync();
+
+                if (Info.RequiresFirstRun === true) {
+                    this.SetStartupMessage("First run setup is required.");
+                    DialogData = await this.ShowFirstRunDialogAsync(Info, Message);
+                    if (DialogData === null) {
+                        this.SetStartupMessage("No Admin user. Terminating...");
+                        return;
+                    }
+                    Packet = await tp.AjaxRequest.ExecuteAsync("App.CreateFirstRunAdmin", DialogData);
+                    Message = Packet && Packet.Message ? Packet.Message : "";
+                    if (Packet && Packet.Success === true) {
+                        Message = "";
+                        continue;
+                    }
+                    continue;
+                }
+
+                if (Info.UseUsers === true && Info.IsAuthenticated !== true) {
+                    this.SetStartupMessage("Login is required.");
+                    DialogData = await this.ShowLoginDialogAsync(Info, Message);
+                    if (DialogData === null) {
+                        this.SetStartupMessage("Login cancelled.");
+                        return;
+                    }
+                    Packet = await tp.AjaxRequest.ExecuteAsync("App.Login", DialogData);
+                    Message = Packet && Packet.Message ? Packet.Message : "";
+                    if (Packet && Packet.Success === true) {
+                        Message = "";
+                        continue;
+                    }
+                    continue;
+                }
+
+                this.SetStartupMessage("Opening main page...");
+                tp.NavigateTo("/Home/MainPage");
+                return;
+            }
+        } catch (e) {
+            this.SetStartupMessage("Startup failed: " + tp.ExceptionText(e));
+        }
+    },
+
+    // ● web forms
     /**
      * Loads web forms from the server and creates command groups.
      * @returns {Promise<number>} Returns the number of loaded web forms.
@@ -655,6 +868,8 @@ app.App = {
             });
         }
     },
+
+    // ● command lookup
     /**
      * Finds a registered command.
      * @param {string} Name The command name.
@@ -691,6 +906,8 @@ app.App = {
 
         return null;
     },
+
+    // ● command execution
     /**
      * Executes a command.
      * @param {tp.Command} Command The command.
@@ -708,6 +925,8 @@ app.App = {
         else if (tp.LogBox)
             tp.LogBox.AppendLine("Command executed: " + Command.Name);
     },
+
+    // ● command icons
     /**
      * Returns icon CSS classes for a command.
      * @param {tp.Command} Command The command.
@@ -757,11 +976,15 @@ app.App = {
 
         return "/images/toolbar/" + ImageFileName;
     },
+
+    // ● lifecycle
     /**
      * Initializes the application.
      * @returns {void}
      */
     Initialize: function () {
+        if (this.MainPage !== null)
+            return;
         this.RegisterCommands();
         this.MainPage = new app.MainPage("#AppShell");
         this.MainPage.LoadWebForms();
@@ -773,5 +996,5 @@ app.App = {
  * @returns {void}
  */
 tp.AppInitializeBefore = function () {
-    app.App.Initialize();
+    app.App.Start();
 };

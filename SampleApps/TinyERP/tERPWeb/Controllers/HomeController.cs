@@ -8,6 +8,14 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
+        return RedirectToAction(nameof(Startup));
+    }
+    public IActionResult Startup()
+    {
+        return View();
+    }
+    public IActionResult MainPage()
+    {
         return View();
     }
     public IActionResult Privacy()

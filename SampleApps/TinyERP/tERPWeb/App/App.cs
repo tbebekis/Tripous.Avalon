@@ -25,6 +25,7 @@ static public partial class App
     {
         SysConfig.ApplicationMode = ApplicationMode.Web;
         SysConfig.MainAssembly = typeof(App).Assembly;
+        SysConfig.AppName = "tERPWeb";
         SysConfig.AppFolderPath = AppContext.BaseDirectory;
         SysConfig.AppDataFolderPath = Path.Combine(SysConfig.AppFolderPath, "Data");
     }
@@ -129,7 +130,7 @@ static public partial class App
     /// </summary>
     static void RegisterAjaxHandlers()
     {
-        AjaxRequestHandlers.RegisterApplicationAssemblies();
+        AjaxOperations.RegisterApplicationAssemblies();
     }
     /// <summary>
     /// Initializes application libraries.

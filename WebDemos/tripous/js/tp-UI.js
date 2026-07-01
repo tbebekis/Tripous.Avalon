@@ -9549,6 +9549,11 @@ tp.WindowArgs.prototype.Height = 500;
  */
 tp.WindowArgs.prototype.CenterScreen = true;
 /**
+ * Selector of the element that receives focus after the window is shown.
+ * @type {string}
+ */
+tp.WindowArgs.prototype.InitialFocusSelector = "";
+/**
  * Window caption text.
  * @type {string}
  */
@@ -10060,6 +10065,41 @@ tp.Window = class extends tp.Component {
         this.Y = Math.round((ViewportSize.Height - Height) / 2);
     }
     /**
+     * Focuses the initial focus element when one is declared.
+     * @returns {void}
+     */
+    FocusInitialElement() {
+        var Element = null;
+        if (tp.IsBlankString(this.Args.InitialFocusSelector))
+            return;
+        try {
+            Element = this.Handle.querySelector(this.Args.InitialFocusSelector);
+        } catch (e) {
+            Element = null;
+        }
+        if (Element && tp.IsFunction(Element.focus)) {
+            try {
+                Element.focus({ preventScroll: true });
+            } catch (e) {
+                Element.focus();
+            }
+            if (tp.IsFunction(Element.select))
+                Element.select();
+        }
+    }
+    /**
+     * Queues initial focus attempts after layout and caller show code finish.
+     * @returns {void}
+     */
+    QueueInitialFocus() {
+        if (tp.IsBlankString(this.Args.InitialFocusSelector))
+            return;
+        this.FocusInitialElement();
+        requestAnimationFrame(this.FuncBind(this.FocusInitialElement));
+        setTimeout(this.FuncBind(this.FocusInitialElement), 0);
+        setTimeout(this.FuncBind(this.FocusInitialElement), 120);
+    }
+    /**
      * Creates and appends a footer button.
      * @param {string} Command The command.
      * @param {string} Title The button title.
@@ -10151,6 +10191,7 @@ tp.Window = class extends tp.Component {
      * @returns {void}
      */
     Show() {
+        var HasInitialFocus = !tp.IsBlankString(this.Args.InitialFocusSelector);
         if (this.Modal) {
             if (this.Handle.parentNode !== this.fOverlay.Handle)
                 this.fOverlay.Handle.appendChild(this.Handle);
@@ -10168,12 +10209,19 @@ tp.Window = class extends tp.Component {
             this.SetupPositionAndSize();
         }
         this.BringToFront();
-        this.Handle.focus();
+        if (!HasInitialFocus)
+            this.Handle.focus();
         this.OnShown();
         tp.Call(this.Args.ShowFunc, this.Args.Creator, this);
         this.ItemToControls();
-        if (!tp.Viewport.IsXSmall && this.Args.CenterScreen === true)
-            requestAnimationFrame(this.FuncBind(this.CenterInScreen));
+        if (!tp.Viewport.IsXSmall && this.Args.CenterScreen === true) {
+            requestAnimationFrame(() => {
+                this.CenterInScreen();
+                this.QueueInitialFocus();
+            });
+        } else {
+            this.QueueInitialFocus();
+        }
     }
     /**
      * Hides the window.
@@ -10452,7 +10500,6 @@ tp.ContentWindow.Show = function (Modal, Content, WindowArgs) {
         Result.ShowModal();
     else
         Result.Show();
-    Result.CenterInScreen();
     return Result;
 };
 /**

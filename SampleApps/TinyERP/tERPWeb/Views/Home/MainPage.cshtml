@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "MainPage";
+    string ApplicationName = Tripous.SysConfig.AppName;
+}
+
+<div id="AppShell" class="app-shell">
+    <header class="app-top-strip">
+        <a asp-area="" asp-controller="Home" asp-action="Startup">@ApplicationName</a>
+        <a href="/web-demos/">Static Demos</a>
+        <a href="/demos">Demos</a>
+    </header>
+
+    <section id="MainToolBar" class="app-toolbar" aria-label="Main toolbar"></section>
+
+    <div class="app-body">
+        <aside id="LeftSideBar" class="app-sidebar" aria-label="Command tree">
+            <div id="LeftTabControl" class="app-tab-control"></div>
+        </aside>
+        <div id="MainSplitter" class="app-splitter"></div>
+
+        <main class="app-right-panel">
+            <div id="WorkspaceTabControl" class="app-tab-control app-workspace"></div>
+            <div id="LogSplitter" class="app-splitter"></div>
+            <section id="LogPanel" class="app-log-panel" aria-label="Application log">
+                <textarea id="LogTextArea" class="app-log" readonly spellcheck="false"></textarea>
+            </section>
+        </main>
+    </div>
+
+    <footer id="MainStatusBar" class="app-status-bar"></footer>
+</div>

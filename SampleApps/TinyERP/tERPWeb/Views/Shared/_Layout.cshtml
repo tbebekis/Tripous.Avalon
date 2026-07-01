@@ -1,12 +1,13 @@
 ﻿@{
-    string PageTitle = ViewData["Title"] as string ?? "tERP Web";
+    string ApplicationName = Tripous.SysConfig.AppName;
+    string PageTitle = ViewData["Title"] as string ?? ApplicationName;
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@PageTitle - tERP Web</title>
+    <title>@PageTitle - @ApplicationName</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/tp/css/tp-Variables.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/tp/css/tp.css" asp-append-version="true"/>
@@ -19,36 +20,8 @@
     <script src="~/tp/js/tp-UI.js" asp-append-version="true"></script>
     <script src="~/tp/js/tp-Grid.js" asp-append-version="true"></script>
 </head>
-<body>
-<div id="AppShell" class="app-shell">
-    <header class="app-top-strip">
-        <a asp-area="" asp-controller="Home" asp-action="Index">tERPWeb</a>
-        <a href="/web-demos/">Static Demos</a>
-        <a href="/demos">Demos</a>
-    </header>
-
-    <section id="MainToolBar" class="app-toolbar" aria-label="Main toolbar"></section>
-
-    <div class="app-body">
-        <aside id="LeftSideBar" class="app-sidebar" aria-label="Command tree">
-            <div id="LeftTabControl" class="app-tab-control"></div>
-        </aside>
-        <div id="MainSplitter" class="app-splitter"></div>
-
-        <main class="app-right-panel">
-            <div id="WorkspaceTabControl" class="app-tab-control app-workspace"></div>
-            <div id="LogSplitter" class="app-splitter"></div>
-            <section id="LogPanel" class="app-log-panel" aria-label="Application log">
-                <textarea id="LogTextArea" class="app-log" readonly spellcheck="false"></textarea>
-            </section>
-        </main>
-    </div>
-
-    <footer id="MainStatusBar" class="app-status-bar"></footer>
-    <div hidden>
-        @RenderBody()
-    </div>
-</div>
+<body data-app-name="@ApplicationName">
+@RenderBody()
 <script src="~/js/app.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
