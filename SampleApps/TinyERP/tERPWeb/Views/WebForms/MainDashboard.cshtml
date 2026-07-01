@@ -1,0 +1,45 @@
+@model Tripous.WebDesk.WebFormDef
+@{
+    string DataSetup = Tripous.Json.Serialize(new
+    {
+        WebFormName = Model.Name,
+        JavaScriptFiles = Model.JavaScriptFiles,
+        CssFiles = Model.CssFiles,
+        JsFormClassType = Model.JsFormClassType
+    });
+}
+<div class="app-dashboard" data-setup='@Html.Raw(DataSetup)'>
+    <div data-role="toolbar"></div>
+    <div class="app-dashboard-content">
+        <div class="app-dashboard-metrics">
+            <div class="app-dashboard-metric">
+                <div class="app-dashboard-metric-title">Sales</div>
+                <div class="app-dashboard-metric-value" data-metric="Sales">0.00</div>
+            </div>
+            <div class="app-dashboard-metric">
+                <div class="app-dashboard-metric-title">Purchases</div>
+                <div class="app-dashboard-metric-value" data-metric="Purchases">0.00</div>
+            </div>
+            <div class="app-dashboard-metric">
+                <div class="app-dashboard-metric-title">Stock Value</div>
+                <div class="app-dashboard-metric-value" data-metric="StockValue">0.00</div>
+            </div>
+            <div class="app-dashboard-metric">
+                <div class="app-dashboard-metric-title">Receivables</div>
+                <div class="app-dashboard-metric-value" data-metric="Receivables">0.00</div>
+            </div>
+            <div class="app-dashboard-metric">
+                <div class="app-dashboard-metric-title">Payables</div>
+                <div class="app-dashboard-metric-value" data-metric="Payables">0.00</div>
+            </div>
+            <div class="app-dashboard-metric">
+                <div class="app-dashboard-metric-title">Cash / Bank</div>
+                <div class="app-dashboard-metric-value" data-metric="CashBank">0.00</div>
+            </div>
+        </div>
+        <div class="app-dashboard-tabs">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>

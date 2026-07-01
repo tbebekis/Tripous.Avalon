@@ -345,6 +345,110 @@ textarea {
     background: #ffffff;
 }
 
+.app-dashboard {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    background: #ffffff;
+}
+
+.app-dashboard-toolbar.tp-ToolBar {
+    box-sizing: border-box;
+    flex: 0 0 36px;
+    align-items: center;
+    min-width: 0;
+    padding: 2px;
+    border-bottom: 1px solid #cccccc;
+    background: #f0f0f0;
+}
+
+.app-dashboard-toolbar .tp-ToolButton,
+.app-dashboard-toolbar .tp-ButtonEx {
+    box-sizing: border-box;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    margin: 0 1px 0 0;
+    padding: 0;
+    border-color: transparent;
+    background: #ffffff;
+}
+
+.app-dashboard-toolbar .tp-ButtonEx:hover {
+    border-color: #cccccc;
+    background: #f7f7f7;
+}
+
+.app-dashboard-content {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    box-sizing: border-box;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 8px;
+    overflow: hidden;
+}
+
+.app-dashboard-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    min-width: 0;
+}
+
+.app-dashboard-metric {
+    box-sizing: border-box;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #d0d0d0;
+    background: #f8f8f8;
+}
+
+.app-dashboard-metric-title {
+    font-weight: 600;
+}
+
+.app-dashboard-metric-value {
+    margin-top: 4px;
+    font-size: 22px;
+    overflow-wrap: anywhere;
+}
+
+.app-dashboard-tabs {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    margin-top: 10px;
+}
+
+.app-dashboard-tabs > .tp-List,
+.app-dashboard-tabs > .tp-List > .tp-TabPage {
+    min-width: 0;
+    min-height: 0;
+}
+
+.app-dashboard-tabs > .tp-List {
+    overflow: hidden;
+}
+
+.app-dashboard-tabs > .tp-List > .tp-TabPage {
+    height: 100%;
+    padding: 0;
+}
+
+.app-dashboard-grid.tp-Grid {
+    width: 100%;
+    height: 100%;
+}
+
 .app-page {
     box-sizing: border-box;
     height: 100%;

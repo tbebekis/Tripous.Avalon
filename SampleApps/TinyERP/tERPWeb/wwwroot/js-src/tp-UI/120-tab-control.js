@@ -84,8 +84,10 @@ tp.TabPage.prototype.tpClass = "tp.TabPage";
  * - SelectedIndexChanging
  * - SelectedIndexChanged
  * - PageAdded
+ * - PageCloseRequested
  * - PageRemoving
  * - PageRemoved
+ * - PageReordered
  *
  * @example
  * <div id="TabControl" class="tp-TabControl">
@@ -128,6 +130,13 @@ tp.TabControl = class extends tp.Component {
      */
     ApplyCreateParams(Params) {
         super.ApplyCreateParams(Params);
+        if (Params) {
+            if (tp.IsBoolean(Params.CanClosePages))
+                this.CanClosePages = Params.CanClosePages;
+            if (tp.IsBoolean(Params.CanReorderPages))
+                this.CanReorderPages = Params.CanReorderPages;
+        }
+        this.ApplyTabBehaviors();
         if (Params && tp.IsNumber(Params.SelectedIndex))
             this.SelectedIndex = Params.SelectedIndex;
         else if (this.GetPageCount() > 0)
@@ -161,6 +170,11 @@ tp.TabControl = class extends tp.Component {
         this.TabBar = new tp.ItemBar(TabBarElement);
         this.TabBar.On("SelectedIndexChanging", this.OnSelectedIndexChanging, this);
         this.TabBar.On("SelectedIndexChanged", this.OnSelectedIndexChanged, this);
+        this.TabBar.On("ItemClicked", this.HandleTabBarItemClicked, this);
+        this.fDragStartHandler = this.FuncBind(this.HandleTabDragStart);
+        this.fDragOverHandler = this.FuncBind(this.HandleTabDragOver);
+        this.fDropHandler = this.FuncBind(this.HandleTabDrop);
+        this.fDragEndHandler = this.FuncBind(this.HandleTabDragEnd);
         TabList = this.GetTabElementList();
         PageList = this.GetPageElementList();
         if (TabList.length !== PageList.length)
@@ -181,7 +195,28 @@ tp.TabControl = class extends tp.Component {
         var Page = new tp.TabPage({ ElementOrSelector: PageElement, Tab: TabElement });
         TabElement.TabPage = Page;
         PageElement.TabPage = Page;
+        this.ApplyTabBehavior(TabElement);
         return Page;
+    }
+    /**
+     * Applies optional behavior to a tab element.
+     * @param {HTMLElement} TabElement The tab element.
+     * @returns {void}
+     */
+    ApplyTabBehavior(TabElement) {
+        if (!tp.IsHTMLElement(TabElement))
+            return;
+        TabElement.draggable = this.CanReorderPages === true;
+        TabElement.removeEventListener("dragstart", this.fDragStartHandler);
+        TabElement.removeEventListener("dragover", this.fDragOverHandler);
+        TabElement.removeEventListener("drop", this.fDropHandler);
+        TabElement.removeEventListener("dragend", this.fDragEndHandler);
+        if (this.CanReorderPages === true) {
+            TabElement.addEventListener("dragstart", this.fDragStartHandler);
+            TabElement.addEventListener("dragover", this.fDragOverHandler);
+            TabElement.addEventListener("drop", this.fDropHandler);
+            TabElement.addEventListener("dragend", this.fDragEndHandler);
+        }
     }
     /**
      * Creates and returns a new page without adding it.
@@ -235,6 +270,16 @@ tp.TabControl = class extends tp.Component {
         return this.Trigger("PageAdded", { Child: Page, Page: Page });
     }
     /**
+     * Event trigger called when a page close is requested.
+     * @param {tp.TabPage} Page The page.
+     * @param {number} Index The page index.
+     * @param {Event|null|undefined} DomEvent The DOM event.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnPageCloseRequested(Page, Index, DomEvent) {
+        return this.Trigger("PageCloseRequested", { Child: Page, Page: Page, Index: Index, e: DomEvent || null });
+    }
+    /**
      * Event trigger called before a page is removed.
      * @param {tp.TabPage} Page The page.
      * @returns {tp.EventArgs|null} Returns event arguments or null.
@@ -249,6 +294,81 @@ tp.TabControl = class extends tp.Component {
      */
     OnPageRemoved(Page) {
         return this.Trigger("PageRemoved", { Child: Page, Page: Page });
+    }
+    /**
+     * Event trigger called after a page is reordered.
+     * @param {tp.TabPage} Page The page.
+     * @param {number} OldIndex The previous index.
+     * @param {number} NewIndex The new index.
+     * @returns {tp.EventArgs|null} Returns event arguments or null.
+     */
+    OnPageReordered(Page, OldIndex, NewIndex) {
+        return this.Trigger("PageReordered", { Child: Page, Page: Page, OldIndex: OldIndex, NewIndex: NewIndex });
+    }
+    /**
+     * Handles tab bar item clicks.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleTabBarItemClicked(Args) {
+        var Page;
+        var CloseArgs;
+        if (this.CanClosePages === true && Args && Args.MouseButton === tp.Mouse.MID && Args.ItemIndex >= 0) {
+            Args.e.preventDefault();
+            Args.e.stopPropagation();
+            Page = this.PageAt(Args.ItemIndex);
+            CloseArgs = this.OnPageCloseRequested(Page, Args.ItemIndex, Args.e);
+            if (!CloseArgs || CloseArgs.Handled !== true)
+                this.RemovePageAt(Args.ItemIndex);
+        }
+    }
+    /**
+     * Handles tab drag start.
+     * @param {DragEvent} e The drag event.
+     * @returns {void}
+     */
+    HandleTabDragStart(e) {
+        var Tab = this.FindTabElement(e.target);
+        var Index = this.IndexOfTab(Tab);
+        if (Index < 0)
+            return;
+        this.fDragPageIndex = Index;
+        if (e.dataTransfer) {
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text/plain", String(Index));
+        }
+    }
+    /**
+     * Handles tab drag over.
+     * @param {DragEvent} e The drag event.
+     * @returns {void}
+     */
+    HandleTabDragOver(e) {
+        if (this.CanReorderPages === true && this.fDragPageIndex >= 0) {
+            e.preventDefault();
+            if (e.dataTransfer)
+                e.dataTransfer.dropEffect = "move";
+        }
+    }
+    /**
+     * Handles tab drop.
+     * @param {DragEvent} e The drag event.
+     * @returns {void}
+     */
+    HandleTabDrop(e) {
+        var Tab = this.FindTabElement(e.target);
+        var Index = this.IndexOfTab(Tab);
+        e.preventDefault();
+        if (this.fDragPageIndex >= 0 && Index >= 0)
+            this.MovePage(this.fDragPageIndex, Index);
+        this.fDragPageIndex = -1;
+    }
+    /**
+     * Handles tab drag end.
+     * @returns {void}
+     */
+    HandleTabDragEnd() {
+        this.fDragPageIndex = -1;
     }
 
     // ● public
@@ -292,6 +412,37 @@ tp.TabControl = class extends tp.Component {
      */
     GetPageCount() {
         return this.GetPageList().length;
+    }
+    /**
+     * Applies optional tab behavior to all current tabs.
+     * @returns {void}
+     */
+    ApplyTabBehaviors() {
+        this.GetTabElementList().forEach(function (Tab) {
+            this.ApplyTabBehavior(Tab);
+        }, this);
+    }
+    /**
+     * Finds a tab element from a descendant event target.
+     * @param {EventTarget} Target The event target.
+     * @returns {HTMLElement|null} Returns the tab element or null.
+     */
+    FindTabElement(Target) {
+        var List = this.GetTabElementList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++) {
+            if (tp.ContainsEventTarget(List[Index], Target))
+                return List[Index];
+        }
+        return null;
+    }
+    /**
+     * Returns the index of a tab element.
+     * @param {HTMLElement|null|undefined} Tab The tab element.
+     * @returns {number} Returns the tab index or -1.
+     */
+    IndexOfTab(Tab) {
+        return this.GetTabElementList().indexOf(Tab);
     }
     /**
      * Adds a page.
@@ -340,6 +491,7 @@ tp.TabControl = class extends tp.Component {
         if (tp.IsNumber(Index) && Index >= 0 && Index < List.length) {
             Page = List[Index];
             this.OnPageRemoving(Page);
+            this.ClearTabBehavior(Page.Tab);
             this.TabBar.RemoveItemAt(Index);
             Page.Dispose();
             this.OnPageRemoved(Page);
@@ -360,6 +512,32 @@ tp.TabControl = class extends tp.Component {
     RemovePage(Page) {
         var Index = this.GetPageList().indexOf(Page);
         this.RemovePageAt(Index);
+    }
+    /**
+     * Moves a page from one index to another.
+     * @param {number} OldIndex The old index.
+     * @param {number} NewIndex The new index.
+     * @returns {void}
+     */
+    MovePage(OldIndex, NewIndex) {
+        var PageList = this.GetPageList();
+        var Page;
+        var ReferencePage;
+        if (!tp.IsNumber(OldIndex) || !tp.IsNumber(NewIndex) || OldIndex < 0 || NewIndex < 0 || OldIndex >= PageList.length || NewIndex >= PageList.length || OldIndex === NewIndex)
+            return;
+        Page = PageList[OldIndex];
+        this.TabBar.RemoveItemAt(OldIndex);
+        this.TabBar.InsertItem(Page.Tab, NewIndex);
+        if (Page.Handle.parentNode === this.PageContainer)
+            this.PageContainer.removeChild(Page.Handle);
+        PageList = this.GetPageList();
+        ReferencePage = PageList[NewIndex];
+        if (ReferencePage)
+            this.PageContainer.insertBefore(Page.Handle, ReferencePage.Handle);
+        else
+            this.PageContainer.appendChild(Page.Handle);
+        this.SelectedPage = Page;
+        this.OnPageReordered(Page, OldIndex, NewIndex);
     }
     /**
      * Returns a page by index.
@@ -395,6 +573,9 @@ tp.TabControl = class extends tp.Component {
      * @returns {void}
      */
     Dispose() {
+        this.GetTabElementList().forEach(function (Tab) {
+            this.ClearTabBehavior(Tab);
+        }, this);
         this.GetPageList().forEach(function (Page) {
             Page.Dispose();
         });
@@ -403,6 +584,20 @@ tp.TabControl = class extends tp.Component {
             this.TabBar = null;
         }
         super.Dispose();
+    }
+    /**
+     * Clears optional behavior from a tab element.
+     * @param {HTMLElement} TabElement The tab element.
+     * @returns {void}
+     */
+    ClearTabBehavior(TabElement) {
+        if (!tp.IsHTMLElement(TabElement))
+            return;
+        TabElement.removeEventListener("dragstart", this.fDragStartHandler);
+        TabElement.removeEventListener("dragover", this.fDragOverHandler);
+        TabElement.removeEventListener("drop", this.fDropHandler);
+        TabElement.removeEventListener("dragend", this.fDragEndHandler);
+        TabElement.draggable = false;
     }
 
     // ● properties
@@ -478,3 +673,18 @@ tp.TabControl.prototype.TabBar = null;
  * @type {HTMLElement|null}
  */
 tp.TabControl.prototype.PageContainer = null;
+/**
+ * When true, pages may be closed by middle-clicking their tabs.
+ * @type {boolean}
+ */
+tp.TabControl.prototype.CanClosePages = false;
+/**
+ * When true, pages may be reordered by dragging their tabs.
+ * @type {boolean}
+ */
+tp.TabControl.prototype.CanReorderPages = false;
+/**
+ * The index of the dragged page.
+ * @type {number}
+ */
+tp.TabControl.prototype.fDragPageIndex = -1;

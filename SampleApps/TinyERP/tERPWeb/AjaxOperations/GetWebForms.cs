@@ -34,7 +34,11 @@ public class GetWebForms: AjaxOperation
                 Form.ViewName,
                 Form.ItemViewName,
                 Form.Group,
-                Form.IsReadOnly
+                Form.IsReadOnly,
+                Form.IsCustom,
+                Form.JsFormClassType,
+                Form.CssFiles,
+                Form.JavaScriptFiles
             })
             .ToArray();
 

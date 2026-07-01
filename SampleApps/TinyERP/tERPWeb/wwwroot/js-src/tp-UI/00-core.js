@@ -212,6 +212,7 @@ tp.Classes = {
     // ● containers
     Block: "tp-Block",
     View: "tp-View",
+    WebForm: "tp-WebForm",
     BrokerView: "tp-BrokerView",
     Window: "tp-Window",
     WindowCaption: "tp-WindowCaption",

@@ -27,7 +27,9 @@ public class WebFormDef: BaseDef
     string fItemViewName;
     string fModule;
     string fGroup;
+    string fJsFormClassType;
     bool fIsReadOnly;
+    bool fIsCustom;
     UserLevel fSecurityLevel;
 
     // ● private
@@ -76,7 +78,7 @@ public class WebFormDef: BaseDef
     /// </summary>
     public string ItemViewName
     {
-        get => !string.IsNullOrWhiteSpace(fItemViewName) ? fItemViewName : DefaultItemViewName;
+        get => !string.IsNullOrWhiteSpace(fItemViewName) ? fItemViewName : (IsCustom ? string.Empty : DefaultItemViewName);
         set { if (fItemViewName != value) { fItemViewName = value; NotifyPropertyChanged(nameof(ItemViewName)); } }
     }
     /// <summary>
@@ -84,7 +86,7 @@ public class WebFormDef: BaseDef
     /// </summary>
     public string Module
     {
-        get => !string.IsNullOrWhiteSpace(fModule) ? fModule : Name;
+        get => !string.IsNullOrWhiteSpace(fModule) ? fModule : (IsCustom ? string.Empty : Name);
         set { if (fModule != value) { fModule = value; NotifyPropertyChanged(nameof(Module)); } }
     }
     /// <summary>
@@ -102,6 +104,22 @@ public class WebFormDef: BaseDef
     {
         get => fIsReadOnly;
         set { if (fIsReadOnly != value) { fIsReadOnly = value; NotifyPropertyChanged(nameof(IsReadOnly)); } }
+    }
+    /// <summary>
+    /// When true then this form is provided by custom markup and JavaScript.
+    /// </summary>
+    public bool IsCustom
+    {
+        get => fIsCustom;
+        set { if (fIsCustom != value) { fIsCustom = value; NotifyPropertyChanged(nameof(IsCustom)); } }
+    }
+    /// <summary>
+    /// Gets or sets the JavaScript class type that handles this form on the client.
+    /// </summary>
+    public string JsFormClassType
+    {
+        get => !string.IsNullOrWhiteSpace(fJsFormClassType) ? fJsFormClassType : string.Empty;
+        set { if (fJsFormClassType != value) { fJsFormClassType = value; NotifyPropertyChanged(nameof(JsFormClassType)); } }
     }
     /// <summary>
     /// Gets or sets the minimum user level required to access this web form.

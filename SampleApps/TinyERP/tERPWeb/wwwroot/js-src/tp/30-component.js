@@ -392,11 +392,56 @@ tp.Component = class extends tp.Object {
         return this.ResolveHandle(Child);
     }
     /**
+     * Returns the top-level nested child components owned by this component.
+     * Components inside wrapper elements are included, but descendants of another
+     * child component are left to that component's own disposal.
+     * @returns {tp.Component[]} Returns the child components.
+     */
+    GetOwnedComponentList() {
+        var List = this.HasHandle ? tp.GetAllComponents(this.Handle) : [];
+        var Result = [];
+        var Index;
+        var Component;
+        var Parent;
+        var Owner;
+        for (Index = 0; Index < List.length; Index++) {
+            Component = List[Index];
+            if (!(Component instanceof tp.Component) || Component === this || !Component.HasHandle)
+                continue;
+            Parent = Component.Handle.parentElement;
+            Owner = null;
+            while (Parent instanceof HTMLElement && Parent !== this.Handle) {
+                Owner = tp.GetComponent(Parent);
+                if (Owner instanceof tp.Component)
+                    break;
+                Parent = Parent.parentElement;
+            }
+            if (Owner === null)
+                Result.push(Component);
+        }
+        return Result;
+    }
+    /**
+     * Disposes all child components owned by this component.
+     * @returns {void}
+     */
+    DisposeChildComponents() {
+        var List = this.GetOwnedComponentList();
+        var Index;
+        var Component;
+        for (Index = 0; Index < List.length; Index++) {
+            Component = List[Index];
+            if (Component instanceof tp.Component && !Component.IsDisposed)
+                Component.Dispose();
+        }
+    }
+    /**
      * Destroys the component handle and releases resources.
      * @returns {void}
      */
     DoDispose() {
         var Element = this.fHandle;
+        this.DisposeChildComponents();
         if (this.fResizeDetector) {
             this.fResizeDetector.Dispose();
             this.fResizeDetector = null;

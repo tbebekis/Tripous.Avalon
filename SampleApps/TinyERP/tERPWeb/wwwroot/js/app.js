@@ -231,6 +231,403 @@ app.CommandTreeView = class extends tp.Component {
     }
 };
 
+// ● main dashboard form
+/**
+ * Displays the tERP dashboard.
+ *
+ * Events:
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ */
+app.MainDashboardForm = class extends tp.WebForm {
+    // ● constructor
+    /**
+     * Creates the main dashboard form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Notification called after handle creation.
+     * @returns {void}
+     */
+    OnHandleCreated() {
+        super.OnHandleCreated();
+        tp.AddClass(this.Handle, "app-dashboard");
+    }
+    /**
+     * Initializes instance fields.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        /**
+         * The dashboard toolbar.
+         * @type {tp.ToolBar|null}
+         */
+        this.ToolBar = null;
+        /**
+         * The dashboard tab control.
+         * @type {tp.TabControl|null}
+         */
+        this.TabControl = null;
+        /**
+         * KPI value elements keyed by metric name.
+         * @type {object}
+         */
+        this.MetricElements = {};
+        /**
+         * The customers grid.
+         * @type {tp.Grid|null}
+         */
+        this.CustomersGrid = null;
+        /**
+         * The suppliers grid.
+         * @type {tp.Grid|null}
+         */
+        this.SuppliersGrid = null;
+        /**
+         * The stock grid.
+         * @type {tp.Grid|null}
+         */
+        this.StockGrid = null;
+    }
+    /**
+     * Notification called after field initialization.
+     * @returns {void}
+     */
+    OnFieldsInitialized() {
+        super.OnFieldsInitialized();
+        this.CreateControls();
+    }
+    /**
+     * Creates the dashboard controls.
+     * @returns {void}
+     */
+    CreateControls() {
+        var ToolBarElement = this.Handle.querySelector("[data-role='toolbar']");
+        var TabElement = this.Handle.querySelector(".app-dashboard-tabs");
+        if (!ToolBarElement)
+            return;
+        this.ToolBar = new tp.ToolBar(ToolBarElement);
+        tp.AddClass(this.ToolBar.Handle, "app-dashboard-toolbar");
+        this.AddToolBarButton("Refresh", "table_refresh.png");
+        this.AddToolBarButton("Close", "door_out.png");
+        this.ToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
+        this.CollectMetrics();
+        this.CreateGrids(TabElement);
+    }
+    /**
+     * Adds a toolbar button.
+     * @param {string} Command The command.
+     * @param {string} ImageFileName The image file name.
+     * @returns {void}
+     */
+    AddToolBarButton(Command, ImageFileName) {
+        var Button = this.ToolBar.AddButton(Command, Command, Command, "", "", false);
+        Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: ImageFileName });
+    }
+    /**
+     * Collects KPI metric value elements.
+     * @returns {void}
+     */
+    CollectMetrics() {
+        var Elements = this.Handle.querySelectorAll("[data-metric]");
+        var Index;
+        var Element;
+        this.MetricElements = {};
+        for (Index = 0; Index < Elements.length; Index++) {
+            Element = Elements[Index];
+            this.MetricElements[Element.dataset.metric] = Element;
+        }
+    }
+    /**
+     * Creates the grid tab control.
+     * @param {HTMLElement} TabElement The tab control element.
+     * @returns {void}
+     */
+    CreateGrids(TabElement) {
+        var TabControl;
+        var Page;
+        if (!(TabElement instanceof HTMLElement))
+            return;
+        this.TabControl = new tp.TabControl(TabElement);
+        TabControl = this.TabControl;
+        Page = TabControl.AddPage("Top Customers");
+        this.CustomersGrid = this.CreateGrid(Page.Handle);
+        Page = TabControl.AddPage("Top Suppliers");
+        this.SuppliersGrid = this.CreateGrid(Page.Handle);
+        Page = TabControl.AddPage("Stock Snapshot");
+        this.StockGrid = this.CreateGrid(Page.Handle);
+    }
+    /**
+     * Creates a readonly dashboard grid.
+     * @param {HTMLElement} Parent The parent element.
+     * @returns {tp.Grid} Returns the grid.
+     */
+    CreateGrid(Parent) {
+        var Element = this.Document.createElement("div");
+        var Grid;
+        Parent.appendChild(Element);
+        tp.AddClass(Element, "app-dashboard-grid");
+        Grid = new tp.Grid({
+            ElementOrSelector: Element,
+            ReadOnly: true,
+            AutoGenerateColumns: true,
+            ToolBarVisible: false,
+            GroupsVisible: false,
+            FilterVisible: false,
+            FooterVisible: false
+        });
+        return Grid;
+    }
+    /**
+     * Handles toolbar button clicks.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleToolBarButtonClick(Args) {
+        if (!Args)
+            return;
+        if (Args.Command === "Refresh")
+            this.Refresh();
+        else if (Args.Command === "Close")
+            this.Close();
+    }
+
+    // ● public
+    /**
+     * Refreshes dashboard data.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async LoadDataAsync() {
+        var Packet = await app.App.GetMainDashboardDataAsync();
+        this.SetMetrics(new tp.DataTable(Packet.Metrics));
+        this.CustomersGrid.DataSource = new tp.DataTable(Packet.Customers);
+        this.SuppliersGrid.DataSource = new tp.DataTable(Packet.Suppliers);
+        this.StockGrid.DataSource = new tp.DataTable(Packet.Stock);
+        if (tp.LogBox)
+            tp.LogBox.AppendLine("Dashboard refreshed.");
+    }
+    /**
+     * Refreshes dashboard data without throwing.
+     * @returns {void}
+     */
+    Refresh() {
+        this.LoadData();
+    }
+    /**
+     * Sets KPI metric values.
+     * @param {tp.DataTable} Table The metric table.
+     * @returns {void}
+     */
+    SetMetrics(Table) {
+        var Formatter = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        var Index;
+        var Row;
+        var Name;
+        var Value;
+        if (!(Table instanceof tp.DataTable))
+            return;
+        for (Index = 0; Index < Table.Rows.length; Index++) {
+            Row = Table.Rows[Index];
+            Name = Row.Get("Name");
+            Value = Row.Get("Value", 0);
+            if (this.MetricElements[Name])
+                this.MetricElements[Name].textContent = Formatter.format(Number(Value || 0));
+        }
+    }
+    /**
+     * Closes the dashboard tab.
+     * @returns {void}
+     */
+    Close() {
+        super.Close();
+    }
+};
+
+// ● web form page handler
+/**
+ * Opens and closes WebDesk form pages in the workspace tab control.
+ */
+app.WebFormPageHandler = class {
+    // ● constructor
+    /**
+     * Creates a web form page handler.
+     * @param {app.MainPage} MainPage The main page.
+     */
+    constructor(MainPage) {
+        /**
+         * The owner main page.
+         * @type {app.MainPage}
+         */
+        this.MainPage = MainPage;
+    }
+
+    // ● protected
+    /**
+     * Returns the workspace tab control.
+     * @returns {tp.TabControl|null} Returns the workspace tab control.
+     */
+    GetTabControl() {
+        return this.MainPage ? this.MainPage.WorkspaceTabControl : null;
+    }
+    /**
+     * Finds the root element of a web form inside a tab page.
+     * @param {tp.TabPage} Page The tab page.
+     * @returns {HTMLElement|null} Returns the form element or null.
+     */
+    FindFormElement(Page) {
+        var Index;
+        var Element;
+        var Children = Page.Handle ? Page.Handle.children : [];
+        for (Index = 0; Index < Children.length; Index++) {
+            Element = Children[Index];
+            if (Element instanceof HTMLElement)
+                return Element;
+        }
+        return null;
+    }
+    /**
+     * Creates a web form context for a tab page.
+     * @param {tp.TabPage} Page The tab page.
+     * @param {object} Form The server form packet.
+     * @param {object} Packet The server packet.
+     * @returns {tp.WebFormContext} Returns the web form context.
+     */
+    CreateFormContext(Page, Form, Packet) {
+        return new tp.WebFormContext({
+            FormId: Form.Name,
+            ClassName: Form.JsFormClassType,
+            DisplayMode: tp.WebFormDisplayMode.TabPage,
+            ParentControl: Page,
+            Title: !tp.IsBlankString(Form.Title) ? Form.Title : Form.Name,
+            WebFormDef: Form,
+            Packet: Packet,
+            CssFiles: Form.CssFiles || [],
+            JavaScriptFiles: Form.JavaScriptFiles || []
+        });
+    }
+    /**
+     * Creates the client component that handles a web form page.
+     * @param {tp.TabPage} Page The tab page.
+     * @param {tp.WebFormContext} Context The web form context.
+     * @returns {Promise<tp.WebForm>} Returns a Promise resolving with the client form component.
+     */
+    async CreateFormComponent(Page, Context) {
+        var Element = this.FindFormElement(Page);
+        if (!(Element instanceof HTMLElement))
+            throw new Error("WebForm root element not found: " + Context.FormId);
+        return await Context.CreateForm(Element);
+    }
+    /**
+     * Handles a web form close request.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleFormCloseRequested(Args) {
+        if (Args && Args.Context instanceof tp.WebFormContext && Args.Context.ParentControl instanceof tp.TabPage)
+            this.ClosePage(Args.Context.ParentControl);
+    }
+
+    // ● public
+    /**
+     * Finds a workspace page by web form name.
+     * @param {string} WebFormName The web form name.
+     * @returns {tp.TabPage|null} Returns the tab page or null.
+     */
+    FindPage(WebFormName) {
+        return this.MainPage ? this.MainPage.FindWorkspacePage(WebFormName) : null;
+    }
+    /**
+     * Opens a WebDesk form page.
+     * @param {string} WebFormName The web form name.
+     * @returns {Promise<tp.TabPage|null>} Returns a Promise with the opened page.
+     */
+    async OpenAsync(WebFormName) {
+        var TabControl = this.GetTabControl();
+        var Page;
+        var Packet;
+        var Form;
+        var Component;
+        var Context;
+        if (!TabControl || tp.IsBlankString(WebFormName))
+            return null;
+        Page = this.FindPage(WebFormName);
+        if (Page) {
+            TabControl.SelectedPage = Page;
+            if (Page.AppComponent instanceof tp.WebForm)
+                Page.AppComponent.LoadData();
+            else if (Page.AppComponent && tp.IsFunction(Page.AppComponent.Refresh))
+                Page.AppComponent.Refresh();
+            return Page;
+        }
+        Packet = await app.App.GetWebFormAsync(WebFormName);
+        Form = Packet ? Packet.Form : null;
+        if (!Form)
+            throw new Error("WebForm not returned: " + WebFormName);
+        Page = TabControl.AddPage(!tp.IsBlankString(Form.Title) ? Form.Title : Form.Name);
+        Page.AppPageName = Form.Name;
+        Page.AppPageHandler = this;
+        Page.Handle.innerHTML = Form.Html || "";
+        Context = this.CreateFormContext(Page, Form, Packet);
+        Page.AppContext = Context;
+        Component = await this.CreateFormComponent(Page, Context);
+        Component.On("CloseRequested", this.HandleFormCloseRequested, this);
+        Page.AppComponent = Component;
+        if (Component instanceof tp.WebForm)
+            Component.LoadData();
+        else if (Component && tp.IsFunction(Component.Refresh))
+            Component.Refresh();
+        return Page;
+    }
+    /**
+     * Opens a WebDesk form page and logs failures without throwing.
+     * @param {string} WebFormName The web form name.
+     * @returns {void}
+     */
+    Open(WebFormName) {
+        this.OpenAsync(WebFormName).catch(function (e) {
+            var Text = "Open web form failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+        });
+    }
+    /**
+     * Closes a web form page.
+     * @param {tp.TabPage|null|undefined} Page The page to close.
+     * @returns {void}
+     */
+    ClosePage(Page) {
+        var TabControl = this.GetTabControl();
+        var Component;
+        if (!(TabControl && Page instanceof tp.TabPage))
+            return;
+        Component = Page.AppComponent;
+        if (Component instanceof tp.WebForm && !Component.IsClosing) {
+            if (Component.ClosableByUser)
+                Component.CloseForm();
+            return;
+        }
+        if (Component instanceof tp.Component) {
+            Component.Dispose();
+            Page.AppComponent = null;
+        }
+        Page.AppContext = null;
+        TabControl.RemovePage(Page);
+    }
+};
+
 // ● main page
 /**
  * Represents the main application shell page.
@@ -306,6 +703,11 @@ app.MainPage = class extends tp.Component {
          * @type {app.CommandTreeView|null}
          */
         this.CommandTreeView = null;
+        /**
+         * Workspace web form page handler.
+         * @type {app.WebFormPageHandler|null}
+         */
+        this.PageHandler = null;
     }
     /**
      * Creates child controls and stores useful shell element references.
@@ -338,7 +740,13 @@ app.MainPage = class extends tp.Component {
         this.MainSplitter = new tp.Splitter("#MainSplitter");
         this.MainSplitter.Panel1MinSize = 40;
         this.MainSplitter.Panel2MinSize = 40;
-        this.WorkspaceTabControl = new tp.TabControl("#WorkspaceTabControl");
+        this.WorkspaceTabControl = new tp.TabControl({
+            ElementOrSelector: "#WorkspaceTabControl",
+            CanClosePages: true,
+            CanReorderPages: true
+        });
+        this.PageHandler = new app.WebFormPageHandler(this);
+        this.WorkspaceTabControl.On("PageCloseRequested", this.HandleWorkspacePageCloseRequested, this);
         this.LogSplitter = new tp.Splitter("#LogSplitter");
         this.LogSplitter.IsHorizontal = true;
         this.LogSplitter.Panel1MinSize = 40;
@@ -394,6 +802,17 @@ app.MainPage = class extends tp.Component {
             return;
 
         app.App.ExecuteCommand(Command);
+    }
+    /**
+     * Handles workspace tab close requests.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleWorkspacePageCloseRequested(Args) {
+        if (Args && this.PageHandler) {
+            Args.Handled = true;
+            this.PageHandler.ClosePage(Args.Page);
+        }
     }
     /**
      * Sends a ping Ajax request to the server.
@@ -480,6 +899,42 @@ app.MainPage = class extends tp.Component {
             ElementOrSelector: ViewElement,
             Commands: app.App.MenuCommands
         });
+    }
+    /**
+     * Finds a workspace page by application page name.
+     * @param {string} Name The application page name.
+     * @returns {tp.TabPage|null} Returns the page or null.
+     */
+    FindWorkspacePage(Name) {
+        var Pages;
+        var Index;
+        if (!this.WorkspaceTabControl)
+            return null;
+        Pages = this.WorkspaceTabControl.GetPageList();
+        for (Index = 0; Index < Pages.length; Index++) {
+            if (tp.IsSameText(Pages[Index].AppPageName, Name))
+                return Pages[Index];
+        }
+        return null;
+    }
+    /**
+     * Closes a workspace page.
+     * @param {tp.TabPage|null|undefined} Page The page to close.
+     * @returns {void}
+     */
+    CloseWorkspacePage(Page) {
+        if (this.PageHandler)
+            this.PageHandler.ClosePage(Page);
+        else if (this.WorkspaceTabControl && Page instanceof tp.TabPage)
+            this.WorkspaceTabControl.RemovePage(Page);
+    }
+    /**
+     * Shows the dashboard page.
+     * @returns {void}
+     */
+    ShowDashboard() {
+        if (this.PageHandler)
+            this.PageHandler.Open("MainDashboard");
     }
 
     // ● public
@@ -586,7 +1041,8 @@ app.App = {
         "item16.png",
         "lightning.png",
         "setting_tools.png",
-        "table.png"
+        "table.png",
+        "table_refresh.png"
     ],
 
     // ● commands
@@ -598,7 +1054,7 @@ app.App = {
         if (this.CommandsRegistered === true)
             return;
 
-        var cmdDashboard = new tp.Command({ Name: "Dashboard", ImageFileName: "chart_bar.png" });
+        var cmdDashboard = new tp.Command({ Name: "Dashboard", ImageFileName: "chart_bar.png", Form: "MainDashboard", Type: "Ui", IsSingleInstance: true });
         var cmdAppFolder = new tp.Command({ Name: "ShowAppFolder", ImageFileName: "folder.png" });
         var cmdApplicationSettings = new tp.Command({ Name: "Application Settings", ImageFileName: "setting_tools.png" });
         var cmdChangePassword = new tp.Command({ Name: "Change Password", ImageFileName: "change_password.png" });
@@ -808,7 +1264,41 @@ app.App = {
         }
     },
 
+    // ● data
+    /**
+     * Executes a SELECT statement and returns a data table.
+     * @param {string} Name The table name.
+     * @param {string} SqlText The SQL text.
+     * @param {string|null|undefined} ConnectionName Optional connection name.
+     * @returns {Promise<tp.DataTable>} Returns a Promise with the data table.
+     */
+    SelectAsync: async function (Name, SqlText, ConnectionName) {
+        var Packet = await tp.AjaxRequest.ExecuteAsync("Select", {
+            Name: Name,
+            SqlText: SqlText,
+            ConnectionName: ConnectionName || ""
+        });
+        return new tp.DataTable(Packet.Table || Packet.JsonDataTable);
+    },
+
     // ● web forms
+    /**
+     * Returns a server-rendered web form packet.
+     * @param {string} WebFormName The web form name.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    GetWebFormAsync: async function (WebFormName) {
+        return await tp.AjaxRequest.ExecuteAsync("App.GetWebForm", {
+            WebFormName: WebFormName
+        });
+    },
+    /**
+     * Returns main dashboard data.
+     * @returns {Promise<object>} Returns a Promise with dashboard data.
+     */
+    GetMainDashboardDataAsync: async function () {
+        return await tp.AjaxRequest.ExecuteAsync("App.MainDashboard.GetData");
+    },
     /**
      * Loads web forms from the server and creates command groups.
      * @returns {Promise<number>} Returns the number of loaded web forms.
@@ -840,6 +1330,8 @@ app.App = {
 
         for (Index = 0; Index < Forms.length; Index++) {
             Form = Forms[Index];
+            if (Form.IsCustom === true)
+                continue;
             GroupName = !tp.IsBlankString(Form.Group) ? Form.Group : "General Forms";
             GroupCommandName = "WebForms." + GroupName;
             GroupCommand = Groups[GroupCommandName];
@@ -863,10 +1355,30 @@ app.App = {
                     Module: Form.Module,
                     ViewName: Form.ViewName,
                     ItemViewName: Form.ItemViewName,
+                    JsFormClassType: Form.JsFormClassType,
                     IsReadOnly: Form.IsReadOnly === true
                 }
             });
         }
+    },
+    /**
+     * Resolves a dotted JavaScript class type name.
+     * @param {string} ClassType The class type name.
+     * @returns {Function|null} Returns the class constructor or null.
+     */
+    ResolveClassType: function (ClassType) {
+        var Parts;
+        var Index;
+        var Result = window;
+        if (tp.IsBlankString(ClassType))
+            return null;
+        Parts = ClassType.split(".");
+        for (Index = 0; Index < Parts.length; Index++) {
+            Result = Result ? Result[Parts[Index]] : null;
+            if (!Result)
+                return null;
+        }
+        return tp.IsFunction(Result) ? Result : null;
     },
 
     // ● command lookup
@@ -918,12 +1430,28 @@ app.App = {
             return;
         if (Command.Name === "App.Ping" && this.MainPage)
             this.MainPage.PingServerAsync();
+        else if (Command.Name === "Dashboard" && this.MainPage)
+            this.MainPage.ShowDashboard();
         else if (Command.Name === "Toggle Log" && this.MainPage)
             this.MainPage.ToggleLog();
-        else if (Command.IsUiCommand() && tp.LogBox)
-            tp.LogBox.AppendLine("Web form command executed: " + Command.Form);
+        else if (Command.IsUiCommand() && tp.IsBlankString(Command.Params ? Command.Params.JsFormClassType : ""))
+            this.ReportCommandNotAvailable(Command);
+        else if (Command.IsUiCommand() && this.MainPage && this.MainPage.PageHandler)
+            this.MainPage.PageHandler.Open(Command.Form);
         else if (tp.LogBox)
             tp.LogBox.AppendLine("Command executed: " + Command.Name);
+    },
+    /**
+     * Reports a command that is visible but not yet implemented.
+     * @param {tp.Command} Command The command.
+     * @returns {void}
+     */
+    ReportCommandNotAvailable: function (Command) {
+        var Text = "Web form is not available yet: " + (Command.Title || Command.Name);
+        if (tp.LogBox)
+            tp.LogBox.AppendLine(Text);
+        if (this.MainPage && this.MainPage.StatusBar)
+            this.MainPage.StatusBar.Message = Text;
     },
 
     // ● command icons

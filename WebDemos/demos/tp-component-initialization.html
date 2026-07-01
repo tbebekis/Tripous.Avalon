@@ -186,6 +186,20 @@
                      MaxLength: 40,
                      ToolTip: 'Initialized by data-setup' }" /&gt;</pre>
                 </section>
+                <section class="component-init-section">
+                    <h2>4. Prototype defaults</h2>
+                    <ul class="component-init-list">
+                        <li>JavaScript class field initializers run after <code>super()</code>.</li>
+                        <li>For <code>tp.Component</code> descendants, <code>super()</code> may already have called <code>ApplyCreateParams()</code>.</li>
+                        <li>Use documented prototype defaults for simple non-mutable fields that must be visible as class interface.</li>
+                        <li>Do not put arrays, objects, collections, handlers, or DOM references on the prototype.</li>
+                    </ul>
+                    <pre class="component-init-code component-init-example">/**
+ * Custom value applied by create params.
+ * @type {string}
+ */
+DemoPrototypeFieldComponent.prototype.CustomText = "";</pre>
+                </section>
             </div>
 
             <section class="component-init-section">
@@ -383,6 +397,30 @@
                     }
                 }
 
+                /**
+                 * Demonstrates documented prototype defaults for simple fields.
+                 */
+                class DemoPrototypeFieldComponent extends tp.Component {
+                    // ● protected
+                    /**
+                     * Applies explicit create params to this component.
+                     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
+                     * @returns {void}
+                     */
+                    ApplyCreateParams(Params) {
+                        super.ApplyCreateParams(Params);
+                        if (!tp.IsBlank(Params.CustomText))
+                            this.CustomText = Params.CustomText;
+                    }
+                }
+
+                // ● prototype
+                /**
+                 * Custom value applied by create params.
+                 * @type {string}
+                 */
+                DemoPrototypeFieldComponent.prototype.CustomText = "";
+
                 new DemoLifecycleComponent({
                     ElementOrSelector: "#LifecycleMarkup",
                     Text: "Text from constructor params",
@@ -395,6 +433,11 @@
                     Parent: "#CreatedHandleHost",
                     CssClasses: "component-init-created-input"
                 });
+
+                var PrototypeFieldComponent = new DemoPrototypeFieldComponent({
+                    CustomText: "value from ApplyCreateParams"
+                });
+                AddLine("Prototype default field after constructor. CustomText = " + PrototypeFieldComponent.CustomText);
             });
         </script>
     </main>

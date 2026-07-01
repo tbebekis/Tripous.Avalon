@@ -124,6 +124,16 @@ static public partial class App
     {
         Registry.RegisterDescriptors();
         WebLib.RegisterDescriptors();
+        RegisterAppWebForms();
+    }
+    /// <summary>
+    /// Registers tERPWeb application forms.
+    /// </summary>
+    static void RegisterAppWebForms()
+    {
+        WebFormDef Form = WebDeskRegistry.AddOrUpdateForm("MainDashboard", TitleKey: "Dashboard", Module: string.Empty, ViewName: "/Views/WebForms/MainDashboard.cshtml", Group: "General", IsReadOnly: true);
+        Form.IsCustom = true;
+        Form.JsFormClassType = "app.MainDashboardForm";
     }
     /// <summary>
     /// Registers Ajax request handlers.
@@ -131,6 +141,7 @@ static public partial class App
     static void RegisterAjaxHandlers()
     {
         AjaxOperations.RegisterApplicationAssemblies();
+        Tripous.WebDesk.WebFormProviders.RegisterApplicationAssemblies();
     }
     /// <summary>
     /// Initializes application libraries.

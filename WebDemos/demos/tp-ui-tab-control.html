@@ -109,6 +109,14 @@
                 <label for="RemoveIndexEdit">Remove Index</label>
                 <input id="RemoveIndexEdit" type="text" value="0" />
                 <button id="RemovePageButton" type="button">Remove</button>
+                <label for="CanClosePagesCheck">
+                    <input id="CanClosePagesCheck" type="checkbox" />
+                    Middle-click close
+                </label>
+                <label for="CanReorderPagesCheck">
+                    <input id="CanReorderPagesCheck" type="checkbox" />
+                    Drag reorder
+                </label>
             </div>
         
             <div id="TabControlHost" class="tab-control-demo-host">
@@ -135,6 +143,12 @@
             tp.Ready(function () {
                 var Control = new tp.TabControl("#TabControl");
                 var Counter = Control.GetPageCount();
+
+                var ApplyTabBehaviors = function () {
+                    Control.GetTabElementList().forEach(function (Tab) {
+                        Control.ApplyTabBehavior(Tab);
+                    });
+                };
         
                 var RenderModeName = function (Mode) {
                     switch (Mode) {
@@ -152,6 +166,8 @@
                         Message || "Ready.",
                         "render mode = " + RenderModeName(Control.RenderMode),
                         "responsive mode = " + RenderModeName(Control.ResponsiveMode),
+                        "middle-click close = " + (Control.CanClosePages ? "on" : "off"),
+                        "drag reorder = " + (Control.CanReorderPages ? "on" : "off"),
                         "selected index = " + Control.SelectedIndex,
                         "selected title = " + (Page ? Page.Title : "(none)"),
                         "page count = " + Control.GetPageCount()
@@ -188,6 +204,18 @@
                     Control.RemovePageAt(Index);
                     WriteLog("Page removed.");
                 });
+
+                tp.On("#CanClosePagesCheck", "change", function () {
+                    Control.CanClosePages = tp("#CanClosePagesCheck").checked;
+                    ApplyTabBehaviors();
+                    WriteLog("Middle-click close changed.");
+                });
+
+                tp.On("#CanReorderPagesCheck", "change", function () {
+                    Control.CanReorderPages = tp("#CanReorderPagesCheck").checked;
+                    ApplyTabBehaviors();
+                    WriteLog("Drag reorder changed.");
+                });
         
                 Control.On("SelectedIndexChanged", function () {
                     WriteLog("Selection changed.");
@@ -196,9 +224,17 @@
                 Control.On("PageAdded", function () {
                     WriteLog("Page added.");
                 });
+
+                Control.On("PageCloseRequested", function () {
+                    WriteLog("Page close requested.");
+                });
         
                 Control.On("PageRemoved", function () {
                     WriteLog("Page removed.");
+                });
+
+                Control.On("PageReordered", function (Args) {
+                    WriteLog("Page moved from " + Args.OldIndex + " to " + Args.NewIndex + ".");
                 });
         
                 WriteLog();
