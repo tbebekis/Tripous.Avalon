@@ -1,0 +1,55 @@
+﻿@using System.Collections.Generic
+@using System.Globalization
+@{
+    string Scope = ViewData["Scope"] as string ?? "User";
+    string OwnerKey = ViewData["OwnerKey"] as string ?? string.Empty;
+    List<Dictionary<string, object>> Settings = ViewData["Settings"] as List<Dictionary<string, object>> ?? new();
+    string CurrentGroup = null;
+}
+<div class="app-settings-dialog"
+     data-dialog-kind="application-settings"
+     data-setup="{ClassName: 'app.ApplicationSettingsDialog', JavaScriptFiles: ['/js/dialogs/application-settings-dialog.js']}">
+    <div class="app-dialog-header">
+        <div class="app-dialog-title">Application Settings</div>
+        <div class="app-dialog-subtitle">Edit registered application configuration values.</div>
+    </div>
+    <div class="app-settings-scope">
+        <label for="ApplicationSettingsScope">Scope</label>
+        <select id="ApplicationSettingsScope" name="Scope">
+            <option value="User" selected='@(Scope == "User")'>User</option>
+            <option value="Company" selected='@(Scope == "Company")'>Company</option>
+            <option value="System" selected='@(Scope == "System")'>System</option>
+        </select>
+        <span data-role="owner">Owner: @(string.IsNullOrWhiteSpace(OwnerKey) ? "System" : OwnerKey)</span>
+    </div>
+    <div class="app-settings-tabs">
+        <div class="app-settings-tab-header">Settings</div>
+        <div class="app-settings-tab-page">
+            @foreach (Dictionary<string, object> Setting in Settings)
+            {
+                string Name = Convert.ToString(Setting["Name"], CultureInfo.InvariantCulture) ?? string.Empty;
+                string Title = Convert.ToString(Setting["Title"], CultureInfo.InvariantCulture) ?? Name;
+                string GroupName = Convert.ToString(Setting["GroupName"], CultureInfo.InvariantCulture) ?? string.Empty;
+                string Kind = Convert.ToString(Setting["Kind"], CultureInfo.InvariantCulture) ?? string.Empty;
+                string Value = Convert.ToString(Setting["Value"], CultureInfo.InvariantCulture) ?? string.Empty;
+                if (!string.Equals(CurrentGroup, GroupName, StringComparison.Ordinal))
+                {
+                    CurrentGroup = GroupName;
+                    if (!string.IsNullOrWhiteSpace(CurrentGroup))
+                    {
+                        <div class="app-settings-group">@CurrentGroup</div>
+                    }
+                }
+                string RowClass = Kind == "Boolean" ? "tp-CheckBoxRow" : "tp-CtrlRow";
+                string ControlTypeName = Kind == "Boolean" ? "CheckBox" : Kind == "Memo" ? "Memo" : Kind == "Integer" || Kind == "Decimal" || Kind == "Double" ? "NumberBox" : "TextBox";
+                string DataSetup = "{Text: '" + Title.Replace("'", "\\'") + "', Control: {TypeName: '" + ControlTypeName + "'}}";
+                <div class="@RowClass app-settings-row"
+                     data-config-name="@Name"
+                     data-config-kind="@Kind"
+                     data-config-value="@Value"
+                     data-setup="@DataSetup"></div>
+            }
+        </div>
+    </div>
+    <div class="app-dialog-message" data-role="message"></div>
+</div>

@@ -1,0 +1,34 @@
+﻿<div class="app-connection-info-dialog"
+     data-dialog-kind="connection-info"
+     data-setup="{ClassName: 'app.ConnectionInfoDialog', JavaScriptFiles: ['/js/dialogs/connection-info-dialog.js']}">
+    <div data-role="tab-control" class="tp-TabControl">
+        <div>
+            <div>Properties</div>
+            <div>Connection String</div>
+        </div>
+        <div>
+            <div>
+                <div class="app-connection-properties">
+                    <div class="tp-CtrlRow" data-field="Name" data-default-text="Name" data-setup="{Text: 'Name', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoName', DataField: 'Name'}}"></div>
+                    <div class="tp-CtrlRow" data-field="DbServerType" data-default-text="Provider" data-setup="{Text: 'Provider', Control: {TypeName: 'ComboBox', Id: 'ConnectionInfoDbServerType', DataField: 'DbServerType', ListOnly: true}}"></div>
+                    <div class="tp-CtrlRow" data-field="Server" data-default-text="Server" data-setup="{Text: 'Server', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoServer', DataField: 'Server'}}"></div>
+                    <div class="tp-CtrlRow" data-field="Port" data-default-text="Port" data-setup="{Text: 'Port', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoPort', DataField: 'Port'}}"></div>
+                    <div class="tp-CtrlRow" data-field="Database" data-default-text="Database" data-setup="{Text: 'Database', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoDatabase', DataField: 'Database'}}"></div>
+                    <div class="tp-CtrlRow" data-field="UserId" data-default-text="User Id" data-setup="{Text: 'User Id', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoUserId', DataField: 'UserId'}}"></div>
+                    <div class="tp-CtrlRow" data-field="Password" data-default-text="Password" data-setup="{Text: 'Password', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoPassword', DataField: 'Password'}}"></div>
+                    <div class="tp-CtrlRow" data-field="SslMode" data-default-text="SSL Mode" data-setup="{Text: 'SSL Mode', Control: {TypeName: 'ComboBox', Id: 'ConnectionInfoSslMode', DataField: 'SslMode', ListOnly: true}}"></div>
+                    <div class="tp-CtrlRow" data-field="Charset" data-default-text="Charset" data-setup="{Text: 'Charset', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoCharset', DataField: 'Charset'}}"></div>
+                    <div class="tp-CtrlRow" data-field="CommandTimeoutSeconds" data-default-text="Cmd Timeout (secs)" data-setup="{Text: 'Cmd Timeout (secs)', Control: {TypeName: 'TextBox', Id: 'ConnectionInfoCommandTimeoutSeconds', DataField: 'CommandTimeoutSeconds'}}"></div>
+                    <div class="tp-CheckBoxRow" data-field="IntegratedSecurity" data-default-text="Integrated Security" data-setup="{Text: 'Integrated Security', Control: {TypeName: 'CheckBox', Id: 'ConnectionInfoIntegratedSecurity', DataField: 'IntegratedSecurity'}}"></div>
+                    <div class="tp-CheckBoxRow" data-field="TrustServerCertificate" data-default-text="Trust Server Certificate" data-setup="{Text: 'Trust Server Certificate', Control: {TypeName: 'CheckBox', Id: 'ConnectionInfoTrustServerCertificate', DataField: 'TrustServerCertificate'}}"></div>
+                </div>
+            </div>
+            <div>
+                <div class="app-connection-preview">
+                    <textarea class="tp-Memo" data-field="ConnectionString" data-role="connection-string" data-setup="{Rows: 16, ReadOnly: true, Resizable: false, WordWrap: true}"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-dialog-message" data-role="message"></div>
+</div>

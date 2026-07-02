@@ -134,6 +134,14 @@ static public partial class App
         WebFormDef Form = WebDeskRegistry.AddOrUpdateForm("MainDashboard", TitleKey: "Dashboard", Module: string.Empty, ViewName: "/Views/WebForms/MainDashboard.cshtml", Group: "General", IsReadOnly: true);
         Form.IsCustom = true;
         Form.JsFormClassType = "app.MainDashboardForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/main-dashboard-form.js"))
+            Form.JavaScriptFiles.Add("/js/forms/main-dashboard-form.js");
+
+        Form = WebDeskRegistry.AddOrUpdateForm("CommandTreeView", TitleKey: "Commands", Module: string.Empty, ViewName: "/Views/WebForms/CommandTreeView.cshtml", Group: "General", IsReadOnly: true);
+        Form.IsCustom = true;
+        Form.JsFormClassType = "app.CommandTreeViewForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/command-tree-view-form.js"))
+            Form.JavaScriptFiles.Add("/js/forms/command-tree-view-form.js");
     }
     /// <summary>
     /// Registers Ajax request handlers.

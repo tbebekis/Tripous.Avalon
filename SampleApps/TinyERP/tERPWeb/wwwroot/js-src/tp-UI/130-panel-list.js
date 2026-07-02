@@ -329,3 +329,5 @@ tp.PanelList.prototype.fSelectedIndexListener = null;
  * @type {string}
  */
 tp.PanelList.prototype.tpClass = "tp.PanelList";
+
+tp.Ui.RegisterType(["PanelList", "tp-PanelList"], tp.PanelList);

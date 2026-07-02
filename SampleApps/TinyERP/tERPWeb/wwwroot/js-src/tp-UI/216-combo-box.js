@@ -162,7 +162,8 @@ tp.ComboBox = class extends tp.ListControl {
             this.fButton.removeEventListener("click", this.fButtonClickHandler, false);
         if (this.fContainer) {
             this.fContainer.removeEventListener("click", this.fContainerClickHandler, false);
-            this.fDropDownBox.Handle.removeEventListener("keydown", this.fContainerKeyDownHandler, false);
+            if (this.fDropDownBox && this.fDropDownBox.Handle)
+                this.fDropDownBox.Handle.removeEventListener("keydown", this.fContainerKeyDownHandler, false);
         }
         if (this.fDropDownBox) {
             this.fDropDownBox.Dispose();

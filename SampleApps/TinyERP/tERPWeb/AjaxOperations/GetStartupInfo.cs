@@ -31,6 +31,7 @@ public class GetStartupInfo: AppAjaxOperation
         Result["UseUsers"] = UsersEnabled;
         Result["RequiresFirstRun"] = FirstRunRequired;
         Result["SupportedCultures"] = DataLib.SupportedCultures;
+        Result["SampleDataVersions"] = SampleData.GetNotAdded().Select(item => item.VersionNumber).ToArray();
         if (FirstRunRequired)
             Result["FirstRunHtml"] = Context.ViewToStringConverter.ViewToString("/Views/Home/_FirstRunDialog.cshtml");
         else if (UsersEnabled && (Sys.Context == null || Sys.Context.CurrentUser == null))

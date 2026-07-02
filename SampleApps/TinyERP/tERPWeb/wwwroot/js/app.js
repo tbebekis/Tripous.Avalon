@@ -4,630 +4,6 @@
  */
 var app = {};
 
-// ● command tree view
-/**
- * Displays application commands in a tree view.
- *
- * Events:
- * - Disposing
- * - Disposed
- * - ParentChanged
- * - EnabledChanged
- * - VisibleChanged
- * - ElementSizeChanged
- * - SizeModeChanged
- */
-app.CommandTreeView = class extends tp.Component {
-    // ● constructor
-    /**
-     * Creates a command tree view.
-     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
-     */
-    constructor(CreateParams) {
-        super(CreateParams);
-    }
-
-    // ● protected
-    /**
-     * Notification called after handle creation.
-     * @returns {void}
-     */
-    OnHandleCreated() {
-        super.OnHandleCreated();
-        tp.AddClass(this.Handle, "app-command-tree-view");
-    }
-    /**
-     * Initializes instance fields.
-     * @returns {void}
-     */
-    InitializeFields() {
-        super.InitializeFields();
-        /**
-         * The commands displayed by this view.
-         * @type {tp.DefList|null}
-         */
-        this.Commands = null;
-        /**
-         * The view toolbar.
-         * @type {tp.ToolBar|null}
-         */
-        this.ToolBar = null;
-        /**
-         * The tree view.
-         * @type {tp.TreeView|null}
-         */
-        this.TreeView = null;
-        /**
-         * The selected tree node.
-         * @type {tp.TreeNode|null}
-         */
-        this.SelectedNode = null;
-    }
-    /**
-     * Notification called after field initialization and before create params are applied.
-     * @protected
-     * @returns {void}
-     */
-    OnFieldsInitialized() {
-        super.OnFieldsInitialized();
-        this.CreateControls();
-    }
-    /**
-     * Applies explicit create params to this component.
-     * @param {tp.CreateParams|object|null|undefined} Params The create params to apply.
-     * @returns {void}
-     */
-    ApplyCreateParams(Params) {
-        super.ApplyCreateParams(Params);
-        if (Params && Params.Commands instanceof tp.DefList)
-            this.Commands = Params.Commands;
-        this.CreateTreeViewNodes();
-    }
-    /**
-     * Creates the toolbar and tree view.
-     * @returns {void}
-     */
-    CreateControls() {
-        var ToolBarElement = this.Document.createElement("div");
-        var TreeElement = this.Document.createElement("div");
-        var Button;
-        this.Handle.appendChild(ToolBarElement);
-        this.Handle.appendChild(TreeElement);
-        this.ToolBar = new tp.ToolBar(ToolBarElement);
-        tp.AddClass(this.ToolBar.Handle, "app-command-tree-toolbar");
-        Button = this.ToolBar.AddButton("Expand", "Expand", "Expand", "", "", false);
-        Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_out.png" });
-        Button = this.ToolBar.AddButton("Collapse", "Collapse", "Collapse", "", "", false);
-        Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_in.png" });
-        Button = this.ToolBar.AddButton("Execute", "Execute", "Execute", "", "", false);
-        Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "lightning.png" });
-        this.ToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
-        this.TreeView = new tp.TreeView(TreeElement);
-        tp.AddClass(this.TreeView.Handle, "app-command-tree");
-        this.TreeView.On("NodeClick", this.HandleNodeClick, this);
-        this.TreeView.On("NodeDoubleClick", this.HandleNodeDoubleClick, this);
-    }
-    /**
-     * Handles toolbar button clicks.
-     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
-     * @returns {void}
-     */
-    HandleToolBarButtonClick(Args) {
-        if (!Args)
-            return;
-        if (Args.Command === "Expand")
-            this.ExpandAll();
-        else if (Args.Command === "Collapse")
-            this.CollapseAll();
-        else if (Args.Command === "Execute")
-            this.ExecuteSelectedCommand();
-    }
-    /**
-     * Handles tree node clicks.
-     * @param {tp.TreeViewEventArgs} Args The event arguments.
-     * @returns {void}
-     */
-    HandleNodeClick(Args) {
-        this.SelectedNode = Args ? Args.Node : null;
-    }
-    /**
-     * Handles tree node double clicks.
-     * @param {tp.TreeViewEventArgs} Args The event arguments.
-     * @returns {void}
-     */
-    HandleNodeDoubleClick(Args) {
-        this.SelectedNode = Args ? Args.Node : null;
-        this.ExecuteSelectedCommand();
-    }
-    /**
-     * Creates the tree view nodes.
-     * @returns {void}
-     */
-    CreateTreeViewNodes() {
-        var Index;
-        var Command;
-        if (!this.TreeView)
-            return;
-        this.TreeView.Clear();
-        this.SelectedNode = null;
-        if (!(this.Commands instanceof tp.DefList))
-            return;
-        for (Index = 0; Index < this.Commands.Count; Index++) {
-            Command = this.Commands.Items[Index];
-            this.AddCommandNode(this.TreeView, Command);
-        }
-        this.TreeView.CollapseAll();
-    }
-    /**
-     * Adds a command node to a tree node or tree view.
-     * @param {tp.TreeView|tp.TreeNode} Parent The parent tree item.
-     * @param {tp.Command} Command The command.
-     * @returns {tp.TreeNode|null} Returns the created node.
-     */
-    AddCommandNode(Parent, Command) {
-        var Node;
-        var ImageUrl;
-        var Index;
-        var ChildCommand;
-        if (!(Parent instanceof tp.TreeView || Parent instanceof tp.TreeNode) || !(Command instanceof tp.Command))
-            return null;
-        if (Command.HasChildren && Command.Commands.Count === 0)
-            return null;
-        Node = Parent.AddNode(Command.Title);
-        Node.Tag = Command.HasChildren ? null : Command;
-        Node.ToolTip = Command.Title;
-        if (Command.HasChildren) {
-            ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "folder16.png" });
-            if (!tp.IsBlankString(ImageUrl))
-                Node.ImageUrl = ImageUrl;
-            else
-                Node.IcoClasses = "fa fa-folder";
-            for (Index = 0; Index < Command.Commands.Count; Index++) {
-                ChildCommand = Command.Commands.Items[Index];
-                this.AddCommandNode(Node, ChildCommand);
-            }
-        } else {
-            ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "item16.png" });
-            if (!tp.IsBlankString(ImageUrl))
-                Node.ImageUrl = ImageUrl;
-            else
-                Node.IcoClasses = app.App.GetCommandIconClasses(Command);
-        }
-        return Node;
-    }
-
-    // ● public
-    /**
-     * Expands all tree nodes.
-     * @returns {void}
-     */
-    ExpandAll() {
-        if (this.TreeView)
-            this.TreeView.ExpandAll();
-    }
-    /**
-     * Collapses all tree nodes.
-     * @returns {void}
-     */
-    CollapseAll() {
-        if (this.TreeView)
-            this.TreeView.CollapseAll();
-    }
-    /**
-     * Executes the selected command.
-     * @returns {void}
-     */
-    ExecuteSelectedCommand() {
-        var Command = this.SelectedNode instanceof tp.TreeNode ? this.SelectedNode.Tag : null;
-        if (Command instanceof tp.Command)
-            app.App.ExecuteCommand(Command);
-    }
-    /**
-     * Refreshes tree nodes from the current command list.
-     * @returns {void}
-     */
-    Refresh() {
-        this.CreateTreeViewNodes();
-    }
-};
-
-// ● main dashboard form
-/**
- * Displays the tERP dashboard.
- *
- * Events:
- * - Disposing
- * - Disposed
- * - ParentChanged
- * - EnabledChanged
- * - VisibleChanged
- * - ElementSizeChanged
- * - SizeModeChanged
- */
-app.MainDashboardForm = class extends tp.WebForm {
-    // ● constructor
-    /**
-     * Creates the main dashboard form.
-     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
-     */
-    constructor(CreateParams) {
-        super(CreateParams);
-    }
-
-    // ● protected
-    /**
-     * Notification called after handle creation.
-     * @returns {void}
-     */
-    OnHandleCreated() {
-        super.OnHandleCreated();
-        tp.AddClass(this.Handle, "app-dashboard");
-    }
-    /**
-     * Initializes instance fields.
-     * @returns {void}
-     */
-    InitializeFields() {
-        super.InitializeFields();
-        /**
-         * The dashboard toolbar.
-         * @type {tp.ToolBar|null}
-         */
-        this.ToolBar = null;
-        /**
-         * The dashboard tab control.
-         * @type {tp.TabControl|null}
-         */
-        this.TabControl = null;
-        /**
-         * KPI value elements keyed by metric name.
-         * @type {object}
-         */
-        this.MetricElements = {};
-        /**
-         * The customers grid.
-         * @type {tp.Grid|null}
-         */
-        this.CustomersGrid = null;
-        /**
-         * The suppliers grid.
-         * @type {tp.Grid|null}
-         */
-        this.SuppliersGrid = null;
-        /**
-         * The stock grid.
-         * @type {tp.Grid|null}
-         */
-        this.StockGrid = null;
-    }
-    /**
-     * Notification called after field initialization.
-     * @returns {void}
-     */
-    OnFieldsInitialized() {
-        super.OnFieldsInitialized();
-        this.CreateControls();
-    }
-    /**
-     * Creates the dashboard controls.
-     * @returns {void}
-     */
-    CreateControls() {
-        var ToolBarElement = this.Handle.querySelector("[data-role='toolbar']");
-        var TabElement = this.Handle.querySelector(".app-dashboard-tabs");
-        if (!ToolBarElement)
-            return;
-        this.ToolBar = new tp.ToolBar(ToolBarElement);
-        tp.AddClass(this.ToolBar.Handle, "app-dashboard-toolbar");
-        this.AddToolBarButton("Refresh", "table_refresh.png");
-        this.AddToolBarButton("Close", "door_out.png");
-        this.ToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
-        this.CollectMetrics();
-        this.CreateGrids(TabElement);
-    }
-    /**
-     * Adds a toolbar button.
-     * @param {string} Command The command.
-     * @param {string} ImageFileName The image file name.
-     * @returns {void}
-     */
-    AddToolBarButton(Command, ImageFileName) {
-        var Button = this.ToolBar.AddButton(Command, Command, Command, "", "", false);
-        Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: ImageFileName });
-    }
-    /**
-     * Collects KPI metric value elements.
-     * @returns {void}
-     */
-    CollectMetrics() {
-        var Elements = this.Handle.querySelectorAll("[data-metric]");
-        var Index;
-        var Element;
-        this.MetricElements = {};
-        for (Index = 0; Index < Elements.length; Index++) {
-            Element = Elements[Index];
-            this.MetricElements[Element.dataset.metric] = Element;
-        }
-    }
-    /**
-     * Creates the grid tab control.
-     * @param {HTMLElement} TabElement The tab control element.
-     * @returns {void}
-     */
-    CreateGrids(TabElement) {
-        var TabControl;
-        var Page;
-        if (!(TabElement instanceof HTMLElement))
-            return;
-        this.TabControl = new tp.TabControl(TabElement);
-        TabControl = this.TabControl;
-        Page = TabControl.AddPage("Top Customers");
-        this.CustomersGrid = this.CreateGrid(Page.Handle);
-        Page = TabControl.AddPage("Top Suppliers");
-        this.SuppliersGrid = this.CreateGrid(Page.Handle);
-        Page = TabControl.AddPage("Stock Snapshot");
-        this.StockGrid = this.CreateGrid(Page.Handle);
-    }
-    /**
-     * Creates a readonly dashboard grid.
-     * @param {HTMLElement} Parent The parent element.
-     * @returns {tp.Grid} Returns the grid.
-     */
-    CreateGrid(Parent) {
-        var Element = this.Document.createElement("div");
-        var Grid;
-        Parent.appendChild(Element);
-        tp.AddClass(Element, "app-dashboard-grid");
-        Grid = new tp.Grid({
-            ElementOrSelector: Element,
-            ReadOnly: true,
-            AutoGenerateColumns: true,
-            ToolBarVisible: false,
-            GroupsVisible: false,
-            FilterVisible: false,
-            FooterVisible: false
-        });
-        return Grid;
-    }
-    /**
-     * Handles toolbar button clicks.
-     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
-     * @returns {void}
-     */
-    HandleToolBarButtonClick(Args) {
-        if (!Args)
-            return;
-        if (Args.Command === "Refresh")
-            this.Refresh();
-        else if (Args.Command === "Close")
-            this.Close();
-    }
-
-    // ● public
-    /**
-     * Refreshes dashboard data.
-     * @returns {Promise<void>} Returns a Promise.
-     */
-    async LoadDataAsync() {
-        var Packet = await app.App.GetMainDashboardDataAsync();
-        this.SetMetrics(new tp.DataTable(Packet.Metrics));
-        this.CustomersGrid.DataSource = new tp.DataTable(Packet.Customers);
-        this.SuppliersGrid.DataSource = new tp.DataTable(Packet.Suppliers);
-        this.StockGrid.DataSource = new tp.DataTable(Packet.Stock);
-        if (tp.LogBox)
-            tp.LogBox.AppendLine("Dashboard refreshed.");
-    }
-    /**
-     * Refreshes dashboard data without throwing.
-     * @returns {void}
-     */
-    Refresh() {
-        this.LoadData();
-    }
-    /**
-     * Sets KPI metric values.
-     * @param {tp.DataTable} Table The metric table.
-     * @returns {void}
-     */
-    SetMetrics(Table) {
-        var Formatter = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        var Index;
-        var Row;
-        var Name;
-        var Value;
-        if (!(Table instanceof tp.DataTable))
-            return;
-        for (Index = 0; Index < Table.Rows.length; Index++) {
-            Row = Table.Rows[Index];
-            Name = Row.Get("Name");
-            Value = Row.Get("Value", 0);
-            if (this.MetricElements[Name])
-                this.MetricElements[Name].textContent = Formatter.format(Number(Value || 0));
-        }
-    }
-    /**
-     * Closes the dashboard tab.
-     * @returns {void}
-     */
-    Close() {
-        super.Close();
-    }
-};
-
-// ● web form page handler
-/**
- * Opens and closes WebDesk form pages in the workspace tab control.
- */
-app.WebFormPageHandler = class {
-    // ● constructor
-    /**
-     * Creates a web form page handler.
-     * @param {app.MainPage} MainPage The main page.
-     */
-    constructor(MainPage) {
-        /**
-         * The owner main page.
-         * @type {app.MainPage}
-         */
-        this.MainPage = MainPage;
-    }
-
-    // ● protected
-    /**
-     * Returns the workspace tab control.
-     * @returns {tp.TabControl|null} Returns the workspace tab control.
-     */
-    GetTabControl() {
-        return this.MainPage ? this.MainPage.WorkspaceTabControl : null;
-    }
-    /**
-     * Finds the root element of a web form inside a tab page.
-     * @param {tp.TabPage} Page The tab page.
-     * @returns {HTMLElement|null} Returns the form element or null.
-     */
-    FindFormElement(Page) {
-        var Index;
-        var Element;
-        var Children = Page.Handle ? Page.Handle.children : [];
-        for (Index = 0; Index < Children.length; Index++) {
-            Element = Children[Index];
-            if (Element instanceof HTMLElement)
-                return Element;
-        }
-        return null;
-    }
-    /**
-     * Creates a web form context for a tab page.
-     * @param {tp.TabPage} Page The tab page.
-     * @param {object} Form The server form packet.
-     * @param {object} Packet The server packet.
-     * @returns {tp.WebFormContext} Returns the web form context.
-     */
-    CreateFormContext(Page, Form, Packet) {
-        return new tp.WebFormContext({
-            FormId: Form.Name,
-            ClassName: Form.JsFormClassType,
-            DisplayMode: tp.WebFormDisplayMode.TabPage,
-            ParentControl: Page,
-            Title: !tp.IsBlankString(Form.Title) ? Form.Title : Form.Name,
-            WebFormDef: Form,
-            Packet: Packet,
-            CssFiles: Form.CssFiles || [],
-            JavaScriptFiles: Form.JavaScriptFiles || []
-        });
-    }
-    /**
-     * Creates the client component that handles a web form page.
-     * @param {tp.TabPage} Page The tab page.
-     * @param {tp.WebFormContext} Context The web form context.
-     * @returns {Promise<tp.WebForm>} Returns a Promise resolving with the client form component.
-     */
-    async CreateFormComponent(Page, Context) {
-        var Element = this.FindFormElement(Page);
-        if (!(Element instanceof HTMLElement))
-            throw new Error("WebForm root element not found: " + Context.FormId);
-        return await Context.CreateForm(Element);
-    }
-    /**
-     * Handles a web form close request.
-     * @param {tp.EventArgs} Args The event arguments.
-     * @returns {void}
-     */
-    HandleFormCloseRequested(Args) {
-        if (Args && Args.Context instanceof tp.WebFormContext && Args.Context.ParentControl instanceof tp.TabPage)
-            this.ClosePage(Args.Context.ParentControl);
-    }
-
-    // ● public
-    /**
-     * Finds a workspace page by web form name.
-     * @param {string} WebFormName The web form name.
-     * @returns {tp.TabPage|null} Returns the tab page or null.
-     */
-    FindPage(WebFormName) {
-        return this.MainPage ? this.MainPage.FindWorkspacePage(WebFormName) : null;
-    }
-    /**
-     * Opens a WebDesk form page.
-     * @param {string} WebFormName The web form name.
-     * @returns {Promise<tp.TabPage|null>} Returns a Promise with the opened page.
-     */
-    async OpenAsync(WebFormName) {
-        var TabControl = this.GetTabControl();
-        var Page;
-        var Packet;
-        var Form;
-        var Component;
-        var Context;
-        if (!TabControl || tp.IsBlankString(WebFormName))
-            return null;
-        Page = this.FindPage(WebFormName);
-        if (Page) {
-            TabControl.SelectedPage = Page;
-            if (Page.AppComponent instanceof tp.WebForm)
-                Page.AppComponent.LoadData();
-            else if (Page.AppComponent && tp.IsFunction(Page.AppComponent.Refresh))
-                Page.AppComponent.Refresh();
-            return Page;
-        }
-        Packet = await app.App.GetWebFormAsync(WebFormName);
-        Form = Packet ? Packet.Form : null;
-        if (!Form)
-            throw new Error("WebForm not returned: " + WebFormName);
-        Page = TabControl.AddPage(!tp.IsBlankString(Form.Title) ? Form.Title : Form.Name);
-        Page.AppPageName = Form.Name;
-        Page.AppPageHandler = this;
-        Page.Handle.innerHTML = Form.Html || "";
-        Context = this.CreateFormContext(Page, Form, Packet);
-        Page.AppContext = Context;
-        Component = await this.CreateFormComponent(Page, Context);
-        Component.On("CloseRequested", this.HandleFormCloseRequested, this);
-        Page.AppComponent = Component;
-        if (Component instanceof tp.WebForm)
-            Component.LoadData();
-        else if (Component && tp.IsFunction(Component.Refresh))
-            Component.Refresh();
-        return Page;
-    }
-    /**
-     * Opens a WebDesk form page and logs failures without throwing.
-     * @param {string} WebFormName The web form name.
-     * @returns {void}
-     */
-    Open(WebFormName) {
-        this.OpenAsync(WebFormName).catch(function (e) {
-            var Text = "Open web form failed: " + tp.ExceptionText(e);
-            if (tp.LogBox)
-                tp.LogBox.AppendLine(Text);
-            if (app.App.MainPage && app.App.MainPage.StatusBar)
-                app.App.MainPage.StatusBar.Message = Text;
-        });
-    }
-    /**
-     * Closes a web form page.
-     * @param {tp.TabPage|null|undefined} Page The page to close.
-     * @returns {void}
-     */
-    ClosePage(Page) {
-        var TabControl = this.GetTabControl();
-        var Component;
-        if (!(TabControl && Page instanceof tp.TabPage))
-            return;
-        Component = Page.AppComponent;
-        if (Component instanceof tp.WebForm && !Component.IsClosing) {
-            if (Component.ClosableByUser)
-                Component.CloseForm();
-            return;
-        }
-        if (Component instanceof tp.Component) {
-            Component.Dispose();
-            Page.AppComponent = null;
-        }
-        Page.AppContext = null;
-        TabControl.RemovePage(Page);
-    }
-};
-
 // ● main page
 /**
  * Represents the main application shell page.
@@ -700,14 +76,19 @@ app.MainPage = class extends tp.Component {
         this.StatusBar = null;
         /**
          * Command tree view.
-         * @type {app.CommandTreeView|null}
+         * @type {app.CommandTreeViewForm|null}
          */
         this.CommandTreeView = null;
         /**
          * Workspace web form page handler.
-         * @type {app.WebFormPageHandler|null}
+         * @type {tp.WebFormPageHandler|null}
          */
         this.PageHandler = null;
+        /**
+         * Left sidebar web form page handler.
+         * @type {tp.WebFormPageHandler|null}
+         */
+        this.SideBarHandler = null;
     }
     /**
      * Creates child controls and stores useful shell element references.
@@ -736,6 +117,18 @@ app.MainPage = class extends tp.Component {
         this.PopulateToolBar();
         this.MainToolBar.On("ButtonClick", this.HandleToolBarButtonClick, this);
         this.LeftTabControl = new tp.TabControl("#LeftTabControl");
+        this.SideBarHandler = new tp.WebFormPageHandler({
+            TabControl: this.LeftTabControl,
+            GetWebFormFunc: function (WebFormName) {
+                return app.App.GetWebFormAsync(WebFormName);
+            },
+            ErrorFunc: function (Text) {
+                if (tp.LogBox)
+                    tp.LogBox.AppendLine(Text);
+                if (app.App.MainPage && app.App.MainPage.StatusBar)
+                    app.App.MainPage.StatusBar.Message = Text;
+            }
+        });
         this.PopulateLeftSideBar();
         this.MainSplitter = new tp.Splitter("#MainSplitter");
         this.MainSplitter.Panel1MinSize = 40;
@@ -745,7 +138,18 @@ app.MainPage = class extends tp.Component {
             CanClosePages: true,
             CanReorderPages: true
         });
-        this.PageHandler = new app.WebFormPageHandler(this);
+        this.PageHandler = new tp.WebFormPageHandler({
+            TabControl: this.WorkspaceTabControl,
+            GetWebFormFunc: function (WebFormName) {
+                return app.App.GetWebFormAsync(WebFormName);
+            },
+            ErrorFunc: function (Text) {
+                if (tp.LogBox)
+                    tp.LogBox.AppendLine(Text);
+                if (app.App.MainPage && app.App.MainPage.StatusBar)
+                    app.App.MainPage.StatusBar.Message = Text;
+            }
+        });
         this.WorkspaceTabControl.On("PageCloseRequested", this.HandleWorkspacePageCloseRequested, this);
         this.LogSplitter = new tp.Splitter("#LogSplitter");
         this.LogSplitter.IsHorizontal = true;
@@ -755,12 +159,13 @@ app.MainPage = class extends tp.Component {
             ElementOrSelector: "#MainStatusBar",
             Items: [
                 { Name: "Application", Text: app.App.GetApplicationName(), Width: "200px", TextAlign: "left" },
-                { Name: "User", Text: "User: Admin", Width: "200px", TextAlign: "center" },
-                { Name: "Role", Text: "Role: Admin", Width: "240px", TextAlign: "center" },
+                { Name: "User", Text: "User: ", Width: "200px", TextAlign: "center" },
+                { Name: "Role", Text: "Role: ", Width: "240px", TextAlign: "center" },
                 { Name: "Message", Text: "Ready", Width: "1fr", TextAlign: "center" }
             ],
             DefaultItemName: "Message"
         });
+        this.UpdateStatusInfo(app.App.StartupInfo);
     }
     /**
      * Initializes the log target.
@@ -882,22 +287,34 @@ app.MainPage = class extends tp.Component {
         this.LoadWebFormsAsync();
     }
     /**
+     * Updates user-related status bar items.
+     * @param {object|null|undefined} Info The startup/current user information.
+     * @returns {void}
+     */
+    UpdateStatusInfo(Info) {
+        Info = Info || {};
+        if (!this.StatusBar)
+            return;
+        this.StatusBar.SetText("Application", app.App.GetApplicationName());
+        this.StatusBar.SetText("User", "User: " + (Info.UserName || ""));
+        this.StatusBar.SetText("Role", "Role: " + (Info.UserLevel || ""));
+    }
+    /**
      * Populates the left side bar tab control.
      * @returns {void}
      */
     PopulateLeftSideBar() {
-        var Page;
-        var ViewElement;
-        if (!this.LeftTabControl)
+        var Self = this;
+        if (!this.SideBarHandler)
             return;
-        Page = this.LeftTabControl.AddPage("Commands");
-        if (!Page)
-            return;
-        ViewElement = this.Document.createElement("div");
-        Page.Handle.appendChild(ViewElement);
-        this.CommandTreeView = new app.CommandTreeView({
-            ElementOrSelector: ViewElement,
-            Commands: app.App.MenuCommands
+        this.SideBarHandler.OpenAsync("CommandTreeView").then(function (Page) {
+            Self.CommandTreeView = Page && Page.AppComponent instanceof tp.WebForm ? Page.AppComponent : null;
+        }).catch(function (e) {
+            var Text = "Open sidebar failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (Self.StatusBar)
+                Self.StatusBar.Message = Text;
         });
     }
     /**
@@ -946,6 +363,8 @@ app.MainPage = class extends tp.Component {
         var IsVisible = this.LogPanel.style.display !== "none";
         this.LogPanel.style.display = IsVisible ? "none" : "";
         this.LogSplitter.Handle.style.display = IsVisible ? "none" : "";
+        if (this.StatusBar)
+            this.StatusBar.Message = IsVisible ? "Log hidden." : "Log visible.";
     }
 
     // ● properties
@@ -1055,24 +474,38 @@ app.App = {
             return;
 
         var cmdDashboard = new tp.Command({ Name: "Dashboard", ImageFileName: "chart_bar.png", Form: "MainDashboard", Type: "Ui", IsSingleInstance: true });
-        var cmdAppFolder = new tp.Command({ Name: "ShowAppFolder", ImageFileName: "folder.png" });
         var cmdApplicationSettings = new tp.Command({ Name: "Application Settings", ImageFileName: "setting_tools.png" });
         var cmdChangePassword = new tp.Command({ Name: "Change Password", ImageFileName: "change_password.png" });
         var cmdConnectionInfo = new tp.Command({ Name: "ConnectionInfo", ImageFileName: "database_edit.png" });
         var cmdRegenerateDatabase = new tp.Command({ Name: "Regenerate Database", ImageFileName: "database_refresh.png" });
+        var cmdClose = new tp.Command({ Name: "Close", ImageFileName: "door_out.png" });
         var cmdClearLog = new tp.Command({ Name: "Clear Log", ImageFileName: "bin.png" });
         var cmdToggleLog = new tp.Command({ Name: "Toggle Log", ImageFileName: "error_log.png" });
         var cmdToggleLogSqlStatements = new tp.Command({ Name: "Log Sql", ImageFileName: "file_extension_log.png", IsToggle: true });
         var cmdPing = new tp.Command({ Name: "App.Ping", Title: "Ping", ImageFileName: "lightning.png" });
         var cmdGeneral = new tp.Command("General");
 
-        cmdGeneral.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase]);
+        cmdGeneral.AddRange([cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdClose]);
         this.MenuCommands.Add(cmdGeneral);
-        this.ToolBarCommands.AddRange([cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing]);
+        this.ToolBarCommands.AddRange([cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing, cmdClose]);
         this.CommandsRegistered = true;
     },
 
     // ● startup
+    /**
+     * Shows or hides the startup Login button.
+     * @param {boolean} Flag True to show the button.
+     * @returns {void}
+     */
+    SetStartupLoginVisible: function (Flag) {
+        var Element = tp("#AppStartupLoginButton");
+        if (Element) {
+            if (Flag === true)
+                tp.AddClass(Element, tp.Classes.Visible);
+            else
+                tp.RemoveClass(Element, tp.Classes.Visible);
+        }
+    },
     /**
      * Updates the startup page message.
      * @param {string} Text The message text.
@@ -1082,6 +515,20 @@ app.App = {
         var Element = tp("#AppStartupMessage");
         if (Element)
             Element.textContent = Text;
+    },
+    /**
+     * Shows or hides the startup progress indicator.
+     * @param {boolean} Flag True to show the progress indicator.
+     * @returns {void}
+     */
+    SetStartupBusy: function (Flag) {
+        var Element = tp("#AppStartupProgress");
+        if (Element) {
+            if (Flag === true)
+                tp.AddClass(Element, tp.Classes.Visible);
+            else
+                tp.RemoveClass(Element, tp.Classes.Visible);
+        }
     },
     /**
      * Returns the application name.
@@ -1105,89 +552,81 @@ app.App = {
             this.ApplicationName = this.StartupInfo.ApplicationName;
         return this.StartupInfo;
     },
+    /**
+     * Returns a user message for missing sample data versions.
+     * @param {number[]} Versions The missing sample data versions.
+     * @returns {string} Returns the message.
+     */
+    GetSampleDataMessage: function (Versions) {
+        var Text = "The following versions of sample data are not added to the database yet.\n\n";
+        Text += Versions.join("\n");
+        Text += "\n\nDo you want to add those versions of sample data to the database?";
+        return Text;
+    },
+    /**
+     * Adds missing sample data versions.
+     * @returns {Promise<object>} Returns the operation packet.
+     */
+    AddSampleDataAsync: async function () {
+        return await tp.AjaxRequest.ExecuteAsync("App.AddSampleData");
+    },
+    /**
+     * Ensures the user has a chance to add missing sample data before opening the main page.
+     * @param {object} Info The startup information.
+     * @returns {Promise<boolean>} Returns true when startup may continue.
+     */
+    EnsureSampleDataAsync: async function (Info) {
+        var Versions = Info && tp.IsArray(Info.SampleDataVersions) ? Info.SampleDataVersions : [];
+        var Confirmed;
+        var Packet;
+        var Message;
+
+        if (Versions.length === 0)
+            return true;
+
+        this.SetStartupMessage("Sample data is missing.");
+        Confirmed = await tp.YesNoBoxAsync(this.GetSampleDataMessage(Versions));
+        if (Confirmed !== true) {
+            this.SetStartupMessage("Sample data was not added.");
+            return true;
+        }
+
+        this.SetStartupMessage("Adding sample data. Please wait...");
+        this.SetStartupBusy(true);
+        try {
+            Packet = await this.AddSampleDataAsync();
+        } finally {
+            this.SetStartupBusy(false);
+        }
+        Message = Packet && Packet.Message ? Packet.Message : "Sample data added.";
+        if (Packet && Packet.Success === true) {
+            if (tp.IsFunction(tp.SuccessNote))
+                tp.SuccessNote(Message);
+            this.SetStartupMessage(Message);
+            return true;
+        }
+
+        if (tp.IsFunction(tp.ErrorNote))
+            tp.ErrorNote(Message);
+        this.SetStartupMessage(Message);
+        return false;
+    },
 
     // ● dialogs
-    /**
-     * Sets the message text of a startup dialog.
-     * @param {tp.Window} Window The dialog window.
-     * @param {string} Text The message text.
-     * @returns {void}
-     */
-    SetStartupDialogMessage: function (Window, Text) {
-        var Element = Window && Window.Handle ? Window.Handle.querySelector("[data-role='message']") : null;
-        if (Element)
-            Element.textContent = Text || "";
-    },
-    /**
-     * Collects values from a startup dialog.
-     * @param {tp.Window} Window The dialog window.
-     * @returns {object} Returns a value object.
-     */
-    CollectStartupDialogData: function (Window) {
-        var Result = {};
-        var Elements = Window && Window.Handle ? Window.Handle.querySelectorAll("input[name], select[name]") : [];
-        var Index;
-        var Element;
-        for (Index = 0; Index < Elements.length; Index++) {
-            Element = Elements[Index];
-            Result[Element.name] = Element.value;
-        }
-        return Result;
-    },
-    /**
-     * Handles startup dialog key presses.
-     * @param {KeyboardEvent} e The keyboard event.
-     * @param {tp.Window} Window The dialog window.
-     * @returns {void}
-     */
-    HandleStartupDialogKeyDown: function (e, Window) {
-        if (tp.IsKey(e, tp.Keys.Enter)) {
-            e.preventDefault();
-            Window.DialogResult = tp.DialogResult.OK;
-        }
-    },
-    /**
-     * Shows a startup dialog as a modal content window.
-     * @param {string} Html The dialog HTML.
-     * @param {string} Title The dialog title.
-     * @param {number} Width The dialog width.
-     * @param {number} Height The dialog height.
-     * @param {string} Message The message text.
-     * @returns {Promise<object|null>} Returns dialog data or null when cancelled.
-     */
-    ShowStartupDialogAsync: async function (Html, Title, Width, Height, Message) {
-        var Self = this;
-        var Args = {
-            Text: Title,
-            Width: Width,
-            Height: Height,
-            ResizeEdges: tp.Edge.None,
-            InitialFocusSelector: "input[autofocus], input",
-            ShowFunc: function (Window) {
-                Self.SetStartupDialogMessage(Window, Message);
-                Window.StartupDialogKeyDownHandler = function (e) {
-                    Self.HandleStartupDialogKeyDown(e, Window);
-                };
-                Window.Handle.addEventListener("keydown", Window.StartupDialogKeyDownHandler);
-            },
-            CloseFunc: function (Window) {
-                if (Window.StartupDialogKeyDownHandler)
-                    Window.Handle.removeEventListener("keydown", Window.StartupDialogKeyDownHandler);
-                if (Window.DialogResult === tp.DialogResult.OK)
-                    Window.ResultData = Self.CollectStartupDialogData(Window);
-            }
-        };
-        var Window = await tp.ContentWindow.ShowModalAsync(Html, Args);
-        return Window.DialogResult === tp.DialogResult.OK ? Window.ResultData : null;
-    },
     /**
      * Shows the first run administrator dialog.
      * @param {object} Info The startup information.
      * @param {string} Message The message text.
      * @returns {Promise<object|null>} Returns dialog data or null.
      */
-    ShowFirstRunDialogAsync: function (Info, Message) {
-        return this.ShowStartupDialogAsync(Info.FirstRunHtml, "First Application Run", 420, 400, Message);
+    ShowFirstRunDialogAsync: async function (Info, Message) {
+        var Dialog = null;
+        try {
+            Dialog = await this.CreateServerDialogAsync(Info.FirstRunHtml || "");
+            return await Dialog.ShowAsync(Info, Message);
+        } finally {
+            this.ReleaseServerDialog(Dialog);
+        }
     },
     /**
      * Shows the login dialog.
@@ -1195,8 +634,45 @@ app.App = {
      * @param {string} Message The message text.
      * @returns {Promise<object|null>} Returns dialog data or null.
      */
-    ShowLoginDialogAsync: function (Info, Message) {
-        return this.ShowStartupDialogAsync(Info.LoginHtml, "Login", 400, 300, Message);
+    ShowLoginDialogAsync: async function (Info, Message) {
+        var Dialog = null;
+        try {
+            Dialog = await this.CreateServerDialogAsync(Info.LoginHtml || "");
+            return await Dialog.ShowAsync(Info, Message);
+        } finally {
+            this.ReleaseServerDialog(Dialog);
+        }
+    },
+    /**
+     * Opens the login dialog from the startup page.
+     * @param {object} Info The startup information.
+     * @param {string} Message The message text.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    StartupLoginAsync: async function (Info, Message) {
+        var DialogData = await this.ShowLoginDialogAsync(Info, Message);
+        var Packet;
+        var NoteText;
+        if (DialogData === null) {
+            this.SetStartupMessage("Login cancelled.");
+            this.SetStartupLoginVisible(true);
+            return;
+        }
+        Packet = await tp.AjaxRequest.ExecuteAsync("App.Login", DialogData);
+        Message = Packet && Packet.Message ? Packet.Message : "";
+        if (Packet && Packet.Success === true) {
+            NoteText = Message || "Login succeeded.";
+            if (tp.IsFunction(tp.SuccessNote))
+                tp.SuccessNote(NoteText);
+            this.SetStartupLoginVisible(false);
+            await this.OpenMainPageAfterStartupAsync();
+            return;
+        }
+        NoteText = Message || "Login failed.";
+        if (tp.IsFunction(tp.ErrorNote))
+            tp.ErrorNote(NoteText);
+        this.SetStartupMessage(NoteText);
+        this.SetStartupLoginVisible(true);
     },
 
     // ● startup flow
@@ -1240,28 +716,46 @@ app.App = {
                 }
 
                 if (Info.UseUsers === true && Info.IsAuthenticated !== true) {
-                    this.SetStartupMessage("Login is required.");
-                    DialogData = await this.ShowLoginDialogAsync(Info, Message);
-                    if (DialogData === null) {
-                        this.SetStartupMessage("Login cancelled.");
-                        return;
-                    }
-                    Packet = await tp.AjaxRequest.ExecuteAsync("App.Login", DialogData);
-                    Message = Packet && Packet.Message ? Packet.Message : "";
-                    if (Packet && Packet.Success === true) {
-                        Message = "";
-                        continue;
-                    }
-                    continue;
+                    this.SetStartupMessage(Message || "Login is required.");
+                    tp.On("#AppStartupLoginButton", tp.Events.Click, function () {
+                        app.App.SetStartupLoginVisible(false);
+                        app.App.StartupLoginAsync(Info, Message).catch(function (e) {
+                            app.App.SetStartupMessage("Startup failed: " + tp.ExceptionText(e));
+                            app.App.SetStartupLoginVisible(true);
+                        });
+                    });
+                    this.SetStartupLoginVisible(false);
+                    this.StartupLoginAsync(Info, Message).catch(function (e) {
+                        app.App.SetStartupMessage("Startup failed: " + tp.ExceptionText(e));
+                        app.App.SetStartupLoginVisible(true);
+                    });
+                    return;
                 }
 
-                this.SetStartupMessage("Opening main page...");
-                tp.NavigateTo("/Home/MainPage");
+                await this.OpenMainPageAfterStartupAsync(Info);
                 return;
             }
         } catch (e) {
             this.SetStartupMessage("Startup failed: " + tp.ExceptionText(e));
         }
+    },
+    /**
+     * Completes startup checks and opens the main page.
+     * @param {object|null|undefined} Info Optional startup information.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    OpenMainPageAfterStartupAsync: async function (Info) {
+        var CanContinue;
+
+        Info = Info || await this.LoadStartupInfoAsync();
+        CanContinue = await this.EnsureSampleDataAsync(Info);
+        if (CanContinue !== true)
+            return;
+
+        this.SetStartupMessage("Opening main page...");
+        setTimeout(function () {
+            tp.NavigateTo("/Home/MainPage");
+        }, 600);
     },
 
     // ● data
@@ -1298,6 +792,302 @@ app.App = {
      */
     GetMainDashboardDataAsync: async function () {
         return await tp.AjaxRequest.ExecuteAsync("App.MainDashboard.GetData");
+    },
+    /**
+     * Returns the application settings dialog HTML.
+     * @param {string} Scope The selected config scope.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    GetApplicationSettingsDialogAsync: async function (Scope) {
+        return await tp.AjaxRequest.ExecuteAsync("App.GetApplicationSettingsDialog", {
+            Scope: Scope || "User"
+        });
+    },
+    /**
+     * Returns the change password dialog HTML.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    GetChangePasswordDialogAsync: async function () {
+        return await tp.AjaxRequest.ExecuteAsync("App.GetChangePasswordDialog");
+    },
+    /**
+     * Returns the connection info dialog HTML and metadata.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    GetConnectionInfoDialogAsync: async function () {
+        return await tp.AjaxRequest.ExecuteAsync("App.GetConnectionInfoDialog");
+    },
+    /**
+     * Returns a connection string preview.
+     * @param {object} Data The connection info data.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    GetConnectionInfoPreviewAsync: async function (Data) {
+        return await tp.AjaxRequest.ExecuteAsync("App.GetConnectionInfoPreview", Data || {});
+    },
+    /**
+     * Tests database connection information.
+     * @param {object} Data The connection info data.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    TestConnectionInfoAsync: async function (Data) {
+        return await tp.AjaxRequest.ExecuteAsync("App.TestConnectionInfo", Data || {});
+    },
+    /**
+     * Changes the current user password.
+     * @param {object} Data The password data.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    ChangePasswordAsync: async function (Data) {
+        return await tp.AjaxRequest.ExecuteAsync("App.ChangePassword", Data || {});
+    },
+    /**
+     * Saves database connection information.
+     * @param {object} Data The connection info data.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    SaveConnectionInfoAsync: async function (Data) {
+        return await tp.AjaxRequest.ExecuteAsync("App.SaveConnectionInfo", Data || {});
+    },
+    /**
+     * Saves application settings.
+     * @param {string} Scope The selected config scope.
+     * @param {object} Values The settings values.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    SaveApplicationSettingsAsync: async function (Scope, Values) {
+        return await tp.AjaxRequest.ExecuteAsync("App.SaveApplicationSettings", {
+            Scope: Scope || "User",
+            Values: Values || {}
+        });
+    },
+    /**
+     * Logs out the current user.
+     * @returns {Promise<object>} Returns a Promise with the server packet.
+     */
+    LogoutAsync: async function () {
+        return await tp.AjaxRequest.ExecuteAsync("App.Logout");
+    },
+
+    // ● server dialogs
+    /**
+     * Creates a dialog helper from server-rendered dialog HTML.
+     * @param {string} Html The server-rendered dialog HTML.
+     * @returns {Promise<object>} Returns a Promise with the dialog helper instance.
+     */
+    CreateServerDialogAsync: async function (Html) {
+        var Element = tp.HtmlToElement(Html || "");
+        var Params;
+        var CssFiles;
+        var JavaScriptFiles;
+        var ClassName;
+        var Type;
+        var Dialog;
+
+        if (!(Element instanceof HTMLElement))
+            throw new Error("Cannot create server dialog. No root element found.");
+
+        Params = new tp.CreateParams(tp.GetDataSetupObject(Element) || {});
+        CssFiles = tp.IsArray(Params.CssFiles) ? Params.CssFiles : (tp.IsArray(Params.CSS) ? Params.CSS : []);
+        JavaScriptFiles = tp.IsArray(Params.JavaScriptFiles) ? Params.JavaScriptFiles : (tp.IsArray(Params.JS) ? Params.JS : []);
+        ClassName = Params.ClassName || Params.DialogClassName || Params.SetupClass || "";
+
+        await tp.StaticFiles.LoadCssFiles(CssFiles);
+        await tp.StaticFiles.LoadJavascriptFiles(JavaScriptFiles);
+
+        try {
+            Type = tp.WebForm.ResolveGlobalName(ClassName);
+            if (!tp.IsFunction(Type))
+                throw new Error("Cannot create server dialog. No JavaScript class type is specified.");
+            Dialog = new Type({
+                Html: Html,
+                RootElement: Element,
+                Params: Params,
+                CssFiles: CssFiles,
+                JavaScriptFiles: JavaScriptFiles
+            });
+            if (!tp.IsFunction(Dialog.ShowAsync))
+                throw new Error("Cannot create server dialog. The specified class has no ShowAsync() method.");
+            return Dialog;
+        } catch (e) {
+            tp.StaticFiles.UnLoadJavascriptFiles(JavaScriptFiles);
+            tp.StaticFiles.UnLoadCssFiles(CssFiles);
+            throw e;
+        }
+    },
+    /**
+     * Releases static files loaded for a server dialog.
+     * @param {object|null|undefined} Dialog The server dialog helper.
+     * @returns {void}
+     */
+    ReleaseServerDialog: function (Dialog) {
+        if (!Dialog || !Dialog.Params)
+            return;
+        tp.StaticFiles.UnLoadJavascriptFiles(Dialog.Params.JavaScriptFiles || []);
+        tp.StaticFiles.UnLoadCssFiles(Dialog.Params.CssFiles || []);
+    },
+    /**
+     * Shows the application settings dialog.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    ShowApplicationSettingsDialogAsync: async function () {
+        var Packet;
+        var Dialog = null;
+        try {
+            Packet = await this.GetApplicationSettingsDialogAsync("User");
+            Dialog = await this.CreateServerDialogAsync(Packet.Html || "");
+            await Dialog.ShowAsync(Packet);
+        } finally {
+            this.ReleaseServerDialog(Dialog);
+        }
+    },
+    /**
+     * Shows the application settings dialog and logs failures without throwing.
+     * @returns {void}
+     */
+    ShowApplicationSettingsDialog: function () {
+        this.ShowApplicationSettingsDialogAsync().catch(function (e) {
+            var Text = "Application settings failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+        });
+    },
+    /**
+     * Shows the change password dialog.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    ShowChangePasswordDialogAsync: async function () {
+        var Packet;
+        var Dialog = null;
+        try {
+            Packet = await this.GetChangePasswordDialogAsync();
+            Dialog = await this.CreateServerDialogAsync(Packet.Html || "");
+            await Dialog.ShowAsync(Packet);
+        } finally {
+            this.ReleaseServerDialog(Dialog);
+        }
+    },
+    /**
+     * Shows the change password dialog and logs failures without throwing.
+     * @returns {void}
+     */
+    ShowChangePasswordDialog: function () {
+        this.ShowChangePasswordDialogAsync().catch(function (e) {
+            var Text = "Change password failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+        });
+    },
+    /**
+     * Shows the connection info dialog.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    ShowConnectionInfoDialogAsync: async function () {
+        var Packet;
+        var Dialog = null;
+        try {
+            Packet = await this.GetConnectionInfoDialogAsync();
+            Dialog = await this.CreateServerDialogAsync(Packet.Html || "");
+            await Dialog.ShowAsync(Packet);
+        } finally {
+            this.ReleaseServerDialog(Dialog);
+        }
+    },
+    /**
+     * Shows the connection info dialog and logs failures without throwing.
+     * @returns {void}
+     */
+    ShowConnectionInfoDialog: function () {
+        this.ShowConnectionInfoDialogAsync().catch(function (e) {
+            var Text = "Connection info failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+        });
+    },
+    /**
+     * Deletes the sample SQLite database on the server.
+     * @returns {Promise<object>} Returns the operation packet.
+     */
+    RegenerateDatabaseAsync: async function () {
+        var Message = "This will delete and recreate the sample Sqlite database.\n\nContinue?";
+        var Confirmed = await tp.YesNoBoxAsync(Message);
+        if (Confirmed !== true)
+            return null;
+        return await tp.AjaxRequest.ExecuteAsync("App.RegenerateDatabase");
+    },
+    /**
+     * Deletes the sample SQLite database and reports the result.
+     * @returns {void}
+     */
+    RegenerateDatabase: function () {
+        this.RegenerateDatabaseAsync().then(function (Packet) {
+            var Text;
+            if (Packet === null)
+                return;
+            Text = Packet.Message || "The sample Sqlite database has been deleted. Restart the tERPWeb server process.";
+            if (tp.IsFunction(tp.InfoBox))
+                tp.InfoBox(Text);
+            if (tp.IsFunction(tp.InfoNote))
+                tp.InfoNote(Text);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+        }).catch(function (e) {
+            var Text = "Regenerate database failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (tp.IsFunction(tp.ErrorNote))
+                tp.ErrorNote(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+        });
+    },
+    /**
+     * Toggles SQL statement logging on the server.
+     * @returns {Promise<object>} Returns the operation packet.
+     */
+    ToggleLogSqlAsync: async function () {
+        return await tp.AjaxRequest.ExecuteAsync("App.ToggleLogSql");
+    },
+    /**
+     * Toggles SQL statement logging and reports the result.
+     * @returns {void}
+     */
+    ToggleLogSql: function () {
+        this.ToggleLogSqlAsync().then(function (Packet) {
+            var Text = Packet && Packet.Message ? Packet.Message : "SQL Statements Logging changed.";
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+            if (tp.IsFunction(tp.InfoNote))
+                tp.InfoNote(Text);
+        }).catch(function (e) {
+            var Text = "Log Sql failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+            if (tp.IsFunction(tp.ErrorNote))
+                tp.ErrorNote(Text);
+        });
+    },
+    /**
+     * Clears the application log.
+     * @returns {void}
+     */
+    ClearLog: function () {
+        if (tp.LogBox)
+            tp.LogBox.Clear();
+        if (this.MainPage && this.MainPage.StatusBar)
+            this.MainPage.StatusBar.Message = "Log cleared.";
     },
     /**
      * Loads web forms from the server and creates command groups.
@@ -1432,8 +1222,22 @@ app.App = {
             this.MainPage.PingServerAsync();
         else if (Command.Name === "Dashboard" && this.MainPage)
             this.MainPage.ShowDashboard();
+        else if (Command.Name === "Application Settings")
+            this.ShowApplicationSettingsDialog();
+        else if (Command.Name === "Change Password")
+            this.ShowChangePasswordDialog();
+        else if (Command.Name === "ConnectionInfo")
+            this.ShowConnectionInfoDialog();
+        else if (Command.Name === "Regenerate Database")
+            this.RegenerateDatabase();
+        else if (Command.Name === "Close")
+            this.CloseApplication();
         else if (Command.Name === "Toggle Log" && this.MainPage)
             this.MainPage.ToggleLog();
+        else if (Command.Name === "Clear Log")
+            this.ClearLog();
+        else if (Command.Name === "Log Sql")
+            this.ToggleLogSql();
         else if (Command.IsUiCommand() && tp.IsBlankString(Command.Params ? Command.Params.JsFormClassType : ""))
             this.ReportCommandNotAvailable(Command);
         else if (Command.IsUiCommand() && this.MainPage && this.MainPage.PageHandler)
@@ -1452,6 +1256,21 @@ app.App = {
             tp.LogBox.AppendLine(Text);
         if (this.MainPage && this.MainPage.StatusBar)
             this.MainPage.StatusBar.Message = Text;
+    },
+    /**
+     * Logs out and returns to the startup page.
+     * @returns {void}
+     */
+    CloseApplication: function () {
+        this.LogoutAsync().then(function () {
+            tp.NavigateTo("/Home/Startup");
+        }).catch(function (e) {
+            var Text = "Close failed: " + tp.ExceptionText(e);
+            if (tp.LogBox)
+                tp.LogBox.AppendLine(Text);
+            if (app.App.MainPage && app.App.MainPage.StatusBar)
+                app.App.MainPage.StatusBar.Message = Text;
+        });
     },
 
     // ● command icons
@@ -1473,10 +1292,10 @@ app.App = {
             return "fa fa-file-lines";
         if (Command.Name === "Dashboard")
             return "fa fa-chart-simple";
-        if (Command.Name === "ShowAppFolder")
-            return "fa fa-folder-open";
         if (Command.Name === "Application Settings")
             return "fa fa-screwdriver-wrench";
+        if (Command.Name === "Close")
+            return "fa fa-right-from-bracket";
         if (Command.Name === "Change Password")
             return "fa fa-key";
         if (Command.Name === "ConnectionInfo")
@@ -1515,6 +1334,13 @@ app.App = {
             return;
         this.RegisterCommands();
         this.MainPage = new app.MainPage("#AppShell");
+        this.LoadStartupInfoAsync().then(function (Info) {
+            if (app.App.MainPage)
+                app.App.MainPage.UpdateStatusInfo(Info);
+        }).catch(function (e) {
+            if (tp.LogBox)
+                tp.LogBox.AppendLine("Load startup info failed: " + tp.ExceptionText(e));
+        });
         this.MainPage.LoadWebForms();
     }
 };

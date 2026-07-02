@@ -245,6 +245,14 @@ where P.IsActive = 1
         SecurityLevel = UserLevel.Admin;
         Kind = ConfigValueKind.Boolean;
         DefaultValue = "false";
-        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue);
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.System);
+
+        // ● Select List Row Limit
+        Name = Config.SSelectListRowLimit;
+        TitleKey = "Select List Row Limit";
+        SecurityLevel = UserLevel.User;
+        Kind = ConfigValueKind.Integer;
+        DefaultValue = Db.Settings.DefaultRowLimit.ToString(CultureInfo.InvariantCulture);
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.System | ConfigScopeFlags.User);
     }
 }

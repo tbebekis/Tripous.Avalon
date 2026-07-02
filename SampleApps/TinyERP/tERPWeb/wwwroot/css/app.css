@@ -24,6 +24,7 @@ textarea {
 }
 
 .app-startup {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,14 +37,60 @@ textarea {
     color: #202428;
 }
 
+.app-startup-actions {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+.app-startup-login-button {
+    display: none;
+    min-width: 82px;
+    height: 30px;
+    padding: 0 14px;
+    border: 1px solid #9aa5b1;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #202428;
+    cursor: pointer;
+}
+
+.app-startup-login-button:hover {
+    background: #f5f7f9;
+}
+
+.app-startup-login-button.tp-Visible {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .app-startup-title {
     font-size: 34px;
     font-weight: 600;
 }
 
 .app-startup-message {
-    margin-top: 12px;
+    margin-top: 16px;
     color: #4a535c;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    max-width: min(680px, calc(100vw - 48px));
+    line-height: 1.35;
+}
+
+.app-startup-progress {
+    display: none;
+    width: min(460px, calc(100vw - 48px));
+    height: 18px;
+    margin-top: 18px;
+}
+
+.app-startup-progress.tp-Visible {
+    display: block;
 }
 
 .app-startup-dialog {
@@ -83,6 +130,10 @@ textarea {
     grid-template-columns: 100px 1fr;
 }
 
+.app-dialog-grid-change-password {
+    grid-template-columns: 130px minmax(0, 1fr);
+}
+
 .app-dialog-grid label {
     align-self: center;
 }
@@ -112,9 +163,261 @@ textarea {
     overflow-wrap: anywhere;
 }
 
+.app-dialog-user {
+    margin-top: 4px;
+    color: #4a535c;
+}
+
+.app-change-password-dialog {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    color: #202428;
+}
+
+.app-change-password-dialog .app-dialog-header {
+    margin-bottom: 18px;
+}
+
+.app-change-password-dialog .app-dialog-message {
+    min-height: 20px;
+    margin-top: 10px;
+}
+
+.app-change-password-window .tp-WindowContentContainer {
+    background: #ffffff;
+}
+
+.app-change-password-window .tp-WindowFooter {
+    padding: 0 24px 24px 24px;
+    border-top: none;
+    background: #ffffff;
+}
+
+.app-change-password-window .tp-WindowFooter .tp-Btn,
+.app-change-password-window .tp-WindowFooter button {
+    min-width: 56px;
+    height: 28px;
+    margin-left: 8px;
+}
+
+.app-connection-info-dialog {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    color: #202428;
+}
+
+.app-connection-info-dialog .app-dialog-message {
+    min-height: 20px;
+    margin-top: 10px;
+}
+
+.app-connection-info-dialog > .tp-TabControl {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.app-connection-info-dialog .tp-TabControl > .tp-List {
+    min-height: 0;
+}
+
+.app-connection-properties {
+    box-sizing: border-box;
+    padding-top: 8px;
+}
+
+.app-connection-properties .tp-CtrlRow {
+    grid-template-columns: 150px minmax(0, 1fr);
+    column-gap: 8px;
+    min-height: 32px;
+    margin-bottom: 10px;
+}
+
+.app-connection-properties .tp-CheckBoxRow {
+    margin: 0 0 10px 158px;
+}
+
+.app-connection-properties .tp-TextBox,
+.app-connection-properties .tp-ComboBox {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+}
+
+.app-connection-properties .tp-TextBox {
+    height: 28px;
+    padding: 3px 6px;
+    border: 1px solid #aeb6bf;
+    background: #ffffff;
+    color: #202428;
+    font: inherit;
+}
+
+.app-connection-properties .tp-TextBox:disabled,
+.app-connection-properties .tp-ComboBox.tp-Disabled {
+    background: #f0f1f3;
+    color: #7b838c;
+}
+
+.app-connection-properties .tp-ComboBox.tp-Disabled {
+    pointer-events: none;
+}
+
+.app-connection-properties .tp-CtrlRow.tp-Disabled > .tp-CText,
+.app-connection-properties .tp-CheckBoxRow.tp-Disabled {
+    color: #8a929b;
+}
+
+.app-connection-preview {
+    box-sizing: border-box;
+    height: 100%;
+    padding-top: 8px;
+}
+
+.app-connection-preview .tp-Memo {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 300px;
+    resize: none;
+}
+
+.app-connection-info-window .tp-WindowContentContainer {
+    background: #ffffff;
+}
+
+.app-connection-info-window .tp-WindowFooter {
+    padding: 0 16px 16px 16px;
+    border-top: none;
+    background: #ffffff;
+}
+
+.app-connection-info-window .tp-WindowFooter .tp-Btn,
+.app-connection-info-window .tp-WindowFooter button {
+    min-width: 80px;
+    height: 28px;
+    margin-left: 8px;
+}
+
+.app-connection-info-window .tp-WindowFooter button:first-child {
+    min-width: 120px;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.app-text-right {
+    text-align: right;
+}
+
 .app-dialog-grid-login .app-dialog-message {
     grid-column: 1 / span 2;
     margin-top: 0;
+}
+
+.app-settings-dialog {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 18px;
+    color: #202428;
+}
+
+.app-settings-scope {
+    display: grid;
+    grid-template-columns: auto 140px 1fr;
+    column-gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.app-settings-scope select {
+    box-sizing: border-box;
+    width: 100%;
+    height: 28px;
+    padding: 3px 6px;
+    border: 1px solid #aeb6bf;
+    background: #ffffff;
+    color: #202428;
+    font: inherit;
+}
+
+.app-settings-scope span {
+    color: #4a535c;
+}
+
+.app-settings-tabs {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    border: 1px solid #b9c1ca;
+    background: #ffffff;
+}
+
+.app-settings-tab-header {
+    flex: 0 0 auto;
+    width: max-content;
+    min-width: 90px;
+    padding: 6px 12px;
+    border-right: 1px solid #b9c1ca;
+    border-bottom: 1px solid #ffffff;
+    background: #ffffff;
+    font-weight: 600;
+}
+
+.app-settings-tab-page {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 10px;
+    overflow: auto;
+    border-top: 1px solid #b9c1ca;
+}
+
+.app-settings-group {
+    margin: 6px 0 8px 0;
+    font-weight: 600;
+}
+
+.app-settings-row {
+    margin-bottom: 8px;
+}
+
+.app-settings-row.tp-CtrlRow {
+    grid-template-columns: 220px minmax(0, 1fr);
+    column-gap: 12px;
+}
+
+.app-settings-row.tp-CtrlRow label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-settings-row.tp-CtrlRow input[type="text"],
+.app-settings-row.tp-CtrlRow textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 3px 6px;
+    border: 1px solid #aeb6bf;
+    background: #ffffff;
+    color: #202428;
+    font: inherit;
+}
+
+.app-settings-row.tp-CtrlRow input[type="text"] {
+    height: 28px;
+}
+
+.app-settings-row.tp-CtrlRow textarea {
+    min-height: 90px;
+    resize: vertical;
 }
 
 .app-shell {

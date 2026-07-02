@@ -688,3 +688,5 @@ tp.TabControl.prototype.CanReorderPages = false;
  * @type {number}
  */
 tp.TabControl.prototype.fDragPageIndex = -1;
+
+tp.Ui.RegisterType(["TabControl", "tp-TabControl"], tp.TabControl);

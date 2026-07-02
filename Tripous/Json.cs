@@ -921,7 +921,7 @@ internal class DecimalConverter : JsonConverter<decimal>
     }
     public override void Write(Utf8JsonWriter writer, decimal value, JsonSerializerOptions options)
     {
-        string Value = value.ToString($"N{Decimals}", CultureInfo.InvariantCulture);
+        string Value = value.ToString($"F{Decimals}", CultureInfo.InvariantCulture);
         writer.WriteRawValue(Value);
     }
 }
@@ -941,7 +941,7 @@ internal class DoubleConverter : JsonConverter<double>
     }
     public override void Write(Utf8JsonWriter writer, double value, JsonSerializerOptions options)
     {
-        string Value = value.ToString($"N{Decimals}", CultureInfo.InvariantCulture);
+        string Value = value.ToString($"F{Decimals}", CultureInfo.InvariantCulture);
         writer.WriteRawValue(Value);
     }
 }

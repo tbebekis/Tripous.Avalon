@@ -290,3 +290,5 @@ tp.Accordion.prototype.AllowMultiExpand = false;
  * @type {Function|null}
  */
 tp.Accordion.prototype.fClickHandler = null;
+
+tp.Ui.RegisterType(["Accordion", "tp-Accordion"], tp.Accordion);

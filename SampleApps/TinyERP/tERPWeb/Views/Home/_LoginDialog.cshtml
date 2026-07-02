@@ -1,7 +1,9 @@
 ﻿@{
     string[] Cultures = tERP.Data.DataLib.SupportedCultures;
 }
-<div class="app-startup-dialog" data-dialog-kind="login">
+<div class="app-startup-dialog"
+     data-dialog-kind="login"
+     data-setup="{ClassName: 'app.LoginDialog', JavaScriptFiles: ['/js/dialogs/login-dialog.js']}">
     <div class="app-dialog-header">
         <div class="app-dialog-title">Login</div>
         <div class="app-dialog-subtitle">Please enter your credentials.</div>

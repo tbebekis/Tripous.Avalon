@@ -317,6 +317,103 @@ tp.Ui = class {
         return !tp.IsBlank(TypeName) && tp.IsFunction(tp.Ui.Types[TypeName]) ? tp.Ui.Types[TypeName] : null;
     }
     /**
+     * Returns a selector containing all registered UI type CSS class names.
+     * @returns {string} Returns a CSS selector.
+     */
+    static GetSelector() {
+        var Result = [];
+        var TypeName;
+        for (TypeName in tp.Ui.Types) {
+            if (Object.prototype.hasOwnProperty.call(tp.Ui.Types, TypeName))
+                Result.push("." + TypeName);
+        }
+        return Result.join(", ");
+    }
+    /**
+     * Creates a component on an element using a registered UI type.
+     * @param {string} TypeName The registered UI type name.
+     * @param {HTMLElement|string} ElementOrSelector The element or selector.
+     * @returns {tp.Component|null} Returns the component.
+     */
+    static Create(TypeName, ElementOrSelector) {
+        var Element = tp.Select(ElementOrSelector);
+        var Type = tp.Ui.GetType(TypeName);
+        var Result;
+        if (!(Element instanceof HTMLElement))
+            return null;
+        if (tp.HasComponent(Element))
+            return tp.GetComponent(Element);
+        if (!tp.IsFunction(Type))
+            tp.Throw("Control type name not registered in tp.Ui.Types: " + TypeName);
+        Result = new Type({ ElementOrSelector: Element });
+        return Result instanceof tp.Component ? Result : null;
+    }
+    /**
+     * Creates controls of a specified registered UI type under a container.
+     * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+     * @param {string} TypeName The registered UI type name.
+     * @returns {tp.Component[]} Returns the created or existing components.
+     */
+    static CreateContainerControlsOfType(ContainerElementOrSelector, TypeName) {
+        var Container = tp.Select(ContainerElementOrSelector) || document.body;
+        var Result = [];
+        var List;
+        var Index;
+        var Element;
+        var Component;
+        if (!tp.IsNodeSelector(Container) || !tp.IsFunction(tp.Ui.GetType(TypeName)))
+            return Result;
+        List = Container.querySelectorAll("." + TypeName);
+        for (Index = 0; Index < List.length; Index++) {
+            Element = List[Index];
+            Component = tp.Ui.Create(TypeName, Element);
+            if (Component instanceof tp.Component && Result.indexOf(Component) === -1)
+                Result.push(Component);
+        }
+        return Result;
+    }
+    /**
+     * Creates registered UI controls under a container.
+     * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+     * @param {string[]|null|undefined} ExcludedTypes Optional type names to skip.
+     * @returns {tp.Component[]} Returns the created or existing components.
+     */
+    static CreateContainerControls(ContainerElementOrSelector, ExcludedTypes) {
+        var Result = [];
+        var TypeName;
+        var List;
+        var Index;
+        var Component;
+        ExcludedTypes = tp.IsArray(ExcludedTypes) ? ExcludedTypes : [];
+        for (TypeName in tp.Ui.Types) {
+            if (Object.prototype.hasOwnProperty.call(tp.Ui.Types, TypeName) && ExcludedTypes.indexOf(TypeName) === -1) {
+                List = tp.Ui.CreateContainerControlsOfType(ContainerElementOrSelector, TypeName);
+                for (Index = 0; Index < List.length; Index++) {
+                    Component = List[Index];
+                    if (Result.indexOf(Component) === -1)
+                        Result.push(Component);
+                }
+            }
+        }
+        tp.Ui.FixupControls(Result);
+        return Result;
+    }
+    /**
+     * Returns all components under a container.
+     * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+     * @returns {tp.Component[]} Returns the components.
+     */
+    static GetContainerControls(ContainerElementOrSelector) {
+        return tp.GetAllComponents(ContainerElementOrSelector);
+    }
+    /**
+     * Fixes up just-created controls.
+     * @param {tp.Component[]} List The control list.
+     * @returns {void}
+     */
+    static FixupControls(List) {
+    }
+    /**
      * Returns the control row element containing a specified element.
      * @param {HTMLElement|string} ElementOrSelector The element or selector.
      * @returns {HTMLElement|null} Returns the row element or null.
@@ -334,6 +431,15 @@ tp.Ui = class {
  * @type {object}
  */
 tp.Ui.Types = {};
+/**
+ * Creates registered UI controls under a container.
+ * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+ * @param {string[]|null|undefined} ExcludedTypes Optional type names to skip.
+ * @returns {tp.Component[]} Returns the created or existing components.
+ */
+tp.CreateContainerControls = function (ContainerElementOrSelector, ExcludedTypes) {
+    return tp.Ui.CreateContainerControls(ContainerElementOrSelector, ExcludedTypes);
+};
 
 // ● 25-row-col.js
 // ● row
@@ -2397,6 +2503,8 @@ tp.Splitter.prototype.Panel1MaxSize = 400;
  */
 tp.Splitter.prototype.Panel2MinSize = 40;
 
+tp.Ui.RegisterType(["Splitter", "tp-Splitter"], tp.Splitter);
+
 // ● 80-group-box.js
 // ● group box
 /**
@@ -2470,6 +2578,8 @@ tp.GroupBox.prototype.tpClass = "tp.GroupBox";
  * @type {HTMLLegendElement|null}
  */
 tp.GroupBox.prototype.fLegend = null;
+
+tp.Ui.RegisterType(["GroupBox", "tp-GroupBox"], tp.GroupBox);
 
 // ● 90-accordion.js
 // ● accordion
@@ -2764,6 +2874,8 @@ tp.Accordion.prototype.AllowMultiExpand = false;
  * @type {Function|null}
  */
 tp.Accordion.prototype.fClickHandler = null;
+
+tp.Ui.RegisterType(["Accordion", "tp-Accordion"], tp.Accordion);
 
 // ● 100-item-bar.js
 // ● item bar render mode
@@ -3505,6 +3617,8 @@ tp.ItemBar.prototype.fClickHandler = null;
  * @type {Function|null}
  */
 tp.ItemBar.prototype.fAuxClickHandler = null;
+
+tp.Ui.RegisterType(["ItemBar", "tp-ItemBar"], tp.ItemBar);
 
 // ● 105-virtual-scroller.js
 // ● virtual scroller
@@ -5340,6 +5454,8 @@ tp.TabControl.prototype.CanReorderPages = false;
  */
 tp.TabControl.prototype.fDragPageIndex = -1;
 
+tp.Ui.RegisterType(["TabControl", "tp-TabControl"], tp.TabControl);
+
 // ● 130-panel-list.js
 // ● selected index contract
 /**
@@ -5672,6 +5788,8 @@ tp.PanelList.prototype.fSelectedIndexListener = null;
  * @type {string}
  */
 tp.PanelList.prototype.tpClass = "tp.PanelList";
+
+tp.Ui.RegisterType(["PanelList", "tp-PanelList"], tp.PanelList);
 
 // ● 140-image-slider.js
 // ● image size mode
@@ -6165,6 +6283,8 @@ tp.ImageSlider.prototype.fMouseLeaveHandler = null;
  */
 tp.ImageSlider.prototype.fClickHandler = null;
 
+tp.Ui.RegisterType(["ImageSlider", "tp-ImageSlider"], tp.ImageSlider);
+
 // ● 150-iframe.js
 // ● iframe
 /**
@@ -6460,6 +6580,8 @@ tp.IFrame.prototype.fLoadHandler = null;
  */
 tp.IFrame.prototype.fSpinnerVisible = false;
 
+tp.Ui.RegisterType(["IFrame", "tp-IFrame"], tp.IFrame);
+
 // ● 160-button.js
 // ● command property
 /**
@@ -6691,6 +6813,8 @@ tp.Button.prototype.Tag = null;
  * @type {Function|null}
  */
 tp.Button.prototype.fClickHandler = null;
+
+tp.Ui.RegisterType(["Button", "tp-Button"], tp.Button);
 
 // ● 170-toolbar.js
 // ● button-ex ico mode
@@ -7715,6 +7839,11 @@ tp.ToolBar.prototype.fIcoMode = tp.ButtonExIcoMode.Top;
  */
 tp.ToolBar.prototype.fNoText = true;
 
+tp.Ui.RegisterType(["ControlToolButton", "tp-ControlToolButton"], tp.ControlToolButton);
+tp.Ui.RegisterType(["ControlToolBar", "tp-ControlToolBar"], tp.ControlToolBar);
+tp.Ui.RegisterType(["ButtonEx", "tp-ButtonEx"], tp.ButtonEx);
+tp.Ui.RegisterType(["ToolBar", "tp-ToolBar"], tp.ToolBar);
+
 // ● 175-status-bar.js
 // ● status bar item
 /**
@@ -8215,6 +8344,8 @@ tp.StatusBar = class extends tp.Component {
         }
     }
 };
+
+tp.Ui.RegisterType(["StatusBar", "tp-StatusBar"], tp.StatusBar);
 
 // ● 180-menu.js
 // ● menu item type
@@ -9329,6 +9460,9 @@ tp.ContextMenu = class extends tp.MenuBase {
 // ● prototype
 tp.ContextMenu.prototype.fDocumentKeyDownHandler = null;
 
+tp.Ui.RegisterType(["Menu", "tp-Menu"], tp.Menu);
+tp.Ui.RegisterType(["ContextMenu", "tp-ContextMenu"], tp.ContextMenu);
+
 // ● site menu event args
 /**
  * Event arguments for tp.SiteMenu item clicks.
@@ -9671,6 +9805,8 @@ tp.SiteMenu.prototype.fDocumentClickHandler = null;
 tp.SiteMenu.prototype.fWindowResizeHandler = null;
 tp.SiteMenu.prototype.fIsSmallScreen = false;
 tp.SiteMenu.prototype.fBreakPoint = 768;
+
+tp.Ui.RegisterType(["SiteMenu", "tp-SiteMenu"], tp.SiteMenu);
 
 // ● 190-window.js
 // ● window settings
@@ -13955,7 +14091,8 @@ tp.ComboBox = class extends tp.ListControl {
             this.fButton.removeEventListener("click", this.fButtonClickHandler, false);
         if (this.fContainer) {
             this.fContainer.removeEventListener("click", this.fContainerClickHandler, false);
-            this.fDropDownBox.Handle.removeEventListener("keydown", this.fContainerKeyDownHandler, false);
+            if (this.fDropDownBox && this.fDropDownBox.Handle)
+                this.fDropDownBox.Handle.removeEventListener("keydown", this.fContainerKeyDownHandler, false);
         }
         if (this.fDropDownBox) {
             this.fDropDownBox.Dispose();
@@ -22177,4 +22314,237 @@ tp.WebForm.prototype.ClosableByUser = true;
  * @type {boolean}
  */
 tp.WebForm.prototype.IsClosing = false;
+
+// ● 286-web-form-page-handler.js
+// ● web form page handler
+/**
+ * Handles a tab control which displays web forms embedded in tab pages.
+ */
+tp.WebFormPageHandler = class {
+    // ● constructor
+    /**
+     * Creates a web form page handler.
+     * @param {object|null|undefined} Params The create parameters.
+     */
+    constructor(Params) {
+        Params = Params || {};
+        /**
+         * The tab control handled by this instance.
+         * @type {tp.TabControl|null}
+         */
+        this.TabControl = Params.TabControl instanceof tp.TabControl ? Params.TabControl : null;
+        /**
+         * Callback that returns a Promise resolving to a server web form packet.
+         * @type {Function|null}
+         */
+        this.GetWebFormFunc = tp.IsFunction(Params.GetWebFormFunc) ? Params.GetWebFormFunc : null;
+        /**
+         * Optional callback used to report non-throwing errors.
+         * @type {Function|null}
+         */
+        this.ErrorFunc = tp.IsFunction(Params.ErrorFunc) ? Params.ErrorFunc : null;
+    }
+
+    // ● protected
+    /**
+     * Returns the handled tab control.
+     * @returns {tp.TabControl|null} Returns the tab control.
+     */
+    GetTabControl() {
+        return this.TabControl;
+    }
+    /**
+     * Calls the configured error callback or writes to the log box.
+     * @param {string} Text The error text.
+     * @returns {void}
+     */
+    ReportError(Text) {
+        if (this.ErrorFunc)
+            this.ErrorFunc(Text);
+        else if (tp.LogBox)
+            tp.LogBox.AppendLine(Text);
+    }
+    /**
+     * Returns a server web form packet.
+     * @param {string} WebFormName The web form name.
+     * @returns {Promise<object>} Returns a Promise resolving with the packet.
+     */
+    async GetWebFormPacketAsync(WebFormName) {
+        if (!this.GetWebFormFunc)
+            throw new Error("No GetWebFormFunc callback is assigned.");
+        return await this.GetWebFormFunc(WebFormName);
+    }
+    /**
+     * Finds the root element of a web form inside a tab page.
+     * @param {tp.TabPage} Page The tab page.
+     * @returns {HTMLElement|null} Returns the form element or null.
+     */
+    FindFormElement(Page) {
+        var Index;
+        var Element;
+        var Children = Page && Page.Handle ? Page.Handle.children : [];
+        for (Index = 0; Index < Children.length; Index++) {
+            Element = Children[Index];
+            if (Element instanceof HTMLElement)
+                return Element;
+        }
+        return null;
+    }
+    /**
+     * Creates a web form context for a tab page.
+     * @param {tp.TabPage} Page The tab page.
+     * @param {object} Form The server form packet.
+     * @param {object} Packet The server packet.
+     * @returns {tp.WebFormContext} Returns the web form context.
+     */
+    CreateFormContext(Page, Form, Packet) {
+        return new tp.WebFormContext({
+            FormId: Form.Name,
+            ClassName: Form.JsFormClassType,
+            DisplayMode: tp.WebFormDisplayMode.TabPage,
+            ParentControl: Page,
+            Title: !tp.IsBlankString(Form.Title) ? Form.Title : Form.Name,
+            WebFormDef: Form,
+            Packet: Packet,
+            CssFiles: Form.CssFiles || [],
+            JavaScriptFiles: Form.JavaScriptFiles || []
+        });
+    }
+    /**
+     * Creates the client component that handles a web form page.
+     * @param {tp.TabPage} Page The tab page.
+     * @param {tp.WebFormContext} Context The web form context.
+     * @returns {Promise<tp.WebForm>} Returns a Promise resolving with the client form component.
+     */
+    async CreateFormComponent(Page, Context) {
+        var Element = this.FindFormElement(Page);
+        if (!(Element instanceof HTMLElement))
+            throw new Error("WebForm root element not found: " + Context.FormId);
+        return await Context.CreateForm(Element);
+    }
+    /**
+     * Handles a web form close request.
+     * @param {tp.EventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleFormCloseRequested(Args) {
+        if (Args && Args.Context instanceof tp.WebFormContext && Args.Context.ParentControl instanceof tp.TabPage)
+            this.ClosePage(Args.Context.ParentControl);
+    }
+
+    // ● public
+    /**
+     * Finds a tab page by web form identifier.
+     * @param {string} FormId The form identifier.
+     * @returns {tp.TabPage|null} Returns the tab page or null.
+     */
+    FindPage(FormId) {
+        var TabControl = this.GetTabControl();
+        var Pages;
+        var Index;
+        if (!TabControl)
+            return null;
+        Pages = TabControl.GetPageList();
+        for (Index = 0; Index < Pages.length; Index++) {
+            if (tp.IsSameText(Pages[Index].AppPageName, FormId))
+                return Pages[Index];
+        }
+        return null;
+    }
+    /**
+     * Finds a web form by form identifier.
+     * @param {string} FormId The form identifier.
+     * @returns {tp.WebForm|null} Returns the form or null.
+     */
+    FindForm(FormId) {
+        var Page = this.FindPage(FormId);
+        return Page && Page.AppComponent instanceof tp.WebForm ? Page.AppComponent : null;
+    }
+    /**
+     * Opens a web form page.
+     * @param {string} WebFormName The web form name.
+     * @returns {Promise<tp.TabPage|null>} Returns a Promise with the opened page.
+     */
+    async OpenAsync(WebFormName) {
+        var TabControl = this.GetTabControl();
+        var Page;
+        var Packet;
+        var Form;
+        var Component;
+        var Context;
+        if (!TabControl || tp.IsBlankString(WebFormName))
+            return null;
+        Page = this.FindPage(WebFormName);
+        if (Page) {
+            TabControl.SelectedPage = Page;
+            if (Page.AppComponent instanceof tp.WebForm)
+                Page.AppComponent.LoadData();
+            else if (Page.AppComponent && tp.IsFunction(Page.AppComponent.Refresh))
+                Page.AppComponent.Refresh();
+            return Page;
+        }
+        Packet = await this.GetWebFormPacketAsync(WebFormName);
+        Form = Packet ? Packet.Form : null;
+        if (!Form)
+            throw new Error("WebForm not returned: " + WebFormName);
+        Page = TabControl.AddPage(!tp.IsBlankString(Form.Title) ? Form.Title : Form.Name);
+        Page.AppPageName = Form.Name;
+        Page.AppPageHandler = this;
+        Page.Handle.innerHTML = Form.Html || "";
+        Context = this.CreateFormContext(Page, Form, Packet);
+        Page.AppContext = Context;
+        Component = await this.CreateFormComponent(Page, Context);
+        Component.On("CloseRequested", this.HandleFormCloseRequested, this);
+        Page.AppComponent = Component;
+        if (Component instanceof tp.WebForm)
+            Component.LoadData();
+        else if (Component && tp.IsFunction(Component.Refresh))
+            Component.Refresh();
+        return Page;
+    }
+    /**
+     * Opens a web form page and logs failures without throwing.
+     * @param {string} WebFormName The web form name.
+     * @returns {void}
+     */
+    Open(WebFormName) {
+        var Handler = this;
+        this.OpenAsync(WebFormName).catch(function (e) {
+            Handler.ReportError("Open web form failed: " + tp.ExceptionText(e));
+        });
+    }
+    /**
+     * Closes a web form page.
+     * @param {tp.TabPage|null|undefined} Page The page to close.
+     * @returns {void}
+     */
+    ClosePage(Page) {
+        var TabControl = this.GetTabControl();
+        var Component;
+        if (!(TabControl && Page instanceof tp.TabPage))
+            return;
+        Component = Page.AppComponent;
+        if (Component instanceof tp.WebForm && !Component.IsClosing) {
+            if (Component.ClosableByUser)
+                Component.CloseForm();
+            return;
+        }
+        if (Component instanceof tp.Component) {
+            Component.Dispose();
+            Page.AppComponent = null;
+        }
+        Page.AppContext = null;
+        TabControl.RemovePage(Page);
+    }
+    /**
+     * Closes a web form page by form identifier.
+     * @param {string} FormId The form identifier.
+     * @returns {void}
+     */
+    CloseForm(FormId) {
+        var Page = this.FindPage(FormId);
+        if (Page)
+            this.ClosePage(Page);
+    }
+};
 

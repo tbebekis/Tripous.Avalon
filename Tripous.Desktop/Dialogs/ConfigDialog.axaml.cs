@@ -136,8 +136,10 @@ public partial class ConfigDialog : Window
     }
     IEnumerable<ConfigPropertyDef> GetVisibleDefs()
     {
+        ConfigScope Scope = GetScope();
         return DataRegistry.ConfigProperties
             .Where(CanAccess)
+            .Where(Def => Def.SupportsScope(Scope))
             .OrderBy(Def => Def.GroupName)
             .ThenBy(GetTitle);
     }
@@ -211,12 +213,16 @@ public partial class ConfigDialog : Window
         string OwnerKey = GetOwnerKey(Scope);
         foreach (var Pair in fControls)
         {
+            if (!Pair.Key.SupportsScope(Scope))
+                continue;
             if (!CanAccess(Pair.Key))
                 throw new TripousException($"Access denied to setting '{Pair.Key.Name}'.");
             Config.SetValue(Pair.Key.Name, GetScalarValue(Pair.Key, Pair.Value), Scope, OwnerKey);
         }
         foreach (var Pair in fEditors)
         {
+            if (!Pair.Key.SupportsScope(Scope))
+                continue;
             if (!CanAccess(Pair.Key))
                 throw new TripousException($"Access denied to setting '{Pair.Key.Name}'.");
             Config.SetValue(Pair.Key.Name, Pair.Value.SaveValue(), Scope, OwnerKey);

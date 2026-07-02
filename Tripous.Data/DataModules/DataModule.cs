@@ -581,6 +581,15 @@ public class DataModule
  
     // ● list
     /// <summary>
+    /// Returns the effective row limit for list SELECTs.
+    /// </summary>
+    protected virtual int GetSelectListRowLimit()
+    {
+        string Value = Config.GetValue(Config.SSelectListRowLimit);
+        int Result = Sys.AsInteger(Value, Db.Settings.DefaultRowLimit);
+        return Result > 0 ? Result : Db.Settings.DefaultRowLimit;
+    }
+    /// <summary>
     /// Selects the list table.
     /// </summary>
     public virtual void ListSelect(SelectDef SelectDef)
@@ -594,7 +603,10 @@ public class DataModule
     public virtual void ListSelect(string SqlText)
     {        
         if (!string.IsNullOrWhiteSpace(SqlText))
+        {
+            SqlText = Store.Provider.ApplyRowLimit(SqlText, GetSelectListRowLimit());
             TableSet.ListSelect(tblList, SqlText);
+        }
     }
     /// <summary>
     /// Saves the list table.
@@ -875,9 +887,6 @@ public class DataModule
     /// </summary>
     public virtual JsonDataTable JsonSelectList(string SqlText, int RowLimit = 0)
     {
-        if (!string.IsNullOrWhiteSpace(SqlText) && RowLimit > 0)
-            SqlText = Store.Provider.ApplyRowLimit(SqlText, RowLimit);
-
         ListSelect(SqlText);
         JsonDataTable Result = new(tblList);
         return Result;

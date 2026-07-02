@@ -1019,3 +1019,8 @@ tp.ToolBar.prototype.fIcoMode = tp.ButtonExIcoMode.Top;
  * @type {boolean}
  */
 tp.ToolBar.prototype.fNoText = true;
+
+tp.Ui.RegisterType(["ControlToolButton", "tp-ControlToolButton"], tp.ControlToolButton);
+tp.Ui.RegisterType(["ControlToolBar", "tp-ControlToolBar"], tp.ControlToolBar);
+tp.Ui.RegisterType(["ButtonEx", "tp-ButtonEx"], tp.ButtonEx);
+tp.Ui.RegisterType(["ToolBar", "tp-ToolBar"], tp.ToolBar);

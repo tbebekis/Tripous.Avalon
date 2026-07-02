@@ -1110,6 +1110,9 @@ tp.ContextMenu = class extends tp.MenuBase {
 // ● prototype
 tp.ContextMenu.prototype.fDocumentKeyDownHandler = null;
 
+tp.Ui.RegisterType(["Menu", "tp-Menu"], tp.Menu);
+tp.Ui.RegisterType(["ContextMenu", "tp-ContextMenu"], tp.ContextMenu);
+
 // ● site menu event args
 /**
  * Event arguments for tp.SiteMenu item clicks.
@@ -1452,3 +1455,5 @@ tp.SiteMenu.prototype.fDocumentClickHandler = null;
 tp.SiteMenu.prototype.fWindowResizeHandler = null;
 tp.SiteMenu.prototype.fIsSmallScreen = false;
 tp.SiteMenu.prototype.fBreakPoint = 768;
+
+tp.Ui.RegisterType(["SiteMenu", "tp-SiteMenu"], tp.SiteMenu);

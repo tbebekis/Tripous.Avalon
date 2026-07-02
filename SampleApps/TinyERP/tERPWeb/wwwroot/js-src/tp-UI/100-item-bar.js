@@ -737,3 +737,5 @@ tp.ItemBar.prototype.fClickHandler = null;
  * @type {Function|null}
  */
 tp.ItemBar.prototype.fAuxClickHandler = null;
+
+tp.Ui.RegisterType(["ItemBar", "tp-ItemBar"], tp.ItemBar);

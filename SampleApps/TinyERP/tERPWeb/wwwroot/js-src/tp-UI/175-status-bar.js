@@ -497,3 +497,5 @@ tp.StatusBar = class extends tp.Component {
         }
     }
 };
+
+tp.Ui.RegisterType(["StatusBar", "tp-StatusBar"], tp.StatusBar);

@@ -7,6 +7,9 @@
 
     <ItemGroup>
         <Folder Include="wwwroot\js-src\tp-Grid\" />
+        <Folder Include="wwwroot\js\dataforms\" />
+        <Folder Include="wwwroot\js\dialogs\" />
+        <Folder Include="wwwroot\js\forms\" />
         <Folder Include="wwwroot\tp\js\" />
     </ItemGroup>
 

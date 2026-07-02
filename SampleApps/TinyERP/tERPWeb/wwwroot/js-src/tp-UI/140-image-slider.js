@@ -488,3 +488,5 @@ tp.ImageSlider.prototype.fMouseLeaveHandler = null;
  * @type {Function|null}
  */
 tp.ImageSlider.prototype.fClickHandler = null;
+
+tp.Ui.RegisterType(["ImageSlider", "tp-ImageSlider"], tp.ImageSlider);

@@ -174,7 +174,7 @@ static internal partial class AppHost
     }
     static bool UseUsers()
     {
-        string Value = Config.GetValue(DataLib.SUseUsers);
+        string Value = Config.GetValue(DataLib.SUseUsers, ConfigScope.System, string.Empty);
         return !string.IsNullOrWhiteSpace(Value) && Convert.ToBoolean(Value);
     }
     static string GetAutoLoginUserName()

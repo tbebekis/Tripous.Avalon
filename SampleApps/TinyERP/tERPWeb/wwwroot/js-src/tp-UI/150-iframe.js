@@ -291,3 +291,5 @@ tp.IFrame.prototype.fLoadHandler = null;
  * @type {boolean}
  */
 tp.IFrame.prototype.fSpinnerVisible = false;
+
+tp.Ui.RegisterType(["IFrame", "tp-IFrame"], tp.IFrame);

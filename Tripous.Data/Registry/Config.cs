@@ -30,6 +30,34 @@ public enum ConfigScope
 }
 
 /// <summary>
+/// Specifies the configuration scopes supported by a configuration property definition.
+/// </summary>
+[Flags]
+public enum ConfigScopeFlags
+{
+    /// <summary>
+    /// No configuration scope is supported.
+    /// </summary>
+    None = 0,
+    /// <summary>
+    /// The System configuration scope is supported.
+    /// </summary>
+    System = 1,
+    /// <summary>
+    /// The Company configuration scope is supported.
+    /// </summary>
+    Company = 2,
+    /// <summary>
+    /// The User configuration scope is supported.
+    /// </summary>
+    User = 4,
+    /// <summary>
+    /// All configuration scopes are supported.
+    /// </summary>
+    All = System | Company | User
+}
+
+/// <summary>
 /// Specifies the structural classification or serialization type of a configuration entry value.
 /// </summary>
 [TypeStore]
@@ -99,6 +127,22 @@ public enum ConfigValueKind
 /// </summary>
 public class ConfigPropertyDef : BaseDef
 {
+    // ● public methods
+    /// <summary>
+    /// Returns true when this definition supports the specified configuration scope.
+    /// </summary>
+    public bool SupportsScope(ConfigScope Scope)
+    {
+        ConfigScopeFlags Flag = Scope switch
+        {
+            ConfigScope.System => ConfigScopeFlags.System,
+            ConfigScope.Company => ConfigScopeFlags.Company,
+            ConfigScope.User => ConfigScopeFlags.User,
+            _ => ConfigScopeFlags.None
+        };
+        return (Scopes & Flag) == Flag;
+    }
+
     // ● properties
     /// <summary>
     /// Gets or sets the UI group name used when displaying configuration properties in configuration dialogs.
@@ -116,6 +160,10 @@ public class ConfigPropertyDef : BaseDef
     /// Gets or sets the default value used when no stored value exists.
     /// </summary>
     public string DefaultValue { get; set; }
+    /// <summary>
+    /// Gets or sets the configuration scopes where this property is visible and editable.
+    /// </summary>
+    public ConfigScopeFlags Scopes { get; set; } = ConfigScopeFlags.All;
     /// <summary>
     /// Gets or sets an optional type name mapping descriptor based on property classification rules.
     /// <para>
@@ -158,6 +206,12 @@ public class ConfigPropertyDef : BaseDef
 /// </summary>
 static public class Config
 {
+    // ● constants
+    /// <summary>
+    /// The configuration property name used as the row limit for DataModule list SELECTs.
+    /// </summary>
+    public const string SSelectListRowLimit = "SelectListRowLimit";
+
     // ● private fields
     static SqlStore fStore;
     static SysConfigModule fModule;

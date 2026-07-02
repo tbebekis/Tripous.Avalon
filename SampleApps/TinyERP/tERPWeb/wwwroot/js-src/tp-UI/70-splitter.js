@@ -272,3 +272,5 @@ tp.Splitter.prototype.Panel1MaxSize = 400;
  * @type {number}
  */
 tp.Splitter.prototype.Panel2MinSize = 40;
+
+tp.Ui.RegisterType(["Splitter", "tp-Splitter"], tp.Splitter);

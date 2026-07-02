@@ -309,6 +309,103 @@ tp.Ui = class {
         return !tp.IsBlank(TypeName) && tp.IsFunction(tp.Ui.Types[TypeName]) ? tp.Ui.Types[TypeName] : null;
     }
     /**
+     * Returns a selector containing all registered UI type CSS class names.
+     * @returns {string} Returns a CSS selector.
+     */
+    static GetSelector() {
+        var Result = [];
+        var TypeName;
+        for (TypeName in tp.Ui.Types) {
+            if (Object.prototype.hasOwnProperty.call(tp.Ui.Types, TypeName))
+                Result.push("." + TypeName);
+        }
+        return Result.join(", ");
+    }
+    /**
+     * Creates a component on an element using a registered UI type.
+     * @param {string} TypeName The registered UI type name.
+     * @param {HTMLElement|string} ElementOrSelector The element or selector.
+     * @returns {tp.Component|null} Returns the component.
+     */
+    static Create(TypeName, ElementOrSelector) {
+        var Element = tp.Select(ElementOrSelector);
+        var Type = tp.Ui.GetType(TypeName);
+        var Result;
+        if (!(Element instanceof HTMLElement))
+            return null;
+        if (tp.HasComponent(Element))
+            return tp.GetComponent(Element);
+        if (!tp.IsFunction(Type))
+            tp.Throw("Control type name not registered in tp.Ui.Types: " + TypeName);
+        Result = new Type({ ElementOrSelector: Element });
+        return Result instanceof tp.Component ? Result : null;
+    }
+    /**
+     * Creates controls of a specified registered UI type under a container.
+     * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+     * @param {string} TypeName The registered UI type name.
+     * @returns {tp.Component[]} Returns the created or existing components.
+     */
+    static CreateContainerControlsOfType(ContainerElementOrSelector, TypeName) {
+        var Container = tp.Select(ContainerElementOrSelector) || document.body;
+        var Result = [];
+        var List;
+        var Index;
+        var Element;
+        var Component;
+        if (!tp.IsNodeSelector(Container) || !tp.IsFunction(tp.Ui.GetType(TypeName)))
+            return Result;
+        List = Container.querySelectorAll("." + TypeName);
+        for (Index = 0; Index < List.length; Index++) {
+            Element = List[Index];
+            Component = tp.Ui.Create(TypeName, Element);
+            if (Component instanceof tp.Component && Result.indexOf(Component) === -1)
+                Result.push(Component);
+        }
+        return Result;
+    }
+    /**
+     * Creates registered UI controls under a container.
+     * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+     * @param {string[]|null|undefined} ExcludedTypes Optional type names to skip.
+     * @returns {tp.Component[]} Returns the created or existing components.
+     */
+    static CreateContainerControls(ContainerElementOrSelector, ExcludedTypes) {
+        var Result = [];
+        var TypeName;
+        var List;
+        var Index;
+        var Component;
+        ExcludedTypes = tp.IsArray(ExcludedTypes) ? ExcludedTypes : [];
+        for (TypeName in tp.Ui.Types) {
+            if (Object.prototype.hasOwnProperty.call(tp.Ui.Types, TypeName) && ExcludedTypes.indexOf(TypeName) === -1) {
+                List = tp.Ui.CreateContainerControlsOfType(ContainerElementOrSelector, TypeName);
+                for (Index = 0; Index < List.length; Index++) {
+                    Component = List[Index];
+                    if (Result.indexOf(Component) === -1)
+                        Result.push(Component);
+                }
+            }
+        }
+        tp.Ui.FixupControls(Result);
+        return Result;
+    }
+    /**
+     * Returns all components under a container.
+     * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+     * @returns {tp.Component[]} Returns the components.
+     */
+    static GetContainerControls(ContainerElementOrSelector) {
+        return tp.GetAllComponents(ContainerElementOrSelector);
+    }
+    /**
+     * Fixes up just-created controls.
+     * @param {tp.Component[]} List The control list.
+     * @returns {void}
+     */
+    static FixupControls(List) {
+    }
+    /**
      * Returns the control row element containing a specified element.
      * @param {HTMLElement|string} ElementOrSelector The element or selector.
      * @returns {HTMLElement|null} Returns the row element or null.
@@ -326,3 +423,12 @@ tp.Ui = class {
  * @type {object}
  */
 tp.Ui.Types = {};
+/**
+ * Creates registered UI controls under a container.
+ * @param {HTMLElement|string|Document|null|undefined} ContainerElementOrSelector The container element or selector.
+ * @param {string[]|null|undefined} ExcludedTypes Optional type names to skip.
+ * @returns {tp.Component[]} Returns the created or existing components.
+ */
+tp.CreateContainerControls = function (ContainerElementOrSelector, ExcludedTypes) {
+    return tp.Ui.CreateContainerControls(ContainerElementOrSelector, ExcludedTypes);
+};

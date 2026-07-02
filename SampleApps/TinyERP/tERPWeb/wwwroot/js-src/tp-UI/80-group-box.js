@@ -70,3 +70,5 @@ tp.GroupBox.prototype.tpClass = "tp.GroupBox";
  * @type {HTMLLegendElement|null}
  */
 tp.GroupBox.prototype.fLegend = null;
+
+tp.Ui.RegisterType(["GroupBox", "tp-GroupBox"], tp.GroupBox);

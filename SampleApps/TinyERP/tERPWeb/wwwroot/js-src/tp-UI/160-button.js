@@ -228,3 +228,5 @@ tp.Button.prototype.Tag = null;
  * @type {Function|null}
  */
 tp.Button.prototype.fClickHandler = null;
+
+tp.Ui.RegisterType(["Button", "tp-Button"], tp.Button);
