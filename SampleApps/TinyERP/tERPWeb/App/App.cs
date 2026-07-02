@@ -152,12 +152,8 @@ static public partial class App
     {
         WebFormDef Form;
         bool IsNewForm;
-        string[] TestFormNames = ["CustomerCategory"];
         foreach (ModuleDef Module in DataRegistry.Modules)
         {
-            if (!TestFormNames.Contains(Module.Name))
-                continue;
-
             Form = WebDeskRegistry.FindForm(Module.Name);
             if (Form != null && Form.IsCustom)
                 continue;

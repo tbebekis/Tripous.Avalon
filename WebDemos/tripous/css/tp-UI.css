@@ -654,12 +654,21 @@ fieldset.tp-GroupBox legend {
 .tp-ControlBar .tp-ButtonEx {
     min-width: 2.2em;
     min-height: 2.2em;
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    background-color: var(--BackColor);
+}
+
+.tp-ControlBar .tp-ButtonEx:not(.tp-Disabled):hover {
+    border-color: #c8c8c8;
+    background-color: #f3f3f3;
 }
 
 .tp-ControlBar .tp-ButtonEx > :nth-child(1) {
     width: 1.4em;
     height: 1.4em;
-    margin: 3px;
+    margin: 2px;
 }
 
 .tp-ToolButton {
