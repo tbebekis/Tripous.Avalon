@@ -59,6 +59,8 @@ tp.Classes = {
     Btn: "tp-Btn",
     Ico: "tp-Ico",
     Img: "tp-Img",
+    ControlBar: "tp-ControlBar",
+    ControlBarItem: "tp-ControlBarItem",
     ControlToolBar: "tp-ControlToolBar",
     ControlToolButton: "tp-ControlToolButton",
     Separator: "tp-Separator",
@@ -7615,6 +7617,427 @@ tp.ButtonEx.prototype.fImageUrl = "";
  */
 tp.ButtonEx.prototype.fClickHandler = null;
 
+// ● control bar
+/**
+ * A generic horizontal control bar that can host any Tripous component or HTMLElement.
+ *
+ * Events:
+ * - ButtonClick
+ * - Disposing
+ * - Disposed
+ * - ParentChanged
+ * - EnabledChanged
+ * - VisibleChanged
+ * - ElementSizeChanged
+ * - SizeModeChanged
+ */
+tp.ControlBar = class extends tp.Component {
+    // ● constructor
+    /**
+     * Creates a control bar.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create parameters, handle, selector, or null.
+     * @param {object|null|undefined} Options Optional settings used when the first argument is a handle or selector.
+     */
+    constructor(CreateParams, Options) {
+        var Params = tp.ControlBar.CreateParams(CreateParams, Options);
+        super(Params);
+        this.tpClass = "tp.ControlBar";
+        tp.AddClass(this.Handle, tp.Classes.ControlBar);
+        this.CollectMarkupItems();
+    }
+
+    // ● protected
+    /**
+     * Creates normalized control bar create parameters.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The source create parameters, handle, or selector.
+     * @param {object|null|undefined} Options Optional settings used when CreateParams is a handle or selector.
+     * @returns {tp.CreateParams} Returns normalized create parameters.
+     */
+    static CreateParams(CreateParams, Options) {
+        var Params;
+        var Element;
+        if (arguments.length > 1 && !tp.IsNil(Options)) {
+            Params = new tp.CreateParams(Options);
+            Params.ElementOrSelector = CreateParams;
+        } else {
+            Params = tp.Component.CreateParams(CreateParams);
+        }
+        Element = tp(Params.ElementOrSelector);
+        if (!(Element instanceof HTMLElement))
+            Params.ElementOrSelector = "div";
+        return Params;
+    }
+    /**
+     * Initializes instance fields.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        this.Items = [];
+    }
+    /**
+     * Returns an item element.
+     * @param {tp.Component|HTMLElement|string|null|undefined} Item The item.
+     * @returns {HTMLElement|null} Returns the element or null.
+     */
+    ResolveItemElement(Item) {
+        if (Item instanceof tp.Component)
+            return Item.Handle;
+        if (Item instanceof HTMLElement)
+            return Item;
+        if (tp.IsString(Item))
+            return tp(Item);
+        return null;
+    }
+    /**
+     * Returns the component or element stored for an element.
+     * @param {HTMLElement} Element The item element.
+     * @returns {tp.Component|HTMLElement|null} Returns an item or null.
+     */
+    GetItemFromElement(Element) {
+        var Component = tp.GetComponent(Element);
+        return Component instanceof tp.Component ? Component : Element;
+    }
+    /**
+     * Returns the index of an item.
+     * @param {tp.Component|HTMLElement|string|null|undefined} Item The item.
+     * @returns {number} Returns the index or -1.
+     */
+    IndexOfItem(Item) {
+        var Element = this.ResolveItemElement(Item);
+        var Index;
+        var ItemElement;
+        if (!(Element instanceof HTMLElement))
+            return -1;
+        for (Index = 0; Index < this.Items.length; Index++) {
+            ItemElement = this.ResolveItemElement(this.Items[Index]);
+            if (ItemElement === Element)
+                return Index;
+        }
+        return -1;
+    }
+    /**
+     * Tracks an item.
+     * @param {tp.Component|HTMLElement} Item The item.
+     * @returns {void}
+     */
+    TrackItem(Item) {
+        if (this.IndexOfItem(Item) < 0)
+            this.Items.push(Item);
+    }
+    /**
+     * Stops tracking an item.
+     * @param {tp.Component|HTMLElement|string|null|undefined} Item The item.
+     * @returns {void}
+     */
+    UntrackItem(Item) {
+        var Index = this.IndexOfItem(Item);
+        if (Index >= 0)
+            this.Items.splice(Index, 1);
+    }
+    /**
+     * Collects direct child elements already contained by the handle.
+     * @returns {void}
+     */
+    CollectMarkupItems() {
+        var List = this.GetElementList();
+        var Index;
+        var Element;
+        for (Index = 0; Index < List.length; Index++) {
+            Element = List[Index];
+            tp.AddClass(Element, tp.Classes.ControlBarItem);
+            this.TrackItem(this.GetItemFromElement(Element));
+        }
+    }
+    /**
+     * Inserts an item element before a reference element.
+     * @param {tp.Component|HTMLElement} Item The item.
+     * @param {HTMLElement|null} ReferenceElement The reference element.
+     * @returns {tp.Component|HTMLElement} Returns the item.
+     */
+    InsertElement(Item, ReferenceElement) {
+        var Element = this.ResolveItemElement(Item);
+        if (!(Element instanceof HTMLElement))
+            tp.Throw("Cannot add item to ControlBar. Invalid item.");
+        tp.AddClass(Element, tp.Classes.ControlBarItem);
+        if (ReferenceElement instanceof HTMLElement)
+            this.Handle.insertBefore(Element, ReferenceElement);
+        else
+            this.Handle.appendChild(Element);
+        this.TrackItem(Item);
+        return Item;
+    }
+
+    // ● public
+    /**
+     * Adds a control to the end of the bar.
+     * @param {tp.Component|HTMLElement} Control The control.
+     * @returns {tp.Component|HTMLElement} Returns the control.
+     */
+    AddControl(Control) {
+        return this.InsertElement(Control, null);
+    }
+    /**
+     * Adds a control to the end of the bar.
+     * @param {tp.Component|HTMLElement} Control The control.
+     * @returns {tp.Component|HTMLElement} Returns the control.
+     */
+    Add(Control) {
+        return this.AddControl(Control);
+    }
+    /**
+     * Inserts a control before a pivot control.
+     * @param {tp.Component|HTMLElement|string} PivotItem The pivot item.
+     * @param {tp.Component|HTMLElement} Item The item to insert.
+     * @returns {tp.Component|HTMLElement} Returns the inserted item.
+     */
+    InsertBefore(PivotItem, Item) {
+        var PivotElement = this.ResolveItemElement(PivotItem);
+        if (!(PivotElement instanceof HTMLElement) || PivotElement.parentElement !== this.Handle)
+            tp.Throw("Cannot insert ControlBar item before pivot. Pivot does not belong to this ControlBar.");
+        return this.InsertElement(Item, PivotElement);
+    }
+    /**
+     * Inserts a control after a pivot control.
+     * @param {tp.Component|HTMLElement|string} PivotItem The pivot item.
+     * @param {tp.Component|HTMLElement} Item The item to insert.
+     * @returns {tp.Component|HTMLElement} Returns the inserted item.
+     */
+    InsertAfter(PivotItem, Item) {
+        var PivotElement = this.ResolveItemElement(PivotItem);
+        var ReferenceElement;
+        if (!(PivotElement instanceof HTMLElement) || PivotElement.parentElement !== this.Handle)
+            tp.Throw("Cannot insert ControlBar item after pivot. Pivot does not belong to this ControlBar.");
+        ReferenceElement = PivotElement.nextElementSibling;
+        return this.InsertElement(Item, ReferenceElement);
+    }
+    /**
+     * Places an existing control before another existing control.
+     * @param {tp.Component|HTMLElement|string} PivotItem The pivot item.
+     * @param {tp.Component|HTMLElement|string} Item The item to move.
+     * @returns {void}
+     */
+    PlaceControlBefore(PivotItem, Item) {
+        var PivotElement = this.ResolveItemElement(PivotItem);
+        var Element = this.ResolveItemElement(Item);
+        if (!(PivotElement instanceof HTMLElement) || PivotElement.parentElement !== this.Handle)
+            tp.Throw("Cannot place ControlBar item before pivot. Pivot does not belong to this ControlBar.");
+        if (!(Element instanceof HTMLElement) || Element.parentElement !== this.Handle)
+            tp.Throw("Cannot place ControlBar item. Item does not belong to this ControlBar.");
+        if (PivotElement === Element)
+            tp.Throw("Cannot place ControlBar item. Pivot and item are the same.");
+        this.Handle.insertBefore(Element, PivotElement);
+    }
+    /**
+     * Places an existing control after another existing control.
+     * @param {tp.Component|HTMLElement|string} PivotItem The pivot item.
+     * @param {tp.Component|HTMLElement|string} Item The item to move.
+     * @returns {void}
+     */
+    PlaceControlAfter(PivotItem, Item) {
+        var PivotElement = this.ResolveItemElement(PivotItem);
+        var Element = this.ResolveItemElement(Item);
+        var ReferenceElement;
+        if (!(PivotElement instanceof HTMLElement) || PivotElement.parentElement !== this.Handle)
+            tp.Throw("Cannot place ControlBar item after pivot. Pivot does not belong to this ControlBar.");
+        if (!(Element instanceof HTMLElement) || Element.parentElement !== this.Handle)
+            tp.Throw("Cannot place ControlBar item. Item does not belong to this ControlBar.");
+        if (PivotElement === Element)
+            tp.Throw("Cannot place ControlBar item. Pivot and item are the same.");
+        ReferenceElement = PivotElement.nextElementSibling;
+        if (ReferenceElement instanceof HTMLElement)
+            this.Handle.insertBefore(Element, ReferenceElement);
+        else
+            this.Handle.appendChild(Element);
+    }
+    /**
+     * Removes a control from the bar.
+     * @param {tp.Component|HTMLElement|string} Item The item to remove.
+     * @param {boolean|null|undefined} DisposeComponent True to dispose a removed Tripous component.
+     * @returns {void}
+     */
+    Remove(Item, DisposeComponent) {
+        var Element = this.ResolveItemElement(Item);
+        var Component;
+        if (!(Element instanceof HTMLElement) || Element.parentElement !== this.Handle)
+            return;
+        Component = tp.GetComponent(Element);
+        this.UntrackItem(Element);
+        Element.parentNode.removeChild(Element);
+        if (DisposeComponent === true && Component instanceof tp.Component && !Component.IsDisposed)
+            Component.Dispose();
+    }
+    /**
+     * Removes all controls from the bar.
+     * @param {boolean|null|undefined} DisposeComponents True to dispose Tripous components.
+     * @returns {void}
+     */
+    RemoveAll(DisposeComponents) {
+        var List = this.GetItemList();
+        var Index;
+        for (Index = 0; Index < List.length; Index++)
+            this.Remove(List[Index], DisposeComponents);
+        this.Items.length = 0;
+    }
+    /**
+     * Returns the current item list.
+     * @returns {(tp.Component|HTMLElement)[]} Returns the item list.
+     */
+    GetItemList() {
+        var Result = [];
+        var Elements = this.GetElementList();
+        var Index;
+        for (Index = 0; Index < Elements.length; Index++)
+            Result.push(this.GetItemFromElement(Elements[Index]));
+        return Result;
+    }
+    /**
+     * Finds an item by command.
+     * @param {string} Command The command to find.
+     * @returns {tp.Component|HTMLElement|null} Returns the found item or null.
+     */
+    FindItemByCommand(Command) {
+        var List = this.GetItemList();
+        var Index;
+        var Item;
+        for (Index = 0; Index < List.length; Index++) {
+            Item = List[Index];
+            if (tp.HasCommandProperty(Item) && tp.IsSameText(Item.Command, Command))
+                return Item;
+        }
+        return null;
+    }
+    /**
+     * Adds a separator.
+     * @param {string|null|undefined} Name The optional separator name.
+     * @returns {HTMLElement} Returns the separator element.
+     */
+    AddSeparator(Name) {
+        var Result = this.Document.createElement("div");
+        if (!tp.IsBlank(Name))
+            Result.id = String(Name);
+        tp.AddClass(Result, tp.Classes.Separator);
+        this.AddControl(Result);
+        return Result;
+    }
+    /**
+     * Adds a Tripous button.
+     * @param {string|null|undefined} Text The button text.
+     * @param {string|null|undefined} Command The command.
+     * @param {Function|null|undefined} ClickFunc Optional click callback.
+     * @param {string|null|undefined} ToolTip The tooltip.
+     * @param {string|null|undefined} IcoClasses The icon CSS classes.
+     * @param {string|null|undefined} CssClasses Extra CSS classes.
+     * @param {string|null|undefined} ImageUrl The icon image URL.
+     * @returns {tp.ButtonEx} Returns the button.
+     */
+    AddButton(Text, Command, ClickFunc, ToolTip, IcoClasses, CssClasses, ImageUrl) {
+        var Button = new tp.ButtonEx({
+            Text: Text || "",
+            ToolTip: ToolTip || "",
+            Command: Command || "",
+            IcoClasses: IcoClasses || "",
+            ImageUrl: ImageUrl || "",
+            IcoMode: tp.ButtonExIcoMode.Left,
+            NoText: true
+        });
+        tp.AddClass(Button.Handle, tp.Classes.ToolButton);
+        if (!tp.IsBlank(CssClasses))
+            tp.AddClasses(Button.Handle, CssClasses);
+        if (tp.IsFunction(ClickFunc))
+            Button.On(tp.Events.Click, ClickFunc, this);
+        Button.On(tp.Events.Click, (Args) => this.OnButtonClick(new tp.ToolBarItemClickEventArgs(Button, Args && !tp.IsBlank(Args.Command) ? Args.Command : Button.Command)));
+        this.AddControl(Button);
+        return Button;
+    }
+    /**
+     * Adds a Tripous text box.
+     * @param {string|null|undefined} Text The initial text.
+     * @param {number|null|undefined} Width The optional width.
+     * @returns {tp.TextBox} Returns the text box.
+     */
+    AddTextBox(Text, Width) {
+        var Result = new tp.TextBox({
+            Text: Text || ""
+        });
+        if (tp.IsNumber(Width))
+            Result.Handle.style.width = Width + "px";
+        this.AddControl(Result);
+        return Result;
+    }
+    /**
+     * Adds a text block element.
+     * @param {string|null|undefined} Text The text.
+     * @returns {HTMLElement} Returns the text element.
+     */
+    AddTextBlock(Text) {
+        var Result = this.Document.createElement("span");
+        Result.textContent = Text || "";
+        this.AddControl(Result);
+        return Result;
+    }
+    /**
+     * Adds a label element.
+     * @param {string|null|undefined} Text The label text.
+     * @returns {HTMLElement} Returns the label element.
+     */
+    AddLabel(Text) {
+        var Result = this.Document.createElement("label");
+        Result.textContent = Text || "";
+        this.AddControl(Result);
+        return Result;
+    }
+    /**
+     * Adds a Tripous combo box.
+     * @param {object[]|null|undefined} List The item list.
+     * @param {number|null|undefined} SelectedIndex The selected index.
+     * @param {number|null|undefined} Width The optional width.
+     * @returns {tp.ComboBox} Returns the combo box.
+     */
+    AddComboBox(List, SelectedIndex, Width) {
+        var Result = new tp.ComboBox({
+            List: tp.IsArray(List) ? List : [],
+            SelectedIndex: tp.IsNumber(SelectedIndex) ? SelectedIndex : 0
+        });
+        if (tp.IsNumber(Width))
+            Result.Handle.style.width = Width + "px";
+        this.AddControl(Result);
+        return Result;
+    }
+    /**
+     * Adds a native check box with optional text.
+     * @param {string|null|undefined} Text The check box text.
+     * @param {boolean|null|undefined} IsChecked The checked value.
+     * @returns {HTMLLabelElement} Returns the label host element.
+     */
+    AddCheckBox(Text, IsChecked) {
+        var Result = this.Document.createElement("label");
+        var Box = this.Document.createElement("input");
+        Box.type = "checkbox";
+        Box.checked = IsChecked === true;
+        Result.appendChild(Box);
+        if (!tp.IsBlank(Text))
+            Result.appendChild(this.Document.createTextNode(" " + Text));
+        this.AddControl(Result);
+        return Result;
+    }
+    /**
+     * Triggers the ButtonClick event.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    OnButtonClick(Args) {
+        this.Trigger("ButtonClick", Args);
+    }
+};
+
+// ● prototype
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.ControlBar.prototype.tpClass = "tp.ControlBar";
+
 // ● toolbar
 /**
  * A toolbar containing ButtonEx items.
@@ -7842,6 +8265,7 @@ tp.ToolBar.prototype.fNoText = true;
 tp.Ui.RegisterType(["ControlToolButton", "tp-ControlToolButton"], tp.ControlToolButton);
 tp.Ui.RegisterType(["ControlToolBar", "tp-ControlToolBar"], tp.ControlToolBar);
 tp.Ui.RegisterType(["ButtonEx", "tp-ButtonEx"], tp.ButtonEx);
+tp.Ui.RegisterType(["ControlBar", "tp-ControlBar"], tp.ControlBar);
 tp.Ui.RegisterType(["ToolBar", "tp-ToolBar"], tp.ToolBar);
 
 // ● 175-status-bar.js

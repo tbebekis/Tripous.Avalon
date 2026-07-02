@@ -51,6 +51,8 @@ tp.Classes = {
     Btn: "tp-Btn",
     Ico: "tp-Ico",
     Img: "tp-Img",
+    ControlBar: "tp-ControlBar",
+    ControlBarItem: "tp-ControlBarItem",
     ControlToolBar: "tp-ControlToolBar",
     ControlToolButton: "tp-ControlToolButton",
     Separator: "tp-Separator",

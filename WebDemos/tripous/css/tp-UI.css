@@ -639,6 +639,29 @@ fieldset.tp-GroupBox legend {
     flex-wrap: wrap;
 }
 
+.tp-ControlBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+.tp-ControlBarItem {
+    flex: 0 0 auto;
+}
+
+.tp-ControlBar .tp-ButtonEx {
+    min-width: 2.2em;
+    min-height: 2.2em;
+}
+
+.tp-ControlBar .tp-ButtonEx > :nth-child(1) {
+    width: 1.4em;
+    height: 1.4em;
+    margin: 3px;
+}
+
 .tp-ToolButton {
     position: relative;
     display: inline-flex;

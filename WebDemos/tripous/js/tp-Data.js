@@ -3380,6 +3380,8 @@ tp.DataSource = class extends tp.Object {
  * Describes a client-side data module action.
  */
 tp.DataModuleAction = class {
+
+
     // ● constructor
     /**
      * Creates a data module action.
@@ -3394,34 +3396,34 @@ tp.DataModuleAction = class {
         this.Packet = null;
         this.Result = null;
     }
-};
 
-// ● prototype
-/**
- * The data module executing the action.
- * @type {tp.DataModule|null}
- */
-tp.DataModuleAction.prototype.DataModule = null;
-/**
- * The action name.
- * @type {string}
- */
-tp.DataModuleAction.prototype.Name = "";
-/**
- * The request parameters.
- * @type {object|null}
- */
-tp.DataModuleAction.prototype.Params = null;
-/**
- * The returned response packet.
- * @type {object|null}
- */
-tp.DataModuleAction.prototype.Packet = null;
-/**
- * The action result object.
- * @type {*}
- */
-tp.DataModuleAction.prototype.Result = null;
+    // ● fields
+    /**
+     * The data module executing the action.
+     * @type {tp.DataModule|null}
+     */
+    DataModule = null;
+    /**
+     * The action name.
+     * @type {string}
+     */
+    Name = "";
+    /**
+     * The request parameters.
+     * @type {object|null}
+     */
+    Params = null;
+    /**
+     * The returned response packet.
+     * @type {object|null}
+     */
+    Packet = null;
+    /**
+     * The action result object.
+     * @type {*}
+     */
+    Result = null;
+};
 
 // ● data module
 /**
