@@ -1,0 +1,40 @@
+@model Tripous.WebDesk.WebFormDef
+@{
+    string JsFormClassType = !string.IsNullOrWhiteSpace(Model.JsFormClassType) ? Model.JsFormClassType : "tp.WebDataForm";
+    string ItemViewName = Model.ItemViewName;
+    string ItemViewFileName = ItemViewName.EndsWith(".cshtml", StringComparison.OrdinalIgnoreCase) ? ItemViewName : $"{ItemViewName}.cshtml";
+    string ItemViewPath = string.IsNullOrWhiteSpace(ItemViewName)
+        ? string.Empty
+        : (ItemViewName.StartsWith("/", StringComparison.Ordinal) ? ItemViewName : $"/Views/WebForms/{ItemViewFileName}");
+    string DataSetup = Tripous.Json.Serialize(new
+    {
+        WebFormName = Model.Name,
+        ModuleName = Model.Module,
+        Module = Model.Module,
+        IsReadOnly = Model.IsReadOnly,
+        JavaScriptFiles = Model.JavaScriptFiles,
+        CssFiles = Model.CssFiles,
+        JsFormClassType
+    });
+}
+<div class="tp-WebDataForm" data-setup='@Html.Raw(DataSetup)'>
+    <div data-role="toolbar"></div>
+    <div data-role="body" class="tp-WebDataForm-Body">
+        <aside data-role="filters" class="tp-WebDataForm-FilterPane" hidden>
+            <div data-role="select-bar"></div>
+            <div data-role="filter-panel-list"></div>
+        </aside>
+        <div data-role="filter-splitter" class="tp-Splitter" hidden></div>
+        <section data-role="work-pane" class="tp-WebDataForm-WorkPane">
+            <section data-role="list-page" class="tp-WebDataForm-ListPage">
+                <div data-role="list-grid"></div>
+            </section>
+            <section data-role="item-page" class="tp-WebDataForm-ItemPage" hidden>
+                @if (!string.IsNullOrWhiteSpace(ItemViewPath))
+                {
+                    @await Html.PartialAsync(ItemViewPath, Model)
+                }
+            </section>
+        </section>
+    </div>
+</div>

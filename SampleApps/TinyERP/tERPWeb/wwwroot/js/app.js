@@ -1122,6 +1122,8 @@ app.App = {
             Form = Forms[Index];
             if (Form.IsCustom === true)
                 continue;
+            if (tp.IsBlankString(Form.JsFormClassType))
+                continue;
             GroupName = !tp.IsBlankString(Form.Group) ? Form.Group : "General Forms";
             GroupCommandName = "WebForms." + GroupName;
             GroupCommand = Groups[GroupCommandName];

@@ -142,6 +142,38 @@ static public partial class App
         Form.JsFormClassType = "app.CommandTreeViewForm";
         if (!Form.JavaScriptFiles.Contains("/js/forms/command-tree-view-form.js"))
             Form.JavaScriptFiles.Add("/js/forms/command-tree-view-form.js");
+
+        RegisterDataModuleWebForms();
+    }
+    /// <summary>
+    /// Registers standard WebDesk data forms from registered data modules.
+    /// </summary>
+    static void RegisterDataModuleWebForms()
+    {
+        WebFormDef Form;
+        bool IsNewForm;
+        string[] TestFormNames = ["CustomerCategory"];
+        foreach (ModuleDef Module in DataRegistry.Modules)
+        {
+            if (!TestFormNames.Contains(Module.Name))
+                continue;
+
+            Form = WebDeskRegistry.FindForm(Module.Name);
+            if (Form != null && Form.IsCustom)
+                continue;
+            IsNewForm = Form == null;
+
+            Form = WebDeskRegistry.AddOrUpdateForm(
+                Name: Module.Name,
+                TitleKey: IsNewForm ? Module.TitleKey : null,
+                Module: Module.Name,
+                ViewName: "/Views/WebForms/WebDataForm.cshtml",
+                ItemViewName: "/Views/WebForms/WebItemPage.cshtml",
+                Group: IsNewForm ? Module.Group : null,
+                IsReadOnly: IsNewForm ? false : null,
+                SecurityLevel: IsNewForm ? Module.SecurityLevel : null);
+            Form.JsFormClassType = "tp.WebDataForm";
+        }
     }
     /// <summary>
     /// Registers Ajax request handlers.
