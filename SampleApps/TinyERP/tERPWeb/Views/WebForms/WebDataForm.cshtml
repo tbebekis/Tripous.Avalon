@@ -22,7 +22,9 @@
     <div data-role="body" class="tp-WebDataForm-Body">
         <aside data-role="filters" class="tp-WebDataForm-FilterPane" hidden>
             <div data-role="select-bar"></div>
-            <div data-role="filter-panel-list"></div>
+            <div data-role="filter-panel-list">
+                @await Html.PartialAsync("/Views/WebForms/_SelectFilters.cshtml", Model)
+            </div>
         </aside>
         <div data-role="filter-splitter" class="tp-Splitter" hidden></div>
         <section data-role="work-pane" class="tp-WebDataForm-WorkPane">

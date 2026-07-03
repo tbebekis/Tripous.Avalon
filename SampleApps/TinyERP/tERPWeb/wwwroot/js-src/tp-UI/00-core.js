@@ -66,6 +66,7 @@ tp.Classes = {
     WebDataFormSelectBar: "tp-WebDataForm-SelectBar",
     WebDataFormFilterPanelList: "tp-WebDataForm-FilterPanelList",
     WebDataFormGrid: "tp-WebDataForm-Grid",
+    SelectFilterRow: "tp-SelectFilterRow",
     Separator: "tp-Separator",
     Strip: "tp-Strip",
     SiteMenu: "tp-SiteMenu",

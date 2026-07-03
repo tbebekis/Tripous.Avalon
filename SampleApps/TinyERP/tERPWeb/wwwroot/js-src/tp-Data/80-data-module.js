@@ -83,7 +83,7 @@ tp.DataModule = class extends tp.Object {
         this.StockNames = [];
         this.DataSet = new tp.DataSet();
         this.LastSelectName = "";
-        this.LastWhereText = "";
+        this.LastFilters = [];
         if (tp.IsObject(NameOrSource))
             this.Assign(NameOrSource);
         else if (!tp.IsBlank(NameOrSource))
@@ -292,13 +292,13 @@ tp.DataModule = class extends tp.Object {
     /**
      * Selects the list table.
      * @param {string|null|undefined} SelectName The registered select name.
-     * @param {string|null|undefined} WhereText The generated filter WHERE fragment.
+     * @param {object[]|null|undefined} Filters The active structured filters.
      * @returns {Promise<tp.DataModuleAction>} Returns the action.
      */
-    async SelectList(SelectName, WhereText) {
+    async SelectList(SelectName, Filters) {
         var Params = this.CreateParams({
             SelectName: SelectName || "",
-            WhereText: WhereText || ""
+            Filters: tp.IsArray(Filters) ? Filters : []
         });
         var Action = await this.ExecuteAction("DataModule.SelectList", Params);
         var Table;
@@ -310,7 +310,7 @@ tp.DataModule = class extends tp.Object {
             else
                 this.DataSet.AddTable(Action.Packet.Table);
             this.LastSelectName = Action.Packet.SelectName || SelectName || "";
-            this.LastWhereText = WhereText || "";
+            this.LastFilters = tp.IsArray(Filters) ? Filters.slice() : [];
             Action.Result = this.tblList;
         }
         return Action;

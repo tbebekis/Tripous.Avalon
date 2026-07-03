@@ -1,0 +1,37 @@
+@model Tripous.WebDesk.WebFormDef
+@{
+    Tripous.Data.ModuleDef ModuleDef = !string.IsNullOrWhiteSpace(Model.Module)
+        ? Tripous.Data.DataRegistry.Modules.Find(Model.Module)
+        : null;
+}
+@if (ModuleDef != null)
+{
+    foreach (Tripous.Data.SelectDef SelectDef in ModuleDef.SelectList)
+    {
+        <div data-select-name="@SelectDef.Name">
+            @if (SelectDef.FilterDefs.Count > 0)
+            {
+                foreach (Tripous.Data.SqlFilterDef FilterDef in SelectDef.FilterDefs)
+                {
+                    string DataSetup = Tripous.Json.Serialize(new
+                    {
+                        SelectName = SelectDef.Name,
+                        Name = FilterDef.Name,
+                        FilterName = FilterDef.Name,
+                        Title = FilterDef.Title,
+                        TitleKey = FilterDef.TitleKey,
+                        FieldName = FilterDef.FieldName,
+                        FilterDataType = FilterDef.FilterDataType.ToString(),
+                        BoolOp = FilterDef.BoolOp.ToString(),
+                        ConditionOp = FilterDef.ConditionOp.ToString()
+                    });
+                    <div class="tp-SelectFilterRow" data-setup="@DataSetup"></div>
+                }
+            }
+            else
+            {
+                <div class="tp-Text">No filters</div>
+            }
+        </div>
+    }
+}

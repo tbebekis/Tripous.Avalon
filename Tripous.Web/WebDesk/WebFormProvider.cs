@@ -16,6 +16,57 @@ public abstract class WebFormProvider
     // ● private fields
     string fName;
 
+    // ● private
+    /// <summary>
+    /// Creates a reduced filter packet.
+    /// </summary>
+    static WebFormSelectFilterPacket CreateFilterPacket(SqlFilterDef FilterDef)
+    {
+        return new WebFormSelectFilterPacket
+        {
+            Name = FilterDef.Name,
+            TitleKey = FilterDef.TitleKey,
+            Title = FilterDef.Title,
+            FieldName = FilterDef.FieldName,
+            FilterDataType = FilterDef.FilterDataType.ToString(),
+            BoolOp = FilterDef.BoolOp.ToString(),
+            ConditionOp = FilterDef.ConditionOp.ToString()
+        };
+    }
+    /// <summary>
+    /// Creates a reduced select packet.
+    /// </summary>
+    static WebFormSelectPacket CreateSelectPacket(SelectDef SelectDef)
+    {
+        WebFormSelectPacket Result = new()
+        {
+            Name = SelectDef.Name,
+            TitleKey = SelectDef.TitleKey,
+            Title = SelectDef.Title,
+            UseFilters = SelectDef.UseFilters
+        };
+
+        foreach (SqlFilterDef FilterDef in SelectDef.FilterDefs)
+            Result.Filters.Add(CreateFilterPacket(FilterDef));
+
+        return Result;
+    }
+    /// <summary>
+    /// Adds reduced select descriptors to a provider packet.
+    /// </summary>
+    static void AddSelectList(WebFormProviderPacket Packet, WebFormDef Form)
+    {
+        if (Packet == null || Form == null || string.IsNullOrWhiteSpace(Form.Module))
+            return;
+
+        ModuleDef ModuleDef = DataRegistry.Modules.Find(Form.Module);
+        if (ModuleDef == null)
+            return;
+
+        foreach (SelectDef SelectDef in ModuleDef.SelectList)
+            Packet.SelectList.Add(CreateSelectPacket(SelectDef));
+    }
+
     // ● protected
     /// <summary>
     /// Returns the web form name declared by the provider attribute.
@@ -49,6 +100,7 @@ public abstract class WebFormProvider
         Result.JsFormClassType = Form.JsFormClassType;
         Result.CssFiles.AddRange(Form.CssFiles);
         Result.JavaScriptFiles.AddRange(Form.JavaScriptFiles);
+        AddSelectList(Result, Form);
         Result.Html = GetHtml(Context);
 
         return Result;

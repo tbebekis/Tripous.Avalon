@@ -53,30 +53,6 @@ public abstract class DataModuleAjaxOperation: AjaxOperation
         return Def.Create();
     }
     /// <summary>
-    /// Returns the selected list select definition.
-    /// </summary>
-    protected SelectDef GetSelectDef(AjaxRequest Request, DataModule Module)
-    {
-        string SelectName = GetStringParam(Request, "SelectName");
-        SelectDef Result = null;
-        if (!string.IsNullOrWhiteSpace(SelectName))
-            Result = Module.ModuleDef.SelectList.Find(SelectName);
-        if (Result == null && Module.ModuleDef.SelectList.Count > 0)
-            Result = Module.ModuleDef.SelectList[0];
-        if (Result == null)
-            Sys.Throw($"No SelectList item found for DataModule: {Module.Name}");
-        return Result;
-    }
-    /// <summary>
-    /// Applies a filter WHERE fragment to a select statement.
-    /// </summary>
-    protected virtual string ApplyWhere(string SqlText, string WhereText)
-    {
-        if (!string.IsNullOrWhiteSpace(SqlText) && !string.IsNullOrWhiteSpace(WhereText))
-            return $"select * from ({SqlText}) X where {WhereText}";
-        return SqlText;
-    }
-    /// <summary>
     /// Returns a JSON data module packet request parameter.
     /// </summary>
     protected JsonDataModule GetDataModulePacket(AjaxRequest Request)
@@ -208,15 +184,13 @@ public class DataModuleSelectList: DataModuleAjaxOperation
     public override AjaxResponse Execute(AjaxRequest Request, AjaxOperationContext Context)
     {
         DataModule Module = CreateModule(Request);
-        SelectDef SelectDef = GetSelectDef(Request, Module);
-        string WhereText = GetStringParam(Request, "WhereText");
-        string SqlText = ApplyWhere(SelectDef.SqlText, WhereText);
-
-        Module.ListSelect(SqlText);
+        string SelectName = GetStringParam(Request, "SelectName");
+        JsonSelectFilters Filters = JsonSelectFilters.From(Request.GetParam("Filters"));
+        JsonDataTable Table = Module.JsonSelectList(SelectName, Filters);
 
         AjaxResponse Result = new(Request.OperationName);
-        Result["Table"] = new JsonDataTable(Module.tblList);
-        Result["SelectName"] = SelectDef.Name;
+        Result["Table"] = Table;
+        Result["SelectName"] = SelectName;
         return Result;
     }
 }

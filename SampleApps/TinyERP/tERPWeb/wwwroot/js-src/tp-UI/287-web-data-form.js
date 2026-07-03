@@ -91,6 +91,11 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.FilterPanelList = null;
         /**
+         * The filter row controls.
+         * @type {tp.SelectFilterRow[]}
+         */
+        this.SelectFilterRows = [];
+        /**
          * The list grid.
          * @type {tp.Grid|null}
          */
@@ -181,6 +186,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.SelectBar = null;
         this.SelectCombo = null;
         this.FilterPanelList = null;
+        this.SelectFilterRows = [];
         this.ListGrid = null;
         this.FilterPane = null;
         this.FilterSplitter = null;
@@ -357,6 +363,13 @@ tp.WebDataForm = class extends tp.WebForm {
         var Panel;
         if (!(this.FilterPanelList instanceof tp.PanelList))
             return;
+        if (this.FilterPanelList.Count > 0) {
+            if (this.SelectCombo instanceof tp.ComboBox)
+                this.FilterPanelList.Associate = this.SelectCombo;
+            this.FilterPanelList.SelectedIndex = this.SelectCombo instanceof tp.ComboBox ? this.SelectCombo.SelectedIndex : 0;
+            this.InitializeFilterRows();
+            return;
+        }
         if (Names.length === 0)
             Names.push("Default");
         this.FilterPanelList.Associate = null;
@@ -369,6 +382,7 @@ tp.WebDataForm = class extends tp.WebForm {
         if (this.SelectCombo instanceof tp.ComboBox)
             this.FilterPanelList.Associate = this.SelectCombo;
         this.FilterPanelList.SelectedIndex = this.SelectCombo instanceof tp.ComboBox ? this.SelectCombo.SelectedIndex : 0;
+        this.InitializeFilterRows();
     }
     /**
      * Builds a single filter panel.
@@ -386,6 +400,25 @@ tp.WebDataForm = class extends tp.WebForm {
         Panel.appendChild(Empty);
     }
     /**
+     * Initializes select filter row controls from server-rendered placeholders.
+     * @returns {void}
+     */
+    InitializeFilterRows() {
+        var Elements;
+        var Index;
+        var Row;
+        this.SelectFilterRows = [];
+        if (!(this.FilterPanelList instanceof tp.PanelList))
+            return;
+        Elements = this.FilterPanelList.Handle.querySelectorAll("." + tp.Classes.SelectFilterRow);
+        for (Index = 0; Index < Elements.length; Index++) {
+            Row = tp.GetComponent(Elements[Index]);
+            if (!(Row instanceof tp.SelectFilterRow))
+                Row = new tp.SelectFilterRow({ ElementOrSelector: Elements[Index] });
+            this.SelectFilterRows.push(Row);
+        }
+    }
+    /**
      * Returns the selected select name.
      * @returns {string} Returns the selected select name.
      */
@@ -395,11 +428,22 @@ tp.WebDataForm = class extends tp.WebForm {
         return this.Module && this.Module.QueryNames.length > 0 ? this.Module.QueryNames[0] : "";
     }
     /**
-     * Returns the current filter WHERE text.
-     * @returns {string} Returns the WHERE text.
+     * Returns active structured filter values.
+     * @returns {object[]} Returns the active filters.
      */
-    GetWhereText() {
-        return "";
+    GetActiveFilters() {
+        var Result = [];
+        var Index;
+        var SelectName = this.GetSelectedSelectName();
+        var Filter;
+        for (Index = 0; Index < this.SelectFilterRows.length; Index++) {
+            if (!tp.IsSameText(this.SelectFilterRows[Index].SelectName, SelectName))
+                continue;
+            Filter = this.SelectFilterRows[Index].GetActiveFilter();
+            if (Filter)
+                Result.push(Filter);
+        }
+        return Result;
     }
     /**
      * Selects and displays the list table.
@@ -407,13 +451,13 @@ tp.WebDataForm = class extends tp.WebForm {
      */
     async SelectListAsync() {
         var SelectName;
-        var WhereText;
+        var Filters;
         var Table;
         if (!(this.Module instanceof tp.DataModule))
             return;
         SelectName = this.GetSelectedSelectName();
-        WhereText = this.GetWhereText();
-        await this.Module.SelectList(SelectName, WhereText);
+        Filters = this.GetActiveFilters();
+        await this.Module.SelectList(SelectName, Filters);
         Table = this.Module.tblList;
         if (this.ListGrid instanceof tp.Grid && Table) {
             this.ListGrid.DataSource = Table;
@@ -517,6 +561,13 @@ tp.WebDataForm = class extends tp.WebForm {
      * @returns {void}
      */
     ClearFilters() {
+        var Index;
+        var SelectName = this.GetSelectedSelectName();
+        for (Index = 0; Index < this.SelectFilterRows.length; Index++) {
+            if (!tp.IsSameText(this.SelectFilterRows[Index].SelectName, SelectName))
+                continue;
+            this.SelectFilterRows[Index].Clear();
+        }
     }
     /**
      * Updates toolbar state.
@@ -608,6 +659,11 @@ tp.WebDataForm.prototype.SelectCombo = null;
  * @type {tp.PanelList|null}
  */
 tp.WebDataForm.prototype.FilterPanelList = null;
+/**
+ * The filter row controls.
+ * @type {tp.SelectFilterRow[]|null}
+ */
+tp.WebDataForm.prototype.SelectFilterRows = null;
 /**
  * The list grid.
  * @type {tp.Grid|null}

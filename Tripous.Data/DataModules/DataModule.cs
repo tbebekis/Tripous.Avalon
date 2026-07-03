@@ -590,6 +590,176 @@ public class DataModule
         return Result > 0 ? Result : Db.Settings.DefaultRowLimit;
     }
     /// <summary>
+    /// Returns the select definition for a list select operation.
+    /// </summary>
+    protected virtual SelectDef GetListSelectDef(string SelectName)
+    {
+        SelectDef Result = null;
+        if (!string.IsNullOrWhiteSpace(SelectName))
+            Result = ModuleDef.SelectList.Find(SelectName);
+        if (Result == null && ModuleDef.SelectList.Count > 0)
+            Result = ModuleDef.SelectList[0];
+        if (Result == null)
+            throw new TripousDataException($"No SelectList item found for DataModule: {Name}");
+        return Result;
+    }
+    /// <summary>
+    /// Returns the condition operators supported by a data type.
+    /// </summary>
+    protected virtual ConditionOp[] GetFilterConditionOps(DataFieldType DataType)
+    {
+        if (DataType == DataFieldType.Boolean)
+            return new[] { ConditionOp.Equal };
+        if (DataType == DataFieldType.String)
+        {
+            return new[]
+            {
+                ConditionOp.Equal,
+                ConditionOp.Contains,
+                ConditionOp.StartsWith,
+                ConditionOp.EndsWith
+            };
+        }
+
+        return new[]
+        {
+            ConditionOp.Equal,
+            ConditionOp.GreaterOrEqual,
+            ConditionOp.LessOrEqual,
+            ConditionOp.Between
+        };
+    }
+    /// <summary>
+    /// Converts a JSON filter value to the registered filter data type.
+    /// </summary>
+    protected virtual object ConvertSelectFilterValue(object Value, DataFieldType DataType)
+    {
+        if (Value == null || Value == DBNull.Value)
+            return null;
+        if (Value is JsonElement Element)
+        {
+            if (Element.ValueKind == JsonValueKind.Null || Element.ValueKind == JsonValueKind.Undefined)
+                return null;
+            if (DataType == DataFieldType.String)
+                return Element.ValueKind == JsonValueKind.String ? Element.GetString() : Element.ToString();
+            if (DataType == DataFieldType.Integer)
+                return Element.ValueKind == JsonValueKind.String ? Convert.ToInt32(Element.GetString(), CultureInfo.InvariantCulture) : Element.GetInt32();
+            if (DataType == DataFieldType.Decimal || DataType == DataFieldType.Decimal_)
+                return Element.ValueKind == JsonValueKind.String ? Convert.ToDecimal(Element.GetString(), CultureInfo.InvariantCulture) : Element.GetDecimal();
+            if (DataType == DataFieldType.Double)
+                return Element.ValueKind == JsonValueKind.String ? Convert.ToDouble(Element.GetString(), CultureInfo.InvariantCulture) : Element.GetDouble();
+            if (DataType == DataFieldType.Boolean)
+            {
+                if (Element.ValueKind == JsonValueKind.True)
+                    return 1;
+                if (Element.ValueKind == JsonValueKind.False)
+                    return 0;
+                if (Element.ValueKind == JsonValueKind.String)
+                    return ConvertSelectFilterBoolean(Element.GetString());
+                return Element.GetInt32() != 0 ? 1 : 0;
+            }
+            if (DataType.IsDateTime())
+                return Element.ValueKind == JsonValueKind.String ? Convert.ToDateTime(Element.GetString(), CultureInfo.InvariantCulture) : Element.GetDateTime();
+        }
+        if (DataType == DataFieldType.String)
+            return Convert.ToString(Value, CultureInfo.InvariantCulture);
+        if (DataType == DataFieldType.Integer)
+            return Convert.ToInt32(Value, CultureInfo.InvariantCulture);
+        if (DataType == DataFieldType.Decimal || DataType == DataFieldType.Decimal_)
+            return Convert.ToDecimal(Value, CultureInfo.InvariantCulture);
+        if (DataType == DataFieldType.Double)
+            return Convert.ToDouble(Value, CultureInfo.InvariantCulture);
+        if (DataType == DataFieldType.Boolean)
+            return ConvertSelectFilterBoolean(Value);
+        if (DataType.IsDateTime())
+            return Convert.ToDateTime(Value, CultureInfo.InvariantCulture);
+        return Value;
+    }
+    /// <summary>
+    /// Converts a JSON filter value to a boolean SQL value.
+    /// </summary>
+    protected virtual int ConvertSelectFilterBoolean(object Value)
+    {
+        if (Value == null || Value == DBNull.Value)
+            return 0;
+        if (Value is bool BooleanValue)
+            return BooleanValue ? 1 : 0;
+
+        string Text = Convert.ToString(Value, CultureInfo.InvariantCulture);
+        if (Text.IsSameText("true"))
+            return 1;
+        if (Text.IsSameText("false"))
+            return 0;
+        return Convert.ToInt32(Value, CultureInfo.InvariantCulture) != 0 ? 1 : 0;
+    }
+    /// <summary>
+    /// Creates a validated SQL filter definition from an active JSON filter.
+    /// </summary>
+    protected virtual SqlFilterDef CreateValidatedSelectFilter(SelectDef SelectDef, JsonSelectFilter JsonFilter)
+    {
+        if (JsonFilter == null || string.IsNullOrWhiteSpace(JsonFilter.Name))
+            return null;
+        if (!string.IsNullOrWhiteSpace(JsonFilter.SelectName) && !JsonFilter.SelectName.IsSameText(SelectDef.Name))
+            throw new TripousDataException($"Filter select mismatch. Expected {SelectDef.Name}, received {JsonFilter.SelectName}.");
+
+        SqlFilterDef Source = SelectDef.FilterDefs.Find(JsonFilter.Name);
+        if (Source == null)
+            throw new TripousDataException($"Filter not found in SelectDef {SelectDef.Name}: {JsonFilter.Name}");
+
+        BoolOp FilterBoolOp = BoolOp.And;
+        if (!string.IsNullOrWhiteSpace(JsonFilter.BoolOp) && !Enum.TryParse(JsonFilter.BoolOp, true, out FilterBoolOp))
+            throw new TripousDataException($"Invalid filter boolean operator: {JsonFilter.BoolOp}");
+        if (!FilterBoolOp.In(BoolOp.And | BoolOp.Or))
+            throw new TripousDataException($"Unsupported filter boolean operator: {FilterBoolOp}");
+
+        ConditionOp FilterConditionOp = Source.ConditionOp;
+        if (!string.IsNullOrWhiteSpace(JsonFilter.ConditionOp) && !Enum.TryParse(JsonFilter.ConditionOp, true, out FilterConditionOp))
+            throw new TripousDataException($"Invalid filter condition operator: {JsonFilter.ConditionOp}");
+        if (!GetFilterConditionOps(Source.FilterDataType).Contains(FilterConditionOp))
+            throw new TripousDataException($"Unsupported filter condition operator {FilterConditionOp} for filter {Source.Name}.");
+
+        SqlFilterDef Result = Source.Clone() as SqlFilterDef;
+        Result.BoolOp = FilterBoolOp;
+        Result.ConditionOp = Source.FilterDataType == DataFieldType.Boolean ? ConditionOp.Equal : FilterConditionOp;
+        Result.Value = ConvertSelectFilterValue(JsonFilter.Value, Source.FilterDataType);
+        Result.Value2 = Result.ConditionOp == ConditionOp.Between ? ConvertSelectFilterValue(JsonFilter.Value2, Source.FilterDataType) : null;
+        if (Result.Value == null)
+            return null;
+        if (Result.ConditionOp == ConditionOp.Between && Result.Value2 == null)
+            return null;
+        return Result;
+    }
+    /// <summary>
+    /// Creates validated SQL filter definitions from active JSON filters.
+    /// </summary>
+    protected virtual SqlFilterDefs CreateValidatedSelectFilters(SelectDef SelectDef, JsonSelectFilters Filters)
+    {
+        SqlFilterDefs Result = new();
+        Result.AllowDuplicateNames = true;
+        if (Filters != null)
+        {
+            foreach (JsonSelectFilter JsonFilter in Filters)
+            {
+                SqlFilterDef FilterDef = CreateValidatedSelectFilter(SelectDef, JsonFilter);
+                if (FilterDef != null)
+                    Result.Add(FilterDef);
+            }
+        }
+        return Result;
+    }
+    /// <summary>
+    /// Builds the SQL text for a list select operation.
+    /// </summary>
+    protected virtual string BuildListSelectSql(string SelectName, JsonSelectFilters Filters, out SelectDef SelectDef)
+    {
+        SelectDef = GetListSelectDef(SelectName);
+        SqlFilterDefs FilterDefs = CreateValidatedSelectFilters(SelectDef, Filters);
+        string WhereText = FilterDefs.GetSqlWhereFilterTextInline();
+        if (!string.IsNullOrWhiteSpace(WhereText))
+            return $"select * from ({SelectDef.SqlText}) X where {WhereText}";
+        return SelectDef.SqlText;
+    }
+    /// <summary>
     /// Selects the list table.
     /// </summary>
     public virtual void ListSelect(SelectDef SelectDef)
@@ -885,8 +1055,10 @@ public class DataModule
     /// <summary>
     /// Selects the list table and returns it as a JSON contract object.
     /// </summary>
-    public virtual JsonDataTable JsonSelectList(string SqlText, int RowLimit = 0)
+    public virtual JsonDataTable JsonSelectList(string SelectName, JsonSelectFilters Filters)
     {
+        SelectDef SelectDef;
+        string SqlText = BuildListSelectSql(SelectName, Filters, out SelectDef);
         ListSelect(SqlText);
         JsonDataTable Result = new(tblList);
         return Result;
