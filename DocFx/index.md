@@ -8,6 +8,10 @@ Tripous is a .NET framework for building data-centric applications, business sys
 
 The framework combines explicit C# registration, database metadata, SQL-first data access, application descriptors, reusable data modules and an Avalonia-based desktop layer.
 
+> Good software is not built by writing code. </br>
+> It is built by discovering the right concepts. </br>
+> Code is only the implementation of those concepts. 
+
 ## Start Here
 
 - [Introduction](docs/introduction.md)
