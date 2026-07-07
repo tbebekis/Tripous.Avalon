@@ -147,7 +147,7 @@ Photo @BLOB, -- [Image] -- product photo
 | `Master` | `Master` / `Master OneToOne` | FK to parent table. `OneToOne` = single-row detail. |
 | `Lookup` | `Lookup [LOOKUP_NAME] [TableName:TABLE_NAME \| EnumName:ENUM_NAME \| ClassName:LOOKUP_SOURCE_CLASS_NAME]` | Small in-memory reference selector |
 | `Enum` | `Enum [EnumName]` | Enum-backed selector |
-| `Locator` | `Locator [LOCATOR_NAME] [ClassName:LOCATOR_CLASS_NAME]` | Searchable large reference selector |
+| `Locator` | `Locator [LOCATOR_NAME] [ClassName:LOCATOR_CLASS_NAME] [Form:FORM_NAME] [WebForm:WEB_FORM_NAME]` | Searchable large reference selector |
 | `Code` | `Code [Draft] [Pattern] [ProviderName]` | Auto-generated code field |
 | `Memo` | `Memo` | Text field with Memo flag |
 | `LargeMemo` | `LargeMemo` | Text blob with LargeMemo flag |
@@ -201,17 +201,26 @@ ModuleName @NVARCHAR(96) @NOT_NULL, -- Lookup DocumentModule ClassName:DocumentM
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product ClassName:ProductLocator
+CustomerId @NVARCHAR(40) @NOT_NULL, -- Locator Customer Form:Person WebForm:Person
+PaymentId @NVARCHAR(40) @NOT_NULL, -- Locator Payment ClassName:PaymentLocator Form:CustomerReceipt WebForm:CustomerReceipt
 ```
 
-- `LOCATOR_NAME` is the name of the `LocatorDef` in `DataRegistry.Locators`.
+- `LOCATOR_NAME` is the name of the locator definition in `DataRegistry.Locators2`.
 - If `LOCATOR_NAME` is omitted, it is resolved from the FK referenced table.
-- If `ClassName:` is used, `LOCATOR_NAME` is required.
-- `ClassName:` is passed to `DataRegistry.AddOrUpdateLocator()`.
+- If `ClassName:`, `Form:`, or `WebForm:` is used, `LOCATOR_NAME` is required.
+- `ClassName:` is passed to `DataRegistry.AddOrUpdateLocator2()`.
+- `Form:` is the desktop reference form name used by locator reference menus.
+- `WebForm:` is the web reference form name used by web locator reference menus.
+- For FK-backed generated locators, if `Form:` is omitted, the builder uses the referenced table form.
+- For FK-backed generated locators, if `WebForm:` is omitted, the builder uses the referenced table web form, falling back to `Form:`.
+- At runtime, `LocatorDef2.Form` falls back to the locator name and `LocatorDef2.WebForm` falls back to `Form`.
+- For table-backed locators where the locator name is the referenced module/form name, the defaults are usually enough.
+- For custom SQL, service, or cross-module locators, prefer explicit `Form:` and `WebForm:`.
 
 Example generated registration:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", ClassName: "ProductLocator");
+DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", ClassName: "ProductLocator", FormName: "Product", WebFormName: "Product");
 ```
 
 ## Join Aliases and Locator Fields

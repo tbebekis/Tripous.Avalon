@@ -22,14 +22,14 @@ public class TradeItemPage: ItemPage
         if (DetailInfo?.Grid == null || FieldNames == null)
             return;
 
-        List<GridColumnBinding> Bindings = DetailInfo.Grid.GetInfoList();
-        foreach (GridColumnBinding Binding in Bindings)
-            Binding.GridColumn.IsVisible = false;
+        List<GroupGridColumnBinding> Bindings = DetailInfo.Grid.GetInfoList();
+        foreach (GroupGridColumnBinding Binding in Bindings)
+            DetailInfo.Grid.SetColumnVisible(Binding.GridColumn, false);
 
         for (int Index = 0; Index < FieldNames.Count; Index++)
         {
             string FieldName = FieldNames[Index];
-            GridColumnBinding Binding = Bindings.FirstOrDefault(Item =>
+            GroupGridColumnBinding Binding = Bindings.FirstOrDefault(Item =>
             {
                 string Name = !string.IsNullOrWhiteSpace(Item.DisplayFieldName) ? Item.DisplayFieldName : Item.FieldName;
                 return Name.IsSameText(FieldName);
@@ -38,8 +38,8 @@ public class TradeItemPage: ItemPage
             if (Binding == null)
                 continue;
 
-            Binding.GridColumn.IsVisible = true;
-            Binding.GridColumn.DisplayIndex = Index;
+            DetailInfo.Grid.SetColumnVisible(Binding.GridColumn, true);
+            DetailInfo.Grid.MoveColumn(Binding.GridColumn, Index);
         }
     }
 

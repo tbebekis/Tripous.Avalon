@@ -30,11 +30,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <summary>
     /// Stores the original read-only state of detail grids.
     /// </summary>
-    protected Dictionary<DataGrid, bool> fGridReadOnlyStates = new();
+    protected Dictionary<GroupGrid, bool> fGridReadOnlyStates = new();
     /// <summary>
     /// Stores the original read-only state of detail grid columns.
     /// </summary>
-    protected Dictionary<DataGridColumn, bool> fGridColumnReadOnlyStates = new();
+    protected Dictionary<GroupGridColumn, bool> fGridColumnReadOnlyStates = new();
  
     // ● protected methods
     /// <summary>
@@ -76,6 +76,9 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             case LocatorBox Box:
                 Box.IsReadOnly = IsReadOnly;
                 break;
+            case LocatorBox2 Box:
+                Box.IsReadOnly = IsReadOnly;
+                break;
             case TextBox Box:
                 Box.IsReadOnly = IsReadOnly;
                 break;
@@ -99,7 +102,8 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         if (!fGridReadOnlyStates.ContainsKey(DetailInfo.Grid))
             fGridReadOnlyStates[DetailInfo.Grid] = DetailInfo.Grid.IsReadOnly;
         DetailInfo.Grid.IsReadOnly = Value || !DataForm.IsEditableForm || fGridReadOnlyStates[DetailInfo.Grid];
-        foreach (GridColumnBinding Binding in DetailInfo.Grid.GetInfoList())
+        DetailInfo.Grid.IsToolBarVisible = !DetailInfo.Grid.IsReadOnly;
+        foreach (GroupGridColumnBinding Binding in DetailInfo.Grid.GetInfoList())
         {
             if (!fGridColumnReadOnlyStates.ContainsKey(Binding.GridColumn))
                 fGridColumnReadOnlyStates[Binding.GridColumn] = Binding.GridColumn.IsReadOnly;
@@ -111,25 +115,6 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                                   && Binding.FieldDef.IsReadOnlyEdit
                                   && DataForm.FormState != DataFormState.Insert);
             Binding.GridColumn.IsReadOnly = IsReadOnly;
-        }
-
-        if (DetailInfo.ToolBarPanel == null)
-            return;
-
-        foreach (Button Button in DetailInfo.ToolBarPanel.Children.OfType<Button>())
-        {
-            if (Button.Tag is not GridCommand Command)
-                continue;
-
-            DetailGridCommandContext CommandContext = new()
-            {
-                Command = Command,
-                Grid = DetailInfo.Grid,
-                Table = DetailInfo.Table,
-                DetailInfo = DetailInfo,
-                ItemContext = Context
-            };
-            Button.IsEnabled = Command.IsEnabled && CanExecute(CommandContext);
         }
     }
 
@@ -146,8 +131,20 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         
         if (!string.IsNullOrWhiteSpace(Field.Locator))
         {
-            LocatorBox Box = new();
-            ControlBinding Binding = Binder.Bind(Box, Field);
+            Control Box;
+            ControlBinding Binding;
+            if (DataRegistry.FindLocator2(Field.Locator) != null)
+            {
+                LocatorBox2 LocatorBox = new();
+                Binding = Binder.Bind(LocatorBox, Field);
+                Box = LocatorBox;
+            }
+            else
+            {
+                LocatorBox LocatorBox = new();
+                Binding = Binder.Bind(LocatorBox, Field);
+                Box = LocatorBox;
+            }
             if (!Field.IsReadOnly && !Field.IsReadOnlyUI)
             {
                 // context menu for lookup combo boxes and locator box controls.
@@ -226,14 +223,8 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         LookupSource LookupSource = Context.Binding.LookupSource.LookupDef.Create();
         List<LookupItem> List = LookupSource.GetList();
         Context.Binding.LookupSource = LookupSource;
-        if (Context.Binding is GridColumnBinding GridBinding)
+        if (Context.Binding is GroupGridColumnBinding)
         {
-            if (GridBinding.ActiveLookupComboBox != null)
-            {
-                GridBinding.ActiveLookupComboBox.ItemsSource = List;
-                object Value = Context.Binding.Table.CurrentRowView != null ? Context.Binding.Table.CurrentRowView[Context.Binding.FieldName] : null;
-                GridBinding.ActiveLookupComboBox.SelectedItem = LookupSource.FindItem(Value);
-            }
             RefreshReferenceBinding(Context);
             return;
         }
@@ -265,7 +256,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             return;
         }
 
-        if (Context.Caller is not DataGrid Grid || Context.Binding is not GridColumnBinding || Context.Binding.Table == null)
+        if (Context.Caller is not GroupGrid Grid || Context.Binding is not GroupGridColumnBinding || Context.Binding.Table == null)
             return;
 
         Grid.InvalidateVisual();
@@ -317,8 +308,35 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             RefreshReferenceBinding(Context);
             return;
         }
+        if (Context.Binding.LocatorDef2 != null)
+        {
+            LocatorMapper2 Mapper = new();
+            if (Sys.IsNull(Value))
+            {
+                Mapper.Apply(Context.Binding.LocatorMapPlan2, null, Context.Binding.Table.CurrentRow);
+            }
+            else
+            {
+                LocatorRequest2 Request = new()
+                {
+                    Context = new LocatorContext2(Context.Binding.LocatorDef2.Name),
+                    KeyValue = Value,
+                    IsMultiRow = false,
+                };
+                Request.Context.Params["Row"] = Context.Binding.Table.CurrentRow;
+                Request.Context.Params["DataRow"] = Context.Binding.Table.CurrentRow;
+                LocatorResult2 Result = Locators2.Execute(Request);
+                if (Result.HasSingleResult)
+                    Mapper.Apply(Context.Binding.LocatorMapPlan2, Result.Table.Rows[0], Context.Binding.Table.CurrentRow);
+                else
+                    Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Value;
+            }
 
-        if (Context.Binding is GridColumnBinding && Context.Binding.Table.CurrentRowView != null)
+            RefreshReferenceBinding(Context);
+            return;
+        }
+
+        if (Context.Binding is GroupGridColumnBinding && Context.Binding.Table.CurrentRowView != null)
         {
             Context.Binding.Table.CurrentRowView.BeginEdit();
             Context.Binding.Table.CurrentRowView[Context.Binding.FieldName] = Sys.IsNull(Value) ? DBNull.Value : Value;
@@ -343,16 +361,16 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// Captures the current selection of all detail grids.
     /// </summary>
     /// <returns>The captured detail grid selections.</returns>
-    public virtual Dictionary<DataGrid, Tuple<int, DataGridColumn>> CaptureDetailGridSelection()
+    public virtual Dictionary<GroupGrid, Tuple<int, GroupGridColumn>> CaptureDetailGridSelection()
     {
-        Dictionary<DataGrid, Tuple<int, DataGridColumn>> Result = new();
+        Dictionary<GroupGrid, Tuple<int, GroupGridColumn>> Result = new();
 
         foreach (UiDetailTableInfo DetailInfo in Context.TopTableUiInfo.DetailList)
         {
-            if (DetailInfo.Grid == null || DetailInfo.Grid.SelectedIndex < 0)
+            if (DetailInfo.Grid == null || DetailInfo.Grid.CurrentRowIndex < 0)
                 continue;
 
-            Result[DetailInfo.Grid] = Tuple.Create(DetailInfo.Grid.SelectedIndex, DetailInfo.Grid.CurrentColumn);
+            Result[DetailInfo.Grid] = Tuple.Create(DetailInfo.Grid.CurrentRowIndex, DetailInfo.Grid.CurrentCell.Column);
         }
 
         return Result;
@@ -361,36 +379,26 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// Restores the selection of all detail grids.
     /// </summary>
     /// <param name="Selections">The captured detail grid selections.</param>
-    public virtual void RestoreDetailGridSelection(Dictionary<DataGrid, Tuple<int, DataGridColumn>> Selections)
+    public virtual void RestoreDetailGridSelection(Dictionary<GroupGrid, Tuple<int, GroupGridColumn>> Selections)
     {
         if (Selections == null || Selections.Count == 0)
             return;
 
         Ui.Post(() => Ui.Post(() =>
         {
-            foreach (KeyValuePair<DataGrid, Tuple<int, DataGridColumn>> Pair in Selections)
+            foreach (KeyValuePair<GroupGrid, Tuple<int, GroupGridColumn>> Pair in Selections)
             {
-                DataGrid Grid = Pair.Key;
+                GroupGrid Grid = Pair.Key;
                 int Index = Pair.Value.Item1;
-                DataGridColumn Column = Pair.Value.Item2;
+                GroupGridColumn Column = Pair.Value.Item2;
                 if (Grid == null || Index < 0)
                     continue;
-                if (Grid.ItemsSource is not IEnumerable Items)
-                    continue;
 
-                int Counter = 0;
-                foreach (object Item in Items)
-                {
-                    if (Counter++ != Index)
-                        continue;
-
-                    Grid.SelectedIndex = Index;
-                    Grid.SelectedItem = Item;
-                    if (Column != null)
-                        Grid.CurrentColumn = Column;
-                    Grid.ScrollIntoView(Item, Grid.CurrentColumn);
-                    break;
-                }
+                GroupGridColumn TargetColumn = Column ?? Grid.GetVisibleValueColumns().FirstOrDefault();
+                if (TargetColumn != null)
+                    Grid.SetCurrentCell(Index, TargetColumn);
+                Grid.SelectCurrentCell();
+                Grid.ScrollToRow(Index);
             }
         }));
     }
@@ -405,11 +413,11 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             if (DetailInfo.Grid == null)
                 continue;
 
-            List<GridColumnBinding> List = DetailInfo.Grid.GetInfoList();
-            foreach (GridColumnBinding CI in List)
+            List<GroupGridColumnBinding> List = DetailInfo.Grid.GetInfoList();
+            foreach (GroupGridColumnBinding CI in List)
             {
                 if (CI.IsPlainId)
-                    CI.GridColumn.IsVisible = Value;
+                    DetailInfo.Grid.SetColumnVisible(CI.GridColumn, Value);
             }
         }
     }
@@ -744,7 +752,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
             case GridActionType.Add:
                 return !DataFormAction.Insert.In(InvalidActions);
             case GridActionType.Delete:
-                return !DataFormAction.Delete.In(InvalidActions) && Context.Grid.SelectedItem is DataRowView;
+                return !DataFormAction.Delete.In(InvalidActions) && Context.Grid.CurrentRow is DataRowView;
         }
 
         return Context.Command.IsEnabled;
@@ -786,7 +794,10 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         Dispatcher.UIThread.Post(() =>
         {
             if (RowView != null)
-                Context.Grid.SelectedItem = RowView;
+            {
+                int RowIndex = Context.Table.DataView.Cast<DataRowView>().ToList().IndexOf(RowView);
+                GroupGridBinder.SelectRow(Context.Grid, RowIndex);
+            }
             Context.Grid.Focus();
         }, DispatcherPriority.Input);
 
@@ -799,7 +810,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// <returns>The command result.</returns>
     public virtual object ExecuteGridDelete(GridCommandContext Context)
     {
-        if (Context == null || Context.Table == null || Context.Grid == null || Context.Grid.SelectedItem is not DataRowView RowView)
+        if (Context == null || Context.Table == null || Context.Grid == null || Context.Grid.CurrentRow is not DataRowView RowView)
             return null;
 
         Ui.Post(async () =>
@@ -819,12 +830,13 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                 if (DataView.Count > 0)
                 {
                     int NewIndex = RowIndex >= DataView.Count ? DataView.Count - 1 : RowIndex;
-                    Context.Grid.SelectedItem = DataView[NewIndex];
+                    GroupGridBinder.SelectRow(Context.Grid, NewIndex);
                     Context.Table.CurrentRowView = DataView[NewIndex];
                 }
                 else
                 {
-                    Context.Grid.SelectedItem = null;
+                    Context.Grid.ClearCurrentCell();
+                    Context.Grid.ClearSelection();
                     Context.Table.CurrentRow = null;
                 }
 

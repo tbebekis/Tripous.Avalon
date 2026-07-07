@@ -35,30 +35,11 @@
     <AvaloniaResource Include="Images32\**" />
     <AvaloniaResource Include="Images16\**" />
   </ItemGroup>
- 
 
   <ItemGroup>
     <ProjectReference Include="..\Tripous\Tripous.csproj" />
     <ProjectReference Include="..\Tripous.Data\Tripous.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="DataForm.axaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>DataForm.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Dialogs\DbConnectionEditDialog.axaml.cs">
-      <DependentUpon>DbConnectionEditDialog.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Locator\LocatorBox.cs">
-      <DependentUpon>LocatorBox.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Dialogs\FirstRunDialog.axaml.cs">
-      <DependentUpon>FirstRunDialog.axaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <ProjectReference Include="..\..\Avalonia.Controls.Extras\Avalonia.Controls.Extras\Avalonia.Controls.Extras.csproj" />
   </ItemGroup>
 
 </Project>

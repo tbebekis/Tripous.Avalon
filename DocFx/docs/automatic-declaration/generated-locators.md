@@ -2,7 +2,7 @@
 
 Generated locators are written to `RegistryVersionN.Locators.cs`.
 
-They register locator definitions in `DataRegistry`.
+They register locator definitions in `DataRegistry.Locators2`.
 
 Locators are used for searchable reference selection, usually for larger or more complex reference sets than simple lookups.
 
@@ -15,19 +15,20 @@ Example:
 ```csharp
 public override void RegisterLocators()
 {
-    DataRegistry.AddOrUpdateLocator("Person", "Person", "Id", FormName: "Person");
-    DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", FormName: "Product");
-    DataRegistry.AddOrUpdateLocator("PaymentSettlementFinanceMovement", "FinanceMovement", "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement");
+    DataRegistry.AddOrUpdateLocator2("Person", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
+    DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
+    DataRegistry.AddOrUpdateLocator2("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
 }
 ```
 
-`AddOrUpdateLocator()` receives:
+`AddOrUpdateLocator2()` receives:
 
 - locator name
-- source table name
+- source table name or source SQL text
 - source key field
 - optional locator class name
-- optional form name
+- optional desktop form name
+- optional web form name
 
 ## Source Metadata
 
@@ -39,11 +40,12 @@ Examples:
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product
 FinanceMovementId @NVARCHAR(40) @NOT_NULL, -- Locator PaymentSettlementFinanceMovement ClassName:tERP.Data.PaymentSettlementFinanceMovementLocator
+CustomerId @NVARCHAR(40) @NOT_NULL, -- Locator Customer Form:Person WebForm:Person
 ```
 
 If the locator name is omitted, the builder resolves it from the foreign key referenced table.
 
-If `ClassName:` is used, the locator name is required.
+If `ClassName:`, `Form:`, or `WebForm:` is used, the locator name is required.
 
 ## Base Registration
 
@@ -52,7 +54,7 @@ The generated locator file registers the base locator definition.
 Example:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", FormName: "Product");
+DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
 ```
 
 This means:
@@ -60,7 +62,8 @@ This means:
 - locator name: `Product`
 - source table: `Product`
 - key field: `Id`
-- related form: `Product`
+- related desktop form: `Product`
+- related web form: `Product`
 
 The generated locator registration is intentionally minimal.
 
@@ -91,6 +94,7 @@ The locator name follows these rules:
 - `-- Locator` uses the foreign key referenced table as the locator name.
 - `-- Locator Product` uses `Product` as the locator name.
 - `-- Locator Product ClassName:ProductLocator` uses `Product` and registers `ProductLocator`.
+- `-- Locator Customer Form:Person WebForm:Person` uses `Customer` and sets reference forms explicitly.
 
 If the field has no usable foreign key and no explicit locator name, the builder cannot infer the source safely.
 
@@ -108,7 +112,7 @@ FOREIGN KEY (ProductId) REFERENCES Product(Id)
 Generated registration:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator("Product", "Product", "Id", FormName: "Product");
+DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
 ```
 
 When the locator name differs from the source table, the generated registration keeps both values.
@@ -116,7 +120,7 @@ When the locator name differs from the source table, the generated registration 
 Example:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator("Supplier", "ProductSupplier", "Id");
+DataRegistry.AddOrUpdateLocator2("Supplier", Source: "ProductSupplier", KeyField: "Id");
 ```
 
 Here `Supplier` is the locator name and `ProductSupplier` is the source table.
@@ -134,7 +138,7 @@ FinanceMovementId @NVARCHAR(40) @NOT_NULL, -- Locator PaymentSettlementFinanceMo
 Generated registration:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator("PaymentSettlementFinanceMovement", "FinanceMovement", "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement");
+DataRegistry.AddOrUpdateLocator2("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
 ```
 
 The class is handwritten application code.

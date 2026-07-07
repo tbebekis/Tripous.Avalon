@@ -21,6 +21,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     int fFormMaxControlsPerColumn;
     bool fShowIdColumnsInGrid;
     double fDetailGridMinHeight;
+    bool fShowLocatorGridFilterPanel;
     bool fShowDataFormLog;
 
     
@@ -131,6 +132,14 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     {
         get => fDetailGridMinHeight >= 180 && fDetailGridMinHeight <= 350 ? fDetailGridMinHeight : 240;
         set { if (fDetailGridMinHeight != value) { fDetailGridMinHeight = value; NotifyPropertyChanged(nameof(DetailGridMinHeight)); } }
+    }
+    /// <summary>
+    /// When true then Locator2 grid dropdowns display a filter panel.
+    /// </summary>
+    public bool ShowLocatorGridFilterPanel
+    {
+        get => fShowLocatorGridFilterPanel;
+        set { if (fShowLocatorGridFilterPanel != value) { fShowLocatorGridFilterPanel = value; NotifyPropertyChanged(nameof(ShowLocatorGridFilterPanel)); } }
     }
     /// <summary>
     /// When true then the <see cref="DataForm"/> log is shown.

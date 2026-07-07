@@ -176,6 +176,19 @@ public class ItemBinder
         Bindings.Add(Result);
         return Result;
     }
+    /// <summary>
+    /// Binds a Locator2 box to a field.
+    /// </summary>
+    public virtual ControlBinding Bind(LocatorBox2 Box, FieldDef Field)
+    {
+        if (Field != null && Field.TableDef == null)
+            Field.TableDef = TableInfo?.TableDef;
+
+        ControlBinding Result = ControlBindingHelper.Bind(RowProvider, Box, Field);
+        Result.DataColumn = TableInfo?.Table?.FindColumn(Field.Name);
+        Bindings.Add(Result);
+        return Result;
+    }
  
 
     // ● properties

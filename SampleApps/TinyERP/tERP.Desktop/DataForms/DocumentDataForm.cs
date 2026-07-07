@@ -111,7 +111,7 @@ After posting, the document can no longer be edited.
         if (!await MessageBox.YesNo(Message, this))
             return;
 
-        Dictionary<DataGrid, Tuple<int, DataGridColumn>> DetailGridSelection = ItemPage?.CaptureDetailGridSelection();
+        Dictionary<GroupGrid, Tuple<int, GroupGridColumn>> DetailGridSelection = ItemPage?.CaptureDetailGridSelection();
         Saving = true;
         try
         {

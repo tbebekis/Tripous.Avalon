@@ -56,7 +56,7 @@ public class ReferenceContextMenu
     /// <returns>The reference form name.</returns>
     protected virtual string GetFormName()
     {
-        return Binding.LookupSource?.LookupDef?.Form ?? Binding.LocatorDef?.Form;
+        return Binding.LookupSource?.LookupDef?.Form ?? Binding.LocatorDef?.Form ?? Binding.LocatorDef2?.Form;
     }
     /// <summary>
     /// Returns the current reference row identifier.
@@ -117,7 +117,7 @@ public class ReferenceContextMenu
     /// </summary>
     protected virtual void EnableMenuItems()
     {
-        mnuReload.IsVisible = Binding.LocatorDef == null;
+        mnuReload.IsVisible = Binding.LocatorDef == null && Binding.LocatorDef2 == null;
         mnuShowList.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.ShowList));
         mnuReload.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Reload));
         mnuEdit.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Edit));
@@ -197,7 +197,7 @@ public class ReferenceContextMenu
         this.Binding = Binding;
 
         Binding.ReferenceContextMenu = this;
-        mnuReload.IsVisible = Binding.LocatorDef == null;
+        mnuReload.IsVisible = Binding.LocatorDef == null && Binding.LocatorDef2 == null;
             
         // -----------------------------------------------
         if (Binding is ControlBinding ControlBinding)
@@ -222,6 +222,30 @@ public class ReferenceContextMenu
                             return;
 
                         Menu.Open(LocatorBox.MenuButton);
+                        Args.Handled = true;
+                    }, RoutingStrategies.Tunnel);
+                }
+            }
+            else if (ControlBinding.Control is LocatorBox2 LocatorBox2)
+            {
+                if (LocatorBox2.MenuButton != null)
+                {
+                    LocatorBox2.MenuButton.Click += (Sender, Args) =>
+                    {
+                        if (!CanOpen())
+                            return;
+
+                        Menu.Open(LocatorBox2.MenuButton);
+                    };
+                    LocatorBox2.MenuButton.AddHandler(InputElement.PointerPressedEvent, (Sender, Args) =>
+                    {
+                        if (!Args.GetCurrentPoint(LocatorBox2.MenuButton).Properties.IsRightButtonPressed)
+                            return;
+
+                        if (!CanOpen())
+                            return;
+
+                        Menu.Open(LocatorBox2.MenuButton);
                         Args.Handled = true;
                     }, RoutingStrategies.Tunnel);
                 }

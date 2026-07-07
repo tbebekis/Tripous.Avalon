@@ -547,7 +547,7 @@ public partial class DataForm : AppForm
     /// </summary>
     protected virtual async Task ExecuteSave()
     {
-        Dictionary<DataGrid, Tuple<int, DataGridColumn>> DetailGridSelection = ItemPage?.CaptureDetailGridSelection();
+        Dictionary<GroupGrid, Tuple<int, GroupGridColumn>> DetailGridSelection = ItemPage?.CaptureDetailGridSelection();
         Saving = true;
         try
         {
@@ -677,12 +677,13 @@ public partial class DataForm : AppForm
             {
                 string FieldName = Module.tblItem.KeyField;
                 
-                foreach (DataRowView DRV in DataView)
+                for (int Index = 0; Index < DataView.Count; Index++)
                 {
+                    DataRowView DRV = DataView[Index];
                     RowOID = DRV[FieldName];
                     if (object.Equals(RowOID, oId))
                     {
-                        gridList.SelectedItem = DRV;
+                        GroupGridBinder.SelectRow(gridList, Index);
                         return true;
                     }
                 }
@@ -690,7 +691,7 @@ public partial class DataForm : AppForm
         }
 
         if (DataView.Count > 0)
-            gridList.SelectedItem = DataView[0];
+            GroupGridBinder.SelectRow(gridList, 0);
 
         return false;
     }
@@ -846,11 +847,15 @@ public partial class DataForm : AppForm
     /// Binds the list grid to the list table data view.
     /// </summary>
     /// <param name="SelectDef">The select definition.</param>
-    protected virtual void BindListGrid(SelectDef SelectDef) => DataGridBinder.BindGrid(SelectDef, gridList, Module.tblList.DataView, SupportsRecycling: false, GoToFirst: true);
+    protected virtual void BindListGrid(SelectDef SelectDef)
+    {
+        gridList.SettingsSuggestedFileName = $"{ModuleDef.Name}-ListGrid.json";
+        GroupGridBinder.BindGrid(SelectDef, gridList, Module.tblList.DataView, GoToFirst: true);
+    }
     /// <summary>
     /// Unbinds the list grid.
     /// </summary>
-    protected virtual void UnBindListGrid() => DataGridBinder.UnBindGrid(gridList);
+    protected virtual void UnBindListGrid() => GroupGridBinder.UnBindGrid(gridList);
     /// <summary>
     /// Returns the first editable focus control in a container.
     /// </summary>
@@ -889,6 +894,8 @@ public partial class DataForm : AppForm
             return CheckBox.Focusable;
         if (Control is LocatorBox LocatorBox)
             return LocatorBox.Focusable;
+        if (Control is LocatorBox2 LocatorBox2)
+            return LocatorBox2.Focusable;
 
         return false;
     }
@@ -1026,11 +1033,11 @@ public partial class DataForm : AppForm
             string S = Flag ? "Hide Ids" : "Show Ids";
             ToolTip.SetTip(btnToggleIds, S);
         
-            List<GridColumnBinding> List = gridList.GetInfoList();
-            foreach (var CI in List)
+            List<GroupGridColumnBinding> List = gridList.GetInfoList();
+            foreach (GroupGridColumnBinding CI in List)
             {
                 if (CI.IsPlainId)
-                    CI.GridColumn.IsVisible = Flag;
+                    gridList.SetColumnVisible(CI.GridColumn, Flag);
             }
 
             ItemPage?.ApplyIdColumnsVisible(Flag);
@@ -1139,7 +1146,7 @@ public partial class DataForm : AppForm
     /// <summary>
     /// The current row in the list part
     /// </summary>
-    public DataRow ListCurrentRow => (gridList.SelectedItem is DataRowView RowView) ? RowView.Row : null;//{ get; protected set; }  
+    public DataRow ListCurrentRow => GroupGridBinder.GetCurrentRowView(gridList)?.Row;//{ get; protected set; }
     /// <summary>
     /// The current row in the item part
     /// </summary>

@@ -199,13 +199,15 @@ static public class DataRegistry
         Locators.Add(Result);
         return Result;
     }
-    static LocatorDef2 AddLocator2Internal(string Name, string Source, string ClassName, string KeyField)
+    static LocatorDef2 AddLocator2Internal(string Name, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
     {
         LocatorDef2 Result = new();
         Result.Name = Name;
         Result.Source = Source;
         Result.ClassName = ClassName;
         Result.KeyField = KeyField;
+        Result.Form = FormName;
+        Result.WebForm = WebFormName;
         Locators2.Add(Result);
         return Result;
     }
@@ -229,7 +231,7 @@ static public class DataRegistry
         if (FormName != null)
             LocatorDef.Form = FormName;
     }
-    static void UpdateLocator2(LocatorDef2 LocatorDef, string Source, string ClassName, string KeyField)
+    static void UpdateLocator2(LocatorDef2 LocatorDef, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
     {
         if (Source != null)
             LocatorDef.Source = Source;
@@ -237,6 +239,10 @@ static public class DataRegistry
             LocatorDef.ClassName = ClassName;
         if (KeyField != null)
             LocatorDef.KeyField = KeyField;
+        if (FormName != null)
+            LocatorDef.Form = FormName;
+        if (WebFormName != null)
+            LocatorDef.WebForm = WebFormName;
     }
     
     static void CheckCodeProvider(string Name)
@@ -572,10 +578,10 @@ static public class DataRegistry
     /// Adds a locator definition.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LocatorDef2 AddLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null)
+    static public LocatorDef2 AddLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
     {
         CheckLocator2(Name);
-        LocatorDef2 Result = AddLocator2Internal(Name, Source, ClassName, KeyField);
+        LocatorDef2 Result = AddLocator2Internal(Name, Source, ClassName, KeyField, FormName, WebFormName);
         return Result;
     }
     /// <summary>
@@ -583,16 +589,16 @@ static public class DataRegistry
     /// <para>Existing field definitions and collections are preserved.</para>
     /// <para><b>NOTE:</b> When the definition already exists, non-null parameters update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LocatorDef2 AddOrUpdateLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null)
+    static public LocatorDef2 AddOrUpdateLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousException($"Cannot add or update a {nameof(LocatorDef2)}. No '{nameof(Name)}' is provided.");
 
         LocatorDef2 Result = Locators2.Find(Name);
         if (Result == null)
-            Result = AddLocator2Internal(Name, Source, ClassName, KeyField);
+            Result = AddLocator2Internal(Name, Source, ClassName, KeyField, FormName, WebFormName);
         else
-            UpdateLocator2(Result, Source, ClassName, KeyField);
+            UpdateLocator2(Result, Source, ClassName, KeyField, FormName, WebFormName);
         return Result;
     }
     /// <summary>

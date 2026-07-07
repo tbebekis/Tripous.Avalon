@@ -1462,7 +1462,7 @@ static public class SchemaRegistrationBuilder
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
         {
-            string Source = "DataRegistry.AddOrUpdateLocator(\"" + EscapeString(Locator.Name) + "\", \"" + EscapeString(Locator.TableName) + "\", \"" + EscapeString(Locator.KeyField) + "\"" + BuildOptionalClassNameArgument(Locator.ClassName) + BuildOptionalFormNameArgument(Locator.FormName) + ")";
+            string Source = BuildAddLocator2Source(Locator);
             SB.AppendLine("        " + Source + ";");
         }
 
@@ -2413,9 +2413,9 @@ static public class SchemaRegistrationBuilder
         if (Parts.Count == 0)
             return;
 
-        if (Parts[0].StartsWith("ClassName:", StringComparison.OrdinalIgnoreCase) || Parts[0].IsSameText("ClassName:"))
+        if (IsLocatorNamedArgument(Parts[0]))
         {
-            AddFieldMetadataError(Metadata, "Locator name is required when ClassName is specified: " + MetadataText);
+            AddFieldMetadataError(Metadata, "Locator name is required when ClassName, Form, or WebForm is specified: " + MetadataText);
             return;
         }
 
@@ -2424,30 +2424,49 @@ static public class SchemaRegistrationBuilder
         if (Parts.Count == 1)
             return;
 
-        string Part = Parts[1];
-        int Index = Part.IndexOf(':');
-        string Key = Index >= 0 ? Part.Substring(0, Index).Trim() : Part.EndsWith(":") ? Part.Substring(0, Part.Length - 1).Trim() : string.Empty;
-        if (!Key.IsSameText("ClassName"))
+        for (int i = 1; i < Parts.Count; i++)
         {
-            AddFieldMetadataError(Metadata, "Invalid Locator metadata syntax: " + MetadataText);
-            return;
-        }
+            string Part = Parts[i];
+            int Index = Part.IndexOf(':');
+            string Key = Index >= 0 ? Part.Substring(0, Index).Trim() : Part.EndsWith(":") ? Part.Substring(0, Part.Length - 1).Trim() : string.Empty;
+            if (!Key.IsSameText("ClassName") && !Key.IsSameText("Form") && !Key.IsSameText("WebForm"))
+            {
+                AddFieldMetadataError(Metadata, "Invalid Locator metadata syntax: " + MetadataText);
+                return;
+            }
 
-        string ClassName = Index >= 0 ? Part.Substring(Index + 1).Trim() : string.Empty;
-        int LastExpectedIndex = 1;
-        if (string.IsNullOrWhiteSpace(ClassName) && Parts.Count > 2)
-        {
-            ClassName = Parts[2];
-            LastExpectedIndex = 2;
-        }
+            string Value = Index >= 0 ? Part.Substring(Index + 1).Trim() : string.Empty;
+            if (string.IsNullOrWhiteSpace(Value) && i + 1 < Parts.Count && !IsLocatorNamedArgument(Parts[i + 1]))
+            {
+                i++;
+                Value = Parts[i];
+            }
 
-        if (string.IsNullOrWhiteSpace(ClassName) || Parts.Count - 1 > LastExpectedIndex)
-        {
-            AddFieldMetadataError(Metadata, "Invalid Locator metadata syntax: " + MetadataText);
-            return;
-        }
+            if (string.IsNullOrWhiteSpace(Value))
+            {
+                AddFieldMetadataError(Metadata, "Invalid Locator metadata syntax: " + MetadataText);
+                return;
+            }
 
-        Metadata.LocatorClassName = ClassName;
+            if (Key.IsSameText("ClassName"))
+                Metadata.LocatorClassName = Value;
+            else if (Key.IsSameText("Form"))
+                Metadata.LocatorFormName = Value;
+            else if (Key.IsSameText("WebForm"))
+                Metadata.LocatorWebFormName = Value;
+        }
+    }
+    /// <summary>
+    /// Returns true if a locator metadata token is a named argument.
+    /// </summary>
+    static bool IsLocatorNamedArgument(string Text)
+    {
+        if (string.IsNullOrWhiteSpace(Text))
+            return false;
+
+        int Index = Text.IndexOf(':');
+        string Key = Index >= 0 ? Text.Substring(0, Index).Trim() : Text.EndsWith(":") ? Text.Substring(0, Text.Length - 1).Trim() : string.Empty;
+        return Key.IsSameText("ClassName") || Key.IsSameText("Form") || Key.IsSameText("WebForm");
     }
     /// <summary>
     /// Parses group metadata.
@@ -2681,7 +2700,8 @@ static public class SchemaRegistrationBuilder
         Result.Alias = RemoveIdSuffix(Field.Name);
         Result.KeyField = !string.IsNullOrWhiteSpace(Field.ForeignKey.ReferenceField) ? Field.ForeignKey.ReferenceField : "Id";
         Result.ClassName = Field.LocatorClassName;
-        Result.FormName = ReferenceTable.FormName;
+        Result.FormName = !string.IsNullOrWhiteSpace(Field.LocatorFormName) ? Field.LocatorFormName : ReferenceTable.FormName;
+        Result.WebFormName = !string.IsNullOrWhiteSpace(Field.LocatorWebFormName) ? Field.LocatorWebFormName : !string.IsNullOrWhiteSpace(ReferenceTable.WebFormName) ? ReferenceTable.WebFormName : Result.FormName;
         Result.ReturnFields.Add(Result.KeyField);
 
         List<string> ReturnFields = ParseLocatorReturnFields(Field.MetadataText);
@@ -2793,6 +2813,24 @@ static public class SchemaRegistrationBuilder
             return string.Empty;
 
         return ", ClassName: \"" + EscapeString(ClassName) + "\"";
+    }
+    /// <summary>
+    /// Builds source code that adds a locator definition.
+    /// </summary>
+    static string BuildAddLocator2Source(LocatorInfo Locator)
+    {
+        List<string> Args = [];
+        Args.Add("\"" + EscapeString(Locator.Name) + "\"");
+        Args.Add("Source: \"" + EscapeString(Locator.TableName) + "\"");
+        Args.Add("KeyField: \"" + EscapeString(Locator.KeyField) + "\"");
+        if (!string.IsNullOrWhiteSpace(Locator.ClassName))
+            Args.Add("ClassName: \"" + EscapeString(Locator.ClassName) + "\"");
+        if (!string.IsNullOrWhiteSpace(Locator.FormName))
+            Args.Add("FormName: \"" + EscapeString(Locator.FormName) + "\"");
+        if (!string.IsNullOrWhiteSpace(Locator.WebFormName))
+            Args.Add("WebFormName: \"" + EscapeString(Locator.WebFormName) + "\"");
+
+        return "DataRegistry.AddOrUpdateLocator2(" + string.Join(", ", Args) + ")";
     }
     /// <summary>
     /// Builds optional form name argument.
@@ -4048,6 +4086,8 @@ static public class SchemaRegistrationBuilder
             Result.LookupEnumTypeName = Metadata.LookupEnumTypeName;
             Result.LookupClassName = Metadata.LookupClassName;
             Result.LocatorClassName = Metadata.LocatorClassName;
+            Result.LocatorFormName = Metadata.LocatorFormName;
+            Result.LocatorWebFormName = Metadata.LocatorWebFormName;
             Result.CommentText = Metadata.CommentText;
             Result.IsOneToOne = Metadata.IsOneToOne;
             Result.IsMemo = Metadata.IsMemo;
@@ -4110,6 +4150,14 @@ static public class SchemaRegistrationBuilder
         /// Locator class name.
         /// </summary>
         public string LocatorClassName { get; set; }
+        /// <summary>
+        /// Locator associated desktop form name.
+        /// </summary>
+        public string LocatorFormName { get; set; }
+        /// <summary>
+        /// Locator associated web form name.
+        /// </summary>
+        public string LocatorWebFormName { get; set; }
         /// <summary>
         /// Code provider pattern.
         /// </summary>
@@ -4244,6 +4292,10 @@ static public class SchemaRegistrationBuilder
         /// </summary>
         public string FormName { get; set; }
         /// <summary>
+        /// Locator associated web form name.
+        /// </summary>
+        public string WebFormName { get; set; }
+        /// <summary>
         /// Return fields.
         /// </summary>
         public List<string> ReturnFields { get; set; } = [];
@@ -4314,6 +4366,14 @@ static public class SchemaRegistrationBuilder
         /// Locator class name.
         /// </summary>
         public string LocatorClassName { get; set; }
+        /// <summary>
+        /// Locator associated desktop form name.
+        /// </summary>
+        public string LocatorFormName { get; set; }
+        /// <summary>
+        /// Locator associated web form name.
+        /// </summary>
+        public string LocatorWebFormName { get; set; }
         /// <summary>
         /// Code provider pattern.
         /// </summary>

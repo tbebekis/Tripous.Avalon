@@ -37,6 +37,10 @@ static public class UiItemPage
     /// </summary>
     static public bool IsDetailGridField(FieldDef Field)
     {
+        if (Field == null)
+            return false;
+        if (Field.TableDef != null && Field.TableDef.IsDetail && Field.Name.IsSameText(Field.TableDef.DetailField))
+            return false;
         return Field.IsBindable && !Field.IsMemo && !Field.IsLargeMemo && !Field.IsImage;
     }
     /// <summary>

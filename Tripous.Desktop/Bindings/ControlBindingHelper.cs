@@ -237,6 +237,29 @@ static public class ControlBindingHelper
 
         Control.RefreshTargetBoxes(Row, Binding.LocatorTargetFieldMap);
     }
+    /// <summary>
+    /// Refreshes a Locator2 box from a bound row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Binding">The control binding.</param>
+    static void RefreshLocatorBox2(IRowProvider RowProvider, ControlBinding Binding)
+    {
+        if (Binding.Control is not LocatorBox2 Control)
+            return;
+
+        DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
+        if (Row == null)
+        {
+            Control.KeyValue = DBNull.Value;
+            Control.ClearTargetBoxes();
+            return;
+        }
+
+        if (Row.Table.Columns.Contains(Binding.FieldDef.Name))
+            Control.KeyValue = Row[Binding.FieldDef.Name];
+
+        Control.RefreshTargetBoxes(Row, Binding.LocatorMapPlan2);
+    }
 
     /// <summary>
     /// Refreshes a check box from a bound row field.
@@ -318,6 +341,10 @@ static public class ControlBindingHelper
         else if (Binding.Control is LocatorBox)
         {
             RefreshLocatorBox(RowProvider, Binding);
+        }
+        else if (Binding.Control is LocatorBox2)
+        {
+            RefreshLocatorBox2(RowProvider, Binding);
         }
     }
 
@@ -866,6 +893,66 @@ static public class ControlBindingHelper
         };
 
         RefreshLocatorBox(RowProvider, Binding);
+
+        return Binding;
+    }
+    /// <summary>
+    /// Binds a Locator2 box to a row field.
+    /// </summary>
+    /// <param name="RowProvider">The row provider.</param>
+    /// <param name="Box">The locator box.</param>
+    /// <param name="FieldDef">The field definition.</param>
+    /// <returns>The created control binding.</returns>
+    static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox2 Box, FieldDef FieldDef)
+    {
+        if (Box == null)
+            throw new ArgumentNullException(nameof(Box));
+        if (FieldDef == null)
+            throw new ArgumentNullException(nameof(FieldDef));
+        if (string.IsNullOrWhiteSpace(FieldDef.Locator))
+            throw new TripousException($"Field '{FieldDef.Name}' has no locator.");
+
+        LocatorDef2 LocatorDef = DataRegistry.FindLocator2(FieldDef.Locator);
+        if (LocatorDef == null)
+            throw new TripousException($"LocatorDef2 not found. Locator: {FieldDef.Locator}");
+
+        Box.LocatorDef = LocatorDef;
+        Box.ContextRowProvider = RowProvider;
+        Box.IsReadOnly = FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI;
+
+        ControlBinding Binding = new()
+        {
+            Control = Box,
+            FieldName = FieldDef.Name,
+            FieldDef = FieldDef,
+            LocatorDef2 = LocatorDef,
+            LocatorMapPlan2 = new LocatorMapper2().CreatePlan(LocatorDef, FieldDef.TableDef, FieldDef)
+        };
+
+        Box.RowSelected += (Sender, Args) =>
+        {
+            if (Binding.IsRefreshing)
+                return;
+
+            DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
+            if (Row == null)
+                return;
+
+            Binding.IsRefreshing = true;
+            try
+            {
+                new LocatorMapper2().Apply(Binding.LocatorMapPlan2, Args.Row, Row);
+                RefreshLocatorBox2(RowProvider, Binding);
+                if (Args.Row != null)
+                    Box.RefreshTargetBoxes(Args.Row);
+            }
+            finally
+            {
+                Binding.IsRefreshing = false;
+            }
+        };
+
+        RefreshLocatorBox2(RowProvider, Binding);
 
         return Binding;
     }

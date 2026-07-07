@@ -47,7 +47,7 @@ static public partial class Registry
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
 
         string SqlText = @"
-select 
+select
      P.Id
     ,P.Code
     ,P.Name
@@ -60,7 +60,7 @@ where
         AddFields(LocatorDef, ["Id", "Code", "Name"]);
         
         SqlText = @"
-select 
+select
      P.Id
     ,P.Code
     ,P.Name
@@ -159,6 +159,190 @@ where P.IsActive = 1
         LocatorDef.Add("OpenAmount", DataFieldType.Decimal, TargetField: null, Alias: "OpenAmount", TitleKey: "Open Amount", IsVisible: true, IsSearchable: false).DisplayWidth = 120;
         
  
+    }
+    /// <summary>
+    /// Definitions added by the registration builder may be incomplete.
+    /// <para>This method provides a chance to complete Locator2 definitions.</para>
+    /// </summary>
+    static public void UpdateLocators2()
+    {
+        void AddFields(LocatorDef2 Def, params (string Name, DataFieldType DataType)[] Fields)
+        {
+            Def.Fields.Clear();
+
+            foreach ((string Name, DataFieldType DataType) Field in Fields)
+                Def.Add(Field.Name, Field.DataType);
+        }
+        void AddStringFields(LocatorDef2 Def, params string[] FieldNames)
+        {
+            Def.Fields.Clear();
+
+            foreach (string FieldName in FieldNames)
+                Def.Add(FieldName);
+        }
+        void SetLists(LocatorDef2 Def, string[] ResultFields, string[] SearchFields)
+        {
+            Def.ResultFields.Clear();
+            Def.SingleRowSearchFields.Clear();
+            Def.MultiRowSearchFields.Clear();
+
+            Def.AddResultFields(ResultFields);
+            Def.AddSearchFields(SearchFields);
+        }
+        TableDef FindSourceTable(LocatorDef2 Def)
+        {
+            return DataRegistry.Modules
+                .Select(item => item.Table)
+                .FirstOrDefault(item => item != null && item.Name.IsSameText(Def.Source));
+        }
+        void CompleteGeneratedLocator(LocatorDef2 Def)
+        {
+            if (Def == null || Def.Fields.Count > 0)
+                return;
+
+            TableDef Table = FindSourceTable(Def);
+            if (Table == null)
+            {
+                Def.Add(Def.KeyField);
+                Def.AddResultFields(Def.KeyField);
+                return;
+            }
+
+            Def.Add(Def.KeyField, Table.Fields.Find(Def.KeyField)?.DataType ?? DataFieldType.String);
+
+            foreach (string FieldName in new[] { "Code", "Name" })
+            {
+                FieldDef FieldDef = Table.Fields.Find(FieldName);
+                if (FieldDef != null)
+                    Def.Add(FieldDef.Name, FieldDef.DataType);
+            }
+
+            Def.AddResultFields(Def.Fields.Select(item => item.Name).ToArray());
+            Def.AddSearchFields(Def.Fields.Where(item => !item.Name.IsSameText(Def.KeyField) && item.DataType == DataFieldType.String).Select(item => item.Name).ToArray());
+        }
+
+        foreach (LocatorDef2 Def in DataRegistry.Locators2)
+            CompleteGeneratedLocator(Def);
+
+        // ● Country
+        LocatorDef2 LocatorDef = DataRegistry.AddOrUpdateLocator2("Country", Source: "Country", KeyField: "Id", FormName: "Country", WebFormName: "Country");
+        AddStringFields(LocatorDef, "Id", "Code", "Name");
+        SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
+
+        string SqlText = @"
+select
+     P.Id
+    ,P.Code
+    ,P.Name
+from Person P
+where
+        P.IsActive = 1
+";
+        // ● Person
+        LocatorDef = DataRegistry.AddOrUpdateLocator2("Person", Source: SqlText, KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        AddStringFields(LocatorDef, "Id", "Code", "Name");
+        SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
+
+        SqlText = @"
+select
+     P.Id
+    ,P.Code
+    ,P.Name
+from Person P
+inner join PersonRole PR on PR.PersonId = P.Id
+inner join PersonRoleType PRT on PRT.Id = PR.RoleTypeId
+where
+        P.IsActive = 1
+";
+
+        // ● Customer
+        string WhereSql = @"  and PRT.Code = 'CUS' ";
+        LocatorDef = DataRegistry.AddOrUpdateLocator2("Customer", Source: SqlText + WhereSql, KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        AddStringFields(LocatorDef, "Id", "Code", "Name");
+        SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
+
+        // ● Supplier
+        WhereSql = @"  and PRT.Code = 'SUP' ";
+        LocatorDef = DataRegistry.AddOrUpdateLocator2("Supplier", Source: SqlText + WhereSql, KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        AddStringFields(LocatorDef, "Id", "Code", "Name");
+        SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
+
+        // ● Employee
+        WhereSql = @"  and PRT.Code = 'EMP' ";
+        LocatorDef = DataRegistry.AddOrUpdateLocator2("Employee", Source: SqlText + WhereSql, KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        AddStringFields(LocatorDef, "Id", "Code", "Name");
+        SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
+
+        // ● Manager
+        WhereSql = @"  and PRT.Code = 'MGR' ";
+        LocatorDef = DataRegistry.AddOrUpdateLocator2("Manager", Source: SqlText + WhereSql, KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        AddStringFields(LocatorDef, "Id", "Code", "Name");
+        SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
+
+        // ● Carrier
+        WhereSql = @"  and PRT.Code = 'CAR' ";
+        LocatorDef = DataRegistry.AddOrUpdateLocator2("Carrier", Source: SqlText + WhereSql, KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        AddStringFields(LocatorDef, "Id", "Code", "Name");
+        SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
+
+        // ● Product
+        SqlText = @"
+select
+     P.Id as Id
+    ,P.Code as Code
+    ,P.Name as Name
+    ,coalesce(PUM.UnitId, P.PrimaryUnitOfMeasureId) as UnitOfMeasureId
+    ,UOM.Name as UnitOfMeasureName
+    ,coalesce(PUM.Ratio, 1) as UnitRatio
+    ,P.TaxProductGroupId
+from Product P
+left join ProductUnitOfMeasure PUM
+    on PUM.ProductId = P.Id
+    and PUM.IsActive = 1
+    and PUM.IsSalesDefault = 1
+    and not exists
+    (
+        select 1
+        from ProductUnitOfMeasure PUM2
+        where PUM2.ProductId = PUM.ProductId
+          and PUM2.IsActive = 1
+          and PUM2.IsSalesDefault = 1
+          and PUM2.Id < PUM.Id
+    )
+left join UnitOfMeasure UOM on UOM.Id = coalesce(PUM.UnitId, P.PrimaryUnitOfMeasureId)
+where P.IsActive = 1
+";
+
+        LocatorDef = DataRegistry.AddOrUpdateLocator2("Product", Source: SqlText, KeyField: "Id", FormName: "Product", WebFormName: "Product");
+        AddFields(LocatorDef,
+            ("Id", DataFieldType.String),
+            ("Code", DataFieldType.String),
+            ("Name", DataFieldType.String),
+            ("UnitOfMeasureId", DataFieldType.String),
+            ("UnitOfMeasureName", DataFieldType.String),
+            ("UnitRatio", DataFieldType.Decimal),
+            ("TaxProductGroupId", DataFieldType.String));
+        SetLists(LocatorDef, ["Id", "Code", "Name", "UnitOfMeasureId", "UnitOfMeasureName", "UnitRatio", "TaxProductGroupId"], ["Code", "Name"]);
+
+        // ● Payment Settlement Finance Movement
+        LocatorDef = DataRegistry.AddOrUpdateLocator2(
+            "PaymentSettlementFinanceMovement",
+            Source: "FinanceMovement",
+            ClassName: typeof(PaymentSettlementFinanceMovementLocator2).FullName,
+            KeyField: "Id",
+            FormName: "FinanceMovement",
+            WebFormName: "FinanceMovement");
+        AddFields(LocatorDef,
+            ("Id", DataFieldType.String),
+            ("DocumentCode", DataFieldType.String),
+            ("DocumentDate", DataFieldType.Date),
+            ("PersonCode", DataFieldType.String),
+            ("PersonName", DataFieldType.String),
+            ("TradeType", DataFieldType.String),
+            ("Direction", DataFieldType.Integer),
+            ("Amount", DataFieldType.Decimal),
+            ("OpenAmount", DataFieldType.Decimal));
+        SetLists(LocatorDef, ["Id", "DocumentCode", "DocumentDate", "PersonCode", "PersonName", "TradeType", "Direction", "Amount", "OpenAmount"], ["DocumentCode", "PersonCode", "PersonName", "TradeType"]);
     }
     static public void UpdateModules()
     {

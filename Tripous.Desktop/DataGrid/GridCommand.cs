@@ -92,7 +92,7 @@ public class GridCommandContext
     /// <summary>
     /// Gets or sets the data grid.
     /// </summary>
-    public DataGrid Grid { get; set; }
+    public GroupGrid Grid { get; set; }
     /// <summary>
     /// Gets or sets the table bound to the grid.
     /// </summary>

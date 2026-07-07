@@ -79,7 +79,7 @@ public class SalesDefaults
         "LineTypeId",
         "ProductCode",
         "ProductName",
-        "UnitOfMeasureId",
+        "UnitOfMeasureName",
         "Quantity",
         "UnitPrice",
         "GrossAmount",

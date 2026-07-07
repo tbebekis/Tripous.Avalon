@@ -162,30 +162,14 @@ static public class UiItemDetails
     static public Grid CreateDetail(UiItemContext context, Control ParentControl, UiDetailTableInfo DetailUiInfo, bool ApplyMinimumHeight = true)
     {
         Grid Panel = new();
-        Panel.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
         Panel.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
-        Border ToolBarBorder = CreateDetailToolBarBorder(DetailUiInfo);
-        DataGrid Grid = CreateDetailDataGrid(context, DetailUiInfo.TableDef, ApplyMinimumHeight);
+        GroupGrid Grid = CreateDetailDataGrid(context, DetailUiInfo, ApplyMinimumHeight);
         DetailUiInfo.Grid = Grid;
-        Avalonia.Controls.Grid.SetRow(ToolBarBorder, 0);
-        Avalonia.Controls.Grid.SetRow(Grid, 1);
-        Panel.Children.Add(ToolBarBorder);
+        Avalonia.Controls.Grid.SetRow(Grid, 0);
         Panel.Children.Add(Grid);
-        CreateDetailGridToolBar(context, DetailUiInfo);
         CreateDetailGridReferenceMenus(context, DetailUiInfo);
         UiFactory.AddChild(ParentControl, Panel);
         return Panel;
-    }
-    /// <summary>
-    /// Creates the initially hidden toolbar area of a detail table.
-    /// </summary>
-    static public Border CreateDetailToolBarBorder(UiDetailTableInfo DetailUiInfo)
-    {
-        Border Result = UiFactory.CreateToolBarBorder();
-        StackPanel ToolBarPanel = UiFactory.CreateToolBarPanel();
-        Result.Child = ToolBarPanel;
-        DetailUiInfo.ToolBarPanel = ToolBarPanel;
-        return Result;
     }
     /// <summary>
     /// Creates the field UI and binder used by a one-to-one detail table.
@@ -209,78 +193,6 @@ static public class UiItemDetails
             CreateOneToOneDetail(context, ParentControl, TableUiInfo);
         }
     }
-
-    // ● toolbar
-    /// <summary>
-    /// Creates the toolbar buttons of a detail data grid.
-    /// </summary>
-    static public void CreateDetailGridToolBar(UiItemContext context, UiDetailTableInfo DetailUiInfo)
-    {
-        if (context.GridHandler == null || DetailUiInfo.ToolBarPanel == null || DetailUiInfo.Grid == null)
-            return;
-
-        GridCommand[] Commands = context.GridHandler.GetGridCommands();
-        Commands = Commands.Where(Command => Command.IsVisible).ToArray();
-        if (Commands.Length == 0)
-        {
-            DetailUiInfo.ToolBarPanel.IsVisible = false;
-            return;
-        }
-
-        ToolBar ToolBar = new() { Panel = DetailUiInfo.ToolBarPanel };
-        Dictionary<GridCommand, Button> Buttons = new();
-
-        DetailGridCommandContext CreateContext(GridCommand Command)
-        {
-            return new DetailGridCommandContext()
-            {
-                Command = Command,
-                Grid = DetailUiInfo.Grid,
-                Table = DetailUiInfo.Table,
-                DetailInfo = DetailUiInfo,
-                ItemContext = context
-            };
-        }
-
-        void UpdateButtons()
-        {
-            foreach (KeyValuePair<GridCommand, Button> Pair in Buttons)
-                Pair.Value.IsEnabled = Pair.Key.IsEnabled && context.GridHandler.CanExecute(CreateContext(Pair.Key));
-        }
-
-        void Execute(GridCommand Command)
-        {
-            DetailGridCommandContext CommandContext = CreateContext(Command);
-            if (context.GridHandler.CanExecute(CommandContext))
-                context.GridHandler.Execute(CommandContext);
-            UpdateButtons();
-        }
-
-        foreach (GridCommand Command in Commands)
-        {
-            Button Button = ToolBar.AddButton(Command.ImageFileName, Command.ToolTip, () => Execute(Command));
-            Button.IsTabStop = false;
-            Button.Tag = Command;
-            Buttons[Command] = Button;
-        }
-
-        DetailUiInfo.Grid.SelectionChanged += (Sender, Args) => UpdateButtons();
-        DetailUiInfo.Grid.AddHandler(InputElement.KeyDownEvent, (Sender, Args) =>
-        {
-            foreach (GridCommand Command in Commands)
-            {
-                if (Command.KeyGesture != null && Command.KeyGesture.Matches(Args))
-                {
-                    Execute(Command);
-                    Args.Handled = true;
-                    break;
-                }
-            }
-        }, RoutingStrategies.Tunnel, handledEventsToo: true);
-
-        ToolBar.IsVisible = true;
-        UpdateButtons();
-    }
     /// <summary>
     /// Creates the reference menus for a detail data grid.
     /// </summary>
@@ -289,87 +201,112 @@ static public class UiItemDetails
         if (DetailUiInfo.Grid == null || DetailUiInfo.Table == null || context.GridHandler is not IReferenceContextMenuHost MenuHost)
             return;
 
-        Dictionary<GridColumnBinding, ReferenceContextMenu> Menus = new();
-        foreach (GridColumnBinding Binding in DetailUiInfo.Grid.GetInfoList())
+        FormDef FormDef = (context.GridHandler as ItemPage)?.FormDef;
+        foreach (GroupGridColumnBinding Binding in DetailUiInfo.Grid.GetInfoList())
         {
-            if (!Binding.IsReference)
+            if (Binding == null || !Binding.IsReference || Binding.GridColumn == null || Binding.GridColumn.IsReadOnly)
                 continue;
 
-            if (Binding.DataColumn == null)
-                Binding.DataColumn = DetailUiInfo.Table.FindColumn(Binding.FieldName);
-
-            ReferenceContextMenu Menu = new();
-            Menu.Initialize(MenuHost, Binding);
-            Menus[Binding] = Menu;
+            ReferenceContextMenu RefMenu = FormDef != null
+                ? FormDef.CreateReferenceContextMenu()
+                : new ReferenceContextMenu();
+            RefMenu.Initialize(MenuHost, Binding);
         }
 
-        if (Menus.Count == 0)
-            return;
-
-        DetailUiInfo.Grid.CellPointerPressed += (Sender, Args) =>
-        {
-            if (!Args.PointerPressedEventArgs.GetCurrentPoint(DetailUiInfo.Grid).Properties.IsRightButtonPressed)
-                return;
-
-            GridColumnBinding Binding = Args.Column.GetInfo();
-            if (Binding == null || !Menus.TryGetValue(Binding, out ReferenceContextMenu Menu))
-                return;
-
-            if (Args.Row.DataContext is DataRowView RowView)
-            {
-                DetailUiInfo.Grid.SelectedItem = RowView;
-                DetailUiInfo.Table.CurrentRowView = RowView;
-            }
-
-            DetailUiInfo.Grid.CurrentColumn = Args.Column;
-            if (Menu.Open(DetailUiInfo.Grid))
-                Args.PointerPressedEventArgs.Handled = true;
-        };
+        DetailUiInfo.Grid.CellPointerPressed += DetailGrid_CellPointerPressed;
     }
 
     // ● detail grids
     /// <summary>
+    /// Finds a display snapshot field for a lookup field.
+    /// </summary>
+    static public FieldDef FindLookupDisplaySnapshotField(TableDef TableDef, FieldDef LookupField)
+    {
+        if (TableDef == null || LookupField == null || !LookupField.IsLookup)
+            return null;
+
+        TableDef JoinTable = TableDef.FindJoinTableByMasterKeyField(LookupField.Name);
+        string SourceName = JoinTable?.Alias;
+        if (string.IsNullOrWhiteSpace(SourceName))
+        {
+            LookupDef LookupDef = DataRegistry.Lookups.Find(LookupField.LookupSource);
+            SourceName = LookupDef?.TableName;
+            if (string.IsNullOrWhiteSpace(SourceName))
+                SourceName = LookupDef?.Name;
+        }
+        if (string.IsNullOrWhiteSpace(SourceName))
+            return null;
+
+        return TableDef.Fields.FirstOrDefault(Field =>
+        {
+            if (string.IsNullOrWhiteSpace(Field.SnapshotOf))
+                return false;
+
+            string[] Parts = Field.SnapshotOf.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            return Parts.Length == 2 && Parts[0].IsSameText(SourceName) && Parts[1].IsSameText("Name");
+        });
+    }
+    /// <summary>
     /// Creates a detail data grid.
     /// </summary>
-    static public DataGrid CreateDetailDataGrid(UiItemContext context, TableDef TableDef, bool ApplyMinimumHeight = true)
+    static public GroupGrid CreateDetailDataGrid(UiItemContext context, UiDetailTableInfo DetailUiInfo, bool ApplyMinimumHeight = true)
     {
-        DataGrid Result = new()
+        TableDef TableDef = DetailUiInfo.TableDef;
+        GroupGrid Result = new()
         {
-            AutoGenerateColumns = false,
             Focusable = true,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             VerticalAlignment = VerticalAlignment.Stretch,
             IsTabStop = true,
             MinHeight = ApplyMinimumHeight ? Ui.Settings.DetailGridMinHeight : 0,
-            Margin = new Thickness(0, 8, 0, 8)
+            Margin = new Thickness(0, 8, 0, 8),
+            IsToolBarVisible = true,
+            IsGroupPanelVisible = false,
+            IsFilterPanelVisible = false,
+            IsTotalsSummaryVisible = false,
+            IsSettingsMenuItemsVisible = true,
+            SettingsSuggestedFileName = $"{context.ModuleDef.Name}-{TableDef.Name}-DetailGrid.json",
         };
         CreateDetailGridColumns(Result, TableDef);
-        BindDetailGrid(context, Result, TableDef);
-        GridEditController.Attach(Result);
+        BindDetailGrid(context, Result, DetailUiInfo);
         return Result;
     }
     /// <summary>
     /// Creates the columns of a detail data grid.
     /// </summary>
-    static public void CreateDetailGridColumns(DataGrid Grid, TableDef TableDef)
+    static public void CreateDetailGridColumns(GroupGrid Grid, TableDef TableDef)
     {
+        HashSet<string> AddedFields = new(StringComparer.OrdinalIgnoreCase);
         foreach (FieldDef Field in TableDef.GetBindableFields())
         {
             if (!UiItemPage.IsDetailGridField(Field))
                 continue;
             if (TableDef.IsLocatorSnapshotField(Field))
                 continue;
-            Grid.Columns.AddRange(CreateDetailGridColumns(Field));
+            if (AddedFields.Contains(Field.Name))
+                continue;
+
+            foreach (GroupGridColumn Column in CreateDetailGridColumns(Field))
+            {
+                Grid.Columns.Add(Column);
+
+                GroupGridColumnBinding Binding = Column.GetInfo();
+                if (!string.IsNullOrWhiteSpace(Binding?.DisplayFieldName))
+                    AddedFields.Add(Binding.DisplayFieldName);
+                if (!string.IsNullOrWhiteSpace(Column.Name))
+                    AddedFields.Add(Column.Name);
+            }
+            AddedFields.Add(Field.Name);
         }
     }
     /// <summary>
     /// Creates columns for a detail grid field.
     /// </summary>
-    static public List<DataGridColumn> CreateDetailGridColumns(FieldDef Field)
+    static public List<GroupGridColumn> CreateDetailGridColumns(FieldDef Field)
     {
         if (Field.IsLocator)
         {
-            List<DataGridColumn> LocatorColumns = CreateLocatorDetailGridColumns(Field);
+            List<GroupGridColumn> LocatorColumns = CreateLocatorDetailGridColumns(Field);
             if (LocatorColumns.Count > 0)
                 return LocatorColumns;
         }
@@ -379,11 +316,34 @@ static public class UiItemDetails
     /// <summary>
     /// Creates display columns for a locator detail grid field.
     /// </summary>
-    static public List<DataGridColumn> CreateLocatorDetailGridColumns(FieldDef Field)
+    static public List<GroupGridColumn> CreateLocatorDetailGridColumns(FieldDef Field)
     {
-        List<DataGridColumn> Result = [];
+        List<GroupGridColumn> Result = [];
         if (Field.TableDef == null)
             return Result;
+
+        LocatorDef2 LocatorDef2 = DataRegistry.FindLocator2(Field.Locator);
+        if (LocatorDef2 != null)
+        {
+            LocatorMapPlan2 MapPlan = new LocatorMapper2().CreatePlan(LocatorDef2, Field.TableDef, Field);
+            foreach (LocatorMapItem2 Item in MapPlan.Items)
+            {
+                if (Item.SourceField.IsSameText(LocatorDef2.KeyField))
+                    continue;
+
+                LocatorFieldDef2 LocatorField = LocatorDef2.Fields.Find(Item.SourceField);
+                FieldDef TargetField = Field.TableDef.Fields.FirstOrDefault(x => x.Alias.IsSameText(Item.TargetField) || x.Name.IsSameText(Item.TargetField));
+                if (LocatorField == null || TargetField == null)
+                    continue;
+                if (TargetField.IsLookup)
+                    continue;
+                if (!string.IsNullOrWhiteSpace(TargetField.SnapshotOf) && Field.TableDef.Fields.Any(x => x.IsLookup && FindLookupDisplaySnapshotField(Field.TableDef, x) == TargetField))
+                    continue;
+
+                Result.Add(GroupGridBinder.CreateLocatorColumn2(TargetField.Alias, TargetField.Title, Field, LocatorField, LocatorDef2, MapPlan));
+            }
+            return Result;
+        }
 
         LocatorDef LocatorDef = DataRegistry.Locators.Find(Field.Locator);
         if (LocatorDef == null)
@@ -405,8 +365,7 @@ static public class UiItemDetails
             if (TargetField == null)
                 continue;
 
-            bool IsReadOnly = Field.IsReadOnly || Field.IsReadOnlyUI || LocatorDef.IsReadOnly || !LocatorField.IsSearchable;
-            Result.Add(DataGridBinder.CreateLocatorColumn(TargetField.Alias, TargetField.Title, Field, LocatorDef, LocatorField, TargetFieldMap, IsReadOnly: IsReadOnly));
+            Result.Add(GroupGridBinder.CreateLocatorColumn(TargetField.Alias, TargetField.Title, Field, LocatorField, LocatorDef, TargetFieldMap));
         }
 
         return Result;
@@ -414,38 +373,176 @@ static public class UiItemDetails
     /// <summary>
     /// Creates a column for a detail data grid.
     /// </summary>
-    static public DataGridColumn CreateDetailGridColumn(FieldDef Field)
+    static public GroupGridColumn CreateDetailGridColumn(FieldDef Field)
     {
         if (Field.IsLookup)
-            return DataGridBinder.CreateLookupColumn(Field);
-        return DataGridBinder.CreateGridColumn(Field);
+            return GroupGridBinder.CreateLookupColumn(Field);
+        return GroupGridBinder.CreateGridColumn(Field);
+    }
+    /// <summary>
+    /// Updates group grid column bindings with runtime table information.
+    /// </summary>
+    static public void UpdateDetailGridColumnBindings(GroupGrid Grid, MemTable Table)
+    {
+        if (Grid == null || Table == null)
+            return;
+
+        foreach (GroupGridColumnBinding Binding in Grid.GetInfoList())
+        {
+            if (Binding.DataColumn != null)
+                continue;
+
+            Binding.DataColumn = Table.FindColumn(Binding.FieldName) ?? Table.FindColumn(Binding.DisplayFieldName);
+        }
+    }
+    /// <summary>
+    /// Handles committed detail grid cell values.
+    /// </summary>
+    static public void DetailGrid_CellValueCommitted(object Sender, GroupGridCellEditEventArgs Args)
+    {
+        if (Sender is not GroupGrid Grid || Args.Cell.Column?.Tag is not GroupGridColumnBinding Binding)
+            return;
+        if (Binding.FieldDef == null || !Binding.FieldDef.IsLookup || Binding.LookupSource == null)
+            return;
+        if (Grid.CurrentRow is not DataRowView RowView || RowView.Row == null)
+            return;
+
+        LookupItem LookupItem = Binding.LookupSource.FindItem(Args.Value);
+        Binding.FieldDef.TableDef?.AssignLookupSnapshots(RowView.Row, Binding.FieldDef, Binding.LookupSource, LookupItem);
+    }
+    /// <summary>
+    /// Handles detail grid cell pointer events.
+    /// </summary>
+    static public void DetailGrid_CellPointerPressed(object Sender, GroupGridCellPointerEventArgs Args)
+    {
+        if (Sender is not Control Control || Args == null || !Args.IsRightButton)
+            return;
+        if (Args.Column?.Tag is not GroupGridColumnBinding Binding)
+            return;
+        if (Binding.ReferenceContextMenu == null)
+            return;
+
+        Args.Handled = Binding.ReferenceContextMenu.Open(Control);
+    }
+    /// <summary>
+    /// Handles committing detail grid cell values before they are written to the adapter.
+    /// </summary>
+    static public void DetailGrid_CellValueCommitting(object Sender, GroupGridCellEditEventArgs Args)
+    {
+        if (Sender is not GroupGrid Grid || Args.Cell.Column?.Tag is not GroupGridColumnBinding Binding)
+            return;
+        if (Binding.LocatorDef2 == null || Binding.LocatorMapPlan2 == null || Args.Value is not DataRow SourceRow)
+            return;
+        if (Grid.CurrentRow is not DataRowView RowView || RowView.Row == null)
+            return;
+
+        new LocatorMapper2().Apply(Binding.LocatorMapPlan2, SourceRow, RowView.Row);
+
+        DataColumn Column = RowView.Row.Table.FindColumn(Binding.DisplayFieldName);
+        Args.Value = Column != null ? RowView.Row[Column] : DBNull.Value;
+    }
+    /// <summary>
+    /// Handles custom detail grid editor creation.
+    /// </summary>
+    static public void DetailGrid_CreateInplaceEditor(object Sender, GroupGridCreateInplaceEditorEventArgs Args)
+    {
+        if (Sender is not GroupGrid Grid || Args.Column?.Tag is not GroupGridColumnBinding Binding)
+            return;
+        if (Binding.LocatorDef2 == null || Binding.GridColumn.IsReadOnly)
+            return;
+
+        Args.Editor = new GroupGridLocatorInplaceEditor(Binding.LocatorDef2, Binding.LocatorSourceFieldName, Grid.CurrentRow as DataRowView);
+        Args.Handled = true;
     }
     /// <summary>
     /// Binds a detail data grid to the view of its table.
     /// </summary>
-    static public void BindDetailGrid(UiItemContext context, DataGrid Grid, TableDef TableDef)
+    static public void BindDetailGrid(UiItemContext context, GroupGrid Grid, UiDetailTableInfo DetailUiInfo)
     {
+        TableDef TableDef = DetailUiInfo.TableDef;
         MemTable Table = context.Module.GetTable(TableDef.Name);
         DataView DataView = Table.DataView;
-        DataViewItemsSource ItemsSource = new(DataView);
-        Grid.ItemsSource = ItemsSource;
+        UpdateDetailGridColumnBindings(Grid, Table);
+        Grid.ItemsSource = DataView;
+
+        GridCommand[] Commands = context.GridHandler?.GetGridCommands()?.Where(Command => Command.IsVisible).ToArray() ?? [];
+        GridCommand AddCommand = Commands.FirstOrDefault(Command => Command.ActionType == GridActionType.Add);
+        GridCommand DeleteCommand = Commands.FirstOrDefault(Command => Command.ActionType == GridActionType.Delete);
+        Grid.IsInsertButtonVisible = AddCommand != null;
+        Grid.IsDeleteButtonVisible = DeleteCommand != null;
+        Grid.IsEditButtonVisible = false;
+
+        DetailGridCommandContext CreateContext(GridCommand Command)
+        {
+            return new DetailGridCommandContext()
+            {
+                Command = Command,
+                Grid = Grid,
+                Table = Table,
+                DetailInfo = DetailUiInfo,
+                ItemContext = context
+            };
+        }
+
+        void ExecuteCommand(GridCommand Command)
+        {
+            if (Command == null || context.GridHandler == null)
+                return;
+
+            DetailGridCommandContext CommandContext = CreateContext(Command);
+            if (context.GridHandler.CanExecute(CommandContext))
+                context.GridHandler.Execute(CommandContext);
+        }
+
+        void BestFitColumns()
+        {
+            Ui.Post(() => Grid.BestFitColumns());
+        }
 
         void SelectFirstRow()
         {
             Ui.Post(() =>
             {
-                if (ItemsSource.Count > 0 && Grid.SelectedItem == null)
+                if (DataView.Count > 0 && Grid.CurrentRow == null)
                 {
-                    Grid.SelectedIndex = 0;
-                    Grid.SelectedItem = ItemsSource[0];
-                    Table.CurrentRowView = ItemsSource[0];
-                    if (Grid.CurrentColumn == null)
-                        Grid.CurrentColumn = Grid.Columns.FirstOrDefault(Column => Column.IsVisible);
+                    GroupGridBinder.SelectRow(Grid, 0);
+                    Table.CurrentRowView = DataView[0];
                 }
             });
         }
 
-        ItemsSource.CollectionChanged += (Sender, Args) => SelectFirstRow();
+        Grid.CurrentRowChanged += (Sender, Args) => Table.CurrentRowView = Grid.CurrentRow as DataRowView;
+        Grid.CreateInplaceEditor += DetailGrid_CreateInplaceEditor;
+        Grid.CellValueCommitting += DetailGrid_CellValueCommitting;
+        Grid.CellValueCommitted += DetailGrid_CellValueCommitted;
+        Grid.InsertingRow += (Sender, Args) =>
+        {
+            Args.Cancel = true;
+            ExecuteCommand(AddCommand);
+        };
+        Grid.DeletingRow += (Sender, Args) =>
+        {
+            Args.Cancel = true;
+            ExecuteCommand(DeleteCommand);
+        };
+        Grid.AddHandler(InputElement.KeyDownEvent, (Sender, Args) =>
+        {
+            foreach (GridCommand Command in Commands)
+            {
+                if (Command.KeyGesture != null && Command.KeyGesture.Matches(Args))
+                {
+                    ExecuteCommand(Command);
+                    Args.Handled = true;
+                    break;
+                }
+            }
+        }, RoutingStrategies.Tunnel, handledEventsToo: true);
+        DataView.ListChanged += (Sender, Args) =>
+        {
+            SelectFirstRow();
+            BestFitColumns();
+        };
         SelectFirstRow();
+        BestFitColumns();
     }
 }

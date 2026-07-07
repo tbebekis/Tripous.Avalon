@@ -15,13 +15,9 @@ public class UiDetailTableInfo
 {
     // ● public
     /// <summary>
-    /// The toolbar panel of the detail grid.
-    /// </summary>
-    public StackPanel ToolBarPanel { get; set; }
-    /// <summary>
     /// The detail grid.
     /// </summary>
-    public DataGrid Grid { get; set; }
+    public GroupGrid Grid { get; set; }
     /// <summary>
     /// The parent table definition.
     /// </summary>

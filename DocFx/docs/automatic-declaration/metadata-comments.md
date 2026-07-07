@@ -367,7 +367,7 @@ Photo @BLOB @NULL, -- [Image] -- product photo
 | `Master` | `Master` or `Master OneToOne` | Foreign key to parent table. |
 | `Lookup` | `Lookup [LOOKUP_NAME] [TableName:TABLE_NAME | EnumName:ENUM_NAME | ClassName:LOOKUP_SOURCE_CLASS_NAME]` | Small reference selector. |
 | `Enum` | `Enum [EnumName]` | Enum-backed selector. |
-| `Locator` | `Locator [LOCATOR_NAME] [ClassName:LOCATOR_CLASS_NAME]` | Searchable reference selector. |
+| `Locator` | `Locator [LOCATOR_NAME] [ClassName:LOCATOR_CLASS_NAME] [Form:FORM_NAME] [WebForm:WEB_FORM_NAME]` | Searchable reference selector. |
 | `Code` | `Code [Draft] [Pattern] [ProviderName]` | Auto-generated code field. |
 | `Memo` | `Memo` | Text field with memo behavior. |
 | `LargeMemo` | `LargeMemo` | Text blob with large memo behavior. |
@@ -445,14 +445,23 @@ Examples:
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product
 ProductId @NVARCHAR(40) @NOT_NULL, -- Locator Product ClassName:ProductLocator
+CustomerId @NVARCHAR(40) @NOT_NULL, -- Locator Customer Form:Person WebForm:Person
+PaymentId @NVARCHAR(40) @NOT_NULL, -- Locator Payment ClassName:PaymentLocator Form:CustomerReceipt WebForm:CustomerReceipt
 ```
 
 Rules:
 
 - If `LOCATOR_NAME` is omitted, it is resolved from the foreign key referenced table.
-- If `ClassName:` is used, `LOCATOR_NAME` is required.
-- The builder generates base locator registration.
+- If `ClassName:`, `Form:`, or `WebForm:` is used, `LOCATOR_NAME` is required.
+- The builder generates `LocatorDef2` registration.
 - The generated table field references the locator name.
+- `Form:` is the desktop reference form name used by locator reference menus.
+- `WebForm:` is the web reference form name used by web locator reference menus.
+- For FK-backed generated locators, if `Form:` is omitted, the builder uses the referenced table form.
+- For FK-backed generated locators, if `WebForm:` is omitted, the builder uses the referenced table web form, falling back to `Form:`.
+- At runtime, `LocatorDef2.Form` falls back to the locator name and `LocatorDef2.WebForm` falls back to `Form`.
+- For table-backed locators where the locator name is the referenced module/form name, the defaults are usually enough.
+- For custom SQL, service, or cross-module locators, prefer explicit `Form:` and `WebForm:`.
 
 Join aliases use this convention:
 

@@ -41,6 +41,8 @@ public class LocatorDef2 : BaseDef
     string fClassName;
     string fSource;
     string fKeyField;
+    string fForm;
+    string fWebForm;
     string fOrderBy;
     DefList<LocatorFieldDef2> fFields;
     List<string> fSingleRowSearchFields;
@@ -237,6 +239,22 @@ public class LocatorDef2 : BaseDef
     {
         get => !string.IsNullOrWhiteSpace(fKeyField) ? fKeyField : "Id";
         set { if (fKeyField != value) { fKeyField = value; NotifyPropertyChanged(nameof(KeyField)); } }
+    }
+    /// <summary>
+    /// Gets or sets the desktop form name used by reference menus.
+    /// </summary>
+    public string Form
+    {
+        get => !string.IsNullOrWhiteSpace(fForm) ? fForm : Name;
+        set { if (fForm != value) { fForm = value; NotifyPropertyChanged(nameof(Form)); } }
+    }
+    /// <summary>
+    /// Gets or sets the web form name used by web reference menus.
+    /// </summary>
+    public string WebForm
+    {
+        get => !string.IsNullOrWhiteSpace(fWebForm) ? fWebForm : Form;
+        set { if (fWebForm != value) { fWebForm = value; NotifyPropertyChanged(nameof(WebForm)); } }
     }
     /// <summary>
     /// Gets or sets the ORDER BY clause.
@@ -702,10 +720,10 @@ public class LocatorMapper2
 
         TableDef JoinTable = TargetTable.FindJoinTableByMasterKeyField(ReferenceField.Name);
         FieldDef JoinField = JoinTable?.Fields.FirstOrDefault(item => item.Name.IsSameText(SourceField) || item.Alias.IsSameText(SourceField));
-        if (JoinField == null)
-            return null;
+        if (JoinField != null)
+            return FindSnapshotField(TargetTable, JoinTable, JoinField) ?? JoinField;
 
-        return FindSnapshotField(TargetTable, JoinTable, JoinField) ?? JoinField;
+        return TargetTable.Fields.FirstOrDefault(item => item.Name.IsSameText(SourceField) || item.Alias.IsSameText(SourceField));
     }
 
     // ● public
