@@ -21,7 +21,7 @@ The framework combines explicit C# registration, database metadata, SQL-first da
 - [Overview](docs/tripous-framework/what-is-tripous.md)
 - [Sample Applications](docs/sample-applications.md)
 - [Screenshots](docs/screenshots.md)
-- [Tripous.Web Static Demos](web-demos/)
+- <a href="/WebDemos/index.html">Tripous.Web Static Demos</a>
 
 ## Application Declaration
 
@@ -54,11 +54,11 @@ The repository includes progressively larger samples.
 - [Tripous Core](docs/tripous-core/overview.md)
 - [Tripous.Data](docs/tripous-data/overview.md)
 - [Tripous.Desktop](docs/tripous-desktop/overview.md)
-- [API Reference](api/)
+- [API Reference](api/toc.yml)
 
 ## Tripous.Web Demos
 
-The [Tripous.Web Static Demos](web-demos/) site showcases the JavaScript controls and client-side runtime of Tripous.Web.
+The <a href="/WebDemos/index.html">Tripous.Web Static Demos</a> site showcases the JavaScript controls and client-side runtime of Tripous.Web.
 
 The demos are plain HTML, CSS and JavaScript pages. Server-side scenarios remain separate from the static demo site.
 
