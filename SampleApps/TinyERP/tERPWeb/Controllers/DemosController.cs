@@ -119,4 +119,12 @@ public class DemosController : Controller
     {
         return View("Controls/LocatorBox");
     }
+    /// <summary>
+    /// Displays the tp.Grid locator Ajax demo.
+    /// </summary>
+    [Route("/demo/tp-grid-locator")]
+    public IActionResult TpGridLocator()
+    {
+        return View("Controls/GridLocator");
+    }
 }

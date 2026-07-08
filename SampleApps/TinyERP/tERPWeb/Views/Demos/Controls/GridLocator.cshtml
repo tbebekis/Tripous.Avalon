@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "tp.Grid Locator Ajax";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.Grid Locator Ajax</h1>
+
+<p>
+    A <code>tp.Grid</code> locator column uses the Ajax locator runtime and applies the returned map plan to the edited row.
+</p>
+
+<style>
+    .grid-locator-demo-layout {
+        display: grid;
+        gap: 14px;
+        max-width: 1120px;
+    }
+    .grid-locator-demo-grid {
+        height: 360px;
+        min-height: 320px;
+        border: 1px solid #d0d7de;
+    }
+    .grid-locator-demo-output {
+        box-sizing: border-box;
+        min-height: 180px;
+        max-height: 360px;
+        margin: 0;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+        white-space: pre;
+    }
+</style>
+
+<div class="html-code">
+    <div class="grid-locator-demo-layout">
+        <div id="GridHost" class="grid-locator-demo-grid"></div>
+        <pre id="GridRowText" class="grid-locator-demo-output"></pre>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(async function () {
+        var Packet = await tp.AjaxRequest.Execute("Demo.GridLocator.GetTable");
+        var Table = new tp.DataTable(Packet.Table);
+        var AddLine = function (LineNo) {
+            var Row = Table.AddEmptyRow();
+            Row.Set("DisplayOrder", LineNo);
+            Row.Set("Quantity", 1);
+        };
+        AddLine(1);
+        AddLine(2);
+        AddLine(3);
+
+        var DataSource = new tp.DataSource(Table);
+        DataSource.Position = 0;
+
+        var Grid = new tp.Grid({
+            ElementOrSelector: "#GridHost",
+            AutoGenerateColumns: false,
+            ReadOnly: false,
+            ToolBarVisible: false,
+            GroupsVisible: false,
+            FilterVisible: false,
+            FooterVisible: false,
+            Columns: [
+                { Name: "DisplayOrder", Text: "Line", Width: 70, ReadOnly: true },
+                { Name: "ProductCode", Text: "Code", Width: 130 },
+                { Name: "ProductName", Text: "Product", Width: 260 },
+                { Name: "UnitOfMeasureName", Text: "Unit", Width: 110, ReadOnly: true },
+                { Name: "UnitRatio", Text: "Ratio", Width: 90, ReadOnly: true },
+                { Name: "Quantity", Text: "Qty", Width: 80 }
+            ],
+            DataSource: DataSource
+        });
+
+        var RenderRows = function () {
+            var Rows = [];
+            for (var Index = 0; Index < Table.Rows.length; Index++) {
+                var Row = Table.Rows[Index].ToObject();
+                delete Row.__Row;
+                Rows.push(Row);
+            }
+            tp.Text("#GridRowText", JSON.stringify(Rows, null, 2));
+        };
+
+        DataSource.On("PositionChanged", RenderRows);
+        DataSource.On("RowModified", RenderRows);
+        RenderRows();
+    });
+</script>

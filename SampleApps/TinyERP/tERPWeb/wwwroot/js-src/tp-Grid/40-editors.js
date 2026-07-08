@@ -351,3 +351,168 @@ tp.GridInplaceEditorComboBox = class extends tp.GridInplaceEditor {
         return this.fComboBox;
     }
 };
+
+// ● locator editor
+/**
+ * Locator inplace editor for the grid.
+ *
+ * Events:
+ * - Located
+ * - Cleared
+ */
+tp.GridInplaceEditorLocator = class extends tp.GridInplaceEditor {
+    // ● constructor
+    /**
+     * Creates a locator inplace editor.
+     * @param {tp.GridColumn} Column The associated grid column.
+     */
+    constructor(Column) {
+        super(Column);
+        this.tpClass = "tp.GridInplaceEditorLocator";
+    }
+
+    // ● protected
+    /**
+     * Creates the control.
+     * @protected
+     * @returns {void}
+     */
+    CreateControl() {
+        this.fLocatorBox = new tp.LocatorBox();
+        tp.AddClass(this.fLocatorBox.Handle, tp.Classes.GridInplaceEditor);
+        tp.AddClass(this.fLocatorBox.Handle, tp.Classes.GridInplaceEditorLocator);
+        this.fLocatorBox.IsMultiRow = true;
+        this.fLocatorBox.On("Located", this.LocatorBox_Located, this);
+        this.fLocatorBox.On("Cleared", this.LocatorBox_Cleared, this);
+        this.fControl = this.fLocatorBox;
+    }
+    /**
+     * Called after cell, row, and value are assigned.
+     * @protected
+     * @returns {void}
+     */
+    CellAssigned() {
+        this.ApplyColumnLocatorParams();
+        this.fLocatorBox.TargetRow = this.fRow;
+        this.fLocatorBox.DataSource = this.Column.Grid.DataSource;
+        this.fLocatorBox.DataField = this.Column.LocatorReferenceField;
+    }
+    /**
+     * Shows the control.
+     * @protected
+     * @returns {void}
+     */
+    ShowControl() {
+        var Self = this;
+        this.fLocatorBox.ReadOnly = this.Column.ReadOnly === true;
+        this.fLocatorBox.EnsureInfoAsync().then(function () {
+            var Input;
+            Self.fLocatorBox.RefreshInputValuesFromTargetRow();
+            Input = Self.GetInput();
+            if (Input) {
+                setTimeout(function () {
+                    Input.focus();
+                    Input.select();
+                }, 0);
+            }
+        }).catch(function (e) {
+            if (tp.LogBox && tp.LogBox.AppendLine)
+                tp.LogBox.AppendLine("Grid locator refresh failed: " + tp.ExceptionText(e));
+        });
+    }
+    /**
+     * Hides the control.
+     * @protected
+     * @param {boolean} PostChanges True to post changes.
+     * @returns {void}
+     */
+    HideControl(PostChanges) {
+        this.fLocatorBox.CloseDropDown();
+    }
+    /**
+     * Cancels the current locator operation.
+     * @returns {void}
+     */
+    CancelOperation() {
+        this.fLocatorBox.CancelOperation();
+    }
+    /**
+     * Returns true when an element is inside this editor control or its drop-down.
+     * @param {HTMLElement} Element The element.
+     * @returns {boolean} Returns true when contained.
+     */
+    ContainsHandle(Element) {
+        return super.ContainsHandle(Element)
+            || this.fLocatorBox
+            && this.fLocatorBox.fDropDownBox
+            && tp.IsElement(this.fLocatorBox.fDropDownBox.Handle)
+            && tp.ContainsElement(this.fLocatorBox.fDropDownBox.Handle, Element);
+    }
+    /**
+     * Renders the cell.
+     * @protected
+     * @param {boolean} PostChanges True to post changes.
+     * @returns {void}
+     */
+    RenderCell(PostChanges) {
+        if (PostChanges === true)
+            this.Column.Render(this.fCell, this.fRow);
+    }
+    /**
+     * Applies column locator settings to the hosted locator box.
+     * @protected
+     * @returns {void}
+     */
+    ApplyColumnLocatorParams() {
+        var Fields = this.Column.LocatorFields.length > 0 ? this.Column.LocatorFields.slice() : [this.Column.LocatorSearchField];
+        var SearchFields = this.Column.LocatorSearchFields.length > 0 ? this.Column.LocatorSearchFields.slice() : [this.Column.LocatorSearchField];
+        this.fLocatorBox.LocatorName = this.Column.LocatorName;
+        this.fLocatorBox.ModuleName = this.Column.LocatorModuleName;
+        this.fLocatorBox.TableName = this.Column.LocatorTableName;
+        this.fLocatorBox.ReferenceField = this.Column.LocatorReferenceField;
+        this.fLocatorBox.Fields = Fields;
+        this.fLocatorBox.SearchFields = SearchFields;
+        if (!tp.IsNil(this.Column.LocatorMinimumSearchLength)) {
+            this.fLocatorBox.MinimumSearchLength = this.Column.LocatorMinimumSearchLength;
+            this.fLocatorBox.fMinimumSearchLengthAssigned = true;
+        }
+        this.fLocatorBox.RebuildInputs();
+    }
+    /**
+     * Returns the first hosted input.
+     * @protected
+     * @returns {HTMLInputElement|null} Returns the input.
+     */
+    GetInput() {
+        return this.fLocatorBox && this.fLocatorBox.fInputs && this.fLocatorBox.fInputs.length > 0 ? this.fLocatorBox.fInputs[0] : null;
+    }
+    /**
+     * Handles the locator box Located event.
+     * @protected
+     * @param {object} Args Event arguments.
+     * @returns {void}
+     */
+    LocatorBox_Located(Args) {
+        if (this.fCell && this.fRow)
+            this.Column.Render(this.fCell, this.fRow);
+    }
+    /**
+     * Handles the locator box Cleared event.
+     * @protected
+     * @param {object} Args Event arguments.
+     * @returns {void}
+     */
+    LocatorBox_Cleared(Args) {
+        if (this.fCell && this.fRow)
+            this.Column.Render(this.fCell, this.fRow);
+    }
+
+    // ● properties
+    /**
+     * Gets the hosted locator box.
+     * @returns {tp.LocatorBox} Returns the locator box.
+     */
+    get LocatorBox() {
+        return this.fLocatorBox;
+    }
+};

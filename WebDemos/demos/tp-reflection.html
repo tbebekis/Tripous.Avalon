@@ -13,6 +13,8 @@
     <script src="../tripous/js/tp.js"></script>
     <script src="../tripous/js/tp-Data.js"></script>
     <script src="../tripous/js/tp-UI.js"></script>
+    <script src="../tripous/js/tp-Grid.js"></script>
+    <script src="../tripous/js/tp-WebDesk.js"></script>
     <script src="../assets/js/demos.js"></script>
 </head>
 <body class="demo-page">
@@ -108,6 +110,7 @@
                     { Name: "tp.WebFormContext", Type: tp.WebFormContext, Description: "Context object for WebDesk form creation, hosting mode, parent control, server packet, result data, and dynamic assets." },
                     { Name: "tp.WebForm", Type: tp.WebForm, Description: "Base component class for WebDesk forms with context, AppForm-like setup, initialization, loading, and closing hooks." },
                     { Name: "tp.WebDataForm", Type: tp.WebDataForm, Description: "Standard WebDesk data-entry form with list/item pages, toolbar, data module initialization, and list selection." },
+                    { Name: "tp.WebItemPageBuilder", Type: tp.WebItemPageBuilder, Description: "Builds the first generated WebDesk item page surface with scalar field groups and first-level detail grid tabs." },
                     { Name: "tp.SelectFilterRow", Type: tp.SelectFilterRow, Description: "WebDesk select filter row that builds operator and value controls from filter metadata." },
                     { Name: "tp.Control", Type: tp.Control, Description: "Data-bindable component base class for controls. Adds data source, data field, required, read-only, and validation hooks." },
                     { Name: "tp.InputControl", Type: tp.InputControl, Description: "Base class for simple input controls with input/change handling and simple data binding." },
@@ -148,6 +151,7 @@
                     { Name: "tp.DataTable", Type: tp.DataTable, Description: "Client-side data table with columns, rows, and serialization contract support." },
                     { Name: "tp.DataSet", Type: tp.DataSet, Description: "Client-side data set containing related data tables." },
                     { Name: "tp.DataModule", Type: tp.DataModule, Description: "Client-side proxy for a server-side Tripous data module." },
+                    { Name: "tp.LocatorList", Type: tp.LocatorList, Description: "Client-side table-specific locator metadata list." },
                     { Name: "tp.DataSource", Type: tp.DataSource, Description: "Data-binding source over a data table, with position, sorting, filtering, and listeners." }
                 ].filter(function (Item) {
                     return tp.IsFunction(Item.Type);

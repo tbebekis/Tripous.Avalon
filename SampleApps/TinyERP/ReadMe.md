@@ -52,6 +52,7 @@ SampleApps/TinyERP
     tERP.Data
     tERP.Desktop
     tERP.Tests
+    tERPWeb
     Docs
 ```
 
@@ -62,6 +63,7 @@ The projects have separate responsibilities.
 - `tERP.Data` contains schema files, generated registry code, data modules, document handlers, sample data and business services.
 - `tERP.Desktop` contains desktop-specific forms and UI extensions.
 - `tERP.Tests` contains automated tests for database and business workflows.
+- `tERPWeb` is the ASP.NET Core MVC Tripous.Web sample application.
 - `Docs` contains working notes and future documentation material.
 
 ## Application Project
@@ -823,6 +825,7 @@ SampleApps/TinyERP/tERP/tERP.csproj
 SampleApps/TinyERP/tERP.Data/tERP.Data.csproj
 SampleApps/TinyERP/tERP.Desktop/tERP.Desktop.csproj
 SampleApps/TinyERP/tERP.Tests/tERP.Tests.csproj
+SampleApps/TinyERP/tERPWeb/tERPWeb.csproj
 ```
 
 The application project is:
@@ -836,6 +839,16 @@ The test project is:
 ```text
 SampleApps/TinyERP/tERP.Tests/tERP.Tests.csproj
 ```
+
+The web sample project is:
+
+```text
+SampleApps/TinyERP/tERPWeb/tERPWeb.csproj
+```
+
+Run a full rebuild of `tERPWeb` before testing it. The rebuild generates the Tripous Web bundles from `wwwroot/js-src` into `wwwroot/tp/js`, including `tp.js`, `tp-Data.js`, `tp-UI.js`, `tp-Grid.js` and `tp-WebDesk.js`.
+
+Do not edit generated `tp*.js` bundles directly.
 
 ## Tester Guides
 

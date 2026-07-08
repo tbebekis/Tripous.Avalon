@@ -42,6 +42,14 @@ public class JsonLocatorDef
                 Fields.Add(new JsonLocatorField(FieldDef));
         }
     }
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public JsonLocatorDef(LocatorDef Source, LocatorMapPlan MapPlan)
+        : this(Source)
+    {
+        this.MapPlan = new JsonLocatorMapPlan(MapPlan);
+    }
 
     // ● properties
     /// <summary>
@@ -68,6 +76,10 @@ public class JsonLocatorDef
     /// The maximum result row count.
     /// </summary>
     public int MaximumResultCount { get; set; }
+    /// <summary>
+    /// Optional table-specific mapping plan.
+    /// </summary>
+    public JsonLocatorMapPlan MapPlan { get; set; }
     /// <summary>
     /// The locator fields.
     /// </summary>

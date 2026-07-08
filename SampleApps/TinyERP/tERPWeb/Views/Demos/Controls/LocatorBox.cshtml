@@ -47,8 +47,16 @@
             <div id="LocatorBoxHost"></div>
         </div>
         <div class="locator-box-demo-panel">
+            <h2>Data-bound product locator</h2>
+            <div id="BoundLocatorBoxHost"></div>
+        </div>
+        <div class="locator-box-demo-panel">
             <h2>Target object</h2>
             <pre id="TargetObjectText" class="locator-box-demo-output"></pre>
+        </div>
+        <div class="locator-box-demo-panel">
+            <h2>Bound row</h2>
+            <pre id="BoundRowText" class="locator-box-demo-output"></pre>
         </div>
         <div class="locator-box-demo-panel">
             <h2>Locator metadata</h2>
@@ -71,6 +79,22 @@
         var RenderTarget = function () {
             tp.Text("#TargetObjectText", JSON.stringify(TargetRow, null, 2));
         };
+        var Table = new tp.DataTable("StockTradeLine");
+        Table.AddColumn("ProductId", tp.DataType.String);
+        Table.AddColumn("ProductCode", tp.DataType.String);
+        Table.AddColumn("ProductName", tp.DataType.String);
+        Table.AddColumn("UnitOfMeasureId", tp.DataType.String);
+        Table.AddColumn("UnitOfMeasureName", tp.DataType.String);
+        Table.AddColumn("UnitRatio", tp.DataType.Decimal);
+        Table.AddRow(TargetRow);
+        var DataSource = new tp.DataSource(Table);
+        DataSource.Position = 0;
+        var RenderBoundRow = function () {
+            var Row = DataSource.Current ? DataSource.Current.ToObject() : null;
+            if (Row)
+                delete Row.__Row;
+            tp.Text("#BoundRowText", JSON.stringify(Row, null, 2));
+        };
 
         var LocatorBox = new tp.LocatorBox({
             ElementOrSelector: "#LocatorBoxHost",
@@ -79,6 +103,15 @@
             TableName: "StockTradeLine",
             ReferenceField: "ProductId",
             TargetRow: TargetRow,
+            IsMultiRow: true
+        });
+        var BoundLocatorBox = new tp.LocatorBox({
+            ElementOrSelector: "#BoundLocatorBoxHost",
+            LocatorName: "Product",
+            ModuleName: "StockTrade",
+            TableName: "StockTradeLine",
+            DataField: "ProductId",
+            DataSource: DataSource,
             IsMultiRow: true
         });
 
@@ -94,6 +127,12 @@
         LocatorBox.On("Cleared", function () {
             RenderTarget();
         });
+        BoundLocatorBox.On("Located", function () {
+            RenderBoundRow();
+        });
+        BoundLocatorBox.On("Cleared", function () {
+            RenderBoundRow();
+        });
 
         LocatorBox.EnsureInfoAsync().then(function (Info) {
             tp.Text("#LocatorInfoText", JSON.stringify(Info, null, 2));
@@ -102,5 +141,6 @@
         });
 
         RenderTarget();
+        RenderBoundRow();
     });
 </script>

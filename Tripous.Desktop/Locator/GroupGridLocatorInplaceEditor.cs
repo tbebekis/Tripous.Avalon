@@ -17,6 +17,7 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
     readonly LocatorDef fLocatorDef;
     readonly string fSearchField;
     readonly DataRowView fTargetRowView;
+    readonly ReferenceContextMenu fReferenceContextMenu;
     DataTable fDropDownTable;
     GroupGrid fDropDownGrid;
     DataRow fSelectedRow;
@@ -256,7 +257,7 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
     /// <inheritdoc />
     protected override void ToggleDropDown()
     {
-        Search(CommitSingleResult: false, SearchTerm: string.Empty);
+        fReferenceContextMenu?.Open(DropDownButton);
     }
     /// <inheritdoc />
     protected override object GetDropDownSelectedValue()
@@ -268,11 +269,12 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public GroupGridLocatorInplaceEditor(LocatorDef LocatorDef, string SearchField, DataRowView TargetRowView)
+    public GroupGridLocatorInplaceEditor(LocatorDef LocatorDef, string SearchField, DataRowView TargetRowView, ReferenceContextMenu ReferenceContextMenu = null)
     {
         fLocatorDef = LocatorDef;
         fSearchField = SearchField;
         fTargetRowView = TargetRowView;
+        fReferenceContextMenu = ReferenceContextMenu;
         TextBox.TextChanged += (Sender, Args) =>
         {
             if (!fIsSettingText && ContainsSearchTrigger(TextBox.Text))

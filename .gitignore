@@ -41,6 +41,8 @@ DocFx/_site/
 ## [ Tripous Web generated bundles ]
 **/wwwroot/tp/js/*.js
 **/wwwroot/tp/js/*.min.js
+WebDemos/tripous/js/*.js
+WebDemos/tripous/js/*.min.js
 
 ## [ Playwright ]
 package.json

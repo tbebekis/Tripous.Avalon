@@ -15,10 +15,21 @@ General Rules
 2. TopFields are grouped by FieldDef.Group.
 
 3. Each TopFields group appears inside its own Expander.
+   The "General" group is expanded by default.
 
 4. Empty FieldDef.Group is treated as "General".
 
-5. Inside each TopFields group, fields are split into 1..3 columns using FormDef.ColumnCount.
+5. Inside each TopFields group, fields are split into 1..3 columns using Ui.Settings.FormColumnCount.
+   If no explicit setting is used, the desktop default is based on available screen width:
+   3 columns when AvailableWidth > 1100, otherwise 2 columns.
+
+5a. AvailableWidth is calculated as current screen width minus an assumed 350px sidebar.
+    FormColumnWidth defaults to AvailableWidth / FormColumnCount.
+
+5b. Fields are distributed to visual columns using Ui.Settings.FormMaxControlsPerColumn.
+    The default is 8 controls per column. Extra fields continue in the last visual column.
+
+5c. Each visual column uses an internal label/editor/trailing layout with 28/70/2 proportions.
 
 6. Boolean fields may occupy the full row.
 

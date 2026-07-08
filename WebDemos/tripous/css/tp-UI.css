@@ -50,15 +50,18 @@ fieldset.tp-GroupBox legend {
     display: flex;
     flex-direction: column;
     gap: 5px;
+    border: var(--Border);
+    background-color: var(--WindowBackColor);
 }
 
 .tp-Accordion > * > :nth-child(1) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 16px;
+    padding: 6px 14px;
     background-color: var(--BackColor);
-    line-height: 1.8em;
+    font-weight: 600;
+    line-height: 1.4em;
     cursor: pointer;
 }
 
@@ -78,6 +81,7 @@ fieldset.tp-GroupBox legend {
 .tp-Accordion > * > :nth-child(2) {
     display: none;
     overflow: auto;
+    border-top: var(--Border);
 }
 
 .tp-Accordion > .tp-Expanded > :nth-child(2) {
@@ -1045,16 +1049,21 @@ input[type=text].tp-Grid-InplaceEditor {
     position: fixed;
     display: flex;
     align-items: stretch;
+    min-width: 0;
+    min-height: 0;
     overflow: hidden;
+    border: none;
+    padding: 0;
 }
 
-.tp-Grid-InplaceEditor-Locator > input[type=text] {
+.tp-Grid-InplaceEditor-Locator > .tp-LocatorBox-Input {
     position: relative;
     flex-grow: 1;
+    min-width: 0;
     border: none;
 }
 
-.tp-Grid-InplaceEditor-Locator > .tp-Btn {
+.tp-Grid-InplaceEditor-Locator > .tp-LocatorBox-Button {
     position: relative;
     display: flex;
     justify-content: center;

@@ -119,6 +119,7 @@ Purpose:
 
 - Shows a larger multi-project Tripous application.
 - Uses `tERP.Common`, `tERP.Data`, `tERP.Desktop`, `tERP.Tests` and the executable `tERP` project.
+- Includes the ASP.NET Core MVC `tERPWeb` project for Tripous.Web experiments.
 - Uses the Registration Builder for automatic declaration.
 - Uses schema metadata comments to generate registry code.
 - Demonstrates many modules, forms, lookups, locators, select definitions and code providers.
@@ -128,6 +129,8 @@ Purpose:
 This is the main automatic declaration sample.
 
 It is the best sample for understanding how schema comments, the Registration Builder and generated declarations scale to a larger application.
+
+When testing `tERPWeb`, run a full rebuild of the `tERPWeb` project before starting it. The rebuild generates the `tp*.js` bundles used by the MVC layout and demos.
 
 ## Suggested Reading Order
 

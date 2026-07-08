@@ -200,6 +200,10 @@
     href: tripous-desktop/avalonia-assets.md
   - name: DesktopExceptionHandler
     href: tripous-desktop/desktop-exception-handler.md
+- name: Tripous.Web
+  items:
+  - name: Web Locators
+    href: tripous-web/web-locators.md
 - name: Tripous.Logging
   items:
   - name: Overview

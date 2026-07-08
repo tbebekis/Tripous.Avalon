@@ -332,6 +332,7 @@ tp.Grid = class extends tp.Control  {
         this.ValueColumns = [];
         this.GroupColumns = [];
         this.AggregateColumns = [];
+        this.Locators = [];
 
         this.IsBinding = false;
         this.fSettingPosition = false;
@@ -457,7 +458,11 @@ tp.Grid = class extends tp.Control  {
             this.AutoGenerateColumns = Params.AutoGenerateColumns === true;
         }
 
-
+        if (tp.IsArray(Params.Locators)) {
+            A = Params.Locators;
+            for (let i = 0, ln = A.length; i < ln; i++)
+                this.ApplyLocatorParams(A[i]);
+        }
 
         Object.keys(Params).forEach(Prop => {
             if (!tp.IsFunction(Params[Prop])) {
@@ -543,6 +548,7 @@ tp.Grid = class extends tp.Control  {
                 }
             }
 
+            this.ApplyTableLocatorParams(Table);
 
             // value and group columns
             this.ValueColumns = [];
@@ -593,7 +599,10 @@ tp.Grid = class extends tp.Control  {
         switch (T) {
             case tp.Events.Scroll:
                 if (e.eventPhase === Event.BUBBLING_PHASE) {
-                    if (this.Editor && !this.ContainsHandle(elTarget)) {
+                    if (this.Editor && tp.IsFunction(this.Editor.CancelOperation)) {
+                        this.Editor.CancelOperation();
+                        this.HideEditor(false);
+                    } else if (this.Editor && !this.ContainsHandle(elTarget)) {
                         this.HideEditor(true);
                     }
                 }
@@ -1880,6 +1889,188 @@ tp.Grid = class extends tp.Control  {
         Result.ListDisplayField = ListDisplayField;
         Result.ListSource = ListSource;
         return Result;
+    }
+    /**
+    Adds and returns a new grid locator column.
+    @param {string} Name The column name.
+    @param {string} Text The column title.
+    @param {string|object} Locator The locator name or locator params.
+    @returns {tp.GridColumn} Returns the newly added grid column.
+    */
+    AddLocatorColumn(Name, Text, Locator) {
+        return this.InsertLocatorColumn(this.Columns.length, Name, Text, Locator);
+    }
+    /**
+    Adds a new grid locator column at a specified index and returns that column.
+    @param {number} Index The column index.
+    @param {string} Name The column name.
+    @param {string} Text The column title.
+    @param {string|object} Locator The locator name or locator params.
+    @returns {tp.GridColumn} Returns the newly added grid column.
+    */
+    InsertLocatorColumn(Index, Name, Text, Locator) {
+        if (!tp.IsValid(Text))
+            Text = tp.SplitOnUpperCase(Name);
+        let Result = this.InsertColumn(Index, Name, Text);
+        this.ApplyColumnLocatorParams(Result, Locator);
+        return Result;
+    }
+    /**
+    Applies locator params to a column.
+    @param {object|string} Params The locator params or locator name.
+    @returns {tp.GridColumn|null} Returns the configured column.
+    */
+    ApplyLocatorParams(Params) {
+        var DataField;
+        var Column;
+        if (tp.IsString(Params))
+            return null;
+        Params = Params || {};
+        DataField = Params.DataField || Params.Name || Params.FieldName || Params.ColumnName || "";
+        if (tp.IsBlank(DataField))
+            return null;
+        Column = this.ColumnByName(DataField);
+        if (!Column)
+            Column = this.AddColumn(DataField);
+        this.ApplyColumnLocatorParams(Column, Params);
+        this.Locators.push(Params);
+        return Column;
+    }
+    /**
+    Applies locator params to a specified column.
+    @param {tp.GridColumn} Column The target column.
+    @param {object|string} Params The locator params or locator name.
+    @returns {void}
+    */
+    ApplyColumnLocatorParams(Column, Params) {
+        var LocatorName;
+        if (!(Column instanceof tp.GridColumn))
+            return;
+        if (tp.IsString(Params)) {
+            Column.LocatorName = Params;
+            return;
+        }
+        Params = Params || {};
+        LocatorName = Params.LocatorName || Params.Locator || Params.Name || "";
+        if (!tp.IsBlank(LocatorName))
+            Column.LocatorName = LocatorName;
+        if (!tp.IsNil(Params.ModuleName))
+            Column.LocatorModuleName = Params.ModuleName;
+        if (!tp.IsNil(Params.Module))
+            Column.LocatorModuleName = Params.Module;
+        if (!tp.IsNil(Params.TableName))
+            Column.LocatorTableName = Params.TableName;
+        if (!tp.IsNil(Params.ReferenceField))
+            Column.LocatorReferenceField = Params.ReferenceField;
+        if (!tp.IsNil(Params.SearchField))
+            Column.LocatorSearchField = Params.SearchField;
+        if (tp.IsArray(Params.Fields))
+            Column.LocatorFields = Params.Fields;
+        if (tp.IsArray(Params.SearchFields))
+            Column.LocatorSearchFields = Params.SearchFields;
+        if (!tp.IsNil(Params.MinimumSearchLength))
+            Column.LocatorMinimumSearchLength = Params.MinimumSearchLength;
+    }
+    /**
+    Applies table locator metadata to grid columns.
+    @param {tp.DataTable} Table The data table.
+    @returns {void}
+    */
+    ApplyTableLocatorParams(Table) {
+        var Index;
+        if (!(Table instanceof tp.DataTable) || !(Table.Locators instanceof tp.LocatorList))
+            return;
+        for (Index = 0; Index < Table.Locators.Items.length; Index++)
+            this.ApplyTableLocatorParam(Table, Table.Locators.Items[Index]);
+    }
+    /**
+    Applies a table locator definition to grid columns.
+    @param {tp.DataTable} Table The data table.
+    @param {tp.LocatorDef} Locator The locator definition.
+    @returns {void}
+    */
+    ApplyTableLocatorParam(Table, Locator) {
+        var MapPlan;
+        var SearchFields;
+        var SearchItems;
+        var Index;
+        var Item;
+        var Column;
+        if (!(Locator instanceof tp.LocatorDef) || !(Locator.MapPlan instanceof tp.LocatorMapPlan))
+            return;
+        MapPlan = Locator.MapPlan;
+        SearchFields = this.GetTableLocatorSearchFields(Locator);
+        SearchItems = this.GetTableLocatorSearchItems(MapPlan, SearchFields);
+        for (Index = 0; Index < SearchItems.length; Index++) {
+            Item = SearchItems[Index];
+            Column = this.ColumnByName(Item.TargetField);
+            if (!Column || Column.IsLocator)
+                continue;
+            this.ApplyColumnLocatorParams(Column, this.CreateTableLocatorColumnParams(Table, Locator, MapPlan, Item));
+        }
+    }
+    /**
+    Returns search field names for a table locator.
+    @param {tp.LocatorDef} Locator The locator definition.
+    @returns {string[]} Returns locator search field names.
+    */
+    GetTableLocatorSearchFields(Locator) {
+        var Result = Locator instanceof tp.LocatorDef ? Locator.GetSearchFields(true) : [];
+        return Result.length > 0 ? Result : Locator.GetSearchFields(false);
+    }
+    /**
+    Returns map items that correspond to locator search fields.
+    @param {tp.LocatorMapPlan} MapPlan The locator map plan.
+    @param {string[]} SearchFields The locator search fields.
+    @returns {tp.LocatorMapItem[]} Returns matching map items.
+    */
+    GetTableLocatorSearchItems(MapPlan, SearchFields) {
+        var Result = [];
+        var Index;
+        var Item;
+        if (!(MapPlan instanceof tp.LocatorMapPlan) || !tp.IsArray(SearchFields))
+            return Result;
+        for (Index = 0; Index < MapPlan.Items.length; Index++) {
+            Item = MapPlan.Items[Index];
+            if (this.IsTableLocatorSearchField(Item.SourceField, SearchFields))
+                Result.push(Item);
+        }
+        return Result;
+    }
+    /**
+    Creates grid column locator params from table locator metadata.
+    @param {tp.DataTable} Table The data table.
+    @param {tp.LocatorDef} Locator The locator definition.
+    @param {tp.LocatorMapPlan} MapPlan The locator map plan.
+    @param {tp.LocatorMapItem} Item The locator map item.
+    @returns {object} Returns column locator params.
+    */
+    CreateTableLocatorColumnParams(Table, Locator, MapPlan, Item) {
+        return {
+            LocatorName: Locator.Name,
+            TableName: Table.Name,
+            ReferenceField: MapPlan.ReferenceField,
+            SearchField: Item.SourceField,
+            Fields: [Item.SourceField],
+            SearchFields: [Item.SourceField],
+            MinimumSearchLength: Locator.MinimumSearchLength
+        };
+    }
+    /**
+    Returns true when a locator source field is a search field.
+    @param {string} SourceField The locator source field.
+    @param {string[]} SearchFields The locator search fields.
+    @returns {boolean} Returns true when the source field is searchable.
+    */
+    IsTableLocatorSearchField(SourceField, SearchFields) {
+        var Index;
+        if (tp.IsBlank(SourceField) || !tp.IsArray(SearchFields))
+            return false;
+        for (Index = 0; Index < SearchFields.length; Index++) {
+            if (tp.IsSameText(SourceField, SearchFields[Index]))
+                return true;
+        }
+        return false;
     }
 
 

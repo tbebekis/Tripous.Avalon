@@ -134,6 +134,10 @@ The repository includes a standalone static demo site for the Tripous.Web JavaSc
 
 The WebDemos site is plain HTML, CSS and JavaScript. It is independent from the ASP.NET Core demo application and can be published as part of the DocFX GitHub Pages site.
 
+tERPWeb is the ASP.NET Core MVC TinyERP Web sample under `SampleApps/TinyERP/tERPWeb`.
+
+When testing tERPWeb, run a full rebuild of the `tERPWeb` project first. The rebuild creates the generated Tripous Web bundles such as `tp.js`, `tp-Data.js`, `tp-UI.js`, `tp-Grid.js` and `tp-WebDesk.js` from the source fragments under `wwwroot/js-src`.
+
 ## Tools
 
 The `Tools` folder contains developer tools.

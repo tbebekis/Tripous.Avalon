@@ -370,6 +370,11 @@ tp.LocatorDef = class {
          * @type {string[]}
          */
         this.ListVisibleFields = [];
+        /**
+         * Optional table-specific mapping plan.
+         * @type {tp.LocatorMapPlan|null}
+         */
+        this.MapPlan = null;
         this.Assign(Source);
     }
 
@@ -398,6 +403,7 @@ tp.LocatorDef = class {
         this.MultiRowSearchFields = tp.IsArray(Source.MultiRowSearchFields) ? Source.MultiRowSearchFields.slice() : [];
         this.ResultFields = tp.IsArray(Source.ResultFields) ? Source.ResultFields.slice() : [];
         this.ListVisibleFields = tp.IsArray(Source.ListVisibleFields) ? Source.ListVisibleFields.slice() : [];
+        this.MapPlan = tp.IsObject(Source.MapPlan) ? new tp.LocatorMapPlan(Source.MapPlan) : null;
     }
     /**
      * Returns search field names for a locator UI mode.
@@ -437,6 +443,69 @@ tp.LocatorDef = class {
 };
 
 /**
+ * A table-specific locator definition list.
+ */
+tp.LocatorList = class {
+    // ● constructor
+    /**
+     * Creates a locator definition list.
+     * @param {object|null|undefined} Source The source object.
+     */
+    constructor(Source = null) {
+        /**
+         * Locator definitions.
+         * @type {tp.LocatorDef[]}
+         */
+        this.Items = [];
+        this.Assign(Source);
+    }
+
+    // ● public
+    /**
+     * Assigns values from a source object.
+     * @param {object|null|undefined} Source The source object.
+     * @returns {void}
+     */
+    Assign(Source) {
+        var Index;
+        this.Items = [];
+        if (!tp.IsObject(Source) || !tp.IsArray(Source.Items))
+            return;
+        for (Index = 0; Index < Source.Items.length; Index++)
+            this.Items.push(new tp.LocatorDef(Source.Items[Index]));
+    }
+    /**
+     * Finds a locator definition by name and optional reference field.
+     * @param {string} LocatorName The locator name.
+     * @param {string|null|undefined} ReferenceField Optional reference field name.
+     * @returns {tp.LocatorDef|null} Returns a locator definition or null.
+     */
+    Find(LocatorName, ReferenceField = null) {
+        var Index;
+        var Locator;
+        var MapPlan;
+        for (Index = 0; Index < this.Items.length; Index++) {
+            Locator = this.Items[Index];
+            MapPlan = Locator.MapPlan;
+            if (!tp.IsSameText(Locator.Name, LocatorName))
+                continue;
+            if (tp.IsBlank(ReferenceField) || (MapPlan instanceof tp.LocatorMapPlan && tp.IsSameText(MapPlan.ReferenceField, ReferenceField)))
+                return Locator;
+        }
+        return null;
+    }
+    /**
+     * Returns a plain object used by JSON.stringify().
+     * @returns {object} Returns a plain object.
+     */
+    toJSON() {
+        return {
+            Items: this.Items.map(function (Locator) { return Locator; })
+        };
+    }
+};
+
+/**
  * Result of a locator metadata request.
  */
 tp.LocatorInfo = class {
@@ -469,7 +538,7 @@ tp.LocatorInfo = class {
         if (!tp.IsObject(Source))
             return;
         this.Locator = tp.IsObject(Source.Locator) ? new tp.LocatorDef(Source.Locator) : null;
-        this.MapPlan = tp.IsObject(Source.MapPlan) ? new tp.LocatorMapPlan(Source.MapPlan) : null;
+        this.MapPlan = tp.IsObject(Source.MapPlan) ? new tp.LocatorMapPlan(Source.MapPlan) : this.Locator ? this.Locator.MapPlan : null;
     }
 };
 
@@ -687,6 +756,11 @@ tp.LocatorFieldDef.prototype.tpClass = "tp.LocatorFieldDef";
  * @type {string}
  */
 tp.LocatorDef.prototype.tpClass = "tp.LocatorDef";
+/**
+ * Gets the Tripous class name.
+ * @type {string}
+ */
+tp.LocatorList.prototype.tpClass = "tp.LocatorList";
 /**
  * Gets the Tripous class name.
  * @type {string}

@@ -65,6 +65,14 @@ tp.GridColumn = class extends tp.Object {
         this.fAggregate = tp.AggregateType.None;
         this.fReadOnly = false;
         this.fVisible = true;
+        this.fLocatorName = "";
+        this.fLocatorModuleName = "";
+        this.fLocatorTableName = "";
+        this.fLocatorReferenceField = "";
+        this.fLocatorSearchField = "";
+        this.fLocatorFields = [];
+        this.fLocatorSearchFields = [];
+        this.fLocatorMinimumSearchLength = null;
     }
     /**
      * Creates child controls.
@@ -150,6 +158,8 @@ tp.GridColumn = class extends tp.Object {
      * @returns {tp.GridInplaceEditor} Returns the editor.
      */
     CreateEditor() {
+        if (this.IsLocator)
+            return new tp.GridInplaceEditorLocator(this);
         if (this.DataType === tp.DataType.Boolean || this.DataColumn && this.DataColumn.ColumnType === tp.DataColumnType.Boolean)
             return new tp.GridInplaceEditorCheckBox(this);
         return new tp.GridInplaceEditorTextBox(this);
@@ -651,6 +661,18 @@ tp.GridColumn = class extends tp.Object {
         return this.fComboBox;
     }
     /**
+     * Returns the locator inplace editor.
+     * @protected
+     * @returns {tp.GridInplaceEditorLocator} Returns the locator editor.
+     */
+    get LocatorEditor() {
+        if (!(this.fEditor instanceof tp.GridInplaceEditorLocator)) {
+            this.fEditorLocator = new tp.GridInplaceEditorLocator(this);
+            this.fEditor = this.fEditorLocator;
+        }
+        return this.fEditorLocator;
+    }
+    /**
      * Gets the column handle.
      * @returns {HTMLElement} Returns the handle.
      */
@@ -980,6 +1002,7 @@ tp.GridColumn = class extends tp.Object {
      */
     set Editor(Value) {
         if (Value !== this.fEditor) {
+            this.fEditorLocator = null;
             this.fEditorComboBox = null;
             this.fComboBox = null;
             this.fLookUpTable = null;
@@ -988,6 +1011,8 @@ tp.GridColumn = class extends tp.Object {
             if (this.fEditor instanceof tp.GridInplaceEditorComboBox) {
                 this.fEditorComboBox = this.fEditor;
                 this.fComboBox = this.fEditorComboBox.ComboBox;
+            } else if (this.fEditor instanceof tp.GridInplaceEditorLocator) {
+                this.fEditorLocator = this.fEditor;
             }
         }
     }
@@ -1004,6 +1029,141 @@ tp.GridColumn = class extends tp.Object {
      */
     get IsLookUp() {
         return this.fEditor instanceof tp.GridInplaceEditorComboBox;
+    }
+    /**
+     * Returns true when this is a locator column.
+     * @returns {boolean} Returns true when locator.
+     */
+    get IsLocator() {
+        return !tp.IsBlank(this.LocatorName);
+    }
+    /**
+     * Gets or sets locator name.
+     * @returns {string} Returns locator name.
+     */
+    get LocatorName() {
+        if (!tp.IsBlank(this.fLocatorName))
+            return this.fLocatorName;
+        return this.DataColumn instanceof tp.DataColumn ? this.DataColumn.Locator : "";
+    }
+    /**
+     * Gets or sets locator name.
+     * @param {string} Value The locator name.
+     * @returns {void}
+     */
+    set LocatorName(Value) {
+        Value = tp.IsNil(Value) ? "" : String(Value);
+        if (Value !== this.fLocatorName) {
+            this.fLocatorName = Value;
+            if (!tp.IsBlank(Value))
+                this.LocatorEditor.LocatorBox.LocatorName = Value;
+            this.Changed("LocatorName");
+        }
+    }
+    /**
+     * Gets or sets locator module name.
+     * @returns {string} Returns module name.
+     */
+    get LocatorModuleName() {
+        return this.fLocatorModuleName;
+    }
+    /**
+     * Gets or sets locator module name.
+     * @param {string} Value The module name.
+     * @returns {void}
+     */
+    set LocatorModuleName(Value) {
+        this.fLocatorModuleName = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets locator table name.
+     * @returns {string} Returns table name.
+     */
+    get LocatorTableName() {
+        return this.fLocatorTableName;
+    }
+    /**
+     * Gets or sets locator table name.
+     * @param {string} Value The table name.
+     * @returns {void}
+     */
+    set LocatorTableName(Value) {
+        this.fLocatorTableName = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets locator reference field.
+     * @returns {string} Returns reference field.
+     */
+    get LocatorReferenceField() {
+        return !tp.IsBlank(this.fLocatorReferenceField) ? this.fLocatorReferenceField : this.Name;
+    }
+    /**
+     * Gets or sets locator reference field.
+     * @param {string} Value The reference field.
+     * @returns {void}
+     */
+    set LocatorReferenceField(Value) {
+        this.fLocatorReferenceField = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets locator search field.
+     * @returns {string} Returns search field.
+     */
+    get LocatorSearchField() {
+        return !tp.IsBlank(this.fLocatorSearchField) ? this.fLocatorSearchField : this.Name;
+    }
+    /**
+     * Gets or sets locator search field.
+     * @param {string} Value The search field.
+     * @returns {void}
+     */
+    set LocatorSearchField(Value) {
+        this.fLocatorSearchField = tp.IsNil(Value) ? "" : String(Value);
+    }
+    /**
+     * Gets or sets locator input fields.
+     * @returns {string[]} Returns field names.
+     */
+    get LocatorFields() {
+        return this.fLocatorFields;
+    }
+    /**
+     * Gets or sets locator input fields.
+     * @param {string[]} Value Field names.
+     * @returns {void}
+     */
+    set LocatorFields(Value) {
+        this.fLocatorFields = tp.IsArray(Value) ? Value.slice() : [];
+    }
+    /**
+     * Gets or sets locator search fields.
+     * @returns {string[]} Returns search field names.
+     */
+    get LocatorSearchFields() {
+        return this.fLocatorSearchFields;
+    }
+    /**
+     * Gets or sets locator search fields.
+     * @param {string[]} Value Field names.
+     * @returns {void}
+     */
+    set LocatorSearchFields(Value) {
+        this.fLocatorSearchFields = tp.IsArray(Value) ? Value.slice() : [];
+    }
+    /**
+     * Gets or sets locator minimum search length.
+     * @returns {number|null} Returns minimum search length.
+     */
+    get LocatorMinimumSearchLength() {
+        return this.fLocatorMinimumSearchLength;
+    }
+    /**
+     * Gets or sets locator minimum search length.
+     * @param {number|null} Value The minimum search length.
+     * @returns {void}
+     */
+    set LocatorMinimumSearchLength(Value) {
+        this.fLocatorMinimumSearchLength = tp.IsNil(Value) ? null : tp.ToInt(Value);
     }
     /**
      * Gets or sets lookup list source.

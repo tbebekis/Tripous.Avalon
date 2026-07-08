@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <Folder Include="wwwroot\js-src\tp-Grid\" />
+        <Folder Include="wwwroot\js-src\tp-WebDesk\" />
         <Folder Include="wwwroot\js\dataforms\" />
         <Folder Include="wwwroot\js\dialogs\" />
         <Folder Include="wwwroot\js\forms\" />

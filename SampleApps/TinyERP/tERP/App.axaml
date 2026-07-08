@@ -44,6 +44,8 @@
         <Style Selector="Expander ToggleButton">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="MinHeight" Value="24"/>
+            <Setter Property="Padding" Value="6,2"/>
         </Style>
         
         <!-- ● ToolBar -->

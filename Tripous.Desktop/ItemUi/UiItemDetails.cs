@@ -213,7 +213,6 @@ static public class UiItemDetails
             RefMenu.Initialize(MenuHost, Binding);
         }
 
-        DetailUiInfo.Grid.CellPointerPressed += DetailGrid_CellPointerPressed;
     }
 
     // ● detail grids
@@ -388,20 +387,6 @@ static public class UiItemDetails
         Binding.FieldDef.TableDef?.AssignLookupSnapshots(RowView.Row, Binding.FieldDef, Binding.LookupSource, LookupItem);
     }
     /// <summary>
-    /// Handles detail grid cell pointer events.
-    /// </summary>
-    static public void DetailGrid_CellPointerPressed(object Sender, GroupGridCellPointerEventArgs Args)
-    {
-        if (Sender is not Control Control || Args == null || !Args.IsRightButton)
-            return;
-        if (Args.Column?.Tag is not GroupGridColumnBinding Binding)
-            return;
-        if (Binding.ReferenceContextMenu == null)
-            return;
-
-        Args.Handled = Binding.ReferenceContextMenu.Open(Control);
-    }
-    /// <summary>
     /// Handles committing detail grid cell values before they are written to the adapter.
     /// </summary>
     static public void DetailGrid_CellValueCommitting(object Sender, GroupGridCellEditEventArgs Args)
@@ -428,7 +413,7 @@ static public class UiItemDetails
         if (Binding.LocatorDef == null || Binding.GridColumn.IsReadOnly)
             return;
 
-        Args.Editor = new GroupGridLocatorInplaceEditor(Binding.LocatorDef, Binding.LocatorSourceFieldName, Grid.CurrentRow as DataRowView);
+        Args.Editor = new GroupGridLocatorInplaceEditor(Binding.LocatorDef, Binding.LocatorSourceFieldName, Grid.CurrentRow as DataRowView, Binding.ReferenceContextMenu);
         Args.Handled = true;
     }
     /// <summary>

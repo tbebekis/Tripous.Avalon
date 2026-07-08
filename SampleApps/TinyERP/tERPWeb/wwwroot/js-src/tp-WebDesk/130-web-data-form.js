@@ -126,6 +126,11 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.ItemPage = null;
         /**
+         * The generated item page builder.
+         * @type {tp.WebItemPageBuilder|null}
+         */
+        this.ItemPageBuilder = null;
+        /**
          * Toolbar buttons keyed by command.
          * @type {object}
          */
@@ -192,6 +197,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.FilterSplitter = null;
         this.ListPage = null;
         this.ItemPage = null;
+        this.ItemPageBuilder = null;
         this.Module = null;
         super.DoDispose();
     }
@@ -208,6 +214,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.FilterPane = this.FindRoleElement("filters");
         this.ListPage = this.FindRoleElement("list-page");
         this.ItemPage = this.FindRoleElement("item-page");
+        this.ItemPageBuilder = new tp.WebItemPageBuilder(this);
         if (ToolBarElement instanceof HTMLElement)
             this.CreateToolBar(ToolBarElement);
         if (SelectBarElement instanceof HTMLElement)
@@ -468,24 +475,86 @@ tp.WebDataForm = class extends tp.WebForm {
         this.UpdateToolBar();
     }
     /**
+     * Starts an insert operation and displays the item page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async InsertAsync() {
+        if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true)
+            return;
+        await this.Module.Insert();
+        this.FormState = tp.WebDataFormState.Insert;
+        this.RenderItemPage();
+        this.ShowItemPage();
+        this.UpdateToolBar();
+    }
+    /**
+     * Starts an edit operation for the selected list row and displays the item page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async EditAsync() {
+        var Id;
+        if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true)
+            return;
+        Id = this.GetSelectedListId();
+        if (tp.IsEmpty(Id))
+            return;
+        await this.Module.Edit(Id);
+        this.FormState = tp.WebDataFormState.Edit;
+        this.RenderItemPage();
+        this.ShowItemPage();
+        this.UpdateToolBar();
+    }
+    /**
+     * Renders the generated item page.
+     * @returns {void}
+     */
+    RenderItemPage() {
+        if (!(this.ItemPageBuilder instanceof tp.WebItemPageBuilder))
+            this.ItemPageBuilder = new tp.WebItemPageBuilder(this);
+        this.ItemPageBuilder.Build();
+    }
+    /**
+     * Returns the id of the selected list row.
+     * @returns {*} Returns the selected id or null.
+     */
+    GetSelectedListId() {
+        var Source;
+        var Row;
+        var Table;
+        if (!(this.ListGrid instanceof tp.Grid))
+            return null;
+        Source = this.ListGrid.DataSource;
+        Row = Source instanceof tp.DataSource ? Source.Current : null;
+        Table = Source instanceof tp.DataSource ? Source.Table : null;
+        return Row && Table instanceof tp.DataTable ? Row.Get(Table.KeyField, null) : null;
+    }
+    /**
      * Shows the list page.
      * @returns {void}
      */
     ShowListPage() {
-        if (this.ListPage instanceof HTMLElement)
+        if (this.ListPage instanceof HTMLElement) {
             this.ListPage.hidden = false;
-        if (this.ItemPage instanceof HTMLElement)
+            this.ListPage.style.display = "";
+        }
+        if (this.ItemPage instanceof HTMLElement) {
             this.ItemPage.hidden = true;
+            this.ItemPage.style.display = "none";
+        }
     }
     /**
      * Shows the item page.
      * @returns {void}
      */
     ShowItemPage() {
-        if (this.ListPage instanceof HTMLElement)
+        if (this.ListPage instanceof HTMLElement) {
             this.ListPage.hidden = true;
-        if (this.ItemPage instanceof HTMLElement)
+            this.ListPage.style.display = "none";
+        }
+        if (this.ItemPage instanceof HTMLElement) {
             this.ItemPage.hidden = false;
+            this.ItemPage.style.display = "";
+        }
     }
     /**
      * Shows or hides the filter pane.
@@ -541,6 +610,10 @@ tp.WebDataForm = class extends tp.WebForm {
             this.SelectListAsync();
         else if (Command === "Find")
             this.ToggleFilterPane();
+        else if (Command === "Insert")
+            this.InsertAsync();
+        else if (Command === "Edit")
+            this.EditAsync();
         else if (Command === "Close")
             this.CloseForm();
     }
@@ -580,8 +653,8 @@ tp.WebDataForm = class extends tp.WebForm {
         this.SetButtonVisible("Ok", false);
         this.SetButtonEnabled("Home", false);
         this.SetButtonEnabled("ToggleIds", true);
-        this.SetButtonEnabled("Insert", false);
-        this.SetButtonEnabled("Edit", false);
+        this.SetButtonEnabled("Insert", this.Module instanceof tp.DataModule && this.IsReadOnly !== true);
+        this.SetButtonEnabled("Edit", this.Module instanceof tp.DataModule && this.Module.tblList instanceof tp.DataTable && this.Module.tblList.RowCount > 0 && this.IsReadOnly !== true);
         this.SetButtonEnabled("Delete", false);
         this.SetButtonEnabled("Refresh", false);
         this.SetButtonEnabled("Save", false);

@@ -29,6 +29,11 @@ tp.DataTable = class extends tp.Object {
         this.Deleted = [];
         this.Details = [];
         this.StockTables = [];
+        /**
+         * Table-specific locator metadata.
+         * @type {tp.LocatorList|null}
+         */
+        this.Locators = null;
         this.fName = "";
         this.fBatchCounter = 0;
         this.fKeyField = "Id";
@@ -239,6 +244,7 @@ tp.DataTable = class extends tp.Object {
         this.Deleted.length = 0;
         this.Details.length = 0;
         this.StockTables.length = 0;
+        this.Locators = null;
         this.fKeyFieldIndex = -1;
     }
     /**
@@ -255,6 +261,7 @@ tp.DataTable = class extends tp.Object {
             AutoGenerateGuidKeys: this.AutoGenerateGuidKeys,
             Details: this.Details.slice(),
             StockTables: this.StockTables.slice(),
+            Locators: this.Locators && tp.IsFunction(this.Locators.toJSON) ? this.Locators.toJSON() : { Items: [] },
             Columns: this.Columns.map(function (Column) { return Column.toJSON(); }),
             Rows: this.Rows.map(function (Row) { return Row.toJSON(); }),
             Deleted: this.Deleted.map(function (Row) { return Row.toJSON(); })
@@ -287,6 +294,7 @@ tp.DataTable = class extends tp.Object {
         this.Deleted.length = 0;
         this.Details = tp.IsArray(Source.Details) ? Source.Details.slice() : [];
         this.StockTables = tp.IsArray(Source.StockTables) ? Source.StockTables.slice() : [];
+        this.Locators = tp.IsObject(Source.Locators) && tp.IsFunction(tp.LocatorList) ? new tp.LocatorList(Source.Locators) : null;
         this.Name = Source.Name || this.Name;
         this.KeyField = tp.DataTable.NormalizeFieldName(Source.KeyField || Source.KeyFields || Source.PrimaryKeyField, this.KeyField);
         this.MasterField = tp.DataTable.NormalizeFieldName(Source.MasterField || Source.MasterFields || Source.MasterKeyField, this.MasterField);

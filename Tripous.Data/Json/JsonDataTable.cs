@@ -127,6 +127,9 @@ public class JsonDataTable
             Details.AddRange(TableDef.Details.Select(item => item.Name));
         }
 
+        if (TableDef != null)
+            Locators = new JsonLocatorList(TableDef);
+
         foreach (DataColumn SourceColumn in Source.Columns)
             Columns.Add(new JsonDataColumn(SourceColumn, FindFieldDef(TableDef, SourceColumn)));
 
@@ -227,6 +230,10 @@ public class JsonDataTable
     /// The detail table names.
     /// </summary>
     public List<string> Details { get; set; } = [];
+    /// <summary>
+    /// The table-specific locator definitions.
+    /// </summary>
+    public JsonLocatorList Locators { get; set; } = new();
     /// <summary>
     /// The columns.
     /// </summary>

@@ -74,6 +74,7 @@ tp.LocatorBox = class extends tp.Control {
         this.fInfoPromise = null;
         this.fMinimumSearchLengthAssigned = false;
         this.fSelectedIndex = -1;
+        this.fSearchToken = 0;
         this.fActiveInput = null;
         this.fInputHandler = this.FuncBind(this.HandleInput);
         this.fInputKeyDownHandler = this.FuncBind(this.HandleInputKeyDown);
@@ -250,6 +251,25 @@ tp.LocatorBox = class extends tp.Control {
         super.OnReadOnlyChanged();
     }
     /**
+     * Binds the control to its data source.
+     * @returns {void}
+     */
+    Bind() {
+        super.Bind();
+        this.ReadDataValue();
+    }
+    /**
+     * Called when the control should clear its data display.
+     * @returns {void}
+     */
+    OnClearDataDisplay() {
+        super.OnClearDataDisplay();
+        this.ClearInputValues();
+        this.Value = null;
+        this.Result = null;
+        this.CloseDropDown();
+    }
+    /**
      * Returns the input fields.
      * @returns {string[]} Returns field names.
      */
@@ -358,6 +378,24 @@ tp.LocatorBox = class extends tp.Control {
         return null;
     }
     /**
+     * Finds a mapping item by locator source field name.
+     * @param {tp.LocatorMapPlan|null} Plan The mapping plan.
+     * @param {string} SourceField The source field name.
+     * @returns {tp.LocatorMapItem|null} Returns the mapping item or null.
+     */
+    FindMapItemBySourceField(Plan, SourceField) {
+        var Index;
+        var Item;
+        if (!(Plan instanceof tp.LocatorMapPlan) || tp.IsBlank(SourceField))
+            return null;
+        for (Index = 0; Index < Plan.Items.length; Index++) {
+            Item = Plan.Items[Index];
+            if (Item instanceof tp.LocatorMapItem && tp.IsSameText(Item.SourceField, SourceField))
+                return Item;
+        }
+        return null;
+    }
+    /**
      * Returns fields displayed by the popup table.
      * @param {tp.DataTable} Table The result table.
      * @returns {string[]} Returns display field names.
@@ -388,6 +426,73 @@ tp.LocatorBox = class extends tp.Control {
             TargetRow[FieldName] = Value;
     }
     /**
+     * Gets a target row field value.
+     * @param {tp.DataRow|object|null} TargetRow The target row.
+     * @param {string} FieldName The target field name.
+     * @param {*} Default The default value.
+     * @returns {*} Returns the field value.
+     */
+    GetTargetValue(TargetRow, FieldName, Default) {
+        if (tp.IsEmpty(TargetRow) || tp.IsBlank(FieldName))
+            return Default;
+        if (TargetRow instanceof tp.DataRow)
+            return TargetRow.Get(FieldName, Default);
+        return FieldName in TargetRow ? TargetRow[FieldName] : Default;
+    }
+    /**
+     * Formats an input display value.
+     * @param {*} Value The value to format.
+     * @returns {string} Returns display text.
+     */
+    FormatInputValue(Value) {
+        if (tp.IsNil(Value))
+            return "";
+        if (tp.IsString(Value) || tp.IsNumber(Value) || tp.IsBoolean(Value))
+            return String(Value);
+        if (tp.IsDate(Value))
+            return tp.FormatDateTime(Value, tp.DateFormatISO);
+        return "";
+    }
+    /**
+     * Clears inner input values.
+     * @returns {void}
+     */
+    ClearInputValues() {
+        var Index;
+        for (Index = 0; Index < this.fInputs.length; Index++)
+            this.fInputs[Index].value = "";
+    }
+    /**
+     * Refreshes input display values from the target row and map plan.
+     * @returns {void}
+     */
+    RefreshInputValuesFromTargetRow() {
+        var Plan = this.GetMapPlan();
+        var TargetRow = this.GetTargetRow();
+        var Index;
+        var Input;
+        var Item;
+        var Value;
+        if (!(Plan instanceof tp.LocatorMapPlan) || tp.IsEmpty(TargetRow)) {
+            this.ClearInputValues();
+            return;
+        }
+        for (Index = 0; Index < this.fInputs.length; Index++) {
+            Input = this.fInputs[Index];
+            Item = this.FindMapItemBySourceField(Plan, Input.dataset.field || "");
+            Value = Item instanceof tp.LocatorMapItem ? this.GetTargetValue(TargetRow, Item.TargetField, "") : "";
+            Input.value = this.FormatInputValue(Value);
+        }
+    }
+    /**
+     * Refreshes input display values after ensuring locator metadata is available.
+     * @returns {Promise<void>} Returns a promise.
+     */
+    async RefreshInputValuesFromTargetRowAsync() {
+        await this.EnsureInfoAsync();
+        this.RefreshInputValuesFromTargetRow();
+    }
+    /**
      * Returns true when all input values are blank.
      * @returns {boolean} Returns true when all input values are blank.
      */
@@ -407,8 +512,8 @@ tp.LocatorBox = class extends tp.Control {
         var Plan = this.GetMapPlan();
         var TargetRow = this.GetTargetRow();
         var Index;
-        for (Index = 0; Index < this.fInputs.length; Index++)
-            this.fInputs[Index].value = "";
+        this.fSearchToken++;
+        this.ClearInputValues();
         if (Plan instanceof tp.LocatorMapPlan) {
             for (Index = 0; Index < Plan.Items.length; Index++)
                 this.SetTargetValue(TargetRow, Plan.Items[Index].TargetField, null);
@@ -460,11 +565,14 @@ tp.LocatorBox = class extends tp.Control {
     async SearchAsync(Input, ForceOpen) {
         var Result;
         var TargetRow;
+        var Token = ++this.fSearchToken;
         var SearchText = Input ? this.GetSearchTerm(Input.value || "") : "";
         var SearchField = Input ? Input.dataset.field || "" : "";
         if (this.ReadOnly === true)
             return;
         await this.EnsureInfoAsync();
+        if (Token !== this.fSearchToken)
+            return;
         if (Input && this.fInputs.indexOf(Input) < 0) {
             Input = !tp.IsBlank(SearchField) && this.fInputMap[SearchField] ? this.fInputMap[SearchField] : this.fInputs[0] || null;
             if (Input && tp.IsBlank(Input.value))
@@ -477,6 +585,8 @@ tp.LocatorBox = class extends tp.Control {
             return;
         try {
             Result = await tp.Locator.ExecuteAsync(this.CreateRequest(this.fActiveInput));
+            if (Token !== this.fSearchToken)
+                return;
             this.Result = Result;
             if (Result.HasSingleResult && ForceOpen !== true) {
                 TargetRow = this.GetTargetRow();
@@ -497,6 +607,14 @@ tp.LocatorBox = class extends tp.Control {
             else
                 throw e;
         }
+    }
+    /**
+     * Cancels the current locator operation.
+     * @returns {void}
+     */
+    CancelOperation() {
+        this.fSearchToken++;
+        this.CloseDropDown();
     }
     /**
      * Renders the result drop-down table.
@@ -633,7 +751,29 @@ tp.LocatorBox = class extends tp.Control {
             return;
         for (Index = 0; Index < this.fInputs.length; Index++) {
             Input = this.fInputs[Index];
-            Input.value = Row.Get(Input.dataset.field, "");
+            Input.value = this.FormatInputValue(Row.Get(Input.dataset.field, ""));
+        }
+    }
+    /**
+     * Reads the bound row value and refreshes locator display values.
+     * @returns {void}
+     */
+    ReadDataValue() {
+        var Value;
+        if (this.ReadingDataValue === true || this.WritingDataValue === true)
+            return;
+        if (this.IsDataBound && this.DataSource.Position >= 0) {
+            this.ReadingDataValue = true;
+            try {
+                Value = this.DataSource.Get(this.DataField);
+                this.Value = this.DataValueToDataProperty(Value);
+                this.RefreshInputValuesFromTargetRowAsync().catch(function (e) {
+                    if (tp.LogBox && tp.LogBox.AppendLine)
+                        tp.LogBox.AppendLine("LocatorBox refresh failed: " + tp.ExceptionText(e));
+                });
+            } finally {
+                this.ReadingDataValue = false;
+            }
         }
     }
     /**
@@ -660,14 +800,10 @@ tp.LocatorBox = class extends tp.Control {
             tp.CancelEvent(e, true);
             if (this.fDropDownBox.IsOpen)
                 this.SelectCurrentRow();
-            else
-                this.SearchAsync(e.target, true);
         } else if (tp.IsKey(e, tp.Keys.Down)) {
             tp.CancelEvent(e, true);
             if (this.fDropDownBox.IsOpen)
                 this.SetSelectedIndex(this.fSelectedIndex + 1);
-            else
-                this.SearchAsync(e.target, true);
         } else if (tp.IsKey(e, tp.Keys.Up) && this.fDropDownBox.IsOpen) {
             tp.CancelEvent(e, true);
             this.SetSelectedIndex(this.fSelectedIndex - 1);
@@ -682,8 +818,7 @@ tp.LocatorBox = class extends tp.Control {
      * @returns {void}
      */
     HandleButtonClick(e) {
-        tp.CancelEvent(e);
-        this.SearchAsync(this.fActiveInput || this.fInputs[0] || null, true);
+        tp.CancelEvent(e, true);
     }
     /**
      * Handles drop-down row click.
@@ -748,3 +883,5 @@ tp.LocatorBox = class extends tp.Control {
  * @type {string}
  */
 tp.LocatorBox.prototype.tpClass = "tp.LocatorBox";
+
+tp.Ui.RegisterType(["LocatorBox", "tp-LocatorBox"], tp.LocatorBox);
