@@ -1,0 +1,1298 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.LocatorResultStatus
+  commentId: T:Tripous.Data.LocatorResultStatus
+  id: LocatorResultStatus
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.LocatorResultStatus.Error
+  - Tripous.Data.LocatorResultStatus.InvalidContext
+  - Tripous.Data.LocatorResultStatus.InvalidRequest
+  - Tripous.Data.LocatorResultStatus.MultipleResults
+  - Tripous.Data.LocatorResultStatus.NoResult
+  - Tripous.Data.LocatorResultStatus.None
+  - Tripous.Data.LocatorResultStatus.SingleResult
+  - Tripous.Data.LocatorResultStatus.TooManyResults
+  langs:
+  - csharp
+  - vb
+  name: LocatorResultStatus
+  nameWithType: LocatorResultStatus
+  fullName: Tripous.Data.LocatorResultStatus
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LocatorResultStatus
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 5
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Status of a locator resolution operation.
+  example: []
+  syntax:
+    content: public enum LocatorResultStatus
+    content.vb: Public Enum LocatorResultStatus
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.Add``1(Tripous.Data.LocatorResultStatus)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.HasAny``1(Tripous.Data.LocatorResultStatus)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.HasNone``1(Tripous.Data.LocatorResultStatus)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.Has``1(Tripous.Data.LocatorResultStatus)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.In``1(Tripous.Data.LocatorResultStatus)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.IsExactly``1(Tripous.Data.LocatorResultStatus)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.IsZero``1
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.Remove``1(Tripous.Data.LocatorResultStatus)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.Set``1(Tripous.Data.LocatorResultStatus,System.Boolean)
+  - Tripous.Data.LocatorResultStatus.Tripous.BitFields.Toggle``1(Tripous.Data.LocatorResultStatus)
+- uid: Tripous.Data.LocatorResultStatus.None
+  commentId: F:Tripous.Data.LocatorResultStatus.None
+  id: None
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: LocatorResultStatus.None
+  fullName: Tripous.Data.LocatorResultStatus.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 10
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: No status has been assigned.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.LocatorResultStatus.InvalidRequest
+  commentId: F:Tripous.Data.LocatorResultStatus.InvalidRequest
+  id: InvalidRequest
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: InvalidRequest
+  nameWithType: LocatorResultStatus.InvalidRequest
+  fullName: Tripous.Data.LocatorResultStatus.InvalidRequest
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InvalidRequest
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The locator request is invalid.
+  example: []
+  syntax:
+    content: InvalidRequest = 1
+    return:
+      type: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.LocatorResultStatus.InvalidContext
+  commentId: F:Tripous.Data.LocatorResultStatus.InvalidContext
+  id: InvalidContext
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: InvalidContext
+  nameWithType: LocatorResultStatus.InvalidContext
+  fullName: Tripous.Data.LocatorResultStatus.InvalidContext
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InvalidContext
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The locator context is invalid.
+  example: []
+  syntax:
+    content: InvalidContext = 2
+    return:
+      type: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.LocatorResultStatus.NoResult
+  commentId: F:Tripous.Data.LocatorResultStatus.NoResult
+  id: NoResult
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: NoResult
+  nameWithType: LocatorResultStatus.NoResult
+  fullName: Tripous.Data.LocatorResultStatus.NoResult
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: NoResult
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: No result was found.
+  example: []
+  syntax:
+    content: NoResult = 3
+    return:
+      type: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.LocatorResultStatus.SingleResult
+  commentId: F:Tripous.Data.LocatorResultStatus.SingleResult
+  id: SingleResult
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: SingleResult
+  nameWithType: LocatorResultStatus.SingleResult
+  fullName: Tripous.Data.LocatorResultStatus.SingleResult
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SingleResult
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: A single result was found.
+  example: []
+  syntax:
+    content: SingleResult = 4
+    return:
+      type: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.LocatorResultStatus.MultipleResults
+  commentId: F:Tripous.Data.LocatorResultStatus.MultipleResults
+  id: MultipleResults
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: MultipleResults
+  nameWithType: LocatorResultStatus.MultipleResults
+  fullName: Tripous.Data.LocatorResultStatus.MultipleResults
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MultipleResults
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Multiple results were found.
+  example: []
+  syntax:
+    content: MultipleResults = 5
+    return:
+      type: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.LocatorResultStatus.TooManyResults
+  commentId: F:Tripous.Data.LocatorResultStatus.TooManyResults
+  id: TooManyResults
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: TooManyResults
+  nameWithType: LocatorResultStatus.TooManyResults
+  fullName: Tripous.Data.LocatorResultStatus.TooManyResults
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TooManyResults
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Too many results were found.
+  example: []
+  syntax:
+    content: TooManyResults = 6
+    return:
+      type: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.LocatorResultStatus.Error
+  commentId: F:Tripous.Data.LocatorResultStatus.Error
+  id: Error
+  parent: Tripous.Data.LocatorResultStatus
+  langs:
+  - csharp
+  - vb
+  name: Error
+  nameWithType: LocatorResultStatus.Error
+  fullName: Tripous.Data.LocatorResultStatus.Error
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorResultStatus.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Error
+    path: ../Tripous.Data/Locator/LocatorResultStatus.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: An error occurred.
+  example: []
+  syntax:
+    content: Error = 7
+    return:
+      type: Tripous.Data.LocatorResultStatus
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.Add``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.Add<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.Add<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.Add(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.Add(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: Add(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.HasAny``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.HasAny<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.HasAny<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.HasAny(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.HasAny(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: HasAny(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.HasNone``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.HasNone<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.HasNone<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.HasNone(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.HasNone(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: HasNone(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.Has``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.Has<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.Has<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.Has(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.Has(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: Has(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.In``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.In<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.In<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.In(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.In(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: In(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.IsExactly``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.IsExactly<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.IsExactly<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.IsExactly(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: IsExactly(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<LocatorResultStatus>(LocatorResultStatus)
+  nameWithType: BitFields.IsZero<LocatorResultStatus>(LocatorResultStatus)
+  fullName: Tripous.BitFields.IsZero<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.IsZero(Of LocatorResultStatus)(LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.IsZero(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus)
+  name.vb: IsZero(Of LocatorResultStatus)(LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.LocatorResultStatus)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Tripous.Data.LocatorResultStatus)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.Remove``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.Remove<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.Remove<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.Remove(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.Remove(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: Remove(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.Set``1(Tripous.Data.LocatorResultStatus,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus, bool)
+  nameWithType: BitFields.Set<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus, bool)
+  fullName: Tripous.BitFields.Set<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus, bool)
+  nameWithType.vb: BitFields.Set(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus, Boolean)
+  name.vb: Set(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.Data.LocatorResultStatus.Tripous.BitFields.Toggle``1(Tripous.Data.LocatorResultStatus)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  nameWithType: BitFields.Toggle<LocatorResultStatus>(LocatorResultStatus, LocatorResultStatus)
+  fullName: Tripous.BitFields.Toggle<Tripous.Data.LocatorResultStatus>(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  nameWithType.vb: BitFields.Toggle(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  fullName.vb: Tripous.BitFields.Toggle(Of Tripous.Data.LocatorResultStatus)(Tripous.Data.LocatorResultStatus, Tripous.Data.LocatorResultStatus)
+  name.vb: Toggle(Of LocatorResultStatus)(LocatorResultStatus, LocatorResultStatus)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: '>'
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Tripous.Data.LocatorResultStatus,Tripous.Data.LocatorResultStatus)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+  - name: (
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    href: Tripous.Data.LocatorResultStatus.html
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.LocatorResultStatus
+  commentId: T:Tripous.Data.LocatorResultStatus
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorResultStatus.html
+  name: LocatorResultStatus
+  nameWithType: LocatorResultStatus
+  fullName: Tripous.Data.LocatorResultStatus

@@ -6,10 +6,9 @@ items:
   parent: Tripous.Data
   children:
   - Tripous.Data.DataRegistry.AddCodeProvider(System.String)
-  - Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String,Tripous.Data.ConfigScopeFlags)
   - Tripous.Data.DataRegistry.AddDocumentHandler(System.String,System.String)
-  - Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String)
-  - Tripous.Data.DataRegistry.AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String,System.String)
   - Tripous.Data.DataRegistry.AddLookupListModule(System.String)
   - Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String)
   - Tripous.Data.DataRegistry.AddLookupListModule(System.String,System.String,System.String)
@@ -20,10 +19,9 @@ items:
   - Tripous.Data.DataRegistry.AddLookupWithTableName(System.String,System.String,System.String,System.Boolean)
   - Tripous.Data.DataRegistry.AddModule(System.String,System.String,System.String,System.String,System.Boolean,Tripous.UserLevel)
   - Tripous.Data.DataRegistry.AddOrUpdateCodeProvider(System.String)
-  - Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String,System.Nullable{Tripous.Data.ConfigScopeFlags})
   - Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler(System.String,System.String)
-  - Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
-  - Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  - Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String,System.String)
   - Tripous.Data.DataRegistry.AddOrUpdateLookup(System.String,System.Type,System.String,System.String,System.String,System.String,System.Nullable{System.Boolean})
   - Tripous.Data.DataRegistry.AddOrUpdateLookupListModule(System.String,System.String,System.String)
   - Tripous.Data.DataRegistry.AddOrUpdateLookupSource(System.String,System.Type,System.Nullable{System.Boolean})
@@ -36,6 +34,8 @@ items:
   - Tripous.Data.DataRegistry.ConfigProperties
   - Tripous.Data.DataRegistry.CreateModule(System.String,System.Boolean)
   - Tripous.Data.DataRegistry.DocumentHandlers
+  - Tripous.Data.DataRegistry.FindLocator(System.String)
+  - Tripous.Data.DataRegistry.GetLocator(System.String)
   - Tripous.Data.DataRegistry.Locators
   - Tripous.Data.DataRegistry.Lookups
   - Tripous.Data.DataRegistry.Modules
@@ -91,7 +91,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddModule
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 261
+    startLine: 256
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -141,7 +141,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateModule
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 272
+    startLine: 267
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -193,7 +193,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupListModule
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 291
+    startLine: 286
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -235,7 +235,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupListModule
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 297
+    startLine: 292
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -279,7 +279,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupListModule
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 303
+    startLine: 298
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -325,7 +325,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLookupListModule
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 314
+    startLine: 309
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -371,7 +371,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupSource
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 341
+    startLine: 336
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -415,7 +415,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupSource
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 346
+    startLine: 341
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -459,7 +459,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLookupSource
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 356
+    startLine: 351
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -501,7 +501,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLookupSource
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 366
+    startLine: 361
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -545,7 +545,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupWithTableName
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 378
+    startLine: 373
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -591,7 +591,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLookupWithTableName
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 391
+    startLine: 386
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -637,7 +637,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupWithSql
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 403
+    startLine: 398
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -683,7 +683,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLookupWithSql
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 416
+    startLine: 411
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -729,7 +729,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupWithClassName
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 428
+    startLine: 423
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -775,7 +775,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLookupWithClassName
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 438
+    startLine: 433
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -821,7 +821,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLookup
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 450
+    startLine: 445
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -855,16 +855,16 @@ items:
   nameWithType.vb: DataRegistry.AddOrUpdateLookup(String, Type, String, String, String, String, Boolean?)
   fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLookup(String, System.Type, String, String, String, String, Boolean?)
   name.vb: AddOrUpdateLookup(String, Type, String, String, String, String, Boolean?)
-- uid: Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String)
-  commentId: M:Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String)
-  id: AddLocator(System.String,System.String,System.String,System.String,System.String)
+- uid: Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddLocator(System.String,System.String,System.String,System.String,System.String,System.String)
+  id: AddLocator(System.String,System.String,System.String,System.String,System.String,System.String)
   parent: Tripous.Data.DataRegistry
   langs:
   - csharp
   - vb
-  name: AddLocator(string, string, string, string, string)
-  nameWithType: DataRegistry.AddLocator(string, string, string, string, string)
-  fullName: Tripous.Data.DataRegistry.AddLocator(string, string, string, string, string)
+  name: AddLocator(string, string, string, string, string, string)
+  nameWithType: DataRegistry.AddLocator(string, string, string, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddLocator(string, string, string, string, string, string)
   type: Method
   source:
     remote:
@@ -873,7 +873,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLocator
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 472
+    startLine: 467
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -884,35 +884,37 @@ items:
     <p>If the definition exists, an exception is thrown.</p>
   example: []
   syntax:
-    content: public static LocatorDef AddLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
+    content: public static LocatorDef AddLocator(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
     parameters:
     - id: Name
       type: System.String
-    - id: SourceTableName
-      type: System.String
-    - id: KeyField
+    - id: Source
       type: System.String
     - id: ClassName
       type: System.String
+    - id: KeyField
+      type: System.String
     - id: FormName
+      type: System.String
+    - id: WebFormName
       type: System.String
     return:
       type: Tripous.Data.LocatorDef
-    content.vb: Public Shared Function AddLocator(Name As String, SourceTableName As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
+    content.vb: Public Shared Function AddLocator(Name As String, Source As String = Nothing, ClassName As String = Nothing, KeyField As String = Nothing, FormName As String = Nothing, WebFormName As String = Nothing) As LocatorDef
   overload: Tripous.Data.DataRegistry.AddLocator*
-  nameWithType.vb: DataRegistry.AddLocator(String, String, String, String, String)
-  fullName.vb: Tripous.Data.DataRegistry.AddLocator(String, String, String, String, String)
-  name.vb: AddLocator(String, String, String, String, String)
-- uid: Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
-  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
-  id: AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String)
+  nameWithType.vb: DataRegistry.AddLocator(String, String, String, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddLocator(String, String, String, String, String, String)
+  name.vb: AddLocator(String, String, String, String, String, String)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String,System.String)
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String,System.String)
+  id: AddOrUpdateLocator(System.String,System.String,System.String,System.String,System.String,System.String)
   parent: Tripous.Data.DataRegistry
   langs:
   - csharp
   - vb
-  name: AddOrUpdateLocator(string, string, string, string, string)
-  nameWithType: DataRegistry.AddOrUpdateLocator(string, string, string, string, string)
-  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocator(string, string, string, string, string)
+  name: AddOrUpdateLocator(string, string, string, string, string, string)
+  nameWithType: DataRegistry.AddOrUpdateLocator(string, string, string, string, string, string)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocator(string, string, string, string, string, string)
   type: Method
   source:
     remote:
@@ -921,136 +923,112 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateLocator
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 484
+    startLine: 478
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
   summary: >-
-    Adds or updates a table locator definition.
+    Adds or updates a locator definition.
 
 
-    <p>Existing field definitions are preserved.</p>
+    <p>Existing field definitions and collections are preserved.</p>
 
-    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+    <p><b>NOTE:</b> When the definition already exists, non-null parameters update its scalar properties. The existing definition instance and its child collections are preserved.</p>
   example: []
   syntax:
-    content: public static LocatorDef AddOrUpdateLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
+    content: public static LocatorDef AddOrUpdateLocator(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
     parameters:
     - id: Name
       type: System.String
-    - id: SourceTableName
-      type: System.String
-    - id: KeyField
+    - id: Source
       type: System.String
     - id: ClassName
       type: System.String
+    - id: KeyField
+      type: System.String
     - id: FormName
+      type: System.String
+    - id: WebFormName
       type: System.String
     return:
       type: Tripous.Data.LocatorDef
-    content.vb: Public Shared Function AddOrUpdateLocator(Name As String, SourceTableName As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
+    content.vb: Public Shared Function AddOrUpdateLocator(Name As String, Source As String = Nothing, ClassName As String = Nothing, KeyField As String = Nothing, FormName As String = Nothing, WebFormName As String = Nothing) As LocatorDef
   overload: Tripous.Data.DataRegistry.AddOrUpdateLocator*
-  nameWithType.vb: DataRegistry.AddOrUpdateLocator(String, String, String, String, String)
-  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLocator(String, String, String, String, String)
-  name.vb: AddOrUpdateLocator(String, String, String, String, String)
-- uid: Tripous.Data.DataRegistry.AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
-  commentId: M:Tripous.Data.DataRegistry.AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
-  id: AddLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+  nameWithType.vb: DataRegistry.AddOrUpdateLocator(String, String, String, String, String, String)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLocator(String, String, String, String, String, String)
+  name.vb: AddOrUpdateLocator(String, String, String, String, String, String)
+- uid: Tripous.Data.DataRegistry.FindLocator(System.String)
+  commentId: M:Tripous.Data.DataRegistry.FindLocator(System.String)
+  id: FindLocator(System.String)
   parent: Tripous.Data.DataRegistry
   langs:
   - csharp
   - vb
-  name: AddLocatorWithSql(string, string, string, string, string)
-  nameWithType: DataRegistry.AddLocatorWithSql(string, string, string, string, string)
-  fullName: Tripous.Data.DataRegistry.AddLocatorWithSql(string, string, string, string, string)
+  name: FindLocator(string)
+  nameWithType: DataRegistry.FindLocator(string)
+  fullName: Tripous.Data.DataRegistry.FindLocator(string)
   type: Method
   source:
     remote:
       path: Tripous.Data/Registry/DataRegistry.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: AddLocatorWithSql
+    id: FindLocator
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 504
+    startLine: 493
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: >-
-    Adds a locator definition.
-
-
-    <p>If the definition exists, an exception is thrown.</p>
+  summary: Returns a locator definition, if any, else null.
   example: []
   syntax:
-    content: public static LocatorDef AddLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
+    content: public static LocatorDef FindLocator(string Name)
     parameters:
     - id: Name
       type: System.String
-    - id: SelectSql
-      type: System.String
-    - id: KeyField
-      type: System.String
-    - id: ClassName
-      type: System.String
-    - id: FormName
-      type: System.String
     return:
       type: Tripous.Data.LocatorDef
-    content.vb: Public Shared Function AddLocatorWithSql(Name As String, SelectSql As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
-  overload: Tripous.Data.DataRegistry.AddLocatorWithSql*
-  nameWithType.vb: DataRegistry.AddLocatorWithSql(String, String, String, String, String)
-  fullName.vb: Tripous.Data.DataRegistry.AddLocatorWithSql(String, String, String, String, String)
-  name.vb: AddLocatorWithSql(String, String, String, String, String)
-- uid: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
-  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
-  id: AddOrUpdateLocatorWithSql(System.String,System.String,System.String,System.String,System.String)
+    content.vb: Public Shared Function FindLocator(Name As String) As LocatorDef
+  overload: Tripous.Data.DataRegistry.FindLocator*
+  nameWithType.vb: DataRegistry.FindLocator(String)
+  fullName.vb: Tripous.Data.DataRegistry.FindLocator(String)
+  name.vb: FindLocator(String)
+- uid: Tripous.Data.DataRegistry.GetLocator(System.String)
+  commentId: M:Tripous.Data.DataRegistry.GetLocator(System.String)
+  id: GetLocator(System.String)
   parent: Tripous.Data.DataRegistry
   langs:
   - csharp
   - vb
-  name: AddOrUpdateLocatorWithSql(string, string, string, string, string)
-  nameWithType: DataRegistry.AddOrUpdateLocatorWithSql(string, string, string, string, string)
-  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(string, string, string, string, string)
+  name: GetLocator(string)
+  nameWithType: DataRegistry.GetLocator(string)
+  fullName: Tripous.Data.DataRegistry.GetLocator(string)
   type: Method
   source:
     remote:
       path: Tripous.Data/Registry/DataRegistry.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: AddOrUpdateLocatorWithSql
+    id: GetLocator
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 516
+    startLine: 497
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: >-
-    Adds or updates a SQL locator definition.
-
-
-    <p>Existing field definitions are preserved.</p>
-
-    <p><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</p>
+  summary: Returns a locator definition, if any, else exception.
   example: []
   syntax:
-    content: public static LocatorDef AddOrUpdateLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
+    content: public static LocatorDef GetLocator(string Name)
     parameters:
     - id: Name
       type: System.String
-    - id: SelectSql
-      type: System.String
-    - id: KeyField
-      type: System.String
-    - id: ClassName
-      type: System.String
-    - id: FormName
-      type: System.String
     return:
       type: Tripous.Data.LocatorDef
-    content.vb: Public Shared Function AddOrUpdateLocatorWithSql(Name As String, SelectSql As String, KeyField As String, ClassName As String = Nothing, FormName As String = Nothing) As LocatorDef
-  overload: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql*
-  nameWithType.vb: DataRegistry.AddOrUpdateLocatorWithSql(String, String, String, String, String)
-  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql(String, String, String, String, String)
-  name.vb: AddOrUpdateLocatorWithSql(String, String, String, String, String)
+    content.vb: Public Shared Function GetLocator(Name As String) As LocatorDef
+  overload: Tripous.Data.DataRegistry.GetLocator*
+  nameWithType.vb: DataRegistry.GetLocator(String)
+  fullName.vb: Tripous.Data.DataRegistry.GetLocator(String)
+  name.vb: GetLocator(String)
 - uid: Tripous.Data.DataRegistry.UpdateLocatorReferences
   commentId: M:Tripous.Data.DataRegistry.UpdateLocatorReferences
   id: UpdateLocatorReferences
@@ -1069,7 +1047,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UpdateLocatorReferences
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 535
+    startLine: 501
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1097,7 +1075,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddCodeProvider
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 546
+    startLine: 512
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1137,7 +1115,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateCodeProvider
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 557
+    startLine: 523
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1177,7 +1155,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDocumentHandler
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 573
+    startLine: 539
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1219,7 +1197,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateDocumentHandler
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 584
+    startLine: 550
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1243,16 +1221,16 @@ items:
   nameWithType.vb: DataRegistry.AddOrUpdateDocumentHandler(String, String)
   fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler(String, String)
   name.vb: AddOrUpdateDocumentHandler(String, String)
-- uid: Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
-  commentId: M:Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
-  id: AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String)
+- uid: Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String,Tripous.Data.ConfigScopeFlags)
+  commentId: M:Tripous.Data.DataRegistry.AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String,Tripous.Data.ConfigScopeFlags)
+  id: AddConfigProperty(System.String,System.String,System.String,Tripous.UserLevel,Tripous.Data.ConfigValueKind,System.String,System.String,System.String,Tripous.Data.ConfigScopeFlags)
   parent: Tripous.Data.DataRegistry
   langs:
   - csharp
   - vb
-  name: AddConfigProperty(string, string, string, UserLevel, ConfigValueKind, string, string, string)
-  nameWithType: DataRegistry.AddConfigProperty(string, string, string, UserLevel, ConfigValueKind, string, string, string)
-  fullName: Tripous.Data.DataRegistry.AddConfigProperty(string, string, string, Tripous.UserLevel, Tripous.Data.ConfigValueKind, string, string, string)
+  name: AddConfigProperty(string, string, string, UserLevel, ConfigValueKind, string, string, string, ConfigScopeFlags)
+  nameWithType: DataRegistry.AddConfigProperty(string, string, string, UserLevel, ConfigValueKind, string, string, string, ConfigScopeFlags)
+  fullName: Tripous.Data.DataRegistry.AddConfigProperty(string, string, string, Tripous.UserLevel, Tripous.Data.ConfigValueKind, string, string, string, Tripous.Data.ConfigScopeFlags)
   type: Method
   source:
     remote:
@@ -1261,7 +1239,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddConfigProperty
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 604
+    startLine: 570
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1271,7 +1249,7 @@ items:
     If the definition exists, an exception is thrown.
   example: []
   syntax:
-    content: public static ConfigPropertyDef AddConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel SecurityLevel = UserLevel.Admin, ConfigValueKind Kind = ConfigValueKind.String, string DefaultValue = null, string TypeName = null, string EditorClassName = null)
+    content: public static ConfigPropertyDef AddConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel SecurityLevel = UserLevel.Admin, ConfigValueKind Kind = ConfigValueKind.String, string DefaultValue = null, string TypeName = null, string EditorClassName = null, ConfigScopeFlags Scopes = ConfigScopeFlags.All)
     parameters:
     - id: Name
       type: System.String
@@ -1289,23 +1267,25 @@ items:
       type: System.String
     - id: EditorClassName
       type: System.String
+    - id: Scopes
+      type: Tripous.Data.ConfigScopeFlags
     return:
       type: Tripous.Data.ConfigPropertyDef
-    content.vb: Public Shared Function AddConfigProperty(Name As String, TitleKey As String = Nothing, GroupName As String = Nothing, SecurityLevel As UserLevel = UserLevel.Admin, Kind As ConfigValueKind = ConfigValueKind.String, DefaultValue As String = Nothing, TypeName As String = Nothing, EditorClassName As String = Nothing) As ConfigPropertyDef
+    content.vb: Public Shared Function AddConfigProperty(Name As String, TitleKey As String = Nothing, GroupName As String = Nothing, SecurityLevel As UserLevel = UserLevel.Admin, Kind As ConfigValueKind = ConfigValueKind.String, DefaultValue As String = Nothing, TypeName As String = Nothing, EditorClassName As String = Nothing, Scopes As ConfigScopeFlags = ConfigScopeFlags.All) As ConfigPropertyDef
   overload: Tripous.Data.DataRegistry.AddConfigProperty*
-  nameWithType.vb: DataRegistry.AddConfigProperty(String, String, String, UserLevel, ConfigValueKind, String, String, String)
-  fullName.vb: Tripous.Data.DataRegistry.AddConfigProperty(String, String, String, Tripous.UserLevel, Tripous.Data.ConfigValueKind, String, String, String)
-  name.vb: AddConfigProperty(String, String, String, UserLevel, ConfigValueKind, String, String, String)
-- uid: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
-  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
-  id: AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String)
+  nameWithType.vb: DataRegistry.AddConfigProperty(String, String, String, UserLevel, ConfigValueKind, String, String, String, ConfigScopeFlags)
+  fullName.vb: Tripous.Data.DataRegistry.AddConfigProperty(String, String, String, Tripous.UserLevel, Tripous.Data.ConfigValueKind, String, String, String, Tripous.Data.ConfigScopeFlags)
+  name.vb: AddConfigProperty(String, String, String, UserLevel, ConfigValueKind, String, String, String, ConfigScopeFlags)
+- uid: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String,System.Nullable{Tripous.Data.ConfigScopeFlags})
+  commentId: M:Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String,System.Nullable{Tripous.Data.ConfigScopeFlags})
+  id: AddOrUpdateConfigProperty(System.String,System.String,System.String,System.Nullable{Tripous.UserLevel},System.Nullable{Tripous.Data.ConfigValueKind},System.String,System.String,System.String,System.Nullable{Tripous.Data.ConfigScopeFlags})
   parent: Tripous.Data.DataRegistry
   langs:
   - csharp
   - vb
-  name: AddOrUpdateConfigProperty(string, string, string, UserLevel?, ConfigValueKind?, string, string, string)
-  nameWithType: DataRegistry.AddOrUpdateConfigProperty(string, string, string, UserLevel?, ConfigValueKind?, string, string, string)
-  fullName: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(string, string, string, Tripous.UserLevel?, Tripous.Data.ConfigValueKind?, string, string, string)
+  name: AddOrUpdateConfigProperty(string, string, string, UserLevel?, ConfigValueKind?, string, string, string, ConfigScopeFlags?)
+  nameWithType: DataRegistry.AddOrUpdateConfigProperty(string, string, string, UserLevel?, ConfigValueKind?, string, string, string, ConfigScopeFlags?)
+  fullName: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(string, string, string, Tripous.UserLevel?, Tripous.Data.ConfigValueKind?, string, string, string, Tripous.Data.ConfigScopeFlags?)
   type: Method
   source:
     remote:
@@ -1314,7 +1294,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddOrUpdateConfigProperty
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 623
+    startLine: 590
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1324,7 +1304,7 @@ items:
     NOTE: When the definition already exists, non-null parameters and nullable enum parameters with a value update its scalar properties.
   example: []
   syntax:
-    content: public static ConfigPropertyDef AddOrUpdateConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel? SecurityLevel = null, ConfigValueKind? Kind = null, string DefaultValue = null, string TypeName = null, string EditorClassName = null)
+    content: public static ConfigPropertyDef AddOrUpdateConfigProperty(string Name, string TitleKey = null, string GroupName = null, UserLevel? SecurityLevel = null, ConfigValueKind? Kind = null, string DefaultValue = null, string TypeName = null, string EditorClassName = null, ConfigScopeFlags? Scopes = null)
     parameters:
     - id: Name
       type: System.String
@@ -1342,13 +1322,15 @@ items:
       type: System.String
     - id: EditorClassName
       type: System.String
+    - id: Scopes
+      type: System.Nullable{Tripous.Data.ConfigScopeFlags}
     return:
       type: Tripous.Data.ConfigPropertyDef
-    content.vb: Public Shared Function AddOrUpdateConfigProperty(Name As String, TitleKey As String = Nothing, GroupName As String = Nothing, SecurityLevel As UserLevel? = Nothing, Kind As ConfigValueKind? = Nothing, DefaultValue As String = Nothing, TypeName As String = Nothing, EditorClassName As String = Nothing) As ConfigPropertyDef
+    content.vb: Public Shared Function AddOrUpdateConfigProperty(Name As String, TitleKey As String = Nothing, GroupName As String = Nothing, SecurityLevel As UserLevel? = Nothing, Kind As ConfigValueKind? = Nothing, DefaultValue As String = Nothing, TypeName As String = Nothing, EditorClassName As String = Nothing, Scopes As ConfigScopeFlags? = Nothing) As ConfigPropertyDef
   overload: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty*
-  nameWithType.vb: DataRegistry.AddOrUpdateConfigProperty(String, String, String, UserLevel?, ConfigValueKind?, String, String, String)
-  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(String, String, String, Tripous.UserLevel?, Tripous.Data.ConfigValueKind?, String, String, String)
-  name.vb: AddOrUpdateConfigProperty(String, String, String, UserLevel?, ConfigValueKind?, String, String, String)
+  nameWithType.vb: DataRegistry.AddOrUpdateConfigProperty(String, String, String, UserLevel?, ConfigValueKind?, String, String, String, ConfigScopeFlags?)
+  fullName.vb: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty(String, String, String, Tripous.UserLevel?, Tripous.Data.ConfigValueKind?, String, String, String, Tripous.Data.ConfigScopeFlags?)
+  name.vb: AddOrUpdateConfigProperty(String, String, String, UserLevel?, ConfigValueKind?, String, String, String, ConfigScopeFlags?)
 - uid: Tripous.Data.DataRegistry.CreateModule(System.String,System.Boolean)
   commentId: M:Tripous.Data.DataRegistry.CreateModule(System.String,System.Boolean)
   id: CreateModule(System.String,System.Boolean)
@@ -1367,7 +1349,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateModule
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 639
+    startLine: 606
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1405,7 +1387,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Locators
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 645
+    startLine: 612
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1436,7 +1418,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Modules
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 649
+    startLine: 616
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1467,7 +1449,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Lookups
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 653
+    startLine: 620
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1498,7 +1480,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CodeProviders
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 657
+    startLine: 624
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1529,7 +1511,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DocumentHandlers
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 661
+    startLine: 628
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1560,7 +1542,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConfigProperties
     path: ../Tripous.Data/Registry/DataRegistry.cs
-    startLine: 665
+    startLine: 632
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2036,7 +2018,7 @@ references:
   fullName: Tripous.Data.DataRegistry.AddOrUpdateLookup
 - uid: Tripous.Data.DataRegistry.AddLocator*
   commentId: Overload:Tripous.Data.DataRegistry.AddLocator
-  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLocator_System_String_System_String_System_String_System_String_System_String_
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLocator_System_String_System_String_System_String_System_String_System_String_System_String_
   name: AddLocator
   nameWithType: DataRegistry.AddLocator
   fullName: Tripous.Data.DataRegistry.AddLocator
@@ -2049,22 +2031,22 @@ references:
   fullName: Tripous.Data.LocatorDef
 - uid: Tripous.Data.DataRegistry.AddOrUpdateLocator*
   commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLocator
-  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLocator_System_String_System_String_System_String_System_String_System_String_
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLocator_System_String_System_String_System_String_System_String_System_String_System_String_
   name: AddOrUpdateLocator
   nameWithType: DataRegistry.AddOrUpdateLocator
   fullName: Tripous.Data.DataRegistry.AddOrUpdateLocator
-- uid: Tripous.Data.DataRegistry.AddLocatorWithSql*
-  commentId: Overload:Tripous.Data.DataRegistry.AddLocatorWithSql
-  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddLocatorWithSql_System_String_System_String_System_String_System_String_System_String_
-  name: AddLocatorWithSql
-  nameWithType: DataRegistry.AddLocatorWithSql
-  fullName: Tripous.Data.DataRegistry.AddLocatorWithSql
-- uid: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql*
-  commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql
-  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateLocatorWithSql_System_String_System_String_System_String_System_String_System_String_
-  name: AddOrUpdateLocatorWithSql
-  nameWithType: DataRegistry.AddOrUpdateLocatorWithSql
-  fullName: Tripous.Data.DataRegistry.AddOrUpdateLocatorWithSql
+- uid: Tripous.Data.DataRegistry.FindLocator*
+  commentId: Overload:Tripous.Data.DataRegistry.FindLocator
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_FindLocator_System_String_
+  name: FindLocator
+  nameWithType: DataRegistry.FindLocator
+  fullName: Tripous.Data.DataRegistry.FindLocator
+- uid: Tripous.Data.DataRegistry.GetLocator*
+  commentId: Overload:Tripous.Data.DataRegistry.GetLocator
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_GetLocator_System_String_
+  name: GetLocator
+  nameWithType: DataRegistry.GetLocator
+  fullName: Tripous.Data.DataRegistry.GetLocator
 - uid: Tripous.Data.DataRegistry.UpdateLocatorReferences*
   commentId: Overload:Tripous.Data.DataRegistry.UpdateLocatorReferences
   href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_UpdateLocatorReferences
@@ -2111,7 +2093,7 @@ references:
   fullName: Tripous.Data.DataRegistry.AddOrUpdateDocumentHandler
 - uid: Tripous.Data.DataRegistry.AddConfigProperty*
   commentId: Overload:Tripous.Data.DataRegistry.AddConfigProperty
-  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddConfigProperty_System_String_System_String_System_String_Tripous_UserLevel_Tripous_Data_ConfigValueKind_System_String_System_String_System_String_
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddConfigProperty_System_String_System_String_System_String_Tripous_UserLevel_Tripous_Data_ConfigValueKind_System_String_System_String_System_String_Tripous_Data_ConfigScopeFlags_
   name: AddConfigProperty
   nameWithType: DataRegistry.AddConfigProperty
   fullName: Tripous.Data.DataRegistry.AddConfigProperty
@@ -2122,6 +2104,13 @@ references:
   name: ConfigValueKind
   nameWithType: ConfigValueKind
   fullName: Tripous.Data.ConfigValueKind
+- uid: Tripous.Data.ConfigScopeFlags
+  commentId: T:Tripous.Data.ConfigScopeFlags
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigScopeFlags.html
+  name: ConfigScopeFlags
+  nameWithType: ConfigScopeFlags
+  fullName: Tripous.Data.ConfigScopeFlags
 - uid: Tripous.Data.ConfigPropertyDef
   commentId: T:Tripous.Data.ConfigPropertyDef
   parent: Tripous.Data
@@ -2131,7 +2120,7 @@ references:
   fullName: Tripous.Data.ConfigPropertyDef
 - uid: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty*
   commentId: Overload:Tripous.Data.DataRegistry.AddOrUpdateConfigProperty
-  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateConfigProperty_System_String_System_String_System_String_System_Nullable_Tripous_UserLevel__System_Nullable_Tripous_Data_ConfigValueKind__System_String_System_String_System_String_
+  href: Tripous.Data.DataRegistry.html#Tripous_Data_DataRegistry_AddOrUpdateConfigProperty_System_String_System_String_System_String_System_Nullable_Tripous_UserLevel__System_Nullable_Tripous_Data_ConfigValueKind__System_String_System_String_System_String_System_Nullable_Tripous_Data_ConfigScopeFlags__
   name: AddOrUpdateConfigProperty
   nameWithType: DataRegistry.AddOrUpdateConfigProperty
   fullName: Tripous.Data.DataRegistry.AddOrUpdateConfigProperty
@@ -2152,6 +2141,24 @@ references:
   - uid: Tripous.Data.ConfigValueKind
     name: ConfigValueKind
     href: Tripous.Data.ConfigValueKind.html
+  - name: '?'
+- uid: System.Nullable{Tripous.Data.ConfigScopeFlags}
+  commentId: T:System.Nullable{Tripous.Data.ConfigScopeFlags}
+  parent: System
+  definition: System.Nullable`1
+  href: Tripous.Data.ConfigScopeFlags.html
+  name: ConfigScopeFlags?
+  nameWithType: ConfigScopeFlags?
+  fullName: Tripous.Data.ConfigScopeFlags?
+  spec.csharp:
+  - uid: Tripous.Data.ConfigScopeFlags
+    name: ConfigScopeFlags
+    href: Tripous.Data.ConfigScopeFlags.html
+  - name: '?'
+  spec.vb:
+  - uid: Tripous.Data.ConfigScopeFlags
+    name: ConfigScopeFlags
+    href: Tripous.Data.ConfigScopeFlags.html
   - name: '?'
 - uid: Tripous.Data.DataModule
   commentId: T:Tripous.Data.DataModule

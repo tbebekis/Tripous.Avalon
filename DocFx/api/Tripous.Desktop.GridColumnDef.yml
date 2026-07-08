@@ -13,7 +13,6 @@ items:
   - Tripous.Desktop.GridColumnDef.EditFormat
   - Tripous.Desktop.GridColumnDef.FieldName
   - Tripous.Desktop.GridColumnDef.From(System.Data.DataColumn,Tripous.Data.FieldDef)
-  - Tripous.Desktop.GridColumnDef.GridColumn
   - Tripous.Desktop.GridColumnDef.GroupIndex
   - Tripous.Desktop.GridColumnDef.HasLookup
   - Tripous.Desktop.GridColumnDef.IsBool
@@ -569,47 +568,6 @@ items:
       type: System.String
     content.vb: Public Property LookupSource As String
   overload: Tripous.Desktop.GridColumnDef.LookupSource*
-- uid: Tripous.Desktop.GridColumnDef.GridColumn
-  commentId: P:Tripous.Desktop.GridColumnDef.GridColumn
-  id: GridColumn
-  parent: Tripous.Desktop.GridColumnDef
-  langs:
-  - csharp
-  - vb
-  name: GridColumn
-  nameWithType: GridColumnDef.GridColumn
-  fullName: Tripous.Desktop.GridColumnDef.GridColumn
-  type: Property
-  source:
-    remote:
-      path: Tripous.Desktop/Registry/GridColumnDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GridColumn
-    path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 321
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Gets or sets the associated data grid column.
-  example: []
-  syntax:
-    content: >-
-      [JsonIgnore]
-
-      public DataGridColumn GridColumn { get; set; }
-    parameters: []
-    return:
-      type: Avalonia.Controls.DataGridColumn
-    content.vb: >-
-      <JsonIgnore>
-
-      Public Property GridColumn As DataGridColumn
-  overload: Tripous.Desktop.GridColumnDef.GridColumn*
-  attributes:
-  - type: System.Text.Json.Serialization.JsonIgnoreAttribute
-    ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
-    arguments: []
 - uid: Tripous.Desktop.GridColumnDef.UnderlyingType
   commentId: P:Tripous.Desktop.GridColumnDef.UnderlyingType
   id: UnderlyingType
@@ -628,7 +586,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UnderlyingType
     path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 326
+    startLine: 321
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -669,7 +627,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsString
     path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 331
+    startLine: 326
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -710,7 +668,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsDateTime
     path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 336
+    startLine: 331
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -751,7 +709,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsNumeric
     path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 341
+    startLine: 336
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -792,7 +750,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsBool
     path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 346
+    startLine: 341
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -833,7 +791,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsNullable
     path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 351
+    startLine: 346
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -874,7 +832,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasLookup
     path: ../Tripous.Desktop/Registry/GridColumnDef.cs
-    startLine: 356
+    startLine: 351
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1826,41 +1784,6 @@ references:
   name: LookupSource
   nameWithType: GridColumnDef.LookupSource
   fullName: Tripous.Desktop.GridColumnDef.LookupSource
-- uid: Tripous.Desktop.GridColumnDef.GridColumn*
-  commentId: Overload:Tripous.Desktop.GridColumnDef.GridColumn
-  href: Tripous.Desktop.GridColumnDef.html#Tripous_Desktop_GridColumnDef_GridColumn
-  name: GridColumn
-  nameWithType: GridColumnDef.GridColumn
-  fullName: Tripous.Desktop.GridColumnDef.GridColumn
-- uid: Avalonia.Controls.DataGridColumn
-  commentId: T:Avalonia.Controls.DataGridColumn
-  parent: Avalonia.Controls
-  isExternal: true
-  name: DataGridColumn
-  nameWithType: DataGridColumn
-  fullName: Avalonia.Controls.DataGridColumn
-- uid: Avalonia.Controls
-  commentId: N:Avalonia.Controls
-  isExternal: true
-  name: Avalonia.Controls
-  nameWithType: Avalonia.Controls
-  fullName: Avalonia.Controls
-  spec.csharp:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls
-    name: Controls
-    isExternal: true
-  spec.vb:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls
-    name: Controls
-    isExternal: true
 - uid: Tripous.Desktop.GridColumnDef.UnderlyingType*
   commentId: Overload:Tripous.Desktop.GridColumnDef.UnderlyingType
   href: Tripous.Desktop.GridColumnDef.html#Tripous_Desktop_GridColumnDef_UnderlyingType

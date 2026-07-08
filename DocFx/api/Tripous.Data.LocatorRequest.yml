@@ -1,0 +1,670 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.LocatorRequest
+  commentId: T:Tripous.Data.LocatorRequest
+  id: LocatorRequest
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.LocatorRequest.#ctor
+  - Tripous.Data.LocatorRequest.Context
+  - Tripous.Data.LocatorRequest.IsMultiRow
+  - Tripous.Data.LocatorRequest.KeyValue
+  - Tripous.Data.LocatorRequest.SearchField
+  - Tripous.Data.LocatorRequest.SearchTerm
+  langs:
+  - csharp
+  - vb
+  name: LocatorRequest
+  nameWithType: LocatorRequest
+  fullName: Tripous.Data.LocatorRequest
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorRequest.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LocatorRequest
+    path: ../Tripous.Data/Locator/LocatorRequest.cs
+    startLine: 5
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Request for a locator resolution operation.
+  example: []
+  syntax:
+    content: public class LocatorRequest
+    content.vb: Public Class LocatorRequest
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.LocatorRequest.#ctor
+  commentId: M:Tripous.Data.LocatorRequest.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.LocatorRequest
+  langs:
+  - csharp
+  - vb
+  name: LocatorRequest()
+  nameWithType: LocatorRequest.LocatorRequest()
+  fullName: Tripous.Data.LocatorRequest.LocatorRequest()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorRequest.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Locator/LocatorRequest.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public LocatorRequest()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.LocatorRequest.#ctor*
+  nameWithType.vb: LocatorRequest.New()
+  fullName.vb: Tripous.Data.LocatorRequest.New()
+  name.vb: New()
+- uid: Tripous.Data.LocatorRequest.KeyValue
+  commentId: P:Tripous.Data.LocatorRequest.KeyValue
+  id: KeyValue
+  parent: Tripous.Data.LocatorRequest
+  langs:
+  - csharp
+  - vb
+  name: KeyValue
+  nameWithType: LocatorRequest.KeyValue
+  fullName: Tripous.Data.LocatorRequest.KeyValue
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorRequest.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: KeyValue
+    path: ../Tripous.Data/Locator/LocatorRequest.cs
+    startLine: 27
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: >-
+    Gets or sets the key value to resolve.
+
+
+    <p>When specified, the locator resolves by exact key and ignores <xref href="Tripous.Data.LocatorRequest.SearchTerm" data-throw-if-not-resolved="false"></xref>.</p>
+  example: []
+  syntax:
+    content: public object KeyValue { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property KeyValue As Object
+  overload: Tripous.Data.LocatorRequest.KeyValue*
+- uid: Tripous.Data.LocatorRequest.SearchTerm
+  commentId: P:Tripous.Data.LocatorRequest.SearchTerm
+  id: SearchTerm
+  parent: Tripous.Data.LocatorRequest
+  langs:
+  - csharp
+  - vb
+  name: SearchTerm
+  nameWithType: LocatorRequest.SearchTerm
+  fullName: Tripous.Data.LocatorRequest.SearchTerm
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorRequest.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SearchTerm
+    path: ../Tripous.Data/Locator/LocatorRequest.cs
+    startLine: 35
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the search term.
+  example: []
+  syntax:
+    content: public string SearchTerm { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property SearchTerm As String
+  overload: Tripous.Data.LocatorRequest.SearchTerm*
+- uid: Tripous.Data.LocatorRequest.SearchField
+  commentId: P:Tripous.Data.LocatorRequest.SearchField
+  id: SearchField
+  parent: Tripous.Data.LocatorRequest
+  langs:
+  - csharp
+  - vb
+  name: SearchField
+  nameWithType: LocatorRequest.SearchField
+  fullName: Tripous.Data.LocatorRequest.SearchField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorRequest.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SearchField
+    path: ../Tripous.Data/Locator/LocatorRequest.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the search field.
+  example: []
+  syntax:
+    content: public string SearchField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property SearchField As String
+  overload: Tripous.Data.LocatorRequest.SearchField*
+- uid: Tripous.Data.LocatorRequest.IsMultiRow
+  commentId: P:Tripous.Data.LocatorRequest.IsMultiRow
+  id: IsMultiRow
+  parent: Tripous.Data.LocatorRequest
+  langs:
+  - csharp
+  - vb
+  name: IsMultiRow
+  nameWithType: LocatorRequest.IsMultiRow
+  fullName: Tripous.Data.LocatorRequest.IsMultiRow
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorRequest.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsMultiRow
+    path: ../Tripous.Data/Locator/LocatorRequest.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets a value indicating whether the request is for a multi-row locator.
+  example: []
+  syntax:
+    content: public bool IsMultiRow { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsMultiRow As Boolean
+  overload: Tripous.Data.LocatorRequest.IsMultiRow*
+- uid: Tripous.Data.LocatorRequest.Context
+  commentId: P:Tripous.Data.LocatorRequest.Context
+  id: Context
+  parent: Tripous.Data.LocatorRequest
+  langs:
+  - csharp
+  - vb
+  name: Context
+  nameWithType: LocatorRequest.Context
+  fullName: Tripous.Data.LocatorRequest.Context
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorRequest.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Context
+    path: ../Tripous.Data/Locator/LocatorRequest.cs
+    startLine: 59
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the locator context.
+  example: []
+  syntax:
+    content: public LocatorContext Context { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.LocatorContext
+    content.vb: Public Property Context As LocatorContext
+  overload: Tripous.Data.LocatorRequest.Context*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.LocatorRequest.#ctor*
+  commentId: Overload:Tripous.Data.LocatorRequest.#ctor
+  href: Tripous.Data.LocatorRequest.html#Tripous_Data_LocatorRequest__ctor
+  name: LocatorRequest
+  nameWithType: LocatorRequest.LocatorRequest
+  fullName: Tripous.Data.LocatorRequest.LocatorRequest
+  nameWithType.vb: LocatorRequest.New
+  fullName.vb: Tripous.Data.LocatorRequest.New
+  name.vb: New
+- uid: Tripous.Data.LocatorRequest.SearchTerm
+  commentId: P:Tripous.Data.LocatorRequest.SearchTerm
+  href: Tripous.Data.LocatorRequest.html#Tripous_Data_LocatorRequest_SearchTerm
+  name: SearchTerm
+  nameWithType: LocatorRequest.SearchTerm
+  fullName: Tripous.Data.LocatorRequest.SearchTerm
+- uid: Tripous.Data.LocatorRequest.KeyValue*
+  commentId: Overload:Tripous.Data.LocatorRequest.KeyValue
+  href: Tripous.Data.LocatorRequest.html#Tripous_Data_LocatorRequest_KeyValue
+  name: KeyValue
+  nameWithType: LocatorRequest.KeyValue
+  fullName: Tripous.Data.LocatorRequest.KeyValue
+- uid: Tripous.Data.LocatorRequest.SearchTerm*
+  commentId: Overload:Tripous.Data.LocatorRequest.SearchTerm
+  href: Tripous.Data.LocatorRequest.html#Tripous_Data_LocatorRequest_SearchTerm
+  name: SearchTerm
+  nameWithType: LocatorRequest.SearchTerm
+  fullName: Tripous.Data.LocatorRequest.SearchTerm
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.LocatorRequest.SearchField*
+  commentId: Overload:Tripous.Data.LocatorRequest.SearchField
+  href: Tripous.Data.LocatorRequest.html#Tripous_Data_LocatorRequest_SearchField
+  name: SearchField
+  nameWithType: LocatorRequest.SearchField
+  fullName: Tripous.Data.LocatorRequest.SearchField
+- uid: Tripous.Data.LocatorRequest.IsMultiRow*
+  commentId: Overload:Tripous.Data.LocatorRequest.IsMultiRow
+  href: Tripous.Data.LocatorRequest.html#Tripous_Data_LocatorRequest_IsMultiRow
+  name: IsMultiRow
+  nameWithType: LocatorRequest.IsMultiRow
+  fullName: Tripous.Data.LocatorRequest.IsMultiRow
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.LocatorRequest.Context*
+  commentId: Overload:Tripous.Data.LocatorRequest.Context
+  href: Tripous.Data.LocatorRequest.html#Tripous_Data_LocatorRequest_Context
+  name: Context
+  nameWithType: LocatorRequest.Context
+  fullName: Tripous.Data.LocatorRequest.Context
+- uid: Tripous.Data.LocatorContext
+  commentId: T:Tripous.Data.LocatorContext
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorContext.html
+  name: LocatorContext
+  nameWithType: LocatorContext
+  fullName: Tripous.Data.LocatorContext

@@ -30,7 +30,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConfigValueKind
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 34
+    startLine: 62
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -79,7 +79,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: String
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 40
+    startLine: 68
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -107,7 +107,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Integer
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 44
+    startLine: 72
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -135,7 +135,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Boolean
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 48
+    startLine: 76
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -163,7 +163,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Date
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 52
+    startLine: 80
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -191,7 +191,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Time
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 56
+    startLine: 84
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -219,7 +219,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Double
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 60
+    startLine: 88
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -247,7 +247,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Decimal
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 64
+    startLine: 92
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -275,7 +275,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Lookup
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 68
+    startLine: 96
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -303,7 +303,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Enum
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 72
+    startLine: 100
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -331,7 +331,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Memo
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 76
+    startLine: 104
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -359,7 +359,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Object
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 80
+    startLine: 108
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data

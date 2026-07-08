@@ -9,6 +9,7 @@ items:
   - Tripous.Data.DataModule.AssignCodeProviderDef
   - Tripous.Data.DataModule.AssignCodeValue(System.Data.Common.DbTransaction)
   - Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  - Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
   - Tripous.Data.DataModule.Cancel
   - Tripous.Data.DataModule.CheckCanCommit(System.Boolean)
   - Tripous.Data.DataModule.CheckCanDelete(System.Object)
@@ -21,6 +22,10 @@ items:
   - Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
   - Tripous.Data.DataModule.Commited(System.Boolean,System.Object)
   - Tripous.Data.DataModule.Commiting(System.Boolean)
+  - Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+  - Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+  - Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+  - Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
   - Tripous.Data.DataModule.CurrentRow
   - Tripous.Data.DataModule.DataSet
   - Tripous.Data.DataModule.Delete(System.Object)
@@ -33,7 +38,10 @@ items:
   - Tripous.Data.DataModule.EndEdit
   - Tripous.Data.DataModule.FindTable(System.String)
   - Tripous.Data.DataModule.GetCodeProviderDef
+  - Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  - Tripous.Data.DataModule.GetListSelectDef(System.String)
   - Tripous.Data.DataModule.GetNextCodeLocked(System.Data.Common.DbTransaction)
+  - Tripous.Data.DataModule.GetSelectListRowLimit
   - Tripous.Data.DataModule.GetTable(System.String)
   - Tripous.Data.DataModule.HasChanges
   - Tripous.Data.DataModule.Id
@@ -48,6 +56,14 @@ items:
   - Tripous.Data.DataModule.IsInserting
   - Tripous.Data.DataModule.Item(System.String)
   - Tripous.Data.DataModule.ItemTables
+  - Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+  - Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  - Tripous.Data.DataModule.JsonConvertRowId(System.String)
+  - Tripous.Data.DataModule.JsonDelete(System.String)
+  - Tripous.Data.DataModule.JsonEdit(System.String)
+  - Tripous.Data.DataModule.JsonInitialize
+  - Tripous.Data.DataModule.JsonInsert
+  - Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
   - Tripous.Data.DataModule.LastCommitedId
   - Tripous.Data.DataModule.LastDeletedId
   - Tripous.Data.DataModule.LastEditedId
@@ -1287,6 +1303,289 @@ items:
       description: ''
     content.vb: Public Overridable Sub Initialize(ModuleDef As ModuleDef)
   overload: Tripous.Data.DataModule.Initialize*
+- uid: Tripous.Data.DataModule.GetSelectListRowLimit
+  commentId: M:Tripous.Data.DataModule.GetSelectListRowLimit
+  id: GetSelectListRowLimit
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: GetSelectListRowLimit()
+  nameWithType: DataModule.GetSelectListRowLimit()
+  fullName: Tripous.Data.DataModule.GetSelectListRowLimit()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSelectListRowLimit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 585
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the effective row limit for list SELECTs.
+  example: []
+  syntax:
+    content: protected virtual int GetSelectListRowLimit()
+    return:
+      type: System.Int32
+    content.vb: Protected Overridable Function GetSelectListRowLimit() As Integer
+  overload: Tripous.Data.DataModule.GetSelectListRowLimit*
+- uid: Tripous.Data.DataModule.GetListSelectDef(System.String)
+  commentId: M:Tripous.Data.DataModule.GetListSelectDef(System.String)
+  id: GetListSelectDef(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: GetListSelectDef(string)
+  nameWithType: DataModule.GetListSelectDef(string)
+  fullName: Tripous.Data.DataModule.GetListSelectDef(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetListSelectDef
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 594
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the select definition for a list select operation.
+  example: []
+  syntax:
+    content: protected virtual SelectDef GetListSelectDef(string SelectName)
+    parameters:
+    - id: SelectName
+      type: System.String
+    return:
+      type: Tripous.Data.SelectDef
+    content.vb: Protected Overridable Function GetListSelectDef(SelectName As String) As SelectDef
+  overload: Tripous.Data.DataModule.GetListSelectDef*
+  nameWithType.vb: DataModule.GetListSelectDef(String)
+  fullName.vb: Tripous.Data.DataModule.GetListSelectDef(String)
+  name.vb: GetListSelectDef(String)
+- uid: Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  commentId: M:Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  id: GetFilterConditionOps(Tripous.Data.DataFieldType)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: GetFilterConditionOps(DataFieldType)
+  nameWithType: DataModule.GetFilterConditionOps(DataFieldType)
+  fullName: Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetFilterConditionOps
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 608
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the condition operators supported by a data type.
+  example: []
+  syntax:
+    content: protected virtual ConditionOp[] GetFilterConditionOps(DataFieldType DataType)
+    parameters:
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+    return:
+      type: Tripous.Data.ConditionOp[]
+    content.vb: Protected Overridable Function GetFilterConditionOps(DataType As DataFieldType) As ConditionOp()
+  overload: Tripous.Data.DataModule.GetFilterConditionOps*
+- uid: Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+  commentId: M:Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+  id: ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ConvertSelectFilterValue(object, DataFieldType)
+  nameWithType: DataModule.ConvertSelectFilterValue(object, DataFieldType)
+  fullName: Tripous.Data.DataModule.ConvertSelectFilterValue(object, Tripous.Data.DataFieldType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConvertSelectFilterValue
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 634
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts a JSON filter value to the registered filter data type.
+  example: []
+  syntax:
+    content: protected virtual object ConvertSelectFilterValue(object Value, DataFieldType DataType)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+    return:
+      type: System.Object
+    content.vb: Protected Overridable Function ConvertSelectFilterValue(Value As Object, DataType As DataFieldType) As Object
+  overload: Tripous.Data.DataModule.ConvertSelectFilterValue*
+  nameWithType.vb: DataModule.ConvertSelectFilterValue(Object, DataFieldType)
+  fullName.vb: Tripous.Data.DataModule.ConvertSelectFilterValue(Object, Tripous.Data.DataFieldType)
+  name.vb: ConvertSelectFilterValue(Object, DataFieldType)
+- uid: Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+  commentId: M:Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+  id: ConvertSelectFilterBoolean(System.Object)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: ConvertSelectFilterBoolean(object)
+  nameWithType: DataModule.ConvertSelectFilterBoolean(object)
+  fullName: Tripous.Data.DataModule.ConvertSelectFilterBoolean(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConvertSelectFilterBoolean
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 680
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts a JSON filter value to a boolean SQL value.
+  example: []
+  syntax:
+    content: protected virtual int ConvertSelectFilterBoolean(object Value)
+    parameters:
+    - id: Value
+      type: System.Object
+    return:
+      type: System.Int32
+    content.vb: Protected Overridable Function ConvertSelectFilterBoolean(Value As Object) As Integer
+  overload: Tripous.Data.DataModule.ConvertSelectFilterBoolean*
+  nameWithType.vb: DataModule.ConvertSelectFilterBoolean(Object)
+  fullName.vb: Tripous.Data.DataModule.ConvertSelectFilterBoolean(Object)
+  name.vb: ConvertSelectFilterBoolean(Object)
+- uid: Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+  commentId: M:Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+  id: CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CreateValidatedSelectFilter(SelectDef, JsonSelectFilter)
+  nameWithType: DataModule.CreateValidatedSelectFilter(SelectDef, JsonSelectFilter)
+  fullName: Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef, Tripous.Data.JsonSelectFilter)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateValidatedSelectFilter
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 697
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates a validated SQL filter definition from an active JSON filter.
+  example: []
+  syntax:
+    content: protected virtual SqlFilterDef CreateValidatedSelectFilter(SelectDef SelectDef, JsonSelectFilter JsonFilter)
+    parameters:
+    - id: SelectDef
+      type: Tripous.Data.SelectDef
+    - id: JsonFilter
+      type: Tripous.Data.JsonSelectFilter
+    return:
+      type: Tripous.Data.SqlFilterDef
+    content.vb: Protected Overridable Function CreateValidatedSelectFilter(SelectDef As SelectDef, JsonFilter As JsonSelectFilter) As SqlFilterDef
+  overload: Tripous.Data.DataModule.CreateValidatedSelectFilter*
+- uid: Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+  commentId: M:Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+  id: CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: CreateValidatedSelectFilters(SelectDef, JsonSelectFilters)
+  nameWithType: DataModule.CreateValidatedSelectFilters(SelectDef, JsonSelectFilters)
+  fullName: Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef, Tripous.Data.JsonSelectFilters)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateValidatedSelectFilters
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 734
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Creates validated SQL filter definitions from active JSON filters.
+  example: []
+  syntax:
+    content: protected virtual SqlFilterDefs CreateValidatedSelectFilters(SelectDef SelectDef, JsonSelectFilters Filters)
+    parameters:
+    - id: SelectDef
+      type: Tripous.Data.SelectDef
+    - id: Filters
+      type: Tripous.Data.JsonSelectFilters
+    return:
+      type: Tripous.Data.SqlFilterDefs
+    content.vb: Protected Overridable Function CreateValidatedSelectFilters(SelectDef As SelectDef, Filters As JsonSelectFilters) As SqlFilterDefs
+  overload: Tripous.Data.DataModule.CreateValidatedSelectFilters*
+- uid: Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
+  commentId: M:Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
+  id: BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: BuildListSelectSql(string, JsonSelectFilters, out SelectDef)
+  nameWithType: DataModule.BuildListSelectSql(string, JsonSelectFilters, out SelectDef)
+  fullName: Tripous.Data.DataModule.BuildListSelectSql(string, Tripous.Data.JsonSelectFilters, out Tripous.Data.SelectDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BuildListSelectSql
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 752
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Builds the SQL text for a list select operation.
+  example: []
+  syntax:
+    content: protected virtual string BuildListSelectSql(string SelectName, JsonSelectFilters Filters, out SelectDef SelectDef)
+    parameters:
+    - id: SelectName
+      type: System.String
+    - id: Filters
+      type: Tripous.Data.JsonSelectFilters
+    - id: SelectDef
+      type: Tripous.Data.SelectDef
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function BuildListSelectSql(SelectName As String, Filters As JsonSelectFilters, SelectDef As SelectDef) As String
+  overload: Tripous.Data.DataModule.BuildListSelectSql*
+  nameWithType.vb: DataModule.BuildListSelectSql(String, JsonSelectFilters, SelectDef)
+  fullName.vb: Tripous.Data.DataModule.BuildListSelectSql(String, Tripous.Data.JsonSelectFilters, Tripous.Data.SelectDef)
+  name.vb: BuildListSelectSql(String, JsonSelectFilters, SelectDef)
 - uid: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
   commentId: M:Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
   id: ListSelect(Tripous.Data.SelectDef)
@@ -1305,7 +1604,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSelect
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 585
+    startLine: 764
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1336,7 +1635,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSelect
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 593
+    startLine: 772
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1370,7 +1669,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListSave
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 601
+    startLine: 783
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1398,7 +1697,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ListCancel
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 605
+    startLine: 787
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1426,7 +1725,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Insert
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 611
+    startLine: 793
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1454,7 +1753,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Edit
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 632
+    startLine: 814
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1488,7 +1787,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Delete
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 653
+    startLine: 835
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1522,7 +1821,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Commit
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 675
+    startLine: 857
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1562,7 +1861,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Cancel
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 705
+    startLine: 887
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1590,7 +1889,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasChanges
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 714
+    startLine: 896
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1620,7 +1919,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CommitBatch
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 722
+    startLine: 904
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1659,7 +1958,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BatchInsert
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 727
+    startLine: 909
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1672,6 +1971,276 @@ items:
       type: System.Data.DataTable
     content.vb: Public Overridable Sub BatchInsert(tblSource As DataTable)
   overload: Tripous.Data.DataModule.BatchInsert*
+- uid: Tripous.Data.DataModule.JsonConvertRowId(System.String)
+  commentId: M:Tripous.Data.DataModule.JsonConvertRowId(System.String)
+  id: JsonConvertRowId(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonConvertRowId(string)
+  nameWithType: DataModule.JsonConvertRowId(string)
+  fullName: Tripous.Data.DataModule.JsonConvertRowId(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonConvertRowId
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 973
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts a string row id to the key field data type of the item table.
+  example: []
+  syntax:
+    content: protected virtual object JsonConvertRowId(string Id)
+    parameters:
+    - id: Id
+      type: System.String
+    return:
+      type: System.Object
+    content.vb: Protected Overridable Function JsonConvertRowId(Id As String) As Object
+  overload: Tripous.Data.DataModule.JsonConvertRowId*
+  nameWithType.vb: DataModule.JsonConvertRowId(String)
+  fullName.vb: Tripous.Data.DataModule.JsonConvertRowId(String)
+  name.vb: JsonConvertRowId(String)
+- uid: Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+  commentId: M:Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+  id: JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonApplyTableRows(MemTable, JsonDataModule)
+  nameWithType: DataModule.JsonApplyTableRows(MemTable, JsonDataModule)
+  fullName: Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable, Tripous.Data.JsonDataModule)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonApplyTableRows
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 990
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Applies JSON row data to a table and its detail tables.
+  example: []
+  syntax:
+    content: protected virtual void JsonApplyTableRows(MemTable Table, JsonDataModule Source)
+    parameters:
+    - id: Table
+      type: Tripous.Data.MemTable
+    - id: Source
+      type: Tripous.Data.JsonDataModule
+    content.vb: Protected Overridable Sub JsonApplyTableRows(Table As MemTable, Source As JsonDataModule)
+  overload: Tripous.Data.DataModule.JsonApplyTableRows*
+- uid: Tripous.Data.DataModule.JsonInitialize
+  commentId: M:Tripous.Data.DataModule.JsonInitialize
+  id: JsonInitialize
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonInitialize()
+  nameWithType: DataModule.JsonInitialize()
+  fullName: Tripous.Data.DataModule.JsonInitialize()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonInitialize
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1007
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns this data module as a JSON contract object.
+  example: []
+  syntax:
+    content: public virtual JsonDataModule JsonInitialize()
+    return:
+      type: Tripous.Data.JsonDataModule
+    content.vb: Public Overridable Function JsonInitialize() As JsonDataModule
+  overload: Tripous.Data.DataModule.JsonInitialize*
+- uid: Tripous.Data.DataModule.JsonInsert
+  commentId: M:Tripous.Data.DataModule.JsonInsert
+  id: JsonInsert
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonInsert()
+  nameWithType: DataModule.JsonInsert()
+  fullName: Tripous.Data.DataModule.JsonInsert()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonInsert
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1015
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Starts an insert operation and returns this data module as a JSON contract object.
+  example: []
+  syntax:
+    content: public virtual JsonDataModule JsonInsert()
+    return:
+      type: Tripous.Data.JsonDataModule
+    content.vb: Public Overridable Function JsonInsert() As JsonDataModule
+  overload: Tripous.Data.DataModule.JsonInsert*
+- uid: Tripous.Data.DataModule.JsonEdit(System.String)
+  commentId: M:Tripous.Data.DataModule.JsonEdit(System.String)
+  id: JsonEdit(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonEdit(string)
+  nameWithType: DataModule.JsonEdit(string)
+  fullName: Tripous.Data.DataModule.JsonEdit(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonEdit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1024
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Starts an edit operation and returns this data module as a JSON contract object.
+  example: []
+  syntax:
+    content: public virtual JsonDataModule JsonEdit(string Id)
+    parameters:
+    - id: Id
+      type: System.String
+    return:
+      type: Tripous.Data.JsonDataModule
+    content.vb: Public Overridable Function JsonEdit(Id As String) As JsonDataModule
+  overload: Tripous.Data.DataModule.JsonEdit*
+  nameWithType.vb: DataModule.JsonEdit(String)
+  fullName.vb: Tripous.Data.DataModule.JsonEdit(String)
+  name.vb: JsonEdit(String)
+- uid: Tripous.Data.DataModule.JsonDelete(System.String)
+  commentId: M:Tripous.Data.DataModule.JsonDelete(System.String)
+  id: JsonDelete(System.String)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonDelete(string)
+  nameWithType: DataModule.JsonDelete(string)
+  fullName: Tripous.Data.DataModule.JsonDelete(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonDelete
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1034
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Deletes an item.
+  example: []
+  syntax:
+    content: public virtual void JsonDelete(string Id)
+    parameters:
+    - id: Id
+      type: System.String
+    content.vb: Public Overridable Sub JsonDelete(Id As String)
+  overload: Tripous.Data.DataModule.JsonDelete*
+  nameWithType.vb: DataModule.JsonDelete(String)
+  fullName.vb: Tripous.Data.DataModule.JsonDelete(String)
+  name.vb: JsonDelete(String)
+- uid: Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  commentId: M:Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  id: JsonCommit(Tripous.Data.JsonDataModule)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonCommit(JsonDataModule)
+  nameWithType: DataModule.JsonCommit(JsonDataModule)
+  fullName: Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonCommit
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1042
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Applies a JSON contract object, commits the changes, and returns this data module as a JSON contract object.
+  example: []
+  syntax:
+    content: public virtual JsonDataModule JsonCommit(JsonDataModule Source)
+    parameters:
+    - id: Source
+      type: Tripous.Data.JsonDataModule
+    return:
+      type: Tripous.Data.JsonDataModule
+    content.vb: Public Overridable Function JsonCommit(Source As JsonDataModule) As JsonDataModule
+  overload: Tripous.Data.DataModule.JsonCommit*
+- uid: Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
+  commentId: M:Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
+  id: JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
+  parent: Tripous.Data.DataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonSelectList(string, JsonSelectFilters)
+  nameWithType: DataModule.JsonSelectList(string, JsonSelectFilters)
+  fullName: Tripous.Data.DataModule.JsonSelectList(string, Tripous.Data.JsonSelectFilters)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/DataModules/DataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonSelectList
+    path: ../Tripous.Data/DataModules/DataModule.cs
+    startLine: 1057
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Selects the list table and returns it as a JSON contract object.
+  example: []
+  syntax:
+    content: public virtual JsonDataTable JsonSelectList(string SelectName, JsonSelectFilters Filters)
+    parameters:
+    - id: SelectName
+      type: System.String
+    - id: Filters
+      type: Tripous.Data.JsonSelectFilters
+    return:
+      type: Tripous.Data.JsonDataTable
+    content.vb: Public Overridable Function JsonSelectList(SelectName As String, Filters As JsonSelectFilters) As JsonDataTable
+  overload: Tripous.Data.DataModule.JsonSelectList*
+  nameWithType.vb: DataModule.JsonSelectList(String, JsonSelectFilters)
+  fullName.vb: Tripous.Data.DataModule.JsonSelectList(String, Tripous.Data.JsonSelectFilters)
+  name.vb: JsonSelectList(String, JsonSelectFilters)
 - uid: Tripous.Data.DataModule.CheckCanInsert
   commentId: M:Tripous.Data.DataModule.CheckCanInsert
   id: CheckCanInsert
@@ -1690,7 +2259,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanInsert
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 792
+    startLine: 1071
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1721,7 +2290,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanEdit
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 799
+    startLine: 1078
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1758,7 +2327,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanDelete
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 808
+    startLine: 1087
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1795,7 +2364,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckCanCommit
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 817
+    startLine: 1096
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1832,7 +2401,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TableExists
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 824
+    startLine: 1103
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1868,7 +2437,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindTable
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 828
+    startLine: 1107
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1904,7 +2473,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetTable
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 832
+    startLine: 1111
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1940,7 +2509,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsInitialized
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 846
+    startLine: 1125
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1971,7 +2540,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleDef
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 850
+    startLine: 1129
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2002,7 +2571,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CodeProviderDef
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 854
+    startLine: 1133
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2033,7 +2602,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Store
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 858
+    startLine: 1137
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2064,7 +2633,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: this[]
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 863
+    startLine: 1142
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2101,7 +2670,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataSet
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 867
+    startLine: 1146
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2132,7 +2701,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: tblList
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 871
+    startLine: 1150
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2163,7 +2732,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: tblItem
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 875
+    startLine: 1154
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2194,7 +2763,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Tables
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 879
+    startLine: 1158
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2225,7 +2794,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ItemTables
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 883
+    startLine: 1162
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2254,7 +2823,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Stocks
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 887
+    startLine: 1166
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2285,7 +2854,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Name
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 891
+    startLine: 1170
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2316,7 +2885,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailsActive
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 895
+    startLine: 1174
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2347,7 +2916,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowProviderHost
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 903
+    startLine: 1182
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2378,7 +2947,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: State
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 911
+    startLine: 1190
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2415,7 +2984,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsInserting
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 915
+    startLine: 1194
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2446,7 +3015,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsEditing
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 932
+    startLine: 1211
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2477,7 +3046,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsDeleting
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 949
+    startLine: 1228
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2508,7 +3077,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsCommiting
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 966
+    startLine: 1245
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2539,7 +3108,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Variables
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 984
+    startLine: 1263
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2570,7 +3139,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CurrentRow
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 994
+    startLine: 1273
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2605,7 +3174,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Id
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 998
+    startLine: 1277
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2636,7 +3205,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastEditedId
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1002
+    startLine: 1281
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2667,7 +3236,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastCommitedId
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1006
+    startLine: 1285
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2698,7 +3267,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LastDeletedId
     path: ../Tripous.Data/DataModules/DataModule.cs
-    startLine: 1010
+    startLine: 1289
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3643,12 +4212,18 @@ references:
   name: ModuleDef
   nameWithType: ModuleDef
   fullName: Tripous.Data.ModuleDef
-- uid: Tripous.Data.DataModule.ListSelect*
-  commentId: Overload:Tripous.Data.DataModule.ListSelect
-  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_Tripous_Data_SelectDef_
-  name: ListSelect
-  nameWithType: DataModule.ListSelect
-  fullName: Tripous.Data.DataModule.ListSelect
+- uid: Tripous.Data.DataModule.GetSelectListRowLimit*
+  commentId: Overload:Tripous.Data.DataModule.GetSelectListRowLimit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetSelectListRowLimit
+  name: GetSelectListRowLimit
+  nameWithType: DataModule.GetSelectListRowLimit
+  fullName: Tripous.Data.DataModule.GetSelectListRowLimit
+- uid: Tripous.Data.DataModule.GetListSelectDef*
+  commentId: Overload:Tripous.Data.DataModule.GetListSelectDef
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetListSelectDef_System_String_
+  name: GetListSelectDef
+  nameWithType: DataModule.GetListSelectDef
+  fullName: Tripous.Data.DataModule.GetListSelectDef
 - uid: Tripous.Data.SelectDef
   commentId: T:Tripous.Data.SelectDef
   parent: Tripous.Data
@@ -3656,6 +4231,104 @@ references:
   name: SelectDef
   nameWithType: SelectDef
   fullName: Tripous.Data.SelectDef
+- uid: Tripous.Data.DataModule.GetFilterConditionOps*
+  commentId: Overload:Tripous.Data.DataModule.GetFilterConditionOps
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetFilterConditionOps_Tripous_Data_DataFieldType_
+  name: GetFilterConditionOps
+  nameWithType: DataModule.GetFilterConditionOps
+  fullName: Tripous.Data.DataModule.GetFilterConditionOps
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: Tripous.Data.ConditionOp[]
+  isExternal: true
+  href: Tripous.Data.ConditionOp.html
+  name: ConditionOp[]
+  nameWithType: ConditionOp[]
+  fullName: Tripous.Data.ConditionOp[]
+  nameWithType.vb: ConditionOp()
+  fullName.vb: Tripous.Data.ConditionOp()
+  name.vb: ConditionOp()
+  spec.csharp:
+  - uid: Tripous.Data.ConditionOp
+    name: ConditionOp
+    href: Tripous.Data.ConditionOp.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Tripous.Data.ConditionOp
+    name: ConditionOp
+    href: Tripous.Data.ConditionOp.html
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.ConvertSelectFilterValue*
+  commentId: Overload:Tripous.Data.DataModule.ConvertSelectFilterValue
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterValue_System_Object_Tripous_Data_DataFieldType_
+  name: ConvertSelectFilterValue
+  nameWithType: DataModule.ConvertSelectFilterValue
+  fullName: Tripous.Data.DataModule.ConvertSelectFilterValue
+- uid: Tripous.Data.DataModule.ConvertSelectFilterBoolean*
+  commentId: Overload:Tripous.Data.DataModule.ConvertSelectFilterBoolean
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterBoolean_System_Object_
+  name: ConvertSelectFilterBoolean
+  nameWithType: DataModule.ConvertSelectFilterBoolean
+  fullName: Tripous.Data.DataModule.ConvertSelectFilterBoolean
+- uid: Tripous.Data.DataModule.CreateValidatedSelectFilter*
+  commentId: Overload:Tripous.Data.DataModule.CreateValidatedSelectFilter
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilter_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilter_
+  name: CreateValidatedSelectFilter
+  nameWithType: DataModule.CreateValidatedSelectFilter
+  fullName: Tripous.Data.DataModule.CreateValidatedSelectFilter
+- uid: Tripous.Data.JsonSelectFilter
+  commentId: T:Tripous.Data.JsonSelectFilter
+  parent: Tripous.Data
+  href: Tripous.Data.JsonSelectFilter.html
+  name: JsonSelectFilter
+  nameWithType: JsonSelectFilter
+  fullName: Tripous.Data.JsonSelectFilter
+- uid: Tripous.Data.SqlFilterDef
+  commentId: T:Tripous.Data.SqlFilterDef
+  parent: Tripous.Data
+  href: Tripous.Data.SqlFilterDef.html
+  name: SqlFilterDef
+  nameWithType: SqlFilterDef
+  fullName: Tripous.Data.SqlFilterDef
+- uid: Tripous.Data.DataModule.CreateValidatedSelectFilters*
+  commentId: Overload:Tripous.Data.DataModule.CreateValidatedSelectFilters
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilters_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilters_
+  name: CreateValidatedSelectFilters
+  nameWithType: DataModule.CreateValidatedSelectFilters
+  fullName: Tripous.Data.DataModule.CreateValidatedSelectFilters
+- uid: Tripous.Data.JsonSelectFilters
+  commentId: T:Tripous.Data.JsonSelectFilters
+  parent: Tripous.Data
+  href: Tripous.Data.JsonSelectFilters.html
+  name: JsonSelectFilters
+  nameWithType: JsonSelectFilters
+  fullName: Tripous.Data.JsonSelectFilters
+- uid: Tripous.Data.SqlFilterDefs
+  commentId: T:Tripous.Data.SqlFilterDefs
+  parent: Tripous.Data
+  href: Tripous.Data.SqlFilterDefs.html
+  name: SqlFilterDefs
+  nameWithType: SqlFilterDefs
+  fullName: Tripous.Data.SqlFilterDefs
+- uid: Tripous.Data.DataModule.BuildListSelectSql*
+  commentId: Overload:Tripous.Data.DataModule.BuildListSelectSql
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BuildListSelectSql_System_String_Tripous_Data_JsonSelectFilters_Tripous_Data_SelectDef__
+  name: BuildListSelectSql
+  nameWithType: DataModule.BuildListSelectSql
+  fullName: Tripous.Data.DataModule.BuildListSelectSql
+- uid: Tripous.Data.DataModule.ListSelect*
+  commentId: Overload:Tripous.Data.DataModule.ListSelect
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSelect_Tripous_Data_SelectDef_
+  name: ListSelect
+  nameWithType: DataModule.ListSelect
+  fullName: Tripous.Data.DataModule.ListSelect
 - uid: Tripous.Data.DataModule.ListSave*
   commentId: Overload:Tripous.Data.DataModule.ListSave
   href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ListSave
@@ -3746,6 +4419,68 @@ references:
   name: BatchInsert
   nameWithType: DataModule.BatchInsert
   fullName: Tripous.Data.DataModule.BatchInsert
+- uid: Tripous.Data.DataModule.JsonConvertRowId*
+  commentId: Overload:Tripous.Data.DataModule.JsonConvertRowId
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonConvertRowId_System_String_
+  name: JsonConvertRowId
+  nameWithType: DataModule.JsonConvertRowId
+  fullName: Tripous.Data.DataModule.JsonConvertRowId
+- uid: Tripous.Data.DataModule.JsonApplyTableRows*
+  commentId: Overload:Tripous.Data.DataModule.JsonApplyTableRows
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonApplyTableRows_Tripous_Data_MemTable_Tripous_Data_JsonDataModule_
+  name: JsonApplyTableRows
+  nameWithType: DataModule.JsonApplyTableRows
+  fullName: Tripous.Data.DataModule.JsonApplyTableRows
+- uid: Tripous.Data.JsonDataModule
+  commentId: T:Tripous.Data.JsonDataModule
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataModule.html
+  name: JsonDataModule
+  nameWithType: JsonDataModule
+  fullName: Tripous.Data.JsonDataModule
+- uid: Tripous.Data.DataModule.JsonInitialize*
+  commentId: Overload:Tripous.Data.DataModule.JsonInitialize
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInitialize
+  name: JsonInitialize
+  nameWithType: DataModule.JsonInitialize
+  fullName: Tripous.Data.DataModule.JsonInitialize
+- uid: Tripous.Data.DataModule.JsonInsert*
+  commentId: Overload:Tripous.Data.DataModule.JsonInsert
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInsert
+  name: JsonInsert
+  nameWithType: DataModule.JsonInsert
+  fullName: Tripous.Data.DataModule.JsonInsert
+- uid: Tripous.Data.DataModule.JsonEdit*
+  commentId: Overload:Tripous.Data.DataModule.JsonEdit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonEdit_System_String_
+  name: JsonEdit
+  nameWithType: DataModule.JsonEdit
+  fullName: Tripous.Data.DataModule.JsonEdit
+- uid: Tripous.Data.DataModule.JsonDelete*
+  commentId: Overload:Tripous.Data.DataModule.JsonDelete
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonDelete_System_String_
+  name: JsonDelete
+  nameWithType: DataModule.JsonDelete
+  fullName: Tripous.Data.DataModule.JsonDelete
+- uid: Tripous.Data.DataModule.JsonCommit*
+  commentId: Overload:Tripous.Data.DataModule.JsonCommit
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonCommit_Tripous_Data_JsonDataModule_
+  name: JsonCommit
+  nameWithType: DataModule.JsonCommit
+  fullName: Tripous.Data.DataModule.JsonCommit
+- uid: Tripous.Data.DataModule.JsonSelectList*
+  commentId: Overload:Tripous.Data.DataModule.JsonSelectList
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonSelectList_System_String_Tripous_Data_JsonSelectFilters_
+  name: JsonSelectList
+  nameWithType: DataModule.JsonSelectList
+  fullName: Tripous.Data.DataModule.JsonSelectList
+- uid: Tripous.Data.JsonDataTable
+  commentId: T:Tripous.Data.JsonDataTable
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataTable.html
+  name: JsonDataTable
+  nameWithType: JsonDataTable
+  fullName: Tripous.Data.JsonDataTable
 - uid: Tripous.Data.DataModule.Insert
   commentId: M:Tripous.Data.DataModule.Insert
   parent: Tripous.Data.DataModule

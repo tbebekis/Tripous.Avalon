@@ -191,6 +191,9 @@ items:
   - uid: Tripous.Data.ConfigScope
     name: ConfigScope
     type: Enum
+  - uid: Tripous.Data.ConfigScopeFlags
+    name: ConfigScopeFlags
+    type: Enum
   - uid: Tripous.Data.ConfigValueKind
     name: ConfigValueKind
     type: Enum
@@ -329,9 +332,6 @@ items:
   - uid: Tripous.Data.DocumentHandlerDef
     name: DocumentHandlerDef
     type: Class
-  - uid: Tripous.Data.DuplicateCheck
-    name: DuplicateCheck
-    type: Enum
   - uid: Tripous.Data.FieldDef
     name: FieldDef
     type: Class
@@ -350,26 +350,65 @@ items:
   - uid: Tripous.Data.ISqlValueProvider
     name: ISqlValueProvider
     type: Interface
+  - uid: Tripous.Data.JsonDataColumn
+    name: JsonDataColumn
+    type: Class
+  - uid: Tripous.Data.JsonDataModule
+    name: JsonDataModule
+    type: Class
+  - uid: Tripous.Data.JsonDataRow
+    name: JsonDataRow
+    type: Class
+  - uid: Tripous.Data.JsonDataSet
+    name: JsonDataSet
+    type: Class
+  - uid: Tripous.Data.JsonDataTable
+    name: JsonDataTable
+    type: Class
+  - uid: Tripous.Data.JsonSelectFilter
+    name: JsonSelectFilter
+    type: Class
+  - uid: Tripous.Data.JsonSelectFilters
+    name: JsonSelectFilters
+    type: Class
   - uid: Tripous.Data.LocateOptions
     name: LocateOptions
     type: Enum
   - uid: Tripous.Data.Locator
     name: Locator
     type: Class
+  - uid: Tripous.Data.LocatorContext
+    name: LocatorContext
+    type: Class
   - uid: Tripous.Data.LocatorDef
     name: LocatorDef
     type: Class
-  - uid: Tripous.Data.LocatorEventArgs
-    name: LocatorEventArgs
-    type: Class
-  - uid: Tripous.Data.LocatorEventType
-    name: LocatorEventType
-    type: Enum
   - uid: Tripous.Data.LocatorFieldDef
     name: LocatorFieldDef
     type: Class
-  - uid: Tripous.Data.LocatorSearchResult
-    name: LocatorSearchResult
+  - uid: Tripous.Data.LocatorMapItem
+    name: LocatorMapItem
+    type: Class
+  - uid: Tripous.Data.LocatorMapPlan
+    name: LocatorMapPlan
+    type: Class
+  - uid: Tripous.Data.LocatorMapper
+    name: LocatorMapper
+    type: Class
+  - uid: Tripous.Data.LocatorRequest
+    name: LocatorRequest
+    type: Class
+  - uid: Tripous.Data.LocatorResult
+    name: LocatorResult
+    type: Class
+  - uid: Tripous.Data.LocatorResultListKind
+    name: LocatorResultListKind
+    type: Enum
+  - uid: Tripous.Data.LocatorResultStatus
+    name: LocatorResultStatus
+    type: Enum
+  - uid: Tripous.Data.Locators
+    name: Locators
     type: Class
   - uid: Tripous.Data.LogDataModule
     name: LogDataModule
@@ -401,17 +440,8 @@ items:
   - uid: Tripous.Data.OracleConAdapter
     name: OracleConAdapter
     type: Class
-  - uid: Tripous.Data.ParsingErrorType
-    name: ParsingErrorType
-    type: Enum
-  - uid: Tripous.Data.ParsingMessage
-    name: ParsingMessage
-    type: Class
   - uid: Tripous.Data.PostgreSqlConAdapter
     name: PostgreSqlConAdapter
-    type: Class
-  - uid: Tripous.Data.RegBuilderProject
-    name: RegBuilderProject
     type: Class
   - uid: Tripous.Data.ResetPeriod
     name: ResetPeriod
@@ -421,12 +451,6 @@ items:
     type: Class
   - uid: Tripous.Data.SchemaItem
     name: SchemaItem
-    type: Class
-  - uid: Tripous.Data.SchemaParserResult
-    name: SchemaParserResult
-    type: Class
-  - uid: Tripous.Data.SchemaRegistrationBuilder
-    name: SchemaRegistrationBuilder
     type: Class
   - uid: Tripous.Data.SchemaVersion
     name: SchemaVersion
@@ -514,6 +538,9 @@ items:
     type: Class
   - uid: Tripous.Data.SqlStores
     name: SqlStores
+    type: Class
+  - uid: Tripous.Data.SqlTextItem
+    name: SqlTextItem
     type: Class
   - uid: Tripous.Data.SqlTransactionContext
     name: SqlTransactionContext
@@ -606,12 +633,6 @@ items:
   - uid: Tripous.Desktop.DataFormState
     name: DataFormState
     type: Enum
-  - uid: Tripous.Desktop.DataGridBinder
-    name: DataGridBinder
-    type: Class
-  - uid: Tripous.Desktop.DataViewItemsSource
-    name: DataViewItemsSource
-    type: Class
   - uid: Tripous.Desktop.DbConnectionEditDialog
     name: DbConnectionEditDialog
     type: Class
@@ -648,9 +669,6 @@ items:
   - uid: Tripous.Desktop.GridActionType
     name: GridActionType
     type: Enum
-  - uid: Tripous.Desktop.GridColumnBinding
-    name: GridColumnBinding
-    type: Class
   - uid: Tripous.Desktop.GridColumnDef
     name: GridColumnDef
     type: Class
@@ -660,11 +678,14 @@ items:
   - uid: Tripous.Desktop.GridCommandContext
     name: GridCommandContext
     type: Class
-  - uid: Tripous.Desktop.GridEditController
-    name: GridEditController
+  - uid: Tripous.Desktop.GroupGridBinder
+    name: GroupGridBinder
     type: Class
-  - uid: Tripous.Desktop.GridLocatorBox
-    name: GridLocatorBox
+  - uid: Tripous.Desktop.GroupGridColumnBinding
+    name: GroupGridColumnBinding
+    type: Class
+  - uid: Tripous.Desktop.GroupGridLocatorInplaceEditor
+    name: GroupGridLocatorInplaceEditor
     type: Class
   - uid: Tripous.Desktop.HighlightMode
     name: HighlightMode
@@ -702,9 +723,6 @@ items:
   - uid: Tripous.Desktop.LocatorBoxRowEventArgs
     name: LocatorBoxRowEventArgs
     type: Class
-  - uid: Tripous.Desktop.LocatorControlHelper
-    name: LocatorControlHelper
-    type: Class
   - uid: Tripous.Desktop.LogBox
     name: LogBox
     type: Class
@@ -737,12 +755,6 @@ items:
     type: Enum
   - uid: Tripous.Desktop.ReferenceMenuCommandContext
     name: ReferenceMenuCommandContext
-    type: Class
-  - uid: Tripous.Desktop.RegBuilderProjectData
-    name: RegBuilderProjectData
-    type: Class
-  - uid: Tripous.Desktop.RegBuilderProjectDialog
-    name: RegBuilderProjectDialog
     type: Class
   - uid: Tripous.Desktop.SqlFilterInfo
     name: SqlFilterInfo
@@ -791,6 +803,13 @@ items:
     type: Class
   - uid: Tripous.Desktop.UiTableInfo
     name: UiTableInfo
+    type: Class
+- uid: Tripous.Http
+  name: Tripous.Http
+  type: Namespace
+  items:
+  - uid: Tripous.Http.HttpPacketResult
+    name: HttpPacketResult
     type: Class
 - uid: Tripous.Logging
   name: Tripous.Logging

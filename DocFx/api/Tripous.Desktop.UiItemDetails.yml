@@ -5,20 +5,24 @@ items:
   id: UiItemDetails
   parent: Tripous.Desktop
   children:
-  - Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
+  - Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.GroupGrid,Tripous.Desktop.UiDetailTableInfo)
   - Tripous.Desktop.UiItemDetails.CreateDetail(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Desktop.UiDetailTableInfo,System.Boolean)
-  - Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Data.TableDef,System.Boolean)
+  - Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo,System.Boolean)
   - Tripous.Desktop.UiItemDetails.CreateDetailGridColumn(Tripous.Data.FieldDef)
-  - Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
+  - Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.GroupGrid,Tripous.Data.TableDef)
   - Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Tripous.Data.FieldDef)
   - Tripous.Desktop.UiItemDetails.CreateDetailGridReferenceMenus(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
-  - Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
   - Tripous.Desktop.UiItemDetails.CreateDetailTabItem(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo,System.Boolean)
-  - Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder(Tripous.Desktop.UiDetailTableInfo)
   - Tripous.Desktop.UiItemDetails.CreateFirstLevelDetails(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control)
   - Tripous.Desktop.UiItemDetails.CreateLocatorDetailGridColumns(Tripous.Data.FieldDef)
   - Tripous.Desktop.UiItemDetails.CreateOneToOneDetail(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Desktop.UiTableInfo)
   - Tripous.Desktop.UiItemDetails.CreateOneToOneDetails(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Data.TableDef)
+  - Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
+  - Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  - Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  - Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor(System.Object,Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs)
+  - Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField(Tripous.Data.TableDef,Tripous.Data.FieldDef)
+  - Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings(Avalonia.Controls.GroupGrid,Tripous.Data.MemTable)
   langs:
   - csharp
   - vb
@@ -167,39 +171,6 @@ items:
   nameWithType.vb: UiItemDetails.CreateDetail(UiItemContext, Control, UiDetailTableInfo, Boolean)
   fullName.vb: Tripous.Desktop.UiItemDetails.CreateDetail(Tripous.Desktop.UiItemContext, Avalonia.Controls.Control, Tripous.Desktop.UiDetailTableInfo, Boolean)
   name.vb: CreateDetail(UiItemContext, Control, UiDetailTableInfo, Boolean)
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder(Tripous.Desktop.UiDetailTableInfo)
-  commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder(Tripous.Desktop.UiDetailTableInfo)
-  id: CreateDetailToolBarBorder(Tripous.Desktop.UiDetailTableInfo)
-  parent: Tripous.Desktop.UiItemDetails
-  langs:
-  - csharp
-  - vb
-  name: CreateDetailToolBarBorder(UiDetailTableInfo)
-  nameWithType: UiItemDetails.CreateDetailToolBarBorder(UiDetailTableInfo)
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder(Tripous.Desktop.UiDetailTableInfo)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: CreateDetailToolBarBorder
-    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 181
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Creates the initially hidden toolbar area of a detail table.
-  example: []
-  syntax:
-    content: public static Border CreateDetailToolBarBorder(UiDetailTableInfo DetailUiInfo)
-    parameters:
-    - id: DetailUiInfo
-      type: Tripous.Desktop.UiDetailTableInfo
-    return:
-      type: Avalonia.Controls.Border
-    content.vb: Public Shared Function CreateDetailToolBarBorder(DetailUiInfo As UiDetailTableInfo) As Border
-  overload: Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder*
 - uid: Tripous.Desktop.UiItemDetails.CreateOneToOneDetail(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Desktop.UiTableInfo)
   commentId: M:Tripous.Desktop.UiItemDetails.CreateOneToOneDetail(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Desktop.UiTableInfo)
   id: CreateOneToOneDetail(Tripous.Desktop.UiItemContext,Avalonia.Controls.Control,Tripous.Desktop.UiTableInfo)
@@ -218,7 +189,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateOneToOneDetail
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 192
+    startLine: 176
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -253,7 +224,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateOneToOneDetails
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 202
+    startLine: 186
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -270,39 +241,6 @@ items:
       type: Tripous.Data.TableDef
     content.vb: Public Shared Sub CreateOneToOneDetails(context As UiItemContext, ParentControl As Control, ParentTableDef As TableDef)
   overload: Tripous.Desktop.UiItemDetails.CreateOneToOneDetails*
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
-  commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
-  id: CreateDetailGridToolBar(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
-  parent: Tripous.Desktop.UiItemDetails
-  langs:
-  - csharp
-  - vb
-  name: CreateDetailGridToolBar(UiItemContext, UiDetailTableInfo)
-  nameWithType: UiItemDetails.CreateDetailGridToolBar(UiItemContext, UiDetailTableInfo)
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar(Tripous.Desktop.UiItemContext, Tripous.Desktop.UiDetailTableInfo)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: CreateDetailGridToolBar
-    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 216
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Creates the toolbar buttons of a detail data grid.
-  example: []
-  syntax:
-    content: public static void CreateDetailGridToolBar(UiItemContext context, UiDetailTableInfo DetailUiInfo)
-    parameters:
-    - id: context
-      type: Tripous.Desktop.UiItemContext
-    - id: DetailUiInfo
-      type: Tripous.Desktop.UiDetailTableInfo
-    content.vb: Public Shared Sub CreateDetailGridToolBar(context As UiItemContext, DetailUiInfo As UiDetailTableInfo)
-  overload: Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar*
 - uid: Tripous.Desktop.UiItemDetails.CreateDetailGridReferenceMenus(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
   commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailGridReferenceMenus(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
   id: CreateDetailGridReferenceMenus(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo)
@@ -321,7 +259,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailGridReferenceMenus
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 286
+    startLine: 198
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -336,16 +274,51 @@ items:
       type: Tripous.Desktop.UiDetailTableInfo
     content.vb: Public Shared Sub CreateDetailGridReferenceMenus(context As UiItemContext, DetailUiInfo As UiDetailTableInfo)
   overload: Tripous.Desktop.UiItemDetails.CreateDetailGridReferenceMenus*
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Data.TableDef,System.Boolean)
-  commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Data.TableDef,System.Boolean)
-  id: CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Data.TableDef,System.Boolean)
+- uid: Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField(Tripous.Data.TableDef,Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField(Tripous.Data.TableDef,Tripous.Data.FieldDef)
+  id: FindLookupDisplaySnapshotField(Tripous.Data.TableDef,Tripous.Data.FieldDef)
   parent: Tripous.Desktop.UiItemDetails
   langs:
   - csharp
   - vb
-  name: CreateDetailDataGrid(UiItemContext, TableDef, bool)
-  nameWithType: UiItemDetails.CreateDetailDataGrid(UiItemContext, TableDef, bool)
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext, Tripous.Data.TableDef, bool)
+  name: FindLookupDisplaySnapshotField(TableDef, FieldDef)
+  nameWithType: UiItemDetails.FindLookupDisplaySnapshotField(TableDef, FieldDef)
+  fullName: Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField(Tripous.Data.TableDef, Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FindLookupDisplaySnapshotField
+    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
+    startLine: 222
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Finds a display snapshot field for a lookup field.
+  example: []
+  syntax:
+    content: public static FieldDef FindLookupDisplaySnapshotField(TableDef TableDef, FieldDef LookupField)
+    parameters:
+    - id: TableDef
+      type: Tripous.Data.TableDef
+    - id: LookupField
+      type: Tripous.Data.FieldDef
+    return:
+      type: Tripous.Data.FieldDef
+    content.vb: Public Shared Function FindLookupDisplaySnapshotField(TableDef As TableDef, LookupField As FieldDef) As FieldDef
+  overload: Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField*
+- uid: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo,System.Boolean)
+  commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo,System.Boolean)
+  id: CreateDetailDataGrid(Tripous.Desktop.UiItemContext,Tripous.Desktop.UiDetailTableInfo,System.Boolean)
+  parent: Tripous.Desktop.UiItemDetails
+  langs:
+  - csharp
+  - vb
+  name: CreateDetailDataGrid(UiItemContext, UiDetailTableInfo, bool)
+  nameWithType: UiItemDetails.CreateDetailDataGrid(UiItemContext, UiDetailTableInfo, bool)
+  fullName: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext, Tripous.Desktop.UiDetailTableInfo, bool)
   type: Method
   source:
     remote:
@@ -354,38 +327,38 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailDataGrid
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 333
+    startLine: 251
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Creates a detail data grid.
   example: []
   syntax:
-    content: public static DataGrid CreateDetailDataGrid(UiItemContext context, TableDef TableDef, bool ApplyMinimumHeight = true)
+    content: public static GroupGrid CreateDetailDataGrid(UiItemContext context, UiDetailTableInfo DetailUiInfo, bool ApplyMinimumHeight = true)
     parameters:
     - id: context
       type: Tripous.Desktop.UiItemContext
-    - id: TableDef
-      type: Tripous.Data.TableDef
+    - id: DetailUiInfo
+      type: Tripous.Desktop.UiDetailTableInfo
     - id: ApplyMinimumHeight
       type: System.Boolean
     return:
-      type: Avalonia.Controls.DataGrid
-    content.vb: Public Shared Function CreateDetailDataGrid(context As UiItemContext, TableDef As TableDef, ApplyMinimumHeight As Boolean = True) As DataGrid
+      type: Avalonia.Controls.GroupGrid
+    content.vb: Public Shared Function CreateDetailDataGrid(context As UiItemContext, DetailUiInfo As UiDetailTableInfo, ApplyMinimumHeight As Boolean = True) As GroupGrid
   overload: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid*
-  nameWithType.vb: UiItemDetails.CreateDetailDataGrid(UiItemContext, TableDef, Boolean)
-  fullName.vb: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext, Tripous.Data.TableDef, Boolean)
-  name.vb: CreateDetailDataGrid(UiItemContext, TableDef, Boolean)
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
-  commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
-  id: CreateDetailGridColumns(Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
+  nameWithType.vb: UiItemDetails.CreateDetailDataGrid(UiItemContext, UiDetailTableInfo, Boolean)
+  fullName.vb: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid(Tripous.Desktop.UiItemContext, Tripous.Desktop.UiDetailTableInfo, Boolean)
+  name.vb: CreateDetailDataGrid(UiItemContext, UiDetailTableInfo, Boolean)
+- uid: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.GroupGrid,Tripous.Data.TableDef)
+  commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.GroupGrid,Tripous.Data.TableDef)
+  id: CreateDetailGridColumns(Avalonia.Controls.GroupGrid,Tripous.Data.TableDef)
   parent: Tripous.Desktop.UiItemDetails
   langs:
   - csharp
   - vb
-  name: CreateDetailGridColumns(DataGrid, TableDef)
-  nameWithType: UiItemDetails.CreateDetailGridColumns(DataGrid, TableDef)
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.DataGrid, Tripous.Data.TableDef)
+  name: CreateDetailGridColumns(GroupGrid, TableDef)
+  nameWithType: UiItemDetails.CreateDetailGridColumns(GroupGrid, TableDef)
+  fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Avalonia.Controls.GroupGrid, Tripous.Data.TableDef)
   type: Method
   source:
     remote:
@@ -394,20 +367,20 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailGridColumns
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 353
+    startLine: 276
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Creates the columns of a detail data grid.
   example: []
   syntax:
-    content: public static void CreateDetailGridColumns(DataGrid Grid, TableDef TableDef)
+    content: public static void CreateDetailGridColumns(GroupGrid Grid, TableDef TableDef)
     parameters:
     - id: Grid
-      type: Avalonia.Controls.DataGrid
+      type: Avalonia.Controls.GroupGrid
     - id: TableDef
       type: Tripous.Data.TableDef
-    content.vb: Public Shared Sub CreateDetailGridColumns(Grid As DataGrid, TableDef As TableDef)
+    content.vb: Public Shared Sub CreateDetailGridColumns(Grid As GroupGrid, TableDef As TableDef)
   overload: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns*
 - uid: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Tripous.Data.FieldDef)
   commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailGridColumns(Tripous.Data.FieldDef)
@@ -427,20 +400,20 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailGridColumns
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 367
+    startLine: 304
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Creates columns for a detail grid field.
   example: []
   syntax:
-    content: public static List<DataGridColumn> CreateDetailGridColumns(FieldDef Field)
+    content: public static List<GroupGridColumn> CreateDetailGridColumns(FieldDef Field)
     parameters:
     - id: Field
       type: Tripous.Data.FieldDef
     return:
-      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
-    content.vb: Public Shared Function CreateDetailGridColumns(Field As FieldDef) As List(Of DataGridColumn)
+      type: System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+    content.vb: Public Shared Function CreateDetailGridColumns(Field As FieldDef) As List(Of GroupGridColumn)
   overload: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns*
 - uid: Tripous.Desktop.UiItemDetails.CreateLocatorDetailGridColumns(Tripous.Data.FieldDef)
   commentId: M:Tripous.Desktop.UiItemDetails.CreateLocatorDetailGridColumns(Tripous.Data.FieldDef)
@@ -460,20 +433,20 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateLocatorDetailGridColumns
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 381
+    startLine: 318
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Creates display columns for a locator detail grid field.
   example: []
   syntax:
-    content: public static List<DataGridColumn> CreateLocatorDetailGridColumns(FieldDef Field)
+    content: public static List<GroupGridColumn> CreateLocatorDetailGridColumns(FieldDef Field)
     parameters:
     - id: Field
       type: Tripous.Data.FieldDef
     return:
-      type: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
-    content.vb: Public Shared Function CreateLocatorDetailGridColumns(Field As FieldDef) As List(Of DataGridColumn)
+      type: System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+    content.vb: Public Shared Function CreateLocatorDetailGridColumns(Field As FieldDef) As List(Of GroupGridColumn)
   overload: Tripous.Desktop.UiItemDetails.CreateLocatorDetailGridColumns*
 - uid: Tripous.Desktop.UiItemDetails.CreateDetailGridColumn(Tripous.Data.FieldDef)
   commentId: M:Tripous.Desktop.UiItemDetails.CreateDetailGridColumn(Tripous.Data.FieldDef)
@@ -493,31 +466,208 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDetailGridColumn
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 416
+    startLine: 352
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Creates a column for a detail data grid.
   example: []
   syntax:
-    content: public static DataGridColumn CreateDetailGridColumn(FieldDef Field)
+    content: public static GroupGridColumn CreateDetailGridColumn(FieldDef Field)
     parameters:
     - id: Field
       type: Tripous.Data.FieldDef
     return:
-      type: Avalonia.Controls.DataGridColumn
-    content.vb: Public Shared Function CreateDetailGridColumn(Field As FieldDef) As DataGridColumn
+      type: Avalonia.Controls.GroupGridColumn
+    content.vb: Public Shared Function CreateDetailGridColumn(Field As FieldDef) As GroupGridColumn
   overload: Tripous.Desktop.UiItemDetails.CreateDetailGridColumn*
-- uid: Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
-  commentId: M:Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
-  id: BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.DataGrid,Tripous.Data.TableDef)
+- uid: Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings(Avalonia.Controls.GroupGrid,Tripous.Data.MemTable)
+  commentId: M:Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings(Avalonia.Controls.GroupGrid,Tripous.Data.MemTable)
+  id: UpdateDetailGridColumnBindings(Avalonia.Controls.GroupGrid,Tripous.Data.MemTable)
   parent: Tripous.Desktop.UiItemDetails
   langs:
   - csharp
   - vb
-  name: BindDetailGrid(UiItemContext, DataGrid, TableDef)
-  nameWithType: UiItemDetails.BindDetailGrid(UiItemContext, DataGrid, TableDef)
-  fullName: Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext, Avalonia.Controls.DataGrid, Tripous.Data.TableDef)
+  name: UpdateDetailGridColumnBindings(GroupGrid, MemTable)
+  nameWithType: UiItemDetails.UpdateDetailGridColumnBindings(GroupGrid, MemTable)
+  fullName: Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings(Avalonia.Controls.GroupGrid, Tripous.Data.MemTable)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UpdateDetailGridColumnBindings
+    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
+    startLine: 361
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Updates group grid column bindings with runtime table information.
+  example: []
+  syntax:
+    content: public static void UpdateDetailGridColumnBindings(GroupGrid Grid, MemTable Table)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+    - id: Table
+      type: Tripous.Data.MemTable
+    content.vb: Public Shared Sub UpdateDetailGridColumnBindings(Grid As GroupGrid, Table As MemTable)
+  overload: Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings*
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  commentId: M:Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  id: DetailGrid_CellValueCommitted(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  parent: Tripous.Desktop.UiItemDetails
+  langs:
+  - csharp
+  - vb
+  name: DetailGrid_CellValueCommitted(object, GroupGridCellEditEventArgs)
+  nameWithType: UiItemDetails.DetailGrid_CellValueCommitted(object, GroupGridCellEditEventArgs)
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted(object, Avalonia.Controls.GroupGridCellEditEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailGrid_CellValueCommitted
+    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
+    startLine: 377
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles committed detail grid cell values.
+  example: []
+  syntax:
+    content: public static void DetailGrid_CellValueCommitted(object Sender, GroupGridCellEditEventArgs Args)
+    parameters:
+    - id: Sender
+      type: System.Object
+    - id: Args
+      type: Avalonia.Controls.GroupGridCellEditEventArgs
+    content.vb: Public Shared Sub DetailGrid_CellValueCommitted(Sender As Object, Args As GroupGridCellEditEventArgs)
+  overload: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted*
+  nameWithType.vb: UiItemDetails.DetailGrid_CellValueCommitted(Object, GroupGridCellEditEventArgs)
+  fullName.vb: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted(Object, Avalonia.Controls.GroupGridCellEditEventArgs)
+  name.vb: DetailGrid_CellValueCommitted(Object, GroupGridCellEditEventArgs)
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
+  commentId: M:Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
+  id: DetailGrid_CellPointerPressed(System.Object,Avalonia.Controls.GroupGridCellPointerEventArgs)
+  parent: Tripous.Desktop.UiItemDetails
+  langs:
+  - csharp
+  - vb
+  name: DetailGrid_CellPointerPressed(object, GroupGridCellPointerEventArgs)
+  nameWithType: UiItemDetails.DetailGrid_CellPointerPressed(object, GroupGridCellPointerEventArgs)
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(object, Avalonia.Controls.GroupGridCellPointerEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailGrid_CellPointerPressed
+    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
+    startLine: 392
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles detail grid cell pointer events.
+  example: []
+  syntax:
+    content: public static void DetailGrid_CellPointerPressed(object Sender, GroupGridCellPointerEventArgs Args)
+    parameters:
+    - id: Sender
+      type: System.Object
+    - id: Args
+      type: Avalonia.Controls.GroupGridCellPointerEventArgs
+    content.vb: Public Shared Sub DetailGrid_CellPointerPressed(Sender As Object, Args As GroupGridCellPointerEventArgs)
+  overload: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed*
+  nameWithType.vb: UiItemDetails.DetailGrid_CellPointerPressed(Object, GroupGridCellPointerEventArgs)
+  fullName.vb: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed(Object, Avalonia.Controls.GroupGridCellPointerEventArgs)
+  name.vb: DetailGrid_CellPointerPressed(Object, GroupGridCellPointerEventArgs)
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  commentId: M:Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  id: DetailGrid_CellValueCommitting(System.Object,Avalonia.Controls.GroupGridCellEditEventArgs)
+  parent: Tripous.Desktop.UiItemDetails
+  langs:
+  - csharp
+  - vb
+  name: DetailGrid_CellValueCommitting(object, GroupGridCellEditEventArgs)
+  nameWithType: UiItemDetails.DetailGrid_CellValueCommitting(object, GroupGridCellEditEventArgs)
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(object, Avalonia.Controls.GroupGridCellEditEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailGrid_CellValueCommitting
+    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
+    startLine: 406
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles committing detail grid cell values before they are written to the adapter.
+  example: []
+  syntax:
+    content: public static void DetailGrid_CellValueCommitting(object Sender, GroupGridCellEditEventArgs Args)
+    parameters:
+    - id: Sender
+      type: System.Object
+    - id: Args
+      type: Avalonia.Controls.GroupGridCellEditEventArgs
+    content.vb: Public Shared Sub DetailGrid_CellValueCommitting(Sender As Object, Args As GroupGridCellEditEventArgs)
+  overload: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting*
+  nameWithType.vb: UiItemDetails.DetailGrid_CellValueCommitting(Object, GroupGridCellEditEventArgs)
+  fullName.vb: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting(Object, Avalonia.Controls.GroupGridCellEditEventArgs)
+  name.vb: DetailGrid_CellValueCommitting(Object, GroupGridCellEditEventArgs)
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor(System.Object,Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs)
+  commentId: M:Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor(System.Object,Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs)
+  id: DetailGrid_CreateInplaceEditor(System.Object,Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs)
+  parent: Tripous.Desktop.UiItemDetails
+  langs:
+  - csharp
+  - vb
+  name: DetailGrid_CreateInplaceEditor(object, GroupGridCreateInplaceEditorEventArgs)
+  nameWithType: UiItemDetails.DetailGrid_CreateInplaceEditor(object, GroupGridCreateInplaceEditorEventArgs)
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor(object, Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/ItemUi/UiItemDetails.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DetailGrid_CreateInplaceEditor
+    path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
+    startLine: 423
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Handles custom detail grid editor creation.
+  example: []
+  syntax:
+    content: public static void DetailGrid_CreateInplaceEditor(object Sender, GroupGridCreateInplaceEditorEventArgs Args)
+    parameters:
+    - id: Sender
+      type: System.Object
+    - id: Args
+      type: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+    content.vb: Public Shared Sub DetailGrid_CreateInplaceEditor(Sender As Object, Args As GroupGridCreateInplaceEditorEventArgs)
+  overload: Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor*
+  nameWithType.vb: UiItemDetails.DetailGrid_CreateInplaceEditor(Object, GroupGridCreateInplaceEditorEventArgs)
+  fullName.vb: Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor(Object, Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs)
+  name.vb: DetailGrid_CreateInplaceEditor(Object, GroupGridCreateInplaceEditorEventArgs)
+- uid: Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.GroupGrid,Tripous.Desktop.UiDetailTableInfo)
+  commentId: M:Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.GroupGrid,Tripous.Desktop.UiDetailTableInfo)
+  id: BindDetailGrid(Tripous.Desktop.UiItemContext,Avalonia.Controls.GroupGrid,Tripous.Desktop.UiDetailTableInfo)
+  parent: Tripous.Desktop.UiItemDetails
+  langs:
+  - csharp
+  - vb
+  name: BindDetailGrid(UiItemContext, GroupGrid, UiDetailTableInfo)
+  nameWithType: UiItemDetails.BindDetailGrid(UiItemContext, GroupGrid, UiDetailTableInfo)
+  fullName: Tripous.Desktop.UiItemDetails.BindDetailGrid(Tripous.Desktop.UiItemContext, Avalonia.Controls.GroupGrid, Tripous.Desktop.UiDetailTableInfo)
   type: Method
   source:
     remote:
@@ -526,22 +676,22 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BindDetailGrid
     path: ../Tripous.Desktop/ItemUi/UiItemDetails.cs
-    startLine: 425
+    startLine: 436
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Binds a detail data grid to the view of its table.
   example: []
   syntax:
-    content: public static void BindDetailGrid(UiItemContext context, DataGrid Grid, TableDef TableDef)
+    content: public static void BindDetailGrid(UiItemContext context, GroupGrid Grid, UiDetailTableInfo DetailUiInfo)
     parameters:
     - id: context
       type: Tripous.Desktop.UiItemContext
     - id: Grid
-      type: Avalonia.Controls.DataGrid
-    - id: TableDef
-      type: Tripous.Data.TableDef
-    content.vb: Public Shared Sub BindDetailGrid(context As UiItemContext, Grid As DataGrid, TableDef As TableDef)
+      type: Avalonia.Controls.GroupGrid
+    - id: DetailUiInfo
+      type: Tripous.Desktop.UiDetailTableInfo
+    content.vb: Public Shared Sub BindDetailGrid(context As UiItemContext, Grid As GroupGrid, DetailUiInfo As UiDetailTableInfo)
   overload: Tripous.Desktop.UiItemDetails.BindDetailGrid*
 references:
 - uid: Tripous.Desktop
@@ -825,26 +975,21 @@ references:
   fullName: Avalonia.Controls.Control
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
 - uid: Tripous.Desktop.UiItemDetails.CreateDetailTabItem*
   commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailTabItem
   href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailTabItem_Tripous_Desktop_UiItemContext_Tripous_Desktop_UiDetailTableInfo_System_Boolean_
@@ -889,19 +1034,6 @@ references:
   name: Grid
   nameWithType: Grid
   fullName: Avalonia.Controls.Grid
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder*
-  commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder
-  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailToolBarBorder_Tripous_Desktop_UiDetailTableInfo_
-  name: CreateDetailToolBarBorder
-  nameWithType: UiItemDetails.CreateDetailToolBarBorder
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailToolBarBorder
-- uid: Avalonia.Controls.Border
-  commentId: T:Avalonia.Controls.Border
-  parent: Avalonia.Controls
-  isExternal: true
-  name: Border
-  nameWithType: Border
-  fullName: Avalonia.Controls.Border
 - uid: Tripous.Desktop.UiItemDetails.CreateOneToOneDetail*
   commentId: Overload:Tripous.Desktop.UiItemDetails.CreateOneToOneDetail
   href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateOneToOneDetail_Tripous_Desktop_UiItemContext_Avalonia_Controls_Control_Tripous_Desktop_UiTableInfo_
@@ -950,37 +1082,18 @@ references:
   - uid: Tripous.Data
     name: Data
     href: Tripous.Data.html
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar*
-  commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar
-  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailGridToolBar_Tripous_Desktop_UiItemContext_Tripous_Desktop_UiDetailTableInfo_
-  name: CreateDetailGridToolBar
-  nameWithType: UiItemDetails.CreateDetailGridToolBar
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridToolBar
 - uid: Tripous.Desktop.UiItemDetails.CreateDetailGridReferenceMenus*
   commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailGridReferenceMenus
   href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailGridReferenceMenus_Tripous_Desktop_UiItemContext_Tripous_Desktop_UiDetailTableInfo_
   name: CreateDetailGridReferenceMenus
   nameWithType: UiItemDetails.CreateDetailGridReferenceMenus
   fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridReferenceMenus
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid*
-  commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailDataGrid
-  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailDataGrid_Tripous_Desktop_UiItemContext_Tripous_Data_TableDef_System_Boolean_
-  name: CreateDetailDataGrid
-  nameWithType: UiItemDetails.CreateDetailDataGrid
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid
-- uid: Avalonia.Controls.DataGrid
-  commentId: T:Avalonia.Controls.DataGrid
-  parent: Avalonia.Controls
-  isExternal: true
-  name: DataGrid
-  nameWithType: DataGrid
-  fullName: Avalonia.Controls.DataGrid
-- uid: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns*
-  commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailGridColumns
-  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailGridColumns_Avalonia_Controls_DataGrid_Tripous_Data_TableDef_
-  name: CreateDetailGridColumns
-  nameWithType: UiItemDetails.CreateDetailGridColumns
-  fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns
+- uid: Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_FindLookupDisplaySnapshotField_Tripous_Data_TableDef_Tripous_Data_FieldDef_
+  name: FindLookupDisplaySnapshotField
+  nameWithType: UiItemDetails.FindLookupDisplaySnapshotField
+  fullName: Tripous.Desktop.UiItemDetails.FindLookupDisplaySnapshotField
 - uid: Tripous.Data.FieldDef
   commentId: T:Tripous.Data.FieldDef
   parent: Tripous.Data
@@ -988,26 +1101,43 @@ references:
   name: FieldDef
   nameWithType: FieldDef
   fullName: Tripous.Data.FieldDef
-- uid: System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
-  commentId: T:System.Collections.Generic.List{Avalonia.Controls.DataGridColumn}
+- uid: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailDataGrid
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailDataGrid_Tripous_Desktop_UiItemContext_Tripous_Desktop_UiDetailTableInfo_System_Boolean_
+  name: CreateDetailDataGrid
+  nameWithType: UiItemDetails.CreateDetailDataGrid
+  fullName: Tripous.Desktop.UiItemDetails.CreateDetailDataGrid
+- uid: Avalonia.Controls.GroupGrid
+  commentId: T:Avalonia.Controls.GroupGrid
+  parent: Avalonia.Controls
+  name: GroupGrid
+  nameWithType: GroupGrid
+  fullName: Avalonia.Controls.GroupGrid
+- uid: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailGridColumns
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailGridColumns_Avalonia_Controls_GroupGrid_Tripous_Data_TableDef_
+  name: CreateDetailGridColumns
+  nameWithType: UiItemDetails.CreateDetailGridColumns
+  fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridColumns
+- uid: System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+  commentId: T:System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.List`1
   href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<DataGridColumn>
-  nameWithType: List<DataGridColumn>
-  fullName: System.Collections.Generic.List<Avalonia.Controls.DataGridColumn>
-  nameWithType.vb: List(Of DataGridColumn)
-  fullName.vb: System.Collections.Generic.List(Of Avalonia.Controls.DataGridColumn)
-  name.vb: List(Of DataGridColumn)
+  name: List<GroupGridColumn>
+  nameWithType: List<GroupGridColumn>
+  fullName: System.Collections.Generic.List<Avalonia.Controls.GroupGridColumn>
+  nameWithType.vb: List(Of GroupGridColumn)
+  fullName.vb: System.Collections.Generic.List(Of Avalonia.Controls.GroupGridColumn)
+  name.vb: List(Of GroupGridColumn)
   spec.csharp:
   - uid: System.Collections.Generic.List`1
     name: List
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-  - uid: Avalonia.Controls.DataGridColumn
-    name: DataGridColumn
-    isExternal: true
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
   - name: '>'
   spec.vb:
   - uid: System.Collections.Generic.List`1
@@ -1017,9 +1147,8 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: Avalonia.Controls.DataGridColumn
-    name: DataGridColumn
-    isExternal: true
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
   - name: )
 - uid: System.Collections.Generic.List`1
   commentId: T:System.Collections.Generic.List`1
@@ -1098,16 +1227,70 @@ references:
   name: CreateDetailGridColumn
   nameWithType: UiItemDetails.CreateDetailGridColumn
   fullName: Tripous.Desktop.UiItemDetails.CreateDetailGridColumn
-- uid: Avalonia.Controls.DataGridColumn
-  commentId: T:Avalonia.Controls.DataGridColumn
+- uid: Avalonia.Controls.GroupGridColumn
+  commentId: T:Avalonia.Controls.GroupGridColumn
   parent: Avalonia.Controls
-  isExternal: true
-  name: DataGridColumn
-  nameWithType: DataGridColumn
-  fullName: Avalonia.Controls.DataGridColumn
+  name: GroupGridColumn
+  nameWithType: GroupGridColumn
+  fullName: Avalonia.Controls.GroupGridColumn
+- uid: Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_UpdateDetailGridColumnBindings_Avalonia_Controls_GroupGrid_Tripous_Data_MemTable_
+  name: UpdateDetailGridColumnBindings
+  nameWithType: UiItemDetails.UpdateDetailGridColumnBindings
+  fullName: Tripous.Desktop.UiItemDetails.UpdateDetailGridColumnBindings
+- uid: Tripous.Data.MemTable
+  commentId: T:Tripous.Data.MemTable
+  parent: Tripous.Data
+  href: Tripous.Data.MemTable.html
+  name: MemTable
+  nameWithType: MemTable
+  fullName: Tripous.Data.MemTable
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_DetailGrid_CellValueCommitted_System_Object_Avalonia_Controls_GroupGridCellEditEventArgs_
+  name: DetailGrid_CellValueCommitted
+  nameWithType: UiItemDetails.DetailGrid_CellValueCommitted
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitted
+- uid: Avalonia.Controls.GroupGridCellEditEventArgs
+  commentId: T:Avalonia.Controls.GroupGridCellEditEventArgs
+  parent: Avalonia.Controls
+  name: GroupGridCellEditEventArgs
+  nameWithType: GroupGridCellEditEventArgs
+  fullName: Avalonia.Controls.GroupGridCellEditEventArgs
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_DetailGrid_CellPointerPressed_System_Object_Avalonia_Controls_GroupGridCellPointerEventArgs_
+  name: DetailGrid_CellPointerPressed
+  nameWithType: UiItemDetails.DetailGrid_CellPointerPressed
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellPointerPressed
+- uid: Avalonia.Controls.GroupGridCellPointerEventArgs
+  commentId: T:Avalonia.Controls.GroupGridCellPointerEventArgs
+  parent: Avalonia.Controls
+  name: GroupGridCellPointerEventArgs
+  nameWithType: GroupGridCellPointerEventArgs
+  fullName: Avalonia.Controls.GroupGridCellPointerEventArgs
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_DetailGrid_CellValueCommitting_System_Object_Avalonia_Controls_GroupGridCellEditEventArgs_
+  name: DetailGrid_CellValueCommitting
+  nameWithType: UiItemDetails.DetailGrid_CellValueCommitting
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CellValueCommitting
+- uid: Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor*
+  commentId: Overload:Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_DetailGrid_CreateInplaceEditor_System_Object_Avalonia_Controls_GroupGridCreateInplaceEditorEventArgs_
+  name: DetailGrid_CreateInplaceEditor
+  nameWithType: UiItemDetails.DetailGrid_CreateInplaceEditor
+  fullName: Tripous.Desktop.UiItemDetails.DetailGrid_CreateInplaceEditor
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  commentId: T:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  parent: Avalonia.Controls
+  name: GroupGridCreateInplaceEditorEventArgs
+  nameWithType: GroupGridCreateInplaceEditorEventArgs
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
 - uid: Tripous.Desktop.UiItemDetails.BindDetailGrid*
   commentId: Overload:Tripous.Desktop.UiItemDetails.BindDetailGrid
-  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_BindDetailGrid_Tripous_Desktop_UiItemContext_Avalonia_Controls_DataGrid_Tripous_Data_TableDef_
+  href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_BindDetailGrid_Tripous_Desktop_UiItemContext_Avalonia_Controls_GroupGrid_Tripous_Desktop_UiDetailTableInfo_
   name: BindDetailGrid
   nameWithType: UiItemDetails.BindDetailGrid
   fullName: Tripous.Desktop.UiItemDetails.BindDetailGrid

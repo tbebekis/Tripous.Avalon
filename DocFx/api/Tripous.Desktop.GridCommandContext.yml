@@ -101,11 +101,11 @@ items:
   summary: Gets or sets the data grid.
   example: []
   syntax:
-    content: public DataGrid Grid { get; set; }
+    content: public GroupGrid Grid { get; set; }
     parameters: []
     return:
-      type: Avalonia.Controls.DataGrid
-    content.vb: Public Property Grid As DataGrid
+      type: Avalonia.Controls.GroupGrid
+    content.vb: Public Property Grid As GroupGrid
   overload: Tripous.Desktop.GridCommandContext.Grid*
 - uid: Tripous.Desktop.GridCommandContext.Table
   commentId: P:Tripous.Desktop.GridCommandContext.Table
@@ -515,35 +515,29 @@ references:
   name: Grid
   nameWithType: GridCommandContext.Grid
   fullName: Tripous.Desktop.GridCommandContext.Grid
-- uid: Avalonia.Controls.DataGrid
-  commentId: T:Avalonia.Controls.DataGrid
+- uid: Avalonia.Controls.GroupGrid
+  commentId: T:Avalonia.Controls.GroupGrid
   parent: Avalonia.Controls
-  isExternal: true
-  name: DataGrid
-  nameWithType: DataGrid
-  fullName: Avalonia.Controls.DataGrid
+  name: GroupGrid
+  nameWithType: GroupGrid
+  fullName: Avalonia.Controls.GroupGrid
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
 - uid: Tripous.Desktop.GridCommandContext.Table*
   commentId: Overload:Tripous.Desktop.GridCommandContext.Table
   href: Tripous.Desktop.GridCommandContext.html#Tripous_Desktop_GridCommandContext_Table

@@ -17,6 +17,7 @@ items:
   - Tripous.Data.Config
   - Tripous.Data.ConfigPropertyDef
   - Tripous.Data.ConfigScope
+  - Tripous.Data.ConfigScopeFlags
   - Tripous.Data.ConfigValueKind
   - Tripous.Data.ConnectionStringBuilder
   - Tripous.Data.ConstraintType
@@ -63,20 +64,32 @@ items:
   - Tripous.Data.DbServerTypeHelper
   - Tripous.Data.DetailList
   - Tripous.Data.DocumentHandlerDef
-  - Tripous.Data.DuplicateCheck
   - Tripous.Data.FieldDef
   - Tripous.Data.FieldFlags
   - Tripous.Data.FirebirdConAdapter
   - Tripous.Data.IRowProvider
   - Tripous.Data.IRowProviderHost
   - Tripous.Data.ISqlValueProvider
+  - Tripous.Data.JsonDataColumn
+  - Tripous.Data.JsonDataModule
+  - Tripous.Data.JsonDataRow
+  - Tripous.Data.JsonDataSet
+  - Tripous.Data.JsonDataTable
+  - Tripous.Data.JsonSelectFilter
+  - Tripous.Data.JsonSelectFilters
   - Tripous.Data.LocateOptions
   - Tripous.Data.Locator
+  - Tripous.Data.LocatorContext
   - Tripous.Data.LocatorDef
-  - Tripous.Data.LocatorEventArgs
-  - Tripous.Data.LocatorEventType
   - Tripous.Data.LocatorFieldDef
-  - Tripous.Data.LocatorSearchResult
+  - Tripous.Data.LocatorMapItem
+  - Tripous.Data.LocatorMapPlan
+  - Tripous.Data.LocatorMapper
+  - Tripous.Data.LocatorRequest
+  - Tripous.Data.LocatorResult
+  - Tripous.Data.LocatorResultListKind
+  - Tripous.Data.LocatorResultStatus
+  - Tripous.Data.Locators
   - Tripous.Data.LogDataModule
   - Tripous.Data.LookupDef
   - Tripous.Data.LookupItem
@@ -87,15 +100,10 @@ items:
   - Tripous.Data.MySqlConAdapter
   - Tripous.Data.OidMode
   - Tripous.Data.OracleConAdapter
-  - Tripous.Data.ParsingErrorType
-  - Tripous.Data.ParsingMessage
   - Tripous.Data.PostgreSqlConAdapter
-  - Tripous.Data.RegBuilderProject
   - Tripous.Data.ResetPeriod
   - Tripous.Data.Schema
   - Tripous.Data.SchemaItem
-  - Tripous.Data.SchemaParserResult
-  - Tripous.Data.SchemaRegistrationBuilder
   - Tripous.Data.SchemaVersion
   - Tripous.Data.SchemaVersionDef
   - Tripous.Data.SchemaVersionExtensions
@@ -125,6 +133,7 @@ items:
   - Tripous.Data.SqlStatementBuilder
   - Tripous.Data.SqlStore
   - Tripous.Data.SqlStores
+  - Tripous.Data.SqlTextItem
   - Tripous.Data.SqlTransactionContext
   - Tripous.Data.SqlTypeTokens
   - Tripous.Data.SqlValueProviders
@@ -423,13 +432,6 @@ references:
   name: DbServerTypeHelper
   nameWithType: DbServerTypeHelper
   fullName: Tripous.Data.DbServerTypeHelper
-- uid: Tripous.Data.LocatorEventType
-  commentId: T:Tripous.Data.LocatorEventType
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorEventType.html
-  name: LocatorEventType
-  nameWithType: LocatorEventType
-  fullName: Tripous.Data.LocatorEventType
 - uid: Tripous.Data.OidMode
   commentId: T:Tripous.Data.OidMode
   parent: Tripous.Data
@@ -528,27 +530,134 @@ references:
   name: IRowProviderHost
   nameWithType: IRowProviderHost
   fullName: Tripous.Data.IRowProviderHost
+- uid: Tripous.Data.JsonDataColumn
+  commentId: T:Tripous.Data.JsonDataColumn
+  href: Tripous.Data.JsonDataColumn.html
+  name: JsonDataColumn
+  nameWithType: JsonDataColumn
+  fullName: Tripous.Data.JsonDataColumn
+- uid: Tripous.Data.JsonDataModule
+  commentId: T:Tripous.Data.JsonDataModule
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataModule.html
+  name: JsonDataModule
+  nameWithType: JsonDataModule
+  fullName: Tripous.Data.JsonDataModule
+- uid: Tripous.Data.JsonDataRow
+  commentId: T:Tripous.Data.JsonDataRow
+  href: Tripous.Data.JsonDataRow.html
+  name: JsonDataRow
+  nameWithType: JsonDataRow
+  fullName: Tripous.Data.JsonDataRow
+- uid: Tripous.Data.JsonDataSet
+  commentId: T:Tripous.Data.JsonDataSet
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataSet.html
+  name: JsonDataSet
+  nameWithType: JsonDataSet
+  fullName: Tripous.Data.JsonDataSet
+- uid: Tripous.Data.JsonDataTable
+  commentId: T:Tripous.Data.JsonDataTable
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataTable.html
+  name: JsonDataTable
+  nameWithType: JsonDataTable
+  fullName: Tripous.Data.JsonDataTable
+- uid: Tripous.Data.JsonSelectFilter
+  commentId: T:Tripous.Data.JsonSelectFilter
+  parent: Tripous.Data
+  href: Tripous.Data.JsonSelectFilter.html
+  name: JsonSelectFilter
+  nameWithType: JsonSelectFilter
+  fullName: Tripous.Data.JsonSelectFilter
+- uid: Tripous.Data.JsonSelectFilters
+  commentId: T:Tripous.Data.JsonSelectFilters
+  parent: Tripous.Data
+  href: Tripous.Data.JsonSelectFilters.html
+  name: JsonSelectFilters
+  nameWithType: JsonSelectFilters
+  fullName: Tripous.Data.JsonSelectFilters
 - uid: Tripous.Data.Locator
   commentId: T:Tripous.Data.Locator
-  parent: Tripous.Data
   href: Tripous.Data.Locator.html
   name: Locator
   nameWithType: Locator
   fullName: Tripous.Data.Locator
-- uid: Tripous.Data.LocatorEventArgs
-  commentId: T:Tripous.Data.LocatorEventArgs
+- uid: Tripous.Data.LocatorContext
+  commentId: T:Tripous.Data.LocatorContext
   parent: Tripous.Data
-  href: Tripous.Data.LocatorEventArgs.html
-  name: LocatorEventArgs
-  nameWithType: LocatorEventArgs
-  fullName: Tripous.Data.LocatorEventArgs
-- uid: Tripous.Data.LocatorSearchResult
-  commentId: T:Tripous.Data.LocatorSearchResult
+  href: Tripous.Data.LocatorContext.html
+  name: LocatorContext
+  nameWithType: LocatorContext
+  fullName: Tripous.Data.LocatorContext
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
   parent: Tripous.Data
-  href: Tripous.Data.LocatorSearchResult.html
-  name: LocatorSearchResult
-  nameWithType: LocatorSearchResult
-  fullName: Tripous.Data.LocatorSearchResult
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
+- uid: Tripous.Data.LocatorFieldDef
+  commentId: T:Tripous.Data.LocatorFieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorFieldDef.html
+  name: LocatorFieldDef
+  nameWithType: LocatorFieldDef
+  fullName: Tripous.Data.LocatorFieldDef
+- uid: Tripous.Data.LocatorMapItem
+  commentId: T:Tripous.Data.LocatorMapItem
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorMapItem.html
+  name: LocatorMapItem
+  nameWithType: LocatorMapItem
+  fullName: Tripous.Data.LocatorMapItem
+- uid: Tripous.Data.LocatorMapper
+  commentId: T:Tripous.Data.LocatorMapper
+  href: Tripous.Data.LocatorMapper.html
+  name: LocatorMapper
+  nameWithType: LocatorMapper
+  fullName: Tripous.Data.LocatorMapper
+- uid: Tripous.Data.LocatorMapPlan
+  commentId: T:Tripous.Data.LocatorMapPlan
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorMapPlan.html
+  name: LocatorMapPlan
+  nameWithType: LocatorMapPlan
+  fullName: Tripous.Data.LocatorMapPlan
+- uid: Tripous.Data.LocatorRequest
+  commentId: T:Tripous.Data.LocatorRequest
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorRequest.html
+  name: LocatorRequest
+  nameWithType: LocatorRequest
+  fullName: Tripous.Data.LocatorRequest
+- uid: Tripous.Data.LocatorResult
+  commentId: T:Tripous.Data.LocatorResult
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorResult.html
+  name: LocatorResult
+  nameWithType: LocatorResult
+  fullName: Tripous.Data.LocatorResult
+- uid: Tripous.Data.LocatorResultListKind
+  commentId: T:Tripous.Data.LocatorResultListKind
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorResultListKind.html
+  name: LocatorResultListKind
+  nameWithType: LocatorResultListKind
+  fullName: Tripous.Data.LocatorResultListKind
+- uid: Tripous.Data.LocatorResultStatus
+  commentId: T:Tripous.Data.LocatorResultStatus
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorResultStatus.html
+  name: LocatorResultStatus
+  nameWithType: LocatorResultStatus
+  fullName: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.Locators
+  commentId: T:Tripous.Data.Locators
+  href: Tripous.Data.Locators.html
+  name: Locators
+  nameWithType: Locators
+  fullName: Tripous.Data.Locators
 - uid: Tripous.Data.MemTable
   commentId: T:Tripous.Data.MemTable
   parent: Tripous.Data
@@ -646,6 +755,13 @@ references:
   name: ConfigScope
   nameWithType: ConfigScope
   fullName: Tripous.Data.ConfigScope
+- uid: Tripous.Data.ConfigScopeFlags
+  commentId: T:Tripous.Data.ConfigScopeFlags
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigScopeFlags.html
+  name: ConfigScopeFlags
+  nameWithType: ConfigScopeFlags
+  fullName: Tripous.Data.ConfigScopeFlags
 - uid: Tripous.Data.ConfigValueKind
   commentId: T:Tripous.Data.ConfigValueKind
   parent: Tripous.Data
@@ -693,20 +809,6 @@ references:
   name: FieldFlags
   nameWithType: FieldFlags
   fullName: Tripous.Data.FieldFlags
-- uid: Tripous.Data.LocatorDef
-  commentId: T:Tripous.Data.LocatorDef
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorDef.html
-  name: LocatorDef
-  nameWithType: LocatorDef
-  fullName: Tripous.Data.LocatorDef
-- uid: Tripous.Data.LocatorFieldDef
-  commentId: T:Tripous.Data.LocatorFieldDef
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorFieldDef.html
-  name: LocatorFieldDef
-  nameWithType: LocatorFieldDef
-  fullName: Tripous.Data.LocatorFieldDef
 - uid: Tripous.Data.LookupDef
   commentId: T:Tripous.Data.LookupDef
   parent: Tripous.Data
@@ -735,46 +837,6 @@ references:
   name: ModuleDef
   nameWithType: ModuleDef
   fullName: Tripous.Data.ModuleDef
-- uid: Tripous.Data.RegBuilderProject
-  commentId: T:Tripous.Data.RegBuilderProject
-  parent: Tripous.Data
-  href: Tripous.Data.RegBuilderProject.html
-  name: RegBuilderProject
-  nameWithType: RegBuilderProject
-  fullName: Tripous.Data.RegBuilderProject
-- uid: Tripous.Data.ParsingErrorType
-  commentId: T:Tripous.Data.ParsingErrorType
-  parent: Tripous.Data
-  href: Tripous.Data.ParsingErrorType.html
-  name: ParsingErrorType
-  nameWithType: ParsingErrorType
-  fullName: Tripous.Data.ParsingErrorType
-- uid: Tripous.Data.DuplicateCheck
-  commentId: T:Tripous.Data.DuplicateCheck
-  parent: Tripous.Data
-  href: Tripous.Data.DuplicateCheck.html
-  name: DuplicateCheck
-  nameWithType: DuplicateCheck
-  fullName: Tripous.Data.DuplicateCheck
-- uid: Tripous.Data.ParsingMessage
-  commentId: T:Tripous.Data.ParsingMessage
-  href: Tripous.Data.ParsingMessage.html
-  name: ParsingMessage
-  nameWithType: ParsingMessage
-  fullName: Tripous.Data.ParsingMessage
-- uid: Tripous.Data.SchemaParserResult
-  commentId: T:Tripous.Data.SchemaParserResult
-  parent: Tripous.Data
-  href: Tripous.Data.SchemaParserResult.html
-  name: SchemaParserResult
-  nameWithType: SchemaParserResult
-  fullName: Tripous.Data.SchemaParserResult
-- uid: Tripous.Data.SchemaRegistrationBuilder
-  commentId: T:Tripous.Data.SchemaRegistrationBuilder
-  href: Tripous.Data.SchemaRegistrationBuilder.html
-  name: SchemaRegistrationBuilder
-  nameWithType: SchemaRegistrationBuilder
-  fullName: Tripous.Data.SchemaRegistrationBuilder
 - uid: Tripous.Data.SchemaVersionDef
   commentId: T:Tripous.Data.SchemaVersionDef
   href: Tripous.Data.SchemaVersionDef.html
@@ -884,7 +946,6 @@ references:
   fullName: Tripous.Data.UniqueConstraintDef
 - uid: Tripous.Data.SelectSql
   commentId: T:Tripous.Data.SelectSql
-  parent: Tripous.Data
   href: Tripous.Data.SelectSql.html
   name: SelectSql
   nameWithType: SelectSql
@@ -1008,6 +1069,12 @@ references:
   name: SqlStores
   nameWithType: SqlStores
   fullName: Tripous.Data.SqlStores
+- uid: Tripous.Data.SqlTextItem
+  commentId: T:Tripous.Data.SqlTextItem
+  href: Tripous.Data.SqlTextItem.html
+  name: SqlTextItem
+  nameWithType: SqlTextItem
+  fullName: Tripous.Data.SqlTextItem
 - uid: Tripous.Data.SqlTransactionContext
   commentId: T:Tripous.Data.SqlTransactionContext
   parent: Tripous.Data

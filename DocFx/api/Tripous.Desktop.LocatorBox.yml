@@ -10,41 +10,44 @@ items:
   - Tripous.Desktop.LocatorBox.AssignRow(System.Data.DataRow)
   - Tripous.Desktop.LocatorBox.Build
   - Tripous.Desktop.LocatorBox.ClearTargetBoxes
-  - Tripous.Desktop.LocatorBox.ClearValue
   - Tripous.Desktop.LocatorBox.ClosePopup
+  - Tripous.Desktop.LocatorBox.ContainsSearchTrigger(System.String)
+  - Tripous.Desktop.LocatorBox.ContextRowProvider
   - Tripous.Desktop.LocatorBox.CreateMenuButton
   - Tripous.Desktop.LocatorBox.CreatePopup
-  - Tripous.Desktop.LocatorBox.CreatePopupColumns
-  - Tripous.Desktop.LocatorBox.CreateTextBox(Tripous.Data.LocatorFieldDef)
-  - Tripous.Desktop.LocatorBox.GetFieldWidth(Tripous.Data.LocatorFieldDef,System.Int32,System.Collections.Generic.List{Tripous.Data.LocatorFieldDef})
+  - Tripous.Desktop.LocatorBox.CreatePopupColumns(System.Data.DataTable)
+  - Tripous.Desktop.LocatorBox.CreateRequest(Avalonia.Controls.TextBox)
+  - Tripous.Desktop.LocatorBox.CreateTextBox(System.String)
+  - Tripous.Desktop.LocatorBox.GetDisplayFields
+  - Tripous.Desktop.LocatorBox.GetFieldWidth(System.String,System.Int32,System.Collections.Generic.List{System.String})
   - Tripous.Desktop.LocatorBox.GetLogSearchTerm(System.String)
+  - Tripous.Desktop.LocatorBox.GetPopupGridHeight(System.Data.DataView)
   - Tripous.Desktop.LocatorBox.Grid_DoubleTapped(System.Object,Avalonia.Input.TappedEventArgs)
   - Tripous.Desktop.LocatorBox.Grid_KeyDown(System.Object,Avalonia.Input.KeyEventArgs)
   - Tripous.Desktop.LocatorBox.Grid_PreviewKeyDown(System.Object,Avalonia.Input.KeyEventArgs)
   - Tripous.Desktop.LocatorBox.IsReadOnly
   - Tripous.Desktop.LocatorBox.IsReadOnlyProperty
-  - Tripous.Desktop.LocatorBox.ItemZoom_Click(System.Object,Avalonia.Interactivity.RoutedEventArgs)
+  - Tripous.Desktop.LocatorBox.IsSearchField(System.String)
   - Tripous.Desktop.LocatorBox.KeyValue
   - Tripous.Desktop.LocatorBox.KeyValueProperty
-  - Tripous.Desktop.LocatorBox.Locator
-  - Tripous.Desktop.LocatorBox.LocatorProperty
+  - Tripous.Desktop.LocatorBox.LocatorDef
+  - Tripous.Desktop.LocatorBox.LocatorDefProperty
   - Tripous.Desktop.LocatorBox.MenuButton
   - Tripous.Desktop.LocatorBox.OpenPopup(Avalonia.Controls.Control)
   - Tripous.Desktop.LocatorBox.Rebuild
   - Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow)
-  - Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow,System.Collections.Generic.Dictionary{System.String,System.String})
+  - Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow,Tripous.Data.LocatorMapPlan)
   - Tripous.Desktop.LocatorBox.RowSelected
   - Tripous.Desktop.LocatorBox.Search(Avalonia.Controls.TextBox)
   - Tripous.Desktop.LocatorBox.SelectCurrentRow
-  - Tripous.Desktop.LocatorBox.SetTargetBoxValue(Tripous.Data.LocatorFieldDef,System.Object)
+  - Tripous.Desktop.LocatorBox.SetTargetBoxValue(System.String,System.Object)
   - Tripous.Desktop.LocatorBox.TextBox_KeyDown(System.Object,Avalonia.Input.KeyEventArgs)
   - Tripous.Desktop.LocatorBox.TextBox_TextChanged(System.Object,Avalonia.Controls.TextChangedEventArgs)
-  - Tripous.Desktop.LocatorBox.ZoomRequested
   - Tripous.Desktop.LocatorBox.fGrid
+  - Tripous.Desktop.LocatorBox.fLastResult
   - Tripous.Desktop.LocatorBox.fMenuButton
   - Tripous.Desktop.LocatorBox.fPopup
   - Tripous.Desktop.LocatorBox.fPopupBorder
-  - Tripous.Desktop.LocatorBox.fPopupItemsSource
   - Tripous.Desktop.LocatorBox.fRoot
   - Tripous.Desktop.LocatorBox.fTextBoxMap
   - Tripous.Desktop.LocatorBox.fTextBoxes
@@ -62,15 +65,15 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LocatorBox
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 35
+    startLine: 13
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: A composite locator editor.
   example: []
   syntax:
-    content: 'public class LocatorBox : UserControl, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, IStyleable, INamed, IInputElement, IDataTemplateHost, ISetterValue'
-    content.vb: Public Class LocatorBox Inherits UserControl Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, IStyleable, INamed, IInputElement, IDataTemplateHost, ISetterValue
+    content: 'public class LocatorBox : UserControl, INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue'
+    content.vb: Public Class LocatorBox Inherits UserControl Implements INotifyPropertyChanged, IDataContextProvider, ILogical, IThemeVariantHost, IResourceHost, IResourceNode, IStyleHost, ISetLogicalParent, ISetInheritanceParent, ISupportInitialize, INamed, IInputElement, IDataTemplateHost, ISetterValue
   inheritance:
   - System.Object
   - Avalonia.AvaloniaObject
@@ -95,7 +98,6 @@ items:
   - Avalonia.Controls.ISetLogicalParent
   - Avalonia.Controls.ISetInheritanceParent
   - System.ComponentModel.ISupportInitialize
-  - Avalonia.Styling.IStyleable
   - Avalonia.INamed
   - Avalonia.Input.IInputElement
   - Avalonia.Controls.Templates.IDataTemplateHost
@@ -125,6 +127,7 @@ items:
   - Avalonia.Controls.Primitives.TemplatedControl.FontWeightProperty
   - Avalonia.Controls.Primitives.TemplatedControl.FontStretchProperty
   - Avalonia.Controls.Primitives.TemplatedControl.ForegroundProperty
+  - Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
   - Avalonia.Controls.Primitives.TemplatedControl.PaddingProperty
   - Avalonia.Controls.Primitives.TemplatedControl.TemplateProperty
   - Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty
@@ -149,6 +152,7 @@ items:
   - Avalonia.Controls.Primitives.TemplatedControl.FontWeight
   - Avalonia.Controls.Primitives.TemplatedControl.FontStretch
   - Avalonia.Controls.Primitives.TemplatedControl.Foreground
+  - Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
   - Avalonia.Controls.Primitives.TemplatedControl.Padding
   - Avalonia.Controls.Primitives.TemplatedControl.Template
   - Avalonia.Controls.Primitives.TemplatedControl.TemplateApplied
@@ -157,7 +161,6 @@ items:
   - Avalonia.Controls.Control.ContextMenuProperty
   - Avalonia.Controls.Control.ContextFlyoutProperty
   - Avalonia.Controls.Control.RequestBringIntoViewEvent
-  - Avalonia.Controls.Control.ContextRequestedEvent
   - Avalonia.Controls.Control.LoadedEvent
   - Avalonia.Controls.Control.UnloadedEvent
   - Avalonia.Controls.Control.SizeChangedEvent
@@ -166,17 +169,17 @@ items:
   - Avalonia.Controls.Control.OnSizeChanged(Avalonia.Controls.SizeChangedEventArgs)
   - Avalonia.Controls.Control.OnAttachedToVisualTreeCore(Avalonia.VisualTreeAttachmentEventArgs)
   - Avalonia.Controls.Control.OnDetachedFromVisualTreeCore(Avalonia.VisualTreeAttachmentEventArgs)
-  - Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.GotFocusEventArgs)
-  - Avalonia.Controls.Control.OnLostFocus(Avalonia.Interactivity.RoutedEventArgs)
+  - Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.FocusChangedEventArgs)
+  - Avalonia.Controls.Control.OnLostFocus(Avalonia.Input.FocusChangedEventArgs)
   - Avalonia.Controls.Control.OnPointerReleased(Avalonia.Input.PointerReleasedEventArgs)
   - Avalonia.Controls.Control.OnKeyUp(Avalonia.Input.KeyEventArgs)
+  - Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
   - Avalonia.Controls.Control.FocusAdorner
   - Avalonia.Controls.Control.DataTemplates
   - Avalonia.Controls.Control.ContextMenu
   - Avalonia.Controls.Control.ContextFlyout
   - Avalonia.Controls.Control.IsLoaded
   - Avalonia.Controls.Control.Tag
-  - Avalonia.Controls.Control.ContextRequested
   - Avalonia.Controls.Control.Loaded
   - Avalonia.Controls.Control.Unloaded
   - Avalonia.Controls.Control.SizeChanged
@@ -190,7 +193,9 @@ items:
   - Avalonia.Input.InputElement.IsPointerOverProperty
   - Avalonia.Input.InputElement.IsTabStopProperty
   - Avalonia.Input.InputElement.GotFocusEvent
+  - Avalonia.Input.InputElement.GettingFocusEvent
   - Avalonia.Input.InputElement.LostFocusEvent
+  - Avalonia.Input.InputElement.LosingFocusEvent
   - Avalonia.Input.InputElement.KeyDownEvent
   - Avalonia.Input.InputElement.KeyUpEvent
   - Avalonia.Input.InputElement.TabIndexProperty
@@ -203,20 +208,53 @@ items:
   - Avalonia.Input.InputElement.PointerReleasedEvent
   - Avalonia.Input.InputElement.PointerCaptureLostEvent
   - Avalonia.Input.InputElement.PointerWheelChangedEvent
+  - Avalonia.Input.InputElement.ContextRequestedEvent
+  - Avalonia.Input.InputElement.ContextCanceledEvent
+  - Avalonia.Input.InputElement.IsHoldingEnabledProperty
+  - Avalonia.Input.InputElement.IsHoldWithMouseEnabledProperty
+  - Avalonia.Input.InputElement.PinchEvent
+  - Avalonia.Input.InputElement.PinchEndedEvent
+  - Avalonia.Input.InputElement.PullGestureEvent
+  - Avalonia.Input.InputElement.PullGestureEndedEvent
+  - Avalonia.Input.InputElement.SwipeGestureEvent
+  - Avalonia.Input.InputElement.SwipeGestureEndedEvent
+  - Avalonia.Input.InputElement.ScrollGestureEvent
+  - Avalonia.Input.InputElement.ScrollGestureInertiaStartingEvent
+  - Avalonia.Input.InputElement.ScrollGestureEndedEvent
+  - Avalonia.Input.InputElement.PointerTouchPadGestureMagnifyEvent
+  - Avalonia.Input.InputElement.PointerTouchPadGestureRotateEvent
+  - Avalonia.Input.InputElement.PointerTouchPadGestureSwipeEvent
   - Avalonia.Input.InputElement.TappedEvent
+  - Avalonia.Input.InputElement.RightTappedEvent
   - Avalonia.Input.InputElement.HoldingEvent
   - Avalonia.Input.InputElement.DoubleTappedEvent
   - Avalonia.Input.InputElement.Focus(Avalonia.Input.NavigationMethod,Avalonia.Input.KeyModifiers)
   - Avalonia.Input.InputElement.OnAccessKey(Avalonia.Interactivity.RoutedEventArgs)
+  - Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
+  - Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
   - Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
   - Avalonia.Input.InputElement.OnTextInput(Avalonia.Input.TextInputEventArgs)
   - Avalonia.Input.InputElement.OnPointerEntered(Avalonia.Input.PointerEventArgs)
   - Avalonia.Input.InputElement.OnPointerExited(Avalonia.Input.PointerEventArgs)
   - Avalonia.Input.InputElement.OnPointerMoved(Avalonia.Input.PointerEventArgs)
   - Avalonia.Input.InputElement.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
+  - Avalonia.Input.InputElement.GetNextTabStopOverride
+  - Avalonia.Input.InputElement.GetPreviousTabStopOverride
+  - Avalonia.Input.InputElement.GetFirstFocusableElementOverride
+  - Avalonia.Input.InputElement.GetLastFocusableElementOverride
   - Avalonia.Input.InputElement.OnPointerCaptureLost(Avalonia.Input.PointerCaptureLostEventArgs)
+  - Avalonia.Input.InputElement.ProcessTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,System.Boolean,Avalonia.Input.IInputElement@)
+  - Avalonia.Input.InputElement.ProcessCandidateTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,Avalonia.Input.IInputElement@)
   - Avalonia.Input.InputElement.OnPointerWheelChanged(Avalonia.Input.PointerWheelEventArgs)
+  - Avalonia.Input.InputElement.OnTapped(Avalonia.Input.TappedEventArgs)
+  - Avalonia.Input.InputElement.OnRightTapped(Avalonia.Input.TappedEventArgs)
+  - Avalonia.Input.InputElement.OnDoubleTapped(Avalonia.Input.TappedEventArgs)
+  - Avalonia.Input.InputElement.OnHolding(Avalonia.Input.HoldingRoutedEventArgs)
   - Avalonia.Input.InputElement.UpdateIsEffectivelyEnabled
+  - Avalonia.Input.InputElement.GetIsHoldingEnabled(Avalonia.StyledElement)
+  - Avalonia.Input.InputElement.SetIsHoldingEnabled(Avalonia.StyledElement,System.Boolean)
+  - Avalonia.Input.InputElement.GetIsHoldWithMouseEnabled(Avalonia.StyledElement)
+  - Avalonia.Input.InputElement.SetIsHoldWithMouseEnabled(Avalonia.StyledElement,System.Boolean)
   - Avalonia.Input.InputElement.Focusable
   - Avalonia.Input.InputElement.IsEnabled
   - Avalonia.Input.InputElement.Cursor
@@ -231,7 +269,9 @@ items:
   - Avalonia.Input.InputElement.IsEnabledCore
   - Avalonia.Input.InputElement.GestureRecognizers
   - Avalonia.Input.InputElement.GotFocus
+  - Avalonia.Input.InputElement.GettingFocus
   - Avalonia.Input.InputElement.LostFocus
+  - Avalonia.Input.InputElement.LosingFocus
   - Avalonia.Input.InputElement.KeyDown
   - Avalonia.Input.InputElement.KeyUp
   - Avalonia.Input.InputElement.TextInput
@@ -243,7 +283,22 @@ items:
   - Avalonia.Input.InputElement.PointerReleased
   - Avalonia.Input.InputElement.PointerCaptureLost
   - Avalonia.Input.InputElement.PointerWheelChanged
+  - Avalonia.Input.InputElement.ContextRequested
+  - Avalonia.Input.InputElement.ContextCanceled
+  - Avalonia.Input.InputElement.Pinch
+  - Avalonia.Input.InputElement.PinchEnded
+  - Avalonia.Input.InputElement.PullGesture
+  - Avalonia.Input.InputElement.PullGestureEnded
+  - Avalonia.Input.InputElement.ScrollGesture
+  - Avalonia.Input.InputElement.ScrollGestureInertiaStarting
+  - Avalonia.Input.InputElement.ScrollGestureEnded
+  - Avalonia.Input.InputElement.PointerTouchPadGestureMagnify
+  - Avalonia.Input.InputElement.PointerTouchPadGestureRotate
+  - Avalonia.Input.InputElement.SwipeGesture
+  - Avalonia.Input.InputElement.SwipeGestureEnded
+  - Avalonia.Input.InputElement.PointerTouchPadGestureSwipe
   - Avalonia.Input.InputElement.Tapped
+  - Avalonia.Input.InputElement.RightTapped
   - Avalonia.Input.InputElement.Holding
   - Avalonia.Input.InputElement.DoubleTapped
   - Avalonia.Interactivity.Interactive.AddHandler(Avalonia.Interactivity.RoutedEvent,System.Delegate,Avalonia.Interactivity.RoutingStrategies,System.Boolean)
@@ -297,6 +352,7 @@ items:
   - Avalonia.Visual.IsVisibleProperty
   - Avalonia.Visual.OpacityProperty
   - Avalonia.Visual.OpacityMaskProperty
+  - Avalonia.Visual.CacheModeProperty
   - Avalonia.Visual.EffectProperty
   - Avalonia.Visual.HasMirrorTransformProperty
   - Avalonia.Visual.RenderTransformProperty
@@ -320,6 +376,7 @@ items:
   - Avalonia.Visual.IsVisible
   - Avalonia.Visual.Opacity
   - Avalonia.Visual.OpacityMask
+  - Avalonia.Visual.CacheMode
   - Avalonia.Visual.Effect
   - Avalonia.Visual.HasMirrorTransform
   - Avalonia.Visual.RenderTransform
@@ -387,7 +444,7 @@ items:
   - Avalonia.AvaloniaObject.SetValue``1(Avalonia.DirectPropertyBase{{T}},{T})
   - Avalonia.AvaloniaObject.SetCurrentValue(Avalonia.AvaloniaProperty,System.Object)
   - Avalonia.AvaloniaObject.SetCurrentValue``1(Avalonia.StyledProperty{{T}},{T})
-  - Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.IBinding)
+  - Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.BindingBase)
   - Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,System.IObservable{System.Object},Avalonia.Data.BindingPriority)
   - Avalonia.AvaloniaObject.Bind``1(Avalonia.StyledProperty{{T}},System.IObservable{System.Object},Avalonia.Data.BindingPriority)
   - Avalonia.AvaloniaObject.Bind``1(Avalonia.StyledProperty{{T}},System.IObservable{{T}},Avalonia.Data.BindingPriority)
@@ -396,12 +453,12 @@ items:
   - Avalonia.AvaloniaObject.Bind``1(Avalonia.DirectPropertyBase{{T}},System.IObservable{{T}})
   - Avalonia.AvaloniaObject.Bind``1(Avalonia.DirectPropertyBase{{T}},System.IObservable{Avalonia.Data.BindingValue{{T}}})
   - Avalonia.AvaloniaObject.CoerceValue(Avalonia.AvaloniaProperty)
-  - Avalonia.AvaloniaObject.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
   - Avalonia.AvaloniaObject.RaisePropertyChanged``1(Avalonia.DirectPropertyBase{{T}},{T},{T})
   - Avalonia.AvaloniaObject.SetAndRaise``1(Avalonia.DirectPropertyBase{{T}},{T}@,{T})
   - Avalonia.AvaloniaObject.InheritanceParent
   - Avalonia.AvaloniaObject.Item(Avalonia.AvaloniaProperty)
   - Avalonia.AvaloniaObject.Item(Avalonia.Data.IndexerDescriptor)
+  - Avalonia.AvaloniaObject.Dispatcher
   - Avalonia.AvaloniaObject.PropertyChanged
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
@@ -430,11 +487,11 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fRoot
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 41
+    startLine: 19
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: The root layout grid.
+  summary: The root panel.
   example: []
   syntax:
     content: protected Grid fRoot
@@ -459,11 +516,11 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fPopup
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 45
+    startLine: 23
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: The popup displaying locator results.
+  summary: The result popup.
   example: []
   syntax:
     content: protected Popup fPopup
@@ -488,7 +545,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fPopupBorder
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 49
+    startLine: 27
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -517,17 +574,17 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fGrid
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 53
+    startLine: 31
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: The popup result grid.
   example: []
   syntax:
-    content: protected DataGrid fGrid
+    content: protected GroupGrid fGrid
     return:
-      type: Avalonia.Controls.DataGrid
-    content.vb: Protected fGrid As DataGrid
+      type: Avalonia.Controls.GroupGrid
+    content.vb: Protected fGrid As GroupGrid
 - uid: Tripous.Desktop.LocatorBox.fMenuButton
   commentId: F:Tripous.Desktop.LocatorBox.fMenuButton
   id: fMenuButton
@@ -546,46 +603,17 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fMenuButton
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 57
+    startLine: 35
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: The reference menu button.
+  summary: The context menu button.
   example: []
   syntax:
     content: protected Button fMenuButton
     return:
       type: Avalonia.Controls.Button
     content.vb: Protected fMenuButton As Button
-- uid: Tripous.Desktop.LocatorBox.fPopupItemsSource
-  commentId: F:Tripous.Desktop.LocatorBox.fPopupItemsSource
-  id: fPopupItemsSource
-  parent: Tripous.Desktop.LocatorBox
-  langs:
-  - csharp
-  - vb
-  name: fPopupItemsSource
-  nameWithType: LocatorBox.fPopupItemsSource
-  fullName: Tripous.Desktop.LocatorBox.fPopupItemsSource
-  type: Field
-  source:
-    remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: fPopupItemsSource
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 61
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: The popup items source.
-  example: []
-  syntax:
-    content: protected DataViewItemsSource fPopupItemsSource
-    return:
-      type: Tripous.Desktop.DataViewItemsSource
-    content.vb: Protected fPopupItemsSource As DataViewItemsSource
 - uid: Tripous.Desktop.LocatorBox.fTextBoxes
   commentId: F:Tripous.Desktop.LocatorBox.fTextBoxes
   id: fTextBoxes
@@ -604,11 +632,11 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fTextBoxes
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 65
+    startLine: 39
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: The target text boxes.
+  summary: The display text boxes.
   example: []
   syntax:
     content: protected List<TextBox> fTextBoxes
@@ -633,17 +661,154 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: fTextBoxMap
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 69
+    startLine: 43
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Maps locator fields to target text boxes.
+  summary: The display text boxes by field name.
   example: []
   syntax:
-    content: protected Dictionary<LocatorFieldDef, TextBox> fTextBoxMap
+    content: protected Dictionary<string, TextBox> fTextBoxMap
     return:
-      type: System.Collections.Generic.Dictionary{Tripous.Data.LocatorFieldDef,Avalonia.Controls.TextBox}
-    content.vb: Protected fTextBoxMap As Dictionary(Of LocatorFieldDef, TextBox)
+      type: System.Collections.Generic.Dictionary{System.String,Avalonia.Controls.TextBox}
+    content.vb: Protected fTextBoxMap As Dictionary(Of String, TextBox)
+- uid: Tripous.Desktop.LocatorBox.fLastResult
+  commentId: F:Tripous.Desktop.LocatorBox.fLastResult
+  id: fLastResult
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: fLastResult
+  nameWithType: LocatorBox.fLastResult
+  fullName: Tripous.Desktop.LocatorBox.fLastResult
+  type: Field
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: fLastResult
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 47
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: The last locator result.
+  example: []
+  syntax:
+    content: protected LocatorResult fLastResult
+    return:
+      type: Tripous.Data.LocatorResult
+    content.vb: Protected fLastResult As LocatorResult
+- uid: Tripous.Desktop.LocatorBox.IsSearchField(System.String)
+  commentId: M:Tripous.Desktop.LocatorBox.IsSearchField(System.String)
+  id: IsSearchField(System.String)
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: IsSearchField(string)
+  nameWithType: LocatorBox.IsSearchField(string)
+  fullName: Tripous.Desktop.LocatorBox.IsSearchField(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSearchField
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 53
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns true when a field can be used as a search field.
+  example: []
+  syntax:
+    content: protected virtual bool IsSearchField(string FieldName)
+    parameters:
+    - id: FieldName
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Protected Overridable Function IsSearchField(FieldName As String) As Boolean
+  overload: Tripous.Desktop.LocatorBox.IsSearchField*
+  nameWithType.vb: LocatorBox.IsSearchField(String)
+  fullName.vb: Tripous.Desktop.LocatorBox.IsSearchField(String)
+  name.vb: IsSearchField(String)
+- uid: Tripous.Desktop.LocatorBox.ContainsSearchTrigger(System.String)
+  commentId: M:Tripous.Desktop.LocatorBox.ContainsSearchTrigger(System.String)
+  id: ContainsSearchTrigger(System.String)
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: ContainsSearchTrigger(string)
+  nameWithType: LocatorBox.ContainsSearchTrigger(string)
+  fullName: Tripous.Desktop.LocatorBox.ContainsSearchTrigger(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ContainsSearchTrigger
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 57
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns true when a term contains the locator search trigger.
+  example: []
+  syntax:
+    content: protected virtual bool ContainsSearchTrigger(string Term)
+    parameters:
+    - id: Term
+      type: System.String
+    return:
+      type: System.Boolean
+    content.vb: Protected Overridable Function ContainsSearchTrigger(Term As String) As Boolean
+  overload: Tripous.Desktop.LocatorBox.ContainsSearchTrigger*
+  nameWithType.vb: LocatorBox.ContainsSearchTrigger(String)
+  fullName.vb: Tripous.Desktop.LocatorBox.ContainsSearchTrigger(String)
+  name.vb: ContainsSearchTrigger(String)
+- uid: Tripous.Desktop.LocatorBox.GetLogSearchTerm(System.String)
+  commentId: M:Tripous.Desktop.LocatorBox.GetLogSearchTerm(System.String)
+  id: GetLogSearchTerm(System.String)
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: GetLogSearchTerm(string)
+  nameWithType: LocatorBox.GetLogSearchTerm(string)
+  fullName: Tripous.Desktop.LocatorBox.GetLogSearchTerm(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetLogSearchTerm
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 61
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns a normalized search term without the trigger.
+  example: []
+  syntax:
+    content: protected virtual string GetLogSearchTerm(string Term)
+    parameters:
+    - id: Term
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function GetLogSearchTerm(Term As String) As String
+  overload: Tripous.Desktop.LocatorBox.GetLogSearchTerm*
+  nameWithType.vb: LocatorBox.GetLogSearchTerm(String)
+  fullName.vb: Tripous.Desktop.LocatorBox.GetLogSearchTerm(String)
+  name.vb: GetLogSearchTerm(String)
 - uid: Tripous.Desktop.LocatorBox.ApplyReadOnly
   commentId: M:Tripous.Desktop.LocatorBox.ApplyReadOnly
   id: ApplyReadOnly
@@ -662,26 +827,26 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ApplyReadOnly
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 75
+    startLine: 65
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Applies read-only state to target text boxes.
+  summary: Applies the read-only state to child editors.
   example: []
   syntax:
     content: protected virtual void ApplyReadOnly()
     content.vb: Protected Overridable Sub ApplyReadOnly()
   overload: Tripous.Desktop.LocatorBox.ApplyReadOnly*
-- uid: Tripous.Desktop.LocatorBox.GetFieldWidth(Tripous.Data.LocatorFieldDef,System.Int32,System.Collections.Generic.List{Tripous.Data.LocatorFieldDef})
-  commentId: M:Tripous.Desktop.LocatorBox.GetFieldWidth(Tripous.Data.LocatorFieldDef,System.Int32,System.Collections.Generic.List{Tripous.Data.LocatorFieldDef})
-  id: GetFieldWidth(Tripous.Data.LocatorFieldDef,System.Int32,System.Collections.Generic.List{Tripous.Data.LocatorFieldDef})
+- uid: Tripous.Desktop.LocatorBox.GetFieldWidth(System.String,System.Int32,System.Collections.Generic.List{System.String})
+  commentId: M:Tripous.Desktop.LocatorBox.GetFieldWidth(System.String,System.Int32,System.Collections.Generic.List{System.String})
+  id: GetFieldWidth(System.String,System.Int32,System.Collections.Generic.List{System.String})
   parent: Tripous.Desktop.LocatorBox
   langs:
   - csharp
   - vb
-  name: GetFieldWidth(LocatorFieldDef, int, List<LocatorFieldDef>)
-  nameWithType: LocatorBox.GetFieldWidth(LocatorFieldDef, int, List<LocatorFieldDef>)
-  fullName: Tripous.Desktop.LocatorBox.GetFieldWidth(Tripous.Data.LocatorFieldDef, int, System.Collections.Generic.List<Tripous.Data.LocatorFieldDef>)
+  name: GetFieldWidth(string, int, List<string>)
+  nameWithType: LocatorBox.GetFieldWidth(string, int, List<string>)
+  fullName: Tripous.Desktop.LocatorBox.GetFieldWidth(string, int, System.Collections.Generic.List<string>)
   type: Method
   source:
     remote:
@@ -690,32 +855,58 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetFieldWidth
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 87
+    startLine: 73
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Returns the column width of a locator field.
+  summary: Returns the display width for a locator field.
   example: []
   syntax:
-    content: protected virtual GridLength GetFieldWidth(LocatorFieldDef FieldDef, int Index, List<LocatorFieldDef> Fields)
+    content: protected virtual GridLength GetFieldWidth(string FieldName, int Index, List<string> Fields)
     parameters:
-    - id: FieldDef
-      type: Tripous.Data.LocatorFieldDef
-      description: The locator field definition.
+    - id: FieldName
+      type: System.String
     - id: Index
       type: System.Int32
-      description: The field index.
     - id: Fields
-      type: System.Collections.Generic.List{Tripous.Data.LocatorFieldDef}
-      description: The visible locator fields.
+      type: System.Collections.Generic.List{System.String}
     return:
       type: Avalonia.Controls.GridLength
-      description: The grid column width.
-    content.vb: Protected Overridable Function GetFieldWidth(FieldDef As LocatorFieldDef, Index As Integer, Fields As List(Of LocatorFieldDef)) As GridLength
+    content.vb: Protected Overridable Function GetFieldWidth(FieldName As String, Index As Integer, Fields As List(Of String)) As GridLength
   overload: Tripous.Desktop.LocatorBox.GetFieldWidth*
-  nameWithType.vb: LocatorBox.GetFieldWidth(LocatorFieldDef, Integer, List(Of LocatorFieldDef))
-  fullName.vb: Tripous.Desktop.LocatorBox.GetFieldWidth(Tripous.Data.LocatorFieldDef, Integer, System.Collections.Generic.List(Of Tripous.Data.LocatorFieldDef))
-  name.vb: GetFieldWidth(LocatorFieldDef, Integer, List(Of LocatorFieldDef))
+  nameWithType.vb: LocatorBox.GetFieldWidth(String, Integer, List(Of String))
+  fullName.vb: Tripous.Desktop.LocatorBox.GetFieldWidth(String, Integer, System.Collections.Generic.List(Of String))
+  name.vb: GetFieldWidth(String, Integer, List(Of String))
+- uid: Tripous.Desktop.LocatorBox.GetDisplayFields
+  commentId: M:Tripous.Desktop.LocatorBox.GetDisplayFields
+  id: GetDisplayFields
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: GetDisplayFields()
+  nameWithType: LocatorBox.GetDisplayFields()
+  fullName: Tripous.Desktop.LocatorBox.GetDisplayFields()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDisplayFields
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the locator fields displayed by this control.
+  example: []
+  syntax:
+    content: protected virtual List<string> GetDisplayFields()
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Protected Overridable Function GetDisplayFields() As List(Of String)
+  overload: Tripous.Desktop.LocatorBox.GetDisplayFields*
 - uid: Tripous.Desktop.LocatorBox.Build
   commentId: M:Tripous.Desktop.LocatorBox.Build
   id: Build
@@ -734,26 +925,26 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Build
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 98
+    startLine: 93
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Builds the control UI.
+  summary: Builds the visual tree.
   example: []
   syntax:
     content: protected virtual void Build()
     content.vb: Protected Overridable Sub Build()
   overload: Tripous.Desktop.LocatorBox.Build*
-- uid: Tripous.Desktop.LocatorBox.CreateTextBox(Tripous.Data.LocatorFieldDef)
-  commentId: M:Tripous.Desktop.LocatorBox.CreateTextBox(Tripous.Data.LocatorFieldDef)
-  id: CreateTextBox(Tripous.Data.LocatorFieldDef)
+- uid: Tripous.Desktop.LocatorBox.CreateTextBox(System.String)
+  commentId: M:Tripous.Desktop.LocatorBox.CreateTextBox(System.String)
+  id: CreateTextBox(System.String)
   parent: Tripous.Desktop.LocatorBox
   langs:
   - csharp
   - vb
-  name: CreateTextBox(LocatorFieldDef)
-  nameWithType: LocatorBox.CreateTextBox(LocatorFieldDef)
-  fullName: Tripous.Desktop.LocatorBox.CreateTextBox(Tripous.Data.LocatorFieldDef)
+  name: CreateTextBox(string)
+  nameWithType: LocatorBox.CreateTextBox(string)
+  fullName: Tripous.Desktop.LocatorBox.CreateTextBox(string)
   type: Method
   source:
     remote:
@@ -762,23 +953,24 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateTextBox
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 137
+    startLine: 130
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Creates a textbox for a locator field.
+  summary: Creates a field text box.
   example: []
   syntax:
-    content: protected virtual TextBox CreateTextBox(LocatorFieldDef FieldDef)
+    content: protected virtual TextBox CreateTextBox(string FieldName)
     parameters:
-    - id: FieldDef
-      type: Tripous.Data.LocatorFieldDef
-      description: The locator field definition.
+    - id: FieldName
+      type: System.String
     return:
       type: Avalonia.Controls.TextBox
-      description: The created text box.
-    content.vb: Protected Overridable Function CreateTextBox(FieldDef As LocatorFieldDef) As TextBox
+    content.vb: Protected Overridable Function CreateTextBox(FieldName As String) As TextBox
   overload: Tripous.Desktop.LocatorBox.CreateTextBox*
+  nameWithType.vb: LocatorBox.CreateTextBox(String)
+  fullName.vb: Tripous.Desktop.LocatorBox.CreateTextBox(String)
+  name.vb: CreateTextBox(String)
 - uid: Tripous.Desktop.LocatorBox.CreateMenuButton
   commentId: M:Tripous.Desktop.LocatorBox.CreateMenuButton
   id: CreateMenuButton
@@ -797,17 +989,16 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateMenuButton
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 151
+    startLine: 143
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Creates the reference menu button.
+  summary: Creates the context menu button.
   example: []
   syntax:
     content: protected virtual Button CreateMenuButton()
     return:
       type: Avalonia.Controls.Button
-      description: The created button.
     content.vb: Protected Overridable Function CreateMenuButton() As Button
   overload: Tripous.Desktop.LocatorBox.CreateMenuButton*
 - uid: Tripous.Desktop.LocatorBox.CreatePopup
@@ -828,26 +1019,26 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreatePopup
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 170
+    startLine: 162
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Creates the popup.
+  summary: Creates the popup and result grid.
   example: []
   syntax:
     content: protected virtual void CreatePopup()
     content.vb: Protected Overridable Sub CreatePopup()
   overload: Tripous.Desktop.LocatorBox.CreatePopup*
-- uid: Tripous.Desktop.LocatorBox.CreatePopupColumns
-  commentId: M:Tripous.Desktop.LocatorBox.CreatePopupColumns
-  id: CreatePopupColumns
+- uid: Tripous.Desktop.LocatorBox.CreatePopupColumns(System.Data.DataTable)
+  commentId: M:Tripous.Desktop.LocatorBox.CreatePopupColumns(System.Data.DataTable)
+  id: CreatePopupColumns(System.Data.DataTable)
   parent: Tripous.Desktop.LocatorBox
   langs:
   - csharp
   - vb
-  name: CreatePopupColumns()
-  nameWithType: LocatorBox.CreatePopupColumns()
-  fullName: Tripous.Desktop.LocatorBox.CreatePopupColumns()
+  name: CreatePopupColumns(DataTable)
+  nameWithType: LocatorBox.CreatePopupColumns(DataTable)
+  fullName: Tripous.Desktop.LocatorBox.CreatePopupColumns(System.Data.DataTable)
   type: Method
   source:
     remote:
@@ -860,12 +1051,48 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Creates the popup grid columns.
+  summary: Creates popup grid columns.
   example: []
   syntax:
-    content: protected virtual void CreatePopupColumns()
-    content.vb: Protected Overridable Sub CreatePopupColumns()
+    content: protected virtual void CreatePopupColumns(DataTable Table)
+    parameters:
+    - id: Table
+      type: System.Data.DataTable
+    content.vb: Protected Overridable Sub CreatePopupColumns(Table As DataTable)
   overload: Tripous.Desktop.LocatorBox.CreatePopupColumns*
+- uid: Tripous.Desktop.LocatorBox.GetPopupGridHeight(System.Data.DataView)
+  commentId: M:Tripous.Desktop.LocatorBox.GetPopupGridHeight(System.Data.DataView)
+  id: GetPopupGridHeight(System.Data.DataView)
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: GetPopupGridHeight(DataView)
+  nameWithType: LocatorBox.GetPopupGridHeight(DataView)
+  fullName: Tripous.Desktop.LocatorBox.GetPopupGridHeight(System.Data.DataView)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetPopupGridHeight
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 213
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the popup grid height.
+  example: []
+  syntax:
+    content: protected virtual double GetPopupGridHeight(DataView DataView)
+    parameters:
+    - id: DataView
+      type: System.Data.DataView
+    return:
+      type: System.Double
+    content.vb: Protected Overridable Function GetPopupGridHeight(DataView As DataView) As Double
+  overload: Tripous.Desktop.LocatorBox.GetPopupGridHeight*
 - uid: Tripous.Desktop.LocatorBox.OpenPopup(Avalonia.Controls.Control)
   commentId: M:Tripous.Desktop.LocatorBox.OpenPopup(Avalonia.Controls.Control)
   id: OpenPopup(Avalonia.Controls.Control)
@@ -884,18 +1111,17 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OpenPopup
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 218
+    startLine: 227
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Opens the popup.
+  summary: Opens the result popup.
   example: []
   syntax:
     content: protected virtual void OpenPopup(Control Target)
     parameters:
     - id: Target
       type: Avalonia.Controls.Control
-      description: The target control used to align the popup.
     content.vb: Protected Overridable Sub OpenPopup(Target As Control)
   overload: Tripous.Desktop.LocatorBox.OpenPopup*
 - uid: Tripous.Desktop.LocatorBox.ClosePopup
@@ -916,16 +1142,49 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClosePopup
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 242
+    startLine: 251
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Closes the popup.
+  summary: Closes the result popup.
   example: []
   syntax:
     content: protected virtual void ClosePopup()
     content.vb: Protected Overridable Sub ClosePopup()
   overload: Tripous.Desktop.LocatorBox.ClosePopup*
+- uid: Tripous.Desktop.LocatorBox.CreateRequest(Avalonia.Controls.TextBox)
+  commentId: M:Tripous.Desktop.LocatorBox.CreateRequest(Avalonia.Controls.TextBox)
+  id: CreateRequest(Avalonia.Controls.TextBox)
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: CreateRequest(TextBox)
+  nameWithType: LocatorBox.CreateRequest(TextBox)
+  fullName: Tripous.Desktop.LocatorBox.CreateRequest(Avalonia.Controls.TextBox)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateRequest
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 259
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a locator request.
+  example: []
+  syntax:
+    content: protected virtual LocatorRequest CreateRequest(TextBox TextBox)
+    parameters:
+    - id: TextBox
+      type: Avalonia.Controls.TextBox
+    return:
+      type: Tripous.Data.LocatorRequest
+    content.vb: Protected Overridable Function CreateRequest(TextBox As TextBox) As LocatorRequest
+  overload: Tripous.Desktop.LocatorBox.CreateRequest*
 - uid: Tripous.Desktop.LocatorBox.AssignRow(System.Data.DataRow)
   commentId: M:Tripous.Desktop.LocatorBox.AssignRow(System.Data.DataRow)
   id: AssignRow(System.Data.DataRow)
@@ -944,58 +1203,19 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AssignRow
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 251
+    startLine: 280
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Assigns a source row to this control.
+  summary: Assigns a selected source row.
   example: []
   syntax:
     content: protected virtual void AssignRow(DataRow Row)
     parameters:
     - id: Row
       type: System.Data.DataRow
-      description: The source row.
     content.vb: Protected Overridable Sub AssignRow(Row As DataRow)
   overload: Tripous.Desktop.LocatorBox.AssignRow*
-- uid: Tripous.Desktop.LocatorBox.GetLogSearchTerm(System.String)
-  commentId: M:Tripous.Desktop.LocatorBox.GetLogSearchTerm(System.String)
-  id: GetLogSearchTerm(System.String)
-  parent: Tripous.Desktop.LocatorBox
-  langs:
-  - csharp
-  - vb
-  name: GetLogSearchTerm(string)
-  nameWithType: LocatorBox.GetLogSearchTerm(string)
-  fullName: Tripous.Desktop.LocatorBox.GetLogSearchTerm(string)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GetLogSearchTerm
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 271
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Returns a log-friendly search term.
-  example: []
-  syntax:
-    content: protected virtual string GetLogSearchTerm(string Term)
-    parameters:
-    - id: Term
-      type: System.String
-      description: The search term.
-    return:
-      type: System.String
-      description: The log-friendly search term.
-    content.vb: Protected Overridable Function GetLogSearchTerm(Term As String) As String
-  overload: Tripous.Desktop.LocatorBox.GetLogSearchTerm*
-  nameWithType.vb: LocatorBox.GetLogSearchTerm(String)
-  fullName.vb: Tripous.Desktop.LocatorBox.GetLogSearchTerm(String)
-  name.vb: GetLogSearchTerm(String)
 - uid: Tripous.Desktop.LocatorBox.Search(Avalonia.Controls.TextBox)
   commentId: M:Tripous.Desktop.LocatorBox.Search(Avalonia.Controls.TextBox)
   id: Search(Avalonia.Controls.TextBox)
@@ -1014,18 +1234,17 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Search
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 279
+    startLine: 298
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Performs search using the specified textbox text.
+  summary: Executes locator search.
   example: []
   syntax:
     content: protected virtual void Search(TextBox TextBox)
     parameters:
     - id: TextBox
       type: Avalonia.Controls.TextBox
-      description: The text box containing the search term.
     content.vb: Protected Overridable Sub Search(TextBox As TextBox)
   overload: Tripous.Desktop.LocatorBox.Search*
 - uid: Tripous.Desktop.LocatorBox.SelectCurrentRow
@@ -1046,7 +1265,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SelectCurrentRow
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 324
+    startLine: 342
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1056,34 +1275,6 @@ items:
     content: protected virtual void SelectCurrentRow()
     content.vb: Protected Overridable Sub SelectCurrentRow()
   overload: Tripous.Desktop.LocatorBox.SelectCurrentRow*
-- uid: Tripous.Desktop.LocatorBox.ClearValue
-  commentId: M:Tripous.Desktop.LocatorBox.ClearValue
-  id: ClearValue
-  parent: Tripous.Desktop.LocatorBox
-  langs:
-  - csharp
-  - vb
-  name: ClearValue()
-  nameWithType: LocatorBox.ClearValue()
-  fullName: Tripous.Desktop.LocatorBox.ClearValue()
-  type: Method
-  source:
-    remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ClearValue
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 333
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Clears the current value.
-  example: []
-  syntax:
-    content: protected virtual void ClearValue()
-    content.vb: Protected Overridable Sub ClearValue()
-  overload: Tripous.Desktop.LocatorBox.ClearValue*
 - uid: Tripous.Desktop.LocatorBox.TextBox_KeyDown(System.Object,Avalonia.Input.KeyEventArgs)
   commentId: M:Tripous.Desktop.LocatorBox.TextBox_KeyDown(System.Object,Avalonia.Input.KeyEventArgs)
   id: TextBox_KeyDown(System.Object,Avalonia.Input.KeyEventArgs)
@@ -1102,21 +1293,19 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TextBox_KeyDown
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 342
+    startLine: 351
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Handles target text box key down events.
+  summary: Handles text box key down.
   example: []
   syntax:
     content: protected virtual void TextBox_KeyDown(object Sender, KeyEventArgs Args)
     parameters:
     - id: Sender
       type: System.Object
-      description: The event sender.
     - id: Args
       type: Avalonia.Input.KeyEventArgs
-      description: The key event arguments.
     content.vb: Protected Overridable Sub TextBox_KeyDown(Sender As Object, Args As KeyEventArgs)
   overload: Tripous.Desktop.LocatorBox.TextBox_KeyDown*
   nameWithType.vb: LocatorBox.TextBox_KeyDown(Object, KeyEventArgs)
@@ -1140,21 +1329,19 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TextBox_TextChanged
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 360
+    startLine: 367
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Handles target text box text changes.
+  summary: Handles text changes.
   example: []
   syntax:
     content: protected virtual void TextBox_TextChanged(object Sender, TextChangedEventArgs Args)
     parameters:
     - id: Sender
       type: System.Object
-      description: The event sender.
     - id: Args
       type: Avalonia.Controls.TextChangedEventArgs
-      description: The text changed event arguments.
     content.vb: Protected Overridable Sub TextBox_TextChanged(Sender As Object, Args As TextChangedEventArgs)
   overload: Tripous.Desktop.LocatorBox.TextBox_TextChanged*
   nameWithType.vb: LocatorBox.TextBox_TextChanged(Object, TextChangedEventArgs)
@@ -1178,21 +1365,19 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Grid_KeyDown
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 370
+    startLine: 375
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Handles popup grid key down events.
+  summary: Handles result grid key down.
   example: []
   syntax:
     content: protected virtual void Grid_KeyDown(object Sender, KeyEventArgs Args)
     parameters:
     - id: Sender
       type: System.Object
-      description: The event sender.
     - id: Args
       type: Avalonia.Input.KeyEventArgs
-      description: The key event arguments.
     content.vb: Protected Overridable Sub Grid_KeyDown(Sender As Object, Args As KeyEventArgs)
   overload: Tripous.Desktop.LocatorBox.Grid_KeyDown*
   nameWithType.vb: LocatorBox.Grid_KeyDown(Object, KeyEventArgs)
@@ -1216,21 +1401,19 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Grid_DoubleTapped
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 388
+    startLine: 391
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Handles popup grid double-tap events.
+  summary: Handles result grid double tap.
   example: []
   syntax:
     content: protected virtual void Grid_DoubleTapped(object Sender, TappedEventArgs Args)
     parameters:
     - id: Sender
       type: System.Object
-      description: The event sender.
     - id: Args
       type: Avalonia.Input.TappedEventArgs
-      description: The tapped event arguments.
     content.vb: Protected Overridable Sub Grid_DoubleTapped(Sender As Object, Args As TappedEventArgs)
   overload: Tripous.Desktop.LocatorBox.Grid_DoubleTapped*
   nameWithType.vb: LocatorBox.Grid_DoubleTapped(Object, TappedEventArgs)
@@ -1254,64 +1437,24 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Grid_PreviewKeyDown
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 397
+    startLine: 398
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Handles popup grid preview key down events.
+  summary: Handles result grid preview key down.
   example: []
   syntax:
     content: protected virtual void Grid_PreviewKeyDown(object Sender, KeyEventArgs Args)
     parameters:
     - id: Sender
       type: System.Object
-      description: The event sender.
     - id: Args
       type: Avalonia.Input.KeyEventArgs
-      description: The key event arguments.
     content.vb: Protected Overridable Sub Grid_PreviewKeyDown(Sender As Object, Args As KeyEventArgs)
   overload: Tripous.Desktop.LocatorBox.Grid_PreviewKeyDown*
   nameWithType.vb: LocatorBox.Grid_PreviewKeyDown(Object, KeyEventArgs)
   fullName.vb: Tripous.Desktop.LocatorBox.Grid_PreviewKeyDown(Object, Avalonia.Input.KeyEventArgs)
   name.vb: Grid_PreviewKeyDown(Object, KeyEventArgs)
-- uid: Tripous.Desktop.LocatorBox.ItemZoom_Click(System.Object,Avalonia.Interactivity.RoutedEventArgs)
-  commentId: M:Tripous.Desktop.LocatorBox.ItemZoom_Click(System.Object,Avalonia.Interactivity.RoutedEventArgs)
-  id: ItemZoom_Click(System.Object,Avalonia.Interactivity.RoutedEventArgs)
-  parent: Tripous.Desktop.LocatorBox
-  langs:
-  - csharp
-  - vb
-  name: ItemZoom_Click(object, RoutedEventArgs)
-  nameWithType: LocatorBox.ItemZoom_Click(object, RoutedEventArgs)
-  fullName: Tripous.Desktop.LocatorBox.ItemZoom_Click(object, Avalonia.Interactivity.RoutedEventArgs)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ItemZoom_Click
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 410
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Handles item zoom button clicks.
-  example: []
-  syntax:
-    content: protected virtual void ItemZoom_Click(object Sender, RoutedEventArgs Args)
-    parameters:
-    - id: Sender
-      type: System.Object
-      description: The event sender.
-    - id: Args
-      type: Avalonia.Interactivity.RoutedEventArgs
-      description: The routed event arguments.
-    content.vb: Protected Overridable Sub ItemZoom_Click(Sender As Object, Args As RoutedEventArgs)
-  overload: Tripous.Desktop.LocatorBox.ItemZoom_Click*
-  nameWithType.vb: LocatorBox.ItemZoom_Click(Object, RoutedEventArgs)
-  fullName.vb: Tripous.Desktop.LocatorBox.ItemZoom_Click(Object, Avalonia.Interactivity.RoutedEventArgs)
-  name.vb: ItemZoom_Click(Object, RoutedEventArgs)
 - uid: Tripous.Desktop.LocatorBox.#ctor
   commentId: M:Tripous.Desktop.LocatorBox.#ctor
   id: '#ctor'
@@ -1330,7 +1473,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 419
+    startLine: 411
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1343,35 +1486,35 @@ items:
   nameWithType.vb: LocatorBox.New()
   fullName.vb: Tripous.Desktop.LocatorBox.New()
   name.vb: New()
-- uid: Tripous.Desktop.LocatorBox.LocatorProperty
-  commentId: F:Tripous.Desktop.LocatorBox.LocatorProperty
-  id: LocatorProperty
+- uid: Tripous.Desktop.LocatorBox.LocatorDefProperty
+  commentId: F:Tripous.Desktop.LocatorBox.LocatorDefProperty
+  id: LocatorDefProperty
   parent: Tripous.Desktop.LocatorBox
   langs:
   - csharp
   - vb
-  name: LocatorProperty
-  nameWithType: LocatorBox.LocatorProperty
-  fullName: Tripous.Desktop.LocatorBox.LocatorProperty
+  name: LocatorDefProperty
+  nameWithType: LocatorBox.LocatorDefProperty
+  fullName: Tripous.Desktop.LocatorBox.LocatorDefProperty
   type: Field
   source:
     remote:
       path: Tripous.Desktop/Locator/LocatorBox.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: LocatorProperty
+    id: LocatorDefProperty
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 428
+    startLine: 420
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Locator property.
+  summary: LocatorDef property.
   example: []
   syntax:
-    content: public static readonly StyledProperty<Locator> LocatorProperty
+    content: public static readonly StyledProperty<LocatorDef> LocatorDefProperty
     return:
-      type: Avalonia.StyledProperty{Tripous.Data.Locator}
-    content.vb: Public Shared ReadOnly LocatorProperty As StyledProperty(Of Locator)
+      type: Avalonia.StyledProperty{Tripous.Data.LocatorDef}
+    content.vb: Public Shared ReadOnly LocatorDefProperty As StyledProperty(Of LocatorDef)
 - uid: Tripous.Desktop.LocatorBox.IsReadOnlyProperty
   commentId: F:Tripous.Desktop.LocatorBox.IsReadOnlyProperty
   id: IsReadOnlyProperty
@@ -1390,7 +1533,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnlyProperty
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 432
+    startLine: 424
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1419,7 +1562,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyValueProperty
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 436
+    startLine: 428
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1448,7 +1591,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Rebuild
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 442
+    startLine: 434
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1458,16 +1601,16 @@ items:
     content: public virtual void Rebuild()
     content.vb: Public Overridable Sub Rebuild()
   overload: Tripous.Desktop.LocatorBox.Rebuild*
-- uid: Tripous.Desktop.LocatorBox.SetTargetBoxValue(Tripous.Data.LocatorFieldDef,System.Object)
-  commentId: M:Tripous.Desktop.LocatorBox.SetTargetBoxValue(Tripous.Data.LocatorFieldDef,System.Object)
-  id: SetTargetBoxValue(Tripous.Data.LocatorFieldDef,System.Object)
+- uid: Tripous.Desktop.LocatorBox.SetTargetBoxValue(System.String,System.Object)
+  commentId: M:Tripous.Desktop.LocatorBox.SetTargetBoxValue(System.String,System.Object)
+  id: SetTargetBoxValue(System.String,System.Object)
   parent: Tripous.Desktop.LocatorBox
   langs:
   - csharp
   - vb
-  name: SetTargetBoxValue(LocatorFieldDef, object)
-  nameWithType: LocatorBox.SetTargetBoxValue(LocatorFieldDef, object)
-  fullName: Tripous.Desktop.LocatorBox.SetTargetBoxValue(Tripous.Data.LocatorFieldDef, object)
+  name: SetTargetBoxValue(string, object)
+  nameWithType: LocatorBox.SetTargetBoxValue(string, object)
+  fullName: Tripous.Desktop.LocatorBox.SetTargetBoxValue(string, object)
   type: Method
   source:
     remote:
@@ -1476,26 +1619,24 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetTargetBoxValue
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 451
+    startLine: 441
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: Sets a textbox value.
   example: []
   syntax:
-    content: public virtual void SetTargetBoxValue(LocatorFieldDef FieldDef, object Value)
+    content: public virtual void SetTargetBoxValue(string FieldName, object Value)
     parameters:
-    - id: FieldDef
-      type: Tripous.Data.LocatorFieldDef
-      description: The locator field definition.
+    - id: FieldName
+      type: System.String
     - id: Value
       type: System.Object
-      description: The value to set.
-    content.vb: Public Overridable Sub SetTargetBoxValue(FieldDef As LocatorFieldDef, Value As Object)
+    content.vb: Public Overridable Sub SetTargetBoxValue(FieldName As String, Value As Object)
   overload: Tripous.Desktop.LocatorBox.SetTargetBoxValue*
-  nameWithType.vb: LocatorBox.SetTargetBoxValue(LocatorFieldDef, Object)
-  fullName.vb: Tripous.Desktop.LocatorBox.SetTargetBoxValue(Tripous.Data.LocatorFieldDef, Object)
-  name.vb: SetTargetBoxValue(LocatorFieldDef, Object)
+  nameWithType.vb: LocatorBox.SetTargetBoxValue(String, Object)
+  fullName.vb: Tripous.Desktop.LocatorBox.SetTargetBoxValue(String, Object)
+  name.vb: SetTargetBoxValue(String, Object)
 - uid: Tripous.Desktop.LocatorBox.ClearTargetBoxes
   commentId: M:Tripous.Desktop.LocatorBox.ClearTargetBoxes
   id: ClearTargetBoxes
@@ -1514,7 +1655,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClearTargetBoxes
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 459
+    startLine: 449
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1542,7 +1683,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RefreshTargetBoxes
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 468
+    startLine: 457
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1553,19 +1694,18 @@ items:
     parameters:
     - id: Row
       type: System.Data.DataRow
-      description: The source row.
     content.vb: Public Overridable Sub RefreshTargetBoxes(Row As DataRow)
   overload: Tripous.Desktop.LocatorBox.RefreshTargetBoxes*
-- uid: Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow,System.Collections.Generic.Dictionary{System.String,System.String})
-  commentId: M:Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow,System.Collections.Generic.Dictionary{System.String,System.String})
-  id: RefreshTargetBoxes(System.Data.DataRow,System.Collections.Generic.Dictionary{System.String,System.String})
+- uid: Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow,Tripous.Data.LocatorMapPlan)
+  commentId: M:Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow,Tripous.Data.LocatorMapPlan)
+  id: RefreshTargetBoxes(System.Data.DataRow,Tripous.Data.LocatorMapPlan)
   parent: Tripous.Desktop.LocatorBox
   langs:
   - csharp
   - vb
-  name: RefreshTargetBoxes(DataRow, Dictionary<string, string>)
-  nameWithType: LocatorBox.RefreshTargetBoxes(DataRow, Dictionary<string, string>)
-  fullName: Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow, System.Collections.Generic.Dictionary<string, string>)
+  name: RefreshTargetBoxes(DataRow, LocatorMapPlan)
+  nameWithType: LocatorBox.RefreshTargetBoxes(DataRow, LocatorMapPlan)
+  fullName: Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow, Tripous.Data.LocatorMapPlan)
   type: Method
   source:
     remote:
@@ -1578,53 +1718,48 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Refreshes all target textboxes from a row using an optional target field map.
+  summary: Refreshes all target textboxes from a target row and mapping plan.
   example: []
   syntax:
-    content: public virtual void RefreshTargetBoxes(DataRow Row, Dictionary<string, string> TargetFieldMap)
+    content: public virtual void RefreshTargetBoxes(DataRow Row, LocatorMapPlan Plan)
     parameters:
     - id: Row
       type: System.Data.DataRow
-      description: The source row.
-    - id: TargetFieldMap
-      type: System.Collections.Generic.Dictionary{System.String,System.String}
-      description: The target field map.
-    content.vb: Public Overridable Sub RefreshTargetBoxes(Row As DataRow, TargetFieldMap As Dictionary(Of String, String))
+    - id: Plan
+      type: Tripous.Data.LocatorMapPlan
+    content.vb: Public Overridable Sub RefreshTargetBoxes(Row As DataRow, Plan As LocatorMapPlan)
   overload: Tripous.Desktop.LocatorBox.RefreshTargetBoxes*
-  nameWithType.vb: LocatorBox.RefreshTargetBoxes(DataRow, Dictionary(Of String, String))
-  fullName.vb: Tripous.Desktop.LocatorBox.RefreshTargetBoxes(System.Data.DataRow, System.Collections.Generic.Dictionary(Of String, String))
-  name.vb: RefreshTargetBoxes(DataRow, Dictionary(Of String, String))
-- uid: Tripous.Desktop.LocatorBox.Locator
-  commentId: P:Tripous.Desktop.LocatorBox.Locator
-  id: Locator
+- uid: Tripous.Desktop.LocatorBox.LocatorDef
+  commentId: P:Tripous.Desktop.LocatorBox.LocatorDef
+  id: LocatorDef
   parent: Tripous.Desktop.LocatorBox
   langs:
   - csharp
   - vb
-  name: Locator
-  nameWithType: LocatorBox.Locator
-  fullName: Tripous.Desktop.LocatorBox.Locator
+  name: LocatorDef
+  nameWithType: LocatorBox.LocatorDef
+  fullName: Tripous.Desktop.LocatorBox.LocatorDef
   type: Property
   source:
     remote:
       path: Tripous.Desktop/Locator/LocatorBox.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Locator
+    id: LocatorDef
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 511
+    startLine: 497
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: The locator.
+  summary: The locator definition.
   example: []
   syntax:
-    content: public Locator Locator { get; set; }
+    content: public LocatorDef LocatorDef { get; set; }
     parameters: []
     return:
-      type: Tripous.Data.Locator
-    content.vb: Public Property Locator As Locator
-  overload: Tripous.Desktop.LocatorBox.Locator*
+      type: Tripous.Data.LocatorDef
+    content.vb: Public Property LocatorDef As LocatorDef
+  overload: Tripous.Desktop.LocatorBox.LocatorDef*
 - uid: Tripous.Desktop.LocatorBox.IsReadOnly
   commentId: P:Tripous.Desktop.LocatorBox.IsReadOnly
   id: IsReadOnly
@@ -1643,7 +1778,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsReadOnly
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 519
+    startLine: 505
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1674,7 +1809,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyValue
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 527
+    startLine: 513
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1687,6 +1822,37 @@ items:
       type: System.Object
     content.vb: Public Property KeyValue As Object
   overload: Tripous.Desktop.LocatorBox.KeyValue*
+- uid: Tripous.Desktop.LocatorBox.ContextRowProvider
+  commentId: P:Tripous.Desktop.LocatorBox.ContextRowProvider
+  id: ContextRowProvider
+  parent: Tripous.Desktop.LocatorBox
+  langs:
+  - csharp
+  - vb
+  name: ContextRowProvider
+  nameWithType: LocatorBox.ContextRowProvider
+  fullName: Tripous.Desktop.LocatorBox.ContextRowProvider
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/Locator/LocatorBox.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ContextRowProvider
+    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    startLine: 521
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides the current row context.
+  example: []
+  syntax:
+    content: public IRowProvider ContextRowProvider { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.IRowProvider
+    content.vb: Public Property ContextRowProvider As IRowProvider
+  overload: Tripous.Desktop.LocatorBox.ContextRowProvider*
 - uid: Tripous.Desktop.LocatorBox.MenuButton
   commentId: P:Tripous.Desktop.LocatorBox.MenuButton
   id: MenuButton
@@ -1705,7 +1871,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MenuButton
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 535
+    startLine: 525
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1718,35 +1884,6 @@ items:
       type: Avalonia.Controls.Button
     content.vb: Public ReadOnly Property MenuButton As Button
   overload: Tripous.Desktop.LocatorBox.MenuButton*
-- uid: Tripous.Desktop.LocatorBox.ZoomRequested
-  commentId: E:Tripous.Desktop.LocatorBox.ZoomRequested
-  id: ZoomRequested
-  parent: Tripous.Desktop.LocatorBox
-  langs:
-  - csharp
-  - vb
-  name: ZoomRequested
-  nameWithType: LocatorBox.ZoomRequested
-  fullName: Tripous.Desktop.LocatorBox.ZoomRequested
-  type: Event
-  source:
-    remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ZoomRequested
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 541
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Occurs when zoom is requested.
-  example: []
-  syntax:
-    content: public event EventHandler ZoomRequested
-    return:
-      type: System.EventHandler
-    content.vb: Public Event ZoomRequested As EventHandler
 - uid: Tripous.Desktop.LocatorBox.RowSelected
   commentId: E:Tripous.Desktop.LocatorBox.RowSelected
   id: RowSelected
@@ -1765,7 +1902,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: RowSelected
     path: ../Tripous.Desktop/Locator/LocatorBox.cs
-    startLine: 545
+    startLine: 531
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1959,13 +2096,6 @@ references:
   name: ISupportInitialize
   nameWithType: ISupportInitialize
   fullName: System.ComponentModel.ISupportInitialize
-- uid: Avalonia.Styling.IStyleable
-  commentId: T:Avalonia.Styling.IStyleable
-  parent: Avalonia.Styling
-  isExternal: true
-  name: IStyleable
-  nameWithType: IStyleable
-  fullName: Avalonia.Styling.IStyleable
 - uid: Avalonia.INamed
   commentId: T:Avalonia.INamed
   parent: Avalonia
@@ -2210,6 +2340,13 @@ references:
   name: ForegroundProperty
   nameWithType: TemplatedControl.ForegroundProperty
   fullName: Avalonia.Controls.Primitives.TemplatedControl.ForegroundProperty
+- uid: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
+  commentId: F:Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
+  parent: Avalonia.Controls.Primitives.TemplatedControl
+  isExternal: true
+  name: LetterSpacingProperty
+  nameWithType: TemplatedControl.LetterSpacingProperty
+  fullName: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacingProperty
 - uid: Avalonia.Controls.Primitives.TemplatedControl.PaddingProperty
   commentId: F:Avalonia.Controls.Primitives.TemplatedControl.PaddingProperty
   parent: Avalonia.Controls.Primitives.TemplatedControl
@@ -2526,6 +2663,13 @@ references:
   name: Foreground
   nameWithType: TemplatedControl.Foreground
   fullName: Avalonia.Controls.Primitives.TemplatedControl.Foreground
+- uid: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
+  commentId: P:Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
+  parent: Avalonia.Controls.Primitives.TemplatedControl
+  isExternal: true
+  name: LetterSpacing
+  nameWithType: TemplatedControl.LetterSpacing
+  fullName: Avalonia.Controls.Primitives.TemplatedControl.LetterSpacing
 - uid: Avalonia.Controls.Primitives.TemplatedControl.Padding
   commentId: P:Avalonia.Controls.Primitives.TemplatedControl.Padding
   parent: Avalonia.Controls.Primitives.TemplatedControl
@@ -2582,13 +2726,6 @@ references:
   name: RequestBringIntoViewEvent
   nameWithType: Control.RequestBringIntoViewEvent
   fullName: Avalonia.Controls.Control.RequestBringIntoViewEvent
-- uid: Avalonia.Controls.Control.ContextRequestedEvent
-  commentId: F:Avalonia.Controls.Control.ContextRequestedEvent
-  parent: Avalonia.Controls.Control
-  isExternal: true
-  name: ContextRequestedEvent
-  nameWithType: Control.ContextRequestedEvent
-  fullName: Avalonia.Controls.Control.ContextRequestedEvent
 - uid: Avalonia.Controls.Control.LoadedEvent
   commentId: F:Avalonia.Controls.Control.LoadedEvent
   parent: Avalonia.Controls.Control
@@ -2735,54 +2872,54 @@ references:
     name: VisualTreeAttachmentEventArgs
     isExternal: true
   - name: )
-- uid: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.GotFocusEventArgs)
-  commentId: M:Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.GotFocusEventArgs)
+- uid: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.FocusChangedEventArgs)
+  commentId: M:Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.FocusChangedEventArgs)
   parent: Avalonia.Controls.Control
   isExternal: true
-  name: OnGotFocus(GotFocusEventArgs)
-  nameWithType: Control.OnGotFocus(GotFocusEventArgs)
-  fullName: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.GotFocusEventArgs)
+  name: OnGotFocus(FocusChangedEventArgs)
+  nameWithType: Control.OnGotFocus(FocusChangedEventArgs)
+  fullName: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.FocusChangedEventArgs)
   spec.csharp:
-  - uid: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.GotFocusEventArgs)
+  - uid: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.FocusChangedEventArgs)
     name: OnGotFocus
     isExternal: true
   - name: (
-  - uid: Avalonia.Input.GotFocusEventArgs
-    name: GotFocusEventArgs
+  - uid: Avalonia.Input.FocusChangedEventArgs
+    name: FocusChangedEventArgs
     isExternal: true
   - name: )
   spec.vb:
-  - uid: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.GotFocusEventArgs)
+  - uid: Avalonia.Controls.Control.OnGotFocus(Avalonia.Input.FocusChangedEventArgs)
     name: OnGotFocus
     isExternal: true
   - name: (
-  - uid: Avalonia.Input.GotFocusEventArgs
-    name: GotFocusEventArgs
+  - uid: Avalonia.Input.FocusChangedEventArgs
+    name: FocusChangedEventArgs
     isExternal: true
   - name: )
-- uid: Avalonia.Controls.Control.OnLostFocus(Avalonia.Interactivity.RoutedEventArgs)
-  commentId: M:Avalonia.Controls.Control.OnLostFocus(Avalonia.Interactivity.RoutedEventArgs)
+- uid: Avalonia.Controls.Control.OnLostFocus(Avalonia.Input.FocusChangedEventArgs)
+  commentId: M:Avalonia.Controls.Control.OnLostFocus(Avalonia.Input.FocusChangedEventArgs)
   parent: Avalonia.Controls.Control
   isExternal: true
-  name: OnLostFocus(RoutedEventArgs)
-  nameWithType: Control.OnLostFocus(RoutedEventArgs)
-  fullName: Avalonia.Controls.Control.OnLostFocus(Avalonia.Interactivity.RoutedEventArgs)
+  name: OnLostFocus(FocusChangedEventArgs)
+  nameWithType: Control.OnLostFocus(FocusChangedEventArgs)
+  fullName: Avalonia.Controls.Control.OnLostFocus(Avalonia.Input.FocusChangedEventArgs)
   spec.csharp:
-  - uid: Avalonia.Controls.Control.OnLostFocus(Avalonia.Interactivity.RoutedEventArgs)
+  - uid: Avalonia.Controls.Control.OnLostFocus(Avalonia.Input.FocusChangedEventArgs)
     name: OnLostFocus
     isExternal: true
   - name: (
-  - uid: Avalonia.Interactivity.RoutedEventArgs
-    name: RoutedEventArgs
+  - uid: Avalonia.Input.FocusChangedEventArgs
+    name: FocusChangedEventArgs
     isExternal: true
   - name: )
   spec.vb:
-  - uid: Avalonia.Controls.Control.OnLostFocus(Avalonia.Interactivity.RoutedEventArgs)
+  - uid: Avalonia.Controls.Control.OnLostFocus(Avalonia.Input.FocusChangedEventArgs)
     name: OnLostFocus
     isExternal: true
   - name: (
-  - uid: Avalonia.Interactivity.RoutedEventArgs
-    name: RoutedEventArgs
+  - uid: Avalonia.Input.FocusChangedEventArgs
+    name: FocusChangedEventArgs
     isExternal: true
   - name: )
 - uid: Avalonia.Controls.Control.OnPointerReleased(Avalonia.Input.PointerReleasedEventArgs)
@@ -2835,6 +2972,54 @@ references:
     name: KeyEventArgs
     isExternal: true
   - name: )
+- uid: Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
+  commentId: M:Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
+  parent: Avalonia.Controls.Control
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.exception
+  name: UpdateDataValidation(AvaloniaProperty, BindingValueType, Exception)
+  nameWithType: Control.UpdateDataValidation(AvaloniaProperty, BindingValueType, Exception)
+  fullName: Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty, Avalonia.Data.BindingValueType, System.Exception)
+  spec.csharp:
+  - uid: Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
+    name: UpdateDataValidation
+    isExternal: true
+  - name: (
+  - uid: Avalonia.AvaloniaProperty
+    name: AvaloniaProperty
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Data.BindingValueType
+    name: BindingValueType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.Control.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
+    name: UpdateDataValidation
+    isExternal: true
+  - name: (
+  - uid: Avalonia.AvaloniaProperty
+    name: AvaloniaProperty
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Data.BindingValueType
+    name: BindingValueType
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Exception
+    name: Exception
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.exception
+  - name: )
 - uid: Avalonia.Controls.Control.FocusAdorner
   commentId: P:Avalonia.Controls.Control.FocusAdorner
   parent: Avalonia.Controls.Control
@@ -2877,13 +3062,6 @@ references:
   name: Tag
   nameWithType: Control.Tag
   fullName: Avalonia.Controls.Control.Tag
-- uid: Avalonia.Controls.Control.ContextRequested
-  commentId: E:Avalonia.Controls.Control.ContextRequested
-  parent: Avalonia.Controls.Control
-  isExternal: true
-  name: ContextRequested
-  nameWithType: Control.ContextRequested
-  fullName: Avalonia.Controls.Control.ContextRequested
 - uid: Avalonia.Controls.Control.Loaded
   commentId: E:Avalonia.Controls.Control.Loaded
   parent: Avalonia.Controls.Control
@@ -2975,6 +3153,13 @@ references:
   name: GotFocusEvent
   nameWithType: InputElement.GotFocusEvent
   fullName: Avalonia.Input.InputElement.GotFocusEvent
+- uid: Avalonia.Input.InputElement.GettingFocusEvent
+  commentId: F:Avalonia.Input.InputElement.GettingFocusEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GettingFocusEvent
+  nameWithType: InputElement.GettingFocusEvent
+  fullName: Avalonia.Input.InputElement.GettingFocusEvent
 - uid: Avalonia.Input.InputElement.LostFocusEvent
   commentId: F:Avalonia.Input.InputElement.LostFocusEvent
   parent: Avalonia.Input.InputElement
@@ -2982,6 +3167,13 @@ references:
   name: LostFocusEvent
   nameWithType: InputElement.LostFocusEvent
   fullName: Avalonia.Input.InputElement.LostFocusEvent
+- uid: Avalonia.Input.InputElement.LosingFocusEvent
+  commentId: F:Avalonia.Input.InputElement.LosingFocusEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: LosingFocusEvent
+  nameWithType: InputElement.LosingFocusEvent
+  fullName: Avalonia.Input.InputElement.LosingFocusEvent
 - uid: Avalonia.Input.InputElement.KeyDownEvent
   commentId: F:Avalonia.Input.InputElement.KeyDownEvent
   parent: Avalonia.Input.InputElement
@@ -3066,6 +3258,118 @@ references:
   name: PointerWheelChangedEvent
   nameWithType: InputElement.PointerWheelChangedEvent
   fullName: Avalonia.Input.InputElement.PointerWheelChangedEvent
+- uid: Avalonia.Input.InputElement.ContextRequestedEvent
+  commentId: F:Avalonia.Input.InputElement.ContextRequestedEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ContextRequestedEvent
+  nameWithType: InputElement.ContextRequestedEvent
+  fullName: Avalonia.Input.InputElement.ContextRequestedEvent
+- uid: Avalonia.Input.InputElement.ContextCanceledEvent
+  commentId: F:Avalonia.Input.InputElement.ContextCanceledEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ContextCanceledEvent
+  nameWithType: InputElement.ContextCanceledEvent
+  fullName: Avalonia.Input.InputElement.ContextCanceledEvent
+- uid: Avalonia.Input.InputElement.IsHoldingEnabledProperty
+  commentId: F:Avalonia.Input.InputElement.IsHoldingEnabledProperty
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: IsHoldingEnabledProperty
+  nameWithType: InputElement.IsHoldingEnabledProperty
+  fullName: Avalonia.Input.InputElement.IsHoldingEnabledProperty
+- uid: Avalonia.Input.InputElement.IsHoldWithMouseEnabledProperty
+  commentId: F:Avalonia.Input.InputElement.IsHoldWithMouseEnabledProperty
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: IsHoldWithMouseEnabledProperty
+  nameWithType: InputElement.IsHoldWithMouseEnabledProperty
+  fullName: Avalonia.Input.InputElement.IsHoldWithMouseEnabledProperty
+- uid: Avalonia.Input.InputElement.PinchEvent
+  commentId: F:Avalonia.Input.InputElement.PinchEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PinchEvent
+  nameWithType: InputElement.PinchEvent
+  fullName: Avalonia.Input.InputElement.PinchEvent
+- uid: Avalonia.Input.InputElement.PinchEndedEvent
+  commentId: F:Avalonia.Input.InputElement.PinchEndedEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PinchEndedEvent
+  nameWithType: InputElement.PinchEndedEvent
+  fullName: Avalonia.Input.InputElement.PinchEndedEvent
+- uid: Avalonia.Input.InputElement.PullGestureEvent
+  commentId: F:Avalonia.Input.InputElement.PullGestureEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PullGestureEvent
+  nameWithType: InputElement.PullGestureEvent
+  fullName: Avalonia.Input.InputElement.PullGestureEvent
+- uid: Avalonia.Input.InputElement.PullGestureEndedEvent
+  commentId: F:Avalonia.Input.InputElement.PullGestureEndedEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PullGestureEndedEvent
+  nameWithType: InputElement.PullGestureEndedEvent
+  fullName: Avalonia.Input.InputElement.PullGestureEndedEvent
+- uid: Avalonia.Input.InputElement.SwipeGestureEvent
+  commentId: F:Avalonia.Input.InputElement.SwipeGestureEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: SwipeGestureEvent
+  nameWithType: InputElement.SwipeGestureEvent
+  fullName: Avalonia.Input.InputElement.SwipeGestureEvent
+- uid: Avalonia.Input.InputElement.SwipeGestureEndedEvent
+  commentId: F:Avalonia.Input.InputElement.SwipeGestureEndedEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: SwipeGestureEndedEvent
+  nameWithType: InputElement.SwipeGestureEndedEvent
+  fullName: Avalonia.Input.InputElement.SwipeGestureEndedEvent
+- uid: Avalonia.Input.InputElement.ScrollGestureEvent
+  commentId: F:Avalonia.Input.InputElement.ScrollGestureEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ScrollGestureEvent
+  nameWithType: InputElement.ScrollGestureEvent
+  fullName: Avalonia.Input.InputElement.ScrollGestureEvent
+- uid: Avalonia.Input.InputElement.ScrollGestureInertiaStartingEvent
+  commentId: F:Avalonia.Input.InputElement.ScrollGestureInertiaStartingEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ScrollGestureInertiaStartingEvent
+  nameWithType: InputElement.ScrollGestureInertiaStartingEvent
+  fullName: Avalonia.Input.InputElement.ScrollGestureInertiaStartingEvent
+- uid: Avalonia.Input.InputElement.ScrollGestureEndedEvent
+  commentId: F:Avalonia.Input.InputElement.ScrollGestureEndedEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ScrollGestureEndedEvent
+  nameWithType: InputElement.ScrollGestureEndedEvent
+  fullName: Avalonia.Input.InputElement.ScrollGestureEndedEvent
+- uid: Avalonia.Input.InputElement.PointerTouchPadGestureMagnifyEvent
+  commentId: F:Avalonia.Input.InputElement.PointerTouchPadGestureMagnifyEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PointerTouchPadGestureMagnifyEvent
+  nameWithType: InputElement.PointerTouchPadGestureMagnifyEvent
+  fullName: Avalonia.Input.InputElement.PointerTouchPadGestureMagnifyEvent
+- uid: Avalonia.Input.InputElement.PointerTouchPadGestureRotateEvent
+  commentId: F:Avalonia.Input.InputElement.PointerTouchPadGestureRotateEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PointerTouchPadGestureRotateEvent
+  nameWithType: InputElement.PointerTouchPadGestureRotateEvent
+  fullName: Avalonia.Input.InputElement.PointerTouchPadGestureRotateEvent
+- uid: Avalonia.Input.InputElement.PointerTouchPadGestureSwipeEvent
+  commentId: F:Avalonia.Input.InputElement.PointerTouchPadGestureSwipeEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PointerTouchPadGestureSwipeEvent
+  nameWithType: InputElement.PointerTouchPadGestureSwipeEvent
+  fullName: Avalonia.Input.InputElement.PointerTouchPadGestureSwipeEvent
 - uid: Avalonia.Input.InputElement.TappedEvent
   commentId: F:Avalonia.Input.InputElement.TappedEvent
   parent: Avalonia.Input.InputElement
@@ -3073,6 +3377,13 @@ references:
   name: TappedEvent
   nameWithType: InputElement.TappedEvent
   fullName: Avalonia.Input.InputElement.TappedEvent
+- uid: Avalonia.Input.InputElement.RightTappedEvent
+  commentId: F:Avalonia.Input.InputElement.RightTappedEvent
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: RightTappedEvent
+  nameWithType: InputElement.RightTappedEvent
+  fullName: Avalonia.Input.InputElement.RightTappedEvent
 - uid: Avalonia.Input.InputElement.HoldingEvent
   commentId: F:Avalonia.Input.InputElement.HoldingEvent
   parent: Avalonia.Input.InputElement
@@ -3145,6 +3456,56 @@ references:
   - name: (
   - uid: Avalonia.Interactivity.RoutedEventArgs
     name: RoutedEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnGettingFocus(FocusChangingEventArgs)
+  nameWithType: InputElement.OnGettingFocus(FocusChangingEventArgs)
+  fullName: Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
+    name: OnGettingFocus
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.FocusChangingEventArgs
+    name: FocusChangingEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnGettingFocus(Avalonia.Input.FocusChangingEventArgs)
+    name: OnGettingFocus
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.FocusChangingEventArgs
+    name: FocusChangingEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnLosingFocus(FocusChangingEventArgs)
+  nameWithType: InputElement.OnLosingFocus(FocusChangingEventArgs)
+  fullName: Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
+    name: OnLosingFocus
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.FocusChangingEventArgs
+    name: FocusChangingEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnLosingFocus(Avalonia.Input.FocusChangingEventArgs)
+    name: OnLosingFocus
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.FocusChangingEventArgs
+    name: FocusChangingEventArgs
     isExternal: true
   - name: )
 - uid: Avalonia.Input.InputElement.OnKeyDown(Avalonia.Input.KeyEventArgs)
@@ -3297,6 +3658,82 @@ references:
     name: PointerPressedEventArgs
     isExternal: true
   - name: )
+- uid: Avalonia.Input.InputElement.GetNextTabStopOverride
+  commentId: M:Avalonia.Input.InputElement.GetNextTabStopOverride
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GetNextTabStopOverride()
+  nameWithType: InputElement.GetNextTabStopOverride()
+  fullName: Avalonia.Input.InputElement.GetNextTabStopOverride()
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.GetNextTabStopOverride
+    name: GetNextTabStopOverride
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.GetNextTabStopOverride
+    name: GetNextTabStopOverride
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Input.InputElement.GetPreviousTabStopOverride
+  commentId: M:Avalonia.Input.InputElement.GetPreviousTabStopOverride
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GetPreviousTabStopOverride()
+  nameWithType: InputElement.GetPreviousTabStopOverride()
+  fullName: Avalonia.Input.InputElement.GetPreviousTabStopOverride()
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.GetPreviousTabStopOverride
+    name: GetPreviousTabStopOverride
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.GetPreviousTabStopOverride
+    name: GetPreviousTabStopOverride
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Input.InputElement.GetFirstFocusableElementOverride
+  commentId: M:Avalonia.Input.InputElement.GetFirstFocusableElementOverride
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GetFirstFocusableElementOverride()
+  nameWithType: InputElement.GetFirstFocusableElementOverride()
+  fullName: Avalonia.Input.InputElement.GetFirstFocusableElementOverride()
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.GetFirstFocusableElementOverride
+    name: GetFirstFocusableElementOverride
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.GetFirstFocusableElementOverride
+    name: GetFirstFocusableElementOverride
+    isExternal: true
+  - name: (
+  - name: )
+- uid: Avalonia.Input.InputElement.GetLastFocusableElementOverride
+  commentId: M:Avalonia.Input.InputElement.GetLastFocusableElementOverride
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GetLastFocusableElementOverride()
+  nameWithType: InputElement.GetLastFocusableElementOverride()
+  fullName: Avalonia.Input.InputElement.GetLastFocusableElementOverride()
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.GetLastFocusableElementOverride
+    name: GetLastFocusableElementOverride
+    isExternal: true
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.GetLastFocusableElementOverride
+    name: GetLastFocusableElementOverride
+    isExternal: true
+  - name: (
+  - name: )
 - uid: Avalonia.Input.InputElement.OnPointerCaptureLost(Avalonia.Input.PointerCaptureLostEventArgs)
   commentId: M:Avalonia.Input.InputElement.OnPointerCaptureLost(Avalonia.Input.PointerCaptureLostEventArgs)
   parent: Avalonia.Input.InputElement
@@ -3320,6 +3757,154 @@ references:
   - name: (
   - uid: Avalonia.Input.PointerCaptureLostEventArgs
     name: PointerCaptureLostEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.ProcessTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,System.Boolean,Avalonia.Input.IInputElement@)
+  commentId: M:Avalonia.Input.InputElement.ProcessTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,System.Boolean,Avalonia.Input.IInputElement@)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: ProcessTabStopOverride(IInputElement, IInputElement, bool, bool, ref IInputElement)
+  nameWithType: InputElement.ProcessTabStopOverride(IInputElement, IInputElement, bool, bool, ref IInputElement)
+  fullName: Avalonia.Input.InputElement.ProcessTabStopOverride(Avalonia.Input.IInputElement, Avalonia.Input.IInputElement, bool, bool, ref Avalonia.Input.IInputElement)
+  nameWithType.vb: InputElement.ProcessTabStopOverride(IInputElement, IInputElement, Boolean, Boolean, IInputElement)
+  fullName.vb: Avalonia.Input.InputElement.ProcessTabStopOverride(Avalonia.Input.IInputElement, Avalonia.Input.IInputElement, Boolean, Boolean, Avalonia.Input.IInputElement)
+  name.vb: ProcessTabStopOverride(IInputElement, IInputElement, Boolean, Boolean, IInputElement)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.ProcessTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,System.Boolean,Avalonia.Input.IInputElement@)
+    name: ProcessTabStopOverride
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.ProcessTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,System.Boolean,Avalonia.Input.IInputElement@)
+    name: ProcessTabStopOverride
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.ProcessCandidateTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,Avalonia.Input.IInputElement@)
+  commentId: M:Avalonia.Input.InputElement.ProcessCandidateTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,Avalonia.Input.IInputElement@)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: ProcessCandidateTabStopOverride(IInputElement, IInputElement, IInputElement, bool, ref IInputElement)
+  nameWithType: InputElement.ProcessCandidateTabStopOverride(IInputElement, IInputElement, IInputElement, bool, ref IInputElement)
+  fullName: Avalonia.Input.InputElement.ProcessCandidateTabStopOverride(Avalonia.Input.IInputElement, Avalonia.Input.IInputElement, Avalonia.Input.IInputElement, bool, ref Avalonia.Input.IInputElement)
+  nameWithType.vb: InputElement.ProcessCandidateTabStopOverride(IInputElement, IInputElement, IInputElement, Boolean, IInputElement)
+  fullName.vb: Avalonia.Input.InputElement.ProcessCandidateTabStopOverride(Avalonia.Input.IInputElement, Avalonia.Input.IInputElement, Avalonia.Input.IInputElement, Boolean, Avalonia.Input.IInputElement)
+  name.vb: ProcessCandidateTabStopOverride(IInputElement, IInputElement, IInputElement, Boolean, IInputElement)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.ProcessCandidateTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,Avalonia.Input.IInputElement@)
+    name: ProcessCandidateTabStopOverride
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.ProcessCandidateTabStopOverride(Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,Avalonia.Input.IInputElement,System.Boolean,Avalonia.Input.IInputElement@)
+    name: ProcessCandidateTabStopOverride
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Input.IInputElement
+    name: IInputElement
     isExternal: true
   - name: )
 - uid: Avalonia.Input.InputElement.OnPointerWheelChanged(Avalonia.Input.PointerWheelEventArgs)
@@ -3347,6 +3932,106 @@ references:
     name: PointerWheelEventArgs
     isExternal: true
   - name: )
+- uid: Avalonia.Input.InputElement.OnTapped(Avalonia.Input.TappedEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnTapped(Avalonia.Input.TappedEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnTapped(TappedEventArgs)
+  nameWithType: InputElement.OnTapped(TappedEventArgs)
+  fullName: Avalonia.Input.InputElement.OnTapped(Avalonia.Input.TappedEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnTapped(Avalonia.Input.TappedEventArgs)
+    name: OnTapped
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.TappedEventArgs
+    name: TappedEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnTapped(Avalonia.Input.TappedEventArgs)
+    name: OnTapped
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.TappedEventArgs
+    name: TappedEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.OnRightTapped(Avalonia.Input.TappedEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnRightTapped(Avalonia.Input.TappedEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnRightTapped(TappedEventArgs)
+  nameWithType: InputElement.OnRightTapped(TappedEventArgs)
+  fullName: Avalonia.Input.InputElement.OnRightTapped(Avalonia.Input.TappedEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnRightTapped(Avalonia.Input.TappedEventArgs)
+    name: OnRightTapped
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.TappedEventArgs
+    name: TappedEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnRightTapped(Avalonia.Input.TappedEventArgs)
+    name: OnRightTapped
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.TappedEventArgs
+    name: TappedEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.OnDoubleTapped(Avalonia.Input.TappedEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnDoubleTapped(Avalonia.Input.TappedEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnDoubleTapped(TappedEventArgs)
+  nameWithType: InputElement.OnDoubleTapped(TappedEventArgs)
+  fullName: Avalonia.Input.InputElement.OnDoubleTapped(Avalonia.Input.TappedEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnDoubleTapped(Avalonia.Input.TappedEventArgs)
+    name: OnDoubleTapped
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.TappedEventArgs
+    name: TappedEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnDoubleTapped(Avalonia.Input.TappedEventArgs)
+    name: OnDoubleTapped
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.TappedEventArgs
+    name: TappedEventArgs
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.OnHolding(Avalonia.Input.HoldingRoutedEventArgs)
+  commentId: M:Avalonia.Input.InputElement.OnHolding(Avalonia.Input.HoldingRoutedEventArgs)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: OnHolding(HoldingRoutedEventArgs)
+  nameWithType: InputElement.OnHolding(HoldingRoutedEventArgs)
+  fullName: Avalonia.Input.InputElement.OnHolding(Avalonia.Input.HoldingRoutedEventArgs)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.OnHolding(Avalonia.Input.HoldingRoutedEventArgs)
+    name: OnHolding
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.HoldingRoutedEventArgs
+    name: HoldingRoutedEventArgs
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.OnHolding(Avalonia.Input.HoldingRoutedEventArgs)
+    name: OnHolding
+    isExternal: true
+  - name: (
+  - uid: Avalonia.Input.HoldingRoutedEventArgs
+    name: HoldingRoutedEventArgs
+    isExternal: true
+  - name: )
 - uid: Avalonia.Input.InputElement.UpdateIsEffectivelyEnabled
   commentId: M:Avalonia.Input.InputElement.UpdateIsEffectivelyEnabled
   parent: Avalonia.Input.InputElement
@@ -3365,6 +4050,138 @@ references:
     name: UpdateIsEffectivelyEnabled
     isExternal: true
   - name: (
+  - name: )
+- uid: Avalonia.Input.InputElement.GetIsHoldingEnabled(Avalonia.StyledElement)
+  commentId: M:Avalonia.Input.InputElement.GetIsHoldingEnabled(Avalonia.StyledElement)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GetIsHoldingEnabled(StyledElement)
+  nameWithType: InputElement.GetIsHoldingEnabled(StyledElement)
+  fullName: Avalonia.Input.InputElement.GetIsHoldingEnabled(Avalonia.StyledElement)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.GetIsHoldingEnabled(Avalonia.StyledElement)
+    name: GetIsHoldingEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.GetIsHoldingEnabled(Avalonia.StyledElement)
+    name: GetIsHoldingEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.SetIsHoldingEnabled(Avalonia.StyledElement,System.Boolean)
+  commentId: M:Avalonia.Input.InputElement.SetIsHoldingEnabled(Avalonia.StyledElement,System.Boolean)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: SetIsHoldingEnabled(StyledElement, bool)
+  nameWithType: InputElement.SetIsHoldingEnabled(StyledElement, bool)
+  fullName: Avalonia.Input.InputElement.SetIsHoldingEnabled(Avalonia.StyledElement, bool)
+  nameWithType.vb: InputElement.SetIsHoldingEnabled(StyledElement, Boolean)
+  fullName.vb: Avalonia.Input.InputElement.SetIsHoldingEnabled(Avalonia.StyledElement, Boolean)
+  name.vb: SetIsHoldingEnabled(StyledElement, Boolean)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.SetIsHoldingEnabled(Avalonia.StyledElement,System.Boolean)
+    name: SetIsHoldingEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.SetIsHoldingEnabled(Avalonia.StyledElement,System.Boolean)
+    name: SetIsHoldingEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Input.InputElement.GetIsHoldWithMouseEnabled(Avalonia.StyledElement)
+  commentId: M:Avalonia.Input.InputElement.GetIsHoldWithMouseEnabled(Avalonia.StyledElement)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GetIsHoldWithMouseEnabled(StyledElement)
+  nameWithType: InputElement.GetIsHoldWithMouseEnabled(StyledElement)
+  fullName: Avalonia.Input.InputElement.GetIsHoldWithMouseEnabled(Avalonia.StyledElement)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.GetIsHoldWithMouseEnabled(Avalonia.StyledElement)
+    name: GetIsHoldWithMouseEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.GetIsHoldWithMouseEnabled(Avalonia.StyledElement)
+    name: GetIsHoldWithMouseEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: )
+- uid: Avalonia.Input.InputElement.SetIsHoldWithMouseEnabled(Avalonia.StyledElement,System.Boolean)
+  commentId: M:Avalonia.Input.InputElement.SetIsHoldWithMouseEnabled(Avalonia.StyledElement,System.Boolean)
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: SetIsHoldWithMouseEnabled(StyledElement, bool)
+  nameWithType: InputElement.SetIsHoldWithMouseEnabled(StyledElement, bool)
+  fullName: Avalonia.Input.InputElement.SetIsHoldWithMouseEnabled(Avalonia.StyledElement, bool)
+  nameWithType.vb: InputElement.SetIsHoldWithMouseEnabled(StyledElement, Boolean)
+  fullName.vb: Avalonia.Input.InputElement.SetIsHoldWithMouseEnabled(Avalonia.StyledElement, Boolean)
+  name.vb: SetIsHoldWithMouseEnabled(StyledElement, Boolean)
+  spec.csharp:
+  - uid: Avalonia.Input.InputElement.SetIsHoldWithMouseEnabled(Avalonia.StyledElement,System.Boolean)
+    name: SetIsHoldWithMouseEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Input.InputElement.SetIsHoldWithMouseEnabled(Avalonia.StyledElement,System.Boolean)
+    name: SetIsHoldWithMouseEnabled
+    isExternal: true
+  - name: (
+  - uid: Avalonia.StyledElement
+    name: StyledElement
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
 - uid: Avalonia.Input.InputElement.Focusable
   commentId: P:Avalonia.Input.InputElement.Focusable
@@ -3464,6 +4281,13 @@ references:
   name: GotFocus
   nameWithType: InputElement.GotFocus
   fullName: Avalonia.Input.InputElement.GotFocus
+- uid: Avalonia.Input.InputElement.GettingFocus
+  commentId: E:Avalonia.Input.InputElement.GettingFocus
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: GettingFocus
+  nameWithType: InputElement.GettingFocus
+  fullName: Avalonia.Input.InputElement.GettingFocus
 - uid: Avalonia.Input.InputElement.LostFocus
   commentId: E:Avalonia.Input.InputElement.LostFocus
   parent: Avalonia.Input.InputElement
@@ -3471,6 +4295,13 @@ references:
   name: LostFocus
   nameWithType: InputElement.LostFocus
   fullName: Avalonia.Input.InputElement.LostFocus
+- uid: Avalonia.Input.InputElement.LosingFocus
+  commentId: E:Avalonia.Input.InputElement.LosingFocus
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: LosingFocus
+  nameWithType: InputElement.LosingFocus
+  fullName: Avalonia.Input.InputElement.LosingFocus
 - uid: Avalonia.Input.InputElement.KeyDown
   commentId: E:Avalonia.Input.InputElement.KeyDown
   parent: Avalonia.Input.InputElement
@@ -3548,6 +4379,104 @@ references:
   name: PointerWheelChanged
   nameWithType: InputElement.PointerWheelChanged
   fullName: Avalonia.Input.InputElement.PointerWheelChanged
+- uid: Avalonia.Input.InputElement.ContextRequested
+  commentId: E:Avalonia.Input.InputElement.ContextRequested
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ContextRequested
+  nameWithType: InputElement.ContextRequested
+  fullName: Avalonia.Input.InputElement.ContextRequested
+- uid: Avalonia.Input.InputElement.ContextCanceled
+  commentId: E:Avalonia.Input.InputElement.ContextCanceled
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ContextCanceled
+  nameWithType: InputElement.ContextCanceled
+  fullName: Avalonia.Input.InputElement.ContextCanceled
+- uid: Avalonia.Input.InputElement.Pinch
+  commentId: E:Avalonia.Input.InputElement.Pinch
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: Pinch
+  nameWithType: InputElement.Pinch
+  fullName: Avalonia.Input.InputElement.Pinch
+- uid: Avalonia.Input.InputElement.PinchEnded
+  commentId: E:Avalonia.Input.InputElement.PinchEnded
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PinchEnded
+  nameWithType: InputElement.PinchEnded
+  fullName: Avalonia.Input.InputElement.PinchEnded
+- uid: Avalonia.Input.InputElement.PullGesture
+  commentId: E:Avalonia.Input.InputElement.PullGesture
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PullGesture
+  nameWithType: InputElement.PullGesture
+  fullName: Avalonia.Input.InputElement.PullGesture
+- uid: Avalonia.Input.InputElement.PullGestureEnded
+  commentId: E:Avalonia.Input.InputElement.PullGestureEnded
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PullGestureEnded
+  nameWithType: InputElement.PullGestureEnded
+  fullName: Avalonia.Input.InputElement.PullGestureEnded
+- uid: Avalonia.Input.InputElement.ScrollGesture
+  commentId: E:Avalonia.Input.InputElement.ScrollGesture
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ScrollGesture
+  nameWithType: InputElement.ScrollGesture
+  fullName: Avalonia.Input.InputElement.ScrollGesture
+- uid: Avalonia.Input.InputElement.ScrollGestureInertiaStarting
+  commentId: E:Avalonia.Input.InputElement.ScrollGestureInertiaStarting
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ScrollGestureInertiaStarting
+  nameWithType: InputElement.ScrollGestureInertiaStarting
+  fullName: Avalonia.Input.InputElement.ScrollGestureInertiaStarting
+- uid: Avalonia.Input.InputElement.ScrollGestureEnded
+  commentId: E:Avalonia.Input.InputElement.ScrollGestureEnded
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: ScrollGestureEnded
+  nameWithType: InputElement.ScrollGestureEnded
+  fullName: Avalonia.Input.InputElement.ScrollGestureEnded
+- uid: Avalonia.Input.InputElement.PointerTouchPadGestureMagnify
+  commentId: E:Avalonia.Input.InputElement.PointerTouchPadGestureMagnify
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PointerTouchPadGestureMagnify
+  nameWithType: InputElement.PointerTouchPadGestureMagnify
+  fullName: Avalonia.Input.InputElement.PointerTouchPadGestureMagnify
+- uid: Avalonia.Input.InputElement.PointerTouchPadGestureRotate
+  commentId: E:Avalonia.Input.InputElement.PointerTouchPadGestureRotate
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PointerTouchPadGestureRotate
+  nameWithType: InputElement.PointerTouchPadGestureRotate
+  fullName: Avalonia.Input.InputElement.PointerTouchPadGestureRotate
+- uid: Avalonia.Input.InputElement.SwipeGesture
+  commentId: E:Avalonia.Input.InputElement.SwipeGesture
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: SwipeGesture
+  nameWithType: InputElement.SwipeGesture
+  fullName: Avalonia.Input.InputElement.SwipeGesture
+- uid: Avalonia.Input.InputElement.SwipeGestureEnded
+  commentId: E:Avalonia.Input.InputElement.SwipeGestureEnded
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: SwipeGestureEnded
+  nameWithType: InputElement.SwipeGestureEnded
+  fullName: Avalonia.Input.InputElement.SwipeGestureEnded
+- uid: Avalonia.Input.InputElement.PointerTouchPadGestureSwipe
+  commentId: E:Avalonia.Input.InputElement.PointerTouchPadGestureSwipe
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: PointerTouchPadGestureSwipe
+  nameWithType: InputElement.PointerTouchPadGestureSwipe
+  fullName: Avalonia.Input.InputElement.PointerTouchPadGestureSwipe
 - uid: Avalonia.Input.InputElement.Tapped
   commentId: E:Avalonia.Input.InputElement.Tapped
   parent: Avalonia.Input.InputElement
@@ -3555,6 +4484,13 @@ references:
   name: Tapped
   nameWithType: InputElement.Tapped
   fullName: Avalonia.Input.InputElement.Tapped
+- uid: Avalonia.Input.InputElement.RightTapped
+  commentId: E:Avalonia.Input.InputElement.RightTapped
+  parent: Avalonia.Input.InputElement
+  isExternal: true
+  name: RightTapped
+  nameWithType: InputElement.RightTapped
+  fullName: Avalonia.Input.InputElement.RightTapped
 - uid: Avalonia.Input.InputElement.Holding
   commentId: E:Avalonia.Input.InputElement.Holding
   parent: Avalonia.Input.InputElement
@@ -4445,6 +5381,13 @@ references:
   name: OpacityMaskProperty
   nameWithType: Visual.OpacityMaskProperty
   fullName: Avalonia.Visual.OpacityMaskProperty
+- uid: Avalonia.Visual.CacheModeProperty
+  commentId: F:Avalonia.Visual.CacheModeProperty
+  parent: Avalonia.Visual
+  isExternal: true
+  name: CacheModeProperty
+  nameWithType: Visual.CacheModeProperty
+  fullName: Avalonia.Visual.CacheModeProperty
 - uid: Avalonia.Visual.EffectProperty
   commentId: F:Avalonia.Visual.EffectProperty
   parent: Avalonia.Visual
@@ -4803,6 +5746,13 @@ references:
   name: OpacityMask
   nameWithType: Visual.OpacityMask
   fullName: Avalonia.Visual.OpacityMask
+- uid: Avalonia.Visual.CacheMode
+  commentId: P:Avalonia.Visual.CacheMode
+  parent: Avalonia.Visual
+  isExternal: true
+  name: CacheMode
+  nameWithType: Visual.CacheMode
+  fullName: Avalonia.Visual.CacheMode
 - uid: Avalonia.Visual.Effect
   commentId: P:Avalonia.Visual.Effect
   parent: Avalonia.Visual
@@ -6014,15 +6964,15 @@ references:
   - name: " "
   - name: T
   - name: )
-- uid: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.IBinding)
-  commentId: M:Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.IBinding)
+- uid: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.BindingBase)
+  commentId: M:Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.BindingBase)
   parent: Avalonia.AvaloniaObject
   isExternal: true
-  name: Bind(AvaloniaProperty, IBinding)
-  nameWithType: AvaloniaObject.Bind(AvaloniaProperty, IBinding)
-  fullName: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty, Avalonia.Data.IBinding)
+  name: Bind(AvaloniaProperty, BindingBase)
+  nameWithType: AvaloniaObject.Bind(AvaloniaProperty, BindingBase)
+  fullName: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty, Avalonia.Data.BindingBase)
   spec.csharp:
-  - uid: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.IBinding)
+  - uid: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.BindingBase)
     name: Bind
     isExternal: true
   - name: (
@@ -6031,12 +6981,12 @@ references:
     isExternal: true
   - name: ','
   - name: " "
-  - uid: Avalonia.Data.IBinding
-    name: IBinding
+  - uid: Avalonia.Data.BindingBase
+    name: BindingBase
     isExternal: true
   - name: )
   spec.vb:
-  - uid: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.IBinding)
+  - uid: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,Avalonia.Data.BindingBase)
     name: Bind
     isExternal: true
   - name: (
@@ -6045,8 +6995,8 @@ references:
     isExternal: true
   - name: ','
   - name: " "
-  - uid: Avalonia.Data.IBinding
-    name: IBinding
+  - uid: Avalonia.Data.BindingBase
+    name: BindingBase
     isExternal: true
   - name: )
 - uid: Avalonia.AvaloniaObject.Bind(Avalonia.AvaloniaProperty,System.IObservable{System.Object},Avalonia.Data.BindingPriority)
@@ -6595,54 +7545,6 @@ references:
     name: AvaloniaProperty
     isExternal: true
   - name: )
-- uid: Avalonia.AvaloniaObject.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
-  commentId: M:Avalonia.AvaloniaObject.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
-  parent: Avalonia.AvaloniaObject
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.exception
-  name: UpdateDataValidation(AvaloniaProperty, BindingValueType, Exception)
-  nameWithType: AvaloniaObject.UpdateDataValidation(AvaloniaProperty, BindingValueType, Exception)
-  fullName: Avalonia.AvaloniaObject.UpdateDataValidation(Avalonia.AvaloniaProperty, Avalonia.Data.BindingValueType, System.Exception)
-  spec.csharp:
-  - uid: Avalonia.AvaloniaObject.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
-    name: UpdateDataValidation
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaProperty
-    name: AvaloniaProperty
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Avalonia.Data.BindingValueType
-    name: BindingValueType
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.Exception
-    name: Exception
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.exception
-  - name: )
-  spec.vb:
-  - uid: Avalonia.AvaloniaObject.UpdateDataValidation(Avalonia.AvaloniaProperty,Avalonia.Data.BindingValueType,System.Exception)
-    name: UpdateDataValidation
-    isExternal: true
-  - name: (
-  - uid: Avalonia.AvaloniaProperty
-    name: AvaloniaProperty
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: Avalonia.Data.BindingValueType
-    name: BindingValueType
-    isExternal: true
-  - name: ','
-  - name: " "
-  - uid: System.Exception
-    name: Exception
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.exception
-  - name: )
 - uid: Avalonia.AvaloniaObject.RaisePropertyChanged``1(Avalonia.DirectPropertyBase{{T}},{T},{T})
   commentId: M:Avalonia.AvaloniaObject.RaisePropertyChanged``1(Avalonia.DirectPropertyBase{``0},``0,``0)
   parent: Avalonia.AvaloniaObject
@@ -6816,6 +7718,13 @@ references:
     name: IndexerDescriptor
     isExternal: true
   - name: )
+- uid: Avalonia.AvaloniaObject.Dispatcher
+  commentId: P:Avalonia.AvaloniaObject.Dispatcher
+  parent: Avalonia.AvaloniaObject
+  isExternal: true
+  name: Dispatcher
+  nameWithType: AvaloniaObject.Dispatcher
+  fullName: Avalonia.AvaloniaObject.Dispatcher
 - uid: Avalonia.AvaloniaObject.PropertyChanged
   commentId: E:Avalonia.AvaloniaObject.PropertyChanged
   parent: Avalonia.AvaloniaObject
@@ -7183,26 +8092,21 @@ references:
     isExternal: true
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
 - uid: Avalonia.Controls.Primitives
   commentId: N:Avalonia.Controls.Primitives
   isExternal: true
@@ -8594,13 +9498,12 @@ references:
   name: Border
   nameWithType: Border
   fullName: Avalonia.Controls.Border
-- uid: Avalonia.Controls.DataGrid
-  commentId: T:Avalonia.Controls.DataGrid
+- uid: Avalonia.Controls.GroupGrid
+  commentId: T:Avalonia.Controls.GroupGrid
   parent: Avalonia.Controls
-  isExternal: true
-  name: DataGrid
-  nameWithType: DataGrid
-  fullName: Avalonia.Controls.DataGrid
+  name: GroupGrid
+  nameWithType: GroupGrid
+  fullName: Avalonia.Controls.GroupGrid
 - uid: Avalonia.Controls.Button
   commentId: T:Avalonia.Controls.Button
   parent: Avalonia.Controls
@@ -8608,13 +9511,6 @@ references:
   name: Button
   nameWithType: Button
   fullName: Avalonia.Controls.Button
-- uid: Tripous.Desktop.DataViewItemsSource
-  commentId: T:Tripous.Desktop.DataViewItemsSource
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.DataViewItemsSource.html
-  name: DataViewItemsSource
-  nameWithType: DataViewItemsSource
-  fullName: Tripous.Desktop.DataViewItemsSource
 - uid: System.Collections.Generic.List{Avalonia.Controls.TextBox}
   commentId: T:System.Collections.Generic.List{Avalonia.Controls.TextBox}
   parent: System.Collections.Generic
@@ -8713,26 +9609,27 @@ references:
     name: Generic
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: System.Collections.Generic.Dictionary{Tripous.Data.LocatorFieldDef,Avalonia.Controls.TextBox}
-  commentId: T:System.Collections.Generic.Dictionary{Tripous.Data.LocatorFieldDef,Avalonia.Controls.TextBox}
+- uid: System.Collections.Generic.Dictionary{System.String,Avalonia.Controls.TextBox}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,Avalonia.Controls.TextBox}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.Dictionary`2
   href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<LocatorFieldDef, TextBox>
-  nameWithType: Dictionary<LocatorFieldDef, TextBox>
-  fullName: System.Collections.Generic.Dictionary<Tripous.Data.LocatorFieldDef, Avalonia.Controls.TextBox>
-  nameWithType.vb: Dictionary(Of LocatorFieldDef, TextBox)
-  fullName.vb: System.Collections.Generic.Dictionary(Of Tripous.Data.LocatorFieldDef, Avalonia.Controls.TextBox)
-  name.vb: Dictionary(Of LocatorFieldDef, TextBox)
+  name: Dictionary<string, TextBox>
+  nameWithType: Dictionary<string, TextBox>
+  fullName: System.Collections.Generic.Dictionary<string, Avalonia.Controls.TextBox>
+  nameWithType.vb: Dictionary(Of String, TextBox)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Avalonia.Controls.TextBox)
+  name.vb: Dictionary(Of String, TextBox)
   spec.csharp:
   - uid: System.Collections.Generic.Dictionary`2
     name: Dictionary
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
   - name: <
-  - uid: Tripous.Data.LocatorFieldDef
-    name: LocatorFieldDef
-    href: Tripous.Data.LocatorFieldDef.html
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: ','
   - name: " "
   - uid: Avalonia.Controls.TextBox
@@ -8747,9 +9644,10 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: Tripous.Data.LocatorFieldDef
-    name: LocatorFieldDef
-    href: Tripous.Data.LocatorFieldDef.html
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
   - name: ','
   - name: " "
   - uid: Avalonia.Controls.TextBox
@@ -8790,76 +9688,13 @@ references:
   - name: " "
   - name: TValue
   - name: )
-- uid: Tripous.Desktop.LocatorBox.ApplyReadOnly*
-  commentId: Overload:Tripous.Desktop.LocatorBox.ApplyReadOnly
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ApplyReadOnly
-  name: ApplyReadOnly
-  nameWithType: LocatorBox.ApplyReadOnly
-  fullName: Tripous.Desktop.LocatorBox.ApplyReadOnly
-- uid: Tripous.Desktop.LocatorBox.GetFieldWidth*
-  commentId: Overload:Tripous.Desktop.LocatorBox.GetFieldWidth
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_GetFieldWidth_Tripous_Data_LocatorFieldDef_System_Int32_System_Collections_Generic_List_Tripous_Data_LocatorFieldDef__
-  name: GetFieldWidth
-  nameWithType: LocatorBox.GetFieldWidth
-  fullName: Tripous.Desktop.LocatorBox.GetFieldWidth
-- uid: Tripous.Data.LocatorFieldDef
-  commentId: T:Tripous.Data.LocatorFieldDef
+- uid: Tripous.Data.LocatorResult
+  commentId: T:Tripous.Data.LocatorResult
   parent: Tripous.Data
-  href: Tripous.Data.LocatorFieldDef.html
-  name: LocatorFieldDef
-  nameWithType: LocatorFieldDef
-  fullName: Tripous.Data.LocatorFieldDef
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
-- uid: System.Collections.Generic.List{Tripous.Data.LocatorFieldDef}
-  commentId: T:System.Collections.Generic.List{Tripous.Data.LocatorFieldDef}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<LocatorFieldDef>
-  nameWithType: List<LocatorFieldDef>
-  fullName: System.Collections.Generic.List<Tripous.Data.LocatorFieldDef>
-  nameWithType.vb: List(Of LocatorFieldDef)
-  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.LocatorFieldDef)
-  name.vb: List(Of LocatorFieldDef)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: Tripous.Data.LocatorFieldDef
-    name: LocatorFieldDef
-    href: Tripous.Data.LocatorFieldDef.html
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Tripous.Data.LocatorFieldDef
-    name: LocatorFieldDef
-    href: Tripous.Data.LocatorFieldDef.html
-  - name: )
-- uid: Avalonia.Controls.GridLength
-  commentId: T:Avalonia.Controls.GridLength
-  parent: Avalonia.Controls
-  isExternal: true
-  name: GridLength
-  nameWithType: GridLength
-  fullName: Avalonia.Controls.GridLength
+  href: Tripous.Data.LocatorResult.html
+  name: LocatorResult
+  nameWithType: LocatorResult
+  fullName: Tripous.Data.LocatorResult
 - uid: Tripous.Data
   commentId: N:Tripous.Data
   href: Tripous.html
@@ -8882,6 +9717,117 @@ references:
   - uid: Tripous.Data
     name: Data
     href: Tripous.Data.html
+- uid: Tripous.Desktop.LocatorBox.IsSearchField*
+  commentId: Overload:Tripous.Desktop.LocatorBox.IsSearchField
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_IsSearchField_System_String_
+  name: IsSearchField
+  nameWithType: LocatorBox.IsSearchField
+  fullName: Tripous.Desktop.LocatorBox.IsSearchField
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Desktop.LocatorBox.ContainsSearchTrigger*
+  commentId: Overload:Tripous.Desktop.LocatorBox.ContainsSearchTrigger
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ContainsSearchTrigger_System_String_
+  name: ContainsSearchTrigger
+  nameWithType: LocatorBox.ContainsSearchTrigger
+  fullName: Tripous.Desktop.LocatorBox.ContainsSearchTrigger
+- uid: Tripous.Desktop.LocatorBox.GetLogSearchTerm*
+  commentId: Overload:Tripous.Desktop.LocatorBox.GetLogSearchTerm
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_GetLogSearchTerm_System_String_
+  name: GetLogSearchTerm
+  nameWithType: LocatorBox.GetLogSearchTerm
+  fullName: Tripous.Desktop.LocatorBox.GetLogSearchTerm
+- uid: Tripous.Desktop.LocatorBox.ApplyReadOnly*
+  commentId: Overload:Tripous.Desktop.LocatorBox.ApplyReadOnly
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ApplyReadOnly
+  name: ApplyReadOnly
+  nameWithType: LocatorBox.ApplyReadOnly
+  fullName: Tripous.Desktop.LocatorBox.ApplyReadOnly
+- uid: Tripous.Desktop.LocatorBox.GetFieldWidth*
+  commentId: Overload:Tripous.Desktop.LocatorBox.GetFieldWidth
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_GetFieldWidth_System_String_System_Int32_System_Collections_Generic_List_System_String__
+  name: GetFieldWidth
+  nameWithType: LocatorBox.GetFieldWidth
+  fullName: Tripous.Desktop.LocatorBox.GetFieldWidth
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Avalonia.Controls.GridLength
+  commentId: T:Avalonia.Controls.GridLength
+  parent: Avalonia.Controls
+  isExternal: true
+  name: GridLength
+  nameWithType: GridLength
+  fullName: Avalonia.Controls.GridLength
+- uid: Tripous.Desktop.LocatorBox.GetDisplayFields*
+  commentId: Overload:Tripous.Desktop.LocatorBox.GetDisplayFields
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_GetDisplayFields
+  name: GetDisplayFields
+  nameWithType: LocatorBox.GetDisplayFields
+  fullName: Tripous.Desktop.LocatorBox.GetDisplayFields
 - uid: Tripous.Desktop.LocatorBox.Build*
   commentId: Overload:Tripous.Desktop.LocatorBox.Build
   href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_Build
@@ -8890,7 +9836,7 @@ references:
   fullName: Tripous.Desktop.LocatorBox.Build
 - uid: Tripous.Desktop.LocatorBox.CreateTextBox*
   commentId: Overload:Tripous.Desktop.LocatorBox.CreateTextBox
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_CreateTextBox_Tripous_Data_LocatorFieldDef_
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_CreateTextBox_System_String_
   name: CreateTextBox
   nameWithType: LocatorBox.CreateTextBox
   fullName: Tripous.Desktop.LocatorBox.CreateTextBox
@@ -8915,36 +9861,18 @@ references:
   fullName: Tripous.Desktop.LocatorBox.CreatePopup
 - uid: Tripous.Desktop.LocatorBox.CreatePopupColumns*
   commentId: Overload:Tripous.Desktop.LocatorBox.CreatePopupColumns
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_CreatePopupColumns
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_CreatePopupColumns_System_Data_DataTable_
   name: CreatePopupColumns
   nameWithType: LocatorBox.CreatePopupColumns
   fullName: Tripous.Desktop.LocatorBox.CreatePopupColumns
-- uid: Tripous.Desktop.LocatorBox.OpenPopup*
-  commentId: Overload:Tripous.Desktop.LocatorBox.OpenPopup
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_OpenPopup_Avalonia_Controls_Control_
-  name: OpenPopup
-  nameWithType: LocatorBox.OpenPopup
-  fullName: Tripous.Desktop.LocatorBox.OpenPopup
-- uid: Tripous.Desktop.LocatorBox.ClosePopup*
-  commentId: Overload:Tripous.Desktop.LocatorBox.ClosePopup
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ClosePopup
-  name: ClosePopup
-  nameWithType: LocatorBox.ClosePopup
-  fullName: Tripous.Desktop.LocatorBox.ClosePopup
-- uid: Tripous.Desktop.LocatorBox.AssignRow*
-  commentId: Overload:Tripous.Desktop.LocatorBox.AssignRow
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_AssignRow_System_Data_DataRow_
-  name: AssignRow
-  nameWithType: LocatorBox.AssignRow
-  fullName: Tripous.Desktop.LocatorBox.AssignRow
-- uid: System.Data.DataRow
-  commentId: T:System.Data.DataRow
+- uid: System.Data.DataTable
+  commentId: T:System.Data.DataTable
   parent: System.Data
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
-  name: DataRow
-  nameWithType: DataRow
-  fullName: System.Data.DataRow
+  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  name: DataTable
+  nameWithType: DataTable
+  fullName: System.Data.DataTable
 - uid: System.Data
   commentId: N:System.Data
   isExternal: true
@@ -8972,23 +9900,70 @@ references:
     name: Data
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.data
-- uid: Tripous.Desktop.LocatorBox.GetLogSearchTerm*
-  commentId: Overload:Tripous.Desktop.LocatorBox.GetLogSearchTerm
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_GetLogSearchTerm_System_String_
-  name: GetLogSearchTerm
-  nameWithType: LocatorBox.GetLogSearchTerm
-  fullName: Tripous.Desktop.LocatorBox.GetLogSearchTerm
-- uid: System.String
-  commentId: T:System.String
+- uid: Tripous.Desktop.LocatorBox.GetPopupGridHeight*
+  commentId: Overload:Tripous.Desktop.LocatorBox.GetPopupGridHeight
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_GetPopupGridHeight_System_Data_DataView_
+  name: GetPopupGridHeight
+  nameWithType: LocatorBox.GetPopupGridHeight
+  fullName: Tripous.Desktop.LocatorBox.GetPopupGridHeight
+- uid: System.Data.DataView
+  commentId: T:System.Data.DataView
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataview
+  name: DataView
+  nameWithType: DataView
+  fullName: System.Data.DataView
+- uid: System.Double
+  commentId: T:System.Double
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: string
-  nameWithType: string
-  fullName: string
-  nameWithType.vb: String
-  fullName.vb: String
-  name.vb: String
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Tripous.Desktop.LocatorBox.OpenPopup*
+  commentId: Overload:Tripous.Desktop.LocatorBox.OpenPopup
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_OpenPopup_Avalonia_Controls_Control_
+  name: OpenPopup
+  nameWithType: LocatorBox.OpenPopup
+  fullName: Tripous.Desktop.LocatorBox.OpenPopup
+- uid: Tripous.Desktop.LocatorBox.ClosePopup*
+  commentId: Overload:Tripous.Desktop.LocatorBox.ClosePopup
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ClosePopup
+  name: ClosePopup
+  nameWithType: LocatorBox.ClosePopup
+  fullName: Tripous.Desktop.LocatorBox.ClosePopup
+- uid: Tripous.Desktop.LocatorBox.CreateRequest*
+  commentId: Overload:Tripous.Desktop.LocatorBox.CreateRequest
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_CreateRequest_Avalonia_Controls_TextBox_
+  name: CreateRequest
+  nameWithType: LocatorBox.CreateRequest
+  fullName: Tripous.Desktop.LocatorBox.CreateRequest
+- uid: Tripous.Data.LocatorRequest
+  commentId: T:Tripous.Data.LocatorRequest
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorRequest.html
+  name: LocatorRequest
+  nameWithType: LocatorRequest
+  fullName: Tripous.Data.LocatorRequest
+- uid: Tripous.Desktop.LocatorBox.AssignRow*
+  commentId: Overload:Tripous.Desktop.LocatorBox.AssignRow
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_AssignRow_System_Data_DataRow_
+  name: AssignRow
+  nameWithType: LocatorBox.AssignRow
+  fullName: Tripous.Desktop.LocatorBox.AssignRow
+- uid: System.Data.DataRow
+  commentId: T:System.Data.DataRow
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
+  name: DataRow
+  nameWithType: DataRow
+  fullName: System.Data.DataRow
 - uid: Tripous.Desktop.LocatorBox.Search*
   commentId: Overload:Tripous.Desktop.LocatorBox.Search
   href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_Search_Avalonia_Controls_TextBox_
@@ -9001,12 +9976,6 @@ references:
   name: SelectCurrentRow
   nameWithType: LocatorBox.SelectCurrentRow
   fullName: Tripous.Desktop.LocatorBox.SelectCurrentRow
-- uid: Tripous.Desktop.LocatorBox.ClearValue*
-  commentId: Overload:Tripous.Desktop.LocatorBox.ClearValue
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ClearValue
-  name: ClearValue
-  nameWithType: LocatorBox.ClearValue
-  fullName: Tripous.Desktop.LocatorBox.ClearValue
 - uid: Tripous.Desktop.LocatorBox.TextBox_KeyDown*
   commentId: Overload:Tripous.Desktop.LocatorBox.TextBox_KeyDown
   href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_TextBox_KeyDown_System_Object_Avalonia_Input_KeyEventArgs_
@@ -9058,19 +10027,6 @@ references:
   name: Grid_PreviewKeyDown
   nameWithType: LocatorBox.Grid_PreviewKeyDown
   fullName: Tripous.Desktop.LocatorBox.Grid_PreviewKeyDown
-- uid: Tripous.Desktop.LocatorBox.ItemZoom_Click*
-  commentId: Overload:Tripous.Desktop.LocatorBox.ItemZoom_Click
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ItemZoom_Click_System_Object_Avalonia_Interactivity_RoutedEventArgs_
-  name: ItemZoom_Click
-  nameWithType: LocatorBox.ItemZoom_Click
-  fullName: Tripous.Desktop.LocatorBox.ItemZoom_Click
-- uid: Avalonia.Interactivity.RoutedEventArgs
-  commentId: T:Avalonia.Interactivity.RoutedEventArgs
-  parent: Avalonia.Interactivity
-  isExternal: true
-  name: RoutedEventArgs
-  nameWithType: RoutedEventArgs
-  fullName: Avalonia.Interactivity.RoutedEventArgs
 - uid: Tripous.Desktop.LocatorBox.#ctor*
   commentId: Overload:Tripous.Desktop.LocatorBox.#ctor
   href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox__ctor
@@ -9080,25 +10036,25 @@ references:
   nameWithType.vb: LocatorBox.New
   fullName.vb: Tripous.Desktop.LocatorBox.New
   name.vb: New
-- uid: Avalonia.StyledProperty{Tripous.Data.Locator}
-  commentId: T:Avalonia.StyledProperty{Tripous.Data.Locator}
+- uid: Avalonia.StyledProperty{Tripous.Data.LocatorDef}
+  commentId: T:Avalonia.StyledProperty{Tripous.Data.LocatorDef}
   parent: Avalonia
   definition: Avalonia.StyledProperty`1
-  href: Tripous.Data.Locator.html
-  name: StyledProperty<Locator>
-  nameWithType: StyledProperty<Locator>
-  fullName: Avalonia.StyledProperty<Tripous.Data.Locator>
-  nameWithType.vb: StyledProperty(Of Locator)
-  fullName.vb: Avalonia.StyledProperty(Of Tripous.Data.Locator)
-  name.vb: StyledProperty(Of Locator)
+  href: Tripous.Data.LocatorDef.html
+  name: StyledProperty<LocatorDef>
+  nameWithType: StyledProperty<LocatorDef>
+  fullName: Avalonia.StyledProperty<Tripous.Data.LocatorDef>
+  nameWithType.vb: StyledProperty(Of LocatorDef)
+  fullName.vb: Avalonia.StyledProperty(Of Tripous.Data.LocatorDef)
+  name.vb: StyledProperty(Of LocatorDef)
   spec.csharp:
   - uid: Avalonia.StyledProperty`1
     name: StyledProperty
     isExternal: true
   - name: <
-  - uid: Tripous.Data.Locator
-    name: Locator
-    href: Tripous.Data.Locator.html
+  - uid: Tripous.Data.LocatorDef
+    name: LocatorDef
+    href: Tripous.Data.LocatorDef.html
   - name: '>'
   spec.vb:
   - uid: Avalonia.StyledProperty`1
@@ -9107,9 +10063,9 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: Tripous.Data.Locator
-    name: Locator
-    href: Tripous.Data.Locator.html
+  - uid: Tripous.Data.LocatorDef
+    name: LocatorDef
+    href: Tripous.Data.LocatorDef.html
   - name: )
 - uid: Avalonia.StyledProperty`1
   commentId: T:Avalonia.StyledProperty`1
@@ -9210,7 +10166,7 @@ references:
   fullName: Tripous.Desktop.LocatorBox.Rebuild
 - uid: Tripous.Desktop.LocatorBox.SetTargetBoxValue*
   commentId: Overload:Tripous.Desktop.LocatorBox.SetTargetBoxValue
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_SetTargetBoxValue_Tripous_Data_LocatorFieldDef_System_Object_
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_SetTargetBoxValue_System_String_System_Object_
   name: SetTargetBoxValue
   nameWithType: LocatorBox.SetTargetBoxValue
   fullName: Tripous.Desktop.LocatorBox.SetTargetBoxValue
@@ -9226,103 +10182,57 @@ references:
   name: RefreshTargetBoxes
   nameWithType: LocatorBox.RefreshTargetBoxes
   fullName: Tripous.Desktop.LocatorBox.RefreshTargetBoxes
-- uid: System.Collections.Generic.Dictionary{System.String,System.String}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, string>
-  nameWithType: Dictionary<string, string>
-  fullName: System.Collections.Generic.Dictionary<string, string>
-  nameWithType.vb: Dictionary(Of String, String)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
-  name.vb: Dictionary(Of String, String)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Tripous.Desktop.LocatorBox.Locator*
-  commentId: Overload:Tripous.Desktop.LocatorBox.Locator
-  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_Locator
-  name: Locator
-  nameWithType: LocatorBox.Locator
-  fullName: Tripous.Desktop.LocatorBox.Locator
-- uid: Tripous.Data.Locator
-  commentId: T:Tripous.Data.Locator
+- uid: Tripous.Data.LocatorMapPlan
+  commentId: T:Tripous.Data.LocatorMapPlan
   parent: Tripous.Data
-  href: Tripous.Data.Locator.html
-  name: Locator
-  nameWithType: Locator
-  fullName: Tripous.Data.Locator
+  href: Tripous.Data.LocatorMapPlan.html
+  name: LocatorMapPlan
+  nameWithType: LocatorMapPlan
+  fullName: Tripous.Data.LocatorMapPlan
+- uid: Tripous.Desktop.LocatorBox.LocatorDef*
+  commentId: Overload:Tripous.Desktop.LocatorBox.LocatorDef
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_LocatorDef
+  name: LocatorDef
+  nameWithType: LocatorBox.LocatorDef
+  fullName: Tripous.Desktop.LocatorBox.LocatorDef
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
 - uid: Tripous.Desktop.LocatorBox.IsReadOnly*
   commentId: Overload:Tripous.Desktop.LocatorBox.IsReadOnly
   href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_IsReadOnly
   name: IsReadOnly
   nameWithType: LocatorBox.IsReadOnly
   fullName: Tripous.Desktop.LocatorBox.IsReadOnly
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
 - uid: Tripous.Desktop.LocatorBox.KeyValue*
   commentId: Overload:Tripous.Desktop.LocatorBox.KeyValue
   href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_KeyValue
   name: KeyValue
   nameWithType: LocatorBox.KeyValue
   fullName: Tripous.Desktop.LocatorBox.KeyValue
+- uid: Tripous.Desktop.LocatorBox.ContextRowProvider*
+  commentId: Overload:Tripous.Desktop.LocatorBox.ContextRowProvider
+  href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_ContextRowProvider
+  name: ContextRowProvider
+  nameWithType: LocatorBox.ContextRowProvider
+  fullName: Tripous.Desktop.LocatorBox.ContextRowProvider
+- uid: Tripous.Data.IRowProvider
+  commentId: T:Tripous.Data.IRowProvider
+  parent: Tripous.Data
+  href: Tripous.Data.IRowProvider.html
+  name: IRowProvider
+  nameWithType: IRowProvider
+  fullName: Tripous.Data.IRowProvider
 - uid: Tripous.Desktop.LocatorBox.MenuButton*
   commentId: Overload:Tripous.Desktop.LocatorBox.MenuButton
   href: Tripous.Desktop.LocatorBox.html#Tripous_Desktop_LocatorBox_MenuButton
   name: MenuButton
   nameWithType: LocatorBox.MenuButton
   fullName: Tripous.Desktop.LocatorBox.MenuButton
-- uid: System.EventHandler
-  commentId: T:System.EventHandler
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.eventhandler
-  name: EventHandler
-  nameWithType: EventHandler
-  fullName: System.EventHandler
 - uid: System.EventHandler{Tripous.Desktop.LocatorBoxRowEventArgs}
   commentId: T:System.EventHandler{Tripous.Desktop.LocatorBoxRowEventArgs}
   parent: System

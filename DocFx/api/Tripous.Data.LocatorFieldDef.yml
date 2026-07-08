@@ -6,14 +6,8 @@ items:
   parent: Tripous.Data
   children:
   - Tripous.Data.LocatorFieldDef.#ctor
-  - Tripous.Data.LocatorFieldDef.Alias
   - Tripous.Data.LocatorFieldDef.DataType
-  - Tripous.Data.LocatorFieldDef.DisplayWidth
-  - Tripous.Data.LocatorFieldDef.GetTitleKey
-  - Tripous.Data.LocatorFieldDef.IsSearchable
-  - Tripous.Data.LocatorFieldDef.IsVisible
   - Tripous.Data.LocatorFieldDef.LocatorDef
-  - Tripous.Data.LocatorFieldDef.TargetField
   langs:
   - csharp
   - vb
@@ -23,24 +17,16 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
+      path: Tripous.Data/Locator/LocatorFieldDef.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LocatorFieldDef
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 17
+    path: ../Tripous.Data/Locator/LocatorFieldDef.cs
+    startLine: 5
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: >-
-    Describes the "field" (text box or grid column) of a <xref href="Tripous.Data.Locator" data-throw-if-not-resolved="false"></xref>.
-
-
-    <p>A field such that associates a column in the data table (the target) to
-
-    a column in the list table (the source), the table returned by a <xref href="Tripous.Data.Locator" data-throw-if-not-resolved="false"></xref> search.</p>
-
-    <p><b>NOTE: </b> The inherited <xref href="Tripous.BaseDef.Name" data-throw-if-not-resolved="false"></xref> is a field name from the source table.</p>
+  summary: Describes a field that participates in a <xref href="Tripous.Data.LocatorDef" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: 'public class LocatorFieldDef : BaseDef, IDef, IJsonLoadable, INotifyPropertyChanged'
@@ -56,6 +42,7 @@ items:
   - Tripous.BaseDef.fTitleKey
   - Tripous.BaseDef.fName
   - Tripous.BaseDef.NotifyPropertyChanged(System.String)
+  - Tripous.BaseDef.GetTitleKey
   - Tripous.BaseDef.ToString
   - Tripous.BaseDef.UpdateReferences
   - Tripous.BaseDef.JsonLoaded
@@ -80,37 +67,6 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
-- uid: Tripous.Data.LocatorFieldDef.GetTitleKey
-  commentId: M:Tripous.Data.LocatorFieldDef.GetTitleKey
-  id: GetTitleKey
-  parent: Tripous.Data.LocatorFieldDef
-  langs:
-  - csharp
-  - vb
-  name: GetTitleKey()
-  nameWithType: LocatorFieldDef.GetTitleKey()
-  fullName: Tripous.Data.LocatorFieldDef.GetTitleKey()
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GetTitleKey
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 29
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Overrides <xref href="Tripous.BaseDef.GetTitleKey" data-throw-if-not-resolved="false"></xref>
-  example: []
-  syntax:
-    content: protected override string GetTitleKey()
-    return:
-      type: System.String
-    content.vb: Protected Overrides Function GetTitleKey() As String
-  overridden: Tripous.BaseDef.GetTitleKey
-  overload: Tripous.Data.LocatorFieldDef.GetTitleKey*
 - uid: Tripous.Data.LocatorFieldDef.#ctor
   commentId: M:Tripous.Data.LocatorFieldDef.#ctor
   id: '#ctor'
@@ -124,16 +80,16 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
+      path: Tripous.Data/Locator/LocatorFieldDef.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 36
+    path: ../Tripous.Data/Locator/LocatorFieldDef.cs
+    startLine: 14
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: Constructor
+  summary: Constructor.
   example: []
   syntax:
     content: public LocatorFieldDef()
@@ -155,16 +111,16 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
+      path: Tripous.Data/Locator/LocatorFieldDef.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LocatorDef
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 44
+    path: ../Tripous.Data/Locator/LocatorFieldDef.cs
+    startLine: 22
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: The master definition this instance belongs to.
+  summary: The locator definition this field belongs to.
   example: []
   syntax:
     content: >-
@@ -183,37 +139,6 @@ items:
   - type: System.Text.Json.Serialization.JsonIgnoreAttribute
     ctor: System.Text.Json.Serialization.JsonIgnoreAttribute.#ctor
     arguments: []
-- uid: Tripous.Data.LocatorFieldDef.Alias
-  commentId: P:Tripous.Data.LocatorFieldDef.Alias
-  id: Alias
-  parent: Tripous.Data.LocatorFieldDef
-  langs:
-  - csharp
-  - vb
-  name: Alias
-  nameWithType: LocatorFieldDef.Alias
-  fullName: Tripous.Data.LocatorFieldDef.Alias
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Alias
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 49
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: An alias of this field
-  example: []
-  syntax:
-    content: public string Alias { get; set; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public Property [Alias] As String
-  overload: Tripous.Data.LocatorFieldDef.Alias*
 - uid: Tripous.Data.LocatorFieldDef.DataType
   commentId: P:Tripous.Data.LocatorFieldDef.DataType
   id: DataType
@@ -227,16 +152,16 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
+      path: Tripous.Data/Locator/LocatorFieldDef.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DataType
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 57
+    path: ../Tripous.Data/Locator/LocatorFieldDef.cs
+    startLine: 27
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: The data type of the field. A <xref href="Tripous.Data.LocatorFieldDef.IsSearchable" data-throw-if-not-resolved="false"></xref> field can only be of type <xref href="Tripous.Data.DataFieldType.String" data-throw-if-not-resolved="false"></xref>.
+  summary: The data type of the field.
   example: []
   syntax:
     content: public DataFieldType DataType { get; set; }
@@ -245,145 +170,14 @@ items:
       type: Tripous.Data.DataFieldType
     content.vb: Public Property DataType As DataFieldType
   overload: Tripous.Data.LocatorFieldDef.DataType*
-- uid: Tripous.Data.LocatorFieldDef.TargetField
-  commentId: P:Tripous.Data.LocatorFieldDef.TargetField
-  id: TargetField
-  parent: Tripous.Data.LocatorFieldDef
-  langs:
-  - csharp
-  - vb
-  name: TargetField
-  nameWithType: LocatorFieldDef.TargetField
-  fullName: Tripous.Data.LocatorFieldDef.TargetField
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: TargetField
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 65
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: The <xref href="System.Data.DataColumn.ColumnName" data-throw-if-not-resolved="false"></xref> of the target data table. It can not be empty for grid-type locators.
-  example: []
-  syntax:
-    content: public string TargetField { get; set; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public Property TargetField As String
-  overload: Tripous.Data.LocatorFieldDef.TargetField*
-- uid: Tripous.Data.LocatorFieldDef.IsVisible
-  commentId: P:Tripous.Data.LocatorFieldDef.IsVisible
-  id: IsVisible
-  parent: Tripous.Data.LocatorFieldDef
-  langs:
-  - csharp
-  - vb
-  name: IsVisible
-  nameWithType: LocatorFieldDef.IsVisible
-  fullName: Tripous.Data.LocatorFieldDef.IsVisible
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: IsVisible
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 73
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: When true the field is visible in the UI, i.e. in a locator control or in a grid.
-  example: []
-  syntax:
-    content: public bool IsVisible { get; set; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public Property IsVisible As Boolean
-  overload: Tripous.Data.LocatorFieldDef.IsVisible*
-- uid: Tripous.Data.LocatorFieldDef.IsSearchable
-  commentId: P:Tripous.Data.LocatorFieldDef.IsSearchable
-  id: IsSearchable
-  parent: Tripous.Data.LocatorFieldDef
-  langs:
-  - csharp
-  - vb
-  name: IsSearchable
-  nameWithType: LocatorFieldDef.IsSearchable
-  fullName: Tripous.Data.LocatorFieldDef.IsSearchable
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: IsSearchable
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 81
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: When true the field can be part in a WHERE clause in a select statement.
-  example: []
-  syntax:
-    content: public bool IsSearchable { get; set; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public Property IsSearchable As Boolean
-  overload: Tripous.Data.LocatorFieldDef.IsSearchable*
-- uid: Tripous.Data.LocatorFieldDef.DisplayWidth
-  commentId: P:Tripous.Data.LocatorFieldDef.DisplayWidth
-  id: DisplayWidth
-  parent: Tripous.Data.LocatorFieldDef
-  langs:
-  - csharp
-  - vb
-  name: DisplayWidth
-  nameWithType: LocatorFieldDef.DisplayWidth
-  fullName: Tripous.Data.LocatorFieldDef.DisplayWidth
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Registry/LocatorFieldDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: DisplayWidth
-    path: ../Tripous.Data/Registry/LocatorFieldDef.cs
-    startLine: 89
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: The width of a box in a locator control
-  example: []
-  syntax:
-    content: public int DisplayWidth { get; set; }
-    parameters: []
-    return:
-      type: System.Int32
-    content.vb: Public Property DisplayWidth As Integer
-  overload: Tripous.Data.LocatorFieldDef.DisplayWidth*
 references:
-- uid: Tripous.Data.Locator
-  commentId: T:Tripous.Data.Locator
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
   parent: Tripous.Data
-  href: Tripous.Data.Locator.html
-  name: Locator
-  nameWithType: Locator
-  fullName: Tripous.Data.Locator
-- uid: Tripous.BaseDef.Name
-  commentId: P:Tripous.BaseDef.Name
-  parent: Tripous.BaseDef
-  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
-  name: Name
-  nameWithType: BaseDef.Name
-  fullName: Tripous.BaseDef.Name
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
 - uid: Tripous.Data
   commentId: N:Tripous.Data
   href: Tripous.html
@@ -490,6 +284,25 @@ references:
     name: String
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.BaseDef.GetTitleKey
+  commentId: M:Tripous.BaseDef.GetTitleKey
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  name: GetTitleKey()
+  nameWithType: BaseDef.GetTitleKey()
+  fullName: Tripous.BaseDef.GetTitleKey()
+  spec.csharp:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.BaseDef.GetTitleKey
+    name: GetTitleKey
+    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
+  - name: (
   - name: )
 - uid: Tripous.BaseDef.ToString
   commentId: M:Tripous.BaseDef.ToString
@@ -668,6 +481,13 @@ references:
     href: Tripous.BaseDef.html#Tripous_BaseDef_SplitTitleKeyToWordsWithPluralEnding
   - name: (
   - name: )
+- uid: Tripous.BaseDef.Name
+  commentId: P:Tripous.BaseDef.Name
+  parent: Tripous.BaseDef
+  href: Tripous.BaseDef.html#Tripous_BaseDef_Name
+  name: Name
+  nameWithType: BaseDef.Name
+  fullName: Tripous.BaseDef.Name
 - uid: Tripous.BaseDef.TitleKey
   commentId: P:Tripous.BaseDef.TitleKey
   parent: Tripous.BaseDef
@@ -1037,42 +857,6 @@ references:
   name: TypeExtensions
   nameWithType: TypeExtensions
   fullName: Tripous.TypeExtensions
-- uid: Tripous.BaseDef.GetTitleKey
-  commentId: M:Tripous.BaseDef.GetTitleKey
-  parent: Tripous.BaseDef
-  href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
-  name: GetTitleKey()
-  nameWithType: BaseDef.GetTitleKey()
-  fullName: Tripous.BaseDef.GetTitleKey()
-  spec.csharp:
-  - uid: Tripous.BaseDef.GetTitleKey
-    name: GetTitleKey
-    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: Tripous.BaseDef.GetTitleKey
-    name: GetTitleKey
-    href: Tripous.BaseDef.html#Tripous_BaseDef_GetTitleKey
-  - name: (
-  - name: )
-- uid: Tripous.Data.LocatorFieldDef.GetTitleKey*
-  commentId: Overload:Tripous.Data.LocatorFieldDef.GetTitleKey
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_GetTitleKey
-  name: GetTitleKey
-  nameWithType: LocatorFieldDef.GetTitleKey
-  fullName: Tripous.Data.LocatorFieldDef.GetTitleKey
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.string
-  name: string
-  nameWithType: string
-  fullName: string
-  nameWithType.vb: String
-  fullName.vb: String
-  name.vb: String
 - uid: Tripous.Data.LocatorFieldDef.#ctor*
   commentId: Overload:Tripous.Data.LocatorFieldDef.#ctor
   href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef__ctor
@@ -1088,31 +872,6 @@ references:
   name: LocatorDef
   nameWithType: LocatorFieldDef.LocatorDef
   fullName: Tripous.Data.LocatorFieldDef.LocatorDef
-- uid: Tripous.Data.LocatorDef
-  commentId: T:Tripous.Data.LocatorDef
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorDef.html
-  name: LocatorDef
-  nameWithType: LocatorDef
-  fullName: Tripous.Data.LocatorDef
-- uid: Tripous.Data.LocatorFieldDef.Alias*
-  commentId: Overload:Tripous.Data.LocatorFieldDef.Alias
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_Alias
-  name: Alias
-  nameWithType: LocatorFieldDef.Alias
-  fullName: Tripous.Data.LocatorFieldDef.Alias
-- uid: Tripous.Data.LocatorFieldDef.IsSearchable
-  commentId: P:Tripous.Data.LocatorFieldDef.IsSearchable
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_IsSearchable
-  name: IsSearchable
-  nameWithType: LocatorFieldDef.IsSearchable
-  fullName: Tripous.Data.LocatorFieldDef.IsSearchable
-- uid: Tripous.Data.DataFieldType.String
-  commentId: F:Tripous.Data.DataFieldType.String
-  href: Tripous.Data.DataFieldType.html#Tripous_Data_DataFieldType_String
-  name: String
-  nameWithType: DataFieldType.String
-  fullName: Tripous.Data.DataFieldType.String
 - uid: Tripous.Data.LocatorFieldDef.DataType*
   commentId: Overload:Tripous.Data.LocatorFieldDef.DataType
   href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_DataType
@@ -1126,56 +885,3 @@ references:
   name: DataFieldType
   nameWithType: DataFieldType
   fullName: Tripous.Data.DataFieldType
-- uid: System.Data.DataColumn.ColumnName
-  commentId: P:System.Data.DataColumn.ColumnName
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn.columnname
-  name: ColumnName
-  nameWithType: DataColumn.ColumnName
-  fullName: System.Data.DataColumn.ColumnName
-- uid: Tripous.Data.LocatorFieldDef.TargetField*
-  commentId: Overload:Tripous.Data.LocatorFieldDef.TargetField
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_TargetField
-  name: TargetField
-  nameWithType: LocatorFieldDef.TargetField
-  fullName: Tripous.Data.LocatorFieldDef.TargetField
-- uid: Tripous.Data.LocatorFieldDef.IsVisible*
-  commentId: Overload:Tripous.Data.LocatorFieldDef.IsVisible
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_IsVisible
-  name: IsVisible
-  nameWithType: LocatorFieldDef.IsVisible
-  fullName: Tripous.Data.LocatorFieldDef.IsVisible
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: Tripous.Data.LocatorFieldDef.IsSearchable*
-  commentId: Overload:Tripous.Data.LocatorFieldDef.IsSearchable
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_IsSearchable
-  name: IsSearchable
-  nameWithType: LocatorFieldDef.IsSearchable
-  fullName: Tripous.Data.LocatorFieldDef.IsSearchable
-- uid: Tripous.Data.LocatorFieldDef.DisplayWidth*
-  commentId: Overload:Tripous.Data.LocatorFieldDef.DisplayWidth
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_DisplayWidth
-  name: DisplayWidth
-  nameWithType: LocatorFieldDef.DisplayWidth
-  fullName: Tripous.Data.LocatorFieldDef.DisplayWidth
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer

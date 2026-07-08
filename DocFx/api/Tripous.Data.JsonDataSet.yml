@@ -1,0 +1,905 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.JsonDataSet
+  commentId: T:Tripous.Data.JsonDataSet
+  id: JsonDataSet
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.JsonDataSet.#ctor
+  - Tripous.Data.JsonDataSet.#ctor(System.Data.DataSet)
+  - Tripous.Data.JsonDataSet.#ctor(System.Data.DataSet,Tripous.Data.ModuleDef)
+  - Tripous.Data.JsonDataSet.Name
+  - Tripous.Data.JsonDataSet.Tables
+  - Tripous.Data.JsonDataSet.ToJObject
+  - Tripous.Data.JsonDataSet.ToJObject(System.Data.DataSet,Tripous.Data.ModuleDef)
+  - Tripous.Data.JsonDataSet.ToJson
+  langs:
+  - csharp
+  - vb
+  name: JsonDataSet
+  nameWithType: JsonDataSet
+  fullName: Tripous.Data.JsonDataSet
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonDataSet
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: JSON contract for a data set used by Tripous Web.
+  example: []
+  syntax:
+    content: public class JsonDataSet
+    content.vb: Public Class JsonDataSet
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.JsonDataSet.#ctor
+  commentId: M:Tripous.Data.JsonDataSet.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: JsonDataSet()
+  nameWithType: JsonDataSet.JsonDataSet()
+  fullName: Tripous.Data.JsonDataSet.JsonDataSet()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonDataSet()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.JsonDataSet.#ctor*
+  nameWithType.vb: JsonDataSet.New()
+  fullName.vb: Tripous.Data.JsonDataSet.New()
+  name.vb: New()
+- uid: Tripous.Data.JsonDataSet.#ctor(System.Data.DataSet)
+  commentId: M:Tripous.Data.JsonDataSet.#ctor(System.Data.DataSet)
+  id: '#ctor(System.Data.DataSet)'
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: JsonDataSet(DataSet)
+  nameWithType: JsonDataSet.JsonDataSet(DataSet)
+  fullName: Tripous.Data.JsonDataSet.JsonDataSet(System.Data.DataSet)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonDataSet(DataSet Source)
+    parameters:
+    - id: Source
+      type: System.Data.DataSet
+    content.vb: Public Sub New(Source As DataSet)
+  overload: Tripous.Data.JsonDataSet.#ctor*
+  nameWithType.vb: JsonDataSet.New(DataSet)
+  fullName.vb: Tripous.Data.JsonDataSet.New(System.Data.DataSet)
+  name.vb: New(DataSet)
+- uid: Tripous.Data.JsonDataSet.#ctor(System.Data.DataSet,Tripous.Data.ModuleDef)
+  commentId: M:Tripous.Data.JsonDataSet.#ctor(System.Data.DataSet,Tripous.Data.ModuleDef)
+  id: '#ctor(System.Data.DataSet,Tripous.Data.ModuleDef)'
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: JsonDataSet(DataSet, ModuleDef)
+  nameWithType: JsonDataSet.JsonDataSet(DataSet, ModuleDef)
+  fullName: Tripous.Data.JsonDataSet.JsonDataSet(System.Data.DataSet, Tripous.Data.ModuleDef)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 51
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonDataSet(DataSet Source, ModuleDef ModuleDef)
+    parameters:
+    - id: Source
+      type: System.Data.DataSet
+    - id: ModuleDef
+      type: Tripous.Data.ModuleDef
+    content.vb: Public Sub New(Source As DataSet, ModuleDef As ModuleDef)
+  overload: Tripous.Data.JsonDataSet.#ctor*
+  nameWithType.vb: JsonDataSet.New(DataSet, ModuleDef)
+  fullName.vb: Tripous.Data.JsonDataSet.New(System.Data.DataSet, Tripous.Data.ModuleDef)
+  name.vb: New(DataSet, ModuleDef)
+- uid: Tripous.Data.JsonDataSet.ToJObject(System.Data.DataSet,Tripous.Data.ModuleDef)
+  commentId: M:Tripous.Data.JsonDataSet.ToJObject(System.Data.DataSet,Tripous.Data.ModuleDef)
+  id: ToJObject(System.Data.DataSet,Tripous.Data.ModuleDef)
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: ToJObject(DataSet, ModuleDef)
+  nameWithType: JsonDataSet.ToJObject(DataSet, ModuleDef)
+  fullName: Tripous.Data.JsonDataSet.ToJObject(System.Data.DataSet, Tripous.Data.ModuleDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToJObject
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts a data set to a JSON object.
+  example: []
+  syntax:
+    content: public static JsonObject ToJObject(DataSet Source, ModuleDef ModuleDef = null)
+    parameters:
+    - id: Source
+      type: System.Data.DataSet
+    - id: ModuleDef
+      type: Tripous.Data.ModuleDef
+    return:
+      type: System.Text.Json.Nodes.JsonObject
+    content.vb: Public Shared Function ToJObject(Source As DataSet, ModuleDef As ModuleDef = Nothing) As JsonObject
+  overload: Tripous.Data.JsonDataSet.ToJObject*
+- uid: Tripous.Data.JsonDataSet.ToJObject
+  commentId: M:Tripous.Data.JsonDataSet.ToJObject
+  id: ToJObject
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: ToJObject()
+  nameWithType: JsonDataSet.ToJObject()
+  fullName: Tripous.Data.JsonDataSet.ToJObject()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToJObject
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 78
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts this instance to a JSON object.
+  example: []
+  syntax:
+    content: public JsonObject ToJObject()
+    return:
+      type: System.Text.Json.Nodes.JsonObject
+    content.vb: Public Function ToJObject() As JsonObject
+  overload: Tripous.Data.JsonDataSet.ToJObject*
+- uid: Tripous.Data.JsonDataSet.ToJson
+  commentId: M:Tripous.Data.JsonDataSet.ToJson
+  id: ToJson
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: ToJson()
+  nameWithType: JsonDataSet.ToJson()
+  fullName: Tripous.Data.JsonDataSet.ToJson()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToJson
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 86
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts this instance to JSON text.
+  example: []
+  syntax:
+    content: public string ToJson()
+    return:
+      type: System.String
+    content.vb: Public Function ToJson() As String
+  overload: Tripous.Data.JsonDataSet.ToJson*
+- uid: Tripous.Data.JsonDataSet.Name
+  commentId: P:Tripous.Data.JsonDataSet.Name
+  id: Name
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: JsonDataSet.Name
+  fullName: Tripous.Data.JsonDataSet.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 92
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The data set name.
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.Data.JsonDataSet.Name*
+- uid: Tripous.Data.JsonDataSet.Tables
+  commentId: P:Tripous.Data.JsonDataSet.Tables
+  id: Tables
+  parent: Tripous.Data.JsonDataSet
+  langs:
+  - csharp
+  - vb
+  name: Tables
+  nameWithType: JsonDataSet.Tables
+  fullName: Tripous.Data.JsonDataSet.Tables
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataSet.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tables
+    path: ../Tripous.Data/Json/JsonDataSet.cs
+    startLine: 96
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The tables.
+  example: []
+  syntax:
+    content: public List<JsonDataTable> Tables { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.JsonDataTable}
+    content.vb: Public Property Tables As List(Of JsonDataTable)
+  overload: Tripous.Data.JsonDataSet.Tables*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.JsonDataSet.#ctor*
+  commentId: Overload:Tripous.Data.JsonDataSet.#ctor
+  href: Tripous.Data.JsonDataSet.html#Tripous_Data_JsonDataSet__ctor
+  name: JsonDataSet
+  nameWithType: JsonDataSet.JsonDataSet
+  fullName: Tripous.Data.JsonDataSet.JsonDataSet
+  nameWithType.vb: JsonDataSet.New
+  fullName.vb: Tripous.Data.JsonDataSet.New
+  name.vb: New
+- uid: System.Data.DataSet
+  commentId: T:System.Data.DataSet
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataset
+  name: DataSet
+  nameWithType: DataSet
+  fullName: System.Data.DataSet
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: Tripous.Data.ModuleDef
+  commentId: T:Tripous.Data.ModuleDef
+  parent: Tripous.Data
+  href: Tripous.Data.ModuleDef.html
+  name: ModuleDef
+  nameWithType: ModuleDef
+  fullName: Tripous.Data.ModuleDef
+- uid: Tripous.Data.JsonDataSet.ToJObject*
+  commentId: Overload:Tripous.Data.JsonDataSet.ToJObject
+  href: Tripous.Data.JsonDataSet.html#Tripous_Data_JsonDataSet_ToJObject_System_Data_DataSet_Tripous_Data_ModuleDef_
+  name: ToJObject
+  nameWithType: JsonDataSet.ToJObject
+  fullName: Tripous.Data.JsonDataSet.ToJObject
+- uid: System.Text.Json.Nodes.JsonObject
+  commentId: T:System.Text.Json.Nodes.JsonObject
+  parent: System.Text.Json.Nodes
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes.jsonobject
+  name: JsonObject
+  nameWithType: JsonObject
+  fullName: System.Text.Json.Nodes.JsonObject
+- uid: System.Text.Json.Nodes
+  commentId: N:System.Text.Json.Nodes
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text.Json.Nodes
+  nameWithType: System.Text.Json.Nodes
+  fullName: System.Text.Json.Nodes
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+  - name: .
+  - uid: System.Text.Json.Nodes
+    name: Nodes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+  - name: .
+  - uid: System.Text.Json.Nodes
+    name: Nodes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
+- uid: Tripous.Data.JsonDataSet.ToJson*
+  commentId: Overload:Tripous.Data.JsonDataSet.ToJson
+  href: Tripous.Data.JsonDataSet.html#Tripous_Data_JsonDataSet_ToJson
+  name: ToJson
+  nameWithType: JsonDataSet.ToJson
+  fullName: Tripous.Data.JsonDataSet.ToJson
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.JsonDataSet.Name*
+  commentId: Overload:Tripous.Data.JsonDataSet.Name
+  href: Tripous.Data.JsonDataSet.html#Tripous_Data_JsonDataSet_Name
+  name: Name
+  nameWithType: JsonDataSet.Name
+  fullName: Tripous.Data.JsonDataSet.Name
+- uid: Tripous.Data.JsonDataSet.Tables*
+  commentId: Overload:Tripous.Data.JsonDataSet.Tables
+  href: Tripous.Data.JsonDataSet.html#Tripous_Data_JsonDataSet_Tables
+  name: Tables
+  nameWithType: JsonDataSet.Tables
+  fullName: Tripous.Data.JsonDataSet.Tables
+- uid: System.Collections.Generic.List{Tripous.Data.JsonDataTable}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.JsonDataTable}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<JsonDataTable>
+  nameWithType: List<JsonDataTable>
+  fullName: System.Collections.Generic.List<Tripous.Data.JsonDataTable>
+  nameWithType.vb: List(Of JsonDataTable)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.JsonDataTable)
+  name.vb: List(Of JsonDataTable)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.JsonDataTable
+    name: JsonDataTable
+    href: Tripous.Data.JsonDataTable.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.JsonDataTable
+    name: JsonDataTable
+    href: Tripous.Data.JsonDataTable.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

@@ -1,0 +1,1296 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Desktop.GroupGridBinder
+  commentId: T:Tripous.Desktop.GroupGridBinder
+  id: GroupGridBinder
+  parent: Tripous.Desktop
+  children:
+  - Tripous.Desktop.GroupGridBinder.BindGrid(Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  - Tripous.Desktop.GroupGridBinder.BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  - Tripous.Desktop.GroupGridBinder.CreateColumns(Avalonia.Controls.GroupGrid,System.Data.DataColumn[])
+  - Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean)
+  - Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean)
+  - Tripous.Desktop.GroupGridBinder.CreateGridColumn(Tripous.Data.FieldDef)
+  - Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)
+  - Tripous.Desktop.GroupGridBinder.CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef)
+  - Tripous.Desktop.GroupGridBinder.GetCurrentRowView(Avalonia.Controls.GroupGrid)
+  - Tripous.Desktop.GroupGridBinder.GetInfo(Avalonia.Controls.GroupGridColumn)
+  - Tripous.Desktop.GroupGridBinder.GetInfoList(Avalonia.Controls.GroupGrid)
+  - Tripous.Desktop.GroupGridBinder.SelectRow(Avalonia.Controls.GroupGrid,System.Int32)
+  - Tripous.Desktop.GroupGridBinder.UnBindGrid(Avalonia.Controls.GroupGrid)
+  langs:
+  - csharp
+  - vb
+  name: GroupGridBinder
+  nameWithType: GroupGridBinder
+  fullName: Tripous.Desktop.GroupGridBinder
+  type: Class
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridBinder
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Provides helper methods for binding group grids to data tables and definitions.
+  example: []
+  syntax:
+    content: public static class GroupGridBinder
+    content.vb: Public Module GroupGridBinder
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Tripous.Desktop.GroupGridBinder.BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  commentId: M:Tripous.Desktop.GroupGridBinder.BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  id: BindGrid(Tripous.Data.SelectDef,Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: BindGrid(SelectDef, GroupGrid, DataView, bool)
+  nameWithType: GroupGridBinder.BindGrid(SelectDef, GroupGrid, DataView, bool)
+  fullName: Tripous.Desktop.GroupGridBinder.BindGrid(Tripous.Data.SelectDef, Avalonia.Controls.GroupGrid, System.Data.DataView, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindGrid
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 114
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Binds a group grid to a data view using select definition metadata.
+  example: []
+  syntax:
+    content: public static List<GroupGridColumn> BindGrid(SelectDef SelectDef, GroupGrid Grid, DataView DataView, bool GoToFirst = true)
+    parameters:
+    - id: SelectDef
+      type: Tripous.Data.SelectDef
+      description: The select definition.
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+      description: The group grid.
+    - id: DataView
+      type: System.Data.DataView
+      description: The data view.
+    - id: GoToFirst
+      type: System.Boolean
+      description: True to select the first row.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+      description: The created group grid columns.
+    content.vb: Public Shared Function BindGrid(SelectDef As SelectDef, Grid As GroupGrid, DataView As DataView, GoToFirst As Boolean = True) As List(Of GroupGridColumn)
+  overload: Tripous.Desktop.GroupGridBinder.BindGrid*
+  nameWithType.vb: GroupGridBinder.BindGrid(SelectDef, GroupGrid, DataView, Boolean)
+  fullName.vb: Tripous.Desktop.GroupGridBinder.BindGrid(Tripous.Data.SelectDef, Avalonia.Controls.GroupGrid, System.Data.DataView, Boolean)
+  name.vb: BindGrid(SelectDef, GroupGrid, DataView, Boolean)
+- uid: Tripous.Desktop.GroupGridBinder.BindGrid(Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  commentId: M:Tripous.Desktop.GroupGridBinder.BindGrid(Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  id: BindGrid(Avalonia.Controls.GroupGrid,System.Data.DataView,System.Boolean)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: BindGrid(GroupGrid, DataView, bool)
+  nameWithType: GroupGridBinder.BindGrid(GroupGrid, DataView, bool)
+  fullName: Tripous.Desktop.GroupGridBinder.BindGrid(Avalonia.Controls.GroupGrid, System.Data.DataView, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BindGrid
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 150
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Binds a group grid to a data view.
+  example: []
+  syntax:
+    content: public static List<GroupGridColumn> BindGrid(GroupGrid Grid, DataView DataView, bool GoToFirst = true)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+      description: The group grid.
+    - id: DataView
+      type: System.Data.DataView
+      description: The data view.
+    - id: GoToFirst
+      type: System.Boolean
+      description: True to select the first row.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+      description: The created group grid columns.
+    content.vb: Public Shared Function BindGrid(Grid As GroupGrid, DataView As DataView, GoToFirst As Boolean = True) As List(Of GroupGridColumn)
+  overload: Tripous.Desktop.GroupGridBinder.BindGrid*
+  nameWithType.vb: GroupGridBinder.BindGrid(GroupGrid, DataView, Boolean)
+  fullName.vb: Tripous.Desktop.GroupGridBinder.BindGrid(Avalonia.Controls.GroupGrid, System.Data.DataView, Boolean)
+  name.vb: BindGrid(GroupGrid, DataView, Boolean)
+- uid: Tripous.Desktop.GroupGridBinder.UnBindGrid(Avalonia.Controls.GroupGrid)
+  commentId: M:Tripous.Desktop.GroupGridBinder.UnBindGrid(Avalonia.Controls.GroupGrid)
+  id: UnBindGrid(Avalonia.Controls.GroupGrid)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: UnBindGrid(GroupGrid)
+  nameWithType: GroupGridBinder.UnBindGrid(GroupGrid)
+  fullName: Tripous.Desktop.GroupGridBinder.UnBindGrid(Avalonia.Controls.GroupGrid)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UnBindGrid
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 170
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Unbinds a group grid.
+  example: []
+  syntax:
+    content: public static void UnBindGrid(GroupGrid Grid)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+      description: The group grid.
+    content.vb: Public Shared Sub UnBindGrid(Grid As GroupGrid)
+  overload: Tripous.Desktop.GroupGridBinder.UnBindGrid*
+- uid: Tripous.Desktop.GroupGridBinder.CreateColumns(Avalonia.Controls.GroupGrid,System.Data.DataColumn[])
+  commentId: M:Tripous.Desktop.GroupGridBinder.CreateColumns(Avalonia.Controls.GroupGrid,System.Data.DataColumn[])
+  id: CreateColumns(Avalonia.Controls.GroupGrid,System.Data.DataColumn[])
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateColumns(GroupGrid, DataColumn[])
+  nameWithType: GroupGridBinder.CreateColumns(GroupGrid, DataColumn[])
+  fullName: Tripous.Desktop.GroupGridBinder.CreateColumns(Avalonia.Controls.GroupGrid, System.Data.DataColumn[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateColumns
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 183
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates group grid columns from data columns.
+  example: []
+  syntax:
+    content: public static List<GroupGridColumn> CreateColumns(GroupGrid Grid, DataColumn[] DataColumns)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+      description: The group grid.
+    - id: DataColumns
+      type: System.Data.DataColumn[]
+      description: The data columns.
+    return:
+      type: System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+      description: The created group grid columns.
+    content.vb: Public Shared Function CreateColumns(Grid As GroupGrid, DataColumns As DataColumn()) As List(Of GroupGridColumn)
+  overload: Tripous.Desktop.GroupGridBinder.CreateColumns*
+  nameWithType.vb: GroupGridBinder.CreateColumns(GroupGrid, DataColumn())
+  fullName.vb: Tripous.Desktop.GroupGridBinder.CreateColumns(Avalonia.Controls.GroupGrid, System.Data.DataColumn())
+  name.vb: CreateColumns(GroupGrid, DataColumn())
+- uid: Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean)
+  commentId: M:Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean)
+  id: CreateGridColumn(System.Data.DataColumn,System.String,System.Nullable{Avalonia.Media.TextAlignment},System.Boolean)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateGridColumn(DataColumn, string, TextAlignment?, bool)
+  nameWithType: GroupGridBinder.CreateGridColumn(DataColumn, string, TextAlignment?, bool)
+  fullName: Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.Data.DataColumn, string, Avalonia.Media.TextAlignment?, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateGridColumn
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 203
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a group grid column from a data column.
+  example: []
+  syntax:
+    content: public static GroupGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false)
+    parameters:
+    - id: Column
+      type: System.Data.DataColumn
+      description: The data column.
+    - id: Format
+      type: System.String
+      description: The display format.
+    - id: Alignment
+      type: System.Nullable{Avalonia.Media.TextAlignment}
+      description: The text alignment.
+    - id: IsReadOnly
+      type: System.Boolean
+      description: True when the column is read-only.
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+      description: The created group grid column.
+    content.vb: Public Shared Function CreateGridColumn(Column As DataColumn, Format As String = Nothing, Alignment As TextAlignment? = Nothing, IsReadOnly As Boolean = False) As GroupGridColumn
+  overload: Tripous.Desktop.GroupGridBinder.CreateGridColumn*
+  nameWithType.vb: GroupGridBinder.CreateGridColumn(DataColumn, String, TextAlignment?, Boolean)
+  fullName.vb: Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.Data.DataColumn, String, Avalonia.Media.TextAlignment?, Boolean)
+  name.vb: CreateGridColumn(DataColumn, String, TextAlignment?, Boolean)
+- uid: Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean)
+  commentId: M:Tripous.Desktop.GroupGridBinder.CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean)
+  id: CreateGridColumn(System.String,System.String,Tripous.Data.DataFieldType,System.String,System.Boolean)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateGridColumn(string, string, DataFieldType, string, bool)
+  nameWithType: GroupGridBinder.CreateGridColumn(string, string, DataFieldType, string, bool)
+  fullName: Tripous.Desktop.GroupGridBinder.CreateGridColumn(string, string, Tripous.Data.DataFieldType, string, bool)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateGridColumn
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 236
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a group grid column.
+  example: []
+  syntax:
+    content: public static GroupGridColumn CreateGridColumn(string ColumnName, string Header, DataFieldType DataType, string Format = null, bool IsReadOnly = false)
+    parameters:
+    - id: ColumnName
+      type: System.String
+      description: The column name.
+    - id: Header
+      type: System.String
+      description: The column header.
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+      description: The data type.
+    - id: Format
+      type: System.String
+      description: The display format.
+    - id: IsReadOnly
+      type: System.Boolean
+      description: True when the column is read-only.
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+      description: The created group grid column.
+    content.vb: Public Shared Function CreateGridColumn(ColumnName As String, Header As String, DataType As DataFieldType, Format As String = Nothing, IsReadOnly As Boolean = False) As GroupGridColumn
+  overload: Tripous.Desktop.GroupGridBinder.CreateGridColumn*
+  nameWithType.vb: GroupGridBinder.CreateGridColumn(String, String, DataFieldType, String, Boolean)
+  fullName.vb: Tripous.Desktop.GroupGridBinder.CreateGridColumn(String, String, Tripous.Data.DataFieldType, String, Boolean)
+  name.vb: CreateGridColumn(String, String, DataFieldType, String, Boolean)
+- uid: Tripous.Desktop.GroupGridBinder.CreateGridColumn(Tripous.Data.FieldDef)
+  commentId: M:Tripous.Desktop.GroupGridBinder.CreateGridColumn(Tripous.Data.FieldDef)
+  id: CreateGridColumn(Tripous.Data.FieldDef)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateGridColumn(FieldDef)
+  nameWithType: GroupGridBinder.CreateGridColumn(FieldDef)
+  fullName: Tripous.Desktop.GroupGridBinder.CreateGridColumn(Tripous.Data.FieldDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateGridColumn
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 253
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a group grid column from a field definition.
+  example: []
+  syntax:
+    content: public static GroupGridColumn CreateGridColumn(FieldDef FieldDef)
+    parameters:
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+      description: The field definition.
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+      description: The created group grid column.
+    content.vb: Public Shared Function CreateGridColumn(FieldDef As FieldDef) As GroupGridColumn
+  overload: Tripous.Desktop.GroupGridBinder.CreateGridColumn*
+- uid: Tripous.Desktop.GroupGridBinder.CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef)
+  commentId: M:Tripous.Desktop.GroupGridBinder.CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef)
+  id: CreateLookupColumn(Tripous.Data.FieldDef,Tripous.Data.LookupDef)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateLookupColumn(FieldDef, LookupDef)
+  nameWithType: GroupGridBinder.CreateLookupColumn(FieldDef, LookupDef)
+  fullName: Tripous.Desktop.GroupGridBinder.CreateLookupColumn(Tripous.Data.FieldDef, Tripous.Data.LookupDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLookupColumn
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 275
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a lookup group grid column from a field definition.
+  example: []
+  syntax:
+    content: public static GroupGridColumn CreateLookupColumn(FieldDef FieldDef, LookupDef LookupDef = null)
+    parameters:
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+      description: The field definition.
+    - id: LookupDef
+      type: Tripous.Data.LookupDef
+      description: The lookup definition.
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+      description: The created group grid column.
+    content.vb: Public Shared Function CreateLookupColumn(FieldDef As FieldDef, LookupDef As LookupDef = Nothing) As GroupGridColumn
+  overload: Tripous.Desktop.GroupGridBinder.CreateLookupColumn*
+- uid: Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)
+  commentId: M:Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)
+  id: CreateLocatorColumn2(System.String,System.String,Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef,Tripous.Data.LocatorDef,Tripous.Data.LocatorMapPlan)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: CreateLocatorColumn2(string, string, FieldDef, LocatorFieldDef, LocatorDef, LocatorMapPlan)
+  nameWithType: GroupGridBinder.CreateLocatorColumn2(string, string, FieldDef, LocatorFieldDef, LocatorDef, LocatorMapPlan)
+  fullName: Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2(string, string, Tripous.Data.FieldDef, Tripous.Data.LocatorFieldDef, Tripous.Data.LocatorDef, Tripous.Data.LocatorMapPlan)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CreateLocatorColumn2
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 308
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Creates a locator display column for a group grid.
+  example: []
+  syntax:
+    content: public static GroupGridColumn CreateLocatorColumn2(string ColumnName, string Header, FieldDef FieldDef, LocatorFieldDef LocatorFieldDef, LocatorDef LocatorDef, LocatorMapPlan MapPlan)
+    parameters:
+    - id: ColumnName
+      type: System.String
+      description: The target display column name.
+    - id: Header
+      type: System.String
+      description: The column header.
+    - id: FieldDef
+      type: Tripous.Data.FieldDef
+      description: The reference field definition.
+    - id: LocatorFieldDef
+      type: Tripous.Data.LocatorFieldDef
+      description: The locator source field definition.
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+      description: The locator definition.
+    - id: MapPlan
+      type: Tripous.Data.LocatorMapPlan
+      description: The locator mapping plan.
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+      description: The created group grid column.
+    content.vb: Public Shared Function CreateLocatorColumn2(ColumnName As String, Header As String, FieldDef As FieldDef, LocatorFieldDef As LocatorFieldDef, LocatorDef As LocatorDef, MapPlan As LocatorMapPlan) As GroupGridColumn
+  overload: Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2*
+  nameWithType.vb: GroupGridBinder.CreateLocatorColumn2(String, String, FieldDef, LocatorFieldDef, LocatorDef, LocatorMapPlan)
+  fullName.vb: Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2(String, String, Tripous.Data.FieldDef, Tripous.Data.LocatorFieldDef, Tripous.Data.LocatorDef, Tripous.Data.LocatorMapPlan)
+  name.vb: CreateLocatorColumn2(String, String, FieldDef, LocatorFieldDef, LocatorDef, LocatorMapPlan)
+- uid: Tripous.Desktop.GroupGridBinder.SelectRow(Avalonia.Controls.GroupGrid,System.Int32)
+  commentId: M:Tripous.Desktop.GroupGridBinder.SelectRow(Avalonia.Controls.GroupGrid,System.Int32)
+  id: SelectRow(Avalonia.Controls.GroupGrid,System.Int32)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: SelectRow(GroupGrid, int)
+  nameWithType: GroupGridBinder.SelectRow(GroupGrid, int)
+  fullName: Tripous.Desktop.GroupGridBinder.SelectRow(Avalonia.Controls.GroupGrid, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SelectRow
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 328
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Selects a row by adapter row index.
+  example: []
+  syntax:
+    content: public static bool SelectRow(GroupGrid Grid, int RowIndex)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+      description: The group grid.
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index.
+    return:
+      type: System.Boolean
+      description: True if the row was selected; otherwise, false.
+    content.vb: Public Shared Function SelectRow(Grid As GroupGrid, RowIndex As Integer) As Boolean
+  overload: Tripous.Desktop.GroupGridBinder.SelectRow*
+  nameWithType.vb: GroupGridBinder.SelectRow(GroupGrid, Integer)
+  fullName.vb: Tripous.Desktop.GroupGridBinder.SelectRow(Avalonia.Controls.GroupGrid, Integer)
+  name.vb: SelectRow(GroupGrid, Integer)
+- uid: Tripous.Desktop.GroupGridBinder.GetCurrentRowView(Avalonia.Controls.GroupGrid)
+  commentId: M:Tripous.Desktop.GroupGridBinder.GetCurrentRowView(Avalonia.Controls.GroupGrid)
+  id: GetCurrentRowView(Avalonia.Controls.GroupGrid)
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentRowView(GroupGrid)
+  nameWithType: GroupGridBinder.GetCurrentRowView(GroupGrid)
+  fullName: Tripous.Desktop.GroupGridBinder.GetCurrentRowView(Avalonia.Controls.GroupGrid)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetCurrentRowView
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 348
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the current row view of a group grid.
+  example: []
+  syntax:
+    content: public static DataRowView GetCurrentRowView(GroupGrid Grid)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+      description: The group grid.
+    return:
+      type: System.Data.DataRowView
+      description: The current row view, if any; otherwise, null.
+    content.vb: Public Shared Function GetCurrentRowView(Grid As GroupGrid) As DataRowView
+  overload: Tripous.Desktop.GroupGridBinder.GetCurrentRowView*
+- uid: Tripous.Desktop.GroupGridBinder.GetInfo(Avalonia.Controls.GroupGridColumn)
+  commentId: M:Tripous.Desktop.GroupGridBinder.GetInfo(Avalonia.Controls.GroupGridColumn)
+  id: GetInfo(Avalonia.Controls.GroupGridColumn)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetInfo(GroupGridColumn)
+  nameWithType: GroupGridBinder.GetInfo(GroupGridColumn)
+  fullName: Tripous.Desktop.GroupGridBinder.GetInfo(Avalonia.Controls.GroupGridColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetInfo
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 357
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the group grid column binding associated with a group grid column.
+  example: []
+  syntax:
+    content: public static GroupGridColumnBinding GetInfo(this GroupGridColumn Column)
+    parameters:
+    - id: Column
+      type: Avalonia.Controls.GroupGridColumn
+      description: The group grid column.
+    return:
+      type: Tripous.Desktop.GroupGridColumnBinding
+      description: The group grid column binding, if any; otherwise, null.
+    content.vb: Public Shared Function GetInfo(Column As GroupGridColumn) As GroupGridColumnBinding
+  overload: Tripous.Desktop.GroupGridBinder.GetInfo*
+- uid: Tripous.Desktop.GroupGridBinder.GetInfoList(Avalonia.Controls.GroupGrid)
+  commentId: M:Tripous.Desktop.GroupGridBinder.GetInfoList(Avalonia.Controls.GroupGrid)
+  id: GetInfoList(Avalonia.Controls.GroupGrid)
+  isExtensionMethod: true
+  parent: Tripous.Desktop.GroupGridBinder
+  langs:
+  - csharp
+  - vb
+  name: GetInfoList(GroupGrid)
+  nameWithType: GroupGridBinder.GetInfoList(GroupGrid)
+  fullName: Tripous.Desktop.GroupGridBinder.GetInfoList(Avalonia.Controls.GroupGrid)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Desktop/DataGrid/GroupGridBinder.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetInfoList
+    path: ../Tripous.Desktop/DataGrid/GroupGridBinder.cs
+    startLine: 363
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: Returns the group grid column bindings associated with a group grid.
+  example: []
+  syntax:
+    content: public static List<GroupGridColumnBinding> GetInfoList(this GroupGrid Grid)
+    parameters:
+    - id: Grid
+      type: Avalonia.Controls.GroupGrid
+      description: The group grid.
+    return:
+      type: System.Collections.Generic.List{Tripous.Desktop.GroupGridColumnBinding}
+      description: The group grid column bindings.
+    content.vb: Public Shared Function GetInfoList(Grid As GroupGrid) As List(Of GroupGridColumnBinding)
+  overload: Tripous.Desktop.GroupGridBinder.GetInfoList*
+references:
+- uid: Tripous.Desktop
+  commentId: N:Tripous.Desktop
+  href: Tripous.html
+  name: Tripous.Desktop
+  nameWithType: Tripous.Desktop
+  fullName: Tripous.Desktop
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Desktop
+    name: Desktop
+    href: Tripous.Desktop.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.Desktop.GroupGridBinder.BindGrid*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.BindGrid
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_BindGrid_Tripous_Data_SelectDef_Avalonia_Controls_GroupGrid_System_Data_DataView_System_Boolean_
+  name: BindGrid
+  nameWithType: GroupGridBinder.BindGrid
+  fullName: Tripous.Desktop.GroupGridBinder.BindGrid
+- uid: Tripous.Data.SelectDef
+  commentId: T:Tripous.Data.SelectDef
+  parent: Tripous.Data
+  href: Tripous.Data.SelectDef.html
+  name: SelectDef
+  nameWithType: SelectDef
+  fullName: Tripous.Data.SelectDef
+- uid: Avalonia.Controls.GroupGrid
+  commentId: T:Avalonia.Controls.GroupGrid
+  parent: Avalonia.Controls
+  name: GroupGrid
+  nameWithType: GroupGrid
+  fullName: Avalonia.Controls.GroupGrid
+- uid: System.Data.DataView
+  commentId: T:System.Data.DataView
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.dataview
+  name: DataView
+  nameWithType: DataView
+  fullName: System.Data.DataView
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+  commentId: T:System.Collections.Generic.List{Avalonia.Controls.GroupGridColumn}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<GroupGridColumn>
+  nameWithType: List<GroupGridColumn>
+  fullName: System.Collections.Generic.List<Avalonia.Controls.GroupGridColumn>
+  nameWithType.vb: List(Of GroupGridColumn)
+  fullName.vb: System.Collections.Generic.List(Of Avalonia.Controls.GroupGridColumn)
+  name.vb: List(Of GroupGridColumn)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+  - name: )
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Desktop.GroupGridBinder.UnBindGrid*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.UnBindGrid
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_UnBindGrid_Avalonia_Controls_GroupGrid_
+  name: UnBindGrid
+  nameWithType: GroupGridBinder.UnBindGrid
+  fullName: Tripous.Desktop.GroupGridBinder.UnBindGrid
+- uid: Tripous.Desktop.GroupGridBinder.CreateColumns*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.CreateColumns
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_CreateColumns_Avalonia_Controls_GroupGrid_System_Data_DataColumn___
+  name: CreateColumns
+  nameWithType: GroupGridBinder.CreateColumns
+  fullName: Tripous.Desktop.GroupGridBinder.CreateColumns
+- uid: System.Data.DataColumn[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn[]
+  nameWithType: DataColumn[]
+  fullName: System.Data.DataColumn[]
+  nameWithType.vb: DataColumn()
+  fullName.vb: System.Data.DataColumn()
+  name.vb: DataColumn()
+  spec.csharp:
+  - uid: System.Data.DataColumn
+    name: DataColumn
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Data.DataColumn
+    name: DataColumn
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  - name: (
+  - name: )
+- uid: Tripous.Desktop.GroupGridBinder.CreateGridColumn*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.CreateGridColumn
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_CreateGridColumn_System_Data_DataColumn_System_String_System_Nullable_Avalonia_Media_TextAlignment__System_Boolean_
+  name: CreateGridColumn
+  nameWithType: GroupGridBinder.CreateGridColumn
+  fullName: Tripous.Desktop.GroupGridBinder.CreateGridColumn
+- uid: System.Data.DataColumn
+  commentId: T:System.Data.DataColumn
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
+  name: DataColumn
+  nameWithType: DataColumn
+  fullName: System.Data.DataColumn
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Nullable{Avalonia.Media.TextAlignment}
+  commentId: T:System.Nullable{Avalonia.Media.TextAlignment}
+  parent: System
+  definition: System.Nullable`1
+  name: TextAlignment?
+  nameWithType: TextAlignment?
+  fullName: Avalonia.Media.TextAlignment?
+  spec.csharp:
+  - uid: Avalonia.Media.TextAlignment
+    name: TextAlignment
+    isExternal: true
+  - name: '?'
+  spec.vb:
+  - uid: Avalonia.Media.TextAlignment
+    name: TextAlignment
+    isExternal: true
+  - name: '?'
+- uid: Avalonia.Controls.GroupGridColumn
+  commentId: T:Avalonia.Controls.GroupGridColumn
+  parent: Avalonia.Controls
+  name: GroupGridColumn
+  nameWithType: GroupGridColumn
+  fullName: Avalonia.Controls.GroupGridColumn
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
+- uid: Tripous.Desktop.GroupGridBinder.CreateLookupColumn*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.CreateLookupColumn
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_CreateLookupColumn_Tripous_Data_FieldDef_Tripous_Data_LookupDef_
+  name: CreateLookupColumn
+  nameWithType: GroupGridBinder.CreateLookupColumn
+  fullName: Tripous.Desktop.GroupGridBinder.CreateLookupColumn
+- uid: Tripous.Data.LookupDef
+  commentId: T:Tripous.Data.LookupDef
+  parent: Tripous.Data
+  href: Tripous.Data.LookupDef.html
+  name: LookupDef
+  nameWithType: LookupDef
+  fullName: Tripous.Data.LookupDef
+- uid: Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_CreateLocatorColumn2_System_String_System_String_Tripous_Data_FieldDef_Tripous_Data_LocatorFieldDef_Tripous_Data_LocatorDef_Tripous_Data_LocatorMapPlan_
+  name: CreateLocatorColumn2
+  nameWithType: GroupGridBinder.CreateLocatorColumn2
+  fullName: Tripous.Desktop.GroupGridBinder.CreateLocatorColumn2
+- uid: Tripous.Data.LocatorFieldDef
+  commentId: T:Tripous.Data.LocatorFieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorFieldDef.html
+  name: LocatorFieldDef
+  nameWithType: LocatorFieldDef
+  fullName: Tripous.Data.LocatorFieldDef
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
+- uid: Tripous.Data.LocatorMapPlan
+  commentId: T:Tripous.Data.LocatorMapPlan
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorMapPlan.html
+  name: LocatorMapPlan
+  nameWithType: LocatorMapPlan
+  fullName: Tripous.Data.LocatorMapPlan
+- uid: Tripous.Desktop.GroupGridBinder.SelectRow*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.SelectRow
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_SelectRow_Avalonia_Controls_GroupGrid_System_Int32_
+  name: SelectRow
+  nameWithType: GroupGridBinder.SelectRow
+  fullName: Tripous.Desktop.GroupGridBinder.SelectRow
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Desktop.GroupGridBinder.GetCurrentRowView*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.GetCurrentRowView
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_GetCurrentRowView_Avalonia_Controls_GroupGrid_
+  name: GetCurrentRowView
+  nameWithType: GroupGridBinder.GetCurrentRowView
+  fullName: Tripous.Desktop.GroupGridBinder.GetCurrentRowView
+- uid: System.Data.DataRowView
+  commentId: T:System.Data.DataRowView
+  parent: System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.data.datarowview
+  name: DataRowView
+  nameWithType: DataRowView
+  fullName: System.Data.DataRowView
+- uid: Tripous.Desktop.GroupGridBinder.GetInfo*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.GetInfo
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_GetInfo_Avalonia_Controls_GroupGridColumn_
+  name: GetInfo
+  nameWithType: GroupGridBinder.GetInfo
+  fullName: Tripous.Desktop.GroupGridBinder.GetInfo
+- uid: Tripous.Desktop.GroupGridColumnBinding
+  commentId: T:Tripous.Desktop.GroupGridColumnBinding
+  parent: Tripous.Desktop
+  href: Tripous.Desktop.GroupGridColumnBinding.html
+  name: GroupGridColumnBinding
+  nameWithType: GroupGridColumnBinding
+  fullName: Tripous.Desktop.GroupGridColumnBinding
+- uid: Tripous.Desktop.GroupGridBinder.GetInfoList*
+  commentId: Overload:Tripous.Desktop.GroupGridBinder.GetInfoList
+  href: Tripous.Desktop.GroupGridBinder.html#Tripous_Desktop_GroupGridBinder_GetInfoList_Avalonia_Controls_GroupGrid_
+  name: GetInfoList
+  nameWithType: GroupGridBinder.GetInfoList
+  fullName: Tripous.Desktop.GroupGridBinder.GetInfoList
+- uid: System.Collections.Generic.List{Tripous.Desktop.GroupGridColumnBinding}
+  commentId: T:System.Collections.Generic.List{Tripous.Desktop.GroupGridColumnBinding}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<GroupGridColumnBinding>
+  nameWithType: List<GroupGridColumnBinding>
+  fullName: System.Collections.Generic.List<Tripous.Desktop.GroupGridColumnBinding>
+  nameWithType.vb: List(Of GroupGridColumnBinding)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Desktop.GroupGridColumnBinding)
+  name.vb: List(Of GroupGridColumnBinding)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Desktop.GroupGridColumnBinding
+    name: GroupGridColumnBinding
+    href: Tripous.Desktop.GroupGridColumnBinding.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Desktop.GroupGridColumnBinding
+    name: GroupGridColumnBinding
+    href: Tripous.Desktop.GroupGridColumnBinding.html
+  - name: )

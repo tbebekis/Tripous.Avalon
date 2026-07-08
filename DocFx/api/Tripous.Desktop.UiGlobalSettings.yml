@@ -15,6 +15,7 @@ items:
   - Tripous.Desktop.UiGlobalSettings.PropertyChanged
   - Tripous.Desktop.UiGlobalSettings.ShowDataFormLog
   - Tripous.Desktop.UiGlobalSettings.ShowIdColumnsInGrids
+  - Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel
   langs:
   - csharp
   - vb
@@ -81,7 +82,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormColumnCount
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 73
+    startLine: 74
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -112,7 +113,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormColumnWidth
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 81
+    startLine: 82
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -143,7 +144,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormMemoRowCount
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 89
+    startLine: 90
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -174,7 +175,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormMaxControlsPerColumn
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 97
+    startLine: 98
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -205,7 +206,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormImageHeight
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 105
+    startLine: 106
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -236,7 +237,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FormImageStretch
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 113
+    startLine: 114
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -267,7 +268,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowIdColumnsInGrids
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 121
+    startLine: 122
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -298,7 +299,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailGridMinHeight
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 129
+    startLine: 130
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -311,6 +312,37 @@ items:
       type: System.Double
     content.vb: Public Property DetailGridMinHeight As Double
   overload: Tripous.Desktop.UiGlobalSettings.DetailGridMinHeight*
+- uid: Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel
+  commentId: P:Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel
+  id: ShowLocatorGridFilterPanel
+  parent: Tripous.Desktop.UiGlobalSettings
+  langs:
+  - csharp
+  - vb
+  name: ShowLocatorGridFilterPanel
+  nameWithType: UiGlobalSettings.ShowLocatorGridFilterPanel
+  fullName: Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel
+  type: Property
+  source:
+    remote:
+      path: Tripous.Desktop/UiGlobalSettings.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ShowLocatorGridFilterPanel
+    path: ../Tripous.Desktop/UiGlobalSettings.cs
+    startLine: 138
+  assemblies:
+  - Tripous.Desktop
+  namespace: Tripous.Desktop
+  summary: When true then locator grid dropdowns display a filter panel.
+  example: []
+  syntax:
+    content: public bool ShowLocatorGridFilterPanel { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property ShowLocatorGridFilterPanel As Boolean
+  overload: Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel*
 - uid: Tripous.Desktop.UiGlobalSettings.ShowDataFormLog
   commentId: P:Tripous.Desktop.UiGlobalSettings.ShowDataFormLog
   id: ShowDataFormLog
@@ -329,7 +361,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ShowDataFormLog
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 137
+    startLine: 146
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -360,7 +392,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: PropertyChanged
     path: ../Tripous.Desktop/UiGlobalSettings.cs
-    startLine: 147
+    startLine: 156
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1063,6 +1095,12 @@ references:
   name: DetailGridMinHeight
   nameWithType: UiGlobalSettings.DetailGridMinHeight
   fullName: Tripous.Desktop.UiGlobalSettings.DetailGridMinHeight
+- uid: Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel*
+  commentId: Overload:Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel
+  href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_ShowLocatorGridFilterPanel
+  name: ShowLocatorGridFilterPanel
+  nameWithType: UiGlobalSettings.ShowLocatorGridFilterPanel
+  fullName: Tripous.Desktop.UiGlobalSettings.ShowLocatorGridFilterPanel
 - uid: Tripous.Desktop.UiGlobalSettings.ShowDataFormLog*
   commentId: Overload:Tripous.Desktop.UiGlobalSettings.ShowDataFormLog
   href: Tripous.Desktop.UiGlobalSettings.html#Tripous_Desktop_UiGlobalSettings_ShowDataFormLog

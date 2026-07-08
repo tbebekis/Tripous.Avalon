@@ -35,7 +35,6 @@ items:
   - Tripous.Data.TableDef.CheckDescriptor
   - Tripous.Data.TableDef.CheckTopTableErrors
   - Tripous.Data.TableDef.CreateDescriptorTable(Tripous.Data.SqlStore)
-  - Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
   - Tripous.Data.TableDef.DetailField
   - Tripous.Data.TableDef.Details
   - Tripous.Data.TableDef.FieldExists(System.String)
@@ -47,8 +46,6 @@ items:
   - Tripous.Data.TableDef.FindAnyJoinTableByMasterKeyField(System.String)
   - Tripous.Data.TableDef.FindField(System.String)
   - Tripous.Data.TableDef.FindJoinTableByMasterKeyField(System.String)
-  - Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
-  - Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
   - Tripous.Data.TableDef.GetBindableFields
   - Tripous.Data.TableDef.GetBindableGroups
   - Tripous.Data.TableDef.GetField(System.String)
@@ -591,111 +588,6 @@ items:
   nameWithType.vb: TableDef.FindAnyFieldTitle(String)
   fullName.vb: Tripous.Data.TableDef.FindAnyFieldTitle(String)
   name.vb: FindAnyFieldTitle(String)
-- uid: Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
-  commentId: M:Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
-  id: FindLocatorJoinField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
-  parent: Tripous.Data.TableDef
-  langs:
-  - csharp
-  - vb
-  name: FindLocatorJoinField(FieldDef, LocatorFieldDef)
-  nameWithType: TableDef.FindLocatorJoinField(FieldDef, LocatorFieldDef)
-  fullName: Tripous.Data.TableDef.FindLocatorJoinField(Tripous.Data.FieldDef, Tripous.Data.LocatorFieldDef)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Registry/TableDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: FindLocatorJoinField
-    path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 270
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Finds the join field that matches a locator field.
-  example: []
-  syntax:
-    content: public FieldDef FindLocatorJoinField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
-    parameters:
-    - id: ReferenceField
-      type: Tripous.Data.FieldDef
-    - id: LocatorField
-      type: Tripous.Data.LocatorFieldDef
-    return:
-      type: Tripous.Data.FieldDef
-    content.vb: Public Function FindLocatorJoinField(ReferenceField As FieldDef, LocatorField As LocatorFieldDef) As FieldDef
-  overload: Tripous.Data.TableDef.FindLocatorJoinField*
-- uid: Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
-  commentId: M:Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
-  id: FindLocatorTargetField(Tripous.Data.FieldDef,Tripous.Data.LocatorFieldDef)
-  parent: Tripous.Data.TableDef
-  langs:
-  - csharp
-  - vb
-  name: FindLocatorTargetField(FieldDef, LocatorFieldDef)
-  nameWithType: TableDef.FindLocatorTargetField(FieldDef, LocatorFieldDef)
-  fullName: Tripous.Data.TableDef.FindLocatorTargetField(Tripous.Data.FieldDef, Tripous.Data.LocatorFieldDef)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Registry/TableDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: FindLocatorTargetField
-    path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 284
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Finds the target field for a locator field.
-  example: []
-  syntax:
-    content: public FieldDef FindLocatorTargetField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
-    parameters:
-    - id: ReferenceField
-      type: Tripous.Data.FieldDef
-    - id: LocatorField
-      type: Tripous.Data.LocatorFieldDef
-    return:
-      type: Tripous.Data.FieldDef
-    content.vb: Public Function FindLocatorTargetField(ReferenceField As FieldDef, LocatorField As LocatorFieldDef) As FieldDef
-  overload: Tripous.Data.TableDef.FindLocatorTargetField*
-- uid: Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
-  commentId: M:Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
-  id: CreateLocatorTargetFieldMap(Tripous.Data.FieldDef,Tripous.Data.LocatorDef)
-  parent: Tripous.Data.TableDef
-  langs:
-  - csharp
-  - vb
-  name: CreateLocatorTargetFieldMap(FieldDef, LocatorDef)
-  nameWithType: TableDef.CreateLocatorTargetFieldMap(FieldDef, LocatorDef)
-  fullName: Tripous.Data.TableDef.CreateLocatorTargetFieldMap(Tripous.Data.FieldDef, Tripous.Data.LocatorDef)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Registry/TableDef.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: CreateLocatorTargetFieldMap
-    path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 296
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Creates a locator field to target field map.
-  example: []
-  syntax:
-    content: public Dictionary<string, string> CreateLocatorTargetFieldMap(FieldDef ReferenceField, LocatorDef LocatorDef)
-    parameters:
-    - id: ReferenceField
-      type: Tripous.Data.FieldDef
-    - id: LocatorDef
-      type: Tripous.Data.LocatorDef
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,System.String}
-    content.vb: Public Function CreateLocatorTargetFieldMap(ReferenceField As FieldDef, LocatorDef As LocatorDef) As Dictionary(Of String, String)
-  overload: Tripous.Data.TableDef.CreateLocatorTargetFieldMap*
 - uid: Tripous.Data.TableDef.IsLocatorSnapshotField(Tripous.Data.FieldDef)
   commentId: M:Tripous.Data.TableDef.IsLocatorSnapshotField(Tripous.Data.FieldDef)
   id: IsLocatorSnapshotField(Tripous.Data.FieldDef)
@@ -714,7 +606,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsLocatorSnapshotField
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 316
+    startLine: 270
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -747,7 +639,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AssignLookupSnapshots
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 330
+    startLine: 284
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -784,7 +676,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BuildSql
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 392
+    startLine: 346
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -817,7 +709,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UpdateFrom
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 571
+    startLine: 525
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -848,7 +740,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateDescriptorTable
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 636
+    startLine: 590
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -887,7 +779,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetupFieldsDisplayLabelsFor
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 734
+    startLine: 688
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -923,7 +815,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FieldExists
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 759
+    startLine: 713
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -959,7 +851,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FindField
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 763
+    startLine: 717
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -995,7 +887,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetField
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 767
+    startLine: 721
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1031,7 +923,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddField
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 778
+    startLine: 732
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1085,7 +977,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 807
+    startLine: 761
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1127,7 +1019,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 819
+    startLine: 773
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1165,7 +1057,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddStringId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 823
+    startLine: 777
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1205,7 +1097,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddIntegerId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 827
+    startLine: 781
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1243,7 +1135,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddLookupId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 834
+    startLine: 788
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1293,7 +1185,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddStringLookupId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 844
+    startLine: 798
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1341,7 +1233,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddIntegerLookupId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 850
+    startLine: 804
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1389,7 +1281,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddEnumLookupId
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 857
+    startLine: 811
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1443,7 +1335,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Add
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 873
+    startLine: 827
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1487,7 +1379,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddString
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 878
+    startLine: 832
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1531,7 +1423,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddInteger
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 885
+    startLine: 839
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1573,7 +1465,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDouble
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 890
+    startLine: 844
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1617,7 +1509,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDecimal
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 895
+    startLine: 849
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1661,7 +1553,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDate
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 900
+    startLine: 854
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1703,7 +1595,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDateTime
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 905
+    startLine: 859
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1745,7 +1637,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddBoolean
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 910
+    startLine: 864
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1787,7 +1679,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddBlob
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 915
+    startLine: 869
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1829,7 +1721,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddTextBlob
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 920
+    startLine: 874
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1871,7 +1763,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddDetail
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 927
+    startLine: 881
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1911,7 +1803,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddJoin
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 951
+    startLine: 905
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1971,7 +1863,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddJoin
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 966
+    startLine: 920
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2034,7 +1926,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetBindableFields
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 985
+    startLine: 939
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2064,7 +1956,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetBindableGroups
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 990
+    startLine: 944
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2095,7 +1987,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ModuleDef
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1025
+    startLine: 979
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2136,7 +2028,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Master
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1030
+    startLine: 984
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2177,7 +2069,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Owner
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1035
+    startLine: 989
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2218,7 +2110,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Alias
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1041
+    startLine: 995
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2249,7 +2141,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyField
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1049
+    startLine: 1003
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2280,7 +2172,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MasterField
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1058
+    startLine: 1012
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2315,7 +2207,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DetailField
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1067
+    startLine: 1021
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2350,7 +2242,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsDetail
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1075
+    startLine: 1029
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2381,7 +2273,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsOneToOne
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1084
+    startLine: 1038
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2416,7 +2308,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsUiVisible
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1094
+    startLine: 1048
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2453,7 +2345,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Sqls
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1103
+    startLine: 1057
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2484,7 +2376,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: FieldGroups
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1107
+    startLine: 1061
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2515,7 +2407,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Fields
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1115
+    startLine: 1069
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2546,7 +2438,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Joins
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1123
+    startLine: 1077
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2577,7 +2469,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Stocks
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1142
+    startLine: 1096
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2632,7 +2524,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Details
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1150
+    startLine: 1104
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2663,7 +2555,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasDetails
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1159
+    startLine: 1113
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2704,7 +2596,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasJoins
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1163
+    startLine: 1117
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2745,7 +2637,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: HasStocks
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1167
+    startLine: 1121
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -2786,7 +2678,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: IsJoin
     path: ../Tripous.Data/Registry/TableDef.cs
-    startLine: 1171
+    startLine: 1125
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -3654,12 +3546,12 @@ references:
   name: FindAnyFieldTitle
   nameWithType: TableDef.FindAnyFieldTitle
   fullName: Tripous.Data.TableDef.FindAnyFieldTitle
-- uid: Tripous.Data.TableDef.FindLocatorJoinField*
-  commentId: Overload:Tripous.Data.TableDef.FindLocatorJoinField
-  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindLocatorJoinField_Tripous_Data_FieldDef_Tripous_Data_LocatorFieldDef_
-  name: FindLocatorJoinField
-  nameWithType: TableDef.FindLocatorJoinField
-  fullName: Tripous.Data.TableDef.FindLocatorJoinField
+- uid: Tripous.Data.TableDef.IsLocatorSnapshotField*
+  commentId: Overload:Tripous.Data.TableDef.IsLocatorSnapshotField
+  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsLocatorSnapshotField_Tripous_Data_FieldDef_
+  name: IsLocatorSnapshotField
+  nameWithType: TableDef.IsLocatorSnapshotField
+  fullName: Tripous.Data.TableDef.IsLocatorSnapshotField
 - uid: Tripous.Data.FieldDef
   commentId: T:Tripous.Data.FieldDef
   parent: Tripous.Data
@@ -3667,156 +3559,6 @@ references:
   name: FieldDef
   nameWithType: FieldDef
   fullName: Tripous.Data.FieldDef
-- uid: Tripous.Data.LocatorFieldDef
-  commentId: T:Tripous.Data.LocatorFieldDef
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorFieldDef.html
-  name: LocatorFieldDef
-  nameWithType: LocatorFieldDef
-  fullName: Tripous.Data.LocatorFieldDef
-- uid: Tripous.Data.TableDef.FindLocatorTargetField*
-  commentId: Overload:Tripous.Data.TableDef.FindLocatorTargetField
-  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FindLocatorTargetField_Tripous_Data_FieldDef_Tripous_Data_LocatorFieldDef_
-  name: FindLocatorTargetField
-  nameWithType: TableDef.FindLocatorTargetField
-  fullName: Tripous.Data.TableDef.FindLocatorTargetField
-- uid: Tripous.Data.TableDef.CreateLocatorTargetFieldMap*
-  commentId: Overload:Tripous.Data.TableDef.CreateLocatorTargetFieldMap
-  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_CreateLocatorTargetFieldMap_Tripous_Data_FieldDef_Tripous_Data_LocatorDef_
-  name: CreateLocatorTargetFieldMap
-  nameWithType: TableDef.CreateLocatorTargetFieldMap
-  fullName: Tripous.Data.TableDef.CreateLocatorTargetFieldMap
-- uid: Tripous.Data.LocatorDef
-  commentId: T:Tripous.Data.LocatorDef
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorDef.html
-  name: LocatorDef
-  nameWithType: LocatorDef
-  fullName: Tripous.Data.LocatorDef
-- uid: System.Collections.Generic.Dictionary{System.String,System.String}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, string>
-  nameWithType: Dictionary<string, string>
-  fullName: System.Collections.Generic.Dictionary<string, string>
-  nameWithType.vb: Dictionary(Of String, String)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
-  name.vb: Dictionary(Of String, String)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: System.Collections.Generic.Dictionary`2
-  commentId: T:System.Collections.Generic.Dictionary`2
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<TKey, TValue>
-  nameWithType: Dictionary<TKey, TValue>
-  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
-  nameWithType.vb: Dictionary(Of TKey, TValue)
-  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
-  name.vb: Dictionary(Of TKey, TValue)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - name: TKey
-  - name: ','
-  - name: " "
-  - name: TValue
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - name: TKey
-  - name: ','
-  - name: " "
-  - name: TValue
-  - name: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: Tripous.Data.TableDef.IsLocatorSnapshotField*
-  commentId: Overload:Tripous.Data.TableDef.IsLocatorSnapshotField
-  href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_IsLocatorSnapshotField_Tripous_Data_FieldDef_
-  name: IsLocatorSnapshotField
-  nameWithType: TableDef.IsLocatorSnapshotField
-  fullName: Tripous.Data.TableDef.IsLocatorSnapshotField
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -3943,6 +3685,124 @@ references:
   name: SetupFieldsDisplayLabelsFor
   nameWithType: TableDef.SetupFieldsDisplayLabelsFor
   fullName: Tripous.Data.TableDef.SetupFieldsDisplayLabelsFor
+- uid: System.Collections.Generic.Dictionary{System.String,System.String}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, string>
+  nameWithType: Dictionary<string, string>
+  fullName: System.Collections.Generic.Dictionary<string, string>
+  nameWithType.vb: Dictionary(Of String, String)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
+  name.vb: Dictionary(Of String, String)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
 - uid: Tripous.Data.TableDef.FieldExists*
   commentId: Overload:Tripous.Data.TableDef.FieldExists
   href: Tripous.Data.TableDef.html#Tripous_Data_TableDef_FieldExists_System_String_

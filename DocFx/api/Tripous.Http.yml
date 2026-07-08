@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Http
+  commentId: N:Tripous.Http
+  id: Tripous.Http
+  children:
+  - Tripous.Http.HttpPacketResult
+  langs:
+  - csharp
+  - vb
+  name: Tripous.Http
+  nameWithType: Tripous.Http
+  fullName: Tripous.Http
+  type: Namespace
+  assemblies:
+  - Tripous
+references:
+- uid: Tripous.Http.HttpPacketResult
+  commentId: T:Tripous.Http.HttpPacketResult
+  parent: Tripous.Http
+  href: Tripous.Http.HttpPacketResult.html
+  name: HttpPacketResult
+  nameWithType: HttpPacketResult
+  fullName: Tripous.Http.HttpPacketResult
+- uid: Tripous.Http
+  commentId: N:Tripous.Http
+  href: Tripous.html
+  name: Tripous.Http
+  nameWithType: Tripous.Http
+  fullName: Tripous.Http
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Http
+    name: Http
+    href: Tripous.Http.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Http
+    name: Http
+    href: Tripous.Http.html

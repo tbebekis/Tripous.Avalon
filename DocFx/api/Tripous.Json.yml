@@ -1793,6 +1793,7 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
 - uid: System.Text.Json.Nodes.JsonObject
   commentId: T:System.Text.Json.Nodes.JsonObject
+  parent: System.Text.Json.Nodes
   isExternal: true
   href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes.jsonobject
   name: JsonObject

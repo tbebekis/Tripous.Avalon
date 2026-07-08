@@ -171,7 +171,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SplitBindableGroups
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 44
+    startLine: 48
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -209,7 +209,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateColumnRootGrid
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 78
+    startLine: 82
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -245,7 +245,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateColumnGrid
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 96
+    startLine: 100
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -275,7 +275,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateGroupColumnGrids
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 107
+    startLine: 111
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -313,7 +313,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateFieldGroups
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 127
+    startLine: 131
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -355,7 +355,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateLargeMemoGroups
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 148
+    startLine: 152
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -390,7 +390,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddControlRow
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 163
+    startLine: 167
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -434,7 +434,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateTopTableTabItem
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 210
+    startLine: 214
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -467,7 +467,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateSinglePageLayout
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 228
+    startLine: 232
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -498,7 +498,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CreateTabbedTopLayout
     path: ../Tripous.Desktop/ItemUi/UiItemPage.cs
-    startLine: 236
+    startLine: 240
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1012,26 +1012,21 @@ references:
   fullName: Avalonia.Controls.Grid
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
 - uid: Tripous.Desktop.UiItemPage.CreateColumnGrid*
   commentId: Overload:Tripous.Desktop.UiItemPage.CreateColumnGrid
   href: Tripous.Desktop.UiItemPage.html#Tripous_Desktop_UiItemPage_CreateColumnGrid

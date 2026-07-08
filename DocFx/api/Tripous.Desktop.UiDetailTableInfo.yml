@@ -9,7 +9,6 @@ items:
   - Tripous.Desktop.UiDetailTableInfo.ParentTableDef
   - Tripous.Desktop.UiDetailTableInfo.Table
   - Tripous.Desktop.UiDetailTableInfo.TableDef
-  - Tripous.Desktop.UiDetailTableInfo.ToolBarPanel
   langs:
   - csharp
   - vb
@@ -45,37 +44,6 @@ items:
   - System.Object.ToString
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
-- uid: Tripous.Desktop.UiDetailTableInfo.ToolBarPanel
-  commentId: P:Tripous.Desktop.UiDetailTableInfo.ToolBarPanel
-  id: ToolBarPanel
-  parent: Tripous.Desktop.UiDetailTableInfo
-  langs:
-  - csharp
-  - vb
-  name: ToolBarPanel
-  nameWithType: UiDetailTableInfo.ToolBarPanel
-  fullName: Tripous.Desktop.UiDetailTableInfo.ToolBarPanel
-  type: Property
-  source:
-    remote:
-      path: Tripous.Desktop/ItemUi/UiDetailTableInfo.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ToolBarPanel
-    path: ../Tripous.Desktop/ItemUi/UiDetailTableInfo.cs
-    startLine: 19
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: The toolbar panel of the detail grid.
-  example: []
-  syntax:
-    content: public StackPanel ToolBarPanel { get; set; }
-    parameters: []
-    return:
-      type: Avalonia.Controls.StackPanel
-    content.vb: Public Property ToolBarPanel As StackPanel
-  overload: Tripous.Desktop.UiDetailTableInfo.ToolBarPanel*
 - uid: Tripous.Desktop.UiDetailTableInfo.Grid
   commentId: P:Tripous.Desktop.UiDetailTableInfo.Grid
   id: Grid
@@ -94,18 +62,18 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Grid
     path: ../Tripous.Desktop/ItemUi/UiDetailTableInfo.cs
-    startLine: 23
+    startLine: 19
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
   summary: The detail grid.
   example: []
   syntax:
-    content: public DataGrid Grid { get; set; }
+    content: public GroupGrid Grid { get; set; }
     parameters: []
     return:
-      type: Avalonia.Controls.DataGrid
-    content.vb: Public Property Grid As DataGrid
+      type: Avalonia.Controls.GroupGrid
+    content.vb: Public Property Grid As GroupGrid
   overload: Tripous.Desktop.UiDetailTableInfo.Grid*
 - uid: Tripous.Desktop.UiDetailTableInfo.ParentTableDef
   commentId: P:Tripous.Desktop.UiDetailTableInfo.ParentTableDef
@@ -125,7 +93,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ParentTableDef
     path: ../Tripous.Desktop/ItemUi/UiDetailTableInfo.cs
-    startLine: 27
+    startLine: 23
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -156,7 +124,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TableDef
     path: ../Tripous.Desktop/ItemUi/UiDetailTableInfo.cs
-    startLine: 31
+    startLine: 27
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -187,7 +155,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Table
     path: ../Tripous.Desktop/ItemUi/UiDetailTableInfo.cs
-    startLine: 35
+    startLine: 31
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -558,54 +526,35 @@ references:
   name: Tripous
   nameWithType: Tripous
   fullName: Tripous
-- uid: Tripous.Desktop.UiDetailTableInfo.ToolBarPanel*
-  commentId: Overload:Tripous.Desktop.UiDetailTableInfo.ToolBarPanel
-  href: Tripous.Desktop.UiDetailTableInfo.html#Tripous_Desktop_UiDetailTableInfo_ToolBarPanel
-  name: ToolBarPanel
-  nameWithType: UiDetailTableInfo.ToolBarPanel
-  fullName: Tripous.Desktop.UiDetailTableInfo.ToolBarPanel
-- uid: Avalonia.Controls.StackPanel
-  commentId: T:Avalonia.Controls.StackPanel
-  parent: Avalonia.Controls
-  isExternal: true
-  name: StackPanel
-  nameWithType: StackPanel
-  fullName: Avalonia.Controls.StackPanel
-- uid: Avalonia.Controls
-  commentId: N:Avalonia.Controls
-  isExternal: true
-  name: Avalonia.Controls
-  nameWithType: Avalonia.Controls
-  fullName: Avalonia.Controls
-  spec.csharp:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls
-    name: Controls
-    isExternal: true
-  spec.vb:
-  - uid: Avalonia
-    name: Avalonia
-    isExternal: true
-  - name: .
-  - uid: Avalonia.Controls
-    name: Controls
-    isExternal: true
 - uid: Tripous.Desktop.UiDetailTableInfo.Grid*
   commentId: Overload:Tripous.Desktop.UiDetailTableInfo.Grid
   href: Tripous.Desktop.UiDetailTableInfo.html#Tripous_Desktop_UiDetailTableInfo_Grid
   name: Grid
   nameWithType: UiDetailTableInfo.Grid
   fullName: Tripous.Desktop.UiDetailTableInfo.Grid
-- uid: Avalonia.Controls.DataGrid
-  commentId: T:Avalonia.Controls.DataGrid
+- uid: Avalonia.Controls.GroupGrid
+  commentId: T:Avalonia.Controls.GroupGrid
   parent: Avalonia.Controls
-  isExternal: true
-  name: DataGrid
-  nameWithType: DataGrid
-  fullName: Avalonia.Controls.DataGrid
+  name: GroupGrid
+  nameWithType: GroupGrid
+  fullName: Avalonia.Controls.GroupGrid
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
 - uid: Tripous.Desktop.UiDetailTableInfo.ParentTableDef*
   commentId: Overload:Tripous.Desktop.UiDetailTableInfo.ParentTableDef
   href: Tripous.Desktop.UiDetailTableInfo.html#Tripous_Desktop_UiDetailTableInfo_ParentTableDef

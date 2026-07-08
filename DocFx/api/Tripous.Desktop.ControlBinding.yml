@@ -42,9 +42,9 @@ items:
   - Tripous.Desktop.TripousBinding.FieldDef
   - Tripous.Desktop.TripousBinding.DataType
   - Tripous.Desktop.TripousBinding.LookupSource
-  - Tripous.Desktop.TripousBinding.Locator
   - Tripous.Desktop.TripousBinding.LocatorDef
-  - Tripous.Desktop.TripousBinding.LocatorTargetFieldMap
+  - Tripous.Desktop.TripousBinding.LocatorMapPlan
+  - Tripous.Desktop.TripousBinding.LocatorSourceFieldName
   - Tripous.Desktop.TripousBinding.ReferenceContextMenu
   - Tripous.Desktop.TripousBinding.IsRefreshing
   - Tripous.Desktop.TripousBinding.DisposeAction
@@ -239,13 +239,6 @@ references:
   name: LookupSource
   nameWithType: TripousBinding.LookupSource
   fullName: Tripous.Desktop.TripousBinding.LookupSource
-- uid: Tripous.Desktop.TripousBinding.Locator
-  commentId: P:Tripous.Desktop.TripousBinding.Locator
-  parent: Tripous.Desktop.TripousBinding
-  href: Tripous.Desktop.TripousBinding.html#Tripous_Desktop_TripousBinding_Locator
-  name: Locator
-  nameWithType: TripousBinding.Locator
-  fullName: Tripous.Desktop.TripousBinding.Locator
 - uid: Tripous.Desktop.TripousBinding.LocatorDef
   commentId: P:Tripous.Desktop.TripousBinding.LocatorDef
   parent: Tripous.Desktop.TripousBinding
@@ -253,13 +246,20 @@ references:
   name: LocatorDef
   nameWithType: TripousBinding.LocatorDef
   fullName: Tripous.Desktop.TripousBinding.LocatorDef
-- uid: Tripous.Desktop.TripousBinding.LocatorTargetFieldMap
-  commentId: P:Tripous.Desktop.TripousBinding.LocatorTargetFieldMap
+- uid: Tripous.Desktop.TripousBinding.LocatorMapPlan
+  commentId: P:Tripous.Desktop.TripousBinding.LocatorMapPlan
   parent: Tripous.Desktop.TripousBinding
-  href: Tripous.Desktop.TripousBinding.html#Tripous_Desktop_TripousBinding_LocatorTargetFieldMap
-  name: LocatorTargetFieldMap
-  nameWithType: TripousBinding.LocatorTargetFieldMap
-  fullName: Tripous.Desktop.TripousBinding.LocatorTargetFieldMap
+  href: Tripous.Desktop.TripousBinding.html#Tripous_Desktop_TripousBinding_LocatorMapPlan
+  name: LocatorMapPlan
+  nameWithType: TripousBinding.LocatorMapPlan
+  fullName: Tripous.Desktop.TripousBinding.LocatorMapPlan
+- uid: Tripous.Desktop.TripousBinding.LocatorSourceFieldName
+  commentId: P:Tripous.Desktop.TripousBinding.LocatorSourceFieldName
+  parent: Tripous.Desktop.TripousBinding
+  href: Tripous.Desktop.TripousBinding.html#Tripous_Desktop_TripousBinding_LocatorSourceFieldName
+  name: LocatorSourceFieldName
+  nameWithType: TripousBinding.LocatorSourceFieldName
+  fullName: Tripous.Desktop.TripousBinding.LocatorSourceFieldName
 - uid: Tripous.Desktop.TripousBinding.ReferenceContextMenu
   commentId: P:Tripous.Desktop.TripousBinding.ReferenceContextMenu
   parent: Tripous.Desktop.TripousBinding
@@ -605,23 +605,18 @@ references:
   fullName: Avalonia.Controls.Control
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true

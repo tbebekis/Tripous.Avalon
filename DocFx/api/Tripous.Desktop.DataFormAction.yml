@@ -464,7 +464,7 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Toggles visibility of list DataGrid columns ending with ID
+  summary: Toggles visibility of list GroupGrid columns ending with ID.
   example: []
   syntax:
     content: ToggleIds = 2048

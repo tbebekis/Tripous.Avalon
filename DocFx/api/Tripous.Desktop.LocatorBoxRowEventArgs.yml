@@ -16,11 +16,11 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
+      path: Tripous.Desktop/Locator/LocatorBoxRowEventArgs.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: LocatorBoxRowEventArgs
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    path: ../Tripous.Desktop/Locator/LocatorBoxRowEventArgs.cs
     startLine: 13
   assemblies:
   - Tripous.Desktop
@@ -57,11 +57,11 @@ items:
   type: Constructor
   source:
     remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
+      path: Tripous.Desktop/Locator/LocatorBoxRowEventArgs.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    path: ../Tripous.Desktop/Locator/LocatorBoxRowEventArgs.cs
     startLine: 20
   assemblies:
   - Tripous.Desktop
@@ -92,11 +92,11 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Desktop/Locator/LocatorBox.cs
+      path: Tripous.Desktop/Locator/LocatorBoxRowEventArgs.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Row
-    path: ../Tripous.Desktop/Locator/LocatorBox.cs
+    path: ../Tripous.Desktop/Locator/LocatorBoxRowEventArgs.cs
     startLine: 29
   assemblies:
   - Tripous.Desktop

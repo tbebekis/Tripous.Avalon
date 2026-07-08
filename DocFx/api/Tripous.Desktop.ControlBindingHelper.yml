@@ -17,7 +17,6 @@ items:
   - Tripous.Desktop.ControlBindingHelper.BindLookup(Tripous.Data.IRowProvider,Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,System.String,Tripous.Data.FieldDef)
   - Tripous.Desktop.ControlBindingHelper.BindLookup(Tripous.Data.IRowProvider,Avalonia.Controls.ComboBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
   - Tripous.Desktop.ControlBindingHelper.BindMemo(Tripous.Data.IRowProvider,Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
-  - Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields(Tripous.Data.LocatorDef,Tripous.Data.FieldDef)
   - Tripous.Desktop.ControlBindingHelper.Refresh(Tripous.Data.IRowProvider,Tripous.Desktop.ControlBinding)
   langs:
   - csharp
@@ -70,7 +69,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Refresh
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 278
+    startLine: 229
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -87,41 +86,6 @@ items:
       description: The control binding.
     content.vb: Public Shared Sub Refresh(RowProvider As IRowProvider, Binding As ControlBinding)
   overload: Tripous.Desktop.ControlBindingHelper.Refresh*
-- uid: Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields(Tripous.Data.LocatorDef,Tripous.Data.FieldDef)
-  commentId: M:Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields(Tripous.Data.LocatorDef,Tripous.Data.FieldDef)
-  id: EnsureLocatorFields(Tripous.Data.LocatorDef,Tripous.Data.FieldDef)
-  parent: Tripous.Desktop.ControlBindingHelper
-  langs:
-  - csharp
-  - vb
-  name: EnsureLocatorFields(LocatorDef, FieldDef)
-  nameWithType: ControlBindingHelper.EnsureLocatorFields(LocatorDef, FieldDef)
-  fullName: Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields(Tripous.Data.LocatorDef, Tripous.Data.FieldDef)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Desktop/Bindings/ControlBindingHelper.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: EnsureLocatorFields
-    path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 328
-  assemblies:
-  - Tripous.Desktop
-  namespace: Tripous.Desktop
-  summary: Ensures that a locator has fields inferred from the specified field definition.
-  example: []
-  syntax:
-    content: public static void EnsureLocatorFields(LocatorDef LocatorDef, FieldDef FieldDef)
-    parameters:
-    - id: LocatorDef
-      type: Tripous.Data.LocatorDef
-      description: The locator definition.
-    - id: FieldDef
-      type: Tripous.Data.FieldDef
-      description: The field definition.
-    content.vb: Public Shared Sub EnsureLocatorFields(LocatorDef As LocatorDef, FieldDef As FieldDef)
-  overload: Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields*
 - uid: Tripous.Desktop.ControlBindingHelper.Bind(Tripous.Data.IRowProvider,Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
   commentId: M:Tripous.Desktop.ControlBindingHelper.Bind(Tripous.Data.IRowProvider,Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
   id: Bind(Tripous.Data.IRowProvider,Avalonia.Controls.TextBox,System.String,System.Data.DataColumn,Tripous.Data.FieldDef)
@@ -140,7 +104,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 341
+    startLine: 283
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -190,7 +154,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BindMemo
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 387
+    startLine: 329
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -240,7 +204,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 404
+    startLine: 346
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -290,7 +254,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 443
+    startLine: 385
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -340,7 +304,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 482
+    startLine: 424
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -390,7 +354,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 577
+    startLine: 519
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -443,7 +407,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 617
+    startLine: 559
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -496,7 +460,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 657
+    startLine: 599
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -546,7 +510,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BindLookup
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 695
+    startLine: 637
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -596,7 +560,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BindLookup
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 714
+    startLine: 656
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -649,7 +613,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: BindImage
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 785
+    startLine: 727
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -699,7 +663,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Bind
     path: ../Tripous.Desktop/Bindings/ControlBindingHelper.cs
-    startLine: 816
+    startLine: 758
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
@@ -1024,26 +988,6 @@ references:
   - uid: Tripous.Data
     name: Data
     href: Tripous.Data.html
-- uid: Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields*
-  commentId: Overload:Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields
-  href: Tripous.Desktop.ControlBindingHelper.html#Tripous_Desktop_ControlBindingHelper_EnsureLocatorFields_Tripous_Data_LocatorDef_Tripous_Data_FieldDef_
-  name: EnsureLocatorFields
-  nameWithType: ControlBindingHelper.EnsureLocatorFields
-  fullName: Tripous.Desktop.ControlBindingHelper.EnsureLocatorFields
-- uid: Tripous.Data.LocatorDef
-  commentId: T:Tripous.Data.LocatorDef
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorDef.html
-  name: LocatorDef
-  nameWithType: LocatorDef
-  fullName: Tripous.Data.LocatorDef
-- uid: Tripous.Data.FieldDef
-  commentId: T:Tripous.Data.FieldDef
-  parent: Tripous.Data
-  href: Tripous.Data.FieldDef.html
-  name: FieldDef
-  nameWithType: FieldDef
-  fullName: Tripous.Data.FieldDef
 - uid: Tripous.Desktop.ControlBindingHelper.Bind*
   commentId: Overload:Tripous.Desktop.ControlBindingHelper.Bind
   href: Tripous.Desktop.ControlBindingHelper.html#Tripous_Desktop_ControlBindingHelper_Bind_Tripous_Data_IRowProvider_Avalonia_Controls_TextBox_System_String_System_Data_DataColumn_Tripous_Data_FieldDef_
@@ -1076,28 +1020,30 @@ references:
   name: DataColumn
   nameWithType: DataColumn
   fullName: System.Data.DataColumn
+- uid: Tripous.Data.FieldDef
+  commentId: T:Tripous.Data.FieldDef
+  parent: Tripous.Data
+  href: Tripous.Data.FieldDef.html
+  name: FieldDef
+  nameWithType: FieldDef
+  fullName: Tripous.Data.FieldDef
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
 - uid: System.Data
   commentId: N:System.Data
   isExternal: true

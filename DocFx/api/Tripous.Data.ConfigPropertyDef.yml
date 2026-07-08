@@ -10,7 +10,9 @@ items:
   - Tripous.Data.ConfigPropertyDef.EditorClassName
   - Tripous.Data.ConfigPropertyDef.GroupName
   - Tripous.Data.ConfigPropertyDef.Kind
+  - Tripous.Data.ConfigPropertyDef.Scopes
   - Tripous.Data.ConfigPropertyDef.SecurityLevel
+  - Tripous.Data.ConfigPropertyDef.SupportsScope(Tripous.Data.ConfigScope)
   - Tripous.Data.ConfigPropertyDef.TypeName
   langs:
   - csharp
@@ -26,7 +28,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ConfigPropertyDef
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 99
+    startLine: 127
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -99,6 +101,39 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   extensionMethods:
   - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.ConfigPropertyDef.SupportsScope(Tripous.Data.ConfigScope)
+  commentId: M:Tripous.Data.ConfigPropertyDef.SupportsScope(Tripous.Data.ConfigScope)
+  id: SupportsScope(Tripous.Data.ConfigScope)
+  parent: Tripous.Data.ConfigPropertyDef
+  langs:
+  - csharp
+  - vb
+  name: SupportsScope(ConfigScope)
+  nameWithType: ConfigPropertyDef.SupportsScope(ConfigScope)
+  fullName: Tripous.Data.ConfigPropertyDef.SupportsScope(Tripous.Data.ConfigScope)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SupportsScope
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 133
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns true when this definition supports the specified configuration scope.
+  example: []
+  syntax:
+    content: public bool SupportsScope(ConfigScope Scope)
+    parameters:
+    - id: Scope
+      type: Tripous.Data.ConfigScope
+    return:
+      type: System.Boolean
+    content.vb: Public Function SupportsScope(Scope As ConfigScope) As Boolean
+  overload: Tripous.Data.ConfigPropertyDef.SupportsScope*
 - uid: Tripous.Data.ConfigPropertyDef.GroupName
   commentId: P:Tripous.Data.ConfigPropertyDef.GroupName
   id: GroupName
@@ -117,7 +152,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GroupName
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 105
+    startLine: 149
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -148,7 +183,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SecurityLevel
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 109
+    startLine: 153
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -179,7 +214,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Kind
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 113
+    startLine: 157
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -210,7 +245,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: DefaultValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 117
+    startLine: 161
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -223,6 +258,37 @@ items:
       type: System.String
     content.vb: Public Property DefaultValue As String
   overload: Tripous.Data.ConfigPropertyDef.DefaultValue*
+- uid: Tripous.Data.ConfigPropertyDef.Scopes
+  commentId: P:Tripous.Data.ConfigPropertyDef.Scopes
+  id: Scopes
+  parent: Tripous.Data.ConfigPropertyDef
+  langs:
+  - csharp
+  - vb
+  name: Scopes
+  nameWithType: ConfigPropertyDef.Scopes
+  fullName: Tripous.Data.ConfigPropertyDef.Scopes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Scopes
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 165
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the configuration scopes where this property is visible and editable.
+  example: []
+  syntax:
+    content: public ConfigScopeFlags Scopes { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.ConfigScopeFlags
+    content.vb: Public Property Scopes As ConfigScopeFlags
+  overload: Tripous.Data.ConfigPropertyDef.Scopes*
 - uid: Tripous.Data.ConfigPropertyDef.TypeName
   commentId: P:Tripous.Data.ConfigPropertyDef.TypeName
   id: TypeName
@@ -241,7 +307,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: TypeName
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 128
+    startLine: 176
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -288,7 +354,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: EditorClassName
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 132
+    startLine: 180
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -319,7 +385,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ApplyValueFunc
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 136
+    startLine: 184
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1012,6 +1078,30 @@ references:
   name: TypeExtensions
   nameWithType: TypeExtensions
   fullName: Tripous.TypeExtensions
+- uid: Tripous.Data.ConfigPropertyDef.SupportsScope*
+  commentId: Overload:Tripous.Data.ConfigPropertyDef.SupportsScope
+  href: Tripous.Data.ConfigPropertyDef.html#Tripous_Data_ConfigPropertyDef_SupportsScope_Tripous_Data_ConfigScope_
+  name: SupportsScope
+  nameWithType: ConfigPropertyDef.SupportsScope
+  fullName: Tripous.Data.ConfigPropertyDef.SupportsScope
+- uid: Tripous.Data.ConfigScope
+  commentId: T:Tripous.Data.ConfigScope
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigScope.html
+  name: ConfigScope
+  nameWithType: ConfigScope
+  fullName: Tripous.Data.ConfigScope
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: Tripous.Data.ConfigPropertyDef.GroupName*
   commentId: Overload:Tripous.Data.ConfigPropertyDef.GroupName
   href: Tripous.Data.ConfigPropertyDef.html#Tripous_Data_ConfigPropertyDef_GroupName
@@ -1061,6 +1151,19 @@ references:
   name: DefaultValue
   nameWithType: ConfigPropertyDef.DefaultValue
   fullName: Tripous.Data.ConfigPropertyDef.DefaultValue
+- uid: Tripous.Data.ConfigPropertyDef.Scopes*
+  commentId: Overload:Tripous.Data.ConfigPropertyDef.Scopes
+  href: Tripous.Data.ConfigPropertyDef.html#Tripous_Data_ConfigPropertyDef_Scopes
+  name: Scopes
+  nameWithType: ConfigPropertyDef.Scopes
+  fullName: Tripous.Data.ConfigPropertyDef.Scopes
+- uid: Tripous.Data.ConfigScopeFlags
+  commentId: T:Tripous.Data.ConfigScopeFlags
+  parent: Tripous.Data
+  href: Tripous.Data.ConfigScopeFlags.html
+  name: ConfigScopeFlags
+  nameWithType: ConfigScopeFlags
+  fullName: Tripous.Data.ConfigScopeFlags
 - uid: Tripous.Data.ConfigPropertyDef.TypeName*
   commentId: Overload:Tripous.Data.ConfigPropertyDef.TypeName
   href: Tripous.Data.ConfigPropertyDef.html#Tripous_Data_ConfigPropertyDef_TypeName

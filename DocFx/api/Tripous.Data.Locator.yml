@@ -5,47 +5,20 @@ items:
   id: Locator
   parent: Tripous.Data
   children:
-  - Tripous.Data.Locator.#ctor
-  - Tripous.Data.Locator.Active
-  - Tripous.Data.Locator.AnyEvent
-  - Tripous.Data.Locator.Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  - Tripous.Data.Locator.Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
-  - Tripous.Data.Locator.Clear
-  - Tripous.Data.Locator.ConstructUserWhere(System.String)
-  - Tripous.Data.Locator.ContainsSearchTrigger(System.String)
-  - Tripous.Data.Locator.Context
-  - Tripous.Data.Locator.DetailKey
-  - Tripous.Data.Locator.Execute(System.String)
-  - Tripous.Data.Locator.FilterSourceTable
-  - Tripous.Data.Locator.FindSourceKeyColumn(System.Data.DataRow)
-  - Tripous.Data.Locator.GetSelectSql
-  - Tripous.Data.Locator.GetSourceFieldValue(System.Data.DataRow,Tripous.Data.LocatorFieldDef)
-  - Tripous.Data.Locator.GetSourceKeySelectFieldName
-  - Tripous.Data.Locator.GetSourceKeyValue(System.Data.DataRow)
-  - Tripous.Data.Locator.Initialize(Tripous.Data.LocatorDef)
-  - Tripous.Data.Locator.IsInitialized
-  - Tripous.Data.Locator.IsSourceTableValid
-  - Tripous.Data.Locator.KeyValue
-  - Tripous.Data.Locator.LocateByKey(System.Object)
-  - Tripous.Data.Locator.LocatorDef
-  - Tripous.Data.Locator.Master
-  - Tripous.Data.Locator.OnAnyEvent(Tripous.Data.LocatorEventType,Tripous.Data.SelectSql,System.String,System.String)
-  - Tripous.Data.Locator.ResolveTargetFieldName(Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)
-  - Tripous.Data.Locator.Select(System.String,System.String)
-  - Tripous.Data.Locator.SelectSourceTable(Tripous.Data.SelectSql,System.String)
-  - Tripous.Data.Locator.SelectedRow
-  - Tripous.Data.Locator.SetTargetRowValue(System.Data.DataRow,System.String,System.Object,System.Boolean)
-  - Tripous.Data.Locator.SetupSourceTable
-  - Tripous.Data.Locator.SourceTable
+  - Tripous.Data.Locator.CheckRequest(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  - Tripous.Data.Locator.Execute(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  - Tripous.Data.Locator.GetBaseSql(Tripous.Data.LocatorDef)
+  - Tripous.Data.Locator.GetKeyFieldDef(Tripous.Data.LocatorDef)
+  - Tripous.Data.Locator.GetKeyWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  - Tripous.Data.Locator.GetSearchFieldNames(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  - Tripous.Data.Locator.GetSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  - Tripous.Data.Locator.GetSqlResultFields(Tripous.Data.LocatorDef)
+  - Tripous.Data.Locator.GetSqlValue(System.Object,Tripous.Data.DataFieldType)
+  - Tripous.Data.Locator.GetStatus(Tripous.Data.LocatorDef,System.Int32)
+  - Tripous.Data.Locator.GetWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  - Tripous.Data.Locator.InvalidRequest(System.String)
+  - Tripous.Data.Locator.IsSelectSource(System.String)
   - Tripous.Data.Locator.Store
-  - Tripous.Data.Locator.TriggerChar
-  - Tripous.Data.Locator.TrimEnd(System.String,System.Char)
-  - Tripous.Data.Locator.TryLocate(System.String,Tripous.Data.LocatorSearchResult@)
-  - Tripous.Data.Locator.fActive
-  - Tripous.Data.Locator.fLocatorDef
-  - Tripous.Data.Locator.fStore
-  - Tripous.Data.Locator.ftblSchema
-  - Tripous.Data.Locator.tblSchema
   langs:
   - csharp
   - vb
@@ -55,16 +28,16 @@ items:
   type: Class
   source:
     remote:
-      path: Tripous.Data/Locator.cs
+      path: Tripous.Data/Locator/Locator.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Locator
-    path: ../Tripous.Data/Locator.cs
-    startLine: 13
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 5
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: Runtime locator service.
+  summary: Runtime locator.
   example: []
   syntax:
     content: >-
@@ -91,122 +64,463 @@ items:
   - type: Tripous.TypeStoreAttribute
     ctor: Tripous.TypeStoreAttribute.#ctor
     arguments: []
-- uid: Tripous.Data.Locator.fStore
-  commentId: F:Tripous.Data.Locator.fStore
-  id: fStore
+- uid: Tripous.Data.Locator.IsSelectSource(System.String)
+  commentId: M:Tripous.Data.Locator.IsSelectSource(System.String)
+  id: IsSelectSource(System.String)
   parent: Tripous.Data.Locator
   langs:
   - csharp
   - vb
-  name: fStore
-  nameWithType: Locator.fStore
-  fullName: Tripous.Data.Locator.fStore
-  type: Field
+  name: IsSelectSource(string)
+  nameWithType: Locator.IsSelectSource(string)
+  fullName: Tripous.Data.Locator.IsSelectSource(string)
+  type: Method
   source:
     remote:
-      path: Tripous.Data/Locator.cs
+      path: Tripous.Data/Locator/Locator.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: fStore
-    path: ../Tripous.Data/Locator.cs
-    startLine: 20
+    id: IsSelectSource
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 12
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: Field
+  summary: Returns true when the specified source is a SELECT statement.
   example: []
   syntax:
-    content: protected SqlStore fStore
+    content: protected virtual bool IsSelectSource(string Source)
+    parameters:
+    - id: Source
+      type: System.String
     return:
-      type: Tripous.Data.SqlStore
-    content.vb: Protected fStore As SqlStore
-- uid: Tripous.Data.Locator.fActive
-  commentId: F:Tripous.Data.Locator.fActive
-  id: fActive
+      type: System.Boolean
+    content.vb: Protected Overridable Function IsSelectSource(Source As String) As Boolean
+  overload: Tripous.Data.Locator.IsSelectSource*
+  nameWithType.vb: Locator.IsSelectSource(String)
+  fullName.vb: Tripous.Data.Locator.IsSelectSource(String)
+  name.vb: IsSelectSource(String)
+- uid: Tripous.Data.Locator.GetSqlResultFields(Tripous.Data.LocatorDef)
+  commentId: M:Tripous.Data.Locator.GetSqlResultFields(Tripous.Data.LocatorDef)
+  id: GetSqlResultFields(Tripous.Data.LocatorDef)
   parent: Tripous.Data.Locator
   langs:
   - csharp
   - vb
-  name: fActive
-  nameWithType: Locator.fActive
-  fullName: Tripous.Data.Locator.fActive
-  type: Field
+  name: GetSqlResultFields(LocatorDef)
+  nameWithType: Locator.GetSqlResultFields(LocatorDef)
+  fullName: Tripous.Data.Locator.GetSqlResultFields(Tripous.Data.LocatorDef)
+  type: Method
   source:
     remote:
-      path: Tripous.Data/Locator.cs
+      path: Tripous.Data/Locator/Locator.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: fActive
-    path: ../Tripous.Data/Locator.cs
+    id: GetSqlResultFields
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 16
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the result field list as SQL text.
+  example: []
+  syntax:
+    content: protected virtual string GetSqlResultFields(LocatorDef LocatorDef)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function GetSqlResultFields(LocatorDef As LocatorDef) As String
+  overload: Tripous.Data.Locator.GetSqlResultFields*
+- uid: Tripous.Data.Locator.GetBaseSql(Tripous.Data.LocatorDef)
+  commentId: M:Tripous.Data.Locator.GetBaseSql(Tripous.Data.LocatorDef)
+  id: GetBaseSql(Tripous.Data.LocatorDef)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: GetBaseSql(LocatorDef)
+  nameWithType: Locator.GetBaseSql(LocatorDef)
+  fullName: Tripous.Data.Locator.GetBaseSql(Tripous.Data.LocatorDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetBaseSql
+    path: ../Tripous.Data/Locator/Locator.cs
     startLine: 24
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: Field
+  summary: Returns the base SELECT statement.
   example: []
   syntax:
-    content: protected bool fActive
-    return:
-      type: System.Boolean
-    content.vb: Protected fActive As Boolean
-- uid: Tripous.Data.Locator.fLocatorDef
-  commentId: F:Tripous.Data.Locator.fLocatorDef
-  id: fLocatorDef
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: fLocatorDef
-  nameWithType: Locator.fLocatorDef
-  fullName: Tripous.Data.Locator.fLocatorDef
-  type: Field
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: fLocatorDef
-    path: ../Tripous.Data/Locator.cs
-    startLine: 28
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Field
-  example: []
-  syntax:
-    content: protected LocatorDef fLocatorDef
-    return:
+    content: protected virtual string GetBaseSql(LocatorDef LocatorDef)
+    parameters:
+    - id: LocatorDef
       type: Tripous.Data.LocatorDef
-    content.vb: Protected fLocatorDef As LocatorDef
-- uid: Tripous.Data.Locator.ftblSchema
-  commentId: F:Tripous.Data.Locator.ftblSchema
-  id: ftblSchema
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function GetBaseSql(LocatorDef As LocatorDef) As String
+  overload: Tripous.Data.Locator.GetBaseSql*
+- uid: Tripous.Data.Locator.GetSearchFieldNames(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  commentId: M:Tripous.Data.Locator.GetSearchFieldNames(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  id: GetSearchFieldNames(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
   parent: Tripous.Data.Locator
   langs:
   - csharp
   - vb
-  name: ftblSchema
-  nameWithType: Locator.ftblSchema
-  fullName: Tripous.Data.Locator.ftblSchema
-  type: Field
+  name: GetSearchFieldNames(LocatorDef, LocatorRequest)
+  nameWithType: Locator.GetSearchFieldNames(LocatorDef, LocatorRequest)
+  fullName: Tripous.Data.Locator.GetSearchFieldNames(Tripous.Data.LocatorDef, Tripous.Data.LocatorRequest)
+  type: Method
   source:
     remote:
-      path: Tripous.Data/Locator.cs
+      path: Tripous.Data/Locator/Locator.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ftblSchema
-    path: ../Tripous.Data/Locator.cs
+    id: GetSearchFieldNames
+    path: ../Tripous.Data/Locator/Locator.cs
     startLine: 32
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: Field
+  summary: Returns the search field names to use.
   example: []
   syntax:
-    content: protected DataTable ftblSchema
+    content: protected virtual List<string> GetSearchFieldNames(LocatorDef LocatorDef, LocatorRequest Request)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    - id: Request
+      type: Tripous.Data.LocatorRequest
     return:
-      type: System.Data.DataTable
-    content.vb: Protected ftblSchema As DataTable
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Protected Overridable Function GetSearchFieldNames(LocatorDef As LocatorDef, Request As LocatorRequest) As List(Of String)
+  overload: Tripous.Data.Locator.GetSearchFieldNames*
+- uid: Tripous.Data.Locator.GetKeyFieldDef(Tripous.Data.LocatorDef)
+  commentId: M:Tripous.Data.Locator.GetKeyFieldDef(Tripous.Data.LocatorDef)
+  id: GetKeyFieldDef(Tripous.Data.LocatorDef)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: GetKeyFieldDef(LocatorDef)
+  nameWithType: Locator.GetKeyFieldDef(LocatorDef)
+  fullName: Tripous.Data.Locator.GetKeyFieldDef(Tripous.Data.LocatorDef)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetKeyFieldDef
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the key field definition.
+  example: []
+  syntax:
+    content: protected virtual LocatorFieldDef GetKeyFieldDef(LocatorDef LocatorDef)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    return:
+      type: Tripous.Data.LocatorFieldDef
+    content.vb: Protected Overridable Function GetKeyFieldDef(LocatorDef As LocatorDef) As LocatorFieldDef
+  overload: Tripous.Data.Locator.GetKeyFieldDef*
+- uid: Tripous.Data.Locator.GetSqlValue(System.Object,Tripous.Data.DataFieldType)
+  commentId: M:Tripous.Data.Locator.GetSqlValue(System.Object,Tripous.Data.DataFieldType)
+  id: GetSqlValue(System.Object,Tripous.Data.DataFieldType)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: GetSqlValue(object, DataFieldType)
+  nameWithType: Locator.GetSqlValue(object, DataFieldType)
+  fullName: Tripous.Data.Locator.GetSqlValue(object, Tripous.Data.DataFieldType)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSqlValue
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns a SQL value literal.
+  example: []
+  syntax:
+    content: protected virtual string GetSqlValue(object Value, DataFieldType DataType)
+    parameters:
+    - id: Value
+      type: System.Object
+    - id: DataType
+      type: Tripous.Data.DataFieldType
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function GetSqlValue(Value As Object, DataType As DataFieldType) As String
+  overload: Tripous.Data.Locator.GetSqlValue*
+  nameWithType.vb: Locator.GetSqlValue(Object, DataFieldType)
+  fullName.vb: Tripous.Data.Locator.GetSqlValue(Object, Tripous.Data.DataFieldType)
+  name.vb: GetSqlValue(Object, DataFieldType)
+- uid: Tripous.Data.Locator.GetKeyWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  commentId: M:Tripous.Data.Locator.GetKeyWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  id: GetKeyWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: GetKeyWhereSql(LocatorDef, LocatorRequest)
+  nameWithType: Locator.GetKeyWhereSql(LocatorDef, LocatorRequest)
+  fullName: Tripous.Data.Locator.GetKeyWhereSql(Tripous.Data.LocatorDef, Tripous.Data.LocatorRequest)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetKeyWhereSql
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the SQL WHERE clause for a key value.
+  example: []
+  syntax:
+    content: protected virtual string GetKeyWhereSql(LocatorDef LocatorDef, LocatorRequest Request)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    - id: Request
+      type: Tripous.Data.LocatorRequest
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function GetKeyWhereSql(LocatorDef As LocatorDef, Request As LocatorRequest) As String
+  overload: Tripous.Data.Locator.GetKeyWhereSql*
+- uid: Tripous.Data.Locator.GetWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  commentId: M:Tripous.Data.Locator.GetWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  id: GetWhereSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: GetWhereSql(LocatorDef, LocatorRequest)
+  nameWithType: Locator.GetWhereSql(LocatorDef, LocatorRequest)
+  fullName: Tripous.Data.Locator.GetWhereSql(Tripous.Data.LocatorDef, Tripous.Data.LocatorRequest)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetWhereSql
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 83
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the SQL WHERE clause for a search term.
+  example: []
+  syntax:
+    content: protected virtual string GetWhereSql(LocatorDef LocatorDef, LocatorRequest Request)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    - id: Request
+      type: Tripous.Data.LocatorRequest
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function GetWhereSql(LocatorDef As LocatorDef, Request As LocatorRequest) As String
+  overload: Tripous.Data.Locator.GetWhereSql*
+- uid: Tripous.Data.Locator.GetSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  commentId: M:Tripous.Data.Locator.GetSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  id: GetSql(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: GetSql(LocatorDef, LocatorRequest)
+  nameWithType: Locator.GetSql(LocatorDef, LocatorRequest)
+  fullName: Tripous.Data.Locator.GetSql(Tripous.Data.LocatorDef, Tripous.Data.LocatorRequest)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetSql
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 106
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the SELECT statement to execute.
+  example: []
+  syntax:
+    content: protected virtual string GetSql(LocatorDef LocatorDef, LocatorRequest Request)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    - id: Request
+      type: Tripous.Data.LocatorRequest
+    return:
+      type: System.String
+    content.vb: Protected Overridable Function GetSql(LocatorDef As LocatorDef, Request As LocatorRequest) As String
+  overload: Tripous.Data.Locator.GetSql*
+- uid: Tripous.Data.Locator.InvalidRequest(System.String)
+  commentId: M:Tripous.Data.Locator.InvalidRequest(System.String)
+  id: InvalidRequest(System.String)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: InvalidRequest(string)
+  nameWithType: Locator.InvalidRequest(string)
+  fullName: Tripous.Data.Locator.InvalidRequest(string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InvalidRequest
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 122
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns an invalid request result.
+  example: []
+  syntax:
+    content: protected virtual LocatorResult InvalidRequest(string Message)
+    parameters:
+    - id: Message
+      type: System.String
+    return:
+      type: Tripous.Data.LocatorResult
+    content.vb: Protected Overridable Function InvalidRequest(Message As String) As LocatorResult
+  overload: Tripous.Data.Locator.InvalidRequest*
+  nameWithType.vb: Locator.InvalidRequest(String)
+  fullName.vb: Tripous.Data.Locator.InvalidRequest(String)
+  name.vb: InvalidRequest(String)
+- uid: Tripous.Data.Locator.GetStatus(Tripous.Data.LocatorDef,System.Int32)
+  commentId: M:Tripous.Data.Locator.GetStatus(Tripous.Data.LocatorDef,System.Int32)
+  id: GetStatus(Tripous.Data.LocatorDef,System.Int32)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: GetStatus(LocatorDef, int)
+  nameWithType: Locator.GetStatus(LocatorDef, int)
+  fullName: Tripous.Data.Locator.GetStatus(Tripous.Data.LocatorDef, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetStatus
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 133
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the status for a row count.
+  example: []
+  syntax:
+    content: protected virtual LocatorResultStatus GetStatus(LocatorDef LocatorDef, int RowCount)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    - id: RowCount
+      type: System.Int32
+    return:
+      type: Tripous.Data.LocatorResultStatus
+    content.vb: Protected Overridable Function GetStatus(LocatorDef As LocatorDef, RowCount As Integer) As LocatorResultStatus
+  overload: Tripous.Data.Locator.GetStatus*
+  nameWithType.vb: Locator.GetStatus(LocatorDef, Integer)
+  fullName.vb: Tripous.Data.Locator.GetStatus(Tripous.Data.LocatorDef, Integer)
+  name.vb: GetStatus(LocatorDef, Integer)
+- uid: Tripous.Data.Locator.CheckRequest(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  commentId: M:Tripous.Data.Locator.CheckRequest(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  id: CheckRequest(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: CheckRequest(LocatorDef, LocatorRequest)
+  nameWithType: Locator.CheckRequest(LocatorDef, LocatorRequest)
+  fullName: Tripous.Data.Locator.CheckRequest(Tripous.Data.LocatorDef, Tripous.Data.LocatorRequest)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CheckRequest
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 146
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Checks the specified request and returns an error result if it is invalid.
+  example: []
+  syntax:
+    content: protected virtual LocatorResult CheckRequest(LocatorDef LocatorDef, LocatorRequest Request)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    - id: Request
+      type: Tripous.Data.LocatorRequest
+    return:
+      type: Tripous.Data.LocatorResult
+    content.vb: Protected Overridable Function CheckRequest(LocatorDef As LocatorDef, Request As LocatorRequest) As LocatorResult
+  overload: Tripous.Data.Locator.CheckRequest*
+- uid: Tripous.Data.Locator.Execute(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  commentId: M:Tripous.Data.Locator.Execute(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  id: Execute(Tripous.Data.LocatorDef,Tripous.Data.LocatorRequest)
+  parent: Tripous.Data.Locator
+  langs:
+  - csharp
+  - vb
+  name: Execute(LocatorDef, LocatorRequest)
+  nameWithType: Locator.Execute(LocatorDef, LocatorRequest)
+  fullName: Tripous.Data.Locator.Execute(Tripous.Data.LocatorDef, Tripous.Data.LocatorRequest)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/Locator.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Execute
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 161
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Executes a locator request.
+  example: []
+  syntax:
+    content: public virtual LocatorResult Execute(LocatorDef LocatorDef, LocatorRequest Request)
+    parameters:
+    - id: LocatorDef
+      type: Tripous.Data.LocatorDef
+    - id: Request
+      type: Tripous.Data.LocatorRequest
+    return:
+      type: Tripous.Data.LocatorResult
+    content.vb: Public Overridable Function Execute(LocatorDef As LocatorDef, Request As LocatorRequest) As LocatorResult
+  overload: Tripous.Data.Locator.Execute*
 - uid: Tripous.Data.Locator.Store
   commentId: P:Tripous.Data.Locator.Store
   id: Store
@@ -220,16 +534,16 @@ items:
   type: Property
   source:
     remote:
-      path: Tripous.Data/Locator.cs
+      path: Tripous.Data/Locator/Locator.cs
       branch: main
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Store
-    path: ../Tripous.Data/Locator.cs
-    startLine: 38
+    path: ../Tripous.Data/Locator/Locator.cs
+    startLine: 183
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: Sql store.
+  summary: Returns the SQL store to use.
   example: []
   syntax:
     content: protected virtual SqlStore Store { get; }
@@ -238,1256 +552,6 @@ items:
       type: Tripous.Data.SqlStore
     content.vb: Protected Overridable ReadOnly Property Store As SqlStore
   overload: Tripous.Data.Locator.Store*
-- uid: Tripous.Data.Locator.tblSchema
-  commentId: P:Tripous.Data.Locator.tblSchema
-  id: tblSchema
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: tblSchema
-  nameWithType: Locator.tblSchema
-  fullName: Tripous.Data.Locator.tblSchema
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: tblSchema
-    path: ../Tripous.Data/Locator.cs
-    startLine: 42
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Returns a <xref href="System.Data.DataTable" data-throw-if-not-resolved="false"></xref> with the schema of the source table.
-  example: []
-  syntax:
-    content: protected virtual DataTable tblSchema { get; }
-    parameters: []
-    return:
-      type: System.Data.DataTable
-    content.vb: Protected Overridable ReadOnly Property tblSchema As DataTable
-  overload: Tripous.Data.Locator.tblSchema*
-- uid: Tripous.Data.Locator.TriggerChar
-  commentId: F:Tripous.Data.Locator.TriggerChar
-  id: TriggerChar
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: TriggerChar
-  nameWithType: Locator.TriggerChar
-  fullName: Tripous.Data.Locator.TriggerChar
-  type: Field
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: TriggerChar
-    path: ../Tripous.Data/Locator.cs
-    startLine: 60
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: The character that triggers a locator search.
-  example: []
-  syntax:
-    content: protected char TriggerChar
-    return:
-      type: System.Char
-    content.vb: Protected TriggerChar As Char
-- uid: Tripous.Data.Locator.TrimEnd(System.String,System.Char)
-  commentId: M:Tripous.Data.Locator.TrimEnd(System.String,System.Char)
-  id: TrimEnd(System.String,System.Char)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: TrimEnd(string, char)
-  nameWithType: Locator.TrimEnd(string, char)
-  fullName: Tripous.Data.Locator.TrimEnd(string, char)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: TrimEnd
-    path: ../Tripous.Data/Locator.cs
-    startLine: 66
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Removes all the trailing occurence of a character in a string.
-  example: []
-  syntax:
-    content: protected virtual string TrimEnd(string Text, char C)
-    parameters:
-    - id: Text
-      type: System.String
-    - id: C
-      type: System.Char
-    return:
-      type: System.String
-    content.vb: Protected Overridable Function TrimEnd(Text As String, C As Char) As String
-  overload: Tripous.Data.Locator.TrimEnd*
-  nameWithType.vb: Locator.TrimEnd(String, Char)
-  fullName.vb: Tripous.Data.Locator.TrimEnd(String, Char)
-  name.vb: TrimEnd(String, Char)
-- uid: Tripous.Data.Locator.OnAnyEvent(Tripous.Data.LocatorEventType,Tripous.Data.SelectSql,System.String,System.String)
-  commentId: M:Tripous.Data.Locator.OnAnyEvent(Tripous.Data.LocatorEventType,Tripous.Data.SelectSql,System.String,System.String)
-  id: OnAnyEvent(Tripous.Data.LocatorEventType,Tripous.Data.SelectSql,System.String,System.String)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: OnAnyEvent(LocatorEventType, SelectSql, string, string)
-  nameWithType: Locator.OnAnyEvent(LocatorEventType, SelectSql, string, string)
-  fullName: Tripous.Data.Locator.OnAnyEvent(Tripous.Data.LocatorEventType, Tripous.Data.SelectSql, string, string)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: OnAnyEvent
-    path: ../Tripous.Data/Locator.cs
-    startLine: 71
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: >-
-    Executes an event as indicated by the EventType and returns the LocatorEventArgs of the event.
-
-
-    <p>NOTE: It returns a LocatorEventArgs even if the AnyEvent event is not linked.</p>
-  example: []
-  syntax:
-    content: protected virtual LocatorEventArgs OnAnyEvent(LocatorEventType EventType, SelectSql SelectSql = null, string UserWhere = null, string SourceTableFilter = "")
-    parameters:
-    - id: EventType
-      type: Tripous.Data.LocatorEventType
-    - id: SelectSql
-      type: Tripous.Data.SelectSql
-    - id: UserWhere
-      type: System.String
-    - id: SourceTableFilter
-      type: System.String
-    return:
-      type: Tripous.Data.LocatorEventArgs
-    content.vb: Protected Overridable Function OnAnyEvent(EventType As LocatorEventType, SelectSql As SelectSql = Nothing, UserWhere As String = Nothing, SourceTableFilter As String = "") As LocatorEventArgs
-  overload: Tripous.Data.Locator.OnAnyEvent*
-  nameWithType.vb: Locator.OnAnyEvent(LocatorEventType, SelectSql, String, String)
-  fullName.vb: Tripous.Data.Locator.OnAnyEvent(Tripous.Data.LocatorEventType, Tripous.Data.SelectSql, String, String)
-  name.vb: OnAnyEvent(LocatorEventType, SelectSql, String, String)
-- uid: Tripous.Data.Locator.SelectSourceTable(Tripous.Data.SelectSql,System.String)
-  commentId: M:Tripous.Data.Locator.SelectSourceTable(Tripous.Data.SelectSql,System.String)
-  id: SelectSourceTable(Tripous.Data.SelectSql,System.String)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: SelectSourceTable(SelectSql, string)
-  nameWithType: Locator.SelectSourceTable(SelectSql, string)
-  fullName: Tripous.Data.Locator.SelectSourceTable(Tripous.Data.SelectSql, string)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: SelectSourceTable
-    path: ../Tripous.Data/Locator.cs
-    startLine: 93
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: >-
-    Executes the SELECT statement, loads the <xref href="Tripous.Data.Locator.SourceTable" data-throw-if-not-resolved="false"></xref> and returns the row count of the table.
-
-
-    <p>WhereUser is the WHERE added by the user in a locator control or column. Could be null or empty.</p>
-  example: []
-  syntax:
-    content: protected virtual int SelectSourceTable(SelectSql SelectSql, string UserWhere)
-    parameters:
-    - id: SelectSql
-      type: Tripous.Data.SelectSql
-    - id: UserWhere
-      type: System.String
-    return:
-      type: System.Int32
-    content.vb: Protected Overridable Function SelectSourceTable(SelectSql As SelectSql, UserWhere As String) As Integer
-  overload: Tripous.Data.Locator.SelectSourceTable*
-  nameWithType.vb: Locator.SelectSourceTable(SelectSql, String)
-  fullName.vb: Tripous.Data.Locator.SelectSourceTable(Tripous.Data.SelectSql, String)
-  name.vb: SelectSourceTable(SelectSql, String)
-- uid: Tripous.Data.Locator.GetSelectSql
-  commentId: M:Tripous.Data.Locator.GetSelectSql
-  id: GetSelectSql
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: GetSelectSql()
-  nameWithType: Locator.GetSelectSql()
-  fullName: Tripous.Data.Locator.GetSelectSql()
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GetSelectSql
-    path: ../Tripous.Data/Locator.cs
-    startLine: 120
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: >-
-    Returns a <xref href="Tripous.Data.SelectSql" data-throw-if-not-resolved="false"></xref> with the SELECT statement the locator has to select.
-
-
-    <p>If the <xref href="Tripous.Data.LocatorDef.SelectSql" data-throw-if-not-resolved="false"></xref> is not given, then this method constructs a SELECT statement based on the <xref href="Tripous.Data.Locator.LocatorDef" data-throw-if-not-resolved="false"></xref> information.</p>
-
-    <p>NOTE: no USER WHERE clause is included, but a WHERE clause may added by a client code through an event handler.</p>
-  example: []
-  syntax:
-    content: protected virtual SelectSql GetSelectSql()
-    return:
-      type: Tripous.Data.SelectSql
-    content.vb: Protected Overridable Function GetSelectSql() As SelectSql
-  overload: Tripous.Data.Locator.GetSelectSql*
-- uid: Tripous.Data.Locator.FilterSourceTable
-  commentId: M:Tripous.Data.Locator.FilterSourceTable
-  id: FilterSourceTable
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: FilterSourceTable()
-  nameWithType: Locator.FilterSourceTable()
-  fullName: Tripous.Data.Locator.FilterSourceTable()
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: FilterSourceTable
-    path: ../Tripous.Data/Locator.cs
-    startLine: 162
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Filters the <xref href="Tripous.Data.Locator.SourceTable" data-throw-if-not-resolved="false"></xref>
-  example: []
-  syntax:
-    content: protected virtual void FilterSourceTable()
-    content.vb: Protected Overridable Sub FilterSourceTable()
-  overload: Tripous.Data.Locator.FilterSourceTable*
-- uid: Tripous.Data.Locator.SetupSourceTable
-  commentId: M:Tripous.Data.Locator.SetupSourceTable
-  id: SetupSourceTable
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: SetupSourceTable()
-  nameWithType: Locator.SetupSourceTable()
-  fullName: Tripous.Data.Locator.SetupSourceTable()
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: SetupSourceTable
-    path: ../Tripous.Data/Locator.cs
-    startLine: 202
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Sets up the columns of the source table, i.e. setting visibility and captions.
-  example: []
-  syntax:
-    content: protected virtual void SetupSourceTable()
-    content.vb: Protected Overridable Sub SetupSourceTable()
-  overload: Tripous.Data.Locator.SetupSourceTable*
-- uid: Tripous.Data.Locator.ConstructUserWhere(System.String)
-  commentId: M:Tripous.Data.Locator.ConstructUserWhere(System.String)
-  id: ConstructUserWhere(System.String)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: ConstructUserWhere(string)
-  nameWithType: Locator.ConstructUserWhere(string)
-  fullName: Tripous.Data.Locator.ConstructUserWhere(string)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ConstructUserWhere
-    path: ../Tripous.Data/Locator.cs
-    startLine: 227
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Constructs the WHERE clause which is going to be added to the SELECT statement.
-  example: []
-  syntax:
-    content: protected virtual string ConstructUserWhere(string Term)
-    parameters:
-    - id: Term
-      type: System.String
-    return:
-      type: System.String
-    content.vb: Protected Overridable Function ConstructUserWhere(Term As String) As String
-  overload: Tripous.Data.Locator.ConstructUserWhere*
-  nameWithType.vb: Locator.ConstructUserWhere(String)
-  fullName.vb: Tripous.Data.Locator.ConstructUserWhere(String)
-  name.vb: ConstructUserWhere(String)
-- uid: Tripous.Data.Locator.FindSourceKeyColumn(System.Data.DataRow)
-  commentId: M:Tripous.Data.Locator.FindSourceKeyColumn(System.Data.DataRow)
-  id: FindSourceKeyColumn(System.Data.DataRow)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: FindSourceKeyColumn(DataRow)
-  nameWithType: Locator.FindSourceKeyColumn(DataRow)
-  fullName: Tripous.Data.Locator.FindSourceKeyColumn(System.Data.DataRow)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: FindSourceKeyColumn
-    path: ../Tripous.Data/Locator.cs
-    startLine: 263
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Finds the source row key column.
-  example: []
-  syntax:
-    content: protected virtual DataColumn FindSourceKeyColumn(DataRow SourceRow)
-    parameters:
-    - id: SourceRow
-      type: System.Data.DataRow
-    return:
-      type: System.Data.DataColumn
-    content.vb: Protected Overridable Function FindSourceKeyColumn(SourceRow As DataRow) As DataColumn
-  overload: Tripous.Data.Locator.FindSourceKeyColumn*
-- uid: Tripous.Data.Locator.GetSourceKeyValue(System.Data.DataRow)
-  commentId: M:Tripous.Data.Locator.GetSourceKeyValue(System.Data.DataRow)
-  id: GetSourceKeyValue(System.Data.DataRow)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: GetSourceKeyValue(DataRow)
-  nameWithType: Locator.GetSourceKeyValue(DataRow)
-  fullName: Tripous.Data.Locator.GetSourceKeyValue(System.Data.DataRow)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GetSourceKeyValue
-    path: ../Tripous.Data/Locator.cs
-    startLine: 275
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Returns a source row key value.
-  example: []
-  syntax:
-    content: protected virtual object GetSourceKeyValue(DataRow SourceRow)
-    parameters:
-    - id: SourceRow
-      type: System.Data.DataRow
-    return:
-      type: System.Object
-    content.vb: Protected Overridable Function GetSourceKeyValue(SourceRow As DataRow) As Object
-  overload: Tripous.Data.Locator.GetSourceKeyValue*
-- uid: Tripous.Data.Locator.GetSourceKeySelectFieldName
-  commentId: M:Tripous.Data.Locator.GetSourceKeySelectFieldName
-  id: GetSourceKeySelectFieldName
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: GetSourceKeySelectFieldName()
-  nameWithType: Locator.GetSourceKeySelectFieldName()
-  fullName: Tripous.Data.Locator.GetSourceKeySelectFieldName()
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GetSourceKeySelectFieldName
-    path: ../Tripous.Data/Locator.cs
-    startLine: 283
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Returns the source key field name as exposed by the locator SELECT.
-  example: []
-  syntax:
-    content: protected virtual string GetSourceKeySelectFieldName()
-    return:
-      type: System.String
-    content.vb: Protected Overridable Function GetSourceKeySelectFieldName() As String
-  overload: Tripous.Data.Locator.GetSourceKeySelectFieldName*
-- uid: Tripous.Data.Locator.GetSourceFieldValue(System.Data.DataRow,Tripous.Data.LocatorFieldDef)
-  commentId: M:Tripous.Data.Locator.GetSourceFieldValue(System.Data.DataRow,Tripous.Data.LocatorFieldDef)
-  id: GetSourceFieldValue(System.Data.DataRow,Tripous.Data.LocatorFieldDef)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: GetSourceFieldValue(DataRow, LocatorFieldDef)
-  nameWithType: Locator.GetSourceFieldValue(DataRow, LocatorFieldDef)
-  fullName: Tripous.Data.Locator.GetSourceFieldValue(System.Data.DataRow, Tripous.Data.LocatorFieldDef)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: GetSourceFieldValue
-    path: ../Tripous.Data/Locator.cs
-    startLine: 291
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Returns a source row locator field value.
-  example: []
-  syntax:
-    content: protected virtual object GetSourceFieldValue(DataRow SourceRow, LocatorFieldDef FieldDef)
-    parameters:
-    - id: SourceRow
-      type: System.Data.DataRow
-    - id: FieldDef
-      type: Tripous.Data.LocatorFieldDef
-    return:
-      type: System.Object
-    content.vb: Protected Overridable Function GetSourceFieldValue(SourceRow As DataRow, FieldDef As LocatorFieldDef) As Object
-  overload: Tripous.Data.Locator.GetSourceFieldValue*
-- uid: Tripous.Data.Locator.ResolveTargetFieldName(Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)
-  commentId: M:Tripous.Data.Locator.ResolveTargetFieldName(Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)
-  id: ResolveTargetFieldName(Tripous.Data.LocatorFieldDef,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: ResolveTargetFieldName(LocatorFieldDef, Dictionary<string, string>, bool)
-  nameWithType: Locator.ResolveTargetFieldName(LocatorFieldDef, Dictionary<string, string>, bool)
-  fullName: Tripous.Data.Locator.ResolveTargetFieldName(Tripous.Data.LocatorFieldDef, System.Collections.Generic.Dictionary<string, string>, bool)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ResolveTargetFieldName
-    path: ../Tripous.Data/Locator.cs
-    startLine: 301
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Resolves a target field name for a locator field.
-  example: []
-  syntax:
-    content: protected virtual string ResolveTargetFieldName(LocatorFieldDef FieldDef, Dictionary<string, string> TargetFieldMap, bool UseAliasFallback)
-    parameters:
-    - id: FieldDef
-      type: Tripous.Data.LocatorFieldDef
-    - id: TargetFieldMap
-      type: System.Collections.Generic.Dictionary{System.String,System.String}
-    - id: UseAliasFallback
-      type: System.Boolean
-    return:
-      type: System.String
-    content.vb: Protected Overridable Function ResolveTargetFieldName(FieldDef As LocatorFieldDef, TargetFieldMap As Dictionary(Of String, String), UseAliasFallback As Boolean) As String
-  overload: Tripous.Data.Locator.ResolveTargetFieldName*
-  nameWithType.vb: Locator.ResolveTargetFieldName(LocatorFieldDef, Dictionary(Of String, String), Boolean)
-  fullName.vb: Tripous.Data.Locator.ResolveTargetFieldName(Tripous.Data.LocatorFieldDef, System.Collections.Generic.Dictionary(Of String, String), Boolean)
-  name.vb: ResolveTargetFieldName(LocatorFieldDef, Dictionary(Of String, String), Boolean)
-- uid: Tripous.Data.Locator.SetTargetRowValue(System.Data.DataRow,System.String,System.Object,System.Boolean)
-  commentId: M:Tripous.Data.Locator.SetTargetRowValue(System.Data.DataRow,System.String,System.Object,System.Boolean)
-  id: SetTargetRowValue(System.Data.DataRow,System.String,System.Object,System.Boolean)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: SetTargetRowValue(DataRow, string, object, bool)
-  nameWithType: Locator.SetTargetRowValue(DataRow, string, object, bool)
-  fullName: Tripous.Data.Locator.SetTargetRowValue(System.Data.DataRow, string, object, bool)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: SetTargetRowValue
-    path: ../Tripous.Data/Locator.cs
-    startLine: 320
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Sets a target row value.
-  example: []
-  syntax:
-    content: protected virtual void SetTargetRowValue(DataRow TargetRow, string FieldName, object Value, bool ForceReadOnly)
-    parameters:
-    - id: TargetRow
-      type: System.Data.DataRow
-    - id: FieldName
-      type: System.String
-    - id: Value
-      type: System.Object
-    - id: ForceReadOnly
-      type: System.Boolean
-    content.vb: Protected Overridable Sub SetTargetRowValue(TargetRow As DataRow, FieldName As String, Value As Object, ForceReadOnly As Boolean)
-  overload: Tripous.Data.Locator.SetTargetRowValue*
-  nameWithType.vb: Locator.SetTargetRowValue(DataRow, String, Object, Boolean)
-  fullName.vb: Tripous.Data.Locator.SetTargetRowValue(System.Data.DataRow, String, Object, Boolean)
-  name.vb: SetTargetRowValue(DataRow, String, Object, Boolean)
-- uid: Tripous.Data.Locator.Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
-  commentId: M:Tripous.Data.Locator.Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
-  id: Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean,System.Boolean)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Assign(DataRow, DataRow, string, Dictionary<string, string>, bool, bool)
-  nameWithType: Locator.Assign(DataRow, DataRow, string, Dictionary<string, string>, bool, bool)
-  fullName: Tripous.Data.Locator.Assign(System.Data.DataRow, System.Data.DataRow, string, System.Collections.Generic.Dictionary<string, string>, bool, bool)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Assign
-    path: ../Tripous.Data/Locator.cs
-    startLine: 354
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Assigns locator values using optional key and target map information.
-  example: []
-  syntax:
-    content: protected virtual void Assign(DataRow SourceRow, DataRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap, bool UseAliasFallback, bool ForceTargetReadOnly)
-    parameters:
-    - id: SourceRow
-      type: System.Data.DataRow
-    - id: TargetRow
-      type: System.Data.DataRow
-    - id: KeyFieldName
-      type: System.String
-    - id: TargetFieldMap
-      type: System.Collections.Generic.Dictionary{System.String,System.String}
-    - id: UseAliasFallback
-      type: System.Boolean
-    - id: ForceTargetReadOnly
-      type: System.Boolean
-    content.vb: Protected Overridable Sub Assign(SourceRow As DataRow, TargetRow As DataRow, KeyFieldName As String, TargetFieldMap As Dictionary(Of String, String), UseAliasFallback As Boolean, ForceTargetReadOnly As Boolean)
-  overload: Tripous.Data.Locator.Assign*
-  nameWithType.vb: Locator.Assign(DataRow, DataRow, String, Dictionary(Of String, String), Boolean, Boolean)
-  fullName.vb: Tripous.Data.Locator.Assign(System.Data.DataRow, System.Data.DataRow, String, System.Collections.Generic.Dictionary(Of String, String), Boolean, Boolean)
-  name.vb: Assign(DataRow, DataRow, String, Dictionary(Of String, String), Boolean, Boolean)
-- uid: Tripous.Data.Locator.#ctor
-  commentId: M:Tripous.Data.Locator.#ctor
-  id: '#ctor'
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Locator()
-  nameWithType: Locator.Locator()
-  fullName: Tripous.Data.Locator.Locator()
-  type: Constructor
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: .ctor
-    path: ../Tripous.Data/Locator.cs
-    startLine: 391
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Constructor.
-  example: []
-  syntax:
-    content: public Locator()
-    content.vb: Public Sub New()
-  overload: Tripous.Data.Locator.#ctor*
-  nameWithType.vb: Locator.New()
-  fullName.vb: Tripous.Data.Locator.New()
-  name.vb: New()
-- uid: Tripous.Data.Locator.Initialize(Tripous.Data.LocatorDef)
-  commentId: M:Tripous.Data.Locator.Initialize(Tripous.Data.LocatorDef)
-  id: Initialize(Tripous.Data.LocatorDef)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Initialize(LocatorDef)
-  nameWithType: Locator.Initialize(LocatorDef)
-  fullName: Tripous.Data.Locator.Initialize(Tripous.Data.LocatorDef)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Initialize
-    path: ../Tripous.Data/Locator.cs
-    startLine: 399
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Initializes this instance.
-  example: []
-  syntax:
-    content: public virtual void Initialize(LocatorDef LocatorDef)
-    parameters:
-    - id: LocatorDef
-      type: Tripous.Data.LocatorDef
-    content.vb: Public Overridable Sub Initialize(LocatorDef As LocatorDef)
-  overload: Tripous.Data.Locator.Initialize*
-- uid: Tripous.Data.Locator.ContainsSearchTrigger(System.String)
-  commentId: M:Tripous.Data.Locator.ContainsSearchTrigger(System.String)
-  id: ContainsSearchTrigger(System.String)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: ContainsSearchTrigger(string)
-  nameWithType: Locator.ContainsSearchTrigger(string)
-  fullName: Tripous.Data.Locator.ContainsSearchTrigger(string)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: ContainsSearchTrigger
-    path: ../Tripous.Data/Locator.cs
-    startLine: 407
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Returns true if the specified text requests a locator search.
-  example: []
-  syntax:
-    content: public virtual bool ContainsSearchTrigger(string Term)
-    parameters:
-    - id: Term
-      type: System.String
-    return:
-      type: System.Boolean
-    content.vb: Public Overridable Function ContainsSearchTrigger(Term As String) As Boolean
-  overload: Tripous.Data.Locator.ContainsSearchTrigger*
-  nameWithType.vb: Locator.ContainsSearchTrigger(String)
-  fullName.vb: Tripous.Data.Locator.ContainsSearchTrigger(String)
-  name.vb: ContainsSearchTrigger(String)
-- uid: Tripous.Data.Locator.TryLocate(System.String,Tripous.Data.LocatorSearchResult@)
-  commentId: M:Tripous.Data.Locator.TryLocate(System.String,Tripous.Data.LocatorSearchResult@)
-  id: TryLocate(System.String,Tripous.Data.LocatorSearchResult@)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: TryLocate(string, out LocatorSearchResult)
-  nameWithType: Locator.TryLocate(string, out LocatorSearchResult)
-  fullName: Tripous.Data.Locator.TryLocate(string, out Tripous.Data.LocatorSearchResult)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: TryLocate
-    path: ../Tripous.Data/Locator.cs
-    startLine: 412
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Returns true when exactly one row is found.
-  example: []
-  syntax:
-    content: public virtual bool TryLocate(string Term, out LocatorSearchResult Result)
-    parameters:
-    - id: Term
-      type: System.String
-    - id: Result
-      type: Tripous.Data.LocatorSearchResult
-    return:
-      type: System.Boolean
-    content.vb: Public Overridable Function TryLocate(Term As String, Result As LocatorSearchResult) As Boolean
-  overload: Tripous.Data.Locator.TryLocate*
-  nameWithType.vb: Locator.TryLocate(String, LocatorSearchResult)
-  fullName.vb: Tripous.Data.Locator.TryLocate(String, Tripous.Data.LocatorSearchResult)
-  name.vb: TryLocate(String, LocatorSearchResult)
-- uid: Tripous.Data.Locator.LocateByKey(System.Object)
-  commentId: M:Tripous.Data.Locator.LocateByKey(System.Object)
-  id: LocateByKey(System.Object)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: LocateByKey(object)
-  nameWithType: Locator.LocateByKey(object)
-  fullName: Tripous.Data.Locator.LocateByKey(object)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: LocateByKey
-    path: ../Tripous.Data/Locator.cs
-    startLine: 421
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Locates a single source row by the locator key value.
-  example: []
-  syntax:
-    content: public virtual bool LocateByKey(object Value)
-    parameters:
-    - id: Value
-      type: System.Object
-    return:
-      type: System.Boolean
-    content.vb: Public Overridable Function LocateByKey(Value As Object) As Boolean
-  overload: Tripous.Data.Locator.LocateByKey*
-  nameWithType.vb: Locator.LocateByKey(Object)
-  fullName.vb: Tripous.Data.Locator.LocateByKey(Object)
-  name.vb: LocateByKey(Object)
-- uid: Tripous.Data.Locator.Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  commentId: M:Tripous.Data.Locator.Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  id: Assign(System.Data.DataRow,System.Data.DataRow,System.String,System.Collections.Generic.Dictionary{System.String,System.String})
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Assign(DataRow, DataRow, string, Dictionary<string, string>)
-  nameWithType: Locator.Assign(DataRow, DataRow, string, Dictionary<string, string>)
-  fullName: Tripous.Data.Locator.Assign(System.Data.DataRow, System.Data.DataRow, string, System.Collections.Generic.Dictionary<string, string>)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Assign
-    path: ../Tripous.Data/Locator.cs
-    startLine: 460
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Assigns the locator key and field values from a source row to a target row.
-  example: []
-  syntax:
-    content: public virtual void Assign(DataRow SourceRow, DataRow TargetRow, string KeyFieldName, Dictionary<string, string> TargetFieldMap)
-    parameters:
-    - id: SourceRow
-      type: System.Data.DataRow
-      description: The row to get values from. When is null, then the key field and mapped target fields are cleared.
-    - id: TargetRow
-      type: System.Data.DataRow
-      description: The row to set values to.
-    - id: KeyFieldName
-      type: System.String
-      description: Identifies the target field that receives the locator key.
-    - id: TargetFieldMap
-      type: System.Collections.Generic.Dictionary{System.String,System.String}
-      description: >-
-        maps locator source field names or aliases to fields in the target row.
-
-            <p>The mapping is supplied by the binding layer because only the binding knows the target table, join and aliases used in its current context. This allows the same locator definition to be reused safely by different controls, grids and modules.</p>
-            <p>The target field map takes precedence over <xref href="Tripous.Data.LocatorFieldDef.TargetField" data-throw-if-not-resolved="false"></xref>.</p>
-    content.vb: Public Overridable Sub Assign(SourceRow As DataRow, TargetRow As DataRow, KeyFieldName As String, TargetFieldMap As Dictionary(Of String, String))
-  overload: Tripous.Data.Locator.Assign*
-  nameWithType.vb: Locator.Assign(DataRow, DataRow, String, Dictionary(Of String, String))
-  fullName.vb: Tripous.Data.Locator.Assign(System.Data.DataRow, System.Data.DataRow, String, System.Collections.Generic.Dictionary(Of String, String))
-  name.vb: Assign(DataRow, DataRow, String, Dictionary(Of String, String))
-- uid: Tripous.Data.Locator.Clear
-  commentId: M:Tripous.Data.Locator.Clear
-  id: Clear
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Clear()
-  nameWithType: Locator.Clear()
-  fullName: Tripous.Data.Locator.Clear()
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Clear
-    path: ../Tripous.Data/Locator.cs
-    startLine: 469
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Clears the data from source table
-  example: []
-  syntax:
-    content: public virtual void Clear()
-    content.vb: Public Overridable Sub Clear()
-  overload: Tripous.Data.Locator.Clear*
-- uid: Tripous.Data.Locator.Select(System.String,System.String)
-  commentId: M:Tripous.Data.Locator.Select(System.String,System.String)
-  id: Select(System.String,System.String)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Select(string, string)
-  nameWithType: Locator.Select(string, string)
-  fullName: Tripous.Data.Locator.Select(string, string)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Select
-    path: ../Tripous.Data/Locator.cs
-    startLine: 480
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: >-
-    Executes a SELECT statement and loads the source table.
-
-
-    <p>NOTE: To be used by client code.</p>
-  example: []
-  syntax:
-    content: public virtual int Select(string SqlText, string UserWhere)
-    parameters:
-    - id: SqlText
-      type: System.String
-    - id: UserWhere
-      type: System.String
-    return:
-      type: System.Int32
-    content.vb: Public Overridable Function [Select](SqlText As String, UserWhere As String) As Integer
-  overload: Tripous.Data.Locator.Select*
-  nameWithType.vb: Locator.Select(String, String)
-  fullName.vb: Tripous.Data.Locator.Select(String, String)
-  name.vb: Select(String, String)
-- uid: Tripous.Data.Locator.Execute(System.String)
-  commentId: M:Tripous.Data.Locator.Execute(System.String)
-  id: Execute(System.String)
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Execute(string)
-  nameWithType: Locator.Execute(string)
-  fullName: Tripous.Data.Locator.Execute(string)
-  type: Method
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Execute
-    path: ../Tripous.Data/Locator.cs
-    startLine: 500
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Executes the locator SELECT SQL and assigns the <xref href="Tripous.Data.Locator.SourceTable" data-throw-if-not-resolved="false"></xref>
-  example: []
-  syntax:
-    content: public virtual LocatorSearchResult Execute(string Term)
-    parameters:
-    - id: Term
-      type: System.String
-    return:
-      type: Tripous.Data.LocatorSearchResult
-    content.vb: Public Overridable Function Execute(Term As String) As LocatorSearchResult
-  overload: Tripous.Data.Locator.Execute*
-  nameWithType.vb: Locator.Execute(String)
-  fullName.vb: Tripous.Data.Locator.Execute(String)
-  name.vb: Execute(String)
-- uid: Tripous.Data.Locator.IsInitialized
-  commentId: P:Tripous.Data.Locator.IsInitialized
-  id: IsInitialized
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: IsInitialized
-  nameWithType: Locator.IsInitialized
-  fullName: Tripous.Data.Locator.IsInitialized
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: IsInitialized
-    path: ../Tripous.Data/Locator.cs
-    startLine: 529
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: True when this instance is initialized
-  example: []
-  syntax:
-    content: public virtual bool IsInitialized { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public Overridable ReadOnly Property IsInitialized As Boolean
-  overload: Tripous.Data.Locator.IsInitialized*
-- uid: Tripous.Data.Locator.Active
-  commentId: P:Tripous.Data.Locator.Active
-  id: Active
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Active
-  nameWithType: Locator.Active
-  fullName: Tripous.Data.Locator.Active
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Active
-    path: ../Tripous.Data/Locator.cs
-    startLine: 533
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Activates or deactivates the locator
-  example: []
-  syntax:
-    content: public virtual bool Active { get; set; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public Overridable Property Active As Boolean
-  overload: Tripous.Data.Locator.Active*
-- uid: Tripous.Data.Locator.LocatorDef
-  commentId: P:Tripous.Data.Locator.LocatorDef
-  id: LocatorDef
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: LocatorDef
-  nameWithType: Locator.LocatorDef
-  fullName: Tripous.Data.Locator.LocatorDef
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: LocatorDef
-    path: ../Tripous.Data/Locator.cs
-    startLine: 542
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Locator definition.
-  example: []
-  syntax:
-    content: public LocatorDef LocatorDef { get; }
-    parameters: []
-    return:
-      type: Tripous.Data.LocatorDef
-    content.vb: Public Property LocatorDef As LocatorDef
-  overload: Tripous.Data.Locator.LocatorDef*
-- uid: Tripous.Data.Locator.SourceTable
-  commentId: P:Tripous.Data.Locator.SourceTable
-  id: SourceTable
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: SourceTable
-  nameWithType: Locator.SourceTable
-  fullName: Tripous.Data.Locator.SourceTable
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: SourceTable
-    path: ../Tripous.Data/Locator.cs
-    startLine: 546
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: The table that results in after the execution of the SELECT statement.
-  example: []
-  syntax:
-    content: public MemTable SourceTable { get; }
-    parameters: []
-    return:
-      type: Tripous.Data.MemTable
-    content.vb: Public ReadOnly Property SourceTable As MemTable
-  overload: Tripous.Data.Locator.SourceTable*
-- uid: Tripous.Data.Locator.Context
-  commentId: P:Tripous.Data.Locator.Context
-  id: Context
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Context
-  nameWithType: Locator.Context
-  fullName: Tripous.Data.Locator.Context
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Context
-    path: ../Tripous.Data/Locator.cs
-    startLine: 550
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Optional context provided by the control or caller that executes this locator.
-  example: []
-  syntax:
-    content: public virtual object Context { get; set; }
-    parameters: []
-    return:
-      type: System.Object
-    content.vb: Public Overridable Property Context As Object
-  overload: Tripous.Data.Locator.Context*
-- uid: Tripous.Data.Locator.IsSourceTableValid
-  commentId: P:Tripous.Data.Locator.IsSourceTableValid
-  id: IsSourceTableValid
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: IsSourceTableValid
-  nameWithType: Locator.IsSourceTableValid
-  fullName: Tripous.Data.Locator.IsSourceTableValid
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: IsSourceTableValid
-    path: ../Tripous.Data/Locator.cs
-    startLine: 554
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: True when <xref href="Tripous.Data.Locator.SourceTable" data-throw-if-not-resolved="false"></xref> contains valid data.
-  example: []
-  syntax:
-    content: public bool IsSourceTableValid { get; protected set; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public Property IsSourceTableValid As Boolean
-  overload: Tripous.Data.Locator.IsSourceTableValid*
-- uid: Tripous.Data.Locator.KeyValue
-  commentId: P:Tripous.Data.Locator.KeyValue
-  id: KeyValue
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: KeyValue
-  nameWithType: Locator.KeyValue
-  fullName: Tripous.Data.Locator.KeyValue
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: KeyValue
-    path: ../Tripous.Data/Locator.cs
-    startLine: 561
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: >-
-    Gets or sets the key value.
-
-
-    <p>Is the value returned by the Locator. </p>
-
-    <p>This value comes from an Id field of the source table and goes the target table.</p>
-  example: []
-  syntax:
-    content: public virtual object KeyValue { get; protected set; }
-    parameters: []
-    return:
-      type: System.Object
-    content.vb: Public Overridable Property KeyValue As Object
-  overload: Tripous.Data.Locator.KeyValue*
-- uid: Tripous.Data.Locator.SelectedRow
-  commentId: P:Tripous.Data.Locator.SelectedRow
-  id: SelectedRow
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: SelectedRow
-  nameWithType: Locator.SelectedRow
-  fullName: Tripous.Data.Locator.SelectedRow
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: SelectedRow
-    path: ../Tripous.Data/Locator.cs
-    startLine: 565
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Gets or sets the selected row.
-  example: []
-  syntax:
-    content: public virtual DataRow SelectedRow { get; protected set; }
-    parameters: []
-    return:
-      type: System.Data.DataRow
-    content.vb: Public Overridable Property SelectedRow As DataRow
-  overload: Tripous.Data.Locator.SelectedRow*
-- uid: Tripous.Data.Locator.Master
-  commentId: P:Tripous.Data.Locator.Master
-  id: Master
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: Master
-  nameWithType: Locator.Master
-  fullName: Tripous.Data.Locator.Master
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: Master
-    path: ../Tripous.Data/Locator.cs
-    startLine: 571
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: >-
-    For creating cascade lookups.
-
-
-    <p>The master locator this locator uses to get the value of the DetailKey.</p>
-  example: []
-  syntax:
-    content: public Locator Master { get; set; }
-    parameters: []
-    return:
-      type: Tripous.Data.Locator
-    content.vb: Public Property Master As Locator
-  overload: Tripous.Data.Locator.Master*
-- uid: Tripous.Data.Locator.DetailKey
-  commentId: P:Tripous.Data.Locator.DetailKey
-  id: DetailKey
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: DetailKey
-  nameWithType: Locator.DetailKey
-  fullName: Tripous.Data.Locator.DetailKey
-  type: Property
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: DetailKey
-    path: ../Tripous.Data/Locator.cs
-    startLine: 577
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: >-
-    For creating cascade lookups.
-
-
-    <p>A field name of the source table (i.e. CountryId).</p>
-
-    <p>Used in filtering the source table's <xref href="Tripous.Data.MemTable.DataView" data-throw-if-not-resolved="false"></xref>, using a value that comes from the <xref href="Tripous.Data.Locator.Master" data-throw-if-not-resolved="false"></xref>.<xref href="Tripous.Data.Locator.KeyValue" data-throw-if-not-resolved="false"></xref></p>
-  example: []
-  syntax:
-    content: public string DetailKey { get; set; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public Property DetailKey As String
-  overload: Tripous.Data.Locator.DetailKey*
-- uid: Tripous.Data.Locator.AnyEvent
-  commentId: E:Tripous.Data.Locator.AnyEvent
-  id: AnyEvent
-  parent: Tripous.Data.Locator
-  langs:
-  - csharp
-  - vb
-  name: AnyEvent
-  nameWithType: Locator.AnyEvent
-  fullName: Tripous.Data.Locator.AnyEvent
-  type: Event
-  source:
-    remote:
-      path: Tripous.Data/Locator.cs
-      branch: main
-      repo: https://github.com/tbebekis/Tripous.Avalon.git
-    id: AnyEvent
-    path: ../Tripous.Data/Locator.cs
-    startLine: 584
-  assemblies:
-  - Tripous.Data
-  namespace: Tripous.Data
-  summary: Occurs in circumstances as indicated by the <xref href="Tripous.Data.LocatorEventType" data-throw-if-not-resolved="false"></xref> enum.
-  example: []
-  syntax:
-    content: public event EventHandler<LocatorEventArgs> AnyEvent
-    return:
-      type: System.EventHandler{Tripous.Data.LocatorEventArgs}
-    content.vb: Public Event AnyEvent As EventHandler(Of LocatorEventArgs)
 references:
 - uid: Tripous.Data
   commentId: N:Tripous.Data
@@ -1846,95 +910,12 @@ references:
   name: Tripous
   nameWithType: Tripous
   fullName: Tripous
-- uid: Tripous.Data.SqlStore
-  commentId: T:Tripous.Data.SqlStore
-  parent: Tripous.Data
-  href: Tripous.Data.SqlStore.html
-  name: SqlStore
-  nameWithType: SqlStore
-  fullName: Tripous.Data.SqlStore
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: Tripous.Data.LocatorDef
-  commentId: T:Tripous.Data.LocatorDef
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorDef.html
-  name: LocatorDef
-  nameWithType: LocatorDef
-  fullName: Tripous.Data.LocatorDef
-- uid: System.Data.DataTable
-  commentId: T:System.Data.DataTable
-  parent: System.Data
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.datatable
-  name: DataTable
-  nameWithType: DataTable
-  fullName: System.Data.DataTable
-- uid: System.Data
-  commentId: N:System.Data
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Data
-  nameWithType: System.Data
-  fullName: System.Data
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Data
-    name: Data
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Data
-    name: Data
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.data
-- uid: Tripous.Data.Locator.Store*
-  commentId: Overload:Tripous.Data.Locator.Store
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Store
-  name: Store
-  nameWithType: Locator.Store
-  fullName: Tripous.Data.Locator.Store
-- uid: Tripous.Data.Locator.tblSchema*
-  commentId: Overload:Tripous.Data.Locator.tblSchema
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_tblSchema
-  name: tblSchema
-  nameWithType: Locator.tblSchema
-  fullName: Tripous.Data.Locator.tblSchema
-- uid: System.Char
-  commentId: T:System.Char
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.char
-  name: char
-  nameWithType: char
-  fullName: char
-  nameWithType.vb: Char
-  fullName.vb: Char
-  name.vb: Char
-- uid: Tripous.Data.Locator.TrimEnd*
-  commentId: Overload:Tripous.Data.Locator.TrimEnd
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_TrimEnd_System_String_System_Char_
-  name: TrimEnd
-  nameWithType: Locator.TrimEnd
-  fullName: Tripous.Data.Locator.TrimEnd
+- uid: Tripous.Data.Locator.IsSelectSource*
+  commentId: Overload:Tripous.Data.Locator.IsSelectSource
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_IsSelectSource_System_String_
+  name: IsSelectSource
+  nameWithType: Locator.IsSelectSource
+  fullName: Tripous.Data.Locator.IsSelectSource
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -1946,225 +927,111 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: Tripous.Data.Locator.OnAnyEvent*
-  commentId: Overload:Tripous.Data.Locator.OnAnyEvent
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_OnAnyEvent_Tripous_Data_LocatorEventType_Tripous_Data_SelectSql_System_String_System_String_
-  name: OnAnyEvent
-  nameWithType: Locator.OnAnyEvent
-  fullName: Tripous.Data.Locator.OnAnyEvent
-- uid: Tripous.Data.LocatorEventType
-  commentId: T:Tripous.Data.LocatorEventType
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorEventType.html
-  name: LocatorEventType
-  nameWithType: LocatorEventType
-  fullName: Tripous.Data.LocatorEventType
-- uid: Tripous.Data.SelectSql
-  commentId: T:Tripous.Data.SelectSql
-  parent: Tripous.Data
-  href: Tripous.Data.SelectSql.html
-  name: SelectSql
-  nameWithType: SelectSql
-  fullName: Tripous.Data.SelectSql
-- uid: Tripous.Data.LocatorEventArgs
-  commentId: T:Tripous.Data.LocatorEventArgs
-  parent: Tripous.Data
-  href: Tripous.Data.LocatorEventArgs.html
-  name: LocatorEventArgs
-  nameWithType: LocatorEventArgs
-  fullName: Tripous.Data.LocatorEventArgs
-- uid: Tripous.Data.Locator.SourceTable
-  commentId: P:Tripous.Data.Locator.SourceTable
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_SourceTable
-  name: SourceTable
-  nameWithType: Locator.SourceTable
-  fullName: Tripous.Data.Locator.SourceTable
-- uid: Tripous.Data.Locator.SelectSourceTable*
-  commentId: Overload:Tripous.Data.Locator.SelectSourceTable
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_SelectSourceTable_Tripous_Data_SelectSql_System_String_
-  name: SelectSourceTable
-  nameWithType: Locator.SelectSourceTable
-  fullName: Tripous.Data.Locator.SelectSourceTable
-- uid: System.Int32
-  commentId: T:System.Int32
+- uid: System.Boolean
+  commentId: T:System.Boolean
   parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
-- uid: Tripous.Data.LocatorDef.SelectSql
-  commentId: P:Tripous.Data.LocatorDef.SelectSql
-  href: Tripous.Data.LocatorDef.html#Tripous_Data_LocatorDef_SelectSql
-  name: SelectSql
-  nameWithType: LocatorDef.SelectSql
-  fullName: Tripous.Data.LocatorDef.SelectSql
-- uid: Tripous.Data.Locator.LocatorDef
-  commentId: P:Tripous.Data.Locator.LocatorDef
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_LocatorDef
-  name: LocatorDef
-  nameWithType: Locator.LocatorDef
-  fullName: Tripous.Data.Locator.LocatorDef
-- uid: Tripous.Data.Locator.GetSelectSql*
-  commentId: Overload:Tripous.Data.Locator.GetSelectSql
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSelectSql
-  name: GetSelectSql
-  nameWithType: Locator.GetSelectSql
-  fullName: Tripous.Data.Locator.GetSelectSql
-- uid: Tripous.Data.Locator.FilterSourceTable*
-  commentId: Overload:Tripous.Data.Locator.FilterSourceTable
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_FilterSourceTable
-  name: FilterSourceTable
-  nameWithType: Locator.FilterSourceTable
-  fullName: Tripous.Data.Locator.FilterSourceTable
-- uid: Tripous.Data.Locator.SetupSourceTable*
-  commentId: Overload:Tripous.Data.Locator.SetupSourceTable
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_SetupSourceTable
-  name: SetupSourceTable
-  nameWithType: Locator.SetupSourceTable
-  fullName: Tripous.Data.Locator.SetupSourceTable
-- uid: Tripous.Data.Locator.ConstructUserWhere*
-  commentId: Overload:Tripous.Data.Locator.ConstructUserWhere
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_ConstructUserWhere_System_String_
-  name: ConstructUserWhere
-  nameWithType: Locator.ConstructUserWhere
-  fullName: Tripous.Data.Locator.ConstructUserWhere
-- uid: Tripous.Data.Locator.FindSourceKeyColumn*
-  commentId: Overload:Tripous.Data.Locator.FindSourceKeyColumn
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_FindSourceKeyColumn_System_Data_DataRow_
-  name: FindSourceKeyColumn
-  nameWithType: Locator.FindSourceKeyColumn
-  fullName: Tripous.Data.Locator.FindSourceKeyColumn
-- uid: System.Data.DataRow
-  commentId: T:System.Data.DataRow
-  parent: System.Data
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.datarow
-  name: DataRow
-  nameWithType: DataRow
-  fullName: System.Data.DataRow
-- uid: System.Data.DataColumn
-  commentId: T:System.Data.DataColumn
-  parent: System.Data
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.data.datacolumn
-  name: DataColumn
-  nameWithType: DataColumn
-  fullName: System.Data.DataColumn
-- uid: Tripous.Data.Locator.GetSourceKeyValue*
-  commentId: Overload:Tripous.Data.Locator.GetSourceKeyValue
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSourceKeyValue_System_Data_DataRow_
-  name: GetSourceKeyValue
-  nameWithType: Locator.GetSourceKeyValue
-  fullName: Tripous.Data.Locator.GetSourceKeyValue
-- uid: Tripous.Data.Locator.GetSourceKeySelectFieldName*
-  commentId: Overload:Tripous.Data.Locator.GetSourceKeySelectFieldName
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSourceKeySelectFieldName
-  name: GetSourceKeySelectFieldName
-  nameWithType: Locator.GetSourceKeySelectFieldName
-  fullName: Tripous.Data.Locator.GetSourceKeySelectFieldName
-- uid: Tripous.Data.Locator.GetSourceFieldValue*
-  commentId: Overload:Tripous.Data.Locator.GetSourceFieldValue
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSourceFieldValue_System_Data_DataRow_Tripous_Data_LocatorFieldDef_
-  name: GetSourceFieldValue
-  nameWithType: Locator.GetSourceFieldValue
-  fullName: Tripous.Data.Locator.GetSourceFieldValue
-- uid: Tripous.Data.LocatorFieldDef
-  commentId: T:Tripous.Data.LocatorFieldDef
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.Locator.GetSqlResultFields*
+  commentId: Overload:Tripous.Data.Locator.GetSqlResultFields
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSqlResultFields_Tripous_Data_LocatorDef_
+  name: GetSqlResultFields
+  nameWithType: Locator.GetSqlResultFields
+  fullName: Tripous.Data.Locator.GetSqlResultFields
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
   parent: Tripous.Data
-  href: Tripous.Data.LocatorFieldDef.html
-  name: LocatorFieldDef
-  nameWithType: LocatorFieldDef
-  fullName: Tripous.Data.LocatorFieldDef
-- uid: Tripous.Data.Locator.ResolveTargetFieldName*
-  commentId: Overload:Tripous.Data.Locator.ResolveTargetFieldName
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_ResolveTargetFieldName_Tripous_Data_LocatorFieldDef_System_Collections_Generic_Dictionary_System_String_System_String__System_Boolean_
-  name: ResolveTargetFieldName
-  nameWithType: Locator.ResolveTargetFieldName
-  fullName: Tripous.Data.Locator.ResolveTargetFieldName
-- uid: System.Collections.Generic.Dictionary{System.String,System.String}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,System.String}
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
+- uid: Tripous.Data.Locator.GetBaseSql*
+  commentId: Overload:Tripous.Data.Locator.GetBaseSql
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetBaseSql_Tripous_Data_LocatorDef_
+  name: GetBaseSql
+  nameWithType: Locator.GetBaseSql
+  fullName: Tripous.Data.Locator.GetBaseSql
+- uid: Tripous.Data.Locator.GetSearchFieldNames*
+  commentId: Overload:Tripous.Data.Locator.GetSearchFieldNames
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSearchFieldNames_Tripous_Data_LocatorDef_Tripous_Data_LocatorRequest_
+  name: GetSearchFieldNames
+  nameWithType: Locator.GetSearchFieldNames
+  fullName: Tripous.Data.Locator.GetSearchFieldNames
+- uid: Tripous.Data.LocatorRequest
+  commentId: T:Tripous.Data.LocatorRequest
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorRequest.html
+  name: LocatorRequest
+  nameWithType: LocatorRequest
+  fullName: Tripous.Data.LocatorRequest
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
   parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, string>
-  nameWithType: Dictionary<string, string>
-  fullName: System.Collections.Generic.Dictionary<string, string>
-  nameWithType.vb: Dictionary(Of String, String)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, String)
-  name.vb: Dictionary(Of String, String)
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
   spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
   - uid: System.String
     name: string
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.string
   - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: (
   - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
   - name: " "
   - uid: System.String
     name: String
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.string
   - name: )
-- uid: System.Collections.Generic.Dictionary`2
-  commentId: T:System.Collections.Generic.Dictionary`2
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<TKey, TValue>
-  nameWithType: Dictionary<TKey, TValue>
-  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
-  nameWithType.vb: Dictionary(Of TKey, TValue)
-  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
-  name.vb: Dictionary(Of TKey, TValue)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
   spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-  - name: TKey
-  - name: ','
-  - name: " "
-  - name: TValue
+  - name: T
   - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: (
   - name: Of
   - name: " "
-  - name: TKey
-  - name: ','
-  - name: " "
-  - name: TValue
+  - name: T
   - name: )
 - uid: System.Collections.Generic
   commentId: N:System.Collections.Generic
@@ -2203,232 +1070,109 @@ references:
     name: Generic
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: Tripous.Data.Locator.SetTargetRowValue*
-  commentId: Overload:Tripous.Data.Locator.SetTargetRowValue
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_SetTargetRowValue_System_Data_DataRow_System_String_System_Object_System_Boolean_
-  name: SetTargetRowValue
-  nameWithType: Locator.SetTargetRowValue
-  fullName: Tripous.Data.Locator.SetTargetRowValue
-- uid: Tripous.Data.Locator.Assign*
-  commentId: Overload:Tripous.Data.Locator.Assign
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Assign_System_Data_DataRow_System_Data_DataRow_System_String_System_Collections_Generic_Dictionary_System_String_System_String__System_Boolean_System_Boolean_
-  name: Assign
-  nameWithType: Locator.Assign
-  fullName: Tripous.Data.Locator.Assign
-- uid: Tripous.Data.Locator.#ctor*
-  commentId: Overload:Tripous.Data.Locator.#ctor
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator__ctor
-  name: Locator
-  nameWithType: Locator.Locator
-  fullName: Tripous.Data.Locator.Locator
-  nameWithType.vb: Locator.New
-  fullName.vb: Tripous.Data.Locator.New
-  name.vb: New
-- uid: Tripous.Data.Locator.Initialize*
-  commentId: Overload:Tripous.Data.Locator.Initialize
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Initialize_Tripous_Data_LocatorDef_
-  name: Initialize
-  nameWithType: Locator.Initialize
-  fullName: Tripous.Data.Locator.Initialize
-- uid: Tripous.Data.Locator.ContainsSearchTrigger*
-  commentId: Overload:Tripous.Data.Locator.ContainsSearchTrigger
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_ContainsSearchTrigger_System_String_
-  name: ContainsSearchTrigger
-  nameWithType: Locator.ContainsSearchTrigger
-  fullName: Tripous.Data.Locator.ContainsSearchTrigger
-- uid: Tripous.Data.Locator.TryLocate*
-  commentId: Overload:Tripous.Data.Locator.TryLocate
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_TryLocate_System_String_Tripous_Data_LocatorSearchResult__
-  name: TryLocate
-  nameWithType: Locator.TryLocate
-  fullName: Tripous.Data.Locator.TryLocate
-- uid: Tripous.Data.LocatorSearchResult
-  commentId: T:Tripous.Data.LocatorSearchResult
+- uid: Tripous.Data.Locator.GetKeyFieldDef*
+  commentId: Overload:Tripous.Data.Locator.GetKeyFieldDef
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetKeyFieldDef_Tripous_Data_LocatorDef_
+  name: GetKeyFieldDef
+  nameWithType: Locator.GetKeyFieldDef
+  fullName: Tripous.Data.Locator.GetKeyFieldDef
+- uid: Tripous.Data.LocatorFieldDef
+  commentId: T:Tripous.Data.LocatorFieldDef
   parent: Tripous.Data
-  href: Tripous.Data.LocatorSearchResult.html
-  name: LocatorSearchResult
-  nameWithType: LocatorSearchResult
-  fullName: Tripous.Data.LocatorSearchResult
-- uid: Tripous.Data.Locator.LocateByKey*
-  commentId: Overload:Tripous.Data.Locator.LocateByKey
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_LocateByKey_System_Object_
-  name: LocateByKey
-  nameWithType: Locator.LocateByKey
-  fullName: Tripous.Data.Locator.LocateByKey
-- uid: Tripous.Data.LocatorFieldDef.TargetField
-  commentId: P:Tripous.Data.LocatorFieldDef.TargetField
-  href: Tripous.Data.LocatorFieldDef.html#Tripous_Data_LocatorFieldDef_TargetField
-  name: TargetField
-  nameWithType: LocatorFieldDef.TargetField
-  fullName: Tripous.Data.LocatorFieldDef.TargetField
-- uid: Tripous.Data.Locator.Clear*
-  commentId: Overload:Tripous.Data.Locator.Clear
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Clear
-  name: Clear
-  nameWithType: Locator.Clear
-  fullName: Tripous.Data.Locator.Clear
-- uid: Tripous.Data.Locator.Select*
-  commentId: Overload:Tripous.Data.Locator.Select
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Select_System_String_System_String_
-  name: Select
-  nameWithType: Locator.Select
-  fullName: Tripous.Data.Locator.Select
+  href: Tripous.Data.LocatorFieldDef.html
+  name: LocatorFieldDef
+  nameWithType: LocatorFieldDef
+  fullName: Tripous.Data.LocatorFieldDef
+- uid: Tripous.Data.Locator.GetSqlValue*
+  commentId: Overload:Tripous.Data.Locator.GetSqlValue
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSqlValue_System_Object_Tripous_Data_DataFieldType_
+  name: GetSqlValue
+  nameWithType: Locator.GetSqlValue
+  fullName: Tripous.Data.Locator.GetSqlValue
+- uid: Tripous.Data.DataFieldType
+  commentId: T:Tripous.Data.DataFieldType
+  parent: Tripous.Data
+  href: Tripous.Data.DataFieldType.html
+  name: DataFieldType
+  nameWithType: DataFieldType
+  fullName: Tripous.Data.DataFieldType
+- uid: Tripous.Data.Locator.GetKeyWhereSql*
+  commentId: Overload:Tripous.Data.Locator.GetKeyWhereSql
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetKeyWhereSql_Tripous_Data_LocatorDef_Tripous_Data_LocatorRequest_
+  name: GetKeyWhereSql
+  nameWithType: Locator.GetKeyWhereSql
+  fullName: Tripous.Data.Locator.GetKeyWhereSql
+- uid: Tripous.Data.Locator.GetWhereSql*
+  commentId: Overload:Tripous.Data.Locator.GetWhereSql
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetWhereSql_Tripous_Data_LocatorDef_Tripous_Data_LocatorRequest_
+  name: GetWhereSql
+  nameWithType: Locator.GetWhereSql
+  fullName: Tripous.Data.Locator.GetWhereSql
+- uid: Tripous.Data.Locator.GetSql*
+  commentId: Overload:Tripous.Data.Locator.GetSql
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetSql_Tripous_Data_LocatorDef_Tripous_Data_LocatorRequest_
+  name: GetSql
+  nameWithType: Locator.GetSql
+  fullName: Tripous.Data.Locator.GetSql
+- uid: Tripous.Data.Locator.InvalidRequest*
+  commentId: Overload:Tripous.Data.Locator.InvalidRequest
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_InvalidRequest_System_String_
+  name: InvalidRequest
+  nameWithType: Locator.InvalidRequest
+  fullName: Tripous.Data.Locator.InvalidRequest
+- uid: Tripous.Data.LocatorResult
+  commentId: T:Tripous.Data.LocatorResult
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorResult.html
+  name: LocatorResult
+  nameWithType: LocatorResult
+  fullName: Tripous.Data.LocatorResult
+- uid: Tripous.Data.Locator.GetStatus*
+  commentId: Overload:Tripous.Data.Locator.GetStatus
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_GetStatus_Tripous_Data_LocatorDef_System_Int32_
+  name: GetStatus
+  nameWithType: Locator.GetStatus
+  fullName: Tripous.Data.Locator.GetStatus
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.LocatorResultStatus
+  commentId: T:Tripous.Data.LocatorResultStatus
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorResultStatus.html
+  name: LocatorResultStatus
+  nameWithType: LocatorResultStatus
+  fullName: Tripous.Data.LocatorResultStatus
+- uid: Tripous.Data.Locator.CheckRequest*
+  commentId: Overload:Tripous.Data.Locator.CheckRequest
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_CheckRequest_Tripous_Data_LocatorDef_Tripous_Data_LocatorRequest_
+  name: CheckRequest
+  nameWithType: Locator.CheckRequest
+  fullName: Tripous.Data.Locator.CheckRequest
 - uid: Tripous.Data.Locator.Execute*
   commentId: Overload:Tripous.Data.Locator.Execute
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Execute_System_String_
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Execute_Tripous_Data_LocatorDef_Tripous_Data_LocatorRequest_
   name: Execute
   nameWithType: Locator.Execute
   fullName: Tripous.Data.Locator.Execute
-- uid: Tripous.Data.Locator.IsInitialized*
-  commentId: Overload:Tripous.Data.Locator.IsInitialized
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_IsInitialized
-  name: IsInitialized
-  nameWithType: Locator.IsInitialized
-  fullName: Tripous.Data.Locator.IsInitialized
-- uid: Tripous.Data.Locator.Active*
-  commentId: Overload:Tripous.Data.Locator.Active
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Active
-  name: Active
-  nameWithType: Locator.Active
-  fullName: Tripous.Data.Locator.Active
-- uid: Tripous.Data.Locator.LocatorDef*
-  commentId: Overload:Tripous.Data.Locator.LocatorDef
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_LocatorDef
-  name: LocatorDef
-  nameWithType: Locator.LocatorDef
-  fullName: Tripous.Data.Locator.LocatorDef
-- uid: Tripous.Data.Locator.SourceTable*
-  commentId: Overload:Tripous.Data.Locator.SourceTable
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_SourceTable
-  name: SourceTable
-  nameWithType: Locator.SourceTable
-  fullName: Tripous.Data.Locator.SourceTable
-- uid: Tripous.Data.MemTable
-  commentId: T:Tripous.Data.MemTable
+- uid: Tripous.Data.Locator.Store*
+  commentId: Overload:Tripous.Data.Locator.Store
+  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Store
+  name: Store
+  nameWithType: Locator.Store
+  fullName: Tripous.Data.Locator.Store
+- uid: Tripous.Data.SqlStore
+  commentId: T:Tripous.Data.SqlStore
   parent: Tripous.Data
-  href: Tripous.Data.MemTable.html
-  name: MemTable
-  nameWithType: MemTable
-  fullName: Tripous.Data.MemTable
-- uid: Tripous.Data.Locator.Context*
-  commentId: Overload:Tripous.Data.Locator.Context
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Context
-  name: Context
-  nameWithType: Locator.Context
-  fullName: Tripous.Data.Locator.Context
-- uid: Tripous.Data.Locator.IsSourceTableValid*
-  commentId: Overload:Tripous.Data.Locator.IsSourceTableValid
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_IsSourceTableValid
-  name: IsSourceTableValid
-  nameWithType: Locator.IsSourceTableValid
-  fullName: Tripous.Data.Locator.IsSourceTableValid
-- uid: Tripous.Data.Locator.KeyValue*
-  commentId: Overload:Tripous.Data.Locator.KeyValue
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_KeyValue
-  name: KeyValue
-  nameWithType: Locator.KeyValue
-  fullName: Tripous.Data.Locator.KeyValue
-- uid: Tripous.Data.Locator.SelectedRow*
-  commentId: Overload:Tripous.Data.Locator.SelectedRow
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_SelectedRow
-  name: SelectedRow
-  nameWithType: Locator.SelectedRow
-  fullName: Tripous.Data.Locator.SelectedRow
-- uid: Tripous.Data.Locator.Master*
-  commentId: Overload:Tripous.Data.Locator.Master
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Master
-  name: Master
-  nameWithType: Locator.Master
-  fullName: Tripous.Data.Locator.Master
-- uid: Tripous.Data.Locator
-  commentId: T:Tripous.Data.Locator
-  parent: Tripous.Data
-  href: Tripous.Data.Locator.html
-  name: Locator
-  nameWithType: Locator
-  fullName: Tripous.Data.Locator
-- uid: Tripous.Data.MemTable.DataView
-  commentId: P:Tripous.Data.MemTable.DataView
-  href: Tripous.Data.MemTable.html#Tripous_Data_MemTable_DataView
-  name: DataView
-  nameWithType: MemTable.DataView
-  fullName: Tripous.Data.MemTable.DataView
-- uid: Tripous.Data.Locator.Master
-  commentId: P:Tripous.Data.Locator.Master
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_Master
-  name: Master
-  nameWithType: Locator.Master
-  fullName: Tripous.Data.Locator.Master
-- uid: Tripous.Data.Locator.KeyValue
-  commentId: P:Tripous.Data.Locator.KeyValue
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_KeyValue
-  name: KeyValue
-  nameWithType: Locator.KeyValue
-  fullName: Tripous.Data.Locator.KeyValue
-- uid: Tripous.Data.Locator.DetailKey*
-  commentId: Overload:Tripous.Data.Locator.DetailKey
-  href: Tripous.Data.Locator.html#Tripous_Data_Locator_DetailKey
-  name: DetailKey
-  nameWithType: Locator.DetailKey
-  fullName: Tripous.Data.Locator.DetailKey
-- uid: System.EventHandler{Tripous.Data.LocatorEventArgs}
-  commentId: T:System.EventHandler{Tripous.Data.LocatorEventArgs}
-  parent: System
-  definition: System.EventHandler`1
-  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  name: EventHandler<LocatorEventArgs>
-  nameWithType: EventHandler<LocatorEventArgs>
-  fullName: System.EventHandler<Tripous.Data.LocatorEventArgs>
-  nameWithType.vb: EventHandler(Of LocatorEventArgs)
-  fullName.vb: System.EventHandler(Of Tripous.Data.LocatorEventArgs)
-  name.vb: EventHandler(Of LocatorEventArgs)
-  spec.csharp:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  - name: <
-  - uid: Tripous.Data.LocatorEventArgs
-    name: LocatorEventArgs
-    href: Tripous.Data.LocatorEventArgs.html
-  - name: '>'
-  spec.vb:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Tripous.Data.LocatorEventArgs
-    name: LocatorEventArgs
-    href: Tripous.Data.LocatorEventArgs.html
-  - name: )
-- uid: System.EventHandler`1
-  commentId: T:System.EventHandler`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  name: EventHandler<TEventArgs>
-  nameWithType: EventHandler<TEventArgs>
-  fullName: System.EventHandler<TEventArgs>
-  nameWithType.vb: EventHandler(Of TEventArgs)
-  fullName.vb: System.EventHandler(Of TEventArgs)
-  name.vb: EventHandler(Of TEventArgs)
-  spec.csharp:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  - name: <
-  - name: TEventArgs
-  - name: '>'
-  spec.vb:
-  - uid: System.EventHandler`1
-    name: EventHandler
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: TEventArgs
-  - name: )
+  href: Tripous.Data.SqlStore.html
+  name: SqlStore
+  nameWithType: SqlStore
+  fullName: Tripous.Data.SqlStore

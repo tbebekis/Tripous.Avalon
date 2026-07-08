@@ -68,6 +68,14 @@ items:
   - Tripous.Data.DataModule.NewRowAdded(Tripous.Data.MemTable,System.Data.DataTableNewRowEventArgs)
   - Tripous.Data.DataModule.ToString
   - Tripous.Data.DataModule.Initialize(Tripous.Data.ModuleDef)
+  - Tripous.Data.DataModule.GetSelectListRowLimit
+  - Tripous.Data.DataModule.GetListSelectDef(System.String)
+  - Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  - Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+  - Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+  - Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+  - Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+  - Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
   - Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
   - Tripous.Data.DataModule.ListSelect(System.String)
   - Tripous.Data.DataModule.ListSave
@@ -80,6 +88,14 @@ items:
   - Tripous.Data.DataModule.HasChanges
   - Tripous.Data.DataModule.CommitBatch(Tripous.Data.BatchCommitArgs)
   - Tripous.Data.DataModule.BatchInsert(System.Data.DataTable)
+  - Tripous.Data.DataModule.JsonConvertRowId(System.String)
+  - Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+  - Tripous.Data.DataModule.JsonInitialize
+  - Tripous.Data.DataModule.JsonInsert
+  - Tripous.Data.DataModule.JsonEdit(System.String)
+  - Tripous.Data.DataModule.JsonDelete(System.String)
+  - Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  - Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
   - Tripous.Data.DataModule.CheckCanInsert
   - Tripous.Data.DataModule.CheckCanEdit(System.Object)
   - Tripous.Data.DataModule.CheckCanDelete(System.Object)
@@ -1082,6 +1098,276 @@ references:
     name: ModuleDef
     href: Tripous.Data.ModuleDef.html
   - name: )
+- uid: Tripous.Data.DataModule.GetSelectListRowLimit
+  commentId: M:Tripous.Data.DataModule.GetSelectListRowLimit
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetSelectListRowLimit
+  name: GetSelectListRowLimit()
+  nameWithType: DataModule.GetSelectListRowLimit()
+  fullName: Tripous.Data.DataModule.GetSelectListRowLimit()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.GetSelectListRowLimit
+    name: GetSelectListRowLimit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetSelectListRowLimit
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.GetSelectListRowLimit
+    name: GetSelectListRowLimit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetSelectListRowLimit
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.GetListSelectDef(System.String)
+  commentId: M:Tripous.Data.DataModule.GetListSelectDef(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetListSelectDef_System_String_
+  name: GetListSelectDef(string)
+  nameWithType: DataModule.GetListSelectDef(string)
+  fullName: Tripous.Data.DataModule.GetListSelectDef(string)
+  nameWithType.vb: DataModule.GetListSelectDef(String)
+  fullName.vb: Tripous.Data.DataModule.GetListSelectDef(String)
+  name.vb: GetListSelectDef(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.GetListSelectDef(System.String)
+    name: GetListSelectDef
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetListSelectDef_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.GetListSelectDef(System.String)
+    name: GetListSelectDef
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetListSelectDef_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  commentId: M:Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetFilterConditionOps_Tripous_Data_DataFieldType_
+  name: GetFilterConditionOps(DataFieldType)
+  nameWithType: DataModule.GetFilterConditionOps(DataFieldType)
+  fullName: Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+    name: GetFilterConditionOps
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetFilterConditionOps_Tripous_Data_DataFieldType_
+  - name: (
+  - uid: Tripous.Data.DataFieldType
+    name: DataFieldType
+    href: Tripous.Data.DataFieldType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.GetFilterConditionOps(Tripous.Data.DataFieldType)
+    name: GetFilterConditionOps
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_GetFilterConditionOps_Tripous_Data_DataFieldType_
+  - name: (
+  - uid: Tripous.Data.DataFieldType
+    name: DataFieldType
+    href: Tripous.Data.DataFieldType.html
+  - name: )
+- uid: Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+  commentId: M:Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterValue_System_Object_Tripous_Data_DataFieldType_
+  name: ConvertSelectFilterValue(object, DataFieldType)
+  nameWithType: DataModule.ConvertSelectFilterValue(object, DataFieldType)
+  fullName: Tripous.Data.DataModule.ConvertSelectFilterValue(object, Tripous.Data.DataFieldType)
+  nameWithType.vb: DataModule.ConvertSelectFilterValue(Object, DataFieldType)
+  fullName.vb: Tripous.Data.DataModule.ConvertSelectFilterValue(Object, Tripous.Data.DataFieldType)
+  name.vb: ConvertSelectFilterValue(Object, DataFieldType)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+    name: ConvertSelectFilterValue
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterValue_System_Object_Tripous_Data_DataFieldType_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataFieldType
+    name: DataFieldType
+    href: Tripous.Data.DataFieldType.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ConvertSelectFilterValue(System.Object,Tripous.Data.DataFieldType)
+    name: ConvertSelectFilterValue
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterValue_System_Object_Tripous_Data_DataFieldType_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.DataFieldType
+    name: DataFieldType
+    href: Tripous.Data.DataFieldType.html
+  - name: )
+- uid: Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+  commentId: M:Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterBoolean_System_Object_
+  name: ConvertSelectFilterBoolean(object)
+  nameWithType: DataModule.ConvertSelectFilterBoolean(object)
+  fullName: Tripous.Data.DataModule.ConvertSelectFilterBoolean(object)
+  nameWithType.vb: DataModule.ConvertSelectFilterBoolean(Object)
+  fullName.vb: Tripous.Data.DataModule.ConvertSelectFilterBoolean(Object)
+  name.vb: ConvertSelectFilterBoolean(Object)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+    name: ConvertSelectFilterBoolean
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterBoolean_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.ConvertSelectFilterBoolean(System.Object)
+    name: ConvertSelectFilterBoolean
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_ConvertSelectFilterBoolean_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+  commentId: M:Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilter_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilter_
+  name: CreateValidatedSelectFilter(SelectDef, JsonSelectFilter)
+  nameWithType: DataModule.CreateValidatedSelectFilter(SelectDef, JsonSelectFilter)
+  fullName: Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef, Tripous.Data.JsonSelectFilter)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+    name: CreateValidatedSelectFilter
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilter_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilter_
+  - name: (
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilter
+    name: JsonSelectFilter
+    href: Tripous.Data.JsonSelectFilter.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.CreateValidatedSelectFilter(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilter)
+    name: CreateValidatedSelectFilter
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilter_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilter_
+  - name: (
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilter
+    name: JsonSelectFilter
+    href: Tripous.Data.JsonSelectFilter.html
+  - name: )
+- uid: Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+  commentId: M:Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilters_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilters_
+  name: CreateValidatedSelectFilters(SelectDef, JsonSelectFilters)
+  nameWithType: DataModule.CreateValidatedSelectFilters(SelectDef, JsonSelectFilters)
+  fullName: Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef, Tripous.Data.JsonSelectFilters)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+    name: CreateValidatedSelectFilters
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilters_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilters_
+  - name: (
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilters
+    name: JsonSelectFilters
+    href: Tripous.Data.JsonSelectFilters.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.CreateValidatedSelectFilters(Tripous.Data.SelectDef,Tripous.Data.JsonSelectFilters)
+    name: CreateValidatedSelectFilters
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_CreateValidatedSelectFilters_Tripous_Data_SelectDef_Tripous_Data_JsonSelectFilters_
+  - name: (
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilters
+    name: JsonSelectFilters
+    href: Tripous.Data.JsonSelectFilters.html
+  - name: )
+- uid: Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
+  commentId: M:Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BuildListSelectSql_System_String_Tripous_Data_JsonSelectFilters_Tripous_Data_SelectDef__
+  name: BuildListSelectSql(string, JsonSelectFilters, out SelectDef)
+  nameWithType: DataModule.BuildListSelectSql(string, JsonSelectFilters, out SelectDef)
+  fullName: Tripous.Data.DataModule.BuildListSelectSql(string, Tripous.Data.JsonSelectFilters, out Tripous.Data.SelectDef)
+  nameWithType.vb: DataModule.BuildListSelectSql(String, JsonSelectFilters, SelectDef)
+  fullName.vb: Tripous.Data.DataModule.BuildListSelectSql(String, Tripous.Data.JsonSelectFilters, Tripous.Data.SelectDef)
+  name.vb: BuildListSelectSql(String, JsonSelectFilters, SelectDef)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
+    name: BuildListSelectSql
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BuildListSelectSql_System_String_Tripous_Data_JsonSelectFilters_Tripous_Data_SelectDef__
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilters
+    name: JsonSelectFilters
+    href: Tripous.Data.JsonSelectFilters.html
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.BuildListSelectSql(System.String,Tripous.Data.JsonSelectFilters,Tripous.Data.SelectDef@)
+    name: BuildListSelectSql
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_BuildListSelectSql_System_String_Tripous_Data_JsonSelectFilters_Tripous_Data_SelectDef__
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilters
+    name: JsonSelectFilters
+    href: Tripous.Data.JsonSelectFilters.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.SelectDef
+    name: SelectDef
+    href: Tripous.Data.SelectDef.html
+  - name: )
 - uid: Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
   commentId: M:Tripous.Data.DataModule.ListSelect(Tripous.Data.SelectDef)
   parent: Tripous.Data.DataModule
@@ -1378,6 +1664,238 @@ references:
     name: DataTable
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.data.datatable
+  - name: )
+- uid: Tripous.Data.DataModule.JsonConvertRowId(System.String)
+  commentId: M:Tripous.Data.DataModule.JsonConvertRowId(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonConvertRowId_System_String_
+  name: JsonConvertRowId(string)
+  nameWithType: DataModule.JsonConvertRowId(string)
+  fullName: Tripous.Data.DataModule.JsonConvertRowId(string)
+  nameWithType.vb: DataModule.JsonConvertRowId(String)
+  fullName.vb: Tripous.Data.DataModule.JsonConvertRowId(String)
+  name.vb: JsonConvertRowId(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonConvertRowId(System.String)
+    name: JsonConvertRowId
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonConvertRowId_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonConvertRowId(System.String)
+    name: JsonConvertRowId
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonConvertRowId_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+  commentId: M:Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonApplyTableRows_Tripous_Data_MemTable_Tripous_Data_JsonDataModule_
+  name: JsonApplyTableRows(MemTable, JsonDataModule)
+  nameWithType: DataModule.JsonApplyTableRows(MemTable, JsonDataModule)
+  fullName: Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable, Tripous.Data.JsonDataModule)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+    name: JsonApplyTableRows
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonApplyTableRows_Tripous_Data_MemTable_Tripous_Data_JsonDataModule_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonDataModule
+    name: JsonDataModule
+    href: Tripous.Data.JsonDataModule.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonApplyTableRows(Tripous.Data.MemTable,Tripous.Data.JsonDataModule)
+    name: JsonApplyTableRows
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonApplyTableRows_Tripous_Data_MemTable_Tripous_Data_JsonDataModule_
+  - name: (
+  - uid: Tripous.Data.MemTable
+    name: MemTable
+    href: Tripous.Data.MemTable.html
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonDataModule
+    name: JsonDataModule
+    href: Tripous.Data.JsonDataModule.html
+  - name: )
+- uid: Tripous.Data.DataModule.JsonInitialize
+  commentId: M:Tripous.Data.DataModule.JsonInitialize
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInitialize
+  name: JsonInitialize()
+  nameWithType: DataModule.JsonInitialize()
+  fullName: Tripous.Data.DataModule.JsonInitialize()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonInitialize
+    name: JsonInitialize
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInitialize
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonInitialize
+    name: JsonInitialize
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInitialize
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.JsonInsert
+  commentId: M:Tripous.Data.DataModule.JsonInsert
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInsert
+  name: JsonInsert()
+  nameWithType: DataModule.JsonInsert()
+  fullName: Tripous.Data.DataModule.JsonInsert()
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonInsert
+    name: JsonInsert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInsert
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonInsert
+    name: JsonInsert
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonInsert
+  - name: (
+  - name: )
+- uid: Tripous.Data.DataModule.JsonEdit(System.String)
+  commentId: M:Tripous.Data.DataModule.JsonEdit(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonEdit_System_String_
+  name: JsonEdit(string)
+  nameWithType: DataModule.JsonEdit(string)
+  fullName: Tripous.Data.DataModule.JsonEdit(string)
+  nameWithType.vb: DataModule.JsonEdit(String)
+  fullName.vb: Tripous.Data.DataModule.JsonEdit(String)
+  name.vb: JsonEdit(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonEdit(System.String)
+    name: JsonEdit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonEdit_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonEdit(System.String)
+    name: JsonEdit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonEdit_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.JsonDelete(System.String)
+  commentId: M:Tripous.Data.DataModule.JsonDelete(System.String)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonDelete_System_String_
+  name: JsonDelete(string)
+  nameWithType: DataModule.JsonDelete(string)
+  fullName: Tripous.Data.DataModule.JsonDelete(string)
+  nameWithType.vb: DataModule.JsonDelete(String)
+  fullName.vb: Tripous.Data.DataModule.JsonDelete(String)
+  name.vb: JsonDelete(String)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonDelete(System.String)
+    name: JsonDelete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonDelete_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonDelete(System.String)
+    name: JsonDelete
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonDelete_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  commentId: M:Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  parent: Tripous.Data.DataModule
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonCommit_Tripous_Data_JsonDataModule_
+  name: JsonCommit(JsonDataModule)
+  nameWithType: DataModule.JsonCommit(JsonDataModule)
+  fullName: Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+    name: JsonCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonCommit_Tripous_Data_JsonDataModule_
+  - name: (
+  - uid: Tripous.Data.JsonDataModule
+    name: JsonDataModule
+    href: Tripous.Data.JsonDataModule.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonCommit(Tripous.Data.JsonDataModule)
+    name: JsonCommit
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonCommit_Tripous_Data_JsonDataModule_
+  - name: (
+  - uid: Tripous.Data.JsonDataModule
+    name: JsonDataModule
+    href: Tripous.Data.JsonDataModule.html
+  - name: )
+- uid: Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
+  commentId: M:Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
+  parent: Tripous.Data.DataModule
+  isExternal: true
+  href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonSelectList_System_String_Tripous_Data_JsonSelectFilters_
+  name: JsonSelectList(string, JsonSelectFilters)
+  nameWithType: DataModule.JsonSelectList(string, JsonSelectFilters)
+  fullName: Tripous.Data.DataModule.JsonSelectList(string, Tripous.Data.JsonSelectFilters)
+  nameWithType.vb: DataModule.JsonSelectList(String, JsonSelectFilters)
+  fullName.vb: Tripous.Data.DataModule.JsonSelectList(String, Tripous.Data.JsonSelectFilters)
+  name.vb: JsonSelectList(String, JsonSelectFilters)
+  spec.csharp:
+  - uid: Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
+    name: JsonSelectList
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonSelectList_System_String_Tripous_Data_JsonSelectFilters_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilters
+    name: JsonSelectFilters
+    href: Tripous.Data.JsonSelectFilters.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.Data.DataModule.JsonSelectList(System.String,Tripous.Data.JsonSelectFilters)
+    name: JsonSelectList
+    href: Tripous.Data.DataModule.html#Tripous_Data_DataModule_JsonSelectList_System_String_Tripous_Data_JsonSelectFilters_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: Tripous.Data.JsonSelectFilters
+    name: JsonSelectFilters
+    href: Tripous.Data.JsonSelectFilters.html
   - name: )
 - uid: Tripous.Data.DataModule.CheckCanInsert
   commentId: M:Tripous.Data.DataModule.CheckCanInsert

@@ -12,6 +12,7 @@ items:
   - Tripous.Data.Config.GetValue(System.String,System.String,System.String)
   - Tripous.Data.Config.GetValue(System.String,Tripous.Data.ConfigScope,System.String)
   - Tripous.Data.Config.Module
+  - Tripous.Data.Config.SSelectListRowLimit
   - Tripous.Data.Config.SetUserValue(System.String,System.String)
   - Tripous.Data.Config.SetValue(System.String,System.String,Tripous.Data.ConfigScope,System.String)
   - Tripous.Data.Config.Store
@@ -29,7 +30,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Config
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 158
+    startLine: 206
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -82,6 +83,35 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+- uid: Tripous.Data.Config.SSelectListRowLimit
+  commentId: F:Tripous.Data.Config.SSelectListRowLimit
+  id: SSelectListRowLimit
+  parent: Tripous.Data.Config
+  langs:
+  - csharp
+  - vb
+  name: SSelectListRowLimit
+  nameWithType: Config.SSelectListRowLimit
+  fullName: Tripous.Data.Config.SSelectListRowLimit
+  type: Field
+  source:
+    remote:
+      path: Tripous.Data/Registry/Config.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SSelectListRowLimit
+    path: ../Tripous.Data/Registry/Config.cs
+    startLine: 212
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The configuration property name used as the row limit for DataModule list SELECTs.
+  example: []
+  syntax:
+    content: public const string SSelectListRowLimit = "SelectListRowLimit"
+    return:
+      type: System.String
+    content.vb: Public Const SSelectListRowLimit As String = "SelectListRowLimit"
 - uid: Tripous.Data.Config.GetValue(System.String)
   commentId: M:Tripous.Data.Config.GetValue(System.String)
   id: GetValue(System.String)
@@ -100,7 +130,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 259
+    startLine: 313
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -142,7 +172,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 267
+    startLine: 321
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -186,7 +216,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 290
+    startLine: 344
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -226,7 +256,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetObjectValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 300
+    startLine: 354
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -268,7 +298,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetObjectValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 308
+    startLine: 362
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -314,7 +344,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetObjectValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 317
+    startLine: 371
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -356,7 +386,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 327
+    startLine: 381
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -396,7 +426,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SetUserValue
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 338
+    startLine: 392
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -432,7 +462,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Store
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 349
+    startLine: 403
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -463,7 +493,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Module
     path: ../Tripous.Data/Registry/Config.cs
-    startLine: 353
+    startLine: 407
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -736,12 +766,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Tripous.Data.Config.GetValue*
-  commentId: Overload:Tripous.Data.Config.GetValue
-  href: Tripous.Data.Config.html#Tripous_Data_Config_GetValue_System_String_
-  name: GetValue
-  nameWithType: Config.GetValue
-  fullName: Tripous.Data.Config.GetValue
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -753,6 +777,12 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
+- uid: Tripous.Data.Config.GetValue*
+  commentId: Overload:Tripous.Data.Config.GetValue
+  href: Tripous.Data.Config.html#Tripous_Data_Config_GetValue_System_String_
+  name: GetValue
+  nameWithType: Config.GetValue
+  fullName: Tripous.Data.Config.GetValue
 - uid: Tripous.Data.ConfigScope
   commentId: T:Tripous.Data.ConfigScope
   parent: Tripous.Data

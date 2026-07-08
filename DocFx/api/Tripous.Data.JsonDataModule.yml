@@ -1,0 +1,1560 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.JsonDataModule
+  commentId: T:Tripous.Data.JsonDataModule
+  id: JsonDataModule
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.JsonDataModule.#ctor
+  - Tripous.Data.JsonDataModule.#ctor(Tripous.Data.DataModule)
+  - Tripous.Data.JsonDataModule.CascadeDeletes
+  - Tripous.Data.JsonDataModule.ClassName
+  - Tripous.Data.JsonDataModule.ConnectionName
+  - Tripous.Data.JsonDataModule.DataSet
+  - Tripous.Data.JsonDataModule.Description
+  - Tripous.Data.JsonDataModule.Group
+  - Tripous.Data.JsonDataModule.GuidOids
+  - Tripous.Data.JsonDataModule.IsSingleSelect
+  - Tripous.Data.JsonDataModule.ItemCaptionField
+  - Tripous.Data.JsonDataModule.ItemTableName
+  - Tripous.Data.JsonDataModule.ListTableName
+  - Tripous.Data.JsonDataModule.MainTableName
+  - Tripous.Data.JsonDataModule.Name
+  - Tripous.Data.JsonDataModule.QueryNames
+  - Tripous.Data.JsonDataModule.SecurityLevel
+  - Tripous.Data.JsonDataModule.State
+  - Tripous.Data.JsonDataModule.StockNames
+  - Tripous.Data.JsonDataModule.Title
+  - Tripous.Data.JsonDataModule.TitleKey
+  - Tripous.Data.JsonDataModule.ToJObject
+  - Tripous.Data.JsonDataModule.ToJObject(Tripous.Data.DataModule)
+  - Tripous.Data.JsonDataModule.ToJson
+  - Tripous.Data.JsonDataModule.UseFilters
+  langs:
+  - csharp
+  - vb
+  name: JsonDataModule
+  nameWithType: JsonDataModule
+  fullName: Tripous.Data.JsonDataModule
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonDataModule
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: JSON contract for a <xref href="Tripous.Data.DataModule" data-throw-if-not-resolved="false"></xref> used by Tripous Web.
+  example: []
+  syntax:
+    content: public class JsonDataModule
+    content.vb: Public Class JsonDataModule
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.JsonDataModule.#ctor
+  commentId: M:Tripous.Data.JsonDataModule.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonDataModule()
+  nameWithType: JsonDataModule.JsonDataModule()
+  fullName: Tripous.Data.JsonDataModule.JsonDataModule()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonDataModule()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.JsonDataModule.#ctor*
+  nameWithType.vb: JsonDataModule.New()
+  fullName.vb: Tripous.Data.JsonDataModule.New()
+  name.vb: New()
+- uid: Tripous.Data.JsonDataModule.#ctor(Tripous.Data.DataModule)
+  commentId: M:Tripous.Data.JsonDataModule.#ctor(Tripous.Data.DataModule)
+  id: '#ctor(Tripous.Data.DataModule)'
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: JsonDataModule(DataModule)
+  nameWithType: JsonDataModule.JsonDataModule(DataModule)
+  fullName: Tripous.Data.JsonDataModule.JsonDataModule(Tripous.Data.DataModule)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonDataModule(DataModule Source)
+    parameters:
+    - id: Source
+      type: Tripous.Data.DataModule
+    content.vb: Public Sub New(Source As DataModule)
+  overload: Tripous.Data.JsonDataModule.#ctor*
+  nameWithType.vb: JsonDataModule.New(DataModule)
+  fullName.vb: Tripous.Data.JsonDataModule.New(Tripous.Data.DataModule)
+  name.vb: New(DataModule)
+- uid: Tripous.Data.JsonDataModule.ToJObject(Tripous.Data.DataModule)
+  commentId: M:Tripous.Data.JsonDataModule.ToJObject(Tripous.Data.DataModule)
+  id: ToJObject(Tripous.Data.DataModule)
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ToJObject(DataModule)
+  nameWithType: JsonDataModule.ToJObject(DataModule)
+  fullName: Tripous.Data.JsonDataModule.ToJObject(Tripous.Data.DataModule)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToJObject
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 66
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts a data module to a JSON object.
+  example: []
+  syntax:
+    content: public static JsonObject ToJObject(DataModule Source)
+    parameters:
+    - id: Source
+      type: Tripous.Data.DataModule
+    return:
+      type: System.Text.Json.Nodes.JsonObject
+    content.vb: Public Shared Function ToJObject(Source As DataModule) As JsonObject
+  overload: Tripous.Data.JsonDataModule.ToJObject*
+- uid: Tripous.Data.JsonDataModule.ToJObject
+  commentId: M:Tripous.Data.JsonDataModule.ToJObject
+  id: ToJObject
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ToJObject()
+  nameWithType: JsonDataModule.ToJObject()
+  fullName: Tripous.Data.JsonDataModule.ToJObject()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToJObject
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 76
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts this instance to a JSON object.
+  example: []
+  syntax:
+    content: public JsonObject ToJObject()
+    return:
+      type: System.Text.Json.Nodes.JsonObject
+    content.vb: Public Function ToJObject() As JsonObject
+  overload: Tripous.Data.JsonDataModule.ToJObject*
+- uid: Tripous.Data.JsonDataModule.ToJson
+  commentId: M:Tripous.Data.JsonDataModule.ToJson
+  id: ToJson
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ToJson()
+  nameWithType: JsonDataModule.ToJson()
+  fullName: Tripous.Data.JsonDataModule.ToJson()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToJson
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 84
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Converts this instance to JSON text.
+  example: []
+  syntax:
+    content: public string ToJson()
+    return:
+      type: System.String
+    content.vb: Public Function ToJson() As String
+  overload: Tripous.Data.JsonDataModule.ToJson*
+- uid: Tripous.Data.JsonDataModule.Name
+  commentId: P:Tripous.Data.JsonDataModule.Name
+  id: Name
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: JsonDataModule.Name
+  fullName: Tripous.Data.JsonDataModule.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module name.
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.Data.JsonDataModule.Name*
+- uid: Tripous.Data.JsonDataModule.Title
+  commentId: P:Tripous.Data.JsonDataModule.Title
+  id: Title
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: Title
+  nameWithType: JsonDataModule.Title
+  fullName: Tripous.Data.JsonDataModule.Title
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Title
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 94
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module title.
+  example: []
+  syntax:
+    content: public string Title { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Title As String
+  overload: Tripous.Data.JsonDataModule.Title*
+- uid: Tripous.Data.JsonDataModule.TitleKey
+  commentId: P:Tripous.Data.JsonDataModule.TitleKey
+  id: TitleKey
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: TitleKey
+  nameWithType: JsonDataModule.TitleKey
+  fullName: Tripous.Data.JsonDataModule.TitleKey
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TitleKey
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 98
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module title localization key.
+  example: []
+  syntax:
+    content: public string TitleKey { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property TitleKey As String
+  overload: Tripous.Data.JsonDataModule.TitleKey*
+- uid: Tripous.Data.JsonDataModule.Group
+  commentId: P:Tripous.Data.JsonDataModule.Group
+  id: Group
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: Group
+  nameWithType: JsonDataModule.Group
+  fullName: Tripous.Data.JsonDataModule.Group
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Group
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 102
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module group.
+  example: []
+  syntax:
+    content: public string Group { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Group As String
+  overload: Tripous.Data.JsonDataModule.Group*
+- uid: Tripous.Data.JsonDataModule.ClassName
+  commentId: P:Tripous.Data.JsonDataModule.ClassName
+  id: ClassName
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ClassName
+  nameWithType: JsonDataModule.ClassName
+  fullName: Tripous.Data.JsonDataModule.ClassName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ClassName
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 106
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module class name.
+  example: []
+  syntax:
+    content: public string ClassName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ClassName As String
+  overload: Tripous.Data.JsonDataModule.ClassName*
+- uid: Tripous.Data.JsonDataModule.ConnectionName
+  commentId: P:Tripous.Data.JsonDataModule.ConnectionName
+  id: ConnectionName
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ConnectionName
+  nameWithType: JsonDataModule.ConnectionName
+  fullName: Tripous.Data.JsonDataModule.ConnectionName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ConnectionName
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 110
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The connection name.
+  example: []
+  syntax:
+    content: public string ConnectionName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ConnectionName As String
+  overload: Tripous.Data.JsonDataModule.ConnectionName*
+- uid: Tripous.Data.JsonDataModule.Description
+  commentId: P:Tripous.Data.JsonDataModule.Description
+  id: Description
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: Description
+  nameWithType: JsonDataModule.Description
+  fullName: Tripous.Data.JsonDataModule.Description
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Description
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 114
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The module description.
+  example: []
+  syntax:
+    content: public string Description { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Description As String
+  overload: Tripous.Data.JsonDataModule.Description*
+- uid: Tripous.Data.JsonDataModule.IsSingleSelect
+  commentId: P:Tripous.Data.JsonDataModule.IsSingleSelect
+  id: IsSingleSelect
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: IsSingleSelect
+  nameWithType: JsonDataModule.IsSingleSelect
+  fullName: Tripous.Data.JsonDataModule.IsSingleSelect
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsSingleSelect
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 118
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when the module has a fixed single select.
+  example: []
+  syntax:
+    content: public bool IsSingleSelect { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsSingleSelect As Boolean
+  overload: Tripous.Data.JsonDataModule.IsSingleSelect*
+- uid: Tripous.Data.JsonDataModule.UseFilters
+  commentId: P:Tripous.Data.JsonDataModule.UseFilters
+  id: UseFilters
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: UseFilters
+  nameWithType: JsonDataModule.UseFilters
+  fullName: Tripous.Data.JsonDataModule.UseFilters
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: UseFilters
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 122
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when filters should be used by UI.
+  example: []
+  syntax:
+    content: public bool UseFilters { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property UseFilters As Boolean
+  overload: Tripous.Data.JsonDataModule.UseFilters*
+- uid: Tripous.Data.JsonDataModule.SecurityLevel
+  commentId: P:Tripous.Data.JsonDataModule.SecurityLevel
+  id: SecurityLevel
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: SecurityLevel
+  nameWithType: JsonDataModule.SecurityLevel
+  fullName: Tripous.Data.JsonDataModule.SecurityLevel
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SecurityLevel
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 126
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The minimum security level required to access the module as a <xref href="Tripous.UserLevel" data-throw-if-not-resolved="false"></xref> integer value.
+  example: []
+  syntax:
+    content: public int SecurityLevel { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property SecurityLevel As Integer
+  overload: Tripous.Data.JsonDataModule.SecurityLevel*
+- uid: Tripous.Data.JsonDataModule.GuidOids
+  commentId: P:Tripous.Data.JsonDataModule.GuidOids
+  id: GuidOids
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: GuidOids
+  nameWithType: JsonDataModule.GuidOids
+  fullName: Tripous.Data.JsonDataModule.GuidOids
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GuidOids
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 130
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when key values are Guid strings.
+  example: []
+  syntax:
+    content: public bool GuidOids { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property GuidOids As Boolean
+  overload: Tripous.Data.JsonDataModule.GuidOids*
+- uid: Tripous.Data.JsonDataModule.CascadeDeletes
+  commentId: P:Tripous.Data.JsonDataModule.CascadeDeletes
+  id: CascadeDeletes
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: CascadeDeletes
+  nameWithType: JsonDataModule.CascadeDeletes
+  fullName: Tripous.Data.JsonDataModule.CascadeDeletes
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CascadeDeletes
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 134
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: True when deletes should cascade from details to master.
+  example: []
+  syntax:
+    content: public bool CascadeDeletes { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property CascadeDeletes As Boolean
+  overload: Tripous.Data.JsonDataModule.CascadeDeletes*
+- uid: Tripous.Data.JsonDataModule.ItemCaptionField
+  commentId: P:Tripous.Data.JsonDataModule.ItemCaptionField
+  id: ItemCaptionField
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ItemCaptionField
+  nameWithType: JsonDataModule.ItemCaptionField
+  fullName: Tripous.Data.JsonDataModule.ItemCaptionField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemCaptionField
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 138
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The field used as item caption.
+  example: []
+  syntax:
+    content: public string ItemCaptionField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ItemCaptionField As String
+  overload: Tripous.Data.JsonDataModule.ItemCaptionField*
+- uid: Tripous.Data.JsonDataModule.MainTableName
+  commentId: P:Tripous.Data.JsonDataModule.MainTableName
+  id: MainTableName
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: MainTableName
+  nameWithType: JsonDataModule.MainTableName
+  fullName: Tripous.Data.JsonDataModule.MainTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MainTableName
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 142
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The main table name.
+  example: []
+  syntax:
+    content: public string MainTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property MainTableName As String
+  overload: Tripous.Data.JsonDataModule.MainTableName*
+- uid: Tripous.Data.JsonDataModule.ListTableName
+  commentId: P:Tripous.Data.JsonDataModule.ListTableName
+  id: ListTableName
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ListTableName
+  nameWithType: JsonDataModule.ListTableName
+  fullName: Tripous.Data.JsonDataModule.ListTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListTableName
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 146
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The list table name.
+  example: []
+  syntax:
+    content: public string ListTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ListTableName As String
+  overload: Tripous.Data.JsonDataModule.ListTableName*
+- uid: Tripous.Data.JsonDataModule.ItemTableName
+  commentId: P:Tripous.Data.JsonDataModule.ItemTableName
+  id: ItemTableName
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: ItemTableName
+  nameWithType: JsonDataModule.ItemTableName
+  fullName: Tripous.Data.JsonDataModule.ItemTableName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ItemTableName
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 150
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The item table name.
+  example: []
+  syntax:
+    content: public string ItemTableName { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ItemTableName As String
+  overload: Tripous.Data.JsonDataModule.ItemTableName*
+- uid: Tripous.Data.JsonDataModule.State
+  commentId: P:Tripous.Data.JsonDataModule.State
+  id: State
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: State
+  nameWithType: JsonDataModule.State
+  fullName: Tripous.Data.JsonDataModule.State
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: State
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 154
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The data module state as a <xref href="Tripous.Data.DataMode" data-throw-if-not-resolved="false"></xref> integer value.
+  example: []
+  syntax:
+    content: public int State { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property State As Integer
+  overload: Tripous.Data.JsonDataModule.State*
+- uid: Tripous.Data.JsonDataModule.QueryNames
+  commentId: P:Tripous.Data.JsonDataModule.QueryNames
+  id: QueryNames
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: QueryNames
+  nameWithType: JsonDataModule.QueryNames
+  fullName: Tripous.Data.JsonDataModule.QueryNames
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: QueryNames
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 158
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The select query names.
+  example: []
+  syntax:
+    content: public List<string> QueryNames { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property QueryNames As List(Of String)
+  overload: Tripous.Data.JsonDataModule.QueryNames*
+- uid: Tripous.Data.JsonDataModule.StockNames
+  commentId: P:Tripous.Data.JsonDataModule.StockNames
+  id: StockNames
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: StockNames
+  nameWithType: JsonDataModule.StockNames
+  fullName: Tripous.Data.JsonDataModule.StockNames
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: StockNames
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 162
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The stock table names.
+  example: []
+  syntax:
+    content: public List<string> StockNames { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property StockNames As List(Of String)
+  overload: Tripous.Data.JsonDataModule.StockNames*
+- uid: Tripous.Data.JsonDataModule.DataSet
+  commentId: P:Tripous.Data.JsonDataModule.DataSet
+  id: DataSet
+  parent: Tripous.Data.JsonDataModule
+  langs:
+  - csharp
+  - vb
+  name: DataSet
+  nameWithType: JsonDataModule.DataSet
+  fullName: Tripous.Data.JsonDataModule.DataSet
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonDataModule.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DataSet
+    path: ../Tripous.Data/Json/JsonDataModule.cs
+    startLine: 166
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The data set.
+  example: []
+  syntax:
+    content: public JsonDataSet DataSet { get; set; }
+    parameters: []
+    return:
+      type: Tripous.Data.JsonDataSet
+    content.vb: Public Property DataSet As JsonDataSet
+  overload: Tripous.Data.JsonDataModule.DataSet*
+references:
+- uid: Tripous.Data.DataModule
+  commentId: T:Tripous.Data.DataModule
+  parent: Tripous.Data
+  href: Tripous.Data.DataModule.html
+  name: DataModule
+  nameWithType: DataModule
+  fullName: Tripous.Data.DataModule
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.JsonDataModule.#ctor*
+  commentId: Overload:Tripous.Data.JsonDataModule.#ctor
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule__ctor
+  name: JsonDataModule
+  nameWithType: JsonDataModule.JsonDataModule
+  fullName: Tripous.Data.JsonDataModule.JsonDataModule
+  nameWithType.vb: JsonDataModule.New
+  fullName.vb: Tripous.Data.JsonDataModule.New
+  name.vb: New
+- uid: Tripous.Data.JsonDataModule.ToJObject*
+  commentId: Overload:Tripous.Data.JsonDataModule.ToJObject
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ToJObject_Tripous_Data_DataModule_
+  name: ToJObject
+  nameWithType: JsonDataModule.ToJObject
+  fullName: Tripous.Data.JsonDataModule.ToJObject
+- uid: System.Text.Json.Nodes.JsonObject
+  commentId: T:System.Text.Json.Nodes.JsonObject
+  parent: System.Text.Json.Nodes
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes.jsonobject
+  name: JsonObject
+  nameWithType: JsonObject
+  fullName: System.Text.Json.Nodes.JsonObject
+- uid: System.Text.Json.Nodes
+  commentId: N:System.Text.Json.Nodes
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text.Json.Nodes
+  nameWithType: System.Text.Json.Nodes
+  fullName: System.Text.Json.Nodes
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+  - name: .
+  - uid: System.Text.Json.Nodes
+    name: Nodes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  - name: .
+  - uid: System.Text.Json
+    name: Json
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json
+  - name: .
+  - uid: System.Text.Json.Nodes
+    name: Nodes
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.json.nodes
+- uid: Tripous.Data.JsonDataModule.ToJson*
+  commentId: Overload:Tripous.Data.JsonDataModule.ToJson
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ToJson
+  name: ToJson
+  nameWithType: JsonDataModule.ToJson
+  fullName: Tripous.Data.JsonDataModule.ToJson
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.JsonDataModule.Name*
+  commentId: Overload:Tripous.Data.JsonDataModule.Name
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_Name
+  name: Name
+  nameWithType: JsonDataModule.Name
+  fullName: Tripous.Data.JsonDataModule.Name
+- uid: Tripous.Data.JsonDataModule.Title*
+  commentId: Overload:Tripous.Data.JsonDataModule.Title
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_Title
+  name: Title
+  nameWithType: JsonDataModule.Title
+  fullName: Tripous.Data.JsonDataModule.Title
+- uid: Tripous.Data.JsonDataModule.TitleKey*
+  commentId: Overload:Tripous.Data.JsonDataModule.TitleKey
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_TitleKey
+  name: TitleKey
+  nameWithType: JsonDataModule.TitleKey
+  fullName: Tripous.Data.JsonDataModule.TitleKey
+- uid: Tripous.Data.JsonDataModule.Group*
+  commentId: Overload:Tripous.Data.JsonDataModule.Group
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_Group
+  name: Group
+  nameWithType: JsonDataModule.Group
+  fullName: Tripous.Data.JsonDataModule.Group
+- uid: Tripous.Data.JsonDataModule.ClassName*
+  commentId: Overload:Tripous.Data.JsonDataModule.ClassName
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ClassName
+  name: ClassName
+  nameWithType: JsonDataModule.ClassName
+  fullName: Tripous.Data.JsonDataModule.ClassName
+- uid: Tripous.Data.JsonDataModule.ConnectionName*
+  commentId: Overload:Tripous.Data.JsonDataModule.ConnectionName
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ConnectionName
+  name: ConnectionName
+  nameWithType: JsonDataModule.ConnectionName
+  fullName: Tripous.Data.JsonDataModule.ConnectionName
+- uid: Tripous.Data.JsonDataModule.Description*
+  commentId: Overload:Tripous.Data.JsonDataModule.Description
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_Description
+  name: Description
+  nameWithType: JsonDataModule.Description
+  fullName: Tripous.Data.JsonDataModule.Description
+- uid: Tripous.Data.JsonDataModule.IsSingleSelect*
+  commentId: Overload:Tripous.Data.JsonDataModule.IsSingleSelect
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_IsSingleSelect
+  name: IsSingleSelect
+  nameWithType: JsonDataModule.IsSingleSelect
+  fullName: Tripous.Data.JsonDataModule.IsSingleSelect
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Tripous.Data.JsonDataModule.UseFilters*
+  commentId: Overload:Tripous.Data.JsonDataModule.UseFilters
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_UseFilters
+  name: UseFilters
+  nameWithType: JsonDataModule.UseFilters
+  fullName: Tripous.Data.JsonDataModule.UseFilters
+- uid: Tripous.UserLevel
+  commentId: T:Tripous.UserLevel
+  parent: Tripous
+  href: Tripous.UserLevel.html
+  name: UserLevel
+  nameWithType: UserLevel
+  fullName: Tripous.UserLevel
+- uid: Tripous.Data.JsonDataModule.SecurityLevel*
+  commentId: Overload:Tripous.Data.JsonDataModule.SecurityLevel
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_SecurityLevel
+  name: SecurityLevel
+  nameWithType: JsonDataModule.SecurityLevel
+  fullName: Tripous.Data.JsonDataModule.SecurityLevel
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.JsonDataModule.GuidOids*
+  commentId: Overload:Tripous.Data.JsonDataModule.GuidOids
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_GuidOids
+  name: GuidOids
+  nameWithType: JsonDataModule.GuidOids
+  fullName: Tripous.Data.JsonDataModule.GuidOids
+- uid: Tripous.Data.JsonDataModule.CascadeDeletes*
+  commentId: Overload:Tripous.Data.JsonDataModule.CascadeDeletes
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_CascadeDeletes
+  name: CascadeDeletes
+  nameWithType: JsonDataModule.CascadeDeletes
+  fullName: Tripous.Data.JsonDataModule.CascadeDeletes
+- uid: Tripous.Data.JsonDataModule.ItemCaptionField*
+  commentId: Overload:Tripous.Data.JsonDataModule.ItemCaptionField
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ItemCaptionField
+  name: ItemCaptionField
+  nameWithType: JsonDataModule.ItemCaptionField
+  fullName: Tripous.Data.JsonDataModule.ItemCaptionField
+- uid: Tripous.Data.JsonDataModule.MainTableName*
+  commentId: Overload:Tripous.Data.JsonDataModule.MainTableName
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_MainTableName
+  name: MainTableName
+  nameWithType: JsonDataModule.MainTableName
+  fullName: Tripous.Data.JsonDataModule.MainTableName
+- uid: Tripous.Data.JsonDataModule.ListTableName*
+  commentId: Overload:Tripous.Data.JsonDataModule.ListTableName
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ListTableName
+  name: ListTableName
+  nameWithType: JsonDataModule.ListTableName
+  fullName: Tripous.Data.JsonDataModule.ListTableName
+- uid: Tripous.Data.JsonDataModule.ItemTableName*
+  commentId: Overload:Tripous.Data.JsonDataModule.ItemTableName
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_ItemTableName
+  name: ItemTableName
+  nameWithType: JsonDataModule.ItemTableName
+  fullName: Tripous.Data.JsonDataModule.ItemTableName
+- uid: Tripous.Data.DataMode
+  commentId: T:Tripous.Data.DataMode
+  parent: Tripous.Data
+  href: Tripous.Data.DataMode.html
+  name: DataMode
+  nameWithType: DataMode
+  fullName: Tripous.Data.DataMode
+- uid: Tripous.Data.JsonDataModule.State*
+  commentId: Overload:Tripous.Data.JsonDataModule.State
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_State
+  name: State
+  nameWithType: JsonDataModule.State
+  fullName: Tripous.Data.JsonDataModule.State
+- uid: Tripous.Data.JsonDataModule.QueryNames*
+  commentId: Overload:Tripous.Data.JsonDataModule.QueryNames
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_QueryNames
+  name: QueryNames
+  nameWithType: JsonDataModule.QueryNames
+  fullName: Tripous.Data.JsonDataModule.QueryNames
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.JsonDataModule.StockNames*
+  commentId: Overload:Tripous.Data.JsonDataModule.StockNames
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_StockNames
+  name: StockNames
+  nameWithType: JsonDataModule.StockNames
+  fullName: Tripous.Data.JsonDataModule.StockNames
+- uid: Tripous.Data.JsonDataModule.DataSet*
+  commentId: Overload:Tripous.Data.JsonDataModule.DataSet
+  href: Tripous.Data.JsonDataModule.html#Tripous_Data_JsonDataModule_DataSet
+  name: DataSet
+  nameWithType: JsonDataModule.DataSet
+  fullName: Tripous.Data.JsonDataModule.DataSet
+- uid: Tripous.Data.JsonDataSet
+  commentId: T:Tripous.Data.JsonDataSet
+  parent: Tripous.Data
+  href: Tripous.Data.JsonDataSet.html
+  name: JsonDataSet
+  nameWithType: JsonDataSet
+  fullName: Tripous.Data.JsonDataSet

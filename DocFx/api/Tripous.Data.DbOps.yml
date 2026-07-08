@@ -200,6 +200,7 @@ references:
   fullName: Tripous.Data.MemTable.Sqls
 - uid: System.Data.DataRowState
   commentId: T:System.Data.DataRowState
+  parent: System.Data
   isExternal: true
   href: https://learn.microsoft.com/dotnet/api/system.data.datarowstate
   name: DataRowState
@@ -457,6 +458,33 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Data
+  commentId: N:System.Data
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Data
+  nameWithType: System.Data
+  fullName: System.Data
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Data
+    name: Data
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.data
 - uid: System
   commentId: N:System
   isExternal: true

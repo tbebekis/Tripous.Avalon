@@ -16,8 +16,6 @@ items:
   - Tripous.Desktop.DataFormAction
   - Tripous.Desktop.DataFormContext
   - Tripous.Desktop.DataFormState
-  - Tripous.Desktop.DataGridBinder
-  - Tripous.Desktop.DataViewItemsSource
   - Tripous.Desktop.DbConnectionEditDialog
   - Tripous.Desktop.DesktopExceptionHandler
   - Tripous.Desktop.DesktopRegistry
@@ -30,12 +28,12 @@ items:
   - Tripous.Desktop.FormDef
   - Tripous.Desktop.FormDisplayMode
   - Tripous.Desktop.GridActionType
-  - Tripous.Desktop.GridColumnBinding
   - Tripous.Desktop.GridColumnDef
   - Tripous.Desktop.GridCommand
   - Tripous.Desktop.GridCommandContext
-  - Tripous.Desktop.GridEditController
-  - Tripous.Desktop.GridLocatorBox
+  - Tripous.Desktop.GroupGridBinder
+  - Tripous.Desktop.GroupGridColumnBinding
+  - Tripous.Desktop.GroupGridLocatorInplaceEditor
   - Tripous.Desktop.HighlightMode
   - Tripous.Desktop.Highlighters
   - Tripous.Desktop.IConfigEditor
@@ -48,7 +46,6 @@ items:
   - Tripous.Desktop.ItemPage
   - Tripous.Desktop.LocatorBox
   - Tripous.Desktop.LocatorBoxRowEventArgs
-  - Tripous.Desktop.LocatorControlHelper
   - Tripous.Desktop.LogBox
   - Tripous.Desktop.LoginBoxData
   - Tripous.Desktop.LoginDialog
@@ -60,8 +57,6 @@ items:
   - Tripous.Desktop.ReferenceContextMenu
   - Tripous.Desktop.ReferenceMenuActionType
   - Tripous.Desktop.ReferenceMenuCommandContext
-  - Tripous.Desktop.RegBuilderProjectData
-  - Tripous.Desktop.RegBuilderProjectDialog
   - Tripous.Desktop.SqlFilterInfo
   - Tripous.Desktop.SqlFilterPanelHandler
   - Tripous.Desktop.ToolBar
@@ -126,13 +121,6 @@ references:
   name: ControlBindingHelper
   nameWithType: ControlBindingHelper
   fullName: Tripous.Desktop.ControlBindingHelper
-- uid: Tripous.Desktop.DataViewItemsSource
-  commentId: T:Tripous.Desktop.DataViewItemsSource
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.DataViewItemsSource.html
-  name: DataViewItemsSource
-  nameWithType: DataViewItemsSource
-  fullName: Tripous.Desktop.DataViewItemsSource
 - uid: Tripous.Desktop.ItemBinder
   commentId: T:Tripous.Desktop.ItemBinder
   parent: Tripous.Desktop
@@ -167,19 +155,6 @@ references:
   name: DataFormContext
   nameWithType: DataFormContext
   fullName: Tripous.Desktop.DataFormContext
-- uid: Tripous.Desktop.DataGridBinder
-  commentId: T:Tripous.Desktop.DataGridBinder
-  href: Tripous.Desktop.DataGridBinder.html
-  name: DataGridBinder
-  nameWithType: DataGridBinder
-  fullName: Tripous.Desktop.DataGridBinder
-- uid: Tripous.Desktop.GridColumnBinding
-  commentId: T:Tripous.Desktop.GridColumnBinding
-  parent: Tripous.Desktop
-  href: Tripous.Desktop.GridColumnBinding.html
-  name: GridColumnBinding
-  nameWithType: GridColumnBinding
-  fullName: Tripous.Desktop.GridColumnBinding
 - uid: Tripous.Desktop.GridActionType
   commentId: T:Tripous.Desktop.GridActionType
   parent: Tripous.Desktop
@@ -214,13 +189,19 @@ references:
   name: IGridHandler
   nameWithType: IGridHandler
   fullName: Tripous.Desktop.IGridHandler
-- uid: Tripous.Desktop.GridEditController
-  commentId: T:Tripous.Desktop.GridEditController
+- uid: Tripous.Desktop.GroupGridBinder
+  commentId: T:Tripous.Desktop.GroupGridBinder
+  href: Tripous.Desktop.GroupGridBinder.html
+  name: GroupGridBinder
+  nameWithType: GroupGridBinder
+  fullName: Tripous.Desktop.GroupGridBinder
+- uid: Tripous.Desktop.GroupGridColumnBinding
+  commentId: T:Tripous.Desktop.GroupGridColumnBinding
   parent: Tripous.Desktop
-  href: Tripous.Desktop.GridEditController.html
-  name: GridEditController
-  nameWithType: GridEditController
-  fullName: Tripous.Desktop.GridEditController
+  href: Tripous.Desktop.GroupGridColumnBinding.html
+  name: GroupGridColumnBinding
+  nameWithType: GroupGridColumnBinding
+  fullName: Tripous.Desktop.GroupGridColumnBinding
 - uid: Tripous.Desktop.DesktopExceptionHandler
   commentId: T:Tripous.Desktop.DesktopExceptionHandler
   href: Tripous.Desktop.DesktopExceptionHandler.html
@@ -303,18 +284,6 @@ references:
   name: ModalResult
   nameWithType: ModalResult
   fullName: Tripous.Desktop.ModalResult
-- uid: Tripous.Desktop.RegBuilderProjectDialog
-  commentId: T:Tripous.Desktop.RegBuilderProjectDialog
-  href: Tripous.Desktop.RegBuilderProjectDialog.html
-  name: RegBuilderProjectDialog
-  nameWithType: RegBuilderProjectDialog
-  fullName: Tripous.Desktop.RegBuilderProjectDialog
-- uid: Tripous.Desktop.RegBuilderProjectData
-  commentId: T:Tripous.Desktop.RegBuilderProjectData
-  href: Tripous.Desktop.RegBuilderProjectData.html
-  name: RegBuilderProjectData
-  nameWithType: RegBuilderProjectData
-  fullName: Tripous.Desktop.RegBuilderProjectData
 - uid: Tripous.Desktop.DataFormAction
   commentId: T:Tripous.Desktop.DataFormAction
   parent: Tripous.Desktop
@@ -483,18 +452,12 @@ references:
   name: SqlFilterPanelHandler
   nameWithType: SqlFilterPanelHandler
   fullName: Tripous.Desktop.SqlFilterPanelHandler
-- uid: Tripous.Desktop.GridLocatorBox
-  commentId: T:Tripous.Desktop.GridLocatorBox
-  href: Tripous.Desktop.GridLocatorBox.html
-  name: GridLocatorBox
-  nameWithType: GridLocatorBox
-  fullName: Tripous.Desktop.GridLocatorBox
-- uid: Tripous.Desktop.LocatorBoxRowEventArgs
-  commentId: T:Tripous.Desktop.LocatorBoxRowEventArgs
-  href: Tripous.Desktop.LocatorBoxRowEventArgs.html
-  name: LocatorBoxRowEventArgs
-  nameWithType: LocatorBoxRowEventArgs
-  fullName: Tripous.Desktop.LocatorBoxRowEventArgs
+- uid: Tripous.Desktop.GroupGridLocatorInplaceEditor
+  commentId: T:Tripous.Desktop.GroupGridLocatorInplaceEditor
+  href: Tripous.Desktop.GroupGridLocatorInplaceEditor.html
+  name: GroupGridLocatorInplaceEditor
+  nameWithType: GroupGridLocatorInplaceEditor
+  fullName: Tripous.Desktop.GroupGridLocatorInplaceEditor
 - uid: Tripous.Desktop.LocatorBox
   commentId: T:Tripous.Desktop.LocatorBox
   parent: Tripous.Desktop
@@ -502,12 +465,12 @@ references:
   name: LocatorBox
   nameWithType: LocatorBox
   fullName: Tripous.Desktop.LocatorBox
-- uid: Tripous.Desktop.LocatorControlHelper
-  commentId: T:Tripous.Desktop.LocatorControlHelper
-  href: Tripous.Desktop.LocatorControlHelper.html
-  name: LocatorControlHelper
-  nameWithType: LocatorControlHelper
-  fullName: Tripous.Desktop.LocatorControlHelper
+- uid: Tripous.Desktop.LocatorBoxRowEventArgs
+  commentId: T:Tripous.Desktop.LocatorBoxRowEventArgs
+  href: Tripous.Desktop.LocatorBoxRowEventArgs.html
+  name: LocatorBoxRowEventArgs
+  nameWithType: LocatorBoxRowEventArgs
+  fullName: Tripous.Desktop.LocatorBoxRowEventArgs
 - uid: Tripous.Desktop.LogBox
   commentId: T:Tripous.Desktop.LogBox
   href: Tripous.Desktop.LogBox.html

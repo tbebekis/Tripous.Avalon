@@ -688,26 +688,21 @@ references:
   fullName: Avalonia.Controls.Control
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
 - uid: Tripous.Desktop.SqlFilterInfo.Control2*
   commentId: Overload:Tripous.Desktop.SqlFilterInfo.Control2
   href: Tripous.Desktop.SqlFilterInfo.html#Tripous_Desktop_SqlFilterInfo_Control2
