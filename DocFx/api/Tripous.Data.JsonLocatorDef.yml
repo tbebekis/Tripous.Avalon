@@ -1,0 +1,1056 @@
+### YamlMime:ManagedReference
+items:
+- uid: Tripous.Data.JsonLocatorDef
+  commentId: T:Tripous.Data.JsonLocatorDef
+  id: JsonLocatorDef
+  parent: Tripous.Data
+  children:
+  - Tripous.Data.JsonLocatorDef.#ctor
+  - Tripous.Data.JsonLocatorDef.#ctor(Tripous.Data.LocatorDef)
+  - Tripous.Data.JsonLocatorDef.Fields
+  - Tripous.Data.JsonLocatorDef.Form
+  - Tripous.Data.JsonLocatorDef.KeyField
+  - Tripous.Data.JsonLocatorDef.ListVisibleFields
+  - Tripous.Data.JsonLocatorDef.MaximumResultCount
+  - Tripous.Data.JsonLocatorDef.MinimumSearchLength
+  - Tripous.Data.JsonLocatorDef.MultiRowSearchFields
+  - Tripous.Data.JsonLocatorDef.Name
+  - Tripous.Data.JsonLocatorDef.ResultFields
+  - Tripous.Data.JsonLocatorDef.SingleRowSearchFields
+  - Tripous.Data.JsonLocatorDef.WebForm
+  langs:
+  - csharp
+  - vb
+  name: JsonLocatorDef
+  nameWithType: JsonLocatorDef
+  fullName: Tripous.Data.JsonLocatorDef
+  type: Class
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: JsonLocatorDef
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: JSON contract for a locator definition.
+  example: []
+  syntax:
+    content: public class JsonLocatorDef
+    content.vb: Public Class JsonLocatorDef
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Tripous.Data.JsonLocatorDef.#ctor
+  commentId: M:Tripous.Data.JsonLocatorDef.#ctor
+  id: '#ctor'
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: JsonLocatorDef()
+  nameWithType: JsonLocatorDef.JsonLocatorDef()
+  fullName: Tripous.Data.JsonLocatorDef.JsonLocatorDef()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 19
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonLocatorDef()
+    content.vb: Public Sub New()
+  overload: Tripous.Data.JsonLocatorDef.#ctor*
+  nameWithType.vb: JsonLocatorDef.New()
+  fullName.vb: Tripous.Data.JsonLocatorDef.New()
+  name.vb: New()
+- uid: Tripous.Data.JsonLocatorDef.#ctor(Tripous.Data.LocatorDef)
+  commentId: M:Tripous.Data.JsonLocatorDef.#ctor(Tripous.Data.LocatorDef)
+  id: '#ctor(Tripous.Data.LocatorDef)'
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: JsonLocatorDef(LocatorDef)
+  nameWithType: JsonLocatorDef.JsonLocatorDef(LocatorDef)
+  fullName: Tripous.Data.JsonLocatorDef.JsonLocatorDef(Tripous.Data.LocatorDef)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Constructor.
+  example: []
+  syntax:
+    content: public JsonLocatorDef(LocatorDef Source)
+    parameters:
+    - id: Source
+      type: Tripous.Data.LocatorDef
+    content.vb: Public Sub New(Source As LocatorDef)
+  overload: Tripous.Data.JsonLocatorDef.#ctor*
+  nameWithType.vb: JsonLocatorDef.New(LocatorDef)
+  fullName.vb: Tripous.Data.JsonLocatorDef.New(Tripous.Data.LocatorDef)
+  name.vb: New(LocatorDef)
+- uid: Tripous.Data.JsonLocatorDef.Name
+  commentId: P:Tripous.Data.JsonLocatorDef.Name
+  id: Name
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: JsonLocatorDef.Name
+  fullName: Tripous.Data.JsonLocatorDef.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The locator name.
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Tripous.Data.JsonLocatorDef.Name*
+- uid: Tripous.Data.JsonLocatorDef.KeyField
+  commentId: P:Tripous.Data.JsonLocatorDef.KeyField
+  id: KeyField
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: KeyField
+  nameWithType: JsonLocatorDef.KeyField
+  fullName: Tripous.Data.JsonLocatorDef.KeyField
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: KeyField
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 53
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The key field name.
+  example: []
+  syntax:
+    content: public string KeyField { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property KeyField As String
+  overload: Tripous.Data.JsonLocatorDef.KeyField*
+- uid: Tripous.Data.JsonLocatorDef.Form
+  commentId: P:Tripous.Data.JsonLocatorDef.Form
+  id: Form
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: Form
+  nameWithType: JsonLocatorDef.Form
+  fullName: Tripous.Data.JsonLocatorDef.Form
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Form
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 57
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The desktop form name.
+  example: []
+  syntax:
+    content: public string Form { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Form As String
+  overload: Tripous.Data.JsonLocatorDef.Form*
+- uid: Tripous.Data.JsonLocatorDef.WebForm
+  commentId: P:Tripous.Data.JsonLocatorDef.WebForm
+  id: WebForm
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: WebForm
+  nameWithType: JsonLocatorDef.WebForm
+  fullName: Tripous.Data.JsonLocatorDef.WebForm
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: WebForm
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 61
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The web form name.
+  example: []
+  syntax:
+    content: public string WebForm { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property WebForm As String
+  overload: Tripous.Data.JsonLocatorDef.WebForm*
+- uid: Tripous.Data.JsonLocatorDef.MinimumSearchLength
+  commentId: P:Tripous.Data.JsonLocatorDef.MinimumSearchLength
+  id: MinimumSearchLength
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: MinimumSearchLength
+  nameWithType: JsonLocatorDef.MinimumSearchLength
+  fullName: Tripous.Data.JsonLocatorDef.MinimumSearchLength
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MinimumSearchLength
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 65
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The minimum search text length.
+  example: []
+  syntax:
+    content: public int MinimumSearchLength { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MinimumSearchLength As Integer
+  overload: Tripous.Data.JsonLocatorDef.MinimumSearchLength*
+- uid: Tripous.Data.JsonLocatorDef.MaximumResultCount
+  commentId: P:Tripous.Data.JsonLocatorDef.MaximumResultCount
+  id: MaximumResultCount
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: MaximumResultCount
+  nameWithType: JsonLocatorDef.MaximumResultCount
+  fullName: Tripous.Data.JsonLocatorDef.MaximumResultCount
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MaximumResultCount
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 69
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The maximum result row count.
+  example: []
+  syntax:
+    content: public int MaximumResultCount { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MaximumResultCount As Integer
+  overload: Tripous.Data.JsonLocatorDef.MaximumResultCount*
+- uid: Tripous.Data.JsonLocatorDef.Fields
+  commentId: P:Tripous.Data.JsonLocatorDef.Fields
+  id: Fields
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: Fields
+  nameWithType: JsonLocatorDef.Fields
+  fullName: Tripous.Data.JsonLocatorDef.Fields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Fields
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The locator fields.
+  example: []
+  syntax:
+    content: public List<JsonLocatorField> Fields { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{Tripous.Data.JsonLocatorField}
+    content.vb: Public Property Fields As List(Of JsonLocatorField)
+  overload: Tripous.Data.JsonLocatorDef.Fields*
+- uid: Tripous.Data.JsonLocatorDef.SingleRowSearchFields
+  commentId: P:Tripous.Data.JsonLocatorDef.SingleRowSearchFields
+  id: SingleRowSearchFields
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: SingleRowSearchFields
+  nameWithType: JsonLocatorDef.SingleRowSearchFields
+  fullName: Tripous.Data.JsonLocatorDef.SingleRowSearchFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SingleRowSearchFields
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 77
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The fields used by a single-row locator UI.
+  example: []
+  syntax:
+    content: public List<string> SingleRowSearchFields { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property SingleRowSearchFields As List(Of String)
+  overload: Tripous.Data.JsonLocatorDef.SingleRowSearchFields*
+- uid: Tripous.Data.JsonLocatorDef.MultiRowSearchFields
+  commentId: P:Tripous.Data.JsonLocatorDef.MultiRowSearchFields
+  id: MultiRowSearchFields
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: MultiRowSearchFields
+  nameWithType: JsonLocatorDef.MultiRowSearchFields
+  fullName: Tripous.Data.JsonLocatorDef.MultiRowSearchFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: MultiRowSearchFields
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The fields used by a multi-row locator UI.
+  example: []
+  syntax:
+    content: public List<string> MultiRowSearchFields { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property MultiRowSearchFields As List(Of String)
+  overload: Tripous.Data.JsonLocatorDef.MultiRowSearchFields*
+- uid: Tripous.Data.JsonLocatorDef.ResultFields
+  commentId: P:Tripous.Data.JsonLocatorDef.ResultFields
+  id: ResultFields
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: ResultFields
+  nameWithType: JsonLocatorDef.ResultFields
+  fullName: Tripous.Data.JsonLocatorDef.ResultFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ResultFields
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 85
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The fields returned by locator execution.
+  example: []
+  syntax:
+    content: public List<string> ResultFields { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property ResultFields As List(Of String)
+  overload: Tripous.Data.JsonLocatorDef.ResultFields*
+- uid: Tripous.Data.JsonLocatorDef.ListVisibleFields
+  commentId: P:Tripous.Data.JsonLocatorDef.ListVisibleFields
+  id: ListVisibleFields
+  parent: Tripous.Data.JsonLocatorDef
+  langs:
+  - csharp
+  - vb
+  name: ListVisibleFields
+  nameWithType: JsonLocatorDef.ListVisibleFields
+  fullName: Tripous.Data.JsonLocatorDef.ListVisibleFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Json/JsonLocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListVisibleFields
+    path: ../Tripous.Data/Json/JsonLocatorDef.cs
+    startLine: 89
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: The fields displayed by locator list UIs.
+  example: []
+  syntax:
+    content: public List<string> ListVisibleFields { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property ListVisibleFields As List(Of String)
+  overload: Tripous.Data.JsonLocatorDef.ListVisibleFields*
+references:
+- uid: Tripous.Data
+  commentId: N:Tripous.Data
+  href: Tripous.html
+  name: Tripous.Data
+  nameWithType: Tripous.Data
+  fullName: Tripous.Data
+  spec.csharp:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+  spec.vb:
+  - uid: Tripous
+    name: Tripous
+    href: Tripous.html
+  - name: .
+  - uid: Tripous.Data
+    name: Data
+    href: Tripous.Data.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Tripous.Data.JsonLocatorDef.#ctor*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.#ctor
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef__ctor
+  name: JsonLocatorDef
+  nameWithType: JsonLocatorDef.JsonLocatorDef
+  fullName: Tripous.Data.JsonLocatorDef.JsonLocatorDef
+  nameWithType.vb: JsonLocatorDef.New
+  fullName.vb: Tripous.Data.JsonLocatorDef.New
+  name.vb: New
+- uid: Tripous.Data.LocatorDef
+  commentId: T:Tripous.Data.LocatorDef
+  parent: Tripous.Data
+  href: Tripous.Data.LocatorDef.html
+  name: LocatorDef
+  nameWithType: LocatorDef
+  fullName: Tripous.Data.LocatorDef
+- uid: Tripous.Data.JsonLocatorDef.Name*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.Name
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_Name
+  name: Name
+  nameWithType: JsonLocatorDef.Name
+  fullName: Tripous.Data.JsonLocatorDef.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Tripous.Data.JsonLocatorDef.KeyField*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.KeyField
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_KeyField
+  name: KeyField
+  nameWithType: JsonLocatorDef.KeyField
+  fullName: Tripous.Data.JsonLocatorDef.KeyField
+- uid: Tripous.Data.JsonLocatorDef.Form*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.Form
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_Form
+  name: Form
+  nameWithType: JsonLocatorDef.Form
+  fullName: Tripous.Data.JsonLocatorDef.Form
+- uid: Tripous.Data.JsonLocatorDef.WebForm*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.WebForm
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_WebForm
+  name: WebForm
+  nameWithType: JsonLocatorDef.WebForm
+  fullName: Tripous.Data.JsonLocatorDef.WebForm
+- uid: Tripous.Data.JsonLocatorDef.MinimumSearchLength*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.MinimumSearchLength
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_MinimumSearchLength
+  name: MinimumSearchLength
+  nameWithType: JsonLocatorDef.MinimumSearchLength
+  fullName: Tripous.Data.JsonLocatorDef.MinimumSearchLength
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Tripous.Data.JsonLocatorDef.MaximumResultCount*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.MaximumResultCount
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_MaximumResultCount
+  name: MaximumResultCount
+  nameWithType: JsonLocatorDef.MaximumResultCount
+  fullName: Tripous.Data.JsonLocatorDef.MaximumResultCount
+- uid: Tripous.Data.JsonLocatorDef.Fields*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.Fields
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_Fields
+  name: Fields
+  nameWithType: JsonLocatorDef.Fields
+  fullName: Tripous.Data.JsonLocatorDef.Fields
+- uid: System.Collections.Generic.List{Tripous.Data.JsonLocatorField}
+  commentId: T:System.Collections.Generic.List{Tripous.Data.JsonLocatorField}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<JsonLocatorField>
+  nameWithType: List<JsonLocatorField>
+  fullName: System.Collections.Generic.List<Tripous.Data.JsonLocatorField>
+  nameWithType.vb: List(Of JsonLocatorField)
+  fullName.vb: System.Collections.Generic.List(Of Tripous.Data.JsonLocatorField)
+  name.vb: List(Of JsonLocatorField)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: Tripous.Data.JsonLocatorField
+    name: JsonLocatorField
+    href: Tripous.Data.JsonLocatorField.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Tripous.Data.JsonLocatorField
+    name: JsonLocatorField
+    href: Tripous.Data.JsonLocatorField.html
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Tripous.Data.JsonLocatorDef.SingleRowSearchFields*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.SingleRowSearchFields
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_SingleRowSearchFields
+  name: SingleRowSearchFields
+  nameWithType: JsonLocatorDef.SingleRowSearchFields
+  fullName: Tripous.Data.JsonLocatorDef.SingleRowSearchFields
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: Tripous.Data.JsonLocatorDef.MultiRowSearchFields*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.MultiRowSearchFields
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_MultiRowSearchFields
+  name: MultiRowSearchFields
+  nameWithType: JsonLocatorDef.MultiRowSearchFields
+  fullName: Tripous.Data.JsonLocatorDef.MultiRowSearchFields
+- uid: Tripous.Data.JsonLocatorDef.ResultFields*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.ResultFields
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_ResultFields
+  name: ResultFields
+  nameWithType: JsonLocatorDef.ResultFields
+  fullName: Tripous.Data.JsonLocatorDef.ResultFields
+- uid: Tripous.Data.JsonLocatorDef.ListVisibleFields*
+  commentId: Overload:Tripous.Data.JsonLocatorDef.ListVisibleFields
+  href: Tripous.Data.JsonLocatorDef.html#Tripous_Data_JsonLocatorDef_ListVisibleFields
+  name: ListVisibleFields
+  nameWithType: JsonLocatorDef.ListVisibleFields
+  fullName: Tripous.Data.JsonLocatorDef.ListVisibleFields

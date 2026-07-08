@@ -111,4 +111,12 @@ public class DemosController : Controller
         ViewData["DataModuleJson"] = CreateDataModuleJson();
         return View("Data/TpDataModuleSerialization");
     }
+    /// <summary>
+    /// Displays the tp.LocatorBox Ajax demo.
+    /// </summary>
+    [Route("/demo/tp-locator-box")]
+    public IActionResult TpLocatorBox()
+    {
+        return View("Controls/LocatorBox");
+    }
 }

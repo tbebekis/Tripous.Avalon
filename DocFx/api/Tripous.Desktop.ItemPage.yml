@@ -8264,26 +8264,26 @@ references:
     isExternal: true
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
+  href: Avalonia.html
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
 - uid: Avalonia.Controls.Primitives
   commentId: N:Avalonia.Controls.Primitives
   isExternal: true
@@ -9698,8 +9698,6 @@ references:
   - name: <
   - uid: Avalonia.Controls.GroupGrid
     name: GroupGrid
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGrid.cs
   - name: ','
   - name: " "
   - uid: System.Boolean
@@ -9717,8 +9715,6 @@ references:
   - name: " "
   - uid: Avalonia.Controls.GroupGrid
     name: GroupGrid
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGrid.cs
   - name: ','
   - name: " "
   - uid: System.Boolean
@@ -9816,8 +9812,6 @@ references:
   - name: <
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: ','
   - name: " "
   - uid: System.Boolean
@@ -9835,8 +9829,6 @@ references:
   - name: " "
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: ','
   - name: " "
   - uid: System.Boolean
@@ -9987,8 +9979,6 @@ references:
   - name: <
   - uid: Avalonia.Controls.GroupGrid
     name: GroupGrid
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGrid.cs
   - name: ','
   - name: " "
   - uid: System.Tuple`2
@@ -10004,8 +9994,6 @@ references:
   - name: " "
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: '>'
   - name: '>'
   spec.vb:
@@ -10018,8 +10006,6 @@ references:
   - name: " "
   - uid: Avalonia.Controls.GroupGrid
     name: GroupGrid
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGrid.cs
   - name: ','
   - name: " "
   - uid: System.Tuple`2
@@ -10037,8 +10023,6 @@ references:
   - name: " "
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: )
   - name: )
 - uid: Tripous.Desktop.ItemPage.RestoreDetailGridSelection*

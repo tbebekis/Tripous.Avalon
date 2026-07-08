@@ -1,0 +1,828 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridToolButton
+  commentId: T:Avalonia.Controls.GroupGridToolButton
+  id: GroupGridToolButton
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridToolButton.#ctor
+  - Avalonia.Controls.GroupGridToolButton.Alignment
+  - Avalonia.Controls.GroupGridToolButton.IsEnabled
+  - Avalonia.Controls.GroupGridToolButton.IsVisible
+  - Avalonia.Controls.GroupGridToolButton.Name
+  - Avalonia.Controls.GroupGridToolButton.PropertyChanged
+  - Avalonia.Controls.GroupGridToolButton.Tag
+  - Avalonia.Controls.GroupGridToolButton.Text
+  - Avalonia.Controls.GroupGridToolButton.ToolTip
+  langs:
+  - csharp
+  - vb
+  name: GroupGridToolButton
+  nameWithType: GroupGridToolButton
+  fullName: Avalonia.Controls.GroupGridToolButton
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridToolButton
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Describes a compact button displayed in the group grid toolbar band.
+  example: []
+  syntax:
+    content: 'public class GroupGridToolButton : INotifyPropertyChanged'
+    content.vb: Public Class GroupGridToolButton Implements INotifyPropertyChanged
+  inheritance:
+  - System.Object
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridToolButton.#ctor
+  commentId: M:Avalonia.Controls.GroupGridToolButton.#ctor
+  id: '#ctor'
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: GroupGridToolButton()
+  nameWithType: GroupGridToolButton.GroupGridToolButton()
+  fullName: Avalonia.Controls.GroupGridToolButton.GroupGridToolButton()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridToolButton" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridToolButton()
+    content.vb: Public Sub New()
+  overload: Avalonia.Controls.GroupGridToolButton.#ctor*
+  nameWithType.vb: GroupGridToolButton.New()
+  fullName.vb: Avalonia.Controls.GroupGridToolButton.New()
+  name.vb: New()
+- uid: Avalonia.Controls.GroupGridToolButton.Name
+  commentId: P:Avalonia.Controls.GroupGridToolButton.Name
+  id: Name
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: GroupGridToolButton.Name
+  fullName: Avalonia.Controls.GroupGridToolButton.Name
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Name
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the button name.
+  example: []
+  syntax:
+    content: public string Name { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Name As String
+  overload: Avalonia.Controls.GroupGridToolButton.Name*
+- uid: Avalonia.Controls.GroupGridToolButton.Text
+  commentId: P:Avalonia.Controls.GroupGridToolButton.Text
+  id: Text
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: Text
+  nameWithType: GroupGridToolButton.Text
+  fullName: Avalonia.Controls.GroupGridToolButton.Text
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Text
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the compact display text.
+  example: []
+  syntax:
+    content: public string Text { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Text As String
+  overload: Avalonia.Controls.GroupGridToolButton.Text*
+- uid: Avalonia.Controls.GroupGridToolButton.ToolTip
+  commentId: P:Avalonia.Controls.GroupGridToolButton.ToolTip
+  id: ToolTip
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: ToolTip
+  nameWithType: GroupGridToolButton.ToolTip
+  fullName: Avalonia.Controls.GroupGridToolButton.ToolTip
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToolTip
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 58
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the tooltip text.
+  example: []
+  syntax:
+    content: public string ToolTip { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ToolTip As String
+  overload: Avalonia.Controls.GroupGridToolButton.ToolTip*
+- uid: Avalonia.Controls.GroupGridToolButton.IsVisible
+  commentId: P:Avalonia.Controls.GroupGridToolButton.IsVisible
+  id: IsVisible
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: IsVisible
+  nameWithType: GroupGridToolButton.IsVisible
+  fullName: Avalonia.Controls.GroupGridToolButton.IsVisible
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsVisible
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 66
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets a value indicating whether the button is visible.
+  example: []
+  syntax:
+    content: public bool IsVisible { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsVisible As Boolean
+  overload: Avalonia.Controls.GroupGridToolButton.IsVisible*
+- uid: Avalonia.Controls.GroupGridToolButton.IsEnabled
+  commentId: P:Avalonia.Controls.GroupGridToolButton.IsEnabled
+  id: IsEnabled
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: IsEnabled
+  nameWithType: GroupGridToolButton.IsEnabled
+  fullName: Avalonia.Controls.GroupGridToolButton.IsEnabled
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsEnabled
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets a value indicating whether the button is enabled.
+  example: []
+  syntax:
+    content: public bool IsEnabled { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsEnabled As Boolean
+  overload: Avalonia.Controls.GroupGridToolButton.IsEnabled*
+- uid: Avalonia.Controls.GroupGridToolButton.Alignment
+  commentId: P:Avalonia.Controls.GroupGridToolButton.Alignment
+  id: Alignment
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: Alignment
+  nameWithType: GroupGridToolButton.Alignment
+  fullName: Avalonia.Controls.GroupGridToolButton.Alignment
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Alignment
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 82
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the button alignment.
+  example: []
+  syntax:
+    content: public GroupGridToolButtonAlignment Alignment { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridToolButtonAlignment
+    content.vb: Public Property Alignment As GroupGridToolButtonAlignment
+  overload: Avalonia.Controls.GroupGridToolButton.Alignment*
+- uid: Avalonia.Controls.GroupGridToolButton.Tag
+  commentId: P:Avalonia.Controls.GroupGridToolButton.Tag
+  id: Tag
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: Tag
+  nameWithType: GroupGridToolButton.Tag
+  fullName: Avalonia.Controls.GroupGridToolButton.Tag
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Tag
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets custom user data.
+  example: []
+  syntax:
+    content: public object Tag { get; set; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public Property Tag As Object
+  overload: Avalonia.Controls.GroupGridToolButton.Tag*
+- uid: Avalonia.Controls.GroupGridToolButton.PropertyChanged
+  commentId: E:Avalonia.Controls.GroupGridToolButton.PropertyChanged
+  id: PropertyChanged
+  parent: Avalonia.Controls.GroupGridToolButton
+  langs:
+  - csharp
+  - vb
+  name: PropertyChanged
+  nameWithType: GroupGridToolButton.PropertyChanged
+  fullName: Avalonia.Controls.GroupGridToolButton.PropertyChanged
+  type: Event
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: PropertyChanged
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridToolButton.cs
+    startLine: 100
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Occurs when a property value changes.
+  example: []
+  syntax:
+    content: public event PropertyChangedEventHandler PropertyChanged
+    return:
+      type: System.ComponentModel.PropertyChangedEventHandler
+    content.vb: Public Event PropertyChanged As PropertyChangedEventHandler
+  implements:
+  - System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.ComponentModel.INotifyPropertyChanged
+  commentId: T:System.ComponentModel.INotifyPropertyChanged
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged
+  name: INotifyPropertyChanged
+  nameWithType: INotifyPropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ComponentModel
+  commentId: N:System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.ComponentModel
+  nameWithType: System.ComponentModel
+  fullName: System.ComponentModel
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.ComponentModel
+    name: ComponentModel
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.componentmodel
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridToolButton
+  commentId: T:Avalonia.Controls.GroupGridToolButton
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridToolButton.html
+  name: GroupGridToolButton
+  nameWithType: GroupGridToolButton
+  fullName: Avalonia.Controls.GroupGridToolButton
+- uid: Avalonia.Controls.GroupGridToolButton.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.#ctor
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton__ctor
+  name: GroupGridToolButton
+  nameWithType: GroupGridToolButton.GroupGridToolButton
+  fullName: Avalonia.Controls.GroupGridToolButton.GroupGridToolButton
+  nameWithType.vb: GroupGridToolButton.New
+  fullName.vb: Avalonia.Controls.GroupGridToolButton.New
+  name.vb: New
+- uid: Avalonia.Controls.GroupGridToolButton.Name*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.Name
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton_Name
+  name: Name
+  nameWithType: GroupGridToolButton.Name
+  fullName: Avalonia.Controls.GroupGridToolButton.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.GroupGridToolButton.Text*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.Text
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton_Text
+  name: Text
+  nameWithType: GroupGridToolButton.Text
+  fullName: Avalonia.Controls.GroupGridToolButton.Text
+- uid: Avalonia.Controls.GroupGridToolButton.ToolTip*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.ToolTip
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton_ToolTip
+  name: ToolTip
+  nameWithType: GroupGridToolButton.ToolTip
+  fullName: Avalonia.Controls.GroupGridToolButton.ToolTip
+- uid: Avalonia.Controls.GroupGridToolButton.IsVisible*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.IsVisible
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton_IsVisible
+  name: IsVisible
+  nameWithType: GroupGridToolButton.IsVisible
+  fullName: Avalonia.Controls.GroupGridToolButton.IsVisible
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Avalonia.Controls.GroupGridToolButton.IsEnabled*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.IsEnabled
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton_IsEnabled
+  name: IsEnabled
+  nameWithType: GroupGridToolButton.IsEnabled
+  fullName: Avalonia.Controls.GroupGridToolButton.IsEnabled
+- uid: Avalonia.Controls.GroupGridToolButton.Alignment*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.Alignment
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton_Alignment
+  name: Alignment
+  nameWithType: GroupGridToolButton.Alignment
+  fullName: Avalonia.Controls.GroupGridToolButton.Alignment
+- uid: Avalonia.Controls.GroupGridToolButtonAlignment
+  commentId: T:Avalonia.Controls.GroupGridToolButtonAlignment
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridToolButtonAlignment.html
+  name: GroupGridToolButtonAlignment
+  nameWithType: GroupGridToolButtonAlignment
+  fullName: Avalonia.Controls.GroupGridToolButtonAlignment
+- uid: Avalonia.Controls.GroupGridToolButton.Tag*
+  commentId: Overload:Avalonia.Controls.GroupGridToolButton.Tag
+  href: Avalonia.Controls.GroupGridToolButton.html#Avalonia_Controls_GroupGridToolButton_Tag
+  name: Tag
+  nameWithType: GroupGridToolButton.Tag
+  fullName: Avalonia.Controls.GroupGridToolButton.Tag
+- uid: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  commentId: E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+  parent: System.ComponentModel.INotifyPropertyChanged
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged.propertychanged
+  name: PropertyChanged
+  nameWithType: INotifyPropertyChanged.PropertyChanged
+  fullName: System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+- uid: System.ComponentModel.PropertyChangedEventHandler
+  commentId: T:System.ComponentModel.PropertyChangedEventHandler
+  parent: System.ComponentModel
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.componentmodel.propertychangedeventhandler
+  name: PropertyChangedEventHandler
+  nameWithType: PropertyChangedEventHandler
+  fullName: System.ComponentModel.PropertyChangedEventHandler

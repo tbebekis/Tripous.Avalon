@@ -1,0 +1,1524 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1
+  commentId: T:Avalonia.Controls.GroupGridListDataAdapter`1
+  id: GroupGridListDataAdapter`1
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridListDataAdapter`1.#ctor(System.Collections.Generic.IList{`0})
+  - Avalonia.Controls.GroupGridListDataAdapter`1.CanDeleteRow(System.Int32)
+  - Avalonia.Controls.GroupGridListDataAdapter`1.CanInsertRow(System.Int32)
+  - Avalonia.Controls.GroupGridListDataAdapter`1.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  - Avalonia.Controls.GroupGridListDataAdapter`1.Changed
+  - Avalonia.Controls.GroupGridListDataAdapter`1.DeleteRow(System.Int32)
+  - Avalonia.Controls.GroupGridListDataAdapter`1.Dispose
+  - Avalonia.Controls.GroupGridListDataAdapter`1.GetRow(System.Int32)
+  - Avalonia.Controls.GroupGridListDataAdapter`1.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  - Avalonia.Controls.GroupGridListDataAdapter`1.InsertRow(System.Int32)
+  - Avalonia.Controls.GroupGridListDataAdapter`1.RowCount
+  - Avalonia.Controls.GroupGridListDataAdapter`1.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+  langs:
+  - csharp
+  - vb
+  name: GroupGridListDataAdapter<T>
+  nameWithType: GroupGridListDataAdapter<T>
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridListDataAdapter
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 9
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Adapts a list of POCO objects to the <xref href="Avalonia.Controls.IGroupGridDataAdapter" data-throw-if-not-resolved="false"></xref> contract.
+  example: []
+  syntax:
+    content: 'public class GroupGridListDataAdapter<T> : IGroupGridDataAdapter, IDisposable'
+    typeParameters:
+    - id: T
+      description: The row type.
+    content.vb: Public Class GroupGridListDataAdapter(Of T) Implements IGroupGridDataAdapter, IDisposable
+  inheritance:
+  - System.Object
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter
+  - System.IDisposable
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  nameWithType.vb: GroupGridListDataAdapter(Of T)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T)
+  name.vb: GroupGridListDataAdapter(Of T)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.#ctor(System.Collections.Generic.IList{`0})
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.#ctor(System.Collections.Generic.IList{`0})
+  id: '#ctor(System.Collections.Generic.IList{`0})'
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: GroupGridListDataAdapter(IList<T>)
+  nameWithType: GroupGridListDataAdapter<T>.GroupGridListDataAdapter(IList<T>)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.GroupGridListDataAdapter(System.Collections.Generic.IList<T>)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 74
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridListDataAdapter%601" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridListDataAdapter(IList<T> Items)
+    parameters:
+    - id: Items
+      type: System.Collections.Generic.IList{{T}}
+      description: The source item list.
+    content.vb: Public Sub New(Items As IList(Of T))
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.#ctor*
+  nameWithType.vb: GroupGridListDataAdapter(Of T).New(IList(Of T))
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).New(System.Collections.Generic.IList(Of T))
+  name.vb: New(IList(Of T))
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.GetRow(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.GetRow(System.Int32)
+  id: GetRow(System.Int32)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: GetRow(int)
+  nameWithType: GroupGridListDataAdapter<T>.GetRow(int)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.GetRow(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 90
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the source row at a specified adapter row index.
+  example: []
+  syntax:
+    content: public object GetRow(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index.
+    return:
+      type: System.Object
+      description: The source row.
+    content.vb: Public Function GetRow(RowIndex As Integer) As Object
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.GetRow*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.GetRow(System.Int32)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).GetRow(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).GetRow(Integer)
+  name.vb: GetRow(Integer)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  id: GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: GetValue(int, GroupGridColumn)
+  nameWithType: GroupGridListDataAdapter<T>.GetValue(int, GroupGridColumn)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.GetValue(int, Avalonia.Controls.GroupGridColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 92
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the cell value at a specified adapter row index and grid column.
+  example: []
+  syntax:
+    content: public object GetValue(int RowIndex, GroupGridColumn Column)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index.
+    - id: Column
+      type: Avalonia.Controls.GroupGridColumn
+      description: The grid column.
+    return:
+      type: System.Object
+      description: The cell value.
+    content.vb: Public Function GetValue(RowIndex As Integer, Column As GroupGridColumn) As Object
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.GetValue*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).GetValue(Integer, GroupGridColumn)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).GetValue(Integer, Avalonia.Controls.GroupGridColumn)
+  name.vb: GetValue(Integer, GroupGridColumn)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+  id: SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: SetValue(int, GroupGridColumn, object)
+  nameWithType: GroupGridListDataAdapter<T>.SetValue(int, GroupGridColumn, object)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.SetValue(int, Avalonia.Controls.GroupGridColumn, object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: SetValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 98
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Sets the cell value at a specified adapter row index and grid column.
+  example: []
+  syntax:
+    content: public void SetValue(int RowIndex, GroupGridColumn Column, object Value)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index.
+    - id: Column
+      type: Avalonia.Controls.GroupGridColumn
+      description: The grid column.
+    - id: Value
+      type: System.Object
+      description: The value to set.
+    content.vb: Public Sub SetValue(RowIndex As Integer, Column As GroupGridColumn, Value As Object)
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.SetValue*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).SetValue(Integer, GroupGridColumn, Object)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).SetValue(Integer, Avalonia.Controls.GroupGridColumn, Object)
+  name.vb: SetValue(Integer, GroupGridColumn, Object)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  id: CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: CanSetValue(int, GroupGridColumn)
+  nameWithType: GroupGridListDataAdapter<T>.CanSetValue(int, GroupGridColumn)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.CanSetValue(int, Avalonia.Controls.GroupGridColumn)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanSetValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 115
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns true when a value can be set at a specified adapter row index and grid column.
+  example: []
+  syntax:
+    content: public bool CanSetValue(int RowIndex, GroupGridColumn Column)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index.
+    - id: Column
+      type: Avalonia.Controls.GroupGridColumn
+      description: The grid column.
+    return:
+      type: System.Boolean
+      description: True when the cell value can be set; otherwise, false.
+    content.vb: Public Function CanSetValue(RowIndex As Integer, Column As GroupGridColumn) As Boolean
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.CanSetValue*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).CanSetValue(Integer, GroupGridColumn)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).CanSetValue(Integer, Avalonia.Controls.GroupGridColumn)
+  name.vb: CanSetValue(Integer, GroupGridColumn)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.CanInsertRow(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.CanInsertRow(System.Int32)
+  id: CanInsertRow(System.Int32)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: CanInsertRow(int)
+  nameWithType: GroupGridListDataAdapter<T>.CanInsertRow(int)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.CanInsertRow(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanInsertRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 121
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns true when the adapter can insert a new row after a specified row index.
+  example: []
+  syntax:
+    content: public bool CanInsertRow(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index, or -1 to insert at the start.
+    return:
+      type: System.Boolean
+      description: True when a new row can be inserted; otherwise, false.
+    content.vb: Public Function CanInsertRow(RowIndex As Integer) As Boolean
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.CanInsertRow*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.CanInsertRow(System.Int32)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).CanInsertRow(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).CanInsertRow(Integer)
+  name.vb: CanInsertRow(Integer)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.InsertRow(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.InsertRow(System.Int32)
+  id: InsertRow(System.Int32)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: InsertRow(int)
+  nameWithType: GroupGridListDataAdapter<T>.InsertRow(int)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.InsertRow(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: InsertRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 126
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Inserts a new row after a specified row index.
+  example: []
+  syntax:
+    content: public int InsertRow(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index, or -1 to insert at the start.
+    return:
+      type: System.Int32
+      description: The inserted adapter row index, or -1 when no row was inserted.
+    content.vb: Public Function InsertRow(RowIndex As Integer) As Integer
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.InsertRow*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.InsertRow(System.Int32)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).InsertRow(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).InsertRow(Integer)
+  name.vb: InsertRow(Integer)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.CanDeleteRow(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.CanDeleteRow(System.Int32)
+  id: CanDeleteRow(System.Int32)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: CanDeleteRow(int)
+  nameWithType: GroupGridListDataAdapter<T>.CanDeleteRow(int)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.CanDeleteRow(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CanDeleteRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 143
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns true when the adapter can delete a specified row.
+  example: []
+  syntax:
+    content: public bool CanDeleteRow(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index.
+    return:
+      type: System.Boolean
+      description: True when the row can be deleted; otherwise, false.
+    content.vb: Public Function CanDeleteRow(RowIndex As Integer) As Boolean
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.CanDeleteRow*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.CanDeleteRow(System.Int32)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).CanDeleteRow(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).CanDeleteRow(Integer)
+  name.vb: CanDeleteRow(Integer)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.DeleteRow(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.DeleteRow(System.Int32)
+  id: DeleteRow(System.Int32)
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: DeleteRow(int)
+  nameWithType: GroupGridListDataAdapter<T>.DeleteRow(int)
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.DeleteRow(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DeleteRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 148
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Deletes a specified row.
+  example: []
+  syntax:
+    content: public bool DeleteRow(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The adapter row index.
+    return:
+      type: System.Boolean
+      description: True if the row was deleted; otherwise, false.
+    content.vb: Public Function DeleteRow(RowIndex As Integer) As Boolean
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.DeleteRow*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.DeleteRow(System.Int32)
+  nameWithType.vb: GroupGridListDataAdapter(Of T).DeleteRow(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).DeleteRow(Integer)
+  name.vb: DeleteRow(Integer)
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.Dispose
+  commentId: M:Avalonia.Controls.GroupGridListDataAdapter`1.Dispose
+  id: Dispose
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: Dispose()
+  nameWithType: GroupGridListDataAdapter<T>.Dispose()
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.Dispose()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Dispose
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 166
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Releases subscriptions held by this adapter.
+  example: []
+  syntax:
+    content: public void Dispose()
+    content.vb: Public Sub Dispose()
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.Dispose*
+  implements:
+  - System.IDisposable.Dispose
+  nameWithType.vb: GroupGridListDataAdapter(Of T).Dispose()
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).Dispose()
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.RowCount
+  commentId: P:Avalonia.Controls.GroupGridListDataAdapter`1.RowCount
+  id: RowCount
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: RowCount
+  nameWithType: GroupGridListDataAdapter<T>.RowCount
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.RowCount
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowCount
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 180
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the number of rows exposed by the adapter.
+  example: []
+  syntax:
+    content: public int RowCount { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property RowCount As Integer
+  overload: Avalonia.Controls.GroupGridListDataAdapter`1.RowCount*
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.RowCount
+  nameWithType.vb: GroupGridListDataAdapter(Of T).RowCount
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).RowCount
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.Changed
+  commentId: E:Avalonia.Controls.GroupGridListDataAdapter`1.Changed
+  id: Changed
+  parent: Avalonia.Controls.GroupGridListDataAdapter`1
+  langs:
+  - csharp
+  - vb
+  name: Changed
+  nameWithType: GroupGridListDataAdapter<T>.Changed
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.Changed
+  type: Event
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Changed
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/Adapters/GroupGridListDataAdapter.cs
+    startLine: 184
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Occurs when rows or cell values exposed by the adapter change.
+  example: []
+  syntax:
+    content: public event EventHandler<GroupGridDataChangedEventArgs> Changed
+    return:
+      type: System.EventHandler{Avalonia.Controls.GroupGridDataChangedEventArgs}
+    content.vb: Public Event Changed As EventHandler(Of GroupGridDataChangedEventArgs)
+  implements:
+  - Avalonia.Controls.IGroupGridDataAdapter.Changed
+  nameWithType.vb: GroupGridListDataAdapter(Of T).Changed
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).Changed
+references:
+- uid: Avalonia.Controls.IGroupGridDataAdapter
+  commentId: T:Avalonia.Controls.IGroupGridDataAdapter
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.IGroupGridDataAdapter.html
+  name: IGroupGridDataAdapter
+  nameWithType: IGroupGridDataAdapter
+  fullName: Avalonia.Controls.IGroupGridDataAdapter
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1
+  commentId: T:Avalonia.Controls.GroupGridListDataAdapter`1
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html
+  name: GroupGridListDataAdapter<T>
+  nameWithType: GroupGridListDataAdapter<T>
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>
+  nameWithType.vb: GroupGridListDataAdapter(Of T)
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T)
+  name.vb: GroupGridListDataAdapter(Of T)
+  spec.csharp:
+  - uid: Avalonia.Controls.GroupGridListDataAdapter`1
+    name: GroupGridListDataAdapter
+    href: Avalonia.Controls.GroupGridListDataAdapter-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: Avalonia.Controls.GroupGridListDataAdapter`1
+    name: GroupGridListDataAdapter
+    href: Avalonia.Controls.GroupGridListDataAdapter-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.#ctor
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1__ctor_System_Collections_Generic_IList__0__
+  name: GroupGridListDataAdapter
+  nameWithType: GroupGridListDataAdapter<T>.GroupGridListDataAdapter
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.GroupGridListDataAdapter
+  nameWithType.vb: GroupGridListDataAdapter(Of T).New
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).New
+  name.vb: New
+- uid: System.Collections.Generic.IList{{T}}
+  commentId: T:System.Collections.Generic.IList{``0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic.IList`1
+  commentId: T:System.Collections.Generic.IList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  name: IList<T>
+  nameWithType: IList<T>
+  fullName: System.Collections.Generic.IList<T>
+  nameWithType.vb: IList(Of T)
+  fullName.vb: System.Collections.Generic.IList(Of T)
+  name.vb: IList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IList`1
+    name: IList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.GetRow*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.GetRow
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_GetRow_System_Int32_
+  name: GetRow
+  nameWithType: GroupGridListDataAdapter<T>.GetRow
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.GetRow
+  nameWithType.vb: GroupGridListDataAdapter(Of T).GetRow
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).GetRow
+- uid: Avalonia.Controls.IGroupGridDataAdapter.GetRow(System.Int32)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.GetRow(System.Int32)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_GetRow_System_Int32_
+  name: GetRow(int)
+  nameWithType: IGroupGridDataAdapter.GetRow(int)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.GetRow(int)
+  nameWithType.vb: IGroupGridDataAdapter.GetRow(Integer)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.GetRow(Integer)
+  name.vb: GetRow(Integer)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.GetRow(System.Int32)
+    name: GetRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_GetRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.GetRow(System.Int32)
+    name: GetRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_GetRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.GetValue*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.GetValue
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_GetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  name: GetValue
+  nameWithType: GroupGridListDataAdapter<T>.GetValue
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.GetValue
+  nameWithType.vb: GroupGridListDataAdapter(Of T).GetValue
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).GetValue
+- uid: Avalonia.Controls.IGroupGridDataAdapter.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_GetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  name: GetValue(int, GroupGridColumn)
+  nameWithType: IGroupGridDataAdapter.GetValue(int, GroupGridColumn)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.GetValue(int, Avalonia.Controls.GroupGridColumn)
+  nameWithType.vb: IGroupGridDataAdapter.GetValue(Integer, GroupGridColumn)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.GetValue(Integer, Avalonia.Controls.GroupGridColumn)
+  name.vb: GetValue(Integer, GroupGridColumn)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+    name: GetValue
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_GetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+    href: Avalonia.Controls.GroupGridColumn.html
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.GetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+    name: GetValue
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_GetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+    href: Avalonia.Controls.GroupGridColumn.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridColumn
+  commentId: T:Avalonia.Controls.GroupGridColumn
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridColumn.html
+  name: GroupGridColumn
+  nameWithType: GroupGridColumn
+  fullName: Avalonia.Controls.GroupGridColumn
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.SetValue*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.SetValue
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_SetValue_System_Int32_Avalonia_Controls_GroupGridColumn_System_Object_
+  name: SetValue
+  nameWithType: GroupGridListDataAdapter<T>.SetValue
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.SetValue
+  nameWithType.vb: GroupGridListDataAdapter(Of T).SetValue
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).SetValue
+- uid: Avalonia.Controls.IGroupGridDataAdapter.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_SetValue_System_Int32_Avalonia_Controls_GroupGridColumn_System_Object_
+  name: SetValue(int, GroupGridColumn, object)
+  nameWithType: IGroupGridDataAdapter.SetValue(int, GroupGridColumn, object)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.SetValue(int, Avalonia.Controls.GroupGridColumn, object)
+  nameWithType.vb: IGroupGridDataAdapter.SetValue(Integer, GroupGridColumn, Object)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.SetValue(Integer, Avalonia.Controls.GroupGridColumn, Object)
+  name.vb: SetValue(Integer, GroupGridColumn, Object)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+    name: SetValue
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_SetValue_System_Int32_Avalonia_Controls_GroupGridColumn_System_Object_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+    href: Avalonia.Controls.GroupGridColumn.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.SetValue(System.Int32,Avalonia.Controls.GroupGridColumn,System.Object)
+    name: SetValue
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_SetValue_System_Int32_Avalonia_Controls_GroupGridColumn_System_Object_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+    href: Avalonia.Controls.GroupGridColumn.html
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.CanSetValue*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.CanSetValue
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_CanSetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  name: CanSetValue
+  nameWithType: GroupGridListDataAdapter<T>.CanSetValue
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.CanSetValue
+  nameWithType.vb: GroupGridListDataAdapter(Of T).CanSetValue
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).CanSetValue
+- uid: Avalonia.Controls.IGroupGridDataAdapter.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanSetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  name: CanSetValue(int, GroupGridColumn)
+  nameWithType: IGroupGridDataAdapter.CanSetValue(int, GroupGridColumn)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.CanSetValue(int, Avalonia.Controls.GroupGridColumn)
+  nameWithType.vb: IGroupGridDataAdapter.CanSetValue(Integer, GroupGridColumn)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.CanSetValue(Integer, Avalonia.Controls.GroupGridColumn)
+  name.vb: CanSetValue(Integer, GroupGridColumn)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+    name: CanSetValue
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanSetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+    href: Avalonia.Controls.GroupGridColumn.html
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.CanSetValue(System.Int32,Avalonia.Controls.GroupGridColumn)
+    name: CanSetValue
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanSetValue_System_Int32_Avalonia_Controls_GroupGridColumn_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+    href: Avalonia.Controls.GroupGridColumn.html
+  - name: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.CanInsertRow*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.CanInsertRow
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_CanInsertRow_System_Int32_
+  name: CanInsertRow
+  nameWithType: GroupGridListDataAdapter<T>.CanInsertRow
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.CanInsertRow
+  nameWithType.vb: GroupGridListDataAdapter(Of T).CanInsertRow
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).CanInsertRow
+- uid: Avalonia.Controls.IGroupGridDataAdapter.CanInsertRow(System.Int32)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.CanInsertRow(System.Int32)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanInsertRow_System_Int32_
+  name: CanInsertRow(int)
+  nameWithType: IGroupGridDataAdapter.CanInsertRow(int)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.CanInsertRow(int)
+  nameWithType.vb: IGroupGridDataAdapter.CanInsertRow(Integer)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.CanInsertRow(Integer)
+  name.vb: CanInsertRow(Integer)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.CanInsertRow(System.Int32)
+    name: CanInsertRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanInsertRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.CanInsertRow(System.Int32)
+    name: CanInsertRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanInsertRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.InsertRow*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.InsertRow
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_InsertRow_System_Int32_
+  name: InsertRow
+  nameWithType: GroupGridListDataAdapter<T>.InsertRow
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.InsertRow
+  nameWithType.vb: GroupGridListDataAdapter(Of T).InsertRow
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).InsertRow
+- uid: Avalonia.Controls.IGroupGridDataAdapter.InsertRow(System.Int32)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.InsertRow(System.Int32)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_InsertRow_System_Int32_
+  name: InsertRow(int)
+  nameWithType: IGroupGridDataAdapter.InsertRow(int)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.InsertRow(int)
+  nameWithType.vb: IGroupGridDataAdapter.InsertRow(Integer)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.InsertRow(Integer)
+  name.vb: InsertRow(Integer)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.InsertRow(System.Int32)
+    name: InsertRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_InsertRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.InsertRow(System.Int32)
+    name: InsertRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_InsertRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.CanDeleteRow*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.CanDeleteRow
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_CanDeleteRow_System_Int32_
+  name: CanDeleteRow
+  nameWithType: GroupGridListDataAdapter<T>.CanDeleteRow
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.CanDeleteRow
+  nameWithType.vb: GroupGridListDataAdapter(Of T).CanDeleteRow
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).CanDeleteRow
+- uid: Avalonia.Controls.IGroupGridDataAdapter.CanDeleteRow(System.Int32)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.CanDeleteRow(System.Int32)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanDeleteRow_System_Int32_
+  name: CanDeleteRow(int)
+  nameWithType: IGroupGridDataAdapter.CanDeleteRow(int)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.CanDeleteRow(int)
+  nameWithType.vb: IGroupGridDataAdapter.CanDeleteRow(Integer)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.CanDeleteRow(Integer)
+  name.vb: CanDeleteRow(Integer)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.CanDeleteRow(System.Int32)
+    name: CanDeleteRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanDeleteRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.CanDeleteRow(System.Int32)
+    name: CanDeleteRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_CanDeleteRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.DeleteRow*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.DeleteRow
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_DeleteRow_System_Int32_
+  name: DeleteRow
+  nameWithType: GroupGridListDataAdapter<T>.DeleteRow
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.DeleteRow
+  nameWithType.vb: GroupGridListDataAdapter(Of T).DeleteRow
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).DeleteRow
+- uid: Avalonia.Controls.IGroupGridDataAdapter.DeleteRow(System.Int32)
+  commentId: M:Avalonia.Controls.IGroupGridDataAdapter.DeleteRow(System.Int32)
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  isExternal: true
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_DeleteRow_System_Int32_
+  name: DeleteRow(int)
+  nameWithType: IGroupGridDataAdapter.DeleteRow(int)
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.DeleteRow(int)
+  nameWithType.vb: IGroupGridDataAdapter.DeleteRow(Integer)
+  fullName.vb: Avalonia.Controls.IGroupGridDataAdapter.DeleteRow(Integer)
+  name.vb: DeleteRow(Integer)
+  spec.csharp:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.DeleteRow(System.Int32)
+    name: DeleteRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_DeleteRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.IGroupGridDataAdapter.DeleteRow(System.Int32)
+    name: DeleteRow
+    href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_DeleteRow_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.Dispose*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.Dispose
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_Dispose
+  name: Dispose
+  nameWithType: GroupGridListDataAdapter<T>.Dispose
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.Dispose
+  nameWithType.vb: GroupGridListDataAdapter(Of T).Dispose
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).Dispose
+- uid: System.IDisposable.Dispose
+  commentId: M:System.IDisposable.Dispose
+  parent: System.IDisposable
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  name: Dispose()
+  nameWithType: IDisposable.Dispose()
+  fullName: System.IDisposable.Dispose()
+  spec.csharp:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.IDisposable.Dispose
+    name: Dispose
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.idisposable.dispose
+  - name: (
+  - name: )
+- uid: Avalonia.Controls.GroupGridListDataAdapter`1.RowCount*
+  commentId: Overload:Avalonia.Controls.GroupGridListDataAdapter`1.RowCount
+  href: Avalonia.Controls.GroupGridListDataAdapter-1.html#Avalonia_Controls_GroupGridListDataAdapter_1_RowCount
+  name: RowCount
+  nameWithType: GroupGridListDataAdapter<T>.RowCount
+  fullName: Avalonia.Controls.GroupGridListDataAdapter<T>.RowCount
+  nameWithType.vb: GroupGridListDataAdapter(Of T).RowCount
+  fullName.vb: Avalonia.Controls.GroupGridListDataAdapter(Of T).RowCount
+- uid: Avalonia.Controls.IGroupGridDataAdapter.RowCount
+  commentId: P:Avalonia.Controls.IGroupGridDataAdapter.RowCount
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_RowCount
+  name: RowCount
+  nameWithType: IGroupGridDataAdapter.RowCount
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.RowCount
+- uid: Avalonia.Controls.IGroupGridDataAdapter.Changed
+  commentId: E:Avalonia.Controls.IGroupGridDataAdapter.Changed
+  parent: Avalonia.Controls.IGroupGridDataAdapter
+  href: Avalonia.Controls.IGroupGridDataAdapter.html#Avalonia_Controls_IGroupGridDataAdapter_Changed
+  name: Changed
+  nameWithType: IGroupGridDataAdapter.Changed
+  fullName: Avalonia.Controls.IGroupGridDataAdapter.Changed
+- uid: System.EventHandler{Avalonia.Controls.GroupGridDataChangedEventArgs}
+  commentId: T:System.EventHandler{Avalonia.Controls.GroupGridDataChangedEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<GroupGridDataChangedEventArgs>
+  nameWithType: EventHandler<GroupGridDataChangedEventArgs>
+  fullName: System.EventHandler<Avalonia.Controls.GroupGridDataChangedEventArgs>
+  nameWithType.vb: EventHandler(Of GroupGridDataChangedEventArgs)
+  fullName.vb: System.EventHandler(Of Avalonia.Controls.GroupGridDataChangedEventArgs)
+  name.vb: EventHandler(Of GroupGridDataChangedEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangedEventArgs
+    name: GroupGridDataChangedEventArgs
+    href: Avalonia.Controls.GroupGridDataChangedEventArgs.html
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangedEventArgs
+    name: GroupGridDataChangedEventArgs
+    href: Avalonia.Controls.GroupGridDataChangedEventArgs.html
+  - name: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: <
+  - name: TEventArgs
+  - name: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.eventhandler-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TEventArgs
+  - name: )

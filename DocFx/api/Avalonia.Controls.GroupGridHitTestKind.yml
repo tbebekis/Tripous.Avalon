@@ -1,0 +1,1443 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridHitTestKind
+  commentId: T:Avalonia.Controls.GroupGridHitTestKind
+  id: GroupGridHitTestKind
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridHitTestKind.BodyCell
+  - Avalonia.Controls.GroupGridHitTestKind.BodyRow
+  - Avalonia.Controls.GroupGridHitTestKind.ColumnDragSource
+  - Avalonia.Controls.GroupGridHitTestKind.ColumnDropTarget
+  - Avalonia.Controls.GroupGridHitTestKind.ColumnHeader
+  - Avalonia.Controls.GroupGridHitTestKind.ColumnResizer
+  - Avalonia.Controls.GroupGridHitTestKind.FilterCell
+  - Avalonia.Controls.GroupGridHitTestKind.FooterSummaryCell
+  - Avalonia.Controls.GroupGridHitTestKind.GroupExpander
+  - Avalonia.Controls.GroupGridHitTestKind.GroupPanel
+  - Avalonia.Controls.GroupGridHitTestKind.GroupPanelDropTarget
+  - Avalonia.Controls.GroupGridHitTestKind.None
+  - Avalonia.Controls.GroupGridHitTestKind.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: GroupGridHitTestKind
+  nameWithType: GroupGridHitTestKind
+  fullName: Avalonia.Controls.GroupGridHitTestKind
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridHitTestKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Specifies the kind of group grid element found during hit testing.
+  example: []
+  syntax:
+    content: public enum GroupGridHitTestKind
+    content.vb: Public Enum GroupGridHitTestKind
+  extensionMethods:
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridHitTestKind)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridHitTestKind)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridHitTestKind)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridHitTestKind)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridHitTestKind)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridHitTestKind)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridHitTestKind)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridHitTestKind,System.Boolean)
+  - Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridHitTestKind)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridHitTestKind.None
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.None
+  id: None
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: GroupGridHitTestKind.None
+  fullName: Avalonia.Controls.GroupGridHitTestKind.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Nothing was hit.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.ToolBar
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.ToolBar
+  id: ToolBar
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ToolBar
+  nameWithType: GroupGridHitTestKind.ToolBar
+  fullName: Avalonia.Controls.GroupGridHitTestKind.ToolBar
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToolBar
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The toolbar was hit.
+  example: []
+  syntax:
+    content: ToolBar = 1
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.GroupPanel
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.GroupPanel
+  id: GroupPanel
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: GroupPanel
+  nameWithType: GroupGridHitTestKind.GroupPanel
+  fullName: Avalonia.Controls.GroupGridHitTestKind.GroupPanel
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupPanel
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The group panel was hit.
+  example: []
+  syntax:
+    content: GroupPanel = 2
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.ColumnHeader
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.ColumnHeader
+  id: ColumnHeader
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ColumnHeader
+  nameWithType: GroupGridHitTestKind.ColumnHeader
+  fullName: Avalonia.Controls.GroupGridHitTestKind.ColumnHeader
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnHeader
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A column header was hit.
+  example: []
+  syntax:
+    content: ColumnHeader = 3
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.ColumnResizer
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.ColumnResizer
+  id: ColumnResizer
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ColumnResizer
+  nameWithType: GroupGridHitTestKind.ColumnResizer
+  fullName: Avalonia.Controls.GroupGridHitTestKind.ColumnResizer
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnResizer
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A column resize handle was hit.
+  example: []
+  syntax:
+    content: ColumnResizer = 4
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.FilterCell
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.FilterCell
+  id: FilterCell
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: FilterCell
+  nameWithType: GroupGridHitTestKind.FilterCell
+  fullName: Avalonia.Controls.GroupGridHitTestKind.FilterCell
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FilterCell
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A filter cell was hit.
+  example: []
+  syntax:
+    content: FilterCell = 5
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.BodyRow
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.BodyRow
+  id: BodyRow
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: BodyRow
+  nameWithType: GroupGridHitTestKind.BodyRow
+  fullName: Avalonia.Controls.GroupGridHitTestKind.BodyRow
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BodyRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A body row was hit.
+  example: []
+  syntax:
+    content: BodyRow = 6
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.BodyCell
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.BodyCell
+  id: BodyCell
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: BodyCell
+  nameWithType: GroupGridHitTestKind.BodyCell
+  fullName: Avalonia.Controls.GroupGridHitTestKind.BodyCell
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: BodyCell
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 41
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A body cell was hit.
+  example: []
+  syntax:
+    content: BodyCell = 7
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.GroupExpander
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.GroupExpander
+  id: GroupExpander
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: GroupExpander
+  nameWithType: GroupGridHitTestKind.GroupExpander
+  fullName: Avalonia.Controls.GroupGridHitTestKind.GroupExpander
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupExpander
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 45
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A group expander was hit.
+  example: []
+  syntax:
+    content: GroupExpander = 8
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.FooterSummaryCell
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.FooterSummaryCell
+  id: FooterSummaryCell
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: FooterSummaryCell
+  nameWithType: GroupGridHitTestKind.FooterSummaryCell
+  fullName: Avalonia.Controls.GroupGridHitTestKind.FooterSummaryCell
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FooterSummaryCell
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A footer summary cell was hit.
+  example: []
+  syntax:
+    content: FooterSummaryCell = 9
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.ColumnDragSource
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.ColumnDragSource
+  id: ColumnDragSource
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ColumnDragSource
+  nameWithType: GroupGridHitTestKind.ColumnDragSource
+  fullName: Avalonia.Controls.GroupGridHitTestKind.ColumnDragSource
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnDragSource
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 53
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A column header drag source was hit.
+  example: []
+  syntax:
+    content: ColumnDragSource = 10
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.ColumnDropTarget
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.ColumnDropTarget
+  id: ColumnDropTarget
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: ColumnDropTarget
+  nameWithType: GroupGridHitTestKind.ColumnDropTarget
+  fullName: Avalonia.Controls.GroupGridHitTestKind.ColumnDropTarget
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnDropTarget
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 57
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A column header drop target was hit.
+  example: []
+  syntax:
+    content: ColumnDropTarget = 11
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestKind.GroupPanelDropTarget
+  commentId: F:Avalonia.Controls.GroupGridHitTestKind.GroupPanelDropTarget
+  id: GroupPanelDropTarget
+  parent: Avalonia.Controls.GroupGridHitTestKind
+  langs:
+  - csharp
+  - vb
+  name: GroupPanelDropTarget
+  nameWithType: GroupGridHitTestKind.GroupPanelDropTarget
+  fullName: Avalonia.Controls.GroupGridHitTestKind.GroupPanelDropTarget
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupPanelDropTarget
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestKind.cs
+    startLine: 61
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A group panel drop target was hit.
+  example: []
+  syntax:
+    content: GroupPanelDropTarget = 12
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.Add<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.Add(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: Add(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.HasAny<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.HasAny(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: HasAny(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.HasNone<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.HasNone(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: HasNone(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.Has<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.Has(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: Has(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.In<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.In(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: In(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.IsExactly<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.IsExactly(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: IsExactly(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<GroupGridHitTestKind>(GroupGridHitTestKind)
+  nameWithType: BitFields.IsZero<GroupGridHitTestKind>(GroupGridHitTestKind)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.IsZero(Of GroupGridHitTestKind)(GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: IsZero(Of GroupGridHitTestKind)(GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridHitTestKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridHitTestKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.Remove<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.Remove(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: Remove(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridHitTestKind,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind, bool)
+  nameWithType: BitFields.Set<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind, bool)
+  nameWithType.vb: BitFields.Set(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind, Boolean)
+  name.vb: Set(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.GroupGridHitTestKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridHitTestKind)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  nameWithType: BitFields.Toggle<GroupGridHitTestKind>(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.GroupGridHitTestKind>(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  nameWithType.vb: BitFields.Toggle(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.GroupGridHitTestKind)(Avalonia.Controls.GroupGridHitTestKind, Avalonia.Controls.GroupGridHitTestKind)
+  name.vb: Toggle(Of GroupGridHitTestKind)(GroupGridHitTestKind, GroupGridHitTestKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridHitTestKind,Avalonia.Controls.GroupGridHitTestKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    href: Avalonia.Controls.GroupGridHitTestKind.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridHitTestKind
+  commentId: T:Avalonia.Controls.GroupGridHitTestKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridHitTestKind.html
+  name: GroupGridHitTestKind
+  nameWithType: GroupGridHitTestKind
+  fullName: Avalonia.Controls.GroupGridHitTestKind

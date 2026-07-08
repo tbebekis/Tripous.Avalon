@@ -75,6 +75,10 @@ items:
   - Tripous.Data.JsonDataRow
   - Tripous.Data.JsonDataSet
   - Tripous.Data.JsonDataTable
+  - Tripous.Data.JsonLocatorDef
+  - Tripous.Data.JsonLocatorField
+  - Tripous.Data.JsonLocatorMapItem
+  - Tripous.Data.JsonLocatorMapPlan
   - Tripous.Data.JsonSelectFilter
   - Tripous.Data.JsonSelectFilters
   - Tripous.Data.LocateOptions
@@ -563,6 +567,30 @@ references:
   name: JsonDataTable
   nameWithType: JsonDataTable
   fullName: Tripous.Data.JsonDataTable
+- uid: Tripous.Data.JsonLocatorDef
+  commentId: T:Tripous.Data.JsonLocatorDef
+  href: Tripous.Data.JsonLocatorDef.html
+  name: JsonLocatorDef
+  nameWithType: JsonLocatorDef
+  fullName: Tripous.Data.JsonLocatorDef
+- uid: Tripous.Data.JsonLocatorField
+  commentId: T:Tripous.Data.JsonLocatorField
+  href: Tripous.Data.JsonLocatorField.html
+  name: JsonLocatorField
+  nameWithType: JsonLocatorField
+  fullName: Tripous.Data.JsonLocatorField
+- uid: Tripous.Data.JsonLocatorMapItem
+  commentId: T:Tripous.Data.JsonLocatorMapItem
+  href: Tripous.Data.JsonLocatorMapItem.html
+  name: JsonLocatorMapItem
+  nameWithType: JsonLocatorMapItem
+  fullName: Tripous.Data.JsonLocatorMapItem
+- uid: Tripous.Data.JsonLocatorMapPlan
+  commentId: T:Tripous.Data.JsonLocatorMapPlan
+  href: Tripous.Data.JsonLocatorMapPlan.html
+  name: JsonLocatorMapPlan
+  nameWithType: JsonLocatorMapPlan
+  fullName: Tripous.Data.JsonLocatorMapPlan
 - uid: Tripous.Data.JsonSelectFilter
   commentId: T:Tripous.Data.JsonSelectFilter
   parent: Tripous.Data

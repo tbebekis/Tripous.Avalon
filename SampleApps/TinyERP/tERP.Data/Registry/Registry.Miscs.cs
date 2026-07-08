@@ -40,13 +40,16 @@ static public partial class Registry
             foreach (string FieldName in FieldNames)
                 Def.Add(FieldName);
         }
-        void SetLists(LocatorDef Def, string[] ResultFields, string[] SearchFields)
+        void SetLists(LocatorDef Def, string[] ResultFields, string[] SearchFields, string[] ListVisibleFields = null)
         {
             Def.ResultFields.Clear();
+            Def.ListVisibleFields.Clear();
             Def.SingleRowSearchFields.Clear();
             Def.MultiRowSearchFields.Clear();
 
             Def.AddResultFields(ResultFields);
+            if (ListVisibleFields != null)
+                Def.AddListVisibleFields(ListVisibleFields);
             Def.AddSearchFields(SearchFields);
         }
         TableDef FindSourceTable(LocatorDef Def)
@@ -182,7 +185,7 @@ where P.IsActive = 1
             ("UnitOfMeasureName", DataFieldType.String),
             ("UnitRatio", DataFieldType.Decimal),
             ("TaxProductGroupId", DataFieldType.String));
-        SetLists(LocatorDef, ["Id", "Code", "Name", "UnitOfMeasureId", "UnitOfMeasureName", "UnitRatio", "TaxProductGroupId"], ["Code", "Name"]);
+        SetLists(LocatorDef, ["Id", "Code", "Name", "UnitOfMeasureId", "UnitOfMeasureName", "UnitRatio", "TaxProductGroupId"], ["Code", "Name"], ["Code", "Name", "UnitOfMeasureName", "UnitRatio"]);
 
         // ● Payment Settlement Finance Movement
         LocatorDef = DataRegistry.AddOrUpdateLocator(
@@ -202,7 +205,7 @@ where P.IsActive = 1
             ("Direction", DataFieldType.Integer),
             ("Amount", DataFieldType.Decimal),
             ("OpenAmount", DataFieldType.Decimal));
-        SetLists(LocatorDef, ["Id", "DocumentCode", "DocumentDate", "PersonCode", "PersonName", "TradeType", "Direction", "Amount", "OpenAmount"], ["DocumentCode", "PersonCode", "PersonName", "TradeType"]);
+        SetLists(LocatorDef, ["Id", "DocumentCode", "DocumentDate", "PersonCode", "PersonName", "TradeType", "Direction", "Amount", "OpenAmount"], ["DocumentCode", "PersonCode", "PersonName", "TradeType"], ["DocumentCode", "DocumentDate", "PersonCode", "PersonName", "Amount", "OpenAmount"]);
     }
     static public void UpdateModules()
     {

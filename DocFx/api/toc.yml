@@ -1,5 +1,168 @@
 ### YamlMime:TableOfContent
 items:
+- uid: Avalonia.Controls
+  name: Avalonia.Controls
+  type: Namespace
+  items:
+  - uid: Avalonia.Controls.GroupGrid
+    name: GroupGrid
+    type: Class
+  - uid: Avalonia.Controls.GroupGridAggregateKind
+    name: GroupGridAggregateKind
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridCell
+    name: GroupGridCell
+    type: Struct
+  - uid: Avalonia.Controls.GroupGridCellEditEventArgs
+    name: GroupGridCellEditEventArgs
+    type: Class
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridCellPointerEventArgs
+    name: GroupGridCellPointerEventArgs
+    type: Class
+  - uid: Avalonia.Controls.GroupGridCheckBoxColumn
+    name: GroupGridCheckBoxColumn
+    type: Class
+  - uid: Avalonia.Controls.GroupGridColumn
+    name: GroupGridColumn
+    type: Class
+  - uid: Avalonia.Controls.GroupGridColumnManagerDialog
+    name: GroupGridColumnManagerDialog
+    type: Class
+  - uid: Avalonia.Controls.GroupGridColumnSettings
+    name: GroupGridColumnSettings
+    type: Class
+  - uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+    name: GroupGridCreateInplaceEditorEventArgs
+    type: Class
+  - uid: Avalonia.Controls.GroupGridCsvExporter
+    name: GroupGridCsvExporter
+    type: Class
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridDataChangedEventArgs
+    name: GroupGridDataChangedEventArgs
+    type: Class
+  - uid: Avalonia.Controls.GroupGridDataViewDataAdapter
+    name: GroupGridDataViewDataAdapter
+    type: Class
+  - uid: Avalonia.Controls.GroupGridDateColumn
+    name: GroupGridDateColumn
+    type: Class
+  - uid: Avalonia.Controls.GroupGridDateInplaceEditor
+    name: GroupGridDateInplaceEditor
+    type: Class
+  - uid: Avalonia.Controls.GroupGridDateNormalizeEventArgs
+    name: GroupGridDateNormalizeEventArgs
+    type: Class
+  - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+    name: GroupGridDropDownInplaceEditorBase
+    type: Class
+  - uid: Avalonia.Controls.GroupGridDropDownPlacementMode
+    name: GroupGridDropDownPlacementMode
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridEngine
+    name: GroupGridEngine
+    type: Class
+  - uid: Avalonia.Controls.GroupGridExportCell
+    name: GroupGridExportCell
+    type: Class
+  - uid: Avalonia.Controls.GroupGridExportColumn
+    name: GroupGridExportColumn
+    type: Class
+  - uid: Avalonia.Controls.GroupGridExportRow
+    name: GroupGridExportRow
+    type: Class
+  - uid: Avalonia.Controls.GroupGridExportSnapshot
+    name: GroupGridExportSnapshot
+    type: Class
+  - uid: Avalonia.Controls.GroupGridExporter
+    name: GroupGridExporter
+    type: Class
+  - uid: Avalonia.Controls.GroupGridExporters
+    name: GroupGridExporters
+    type: Class
+  - uid: Avalonia.Controls.GroupGridHitTestKind
+    name: GroupGridHitTestKind
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridHitTestResult
+    name: GroupGridHitTestResult
+    type: Class
+  - uid: Avalonia.Controls.GroupGridHtmlExporter
+    name: GroupGridHtmlExporter
+    type: Class
+  - uid: Avalonia.Controls.GroupGridInplaceEditorBase
+    name: GroupGridInplaceEditorBase
+    type: Class
+  - uid: Avalonia.Controls.GroupGridJsonExporter
+    name: GroupGridJsonExporter
+    type: Class
+  - uid: Avalonia.Controls.GroupGridLayoutMetrics
+    name: GroupGridLayoutMetrics
+    type: Class
+  - uid: Avalonia.Controls.GroupGridListDataAdapter`1
+    name: GroupGridListDataAdapter<T>
+    type: Class
+  - uid: Avalonia.Controls.GroupGridLookupColumn
+    name: GroupGridLookupColumn
+    type: Class
+  - uid: Avalonia.Controls.GroupGridLookupInplaceEditor
+    name: GroupGridLookupInplaceEditor
+    type: Class
+  - uid: Avalonia.Controls.GroupGridNumberColumn
+    name: GroupGridNumberColumn
+    type: Class
+  - uid: Avalonia.Controls.GroupGridNumberInplaceEditor
+    name: GroupGridNumberInplaceEditor
+    type: Class
+  - uid: Avalonia.Controls.GroupGridRowInfo
+    name: GroupGridRowInfo
+    type: Struct
+  - uid: Avalonia.Controls.GroupGridRowKind
+    name: GroupGridRowKind
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridRowOperationEventArgs
+    name: GroupGridRowOperationEventArgs
+    type: Class
+  - uid: Avalonia.Controls.GroupGridSettings
+    name: GroupGridSettings
+    type: Class
+  - uid: Avalonia.Controls.GroupGridSortDirection
+    name: GroupGridSortDirection
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridSummaryValue
+    name: GroupGridSummaryValue
+    type: Struct
+  - uid: Avalonia.Controls.GroupGridTextColumn
+    name: GroupGridTextColumn
+    type: Class
+  - uid: Avalonia.Controls.GroupGridTextInplaceEditor
+    name: GroupGridTextInplaceEditor
+    type: Class
+  - uid: Avalonia.Controls.GroupGridToolButton
+    name: GroupGridToolButton
+    type: Class
+  - uid: Avalonia.Controls.GroupGridToolButtonAlignment
+    name: GroupGridToolButtonAlignment
+    type: Enum
+  - uid: Avalonia.Controls.GroupGridToolButtonEventArgs
+    name: GroupGridToolButtonEventArgs
+    type: Class
+  - uid: Avalonia.Controls.GroupGridViewport
+    name: GroupGridViewport
+    type: Struct
+  - uid: Avalonia.Controls.IGroupGridDataAdapter
+    name: IGroupGridDataAdapter
+    type: Interface
+  - uid: Avalonia.Controls.IGroupGridDropDownEditorHost
+    name: IGroupGridDropDownEditorHost
+    type: Interface
 - uid: Tripous
   name: Tripous
   type: Namespace
@@ -364,6 +527,18 @@ items:
     type: Class
   - uid: Tripous.Data.JsonDataTable
     name: JsonDataTable
+    type: Class
+  - uid: Tripous.Data.JsonLocatorDef
+    name: JsonLocatorDef
+    type: Class
+  - uid: Tripous.Data.JsonLocatorField
+    name: JsonLocatorField
+    type: Class
+  - uid: Tripous.Data.JsonLocatorMapItem
+    name: JsonLocatorMapItem
+    type: Class
+  - uid: Tripous.Data.JsonLocatorMapPlan
+    name: JsonLocatorMapPlan
     type: Class
   - uid: Tripous.Data.JsonSelectFilter
     name: JsonSelectFilter

@@ -1,0 +1,950 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridLookupColumn
+  commentId: T:Avalonia.Controls.GroupGridLookupColumn
+  id: GroupGridLookupColumn
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridLookupColumn.#ctor
+  - Avalonia.Controls.GroupGridLookupColumn.DisplayMember
+  - Avalonia.Controls.GroupGridLookupColumn.FormatValue(System.Object)
+  - Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource
+  - Avalonia.Controls.GroupGridLookupColumn.ParseValue(System.Object)
+  - Avalonia.Controls.GroupGridLookupColumn.ValueMember
+  langs:
+  - csharp
+  - vb
+  name: GroupGridLookupColumn
+  nameWithType: GroupGridLookupColumn
+  fullName: Avalonia.Controls.GroupGridLookupColumn
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridLookupColumn
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Represents a lookup column in a group grid.
+  example: []
+  syntax:
+    content: 'public class GroupGridLookupColumn : GroupGridColumn'
+    content.vb: Public Class GroupGridLookupColumn Inherits GroupGridColumn
+  inheritance:
+  - System.Object
+  - Avalonia.Controls.GroupGridColumn
+  inheritedMembers:
+  - Avalonia.Controls.GroupGridColumn.CanAggregate(Avalonia.Controls.GroupGridAggregateKind)
+  - Avalonia.Controls.GroupGridColumn.FormatSummaryValue(Avalonia.Controls.GroupGridSummaryValue)
+  - Avalonia.Controls.GroupGridColumn.Name
+  - Avalonia.Controls.GroupGridColumn.Header
+  - Avalonia.Controls.GroupGridColumn.Width
+  - Avalonia.Controls.GroupGridColumn.MinWidth
+  - Avalonia.Controls.GroupGridColumn.IsVisible
+  - Avalonia.Controls.GroupGridColumn.IsReadOnly
+  - Avalonia.Controls.GroupGridColumn.CanUserResize
+  - Avalonia.Controls.GroupGridColumn.CanUserReorder
+  - Avalonia.Controls.GroupGridColumn.CanUserGroup
+  - Avalonia.Controls.GroupGridColumn.CanUserHide
+  - Avalonia.Controls.GroupGridColumn.ValueType
+  - Avalonia.Controls.GroupGridColumn.DisplayFormat
+  - Avalonia.Controls.GroupGridColumn.HorizontalAlignment
+  - Avalonia.Controls.GroupGridColumn.GroupSummary
+  - Avalonia.Controls.GroupGridColumn.TotalSummary
+  - Avalonia.Controls.GroupGridColumn.Tag
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridLookupColumn.#ctor
+  commentId: M:Avalonia.Controls.GroupGridLookupColumn.#ctor
+  id: '#ctor'
+  parent: Avalonia.Controls.GroupGridLookupColumn
+  langs:
+  - csharp
+  - vb
+  name: GroupGridLookupColumn()
+  nameWithType: GroupGridLookupColumn.GroupGridLookupColumn()
+  fullName: Avalonia.Controls.GroupGridLookupColumn.GroupGridLookupColumn()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridLookupColumn" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridLookupColumn()
+    content.vb: Public Sub New()
+  overload: Avalonia.Controls.GroupGridLookupColumn.#ctor*
+  nameWithType.vb: GroupGridLookupColumn.New()
+  fullName.vb: Avalonia.Controls.GroupGridLookupColumn.New()
+  name.vb: New()
+- uid: Avalonia.Controls.GroupGridLookupColumn.FormatValue(System.Object)
+  commentId: M:Avalonia.Controls.GroupGridLookupColumn.FormatValue(System.Object)
+  id: FormatValue(System.Object)
+  parent: Avalonia.Controls.GroupGridLookupColumn
+  langs:
+  - csharp
+  - vb
+  name: FormatValue(object)
+  nameWithType: GroupGridLookupColumn.FormatValue(object)
+  fullName: Avalonia.Controls.GroupGridLookupColumn.FormatValue(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FormatValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Formats a value for display.
+  example: []
+  syntax:
+    content: public override string FormatValue(object Value)
+    parameters:
+    - id: Value
+      type: System.Object
+      description: The value to format.
+    return:
+      type: System.String
+      description: The formatted display text.
+    content.vb: Public Overrides Function FormatValue(Value As Object) As String
+  overridden: Avalonia.Controls.GroupGridColumn.FormatValue(System.Object)
+  overload: Avalonia.Controls.GroupGridLookupColumn.FormatValue*
+  nameWithType.vb: GroupGridLookupColumn.FormatValue(Object)
+  fullName.vb: Avalonia.Controls.GroupGridLookupColumn.FormatValue(Object)
+  name.vb: FormatValue(Object)
+- uid: Avalonia.Controls.GroupGridLookupColumn.ParseValue(System.Object)
+  commentId: M:Avalonia.Controls.GroupGridLookupColumn.ParseValue(System.Object)
+  id: ParseValue(System.Object)
+  parent: Avalonia.Controls.GroupGridLookupColumn
+  langs:
+  - csharp
+  - vb
+  name: ParseValue(object)
+  nameWithType: GroupGridLookupColumn.ParseValue(object)
+  fullName: Avalonia.Controls.GroupGridLookupColumn.ParseValue(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ParseValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Parses an editor value before it is written to the adapter.
+  example: []
+  syntax:
+    content: public override object ParseValue(object Value)
+    parameters:
+    - id: Value
+      type: System.Object
+      description: The editor value.
+    return:
+      type: System.Object
+      description: The parsed value.
+    content.vb: Public Overrides Function ParseValue(Value As Object) As Object
+  overridden: Avalonia.Controls.GroupGridColumn.ParseValue(System.Object)
+  overload: Avalonia.Controls.GroupGridLookupColumn.ParseValue*
+  nameWithType.vb: GroupGridLookupColumn.ParseValue(Object)
+  fullName.vb: Avalonia.Controls.GroupGridLookupColumn.ParseValue(Object)
+  name.vb: ParseValue(Object)
+- uid: Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource
+  commentId: P:Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource
+  id: LookupItemsSource
+  parent: Avalonia.Controls.GroupGridLookupColumn
+  langs:
+  - csharp
+  - vb
+  name: LookupItemsSource
+  nameWithType: GroupGridLookupColumn.LookupItemsSource
+  fullName: Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LookupItemsSource
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+    startLine: 79
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the lookup items source.
+  example: []
+  syntax:
+    content: public IEnumerable LookupItemsSource { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.IEnumerable
+    content.vb: Public Property LookupItemsSource As IEnumerable
+  overload: Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource*
+- uid: Avalonia.Controls.GroupGridLookupColumn.DisplayMember
+  commentId: P:Avalonia.Controls.GroupGridLookupColumn.DisplayMember
+  id: DisplayMember
+  parent: Avalonia.Controls.GroupGridLookupColumn
+  langs:
+  - csharp
+  - vb
+  name: DisplayMember
+  nameWithType: GroupGridLookupColumn.DisplayMember
+  fullName: Avalonia.Controls.GroupGridLookupColumn.DisplayMember
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: DisplayMember
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+    startLine: 83
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the lookup display member.
+  example: []
+  syntax:
+    content: public string DisplayMember { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property DisplayMember As String
+  overload: Avalonia.Controls.GroupGridLookupColumn.DisplayMember*
+- uid: Avalonia.Controls.GroupGridLookupColumn.ValueMember
+  commentId: P:Avalonia.Controls.GroupGridLookupColumn.ValueMember
+  id: ValueMember
+  parent: Avalonia.Controls.GroupGridLookupColumn
+  langs:
+  - csharp
+  - vb
+  name: ValueMember
+  nameWithType: GroupGridLookupColumn.ValueMember
+  fullName: Avalonia.Controls.GroupGridLookupColumn.ValueMember
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValueMember
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLookupColumn.cs
+    startLine: 87
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the lookup value member.
+  example: []
+  syntax:
+    content: public string ValueMember { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ValueMember As String
+  overload: Avalonia.Controls.GroupGridLookupColumn.ValueMember*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Avalonia.Controls.GroupGridColumn
+  commentId: T:Avalonia.Controls.GroupGridColumn
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridColumn.html
+  name: GroupGridColumn
+  nameWithType: GroupGridColumn
+  fullName: Avalonia.Controls.GroupGridColumn
+- uid: Avalonia.Controls.GroupGridColumn.CanAggregate(Avalonia.Controls.GroupGridAggregateKind)
+  commentId: M:Avalonia.Controls.GroupGridColumn.CanAggregate(Avalonia.Controls.GroupGridAggregateKind)
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_CanAggregate_Avalonia_Controls_GroupGridAggregateKind_
+  name: CanAggregate(GroupGridAggregateKind)
+  nameWithType: GroupGridColumn.CanAggregate(GroupGridAggregateKind)
+  fullName: Avalonia.Controls.GroupGridColumn.CanAggregate(Avalonia.Controls.GroupGridAggregateKind)
+  spec.csharp:
+  - uid: Avalonia.Controls.GroupGridColumn.CanAggregate(Avalonia.Controls.GroupGridAggregateKind)
+    name: CanAggregate
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_CanAggregate_Avalonia_Controls_GroupGridAggregateKind_
+  - name: (
+  - uid: Avalonia.Controls.GroupGridAggregateKind
+    name: GroupGridAggregateKind
+    href: Avalonia.Controls.GroupGridAggregateKind.html
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.GroupGridColumn.CanAggregate(Avalonia.Controls.GroupGridAggregateKind)
+    name: CanAggregate
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_CanAggregate_Avalonia_Controls_GroupGridAggregateKind_
+  - name: (
+  - uid: Avalonia.Controls.GroupGridAggregateKind
+    name: GroupGridAggregateKind
+    href: Avalonia.Controls.GroupGridAggregateKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridColumn.FormatSummaryValue(Avalonia.Controls.GroupGridSummaryValue)
+  commentId: M:Avalonia.Controls.GroupGridColumn.FormatSummaryValue(Avalonia.Controls.GroupGridSummaryValue)
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_FormatSummaryValue_Avalonia_Controls_GroupGridSummaryValue_
+  name: FormatSummaryValue(GroupGridSummaryValue)
+  nameWithType: GroupGridColumn.FormatSummaryValue(GroupGridSummaryValue)
+  fullName: Avalonia.Controls.GroupGridColumn.FormatSummaryValue(Avalonia.Controls.GroupGridSummaryValue)
+  spec.csharp:
+  - uid: Avalonia.Controls.GroupGridColumn.FormatSummaryValue(Avalonia.Controls.GroupGridSummaryValue)
+    name: FormatSummaryValue
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_FormatSummaryValue_Avalonia_Controls_GroupGridSummaryValue_
+  - name: (
+  - uid: Avalonia.Controls.GroupGridSummaryValue
+    name: GroupGridSummaryValue
+    href: Avalonia.Controls.GroupGridSummaryValue.html
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.GroupGridColumn.FormatSummaryValue(Avalonia.Controls.GroupGridSummaryValue)
+    name: FormatSummaryValue
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_FormatSummaryValue_Avalonia_Controls_GroupGridSummaryValue_
+  - name: (
+  - uid: Avalonia.Controls.GroupGridSummaryValue
+    name: GroupGridSummaryValue
+    href: Avalonia.Controls.GroupGridSummaryValue.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridColumn.Name
+  commentId: P:Avalonia.Controls.GroupGridColumn.Name
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_Name
+  name: Name
+  nameWithType: GroupGridColumn.Name
+  fullName: Avalonia.Controls.GroupGridColumn.Name
+- uid: Avalonia.Controls.GroupGridColumn.Header
+  commentId: P:Avalonia.Controls.GroupGridColumn.Header
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_Header
+  name: Header
+  nameWithType: GroupGridColumn.Header
+  fullName: Avalonia.Controls.GroupGridColumn.Header
+- uid: Avalonia.Controls.GroupGridColumn.Width
+  commentId: P:Avalonia.Controls.GroupGridColumn.Width
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_Width
+  name: Width
+  nameWithType: GroupGridColumn.Width
+  fullName: Avalonia.Controls.GroupGridColumn.Width
+- uid: Avalonia.Controls.GroupGridColumn.MinWidth
+  commentId: P:Avalonia.Controls.GroupGridColumn.MinWidth
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_MinWidth
+  name: MinWidth
+  nameWithType: GroupGridColumn.MinWidth
+  fullName: Avalonia.Controls.GroupGridColumn.MinWidth
+- uid: Avalonia.Controls.GroupGridColumn.IsVisible
+  commentId: P:Avalonia.Controls.GroupGridColumn.IsVisible
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_IsVisible
+  name: IsVisible
+  nameWithType: GroupGridColumn.IsVisible
+  fullName: Avalonia.Controls.GroupGridColumn.IsVisible
+- uid: Avalonia.Controls.GroupGridColumn.IsReadOnly
+  commentId: P:Avalonia.Controls.GroupGridColumn.IsReadOnly
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_IsReadOnly
+  name: IsReadOnly
+  nameWithType: GroupGridColumn.IsReadOnly
+  fullName: Avalonia.Controls.GroupGridColumn.IsReadOnly
+- uid: Avalonia.Controls.GroupGridColumn.CanUserResize
+  commentId: P:Avalonia.Controls.GroupGridColumn.CanUserResize
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_CanUserResize
+  name: CanUserResize
+  nameWithType: GroupGridColumn.CanUserResize
+  fullName: Avalonia.Controls.GroupGridColumn.CanUserResize
+- uid: Avalonia.Controls.GroupGridColumn.CanUserReorder
+  commentId: P:Avalonia.Controls.GroupGridColumn.CanUserReorder
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_CanUserReorder
+  name: CanUserReorder
+  nameWithType: GroupGridColumn.CanUserReorder
+  fullName: Avalonia.Controls.GroupGridColumn.CanUserReorder
+- uid: Avalonia.Controls.GroupGridColumn.CanUserGroup
+  commentId: P:Avalonia.Controls.GroupGridColumn.CanUserGroup
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_CanUserGroup
+  name: CanUserGroup
+  nameWithType: GroupGridColumn.CanUserGroup
+  fullName: Avalonia.Controls.GroupGridColumn.CanUserGroup
+- uid: Avalonia.Controls.GroupGridColumn.CanUserHide
+  commentId: P:Avalonia.Controls.GroupGridColumn.CanUserHide
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_CanUserHide
+  name: CanUserHide
+  nameWithType: GroupGridColumn.CanUserHide
+  fullName: Avalonia.Controls.GroupGridColumn.CanUserHide
+- uid: Avalonia.Controls.GroupGridColumn.ValueType
+  commentId: P:Avalonia.Controls.GroupGridColumn.ValueType
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_ValueType
+  name: ValueType
+  nameWithType: GroupGridColumn.ValueType
+  fullName: Avalonia.Controls.GroupGridColumn.ValueType
+- uid: Avalonia.Controls.GroupGridColumn.DisplayFormat
+  commentId: P:Avalonia.Controls.GroupGridColumn.DisplayFormat
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_DisplayFormat
+  name: DisplayFormat
+  nameWithType: GroupGridColumn.DisplayFormat
+  fullName: Avalonia.Controls.GroupGridColumn.DisplayFormat
+- uid: Avalonia.Controls.GroupGridColumn.HorizontalAlignment
+  commentId: P:Avalonia.Controls.GroupGridColumn.HorizontalAlignment
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_HorizontalAlignment
+  name: HorizontalAlignment
+  nameWithType: GroupGridColumn.HorizontalAlignment
+  fullName: Avalonia.Controls.GroupGridColumn.HorizontalAlignment
+- uid: Avalonia.Controls.GroupGridColumn.GroupSummary
+  commentId: P:Avalonia.Controls.GroupGridColumn.GroupSummary
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_GroupSummary
+  name: GroupSummary
+  nameWithType: GroupGridColumn.GroupSummary
+  fullName: Avalonia.Controls.GroupGridColumn.GroupSummary
+- uid: Avalonia.Controls.GroupGridColumn.TotalSummary
+  commentId: P:Avalonia.Controls.GroupGridColumn.TotalSummary
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_TotalSummary
+  name: TotalSummary
+  nameWithType: GroupGridColumn.TotalSummary
+  fullName: Avalonia.Controls.GroupGridColumn.TotalSummary
+- uid: Avalonia.Controls.GroupGridColumn.Tag
+  commentId: P:Avalonia.Controls.GroupGridColumn.Tag
+  parent: Avalonia.Controls.GroupGridColumn
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_Tag
+  name: Tag
+  nameWithType: GroupGridColumn.Tag
+  fullName: Avalonia.Controls.GroupGridColumn.Tag
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridLookupColumn
+  commentId: T:Avalonia.Controls.GroupGridLookupColumn
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridLookupColumn.html
+  name: GroupGridLookupColumn
+  nameWithType: GroupGridLookupColumn
+  fullName: Avalonia.Controls.GroupGridLookupColumn
+- uid: Avalonia.Controls.GroupGridLookupColumn.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridLookupColumn.#ctor
+  href: Avalonia.Controls.GroupGridLookupColumn.html#Avalonia_Controls_GroupGridLookupColumn__ctor
+  name: GroupGridLookupColumn
+  nameWithType: GroupGridLookupColumn.GroupGridLookupColumn
+  fullName: Avalonia.Controls.GroupGridLookupColumn.GroupGridLookupColumn
+  nameWithType.vb: GroupGridLookupColumn.New
+  fullName.vb: Avalonia.Controls.GroupGridLookupColumn.New
+  name.vb: New
+- uid: Avalonia.Controls.GroupGridColumn.FormatValue(System.Object)
+  commentId: M:Avalonia.Controls.GroupGridColumn.FormatValue(System.Object)
+  parent: Avalonia.Controls.GroupGridColumn
+  isExternal: true
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_FormatValue_System_Object_
+  name: FormatValue(object)
+  nameWithType: GroupGridColumn.FormatValue(object)
+  fullName: Avalonia.Controls.GroupGridColumn.FormatValue(object)
+  nameWithType.vb: GroupGridColumn.FormatValue(Object)
+  fullName.vb: Avalonia.Controls.GroupGridColumn.FormatValue(Object)
+  name.vb: FormatValue(Object)
+  spec.csharp:
+  - uid: Avalonia.Controls.GroupGridColumn.FormatValue(System.Object)
+    name: FormatValue
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_FormatValue_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.GroupGridColumn.FormatValue(System.Object)
+    name: FormatValue
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_FormatValue_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Avalonia.Controls.GroupGridLookupColumn.FormatValue*
+  commentId: Overload:Avalonia.Controls.GroupGridLookupColumn.FormatValue
+  href: Avalonia.Controls.GroupGridLookupColumn.html#Avalonia_Controls_GroupGridLookupColumn_FormatValue_System_Object_
+  name: FormatValue
+  nameWithType: GroupGridLookupColumn.FormatValue
+  fullName: Avalonia.Controls.GroupGridLookupColumn.FormatValue
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.GroupGridColumn.ParseValue(System.Object)
+  commentId: M:Avalonia.Controls.GroupGridColumn.ParseValue(System.Object)
+  parent: Avalonia.Controls.GroupGridColumn
+  isExternal: true
+  href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_ParseValue_System_Object_
+  name: ParseValue(object)
+  nameWithType: GroupGridColumn.ParseValue(object)
+  fullName: Avalonia.Controls.GroupGridColumn.ParseValue(object)
+  nameWithType.vb: GroupGridColumn.ParseValue(Object)
+  fullName.vb: Avalonia.Controls.GroupGridColumn.ParseValue(Object)
+  name.vb: ParseValue(Object)
+  spec.csharp:
+  - uid: Avalonia.Controls.GroupGridColumn.ParseValue(System.Object)
+    name: ParseValue
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_ParseValue_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: Avalonia.Controls.GroupGridColumn.ParseValue(System.Object)
+    name: ParseValue
+    href: Avalonia.Controls.GroupGridColumn.html#Avalonia_Controls_GroupGridColumn_ParseValue_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Avalonia.Controls.GroupGridLookupColumn.ParseValue*
+  commentId: Overload:Avalonia.Controls.GroupGridLookupColumn.ParseValue
+  href: Avalonia.Controls.GroupGridLookupColumn.html#Avalonia_Controls_GroupGridLookupColumn_ParseValue_System_Object_
+  name: ParseValue
+  nameWithType: GroupGridLookupColumn.ParseValue
+  fullName: Avalonia.Controls.GroupGridLookupColumn.ParseValue
+- uid: Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource*
+  commentId: Overload:Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource
+  href: Avalonia.Controls.GroupGridLookupColumn.html#Avalonia_Controls_GroupGridLookupColumn_LookupItemsSource
+  name: LookupItemsSource
+  nameWithType: GroupGridLookupColumn.LookupItemsSource
+  fullName: Avalonia.Controls.GroupGridLookupColumn.LookupItemsSource
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+- uid: Avalonia.Controls.GroupGridLookupColumn.DisplayMember*
+  commentId: Overload:Avalonia.Controls.GroupGridLookupColumn.DisplayMember
+  href: Avalonia.Controls.GroupGridLookupColumn.html#Avalonia_Controls_GroupGridLookupColumn_DisplayMember
+  name: DisplayMember
+  nameWithType: GroupGridLookupColumn.DisplayMember
+  fullName: Avalonia.Controls.GroupGridLookupColumn.DisplayMember
+- uid: Avalonia.Controls.GroupGridLookupColumn.ValueMember*
+  commentId: Overload:Avalonia.Controls.GroupGridLookupColumn.ValueMember
+  href: Avalonia.Controls.GroupGridLookupColumn.html#Avalonia_Controls_GroupGridLookupColumn_ValueMember
+  name: ValueMember
+  nameWithType: GroupGridLookupColumn.ValueMember
+  fullName: Avalonia.Controls.GroupGridLookupColumn.ValueMember

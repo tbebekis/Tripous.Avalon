@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "tp.LocatorBox Ajax";
+}
+
+@await Html.PartialAsync("Demos.IndexLink")
+
+<h1>tp.LocatorBox Ajax</h1>
+
+<p>
+    A <code>tp.LocatorBox</code> uses Ajax to load locator metadata, execute a search, and apply the returned map plan to a plain target object.
+</p>
+
+<style>
+    .locator-box-demo-layout {
+        display: grid;
+        gap: 14px;
+        max-width: 1080px;
+    }
+    .locator-box-demo-panel {
+        display: grid;
+        gap: 8px;
+        padding: 12px;
+        border: 1px solid #d0d7de;
+        background: #f7f9fb;
+    }
+    .locator-box-demo-panel h2 {
+        margin: 0;
+        font-size: 16px;
+    }
+    .locator-box-demo-output {
+        box-sizing: border-box;
+        min-height: 160px;
+        max-height: 360px;
+        margin: 0;
+        padding: 12px;
+        overflow: auto;
+        border: 1px solid #d0d7de;
+        background: #f0f3f6;
+        white-space: pre;
+    }
+</style>
+
+<div class="html-code">
+    <div class="locator-box-demo-layout">
+        <div class="locator-box-demo-panel">
+            <h2>Product locator</h2>
+            <div id="LocatorBoxHost"></div>
+        </div>
+        <div class="locator-box-demo-panel">
+            <h2>Target object</h2>
+            <pre id="TargetObjectText" class="locator-box-demo-output"></pre>
+        </div>
+        <div class="locator-box-demo-panel">
+            <h2>Locator metadata</h2>
+            <pre id="LocatorInfoText" class="locator-box-demo-output"></pre>
+        </div>
+    </div>
+</div>
+
+<script class="js-code">
+    tp.Ready(function () {
+        var TargetRow = {
+            ProductId: "",
+            ProductCode: "",
+            ProductName: "",
+            UnitOfMeasureId: "",
+            UnitOfMeasureName: "",
+            UnitRatio: null
+        };
+
+        var RenderTarget = function () {
+            tp.Text("#TargetObjectText", JSON.stringify(TargetRow, null, 2));
+        };
+
+        var LocatorBox = new tp.LocatorBox({
+            ElementOrSelector: "#LocatorBoxHost",
+            LocatorName: "Product",
+            ModuleName: "StockTrade",
+            TableName: "StockTradeLine",
+            ReferenceField: "ProductId",
+            TargetRow: TargetRow,
+            IsMultiRow: true
+        });
+
+        LocatorBox.On("Located", function (Args) {
+            RenderTarget();
+            tp.Text("#LocatorInfoText", JSON.stringify({
+                Status: Args.Result.Status,
+                Count: Args.Result.Count,
+                WebForm: Args.Result.WebForm,
+                MapPlan: Args.Result.MapPlan
+            }, null, 2));
+        });
+        LocatorBox.On("Cleared", function () {
+            RenderTarget();
+        });
+
+        LocatorBox.EnsureInfoAsync().then(function (Info) {
+            tp.Text("#LocatorInfoText", JSON.stringify(Info, null, 2));
+        }).catch(function (e) {
+            tp.Text("#LocatorInfoText", tp.ExceptionText(e));
+        });
+
+        RenderTarget();
+    });
+</script>

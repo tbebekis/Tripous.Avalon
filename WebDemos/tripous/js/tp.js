@@ -1327,6 +1327,19 @@ tp.ReplaceLineBreaks = function (Value, Separator) {
 tp.LineBreaksToHtml = function (Value) {
     return tp.ReplaceLineBreaks(Value, "<br />");
 };
+/**
+ * Encodes a value as HTML text.
+ * @param {*} Value The value to encode.
+ * @returns {string} Returns the encoded text.
+ */
+tp.EncodeHtml = function (Value) {
+    return tp.IsNil(Value) ? "" : String(Value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+};
 
 // ● padding and generation
 /**
@@ -3938,12 +3951,15 @@ tp.TriggerDom = function (ElementOrSelector, EventOrName) {
     return tp.Trigger(ElementOrSelector, EventOrName);
 };
 /**
- * Cancels a DOM event by stopping propagation and marking the legacy cancel flags.
+ * Cancels a DOM event by stopping propagation, optionally preventing default behavior, and marking the legacy cancel flags.
  * @param {Event|null|undefined} e The event to cancel.
+ * @param {boolean} PreventDefault True to prevent default browser behavior.
  * @returns {boolean} Returns false always, matching the old Tripous helper.
  */
-tp.CancelEvent = function (e) {
+tp.CancelEvent = function (e, PreventDefault) {
     if (e) {
+        if (PreventDefault === true && "preventDefault" in e)
+            e.preventDefault();
         if ("stopPropagation" in e)
             e.stopPropagation();
         if ("cancelBubble" in e)

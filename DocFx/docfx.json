@@ -9,6 +9,7 @@
             "Tripous/Tripous.csproj",
             "Tripous.Data/Tripous.Data.csproj",
             "Tripous.Logging/Tripous.Logging.csproj",
+            "Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/Tripous.Avalonia.Controls.csproj",
             "Tripous.Desktop/Tripous.Desktop.csproj"
           ]
         }

@@ -1,0 +1,1153 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+  commentId: T:Avalonia.Controls.GroupGridCellHorizontalAlignment
+  id: GroupGridCellHorizontalAlignment
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Center
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Left
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Right
+  langs:
+  - csharp
+  - vb
+  name: GroupGridCellHorizontalAlignment
+  nameWithType: GroupGridCellHorizontalAlignment
+  fullName: Avalonia.Controls.GroupGridCellHorizontalAlignment
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridCellHorizontalAlignment
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Specifies horizontal text alignment inside a group grid cell.
+  example: []
+  syntax:
+    content: public enum GroupGridCellHorizontalAlignment
+    content.vb: Public Enum GroupGridCellHorizontalAlignment
+  extensionMethods:
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,System.Boolean)
+  - Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Left
+  commentId: F:Avalonia.Controls.GroupGridCellHorizontalAlignment.Left
+  id: Left
+  parent: Avalonia.Controls.GroupGridCellHorizontalAlignment
+  langs:
+  - csharp
+  - vb
+  name: Left
+  nameWithType: GroupGridCellHorizontalAlignment.Left
+  fullName: Avalonia.Controls.GroupGridCellHorizontalAlignment.Left
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Left
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Aligns content to the left.
+  example: []
+  syntax:
+    content: Left = 0
+    return:
+      type: Avalonia.Controls.GroupGridCellHorizontalAlignment
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Center
+  commentId: F:Avalonia.Controls.GroupGridCellHorizontalAlignment.Center
+  id: Center
+  parent: Avalonia.Controls.GroupGridCellHorizontalAlignment
+  langs:
+  - csharp
+  - vb
+  name: Center
+  nameWithType: GroupGridCellHorizontalAlignment.Center
+  fullName: Avalonia.Controls.GroupGridCellHorizontalAlignment.Center
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Center
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Aligns content to the center.
+  example: []
+  syntax:
+    content: Center = 1
+    return:
+      type: Avalonia.Controls.GroupGridCellHorizontalAlignment
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Right
+  commentId: F:Avalonia.Controls.GroupGridCellHorizontalAlignment.Right
+  id: Right
+  parent: Avalonia.Controls.GroupGridCellHorizontalAlignment
+  langs:
+  - csharp
+  - vb
+  name: Right
+  nameWithType: GroupGridCellHorizontalAlignment.Right
+  fullName: Avalonia.Controls.GroupGridCellHorizontalAlignment.Right
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Right
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellHorizontalAlignment.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Aligns content to the right.
+  example: []
+  syntax:
+    content: Right = 2
+    return:
+      type: Avalonia.Controls.GroupGridCellHorizontalAlignment
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.Add<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.Add(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: Add(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.HasAny<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.HasAny(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: HasAny(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.HasNone<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.HasNone(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: HasNone(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.Has<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.Has(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: Has(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.In<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.In(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: In(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.IsExactly<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.IsExactly(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: IsExactly(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.IsZero<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.IsZero(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: IsZero(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.Remove<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.Remove(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: Remove(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment, bool)
+  nameWithType: BitFields.Set<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment, bool)
+  nameWithType.vb: BitFields.Set(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment, Boolean)
+  name.vb: Set(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  nameWithType: BitFields.Toggle<GroupGridCellHorizontalAlignment>(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.GroupGridCellHorizontalAlignment>(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  nameWithType.vb: BitFields.Toggle(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.GroupGridCellHorizontalAlignment)(Avalonia.Controls.GroupGridCellHorizontalAlignment, Avalonia.Controls.GroupGridCellHorizontalAlignment)
+  name.vb: Toggle(Of GroupGridCellHorizontalAlignment)(GroupGridCellHorizontalAlignment, GroupGridCellHorizontalAlignment)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridCellHorizontalAlignment,Avalonia.Controls.GroupGridCellHorizontalAlignment)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+    name: GroupGridCellHorizontalAlignment
+    href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridCellHorizontalAlignment
+  commentId: T:Avalonia.Controls.GroupGridCellHorizontalAlignment
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridCellHorizontalAlignment.html
+  name: GroupGridCellHorizontalAlignment
+  nameWithType: GroupGridCellHorizontalAlignment
+  fullName: Avalonia.Controls.GroupGridCellHorizontalAlignment

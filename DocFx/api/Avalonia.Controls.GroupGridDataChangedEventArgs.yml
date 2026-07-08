@@ -1,0 +1,929 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs
+  commentId: T:Avalonia.Controls.GroupGridDataChangedEventArgs
+  id: GroupGridDataChangedEventArgs
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.#ctor(Avalonia.Controls.GroupGridDataChangeKind,System.Int32,System.Int32,System.String)
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged(System.Int32,System.String)
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.Kind
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.Reset
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded(System.Int32)
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged(System.Int32)
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved(System.Int32,System.Int32)
+  - Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved(System.Int32)
+  langs:
+  - csharp
+  - vb
+  name: GroupGridDataChangedEventArgs
+  nameWithType: GroupGridDataChangedEventArgs
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridDataChangedEventArgs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Provides data for group grid adapter change notifications.
+  example: []
+  syntax:
+    content: 'public class GroupGridDataChangedEventArgs : EventArgs'
+    content.vb: Public Class GroupGridDataChangedEventArgs Inherits EventArgs
+  inheritance:
+  - System.Object
+  - System.EventArgs
+  inheritedMembers:
+  - System.EventArgs.Empty
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.#ctor(Avalonia.Controls.GroupGridDataChangeKind,System.Int32,System.Int32,System.String)
+  commentId: M:Avalonia.Controls.GroupGridDataChangedEventArgs.#ctor(Avalonia.Controls.GroupGridDataChangeKind,System.Int32,System.Int32,System.String)
+  id: '#ctor(Avalonia.Controls.GroupGridDataChangeKind,System.Int32,System.Int32,System.String)'
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: GroupGridDataChangedEventArgs(GroupGridDataChangeKind, int, int, string)
+  nameWithType: GroupGridDataChangedEventArgs.GroupGridDataChangedEventArgs(GroupGridDataChangeKind, int, int, string)
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.GroupGridDataChangedEventArgs(Avalonia.Controls.GroupGridDataChangeKind, int, int, string)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 18
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridDataChangedEventArgs" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridDataChangedEventArgs(GroupGridDataChangeKind Kind, int RowIndex = -1, int OldRowIndex = -1, string ColumnName = "")
+    parameters:
+    - id: Kind
+      type: Avalonia.Controls.GroupGridDataChangeKind
+      description: The kind of change.
+    - id: RowIndex
+      type: System.Int32
+      description: The affected row index, or -1 when not applicable.
+    - id: OldRowIndex
+      type: System.Int32
+      description: The old row index for move operations, or -1 when not applicable.
+    - id: ColumnName
+      type: System.String
+      description: The affected column name, or an empty string when not applicable.
+    content.vb: Public Sub New(Kind As GroupGridDataChangeKind, RowIndex As Integer = -1, OldRowIndex As Integer = -1, ColumnName As String = "")
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.#ctor*
+  nameWithType.vb: GroupGridDataChangedEventArgs.New(GroupGridDataChangeKind, Integer, Integer, String)
+  fullName.vb: Avalonia.Controls.GroupGridDataChangedEventArgs.New(Avalonia.Controls.GroupGridDataChangeKind, Integer, Integer, String)
+  name.vb: New(GroupGridDataChangeKind, Integer, Integer, String)
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.Reset
+  commentId: M:Avalonia.Controls.GroupGridDataChangedEventArgs.Reset
+  id: Reset
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Reset()
+  nameWithType: GroupGridDataChangedEventArgs.Reset()
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.Reset()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Reset
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 31
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates a reset notification.
+  example: []
+  syntax:
+    content: public static GroupGridDataChangedEventArgs Reset()
+    return:
+      type: Avalonia.Controls.GroupGridDataChangedEventArgs
+      description: The created event arguments.
+    content.vb: Public Shared Function Reset() As GroupGridDataChangedEventArgs
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.Reset*
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded(System.Int32)
+  id: RowAdded(System.Int32)
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: RowAdded(int)
+  nameWithType: GroupGridDataChangedEventArgs.RowAdded(int)
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowAdded
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates a row-added notification.
+  example: []
+  syntax:
+    content: public static GroupGridDataChangedEventArgs RowAdded(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The added row index.
+    return:
+      type: Avalonia.Controls.GroupGridDataChangedEventArgs
+      description: The created event arguments.
+    content.vb: Public Shared Function RowAdded(RowIndex As Integer) As GroupGridDataChangedEventArgs
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded*
+  nameWithType.vb: GroupGridDataChangedEventArgs.RowAdded(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded(Integer)
+  name.vb: RowAdded(Integer)
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved(System.Int32)
+  id: RowRemoved(System.Int32)
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: RowRemoved(int)
+  nameWithType: GroupGridDataChangedEventArgs.RowRemoved(int)
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowRemoved
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 43
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates a row-removed notification.
+  example: []
+  syntax:
+    content: public static GroupGridDataChangedEventArgs RowRemoved(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The removed row index.
+    return:
+      type: Avalonia.Controls.GroupGridDataChangedEventArgs
+      description: The created event arguments.
+    content.vb: Public Shared Function RowRemoved(RowIndex As Integer) As GroupGridDataChangedEventArgs
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved*
+  nameWithType.vb: GroupGridDataChangedEventArgs.RowRemoved(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved(Integer)
+  name.vb: RowRemoved(Integer)
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved(System.Int32,System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved(System.Int32,System.Int32)
+  id: RowMoved(System.Int32,System.Int32)
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: RowMoved(int, int)
+  nameWithType: GroupGridDataChangedEventArgs.RowMoved(int, int)
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved(int, int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowMoved
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates a row-moved notification.
+  example: []
+  syntax:
+    content: public static GroupGridDataChangedEventArgs RowMoved(int OldRowIndex, int RowIndex)
+    parameters:
+    - id: OldRowIndex
+      type: System.Int32
+      description: The old row index.
+    - id: RowIndex
+      type: System.Int32
+      description: The new row index.
+    return:
+      type: Avalonia.Controls.GroupGridDataChangedEventArgs
+      description: The created event arguments.
+    content.vb: Public Shared Function RowMoved(OldRowIndex As Integer, RowIndex As Integer) As GroupGridDataChangedEventArgs
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved*
+  nameWithType.vb: GroupGridDataChangedEventArgs.RowMoved(Integer, Integer)
+  fullName.vb: Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved(Integer, Integer)
+  name.vb: RowMoved(Integer, Integer)
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged(System.Int32)
+  id: RowChanged(System.Int32)
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: RowChanged(int)
+  nameWithType: GroupGridDataChangedEventArgs.RowChanged(int)
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowChanged
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates a row-changed notification.
+  example: []
+  syntax:
+    content: public static GroupGridDataChangedEventArgs RowChanged(int RowIndex)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The changed row index.
+    return:
+      type: Avalonia.Controls.GroupGridDataChangedEventArgs
+      description: The created event arguments.
+    content.vb: Public Shared Function RowChanged(RowIndex As Integer) As GroupGridDataChangedEventArgs
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged*
+  nameWithType.vb: GroupGridDataChangedEventArgs.RowChanged(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged(Integer)
+  name.vb: RowChanged(Integer)
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged(System.Int32,System.String)
+  commentId: M:Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged(System.Int32,System.String)
+  id: CellChanged(System.Int32,System.String)
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: CellChanged(int, string)
+  nameWithType: GroupGridDataChangedEventArgs.CellChanged(int, string)
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged(int, string)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CellChanged
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 63
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Creates a cell-changed notification.
+  example: []
+  syntax:
+    content: public static GroupGridDataChangedEventArgs CellChanged(int RowIndex, string ColumnName)
+    parameters:
+    - id: RowIndex
+      type: System.Int32
+      description: The changed row index.
+    - id: ColumnName
+      type: System.String
+      description: The changed column name.
+    return:
+      type: Avalonia.Controls.GroupGridDataChangedEventArgs
+      description: The created event arguments.
+    content.vb: Public Shared Function CellChanged(RowIndex As Integer, ColumnName As String) As GroupGridDataChangedEventArgs
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged*
+  nameWithType.vb: GroupGridDataChangedEventArgs.CellChanged(Integer, String)
+  fullName.vb: Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged(Integer, String)
+  name.vb: CellChanged(Integer, String)
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.Kind
+  commentId: P:Avalonia.Controls.GroupGridDataChangedEventArgs.Kind
+  id: Kind
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Kind
+  nameWithType: GroupGridDataChangedEventArgs.Kind
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.Kind
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Kind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 69
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the kind of change.
+  example: []
+  syntax:
+    content: public GroupGridDataChangeKind Kind { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridDataChangeKind
+    content.vb: Public ReadOnly Property Kind As GroupGridDataChangeKind
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.Kind*
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex
+  commentId: P:Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex
+  id: RowIndex
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: RowIndex
+  nameWithType: GroupGridDataChangedEventArgs.RowIndex
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the affected row index, or -1 when not applicable.
+  example: []
+  syntax:
+    content: public int RowIndex { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property RowIndex As Integer
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex*
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex
+  commentId: P:Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex
+  id: OldRowIndex
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: OldRowIndex
+  nameWithType: GroupGridDataChangedEventArgs.OldRowIndex
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: OldRowIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 77
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the old row index for move operations, or -1 when not applicable.
+  example: []
+  syntax:
+    content: public int OldRowIndex { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property OldRowIndex As Integer
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex*
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName
+  commentId: P:Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName
+  id: ColumnName
+  parent: Avalonia.Controls.GroupGridDataChangedEventArgs
+  langs:
+  - csharp
+  - vb
+  name: ColumnName
+  nameWithType: GroupGridDataChangedEventArgs.ColumnName
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnName
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangedEventArgs.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the affected column name, or an empty string when not applicable.
+  example: []
+  syntax:
+    content: public string ColumnName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property ColumnName As String
+  overload: Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.EventArgs
+  commentId: T:System.EventArgs
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventargs
+  name: EventArgs
+  nameWithType: EventArgs
+  fullName: System.EventArgs
+- uid: System.EventArgs.Empty
+  commentId: F:System.EventArgs.Empty
+  parent: System.EventArgs
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventargs.empty
+  name: Empty
+  nameWithType: EventArgs.Empty
+  fullName: System.EventArgs.Empty
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs
+  commentId: T:Avalonia.Controls.GroupGridDataChangedEventArgs
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html
+  name: GroupGridDataChangedEventArgs
+  nameWithType: GroupGridDataChangedEventArgs
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.#ctor
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs__ctor_Avalonia_Controls_GroupGridDataChangeKind_System_Int32_System_Int32_System_String_
+  name: GroupGridDataChangedEventArgs
+  nameWithType: GroupGridDataChangedEventArgs.GroupGridDataChangedEventArgs
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.GroupGridDataChangedEventArgs
+  nameWithType.vb: GroupGridDataChangedEventArgs.New
+  fullName.vb: Avalonia.Controls.GroupGridDataChangedEventArgs.New
+  name.vb: New
+- uid: Avalonia.Controls.GroupGridDataChangeKind
+  commentId: T:Avalonia.Controls.GroupGridDataChangeKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridDataChangeKind.html
+  name: GroupGridDataChangeKind
+  nameWithType: GroupGridDataChangeKind
+  fullName: Avalonia.Controls.GroupGridDataChangeKind
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.Reset*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.Reset
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_Reset
+  name: Reset
+  nameWithType: GroupGridDataChangedEventArgs.Reset
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.Reset
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_RowAdded_System_Int32_
+  name: RowAdded
+  nameWithType: GroupGridDataChangedEventArgs.RowAdded
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowAdded
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_RowRemoved_System_Int32_
+  name: RowRemoved
+  nameWithType: GroupGridDataChangedEventArgs.RowRemoved
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowRemoved
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_RowMoved_System_Int32_System_Int32_
+  name: RowMoved
+  nameWithType: GroupGridDataChangedEventArgs.RowMoved
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowMoved
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_RowChanged_System_Int32_
+  name: RowChanged
+  nameWithType: GroupGridDataChangedEventArgs.RowChanged
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowChanged
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_CellChanged_System_Int32_System_String_
+  name: CellChanged
+  nameWithType: GroupGridDataChangedEventArgs.CellChanged
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.CellChanged
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.Kind*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.Kind
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_Kind
+  name: Kind
+  nameWithType: GroupGridDataChangedEventArgs.Kind
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.Kind
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_RowIndex
+  name: RowIndex
+  nameWithType: GroupGridDataChangedEventArgs.RowIndex
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.RowIndex
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_OldRowIndex
+  name: OldRowIndex
+  nameWithType: GroupGridDataChangedEventArgs.OldRowIndex
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.OldRowIndex
+- uid: Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName*
+  commentId: Overload:Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName
+  href: Avalonia.Controls.GroupGridDataChangedEventArgs.html#Avalonia_Controls_GroupGridDataChangedEventArgs_ColumnName
+  name: ColumnName
+  nameWithType: GroupGridDataChangedEventArgs.ColumnName
+  fullName: Avalonia.Controls.GroupGridDataChangedEventArgs.ColumnName

@@ -201,7 +201,7 @@ public class LocatorBox: UserControl
         if (LocatorDef == null || Table == null)
             return;
 
-        foreach (string FieldName in GetDisplayFields())
+        foreach (string FieldName in LocatorDef.GetListVisibleFields())
         {
             DataColumn Column = Table.FindColumn(FieldName);
             if (Column != null)

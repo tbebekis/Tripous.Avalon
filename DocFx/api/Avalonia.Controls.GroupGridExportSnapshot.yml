@@ -1,0 +1,901 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridExportSnapshot
+  commentId: T:Avalonia.Controls.GroupGridExportSnapshot
+  id: GroupGridExportSnapshot
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridExportSnapshot.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportRow},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportCell})
+  - Avalonia.Controls.GroupGridExportSnapshot.Columns
+  - Avalonia.Controls.GroupGridExportSnapshot.GetDataRows
+  - Avalonia.Controls.GroupGridExportSnapshot.Rows
+  - Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells
+  langs:
+  - csharp
+  - vb
+  name: GroupGridExportSnapshot
+  nameWithType: GroupGridExportSnapshot
+  fullName: Avalonia.Controls.GroupGridExportSnapshot
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridExportSnapshot
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Contains the current group grid data prepared for export.
+  example: []
+  syntax:
+    content: public class GroupGridExportSnapshot
+    content.vb: Public Class GroupGridExportSnapshot
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridExportSnapshot.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportRow},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportCell})
+  commentId: M:Avalonia.Controls.GroupGridExportSnapshot.#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportRow},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportCell})
+  id: '#ctor(System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportColumn},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportRow},System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportCell})'
+  parent: Avalonia.Controls.GroupGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: GroupGridExportSnapshot(IEnumerable<GroupGridExportColumn>, IEnumerable<GroupGridExportRow>, IEnumerable<GroupGridExportCell>)
+  nameWithType: GroupGridExportSnapshot.GroupGridExportSnapshot(IEnumerable<GroupGridExportColumn>, IEnumerable<GroupGridExportRow>, IEnumerable<GroupGridExportCell>)
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.GroupGridExportSnapshot(System.Collections.Generic.IEnumerable<Avalonia.Controls.GroupGridExportColumn>, System.Collections.Generic.IEnumerable<Avalonia.Controls.GroupGridExportRow>, System.Collections.Generic.IEnumerable<Avalonia.Controls.GroupGridExportCell>)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridExportSnapshot" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridExportSnapshot(IEnumerable<GroupGridExportColumn> Columns, IEnumerable<GroupGridExportRow> Rows, IEnumerable<GroupGridExportCell> TotalSummaryCells)
+    parameters:
+    - id: Columns
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportColumn}
+      description: The exported columns.
+    - id: Rows
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportRow}
+      description: The exported rows.
+    - id: TotalSummaryCells
+      type: System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportCell}
+      description: The total summary cells.
+    content.vb: Public Sub New(Columns As IEnumerable(Of GroupGridExportColumn), Rows As IEnumerable(Of GroupGridExportRow), TotalSummaryCells As IEnumerable(Of GroupGridExportCell))
+  overload: Avalonia.Controls.GroupGridExportSnapshot.#ctor*
+  nameWithType.vb: GroupGridExportSnapshot.New(IEnumerable(Of GroupGridExportColumn), IEnumerable(Of GroupGridExportRow), IEnumerable(Of GroupGridExportCell))
+  fullName.vb: Avalonia.Controls.GroupGridExportSnapshot.New(System.Collections.Generic.IEnumerable(Of Avalonia.Controls.GroupGridExportColumn), System.Collections.Generic.IEnumerable(Of Avalonia.Controls.GroupGridExportRow), System.Collections.Generic.IEnumerable(Of Avalonia.Controls.GroupGridExportCell))
+  name.vb: New(IEnumerable(Of GroupGridExportColumn), IEnumerable(Of GroupGridExportRow), IEnumerable(Of GroupGridExportCell))
+- uid: Avalonia.Controls.GroupGridExportSnapshot.GetDataRows
+  commentId: M:Avalonia.Controls.GroupGridExportSnapshot.GetDataRows
+  id: GetDataRows
+  parent: Avalonia.Controls.GroupGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: GetDataRows()
+  nameWithType: GroupGridExportSnapshot.GetDataRows()
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.GetDataRows()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetDataRows
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns data rows from the export snapshot.
+  example: []
+  syntax:
+    content: public IReadOnlyList<GroupGridExportRow> GetDataRows()
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportRow}
+      description: The data rows.
+    content.vb: Public Function GetDataRows() As IReadOnlyList(Of GroupGridExportRow)
+  overload: Avalonia.Controls.GroupGridExportSnapshot.GetDataRows*
+- uid: Avalonia.Controls.GroupGridExportSnapshot.Columns
+  commentId: P:Avalonia.Controls.GroupGridExportSnapshot.Columns
+  id: Columns
+  parent: Avalonia.Controls.GroupGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: Columns
+  nameWithType: GroupGridExportSnapshot.Columns
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.Columns
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Columns
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the exported columns.
+  example: []
+  syntax:
+    content: public IReadOnlyList<GroupGridExportColumn> Columns { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportColumn}
+    content.vb: Public ReadOnly Property Columns As IReadOnlyList(Of GroupGridExportColumn)
+  overload: Avalonia.Controls.GroupGridExportSnapshot.Columns*
+- uid: Avalonia.Controls.GroupGridExportSnapshot.Rows
+  commentId: P:Avalonia.Controls.GroupGridExportSnapshot.Rows
+  id: Rows
+  parent: Avalonia.Controls.GroupGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: Rows
+  nameWithType: GroupGridExportSnapshot.Rows
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.Rows
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Rows
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the exported rows.
+  example: []
+  syntax:
+    content: public IReadOnlyList<GroupGridExportRow> Rows { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportRow}
+    content.vb: Public ReadOnly Property Rows As IReadOnlyList(Of GroupGridExportRow)
+  overload: Avalonia.Controls.GroupGridExportSnapshot.Rows*
+- uid: Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells
+  commentId: P:Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells
+  id: TotalSummaryCells
+  parent: Avalonia.Controls.GroupGridExportSnapshot
+  langs:
+  - csharp
+  - vb
+  name: TotalSummaryCells
+  nameWithType: GroupGridExportSnapshot.TotalSummaryCells
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: TotalSummaryCells
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridExportSnapshot.cs
+    startLine: 46
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the total summary cells.
+  example: []
+  syntax:
+    content: public IReadOnlyList<GroupGridExportCell> TotalSummaryCells { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportCell}
+    content.vb: Public ReadOnly Property TotalSummaryCells As IReadOnlyList(Of GroupGridExportCell)
+  overload: Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridExportSnapshot
+  commentId: T:Avalonia.Controls.GroupGridExportSnapshot
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridExportSnapshot.html
+  name: GroupGridExportSnapshot
+  nameWithType: GroupGridExportSnapshot
+  fullName: Avalonia.Controls.GroupGridExportSnapshot
+- uid: Avalonia.Controls.GroupGridExportSnapshot.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridExportSnapshot.#ctor
+  href: Avalonia.Controls.GroupGridExportSnapshot.html#Avalonia_Controls_GroupGridExportSnapshot__ctor_System_Collections_Generic_IEnumerable_Avalonia_Controls_GroupGridExportColumn__System_Collections_Generic_IEnumerable_Avalonia_Controls_GroupGridExportRow__System_Collections_Generic_IEnumerable_Avalonia_Controls_GroupGridExportCell__
+  name: GroupGridExportSnapshot
+  nameWithType: GroupGridExportSnapshot.GroupGridExportSnapshot
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.GroupGridExportSnapshot
+  nameWithType.vb: GroupGridExportSnapshot.New
+  fullName.vb: Avalonia.Controls.GroupGridExportSnapshot.New
+  name.vb: New
+- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportColumn}
+  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportColumn}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<GroupGridExportColumn>
+  nameWithType: IEnumerable<GroupGridExportColumn>
+  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.GroupGridExportColumn>
+  nameWithType.vb: IEnumerable(Of GroupGridExportColumn)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.GroupGridExportColumn)
+  name.vb: IEnumerable(Of GroupGridExportColumn)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridExportColumn
+    name: GroupGridExportColumn
+    href: Avalonia.Controls.GroupGridExportColumn.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridExportColumn
+    name: GroupGridExportColumn
+    href: Avalonia.Controls.GroupGridExportColumn.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportRow}
+  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportRow}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<GroupGridExportRow>
+  nameWithType: IEnumerable<GroupGridExportRow>
+  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.GroupGridExportRow>
+  nameWithType.vb: IEnumerable(Of GroupGridExportRow)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.GroupGridExportRow)
+  name.vb: IEnumerable(Of GroupGridExportRow)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridExportRow
+    name: GroupGridExportRow
+    href: Avalonia.Controls.GroupGridExportRow.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridExportRow
+    name: GroupGridExportRow
+    href: Avalonia.Controls.GroupGridExportRow.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportCell}
+  commentId: T:System.Collections.Generic.IEnumerable{Avalonia.Controls.GroupGridExportCell}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<GroupGridExportCell>
+  nameWithType: IEnumerable<GroupGridExportCell>
+  fullName: System.Collections.Generic.IEnumerable<Avalonia.Controls.GroupGridExportCell>
+  nameWithType.vb: IEnumerable(Of GroupGridExportCell)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of Avalonia.Controls.GroupGridExportCell)
+  name.vb: IEnumerable(Of GroupGridExportCell)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridExportCell
+    name: GroupGridExportCell
+    href: Avalonia.Controls.GroupGridExportCell.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridExportCell
+    name: GroupGridExportCell
+    href: Avalonia.Controls.GroupGridExportCell.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: Avalonia.Controls.GroupGridExportSnapshot.GetDataRows*
+  commentId: Overload:Avalonia.Controls.GroupGridExportSnapshot.GetDataRows
+  href: Avalonia.Controls.GroupGridExportSnapshot.html#Avalonia_Controls_GroupGridExportSnapshot_GetDataRows
+  name: GetDataRows
+  nameWithType: GroupGridExportSnapshot.GetDataRows
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.GetDataRows
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportRow}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportRow}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<GroupGridExportRow>
+  nameWithType: IReadOnlyList<GroupGridExportRow>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.GroupGridExportRow>
+  nameWithType.vb: IReadOnlyList(Of GroupGridExportRow)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.GroupGridExportRow)
+  name.vb: IReadOnlyList(Of GroupGridExportRow)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridExportRow
+    name: GroupGridExportRow
+    href: Avalonia.Controls.GroupGridExportRow.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridExportRow
+    name: GroupGridExportRow
+    href: Avalonia.Controls.GroupGridExportRow.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: Avalonia.Controls.GroupGridExportSnapshot.Columns*
+  commentId: Overload:Avalonia.Controls.GroupGridExportSnapshot.Columns
+  href: Avalonia.Controls.GroupGridExportSnapshot.html#Avalonia_Controls_GroupGridExportSnapshot_Columns
+  name: Columns
+  nameWithType: GroupGridExportSnapshot.Columns
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.Columns
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportColumn}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportColumn}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<GroupGridExportColumn>
+  nameWithType: IReadOnlyList<GroupGridExportColumn>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.GroupGridExportColumn>
+  nameWithType.vb: IReadOnlyList(Of GroupGridExportColumn)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.GroupGridExportColumn)
+  name.vb: IReadOnlyList(Of GroupGridExportColumn)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridExportColumn
+    name: GroupGridExportColumn
+    href: Avalonia.Controls.GroupGridExportColumn.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridExportColumn
+    name: GroupGridExportColumn
+    href: Avalonia.Controls.GroupGridExportColumn.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridExportSnapshot.Rows*
+  commentId: Overload:Avalonia.Controls.GroupGridExportSnapshot.Rows
+  href: Avalonia.Controls.GroupGridExportSnapshot.html#Avalonia_Controls_GroupGridExportSnapshot_Rows
+  name: Rows
+  nameWithType: GroupGridExportSnapshot.Rows
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.Rows
+- uid: Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells*
+  commentId: Overload:Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells
+  href: Avalonia.Controls.GroupGridExportSnapshot.html#Avalonia_Controls_GroupGridExportSnapshot_TotalSummaryCells
+  name: TotalSummaryCells
+  nameWithType: GroupGridExportSnapshot.TotalSummaryCells
+  fullName: Avalonia.Controls.GroupGridExportSnapshot.TotalSummaryCells
+- uid: System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportCell}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Avalonia.Controls.GroupGridExportCell}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<GroupGridExportCell>
+  nameWithType: IReadOnlyList<GroupGridExportCell>
+  fullName: System.Collections.Generic.IReadOnlyList<Avalonia.Controls.GroupGridExportCell>
+  nameWithType.vb: IReadOnlyList(Of GroupGridExportCell)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Avalonia.Controls.GroupGridExportCell)
+  name.vb: IReadOnlyList(Of GroupGridExportCell)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridExportCell
+    name: GroupGridExportCell
+    href: Avalonia.Controls.GroupGridExportCell.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridExportCell
+    name: GroupGridExportCell
+    href: Avalonia.Controls.GroupGridExportCell.html
+  - name: )

@@ -1,0 +1,1240 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridDataChangeKind
+  commentId: T:Avalonia.Controls.GroupGridDataChangeKind
+  id: GroupGridDataChangeKind
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridDataChangeKind.CellChanged
+  - Avalonia.Controls.GroupGridDataChangeKind.Reset
+  - Avalonia.Controls.GroupGridDataChangeKind.RowAdded
+  - Avalonia.Controls.GroupGridDataChangeKind.RowChanged
+  - Avalonia.Controls.GroupGridDataChangeKind.RowMoved
+  - Avalonia.Controls.GroupGridDataChangeKind.RowRemoved
+  langs:
+  - csharp
+  - vb
+  name: GroupGridDataChangeKind
+  nameWithType: GroupGridDataChangeKind
+  fullName: Avalonia.Controls.GroupGridDataChangeKind
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridDataChangeKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Specifies the kind of data change reported by a group grid data adapter.
+  example: []
+  syntax:
+    content: public enum GroupGridDataChangeKind
+    content.vb: Public Enum GroupGridDataChangeKind
+  extensionMethods:
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridDataChangeKind,System.Boolean)
+  - Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridDataChangeKind)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Reset
+  commentId: F:Avalonia.Controls.GroupGridDataChangeKind.Reset
+  id: Reset
+  parent: Avalonia.Controls.GroupGridDataChangeKind
+  langs:
+  - csharp
+  - vb
+  name: Reset
+  nameWithType: GroupGridDataChangeKind.Reset
+  fullName: Avalonia.Controls.GroupGridDataChangeKind.Reset
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Reset
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The full data projection should be rebuilt.
+  example: []
+  syntax:
+    content: Reset = 0
+    return:
+      type: Avalonia.Controls.GroupGridDataChangeKind
+- uid: Avalonia.Controls.GroupGridDataChangeKind.RowAdded
+  commentId: F:Avalonia.Controls.GroupGridDataChangeKind.RowAdded
+  id: RowAdded
+  parent: Avalonia.Controls.GroupGridDataChangeKind
+  langs:
+  - csharp
+  - vb
+  name: RowAdded
+  nameWithType: GroupGridDataChangeKind.RowAdded
+  fullName: Avalonia.Controls.GroupGridDataChangeKind.RowAdded
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowAdded
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A row has been added.
+  example: []
+  syntax:
+    content: RowAdded = 1
+    return:
+      type: Avalonia.Controls.GroupGridDataChangeKind
+- uid: Avalonia.Controls.GroupGridDataChangeKind.RowRemoved
+  commentId: F:Avalonia.Controls.GroupGridDataChangeKind.RowRemoved
+  id: RowRemoved
+  parent: Avalonia.Controls.GroupGridDataChangeKind
+  langs:
+  - csharp
+  - vb
+  name: RowRemoved
+  nameWithType: GroupGridDataChangeKind.RowRemoved
+  fullName: Avalonia.Controls.GroupGridDataChangeKind.RowRemoved
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowRemoved
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A row has been removed.
+  example: []
+  syntax:
+    content: RowRemoved = 2
+    return:
+      type: Avalonia.Controls.GroupGridDataChangeKind
+- uid: Avalonia.Controls.GroupGridDataChangeKind.RowMoved
+  commentId: F:Avalonia.Controls.GroupGridDataChangeKind.RowMoved
+  id: RowMoved
+  parent: Avalonia.Controls.GroupGridDataChangeKind
+  langs:
+  - csharp
+  - vb
+  name: RowMoved
+  nameWithType: GroupGridDataChangeKind.RowMoved
+  fullName: Avalonia.Controls.GroupGridDataChangeKind.RowMoved
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowMoved
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A row has moved.
+  example: []
+  syntax:
+    content: RowMoved = 3
+    return:
+      type: Avalonia.Controls.GroupGridDataChangeKind
+- uid: Avalonia.Controls.GroupGridDataChangeKind.RowChanged
+  commentId: F:Avalonia.Controls.GroupGridDataChangeKind.RowChanged
+  id: RowChanged
+  parent: Avalonia.Controls.GroupGridDataChangeKind
+  langs:
+  - csharp
+  - vb
+  name: RowChanged
+  nameWithType: GroupGridDataChangeKind.RowChanged
+  fullName: Avalonia.Controls.GroupGridDataChangeKind.RowChanged
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowChanged
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A full row has changed.
+  example: []
+  syntax:
+    content: RowChanged = 4
+    return:
+      type: Avalonia.Controls.GroupGridDataChangeKind
+- uid: Avalonia.Controls.GroupGridDataChangeKind.CellChanged
+  commentId: F:Avalonia.Controls.GroupGridDataChangeKind.CellChanged
+  id: CellChanged
+  parent: Avalonia.Controls.GroupGridDataChangeKind
+  langs:
+  - csharp
+  - vb
+  name: CellChanged
+  nameWithType: GroupGridDataChangeKind.CellChanged
+  fullName: Avalonia.Controls.GroupGridDataChangeKind.CellChanged
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CellChanged
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridDataChangeKind.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: A single cell value has changed.
+  example: []
+  syntax:
+    content: CellChanged = 5
+    return:
+      type: Avalonia.Controls.GroupGridDataChangeKind
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.Add<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.Add(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: Add(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.HasAny<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.HasAny(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: HasAny(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.HasNone<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.HasNone(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: HasNone(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.Has<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.Has(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: Has(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.In<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.In(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: In(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.IsExactly<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.IsExactly(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: IsExactly(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<GroupGridDataChangeKind>(GroupGridDataChangeKind)
+  nameWithType: BitFields.IsZero<GroupGridDataChangeKind>(GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.IsZero(Of GroupGridDataChangeKind)(GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: IsZero(Of GroupGridDataChangeKind)(GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridDataChangeKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridDataChangeKind)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.Remove<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.Remove(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: Remove(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridDataChangeKind,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind, bool)
+  nameWithType: BitFields.Set<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind, bool)
+  nameWithType.vb: BitFields.Set(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind, Boolean)
+  name.vb: Set(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.GroupGridDataChangeKind.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridDataChangeKind)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  nameWithType: BitFields.Toggle<GroupGridDataChangeKind>(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.GroupGridDataChangeKind>(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  nameWithType.vb: BitFields.Toggle(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.GroupGridDataChangeKind)(Avalonia.Controls.GroupGridDataChangeKind, Avalonia.Controls.GroupGridDataChangeKind)
+  name.vb: Toggle(Of GroupGridDataChangeKind)(GroupGridDataChangeKind, GroupGridDataChangeKind)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridDataChangeKind,Avalonia.Controls.GroupGridDataChangeKind)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridDataChangeKind
+    name: GroupGridDataChangeKind
+    href: Avalonia.Controls.GroupGridDataChangeKind.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridDataChangeKind
+  commentId: T:Avalonia.Controls.GroupGridDataChangeKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridDataChangeKind.html
+  name: GroupGridDataChangeKind
+  nameWithType: GroupGridDataChangeKind
+  fullName: Avalonia.Controls.GroupGridDataChangeKind

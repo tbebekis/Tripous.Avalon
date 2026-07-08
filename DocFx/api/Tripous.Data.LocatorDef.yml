@@ -9,6 +9,7 @@ items:
   - Tripous.Data.LocatorDef.Add(System.String)
   - Tripous.Data.LocatorDef.Add(System.String,Tripous.Data.DataFieldType)
   - Tripous.Data.LocatorDef.AddFields(System.String[])
+  - Tripous.Data.LocatorDef.AddListVisibleFields(System.String[])
   - Tripous.Data.LocatorDef.AddMultiRowSearchFields(System.String[])
   - Tripous.Data.LocatorDef.AddResultFields(System.String[])
   - Tripous.Data.LocatorDef.AddSearchFields(System.String[])
@@ -18,9 +19,11 @@ items:
   - Tripous.Data.LocatorDef.Fields
   - Tripous.Data.LocatorDef.Form
   - Tripous.Data.LocatorDef.GetAllSearchFields
+  - Tripous.Data.LocatorDef.GetListVisibleFields
   - Tripous.Data.LocatorDef.GetResultFields
   - Tripous.Data.LocatorDef.GetSearchFields(System.Boolean)
   - Tripous.Data.LocatorDef.KeyField
+  - Tripous.Data.LocatorDef.ListVisibleFields
   - Tripous.Data.LocatorDef.MaximumResultCount
   - Tripous.Data.LocatorDef.MinimumSearchLength
   - Tripous.Data.LocatorDef.MultiRowSearchFields
@@ -105,7 +108,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: .ctor
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 57
+    startLine: 68
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -136,7 +139,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: CheckDescriptor
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 65
+    startLine: 76
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -165,7 +168,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: UpdateReferences
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 86
+    startLine: 101
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -194,7 +197,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Add
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 96
+    startLine: 111
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -232,7 +235,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Add
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 106
+    startLine: 121
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -268,7 +271,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 113
+    startLine: 128
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -302,7 +305,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 121
+    startLine: 136
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -336,7 +339,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddSingleRowSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 129
+    startLine: 144
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -370,7 +373,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddMultiRowSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 136
+    startLine: 151
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -404,7 +407,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: AddResultFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 143
+    startLine: 158
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -420,6 +423,40 @@ items:
   nameWithType.vb: LocatorDef.AddResultFields(ParamArray String())
   fullName.vb: Tripous.Data.LocatorDef.AddResultFields(ParamArray String())
   name.vb: AddResultFields(ParamArray String())
+- uid: Tripous.Data.LocatorDef.AddListVisibleFields(System.String[])
+  commentId: M:Tripous.Data.LocatorDef.AddListVisibleFields(System.String[])
+  id: AddListVisibleFields(System.String[])
+  parent: Tripous.Data.LocatorDef
+  langs:
+  - csharp
+  - vb
+  name: AddListVisibleFields(params string[])
+  nameWithType: LocatorDef.AddListVisibleFields(params string[])
+  fullName: Tripous.Data.LocatorDef.AddListVisibleFields(params string[])
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AddListVisibleFields
+    path: ../Tripous.Data/Locator/LocatorDef.cs
+    startLine: 165
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Adds fields to the list-visible field list.
+  example: []
+  syntax:
+    content: public void AddListVisibleFields(params string[] Names)
+    parameters:
+    - id: Names
+      type: System.String[]
+    content.vb: Public Sub AddListVisibleFields(ParamArray Names As String())
+  overload: Tripous.Data.LocatorDef.AddListVisibleFields*
+  nameWithType.vb: LocatorDef.AddListVisibleFields(ParamArray String())
+  fullName.vb: Tripous.Data.LocatorDef.AddListVisibleFields(ParamArray String())
+  name.vb: AddListVisibleFields(ParamArray String())
 - uid: Tripous.Data.LocatorDef.GetSearchFields(System.Boolean)
   commentId: M:Tripous.Data.LocatorDef.GetSearchFields(System.Boolean)
   id: GetSearchFields(System.Boolean)
@@ -438,7 +475,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 150
+    startLine: 172
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -474,7 +511,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetAllSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 160
+    startLine: 182
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -504,7 +541,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: GetResultFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 170
+    startLine: 192
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -516,6 +553,36 @@ items:
       type: System.Collections.Generic.List{System.String}
     content.vb: Public Function GetResultFields() As List(Of String)
   overload: Tripous.Data.LocatorDef.GetResultFields*
+- uid: Tripous.Data.LocatorDef.GetListVisibleFields
+  commentId: M:Tripous.Data.LocatorDef.GetListVisibleFields
+  id: GetListVisibleFields
+  parent: Tripous.Data.LocatorDef
+  langs:
+  - csharp
+  - vb
+  name: GetListVisibleFields()
+  nameWithType: LocatorDef.GetListVisibleFields()
+  fullName: Tripous.Data.LocatorDef.GetListVisibleFields()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetListVisibleFields
+    path: ../Tripous.Data/Locator/LocatorDef.cs
+    startLine: 199
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Returns the fields displayed by locator list UIs.
+  example: []
+  syntax:
+    content: public List<string> GetListVisibleFields()
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Function GetListVisibleFields() As List(Of String)
+  overload: Tripous.Data.LocatorDef.GetListVisibleFields*
 - uid: Tripous.Data.LocatorDef.ClassName
   commentId: P:Tripous.Data.LocatorDef.ClassName
   id: ClassName
@@ -534,7 +601,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ClassName
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 188
+    startLine: 208
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -565,7 +632,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Source
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 197
+    startLine: 217
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -600,7 +667,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: KeyField
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 205
+    startLine: 225
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -631,7 +698,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Form
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 213
+    startLine: 233
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -662,7 +729,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: WebForm
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 221
+    startLine: 241
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -693,7 +760,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: OrderBy
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 229
+    startLine: 249
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -724,7 +791,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: Fields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 237
+    startLine: 257
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -755,7 +822,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: SingleRowSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 245
+    startLine: 265
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -786,7 +853,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MultiRowSearchFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 253
+    startLine: 273
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -817,15 +884,11 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: ResultFields
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 262
+    startLine: 281
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
-  summary: >-
-    Gets or sets the fields returned as locator output.
-
-
-    <p>These fields serve both as result display fields when resolution returns multiple results and as projection fields when a result is selected or resolved.</p>
+  summary: Gets or sets the fields returned as locator output.
   example: []
   syntax:
     content: public List<string> ResultFields { get; set; }
@@ -834,6 +897,37 @@ items:
       type: System.Collections.Generic.List{System.String}
     content.vb: Public Property ResultFields As List(Of String)
   overload: Tripous.Data.LocatorDef.ResultFields*
+- uid: Tripous.Data.LocatorDef.ListVisibleFields
+  commentId: P:Tripous.Data.LocatorDef.ListVisibleFields
+  id: ListVisibleFields
+  parent: Tripous.Data.LocatorDef
+  langs:
+  - csharp
+  - vb
+  name: ListVisibleFields
+  nameWithType: LocatorDef.ListVisibleFields
+  fullName: Tripous.Data.LocatorDef.ListVisibleFields
+  type: Property
+  source:
+    remote:
+      path: Tripous.Data/Locator/LocatorDef.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ListVisibleFields
+    path: ../Tripous.Data/Locator/LocatorDef.cs
+    startLine: 289
+  assemblies:
+  - Tripous.Data
+  namespace: Tripous.Data
+  summary: Gets or sets the fields displayed by locator list UIs.
+  example: []
+  syntax:
+    content: public List<string> ListVisibleFields { get; set; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.List{System.String}
+    content.vb: Public Property ListVisibleFields As List(Of String)
+  overload: Tripous.Data.LocatorDef.ListVisibleFields*
 - uid: Tripous.Data.LocatorDef.MinimumSearchLength
   commentId: P:Tripous.Data.LocatorDef.MinimumSearchLength
   id: MinimumSearchLength
@@ -852,7 +946,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MinimumSearchLength
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 270
+    startLine: 297
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -883,7 +977,7 @@ items:
       repo: https://github.com/tbebekis/Tripous.Avalon.git
     id: MaximumResultCount
     path: ../Tripous.Data/Locator/LocatorDef.cs
-    startLine: 278
+    startLine: 305
   assemblies:
   - Tripous.Data
   namespace: Tripous.Data
@@ -1681,6 +1775,12 @@ references:
   name: AddResultFields
   nameWithType: LocatorDef.AddResultFields
   fullName: Tripous.Data.LocatorDef.AddResultFields
+- uid: Tripous.Data.LocatorDef.AddListVisibleFields*
+  commentId: Overload:Tripous.Data.LocatorDef.AddListVisibleFields
+  href: Tripous.Data.LocatorDef.html#Tripous_Data_LocatorDef_AddListVisibleFields_System_String___
+  name: AddListVisibleFields
+  nameWithType: LocatorDef.AddListVisibleFields
+  fullName: Tripous.Data.LocatorDef.AddListVisibleFields
 - uid: Tripous.Data.LocatorDef.GetSearchFields*
   commentId: Overload:Tripous.Data.LocatorDef.GetSearchFields
   href: Tripous.Data.LocatorDef.html#Tripous_Data_LocatorDef_GetSearchFields_System_Boolean_
@@ -1810,6 +1910,12 @@ references:
   name: GetResultFields
   nameWithType: LocatorDef.GetResultFields
   fullName: Tripous.Data.LocatorDef.GetResultFields
+- uid: Tripous.Data.LocatorDef.GetListVisibleFields*
+  commentId: Overload:Tripous.Data.LocatorDef.GetListVisibleFields
+  href: Tripous.Data.LocatorDef.html#Tripous_Data_LocatorDef_GetListVisibleFields
+  name: GetListVisibleFields
+  nameWithType: LocatorDef.GetListVisibleFields
+  fullName: Tripous.Data.LocatorDef.GetListVisibleFields
 - uid: Tripous.Data.LocatorDef.ClassName*
   commentId: Overload:Tripous.Data.LocatorDef.ClassName
   href: Tripous.Data.LocatorDef.html#Tripous_Data_LocatorDef_ClassName
@@ -1924,6 +2030,12 @@ references:
   name: ResultFields
   nameWithType: LocatorDef.ResultFields
   fullName: Tripous.Data.LocatorDef.ResultFields
+- uid: Tripous.Data.LocatorDef.ListVisibleFields*
+  commentId: Overload:Tripous.Data.LocatorDef.ListVisibleFields
+  href: Tripous.Data.LocatorDef.html#Tripous_Data_LocatorDef_ListVisibleFields
+  name: ListVisibleFields
+  nameWithType: LocatorDef.ListVisibleFields
+  fullName: Tripous.Data.LocatorDef.ListVisibleFields
 - uid: Tripous.Data.LocatorDef.MinimumSearchLength*
   commentId: Overload:Tripous.Data.LocatorDef.MinimumSearchLength
   href: Tripous.Data.LocatorDef.html#Tripous_Data_LocatorDef_MinimumSearchLength

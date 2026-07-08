@@ -975,26 +975,26 @@ references:
   fullName: Avalonia.Controls.Control
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
+  href: Avalonia.html
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
 - uid: Tripous.Desktop.UiItemDetails.CreateDetailTabItem*
   commentId: Overload:Tripous.Desktop.UiItemDetails.CreateDetailTabItem
   href: Tripous.Desktop.UiItemDetails.html#Tripous_Desktop_UiItemDetails_CreateDetailTabItem_Tripous_Desktop_UiItemContext_Tripous_Desktop_UiDetailTableInfo_System_Boolean_
@@ -1115,8 +1115,7 @@ references:
 - uid: Avalonia.Controls.GroupGrid
   commentId: T:Avalonia.Controls.GroupGrid
   parent: Avalonia.Controls
-  isExternal: true
-  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGrid.cs
+  href: Avalonia.Controls.GroupGrid.html
   name: GroupGrid
   nameWithType: GroupGrid
   fullName: Avalonia.Controls.GroupGrid
@@ -1145,8 +1144,6 @@ references:
   - name: <
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: '>'
   spec.vb:
   - uid: System.Collections.Generic.List`1
@@ -1158,8 +1155,6 @@ references:
   - name: " "
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
-    isExternal: true
-    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: )
 - uid: System.Collections.Generic.List`1
   commentId: T:System.Collections.Generic.List`1
@@ -1241,8 +1236,7 @@ references:
 - uid: Avalonia.Controls.GroupGridColumn
   commentId: T:Avalonia.Controls.GroupGridColumn
   parent: Avalonia.Controls
-  isExternal: true
-  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
+  href: Avalonia.Controls.GroupGridColumn.html
   name: GroupGridColumn
   nameWithType: GroupGridColumn
   fullName: Avalonia.Controls.GroupGridColumn
@@ -1268,8 +1262,7 @@ references:
 - uid: Avalonia.Controls.GroupGridCellEditEventArgs
   commentId: T:Avalonia.Controls.GroupGridCellEditEventArgs
   parent: Avalonia.Controls
-  isExternal: true
-  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellEditEventArgs.cs
+  href: Avalonia.Controls.GroupGridCellEditEventArgs.html
   name: GroupGridCellEditEventArgs
   nameWithType: GroupGridCellEditEventArgs
   fullName: Avalonia.Controls.GroupGridCellEditEventArgs
@@ -1282,8 +1275,7 @@ references:
 - uid: Avalonia.Controls.GroupGridCellPointerEventArgs
   commentId: T:Avalonia.Controls.GroupGridCellPointerEventArgs
   parent: Avalonia.Controls
-  isExternal: true
-  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridCellPointerEventArgs.cs
+  href: Avalonia.Controls.GroupGridCellPointerEventArgs.html
   name: GroupGridCellPointerEventArgs
   nameWithType: GroupGridCellPointerEventArgs
   fullName: Avalonia.Controls.GroupGridCellPointerEventArgs
@@ -1302,8 +1294,7 @@ references:
 - uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
   commentId: T:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
   parent: Avalonia.Controls
-  isExternal: true
-  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html
   name: GroupGridCreateInplaceEditorEventArgs
   nameWithType: GroupGridCreateInplaceEditorEventArgs
   fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs

@@ -225,9 +225,7 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
         {
             foreach (DataColumn Column in fDropDownTable.Columns)
             {
-                if (!fLocatorDef.GetResultFields().Any(FieldName => FieldName.IsSameText(Column.ColumnName)))
-                    continue;
-                if (Column.ColumnName.IsSameText(fLocatorDef.KeyField))
+                if (!fLocatorDef.GetListVisibleFields().Any(FieldName => FieldName.IsSameText(Column.ColumnName)))
                     continue;
 
                 Result.Columns.Add(GroupGridBinder.CreateGridColumn(Column, Format: Column.DataType.GetDefaultFormat(), Alignment: Column.DataType.GetTextAlignment(), IsReadOnly: true));

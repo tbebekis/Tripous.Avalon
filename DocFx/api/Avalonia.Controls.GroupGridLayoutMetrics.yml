@@ -1,0 +1,953 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridLayoutMetrics
+  commentId: T:Avalonia.Controls.GroupGridLayoutMetrics
+  id: GroupGridLayoutMetrics
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridLayoutMetrics.#ctor
+  - Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight
+  - Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth
+  - Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight
+  - Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight
+  - Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth
+  - Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth
+  - Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight
+  - Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight
+  - Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth
+  - Avalonia.Controls.GroupGridLayoutMetrics.RowHeight
+  - Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight
+  - Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth
+  - Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+  langs:
+  - csharp
+  - vb
+  name: GroupGridLayoutMetrics
+  nameWithType: GroupGridLayoutMetrics
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridLayoutMetrics
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Defines the simple layout metrics used by the non-visual group grid model.
+  example: []
+  syntax:
+    content: public class GroupGridLayoutMetrics
+    content.vb: Public Class GroupGridLayoutMetrics
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.#ctor
+  commentId: M:Avalonia.Controls.GroupGridLayoutMetrics.#ctor
+  id: '#ctor'
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: GroupGridLayoutMetrics()
+  nameWithType: GroupGridLayoutMetrics.GroupGridLayoutMetrics()
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupGridLayoutMetrics()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridLayoutMetrics" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridLayoutMetrics()
+    content.vb: Public Sub New()
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.#ctor*
+  nameWithType.vb: GroupGridLayoutMetrics.New()
+  fullName.vb: Avalonia.Controls.GroupGridLayoutMetrics.New()
+  name.vb: New()
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight
+  id: ToolBarHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: ToolBarHeight
+  nameWithType: GroupGridLayoutMetrics.ToolBarHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToolBarHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the toolbar band height.
+  example: []
+  syntax:
+    content: public double ToolBarHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property ToolBarHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight
+  id: GroupPanelHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: GroupPanelHeight
+  nameWithType: GroupGridLayoutMetrics.GroupPanelHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupPanelHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the group panel band height.
+  example: []
+  syntax:
+    content: public double GroupPanelHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property GroupPanelHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight
+  id: ColumnHeaderHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: ColumnHeaderHeight
+  nameWithType: GroupGridLayoutMetrics.ColumnHeaderHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnHeaderHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 30
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the column header band height.
+  example: []
+  syntax:
+    content: public double ColumnHeaderHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property ColumnHeaderHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight
+  id: FilterRowHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: FilterRowHeight
+  nameWithType: GroupGridLayoutMetrics.FilterRowHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FilterRowHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the filter row band height.
+  example: []
+  syntax:
+    content: public double FilterRowHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property FilterRowHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.RowHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.RowHeight
+  id: RowHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: RowHeight
+  nameWithType: GroupGridLayoutMetrics.RowHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.RowHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the body row height.
+  example: []
+  syntax:
+    content: public double RowHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property RowHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.RowHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight
+  id: FooterSummaryHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: FooterSummaryHeight
+  nameWithType: GroupGridLayoutMetrics.FooterSummaryHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FooterSummaryHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the footer summary band height.
+  example: []
+  syntax:
+    content: public double FooterSummaryHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property FooterSummaryHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth
+  id: GroupIndentWidth
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: GroupIndentWidth
+  nameWithType: GroupGridLayoutMetrics.GroupIndentWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupIndentWidth
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 46
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the group level indent width.
+  example: []
+  syntax:
+    content: public double GroupIndentWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property GroupIndentWidth As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth
+  id: GroupExpanderWidth
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: GroupExpanderWidth
+  nameWithType: GroupGridLayoutMetrics.GroupExpanderWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupExpanderWidth
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 50
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the group expander hit-test width.
+  example: []
+  syntax:
+    content: public double GroupExpanderWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property GroupExpanderWidth As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth
+  id: ColumnResizeHandleWidth
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: ColumnResizeHandleWidth
+  nameWithType: GroupGridLayoutMetrics.ColumnResizeHandleWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnResizeHandleWidth
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 54
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the column resize handle hit-test width.
+  example: []
+  syntax:
+    content: public double ColumnResizeHandleWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property ColumnResizeHandleWidth As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth
+  id: VerticalScrollBarWidth
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: VerticalScrollBarWidth
+  nameWithType: GroupGridLayoutMetrics.VerticalScrollBarWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VerticalScrollBarWidth
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 58
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the vertical scroll bar width.
+  example: []
+  syntax:
+    content: public double VerticalScrollBarWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property VerticalScrollBarWidth As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+  id: VerticalScrollThumbMinHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: VerticalScrollThumbMinHeight
+  nameWithType: GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VerticalScrollThumbMinHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the minimum vertical scroll thumb height.
+  example: []
+  syntax:
+    content: public double VerticalScrollThumbMinHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property VerticalScrollThumbMinHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight
+  id: HorizontalScrollBarHeight
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: HorizontalScrollBarHeight
+  nameWithType: GroupGridLayoutMetrics.HorizontalScrollBarHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HorizontalScrollBarHeight
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 66
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the horizontal scroll bar height.
+  example: []
+  syntax:
+    content: public double HorizontalScrollBarHeight { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property HorizontalScrollBarHeight As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight*
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth
+  commentId: P:Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth
+  id: HorizontalScrollThumbMinWidth
+  parent: Avalonia.Controls.GroupGridLayoutMetrics
+  langs:
+  - csharp
+  - vb
+  name: HorizontalScrollThumbMinWidth
+  nameWithType: GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HorizontalScrollThumbMinWidth
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridLayoutMetrics.cs
+    startLine: 70
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the minimum horizontal scroll thumb width.
+  example: []
+  syntax:
+    content: public double HorizontalScrollThumbMinWidth { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property HorizontalScrollThumbMinWidth As Double
+  overload: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridLayoutMetrics
+  commentId: T:Avalonia.Controls.GroupGridLayoutMetrics
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html
+  name: GroupGridLayoutMetrics
+  nameWithType: GroupGridLayoutMetrics
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.#ctor
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics__ctor
+  name: GroupGridLayoutMetrics
+  nameWithType: GroupGridLayoutMetrics.GroupGridLayoutMetrics
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupGridLayoutMetrics
+  nameWithType.vb: GroupGridLayoutMetrics.New
+  fullName.vb: Avalonia.Controls.GroupGridLayoutMetrics.New
+  name.vb: New
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_ToolBarHeight
+  name: ToolBarHeight
+  nameWithType: GroupGridLayoutMetrics.ToolBarHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.ToolBarHeight
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_GroupPanelHeight
+  name: GroupPanelHeight
+  nameWithType: GroupGridLayoutMetrics.GroupPanelHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupPanelHeight
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_ColumnHeaderHeight
+  name: ColumnHeaderHeight
+  nameWithType: GroupGridLayoutMetrics.ColumnHeaderHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.ColumnHeaderHeight
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_FilterRowHeight
+  name: FilterRowHeight
+  nameWithType: GroupGridLayoutMetrics.FilterRowHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.FilterRowHeight
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.RowHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.RowHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_RowHeight
+  name: RowHeight
+  nameWithType: GroupGridLayoutMetrics.RowHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.RowHeight
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_FooterSummaryHeight
+  name: FooterSummaryHeight
+  nameWithType: GroupGridLayoutMetrics.FooterSummaryHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.FooterSummaryHeight
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_GroupIndentWidth
+  name: GroupIndentWidth
+  nameWithType: GroupGridLayoutMetrics.GroupIndentWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupIndentWidth
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_GroupExpanderWidth
+  name: GroupExpanderWidth
+  nameWithType: GroupGridLayoutMetrics.GroupExpanderWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.GroupExpanderWidth
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_ColumnResizeHandleWidth
+  name: ColumnResizeHandleWidth
+  nameWithType: GroupGridLayoutMetrics.ColumnResizeHandleWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.ColumnResizeHandleWidth
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_VerticalScrollBarWidth
+  name: VerticalScrollBarWidth
+  nameWithType: GroupGridLayoutMetrics.VerticalScrollBarWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollBarWidth
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_VerticalScrollThumbMinHeight
+  name: VerticalScrollThumbMinHeight
+  nameWithType: GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.VerticalScrollThumbMinHeight
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_HorizontalScrollBarHeight
+  name: HorizontalScrollBarHeight
+  nameWithType: GroupGridLayoutMetrics.HorizontalScrollBarHeight
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollBarHeight
+- uid: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth*
+  commentId: Overload:Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth
+  href: Avalonia.Controls.GroupGridLayoutMetrics.html#Avalonia_Controls_GroupGridLayoutMetrics_HorizontalScrollThumbMinWidth
+  name: HorizontalScrollThumbMinWidth
+  nameWithType: GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth
+  fullName: Avalonia.Controls.GroupGridLayoutMetrics.HorizontalScrollThumbMinWidth

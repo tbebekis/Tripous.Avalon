@@ -611,6 +611,87 @@ fieldset.tp-GroupBox legend {
 }
 
 /*---------------------------------------------------------------------------------------
+  locator box
+---------------------------------------------------------------------------------------*/
+.tp-LocatorBox {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    min-width: 220px;
+    min-height: 28px;
+    overflow: hidden;
+    border: var(--Border);
+    background-color: var(--BackColor);
+}
+
+.tp-LocatorBox > .tp-LocatorBox-Input {
+    min-width: 0;
+    border: 0;
+    border-right: var(--Border);
+    padding: 0 6px;
+    background-color: transparent;
+    outline: none;
+}
+
+.tp-LocatorBox > .tp-LocatorBox-Input:read-only {
+    color: var(--FontColor);
+    background-color: var(--DisabledColor);
+}
+
+.tp-LocatorBox > .tp-LocatorBox-Button {
+    flex: 0 0 28px;
+    min-width: 28px;
+    border: 0;
+    padding: 0;
+    background-color: var(--BackColor);
+    font-family: monospace;
+    cursor: default;
+}
+
+.tp-LocatorBox > .tp-LocatorBox-Button:hover {
+    background-color: var(--HoverColor);
+}
+
+.tp-LocatorBox-DropDown {
+    max-width: calc(100vw - 24px);
+    max-height: 260px;
+    overflow: auto;
+    border: var(--Border);
+    background-color: var(--BackColor);
+    box-shadow: 5px 5px 16px 0 var(--ShadowColor);
+}
+
+.tp-LocatorBox-DropDown > :first-child {
+    overflow: visible;
+}
+
+.tp-LocatorBox-Table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    font-size: 12px;
+}
+
+.tp-LocatorBox-Table th,
+.tp-LocatorBox-Table td {
+    padding: 4px 8px;
+    border-bottom: var(--Border);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.tp-LocatorBox-Table th {
+    background-color: var(--BackColor2);
+    font-weight: 600;
+}
+
+.tp-LocatorBox-Table tr.tp-Selected td {
+    background-color: var(--SelectedListItemColor);
+    color: var(--FontColor2);
+}
+
+/*---------------------------------------------------------------------------------------
   memo
 ---------------------------------------------------------------------------------------*/
 .tp-Memo {

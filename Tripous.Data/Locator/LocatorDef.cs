@@ -16,6 +16,7 @@ public class LocatorDef : BaseDef
     List<string> fSingleRowSearchFields;
     List<string> fMultiRowSearchFields;
     List<string> fResultFields;
+    List<string> fListVisibleFields;
     int fMinimumSearchLength;
     int fMaximumResultCount;
 
@@ -50,6 +51,16 @@ public class LocatorDef : BaseDef
         foreach (string FieldName in FieldNames)
             CheckFieldExists(FieldName, ListName);
     }
+    void CheckFieldsInResultFields(IEnumerable<string> FieldNames, string ListName)
+    {
+        List<string> ResultFields = GetResultFields();
+
+        foreach (string FieldName in FieldNames)
+        {
+            if (!ResultFields.Any(item => item.IsSameText(FieldName)))
+                throw new TripousDataException($"{nameof(LocatorDef)} {Name} {ListName} field is not in {nameof(ResultFields)}: {FieldName}");
+        }
+    }
 
     // ● constructor
     /// <summary>
@@ -76,10 +87,14 @@ public class LocatorDef : BaseDef
         if (Fields.Count == 0)
             throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no {nameof(Fields)}.");
 
+        if (ResultFields.Count == 0)
+            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no {nameof(ResultFields)}.");
+
         CheckFieldExists(KeyField, nameof(KeyField));
         CheckFieldsExist(GetSearchFields(IsMultiRow: false), nameof(SingleRowSearchFields));
         CheckFieldsExist(GetSearchFields(IsMultiRow: true), nameof(MultiRowSearchFields));
         CheckFieldsExist(GetResultFields(), nameof(ResultFields));
+        CheckFieldsInResultFields(GetListVisibleFields(), nameof(ListVisibleFields));
     }
     /// <summary>
     /// Updates references such as when an instance has references to other instances.
@@ -146,6 +161,13 @@ public class LocatorDef : BaseDef
         AddNames(ResultFields, Names);
     }
     /// <summary>
+    /// Adds fields to the list-visible field list.
+    /// </summary>
+    public void AddListVisibleFields(params string[] Names)
+    {
+        AddNames(ListVisibleFields, Names);
+    }
+    /// <summary>
     /// Returns the search fields to use for single-row or multi-row locator resolution.
     /// </summary>
     public List<string> GetSearchFields(bool IsMultiRow)
@@ -170,16 +192,14 @@ public class LocatorDef : BaseDef
     /// </summary>
     public List<string> GetResultFields()
     {
-        if (ResultFields.Count > 0)
-            return [.. ResultFields];
-
-        List<string> Result = [];
-        AddNames(Result, KeyField);
-
-        foreach (LocatorFieldDef FieldDef in Fields)
-            AddNames(Result, FieldDef.Name);
-
-        return Result;
+        return [.. ResultFields];
+    }
+    /// <summary>
+    /// Returns the fields displayed by locator list UIs.
+    /// </summary>
+    public List<string> GetListVisibleFields()
+    {
+        return ListVisibleFields.Count > 0 ? [.. ListVisibleFields] : GetResultFields();
     }
 
     // ● properties
@@ -258,12 +278,19 @@ public class LocatorDef : BaseDef
     }
     /// <summary>
     /// Gets or sets the fields returned as locator output.
-    /// <para>These fields serve both as result display fields when resolution returns multiple results and as projection fields when a result is selected or resolved.</para>
     /// </summary>
     public List<string> ResultFields
     {
         get => fResultFields ??= [];
         set { if (fResultFields != value) { fResultFields = value; NotifyPropertyChanged(nameof(ResultFields)); } }
+    }
+    /// <summary>
+    /// Gets or sets the fields displayed by locator list UIs.
+    /// </summary>
+    public List<string> ListVisibleFields
+    {
+        get => fListVisibleFields ??= [];
+        set { if (fListVisibleFields != value) { fListVisibleFields = value; NotifyPropertyChanged(nameof(ListVisibleFields)); } }
     }
     /// <summary>
     /// Gets or sets the minimum search text length required before resolution may run.

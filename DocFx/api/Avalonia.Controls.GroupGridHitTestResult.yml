@@ -1,0 +1,1010 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridHitTestResult
+  commentId: T:Avalonia.Controls.GroupGridHitTestResult
+  id: GroupGridHitTestResult
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridHitTestResult.#ctor
+  - Avalonia.Controls.GroupGridHitTestResult.Band
+  - Avalonia.Controls.GroupGridHitTestResult.Cell
+  - Avalonia.Controls.GroupGridHitTestResult.Column
+  - Avalonia.Controls.GroupGridHitTestResult.ColumnIndex
+  - Avalonia.Controls.GroupGridHitTestResult.Empty
+  - Avalonia.Controls.GroupGridHitTestResult.HasCell
+  - Avalonia.Controls.GroupGridHitTestResult.HasColumn
+  - Avalonia.Controls.GroupGridHitTestResult.Kind
+  - Avalonia.Controls.GroupGridHitTestResult.RowIndex
+  - Avalonia.Controls.GroupGridHitTestResult.RowKind
+  - Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex
+  - Avalonia.Controls.GroupGridHitTestResult.X
+  - Avalonia.Controls.GroupGridHitTestResult.Y
+  langs:
+  - csharp
+  - vb
+  name: GroupGridHitTestResult
+  nameWithType: GroupGridHitTestResult
+  fullName: Avalonia.Controls.GroupGridHitTestResult
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridHitTestResult
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Describes the logical group grid element found during hit testing.
+  example: []
+  syntax:
+    content: public class GroupGridHitTestResult
+    content.vb: Public Class GroupGridHitTestResult
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridHitTestResult.#ctor
+  commentId: M:Avalonia.Controls.GroupGridHitTestResult.#ctor
+  id: '#ctor'
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: GroupGridHitTestResult()
+  nameWithType: GroupGridHitTestResult.GroupGridHitTestResult()
+  fullName: Avalonia.Controls.GroupGridHitTestResult.GroupGridHitTestResult()
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridHitTestResult" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridHitTestResult()
+    content.vb: Public Sub New()
+  overload: Avalonia.Controls.GroupGridHitTestResult.#ctor*
+  nameWithType.vb: GroupGridHitTestResult.New()
+  fullName.vb: Avalonia.Controls.GroupGridHitTestResult.New()
+  name.vb: New()
+- uid: Avalonia.Controls.GroupGridHitTestResult.Empty
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.Empty
+  id: Empty
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Empty
+  nameWithType: GroupGridHitTestResult.Empty
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Empty
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Empty
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 22
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets an empty hit-test result.
+  example: []
+  syntax:
+    content: public static GroupGridHitTestResult Empty { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridHitTestResult
+    content.vb: Public Shared ReadOnly Property Empty As GroupGridHitTestResult
+  overload: Avalonia.Controls.GroupGridHitTestResult.Empty*
+- uid: Avalonia.Controls.GroupGridHitTestResult.X
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.X
+  id: X
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: X
+  nameWithType: GroupGridHitTestResult.X
+  fullName: Avalonia.Controls.GroupGridHitTestResult.X
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: X
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 28
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the local x-coordinate used for hit testing.
+  example: []
+  syntax:
+    content: public double X { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property X As Double
+  overload: Avalonia.Controls.GroupGridHitTestResult.X*
+- uid: Avalonia.Controls.GroupGridHitTestResult.Y
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.Y
+  id: Y
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Y
+  nameWithType: GroupGridHitTestResult.Y
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Y
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Y
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the local y-coordinate used for hit testing.
+  example: []
+  syntax:
+    content: public double Y { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Y As Double
+  overload: Avalonia.Controls.GroupGridHitTestResult.Y*
+- uid: Avalonia.Controls.GroupGridHitTestResult.Band
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.Band
+  id: Band
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Band
+  nameWithType: GroupGridHitTestResult.Band
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Band
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Band
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 36
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the visual band that was hit.
+  example: []
+  syntax:
+    content: public GroupGridBand Band { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridBand
+    content.vb: Public Property Band As GroupGridBand
+  overload: Avalonia.Controls.GroupGridHitTestResult.Band*
+- uid: Avalonia.Controls.GroupGridHitTestResult.Kind
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.Kind
+  id: Kind
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Kind
+  nameWithType: GroupGridHitTestResult.Kind
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Kind
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Kind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the kind of element that was hit.
+  example: []
+  syntax:
+    content: public GroupGridHitTestKind Kind { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridHitTestKind
+    content.vb: Public Property Kind As GroupGridHitTestKind
+  overload: Avalonia.Controls.GroupGridHitTestResult.Kind*
+- uid: Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex
+  id: VisibleNodeIndex
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: VisibleNodeIndex
+  nameWithType: GroupGridHitTestResult.VisibleNodeIndex
+  fullName: Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: VisibleNodeIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 44
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the visible node index, or -1 when not applicable.
+  example: []
+  syntax:
+    content: public int VisibleNodeIndex { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property VisibleNodeIndex As Integer
+  overload: Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex*
+- uid: Avalonia.Controls.GroupGridHitTestResult.RowKind
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.RowKind
+  id: RowKind
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: RowKind
+  nameWithType: GroupGridHitTestResult.RowKind
+  fullName: Avalonia.Controls.GroupGridHitTestResult.RowKind
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 48
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the visible row kind.
+  example: []
+  syntax:
+    content: public GroupGridRowKind RowKind { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridRowKind
+    content.vb: Public Property RowKind As GroupGridRowKind
+  overload: Avalonia.Controls.GroupGridHitTestResult.RowKind*
+- uid: Avalonia.Controls.GroupGridHitTestResult.RowIndex
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.RowIndex
+  id: RowIndex
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: RowIndex
+  nameWithType: GroupGridHitTestResult.RowIndex
+  fullName: Avalonia.Controls.GroupGridHitTestResult.RowIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RowIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 52
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the adapter row index, or -1 when not applicable.
+  example: []
+  syntax:
+    content: public int RowIndex { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property RowIndex As Integer
+  overload: Avalonia.Controls.GroupGridHitTestResult.RowIndex*
+- uid: Avalonia.Controls.GroupGridHitTestResult.Column
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.Column
+  id: Column
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Column
+  nameWithType: GroupGridHitTestResult.Column
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Column
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Column
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the column that was hit.
+  example: []
+  syntax:
+    content: public GroupGridColumn Column { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+    content.vb: Public Property Column As GroupGridColumn
+  overload: Avalonia.Controls.GroupGridHitTestResult.Column*
+- uid: Avalonia.Controls.GroupGridHitTestResult.ColumnIndex
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.ColumnIndex
+  id: ColumnIndex
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: ColumnIndex
+  nameWithType: GroupGridHitTestResult.ColumnIndex
+  fullName: Avalonia.Controls.GroupGridHitTestResult.ColumnIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 60
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the visible column index, or -1 when not applicable.
+  example: []
+  syntax:
+    content: public int ColumnIndex { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property ColumnIndex As Integer
+  overload: Avalonia.Controls.GroupGridHitTestResult.ColumnIndex*
+- uid: Avalonia.Controls.GroupGridHitTestResult.HasColumn
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.HasColumn
+  id: HasColumn
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: HasColumn
+  nameWithType: GroupGridHitTestResult.HasColumn
+  fullName: Avalonia.Controls.GroupGridHitTestResult.HasColumn
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasColumn
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 64
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets a value indicating whether a column was hit.
+  example: []
+  syntax:
+    content: public bool HasColumn { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property HasColumn As Boolean
+  overload: Avalonia.Controls.GroupGridHitTestResult.HasColumn*
+- uid: Avalonia.Controls.GroupGridHitTestResult.HasCell
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.HasCell
+  id: HasCell
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: HasCell
+  nameWithType: GroupGridHitTestResult.HasCell
+  fullName: Avalonia.Controls.GroupGridHitTestResult.HasCell
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: HasCell
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 68
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets a value indicating whether a logical cell was hit.
+  example: []
+  syntax:
+    content: public bool HasCell { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property HasCell As Boolean
+  overload: Avalonia.Controls.GroupGridHitTestResult.HasCell*
+- uid: Avalonia.Controls.GroupGridHitTestResult.Cell
+  commentId: P:Avalonia.Controls.GroupGridHitTestResult.Cell
+  id: Cell
+  parent: Avalonia.Controls.GroupGridHitTestResult
+  langs:
+  - csharp
+  - vb
+  name: Cell
+  nameWithType: GroupGridHitTestResult.Cell
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Cell
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Cell
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridHitTestResult.cs
+    startLine: 72
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the logical cell that was hit.
+  example: []
+  syntax:
+    content: public GroupGridCell Cell { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridCell
+    content.vb: Public ReadOnly Property Cell As GroupGridCell
+  overload: Avalonia.Controls.GroupGridHitTestResult.Cell*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridHitTestResult
+  commentId: T:Avalonia.Controls.GroupGridHitTestResult
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridHitTestResult.html
+  name: GroupGridHitTestResult
+  nameWithType: GroupGridHitTestResult
+  fullName: Avalonia.Controls.GroupGridHitTestResult
+- uid: Avalonia.Controls.GroupGridHitTestResult.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.#ctor
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult__ctor
+  name: GroupGridHitTestResult
+  nameWithType: GroupGridHitTestResult.GroupGridHitTestResult
+  fullName: Avalonia.Controls.GroupGridHitTestResult.GroupGridHitTestResult
+  nameWithType.vb: GroupGridHitTestResult.New
+  fullName.vb: Avalonia.Controls.GroupGridHitTestResult.New
+  name.vb: New
+- uid: Avalonia.Controls.GroupGridHitTestResult.Empty*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.Empty
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_Empty
+  name: Empty
+  nameWithType: GroupGridHitTestResult.Empty
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Empty
+- uid: Avalonia.Controls.GroupGridHitTestResult.X*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.X
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_X
+  name: X
+  nameWithType: GroupGridHitTestResult.X
+  fullName: Avalonia.Controls.GroupGridHitTestResult.X
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Avalonia.Controls.GroupGridHitTestResult.Y*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.Y
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_Y
+  name: Y
+  nameWithType: GroupGridHitTestResult.Y
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Y
+- uid: Avalonia.Controls.GroupGridHitTestResult.Band*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.Band
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_Band
+  name: Band
+  nameWithType: GroupGridHitTestResult.Band
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Band
+- uid: Avalonia.Controls.GroupGridBand
+  commentId: T:Avalonia.Controls.GroupGridBand
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridBand.html
+  name: GroupGridBand
+  nameWithType: GroupGridBand
+  fullName: Avalonia.Controls.GroupGridBand
+- uid: Avalonia.Controls.GroupGridHitTestResult.Kind*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.Kind
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_Kind
+  name: Kind
+  nameWithType: GroupGridHitTestResult.Kind
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Kind
+- uid: Avalonia.Controls.GroupGridHitTestKind
+  commentId: T:Avalonia.Controls.GroupGridHitTestKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridHitTestKind.html
+  name: GroupGridHitTestKind
+  nameWithType: GroupGridHitTestKind
+  fullName: Avalonia.Controls.GroupGridHitTestKind
+- uid: Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_VisibleNodeIndex
+  name: VisibleNodeIndex
+  nameWithType: GroupGridHitTestResult.VisibleNodeIndex
+  fullName: Avalonia.Controls.GroupGridHitTestResult.VisibleNodeIndex
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Avalonia.Controls.GroupGridHitTestResult.RowKind*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.RowKind
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_RowKind
+  name: RowKind
+  nameWithType: GroupGridHitTestResult.RowKind
+  fullName: Avalonia.Controls.GroupGridHitTestResult.RowKind
+- uid: Avalonia.Controls.GroupGridRowKind
+  commentId: T:Avalonia.Controls.GroupGridRowKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridRowKind.html
+  name: GroupGridRowKind
+  nameWithType: GroupGridRowKind
+  fullName: Avalonia.Controls.GroupGridRowKind
+- uid: Avalonia.Controls.GroupGridHitTestResult.RowIndex*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.RowIndex
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_RowIndex
+  name: RowIndex
+  nameWithType: GroupGridHitTestResult.RowIndex
+  fullName: Avalonia.Controls.GroupGridHitTestResult.RowIndex
+- uid: Avalonia.Controls.GroupGridHitTestResult.Column*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.Column
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_Column
+  name: Column
+  nameWithType: GroupGridHitTestResult.Column
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Column
+- uid: Avalonia.Controls.GroupGridColumn
+  commentId: T:Avalonia.Controls.GroupGridColumn
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridColumn.html
+  name: GroupGridColumn
+  nameWithType: GroupGridColumn
+  fullName: Avalonia.Controls.GroupGridColumn
+- uid: Avalonia.Controls.GroupGridHitTestResult.ColumnIndex*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.ColumnIndex
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_ColumnIndex
+  name: ColumnIndex
+  nameWithType: GroupGridHitTestResult.ColumnIndex
+  fullName: Avalonia.Controls.GroupGridHitTestResult.ColumnIndex
+- uid: Avalonia.Controls.GroupGridHitTestResult.HasColumn*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.HasColumn
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_HasColumn
+  name: HasColumn
+  nameWithType: GroupGridHitTestResult.HasColumn
+  fullName: Avalonia.Controls.GroupGridHitTestResult.HasColumn
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Avalonia.Controls.GroupGridHitTestResult.HasCell*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.HasCell
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_HasCell
+  name: HasCell
+  nameWithType: GroupGridHitTestResult.HasCell
+  fullName: Avalonia.Controls.GroupGridHitTestResult.HasCell
+- uid: Avalonia.Controls.GroupGridHitTestResult.Cell*
+  commentId: Overload:Avalonia.Controls.GroupGridHitTestResult.Cell
+  href: Avalonia.Controls.GroupGridHitTestResult.html#Avalonia_Controls_GroupGridHitTestResult_Cell
+  name: Cell
+  nameWithType: GroupGridHitTestResult.Cell
+  fullName: Avalonia.Controls.GroupGridHitTestResult.Cell
+- uid: Avalonia.Controls.GroupGridCell
+  commentId: T:Avalonia.Controls.GroupGridCell
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridCell.html
+  name: GroupGridCell
+  nameWithType: GroupGridCell
+  fullName: Avalonia.Controls.GroupGridCell

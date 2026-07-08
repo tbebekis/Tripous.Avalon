@@ -1,0 +1,1041 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridViewport
+  commentId: T:Avalonia.Controls.GroupGridViewport
+  id: GroupGridViewport
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridViewport.#ctor(System.Int32,System.Int32)
+  - Avalonia.Controls.GroupGridViewport.Contains(System.Int32)
+  - Avalonia.Controls.GroupGridViewport.Count
+  - Avalonia.Controls.GroupGridViewport.Empty
+  - Avalonia.Controls.GroupGridViewport.Equals(Avalonia.Controls.GroupGridViewport)
+  - Avalonia.Controls.GroupGridViewport.Equals(System.Object)
+  - Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex
+  - Avalonia.Controls.GroupGridViewport.GetHashCode
+  - Avalonia.Controls.GroupGridViewport.IsEmpty
+  - Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex
+  - Avalonia.Controls.GroupGridViewport.op_Equality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  - Avalonia.Controls.GroupGridViewport.op_Inequality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  langs:
+  - csharp
+  - vb
+  name: GroupGridViewport
+  nameWithType: GroupGridViewport
+  fullName: Avalonia.Controls.GroupGridViewport
+  type: Struct
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridViewport
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Describes the rendered window into the logical visible-node list.
+  example: []
+  syntax:
+    content: 'public readonly struct GroupGridViewport : IEquatable<GroupGridViewport>'
+    content.vb: Public Structure GroupGridViewport Implements IEquatable(Of GroupGridViewport)
+  implements:
+  - System.IEquatable{Avalonia.Controls.GroupGridViewport}
+  inheritedMembers:
+  - System.ValueType.ToString
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridViewport.#ctor(System.Int32,System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridViewport.#ctor(System.Int32,System.Int32)
+  id: '#ctor(System.Int32,System.Int32)'
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: GroupGridViewport(int, int)
+  nameWithType: GroupGridViewport.GroupGridViewport(int, int)
+  fullName: Avalonia.Controls.GroupGridViewport.GroupGridViewport(int, int)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 16
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridViewport" data-throw-if-not-resolved="false"></xref> struct.
+  example: []
+  syntax:
+    content: public GroupGridViewport(int FirstVisibleNodeIndex, int LastVisibleNodeIndex)
+    parameters:
+    - id: FirstVisibleNodeIndex
+      type: System.Int32
+      description: The first visible-node index included in the viewport.
+    - id: LastVisibleNodeIndex
+      type: System.Int32
+      description: The last visible-node index included in the viewport.
+    content.vb: Public Sub New(FirstVisibleNodeIndex As Integer, LastVisibleNodeIndex As Integer)
+  overload: Avalonia.Controls.GroupGridViewport.#ctor*
+  nameWithType.vb: GroupGridViewport.New(Integer, Integer)
+  fullName.vb: Avalonia.Controls.GroupGridViewport.New(Integer, Integer)
+  name.vb: New(Integer, Integer)
+- uid: Avalonia.Controls.GroupGridViewport.Empty
+  commentId: P:Avalonia.Controls.GroupGridViewport.Empty
+  id: Empty
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: Empty
+  nameWithType: GroupGridViewport.Empty
+  fullName: Avalonia.Controls.GroupGridViewport.Empty
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Empty
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 26
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets an empty viewport.
+  example: []
+  syntax:
+    content: public static GroupGridViewport Empty { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridViewport
+    content.vb: Public Shared ReadOnly Property Empty As GroupGridViewport
+  overload: Avalonia.Controls.GroupGridViewport.Empty*
+- uid: Avalonia.Controls.GroupGridViewport.Equals(Avalonia.Controls.GroupGridViewport)
+  commentId: M:Avalonia.Controls.GroupGridViewport.Equals(Avalonia.Controls.GroupGridViewport)
+  id: Equals(Avalonia.Controls.GroupGridViewport)
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: Equals(GroupGridViewport)
+  nameWithType: GroupGridViewport.Equals(GroupGridViewport)
+  fullName: Avalonia.Controls.GroupGridViewport.Equals(Avalonia.Controls.GroupGridViewport)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Equals
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns true when this instance is equal to another viewport.
+  example: []
+  syntax:
+    content: public bool Equals(GroupGridViewport Other)
+    parameters:
+    - id: Other
+      type: Avalonia.Controls.GroupGridViewport
+      description: The other viewport.
+    return:
+      type: System.Boolean
+      description: True if the viewports are equal; otherwise, false.
+    content.vb: Public Function Equals(Other As GroupGridViewport) As Boolean
+  overload: Avalonia.Controls.GroupGridViewport.Equals*
+  implements:
+  - System.IEquatable{Avalonia.Controls.GroupGridViewport}.Equals(Avalonia.Controls.GroupGridViewport)
+- uid: Avalonia.Controls.GroupGridViewport.Equals(System.Object)
+  commentId: M:Avalonia.Controls.GroupGridViewport.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: Equals(object)
+  nameWithType: GroupGridViewport.Equals(object)
+  fullName: Avalonia.Controls.GroupGridViewport.Equals(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Equals
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Indicates whether this instance and a specified object are equal.
+  example: []
+  syntax:
+    content: public override bool Equals(object Obj)
+    parameters:
+    - id: Obj
+      type: System.Object
+    return:
+      type: System.Boolean
+      description: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if <code class="paramref">obj</code> and this instance are the same type and represent the same value; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.
+    content.vb: Public Overrides Function Equals(Obj As Object) As Boolean
+  overridden: System.ValueType.Equals(System.Object)
+  overload: Avalonia.Controls.GroupGridViewport.Equals*
+  nameWithType.vb: GroupGridViewport.Equals(Object)
+  fullName.vb: Avalonia.Controls.GroupGridViewport.Equals(Object)
+  name.vb: Equals(Object)
+- uid: Avalonia.Controls.GroupGridViewport.GetHashCode
+  commentId: M:Avalonia.Controls.GroupGridViewport.GetHashCode
+  id: GetHashCode
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: GroupGridViewport.GetHashCode()
+  fullName: Avalonia.Controls.GroupGridViewport.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GetHashCode
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns the hash code for this instance.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+      description: A 32-bit signed integer that is the hash code for this instance.
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.ValueType.GetHashCode
+  overload: Avalonia.Controls.GroupGridViewport.GetHashCode*
+- uid: Avalonia.Controls.GroupGridViewport.op_Equality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  commentId: M:Avalonia.Controls.GroupGridViewport.op_Equality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  id: op_Equality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: operator ==(GroupGridViewport, GroupGridViewport)
+  nameWithType: GroupGridViewport.operator ==(GroupGridViewport, GroupGridViewport)
+  fullName: Avalonia.Controls.GroupGridViewport.operator ==(Avalonia.Controls.GroupGridViewport, Avalonia.Controls.GroupGridViewport)
+  type: Operator
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Equality
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 49
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns true when two viewports are equal.
+  example: []
+  syntax:
+    content: public static bool operator ==(GroupGridViewport Left, GroupGridViewport Right)
+    parameters:
+    - id: Left
+      type: Avalonia.Controls.GroupGridViewport
+      description: The left viewport.
+    - id: Right
+      type: Avalonia.Controls.GroupGridViewport
+      description: The right viewport.
+    return:
+      type: System.Boolean
+      description: True if the viewports are equal; otherwise, false.
+    content.vb: Public Shared Operator =(Left As GroupGridViewport, Right As GroupGridViewport) As Boolean
+  overload: Avalonia.Controls.GroupGridViewport.op_Equality*
+  nameWithType.vb: GroupGridViewport.=(GroupGridViewport, GroupGridViewport)
+  fullName.vb: Avalonia.Controls.GroupGridViewport.=(Avalonia.Controls.GroupGridViewport, Avalonia.Controls.GroupGridViewport)
+  name.vb: =(GroupGridViewport, GroupGridViewport)
+- uid: Avalonia.Controls.GroupGridViewport.op_Inequality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  commentId: M:Avalonia.Controls.GroupGridViewport.op_Inequality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  id: op_Inequality(Avalonia.Controls.GroupGridViewport,Avalonia.Controls.GroupGridViewport)
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: operator !=(GroupGridViewport, GroupGridViewport)
+  nameWithType: GroupGridViewport.operator !=(GroupGridViewport, GroupGridViewport)
+  fullName: Avalonia.Controls.GroupGridViewport.operator !=(Avalonia.Controls.GroupGridViewport, Avalonia.Controls.GroupGridViewport)
+  type: Operator
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: op_Inequality
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 56
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns true when two viewports are not equal.
+  example: []
+  syntax:
+    content: public static bool operator !=(GroupGridViewport Left, GroupGridViewport Right)
+    parameters:
+    - id: Left
+      type: Avalonia.Controls.GroupGridViewport
+      description: The left viewport.
+    - id: Right
+      type: Avalonia.Controls.GroupGridViewport
+      description: The right viewport.
+    return:
+      type: System.Boolean
+      description: True if the viewports are not equal; otherwise, false.
+    content.vb: Public Shared Operator <>(Left As GroupGridViewport, Right As GroupGridViewport) As Boolean
+  overload: Avalonia.Controls.GroupGridViewport.op_Inequality*
+  nameWithType.vb: GroupGridViewport.<>(GroupGridViewport, GroupGridViewport)
+  fullName.vb: Avalonia.Controls.GroupGridViewport.<>(Avalonia.Controls.GroupGridViewport, Avalonia.Controls.GroupGridViewport)
+  name.vb: <>(GroupGridViewport, GroupGridViewport)
+- uid: Avalonia.Controls.GroupGridViewport.Contains(System.Int32)
+  commentId: M:Avalonia.Controls.GroupGridViewport.Contains(System.Int32)
+  id: Contains(System.Int32)
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: Contains(int)
+  nameWithType: GroupGridViewport.Contains(int)
+  fullName: Avalonia.Controls.GroupGridViewport.Contains(int)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Contains
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 62
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Returns true when a visible-node index is inside this viewport.
+  example: []
+  syntax:
+    content: public bool Contains(int VisibleNodeIndex)
+    parameters:
+    - id: VisibleNodeIndex
+      type: System.Int32
+      description: The visible-node index.
+    return:
+      type: System.Boolean
+      description: True if the index is inside this viewport; otherwise, false.
+    content.vb: Public Function Contains(VisibleNodeIndex As Integer) As Boolean
+  overload: Avalonia.Controls.GroupGridViewport.Contains*
+  nameWithType.vb: GroupGridViewport.Contains(Integer)
+  fullName.vb: Avalonia.Controls.GroupGridViewport.Contains(Integer)
+  name.vb: Contains(Integer)
+- uid: Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex
+  commentId: P:Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex
+  id: FirstVisibleNodeIndex
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: FirstVisibleNodeIndex
+  nameWithType: GroupGridViewport.FirstVisibleNodeIndex
+  fullName: Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FirstVisibleNodeIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 73
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the first visible-node index included in the viewport.
+  example: []
+  syntax:
+    content: public int FirstVisibleNodeIndex { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property FirstVisibleNodeIndex As Integer
+  overload: Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex*
+- uid: Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex
+  commentId: P:Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex
+  id: LastVisibleNodeIndex
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: LastVisibleNodeIndex
+  nameWithType: GroupGridViewport.LastVisibleNodeIndex
+  fullName: Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: LastVisibleNodeIndex
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 77
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the last visible-node index included in the viewport.
+  example: []
+  syntax:
+    content: public int LastVisibleNodeIndex { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property LastVisibleNodeIndex As Integer
+  overload: Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex*
+- uid: Avalonia.Controls.GroupGridViewport.Count
+  commentId: P:Avalonia.Controls.GroupGridViewport.Count
+  id: Count
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: GroupGridViewport.Count
+  fullName: Avalonia.Controls.GroupGridViewport.Count
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Count
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 81
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the number of visible nodes included in the viewport.
+  example: []
+  syntax:
+    content: public int Count { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property Count As Integer
+  overload: Avalonia.Controls.GroupGridViewport.Count*
+- uid: Avalonia.Controls.GroupGridViewport.IsEmpty
+  commentId: P:Avalonia.Controls.GroupGridViewport.IsEmpty
+  id: IsEmpty
+  parent: Avalonia.Controls.GroupGridViewport
+  langs:
+  - csharp
+  - vb
+  name: IsEmpty
+  nameWithType: GroupGridViewport.IsEmpty
+  fullName: Avalonia.Controls.GroupGridViewport.IsEmpty
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IsEmpty
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridViewport.cs
+    startLine: 85
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets a value indicating whether this viewport is empty.
+  example: []
+  syntax:
+    content: public bool IsEmpty { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsEmpty As Boolean
+  overload: Avalonia.Controls.GroupGridViewport.IsEmpty*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.IEquatable{Avalonia.Controls.GroupGridViewport}
+  commentId: T:System.IEquatable{Avalonia.Controls.GroupGridViewport}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<GroupGridViewport>
+  nameWithType: IEquatable<GroupGridViewport>
+  fullName: System.IEquatable<Avalonia.Controls.GroupGridViewport>
+  nameWithType.vb: IEquatable(Of GroupGridViewport)
+  fullName.vb: System.IEquatable(Of Avalonia.Controls.GroupGridViewport)
+  name.vb: IEquatable(Of GroupGridViewport)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: Avalonia.Controls.GroupGridViewport
+    name: GroupGridViewport
+    href: Avalonia.Controls.GroupGridViewport.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridViewport
+    name: GroupGridViewport
+    href: Avalonia.Controls.GroupGridViewport.html
+  - name: )
+- uid: System.ValueType.ToString
+  commentId: M:System.ValueType.ToString
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  name: ToString()
+  nameWithType: ValueType.ToString()
+  fullName: System.ValueType.ToString()
+  spec.csharp:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.ValueType
+  commentId: T:System.ValueType
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype
+  name: ValueType
+  nameWithType: ValueType
+  fullName: System.ValueType
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridViewport
+  commentId: T:Avalonia.Controls.GroupGridViewport
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridViewport.html
+  name: GroupGridViewport
+  nameWithType: GroupGridViewport
+  fullName: Avalonia.Controls.GroupGridViewport
+- uid: Avalonia.Controls.GroupGridViewport.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.#ctor
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport__ctor_System_Int32_System_Int32_
+  name: GroupGridViewport
+  nameWithType: GroupGridViewport.GroupGridViewport
+  fullName: Avalonia.Controls.GroupGridViewport.GroupGridViewport
+  nameWithType.vb: GroupGridViewport.New
+  fullName.vb: Avalonia.Controls.GroupGridViewport.New
+  name.vb: New
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Avalonia.Controls.GroupGridViewport.Empty*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.Empty
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_Empty
+  name: Empty
+  nameWithType: GroupGridViewport.Empty
+  fullName: Avalonia.Controls.GroupGridViewport.Empty
+- uid: Avalonia.Controls.GroupGridViewport.Equals*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.Equals
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_Equals_Avalonia_Controls_GroupGridViewport_
+  name: Equals
+  nameWithType: GroupGridViewport.Equals
+  fullName: Avalonia.Controls.GroupGridViewport.Equals
+- uid: System.IEquatable{Avalonia.Controls.GroupGridViewport}.Equals(Avalonia.Controls.GroupGridViewport)
+  commentId: M:System.IEquatable{Avalonia.Controls.GroupGridViewport}.Equals(Avalonia.Controls.GroupGridViewport)
+  parent: System.IEquatable{Avalonia.Controls.GroupGridViewport}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(GroupGridViewport)
+  nameWithType: IEquatable<GroupGridViewport>.Equals(GroupGridViewport)
+  fullName: System.IEquatable<Avalonia.Controls.GroupGridViewport>.Equals(Avalonia.Controls.GroupGridViewport)
+  nameWithType.vb: IEquatable(Of GroupGridViewport).Equals(GroupGridViewport)
+  fullName.vb: System.IEquatable(Of Avalonia.Controls.GroupGridViewport).Equals(Avalonia.Controls.GroupGridViewport)
+  spec.csharp:
+  - uid: System.IEquatable{Avalonia.Controls.GroupGridViewport}.Equals(Avalonia.Controls.GroupGridViewport)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: Avalonia.Controls.GroupGridViewport
+    name: GroupGridViewport
+    href: Avalonia.Controls.GroupGridViewport.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{Avalonia.Controls.GroupGridViewport}.Equals(Avalonia.Controls.GroupGridViewport)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: Avalonia.Controls.GroupGridViewport
+    name: GroupGridViewport
+    href: Avalonia.Controls.GroupGridViewport.html
+  - name: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: Avalonia.Controls.GroupGridViewport.GetHashCode*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.GetHashCode
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_GetHashCode
+  name: GetHashCode
+  nameWithType: GroupGridViewport.GetHashCode
+  fullName: Avalonia.Controls.GroupGridViewport.GetHashCode
+- uid: Avalonia.Controls.GroupGridViewport.op_Equality*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.op_Equality
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_op_Equality_Avalonia_Controls_GroupGridViewport_Avalonia_Controls_GroupGridViewport_
+  name: operator ==
+  nameWithType: GroupGridViewport.operator ==
+  fullName: Avalonia.Controls.GroupGridViewport.operator ==
+  nameWithType.vb: GroupGridViewport.=
+  fullName.vb: Avalonia.Controls.GroupGridViewport.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridViewport.op_Equality*
+    name: ==
+    href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_op_Equality_Avalonia_Controls_GroupGridViewport_Avalonia_Controls_GroupGridViewport_
+- uid: Avalonia.Controls.GroupGridViewport.op_Inequality*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.op_Inequality
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_op_Inequality_Avalonia_Controls_GroupGridViewport_Avalonia_Controls_GroupGridViewport_
+  name: operator !=
+  nameWithType: GroupGridViewport.operator !=
+  fullName: Avalonia.Controls.GroupGridViewport.operator !=
+  nameWithType.vb: GroupGridViewport.<>
+  fullName.vb: Avalonia.Controls.GroupGridViewport.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridViewport.op_Inequality*
+    name: '!='
+    href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_op_Inequality_Avalonia_Controls_GroupGridViewport_Avalonia_Controls_GroupGridViewport_
+- uid: Avalonia.Controls.GroupGridViewport.Contains*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.Contains
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_Contains_System_Int32_
+  name: Contains
+  nameWithType: GroupGridViewport.Contains
+  fullName: Avalonia.Controls.GroupGridViewport.Contains
+- uid: Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_FirstVisibleNodeIndex
+  name: FirstVisibleNodeIndex
+  nameWithType: GroupGridViewport.FirstVisibleNodeIndex
+  fullName: Avalonia.Controls.GroupGridViewport.FirstVisibleNodeIndex
+- uid: Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_LastVisibleNodeIndex
+  name: LastVisibleNodeIndex
+  nameWithType: GroupGridViewport.LastVisibleNodeIndex
+  fullName: Avalonia.Controls.GroupGridViewport.LastVisibleNodeIndex
+- uid: Avalonia.Controls.GroupGridViewport.Count*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.Count
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_Count
+  name: Count
+  nameWithType: GroupGridViewport.Count
+  fullName: Avalonia.Controls.GroupGridViewport.Count
+- uid: Avalonia.Controls.GroupGridViewport.IsEmpty*
+  commentId: Overload:Avalonia.Controls.GroupGridViewport.IsEmpty
+  href: Avalonia.Controls.GroupGridViewport.html#Avalonia_Controls_GroupGridViewport_IsEmpty
+  name: IsEmpty
+  nameWithType: GroupGridViewport.IsEmpty
+  fullName: Avalonia.Controls.GroupGridViewport.IsEmpty

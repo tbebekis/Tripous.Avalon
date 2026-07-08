@@ -1,0 +1,57 @@
+# Build output
+bin/
+obj/
+**/bin/
+**/obj/
+Debug/
+Release/
+x64/
+x86/
+artifacts/
+Publish/
+publish/
+*.exe
+*.dll
+*.pdb
+*.nupkg
+*.snupkg
+
+# .NET restore/package files
+project.assets.json
+project.lock.json
+packages/
+**/packages/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.sln.docstates
+*.DotSettings.user
+*.rsuser
+*.vshost.exe
+*.vshost.exe.manifest
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Avalonia
+*.visualstate
+*.lscache
+
+# Node / Playwright scratch
+node_modules/
+**/node_modules/
+package.json
+package-lock.json
+
+# Documentation build output
+DocFx/_site/
+
+# Local agent and reference material
+AGENTS.md
+CurrentWork.md
+GroupGridDesign.md
+Material/

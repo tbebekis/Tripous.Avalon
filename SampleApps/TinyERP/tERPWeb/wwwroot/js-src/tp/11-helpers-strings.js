@@ -518,6 +518,19 @@ tp.ReplaceLineBreaks = function (Value, Separator) {
 tp.LineBreaksToHtml = function (Value) {
     return tp.ReplaceLineBreaks(Value, "<br />");
 };
+/**
+ * Encodes a value as HTML text.
+ * @param {*} Value The value to encode.
+ * @returns {string} Returns the encoded text.
+ */
+tp.EncodeHtml = function (Value) {
+    return tp.IsNil(Value) ? "" : String(Value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+};
 
 // ● padding and generation
 /**

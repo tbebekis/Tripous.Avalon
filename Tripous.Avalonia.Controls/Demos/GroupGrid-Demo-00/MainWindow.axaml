@@ -1,0 +1,97 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls"
+        mc:Ignorable="d" d:DesignWidth="1180" d:DesignHeight="760"
+        x:Class="Demo00.GroupGrid.MainWindow"
+        Width="1180"
+        Height="760"
+        WindowState="Maximized"
+        Title="GroupGrid Demo">
+    <DockPanel>
+        <Border DockPanel.Dock="Top"
+                Padding="8"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Spacing="7">
+                <ComboBox x:Name="SourceComboBox"
+                          Width="180"
+                          HorizontalAlignment="Left"
+                          ToolTip.Tip="Switches the grid between the supported data adapters: a POCO list, a DataTable, and a DataView."
+                          SelectionChanged="SourceComboBox_SelectionChanged">
+                    <ComboBoxItem>POCO List</ComboBoxItem>
+                    <ComboBoxItem>DataTable</ComboBoxItem>
+                    <ComboBoxItem>DataView</ComboBoxItem>
+                </ComboBox>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Disabled">
+                    <StackPanel Spacing="6">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <Button Content="Region + Customer"
+                                    ToolTip.Tip="Groups the current projection first by Region and then by Customer, including nested group summary rows."
+                                    Click="GroupRegionCustomerButton_Click" />
+                            <Button Content="Clear Groups"
+                                    ToolTip.Tip="Removes all grouped columns and returns the grid to a flat data-row projection."
+                                    Click="ClearGroupsButton_Click" />
+                            <Button Content="Qty &gt;= 5"
+                                    ToolTip.Tip="Applies a typed comparison filter to the Quantity column so only rows with Quantity greater than or equal to five remain visible."
+                                    Click="FilterQuantityButton_Click" />
+                            <Button Content="Clear Filters"
+                                    ToolTip.Tip="Clears every active column filter and rebuilds the projection from the full data source."
+                                    Click="ClearFiltersButton_Click" />
+                            <Button Content="Sort Amount"
+                                    ToolTip.Tip="Cycles sorting on the Amount column through ascending, descending, and unsorted states."
+                                    Click="SortAmountButton_Click" />
+                            <Button Content="Toggle Id Columns"
+                                    ToolTip.Tip="Toggles the public AreIdColumnsVisible API, hiding or showing columns named Id or ending with Id."
+                                    Click="ToggleIdColumnsButton_Click" />
+                            <Button Content="Hide Source"
+                                    ToolTip.Tip="Uses the field-name visibility API to hide the Source column without removing it from the grid."
+                                    Click="HideSourceButton_Click" />
+                            <Button Content="Show Source"
+                                    ToolTip.Tip="Uses the field-name visibility API to show the Source column again."
+                                    Click="ShowSourceButton_Click" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <Button Content="Notes Read Only"
+                                    ToolTip.Tip="Uses the field-name read-only API to prevent editing in the Notes column."
+                                    Click="NotesReadOnlyButton_Click" />
+                            <Button Content="Notes Editable"
+                                    ToolTip.Tip="Uses the field-name read-only API to allow editing in the Notes column again."
+                                    Click="NotesEditableButton_Click" />
+                            <Button Content="Save Layout"
+                                    ToolTip.Tip="Saves the current grid layout as formatted JSON, including widths, grouping, sorting, filters, summaries, and band visibility."
+                                    Click="SaveLayoutButton_Click" />
+                            <Button Content="Load Layout"
+                                    ToolTip.Tip="Loads the saved JSON layout from disk and applies it to the current grid instance."
+                                    Click="LoadLayoutButton_Click" />
+                            <Button Content="Export All"
+                                    ToolTip.Tip="Exports the current projection with all registered exporters: CSV, JSON, and HTML with groups and summaries."
+                                    Click="ExportAllButton_Click" />
+                            <Button Content="Reset"
+                                    ToolTip.Tip="Recreates the demo data and columns, restores Id visibility, clears filters, and applies the default grouping."
+                                    Click="ResetButton_Click" />
+                            <Button Content="Clear"
+                                    ToolTip.Tip="Clears the item source and current selection while leaving the demo columns available."
+                                    Click="ClearButton_Click" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+                <TextBlock Text="Features: POCO/DataTable/DataView binding, typed columns, lookup display, virtual scrolling, grouping, summaries, filtering, sorting, editing, layout persistence, exporters, field-name APIs."
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Margin="0,3,0,0"
+                           TextWrapping="Wrap"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                <TextBlock x:Name="StatusTextBlock"
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+            </StackPanel>
+        </Border>
+        <controls:GroupGrid x:Name="Grid" />
+    </DockPanel>
+</Window>

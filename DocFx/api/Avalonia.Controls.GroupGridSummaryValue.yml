@@ -1,0 +1,601 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridSummaryValue
+  commentId: T:Avalonia.Controls.GroupGridSummaryValue
+  id: GroupGridSummaryValue
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridSummaryValue.#ctor(Avalonia.Controls.GroupGridColumn,Avalonia.Controls.GroupGridAggregateKind,System.Object)
+  - Avalonia.Controls.GroupGridSummaryValue.AggregateKind
+  - Avalonia.Controls.GroupGridSummaryValue.Column
+  - Avalonia.Controls.GroupGridSummaryValue.Empty
+  - Avalonia.Controls.GroupGridSummaryValue.Value
+  langs:
+  - csharp
+  - vb
+  name: GroupGridSummaryValue
+  nameWithType: GroupGridSummaryValue
+  fullName: Avalonia.Controls.GroupGridSummaryValue
+  type: Struct
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridSummaryValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Describes a calculated summary value for a group grid column.
+  example: []
+  syntax:
+    content: public readonly struct GroupGridSummaryValue
+    content.vb: Public Structure GroupGridSummaryValue
+  inheritedMembers:
+  - System.ValueType.Equals(System.Object)
+  - System.ValueType.GetHashCode
+  - System.ValueType.ToString
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridSummaryValue.#ctor(Avalonia.Controls.GroupGridColumn,Avalonia.Controls.GroupGridAggregateKind,System.Object)
+  commentId: M:Avalonia.Controls.GroupGridSummaryValue.#ctor(Avalonia.Controls.GroupGridColumn,Avalonia.Controls.GroupGridAggregateKind,System.Object)
+  id: '#ctor(Avalonia.Controls.GroupGridColumn,Avalonia.Controls.GroupGridAggregateKind,System.Object)'
+  parent: Avalonia.Controls.GroupGridSummaryValue
+  langs:
+  - csharp
+  - vb
+  name: GroupGridSummaryValue(GroupGridColumn, GroupGridAggregateKind, object)
+  nameWithType: GroupGridSummaryValue.GroupGridSummaryValue(GroupGridColumn, GroupGridAggregateKind, object)
+  fullName: Avalonia.Controls.GroupGridSummaryValue.GroupGridSummaryValue(Avalonia.Controls.GroupGridColumn, Avalonia.Controls.GroupGridAggregateKind, object)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridSummaryValue" data-throw-if-not-resolved="false"></xref> struct.
+  example: []
+  syntax:
+    content: public GroupGridSummaryValue(GroupGridColumn Column, GroupGridAggregateKind AggregateKind, object Value)
+    parameters:
+    - id: Column
+      type: Avalonia.Controls.GroupGridColumn
+      description: The grid column.
+    - id: AggregateKind
+      type: Avalonia.Controls.GroupGridAggregateKind
+      description: The aggregate kind.
+    - id: Value
+      type: System.Object
+      description: The calculated value.
+    content.vb: Public Sub New(Column As GroupGridColumn, AggregateKind As GroupGridAggregateKind, Value As Object)
+  overload: Avalonia.Controls.GroupGridSummaryValue.#ctor*
+  nameWithType.vb: GroupGridSummaryValue.New(GroupGridColumn, GroupGridAggregateKind, Object)
+  fullName.vb: Avalonia.Controls.GroupGridSummaryValue.New(Avalonia.Controls.GroupGridColumn, Avalonia.Controls.GroupGridAggregateKind, Object)
+  name.vb: New(GroupGridColumn, GroupGridAggregateKind, Object)
+- uid: Avalonia.Controls.GroupGridSummaryValue.Empty
+  commentId: P:Avalonia.Controls.GroupGridSummaryValue.Empty
+  id: Empty
+  parent: Avalonia.Controls.GroupGridSummaryValue
+  langs:
+  - csharp
+  - vb
+  name: Empty
+  nameWithType: GroupGridSummaryValue.Empty
+  fullName: Avalonia.Controls.GroupGridSummaryValue.Empty
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Empty
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+    startLine: 28
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets an empty summary value.
+  example: []
+  syntax:
+    content: public static GroupGridSummaryValue Empty { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridSummaryValue
+    content.vb: Public Shared ReadOnly Property Empty As GroupGridSummaryValue
+  overload: Avalonia.Controls.GroupGridSummaryValue.Empty*
+- uid: Avalonia.Controls.GroupGridSummaryValue.Column
+  commentId: P:Avalonia.Controls.GroupGridSummaryValue.Column
+  id: Column
+  parent: Avalonia.Controls.GroupGridSummaryValue
+  langs:
+  - csharp
+  - vb
+  name: Column
+  nameWithType: GroupGridSummaryValue.Column
+  fullName: Avalonia.Controls.GroupGridSummaryValue.Column
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Column
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+    startLine: 34
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the grid column.
+  example: []
+  syntax:
+    content: public GroupGridColumn Column { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+    content.vb: Public ReadOnly Property Column As GroupGridColumn
+  overload: Avalonia.Controls.GroupGridSummaryValue.Column*
+- uid: Avalonia.Controls.GroupGridSummaryValue.AggregateKind
+  commentId: P:Avalonia.Controls.GroupGridSummaryValue.AggregateKind
+  id: AggregateKind
+  parent: Avalonia.Controls.GroupGridSummaryValue
+  langs:
+  - csharp
+  - vb
+  name: AggregateKind
+  nameWithType: GroupGridSummaryValue.AggregateKind
+  fullName: Avalonia.Controls.GroupGridSummaryValue.AggregateKind
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: AggregateKind
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+    startLine: 38
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the aggregate kind.
+  example: []
+  syntax:
+    content: public GroupGridAggregateKind AggregateKind { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridAggregateKind
+    content.vb: Public ReadOnly Property AggregateKind As GroupGridAggregateKind
+  overload: Avalonia.Controls.GroupGridSummaryValue.AggregateKind*
+- uid: Avalonia.Controls.GroupGridSummaryValue.Value
+  commentId: P:Avalonia.Controls.GroupGridSummaryValue.Value
+  id: Value
+  parent: Avalonia.Controls.GroupGridSummaryValue
+  langs:
+  - csharp
+  - vb
+  name: Value
+  nameWithType: GroupGridSummaryValue.Value
+  fullName: Avalonia.Controls.GroupGridSummaryValue.Value
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Value
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridSummaryValue.cs
+    startLine: 42
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the calculated value.
+  example: []
+  syntax:
+    content: public object Value { get; }
+    parameters: []
+    return:
+      type: System.Object
+    content.vb: Public ReadOnly Property Value As Object
+  overload: Avalonia.Controls.GroupGridSummaryValue.Value*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: System.ValueType.ToString
+  commentId: M:System.ValueType.ToString
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  name: ToString()
+  nameWithType: ValueType.ToString()
+  fullName: System.ValueType.ToString()
+  spec.csharp:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.ValueType
+  commentId: T:System.ValueType
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype
+  name: ValueType
+  nameWithType: ValueType
+  fullName: System.ValueType
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridSummaryValue
+  commentId: T:Avalonia.Controls.GroupGridSummaryValue
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridSummaryValue.html
+  name: GroupGridSummaryValue
+  nameWithType: GroupGridSummaryValue
+  fullName: Avalonia.Controls.GroupGridSummaryValue
+- uid: Avalonia.Controls.GroupGridSummaryValue.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridSummaryValue.#ctor
+  href: Avalonia.Controls.GroupGridSummaryValue.html#Avalonia_Controls_GroupGridSummaryValue__ctor_Avalonia_Controls_GroupGridColumn_Avalonia_Controls_GroupGridAggregateKind_System_Object_
+  name: GroupGridSummaryValue
+  nameWithType: GroupGridSummaryValue.GroupGridSummaryValue
+  fullName: Avalonia.Controls.GroupGridSummaryValue.GroupGridSummaryValue
+  nameWithType.vb: GroupGridSummaryValue.New
+  fullName.vb: Avalonia.Controls.GroupGridSummaryValue.New
+  name.vb: New
+- uid: Avalonia.Controls.GroupGridColumn
+  commentId: T:Avalonia.Controls.GroupGridColumn
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridColumn.html
+  name: GroupGridColumn
+  nameWithType: GroupGridColumn
+  fullName: Avalonia.Controls.GroupGridColumn
+- uid: Avalonia.Controls.GroupGridAggregateKind
+  commentId: T:Avalonia.Controls.GroupGridAggregateKind
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridAggregateKind.html
+  name: GroupGridAggregateKind
+  nameWithType: GroupGridAggregateKind
+  fullName: Avalonia.Controls.GroupGridAggregateKind
+- uid: Avalonia.Controls.GroupGridSummaryValue.Empty*
+  commentId: Overload:Avalonia.Controls.GroupGridSummaryValue.Empty
+  href: Avalonia.Controls.GroupGridSummaryValue.html#Avalonia_Controls_GroupGridSummaryValue_Empty
+  name: Empty
+  nameWithType: GroupGridSummaryValue.Empty
+  fullName: Avalonia.Controls.GroupGridSummaryValue.Empty
+- uid: Avalonia.Controls.GroupGridSummaryValue.Column*
+  commentId: Overload:Avalonia.Controls.GroupGridSummaryValue.Column
+  href: Avalonia.Controls.GroupGridSummaryValue.html#Avalonia_Controls_GroupGridSummaryValue_Column
+  name: Column
+  nameWithType: GroupGridSummaryValue.Column
+  fullName: Avalonia.Controls.GroupGridSummaryValue.Column
+- uid: Avalonia.Controls.GroupGridSummaryValue.AggregateKind*
+  commentId: Overload:Avalonia.Controls.GroupGridSummaryValue.AggregateKind
+  href: Avalonia.Controls.GroupGridSummaryValue.html#Avalonia_Controls_GroupGridSummaryValue_AggregateKind
+  name: AggregateKind
+  nameWithType: GroupGridSummaryValue.AggregateKind
+  fullName: Avalonia.Controls.GroupGridSummaryValue.AggregateKind
+- uid: Avalonia.Controls.GroupGridSummaryValue.Value*
+  commentId: Overload:Avalonia.Controls.GroupGridSummaryValue.Value
+  href: Avalonia.Controls.GroupGridSummaryValue.html#Avalonia_Controls_GroupGridSummaryValue_Value
+  name: Value
+  nameWithType: GroupGridSummaryValue.Value
+  fullName: Avalonia.Controls.GroupGridSummaryValue.Value

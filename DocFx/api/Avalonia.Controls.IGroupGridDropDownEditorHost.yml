@@ -1,0 +1,337 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost
+  commentId: T:Avalonia.Controls.IGroupGridDropDownEditorHost
+  id: IGroupGridDropDownEditorHost
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown
+  - Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown
+  - Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue(System.Object)
+  - Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus
+  langs:
+  - csharp
+  - vb
+  name: IGroupGridDropDownEditorHost
+  nameWithType: IGroupGridDropDownEditorHost
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost
+  type: Interface
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: IGroupGridDropDownEditorHost
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Provides host services for a group grid drop-down in-place editor.
+  example: []
+  syntax:
+    content: public interface IGroupGridDropDownEditorHost
+    content.vb: Public Interface IGroupGridDropDownEditorHost
+  derivedClasses:
+  - Avalonia.Controls.GroupGrid
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown
+  commentId: M:Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown
+  id: CloseDropDown
+  parent: Avalonia.Controls.IGroupGridDropDownEditorHost
+  langs:
+  - csharp
+  - vb
+  name: CloseDropDown()
+  nameWithType: IGroupGridDropDownEditorHost.CloseDropDown()
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CloseDropDown
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+    startLine: 14
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Closes the active drop-down without committing a value.
+  example: []
+  syntax:
+    content: void CloseDropDown()
+    content.vb: Sub CloseDropDown()
+  overload: Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown*
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue(System.Object)
+  commentId: M:Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue(System.Object)
+  id: CommitDropDownValue(System.Object)
+  parent: Avalonia.Controls.IGroupGridDropDownEditorHost
+  langs:
+  - csharp
+  - vb
+  name: CommitDropDownValue(object)
+  nameWithType: IGroupGridDropDownEditorHost.CommitDropDownValue(object)
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue(object)
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CommitDropDownValue
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+    startLine: 20
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Commits a value selected by the active drop-down editor.
+  example: []
+  syntax:
+    content: bool CommitDropDownValue(object Value)
+    parameters:
+    - id: Value
+      type: System.Object
+      description: The selected value.
+    return:
+      type: System.Boolean
+      description: True if the value was committed; otherwise, false.
+    content.vb: Function CommitDropDownValue(Value As Object) As Boolean
+  overload: Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue*
+  nameWithType.vb: IGroupGridDropDownEditorHost.CommitDropDownValue(Object)
+  fullName.vb: Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue(Object)
+  name.vb: CommitDropDownValue(Object)
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown
+  commentId: M:Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown
+  id: CancelDropDown
+  parent: Avalonia.Controls.IGroupGridDropDownEditorHost
+  langs:
+  - csharp
+  - vb
+  name: CancelDropDown()
+  nameWithType: IGroupGridDropDownEditorHost.CancelDropDown()
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: CancelDropDown
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Cancels the active drop-down without committing a value.
+  example: []
+  syntax:
+    content: bool CancelDropDown()
+    return:
+      type: System.Boolean
+      description: True if the drop-down cancel request was handled; otherwise, false.
+    content.vb: Function CancelDropDown() As Boolean
+  overload: Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown*
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus
+  commentId: M:Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus
+  id: RestoreEditorFocus
+  parent: Avalonia.Controls.IGroupGridDropDownEditorHost
+  langs:
+  - csharp
+  - vb
+  name: RestoreEditorFocus()
+  nameWithType: IGroupGridDropDownEditorHost.RestoreEditorFocus()
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus()
+  type: Method
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: RestoreEditorFocus
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/IGroupGridDropDownEditorHost.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Restores focus to the active in-place editor.
+  example: []
+  syntax:
+    content: void RestoreEditorFocus()
+    content.vb: Sub RestoreEditorFocus()
+  overload: Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown*
+  commentId: Overload:Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown
+  href: Avalonia.Controls.IGroupGridDropDownEditorHost.html#Avalonia_Controls_IGroupGridDropDownEditorHost_CloseDropDown
+  name: CloseDropDown
+  nameWithType: IGroupGridDropDownEditorHost.CloseDropDown
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.CloseDropDown
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue*
+  commentId: Overload:Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue
+  href: Avalonia.Controls.IGroupGridDropDownEditorHost.html#Avalonia_Controls_IGroupGridDropDownEditorHost_CommitDropDownValue_System_Object_
+  name: CommitDropDownValue
+  nameWithType: IGroupGridDropDownEditorHost.CommitDropDownValue
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.CommitDropDownValue
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown*
+  commentId: Overload:Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown
+  href: Avalonia.Controls.IGroupGridDropDownEditorHost.html#Avalonia_Controls_IGroupGridDropDownEditorHost_CancelDropDown
+  name: CancelDropDown
+  nameWithType: IGroupGridDropDownEditorHost.CancelDropDown
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.CancelDropDown
+- uid: Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus*
+  commentId: Overload:Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus
+  href: Avalonia.Controls.IGroupGridDropDownEditorHost.html#Avalonia_Controls_IGroupGridDropDownEditorHost_RestoreEditorFocus
+  name: RestoreEditorFocus
+  nameWithType: IGroupGridDropDownEditorHost.RestoreEditorFocus
+  fullName: Avalonia.Controls.IGroupGridDropDownEditorHost.RestoreEditorFocus

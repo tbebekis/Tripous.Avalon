@@ -1,0 +1,1269 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridBand
+  commentId: T:Avalonia.Controls.GroupGridBand
+  id: GroupGridBand
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridBand.Body
+  - Avalonia.Controls.GroupGridBand.ColumnHeader
+  - Avalonia.Controls.GroupGridBand.FilterRow
+  - Avalonia.Controls.GroupGridBand.FooterSummary
+  - Avalonia.Controls.GroupGridBand.GroupPanel
+  - Avalonia.Controls.GroupGridBand.None
+  - Avalonia.Controls.GroupGridBand.ToolBar
+  langs:
+  - csharp
+  - vb
+  name: GroupGridBand
+  nameWithType: GroupGridBand
+  fullName: Avalonia.Controls.GroupGridBand
+  type: Enum
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridBand
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Specifies a visual band in a group grid layout.
+  example: []
+  syntax:
+    content: public enum GroupGridBand
+    content.vb: Public Enum GroupGridBand
+  extensionMethods:
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridBand)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridBand)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridBand)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridBand)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridBand)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridBand)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.IsZero``1
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridBand)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridBand,System.Boolean)
+  - Avalonia.Controls.GroupGridBand.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridBand)
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridBand.None
+  commentId: F:Avalonia.Controls.GroupGridBand.None
+  id: None
+  parent: Avalonia.Controls.GroupGridBand
+  langs:
+  - csharp
+  - vb
+  name: None
+  nameWithType: GroupGridBand.None
+  fullName: Avalonia.Controls.GroupGridBand.None
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: None
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 13
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: No band.
+  example: []
+  syntax:
+    content: None = 0
+    return:
+      type: Avalonia.Controls.GroupGridBand
+- uid: Avalonia.Controls.GroupGridBand.ToolBar
+  commentId: F:Avalonia.Controls.GroupGridBand.ToolBar
+  id: ToolBar
+  parent: Avalonia.Controls.GroupGridBand
+  langs:
+  - csharp
+  - vb
+  name: ToolBar
+  nameWithType: GroupGridBand.ToolBar
+  fullName: Avalonia.Controls.GroupGridBand.ToolBar
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ToolBar
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 17
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The toolbar band.
+  example: []
+  syntax:
+    content: ToolBar = 1
+    return:
+      type: Avalonia.Controls.GroupGridBand
+- uid: Avalonia.Controls.GroupGridBand.GroupPanel
+  commentId: F:Avalonia.Controls.GroupGridBand.GroupPanel
+  id: GroupPanel
+  parent: Avalonia.Controls.GroupGridBand
+  langs:
+  - csharp
+  - vb
+  name: GroupPanel
+  nameWithType: GroupGridBand.GroupPanel
+  fullName: Avalonia.Controls.GroupGridBand.GroupPanel
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupPanel
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 21
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The grouping panel band.
+  example: []
+  syntax:
+    content: GroupPanel = 2
+    return:
+      type: Avalonia.Controls.GroupGridBand
+- uid: Avalonia.Controls.GroupGridBand.ColumnHeader
+  commentId: F:Avalonia.Controls.GroupGridBand.ColumnHeader
+  id: ColumnHeader
+  parent: Avalonia.Controls.GroupGridBand
+  langs:
+  - csharp
+  - vb
+  name: ColumnHeader
+  nameWithType: GroupGridBand.ColumnHeader
+  fullName: Avalonia.Controls.GroupGridBand.ColumnHeader
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ColumnHeader
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 25
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The column captions band.
+  example: []
+  syntax:
+    content: ColumnHeader = 3
+    return:
+      type: Avalonia.Controls.GroupGridBand
+- uid: Avalonia.Controls.GroupGridBand.FilterRow
+  commentId: F:Avalonia.Controls.GroupGridBand.FilterRow
+  id: FilterRow
+  parent: Avalonia.Controls.GroupGridBand
+  langs:
+  - csharp
+  - vb
+  name: FilterRow
+  nameWithType: GroupGridBand.FilterRow
+  fullName: Avalonia.Controls.GroupGridBand.FilterRow
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FilterRow
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 29
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The filter row band.
+  example: []
+  syntax:
+    content: FilterRow = 4
+    return:
+      type: Avalonia.Controls.GroupGridBand
+- uid: Avalonia.Controls.GroupGridBand.Body
+  commentId: F:Avalonia.Controls.GroupGridBand.Body
+  id: Body
+  parent: Avalonia.Controls.GroupGridBand
+  langs:
+  - csharp
+  - vb
+  name: Body
+  nameWithType: GroupGridBand.Body
+  fullName: Avalonia.Controls.GroupGridBand.Body
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Body
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 33
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The scrollable body band.
+  example: []
+  syntax:
+    content: Body = 5
+    return:
+      type: Avalonia.Controls.GroupGridBand
+- uid: Avalonia.Controls.GroupGridBand.FooterSummary
+  commentId: F:Avalonia.Controls.GroupGridBand.FooterSummary
+  id: FooterSummary
+  parent: Avalonia.Controls.GroupGridBand
+  langs:
+  - csharp
+  - vb
+  name: FooterSummary
+  nameWithType: GroupGridBand.FooterSummary
+  fullName: Avalonia.Controls.GroupGridBand.FooterSummary
+  type: Field
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FooterSummary
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridBand.cs
+    startLine: 37
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: The footer summary band.
+  example: []
+  syntax:
+    content: FooterSummary = 6
+    return:
+      type: Avalonia.Controls.GroupGridBand
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.Add<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.Add<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.Add(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.Add(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: Add(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.HasAny<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.HasAny<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.HasAny(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.HasAny(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: HasAny(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.HasNone<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.HasNone<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.HasNone(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.HasNone(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: HasNone(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.Has<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.Has<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.Has(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.Has(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: Has(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.In``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.In<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.In<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.In(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.In(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: In(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.IsExactly<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.IsExactly<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.IsExactly(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.IsExactly(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: IsExactly(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.IsZero``1
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<GroupGridBand>(GroupGridBand)
+  nameWithType: BitFields.IsZero<GroupGridBand>(GroupGridBand)
+  fullName: Tripous.BitFields.IsZero<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.IsZero(Of GroupGridBand)(GroupGridBand)
+  fullName.vb: Tripous.BitFields.IsZero(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand)
+  name.vb: IsZero(Of GroupGridBand)(GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridBand)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(Avalonia.Controls.GroupGridBand)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.Remove<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.Remove<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.Remove(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.Remove(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: Remove(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridBand,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<GroupGridBand>(GroupGridBand, GroupGridBand, bool)
+  nameWithType: BitFields.Set<GroupGridBand>(GroupGridBand, GroupGridBand, bool)
+  fullName: Tripous.BitFields.Set<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand, bool)
+  nameWithType.vb: BitFields.Set(Of GroupGridBand)(GroupGridBand, GroupGridBand, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand, Boolean)
+  name.vb: Set(Of GroupGridBand)(GroupGridBand, GroupGridBand, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Avalonia.Controls.GroupGridBand.Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridBand)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  parent: Tripous.BitFields
+  definition: Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<GroupGridBand>(GroupGridBand, GroupGridBand)
+  nameWithType: BitFields.Toggle<GroupGridBand>(GroupGridBand, GroupGridBand)
+  fullName: Tripous.BitFields.Toggle<Avalonia.Controls.GroupGridBand>(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  nameWithType.vb: BitFields.Toggle(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  fullName.vb: Tripous.BitFields.Toggle(Of Avalonia.Controls.GroupGridBand)(Avalonia.Controls.GroupGridBand, Avalonia.Controls.GroupGridBand)
+  name.vb: Toggle(Of GroupGridBand)(GroupGridBand, GroupGridBand)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: '>'
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(Avalonia.Controls.GroupGridBand,Avalonia.Controls.GroupGridBand)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+  - name: (
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: ','
+  - name: " "
+  - uid: Avalonia.Controls.GroupGridBand
+    name: GroupGridBand
+    href: Avalonia.Controls.GroupGridBand.html
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.BitFields.Add``1(``0,``0)
+  commentId: M:Tripous.BitFields.Add``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  name: Add<T>(T, T)
+  nameWithType: BitFields.Add<T>(T, T)
+  fullName: Tripous.BitFields.Add<T>(T, T)
+  nameWithType.vb: BitFields.Add(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Add(Of T)(T, T)
+  name.vb: Add(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Add``1(``0,``0)
+    name: Add
+    href: Tripous.BitFields.html#Tripous_BitFields_Add__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields
+  commentId: T:Tripous.BitFields
+  parent: Tripous
+  href: Tripous.BitFields.html
+  name: BitFields
+  nameWithType: BitFields
+  fullName: Tripous.BitFields
+- uid: Tripous.BitFields.HasAny``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasAny``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  name: HasAny<T>(T, T)
+  nameWithType: BitFields.HasAny<T>(T, T)
+  fullName: Tripous.BitFields.HasAny<T>(T, T)
+  nameWithType.vb: BitFields.HasAny(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasAny(Of T)(T, T)
+  name.vb: HasAny(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasAny``1(``0,``0)
+    name: HasAny
+    href: Tripous.BitFields.html#Tripous_BitFields_HasAny__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.HasNone``1(``0,``0)
+  commentId: M:Tripous.BitFields.HasNone``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  name: HasNone<T>(T, T)
+  nameWithType: BitFields.HasNone<T>(T, T)
+  fullName: Tripous.BitFields.HasNone<T>(T, T)
+  nameWithType.vb: BitFields.HasNone(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.HasNone(Of T)(T, T)
+  name.vb: HasNone(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.HasNone``1(``0,``0)
+    name: HasNone
+    href: Tripous.BitFields.html#Tripous_BitFields_HasNone__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Has``1(``0,``0)
+  commentId: M:Tripous.BitFields.Has``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  name: Has<T>(T, T)
+  nameWithType: BitFields.Has<T>(T, T)
+  fullName: Tripous.BitFields.Has<T>(T, T)
+  nameWithType.vb: BitFields.Has(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Has(Of T)(T, T)
+  name.vb: Has(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Has``1(``0,``0)
+    name: Has
+    href: Tripous.BitFields.html#Tripous_BitFields_Has__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.In``1(``0,``0)
+  commentId: M:Tripous.BitFields.In``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  name: In<T>(T, T)
+  nameWithType: BitFields.In<T>(T, T)
+  fullName: Tripous.BitFields.In<T>(T, T)
+  nameWithType.vb: BitFields.In(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.In(Of T)(T, T)
+  name.vb: In(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.In``1(``0,``0)
+    name: In
+    href: Tripous.BitFields.html#Tripous_BitFields_In__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsExactly``1(``0,``0)
+  commentId: M:Tripous.BitFields.IsExactly``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  name: IsExactly<T>(T, T)
+  nameWithType: BitFields.IsExactly<T>(T, T)
+  fullName: Tripous.BitFields.IsExactly<T>(T, T)
+  nameWithType.vb: BitFields.IsExactly(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.IsExactly(Of T)(T, T)
+  name.vb: IsExactly(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsExactly``1(``0,``0)
+    name: IsExactly
+    href: Tripous.BitFields.html#Tripous_BitFields_IsExactly__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.IsZero``1(``0)
+  commentId: M:Tripous.BitFields.IsZero``1(``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  name: IsZero<T>(T)
+  nameWithType: BitFields.IsZero<T>(T)
+  fullName: Tripous.BitFields.IsZero<T>(T)
+  nameWithType.vb: BitFields.IsZero(Of T)(T)
+  fullName.vb: Tripous.BitFields.IsZero(Of T)(T)
+  name.vb: IsZero(Of T)(T)
+  spec.csharp:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.IsZero``1(``0)
+    name: IsZero
+    href: Tripous.BitFields.html#Tripous_BitFields_IsZero__1___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Remove``1(``0,``0)
+  commentId: M:Tripous.BitFields.Remove``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  name: Remove<T>(T, T)
+  nameWithType: BitFields.Remove<T>(T, T)
+  fullName: Tripous.BitFields.Remove<T>(T, T)
+  nameWithType.vb: BitFields.Remove(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Remove(Of T)(T, T)
+  name.vb: Remove(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Remove``1(``0,``0)
+    name: Remove
+    href: Tripous.BitFields.html#Tripous_BitFields_Remove__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  commentId: M:Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+  isExternal: true
+  href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  name: Set<T>(T, T, bool)
+  nameWithType: BitFields.Set<T>(T, T, bool)
+  fullName: Tripous.BitFields.Set<T>(T, T, bool)
+  nameWithType.vb: BitFields.Set(Of T)(T, T, Boolean)
+  fullName.vb: Tripous.BitFields.Set(Of T)(T, T, Boolean)
+  name.vb: Set(Of T)(T, T, Boolean)
+  spec.csharp:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Set``1(``0,``0,System.Boolean)
+    name: Set
+    href: Tripous.BitFields.html#Tripous_BitFields_Set__1___0___0_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: Tripous.BitFields.Toggle``1(``0,``0)
+  commentId: M:Tripous.BitFields.Toggle``1(``0,``0)
+  href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  name: Toggle<T>(T, T)
+  nameWithType: BitFields.Toggle<T>(T, T)
+  fullName: Tripous.BitFields.Toggle<T>(T, T)
+  nameWithType.vb: BitFields.Toggle(Of T)(T, T)
+  fullName.vb: Tripous.BitFields.Toggle(Of T)(T, T)
+  name.vb: Toggle(Of T)(T, T)
+  spec.csharp:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: Tripous.BitFields.Toggle``1(``0,``0)
+    name: Toggle
+    href: Tripous.BitFields.html#Tripous_BitFields_Toggle__1___0___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - name: T
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridBand
+  commentId: T:Avalonia.Controls.GroupGridBand
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridBand.html
+  name: GroupGridBand
+  nameWithType: GroupGridBand
+  fullName: Avalonia.Controls.GroupGridBand

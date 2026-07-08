@@ -1,0 +1,124 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:AvaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             x:Class="Demo00.GroupGrid.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+      <Application.Styles>
+        <FluentTheme />
+        
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+        
+        <!-- ● TextBox -->
+        <Style Selector="TextBox.CodeProvider">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeHighBrush}" />
+        </Style>
+        
+        <!-- ● Button -->
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <!-- ● MenuItem -->
+        <Style Selector="MenuItem">
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+ 
+        <!-- ● TabItem -->
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>       
+        
+        <!-- ● Expander -->
+        <Style Selector="Expander ToggleButton">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        
+        <!-- ● ToolBar -->
+        <Style Selector="Border.ToolbarContainer">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="Spacing" Value="0" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > Button > Image">
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > ToggleButton">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > ToggleButton > Image">
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        
+        <Style Selector="StackPanel.ToolBar > Separator">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Background" Value="#CCCCCC" />
+            <Setter Property="Margin" Value="0,0"/>
+        </Style>
+        
+        <!-- ● ToolBar Separator -->
+        <Style Selector="StackPanel.ToolBar > Separator">
+            <Setter Property="Width" Value="1"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            Margin="{TemplateBinding Margin}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        
+        <Style Selector="GridSplitter">
+            <Setter Property="Background" Value="#CCCCCC" />
+        </Style>
+        
+ 
+  
+ 
+        <!-- ● TreeView -->
+        <Style Selector="TreeViewItem">
+            <Setter Property="MinHeight" Value="24"/>
+            <Setter Property="Padding" Value="2"/>
+            <!-- 
+             <Setter Property="Margin" Value="-30,0,0,0"/>
+            -->
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        
+ 
+ 
+    </Application.Styles> 
+</Application>

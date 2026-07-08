@@ -1236,26 +1236,26 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.collections
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
+  href: Avalonia.html
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
 - uid: System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
   commentId: T:System.EventHandler{Avalonia.Interactivity.RoutedEventArgs}
   parent: System

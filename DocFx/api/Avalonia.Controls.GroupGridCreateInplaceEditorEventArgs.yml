@@ -1,0 +1,704 @@
+### YamlMime:ManagedReference
+items:
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  commentId: T:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  id: GroupGridCreateInplaceEditorEventArgs
+  parent: Avalonia.Controls
+  children:
+  - Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.#ctor(Avalonia.Controls.GroupGridColumn)
+  - Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column
+  - Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor
+  - Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName
+  - Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled
+  - Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType
+  langs:
+  - csharp
+  - vb
+  name: GroupGridCreateInplaceEditorEventArgs
+  nameWithType: GroupGridCreateInplaceEditorEventArgs
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  type: Class
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: GroupGridCreateInplaceEditorEventArgs
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+    startLine: 8
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Provides data for creating a custom group grid in-place editor.
+  example: []
+  syntax:
+    content: 'public class GroupGridCreateInplaceEditorEventArgs : EventArgs'
+    content.vb: Public Class GroupGridCreateInplaceEditorEventArgs Inherits EventArgs
+  inheritance:
+  - System.Object
+  - System.EventArgs
+  inheritedMembers:
+  - System.EventArgs.Empty
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.#ctor(Avalonia.Controls.GroupGridColumn)
+  commentId: M:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.#ctor(Avalonia.Controls.GroupGridColumn)
+  id: '#ctor(Avalonia.Controls.GroupGridColumn)'
+  parent: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: GroupGridCreateInplaceEditorEventArgs(GroupGridColumn)
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.GroupGridCreateInplaceEditorEventArgs(GroupGridColumn)
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.GroupGridCreateInplaceEditorEventArgs(Avalonia.Controls.GroupGridColumn)
+  type: Constructor
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: .ctor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+    startLine: 15
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Initializes a new instance of the <xref href="Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public GroupGridCreateInplaceEditorEventArgs(GroupGridColumn Column)
+    parameters:
+    - id: Column
+      type: Avalonia.Controls.GroupGridColumn
+      description: The column being edited.
+    content.vb: Public Sub New(Column As GroupGridColumn)
+  overload: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.#ctor*
+  nameWithType.vb: GroupGridCreateInplaceEditorEventArgs.New(GroupGridColumn)
+  fullName.vb: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.New(Avalonia.Controls.GroupGridColumn)
+  name.vb: New(GroupGridColumn)
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column
+  commentId: P:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column
+  id: Column
+  parent: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Column
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.Column
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Column
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+    startLine: 24
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the column being edited.
+  example: []
+  syntax:
+    content: public GroupGridColumn Column { get; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridColumn
+    content.vb: Public ReadOnly Property Column As GroupGridColumn
+  overload: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column*
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName
+  commentId: P:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName
+  id: FieldName
+  parent: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: FieldName
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.FieldName
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: FieldName
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+    startLine: 28
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the field name.
+  example: []
+  syntax:
+    content: public string FieldName { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property FieldName As String
+  overload: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName*
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType
+  commentId: P:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType
+  id: ValueType
+  parent: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: ValueType
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.ValueType
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: ValueType
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+    startLine: 32
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets the value type.
+  example: []
+  syntax:
+    content: public Type ValueType { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Public ReadOnly Property ValueType As Type
+  overload: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType*
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor
+  commentId: P:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor
+  id: Editor
+  parent: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Editor
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.Editor
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Editor
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+    startLine: 36
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets the custom editor.
+  example: []
+  syntax:
+    content: public GroupGridInplaceEditorBase Editor { get; set; }
+    parameters: []
+    return:
+      type: Avalonia.Controls.GroupGridInplaceEditorBase
+    content.vb: Public Property Editor As GroupGridInplaceEditorBase
+  overload: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor*
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled
+  commentId: P:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled
+  id: Handled
+  parent: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  langs:
+  - csharp
+  - vb
+  name: Handled
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.Handled
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled
+  type: Property
+  source:
+    remote:
+      path: Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+      branch: main
+      repo: https://github.com/tbebekis/Tripous.Avalon.git
+    id: Handled
+    path: ../Tripous.Avalonia.Controls/Tripous.Avalonia.Controls/GroupGrid/GroupGridCreateInplaceEditorEventArgs.cs
+    startLine: 40
+  assemblies:
+  - Tripous.Avalonia.Controls
+  namespace: Avalonia.Controls
+  summary: Gets or sets a value indicating whether the event supplied an editor.
+  example: []
+  syntax:
+    content: public bool Handled { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Handled As Boolean
+  overload: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled*
+references:
+- uid: Avalonia.Controls
+  commentId: N:Avalonia.Controls
+  href: Avalonia.html
+  name: Avalonia.Controls
+  nameWithType: Avalonia.Controls
+  fullName: Avalonia.Controls
+  spec.csharp:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+  spec.vb:
+  - uid: Avalonia
+    name: Avalonia
+    href: Avalonia.html
+  - name: .
+  - uid: Avalonia.Controls
+    name: Controls
+    href: Avalonia.Controls.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.EventArgs
+  commentId: T:System.EventArgs
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventargs
+  name: EventArgs
+  nameWithType: EventArgs
+  fullName: System.EventArgs
+- uid: System.EventArgs.Empty
+  commentId: F:System.EventArgs.Empty
+  parent: System.EventArgs
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.eventargs.empty
+  name: Empty
+  nameWithType: EventArgs.Empty
+  fullName: System.EventArgs.Empty
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Tripous.TypeExtensions.InheritsFrom(System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  parent: Tripous.TypeExtensions
+  definition: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  commentId: M:Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+  isExternal: true
+  href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  name: InheritsFrom(object, Type)
+  nameWithType: TypeExtensions.InheritsFrom(object, Type)
+  fullName: Tripous.TypeExtensions.InheritsFrom(object, System.Type)
+  nameWithType.vb: TypeExtensions.InheritsFrom(Object, Type)
+  fullName.vb: Tripous.TypeExtensions.InheritsFrom(Object, System.Type)
+  name.vb: InheritsFrom(Object, Type)
+  spec.csharp:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: Tripous.TypeExtensions.InheritsFrom(System.Object,System.Type)
+    name: InheritsFrom
+    href: Tripous.TypeExtensions.html#Tripous_TypeExtensions_InheritsFrom_System_Object_System_Type_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: Tripous.TypeExtensions
+  commentId: T:Tripous.TypeExtensions
+  parent: Tripous
+  href: Tripous.TypeExtensions.html
+  name: TypeExtensions
+  nameWithType: TypeExtensions
+  fullName: Tripous.TypeExtensions
+- uid: Tripous
+  commentId: N:Tripous
+  href: Tripous.html
+  name: Tripous
+  nameWithType: Tripous
+  fullName: Tripous
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  commentId: T:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html
+  name: GroupGridCreateInplaceEditorEventArgs
+  nameWithType: GroupGridCreateInplaceEditorEventArgs
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.#ctor*
+  commentId: Overload:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.#ctor
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html#Avalonia_Controls_GroupGridCreateInplaceEditorEventArgs__ctor_Avalonia_Controls_GroupGridColumn_
+  name: GroupGridCreateInplaceEditorEventArgs
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.GroupGridCreateInplaceEditorEventArgs
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.GroupGridCreateInplaceEditorEventArgs
+  nameWithType.vb: GroupGridCreateInplaceEditorEventArgs.New
+  fullName.vb: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.New
+  name.vb: New
+- uid: Avalonia.Controls.GroupGridColumn
+  commentId: T:Avalonia.Controls.GroupGridColumn
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridColumn.html
+  name: GroupGridColumn
+  nameWithType: GroupGridColumn
+  fullName: Avalonia.Controls.GroupGridColumn
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column*
+  commentId: Overload:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html#Avalonia_Controls_GroupGridCreateInplaceEditorEventArgs_Column
+  name: Column
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.Column
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Column
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName*
+  commentId: Overload:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html#Avalonia_Controls_GroupGridCreateInplaceEditorEventArgs_FieldName
+  name: FieldName
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.FieldName
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.FieldName
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType*
+  commentId: Overload:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html#Avalonia_Controls_GroupGridCreateInplaceEditorEventArgs_ValueType
+  name: ValueType
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.ValueType
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.ValueType
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor*
+  commentId: Overload:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html#Avalonia_Controls_GroupGridCreateInplaceEditorEventArgs_Editor
+  name: Editor
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.Editor
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Editor
+- uid: Avalonia.Controls.GroupGridInplaceEditorBase
+  commentId: T:Avalonia.Controls.GroupGridInplaceEditorBase
+  parent: Avalonia.Controls
+  href: Avalonia.Controls.GroupGridInplaceEditorBase.html
+  name: GroupGridInplaceEditorBase
+  nameWithType: GroupGridInplaceEditorBase
+  fullName: Avalonia.Controls.GroupGridInplaceEditorBase
+- uid: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled*
+  commentId: Overload:Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled
+  href: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.html#Avalonia_Controls_GroupGridCreateInplaceEditorEventArgs_Handled
+  name: Handled
+  nameWithType: GroupGridCreateInplaceEditorEventArgs.Handled
+  fullName: Avalonia.Controls.GroupGridCreateInplaceEditorEventArgs.Handled
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

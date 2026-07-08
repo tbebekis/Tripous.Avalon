@@ -38,18 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tripous\Tripous.csproj" />
     <ProjectReference Include="..\Tripous.Data\Tripous.Data.csproj" />
-  </ItemGroup>
-
-  <!-- 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Tripous.Avalonia.Controls\Tripous.Avalonia.Controls\Tripous.Avalonia.Controls.csproj" />
-  </ItemGroup>
-  -->  
-
-  <ItemGroup>
-    <Reference Include="Tripous.Avalonia.Controls">
-      <HintPath>..\..\Tripous.Avalonia.Controls\Tripous.Avalonia.Controls\bin\Debug\net10.0\Tripous.Avalonia.Controls.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Tripous.Avalonia.Controls\Tripous.Avalonia.Controls\Tripous.Avalonia.Controls.csproj" />
   </ItemGroup>
 
 </Project>

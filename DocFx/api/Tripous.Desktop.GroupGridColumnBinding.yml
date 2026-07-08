@@ -784,8 +784,7 @@ references:
 - uid: Avalonia.Controls.GroupGridColumn
   commentId: T:Avalonia.Controls.GroupGridColumn
   parent: Avalonia.Controls
-  isExternal: true
-  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
+  href: Avalonia.Controls.GroupGridColumn.html
   name: GroupGridColumn
   nameWithType: GroupGridColumn
   fullName: Avalonia.Controls.GroupGridColumn
@@ -799,26 +798,26 @@ references:
   fullName: System.Data.DataColumn
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
-  isExternal: true
+  href: Avalonia.html
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
   spec.vb:
   - uid: Avalonia
     name: Avalonia
-    isExternal: true
+    href: Avalonia.html
   - name: .
   - uid: Avalonia.Controls
     name: Controls
-    isExternal: true
+    href: Avalonia.Controls.html
 - uid: System.Data
   commentId: N:System.Data
   isExternal: true
