@@ -134,7 +134,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
         set { if (fDetailGridMinHeight != value) { fDetailGridMinHeight = value; NotifyPropertyChanged(nameof(DetailGridMinHeight)); } }
     }
     /// <summary>
-    /// When true then Locator2 grid dropdowns display a filter panel.
+    /// When true then locator grid dropdowns display a filter panel.
     /// </summary>
     public bool ShowLocatorGridFilterPanel
     {

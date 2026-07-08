@@ -35,8 +35,8 @@ public class LocatorTests
     }
     LocatorDef RegisterUnitOfMeasureLocator()
     {
-        DataRegistry.Locators2.Clear();
-        LocatorDef LocatorDef = DataRegistry.AddLocator2("UnitOfMeasure");
+        DataRegistry.Locators.Clear();
+        LocatorDef LocatorDef = DataRegistry.AddLocator("UnitOfMeasure");
         LocatorDef.Add("Id");
         LocatorDef.Add("Code");
         LocatorDef.Add("Name");
@@ -159,7 +159,7 @@ public class LocatorTests
         try
         {
             SetupTestDatabase(FilePath);
-            LocatorDef LocatorDef = DataRegistry.GetLocator2("UnitOfMeasure");
+            LocatorDef LocatorDef = DataRegistry.GetLocator("UnitOfMeasure");
             LocatorDef.MaximumResultCount = 1;
 
             LocatorRequest Request = new()
@@ -219,7 +219,7 @@ public class LocatorTests
         try
         {
             SetupTestDatabase(FilePath);
-            LocatorDef LocatorDef = DataRegistry.GetLocator2("UnitOfMeasure");
+            LocatorDef LocatorDef = DataRegistry.GetLocator("UnitOfMeasure");
             LocatorDef.OrderBy = "Name desc";
 
             LocatorRequest Request = new()

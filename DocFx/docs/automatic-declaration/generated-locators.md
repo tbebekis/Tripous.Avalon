@@ -2,7 +2,7 @@
 
 Generated locators are written to `RegistryVersionN.Locators.cs`.
 
-They register locator definitions in `DataRegistry.Locators2`.
+They register locator definitions in `DataRegistry.Locators`.
 
 Locators are used for searchable reference selection, usually for larger or more complex reference sets than simple lookups.
 
@@ -15,13 +15,13 @@ Example:
 ```csharp
 public override void RegisterLocators()
 {
-    DataRegistry.AddOrUpdateLocator2("Person", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
-    DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
-    DataRegistry.AddOrUpdateLocator2("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
+    DataRegistry.AddOrUpdateLocator("Person", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
+    DataRegistry.AddOrUpdateLocator("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
+    DataRegistry.AddOrUpdateLocator("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
 }
 ```
 
-`AddOrUpdateLocator2()` receives:
+`AddOrUpdateLocator()` receives:
 
 - locator name
 - source table name or source SQL text
@@ -54,7 +54,7 @@ The generated locator file registers the base locator definition.
 Example:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
+DataRegistry.AddOrUpdateLocator("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
 ```
 
 This means:
@@ -112,7 +112,7 @@ FOREIGN KEY (ProductId) REFERENCES Product(Id)
 Generated registration:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
+DataRegistry.AddOrUpdateLocator("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
 ```
 
 When the locator name differs from the source table, the generated registration keeps both values.
@@ -120,7 +120,7 @@ When the locator name differs from the source table, the generated registration 
 Example:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator2("Supplier", Source: "ProductSupplier", KeyField: "Id");
+DataRegistry.AddOrUpdateLocator("Supplier", Source: "ProductSupplier", KeyField: "Id");
 ```
 
 Here `Supplier` is the locator name and `ProductSupplier` is the source table.
@@ -138,7 +138,7 @@ FinanceMovementId @NVARCHAR(40) @NOT_NULL, -- Locator PaymentSettlementFinanceMo
 Generated registration:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator2("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
+DataRegistry.AddOrUpdateLocator("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
 ```
 
 The class is handwritten application code.

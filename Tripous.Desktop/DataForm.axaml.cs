@@ -892,8 +892,8 @@ public partial class DataForm : AppForm
             return CalendarDatePicker.Focusable;
         if (Control is CheckBox CheckBox)
             return CheckBox.Focusable;
-        if (Control is LocatorBox2 LocatorBox2)
-            return LocatorBox2.Focusable;
+        if (Control is LocatorBox LocatorBox)
+            return LocatorBox.Focusable;
 
         return false;
     }

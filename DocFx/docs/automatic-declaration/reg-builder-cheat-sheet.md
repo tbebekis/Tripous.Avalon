@@ -205,22 +205,22 @@ CustomerId @NVARCHAR(40) @NOT_NULL, -- Locator Customer Form:Person WebForm:Pers
 PaymentId @NVARCHAR(40) @NOT_NULL, -- Locator Payment ClassName:PaymentLocator Form:CustomerReceipt WebForm:CustomerReceipt
 ```
 
-- `LOCATOR_NAME` is the name of the locator definition in `DataRegistry.Locators2`.
+- `LOCATOR_NAME` is the name of the locator definition in `DataRegistry.Locators`.
 - If `LOCATOR_NAME` is omitted, it is resolved from the FK referenced table.
 - If `ClassName:`, `Form:`, or `WebForm:` is used, `LOCATOR_NAME` is required.
-- `ClassName:` is passed to `DataRegistry.AddOrUpdateLocator2()`.
+- `ClassName:` is passed to `DataRegistry.AddOrUpdateLocator()`.
 - `Form:` is the desktop reference form name used by locator reference menus.
 - `WebForm:` is the web reference form name used by web locator reference menus.
 - For FK-backed generated locators, if `Form:` is omitted, the builder uses the referenced table form.
 - For FK-backed generated locators, if `WebForm:` is omitted, the builder uses the referenced table web form, falling back to `Form:`.
-- At runtime, `LocatorDef2.Form` falls back to the locator name and `LocatorDef2.WebForm` falls back to `Form`.
+- At runtime, `LocatorDef.Form` falls back to the locator name and `LocatorDef.WebForm` falls back to `Form`.
 - For table-backed locators where the locator name is the referenced module/form name, the defaults are usually enough.
 - For custom SQL, service, or cross-module locators, prefer explicit `Form:` and `WebForm:`.
 
 Example generated registration:
 
 ```csharp
-DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", ClassName: "ProductLocator", FormName: "Product", WebFormName: "Product");
+DataRegistry.AddOrUpdateLocator("Product", Source: "Product", KeyField: "Id", ClassName: "ProductLocator", FormName: "Product", WebFormName: "Product");
 ```
 
 ## Join Aliases and Locator Fields

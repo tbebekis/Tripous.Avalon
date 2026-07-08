@@ -72,7 +72,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         bool IsReadOnly = Value || IsBindingReadOnly(Binding);
         switch (Binding.Control)
         {
-            case LocatorBox2 Box:
+            case LocatorBox Box:
                 Box.IsReadOnly = IsReadOnly;
                 break;
             case TextBox Box:
@@ -127,7 +127,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         
         if (!string.IsNullOrWhiteSpace(Field.Locator))
         {
-            LocatorBox2 LocatorBox = new();
+            LocatorBox LocatorBox = new();
             ControlBinding Binding = Binder.Bind(LocatorBox, Field);
             if (!Field.IsReadOnly && !Field.IsReadOnlyUI)
             {

@@ -166,13 +166,13 @@ static public class ControlBindingHelper
         }
     }
     /// <summary>
-    /// Refreshes a Locator2 box from a bound row field.
+    /// Refreshes a locator box from a bound row field.
     /// </summary>
     /// <param name="RowProvider">The row provider.</param>
     /// <param name="Binding">The control binding.</param>
-    static void RefreshLocatorBox2(IRowProvider RowProvider, ControlBinding Binding)
+    static void RefreshLocatorBox(IRowProvider RowProvider, ControlBinding Binding)
     {
-        if (Binding.Control is not LocatorBox2 Control)
+        if (Binding.Control is not LocatorBox Control)
             return;
 
         DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
@@ -266,9 +266,9 @@ static public class ControlBindingHelper
         {
             RefreshImage(RowProvider, Binding);
         }
-        else if (Binding.Control is LocatorBox2)
+        else if (Binding.Control is LocatorBox)
         {
-            RefreshLocatorBox2(RowProvider, Binding);
+            RefreshLocatorBox(RowProvider, Binding);
         }
     }
 
@@ -750,13 +750,13 @@ static public class ControlBindingHelper
     }
 
     /// <summary>
-    /// Binds a Locator2 box to a row field.
+    /// Binds a locator box to a row field.
     /// </summary>
     /// <param name="RowProvider">The row provider.</param>
     /// <param name="Box">The locator box.</param>
     /// <param name="FieldDef">The field definition.</param>
     /// <returns>The created control binding.</returns>
-    static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox2 Box, FieldDef FieldDef)
+    static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox Box, FieldDef FieldDef)
     {
         if (Box == null)
             throw new ArgumentNullException(nameof(Box));
@@ -765,9 +765,9 @@ static public class ControlBindingHelper
         if (string.IsNullOrWhiteSpace(FieldDef.Locator))
             throw new TripousException($"Field '{FieldDef.Name}' has no locator.");
 
-        LocatorDef LocatorDef = DataRegistry.FindLocator2(FieldDef.Locator);
+        LocatorDef LocatorDef = DataRegistry.FindLocator(FieldDef.Locator);
         if (LocatorDef == null)
-            throw new TripousException($"LocatorDef2 not found. Locator: {FieldDef.Locator}");
+            throw new TripousException($"LocatorDef not found. Locator: {FieldDef.Locator}");
 
         Box.LocatorDef = LocatorDef;
         Box.ContextRowProvider = RowProvider;
@@ -795,7 +795,7 @@ static public class ControlBindingHelper
             try
             {
                 new LocatorMapper().Apply(Binding.LocatorMapPlan, Args.Row, Row);
-                RefreshLocatorBox2(RowProvider, Binding);
+                RefreshLocatorBox(RowProvider, Binding);
                 if (Args.Row != null)
                     Box.RefreshTargetBoxes(Args.Row);
             }
@@ -805,7 +805,7 @@ static public class ControlBindingHelper
             }
         };
 
-        RefreshLocatorBox2(RowProvider, Binding);
+        RefreshLocatorBox(RowProvider, Binding);
 
         return Binding;
     }

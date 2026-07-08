@@ -297,14 +297,14 @@ static public class GroupGridBinder
         return Result;
     }
     /// <summary>
-    /// Creates a Locator2 display column for a group grid.
+    /// Creates a locator display column for a group grid.
     /// </summary>
     /// <param name="ColumnName">The target display column name.</param>
     /// <param name="Header">The column header.</param>
     /// <param name="FieldDef">The reference field definition.</param>
-    /// <param name="LocatorFieldDef">The Locator2 source field definition.</param>
-    /// <param name="LocatorDef">The Locator2 definition.</param>
-    /// <param name="MapPlan">The Locator2 mapping plan.</param>
+    /// <param name="LocatorFieldDef">The locator source field definition.</param>
+    /// <param name="LocatorDef">The locator definition.</param>
+    /// <param name="MapPlan">The locator mapping plan.</param>
     /// <returns>The created group grid column.</returns>
     static public GroupGridColumn CreateLocatorColumn2(string ColumnName, string Header, FieldDef FieldDef, LocatorFieldDef LocatorFieldDef, LocatorDef LocatorDef, LocatorMapPlan MapPlan)
     {

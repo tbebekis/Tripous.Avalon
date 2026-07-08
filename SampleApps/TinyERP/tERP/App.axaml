@@ -22,8 +22,8 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         
-        <!-- ● LocatorBox2 Button -->
-        <Style Selector="desktop|LocatorBox2 Button.LocatorBoxMenuButton">
+        <!-- ● LocatorBox Button -->
+        <Style Selector="desktop|LocatorBox Button.LocatorBoxMenuButton">
             <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
             <Setter Property="BorderThickness" Value="1" />

@@ -9,9 +9,9 @@
 namespace Tripous.Desktop;
 
 /// <summary>
-/// A composite locator editor based on Locator2.
+/// A composite locator editor.
 /// </summary>
-public class LocatorBox2: UserControl
+public class LocatorBox: UserControl
 {
     // ● private fields
     /// <summary>
@@ -302,38 +302,38 @@ public class LocatorBox2: UserControl
             return;
 
         string LogTerm = GetLogSearchTerm(TextBox.Text);
-        LogBox.AppendLine($"Locator2: Searching for term: {LogTerm}");
+        LogBox.AppendLine($"Locator: Searching for term: {LogTerm}");
         try
         {
             fLastResult = Locators.Execute(CreateRequest(TextBox));
             if (fLastResult.HasTooManyResults)
             {
                 ClosePopup();
-                LogBox.AppendLine($"Locator2: Too many rows for term: {LogTerm}");
+                LogBox.AppendLine($"Locator: Too many rows for term: {LogTerm}");
                 Ui.Post(async () => await MessageBox.Info(fLastResult.Message, this));
             }
             else if (fLastResult.Status == LocatorResultStatus.NoResult)
             {
                 ClosePopup();
-                LogBox.AppendLine($"Locator2: No rows found for term: {LogTerm}");
+                LogBox.AppendLine($"Locator: No rows found for term: {LogTerm}");
                 Ui.Post(async () => await MessageBox.Info("No rows found.", this));
             }
             else if (fLastResult.HasSingleResult)
             {
                 ClosePopup();
-                LogBox.AppendLine($"Locator2: Found 1 row for term: {LogTerm}");
+                LogBox.AppendLine($"Locator: Found 1 row for term: {LogTerm}");
                 AssignRow(fLastResult.Table.Rows[0]);
             }
             else
             {
-                LogBox.AppendLine($"Locator2: Found {fLastResult.Count} rows for term: {LogTerm}");
+                LogBox.AppendLine($"Locator: Found {fLastResult.Count} rows for term: {LogTerm}");
                 OpenPopup(TextBox);
             }
         }
         catch (Exception e)
         {
             ClosePopup();
-            LogBox.AppendLine($"Locator2: {e.Message}");
+            LogBox.AppendLine($"Locator: {e.Message}");
             Ui.Post(async () => await MessageBox.Error(e, this));
         }
     }
@@ -409,7 +409,7 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorBox2()
+    public LocatorBox()
     {
         Build();
     }
@@ -418,15 +418,15 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// LocatorDef property.
     /// </summary>
-    static public readonly StyledProperty<LocatorDef> LocatorDefProperty = AvaloniaProperty.Register<LocatorBox2, LocatorDef>(nameof(LocatorDef));
+    static public readonly StyledProperty<LocatorDef> LocatorDefProperty = AvaloniaProperty.Register<LocatorBox, LocatorDef>(nameof(LocatorDef));
     /// <summary>
     /// IsReadOnly property.
     /// </summary>
-    static public readonly StyledProperty<bool> IsReadOnlyProperty = AvaloniaProperty.Register<LocatorBox2, bool>(nameof(IsReadOnly));
+    static public readonly StyledProperty<bool> IsReadOnlyProperty = AvaloniaProperty.Register<LocatorBox, bool>(nameof(IsReadOnly));
     /// <summary>
     /// KeyValue property.
     /// </summary>
-    static public readonly StyledProperty<object> KeyValueProperty = AvaloniaProperty.Register<LocatorBox2, object>(nameof(KeyValue));
+    static public readonly StyledProperty<object> KeyValueProperty = AvaloniaProperty.Register<LocatorBox, object>(nameof(KeyValue));
 
     // ● public methods
     /// <summary>
@@ -535,9 +535,9 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// Static constructor.
     /// </summary>
-    static LocatorBox2()
+    static LocatorBox()
     {
-        LocatorDefProperty.Changed.AddClassHandler<LocatorBox2>((Sender, Args) => Sender.Rebuild());
-        IsReadOnlyProperty.Changed.AddClassHandler<LocatorBox2>((Sender, Args) => Sender.ApplyReadOnly());
+        LocatorDefProperty.Changed.AddClassHandler<LocatorBox>((Sender, Args) => Sender.Rebuild());
+        IsReadOnlyProperty.Changed.AddClassHandler<LocatorBox>((Sender, Args) => Sender.ApplyReadOnly());
     }
 }

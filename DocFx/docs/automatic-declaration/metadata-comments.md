@@ -453,13 +453,13 @@ Rules:
 
 - If `LOCATOR_NAME` is omitted, it is resolved from the foreign key referenced table.
 - If `ClassName:`, `Form:`, or `WebForm:` is used, `LOCATOR_NAME` is required.
-- The builder generates `LocatorDef2` registration.
+- The builder generates `LocatorDef` registration.
 - The generated table field references the locator name.
 - `Form:` is the desktop reference form name used by locator reference menus.
 - `WebForm:` is the web reference form name used by web locator reference menus.
 - For FK-backed generated locators, if `Form:` is omitted, the builder uses the referenced table form.
 - For FK-backed generated locators, if `WebForm:` is omitted, the builder uses the referenced table web form, falling back to `Form:`.
-- At runtime, `LocatorDef2.Form` falls back to the locator name and `LocatorDef2.WebForm` falls back to `Form`.
+- At runtime, `LocatorDef.Form` falls back to the locator name and `LocatorDef.WebForm` falls back to `Form`.
 - For table-backed locators where the locator name is the referenced module/form name, the defaults are usually enough.
 - For custom SQL, service, or cross-module locators, prefer explicit `Form:` and `WebForm:`.
 

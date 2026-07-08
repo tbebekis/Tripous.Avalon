@@ -51,8 +51,8 @@ static public partial class Registry
         RegisterDocumentHandlers();
   
         UpdateLookups();
-        UpdateLocators2();
-        DataRegistry.UpdateLocator2References();
+        UpdateLocators();
+        DataRegistry.UpdateLocatorReferences();
         UpdateModules();
 
         RegisterSycConfigProperties();

@@ -9,7 +9,7 @@
 namespace Tripous.Desktop;
 
 /// <summary>
-/// Provides a Tripous Locator2 in-place editor for GroupGrid cells.
+/// Provides a Tripous locator in-place editor for GroupGrid cells.
 /// </summary>
 public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
 {
@@ -142,26 +142,26 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
         if (fLocatorDef == null)
             return;
 
-        LogBox.AppendLine($"Grid Locator2: Searching for term: {SearchTerm}");
+        LogBox.AppendLine($"Grid Locator: Searching for term: {SearchTerm}");
         try
         {
             LocatorResult Result = Locators.Execute(CreateRequest(SearchTerm));
             if (Result.HasTooManyResults)
             {
                 fDropDownTable = null;
-                LogBox.AppendLine($"Grid Locator2: Too many rows for term: {SearchTerm}");
+                LogBox.AppendLine($"Grid Locator: Too many rows for term: {SearchTerm}");
                 Ui.Post(async () => await MessageBox.Info(Result.Message, this));
             }
             else if (Result.Status == LocatorResultStatus.NoResult)
             {
                 fDropDownTable = null;
-                LogBox.AppendLine($"Grid Locator2: No rows found for term: {SearchTerm}");
+                LogBox.AppendLine($"Grid Locator: No rows found for term: {SearchTerm}");
                 Ui.Post(async () => await MessageBox.Info("No rows found.", this));
             }
             else if (Result.HasSingleResult)
             {
                 fDropDownTable = null;
-                LogBox.AppendLine($"Grid Locator2: Found 1 row for term: {SearchTerm}");
+                LogBox.AppendLine($"Grid Locator: Found 1 row for term: {SearchTerm}");
                 if (CommitSingleResult && DropDownHost != null)
                     DropDownHost.CommitDropDownValue(Result.Table.Rows[0]);
                 else
@@ -172,7 +172,7 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
             }
             else
             {
-                LogBox.AppendLine($"Grid Locator2: Found {Result.Count} rows for term: {SearchTerm}");
+                LogBox.AppendLine($"Grid Locator: Found {Result.Count} rows for term: {SearchTerm}");
                 LoadDropDownTable(Result.Table);
                 OpenDropDown();
             }
@@ -180,7 +180,7 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
         catch (Exception e)
         {
             fDropDownTable = null;
-            LogBox.AppendLine($"Grid Locator2: {e.Message}");
+            LogBox.AppendLine($"Grid Locator: {e.Message}");
             Ui.Post(async () => await MessageBox.Error(e, this));
         }
     }

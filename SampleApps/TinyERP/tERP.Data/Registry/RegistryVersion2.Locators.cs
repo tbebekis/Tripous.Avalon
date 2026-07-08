@@ -18,17 +18,17 @@ public partial class RegistryVersion2: RegistryVersion
     // ● public
     public override void RegisterLocators()
     {
-        DataRegistry.AddOrUpdateLocator2("FinanceMovement", Source: "FinanceMovement", KeyField: "Id", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
-        DataRegistry.AddOrUpdateLocator2("JournalEntry", Source: "JournalEntry", KeyField: "Id", FormName: "JournalEntry", WebFormName: "JournalEntry");
-        DataRegistry.AddOrUpdateLocator2("Payment", Source: "Payment", KeyField: "Id", FormName: "CustomerReceipt", WebFormName: "CustomerReceipt");
-        DataRegistry.AddOrUpdateLocator2("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator2", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
-        DataRegistry.AddOrUpdateLocator2("Person", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
-        DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
-        DataRegistry.AddOrUpdateLocator2("StockCount", Source: "StockCount", KeyField: "Id", FormName: "StockCount", WebFormName: "StockCount");
-        DataRegistry.AddOrUpdateLocator2("StockMovement", Source: "StockMovement", KeyField: "Id", FormName: "StockMovement", WebFormName: "StockMovement");
-        DataRegistry.AddOrUpdateLocator2("StockTrade", Source: "StockTrade", KeyField: "Id", FormName: "StockTrade", WebFormName: "StockTrade");
-        DataRegistry.AddOrUpdateLocator2("Supplier", Source: "ProductSupplier", KeyField: "Id");
-        DataRegistry.AddOrUpdateLocator2("Trade", Source: "Trade", KeyField: "Id", FormName: "SalesOrder", WebFormName: "SalesOrder");
-        DataRegistry.AddOrUpdateLocator2("TradeLine", Source: "TradeLine", KeyField: "Id");
+        DataRegistry.AddOrUpdateLocator("FinanceMovement", Source: "FinanceMovement", KeyField: "Id", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
+        DataRegistry.AddOrUpdateLocator("JournalEntry", Source: "JournalEntry", KeyField: "Id", FormName: "JournalEntry", WebFormName: "JournalEntry");
+        DataRegistry.AddOrUpdateLocator("Payment", Source: "Payment", KeyField: "Id", FormName: "CustomerReceipt", WebFormName: "CustomerReceipt");
+        DataRegistry.AddOrUpdateLocator("PaymentSettlementFinanceMovement", Source: "FinanceMovement", KeyField: "Id", ClassName: "tERP.Data.PaymentSettlementFinanceMovementLocator", FormName: "FinanceMovement", WebFormName: "FinanceMovement");
+        DataRegistry.AddOrUpdateLocator("Person", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        DataRegistry.AddOrUpdateLocator("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
+        DataRegistry.AddOrUpdateLocator("StockCount", Source: "StockCount", KeyField: "Id", FormName: "StockCount", WebFormName: "StockCount");
+        DataRegistry.AddOrUpdateLocator("StockMovement", Source: "StockMovement", KeyField: "Id", FormName: "StockMovement", WebFormName: "StockMovement");
+        DataRegistry.AddOrUpdateLocator("StockTrade", Source: "StockTrade", KeyField: "Id", FormName: "StockTrade", WebFormName: "StockTrade");
+        DataRegistry.AddOrUpdateLocator("Supplier", Source: "ProductSupplier", KeyField: "Id");
+        DataRegistry.AddOrUpdateLocator("Trade", Source: "Trade", KeyField: "Id", FormName: "SalesOrder", WebFormName: "SalesOrder");
+        DataRegistry.AddOrUpdateLocator("TradeLine", Source: "TradeLine", KeyField: "Id");
     }
 }

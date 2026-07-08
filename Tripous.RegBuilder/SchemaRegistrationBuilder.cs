@@ -1462,7 +1462,7 @@ static public class SchemaRegistrationBuilder
 
         foreach (LocatorInfo Locator in Locators.Values.OrderBy(x => x.Name))
         {
-            string Source = BuildAddLocator2Source(Locator);
+            string Source = BuildAddLocatorSource(Locator);
             SB.AppendLine("        " + Source + ";");
         }
 
@@ -2817,7 +2817,7 @@ static public class SchemaRegistrationBuilder
     /// <summary>
     /// Builds source code that adds a locator definition.
     /// </summary>
-    static string BuildAddLocator2Source(LocatorInfo Locator)
+    static string BuildAddLocatorSource(LocatorInfo Locator)
     {
         List<string> Args = [];
         Args.Add("\"" + EscapeString(Locator.Name) + "\"");
@@ -2830,7 +2830,7 @@ static public class SchemaRegistrationBuilder
         if (!string.IsNullOrWhiteSpace(Locator.WebFormName))
             Args.Add("WebFormName: \"" + EscapeString(Locator.WebFormName) + "\"");
 
-        return "DataRegistry.AddOrUpdateLocator2(" + string.Join(", ", Args) + ")";
+        return "DataRegistry.AddOrUpdateLocator(" + string.Join(", ", Args) + ")";
     }
     /// <summary>
     /// Builds optional form name argument.

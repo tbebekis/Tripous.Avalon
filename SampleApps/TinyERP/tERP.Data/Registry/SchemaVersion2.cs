@@ -810,7 +810,7 @@ CREATE TABLE {TableName} (
     PaymentId @NVARCHAR(40) @NOT_NULL,                 -- Master
     DisplayOrder int DEFAULT 0 @NOT_NULL,
 
-    FinanceMovementId @NVARCHAR(40) @NOT_NULL,         -- Locator PaymentSettlementFinanceMovement ClassName:tERP.Data.PaymentSettlementFinanceMovementLocator2
+    FinanceMovementId @NVARCHAR(40) @NOT_NULL,         -- Locator PaymentSettlementFinanceMovement ClassName:tERP.Data.PaymentSettlementFinanceMovementLocator
     Amount @DECIMAL DEFAULT 0 @NOT_NULL,
 
     Remarks @NVARCHAR(512) @NULL,

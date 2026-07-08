@@ -9,7 +9,7 @@
 namespace tERP.Data;
 
 /// <summary>
-/// Locator2 for payment settlement finance movements.
+/// Locator for payment settlement finance movements.
 /// </summary>
 [TypeStore]
 public class PaymentSettlementFinanceMovementLocator: Locator

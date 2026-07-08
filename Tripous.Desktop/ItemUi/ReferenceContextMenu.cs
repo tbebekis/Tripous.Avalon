@@ -202,26 +202,26 @@ public class ReferenceContextMenu
         // -----------------------------------------------
         if (Binding is ControlBinding ControlBinding)
         {
-            if (ControlBinding.Control is LocatorBox2 LocatorBox2)
+            if (ControlBinding.Control is LocatorBox LocatorBox)
             {
-                if (LocatorBox2.MenuButton != null)
+                if (LocatorBox.MenuButton != null)
                 {
-                    LocatorBox2.MenuButton.Click += (Sender, Args) =>
+                    LocatorBox.MenuButton.Click += (Sender, Args) =>
                     {
                         if (!CanOpen())
                             return;
 
-                        Menu.Open(LocatorBox2.MenuButton);
+                        Menu.Open(LocatorBox.MenuButton);
                     };
-                    LocatorBox2.MenuButton.AddHandler(InputElement.PointerPressedEvent, (Sender, Args) =>
+                    LocatorBox.MenuButton.AddHandler(InputElement.PointerPressedEvent, (Sender, Args) =>
                     {
-                        if (!Args.GetCurrentPoint(LocatorBox2.MenuButton).Properties.IsRightButtonPressed)
+                        if (!Args.GetCurrentPoint(LocatorBox.MenuButton).Properties.IsRightButtonPressed)
                             return;
 
                         if (!CanOpen())
                             return;
 
-                        Menu.Open(LocatorBox2.MenuButton);
+                        Menu.Open(LocatorBox.MenuButton);
                         Args.Handled = true;
                     }, RoutingStrategies.Tunnel);
                 }

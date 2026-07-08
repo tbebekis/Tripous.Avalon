@@ -973,7 +973,7 @@ static public class Locators
         if (string.IsNullOrWhiteSpace(Request.Context.LocatorName))
             throw new TripousDataException($"{nameof(LocatorRequest)} has no {nameof(LocatorContext.LocatorName)}.");
 
-        LocatorDef LocatorDef = DataRegistry.GetLocator2(Request.Context.LocatorName);
+        LocatorDef LocatorDef = DataRegistry.GetLocator(Request.Context.LocatorName);
         LocatorDef.CheckDescriptor();
 
         Locator Locator = TypeStore.CreateInstance<Locator>(LocatorDef.ClassName);

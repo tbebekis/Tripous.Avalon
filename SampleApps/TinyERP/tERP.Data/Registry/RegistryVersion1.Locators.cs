@@ -18,10 +18,10 @@ public partial class RegistryVersion1: RegistryVersion
     // ● public
     public override void RegisterLocators()
     {
-        DataRegistry.AddOrUpdateLocator2("Customer", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
-        DataRegistry.AddOrUpdateLocator2("Employee", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
-        DataRegistry.AddOrUpdateLocator2("Manager", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
-        DataRegistry.AddOrUpdateLocator2("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
-        DataRegistry.AddOrUpdateLocator2("Supplier", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        DataRegistry.AddOrUpdateLocator("Customer", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        DataRegistry.AddOrUpdateLocator("Employee", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        DataRegistry.AddOrUpdateLocator("Manager", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
+        DataRegistry.AddOrUpdateLocator("Product", Source: "Product", KeyField: "Id", FormName: "Product", WebFormName: "Product");
+        DataRegistry.AddOrUpdateLocator("Supplier", Source: "Person", KeyField: "Id", FormName: "Person", WebFormName: "Person");
     }
 }

@@ -322,7 +322,7 @@ static public class UiItemDetails
         if (Field.TableDef == null)
             return Result;
 
-        LocatorDef locatorDef = DataRegistry.FindLocator2(Field.Locator);
+        LocatorDef locatorDef = DataRegistry.FindLocator(Field.Locator);
         if (locatorDef != null)
         {
             LocatorMapPlan MapPlan = new LocatorMapper().CreatePlan(locatorDef, Field.TableDef, Field);
