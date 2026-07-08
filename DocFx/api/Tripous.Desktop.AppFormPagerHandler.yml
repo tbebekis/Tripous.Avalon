@@ -718,21 +718,26 @@ references:
   fullName: Avalonia.Controls.TabControl
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
+  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
 - uid: Tripous.Desktop.AppFormPagerHandler.FindTabItem*
   commentId: Overload:Tripous.Desktop.AppFormPagerHandler.FindTabItem
   href: Tripous.Desktop.AppFormPagerHandler.html#Tripous_Desktop_AppFormPagerHandler_FindTabItem_System_String_

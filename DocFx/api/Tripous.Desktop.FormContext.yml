@@ -1148,21 +1148,26 @@ references:
   fullName: Tripous.Desktop.FormContext
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
+  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
 - uid: Tripous.Desktop.FormContext.ClassName
   commentId: P:Tripous.Desktop.FormContext.ClassName
   parent: Tripous.Desktop.FormContext

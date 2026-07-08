@@ -451,7 +451,6 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Requests toggling the drop-down.
   example: []
   syntax:
     content: protected override void ToggleDropDown()
@@ -480,13 +479,11 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Returns the currently selected drop-down value.
   example: []
   syntax:
     content: protected override object GetDropDownSelectedValue()
     return:
       type: System.Object
-      description: The selected value.
     content.vb: Protected Overrides Function GetDropDownSelectedValue() As Object
   overridden: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue
   overload: Tripous.Desktop.GroupGridLocatorInplaceEditor.GetDropDownSelectedValue*
@@ -550,7 +547,6 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Releases editor-specific event handlers and resources.
   example: []
   syntax:
     content: public override void Cleanup()
@@ -579,14 +575,12 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Selects a drop-down item.
   example: []
   syntax:
     content: public override void SelectDropDownItem(object Item)
     parameters:
     - id: Item
       type: System.Object
-      description: The drop-down item.
     content.vb: Public Overrides Sub SelectDropDownItem(Item As Object)
   overridden: Avalonia.Controls.GroupGridInplaceEditorBase.SelectDropDownItem(System.Object)
   overload: Tripous.Desktop.GroupGridLocatorInplaceEditor.SelectDropDownItem*
@@ -615,13 +609,11 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Creates a drop-down control for this editor.
   example: []
   syntax:
     content: public override Control CreateDropDownControl()
     return:
       type: Avalonia.Controls.Control
-      description: The drop-down control, or null when not supported.
     content.vb: Public Overrides Function CreateDropDownControl() As Control
   overridden: Avalonia.Controls.GroupGridInplaceEditorBase.CreateDropDownControl
   overload: Tripous.Desktop.GroupGridLocatorInplaceEditor.CreateDropDownControl*
@@ -647,14 +639,12 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Called when the editor drop-down opens.
   example: []
   syntax:
     content: public override void DropDownOpened(Control DropDownControl)
     parameters:
     - id: DropDownControl
       type: Avalonia.Controls.Control
-      description: The drop-down control.
     content.vb: Public Overrides Sub DropDownOpened(DropDownControl As Control)
   overridden: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownOpened(Avalonia.Controls.Control)
   overload: Tripous.Desktop.GroupGridLocatorInplaceEditor.DropDownOpened*
@@ -680,7 +670,6 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Gets or sets the edited value.
   example: []
   syntax:
     content: public override object Value { get; set; }
@@ -712,7 +701,6 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Gets the preferred drop-down height.
   example: []
   syntax:
     content: public override double DropDownHeight { get; }
@@ -744,7 +732,6 @@ items:
   assemblies:
   - Tripous.Desktop
   namespace: Tripous.Desktop
-  summary: Gets the preferred drop-down width.
   example: []
   syntax:
     content: public override double DropDownWidth { get; }
@@ -861,12 +848,16 @@ references:
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase
   commentId: T:Avalonia.Controls.GroupGridInplaceEditorBase
   parent: Avalonia.Controls
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: GroupGridInplaceEditorBase
   nameWithType: GroupGridInplaceEditorBase
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
   commentId: T:Avalonia.Controls.GroupGridDropDownInplaceEditorBase
   parent: Avalonia.Controls
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: GroupGridDropDownInplaceEditorBase
   nameWithType: GroupGridDropDownInplaceEditorBase
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
@@ -973,125 +964,170 @@ references:
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateEditorPanel
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateEditorPanel
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: CreateEditorPanel()
   nameWithType: GroupGridDropDownInplaceEditorBase.CreateEditorPanel()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateEditorPanel()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateEditorPanel
     name: CreateEditorPanel
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateEditorPanel
     name: CreateEditorPanel
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateTextBox
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateTextBox
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: CreateTextBox()
   nameWithType: GroupGridDropDownInplaceEditorBase.CreateTextBox()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateTextBox()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateTextBox
     name: CreateTextBox
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateTextBox
     name: CreateTextBox
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateDropDownButton
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateDropDownButton
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: CreateDropDownButton()
   nameWithType: GroupGridDropDownInplaceEditorBase.CreateDropDownButton()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateDropDownButton()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateDropDownButton
     name: CreateDropDownButton
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CreateDropDownButton
     name: CreateDropDownButton
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OpenDropDown
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OpenDropDown
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: OpenDropDown()
   nameWithType: GroupGridDropDownInplaceEditorBase.OpenDropDown()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OpenDropDown()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OpenDropDown
     name: OpenDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OpenDropDown
     name: OpenDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CloseDropDown
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CloseDropDown
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: CloseDropDown()
   nameWithType: GroupGridDropDownInplaceEditorBase.CloseDropDown()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CloseDropDown()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CloseDropDown
     name: CloseDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CloseDropDown
     name: CloseDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CommitDropDownSelection
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CommitDropDownSelection
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: CommitDropDownSelection()
   nameWithType: GroupGridDropDownInplaceEditorBase.CommitDropDownSelection()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CommitDropDownSelection()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CommitDropDownSelection
     name: CommitDropDownSelection
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CommitDropDownSelection
     name: CommitDropDownSelection
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CancelDropDown
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CancelDropDown
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: CancelDropDown()
   nameWithType: GroupGridDropDownInplaceEditorBase.CancelDropDown()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CancelDropDown()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CancelDropDown
     name: CancelDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.CancelDropDown
     name: CancelDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
   isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: OnPointerPressed(PointerPressedEventArgs)
   nameWithType: GroupGridDropDownInplaceEditorBase.OnPointerPressed(PointerPressedEventArgs)
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
     name: OnPointerPressed
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - uid: Avalonia.Input.PointerPressedEventArgs
     name: PointerPressedEventArgs
@@ -1100,6 +1136,8 @@ references:
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.OnPointerPressed(Avalonia.Input.PointerPressedEventArgs)
     name: OnPointerPressed
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - uid: Avalonia.Input.PointerPressedEventArgs
     name: PointerPressedEventArgs
@@ -1108,74 +1146,100 @@ references:
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.FocusEditor
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.FocusEditor
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: FocusEditor()
   nameWithType: GroupGridDropDownInplaceEditorBase.FocusEditor()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.FocusEditor()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.FocusEditor
     name: FocusEditor
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.FocusEditor
     name: FocusEditor
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.SelectAll
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.SelectAll
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: SelectAll()
   nameWithType: GroupGridDropDownInplaceEditorBase.SelectAll()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.SelectAll()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.SelectAll
     name: SelectAll
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.SelectAll
     name: SelectAll
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.TextBox
   commentId: P:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.TextBox
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: TextBox
   nameWithType: GroupGridDropDownInplaceEditorBase.TextBox
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.TextBox
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownButton
   commentId: P:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownButton
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: DropDownButton
   nameWithType: GroupGridDropDownInplaceEditorBase.DropDownButton
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownButton
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownHost
   commentId: P:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownHost
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: DropDownHost
   nameWithType: GroupGridDropDownInplaceEditorBase.DropDownHost
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownHost
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.HasDropDown
   commentId: P:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.HasDropDown
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: HasDropDown
   nameWithType: GroupGridDropDownInplaceEditorBase.HasDropDown
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.HasDropDown
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownButtonText
   commentId: P:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownButtonText
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: DropDownButtonText
   nameWithType: GroupGridDropDownInplaceEditorBase.DropDownButtonText
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.DropDownButtonText
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.IsTextReadOnly
   commentId: P:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.IsTextReadOnly
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: IsTextReadOnly
   nameWithType: GroupGridDropDownInplaceEditorBase.IsTextReadOnly
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.IsTextReadOnly
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.fEditorControl
   commentId: F:Avalonia.Controls.GroupGridInplaceEditorBase.fEditorControl
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: fEditorControl
   nameWithType: GroupGridInplaceEditorBase.fEditorControl
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.fEditorControl
@@ -1183,12 +1247,15 @@ references:
   commentId: M:Avalonia.Controls.GroupGridInplaceEditorBase.SetEditorControl(Avalonia.Controls.Control)
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
   isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: SetEditorControl(Control)
   nameWithType: GroupGridInplaceEditorBase.SetEditorControl(Control)
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.SetEditorControl(Avalonia.Controls.Control)
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.SetEditorControl(Avalonia.Controls.Control)
     name: SetEditorControl
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - uid: Avalonia.Controls.Control
     name: Control
@@ -1197,6 +1264,8 @@ references:
   spec.vb:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.SetEditorControl(Avalonia.Controls.Control)
     name: SetEditorControl
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - uid: Avalonia.Controls.Control
     name: Control
@@ -1205,78 +1274,106 @@ references:
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseValueChanged
   commentId: M:Avalonia.Controls.GroupGridInplaceEditorBase.RaiseValueChanged
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: RaiseValueChanged()
   nameWithType: GroupGridInplaceEditorBase.RaiseValueChanged()
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseValueChanged()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseValueChanged
     name: RaiseValueChanged
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseValueChanged
     name: RaiseValueChanged
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseDropDownRequested
   commentId: M:Avalonia.Controls.GroupGridInplaceEditorBase.RaiseDropDownRequested
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: RaiseDropDownRequested()
   nameWithType: GroupGridInplaceEditorBase.RaiseDropDownRequested()
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseDropDownRequested()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseDropDownRequested
     name: RaiseDropDownRequested
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.RaiseDropDownRequested
     name: RaiseDropDownRequested
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownClosed
   commentId: M:Avalonia.Controls.GroupGridInplaceEditorBase.DropDownClosed
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: DropDownClosed()
   nameWithType: GroupGridInplaceEditorBase.DropDownClosed()
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownClosed()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownClosed
     name: DropDownClosed
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownClosed
     name: DropDownClosed
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.EditorControl
   commentId: P:Avalonia.Controls.GroupGridInplaceEditorBase.EditorControl
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: EditorControl
   nameWithType: GroupGridInplaceEditorBase.EditorControl
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.EditorControl
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownItems
   commentId: P:Avalonia.Controls.GroupGridInplaceEditorBase.DropDownItems
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: DropDownItems
   nameWithType: GroupGridInplaceEditorBase.DropDownItems
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownItems
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.SelectedDropDownItem
   commentId: P:Avalonia.Controls.GroupGridInplaceEditorBase.SelectedDropDownItem
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: SelectedDropDownItem
   nameWithType: GroupGridInplaceEditorBase.SelectedDropDownItem
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.SelectedDropDownItem
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.ValueChanged
   commentId: E:Avalonia.Controls.GroupGridInplaceEditorBase.ValueChanged
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: ValueChanged
   nameWithType: GroupGridInplaceEditorBase.ValueChanged
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.ValueChanged
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownRequested
   commentId: E:Avalonia.Controls.GroupGridInplaceEditorBase.DropDownRequested
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: DropDownRequested
   nameWithType: GroupGridInplaceEditorBase.DropDownRequested
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownRequested
@@ -6907,21 +7004,26 @@ references:
     isExternal: true
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
+  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
 - uid: System.ComponentModel
   commentId: N:System.ComponentModel
   isExternal: true
@@ -8265,17 +8367,23 @@ references:
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.ToggleDropDown
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.ToggleDropDown
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: ToggleDropDown()
   nameWithType: GroupGridDropDownInplaceEditorBase.ToggleDropDown()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.ToggleDropDown()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.ToggleDropDown
     name: ToggleDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.ToggleDropDown
     name: ToggleDropDown
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.ToggleDropDown*
@@ -8287,17 +8395,23 @@ references:
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: GetDropDownSelectedValue()
   nameWithType: GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue
     name: GetDropDownSelectedValue
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.GetDropDownSelectedValue
     name: GetDropDownSelectedValue
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.GetDropDownSelectedValue*
@@ -8393,17 +8507,23 @@ references:
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Cleanup
   commentId: M:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Cleanup
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: Cleanup()
   nameWithType: GroupGridDropDownInplaceEditorBase.Cleanup()
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Cleanup()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Cleanup
     name: Cleanup
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Cleanup
     name: Cleanup
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.Cleanup*
@@ -8416,7 +8536,7 @@ references:
   commentId: M:Avalonia.Controls.GroupGridInplaceEditorBase.SelectDropDownItem(System.Object)
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: SelectDropDownItem(object)
   nameWithType: GroupGridInplaceEditorBase.SelectDropDownItem(object)
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.SelectDropDownItem(object)
@@ -8426,6 +8546,8 @@ references:
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.SelectDropDownItem(System.Object)
     name: SelectDropDownItem
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - uid: System.Object
     name: object
@@ -8435,6 +8557,8 @@ references:
   spec.vb:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.SelectDropDownItem(System.Object)
     name: SelectDropDownItem
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - uid: System.Object
     name: Object
@@ -8450,17 +8574,23 @@ references:
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.CreateDropDownControl
   commentId: M:Avalonia.Controls.GroupGridInplaceEditorBase.CreateDropDownControl
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: CreateDropDownControl()
   nameWithType: GroupGridInplaceEditorBase.CreateDropDownControl()
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.CreateDropDownControl()
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.CreateDropDownControl
     name: CreateDropDownControl
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
   spec.vb:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.CreateDropDownControl
     name: CreateDropDownControl
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - name: )
 - uid: Tripous.Desktop.GroupGridLocatorInplaceEditor.CreateDropDownControl*
@@ -8473,12 +8603,15 @@ references:
   commentId: M:Avalonia.Controls.GroupGridInplaceEditorBase.DropDownOpened(Avalonia.Controls.Control)
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
   isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: DropDownOpened(Control)
   nameWithType: GroupGridInplaceEditorBase.DropDownOpened(Control)
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownOpened(Avalonia.Controls.Control)
   spec.csharp:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownOpened(Avalonia.Controls.Control)
     name: DropDownOpened
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - uid: Avalonia.Controls.Control
     name: Control
@@ -8487,6 +8620,8 @@ references:
   spec.vb:
   - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownOpened(Avalonia.Controls.Control)
     name: DropDownOpened
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   - name: (
   - uid: Avalonia.Controls.Control
     name: Control
@@ -8501,6 +8636,8 @@ references:
 - uid: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Value
   commentId: P:Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Value
   parent: Avalonia.Controls.GroupGridDropDownInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridDropDownInplaceEditorBase.cs
   name: Value
   nameWithType: GroupGridDropDownInplaceEditorBase.Value
   fullName: Avalonia.Controls.GroupGridDropDownInplaceEditorBase.Value
@@ -8513,6 +8650,8 @@ references:
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownHeight
   commentId: P:Avalonia.Controls.GroupGridInplaceEditorBase.DropDownHeight
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: DropDownHeight
   nameWithType: GroupGridInplaceEditorBase.DropDownHeight
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownHeight
@@ -8536,6 +8675,8 @@ references:
 - uid: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownWidth
   commentId: P:Avalonia.Controls.GroupGridInplaceEditorBase.DropDownWidth
   parent: Avalonia.Controls.GroupGridInplaceEditorBase
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridInplaceEditorBase.cs
   name: DropDownWidth
   nameWithType: GroupGridInplaceEditorBase.DropDownWidth
   fullName: Avalonia.Controls.GroupGridInplaceEditorBase.DropDownWidth

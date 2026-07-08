@@ -862,6 +862,8 @@ references:
 - uid: Avalonia.Controls.GroupGrid
   commentId: T:Avalonia.Controls.GroupGrid
   parent: Avalonia.Controls
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGrid.cs
   name: GroupGrid
   nameWithType: GroupGrid
   fullName: Avalonia.Controls.GroupGrid
@@ -903,6 +905,8 @@ references:
   - name: <
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: '>'
   spec.vb:
   - uid: System.Collections.Generic.List`1
@@ -914,6 +918,8 @@ references:
   - name: " "
   - uid: Avalonia.Controls.GroupGridColumn
     name: GroupGridColumn
+    isExternal: true
+    href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   - name: )
 - uid: Tripous.Data
   commentId: N:Tripous.Data
@@ -939,21 +945,26 @@ references:
     href: Tripous.Data.html
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
+  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
 - uid: System.Data
   commentId: N:System.Data
   isExternal: true
@@ -1126,6 +1137,8 @@ references:
 - uid: Avalonia.Controls.GroupGridColumn
   commentId: T:Avalonia.Controls.GroupGridColumn
   parent: Avalonia.Controls
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGridColumn.cs
   name: GroupGridColumn
   nameWithType: GroupGridColumn
   fullName: Avalonia.Controls.GroupGridColumn

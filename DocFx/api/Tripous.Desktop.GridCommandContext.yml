@@ -518,26 +518,33 @@ references:
 - uid: Avalonia.Controls.GroupGrid
   commentId: T:Avalonia.Controls.GroupGrid
   parent: Avalonia.Controls
+  isExternal: true
+  href: https://github.com/tbebekis/Tripous.Avalonia.Controls/blob/f7f06043e8fe567d087bb2ab2813fcf7ac230df4/Tripous.Avalonia.Controls/GroupGrid/GroupGrid.cs
   name: GroupGrid
   nameWithType: GroupGrid
   fullName: Avalonia.Controls.GroupGrid
 - uid: Avalonia.Controls
   commentId: N:Avalonia.Controls
+  isExternal: true
   name: Avalonia.Controls
   nameWithType: Avalonia.Controls
   fullName: Avalonia.Controls
   spec.csharp:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
   spec.vb:
   - uid: Avalonia
     name: Avalonia
+    isExternal: true
   - name: .
   - uid: Avalonia.Controls
     name: Controls
+    isExternal: true
 - uid: Tripous.Desktop.GridCommandContext.Table*
   commentId: Overload:Tripous.Desktop.GridCommandContext.Table
   href: Tripous.Desktop.GridCommandContext.html#Tripous_Desktop_GridCommandContext_Table
