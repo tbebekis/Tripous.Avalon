@@ -14,7 +14,7 @@ namespace Tripous.Desktop;
 public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
 {
     // ● private fields
-    readonly LocatorDef2 fLocatorDef;
+    readonly LocatorDef fLocatorDef;
     readonly string fSearchField;
     readonly DataRowView fTargetRowView;
     DataTable fDropDownTable;
@@ -43,11 +43,11 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
 
         return string.Join(" - ", Parts);
     }
-    LocatorRequest2 CreateRequest(string SearchTerm)
+    LocatorRequest CreateRequest(string SearchTerm)
     {
-        LocatorRequest2 Result = new()
+        LocatorRequest Result = new()
         {
-            Context = new LocatorContext2(fLocatorDef?.Name),
+            Context = new LocatorContext(fLocatorDef?.Name),
             SearchField = fSearchField,
             SearchTerm = SearchTerm,
             IsMultiRow = true,
@@ -145,14 +145,14 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
         LogBox.AppendLine($"Grid Locator2: Searching for term: {SearchTerm}");
         try
         {
-            LocatorResult2 Result = Locators2.Execute(CreateRequest(SearchTerm));
+            LocatorResult Result = Locators.Execute(CreateRequest(SearchTerm));
             if (Result.HasTooManyResults)
             {
                 fDropDownTable = null;
                 LogBox.AppendLine($"Grid Locator2: Too many rows for term: {SearchTerm}");
                 Ui.Post(async () => await MessageBox.Info(Result.Message, this));
             }
-            else if (Result.Status == LocatorResultStatus2.NoResult)
+            else if (Result.Status == LocatorResultStatus.NoResult)
             {
                 fDropDownTable = null;
                 LogBox.AppendLine($"Grid Locator2: No rows found for term: {SearchTerm}");
@@ -270,7 +270,7 @@ public class GroupGridLocatorInplaceEditor: GroupGridDropDownInplaceEditorBase
     /// <summary>
     /// Constructor.
     /// </summary>
-    public GroupGridLocatorInplaceEditor(LocatorDef2 LocatorDef, string SearchField, DataRowView TargetRowView)
+    public GroupGridLocatorInplaceEditor(LocatorDef LocatorDef, string SearchField, DataRowView TargetRowView)
     {
         fLocatorDef = LocatorDef;
         fSearchField = SearchField;

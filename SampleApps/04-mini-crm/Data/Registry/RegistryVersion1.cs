@@ -428,7 +428,7 @@ public partial class RegistryVersion1 : RegistryVersion
     /// </summary>
     public override void RegisterLocators()
     {
-        LocatorDef2 Locator = DataRegistry.AddOrUpdateLocator2("Customer", Source: "Customer", KeyField: "Id", FormName: "Customer");
+        LocatorDef Locator = DataRegistry.AddOrUpdateLocator2("Customer", Source: "Customer", KeyField: "Id", FormName: "Customer");
         Locator.Add("Id", DataFieldType.String);
         Locator.Add("Code", DataFieldType.String);
         Locator.Add("Name", DataFieldType.String);

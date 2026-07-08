@@ -26,21 +26,21 @@ static public partial class Registry
     /// </summary>
     static public void UpdateLocators2()
     {
-        void AddFields(LocatorDef2 Def, params (string Name, DataFieldType DataType)[] Fields)
+        void AddFields(LocatorDef Def, params (string Name, DataFieldType DataType)[] Fields)
         {
             Def.Fields.Clear();
 
             foreach ((string Name, DataFieldType DataType) Field in Fields)
                 Def.Add(Field.Name, Field.DataType);
         }
-        void AddStringFields(LocatorDef2 Def, params string[] FieldNames)
+        void AddStringFields(LocatorDef Def, params string[] FieldNames)
         {
             Def.Fields.Clear();
 
             foreach (string FieldName in FieldNames)
                 Def.Add(FieldName);
         }
-        void SetLists(LocatorDef2 Def, string[] ResultFields, string[] SearchFields)
+        void SetLists(LocatorDef Def, string[] ResultFields, string[] SearchFields)
         {
             Def.ResultFields.Clear();
             Def.SingleRowSearchFields.Clear();
@@ -49,13 +49,13 @@ static public partial class Registry
             Def.AddResultFields(ResultFields);
             Def.AddSearchFields(SearchFields);
         }
-        TableDef FindSourceTable(LocatorDef2 Def)
+        TableDef FindSourceTable(LocatorDef Def)
         {
             return DataRegistry.Modules
                 .Select(item => item.Table)
                 .FirstOrDefault(item => item != null && item.Name.IsSameText(Def.Source));
         }
-        void CompleteGeneratedLocator(LocatorDef2 Def)
+        void CompleteGeneratedLocator(LocatorDef Def)
         {
             if (Def == null || Def.Fields.Count > 0)
                 return;
@@ -81,11 +81,11 @@ static public partial class Registry
             Def.AddSearchFields(Def.Fields.Where(item => !item.Name.IsSameText(Def.KeyField) && item.DataType == DataFieldType.String).Select(item => item.Name).ToArray());
         }
 
-        foreach (LocatorDef2 Def in DataRegistry.Locators2)
+        foreach (LocatorDef Def in DataRegistry.Locators2)
             CompleteGeneratedLocator(Def);
 
         // ● Country
-        LocatorDef2 LocatorDef = DataRegistry.AddOrUpdateLocator2("Country", Source: "Country", KeyField: "Id", FormName: "Country", WebFormName: "Country");
+        LocatorDef LocatorDef = DataRegistry.AddOrUpdateLocator2("Country", Source: "Country", KeyField: "Id", FormName: "Country", WebFormName: "Country");
         AddStringFields(LocatorDef, "Id", "Code", "Name");
         SetLists(LocatorDef, ["Id", "Code", "Name"], ["Code", "Name"]);
 
@@ -188,7 +188,7 @@ where P.IsActive = 1
         LocatorDef = DataRegistry.AddOrUpdateLocator2(
             "PaymentSettlementFinanceMovement",
             Source: "FinanceMovement",
-            ClassName: typeof(PaymentSettlementFinanceMovementLocator2).FullName,
+            ClassName: typeof(PaymentSettlementFinanceMovementLocator).FullName,
             KeyField: "Id",
             FormName: "FinanceMovement",
             WebFormName: "FinanceMovement");

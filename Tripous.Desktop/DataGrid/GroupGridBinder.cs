@@ -306,15 +306,15 @@ static public class GroupGridBinder
     /// <param name="LocatorDef">The Locator2 definition.</param>
     /// <param name="MapPlan">The Locator2 mapping plan.</param>
     /// <returns>The created group grid column.</returns>
-    static public GroupGridColumn CreateLocatorColumn2(string ColumnName, string Header, FieldDef FieldDef, LocatorFieldDef2 LocatorFieldDef, LocatorDef2 LocatorDef, LocatorMapPlan2 MapPlan)
+    static public GroupGridColumn CreateLocatorColumn2(string ColumnName, string Header, FieldDef FieldDef, LocatorFieldDef LocatorFieldDef, LocatorDef LocatorDef, LocatorMapPlan MapPlan)
     {
         GroupGridColumn Result = CreateGridColumn(ColumnName, Header, LocatorFieldDef.DataType, IsReadOnly: FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI);
         GroupGridColumnBinding Binding = new(Result, FieldDef.Name, FieldDef.DataType.GetNetType())
         {
             FieldDef = FieldDef,
             DisplayFieldName = ColumnName,
-            LocatorDef2 = LocatorDef,
-            LocatorMapPlan2 = MapPlan,
+            LocatorDef = LocatorDef,
+            LocatorMapPlan = MapPlan,
             LocatorSourceFieldName = LocatorFieldDef.Name
         };
         Result.Tag = Binding;

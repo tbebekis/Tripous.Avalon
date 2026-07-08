@@ -186,7 +186,7 @@ static public class ControlBindingHelper
         if (Row.Table.Columns.Contains(Binding.FieldDef.Name))
             Control.KeyValue = Row[Binding.FieldDef.Name];
 
-        Control.RefreshTargetBoxes(Row, Binding.LocatorMapPlan2);
+        Control.RefreshTargetBoxes(Row, Binding.LocatorMapPlan);
     }
 
     /// <summary>
@@ -765,7 +765,7 @@ static public class ControlBindingHelper
         if (string.IsNullOrWhiteSpace(FieldDef.Locator))
             throw new TripousException($"Field '{FieldDef.Name}' has no locator.");
 
-        LocatorDef2 LocatorDef = DataRegistry.FindLocator2(FieldDef.Locator);
+        LocatorDef LocatorDef = DataRegistry.FindLocator2(FieldDef.Locator);
         if (LocatorDef == null)
             throw new TripousException($"LocatorDef2 not found. Locator: {FieldDef.Locator}");
 
@@ -778,8 +778,8 @@ static public class ControlBindingHelper
             Control = Box,
             FieldName = FieldDef.Name,
             FieldDef = FieldDef,
-            LocatorDef2 = LocatorDef,
-            LocatorMapPlan2 = new LocatorMapper2().CreatePlan(LocatorDef, FieldDef.TableDef, FieldDef)
+            LocatorDef = LocatorDef,
+            LocatorMapPlan = new LocatorMapper().CreatePlan(LocatorDef, FieldDef.TableDef, FieldDef)
         };
 
         Box.RowSelected += (Sender, Args) =>
@@ -794,7 +794,7 @@ static public class ControlBindingHelper
             Binding.IsRefreshing = true;
             try
             {
-                new LocatorMapper2().Apply(Binding.LocatorMapPlan2, Args.Row, Row);
+                new LocatorMapper().Apply(Binding.LocatorMapPlan, Args.Row, Row);
                 RefreshLocatorBox2(RowProvider, Binding);
                 if (Args.Row != null)
                     Box.RefreshTargetBoxes(Args.Row);

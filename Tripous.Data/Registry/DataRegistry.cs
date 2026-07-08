@@ -176,13 +176,13 @@ static public class DataRegistry
     static void CheckLocator2(string Name)
     {
         if (string.IsNullOrWhiteSpace(Name))
-            throw new TripousException($"Cannot add a {nameof(LocatorDef2)}. No '{nameof(Name)}' is provided.");
+            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
         if (Locators2.Contains(Name))
-            throw new TripousException($"Cannot add a {nameof(LocatorDef2)}. '{Name}' is already registered.");
+            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. '{Name}' is already registered.");
     }
-    static LocatorDef2 AddLocator2Internal(string Name, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
+    static LocatorDef AddLocator2Internal(string Name, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
     {
-        LocatorDef2 Result = new();
+        LocatorDef Result = new();
         Result.Name = Name;
         Result.Source = Source;
         Result.ClassName = ClassName;
@@ -192,7 +192,7 @@ static public class DataRegistry
         Locators2.Add(Result);
         return Result;
     }
-    static void UpdateLocator2(LocatorDef2 LocatorDef, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
+    static void UpdateLocator2(LocatorDef LocatorDef, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
     {
         if (Source != null)
             LocatorDef.Source = Source;
@@ -465,10 +465,10 @@ static public class DataRegistry
     /// Adds a locator definition.
     /// <para>If the definition exists, an exception is thrown.</para>
     /// </summary>
-    static public LocatorDef2 AddLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
+    static public LocatorDef AddLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
     {
         CheckLocator2(Name);
-        LocatorDef2 Result = AddLocator2Internal(Name, Source, ClassName, KeyField, FormName, WebFormName);
+        LocatorDef Result = AddLocator2Internal(Name, Source, ClassName, KeyField, FormName, WebFormName);
         return Result;
     }
     /// <summary>
@@ -476,12 +476,12 @@ static public class DataRegistry
     /// <para>Existing field definitions and collections are preserved.</para>
     /// <para><b>NOTE:</b> When the definition already exists, non-null parameters update its scalar properties. The existing definition instance and its child collections are preserved.</para>
     /// </summary>
-    static public LocatorDef2 AddOrUpdateLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
+    static public LocatorDef AddOrUpdateLocator2(string Name, string Source = null, string ClassName = null, string KeyField = null, string FormName = null, string WebFormName = null)
     {
         if (string.IsNullOrWhiteSpace(Name))
-            throw new TripousException($"Cannot add or update a {nameof(LocatorDef2)}. No '{nameof(Name)}' is provided.");
+            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
 
-        LocatorDef2 Result = Locators2.Find(Name);
+        LocatorDef Result = Locators2.Find(Name);
         if (Result == null)
             Result = AddLocator2Internal(Name, Source, ClassName, KeyField, FormName, WebFormName);
         else
@@ -491,17 +491,17 @@ static public class DataRegistry
     /// <summary>
     /// Returns a locator definition, if any, else null.
     /// </summary>
-    static public LocatorDef2 FindLocator2(string Name) => Locators2.Find(Name);
+    static public LocatorDef FindLocator2(string Name) => Locators2.Find(Name);
     /// <summary>
     /// Returns a locator definition, if any, else exception.
     /// </summary>
-    static public LocatorDef2 GetLocator2(string Name) => Locators2.Get(Name);
+    static public LocatorDef GetLocator2(string Name) => Locators2.Get(Name);
     /// <summary>
     /// Locators are not part of module, so we need a way to update references.
     /// </summary>
     static public void UpdateLocator2References()
     {
-        foreach (LocatorDef2 LocatorDef in Locators2)
+        foreach (LocatorDef LocatorDef in Locators2)
             LocatorDef.UpdateReferences();
     }
 
@@ -610,7 +610,7 @@ static public class DataRegistry
     /// <summary>
     /// The list of locator definitions.
     /// </summary>
-    static public DefList<LocatorDef2> Locators2 { get; } = new();
+    static public DefList<LocatorDef> Locators2 { get; } = new();
     /// <summary>
     /// The list of module definitions
     /// </summary>

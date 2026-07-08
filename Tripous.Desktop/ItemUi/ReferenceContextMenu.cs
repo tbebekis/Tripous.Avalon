@@ -56,7 +56,7 @@ public class ReferenceContextMenu
     /// <returns>The reference form name.</returns>
     protected virtual string GetFormName()
     {
-        return Binding.LookupSource?.LookupDef?.Form ?? Binding.LocatorDef2?.Form;
+        return Binding.LookupSource?.LookupDef?.Form ?? Binding.LocatorDef?.Form;
     }
     /// <summary>
     /// Returns the current reference row identifier.
@@ -117,7 +117,7 @@ public class ReferenceContextMenu
     /// </summary>
     protected virtual void EnableMenuItems()
     {
-        mnuReload.IsVisible = Binding.LocatorDef2 == null;
+        mnuReload.IsVisible = Binding.LocatorDef == null;
         mnuShowList.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.ShowList));
         mnuReload.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Reload));
         mnuEdit.IsEnabled = MenuHost.CanExecute(CreateContext(ReferenceMenuActionType.Edit));
@@ -197,7 +197,7 @@ public class ReferenceContextMenu
         this.Binding = Binding;
 
         Binding.ReferenceContextMenu = this;
-        mnuReload.IsVisible = Binding.LocatorDef2 == null;
+        mnuReload.IsVisible = Binding.LocatorDef == null;
             
         // -----------------------------------------------
         if (Binding is ControlBinding ControlBinding)

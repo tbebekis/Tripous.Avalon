@@ -255,26 +255,26 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         if (Context.Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Context.Binding.FieldName))
             return;
 
-        if (Context.Binding.LocatorDef2 != null)
+        if (Context.Binding.LocatorDef != null)
         {
-            LocatorMapper2 Mapper = new();
+            LocatorMapper Mapper = new();
             if (Sys.IsNull(Value))
             {
-                Mapper.Apply(Context.Binding.LocatorMapPlan2, null, Context.Binding.Table.CurrentRow);
+                Mapper.Apply(Context.Binding.LocatorMapPlan, null, Context.Binding.Table.CurrentRow);
             }
             else
             {
-                LocatorRequest2 Request = new()
+                LocatorRequest Request = new()
                 {
-                    Context = new LocatorContext2(Context.Binding.LocatorDef2.Name),
+                    Context = new LocatorContext(Context.Binding.LocatorDef.Name),
                     KeyValue = Value,
                     IsMultiRow = false,
                 };
                 Request.Context.Params["Row"] = Context.Binding.Table.CurrentRow;
                 Request.Context.Params["DataRow"] = Context.Binding.Table.CurrentRow;
-                LocatorResult2 Result = Locators2.Execute(Request);
+                LocatorResult Result = Locators.Execute(Request);
                 if (Result.HasSingleResult)
-                    Mapper.Apply(Context.Binding.LocatorMapPlan2, Result.Table.Rows[0], Context.Binding.Table.CurrentRow);
+                    Mapper.Apply(Context.Binding.LocatorMapPlan, Result.Table.Rows[0], Context.Binding.Table.CurrentRow);
                 else
                     Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Value;
             }

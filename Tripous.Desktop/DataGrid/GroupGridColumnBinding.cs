@@ -61,7 +61,7 @@ public class GroupGridColumnBinding: TripousBinding
     /// <summary>
     /// Gets a value indicating whether this binding points to a reference field.
     /// </summary>
-    public bool IsReference => LookupSource != null || LocatorDef2 != null || (FieldDef != null && (FieldDef.IsLookup || !string.IsNullOrWhiteSpace(FieldDef.Locator)));
+    public bool IsReference => LookupSource != null || LocatorDef != null || (FieldDef != null && (FieldDef.IsLookup || !string.IsNullOrWhiteSpace(FieldDef.Locator)));
     /// <summary>
     /// Gets a value indicating whether this binding points to a plain ID field.
     /// </summary>

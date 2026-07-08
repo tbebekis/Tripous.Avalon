@@ -45,7 +45,7 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// The last locator result.
     /// </summary>
-    protected LocatorResult2 fLastResult;
+    protected LocatorResult fLastResult;
 
     // ● protected methods
     /// <summary>
@@ -257,12 +257,12 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// Creates a locator request.
     /// </summary>
-    protected virtual LocatorRequest2 CreateRequest(TextBox TextBox)
+    protected virtual LocatorRequest CreateRequest(TextBox TextBox)
     {
         string FieldName = TextBox?.Tag as string;
-        LocatorRequest2 Result = new()
+        LocatorRequest Result = new()
         {
-            Context = new LocatorContext2(LocatorDef?.Name),
+            Context = new LocatorContext(LocatorDef?.Name),
             SearchField = FieldName,
             SearchTerm = GetLogSearchTerm(TextBox?.Text),
             IsMultiRow = true,
@@ -305,14 +305,14 @@ public class LocatorBox2: UserControl
         LogBox.AppendLine($"Locator2: Searching for term: {LogTerm}");
         try
         {
-            fLastResult = Locators2.Execute(CreateRequest(TextBox));
+            fLastResult = Locators.Execute(CreateRequest(TextBox));
             if (fLastResult.HasTooManyResults)
             {
                 ClosePopup();
                 LogBox.AppendLine($"Locator2: Too many rows for term: {LogTerm}");
                 Ui.Post(async () => await MessageBox.Info(fLastResult.Message, this));
             }
-            else if (fLastResult.Status == LocatorResultStatus2.NoResult)
+            else if (fLastResult.Status == LocatorResultStatus.NoResult)
             {
                 ClosePopup();
                 LogBox.AppendLine($"Locator2: No rows found for term: {LogTerm}");
@@ -418,7 +418,7 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// LocatorDef property.
     /// </summary>
-    static public readonly StyledProperty<LocatorDef2> LocatorDefProperty = AvaloniaProperty.Register<LocatorBox2, LocatorDef2>(nameof(LocatorDef));
+    static public readonly StyledProperty<LocatorDef> LocatorDefProperty = AvaloniaProperty.Register<LocatorBox2, LocatorDef>(nameof(LocatorDef));
     /// <summary>
     /// IsReadOnly property.
     /// </summary>
@@ -472,7 +472,7 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// Refreshes all target textboxes from a target row and mapping plan.
     /// </summary>
-    public virtual void RefreshTargetBoxes(DataRow Row, LocatorMapPlan2 Plan)
+    public virtual void RefreshTargetBoxes(DataRow Row, LocatorMapPlan Plan)
     {
         if (Row == null || Plan == null)
         {
@@ -480,7 +480,7 @@ public class LocatorBox2: UserControl
             return;
         }
 
-        foreach (LocatorMapItem2 Item in Plan.Items)
+        foreach (LocatorMapItem Item in Plan.Items)
         {
             if (Item.SourceField.IsSameText(LocatorDef?.KeyField))
                 continue;
@@ -495,7 +495,7 @@ public class LocatorBox2: UserControl
     /// <summary>
     /// The locator definition.
     /// </summary>
-    public LocatorDef2 LocatorDef
+    public LocatorDef LocatorDef
     {
         get => GetValue(LocatorDefProperty);
         set => SetValue(LocatorDefProperty, value);

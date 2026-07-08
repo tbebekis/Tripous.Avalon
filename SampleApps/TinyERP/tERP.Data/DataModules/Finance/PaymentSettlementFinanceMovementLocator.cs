@@ -12,13 +12,13 @@ namespace tERP.Data;
 /// Locator2 for payment settlement finance movements.
 /// </summary>
 [TypeStore]
-public class PaymentSettlementFinanceMovementLocator2: Locator2
+public class PaymentSettlementFinanceMovementLocator: Locator
 {
     // ● private
     /// <summary>
     /// Returns a named request parameter.
     /// </summary>
-    object GetParam(LocatorRequest2 Request, string Name)
+    object GetParam(LocatorRequest Request, string Name)
     {
         if (Request?.Context?.Params == null || string.IsNullOrWhiteSpace(Name))
             return null;
@@ -28,7 +28,7 @@ public class PaymentSettlementFinanceMovementLocator2: Locator2
     /// <summary>
     /// Returns the payment header row of a settlement row.
     /// </summary>
-    DataRow GetPaymentRow(LocatorRequest2 Request)
+    DataRow GetPaymentRow(LocatorRequest Request)
     {
         DataRow PaymentRow = GetParam(Request, "PaymentRow") as DataRow;
         if (PaymentRow != null)
@@ -194,7 +194,7 @@ and {OpenAmountSql} > 0
     /// <summary>
     /// Returns the SELECT statement to execute.
     /// </summary>
-    protected override string GetSql(LocatorDef2 LocatorDef, LocatorRequest2 Request)
+    protected override string GetSql(LocatorDef LocatorDef, LocatorRequest Request)
     {
         SelectSql SelectSql = GetPaymentSelectSql(GetPaymentRow(Request));
         string Result = $"select * from ({SelectSql.Text}) X";
@@ -214,7 +214,7 @@ and {OpenAmountSql} > 0
     /// <summary>
     /// Constructor.
     /// </summary>
-    public PaymentSettlementFinanceMovementLocator2()
+    public PaymentSettlementFinanceMovementLocator()
     {
     }
 }

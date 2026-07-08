@@ -1,9 +1,9 @@
 namespace Tripous.Data.Tests;
 
 /// <summary>
-/// Tests for the <see cref="Locator2"/> runtime locator.
+/// Tests for the <see cref="Locator"/> runtime locator.
 /// </summary>
-public class Locator2Tests
+public class LocatorTests
 {
     // ● private
     void ResetDefaultStore()
@@ -33,10 +33,10 @@ public class Locator2Tests
         Command.ExecuteNonQuery();
         return FilePath;
     }
-    LocatorDef2 RegisterUnitOfMeasureLocator()
+    LocatorDef RegisterUnitOfMeasureLocator()
     {
         DataRegistry.Locators2.Clear();
-        LocatorDef2 LocatorDef = DataRegistry.AddLocator2("UnitOfMeasure");
+        LocatorDef LocatorDef = DataRegistry.AddLocator2("UnitOfMeasure");
         LocatorDef.Add("Id");
         LocatorDef.Add("Code");
         LocatorDef.Add("Name");
@@ -70,15 +70,15 @@ public class Locator2Tests
         {
             SetupTestDatabase(FilePath);
 
-            LocatorRequest2 Request = new()
+            LocatorRequest Request = new()
             {
-                Context = new LocatorContext2("UnitOfMeasure"),
+                Context = new LocatorContext("UnitOfMeasure"),
                 SearchTerm = "kilo",
             };
 
-            LocatorResult2 Result = Locators2.Execute(Request);
+            LocatorResult Result = Locators.Execute(Request);
 
-            Assert.Equal(LocatorResultStatus2.SingleResult, Result.Status);
+            Assert.Equal(LocatorResultStatus.SingleResult, Result.Status);
             Assert.NotNull(Result.Table);
             Assert.NotNull(Result.View);
             Assert.Equal(1, Result.Count);
@@ -102,15 +102,15 @@ public class Locator2Tests
         {
             SetupTestDatabase(FilePath);
 
-            LocatorRequest2 Request = new()
+            LocatorRequest Request = new()
             {
-                Context = new LocatorContext2("UnitOfMeasure"),
+                Context = new LocatorContext("UnitOfMeasure"),
                 SearchTerm = "missing",
             };
 
-            LocatorResult2 Result = Locators2.Execute(Request);
+            LocatorResult Result = Locators.Execute(Request);
 
-            Assert.Equal(LocatorResultStatus2.NoResult, Result.Status);
+            Assert.Equal(LocatorResultStatus.NoResult, Result.Status);
             Assert.NotNull(Result.Table);
             Assert.Equal(0, Result.Count);
         }
@@ -131,15 +131,15 @@ public class Locator2Tests
         {
             SetupTestDatabase(FilePath);
 
-            LocatorRequest2 Request = new()
+            LocatorRequest Request = new()
             {
-                Context = new LocatorContext2("UnitOfMeasure"),
+                Context = new LocatorContext("UnitOfMeasure"),
                 SearchTerm = "meter",
             };
 
-            LocatorResult2 Result = Locators2.Execute(Request);
+            LocatorResult Result = Locators.Execute(Request);
 
-            Assert.Equal(LocatorResultStatus2.MultipleResults, Result.Status);
+            Assert.Equal(LocatorResultStatus.MultipleResults, Result.Status);
             Assert.NotNull(Result.Table);
             Assert.True(Result.Count > 1);
         }
@@ -159,18 +159,18 @@ public class Locator2Tests
         try
         {
             SetupTestDatabase(FilePath);
-            LocatorDef2 LocatorDef = DataRegistry.GetLocator2("UnitOfMeasure");
+            LocatorDef LocatorDef = DataRegistry.GetLocator2("UnitOfMeasure");
             LocatorDef.MaximumResultCount = 1;
 
-            LocatorRequest2 Request = new()
+            LocatorRequest Request = new()
             {
-                Context = new LocatorContext2("UnitOfMeasure"),
+                Context = new LocatorContext("UnitOfMeasure"),
                 SearchTerm = "meter",
             };
 
-            LocatorResult2 Result = Locators2.Execute(Request);
+            LocatorResult Result = Locators.Execute(Request);
 
-            Assert.Equal(LocatorResultStatus2.TooManyResults, Result.Status);
+            Assert.Equal(LocatorResultStatus.TooManyResults, Result.Status);
             Assert.Null(Result.Table);
             Assert.Equal(0, Result.Count);
         }
@@ -191,16 +191,16 @@ public class Locator2Tests
         {
             SetupTestDatabase(FilePath);
 
-            LocatorRequest2 Request = new()
+            LocatorRequest Request = new()
             {
-                Context = new LocatorContext2("UnitOfMeasure"),
+                Context = new LocatorContext("UnitOfMeasure"),
                 SearchField = "Unknown",
                 SearchTerm = "kilo",
             };
 
-            LocatorResult2 Result = Locators2.Execute(Request);
+            LocatorResult Result = Locators.Execute(Request);
 
-            Assert.Equal(LocatorResultStatus2.InvalidRequest, Result.Status);
+            Assert.Equal(LocatorResultStatus.InvalidRequest, Result.Status);
             Assert.Contains("Search field", Result.Message, System.StringComparison.OrdinalIgnoreCase);
         }
         finally
@@ -219,18 +219,18 @@ public class Locator2Tests
         try
         {
             SetupTestDatabase(FilePath);
-            LocatorDef2 LocatorDef = DataRegistry.GetLocator2("UnitOfMeasure");
+            LocatorDef LocatorDef = DataRegistry.GetLocator2("UnitOfMeasure");
             LocatorDef.OrderBy = "Name desc";
 
-            LocatorRequest2 Request = new()
+            LocatorRequest Request = new()
             {
-                Context = new LocatorContext2("UnitOfMeasure"),
+                Context = new LocatorContext("UnitOfMeasure"),
                 SearchTerm = "meter",
             };
 
-            LocatorResult2 Result = Locators2.Execute(Request);
+            LocatorResult Result = Locators.Execute(Request);
 
-            Assert.Equal(LocatorResultStatus2.MultipleResults, Result.Status);
+            Assert.Equal(LocatorResultStatus.MultipleResults, Result.Status);
             Assert.Equal("Meter", Result.Table.Rows[0]["Name"]);
             Assert.Equal("Centimeter", Result.Table.Rows[1]["Name"]);
         }
@@ -251,15 +251,15 @@ public class Locator2Tests
         {
             SetupTestDatabase(FilePath);
 
-            LocatorRequest2 Request = new()
+            LocatorRequest Request = new()
             {
-                Context = new LocatorContext2("UnitOfMeasure"),
+                Context = new LocatorContext("UnitOfMeasure"),
                 KeyValue = "2",
             };
 
-            LocatorResult2 Result = Locators2.Execute(Request);
+            LocatorResult Result = Locators.Execute(Request);
 
-            Assert.Equal(LocatorResultStatus2.SingleResult, Result.Status);
+            Assert.Equal(LocatorResultStatus.SingleResult, Result.Status);
             Assert.Equal("KGM", Result.Table.Rows[0]["Code"]);
             Assert.Equal("Kilogram", Result.Table.Rows[0]["Name"]);
         }
@@ -275,7 +275,7 @@ public class Locator2Tests
     [Fact]
     public void Mapper_CreatePlan_UsesKeySnapshotAndJoinFields()
     {
-        LocatorDef2 LocatorDef = new() { Name = "Product" };
+        LocatorDef LocatorDef = new() { Name = "Product" };
         LocatorDef.Add("Id");
         LocatorDef.Add("Code");
         LocatorDef.Add("Name");
@@ -292,7 +292,7 @@ public class Locator2Tests
         JoinTable.AddString("Name");
         TargetTable.UpdateReferences();
 
-        LocatorMapPlan2 Plan = new LocatorMapper2().CreatePlan(LocatorDef, TargetTable, ReferenceField);
+        LocatorMapPlan Plan = new LocatorMapper().CreatePlan(LocatorDef, TargetTable, ReferenceField);
 
         Assert.Equal("Product", Plan.LocatorName);
         Assert.Equal("ProductId", Plan.ReferenceField);
@@ -323,7 +323,7 @@ public class Locator2Tests
         DataRow TargetRow = TargetTable.NewRow();
         TargetTable.Rows.Add(TargetRow);
 
-        LocatorMapPlan2 Plan = new()
+        LocatorMapPlan Plan = new()
         {
             LocatorName = "Product",
             ReferenceField = "ProductId",
@@ -332,7 +332,7 @@ public class Locator2Tests
         Plan.Add("Code", "ProductCode");
         Plan.Add("Name", "Product__Name");
 
-        new LocatorMapper2().Apply(Plan, SourceRow, TargetRow);
+        new LocatorMapper().Apply(Plan, SourceRow, TargetRow);
 
         Assert.Equal("P1", TargetRow["ProductId"]);
         Assert.Equal("PRD-001", TargetRow["ProductCode"]);

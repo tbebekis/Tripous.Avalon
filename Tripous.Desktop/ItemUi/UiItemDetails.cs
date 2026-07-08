@@ -322,16 +322,16 @@ static public class UiItemDetails
         if (Field.TableDef == null)
             return Result;
 
-        LocatorDef2 LocatorDef2 = DataRegistry.FindLocator2(Field.Locator);
-        if (LocatorDef2 != null)
+        LocatorDef locatorDef = DataRegistry.FindLocator2(Field.Locator);
+        if (locatorDef != null)
         {
-            LocatorMapPlan2 MapPlan = new LocatorMapper2().CreatePlan(LocatorDef2, Field.TableDef, Field);
-            foreach (LocatorMapItem2 Item in MapPlan.Items)
+            LocatorMapPlan MapPlan = new LocatorMapper().CreatePlan(locatorDef, Field.TableDef, Field);
+            foreach (LocatorMapItem Item in MapPlan.Items)
             {
-                if (Item.SourceField.IsSameText(LocatorDef2.KeyField))
+                if (Item.SourceField.IsSameText(locatorDef.KeyField))
                     continue;
 
-                LocatorFieldDef2 LocatorField = LocatorDef2.Fields.Find(Item.SourceField);
+                LocatorFieldDef LocatorField = locatorDef.Fields.Find(Item.SourceField);
                 FieldDef TargetField = Field.TableDef.Fields.FirstOrDefault(x => x.Alias.IsSameText(Item.TargetField) || x.Name.IsSameText(Item.TargetField));
                 if (LocatorField == null || TargetField == null)
                     continue;
@@ -340,7 +340,7 @@ static public class UiItemDetails
                 if (!string.IsNullOrWhiteSpace(TargetField.SnapshotOf) && Field.TableDef.Fields.Any(x => x.IsLookup && FindLookupDisplaySnapshotField(Field.TableDef, x) == TargetField))
                     continue;
 
-                Result.Add(GroupGridBinder.CreateLocatorColumn2(TargetField.Alias, TargetField.Title, Field, LocatorField, LocatorDef2, MapPlan));
+                Result.Add(GroupGridBinder.CreateLocatorColumn2(TargetField.Alias, TargetField.Title, Field, LocatorField, locatorDef, MapPlan));
             }
             return Result;
         }
@@ -408,12 +408,12 @@ static public class UiItemDetails
     {
         if (Sender is not GroupGrid Grid || Args.Cell.Column?.Tag is not GroupGridColumnBinding Binding)
             return;
-        if (Binding.LocatorDef2 == null || Binding.LocatorMapPlan2 == null || Args.Value is not DataRow SourceRow)
+        if (Binding.LocatorDef == null || Binding.LocatorMapPlan == null || Args.Value is not DataRow SourceRow)
             return;
         if (Grid.CurrentRow is not DataRowView RowView || RowView.Row == null)
             return;
 
-        new LocatorMapper2().Apply(Binding.LocatorMapPlan2, SourceRow, RowView.Row);
+        new LocatorMapper().Apply(Binding.LocatorMapPlan, SourceRow, RowView.Row);
 
         DataColumn Column = RowView.Row.Table.FindColumn(Binding.DisplayFieldName);
         Args.Value = Column != null ? RowView.Row[Column] : DBNull.Value;
@@ -425,10 +425,10 @@ static public class UiItemDetails
     {
         if (Sender is not GroupGrid Grid || Args.Column?.Tag is not GroupGridColumnBinding Binding)
             return;
-        if (Binding.LocatorDef2 == null || Binding.GridColumn.IsReadOnly)
+        if (Binding.LocatorDef == null || Binding.GridColumn.IsReadOnly)
             return;
 
-        Args.Editor = new GroupGridLocatorInplaceEditor(Binding.LocatorDef2, Binding.LocatorSourceFieldName, Grid.CurrentRow as DataRowView);
+        Args.Editor = new GroupGridLocatorInplaceEditor(Binding.LocatorDef, Binding.LocatorSourceFieldName, Grid.CurrentRow as DataRowView);
         Args.Handled = true;
     }
     /// <summary>

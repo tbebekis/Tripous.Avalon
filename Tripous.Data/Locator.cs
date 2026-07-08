@@ -1,9 +1,9 @@
 namespace Tripous.Data;
 
 /// <summary>
-/// Describes a field that participates in a <see cref="LocatorDef2"/>.
+/// Describes a field that participates in a <see cref="Data.LocatorDef"/>.
 /// </summary>
-public class LocatorFieldDef2 : BaseDef
+public class LocatorFieldDef : BaseDef
 {
     // ● private
     DataFieldType fDataType = DataFieldType.String;
@@ -12,7 +12,7 @@ public class LocatorFieldDef2 : BaseDef
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorFieldDef2()
+    public LocatorFieldDef()
     {
     }
 
@@ -21,7 +21,7 @@ public class LocatorFieldDef2 : BaseDef
     /// The locator definition this field belongs to.
     /// </summary>
     [JsonIgnore]
-    public LocatorDef2 LocatorDef { get; set; }
+    public LocatorDef LocatorDef { get; set; }
     /// <summary>
     /// The data type of the field.
     /// </summary>
@@ -35,7 +35,7 @@ public class LocatorFieldDef2 : BaseDef
 /// <summary>
 /// Declarative definition of a locator resolution process.
 /// </summary>
-public class LocatorDef2 : BaseDef
+public class LocatorDef : BaseDef
 {
     // ● private
     string fClassName;
@@ -44,7 +44,7 @@ public class LocatorDef2 : BaseDef
     string fForm;
     string fWebForm;
     string fOrderBy;
-    DefList<LocatorFieldDef2> fFields;
+    DefList<LocatorFieldDef> fFields;
     List<string> fSingleRowSearchFields;
     List<string> fMultiRowSearchFields;
     List<string> fResultFields;
@@ -64,7 +64,7 @@ public class LocatorDef2 : BaseDef
     {
         List<string> Result = [];
 
-        foreach (LocatorFieldDef2 FieldDef in Fields)
+        foreach (LocatorFieldDef FieldDef in Fields)
         {
             if (!FieldDef.Name.IsSameText(KeyField) && FieldDef.DataType == DataFieldType.String)
                 Result.Add(FieldDef.Name);
@@ -75,7 +75,7 @@ public class LocatorDef2 : BaseDef
     void CheckFieldExists(string FieldName, string ListName)
     {
         if (!Fields.Contains(FieldName))
-            throw new TripousDataException($"{nameof(LocatorDef2)} {Name} {ListName} field not found: {FieldName}");
+            throw new TripousDataException($"{nameof(LocatorDef)} {Name} {ListName} field not found: {FieldName}");
     }
     void CheckFieldsExist(IEnumerable<string> FieldNames, string ListName)
     {
@@ -87,7 +87,7 @@ public class LocatorDef2 : BaseDef
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorDef2()
+    public LocatorDef()
     {
     }
 
@@ -100,13 +100,13 @@ public class LocatorDef2 : BaseDef
         base.CheckDescriptor();
 
         if (string.IsNullOrWhiteSpace(Source))
-            throw new TripousDataException($"{nameof(LocatorDef2)} {Name} has no {nameof(Source)}.");
+            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no {nameof(Source)}.");
 
         if (string.IsNullOrWhiteSpace(KeyField))
-            throw new TripousDataException($"{nameof(LocatorDef2)} {Name} has no {nameof(KeyField)}.");
+            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no {nameof(KeyField)}.");
 
         if (Fields.Count == 0)
-            throw new TripousDataException($"{nameof(LocatorDef2)} {Name} has no {nameof(Fields)}.");
+            throw new TripousDataException($"{nameof(LocatorDef)} {Name} has no {nameof(Fields)}.");
 
         CheckFieldExists(KeyField, nameof(KeyField));
         CheckFieldsExist(GetSearchFields(IsMultiRow: false), nameof(SingleRowSearchFields));
@@ -120,15 +120,15 @@ public class LocatorDef2 : BaseDef
     {
         base.UpdateReferences();
 
-        foreach (LocatorFieldDef2 FieldDef in Fields)
+        foreach (LocatorFieldDef FieldDef in Fields)
             FieldDef.LocatorDef = this;
     }
     /// <summary>
     /// Adds a field to the locator.
     /// </summary>
-    public LocatorFieldDef2 Add(string Name, DataFieldType DataType)
+    public LocatorFieldDef Add(string Name, DataFieldType DataType)
     {
-        LocatorFieldDef2 Result = Fields.FindOrdAdd(Name);
+        LocatorFieldDef Result = Fields.FindOrdAdd(Name);
         Result.DataType = DataType;
         Result.LocatorDef = this;
         return Result;
@@ -136,7 +136,7 @@ public class LocatorDef2 : BaseDef
     /// <summary>
     /// Adds a string field to the locator.
     /// </summary>
-    public LocatorFieldDef2 Add(string Name)
+    public LocatorFieldDef Add(string Name)
     {
         return Add(Name, DataFieldType.String);
     }
@@ -208,7 +208,7 @@ public class LocatorDef2 : BaseDef
         List<string> Result = [];
         AddNames(Result, KeyField);
 
-        foreach (LocatorFieldDef2 FieldDef in Fields)
+        foreach (LocatorFieldDef FieldDef in Fields)
             AddNames(Result, FieldDef.Name);
 
         return Result;
@@ -220,7 +220,7 @@ public class LocatorDef2 : BaseDef
     /// </summary>
     public string ClassName
     {
-        get => !string.IsNullOrWhiteSpace(fClassName) ? fClassName : typeof(Locator2).FullName;
+        get => !string.IsNullOrWhiteSpace(fClassName) ? fClassName : typeof(Locator).FullName;
         set { if (fClassName != value) { fClassName = value; NotifyPropertyChanged(nameof(ClassName)); } }
     }
     /// <summary>
@@ -267,7 +267,7 @@ public class LocatorDef2 : BaseDef
     /// <summary>
     /// Gets or sets the fields that may participate in locator input, output or display.
     /// </summary>
-    public DefList<LocatorFieldDef2> Fields
+    public DefList<LocatorFieldDef> Fields
     {
         get => fFields ??= new();
         set { if (fFields != value) { fFields = value; NotifyPropertyChanged(nameof(Fields)); } }
@@ -318,7 +318,7 @@ public class LocatorDef2 : BaseDef
 /// <summary>
 /// Status of a locator resolution operation.
 /// </summary>
-public enum LocatorResultStatus2
+public enum LocatorResultStatus
 {
     /// <summary>
     /// No status has been assigned.
@@ -357,7 +357,7 @@ public enum LocatorResultStatus2
 /// <summary>
 /// The kind of result list returned by a locator resolution operation.
 /// </summary>
-public enum LocatorResultListKind2
+public enum LocatorResultListKind
 {
     /// <summary>
     /// No result list is assigned.
@@ -376,7 +376,7 @@ public enum LocatorResultListKind2
 /// <summary>
 /// Context of a locator resolution operation.
 /// </summary>
-public class LocatorContext2
+public class LocatorContext
 {
     // ● private
     string fLocatorName;
@@ -386,13 +386,13 @@ public class LocatorContext2
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorContext2()
+    public LocatorContext()
     {
     }
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorContext2(string LocatorName)
+    public LocatorContext(string LocatorName)
     {
         this.LocatorName = LocatorName;
     }
@@ -416,20 +416,20 @@ public class LocatorContext2
 /// <summary>
 /// Request for a locator resolution operation.
 /// </summary>
-public class LocatorRequest2
+public class LocatorRequest
 {
     // ● private
     object fKeyValue;
     string fSearchTerm;
     string fSearchField;
-    LocatorContext2 fContext;
+    LocatorContext fContext;
     bool fIsMultiRow;
 
     // ● constructor
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorRequest2()
+    public LocatorRequest()
     {
     }
 
@@ -470,7 +470,7 @@ public class LocatorRequest2
     /// <summary>
     /// Gets or sets the locator context.
     /// </summary>
-    public LocatorContext2 Context
+    public LocatorContext Context
     {
         get => fContext ??= new();
         set => fContext = value;
@@ -480,10 +480,10 @@ public class LocatorRequest2
 /// <summary>
 /// Result of a locator resolution operation.
 /// </summary>
-public class LocatorResult2
+public class LocatorResult
 {
     // ● private
-    LocatorResultStatus2 fStatus;
+    LocatorResultStatus fStatus;
     string fMessage;
     MemTable fTable;
     IList fObjectList;
@@ -492,7 +492,7 @@ public class LocatorResult2
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorResult2()
+    public LocatorResult()
     {
     }
 
@@ -500,7 +500,7 @@ public class LocatorResult2
     /// <summary>
     /// Gets or sets the result status.
     /// </summary>
-    public LocatorResultStatus2 Status
+    public LocatorResultStatus Status
     {
         get => fStatus;
         set => fStatus = value;
@@ -536,7 +536,7 @@ public class LocatorResult2
     /// <summary>
     /// Gets the kind of result list returned by the operation.
     /// </summary>
-    public LocatorResultListKind2 ListKind => Table != null ? LocatorResultListKind2.MemTable : ObjectList != null ? LocatorResultListKind2.ObjectList : LocatorResultListKind2.None;
+    public LocatorResultListKind ListKind => Table != null ? LocatorResultListKind.MemTable : ObjectList != null ? LocatorResultListKind.ObjectList : LocatorResultListKind.None;
     /// <summary>
     /// Gets the result count.
     /// </summary>
@@ -544,25 +544,25 @@ public class LocatorResult2
     /// <summary>
     /// Gets true when the result has a single row.
     /// </summary>
-    public bool HasSingleResult => Status == LocatorResultStatus2.SingleResult && Count == 1;
+    public bool HasSingleResult => Status == LocatorResultStatus.SingleResult && Count == 1;
     /// <summary>
     /// Gets true when the result has multiple rows.
     /// </summary>
-    public bool HasMultipleResults => Status == LocatorResultStatus2.MultipleResults && Count > 1;
+    public bool HasMultipleResults => Status == LocatorResultStatus.MultipleResults && Count > 1;
     /// <summary>
     /// Gets true when the result is too broad.
     /// </summary>
-    public bool HasTooManyResults => Status == LocatorResultStatus2.TooManyResults;
+    public bool HasTooManyResults => Status == LocatorResultStatus.TooManyResults;
     /// <summary>
     /// Gets true when the result is an error.
     /// </summary>
-    public bool HasError => Status == LocatorResultStatus2.Error;
+    public bool HasError => Status == LocatorResultStatus.Error;
 }
 
 /// <summary>
 /// A locator mapping item.
 /// </summary>
-public class LocatorMapItem2
+public class LocatorMapItem
 {
     // ● private
     string fSourceField;
@@ -572,13 +572,13 @@ public class LocatorMapItem2
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorMapItem2()
+    public LocatorMapItem()
     {
     }
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorMapItem2(string SourceField, string TargetField)
+    public LocatorMapItem(string SourceField, string TargetField)
     {
         this.SourceField = SourceField;
         this.TargetField = TargetField;
@@ -606,18 +606,18 @@ public class LocatorMapItem2
 /// <summary>
 /// A locator mapping plan.
 /// </summary>
-public class LocatorMapPlan2
+public class LocatorMapPlan
 {
     // ● private
     string fLocatorName;
     string fReferenceField;
-    List<LocatorMapItem2> fItems;
+    List<LocatorMapItem> fItems;
 
     // ● constructor
     /// <summary>
     /// Constructor.
     /// </summary>
-    public LocatorMapPlan2()
+    public LocatorMapPlan()
     {
     }
 
@@ -625,9 +625,9 @@ public class LocatorMapPlan2
     /// <summary>
     /// Adds a mapping item.
     /// </summary>
-    public LocatorMapItem2 Add(string SourceField, string TargetField)
+    public LocatorMapItem Add(string SourceField, string TargetField)
     {
-        LocatorMapItem2 Result = new(SourceField, TargetField);
+        LocatorMapItem Result = new(SourceField, TargetField);
         Items.Add(Result);
         return Result;
     }
@@ -652,13 +652,13 @@ public class LocatorMapPlan2
     /// <summary>
     /// Gets the mapping items.
     /// </summary>
-    public List<LocatorMapItem2> Items => fItems ??= [];
+    public List<LocatorMapItem> Items => fItems ??= [];
 }
 
 /// <summary>
 /// Creates locator mapping plans.
 /// </summary>
-public class LocatorMapper2
+public class LocatorMapper
 {
     // ● protected methods
     /// <summary>
@@ -730,9 +730,9 @@ public class LocatorMapper2
     /// <summary>
     /// Creates a locator mapping plan.
     /// </summary>
-    public virtual LocatorMapPlan2 CreatePlan(LocatorDef2 LocatorDef, TableDef TargetTable, FieldDef ReferenceField)
+    public virtual LocatorMapPlan CreatePlan(LocatorDef LocatorDef, TableDef TargetTable, FieldDef ReferenceField)
     {
-        LocatorMapPlan2 Result = new()
+        LocatorMapPlan Result = new()
         {
             LocatorName = LocatorDef?.Name,
             ReferenceField = ReferenceField?.Name,
@@ -758,12 +758,12 @@ public class LocatorMapper2
     /// <summary>
     /// Applies a locator mapping plan to a target row.
     /// </summary>
-    public virtual void Apply(LocatorMapPlan2 Plan, DataRow SourceRow, DataRow TargetRow)
+    public virtual void Apply(LocatorMapPlan Plan, DataRow SourceRow, DataRow TargetRow)
     {
         if (Plan == null || TargetRow == null)
             return;
 
-        foreach (LocatorMapItem2 Item in Plan.Items)
+        foreach (LocatorMapItem Item in Plan.Items)
         {
             object Value = GetSourceRowValue(SourceRow, Item.SourceField);
             SetTargetRowValue(TargetRow, Item.TargetField, Value);
@@ -775,7 +775,7 @@ public class LocatorMapper2
 /// Runtime locator.
 /// </summary>
 [TypeStore]
-public class Locator2
+public class Locator
 {
     // ● protected methods
     /// <summary>
@@ -785,7 +785,7 @@ public class Locator2
     /// <summary>
     /// Returns the result field list as SQL text.
     /// </summary>
-    protected virtual string GetSqlResultFields(LocatorDef2 LocatorDef)
+    protected virtual string GetSqlResultFields(LocatorDef LocatorDef)
     {
         List<string> FieldNames = LocatorDef.GetResultFields();
         return FieldNames.Count > 0 ? string.Join(", ", FieldNames) : "*";
@@ -793,7 +793,7 @@ public class Locator2
     /// <summary>
     /// Returns the base SELECT statement.
     /// </summary>
-    protected virtual string GetBaseSql(LocatorDef2 LocatorDef)
+    protected virtual string GetBaseSql(LocatorDef LocatorDef)
     {
         string ResultFields = GetSqlResultFields(LocatorDef);
         return IsSelectSource(LocatorDef.Source) ? $"select {ResultFields} from ({LocatorDef.Source}) X" : $"select {ResultFields} from {LocatorDef.Source}";
@@ -801,7 +801,7 @@ public class Locator2
     /// <summary>
     /// Returns the search field names to use.
     /// </summary>
-    protected virtual List<string> GetSearchFieldNames(LocatorDef2 LocatorDef, LocatorRequest2 Request)
+    protected virtual List<string> GetSearchFieldNames(LocatorDef LocatorDef, LocatorRequest Request)
     {
         if (!string.IsNullOrWhiteSpace(Request.SearchField))
             return [Request.SearchField];
@@ -811,7 +811,7 @@ public class Locator2
     /// <summary>
     /// Returns the key field definition.
     /// </summary>
-    protected virtual LocatorFieldDef2 GetKeyFieldDef(LocatorDef2 LocatorDef)
+    protected virtual LocatorFieldDef GetKeyFieldDef(LocatorDef LocatorDef)
     {
         return LocatorDef.Fields.Find(LocatorDef.KeyField);
     }
@@ -843,16 +843,16 @@ public class Locator2
     /// <summary>
     /// Returns the SQL WHERE clause for a key value.
     /// </summary>
-    protected virtual string GetKeyWhereSql(LocatorDef2 LocatorDef, LocatorRequest2 Request)
+    protected virtual string GetKeyWhereSql(LocatorDef LocatorDef, LocatorRequest Request)
     {
-        LocatorFieldDef2 FieldDef = GetKeyFieldDef(LocatorDef);
+        LocatorFieldDef FieldDef = GetKeyFieldDef(LocatorDef);
         DataFieldType DataType = FieldDef != null ? FieldDef.DataType : DataFieldType.String;
         return $"{LocatorDef.KeyField} = {GetSqlValue(Request.KeyValue, DataType)}";
     }
     /// <summary>
     /// Returns the SQL WHERE clause for a search term.
     /// </summary>
-    protected virtual string GetWhereSql(LocatorDef2 LocatorDef, LocatorRequest2 Request)
+    protected virtual string GetWhereSql(LocatorDef LocatorDef, LocatorRequest Request)
     {
         if (!Sys.IsNull(Request.KeyValue))
             return GetKeyWhereSql(LocatorDef, Request);
@@ -865,7 +865,7 @@ public class Locator2
 
         foreach (string FieldName in GetSearchFieldNames(LocatorDef, Request))
         {
-            LocatorFieldDef2 FieldDef = LocatorDef.Fields.Find(FieldName);
+            LocatorFieldDef FieldDef = LocatorDef.Fields.Find(FieldName);
             if (FieldDef != null && FieldDef.DataType == DataFieldType.String)
                 Items.Add($"{FieldDef.Name} like '%{Term}%'");
         }
@@ -875,7 +875,7 @@ public class Locator2
     /// <summary>
     /// Returns the SELECT statement to execute.
     /// </summary>
-    protected virtual string GetSql(LocatorDef2 LocatorDef, LocatorRequest2 Request)
+    protected virtual string GetSql(LocatorDef LocatorDef, LocatorRequest Request)
     {
         string Result = GetBaseSql(LocatorDef);
         string Where = GetWhereSql(LocatorDef, Request);
@@ -891,31 +891,31 @@ public class Locator2
     /// <summary>
     /// Returns an invalid request result.
     /// </summary>
-    protected virtual LocatorResult2 InvalidRequest(string Message)
+    protected virtual LocatorResult InvalidRequest(string Message)
     {
-        return new LocatorResult2()
+        return new LocatorResult()
         {
-            Status = LocatorResultStatus2.InvalidRequest,
+            Status = LocatorResultStatus.InvalidRequest,
             Message = Message,
         };
     }
     /// <summary>
     /// Returns the status for a row count.
     /// </summary>
-    protected virtual LocatorResultStatus2 GetStatus(LocatorDef2 LocatorDef, int RowCount)
+    protected virtual LocatorResultStatus GetStatus(LocatorDef LocatorDef, int RowCount)
     {
         if (RowCount == 0)
-            return LocatorResultStatus2.NoResult;
+            return LocatorResultStatus.NoResult;
         if (RowCount == 1)
-            return LocatorResultStatus2.SingleResult;
+            return LocatorResultStatus.SingleResult;
         if (RowCount > LocatorDef.MaximumResultCount)
-            return LocatorResultStatus2.TooManyResults;
-        return LocatorResultStatus2.MultipleResults;
+            return LocatorResultStatus.TooManyResults;
+        return LocatorResultStatus.MultipleResults;
     }
     /// <summary>
     /// Checks the specified request and returns an error result if it is invalid.
     /// </summary>
-    protected virtual LocatorResult2 CheckRequest(LocatorDef2 LocatorDef, LocatorRequest2 Request)
+    protected virtual LocatorResult CheckRequest(LocatorDef LocatorDef, LocatorRequest Request)
     {
         if (Sys.IsNull(Request.KeyValue) && !string.IsNullOrWhiteSpace(Request.SearchTerm) && Request.SearchTerm.Length < LocatorDef.MinimumSearchLength)
             return InvalidRequest($"Locator search term must contain at least {LocatorDef.MinimumSearchLength} characters.");
@@ -930,21 +930,21 @@ public class Locator2
     /// <summary>
     /// Executes a locator request.
     /// </summary>
-    public virtual LocatorResult2 Execute(LocatorDef2 LocatorDef, LocatorRequest2 Request)
+    public virtual LocatorResult Execute(LocatorDef LocatorDef, LocatorRequest Request)
     {
-        LocatorResult2 Result = CheckRequest(LocatorDef, Request);
+        LocatorResult Result = CheckRequest(LocatorDef, Request);
         if (Result != null)
             return Result;
 
         MemTable Table = new(LocatorDef.Name);
         int RowCount = Store.SelectTo(Table, GetSql(LocatorDef, Request));
-        LocatorResultStatus2 Status = GetStatus(LocatorDef, RowCount);
+        LocatorResultStatus Status = GetStatus(LocatorDef, RowCount);
 
-        return new LocatorResult2()
+        return new LocatorResult()
         {
             Status = Status,
-            Message = Status == LocatorResultStatus2.TooManyResults ? "Too many results. Type more characters." : string.Empty,
-            Table = Status == LocatorResultStatus2.TooManyResults ? null : Table,
+            Message = Status == LocatorResultStatus.TooManyResults ? "Too many results. Type more characters." : string.Empty,
+            Table = Status == LocatorResultStatus.TooManyResults ? null : Table,
         };
     }
 
@@ -958,25 +958,25 @@ public class Locator2
 /// <summary>
 /// Static locator service.
 /// </summary>
-static public class Locators2
+static public class Locators
 {
     // ● public
     /// <summary>
     /// Executes a locator request.
     /// </summary>
-    static public LocatorResult2 Execute(LocatorRequest2 Request)
+    static public LocatorResult Execute(LocatorRequest Request)
     {
         if (Request == null)
             throw new TripousArgumentNullException(nameof(Request));
         if (Request.Context == null)
-            throw new TripousDataException($"{nameof(LocatorRequest2)} has no {nameof(LocatorRequest2.Context)}.");
+            throw new TripousDataException($"{nameof(LocatorRequest)} has no {nameof(LocatorRequest.Context)}.");
         if (string.IsNullOrWhiteSpace(Request.Context.LocatorName))
-            throw new TripousDataException($"{nameof(LocatorRequest2)} has no {nameof(LocatorContext2.LocatorName)}.");
+            throw new TripousDataException($"{nameof(LocatorRequest)} has no {nameof(LocatorContext.LocatorName)}.");
 
-        LocatorDef2 LocatorDef = DataRegistry.GetLocator2(Request.Context.LocatorName);
+        LocatorDef LocatorDef = DataRegistry.GetLocator2(Request.Context.LocatorName);
         LocatorDef.CheckDescriptor();
 
-        Locator2 Locator = TypeStore.CreateInstance<Locator2>(LocatorDef.ClassName);
+        Locator Locator = TypeStore.CreateInstance<Locator>(LocatorDef.ClassName);
         return Locator.Execute(LocatorDef, Request);
     }
 }
