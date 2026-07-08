@@ -85,22 +85,9 @@ public class TripousBinding
     /// </summary>
     public LookupSource LookupSource { get; set; }
     /// <summary>
-    /// The locator, if any, else null.
-    /// </summary>
-    public Locator Locator { get; set; }
-
-    /// <summary>
-    /// Optional locator definition associated to the binding.
-    /// </summary>
-    public LocatorDef LocatorDef { get; set; }
-    /// <summary>
     /// Optional Locator2 definition associated to the binding.
     /// </summary>
     public LocatorDef2 LocatorDef2 { get; set; }
-    /// <summary>
-    /// Maps locator field names to target row field names.
-    /// </summary>
-    public Dictionary<string, string> LocatorTargetFieldMap { get; set; }
     /// <summary>
     /// Optional Locator2 target field mapping plan.
     /// </summary>

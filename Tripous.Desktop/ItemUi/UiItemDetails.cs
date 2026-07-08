@@ -345,29 +345,6 @@ static public class UiItemDetails
             return Result;
         }
 
-        LocatorDef LocatorDef = DataRegistry.Locators.Find(Field.Locator);
-        if (LocatorDef == null)
-            return Result;
-
-        ControlBindingHelper.EnsureLocatorFields(LocatorDef, Field);
-
-        TableDef JoinTable = Field.TableDef.FindJoinTableByMasterKeyField(Field.Name);
-        if (JoinTable == null)
-            return Result;
-
-        Dictionary<string, string> TargetFieldMap = Field.TableDef.CreateLocatorTargetFieldMap(Field, LocatorDef);
-        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields.Where(item => item.IsVisible))
-        {
-            if (LocatorDef.KeyField.IsSameText(LocatorField.Name))
-                continue;
-
-            FieldDef TargetField = Field.TableDef.FindLocatorTargetField(Field, LocatorField);
-            if (TargetField == null)
-                continue;
-
-            Result.Add(GroupGridBinder.CreateLocatorColumn(TargetField.Alias, TargetField.Title, Field, LocatorField, LocatorDef, TargetFieldMap));
-        }
-
         return Result;
     }
     /// <summary>

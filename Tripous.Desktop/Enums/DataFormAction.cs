@@ -78,7 +78,7 @@ public enum DataFormAction
     /// </summary>
     Find = 0x400,
     /// <summary>
-    /// Toggles visibility of list DataGrid columns ending with ID 
+    /// Toggles visibility of list GroupGrid columns ending with ID.
     /// </summary>
     ToggleIds = 0x800,
     /// <summary>

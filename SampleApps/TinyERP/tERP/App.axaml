@@ -9,7 +9,6 @@
       <Application.Styles>
         <FluentTheme />
         
-        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
         
         <!-- ● TextBox -->
@@ -23,8 +22,8 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         
-        <!-- ● LocatorBox Button -->
-        <Style Selector="desktop|LocatorBox Button.LocatorBoxMenuButton">
+        <!-- ● LocatorBox2 Button -->
+        <Style Selector="desktop|LocatorBox2 Button.LocatorBoxMenuButton">
             <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}" />
             <Setter Property="BorderThickness" Value="1" />
@@ -114,43 +113,6 @@
             <Setter Property="Background" Value="#CCCCCC" />
         </Style>
         
-        <!-- ● DataGrid -->
-        <Style Selector="DataGrid">
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontFamily" Value="Cascadia Code, Consolas, Monospace"/>
-            <Setter Property="GridLinesVisibility" Value="All"/>
-            <Setter Property="CanUserResizeColumns" Value="True" />
-    
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"/>
-    
-            <Setter Property="HeadersVisibility" Value="All"/>
-            <Setter Property="RowBackground" Value="Transparent"/>
-        </Style>
- 
-        <Style Selector="DataGridColumnHeader">
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-        
-        <Style Selector="DataGridCell">
-            <Setter Property="FontSize" Value="11"/>
-        </Style>
-
-        <Style Selector="DataGridColumnHeader">
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-        
-        <Style Selector="DataGridRow:nth-child(even)">
-            <Setter Property="Background" Value="#10000000"/>
-        </Style>
-        
-        <Style Selector="DataGrid ComboBox">
-            <Setter Property="Margin" Value="4,0,4,0"/>
-            <Setter Property="Padding" Value="8,0,4,0"/>
-        </Style>
- 
         <!-- ● TreeView -->
         <Style Selector="TreeViewItem">
             <Setter Property="MinHeight" Value="24"/>

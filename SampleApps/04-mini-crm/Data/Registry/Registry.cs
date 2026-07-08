@@ -46,6 +46,7 @@ static public partial class Registry
             Version.RegisterConfigProperties();
         }
 
+        DataRegistry.UpdateLocator2References();
         DataRegistry.Modules.UpdateReferences();
         DesktopRegistry.Forms.UpdateReferences();
     }

@@ -428,16 +428,20 @@ public partial class RegistryVersion1 : RegistryVersion
     /// </summary>
     public override void RegisterLocators()
     {
-        LocatorDef Locator = DataRegistry.AddLocator("Customer", "Customer", "Id", FormName: "Customer");
-        Locator.Add("Id", DataFieldType.String, TargetField: "CustomerId", Alias: "Customer__Id", TitleKey: null, IsVisible: false, IsSearchable: false);
-        Locator.Add("Code", DataFieldType.String, TargetField: null, Alias: "Customer__Code", TitleKey: null, IsVisible: true, IsSearchable: true);
-        Locator.Add("Name", DataFieldType.String, TargetField: null, Alias: "Customer__Name", TitleKey: null, IsVisible: true, IsSearchable: true);
+        LocatorDef2 Locator = DataRegistry.AddOrUpdateLocator2("Customer", Source: "Customer", KeyField: "Id", FormName: "Customer");
+        Locator.Add("Id", DataFieldType.String);
+        Locator.Add("Code", DataFieldType.String);
+        Locator.Add("Name", DataFieldType.String);
+        Locator.AddResultFields("Id", "Code", "Name");
+        Locator.AddSearchFields("Code", "Name");
 
-        Locator = DataRegistry.AddLocator("Contact", "Contact", "Id", FormName: "Contact");
-        Locator.Add("Id", DataFieldType.String, TargetField: "ContactId", Alias: "Contact__Id", TitleKey: null, IsVisible: false, IsSearchable: false);
-        Locator.Add("CustomerId", DataFieldType.String, TargetField: "CustomerId", Alias: "Contact__CustomerId", TitleKey: null, IsVisible: false, IsSearchable: false);
-        Locator.Add("FirstName", DataFieldType.String, TargetField: null, Alias: "Contact__FirstName", TitleKey: null, IsVisible: true, IsSearchable: true);
-        Locator.Add("LastName", DataFieldType.String, TargetField: null, Alias: "Contact__LastName", TitleKey: null, IsVisible: true, IsSearchable: true);
+        Locator = DataRegistry.AddOrUpdateLocator2("Contact", Source: "Contact", KeyField: "Id", FormName: "Contact");
+        Locator.Add("Id", DataFieldType.String);
+        Locator.Add("CustomerId", DataFieldType.String);
+        Locator.Add("FirstName", DataFieldType.String);
+        Locator.Add("LastName", DataFieldType.String);
+        Locator.AddResultFields("Id", "CustomerId", "FirstName", "LastName");
+        Locator.AddSearchFields("FirstName", "LastName");
     }
     /// <summary>
     /// Registers module definitions.

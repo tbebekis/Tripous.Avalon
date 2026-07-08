@@ -57,8 +57,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
 
         return Field.IsReadOnly
                || Field.IsReadOnlyUI
-               || (Field.IsReadOnlyEdit && DataForm.FormState != DataFormState.Insert)
-               || (Binding.LocatorDef != null && Binding.LocatorDef.IsReadOnly);
+               || (Field.IsReadOnlyEdit && DataForm.FormState != DataFormState.Insert);
     }
     /// <summary>
     /// Sets a bound control to read-only or restores its field-defined state.
@@ -73,9 +72,6 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         bool IsReadOnly = Value || IsBindingReadOnly(Binding);
         switch (Binding.Control)
         {
-            case LocatorBox Box:
-                Box.IsReadOnly = IsReadOnly;
-                break;
             case LocatorBox2 Box:
                 Box.IsReadOnly = IsReadOnly;
                 break;
@@ -131,27 +127,15 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         
         if (!string.IsNullOrWhiteSpace(Field.Locator))
         {
-            Control Box;
-            ControlBinding Binding;
-            if (DataRegistry.FindLocator2(Field.Locator) != null)
-            {
-                LocatorBox2 LocatorBox = new();
-                Binding = Binder.Bind(LocatorBox, Field);
-                Box = LocatorBox;
-            }
-            else
-            {
-                LocatorBox LocatorBox = new();
-                Binding = Binder.Bind(LocatorBox, Field);
-                Box = LocatorBox;
-            }
+            LocatorBox2 LocatorBox = new();
+            ControlBinding Binding = Binder.Bind(LocatorBox, Field);
             if (!Field.IsReadOnly && !Field.IsReadOnlyUI)
             {
                 // context menu for lookup combo boxes and locator box controls.
                 ReferenceContextMenu RefMenu = FormDef.CreateReferenceContextMenu();
                 RefMenu.Initialize(this, Binding);
             }
-            Result = Box;
+            Result = LocatorBox;
         }
         else if (Field.IsLookup)
         {
@@ -271,43 +255,6 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         if (Context.Binding?.Table?.CurrentRow == null || string.IsNullOrWhiteSpace(Context.Binding.FieldName))
             return;
 
-        if (Context.Binding is ControlBinding ControlBinding && ControlBinding.Control is LocatorBox && Context.Binding.Locator != null)
-        {
-            if (Sys.IsNull(Value))
-            {
-                Context.Binding.Locator.Assign(null, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
-            }
-            else if (Context.Binding.Locator.LocateByKey(Value))
-            {
-                Context.Binding.Locator.Assign(Context.Binding.Locator.SelectedRow, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
-            }
-            else
-            {
-                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Value;
-            }
-
-            RefreshReferenceBinding(Context);
-            return;
-        }
-
-        if (Context.Binding.LocatorDef != null && Context.Binding.Locator != null)
-        {
-            if (Sys.IsNull(Value))
-            {
-                Context.Binding.Locator.Assign(null, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
-            }
-            else if (Context.Binding.Locator.LocateByKey(Value))
-            {
-                Context.Binding.Locator.Assign(Context.Binding.Locator.SelectedRow, Context.Binding.Table.CurrentRow, Context.Binding.FieldName, Context.Binding.LocatorTargetFieldMap);
-            }
-            else
-            {
-                Context.Binding.Table.CurrentRow[Context.Binding.FieldName] = Value;
-            }
-
-            RefreshReferenceBinding(Context);
-            return;
-        }
         if (Context.Binding.LocatorDef2 != null)
         {
             LocatorMapper2 Mapper = new();

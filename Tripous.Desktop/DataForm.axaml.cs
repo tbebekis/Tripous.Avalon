@@ -892,8 +892,6 @@ public partial class DataForm : AppForm
             return CalendarDatePicker.Focusable;
         if (Control is CheckBox CheckBox)
             return CheckBox.Focusable;
-        if (Control is LocatorBox LocatorBox)
-            return LocatorBox.Focusable;
         if (Control is LocatorBox2 LocatorBox2)
             return LocatorBox2.Focusable;
 
@@ -1023,7 +1021,7 @@ public partial class DataForm : AppForm
         gridList.IsReadOnly = true;
     }
     /// <summary>
-    /// Applies the visibility of list DataGrid columns ending with ID 
+    /// Applies the visibility of list GroupGrid columns ending with ID.
     /// </summary>
     protected virtual void ApplyIdColumnsVisible()
     {
@@ -1194,7 +1192,7 @@ public partial class DataForm : AppForm
     public bool ListIsDirty { get; protected set; }
 
     /// <summary>
-    /// Toggles visibility of list DataGrid columns ending with ID 
+    /// Toggles visibility of list GroupGrid columns ending with ID.
     /// </summary>
     public bool IdColumnsVisible
     {

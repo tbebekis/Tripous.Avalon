@@ -51,9 +51,9 @@ public partial class ReadOnlyViewForm : AppForm
 
         await Dispatcher.UIThread.InvokeAsync(() =>
         {
-            DataGridBinder.UnBindGrid(grid);
+            GroupGridBinder.UnBindGrid(grid);
             MemTable Table = AppHost.Store.Select(SqlText);
-            DataGridBinder.BindGrid(fSelectDef, grid, Table.DataView, SupportsRecycling: false, GoToFirst: true);
+            GroupGridBinder.BindGrid(fSelectDef, grid, Table.DataView, GoToFirst: true);
             string Message = $"{fSelectDef.Title} - Rows: {Table.Rows.Count}";
             AppHost.Log(Message);
             if (Table.Rows.Count == 0)

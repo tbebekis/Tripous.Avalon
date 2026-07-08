@@ -317,11 +317,6 @@ public class GridColumnDef: BaseDef
  
     // ● derived
     /// <summary>
-    /// Gets or sets the associated data grid column.
-    /// </summary>
-    [JsonIgnore]
-    public DataGridColumn GridColumn { get; set; }
-    /// <summary>
     /// Gets the underlying data type.
     /// </summary>
     [JsonIgnore]

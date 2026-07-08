@@ -62,6 +62,46 @@ static public class GroupGridBinder
     {
         return Grid?.GetVisibleValueColumns().FirstOrDefault() ?? Grid?.Columns.FirstOrDefault();
     }
+    static string GetHeader(string Header)
+    {
+        if (!string.IsNullOrWhiteSpace(Header))
+        {
+            List<string> WordList = Header.SplitToWordList();
+            if (WordList.Count == 1)
+            {
+                Header = WordList[0];
+            }
+            else
+            {
+                if ("Id".IsSameText(WordList[WordList.Count - 1]))
+                    WordList.RemoveAt(WordList.Count - 1);
+                Header = string.Join(" ", WordList);
+            }
+        }
+        return Header;
+    }
+    static string GetHeader(string ColumnName, string Header) => string.IsNullOrWhiteSpace(Header) ? GetHeader(ColumnName) : GetHeader(Header);
+    static string GetDateAwareFormat(string FieldName, Type DataType, string Format)
+    {
+        if (DataType != typeof(DateTime))
+            return Format;
+        if (FieldName.EndsWithText("Date"))
+            return Sys.Settings.DateFormat;
+        if (FieldName.EndsWithText("DateTime") || FieldName.EndsWithText("DT"))
+            return Sys.Settings.DateTimeFormat;
+        return Format;
+    }
+    static string GetDateAwareFormat(FieldDef FieldDef)
+    {
+        string Format = FieldDef.DisplayFormat;
+        if (!FieldDef.DataType.IsDateTime())
+            return Format;
+        if (FieldDef.Name.EndsWithText("Date"))
+            return Sys.Settings.DateFormat;
+        if (FieldDef.Name.EndsWithText("DateTime") || FieldDef.Name.EndsWithText("DT"))
+            return Sys.Settings.DateTimeFormat;
+        return Format;
+    }
 
     // ● public
     /// <summary>
@@ -163,7 +203,7 @@ static public class GroupGridBinder
     /// <returns>The created group grid column.</returns>
     static public GroupGridColumn CreateGridColumn(DataColumn Column, string Format = null, TextAlignment? Alignment = null, bool IsReadOnly = false)
     {
-        Format = DataGridBinder.GetDateAwareFormat(Column.ColumnName, Column.DataType, Format);
+        Format = GetDateAwareFormat(Column.ColumnName, Column.DataType, Format);
 
         DataColumnType ColumnType = Column.ExtendedProperties.ContainsKey("ColumnType")
             ? (DataColumnType)Column.ExtendedProperties["ColumnType"]
@@ -178,7 +218,7 @@ static public class GroupGridBinder
 
         TextAlignment Align = Alignment ?? (IsBoolean ? TextAlignment.Center : Column.DataType.GetTextAlignment());
         string Caption = Texts.L(Column.Caption);
-        Caption = DataGridBinder.GetHeader(Column.ColumnName, Caption);
+        Caption = GetHeader(Column.ColumnName, Caption);
 
         GroupGridColumn Result = CreateColumn(Column.ColumnName, Caption, Column.DataType, Format, Align, IsBoolean, IsReadOnly);
         Result.Tag = new GroupGridColumnBinding(Result, Column);
@@ -199,9 +239,9 @@ static public class GroupGridBinder
         bool IsBoolean = DataType == DataFieldType.Boolean;
         TextAlignment Align = IsBoolean ? TextAlignment.Center : DataType.GetTextAlignment();
         Type NetType = DataType.GetNetType();
-        string Caption = DataGridBinder.GetHeader(ColumnName, Header);
+        string Caption = GetHeader(ColumnName, Header);
 
-        GroupGridColumn Result = CreateColumn(ColumnName, Caption, NetType, DataGridBinder.GetDateAwareFormat(ColumnName, NetType, Format), Align, IsBoolean, IsReadOnly);
+        GroupGridColumn Result = CreateColumn(ColumnName, Caption, NetType, GetDateAwareFormat(ColumnName, NetType, Format), Align, IsBoolean, IsReadOnly);
         Result.Tag = new GroupGridColumnBinding(Result, ColumnName, NetType);
 
         return Result;
@@ -217,9 +257,9 @@ static public class GroupGridBinder
         TextAlignment Align = IsBoolean ? TextAlignment.Center : FieldDef.DataType.GetTextAlignment();
         GroupGridColumn Result = CreateColumn(
             FieldDef.Name,
-            DataGridBinder.GetHeader(FieldDef.Name, FieldDef.Title),
+            GetHeader(FieldDef.Name, FieldDef.Title),
             FieldDef.DataType.GetNetType(),
-            DataGridBinder.GetDateAwareFormat(FieldDef),
+            GetDateAwareFormat(FieldDef),
             Align,
             IsBoolean,
             FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI);
@@ -241,7 +281,7 @@ static public class GroupGridBinder
         GroupGridLookupColumn Result = new()
         {
             Name = FieldDef.Name,
-            Header = DataGridBinder.GetHeader(FieldDef.Name, FieldDef.Title),
+            Header = GetHeader(FieldDef.Name, FieldDef.Title),
             ValueType = FieldDef.DataType.GetNetType(),
             IsReadOnly = FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI,
             LookupItemsSource = LookupSource.GetList(),
@@ -252,30 +292,6 @@ static public class GroupGridBinder
         GroupGridColumnBinding Binding = new(Result, FieldDef)
         {
             LookupSource = LookupSource
-        };
-        Result.Tag = Binding;
-        return Result;
-    }
-    /// <summary>
-    /// Creates a locator display column for a group grid.
-    /// </summary>
-    /// <param name="ColumnName">The column name.</param>
-    /// <param name="Header">The column header.</param>
-    /// <param name="FieldDef">The field definition.</param>
-    /// <param name="LocatorFieldDef">The locator field definition.</param>
-    /// <param name="LocatorDef">The locator definition.</param>
-    /// <param name="TargetFieldMap">The target field map.</param>
-    /// <returns>The created group grid column.</returns>
-    static public GroupGridColumn CreateLocatorColumn(string ColumnName, string Header, FieldDef FieldDef, LocatorFieldDef LocatorFieldDef, LocatorDef LocatorDef, Dictionary<string, string> TargetFieldMap)
-    {
-        // TODO: Adapt grid locator editing after Locator2 replaces the current locator stack.
-        GroupGridColumn Result = CreateGridColumn(ColumnName, Header, LocatorFieldDef.DataType, IsReadOnly: true);
-        GroupGridColumnBinding Binding = new(Result, FieldDef.Name, FieldDef.DataType.GetNetType())
-        {
-            FieldDef = FieldDef,
-            DisplayFieldName = ColumnName,
-            LocatorDef = LocatorDef,
-            LocatorTargetFieldMap = TargetFieldMap
         };
         Result.Tag = Binding;
         return Result;

@@ -173,31 +173,12 @@ static public class DataRegistry
             throw new TripousException($"Cannot add a {nameof(LookupDef)}. No '{nameof(ClassName)}' is provided.");
     }
 
-    static void CheckLocator(string Name, string KeyField)
-    {
-        if (string.IsNullOrWhiteSpace(Name))
-            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
-        if (Locators.Contains(Name))
-            throw new TripousException($"Cannot add a {nameof(LocatorDef)}. '{Name}' is already registered.");
-    }
     static void CheckLocator2(string Name)
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new TripousException($"Cannot add a {nameof(LocatorDef2)}. No '{nameof(Name)}' is provided.");
         if (Locators2.Contains(Name))
             throw new TripousException($"Cannot add a {nameof(LocatorDef2)}. '{Name}' is already registered.");
-    }
-    static LocatorDef AddLocatorInternal(string Name, string SourceTableName, string SelectSql, string KeyField, string ClassName, string FormName)
-    {
-        LocatorDef Result = new();
-        Result.Name = Name;
-        Result.SourceTableName = SourceTableName;
-        Result.SelectSql = SelectSql;
-        Result.KeyField = KeyField;
-        Result.ClassName = ClassName;
-        Result.Form = FormName;
-        Locators.Add(Result);
-        return Result;
     }
     static LocatorDef2 AddLocator2Internal(string Name, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
     {
@@ -210,26 +191,6 @@ static public class DataRegistry
         Result.WebForm = WebFormName;
         Locators2.Add(Result);
         return Result;
-    }
-    static void UpdateLocator(LocatorDef LocatorDef, string SourceTableName, string SelectSql, string KeyField, string ClassName, string FormName)
-    {
-        if (SourceTableName != null)
-        {
-            LocatorDef.SourceTableName = SourceTableName;
-            LocatorDef.SelectSql = null;
-        }
-        else if (SelectSql != null)
-        {
-            LocatorDef.SourceTableName = null;
-            LocatorDef.SelectSql = SelectSql;
-        }
-
-        if (KeyField != null)
-            LocatorDef.KeyField = KeyField;
-        if (ClassName != null)
-            LocatorDef.ClassName = ClassName;
-        if (FormName != null)
-            LocatorDef.Form = FormName;
     }
     static void UpdateLocator2(LocatorDef2 LocatorDef, string Source, string ClassName, string KeyField, string FormName, string WebFormName)
     {
@@ -499,80 +460,6 @@ static public class DataRegistry
         return Result;
     }
     
-    // ● locators
-    /// <summary>
-    /// Adds a locator definition.
-    /// <para>If the definition exists, an exception is thrown.</para>
-    /// </summary>
-    static public LocatorDef AddLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
-    {
-        CheckLocator(Name, KeyField);
-        string SelectSql = "";
-        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, SelectSql, KeyField, ClassName, FormName);
-        return Result;
-    }
-    /// <summary>
-    /// Adds or updates a table locator definition.
-    /// <para>Existing field definitions are preserved.</para>
-    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
-    /// </summary>
-    static public LocatorDef AddOrUpdateLocator(string Name, string SourceTableName, string KeyField, string ClassName = null, string FormName = null)
-    {
-        if (string.IsNullOrWhiteSpace(Name))
-            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
-        if (string.IsNullOrWhiteSpace(SourceTableName))
-            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(SourceTableName)}' is provided.");
-        if (string.IsNullOrWhiteSpace(KeyField))
-            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(KeyField)}' is provided.");
-
-        LocatorDef Result = Locators.Find(Name);
-        if (Result == null)
-            Result = AddLocatorInternal(Name, SourceTableName, null, KeyField, ClassName, FormName);
-        else
-            UpdateLocator(Result, SourceTableName, null, KeyField, ClassName, FormName);
-        return Result;
-    }
-    /// <summary>
-    /// Adds a locator definition.
-    /// <para>If the definition exists, an exception is thrown.</para>
-    /// </summary>
-    static public LocatorDef AddLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
-    {
-        CheckLocator(Name, KeyField);
-        string SourceTableName = "";
-        LocatorDef Result = AddLocatorInternal(Name, SourceTableName, SelectSql, KeyField, ClassName, FormName);
-        return Result;
-    }
-    /// <summary>
-    /// Adds or updates a SQL locator definition.
-    /// <para>Existing field definitions are preserved.</para>
-    /// <para><b>NOTE:</b> When the definition already exists, non-null parameters and nullable boolean parameters with a value update its scalar properties. The existing definition instance and its child collections are preserved.</para>
-    /// </summary>
-    static public LocatorDef AddOrUpdateLocatorWithSql(string Name, string SelectSql, string KeyField, string ClassName = null, string FormName = null)
-    {
-        if (string.IsNullOrWhiteSpace(Name))
-            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(Name)}' is provided.");
-        if (string.IsNullOrWhiteSpace(SelectSql))
-            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(SelectSql)}' is provided.");
-        if (string.IsNullOrWhiteSpace(KeyField))
-            throw new TripousException($"Cannot add or update a {nameof(LocatorDef)}. No '{nameof(KeyField)}' is provided.");
-
-        LocatorDef Result = Locators.Find(Name);
-        if (Result == null)
-            Result = AddLocatorInternal(Name, null, SelectSql, KeyField, ClassName, FormName);
-        else
-            UpdateLocator(Result, null, SelectSql, KeyField, ClassName, FormName);
-        return Result;
-    }
-    /// <summary>
-    /// Locators are not part of module, so we need a way to update references.
-    /// </summary>
-    static public void UpdateLocatorReferences()
-    {
-        foreach (LocatorDef LocatorDef in Locators)
-            LocatorDef.UpdateReferences();
-    }
-
     // ● locators 2
     /// <summary>
     /// Adds a locator definition.
@@ -720,10 +607,6 @@ static public class DataRegistry
     static public DataModule CreateModule(string Name, bool InitializeToo = true) => Modules.Get(Name).Create(InitializeToo);
 
     // ● properties
-    /// <summary>
-    /// The list of locator definitions.
-    /// </summary>
-    static public DefList<LocatorDef> Locators { get; } = new();
     /// <summary>
     /// The list of locator definitions.
     /// </summary>

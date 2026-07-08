@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:extras="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.Extras"
              x:Class="tERP.DashboardForm">
     <DockPanel Margin="2,2,2,2">
         <Border DockPanel.Dock="Top" Classes="ToolbarContainer">
@@ -47,13 +48,28 @@
             </Grid>
             <TabControl Grid.Row="1" Margin="4,10,4,4">
                 <TabItem Header="Top Customers">
-                    <DataGrid Name="gridCustomers" IsReadOnly="True"/>
+                    <extras:GroupGrid Name="gridCustomers"
+                                      IsReadOnly="True"
+                                      IsToolBarVisible="False"
+                                      IsGroupPanelVisible="False"
+                                      IsFilterPanelVisible="False"
+                                      IsTotalsSummaryVisible="False"/>
                 </TabItem>
                 <TabItem Header="Top Suppliers">
-                    <DataGrid Name="gridSuppliers" IsReadOnly="True"/>
+                    <extras:GroupGrid Name="gridSuppliers"
+                                      IsReadOnly="True"
+                                      IsToolBarVisible="False"
+                                      IsGroupPanelVisible="False"
+                                      IsFilterPanelVisible="False"
+                                      IsTotalsSummaryVisible="False"/>
                 </TabItem>
                 <TabItem Header="Stock Snapshot">
-                    <DataGrid Name="gridStock" IsReadOnly="True"/>
+                    <extras:GroupGrid Name="gridStock"
+                                      IsReadOnly="True"
+                                      IsToolBarVisible="False"
+                                      IsGroupPanelVisible="False"
+                                      IsFilterPanelVisible="False"
+                                      IsTotalsSummaryVisible="False"/>
                 </TabItem>
             </TabControl>
         </Grid>

@@ -15,55 +15,6 @@ static public class ControlBindingHelper
 {
     // ● private
     /// <summary>
-    /// Ensures that a locator has visible fields inferred from the joined table of a field.
-    /// </summary>
-    /// <param name="LocatorDef">The locator definition.</param>
-    /// <param name="FieldDef">The field definition.</param>
-    static void EnsureLocatorFieldsCore(LocatorDef LocatorDef, FieldDef FieldDef)
-    {
-        if (LocatorDef == null || FieldDef?.TableDef == null || LocatorDef.Fields.Count > 0)
-            return;
-
-        TableDef JoinTable = FieldDef.TableDef.Joins.FirstOrDefault(item => item.MasterField.IsSameText(FieldDef.Name));
-        if (JoinTable == null)
-            return;
-
-        List<FieldDef> Fields = JoinTable.Fields
-            .Where(JoinField => JoinField.IsVisible && !JoinField.Name.IsSameText(JoinTable.KeyField))
-            .OrderBy(JoinField =>
-            {
-                if (JoinField.Name.IsSameText("Code"))
-                    return 0;
-                if (JoinField.Name.IsSameText("Name"))
-                    return 1;
-                if (JoinField.Name.EndsWithText("Code"))
-                    return 2;
-                if (JoinField.Name.EndsWithText("Name"))
-                    return 3;
-                if (JoinField.DataType == DataFieldType.String)
-                    return 4;
-                return 5;
-            })
-            .ThenBy(JoinField => JoinField.Name)
-            .Take(2)
-            .ToList();
-
-        foreach (FieldDef JoinField in Fields)
-        {
-            LocatorFieldDef LocatorField = new()
-            {
-                Name = JoinField.Name,
-                Alias = JoinField.Alias,
-                TargetField = JoinField.Alias,
-                DataType = JoinField.DataType,
-                IsVisible = JoinField.IsVisible,
-                IsSearchable = JoinField.DataType == DataFieldType.String,
-                DisplayWidth = JoinField.DisplayWidth
-            };
-            LocatorDef.Fields.Add(LocatorField);
-        }
-    }
-    /// <summary>
     /// Returns the current row of a row provider.
     /// </summary>
     /// <param name="RowProvider">The row provider.</param>
@@ -215,29 +166,6 @@ static public class ControlBindingHelper
         }
     }
     /// <summary>
-    /// Refreshes a locator box from a bound row field.
-    /// </summary>
-    /// <param name="RowProvider">The row provider.</param>
-    /// <param name="Binding">The control binding.</param>
-    static void RefreshLocatorBox(IRowProvider RowProvider, ControlBinding Binding)
-    {
-        if (Binding.Control is not LocatorBox Control)
-            return;
-
-        DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
-        if (Row == null)
-        {
-            Control.KeyValue = DBNull.Value;
-            Control.ClearTargetBoxes();
-            return;
-        }
-
-        if (Row.Table.Columns.Contains(Binding.FieldDef.Name))
-            Control.KeyValue = Row[Binding.FieldDef.Name];
-
-        Control.RefreshTargetBoxes(Row, Binding.LocatorTargetFieldMap);
-    }
-    /// <summary>
     /// Refreshes a Locator2 box from a bound row field.
     /// </summary>
     /// <param name="RowProvider">The row provider.</param>
@@ -338,25 +266,12 @@ static public class ControlBindingHelper
         {
             RefreshImage(RowProvider, Binding);
         }
-        else if (Binding.Control is LocatorBox)
-        {
-            RefreshLocatorBox(RowProvider, Binding);
-        }
         else if (Binding.Control is LocatorBox2)
         {
             RefreshLocatorBox2(RowProvider, Binding);
         }
     }
 
-    /// <summary>
-    /// Ensures that a locator has fields inferred from the specified field definition.
-    /// </summary>
-    /// <param name="LocatorDef">The locator definition.</param>
-    /// <param name="FieldDef">The field definition.</param>
-    static public void EnsureLocatorFields(LocatorDef LocatorDef, FieldDef FieldDef)
-    {
-        EnsureLocatorFieldsCore(LocatorDef, FieldDef);
-    }
     /// <summary>
     /// Binds a text box to a row field.
     /// </summary>
@@ -834,68 +749,6 @@ static public class ControlBindingHelper
         return Result;
     }
 
-    /// <summary>
-    /// Binds a locator box to a row field.
-    /// </summary>
-    /// <param name="RowProvider">The row provider.</param>
-    /// <param name="Box">The locator box.</param>
-    /// <param name="FieldDef">The field definition.</param>
-    /// <returns>The created control binding.</returns>
-    static public ControlBinding Bind(IRowProvider RowProvider, LocatorBox Box, FieldDef FieldDef)
-    {
-        if (Box == null)
-            throw new ArgumentNullException(nameof(Box));
-        if (FieldDef == null)
-            throw new ArgumentNullException(nameof(FieldDef));
-        if (string.IsNullOrWhiteSpace(FieldDef.Locator))
-            throw new TripousException($"Field '{FieldDef.Name}' has no locator.");
-
-        LocatorDef LocatorDef = DataRegistry.Locators[FieldDef.Locator];
-        if (LocatorDef == null)
-            throw new TripousException($"LocatorDef not found. Locator: {FieldDef.Locator}");
-        EnsureLocatorFields(LocatorDef, FieldDef);
-
-        Locator Locator = TypeStore.CreateInstance<Locator>(LocatorDef.ClassName);
-        Locator.Initialize(LocatorDef);
-
-        Box.Locator = Locator;
-        Box.IsReadOnly = FieldDef.IsReadOnly || FieldDef.IsReadOnlyUI || LocatorDef.IsReadOnly;
-        
-        ControlBinding Binding = new()
-        {
-            Control = Box,
-            FieldName =  FieldDef.Name,
-            FieldDef = FieldDef,
-            LocatorDef = LocatorDef,
-            Locator = Locator,
-            LocatorTargetFieldMap = FieldDef.TableDef.CreateLocatorTargetFieldMap(FieldDef, LocatorDef)
-        };
-
-        Box.RowSelected += (Sender, Args) =>
-        {
-            if (Binding.IsRefreshing)
-                return;
-
-            DataRow Row = RowProvider != null ? RowProvider.CurrentRow : null;
-            if (Row == null)
-                return;
-
-            Binding.IsRefreshing = true;
-            try
-            {
-                Locator.Assign(Args.Row, Row, Binding.FieldName, Binding.LocatorTargetFieldMap);
-                RefreshLocatorBox(RowProvider, Binding);
-            }
-            finally
-            {
-                Binding.IsRefreshing = false;
-            }
-        };
-
-        RefreshLocatorBox(RowProvider, Binding);
-
-        return Binding;
-    }
     /// <summary>
     /// Binds a Locator2 box to a row field.
     /// </summary>

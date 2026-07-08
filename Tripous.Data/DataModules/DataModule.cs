@@ -441,7 +441,7 @@ public class DataModule
             if (ModuleDef == null)
                 throw new TripousArgumentNullException(nameof(ModuleDef));
 
-            DataRegistry.UpdateLocatorReferences();
+            DataRegistry.UpdateLocator2References();
             
             this.ModuleDef = ModuleDef;
             ModuleDef.UpdateReferences();

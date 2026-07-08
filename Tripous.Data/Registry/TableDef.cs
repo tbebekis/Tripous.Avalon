@@ -266,52 +266,6 @@ public class TableDef: BaseDef
         return (Field == null) ? NameOrAlias : Field.Title;
     }
     /// <summary>
-    /// Finds the join field that matches a locator field.
-    /// </summary>
-    public FieldDef FindLocatorJoinField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
-    {
-        if (ReferenceField == null || LocatorField == null)
-            return null;
-
-        TableDef JoinTable = FindJoinTableByMasterKeyField(ReferenceField.Name);
-        return JoinTable?.Fields.FirstOrDefault(item =>
-            item.Name.IsSameText(LocatorField.Name)
-            || item.Alias.IsSameText(LocatorField.Alias)
-            || (!string.IsNullOrWhiteSpace(LocatorField.TargetField) && item.Alias.IsSameText(LocatorField.TargetField)));
-    }
-    /// <summary>
-    /// Finds the target field for a locator field.
-    /// </summary>
-    public FieldDef FindLocatorTargetField(FieldDef ReferenceField, LocatorFieldDef LocatorField)
-    {
-        FieldDef JoinField = FindLocatorJoinField(ReferenceField, LocatorField);
-        if (JoinField == null)
-            return null;
-
-        TableDef JoinTable = FindJoinTableByMasterKeyField(ReferenceField.Name);
-        return FindSnapshotField(JoinTable, JoinField) ?? JoinField;
-    }
-    /// <summary>
-    /// Creates a locator field to target field map.
-    /// </summary>
-    public Dictionary<string, string> CreateLocatorTargetFieldMap(FieldDef ReferenceField, LocatorDef LocatorDef)
-    {
-        Dictionary<string, string> Result = new(StringComparer.OrdinalIgnoreCase);
-        if (ReferenceField == null || LocatorDef == null)
-            return Result;
-
-        foreach (LocatorFieldDef LocatorField in LocatorDef.Fields)
-        {
-            FieldDef TargetField = FindLocatorTargetField(ReferenceField, LocatorField);
-            if (TargetField == null)
-                continue;
-
-            Result[LocatorField.Name] = TargetField.Alias;
-            Result[LocatorField.Alias] = TargetField.Alias;
-        }
-        return Result;
-    }
-    /// <summary>
     /// Returns true when a field is a snapshot target of a locator field.
     /// </summary>
     public bool IsLocatorSnapshotField(FieldDef Field)

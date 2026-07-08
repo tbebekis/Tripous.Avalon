@@ -34,11 +34,11 @@ public partial class DashboardForm : AppForm
     {
         return Value.ToString("N2", CultureInfo.CurrentCulture);
     }
-    void BindGrid(DataGrid Grid, string SqlText)
+    void BindGrid(GroupGrid Grid, string SqlText)
     {
-        DataGridBinder.UnBindGrid(Grid);
+        GroupGridBinder.UnBindGrid(Grid);
         MemTable Table = AppHost.Store.Select(SqlText);
-        DataGridBinder.BindGrid(Grid, Table.DataView, SupportsRecycling: false, GoToFirst: true);
+        GroupGridBinder.BindGrid(Grid, Table.DataView, GoToFirst: true);
     }
     async Task RefreshDashboard()
     {
