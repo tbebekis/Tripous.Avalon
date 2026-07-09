@@ -719,7 +719,7 @@ tp.WebDataForm = class extends tp.WebForm {
         await this.ExecuteWithSpinner(async function () {
             await this.Module.Insert();
             this.FormState = tp.WebDataFormState.Insert;
-            this.RenderItemPage();
+            await this.RenderItemPageAsync();
             await this.LoadFactBoxesAsync();
             this.ShowItemPage();
             this.UpdateToolBar();
@@ -739,7 +739,7 @@ tp.WebDataForm = class extends tp.WebForm {
         await this.ExecuteWithSpinner(async function () {
             await this.Module.Edit(Id);
             this.FormState = tp.WebDataFormState.Edit;
-            this.RenderItemPage();
+            await this.RenderItemPageAsync();
             await this.LoadFactBoxesAsync();
             this.ShowItemPage();
             this.UpdateToolBar();
@@ -747,12 +747,12 @@ tp.WebDataForm = class extends tp.WebForm {
     }
     /**
      * Renders the generated item page.
-     * @returns {void}
+     * @returns {Promise<void>} Returns a Promise.
      */
-    RenderItemPage() {
+    async RenderItemPageAsync() {
         if (!(this.ItemPageBuilder instanceof tp.WebItemPageBuilder))
             this.ItemPageBuilder = new tp.WebItemPageBuilder(this);
-        this.ItemPageBuilder.Build();
+        await this.ItemPageBuilder.BuildAsync();
     }
     /**
      * Loads FactBox packets for the current item page.

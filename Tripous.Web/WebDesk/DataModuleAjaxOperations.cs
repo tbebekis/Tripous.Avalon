@@ -97,6 +97,74 @@ public class DataModuleInitialize: DataModuleAjaxOperation
 }
 
 /// <summary>
+/// Returns the item list of a registered lookup source.
+/// </summary>
+[AjaxOperation("Lookup.GetList")]
+public class LookupGetList: AjaxOperation
+{
+    // ● private
+    /// <summary>
+    /// Returns the transport type for lookup item values.
+    /// </summary>
+    Type GetValueType(List<LookupItem> Items)
+    {
+        foreach (LookupItem Item in Items)
+        {
+            if (Item.Value == null)
+                continue;
+
+            Type Result = Item.Value.GetType();
+            return Result.IsEnum ? typeof(int) : Result;
+        }
+
+        return typeof(string);
+    }
+    /// <summary>
+    /// Creates the transport table for lookup items.
+    /// </summary>
+    DataTable CreateLookupTable(string Name, List<LookupItem> Items)
+    {
+        DataTable Result = new(Name);
+        Result.Columns.Add("Id", GetValueType(Items));
+        Result.Columns.Add("Name", typeof(string));
+
+        foreach (LookupItem Item in Items)
+        {
+            DataRow Row = Result.NewRow();
+            Row["Id"] = Item.Value ?? DBNull.Value;
+            Row["Name"] = Item.DisplayText ?? string.Empty;
+            Result.Rows.Add(Row);
+        }
+
+        Result.AcceptChanges();
+        return Result;
+    }
+
+    // ● public
+    /// <summary>
+    /// Executes the operation.
+    /// </summary>
+    public override AjaxResponse Execute(AjaxRequest Request, AjaxOperationContext Context)
+    {
+        string LookupName = GetStringParam(Request, "LookupName");
+        if (string.IsNullOrWhiteSpace(LookupName))
+            LookupName = GetStringParam(Request, "Name");
+        if (string.IsNullOrWhiteSpace(LookupName))
+            Sys.Throw("No lookup name specified.");
+
+        LookupDef Def = DataRegistry.Lookups.Find(LookupName);
+        if (Def == null)
+            Sys.Throw($"Lookup not found: {LookupName}");
+
+        LookupSource Source = Def.Create();
+        DataTable Table = CreateLookupTable(LookupName, Source.GetList());
+        AjaxResponse Result = new(Request.OperationName);
+        Result["Table"] = new JsonDataTable(Table);
+        return Result;
+    }
+}
+
+/// <summary>
 /// Returns the FactBox HTML for a registered data module item page.
 /// </summary>
 [AjaxOperation("DataModule.GetFactBoxes")]

@@ -2,8 +2,8 @@
 /**
  * Builds the first generated WebDesk item page surface from a data module item table.
  *
- * This builder handles scalar top-table fields and generated detail grid branches.
- * Custom editors, one-to-one detail layouts and save workflow are added by later WebDesk steps.
+ * This builder handles scalar fields, server-rendered one-to-one detail fields and generated detail grid branches.
+ * Custom editors and save workflow are added by later WebDesk steps.
  */
 tp.WebItemPageBuilder = class {
     // ● constructor
@@ -169,12 +169,43 @@ tp.WebItemPageBuilder = class {
         return true;
     }
     /**
+     * Returns true when a column should be rendered inside a detail grid.
+     * @param {tp.DataColumn} Column The data column.
+     * @param {tp.DataTable} Table The detail table.
+     * @returns {boolean} Returns true when the column should be rendered.
+     */
+    CanRenderDetailGridColumn(Column, Table) {
+        if (!(Column instanceof tp.DataColumn) || !(Table instanceof tp.DataTable))
+            return false;
+        if (!Column.IsBindable)
+            return false;
+        if (!tp.IsBlank(Table.MasterTableName) && tp.IsSameText(Column.Name, Table.DetailField))
+            return false;
+        if (Column.IsMemo || Column.IsLargeMemo || Column.IsImage)
+            return false;
+        return true;
+    }
+    /**
      * Returns the display group name for a column.
      * @param {tp.DataColumn} Column The data column.
      * @returns {string} Returns the group name.
      */
     GetColumnGroup(Column) {
         return Column instanceof tp.DataColumn && !tp.IsBlank(Column.Group) ? Column.Group : "General";
+    }
+    /**
+     * Returns the display title for a field column.
+     * @param {tp.DataColumn} Column The data column.
+     * @returns {string} Returns the display title.
+     */
+    GetColumnTitle(Column) {
+        var Result = Column instanceof tp.DataColumn ? Column.DisplayTitle : "";
+        if (Column instanceof tp.DataColumn
+            && (Column.IsLookup || Column.IsLocator)
+            && tp.EndsWith(Result, " Id", true)) {
+            Result = Result.substring(0, Result.length - 3);
+        }
+        return Result;
     }
     /**
      * Splits group columns into visual columns.
@@ -267,6 +298,15 @@ tp.WebItemPageBuilder = class {
         return false;
     }
     /**
+     * Returns true when detail grid rows can be changed.
+     * @returns {boolean} Returns true when detail grids are editable.
+     */
+    IsDetailGridEditable() {
+        return this.Form
+            && this.Form.IsReadOnly !== true
+            && (this.Form.FormState === tp.WebDataFormState.Insert || this.Form.FormState === tp.WebDataFormState.Edit);
+    }
+    /**
      * Creates the accordion that hosts top field groups.
      * @param {HTMLElement} Parent The parent element.
      * @returns {tp.Accordion} Returns the accordion.
@@ -344,7 +384,7 @@ tp.WebItemPageBuilder = class {
     CreateFieldRow(Parent, Column) {
         var Params = {
             Parent: Parent,
-            Text: Column.DisplayTitle,
+            Text: this.GetColumnTitle(Column),
             Control: this.CreateControlParams(Column)
         };
         var Row = Column.IsBoolean ? new tp.CheckBoxRow(Params) : new tp.CtrlRow(Params);
@@ -529,6 +569,7 @@ tp.WebItemPageBuilder = class {
             FooterVisible: false
         });
         this.CreateDetailGridColumns(Grid);
+        this.ConfigureDetailGrid(Grid);
         this.DetailSources.push(Source);
         this.DetailGrids.push(Grid);
         return Grid;
@@ -584,6 +625,69 @@ tp.WebItemPageBuilder = class {
         return Source;
     }
     /**
+     * Returns all lookup source names used by module tables.
+     * @returns {string[]} Returns lookup source names.
+     */
+    GetLookupSourceNames() {
+        var Result = [];
+        var DataSet;
+        var TableIndex;
+        var ColumnIndex;
+        var Table;
+        var Column;
+        if (!(this.Form && this.Form.Module instanceof tp.DataModule && this.Form.Module.DataSet instanceof tp.DataSet))
+            return Result;
+        DataSet = this.Form.Module.DataSet;
+        for (TableIndex = 0; TableIndex < DataSet.Tables.length; TableIndex++) {
+            Table = DataSet.Tables[TableIndex];
+            if (!(Table instanceof tp.DataTable))
+                continue;
+            for (ColumnIndex = 0; ColumnIndex < Table.Columns.length; ColumnIndex++) {
+                Column = Table.Columns[ColumnIndex];
+                if (Column instanceof tp.DataColumn
+                    && !tp.IsBlank(Column.LookupSource)
+                    && Result.indexOf(Column.LookupSource) < 0) {
+                    Result.push(Column.LookupSource);
+                }
+            }
+        }
+        return Result;
+    }
+    /**
+     * Ensures a lookup source table is loaded into the current module data set.
+     * @param {string} SourceName The lookup source name.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async EnsureLookupSourceAsync(SourceName) {
+        var Packet;
+        var Table;
+        var DataSet;
+        if (!(this.Form && this.Form.Module instanceof tp.DataModule && this.Form.Module.DataSet instanceof tp.DataSet) || tp.IsBlank(SourceName))
+            return;
+        DataSet = this.Form.Module.DataSet;
+        Table = DataSet.FindTable(SourceName);
+        if (Table instanceof tp.DataTable && Table.RowCount > 0)
+            return;
+        Packet = await tp.AjaxRequest.Execute("Lookup.GetList", { LookupName: SourceName });
+        if (!(Packet && tp.IsObject(Packet.Table)))
+            return;
+        Table = DataSet.FindTable(SourceName);
+        if (Table instanceof tp.DataTable)
+            Table.Assign(Packet.Table);
+        else
+            DataSet.AddTable(Packet.Table);
+    }
+    /**
+     * Loads all lookup source tables required by the item page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async PreloadLookupSourcesAsync() {
+        var Names = this.GetLookupSourceNames();
+        var Index;
+        for (Index = 0; Index < Names.length; Index++)
+            await this.EnsureLookupSourceAsync(Names[Index]);
+    }
+    /**
      * Applies lookup list binding to a combo box.
      * @param {tp.ComboBox} ComboBox The combo box.
      * @returns {void}
@@ -628,8 +732,124 @@ tp.WebItemPageBuilder = class {
         Grid.ClearColumns();
         for (Index = 0; Index < Table.Columns.length; Index++) {
             Column = Table.Columns[Index];
-            if (this.CanRenderColumn(Column, Table))
+            if (this.CanRenderDetailGridColumn(Column, Table))
                 this.AddDetailGridColumn(Grid, Column);
+        }
+    }
+    /**
+     * Configures a detail grid for the current form state.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {void}
+     */
+    ConfigureDetailGrid(Grid) {
+        var Editable = this.IsDetailGridEditable();
+        if (!(Grid instanceof tp.Grid))
+            return;
+        Grid.ReadOnly = !Editable;
+        Grid.AllowUserToAddRows = Editable;
+        Grid.AllowUserToDeleteRows = Editable;
+        Grid.ToolBarVisible = Editable;
+        Grid.ButtonInsertVisible = Editable;
+        Grid.ButtonDeleteVisible = Editable;
+        Grid.ButtonEditVisible = false;
+        Grid.ButtonFindVisible = false;
+        if (Grid.fWebItemPageToolBarListener)
+            Grid.Off("ToolBarButtonClick", Grid.fWebItemPageToolBarListener);
+        Grid.fWebItemPageToolBarListener = Grid.On("ToolBarButtonClick", (Args) => this.HandleDetailGridToolBarButtonClick(Grid, Args));
+        if (Grid.fWebItemPageKeyDownHandler)
+            Grid.Handle.removeEventListener("keydown", Grid.fWebItemPageKeyDownHandler, false);
+        Grid.fWebItemPageKeyDownHandler = (e) => this.HandleDetailGridKeyDown(Grid, e);
+        Grid.Handle.addEventListener("keydown", Grid.fWebItemPageKeyDownHandler, false);
+    }
+    /**
+     * Returns true when a detail grid add or delete command can execute.
+     * @param {tp.Grid} Grid The detail grid.
+     * @param {string} Command The command name.
+     * @returns {boolean} Returns true when the command can execute.
+     */
+    CanExecuteDetailGridCommand(Grid, Command) {
+        if (!(Grid instanceof tp.Grid) || !(Grid.DataSource instanceof tp.DataSource))
+            return false;
+        if (this.IsDetailGridEditable() !== true || Grid.ReadOnly || Grid.Enabled !== true)
+            return false;
+        if (Command === "GridRowInsert")
+            return Grid.AllowUserToAddRows === true;
+        if (Command === "GridRowDelete")
+            return Grid.AllowUserToDeleteRows === true && Grid.FocusedRow instanceof tp.DataRow;
+        return false;
+    }
+    /**
+     * Adds a row to a detail grid and assigns the current master key to it.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {tp.DataRow|null} Returns the created row.
+     */
+    AddDetailGridRow(Grid) {
+        var Source;
+        var Table;
+        var Row;
+        var MasterSource;
+        var MasterRow;
+        var MasterValue;
+        if (!this.CanExecuteDetailGridCommand(Grid, "GridRowInsert"))
+            return null;
+        Source = Grid.DataSource;
+        Table = Source.Table;
+        MasterSource = Source.MasterSource;
+        if (MasterSource instanceof tp.DataSource && MasterSource.Current instanceof tp.DataRow) {
+            MasterRow = MasterSource.Current;
+            MasterValue = MasterRow.Get(Source.MasterKeyField);
+            if (!tp.IsEmpty(MasterValue)) {
+                Row = Table.NewRow();
+                Row.SetByName(Source.DetailKeyField, MasterValue);
+                Row = Table.AddRow(Row);
+                Source.Update();
+                Source.Current = Row;
+                Grid.SetFocusedRow(Row);
+                return Row;
+            }
+        }
+        Row = Grid.InsertEmptyRow();
+        Source.Update();
+        return Row;
+    }
+    /**
+     * Handles detail grid toolbar commands.
+     * @param {tp.Grid} Grid The detail grid.
+     * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
+     * @returns {void}
+     */
+    HandleDetailGridToolBarButtonClick(Grid, Args) {
+        if (!(Grid instanceof tp.Grid) || !Args)
+            return;
+        if (Args.Command === "GridRowInsert") {
+            Args.Handled = true;
+            this.AddDetailGridRow(Grid);
+        } else if (Args.Command === "GridRowDelete") {
+            if (this.CanExecuteDetailGridCommand(Grid, "GridRowDelete") === true)
+                Args.Handled = false;
+            else
+                Args.Handled = true;
+        }
+    }
+    /**
+     * Handles detail grid keyboard commands.
+     * @param {tp.Grid} Grid The detail grid.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleDetailGridKeyDown(Grid, e) {
+        if (!(e instanceof KeyboardEvent) || e.ctrlKey !== true)
+            return;
+        if (tp.IsKey(e, tp.Keys.Insert)) {
+            if (this.CanExecuteDetailGridCommand(Grid, "GridRowInsert") === true) {
+                tp.CancelEvent(e);
+                this.AddDetailGridRow(Grid);
+            }
+        } else if (tp.IsKey(e, tp.Keys.Delete)) {
+            if (this.CanExecuteDetailGridCommand(Grid, "GridRowDelete") === true) {
+                tp.CancelEvent(e);
+                Grid.DeleteFocusedRow();
+            }
         }
     }
     /**
@@ -726,6 +946,7 @@ tp.WebItemPageBuilder = class {
             Grid.DataSource = Source;
         }
         this.CreateDetailGridColumns(Grid);
+        this.ConfigureDetailGrid(Grid);
         this.DetailGrids.push(Grid);
     }
     /**
@@ -990,7 +1211,7 @@ tp.WebItemPageBuilder = class {
      * Builds the generated item page.
      * @returns {void}
      */
-    Build() {
+    async BuildAsync() {
         var Table;
         var Details;
         this.Clear();
@@ -1001,6 +1222,7 @@ tp.WebItemPageBuilder = class {
             return;
         this.DataSource = new tp.DataSource(Table);
         this.SourceByTable[Table.Name] = this.DataSource;
+        await this.PreloadLookupSourcesAsync();
         if (this.IsServerRenderedItemPage() === true) {
             this.InitializeServerRenderedItemPage();
             return;

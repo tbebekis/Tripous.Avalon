@@ -8,6 +8,13 @@
     static string Attr(string Value) => System.Net.WebUtility.HtmlEncode(Value ?? string.Empty);
     static string TitleOf(BaseDef Def) => Def != null ? Def.Title : string.Empty;
     static string DataSetup(object Value) => Attr(Tripous.Json.Serialize(Value));
+    static string FieldTitle(FieldDef Field)
+    {
+        string Result = Field.Title;
+        if ((Field.IsLookup || Field.IsLocator) && Result.EndsWith(" Id", StringComparison.OrdinalIgnoreCase))
+            Result = Result.Substring(0, Result.Length - 3);
+        return Result;
+    }
     static bool CanRenderField(FieldDef Field, TableDef Table)
     {
         if (Field == null || Table == null)
@@ -107,7 +114,7 @@
         }
         Dictionary<string, object> Setup = new()
         {
-            ["Text"] = Field.Title,
+            ["Text"] = FieldTitle(Field),
             ["Control"] = Control
         };
         return
@@ -141,9 +148,9 @@
         SB.Append("</div>");
         return SB.ToString();
     }
-    static List<TableDef> ChildDetails(ModuleDef Module, TableDef Table)
+    static List<TableDef> OrderedDetails(ModuleDef Module, TableDef Table, List<TableDef> Details)
     {
-        List<TableDef> Result = Table != null ? Table.Details.Where(Detail => Detail.IsUiVisible).ToList() : new();
+        List<TableDef> Result = Details ?? new();
         if (Module != null && Table != null && Result.Count > 1 && Module.DetailOrder.TryGetValue(Table.Name, out List<string> Order))
         {
             Dictionary<string, int> Map = new(StringComparer.OrdinalIgnoreCase);
@@ -158,6 +165,29 @@
                 .ToList();
         }
         return Result;
+    }
+    static List<TableDef> ChildDetails(ModuleDef Module, TableDef Table)
+    {
+        List<TableDef> Details = Table != null
+            ? Table.Details.Where(Detail => Detail.IsUiVisible && !Detail.IsOneToOne).ToList()
+            : new();
+        return OrderedDetails(Module, Table, Details);
+    }
+    static List<TableDef> OneToOneDetails(TableDef Table)
+    {
+        return Table != null
+            ? Table.Details.Where(Detail => Detail.IsUiVisible && Detail.IsOneToOne).ToList()
+            : new();
+    }
+    static string OneToOneDetailsHtml(WebFormDef Form, ModuleDef Module, TableDef ParentTable)
+    {
+        StringBuilder SB = new();
+        foreach (TableDef Detail in OneToOneDetails(ParentTable))
+        {
+            SB.Append(FieldGroupsHtml(Form, Detail));
+            SB.Append(OneToOneDetailsHtml(Form, Module, Detail));
+        }
+        return SB.ToString();
     }
     static string DetailGridHtml(TableDef Detail)
     {
@@ -211,6 +241,7 @@
         StringBuilder SB = new();
         SB.Append("<div class=\"tp-WebItemPage-TopPage\">");
         SB.Append(FieldGroupsHtml(Form, TopTable));
+        SB.Append(OneToOneDetailsHtml(Form, Module, TopTable));
         List<TableDef> Details = ChildDetails(Module, TopTable);
         if (Details.Count > 0)
             SB.Append(DetailTabsHtml(Form, Module, Details));
