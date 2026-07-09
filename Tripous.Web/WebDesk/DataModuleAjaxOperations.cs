@@ -97,6 +97,138 @@ public class DataModuleInitialize: DataModuleAjaxOperation
 }
 
 /// <summary>
+/// Returns the FactBox HTML for a registered data module item page.
+/// </summary>
+[AjaxOperation("DataModule.GetFactBoxes")]
+public class DataModuleGetFactBoxes: DataModuleAjaxOperation
+{
+    // ● private
+    /// <summary>
+    /// Returns the requested web form definition, if any.
+    /// </summary>
+    WebFormDef GetWebFormDef(AjaxRequest Request)
+    {
+        string FormName = GetStringParam(Request, "WebFormName");
+        if (string.IsNullOrWhiteSpace(FormName))
+            FormName = GetStringParam(Request, "FormName");
+        if (string.IsNullOrWhiteSpace(FormName))
+            FormName = GetStringParam(Request, "Form");
+        return string.IsNullOrWhiteSpace(FormName) ? null : WebDeskRegistry.FindForm(FormName);
+    }
+    /// <summary>
+    /// Returns true when the FactBox pane should be initially visible.
+    /// </summary>
+    bool GetShowPane()
+    {
+        try
+        {
+            string Text = Config.GetValue(Config.SShowDataFormFactBoxPane);
+            return string.IsNullOrWhiteSpace(Text) || Convert.ToBoolean(Text, CultureInfo.InvariantCulture);
+        }
+        catch
+        {
+            return true;
+        }
+    }
+    /// <summary>
+    /// Returns the effective JavaScript form class name.
+    /// </summary>
+    string GetFormJsClassName(WebFormDef Form)
+    {
+        return Form != null && !string.IsNullOrWhiteSpace(Form.JsFormClassType) ? Form.JsFormClassType : "tp.WebDataForm";
+    }
+    /// <summary>
+    /// Returns the effective JavaScript item page class name.
+    /// </summary>
+    string GetItemPageJsClassName(WebFormDef Form)
+    {
+        return Form != null && !string.IsNullOrWhiteSpace(Form.ItemViewName) ? "tp.WebItemPageBuilder" : string.Empty;
+    }
+    /// <summary>
+    /// Returns the effective Razor view path.
+    /// </summary>
+    string GetViewPath(string ViewName)
+    {
+        if (string.IsNullOrWhiteSpace(ViewName))
+            return string.Empty;
+        if (ViewName.StartsWith("/", StringComparison.Ordinal))
+            return ViewName;
+
+        string ViewFileName = ViewName.EndsWith(".cshtml", StringComparison.OrdinalIgnoreCase) ? ViewName : $"{ViewName}.cshtml";
+        return $"/Views/WebForms/{ViewFileName}";
+    }
+    /// <summary>
+    /// Returns the visible FactBox definitions for the module and web form.
+    /// </summary>
+    /// <param name="ModuleDef">The module definition.</param>
+    /// <param name="Form">The web form definition.</param>
+    /// <returns>The visible FactBox definitions.</returns>
+    List<ItemFactBoxDef> GetVisibleFactBoxes(ModuleDef ModuleDef, WebFormDef Form)
+    {
+        List<ItemFactBoxDef> Result = [];
+
+        void AddRange(DefList<ItemFactBoxDef> List)
+        {
+            if (List == null)
+                return;
+
+            foreach (ItemFactBoxDef Def in List)
+            {
+                if (Def.IsVisible && !Result.Any(Item => Sys.IsSameText(Item.Name, Def.Name)))
+                    Result.Add(Def);
+            }
+        }
+
+        if (ModuleDef != null)
+            AddRange(ModuleDef.FactBoxes);
+        if (Form != null)
+            AddRange(Form.FactBoxes);
+
+        return Result;
+    }
+
+    // ● public
+    /// <summary>
+    /// Executes the operation.
+    /// </summary>
+    public override AjaxResponse Execute(AjaxRequest Request, AjaxOperationContext Context)
+    {
+        WebFormDef Form = GetWebFormDef(Request);
+        ModuleDef ModuleDef = GetModuleDef(Request);
+        AppUser User = Sys.Context != null ? Sys.Context.CurrentUser : null;
+        if (Form != null && !Form.CanAccess(User))
+            Sys.Throw($"Access denied to WebForm: {Form.Name}");
+
+        object KeyValue = Request.GetParam("KeyValue");
+        List<ItemFactBoxDef> CustomFactBoxes = GetVisibleFactBoxes(ModuleDef, Form);
+        DataModule Module = ModuleDef.Create();
+        if (CustomFactBoxes.Count > 0 && !Sys.IsNull(KeyValue))
+            Module.Edit(KeyValue);
+
+        ItemFactBoxContext FactBoxContext = new()
+        {
+            FormName = Form != null ? Form.Name : string.Empty,
+            FormClassName = GetViewPath(Form?.ViewName),
+            FormJsClassName = GetFormJsClassName(Form),
+            ItemPageClassName = GetViewPath(Form?.ItemViewName),
+            ItemPageJsClassName = GetItemPageJsClassName(Form),
+            Module = Module,
+            Row = Module.tblItem?.CurrentRow,
+            KeyValue = KeyValue,
+            RowState = GetStringParam(Request, "RowState")
+        };
+
+        string Html = new ItemFactBoxHtmlRenderer(Context.ViewToStringConverter).Render(FactBoxContext, CustomFactBoxes);
+
+        AjaxResponse Result = new(Request.OperationName);
+        Result["Html"] = Html;
+        Result["FactBoxCount"] = 1 + CustomFactBoxes.Count;
+        Result["ShowPane"] = GetShowPane();
+        return Result;
+    }
+}
+
+/// <summary>
 /// Starts an insert operation on a registered data module.
 /// </summary>
 [AjaxOperation("DataModule.Insert")]

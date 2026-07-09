@@ -211,6 +211,10 @@ static public class Config
     /// The configuration property name used as the row limit for DataModule list SELECTs.
     /// </summary>
     public const string SSelectListRowLimit = "SelectListRowLimit";
+    /// <summary>
+    /// The configuration property name used to show the DataForm FactBox pane initially.
+    /// </summary>
+    public const string SShowDataFormFactBoxPane = "ShowDataFormFactBoxPane";
 
     // ● private fields
     static SqlStore fStore;

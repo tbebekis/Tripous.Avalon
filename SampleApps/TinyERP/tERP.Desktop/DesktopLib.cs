@@ -63,6 +63,18 @@ static public class DesktopLib
         FormDef AppUserForm = DesktopRegistry.Forms.Find("AppUser");
         if (AppUserForm != null)
             AppUserForm.SecurityLevel = UserLevel.Admin;
+
+        FormDef CompanyForm = DesktopRegistry.Forms.Find("Company");
+        if (CompanyForm != null && !CompanyForm.FactBoxes.Contains("CompanyDesktopFormInfo"))
+        {
+            CompanyForm.FactBoxes.Add(new ItemFactBoxDef
+            {
+                Name = "CompanyDesktopFormInfo",
+                TitleKey = "Company Desktop Form Info",
+                ProviderClassName = typeof(FormScopeFactBoxProvider).FullName,
+                DesktopControlClassName = "Tripous.Desktop.ItemInfoFactBoxControl"
+            });
+        }
     }
     /// <summary>
     /// Registers desktop configuration properties.
@@ -81,6 +93,17 @@ static public class DesktopLib
         {
             bool Value = Convert.ToBoolean(S);
             Ui.Settings.ShowDataFormLog = Value;
+        };
+
+        Name = Ui.SShowDataFormFactBoxPane;
+        TitleKey = "Show DataForm FactBox Pane";
+        DefaultValue = "true";
+
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue);
+        ConfigPropertyDef.ApplyValueFunc = (Def, S) =>
+        {
+            bool Value = Convert.ToBoolean(S);
+            Ui.Settings.ShowDataFormFactBoxPane = Value;
         };
     }
 }

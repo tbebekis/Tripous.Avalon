@@ -20,6 +20,8 @@
     href: tripous-framework/tripous-and-data.md
   - name: Desktop Applications and Avalonia
     href: tripous-framework/desktop-applications-and-avalonia.md
+  - name: Item FactBoxes
+    href: tripous-framework/item-factboxes.md
 - name: Sample Applications
   href: sample-applications.md
 - name: Screenshots

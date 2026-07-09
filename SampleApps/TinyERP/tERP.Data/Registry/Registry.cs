@@ -46,6 +46,7 @@ static public partial class Registry
             Version.RegisterLocators();
             Version.RegisterCodeProviders();
             Version.RegisterModules();
+            Version.RegisterFactBoxes();
         }
  
         RegisterDocumentHandlers();

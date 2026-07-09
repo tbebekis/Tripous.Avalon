@@ -126,6 +126,81 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.ItemPage = null;
         /**
+         * The item page shell element.
+         * @type {HTMLElement|null}
+         */
+        this.ItemPageShell = null;
+        /**
+         * The FactBox pane element.
+         * @type {HTMLElement|null}
+         */
+        this.FactBoxPane = null;
+        /**
+         * The FactBox splitter element.
+         * @type {HTMLElement|null}
+         */
+        this.FactBoxSplitter = null;
+        /**
+         * The FactBox tabs host element.
+         * @type {HTMLElement|null}
+         */
+        this.FactBoxTabsHost = null;
+        /**
+         * The FactBox tab control.
+         * @type {tp.TabControl|null}
+         */
+        this.FactBoxTabControl = null;
+        /**
+         * The current FactBox packets.
+         * @type {object[]}
+         */
+        this.FactBoxes = [];
+        /**
+         * True when the FactBox pane is visible.
+         * @type {boolean}
+         */
+        this.FactBoxPaneVisible = false;
+        /**
+         * The current FactBox pane width.
+         * @type {number}
+         */
+        this.FactBoxPaneWidth = 420;
+        /**
+         * True while the FactBox pane is being resized.
+         * @type {boolean}
+         */
+        this.FactBoxResizeActive = false;
+        /**
+         * The resize start mouse X coordinate.
+         * @type {number}
+         */
+        this.FactBoxResizeStartX = 0;
+        /**
+         * The resize start pane width.
+         * @type {number}
+         */
+        this.FactBoxResizeStartWidth = 0;
+        /**
+         * FactBox splitter mouse down handler.
+         * @type {Function|null}
+         */
+        this.FactBoxSplitterMouseDownHandler = null;
+        /**
+         * FactBox splitter mouse move handler.
+         * @type {Function|null}
+         */
+        this.FactBoxSplitterMouseMoveHandler = null;
+        /**
+         * FactBox splitter mouse up handler.
+         * @type {Function|null}
+         */
+        this.FactBoxSplitterMouseUpHandler = null;
+        /**
+         * List grid double click handler.
+         * @type {Function|null}
+         */
+        this.ListGridDoubleClickHandler = null;
+        /**
          * The generated item page builder.
          * @type {tp.WebItemPageBuilder|null}
          */
@@ -186,6 +261,8 @@ tp.WebDataForm = class extends tp.WebForm {
      * @returns {void}
      */
     DoDispose() {
+        this.DisposeFactBoxSplitterResize();
+        this.DisposeListGridDoubleClick();
         this.Buttons = {};
         this.ToolBar = null;
         this.SelectBar = null;
@@ -197,6 +274,13 @@ tp.WebDataForm = class extends tp.WebForm {
         this.FilterSplitter = null;
         this.ListPage = null;
         this.ItemPage = null;
+        this.ItemPageShell = null;
+        this.FactBoxPane = null;
+        this.FactBoxSplitter = null;
+        this.FactBoxTabsHost = null;
+        this.FactBoxTabControl = null;
+        this.ListGridDoubleClickHandler = null;
+        this.FactBoxes = [];
         this.ItemPageBuilder = null;
         this.Module = null;
         super.DoDispose();
@@ -213,7 +297,11 @@ tp.WebDataForm = class extends tp.WebForm {
         var GridElement = this.FindRoleElement("list-grid");
         this.FilterPane = this.FindRoleElement("filters");
         this.ListPage = this.FindRoleElement("list-page");
-        this.ItemPage = this.FindRoleElement("item-page");
+        this.ItemPageShell = this.FindRoleElement("item-page");
+        this.ItemPage = this.FindRoleElement("item-page-main") || this.ItemPageShell;
+        this.FactBoxPane = this.FindRoleElement("factbox-pane");
+        this.FactBoxSplitter = this.FindRoleElement("factbox-splitter");
+        this.FactBoxTabsHost = this.FindRoleElement("factbox-tabs");
         this.ItemPageBuilder = new tp.WebItemPageBuilder(this);
         if (ToolBarElement instanceof HTMLElement)
             this.CreateToolBar(ToolBarElement);
@@ -225,7 +313,9 @@ tp.WebDataForm = class extends tp.WebForm {
             this.CreateFilterSplitter(FilterSplitterElement);
         if (GridElement instanceof HTMLElement)
             this.CreateListGrid(GridElement);
+        this.InitializeFactBoxSplitterResize();
         this.SetFilterPaneVisible(false);
+        this.SetFactBoxPaneVisible(false);
         this.ShowListPage();
     }
     /**
@@ -237,6 +327,7 @@ tp.WebDataForm = class extends tp.WebForm {
         this.ToolBar = new tp.ControlBar(Element);
         tp.AddClass(this.ToolBar.Handle, tp.Classes.WebDataFormToolBar);
         this.AddToolBarButton("Home", "Home", "application_home.png");
+        this.AddToolBarButton("FactBox", "Show FactBox", "information.png");
         this.ToolBar.AddSeparator("HomeSeparator");
         this.AddToolBarButton("List", "List (F5)", "table.png");
         this.AddToolBarButton("RefreshList", "Refresh List (Ctrl+F5)", "table_refresh.png");
@@ -309,11 +400,13 @@ tp.WebDataForm = class extends tp.WebForm {
      * @returns {void}
      */
     CreateListGrid(Element) {
+        Element.style.visibility = "hidden";
         this.ListGrid = new tp.Grid({
             ElementOrSelector: Element,
             AutoGenerateColumns: true
         });
         tp.AddClass(this.ListGrid.Handle, tp.Classes.WebDataFormGrid);
+        this.InitializeListGridDoubleClick();
     }
     /**
      * Finds an element by data-role.
@@ -332,6 +425,129 @@ tp.WebDataForm = class extends tp.WebForm {
         if (tp.IsBlankString(ImageFileName))
             return "";
         return "/images/toolbar/" + ImageFileName;
+    }
+    /**
+     * Returns the web form registration name.
+     * @returns {string} Returns the web form name.
+     */
+    GetWebFormName() {
+        var Form = this.Context instanceof tp.WebFormContext ? this.Context.WebFormDef : null;
+        return Form ? Form.Name || "" : "";
+    }
+    /**
+     * Initializes FactBox splitter resizing.
+     * @returns {void}
+     */
+    InitializeFactBoxSplitterResize() {
+        if (!(this.FactBoxSplitter instanceof HTMLElement) || !(this.FactBoxPane instanceof HTMLElement))
+            return;
+        this.FactBoxSplitterMouseDownHandler = this.HandleFactBoxSplitterMouseDown.bind(this);
+        this.FactBoxSplitterMouseMoveHandler = this.HandleFactBoxSplitterMouseMove.bind(this);
+        this.FactBoxSplitterMouseUpHandler = this.HandleFactBoxSplitterMouseUp.bind(this);
+        this.FactBoxSplitter.addEventListener("mousedown", this.FactBoxSplitterMouseDownHandler);
+    }
+    /**
+     * Releases FactBox splitter resize handlers.
+     * @returns {void}
+     */
+    DisposeFactBoxSplitterResize() {
+        if (this.FactBoxSplitter instanceof HTMLElement && this.FactBoxSplitterMouseDownHandler)
+            this.FactBoxSplitter.removeEventListener("mousedown", this.FactBoxSplitterMouseDownHandler);
+        if (this.FactBoxSplitterMouseMoveHandler)
+            document.removeEventListener("mousemove", this.FactBoxSplitterMouseMoveHandler);
+        if (this.FactBoxSplitterMouseUpHandler)
+            document.removeEventListener("mouseup", this.FactBoxSplitterMouseUpHandler);
+        this.FactBoxSplitterMouseDownHandler = null;
+        this.FactBoxSplitterMouseMoveHandler = null;
+        this.FactBoxSplitterMouseUpHandler = null;
+        this.FactBoxResizeActive = false;
+    }
+    /**
+     * Applies a width to the FactBox pane.
+     * @param {number} Width The pane width.
+     * @returns {void}
+     */
+    SetFactBoxPaneWidth(Width) {
+        Width = Math.max(260, Math.min(900, tp.ToInt(Width)));
+        this.FactBoxPaneWidth = Width;
+        if (this.FactBoxPane instanceof HTMLElement) {
+            this.FactBoxPane.style.width = Width + "px";
+            this.FactBoxPane.style.flexBasis = Width + "px";
+        }
+    }
+    /**
+     * Handles FactBox splitter mouse down.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleFactBoxSplitterMouseDown(e) {
+        if (!(this.FactBoxPane instanceof HTMLElement))
+            return;
+        this.FactBoxResizeActive = true;
+        this.FactBoxResizeStartX = e.clientX;
+        this.FactBoxResizeStartWidth = this.FactBoxPane.getBoundingClientRect().width;
+        document.addEventListener("mousemove", this.FactBoxSplitterMouseMoveHandler);
+        document.addEventListener("mouseup", this.FactBoxSplitterMouseUpHandler);
+        document.body.classList.add(tp.Classes.UnSelectable);
+        e.preventDefault();
+    }
+    /**
+     * Handles FactBox splitter mouse move.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleFactBoxSplitterMouseMove(e) {
+        var Delta;
+        if (this.FactBoxResizeActive !== true)
+            return;
+        Delta = this.FactBoxResizeStartX - e.clientX;
+        this.SetFactBoxPaneWidth(this.FactBoxResizeStartWidth + Delta);
+        e.preventDefault();
+    }
+    /**
+     * Handles FactBox splitter mouse up.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleFactBoxSplitterMouseUp(e) {
+        this.FactBoxResizeActive = false;
+        document.removeEventListener("mousemove", this.FactBoxSplitterMouseMoveHandler);
+        document.removeEventListener("mouseup", this.FactBoxSplitterMouseUpHandler);
+        document.body.classList.remove(tp.Classes.UnSelectable);
+        e.preventDefault();
+    }
+    /**
+     * Initializes list grid double click handling.
+     * @returns {void}
+     */
+    InitializeListGridDoubleClick() {
+        if (!(this.ListGrid instanceof tp.Grid))
+            return;
+        this.ListGridDoubleClickHandler = this.HandleListGridDoubleClick.bind(this);
+        this.ListGrid.Handle.addEventListener("dblclick", this.ListGridDoubleClickHandler);
+    }
+    /**
+     * Releases list grid double click handling.
+     * @returns {void}
+     */
+    DisposeListGridDoubleClick() {
+        if (this.ListGrid instanceof tp.Grid && this.ListGridDoubleClickHandler)
+            this.ListGrid.Handle.removeEventListener("dblclick", this.ListGridDoubleClickHandler);
+        this.ListGridDoubleClickHandler = null;
+    }
+    /**
+     * Handles list grid double click.
+     * @param {MouseEvent} e The mouse event.
+     * @returns {void}
+     */
+    HandleListGridDoubleClick(e) {
+        var Element = e.target;
+        if (!(this.ListGrid instanceof tp.Grid) || !(Element instanceof HTMLElement))
+            return;
+        if (!Element.closest("." + tp.Classes.GridRow))
+            return;
+        e.preventDefault();
+        this.EditAsync();
     }
     /**
      * Initializes the data module.
@@ -453,6 +669,22 @@ tp.WebDataForm = class extends tp.WebForm {
         return Result;
     }
     /**
+     * Executes an async operation while showing the global spinner.
+     * @param {Function} Func The async function to execute.
+     * @returns {Promise<*>} Returns the function result.
+     */
+    async ExecuteWithSpinner(Func) {
+        var ShowSpinner = tp.IsFunction(tp.ShowSpinner);
+        if (ShowSpinner)
+            tp.ShowSpinner(true);
+        try {
+            return await Func.call(this);
+        } finally {
+            if (ShowSpinner)
+                tp.ShowSpinner(false);
+        }
+    }
+    /**
      * Selects and displays the list table.
      * @returns {Promise<void>} Returns a Promise.
      */
@@ -464,15 +696,18 @@ tp.WebDataForm = class extends tp.WebForm {
             return;
         SelectName = this.GetSelectedSelectName();
         Filters = this.GetActiveFilters();
-        await this.Module.SelectList(SelectName, Filters);
-        Table = this.Module.tblList;
-        if (this.ListGrid instanceof tp.Grid && Table) {
-            this.ListGrid.DataSource = Table;
-            this.RefreshListGridLayout(true);
-        }
-        this.FormState = tp.WebDataFormState.List;
-        this.ShowListPage();
-        this.UpdateToolBar();
+        await this.ExecuteWithSpinner(async function () {
+            await this.Module.SelectList(SelectName, Filters);
+            Table = this.Module.tblList;
+            if (this.ListGrid instanceof tp.Grid && Table) {
+                this.ListGrid.DataSource = Table;
+                this.ListGrid.Handle.style.visibility = "";
+                this.RefreshListGridLayout(true);
+            }
+            this.FormState = tp.WebDataFormState.List;
+            this.ShowListPage();
+            this.UpdateToolBar();
+        });
     }
     /**
      * Starts an insert operation and displays the item page.
@@ -481,11 +716,14 @@ tp.WebDataForm = class extends tp.WebForm {
     async InsertAsync() {
         if (!(this.Module instanceof tp.DataModule) || this.IsReadOnly === true)
             return;
-        await this.Module.Insert();
-        this.FormState = tp.WebDataFormState.Insert;
-        this.RenderItemPage();
-        this.ShowItemPage();
-        this.UpdateToolBar();
+        await this.ExecuteWithSpinner(async function () {
+            await this.Module.Insert();
+            this.FormState = tp.WebDataFormState.Insert;
+            this.RenderItemPage();
+            await this.LoadFactBoxesAsync();
+            this.ShowItemPage();
+            this.UpdateToolBar();
+        });
     }
     /**
      * Starts an edit operation for the selected list row and displays the item page.
@@ -498,11 +736,14 @@ tp.WebDataForm = class extends tp.WebForm {
         Id = this.GetSelectedListId();
         if (tp.IsEmpty(Id))
             return;
-        await this.Module.Edit(Id);
-        this.FormState = tp.WebDataFormState.Edit;
-        this.RenderItemPage();
-        this.ShowItemPage();
-        this.UpdateToolBar();
+        await this.ExecuteWithSpinner(async function () {
+            await this.Module.Edit(Id);
+            this.FormState = tp.WebDataFormState.Edit;
+            this.RenderItemPage();
+            await this.LoadFactBoxesAsync();
+            this.ShowItemPage();
+            this.UpdateToolBar();
+        });
     }
     /**
      * Renders the generated item page.
@@ -512,6 +753,264 @@ tp.WebDataForm = class extends tp.WebForm {
         if (!(this.ItemPageBuilder instanceof tp.WebItemPageBuilder))
             this.ItemPageBuilder = new tp.WebItemPageBuilder(this);
         this.ItemPageBuilder.Build();
+    }
+    /**
+     * Loads FactBox packets for the current item page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async LoadFactBoxesAsync() {
+        var Packet;
+        if (!(this.Module instanceof tp.DataModule))
+            return;
+        Packet = await tp.AjaxRequest.Execute("DataModule.GetFactBoxes", {
+            ModuleName: this.ModuleName,
+            WebFormName: this.GetWebFormName(),
+            KeyValue: this.Module.Id,
+            RowState: this.GetCurrentRowStateText()
+        });
+        this.FactBoxes = Packet && tp.IsArray(Packet.FactBoxes) ? Packet.FactBoxes : [];
+        this.RenderFactBoxes(Packet ? Packet.Html || "" : "");
+        this.SetFactBoxPaneVisible(Packet && Packet.ShowPane === true && Packet.FactBoxCount > 0);
+    }
+    /**
+     * Renders the FactBox pane.
+     * @param {string} Html The server-rendered FactBox HTML.
+     * @returns {void}
+     */
+    RenderFactBoxes(Html) {
+        var List;
+        var Index;
+        if (!(this.FactBoxTabsHost instanceof HTMLElement))
+            return;
+        this.FactBoxTabControl = null;
+        this.FactBoxTabsHost.innerHTML = Html || "";
+        if (tp.IsBlankString(Html))
+            return;
+        this.FactBoxTabControl = new tp.TabControl(this.FactBoxTabsHost);
+        List = this.FactBoxTabsHost.querySelectorAll(".tp-WebDataForm-FactBoxAccordion");
+        for (Index = 0; Index < List.length; Index++) {
+            List[Index].tpObject = new tp.Accordion({ ElementOrSelector: List[Index] });
+            List[Index].tpObject.AllowMultiExpand = true;
+        }
+    }
+    /**
+     * Renders a single FactBox page.
+     * @param {object} FactBox The FactBox packet.
+     * @returns {HTMLElement} Returns the page element.
+     */
+    RenderFactBoxPage(FactBox) {
+        var Page = this.CreateElement("div", "tp-WebDataForm-FactBoxPage");
+        var Data = FactBox ? FactBox.Data : null;
+        if (Data && tp.IsObject(Data.Table))
+            this.RenderStructureFactBox(Page, Data);
+        else if (tp.IsObject(Data))
+            this.RenderKeyValueObject(Page, Data);
+        else
+            Page.appendChild(this.CreateElement("pre", "tp-WebDataForm-FactBoxJson", JSON.stringify(Data, null, 2)));
+        return Page;
+    }
+    /**
+     * Renders a key/value object.
+     * @param {HTMLElement} Parent The parent element.
+     * @param {object} Data The data object.
+     * @returns {void}
+     */
+    RenderKeyValueObject(Parent, Data) {
+        var Name;
+        for (Name in Data) {
+            if (Object.prototype.hasOwnProperty.call(Data, Name))
+                Parent.appendChild(this.CreateKeyValueRow(Name, Data[Name]));
+        }
+    }
+    /**
+     * Renders the standard Structure FactBox.
+     * @param {HTMLElement} Parent The parent element.
+     * @param {object} Data The structure data.
+     * @returns {void}
+     */
+    RenderStructureFactBox(Parent, Data) {
+        Parent.appendChild(this.CreateKeyValueRow("Module", (Data.ModuleTitle || "") + " (" + (Data.ModuleName || "") + ")"));
+        Parent.appendChild(this.CreateKeyValueRow("Group", Data.ModuleGroup || ""));
+        Parent.appendChild(this.CreateKeyValueRow("Module Class", this.FormatClassInfo(Data.ModuleJsClassName, Data.ModuleClassName)));
+        Parent.appendChild(this.CreateKeyValueRow("Form Class", this.FormatClassInfo(Data.FormJsClassName, Data.FormClassName)));
+        Parent.appendChild(this.CreateKeyValueRow("ItemPage Class", this.FormatClassInfo(Data.ItemPageJsClassName, Data.ItemPageClassName)));
+        Parent.appendChild(this.CreateKeyValueRow("Tables", String(Data.VisibleTableCount || 0) + "/" + String(Data.TableCount || 0) + " visible"));
+        if (tp.IsObject(Data.Table))
+            this.RenderTableAccordion(Parent, Data.Table);
+    }
+    /**
+     * Renders the table structure accordion.
+     * @param {HTMLElement} Parent The parent element.
+     * @param {object} Table The table data.
+     * @returns {void}
+     */
+    RenderTableAccordion(Parent, Table) {
+        var Element = this.CreateElement("div", "tp-WebDataForm-FactBoxAccordion");
+        var Accordion;
+        Parent.appendChild(Element);
+        Accordion = new tp.Accordion({ ElementOrSelector: Element });
+        Accordion.AllowMultiExpand = true;
+        this.RenderTableAccordionItem(Accordion, Table, 0);
+    }
+    /**
+     * Renders a table accordion item recursively.
+     * @param {tp.Accordion} Accordion The accordion.
+     * @param {object} Table The table data.
+     * @param {number} Level The tree level.
+     * @returns {void}
+     */
+    RenderTableAccordionItem(Accordion, Table, Level) {
+        var Details = tp.IsArray(Table.Details) ? Table.Details : [];
+        var DetailNames = tp.IsArray(Table.DetailNames) ? Table.DetailNames : [];
+        var Detail;
+        var Index;
+        var ItemIndex = Accordion.GetElementList().length;
+        var Title = (Table.Title || "") + " (" + (Table.Name || "") + ") - " + (Table.IsUiVisible ? "visible" : "hidden") + ", " + (Table.IsDetail ? "detail" : "top") + ", fields " + String(Table.VisibleFieldCount || 0) + "/" + String(Table.FieldCount || 0);
+        var Item = Accordion.AddItem(Title);
+        var TitleElement = Accordion.TitleElementOf(Item);
+        var Body = Accordion.ContentElementOf(Item);
+        if (TitleElement instanceof HTMLElement)
+            TitleElement.style.paddingLeft = String(14 + (Level * 12)) + "px";
+        if (!(Body instanceof HTMLElement))
+            return;
+        tp.AddClass(Body, "tp-WebDataForm-FactBoxTableBody");
+        Accordion.Expand(Level === 0, ItemIndex);
+        Body.appendChild(this.CreateKeyValueRow("Alias", Table.Alias || ""));
+        Body.appendChild(this.CreateKeyValueRow("Master", Table.MasterName || ""));
+        Body.appendChild(this.CreateKeyValueRow("Details", DetailNames.join(", ")));
+        Body.appendChild(this.CreateKeyValueRow("KeyField", Table.KeyField || ""));
+        if (Table.IsDetail === true) {
+            Body.appendChild(this.CreateKeyValueRow("MasterField", Table.MasterField || ""));
+            Body.appendChild(this.CreateKeyValueRow("DetailField", Table.DetailField || ""));
+        }
+        Body.appendChild(this.CreateKeyValueRow("OneToOne", Table.IsOneToOne === true));
+        Body.appendChild(this.CreateKeyValueRow("Joins", Table.JoinCount || 0));
+        Body.appendChild(this.CreateKeyValueRow("Stocks", Table.StockCount || 0));
+        Body.appendChild(this.CreateKeyValueRow("Fields", String(Table.VisibleFieldCount || 0) + "/" + String(Table.FieldCount || 0) + " visible"));
+        Body.appendChild(this.CreateFieldsTable(tp.IsArray(Table.Fields) ? Table.Fields : []));
+        for (Index = 0; Index < Details.length; Index++) {
+            Detail = Details[Index];
+            this.RenderTableAccordionItem(Accordion, Detail, Level + 1);
+        }
+    }
+    /**
+     * Creates a fields table.
+     * @param {object[]} Fields The field data.
+     * @returns {HTMLElement} Returns the table element.
+     */
+    CreateFieldsTable(Fields) {
+        var Wrap = this.CreateElement("div", "tp-WebDataForm-FactBoxFieldWrap");
+        var Table = this.CreateElement("table", "tp-WebDataForm-FactBoxFieldTable");
+        var Headers = ["Title", "Name", "Visible", "Hidden", "DataType", "Required", "ReadOnly", "Lookup", "Locator", "Group", "Size", "Decimals", "Default", "Nullable", "Width", "Expression", "CodeProvider", "SnapshotOf", "Flags"];
+        var Field;
+        var Index;
+        var Row;
+        var Values;
+        Table.appendChild(this.CreateTableRow(Headers, true, []));
+        for (Index = 0; Index < Fields.length; Index++) {
+            Field = Fields[Index];
+            Values = [
+                Field.Title || "",
+                Field.Name || "",
+                Field.IsVisible === true ? "x" : "",
+                Field.IsVisible === true ? "" : "x",
+                Field.DataType || "",
+                Field.IsRequired === true ? "x" : "",
+                Field.IsReadOnly === true ? "x" : "",
+                Field.LookupSource || "",
+                Field.Locator || "",
+                Field.Group || "",
+                Field.MaxLength > 0 ? String(Field.MaxLength) : "",
+                Field.Decimals >= 0 ? String(Field.Decimals) : "",
+                Field.DefaultValue || "",
+                Field.IsNullable === true ? "x" : "",
+                Field.DisplayWidth > 0 ? String(Field.DisplayWidth) : "",
+                Field.Expression || "",
+                Field.CodeProvider || "",
+                Field.SnapshotOf || "",
+                Field.Flags || ""
+            ];
+            Row = this.CreateTableRow(Values, false, [2, 3, 5, 6, 13]);
+            Table.appendChild(Row);
+        }
+        Wrap.appendChild(Table);
+        return Wrap;
+    }
+    /**
+     * Creates a table row.
+     * @param {string[]} Values The cell values.
+     * @param {boolean} IsHeader True when creating a header row.
+     * @param {number[]} CenterIndexes Indexes of centered cells.
+     * @returns {HTMLTableRowElement} Returns the row.
+     */
+    CreateTableRow(Values, IsHeader, CenterIndexes) {
+        var Row = document.createElement("tr");
+        var Index;
+        var Cell;
+        for (Index = 0; Index < Values.length; Index++) {
+            Cell = document.createElement(IsHeader ? "th" : "td");
+            Cell.textContent = Values[Index] || "";
+            if (CenterIndexes.indexOf(Index) >= 0)
+                Cell.className = "tp-Center";
+            Row.appendChild(Cell);
+        }
+        return Row;
+    }
+    /**
+     * Creates a key/value row.
+     * @param {string} Key The key text.
+     * @param {*} Value The value.
+     * @returns {HTMLElement} Returns the row.
+     */
+    CreateKeyValueRow(Key, Value) {
+        var Row = this.CreateElement("div", "tp-WebDataForm-FactBoxKeyValue");
+        Row.appendChild(this.CreateElement("span", "tp-WebDataForm-FactBoxKey", Key));
+        Row.appendChild(this.CreateElement("span", "tp-WebDataForm-FactBoxValue", String(tp.IsNil(Value) ? "" : Value)));
+        return Row;
+    }
+    /**
+     * Formats JavaScript class and server class/path information.
+     * @param {string|null|undefined} JsName The JavaScript class name.
+     * @param {string|null|undefined} ServerName The server class name or Razor path.
+     * @returns {string} Returns the formatted text.
+     */
+    FormatClassInfo(JsName, ServerName) {
+        JsName = JsName || "";
+        ServerName = ServerName || "";
+        if (!tp.IsBlankString(JsName) && !tp.IsBlankString(ServerName))
+            return JsName + " (" + ServerName + ")";
+        return JsName || ServerName;
+    }
+    /**
+     * Returns the current item row state text.
+     * @returns {string} Returns the row state text.
+     */
+    GetCurrentRowStateText() {
+        var Row = this.Module instanceof tp.DataModule ? this.Module.Row : null;
+        var State = Row instanceof tp.DataRow ? Row.State : null;
+        var Name;
+        if (tp.IsNumber(State)) {
+            for (Name in tp.DataRowState) {
+                if (Object.prototype.hasOwnProperty.call(tp.DataRowState, Name) && tp.DataRowState[Name] === State)
+                    return Name;
+            }
+        }
+        return this.FormState || "";
+    }
+    /**
+     * Creates an element.
+     * @param {string} TagName The tag name.
+     * @param {string} CssClass The CSS class.
+     * @param {string|null|undefined} Text Optional text.
+     * @returns {HTMLElement} Returns the created element.
+     */
+    CreateElement(TagName, CssClass, Text) {
+        var Result = document.createElement(TagName);
+        if (!tp.IsBlankString(CssClass))
+            Result.className = CssClass;
+        if (!tp.IsNil(Text))
+            Result.textContent = Text;
+        return Result;
     }
     /**
      * Returns the id of the selected list row.
@@ -537,9 +1036,9 @@ tp.WebDataForm = class extends tp.WebForm {
             this.ListPage.hidden = false;
             this.ListPage.style.display = "";
         }
-        if (this.ItemPage instanceof HTMLElement) {
-            this.ItemPage.hidden = true;
-            this.ItemPage.style.display = "none";
+        if (this.ItemPageShell instanceof HTMLElement) {
+            this.ItemPageShell.hidden = true;
+            this.ItemPageShell.style.display = "none";
         }
     }
     /**
@@ -551,10 +1050,37 @@ tp.WebDataForm = class extends tp.WebForm {
             this.ListPage.hidden = true;
             this.ListPage.style.display = "none";
         }
-        if (this.ItemPage instanceof HTMLElement) {
-            this.ItemPage.hidden = false;
-            this.ItemPage.style.display = "";
+        if (this.ItemPageShell instanceof HTMLElement) {
+            this.ItemPageShell.hidden = false;
+            this.ItemPageShell.style.display = "";
         }
+    }
+    /**
+     * Toggles the FactBox pane.
+     * @returns {void}
+     */
+    ToggleFactBoxPane() {
+        this.SetFactBoxPaneVisible(!this.FactBoxPaneVisible);
+    }
+    /**
+     * Shows or hides the FactBox pane.
+     * @param {boolean} Visible True to show.
+     * @returns {void}
+     */
+    SetFactBoxPaneVisible(Visible) {
+        var IsVisible = Visible === true && this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML);
+        this.FactBoxPaneVisible = IsVisible;
+        if (this.FactBoxPane instanceof HTMLElement) {
+            this.FactBoxPane.hidden = !IsVisible;
+            this.FactBoxPane.style.display = IsVisible ? "" : "none";
+            if (IsVisible)
+                this.SetFactBoxPaneWidth(this.FactBoxPaneWidth);
+        }
+        if (this.FactBoxSplitter instanceof HTMLElement) {
+            this.FactBoxSplitter.hidden = !IsVisible;
+            this.FactBoxSplitter.style.display = IsVisible ? "" : "none";
+        }
+        this.UpdateToolBar();
     }
     /**
      * Shows or hides the filter pane.
@@ -604,6 +1130,8 @@ tp.WebDataForm = class extends tp.WebForm {
         var Command = Args ? Args.Command : "";
         if (Command === "Home")
             this.ShowListPage();
+        else if (Command === "FactBox")
+            this.ToggleFactBoxPane();
         else if (Command === "List")
             this.ShowListPage();
         else if (Command === "RefreshList")
@@ -650,6 +1178,8 @@ tp.WebDataForm = class extends tp.WebForm {
         this.SetButtonEnabled("List", true);
         this.SetButtonEnabled("RefreshList", true);
         this.SetButtonEnabled("Find", this.Module instanceof tp.DataModule && this.Module.UseFilters === true);
+        this.SetButtonVisible("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML));
+        this.SetButtonEnabled("FactBox", this.FactBoxTabsHost instanceof HTMLElement && !tp.IsBlankString(this.FactBoxTabsHost.innerHTML) && this.FormState !== tp.WebDataFormState.List);
         this.SetButtonVisible("Ok", false);
         this.SetButtonEnabled("Home", false);
         this.SetButtonEnabled("ToggleIds", true);
@@ -767,6 +1297,81 @@ tp.WebDataForm.prototype.ListPage = null;
  * @type {HTMLElement|null}
  */
 tp.WebDataForm.prototype.ItemPage = null;
+/**
+ * The item page shell element.
+ * @type {HTMLElement|null}
+ */
+tp.WebDataForm.prototype.ItemPageShell = null;
+/**
+ * The FactBox pane element.
+ * @type {HTMLElement|null}
+ */
+tp.WebDataForm.prototype.FactBoxPane = null;
+/**
+ * The FactBox splitter element.
+ * @type {HTMLElement|null}
+ */
+tp.WebDataForm.prototype.FactBoxSplitter = null;
+/**
+ * The FactBox tabs host element.
+ * @type {HTMLElement|null}
+ */
+tp.WebDataForm.prototype.FactBoxTabsHost = null;
+/**
+ * The FactBox tab control.
+ * @type {tp.TabControl|null}
+ */
+tp.WebDataForm.prototype.FactBoxTabControl = null;
+/**
+ * The current FactBox packets.
+ * @type {object[]|null}
+ */
+tp.WebDataForm.prototype.FactBoxes = null;
+/**
+ * True when the FactBox pane is visible.
+ * @type {boolean}
+ */
+tp.WebDataForm.prototype.FactBoxPaneVisible = false;
+/**
+ * The current FactBox pane width.
+ * @type {number}
+ */
+tp.WebDataForm.prototype.FactBoxPaneWidth = 420;
+/**
+ * True while the FactBox pane is being resized.
+ * @type {boolean}
+ */
+tp.WebDataForm.prototype.FactBoxResizeActive = false;
+/**
+ * The resize start mouse X coordinate.
+ * @type {number}
+ */
+tp.WebDataForm.prototype.FactBoxResizeStartX = 0;
+/**
+ * The resize start pane width.
+ * @type {number}
+ */
+tp.WebDataForm.prototype.FactBoxResizeStartWidth = 0;
+/**
+ * FactBox splitter mouse down handler.
+ * @type {Function|null}
+ */
+tp.WebDataForm.prototype.FactBoxSplitterMouseDownHandler = null;
+/**
+ * FactBox splitter mouse move handler.
+ * @type {Function|null}
+ */
+tp.WebDataForm.prototype.FactBoxSplitterMouseMoveHandler = null;
+/**
+ * FactBox splitter mouse up handler.
+ * @type {Function|null}
+ */
+tp.WebDataForm.prototype.FactBoxSplitterMouseUpHandler = null;
+/**
+ * List grid double click handler.
+ * @type {Function|null}
+ */
+tp.WebDataForm.prototype.ListGridDoubleClickHandler = null;
 /**
  * Toolbar buttons keyed by command.
  * @type {object|null}

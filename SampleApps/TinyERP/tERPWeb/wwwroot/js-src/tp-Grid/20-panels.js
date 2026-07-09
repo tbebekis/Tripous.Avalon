@@ -17,6 +17,22 @@ tp.GridGroupPanel = class extends tp.Object {
         this.Handle.className = tp.Classes.Groups;
         this.Handle.style.height = tp.px(this.Grid.GroupPanelHeight);
         this.Handle.style.minHeight = this.Handle.style.height;
+        /**
+         * The text element shown when the panel has no group columns.
+         * @type {HTMLElement}
+         */
+        this.EmptyTextElement = Grid.Document.createElement("div");
+        this.EmptyTextElement.className = tp.Classes.GroupPanelEmptyText;
+        this.EmptyTextElement.style.boxSizing = "border-box";
+        this.EmptyTextElement.style.width = "100%";
+        this.EmptyTextElement.style.padding = "0 8px";
+        this.EmptyTextElement.style.overflow = "hidden";
+        this.EmptyTextElement.style.whiteSpace = "nowrap";
+        this.EmptyTextElement.style.textOverflow = "ellipsis";
+        this.EmptyTextElement.style.opacity = "0.65";
+        this.EmptyTextElement.style.pointerEvents = "none";
+        this.Handle.appendChild(this.EmptyTextElement);
+        this.UpdateEmptyText();
         tp.On(this.Handle, tp.Events.DragEnter, this.FuncBind(this.DragEnter));
         tp.On(this.Handle, tp.Events.DragOver, this.FuncBind(this.DragOver));
         tp.On(this.Handle, tp.Events.DragLeave, this.FuncBind(this.DragLeave));
@@ -95,8 +111,21 @@ tp.GridGroupPanel = class extends tp.Object {
      */
     Clear() {
         super.Clear();
-        if (this.Handle)
+        if (this.Handle) {
             this.Handle.innerHTML = "";
+            this.Handle.appendChild(this.EmptyTextElement);
+            this.UpdateEmptyText();
+        }
+    }
+    /**
+     * Updates the empty group panel text.
+     * @returns {void}
+     */
+    UpdateEmptyText() {
+        if (!(this.EmptyTextElement instanceof HTMLElement))
+            return;
+        this.EmptyTextElement.textContent = this.Grid.EmptyGroupPanelText || "";
+        this.EmptyTextElement.style.display = this.Grid.GroupColumnCount === 0 && !tp.IsBlank(this.Grid.EmptyGroupPanelText) ? "" : "none";
     }
 
     // ● properties

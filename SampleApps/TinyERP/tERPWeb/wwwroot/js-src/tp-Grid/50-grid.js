@@ -150,6 +150,18 @@ tp.Grid = class extends tp.Control  {
         }
     }
     /**
+    Gets or sets the text shown in the group panel when there are no group columns.
+    @type {string}
+    */
+    get EmptyGroupPanelText() {
+        return this.fEmptyGroupPanelText;
+    }
+    set EmptyGroupPanelText(Value) {
+        this.fEmptyGroupPanelText = tp.IsNil(Value) ? "" : String(Value);
+        if (this.pnlGroups instanceof tp.GridGroupPanel)
+            this.pnlGroups.UpdateEmptyText();
+    }
+    /**
     Shows or hides the columns panel. Defaults to true.
     @type {boolean}
     */
@@ -342,6 +354,7 @@ tp.Grid = class extends tp.Control  {
         this.VisibleRowIndexLast = 0;
 
         this.fShowIdColumnsFlag = true;
+        this.fEmptyGroupPanelText = "Drag a column header here to create a group";
 
         this.ConfirmDelete = true;
         this.AllowUserToAddRows = true;
@@ -1335,6 +1348,7 @@ tp.Grid = class extends tp.Control  {
             if (this.GroupColumns[i].Visible === true)
                 this.GroupColumns[i].AppendToGroupColumns(this.ColumnHeight, this.pnlGroups.Handle, this.pnlColumns.Content, this.pnlFilter.Content, this.pnlFooter.Content);
         }
+        this.pnlGroups.UpdateEmptyText();
     }
     /**
     Re-renders the group columns

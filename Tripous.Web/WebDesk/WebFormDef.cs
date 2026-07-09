@@ -31,6 +31,7 @@ public class WebFormDef: BaseDef
     bool fIsReadOnly;
     bool fIsCustom;
     UserLevel fSecurityLevel;
+    DefList<ItemFactBoxDef> fFactBoxes;
 
     // ● private
     bool IsAllowed(UserLevel UserLevel)
@@ -137,4 +138,15 @@ public class WebFormDef: BaseDef
     /// Gets the extra JavaScript files this web form requires.
     /// </summary>
     public List<string> JavaScriptFiles { get; } = new();
+    /// <summary>
+    /// The custom FactBoxes displayed by the item page of this web form.
+    /// </summary>
+    public DefList<ItemFactBoxDef> FactBoxes
+    {
+        get
+        {
+            fFactBoxes ??= new();
+            return fFactBoxes;
+        }
+    }
 }

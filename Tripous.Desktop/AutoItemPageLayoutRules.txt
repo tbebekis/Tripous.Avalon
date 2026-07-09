@@ -70,36 +70,44 @@ Top Table Layout Rules
 
 SubDetail Rules
 ---------------
-19. Level 2+ Details/SubDetails are added directly to the root TabControl
-    as sibling TabItems of the TopTable page.
+19. Level 2+ Details/SubDetails are nested under their parent Detail/SubDetail.
 
-20. Each Detail/SubDetail appears in its own TabItem.
+20. If a Detail/SubDetail has exactly one child Detail/SubDetail:
+    - the parent Detail/SubDetail appears first
+    - a horizontal splitter appears under the parent
+    - the single child Detail/SubDetail appears under the splitter
 
-21. One-to-many Detail/SubDetail is displayed using a DataGrid.
+21. If a Detail/SubDetail has more than one child Detail/SubDetail:
+    - the parent Detail/SubDetail appears first
+    - a horizontal splitter appears under the parent
+    - the child Details/SubDetails appear under the splitter inside a TabControl
+    - each child Detail/SubDetail appears in its own TabItem
 
-22. One-to-one Detail/SubDetail (TableDef.IsOneToOne = true)
+22. One-to-many Detail/SubDetail is displayed using a DataGrid.
+
+23. One-to-one Detail/SubDetail (TableDef.IsOneToOne = true)
     is displayed using grouped controls instead of a DataGrid.
 
-23. Detail/SubDetail tabs may contain:
+24. Detail/SubDetail sections may contain:
     - optional toolbar panel
     - DataGrid or controls
 
 Toolbar Rules
 -------------
-24. Each Detail/SubDetail may optionally contain a toolbar area
+25. Each Detail/SubDetail may optionally contain a toolbar area
     above the DataGrid.
 
-25. Toolbar structure:
+26. Toolbar structure:
 
     Border Classes="ToolbarContainer"
         StackPanel Classes="ToolBar"
 
-26. Toolbar panels are initially hidden and may later host buttons,
+27. Toolbar panels are initially hidden and may later host buttons,
     filters, locator controls, summaries, exports, etc.
 
 Overridables
 ------------
-27. Expanders are created through an overridable method:
+28. Expanders are created through an overridable method:
     CreateExpander(Control Parent, string Caption)
 
 Core Principle

@@ -23,6 +23,7 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     double fDetailGridMinHeight;
     bool fShowLocatorGridFilterPanel;
     bool fShowDataFormLog;
+    bool fShowDataFormFactBoxPane = true;
 
     
     // ● private  
@@ -148,6 +149,14 @@ public class UiGlobalSettings: SettingsBase, INotifyPropertyChanged
     {
         get => fShowDataFormLog;
         set { if (fShowDataFormLog != value) { fShowDataFormLog = value; NotifyPropertyChanged(nameof(ShowDataFormLog)); } }
+    }
+    /// <summary>
+    /// When true then the <see cref="DataForm"/> FactBox pane is shown initially.
+    /// </summary>
+    public bool ShowDataFormFactBoxPane
+    {
+        get => fShowDataFormFactBoxPane;
+        set { if (fShowDataFormFactBoxPane != value) { fShowDataFormFactBoxPane = value; NotifyPropertyChanged(nameof(ShowDataFormFactBoxPane)); } }
     }
 
     // ● events

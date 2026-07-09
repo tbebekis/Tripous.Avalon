@@ -21,6 +21,12 @@ public class RegistryVersion
     {
     }
     /// <summary>
+    /// Registers module FactBoxes.
+    /// </summary>
+    public virtual void RegisterFactBoxes()
+    {
+    }
+    /// <summary>
     /// Registers data forms.
     /// </summary>
     public virtual void RegisterForms()

@@ -35,6 +35,42 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// Stores the original read-only state of detail grid columns.
     /// </summary>
     protected Dictionary<GroupGridColumn, bool> fGridColumnReadOnlyStates = new();
+    /// <summary>
+    /// The splitter between the main item page content and the FactBox pane.
+    /// </summary>
+    protected GridSplitter fFactBoxSplitter;
+    /// <summary>
+    /// The right-side FactBox pane.
+    /// </summary>
+    protected Border fFactBoxPane;
+    /// <summary>
+    /// The tab control hosting FactBoxes.
+    /// </summary>
+    protected TabControl fFactBoxTabs;
+    /// <summary>
+    /// The built-in item information FactBox control.
+    /// </summary>
+    protected ItemInfoFactBoxControl fStandardInfoFactBoxControl;
+    /// <summary>
+    /// The created FactBox controls by definition.
+    /// </summary>
+    protected List<Tuple<ItemFactBoxDef, ItemFactBoxControl>> fFactBoxControls = [];
+    /// <summary>
+    /// The splitter column of the FactBox pane.
+    /// </summary>
+    protected ColumnDefinition fFactBoxSplitterColumn;
+    /// <summary>
+    /// The column of the FactBox pane.
+    /// </summary>
+    protected ColumnDefinition fFactBoxColumn;
+    /// <summary>
+    /// The default width of the FactBox pane.
+    /// </summary>
+    protected double fFactBoxPaneWidth = 280;
+    /// <summary>
+    /// True when the FactBox pane is visible.
+    /// </summary>
+    protected bool fFactBoxPaneVisible;
  
     // ● protected methods
     /// <summary>
@@ -112,6 +148,276 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
                                   && DataForm.FormState != DataFormState.Insert);
             Binding.GridColumn.IsReadOnly = IsReadOnly;
         }
+    }
+    /// <summary>
+    /// Returns the visible FactBox definitions of the current form.
+    /// </summary>
+    /// <returns>The visible FactBox definitions.</returns>
+    protected virtual List<ItemFactBoxDef> GetVisibleFactBoxes()
+    {
+        List<ItemFactBoxDef> Result = [];
+        ModuleDef ModuleDef = DataForm?.DataFormContext?.ModuleDef;
+        FormDef FormDef = DataForm?.DataFormContext?.FormDef;
+
+        void AddRange(DefList<ItemFactBoxDef> List)
+        {
+            if (List == null)
+                return;
+
+            foreach (ItemFactBoxDef Def in List)
+            {
+                if (Def.IsVisible && !Result.Any(Item => Sys.IsSameText(Item.Name, Def.Name)))
+                    Result.Add(Def);
+            }
+        }
+
+        if (ModuleDef != null)
+            AddRange(ModuleDef.FactBoxes);
+        if (FormDef != null)
+            AddRange(FormDef.FactBoxes);
+
+        return Result;
+    }
+    /// <summary>
+    /// Creates a placeholder control for a FactBox tab.
+    /// </summary>
+    /// <param name="Def">The FactBox definition.</param>
+    /// <returns>The created placeholder control.</returns>
+    protected virtual Control CreateFactBoxPlaceholder(ItemFactBoxDef Def)
+    {
+        return new TextBlock
+        {
+            Text = Def != null ? Def.Title : string.Empty,
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(8)
+        };
+    }
+    /// <summary>
+    /// Creates the context passed to a FactBox provider and control.
+    /// </summary>
+    /// <param name="Def">The FactBox definition.</param>
+    /// <returns>The created context.</returns>
+    protected virtual ItemFactBoxContext CreateFactBoxContext(ItemFactBoxDef Def)
+    {
+        DataRow Row = CurrentRow;
+        object KeyValue = null;
+        TableDef ItemTableDef = ModuleDef?.Table;
+        if (Row != null && ItemTableDef != null && !string.IsNullOrWhiteSpace(ItemTableDef.KeyField) && Row.Table.Columns.Contains(ItemTableDef.KeyField))
+            KeyValue = Row[ItemTableDef.KeyField];
+        return new()
+        {
+            FormName = FormDef?.Name,
+            FormClassName = FormDef?.ClassName,
+            ItemPageClassName = FormDef?.ItemClassName,
+            FactBoxDef = Def,
+            Module = Module,
+            Row = Row,
+            RowState = Row?.RowState.ToString(),
+            KeyValue = KeyValue
+        };
+    }
+    /// <summary>
+    /// Creates the control that renders a FactBox.
+    /// </summary>
+    /// <param name="Def">The FactBox definition.</param>
+    /// <returns>The created control.</returns>
+    protected virtual Control CreateFactBoxControl(ItemFactBoxDef Def)
+    {
+        try
+        {
+            ItemFactBoxContext FactBoxContext = CreateFactBoxContext(Def);
+            object Data = GetFactBoxData(Def, FactBoxContext);
+            ItemFactBoxControl Control = string.IsNullOrWhiteSpace(Def.DesktopControlClassName)
+                ? null
+                : TypeStore.CreateInstance<ItemFactBoxControl>(Def.DesktopControlClassName);
+
+            if (Control == null)
+                return CreateFactBoxMessage("No FactBox control is defined.");
+
+            Control.BindFactBox(FactBoxContext, Data);
+            fFactBoxControls.Add(Tuple.Create(Def, Control));
+            return Control;
+        }
+        catch (Exception Ex)
+        {
+            return CreateFactBoxMessage(Ex.Message);
+        }
+    }
+    /// <summary>
+    /// Creates a FactBox message control.
+    /// </summary>
+    /// <param name="Message">The message text.</param>
+    /// <returns>The created message control.</returns>
+    protected virtual Control CreateFactBoxMessage(string Message)
+    {
+        return new TextBlock
+        {
+            Text = Message ?? string.Empty,
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(8)
+        };
+    }
+    /// <summary>
+    /// Returns the data produced by a FactBox provider.
+    /// </summary>
+    /// <param name="Def">The FactBox definition.</param>
+    /// <param name="Context">The FactBox context.</param>
+    /// <returns>The FactBox data.</returns>
+    protected virtual object GetFactBoxData(ItemFactBoxDef Def, ItemFactBoxContext Context)
+    {
+        ItemFactBoxProvider Provider = Def.CreateProvider();
+        return Provider != null ? Provider.GetData(Context) : null;
+    }
+    /// <summary>
+    /// Creates the data for the built-in item information FactBox.
+    /// </summary>
+    /// <param name="Context">The FactBox context.</param>
+    /// <returns>The created data.</returns>
+    protected virtual ItemStandardInfoFactBoxData CreateStandardInfoFactBoxData(ItemFactBoxContext Context)
+    {
+        return new()
+        {
+            ItemInfo = new ItemInfoFactBoxProvider().GetData(Context) as Dictionary<string, object> ?? new(),
+            Structure = new ItemStructureFactBoxProvider().GetData(Context) as ItemStructureFactBoxData
+        };
+    }
+    /// <summary>
+    /// Creates the built-in item information FactBox control.
+    /// </summary>
+    /// <returns>The created control.</returns>
+    protected virtual Control CreateStandardInfoFactBoxControl()
+    {
+        try
+        {
+            ItemFactBoxContext FactBoxContext = CreateFactBoxContext(null);
+            fStandardInfoFactBoxControl = new();
+            fStandardInfoFactBoxControl.BindFactBox(FactBoxContext, CreateStandardInfoFactBoxData(FactBoxContext));
+            return fStandardInfoFactBoxControl;
+        }
+        catch (Exception Ex)
+        {
+            return CreateFactBoxMessage(Ex.Message);
+        }
+    }
+    /// <summary>
+    /// Refreshes the built-in item information FactBox.
+    /// </summary>
+    protected virtual void RefreshStandardInfoFactBox()
+    {
+        if (fStandardInfoFactBoxControl == null)
+            return;
+
+        try
+        {
+            ItemFactBoxContext FactBoxContext = CreateFactBoxContext(null);
+            fStandardInfoFactBoxControl.BindFactBox(FactBoxContext, CreateStandardInfoFactBoxData(FactBoxContext));
+        }
+        catch
+        {
+            // Ignore a FactBox refresh failure. The initial creation path shows errors in the tab content.
+        }
+    }
+    /// <summary>
+    /// Refreshes all created FactBoxes.
+    /// </summary>
+    protected virtual void RefreshFactBoxes()
+    {
+        RefreshStandardInfoFactBox();
+        foreach (Tuple<ItemFactBoxDef, ItemFactBoxControl> Pair in fFactBoxControls)
+        {
+            try
+            {
+                ItemFactBoxContext FactBoxContext = CreateFactBoxContext(Pair.Item1);
+                object Data = GetFactBoxData(Pair.Item1, FactBoxContext);
+                Pair.Item2.BindFactBox(FactBoxContext, Data);
+            }
+            catch
+            {
+                // Ignore a FactBox refresh failure. The initial creation path shows errors in the tab content.
+            }
+        }
+    }
+    /// <summary>
+    /// Creates a tab for a FactBox definition.
+    /// </summary>
+    /// <param name="Def">The FactBox definition.</param>
+    /// <returns>The created tab item.</returns>
+    protected virtual TabItem CreateFactBoxTab(ItemFactBoxDef Def)
+    {
+        return new TabItem
+        {
+            Header = Def.Title,
+            Content = CreateFactBoxControl(Def)
+        };
+    }
+    /// <summary>
+    /// Creates the tab control hosting the FactBoxes.
+    /// </summary>
+    /// <param name="FactBoxes">The FactBox definitions.</param>
+    /// <returns>The created tab control.</returns>
+    protected virtual TabControl CreateFactBoxTabs(List<ItemFactBoxDef> FactBoxes)
+    {
+        fFactBoxTabs = new();
+        fFactBoxTabs.Items.Add(new TabItem
+        {
+            Header = "Info",
+            Content = CreateStandardInfoFactBoxControl()
+        });
+        if (FactBoxes != null)
+        {
+            foreach (ItemFactBoxDef Def in FactBoxes)
+                fFactBoxTabs.Items.Add(CreateFactBoxTab(Def));
+        }
+        return fFactBoxTabs;
+    }
+    /// <summary>
+    /// Creates the right-side FactBox pane.
+    /// </summary>
+    /// <param name="FactBoxes">The FactBox definitions.</param>
+    /// <returns>The created pane.</returns>
+    protected virtual Border CreateFactBoxPane(List<ItemFactBoxDef> FactBoxes)
+    {
+        fFactBoxPane = new()
+        {
+            MinWidth = 220,
+            BorderBrush = Brushes.Gray,
+            BorderThickness = new Thickness(1, 0, 0, 0),
+            Child = CreateFactBoxTabs(FactBoxes)
+        };
+        return fFactBoxPane;
+    }
+    /// <summary>
+    /// Creates the item page root content.
+    /// </summary>
+    /// <param name="MainContent">The main item page content.</param>
+    /// <param name="FactBoxes">The visible FactBox definitions.</param>
+    /// <returns>The created root content.</returns>
+    protected virtual Control CreateItemPageRoot(Control MainContent, List<ItemFactBoxDef> FactBoxes)
+    {
+        Grid Result = new();
+        Result.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+        fFactBoxSplitterColumn = new ColumnDefinition(new GridLength(0));
+        fFactBoxColumn = new ColumnDefinition(new GridLength(0));
+        Result.ColumnDefinitions.Add(fFactBoxSplitterColumn);
+        Result.ColumnDefinitions.Add(fFactBoxColumn);
+
+        Grid.SetColumn(MainContent, 0);
+        Result.Children.Add(MainContent);
+
+        fFactBoxSplitter = new()
+        {
+            Width = 4,
+            Background = Brushes.LightGray,
+            ResizeDirection = GridResizeDirection.Columns
+        };
+        Grid.SetColumn(fFactBoxSplitter, 1);
+        Result.Children.Add(fFactBoxSplitter);
+
+        Border Pane = CreateFactBoxPane(FactBoxes);
+        Grid.SetColumn(Pane, 2);
+        Result.Children.Add(Pane);
+        FactBoxPaneVisible = Ui.Settings.ShowDataFormFactBoxPane;
+        return Result;
     }
 
     /// <summary>
@@ -303,6 +609,7 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     {
         foreach (ItemBinder Binder in Binders)
             Binder.Refresh();
+        RefreshFactBoxes();
     }
     /// <summary>
     /// Captures the current selection of all detail grids.
@@ -369,6 +676,10 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         }
     }
     /// <summary>
+    /// Toggles the FactBox pane.
+    /// </summary>
+    public virtual void ToggleFactBoxPane() => FactBoxPaneVisible = !FactBoxPaneVisible;
+    /// <summary>
     /// Sets the data-bound controls and detail grids to read-only or restores their field-defined state.
     /// </summary>
     /// <param name="Value">True to force read-only.</param>
@@ -413,12 +724,16 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
         Context.CreateEditorFunc = CreateEditor;
  
         ItemBinder.CurrentRowChanging += (s, ea) => CurrentRowChanging?.Invoke(this, EventArgs.Empty);
-        ItemBinder.CurrentRowChanged += (s, ea) => CurrentRowChanged?.Invoke(this, EventArgs.Empty);
+        ItemBinder.CurrentRowChanged += (s, ea) =>
+        {
+            CurrentRowChanged?.Invoke(this, EventArgs.Empty);
+            RefreshFactBoxes();
+        };
  
         ScrollViewer ScrollViewer = UiFactory.CreateScrollViewer();
         StackPanel Root = UiFactory.CreateStackPanel();
         ScrollViewer.Content = Root;
-        Content = ScrollViewer;
+        Content = CreateItemPageRoot(ScrollViewer, GetVisibleFactBoxes());
 
         Context.ColumnCount = ColumnCount;
         Context.ParentControl = Root;
@@ -620,6 +935,29 @@ public class ItemPage : UserControl, IReferenceContextMenuHost, IGridHandler
     /// True when the binding is completed
     /// </summary>
     public bool IsBindingDone { get; protected set;  }
+    /// <summary>
+    /// True when this item page has a FactBox pane.
+    /// </summary>
+    public bool HasFactBoxPane => fFactBoxPane != null;
+    /// <summary>
+    /// Gets or sets whether the FactBox pane is visible.
+    /// </summary>
+    public bool FactBoxPaneVisible
+    {
+        get => fFactBoxPaneVisible;
+        set
+        {
+            fFactBoxPaneVisible = value && HasFactBoxPane;
+            if (fFactBoxPane != null)
+                fFactBoxPane.IsVisible = fFactBoxPaneVisible;
+            if (fFactBoxSplitter != null)
+                fFactBoxSplitter.IsVisible = fFactBoxPaneVisible;
+            if (fFactBoxSplitterColumn != null)
+                fFactBoxSplitterColumn.Width = new GridLength(fFactBoxPaneVisible ? 4 : 0);
+            if (fFactBoxColumn != null)
+                fFactBoxColumn.Width = new GridLength(fFactBoxPaneVisible ? fFactBoxPaneWidth : 0);
+        }
+    }
     /// <summary>
     /// True when data-bound controls and detail grids are read-only.
     /// </summary>

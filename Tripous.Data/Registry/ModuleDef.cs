@@ -28,6 +28,7 @@ public class ModuleDef: BaseDef
     bool fUseFilters = true;
     UserLevel fSecurityLevel;
     Dictionary<string, List<string>> fDetailOrder;
+    DefList<ItemFactBoxDef> fFactBoxes;
 
     // ● private methods
     string GetItemCaptionField()
@@ -229,6 +230,14 @@ public class ModuleDef: BaseDef
     {
         get => fDetailOrder ??= new(StringComparer.OrdinalIgnoreCase);
         set { if (fDetailOrder != value) { fDetailOrder = value; NotifyPropertyChanged(nameof(DetailOrder)); } }
+    }
+    /// <summary>
+    /// FactBox definitions displayed by item pages for this module.
+    /// </summary>
+    public DefList<ItemFactBoxDef> FactBoxes
+    {
+        get => fFactBoxes ??= new();
+        set { if (fFactBoxes != value) { fFactBoxes = value; NotifyPropertyChanged(nameof(FactBoxes)); } }
     }
 
 

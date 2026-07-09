@@ -1,0 +1,34 @@
+@model IReadOnlyDictionary<string, object>
+@{
+    string ValueOf(string Key)
+    {
+        if (Model != null && Model.TryGetValue(Key, out object Value) && Value != null)
+            return Convert.ToString(Value, CultureInfo.CurrentCulture) ?? string.Empty;
+        return string.Empty;
+    }
+}
+<div class="tp-WebDataForm-FactBoxSummary">
+    <div class="tp-WebDataForm-FactBoxSummaryTitle">@ValueOf("Company")</div>
+    <div class="tp-WebDataForm-FactBoxSummaryGrid">
+        <div>
+            <span>Tax Number</span>
+            <strong>@ValueOf("Tax Number")</strong>
+        </div>
+        <div>
+            <span>Branches</span>
+            <strong>@ValueOf("Branches")</strong>
+        </div>
+        <div>
+            <span>Primary Branch</span>
+            <strong>@ValueOf("Primary Branch")</strong>
+        </div>
+        <div>
+            <span>Bank Accounts</span>
+            <strong>@ValueOf("Bank Accounts")</strong>
+        </div>
+        <div>
+            <span>Default Bank Account</span>
+            <strong>@ValueOf("Default Bank Account")</strong>
+        </div>
+    </div>
+</div>

@@ -32,10 +32,16 @@
                 <div data-role="list-grid"></div>
             </section>
             <section data-role="item-page" class="tp-WebDataForm-ItemPage" hidden>
-                @if (!string.IsNullOrWhiteSpace(ItemViewPath))
-                {
-                    @await Html.PartialAsync(ItemViewPath, Model)
-                }
+                <div data-role="item-page-main" class="tp-WebDataForm-ItemPageMain">
+                    @if (!string.IsNullOrWhiteSpace(ItemViewPath))
+                    {
+                        @await Html.PartialAsync(ItemViewPath, Model)
+                    }
+                </div>
+                <div data-role="factbox-splitter" class="tp-Splitter tp-WebDataForm-FactBoxSplitter" hidden></div>
+                <aside data-role="factbox-pane" class="tp-WebDataForm-FactBoxPane" hidden>
+                    <div data-role="factbox-tabs" class="tp-TabControl tp-WebDataForm-FactBoxTabs"></div>
+                </aside>
             </section>
         </section>
     </div>

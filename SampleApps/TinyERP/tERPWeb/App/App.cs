@@ -146,6 +146,22 @@ static public partial class App
         RegisterDataModuleWebForms();
     }
     /// <summary>
+    /// Registers the Company form-level FactBox.
+    /// </summary>
+    /// <param name="Form">The web form definition.</param>
+    static void RegisterCompanyWebFormFactBox(WebFormDef Form)
+    {
+        if (Form == null || Form.FactBoxes.Contains("CompanyWebFormInfo"))
+            return;
+
+        Form.FactBoxes.Add(new ItemFactBoxDef
+        {
+            Name = "CompanyWebFormInfo",
+            TitleKey = "Company WebForm Info",
+            ProviderClassName = typeof(FormScopeFactBoxProvider).FullName
+        });
+    }
+    /// <summary>
     /// Registers standard WebDesk data forms from registered data modules.
     /// </summary>
     static void RegisterDataModuleWebForms()
@@ -169,6 +185,8 @@ static public partial class App
                 IsReadOnly: IsNewForm ? false : null,
                 SecurityLevel: IsNewForm ? Module.SecurityLevel : null);
             Form.JsFormClassType = "tp.WebDataForm";
+            if (Module.Name.IsSameText("Company"))
+                RegisterCompanyWebFormFactBox(Form);
         }
     }
     /// <summary>

@@ -153,6 +153,7 @@ tp.Classes = {
     Columns: "tp-Columns",
     Column: "tp-Column",
     Groups: "tp-Groups",
+    GroupPanelEmptyText: "tp-GroupPanel-EmptyText",
     Filters: "tp-Filters",
     Summaries: "tp-Summaries",
     Overlay: "tp-Overlay",

@@ -1,4 +1,243 @@
 @model Tripous.WebDesk.WebFormDef
-<div class="tp-WebItemPage" data-module="@Model.Module">
-    <div class="tp-Title">@Model.Title</div>
-</div>
+@using System.Text
+@using Tripous
+@using Tripous.Data
+@using Tripous.WebDesk
+@functions {
+    static string HtmlText(string Value) => System.Net.WebUtility.HtmlEncode(Value ?? string.Empty);
+    static string Attr(string Value) => System.Net.WebUtility.HtmlEncode(Value ?? string.Empty);
+    static string TitleOf(BaseDef Def) => Def != null ? Def.Title : string.Empty;
+    static string DataSetup(object Value) => Attr(Tripous.Json.Serialize(Value));
+    static bool CanRenderField(FieldDef Field, TableDef Table)
+    {
+        if (Field == null || Table == null)
+            return false;
+        if (!Field.IsBindable || Field.IsNoInsertOrUpdate || Field.IsExtraField)
+            return false;
+        if (Field.Name.IsSameText(Table.KeyField))
+            return false;
+        if (Table.IsDetail && Field.Name.IsSameText(Table.DetailField))
+            return false;
+        if (Field.IsForeignKeyField && !Field.IsLocator)
+            return false;
+        if (Field.IsBlob || Field.IsImage)
+            return false;
+        return true;
+    }
+    static string ControlTypeName(FieldDef Field)
+    {
+        if (Field.IsLocator)
+            return "LocatorBox";
+        if (Field.IsLookup)
+            return "ComboBox";
+        if (Field.IsBoolean)
+            return "CheckBox";
+        if (Field.IsMemo || Field.IsLargeMemo)
+            return "Memo";
+        if (Field.DataType == DataFieldType.Date)
+            return "HtmlDateBox";
+        if (Field.IsNumeric)
+            return "NumberBox";
+        return "TextBox";
+    }
+    static List<FieldDef> RenderFields(TableDef Table)
+    {
+        return Table.Fields.Where(Field => CanRenderField(Field, Table)).ToList();
+    }
+    static List<string> GroupNames(TableDef Table, List<FieldDef> Fields)
+    {
+        List<string> Result = new();
+        void Add(string Name)
+        {
+            Name = string.IsNullOrWhiteSpace(Name) ? Sys.GENERAL : Name.Trim();
+            if (!Result.Any(Item => Item.IsSameText(Name)))
+                Result.Add(Name);
+        }
+        Add(Sys.GENERAL);
+        foreach (string Name in Table.FieldGroups)
+            Add(Name);
+        foreach (FieldDef Field in Fields)
+            Add(Field.Group);
+        return Result;
+    }
+    static List<List<FieldDef>> SplitFields(List<FieldDef> Fields)
+    {
+        const int MaxControlsPerColumn = 8;
+        const int MaxColumnCount = 3;
+        int ColumnCount = Math.Max(1, Math.Min(MaxColumnCount, (int)Math.Ceiling(Fields.Count / (double)MaxControlsPerColumn)));
+        List<List<FieldDef>> Result = new();
+        for (int Index = 0; Index < ColumnCount; Index++)
+            Result.Add(new());
+        for (int Index = 0; Index < Fields.Count; Index++)
+        {
+            int ColumnIndex = Index / MaxControlsPerColumn;
+            if (ColumnIndex >= ColumnCount)
+                ColumnIndex = ColumnCount - 1;
+            Result[ColumnIndex].Add(Fields[Index]);
+        }
+        return Result;
+    }
+    static string FieldRowHtml(WebFormDef Form, TableDef Table, FieldDef Field)
+    {
+        string RowClass = Field.IsBoolean ? "tp-CheckBoxRow" : "tp-CtrlRow";
+        Dictionary<string, object> Control = new()
+        {
+            ["TypeName"] = ControlTypeName(Field),
+            ["DataField"] = Field.Name,
+            ["Required"] = Field.IsRequired,
+            ["ReadOnly"] = Form.IsReadOnly || Field.IsReadOnly || Field.IsReadOnlyUI,
+            ["TableName"] = Table.Name
+        };
+        if (Field.MaxLength > 0)
+            Control["MaxLength"] = Field.MaxLength;
+        if (Field.Decimals >= 0)
+            Control["Decimals"] = Field.Decimals;
+        if (Field.IsLocator)
+        {
+            Control["LocatorName"] = Field.Locator;
+            Control["ModuleName"] = Form.Module;
+            Control["ReferenceField"] = Field.Name;
+        }
+        if (Field.IsLookup)
+        {
+            Control["ListOnly"] = true;
+            Control["ListSourceName"] = Field.LookupSource;
+            Control["ListValueField"] = "Id";
+            Control["ListDisplayField"] = "Name";
+        }
+        Dictionary<string, object> Setup = new()
+        {
+            ["Text"] = Field.Title,
+            ["Control"] = Control
+        };
+        return
+            $"<div class=\"{RowClass}\" data-wdf-role=\"field-row\" data-wdf-table=\"{Attr(Table.Name)}\" data-wdf-field=\"{Attr(Field.Name)}\" data-wdf-readonly-edit=\"{Attr(Field.IsReadOnlyEdit ? "true" : "false")}\" data-setup='{DataSetup(Setup)}'></div>";
+    }
+    static string FieldGroupsHtml(WebFormDef Form, TableDef Table)
+    {
+        List<FieldDef> Fields = RenderFields(Table);
+        List<string> Groups = GroupNames(Table, Fields);
+        StringBuilder SB = new();
+        SB.Append("<div class=\"tp-Accordion tp-WebItemPage-FieldGroups\" data-wdf-role=\"field-groups\">");
+        foreach (string GroupName in Groups)
+        {
+            List<FieldDef> GroupFields = Fields.Where(Field => Field.Group.IsSameText(GroupName)).ToList();
+            if (GroupFields.Count == 0)
+                continue;
+            string Expanded = GroupName.IsSameText(Sys.GENERAL) ? "true" : "false";
+            SB.Append($"<div data-wdf-expanded=\"{Expanded}\">");
+            SB.Append($"<div>{HtmlText(GroupName)}</div>");
+            SB.Append("<div><div class=\"tp-WebItemPage-ColumnRoot\">");
+            foreach (List<FieldDef> VisualColumn in SplitFields(GroupFields))
+            {
+                SB.Append("<div class=\"tp-WebItemPage-VisualColumn\">");
+                foreach (FieldDef Field in VisualColumn)
+                    SB.Append(FieldRowHtml(Form, Table, Field));
+                SB.Append("</div>");
+            }
+            SB.Append("</div></div>");
+            SB.Append("</div>");
+        }
+        SB.Append("</div>");
+        return SB.ToString();
+    }
+    static List<TableDef> ChildDetails(ModuleDef Module, TableDef Table)
+    {
+        List<TableDef> Result = Table != null ? Table.Details.Where(Detail => Detail.IsUiVisible).ToList() : new();
+        if (Module != null && Table != null && Result.Count > 1 && Module.DetailOrder.TryGetValue(Table.Name, out List<string> Order))
+        {
+            Dictionary<string, int> Map = new(StringComparer.OrdinalIgnoreCase);
+            for (int Index = 0; Index < Order.Count; Index++)
+                if (!string.IsNullOrWhiteSpace(Order[Index]) && !Map.ContainsKey(Order[Index]))
+                    Map[Order[Index]] = Index;
+            Result = Result
+                .Select((Detail, Index) => new { Detail, Index, Order = Map.TryGetValue(Detail.Name, out int Value) ? Value : int.MaxValue })
+                .OrderBy(Item => Item.Order)
+                .ThenBy(Item => Item.Index)
+                .Select(Item => Item.Detail)
+                .ToList();
+        }
+        return Result;
+    }
+    static string DetailGridHtml(TableDef Detail)
+    {
+        return $"<div class=\"tp-WebItemPage-DetailGrid\" data-wdf-role=\"detail-grid\" data-wdf-table=\"{Attr(Detail.Name)}\"></div>";
+    }
+    static string DetailBranchHtml(WebFormDef Form, ModuleDef Module, TableDef Detail, bool ApplyMinimumHeight = true)
+    {
+        List<TableDef> Children = ChildDetails(Module, Detail);
+        if (Children.Count == 0)
+            return DetailGridHtml(Detail);
+        StringBuilder SB = new();
+        string ClassName = ApplyMinimumHeight ? "tp-WebItemPage-DetailBranch tp-WebItemPage-DetailBranchMin" : "tp-WebItemPage-DetailBranch";
+        SB.Append($"<div class=\"{ClassName}\">");
+        SB.Append("<div class=\"tp-WebItemPage-DetailPanel\">");
+        SB.Append(DetailGridHtml(Detail));
+        SB.Append("</div>");
+        SB.Append("<div class=\"tp-Splitter\" data-wdf-role=\"detail-splitter\"></div>");
+        SB.Append("<div class=\"tp-WebItemPage-DetailPanel\">");
+        if (Children.Count == 1)
+        {
+            SB.Append("<div class=\"tp-WebItemPage-SingleChildDetail\">");
+            SB.Append($"<div class=\"tp-WebItemPage-ChildDetailTitle\">{HtmlText(TitleOf(Children[0]))}</div>");
+            SB.Append("<div class=\"tp-WebItemPage-ChildDetailContent\">");
+            SB.Append(DetailBranchHtml(Form, Module, Children[0], false));
+            SB.Append("</div></div>");
+        }
+        else
+            SB.Append(DetailTabsHtml(Form, Module, Children, false));
+        SB.Append("</div></div>");
+        return SB.ToString();
+    }
+    static string DetailTabsHtml(WebFormDef Form, ModuleDef Module, List<TableDef> Details, bool ApplyMinimumHeight = true)
+    {
+        StringBuilder SB = new();
+        string ClassName = ApplyMinimumHeight ? "tp-TabControl tp-WebItemPage-DetailTabs" : "tp-TabControl tp-WebItemPage-ChildDetailTabs";
+        SB.Append($"<div class=\"{ClassName}\" data-wdf-role=\"detail-tabs\"><div>");
+        foreach (TableDef Detail in Details)
+            SB.Append($"<div>{HtmlText(TitleOf(Detail))}</div>");
+        SB.Append("</div><div>");
+        foreach (TableDef Detail in Details)
+        {
+            SB.Append("<div>");
+            SB.Append(DetailBranchHtml(Form, Module, Detail, ApplyMinimumHeight));
+            SB.Append("</div>");
+        }
+        SB.Append("</div></div>");
+        return SB.ToString();
+    }
+    static string TopPageHtml(WebFormDef Form, ModuleDef Module, TableDef TopTable)
+    {
+        StringBuilder SB = new();
+        SB.Append("<div class=\"tp-WebItemPage-TopPage\">");
+        SB.Append(FieldGroupsHtml(Form, TopTable));
+        List<TableDef> Details = ChildDetails(Module, TopTable);
+        if (Details.Count > 0)
+            SB.Append(DetailTabsHtml(Form, Module, Details));
+        SB.Append("</div>");
+        return SB.ToString();
+    }
+    static string ItemPageHtml(WebFormDef Form)
+    {
+        ModuleDef Module = DataRegistry.Modules.Find(Form.Module);
+        TableDef TopTable = Module != null ? Module.Table : null;
+        if (Module == null || TopTable == null)
+            return $"<div class=\"tp-WebItemPage\" data-module=\"{Attr(Form.Module)}\"></div>";
+        List<TableDef> Details = ChildDetails(Module, TopTable);
+        StringBuilder SB = new();
+        SB.Append($"<div class=\"tp-WebItemPage\" data-module=\"{Attr(Form.Module)}\" data-wdf-server-item-page=\"true\">");
+        if (Details.Count > 0)
+        {
+            SB.Append("<div class=\"tp-TabControl tp-WebItemPage-RootTabs\" data-wdf-role=\"root-tabs\"><div>");
+            SB.Append($"<div>{HtmlText(TitleOf(TopTable))}</div>");
+            SB.Append("</div><div><div>");
+            SB.Append(TopPageHtml(Form, Module, TopTable));
+            SB.Append("</div></div></div>");
+        }
+        else
+            SB.Append(TopPageHtml(Form, Module, TopTable));
+        SB.Append("</div>");
+        return SB.ToString();
+    }
+}
+@Html.Raw(ItemPageHtml(Model))

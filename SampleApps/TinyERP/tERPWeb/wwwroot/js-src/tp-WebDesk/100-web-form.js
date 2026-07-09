@@ -382,10 +382,18 @@ tp.WebForm = class extends tp.Component {
      * @returns {void}
      */
     Start() {
-        this.StartAsync().catch(function (e) {
-            if (tp.LogBox)
-                tp.LogBox.AppendLine("WebForm start failed: " + tp.ExceptionText(e));
-        });
+        var ShowSpinner = tp.IsFunction(tp.ShowSpinner);
+        if (ShowSpinner)
+            tp.ShowSpinner(true);
+        this.StartAsync()
+            .catch(function (e) {
+                if (tp.LogBox)
+                    tp.LogBox.AppendLine("WebForm start failed: " + tp.ExceptionText(e));
+            })
+            .finally(function () {
+                if (ShowSpinner)
+                    tp.ShowSpinner(false);
+            });
     }
     /**
      * Loads form data without throwing.

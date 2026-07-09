@@ -21,6 +21,7 @@ public class FormDef: BaseDef
     bool fIsReadOnly;
     string fGroup;
     UserLevel fSecurityLevel;
+    DefList<ItemFactBoxDef> fFactBoxes;
 
     // ● private methods
     bool IsAllowed(UserLevel UserLevel)
@@ -144,5 +145,16 @@ public class FormDef: BaseDef
     {
         get => fSecurityLevel;
         set { if (fSecurityLevel != value) { fSecurityLevel = value; NotifyPropertyChanged(nameof(SecurityLevel)); } }
+    }
+    /// <summary>
+    /// The FactBoxes displayed by the item page of this form.
+    /// </summary>
+    public DefList<ItemFactBoxDef> FactBoxes
+    {
+        get
+        {
+            fFactBoxes ??= new();
+            return fFactBoxes;
+        }
     }
 }

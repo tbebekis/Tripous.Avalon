@@ -75,6 +75,10 @@ public partial class DataForm : AppForm
     /// </summary>
     protected Border sepHome;
     /// <summary>
+    /// The menu item that toggles the FactBox pane.
+    /// </summary>
+    protected MenuItem mnuToggleFactBoxPane;
+    /// <summary>
     /// The List toolbar button.
     /// </summary>
     protected Button btnList;
@@ -433,6 +437,14 @@ public partial class DataForm : AppForm
     /// Executes the Toggle Ids action.
     /// </summary>
     protected virtual void ExecuteToggleIds() => IdColumnsVisible = !IdColumnsVisible;
+    /// <summary>
+    /// Toggles the FactBox pane.
+    /// </summary>
+    protected virtual void ExecuteToggleFactBoxPane()
+    {
+        ItemPage?.ToggleFactBoxPane();
+        UpdateHomeMenuItems();
+    }
     /// <summary>
     /// Returns a text describing the current item for logging purposes.
     /// </summary>
@@ -796,7 +808,7 @@ public partial class DataForm : AppForm
             ToolBar = new();
             ToolBar.Panel = pnlToolBar;
 
-            btnHome = ToolBar.AddButton("application_home.png", "Home", async () => await Execute(DataFormAction.Home));
+            btnHome = ToolBar.AddDropDownButton("application_home.png", "Home", CreateHomeMenu(), HomeMenu_Opening);
             sepHome  = ToolBar.AddSeparator();
                 
             btnList = ToolBar.AddButton("table.png", "List (F5)", async () => await Execute(DataFormAction.List));
@@ -825,6 +837,41 @@ public partial class DataForm : AppForm
 
         return false;
     }
+    /// <summary>
+    /// Creates the Home button context menu.
+    /// </summary>
+    /// <returns>The created menu or null.</returns>
+    protected virtual ContextMenu CreateHomeMenu()
+    {
+        if (!HasVisibleFactBoxes())
+            return null;
+
+        ContextMenu Result = new();
+        mnuToggleFactBoxPane = Result.Items.AddCheckBoxMenuItem("Show FactBox", false, ExecuteToggleFactBoxPane);
+        return Result;
+    }
+    /// <summary>
+    /// Handles the Home menu opening event.
+    /// </summary>
+    /// <param name="Sender">The event sender.</param>
+    /// <param name="Args">The event arguments.</param>
+    protected virtual void HomeMenu_Opening(object Sender, CancelEventArgs Args)
+    {
+        UpdateHomeMenuItems();
+    }
+    /// <summary>
+    /// Updates the Home menu item states.
+    /// </summary>
+    protected virtual void UpdateHomeMenuItems()
+    {
+        if (mnuToggleFactBoxPane != null)
+            mnuToggleFactBoxPane.IsChecked = ItemPage != null && ItemPage.FactBoxPaneVisible;
+    }
+    /// <summary>
+    /// Returns true when the form can display a FactBox pane.
+    /// </summary>
+    /// <returns>True when a FactBox pane can be displayed.</returns>
+    protected virtual bool HasVisibleFactBoxes() => ModuleDef != null && FormDef != null;
     /// <summary>
     /// Creates the select list toolbar.
     /// </summary>

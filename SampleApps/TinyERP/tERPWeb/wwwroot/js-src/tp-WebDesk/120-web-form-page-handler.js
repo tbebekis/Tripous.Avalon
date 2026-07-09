@@ -154,6 +154,7 @@ tp.WebFormPageHandler = class {
         var Form;
         var Component;
         var Context;
+        var ShowSpinner = tp.IsFunction(tp.ShowSpinner);
         if (!TabControl || tp.IsBlankString(WebFormName))
             return null;
         Page = this.FindPage(WebFormName);
@@ -165,24 +166,31 @@ tp.WebFormPageHandler = class {
                 Page.AppComponent.Refresh();
             return Page;
         }
-        Packet = await this.GetWebFormPacketAsync(WebFormName);
-        Form = Packet ? Packet.Form : null;
-        if (!Form)
-            throw new Error("WebForm not returned: " + WebFormName);
-        Page = TabControl.AddPage(!tp.IsBlankString(Form.Title) ? Form.Title : Form.Name);
-        Page.AppPageName = Form.Name;
-        Page.AppPageHandler = this;
-        Page.Handle.innerHTML = Form.Html || "";
-        Context = this.CreateFormContext(Page, Form, Packet);
-        Page.AppContext = Context;
-        Component = await this.CreateFormComponent(Page, Context);
-        Component.On("CloseRequested", this.HandleFormCloseRequested, this);
-        Page.AppComponent = Component;
-        if (Component instanceof tp.WebForm)
-            Component.LoadData();
-        else if (Component && tp.IsFunction(Component.Refresh))
-            Component.Refresh();
-        return Page;
+        if (ShowSpinner)
+            tp.ShowSpinner(true);
+        try {
+            Packet = await this.GetWebFormPacketAsync(WebFormName);
+            Form = Packet ? Packet.Form : null;
+            if (!Form)
+                throw new Error("WebForm not returned: " + WebFormName);
+            Page = TabControl.AddPage(!tp.IsBlankString(Form.Title) ? Form.Title : Form.Name);
+            Page.AppPageName = Form.Name;
+            Page.AppPageHandler = this;
+            Page.Handle.innerHTML = Form.Html || "";
+            Context = this.CreateFormContext(Page, Form, Packet);
+            Page.AppContext = Context;
+            Component = await this.CreateFormComponent(Page, Context);
+            Component.On("CloseRequested", this.HandleFormCloseRequested, this);
+            Page.AppComponent = Component;
+            if (Component instanceof tp.WebForm)
+                Component.LoadData();
+            else if (Component && tp.IsFunction(Component.Refresh))
+                Component.Refresh();
+            return Page;
+        } finally {
+            if (ShowSpinner)
+                tp.ShowSpinner(false);
+        }
     }
     /**
      * Opens a web form page and logs failures without throwing.
