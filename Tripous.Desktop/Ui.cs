@@ -186,7 +186,7 @@ static public partial class Ui
         foreach (object Item in Control.Items)
         {
             // ● Get the visual container for the data item
-            TreeViewItem Container = Control.ContainerFromItem(Item) as TreeViewItem;
+            TreeViewItem Container = Item as TreeViewItem ?? Control.ContainerFromItem(Item) as TreeViewItem;
 
             if (Container != null)
             {

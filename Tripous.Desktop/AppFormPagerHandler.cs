@@ -13,6 +13,36 @@ namespace Tripous.Desktop;
 /// </summary>
 public class AppFormPagerHandler
 {
+    // ● private fields
+    /// <summary>
+    /// The tab page currently being dragged.
+    /// </summary>
+    TabItem fDraggedTabPage;
+    /// <summary>
+    /// The tab drag start position.
+    /// </summary>
+    Point fDragStartPoint;
+    /// <summary>
+    /// True while the user is dragging a tab page.
+    /// </summary>
+    bool fIsDraggingTabPage;
+    /// <summary>
+    /// The original opacity of the dragged tab page.
+    /// </summary>
+    double fDraggedTabPageOpacity = 1;
+    /// <summary>
+    /// The tab page currently marked as drop target.
+    /// </summary>
+    TabItem fDropTargetTabPage;
+    /// <summary>
+    /// The target insertion index during a tab drag operation.
+    /// </summary>
+    int fDropTargetIndex = -1;
+    /// <summary>
+    /// The popup used as a tab drop marker.
+    /// </summary>
+    Popup fTabDropMarker;
+
     // ● private
     /// <summary>
     /// Returns the form assigned to a tab item.
@@ -24,22 +54,247 @@ public class AppFormPagerHandler
         return (TabPage.Tag is AppForm)? TabPage.Tag as AppForm : null;
     }
     /// <summary>
-    /// Handles middle-click close requests on tab items.
+    /// Returns true if a pointer move should start a tab reorder operation.
+    /// </summary>
+    /// <param name="CurrentPoint">The current pointer point.</param>
+    /// <returns>True if a tab reorder operation should start; otherwise false.</returns>
+    bool ShouldStartTabDrag(Point CurrentPoint)
+    {
+        const double DragThreshold = 6;
+        return Math.Abs(CurrentPoint.X - fDragStartPoint.X) > DragThreshold
+            || Math.Abs(CurrentPoint.Y - fDragStartPoint.Y) > DragThreshold;
+    }
+    /// <summary>
+    /// Returns the tab item at a pointer position.
+    /// </summary>
+    /// <param name="Point">The pointer position relative to the pager.</param>
+    /// <returns>The tab item, if any; otherwise null.</returns>
+    TabItem GetTabItemAt(Point Point)
+    {
+        foreach (object Item in Pager.Items)
+        {
+            TabItem TabPage = Item as TabItem;
+            if (TabPage == null)
+                continue;
+
+            Point? TabPoint = Pager.TranslatePoint(Point, TabPage);
+            if (TabPoint != null && new Rect(TabPage.Bounds.Size).Contains(TabPoint.Value))
+                return TabPage;
+        }
+
+        return null;
+    }
+    /// <summary>
+    /// Moves the dragged tab page to an insertion index.
+    /// </summary>
+    /// <param name="TargetIndex">The target insertion index.</param>
+    void MoveDraggedTabPage(int TargetIndex)
+    {
+        if (fDraggedTabPage == null || TargetIndex < 0)
+            return;
+
+        int SourceIndex = Pager.Items.IndexOf(fDraggedTabPage);
+        if (SourceIndex < 0)
+            return;
+
+        if (SourceIndex < TargetIndex)
+            TargetIndex--;
+
+        if (SourceIndex == TargetIndex)
+            return;
+
+        Pager.Items.RemoveAt(SourceIndex);
+        TargetIndex = Math.Max(0, Math.Min(TargetIndex, Pager.Items.Count));
+        Pager.Items.Insert(TargetIndex, fDraggedTabPage);
+        Pager.SelectedItem = fDraggedTabPage;
+    }
+    /// <summary>
+    /// Creates the tab drop marker.
+    /// </summary>
+    void CreateTabDropMarker()
+    {
+        if (fTabDropMarker != null)
+            return;
+
+        Border Marker = new Border
+        {
+            Width = 3,
+            Background = Brushes.DodgerBlue,
+            CornerRadius = new CornerRadius(2),
+            IsHitTestVisible = false
+        };
+
+        fTabDropMarker = new Popup
+        {
+            PlacementTarget = Pager,
+            Placement = PlacementMode.AnchorAndGravity,
+            PlacementAnchor = PopupAnchor.TopLeft,
+            PlacementGravity = PopupGravity.BottomRight,
+            PlacementConstraintAdjustment = PopupPositionerConstraintAdjustment.SlideX | PopupPositionerConstraintAdjustment.SlideY,
+            Child = Marker,
+            IsLightDismissEnabled = false
+        };
+    }
+    /// <summary>
+    /// Shows the tab drop marker at an insertion point.
+    /// </summary>
+    /// <param name="TargetTabPage">The target tab page.</param>
+    /// <param name="PointerPoint">The pointer point relative to the pager.</param>
+    void ShowTabDropMarker(TabItem TargetTabPage, Point PointerPoint)
+    {
+        if (TargetTabPage == null)
+        {
+            HideTabDropMarker();
+            return;
+        }
+
+        CreateTabDropMarker();
+
+        Point? Point = TargetTabPage.TranslatePoint(new Point(0, 0), Pager);
+        if (Point == null)
+            return;
+
+        bool InsertAfter = PointerPoint.X > Point.Value.X + TargetTabPage.Bounds.Width / 2;
+        int TargetIndex = Pager.Items.IndexOf(TargetTabPage);
+        if (TargetIndex < 0)
+        {
+            HideTabDropMarker();
+            return;
+        }
+
+        if (InsertAfter)
+            TargetIndex++;
+
+        double MarkerX = (InsertAfter ? Point.Value.X + TargetTabPage.Bounds.Width : Point.Value.X) - 2;
+        double MarkerY = Point.Value.Y;
+        double MarkerHeight = Math.Max(18, TargetTabPage.Bounds.Height);
+
+        fDropTargetTabPage = TargetTabPage;
+        fDropTargetIndex = TargetIndex;
+        if (fTabDropMarker.Child is Border Marker)
+            Marker.Height = MarkerHeight;
+
+        fTabDropMarker.PlacementRect = new Rect(MarkerX, MarkerY, 3, MarkerHeight);
+        fTabDropMarker.IsOpen = true;
+    }
+    /// <summary>
+    /// Hides the tab drop marker.
+    /// </summary>
+    void HideTabDropMarker()
+    {
+        fDropTargetTabPage = null;
+        fDropTargetIndex = -1;
+
+        if (fTabDropMarker != null)
+            fTabDropMarker.IsOpen = false;
+    }
+    /// <summary>
+    /// Starts the current tab drag operation.
+    /// </summary>
+    /// <param name="Pointer">The pointer to capture.</param>
+    void StartTabDrag(IPointer Pointer)
+    {
+        if (fDraggedTabPage == null)
+            return;
+
+        fIsDraggingTabPage = true;
+        fDraggedTabPageOpacity = fDraggedTabPage.Opacity;
+        fDraggedTabPage.Opacity = 0.65;
+        Pointer?.Capture(Pager);
+    }
+    /// <summary>
+    /// Clears the current tab drag operation.
+    /// </summary>
+    /// <param name="Pointer">The pointer to release.</param>
+    void ClearTabDrag(IPointer Pointer)
+    {
+        Pointer?.Capture(null);
+
+        if (fDraggedTabPage != null)
+            fDraggedTabPage.Opacity = fDraggedTabPageOpacity;
+
+        HideTabDropMarker();
+        fDraggedTabPage = null;
+        fIsDraggingTabPage = false;
+        fDraggedTabPageOpacity = 1;
+        fDragStartPoint = default;
+    }
+    /// <summary>
+    /// Wires pager pointer handlers.
+    /// </summary>
+    void WirePager()
+    {
+        Pager.AddHandler(InputElement.PointerPressedEvent, Pager_PointerPressed, RoutingStrategies.Tunnel | RoutingStrategies.Bubble, handledEventsToo: true);
+        Pager.AddHandler(InputElement.PointerMovedEvent, Pager_PointerMoved, RoutingStrategies.Tunnel | RoutingStrategies.Bubble, handledEventsToo: true);
+        Pager.AddHandler(InputElement.PointerReleasedEvent, Pager_PointerReleased, RoutingStrategies.Tunnel | RoutingStrategies.Bubble, handledEventsToo: true);
+    }
+    /// <summary>
+    /// Handles pointer press events on the pager.
     /// </summary>
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The pointer event arguments.</param>
-    void TabItem_PointerPressed(object sender, PointerPressedEventArgs e)
+    void Pager_PointerPressed(object sender, PointerPressedEventArgs e)
     {
+        TabItem TabPage = GetTabItemAt(e.GetPosition(Pager));
+        if (TabPage == null)
+            return;
+
         if (e.GetCurrentPoint(null).Properties.PointerUpdateKind == PointerUpdateKind.MiddleButtonPressed)
         {
-            if (sender is TabItem tabItem)
+            AppForm Form = GetForm(TabPage);
+            if ((Form != null) && Form.ClosableByUser)
             {
-                AppForm Form = GetForm(tabItem);
-                if ((Form != null) && Form.ClosableByUser)
-                {
-                    Form.CloseForm();
-                }
+                Form.CloseForm();
+                e.Handled = true;
             }
+        }
+        else if (CanUserReorderTabs && e.GetCurrentPoint(null).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
+        {
+            fDraggedTabPage = TabPage;
+            fDragStartPoint = e.GetPosition(Pager);
+            fIsDraggingTabPage = false;
+        }
+    }
+    /// <summary>
+    /// Handles pointer move events on the pager.
+    /// </summary>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The pointer event arguments.</param>
+    void Pager_PointerMoved(object sender, PointerEventArgs e)
+    {
+        if (!CanUserReorderTabs || fDraggedTabPage == null)
+            return;
+
+        if (!e.GetCurrentPoint(null).Properties.IsLeftButtonPressed)
+        {
+            ClearTabDrag(fIsDraggingTabPage ? e.Pointer : null);
+            return;
+        }
+
+        Point Point = e.GetPosition(Pager);
+        if (!fIsDraggingTabPage)
+        {
+            if (!ShouldStartTabDrag(Point))
+                return;
+
+            StartTabDrag(e.Pointer);
+        }
+
+        ShowTabDropMarker(GetTabItemAt(Point), Point);
+    }
+    /// <summary>
+    /// Handles pointer release events on the pager.
+    /// </summary>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The pointer event arguments.</param>
+    void Pager_PointerReleased(object sender, PointerReleasedEventArgs e)
+    {
+        if (fDraggedTabPage != null || fIsDraggingTabPage)
+        {
+            if (fIsDraggingTabPage && fDropTargetTabPage != null)
+                MoveDraggedTabPage(fDropTargetIndex);
+
+            ClearTabDrag(fIsDraggingTabPage ? e.Pointer : null);
         }
     }
     
@@ -51,6 +306,7 @@ public class AppFormPagerHandler
     public AppFormPagerHandler(TabControl Pager)
     {
         this.Pager = Pager;
+        WirePager();
     }
     
     // ● public
@@ -117,7 +373,6 @@ public class AppFormPagerHandler
             
             TabItem TabPage = new TabItem();
             TabPage.Tag = Form;
-            TabPage.PointerPressed += TabItem_PointerPressed;
             Pager.Items.Add(TabPage);
             
             Context.ParentControl = TabPage;
@@ -157,4 +412,8 @@ public class AppFormPagerHandler
     /// Gets the tab control handled by this instance.
     /// </summary>
     public TabControl Pager { get; private set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether the user can reorder tabs by dragging them.
+    /// </summary>
+    public bool CanUserReorderTabs { get; set; }
 }

@@ -51,6 +51,7 @@ global using AvaloniaEdit;
 global using AvaloniaEdit.Highlighting;
 global using Avalonia.Controls;
 global using Avalonia.Controls.Primitives;
+global using Avalonia.Controls.Primitives.PopupPositioning;
 global using Avalonia.Controls.Templates;
 global using Avalonia.Controls.ApplicationLifetimes;
 global using Avalonia.Data.Converters;

@@ -5,11 +5,12 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Tripous.Desktop.InputBox"
         Title="Input a Value"
-        Width="500" 
+        Width="460"
+        Height="180"
         MinWidth="450"
+        MinHeight="170"
         MaxWidth="800"
         MaxHeight="1000"
-        SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
         CanResize="False">
         
@@ -27,6 +28,7 @@
                                        Foreground="Gray"/>
                                 <TextBox Name="edtValue" 
                                          PlaceholderText="Enter value here..."
+                                         MinWidth="390"
                                          VerticalAlignment="Center"/>
                         </StackPanel>
                 </ScrollViewer>

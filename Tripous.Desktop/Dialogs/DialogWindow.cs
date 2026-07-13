@@ -47,7 +47,9 @@ public class DialogWindow: Window
     /// Initializes a new instance of the <see cref="DialogWindow"/> class.
     /// </summary>
     public DialogWindow()
-    {        
+    {
+        CanMinimize = false;
+
         this.Loaded += async (s, e) =>
         {
             if (IsWindowInitialized)
