@@ -98,6 +98,7 @@ tp.DropDownBox = class extends tp.Component {
         super.InitializeFields();
         this.fWindowScrollHandler = this.FuncBind(this.Window_Scroll);
         this.fDocumentClickHandler = this.FuncBind(this.Document_Click);
+        this.fDocumentKeyDownHandler = this.FuncBind(this.Document_KeyDown);
     }
     /**
      * Notification called after handle creation.
@@ -240,6 +241,17 @@ tp.DropDownBox = class extends tp.Component {
         }
     }
     /**
+     * Handles document keydown events.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    Document_KeyDown(e) {
+        if (this.IsOpen && tp.IsKey(e, tp.Keys.Escape)) {
+            tp.CancelEvent(e, true);
+            this.Close();
+        }
+    }
+    /**
      * Updates the z-index to place this box above existing body children.
      * @returns {void}
      */
@@ -296,6 +308,7 @@ tp.DropDownBox = class extends tp.Component {
             setTimeout(function (Self) {
                 window.addEventListener("scroll", Self.fWindowScrollHandler);
                 Self.Document.addEventListener("click", Self.fDocumentClickHandler, true);
+                Self.Document.addEventListener("keydown", Self.fDocumentKeyDownHandler, true);
             }, 0, this);
         }
     }
@@ -315,6 +328,11 @@ tp.DropDownBox = class extends tp.Component {
             }
             try {
                 this.Document.removeEventListener("click", this.fDocumentClickHandler, true);
+            } catch (e) {
+                //
+            }
+            try {
+                this.Document.removeEventListener("keydown", this.fDocumentKeyDownHandler, true);
             } catch (e) {
                 //
             }
@@ -377,6 +395,7 @@ tp.DropDownBox = class extends tp.Component {
         }
         this.fWindowScrollHandler = null;
         this.fDocumentClickHandler = null;
+        this.fDocumentKeyDownHandler = null;
         super.Dispose();
     }
 

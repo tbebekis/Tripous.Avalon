@@ -1407,6 +1407,89 @@ where
             fCalculationLevel--;
         }
     }
+    /// <summary>
+    /// Applies server-side side effects for a web JSON calculation field change.
+    /// </summary>
+    protected virtual void ApplyJsonCalculateFieldChange(string TableName, string FieldName)
+    {
+        if (string.IsNullOrWhiteSpace(TableName) || string.IsNullOrWhiteSpace(FieldName))
+            return;
+
+        MemTable Table = FindTable(TableName);
+        if (Table == null || !Table.ContainsColumn(FieldName) || Table.Rows.Count == 0)
+            return;
+
+        DataRow Row = Table == tblItem && CurrentRow != null
+            ? CurrentRow
+            : Table.Rows.Cast<DataRow>().FirstOrDefault(item => item.RowState != DataRowState.Deleted);
+
+        if (Row == null || fCalculationLevel > 0 || IsTransforming || IsCopyingPersonAddresses || !State.In(DataMode.Insert | DataMode.Edit))
+            return;
+
+        bool IsLineField = FieldName.IsSameText("Quantity")
+                           || FieldName.IsSameText("UnitOfMeasureId")
+                           || FieldName.IsSameText("UnitRatio")
+                           || FieldName.IsSameText("UnitPrice")
+                           || FieldName.IsSameText("DiscountPercent")
+                           || FieldName.IsSameText("DiscountAmount")
+                           || FieldName.IsSameText("ProductId")
+                           || FieldName.IsSameText("TaxProductGroupId");
+        bool IsPriceLineField = FieldName.IsSameText("ProductId")
+                                || FieldName.IsSameText("TaxProductGroupId")
+                                || FieldName.IsSameText("UnitOfMeasureId")
+                                || FieldName.IsSameText("Quantity");
+        bool IsHeaderField = FieldName.IsSameText("DiscountPercent")
+                             || FieldName.IsSameText("DiscountAmount")
+                             || FieldName.IsSameText("ChargesAmount");
+        bool IsTaxHeaderField = FieldName.IsSameText("PersonId")
+                                || FieldName.IsSameText("TaxBusinessGroupId")
+                                || FieldName.IsSameText("TradeDate")
+                                || FieldName.IsSameText("TradeTypeId")
+                                || FieldName.IsSameText("BranchId")
+                                || FieldName.IsSameText("OriginTaxJurisdictionId")
+                                || FieldName.IsSameText("DestinationTaxJurisdictionId")
+                                || FieldName.StartsWith("Billing", StringComparison.OrdinalIgnoreCase)
+                                || FieldName.StartsWith("Shipping", StringComparison.OrdinalIgnoreCase);
+        bool IsPriceHeaderField = FieldName.IsSameText("PersonId")
+                                  || FieldName.IsSameText("TradeDate")
+                                  || FieldName.IsSameText("TradeTypeId")
+                                  || FieldName.IsSameText("PriceListTypeId")
+                                  || FieldName.IsSameText("CurrencyId");
+
+        fCalculationLevel++;
+        try
+        {
+            if (Table == tblItem && FieldName.IsSameText("PersonId"))
+                Row.SetValue("TaxBusinessGroupId", LoadTaxBusinessGroupId(Row.AsString("PersonId")));
+            if (Table == tblItem && FieldName.IsSameText("BranchId"))
+                Row.SetValue("OriginTaxJurisdictionId", DBNull.Value);
+            if (Table == tblItem && (FieldName.StartsWith("Billing", StringComparison.OrdinalIgnoreCase)
+                                     || FieldName.StartsWith("Shipping", StringComparison.OrdinalIgnoreCase)))
+                Row.SetValue("DestinationTaxJurisdictionId", DBNull.Value);
+
+            if (IsTradeLineTable(Table) && IsLineField)
+            {
+                if (IsPriceLineField)
+                    ResolveLinePrice(Row);
+                Calculate(Row, FieldName, "DiscountPercent");
+            }
+            else if (Table == tblItem && IsHeaderField)
+            {
+                Calculate(null, "DiscountPercent", FieldName);
+            }
+            else if (Table == tblItem && (IsTaxHeaderField || IsPriceHeaderField))
+            {
+                if (IsPriceHeaderField)
+                    ResolvePrices();
+
+                Calculate(null, "DiscountPercent", "DiscountPercent");
+            }
+        }
+        finally
+        {
+            fCalculationLevel--;
+        }
+    }
     protected override void TableSet_TransactionStageCommit(object sender, TransactionEventArgs e)
     {
         base.TableSet_TransactionStageCommit(sender, e);
@@ -1423,6 +1506,37 @@ where
     }
 
     // ● public
+    /// <summary>
+    /// Applies a JSON contract object, recalculates commercial values, and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonCalculate(JsonDataModule Source)
+    {
+        return JsonCalculate(Source, string.Empty, string.Empty);
+    }
+    /// <summary>
+    /// Applies a JSON contract object, applies the specified field change, recalculates commercial values, and returns this data module as a JSON contract object.
+    /// </summary>
+    public virtual JsonDataModule JsonCalculate(JsonDataModule Source, string TableName, string FieldName)
+    {
+        if (Source == null)
+            throw new TripousArgumentNullException(nameof(Source));
+
+        State = (DataMode)Source.State;
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
+        ApplyJsonCalculateFieldChange(TableName, FieldName);
+        ResolvePrices();
+        Calculate();
+
+        return new JsonDataModule(this);
+    }
     public override void CheckCanCommit(bool Reselect)
     {
         base.CheckCanCommit(Reselect);
@@ -1442,6 +1556,7 @@ where
                 Table.RowDeleted += TradeLine_RowDeleted;
         }
     }
+
     /// <summary>
     /// Returns true when the persisted document has at least one line with remaining transformable quantity.
     /// </summary>

@@ -1,0 +1,561 @@
+/**
+ * TinyERP Web application namespace.
+ * @type {object}
+ */
+var app = app || {};
+
+// ● document item page builder
+/**
+ * Builds item pages for document forms and applies document-specific detail row defaults.
+ */
+app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
+    // ● constructor
+    /**
+     * Creates the document item page builder.
+     * @param {tp.WebDataForm} Form The owner data form.
+     */
+    constructor(Form) {
+        super(Form);
+    }
+
+    // ● protected
+    /**
+     * Returns true when the table is a trade line table.
+     * @param {tp.DataTable} Table The table to check.
+     * @returns {boolean} Returns true when the table is a trade line table.
+     */
+    IsTradeLineTable(Table) {
+        return Table instanceof tp.DataTable && tp.IsSameText(Table.Name, "TradeLine");
+    }
+    /**
+     * Applies the next display order to a new detail row.
+     * @param {tp.DataTable} Table The detail table.
+     * @param {tp.DataRow} Row The detail row.
+     * @returns {void}
+     */
+    ApplyDisplayOrderDefault(Table, Row) {
+        var Index;
+        var MaxDisplayOrder = 0;
+        var Value;
+        if (!(Table instanceof tp.DataTable) || !(Row instanceof tp.DataRow))
+            return;
+        if (Table.IndexOfColumn("DisplayOrder") < 0 || !tp.IsEmpty(Row.Get("DisplayOrder")))
+            return;
+        for (Index = 0; Index < Table.Rows.length; Index++) {
+            if (Table.Rows[Index] !== Row && Table.Rows[Index].State !== tp.DataRowState.Deleted) {
+                Value = tp.StrToInt(Table.Rows[Index].Get("DisplayOrder"), 0);
+                if (Value > MaxDisplayOrder)
+                    MaxDisplayOrder = Value;
+            }
+        }
+        Row.Set("DisplayOrder", MaxDisplayOrder + 10);
+    }
+    /**
+     * Applies document-specific defaults to a newly created detail row.
+     * @param {tp.DataTable} Table The detail table.
+     * @param {tp.DataRow} Row The detail row.
+     * @returns {void}
+     */
+    ApplyDetailRowDefaults(Table, Row) {
+        this.ApplyDisplayOrderDefault(Table, Row);
+    }
+    /**
+     * Returns the field names to display in a document detail grid.
+     * @param {tp.DataTable} Table The detail table.
+     * @returns {string[]|null} Returns field names or null to use the default columns.
+     */
+    GetDetailGridFieldNames(Table) {
+        return null;
+    }
+    /**
+     * Applies form context to locator columns after table metadata has been bound.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {void}
+     */
+    ApplyDetailGridLocatorContext(Grid) {
+        var Index;
+        var Column;
+        if (!(Grid instanceof tp.Grid))
+            return;
+        for (Index = 0; Index < Grid.Columns.length; Index++) {
+            Column = Grid.Columns[Index];
+            if (Column && Column.IsLocator && tp.IsBlank(Column.LocatorModuleName))
+                Column.LocatorModuleName = this.Form ? this.Form.ModuleName : "";
+        }
+    }
+    /**
+     * Schedules best-fit column sizing for a detail grid.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {void}
+     */
+    ScheduleDetailGridBestFit(Grid) {
+        if (!(Grid instanceof tp.Grid) || !tp.IsFunction(Grid.BestFitColumns))
+            return;
+        if (Grid.fDocumentBestFitTimer)
+            clearTimeout(Grid.fDocumentBestFitTimer);
+        Grid.fDocumentBestFitTimer = setTimeout(function () {
+            Grid.fDocumentBestFitTimer = null;
+            Grid.BestFitColumns();
+        }, 50);
+    }
+    /**
+     * Attaches best-fit refresh handlers to a detail grid data source.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {void}
+     */
+    AttachDetailGridBestFit(Grid) {
+        var Source;
+        if (!(Grid instanceof tp.Grid))
+            return;
+        Source = Grid.DataSource;
+        if (!(Source instanceof tp.DataSource))
+            return;
+        if (Grid.fDocumentBestFitSource === Source)
+            return;
+        if (Grid.fDocumentBestFitSource instanceof tp.DataSource && Grid.fDocumentBestFitListener)
+            Grid.fDocumentBestFitSource.Off("RowModified", Grid.fDocumentBestFitListener);
+        Grid.fDocumentBestFitSource = Source;
+        Grid.fDocumentBestFitListener = Source.On("RowModified", function () {
+            this.ScheduleDetailGridBestFit(Grid);
+        }, this);
+    }
+    /**
+     * Returns true when a modified line column requires server-side document calculation.
+     * @param {tp.DataColumn|null|undefined} Column The modified column.
+     * @returns {boolean} Returns true when server calculation is required.
+     */
+    IsServerCalculatedLineColumn(Column) {
+        var Name = Column instanceof tp.DataColumn ? Column.Name : "";
+        return tp.IsSameText(Name, "ProductId")
+            || tp.IsSameText(Name, "TaxProductGroupId")
+            || tp.IsSameText(Name, "UnitOfMeasureId")
+            || tp.IsSameText(Name, "UnitRatio")
+            || tp.IsSameText(Name, "Quantity")
+            || tp.IsSameText(Name, "UnitPrice")
+            || tp.IsSameText(Name, "DiscountPercent")
+            || tp.IsSameText(Name, "DiscountAmount");
+    }
+    /**
+     * Returns true when a modified header column requires server-side document calculation.
+     * @param {tp.DataColumn|null|undefined} Column The modified column.
+     * @returns {boolean} Returns true when server calculation is required.
+     */
+    IsServerCalculatedHeaderColumn(Column) {
+        var Name = Column instanceof tp.DataColumn ? Column.Name : "";
+        return tp.IsSameText(Name, "PersonId")
+            || tp.IsSameText(Name, "TradeDate")
+            || tp.IsSameText(Name, "TradeTypeId")
+            || tp.IsSameText(Name, "PriceListTypeId")
+            || tp.IsSameText(Name, "CurrencyId")
+            || tp.IsSameText(Name, "TaxBusinessGroupId")
+            || tp.IsSameText(Name, "BranchId")
+            || tp.IsSameText(Name, "OriginTaxJurisdictionId")
+            || tp.IsSameText(Name, "DestinationTaxJurisdictionId")
+            || tp.IsSameText(Name, "DiscountPercent")
+            || tp.IsSameText(Name, "DiscountAmount")
+            || tp.IsSameText(Name, "ChargesAmount")
+            || tp.StartsWith(Name, "Billing", true)
+            || tp.StartsWith(Name, "Shipping", true);
+    }
+    /**
+     * Attaches server calculation handlers to the item data source.
+     * @returns {void}
+     */
+    AttachItemServerCalculation() {
+        var Source = this.DataSource;
+        if (!(Source instanceof tp.DataSource))
+            return;
+        if (this.fDocumentItemCalculateSource === Source)
+            return;
+        if (this.fDocumentItemCalculateSource instanceof tp.DataSource && this.fDocumentItemCalculateListener)
+            this.fDocumentItemCalculateSource.Off("RowModified", this.fDocumentItemCalculateListener);
+        this.fDocumentItemCalculateSource = Source;
+        this.fDocumentItemCalculateListener = Source.On("RowModified", function (Args) {
+            if (this.Form && this.IsServerCalculatedHeaderColumn(Args ? Args.Column : null))
+                this.Form.ScheduleDocumentCalculate(Source.Table ? Source.Table.Name : "", Args && Args.Column ? Args.Column.Name : "");
+        }, this);
+    }
+    /**
+     * Attaches server calculation handlers to a detail grid data source.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {void}
+     */
+    AttachDetailGridServerCalculation(Grid) {
+        var Source;
+        var Table;
+        if (!(Grid instanceof tp.Grid))
+            return;
+        Source = Grid.DataSource;
+        Table = Source instanceof tp.DataSource ? Source.Table : null;
+        if (!(Source instanceof tp.DataSource) || !this.IsTradeLineTable(Table))
+            return;
+        if (Grid.fDocumentCalculateSource === Source)
+            return;
+        if (Grid.fDocumentCalculateSource instanceof tp.DataSource && Grid.fDocumentCalculateListener)
+            Grid.fDocumentCalculateSource.Off("RowModified", Grid.fDocumentCalculateListener);
+        Grid.fDocumentCalculateSource = Source;
+        Grid.fDocumentCalculateListener = Source.On("RowModified", function (Args) {
+            if (this.Form && this.IsServerCalculatedLineColumn(Args ? Args.Column : null))
+                this.Form.ScheduleDocumentCalculate(Table ? Table.Name : "", Args && Args.Column ? Args.Column.Name : "");
+        }, this);
+    }
+
+    // ● public
+    /**
+     * Creates columns for a detail grid.
+     * @param {tp.Grid} Grid The detail grid.
+     * @param {tp.DataTable|null|undefined} Table The optional detail table.
+     * @returns {void}
+     */
+    CreateDetailGridColumns(Grid, Table) {
+        var FieldNames;
+        var Index;
+        var Column;
+        if (!(Grid instanceof tp.Grid))
+            return;
+        Table = Table instanceof tp.DataTable ? Table : Grid.DataSource instanceof tp.DataSource ? Grid.DataSource.Table : null;
+        FieldNames = this.GetDetailGridFieldNames(Table);
+        if (!tp.IsArray(FieldNames) || FieldNames.length === 0) {
+            super.CreateDetailGridColumns(Grid, Table);
+            return;
+        }
+        Grid.ClearColumns();
+        for (Index = 0; Index < FieldNames.length; Index++) {
+            Column = Table ? Table.FindColumn(FieldNames[Index]) : null;
+            if (Column instanceof tp.DataColumn && this.CanRenderDetailGridColumn(Column, Table))
+                this.AddDetailGridColumn(Grid, Column);
+        }
+    }
+    /**
+     * Configures a detail grid for the current form state.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {void}
+     */
+    ConfigureDetailGrid(Grid) {
+        super.ConfigureDetailGrid(Grid);
+        this.ApplyDetailGridLocatorContext(Grid);
+        this.AttachDetailGridBestFit(Grid);
+        this.AttachDetailGridServerCalculation(Grid);
+        this.ScheduleDetailGridBestFit(Grid);
+    }
+    /**
+     * Builds the generated item page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async BuildAsync() {
+        await super.BuildAsync();
+        this.AttachItemServerCalculation();
+    }
+    /**
+     * Adds a row to a detail grid and assigns the current master key to it.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {tp.DataRow|null} Returns the created row.
+     */
+    AddDetailGridRow(Grid) {
+        var Source;
+        var Table;
+        var Row;
+        var MasterSource;
+        var MasterRow;
+        var MasterValue;
+        if (!this.CanExecuteDetailGridCommand(Grid, "GridRowInsert"))
+            return null;
+        Source = Grid.DataSource;
+        Table = Source.Table;
+        MasterSource = Source.MasterSource;
+        if (MasterSource instanceof tp.DataSource && MasterSource.Current instanceof tp.DataRow) {
+            MasterRow = MasterSource.Current;
+            MasterValue = MasterRow.Get(Source.MasterKeyField);
+            if (!tp.IsEmpty(MasterValue)) {
+                Row = Table.NewRow();
+                Row.SetByName(Source.DetailKeyField, MasterValue);
+                this.ApplyDetailRowDefaults(Table, Row);
+                Row = Table.AddRow(Row);
+                Source.Update();
+                Source.Current = Row;
+                Grid.SetFocusedRow(Row);
+                return Row;
+            }
+        }
+        Row = Grid.InsertEmptyRow();
+        if (Row instanceof tp.DataRow)
+            this.ApplyDetailRowDefaults(Grid.DataSource.Table, Row);
+        Source.Update();
+        return Row;
+    }
+};
+
+// ● document data form
+/**
+ * Base web data form for document modules.
+ */
+app.DocumentDataForm = class extends tp.WebDataForm {
+    // ● constructor
+    /**
+     * Creates the document data form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Initializes instance fields.
+     * @returns {void}
+     */
+    InitializeFields() {
+        super.InitializeFields();
+        /**
+         * Server calculation debounce timer.
+         * @type {number|null}
+         */
+        this.fDocumentCalculateTimer = null;
+        /**
+         * True while a server calculation request is running.
+         * @type {boolean}
+         */
+        this.fDocumentCalculating = false;
+        /**
+         * True when another calculation is requested while one is running.
+         * @type {boolean}
+         */
+        this.fDocumentCalculateAgain = false;
+        /**
+         * True while applying a server calculation packet.
+         * @type {boolean}
+         */
+        this.fDocumentApplyingServerPacket = false;
+        /**
+         * Pending server calculation table name.
+         * @type {string}
+         */
+        this.fDocumentCalculateTableName = "";
+        /**
+         * Pending server calculation field name.
+         * @type {string}
+         */
+        this.fDocumentCalculateFieldName = "";
+    }
+    /**
+     * Applies a data module packet returned by a server-side calculation.
+     * @param {object} Packet The Ajax response packet.
+     * @returns {void}
+     */
+    ApplyDocumentCalculatePacket(Packet) {
+        var Index;
+        var Grid;
+        var Source;
+        var Tables;
+        if (!Packet || !Packet.DataModule || !(this.Module instanceof tp.DataModule))
+            return;
+        this.fDocumentApplyingServerPacket = true;
+        try {
+            Tables = Packet.DataModule.DataSet && tp.IsArray(Packet.DataModule.DataSet.Tables) ? Packet.DataModule.DataSet.Tables : null;
+            if (this.Module.DataSet instanceof tp.DataSet && tp.IsArray(Tables))
+                this.Module.DataSet.AssignRows(Tables, true);
+        } finally {
+            this.fDocumentApplyingServerPacket = false;
+        }
+        if (this.ItemPageBuilder instanceof app.DocumentItemPageBuilder) {
+            if (this.ItemPageBuilder.DataSource instanceof tp.DataSource)
+                this.ItemPageBuilder.DataSource.Update();
+            for (Index = 0; Index < this.ItemPageBuilder.DetailSources.length; Index++) {
+                Source = this.ItemPageBuilder.DetailSources[Index];
+                if (Source instanceof tp.DataSource)
+                    Source.Update();
+            }
+            for (Index = 0; Index < this.ItemPageBuilder.DetailGrids.length; Index++) {
+                Grid = this.ItemPageBuilder.DetailGrids[Index];
+                this.ItemPageBuilder.ScheduleDetailGridBestFit(Grid);
+            }
+        }
+    }
+
+    // ● protected
+    /**
+     * Creates the item page builder.
+     * @returns {tp.WebItemPageBuilder} Returns the item page builder.
+     */
+    CreateItemPageBuilder() {
+        return new app.DocumentItemPageBuilder(this);
+    }
+    /**
+     * Renders the generated item page.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async RenderItemPageAsync() {
+        if (!(this.ItemPageBuilder instanceof app.DocumentItemPageBuilder))
+            this.ItemPageBuilder = this.CreateItemPageBuilder();
+        await this.ItemPageBuilder.BuildAsync();
+    }
+
+    // ● public
+    /**
+     * Schedules a server-side commercial document calculation.
+     * @param {string|null|undefined} TableName The table name of the changed field.
+     * @param {string|null|undefined} FieldName The changed field name.
+     * @returns {void}
+     */
+    ScheduleDocumentCalculate(TableName, FieldName) {
+        if (this.fDocumentApplyingServerPacket === true || this.IsReadOnly === true || !(this.Module instanceof tp.DataModule))
+            return;
+        if (!tp.IsBlank(TableName) && !tp.IsBlank(FieldName) && (tp.IsBlank(this.fDocumentCalculateTableName) || tp.IsBlank(this.fDocumentCalculateFieldName))) {
+            this.fDocumentCalculateTableName = String(TableName);
+            this.fDocumentCalculateFieldName = String(FieldName);
+        }
+        if (this.fDocumentCalculateTimer)
+            clearTimeout(this.fDocumentCalculateTimer);
+        this.fDocumentCalculateTimer = setTimeout(() => {
+            this.fDocumentCalculateTimer = null;
+            this.CalculateDocumentAsync();
+        }, 250);
+    }
+    /**
+     * Executes a server-side commercial document calculation.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async CalculateDocumentAsync() {
+        var Packet;
+        var TableName;
+        var FieldName;
+        if (this.fDocumentApplyingServerPacket === true || this.IsReadOnly === true || !(this.Module instanceof tp.DataModule))
+            return;
+        if (this.fDocumentCalculating === true) {
+            this.fDocumentCalculateAgain = true;
+            return;
+        }
+        this.fDocumentCalculating = true;
+        TableName = this.fDocumentCalculateTableName || "";
+        FieldName = this.fDocumentCalculateFieldName || "";
+        this.fDocumentCalculateTableName = "";
+        this.fDocumentCalculateFieldName = "";
+        try {
+            Packet = await tp.AjaxRequest.Execute("App.DocumentDataModule.Calculate", {
+                ModuleName: this.ModuleName,
+                TableName: TableName,
+                FieldName: FieldName,
+                DataModuleJson: JSON.stringify(tp.IsFunction(this.Module.toDataJSON) ? this.Module.toDataJSON() : this.Module.toJSON())
+            });
+            this.ApplyDocumentCalculatePacket(Packet);
+        } catch (e) {
+            if (tp.LogBox && tp.LogBox.AppendLine)
+                tp.LogBox.AppendLine("Document calculation failed: " + tp.ExceptionText(e));
+        } finally {
+            this.fDocumentCalculating = false;
+        }
+        if (this.fDocumentCalculateAgain === true) {
+            this.fDocumentCalculateAgain = false;
+            this.ScheduleDocumentCalculate();
+        }
+    }
+};
+
+// ● trade data form
+/**
+ * Base web data form for commercial trade document modules.
+ */
+app.TradeDataForm = class extends app.DocumentDataForm {
+    // ● constructor
+    /**
+     * Creates the trade data form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+};
+
+// ● sales item page builder
+/**
+ * Builds item pages for sales document forms.
+ */
+app.SalesItemPageBuilder = class extends app.DocumentItemPageBuilder {
+    // ● constructor
+    /**
+     * Creates the sales item page builder.
+     * @param {tp.WebDataForm} Form The owner data form.
+     */
+    constructor(Form) {
+        super(Form);
+    }
+
+    // ● protected
+    /**
+     * Returns the field names to display in a sales document detail grid.
+     * @param {tp.DataTable} Table The detail table.
+     * @returns {string[]|null} Returns field names or null to use the default columns.
+     */
+    GetDetailGridFieldNames(Table) {
+        if (this.IsTradeLineTable(Table)) {
+            return [
+                "DisplayOrder",
+                "LineTypeId",
+                "ProductCode",
+                "ProductName",
+                "UnitOfMeasureName",
+                "Quantity",
+                "UnitPrice",
+                "GrossAmount",
+                "DiscountPercent",
+                "DiscountAmount",
+                "DocumentDiscountAmount",
+                "NetAmount",
+                "TaxPercent",
+                "TaxAmount",
+                "TotalAmount"
+            ];
+        }
+        return super.GetDetailGridFieldNames(Table);
+    }
+    /**
+     * Applies sales-specific defaults to a newly created detail row.
+     * @param {tp.DataTable} Table The detail table.
+     * @param {tp.DataRow} Row The detail row.
+     * @returns {void}
+     */
+    ApplyDetailRowDefaults(Table, Row) {
+        super.ApplyDetailRowDefaults(Table, Row);
+        if (this.IsTradeLineTable(Table) && Table.IndexOfColumn("Quantity") >= 0)
+            Row.Set("Quantity", 1);
+    }
+};
+
+// ● sales data form
+/**
+ * Base web data form for sales document modules.
+ */
+app.SalesDataForm = class extends app.TradeDataForm {
+    // ● constructor
+    /**
+     * Creates the sales data form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+
+    // ● protected
+    /**
+     * Creates the item page builder.
+     * @returns {tp.WebItemPageBuilder} Returns the item page builder.
+     */
+    CreateItemPageBuilder() {
+        return new app.SalesItemPageBuilder(this);
+    }
+};
+
+// ● sales order form
+/**
+ * Web data form for sales orders.
+ */
+app.SalesOrderForm = class extends app.SalesDataForm {
+    // ● constructor
+    /**
+     * Creates the sales order form.
+     * @param {tp.CreateParams|object|HTMLElement|string|null|undefined} CreateParams The create params.
+     */
+    constructor(CreateParams) {
+        super(CreateParams);
+    }
+};

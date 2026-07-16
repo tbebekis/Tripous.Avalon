@@ -170,6 +170,19 @@ static public partial class App
         });
     }
     /// <summary>
+    /// Configures web forms that require document-specific client behavior.
+    /// </summary>
+    static void ConfigureDocumentWebForms()
+    {
+        WebFormDef Form = WebDeskRegistry.FindForm("SalesOrder");
+        if (Form == null)
+            return;
+
+        Form.JsFormClassType = "app.SalesOrderForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/document-data-forms.js"))
+            Form.JavaScriptFiles.Add("/js/forms/document-data-forms.js");
+    }
+    /// <summary>
     /// Registers standard WebDesk data forms from registered data modules.
     /// </summary>
     static void RegisterDataModuleWebForms()
@@ -196,6 +209,7 @@ static public partial class App
             if (Module.Name.IsSameText("Company"))
                 RegisterCompanyWebFormFactBox(Form);
         }
+        ConfigureDocumentWebForms();
     }
     /// <summary>
     /// Registers Ajax request handlers.

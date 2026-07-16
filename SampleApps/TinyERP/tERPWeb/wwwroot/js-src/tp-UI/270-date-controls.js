@@ -56,7 +56,7 @@ tp.HtmlDateBox = class extends tp.InputControl {
      * @returns {string} Returns yyyy-MM-dd text or empty string.
      */
     static ToNativeDateText(Value) {
-        var DateValue = tp.ParseDateText(Value);
+        var DateValue = tp.IsEmpty(Value) ? null : tp.Db.ToDate(Value);
         return tp.IsValidDate(DateValue) ? tp.FormatDateTime(DateValue, tp.DateFormatISO) : "";
     }
     /**
@@ -132,7 +132,7 @@ tp.HtmlDateBox = class extends tp.InputControl {
      * @returns {Date|null} Returns the date value.
      */
     DataValueToDataProperty(Value) {
-        return tp.ParseDateText(Value);
+        return tp.IsEmpty(Value) ? null : tp.Db.ToDate(Value);
     }
     /**
      * Converts a date-box date to a data-source value.
@@ -140,7 +140,7 @@ tp.HtmlDateBox = class extends tp.InputControl {
      * @returns {Date|null} Returns the data-source value.
      */
     DataPropertyToDataValue(Value) {
-        return tp.ParseDateText(Value);
+        return tp.IsEmpty(Value) ? null : tp.Db.ToDate(Value);
     }
 
     // ● properties

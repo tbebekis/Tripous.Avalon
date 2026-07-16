@@ -57,7 +57,24 @@ tp.DataRow = class {
         for (Index = 0; Index < this.Table.Columns.length; Index++) {
             Column = this.Table.Columns[Index];
             if (!tp.IsNil(Column.DefaultValue) && tp.IsEmpty(this.Data[Index]))
-                this.Data[Index] = Column.DefaultValue;
+                this.Data[Index] = this.NormalizeDefaultValue(Column.DefaultValue, Column);
+        }
+    }
+    /**
+     * Converts a column default value to the column data type when possible.
+     * @param {*} Value The default value.
+     * @param {tp.DataColumn} Column The data column.
+     * @returns {*} Returns the normalized value.
+     */
+    NormalizeDefaultValue(Value, Column) {
+        if (!(Column instanceof tp.DataColumn) || !tp.IsString(Value) || tp.IsBlank(Value))
+            return Value;
+        if (Column.DataType === tp.DataType.String || Column.DataType === tp.DataType.TextBlob)
+            return Value;
+        try {
+            return Column.Parse(Value);
+        } catch (e) {
+            return Value;
         }
     }
     /**

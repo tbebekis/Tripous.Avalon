@@ -179,6 +179,25 @@ public class SalesDataModule: TradeDataModule
             CopyPersonAddresses(ea.Row);
         }
     }
+    /// <summary>
+    /// Applies sales-specific server-side side effects for a web JSON calculation field change.
+    /// </summary>
+    protected override void ApplyJsonCalculateFieldChange(string TableName, string FieldName)
+    {
+        base.ApplyJsonCalculateFieldChange(TableName, FieldName);
+
+        MemTable Table = FindTable(TableName);
+        DataRow Row = Table?.Rows.Cast<DataRow>().FirstOrDefault(item => item.RowState != DataRowState.Deleted && item.RowState != DataRowState.Detached);
+
+        if (!IsCopyingPersonAddresses
+            && Row != null
+            && !IsTransforming
+            && State.In(DataMode.Insert | DataMode.Edit)
+            && "PersonId".IsSameText(FieldName))
+        {
+            CopyPersonAddresses(Row);
+        }
+    }
     protected virtual void CopyPersonAddresses(DataRow Row)
     {
         List<PersonAddress> AddressList = DataLib.LoadPersonAddressList(Row.AsString("PersonId"));

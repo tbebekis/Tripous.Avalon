@@ -41,13 +41,53 @@ tp.Keys = {
 };
 Object.freeze(tp.Keys);
 /**
+ * Keyboard key codes for compatibility with older KeyboardEvent APIs.
+ * @type {object}
+ */
+tp.KeyCodes = {
+    F1: 112,
+    F2: 113,
+    F3: 114,
+    F4: 115,
+    F5: 116,
+    F6: 117,
+    F7: 118,
+    F8: 119,
+    F9: 120,
+    F10: 121,
+    F11: 122,
+    F12: 123,
+    Enter: 13,
+    Escape: 27,
+    Space: 32,
+    Tab: 9,
+    Backspace: 8,
+    Delete: 46,
+    Insert: 45,
+    Home: 36,
+    End: 35,
+    Left: 37,
+    Up: 38,
+    Right: 39,
+    Down: 40,
+    PageUp: 33,
+    PageDown: 34
+};
+Object.freeze(tp.KeyCodes);
+/**
  * Returns true if a keyboard event matches a key.
  * @param {KeyboardEvent} e The keyboard event.
  * @param {string} Key The key name to check.
  * @returns {boolean} Returns true if the event matches the key.
  */
 tp.IsKey = function (e, Key) {
-    return e instanceof KeyboardEvent && e.key === Key;
+    var Code;
+    if (!e)
+        return false;
+    if (e.key === Key)
+        return true;
+    Code = tp.KeyCodes[Key];
+    return tp.IsNumber(Code) && (e.keyCode === Code || e.which === Code);
 };
 /**
  * Returns true if a keyboard event represents a printable character.
@@ -55,5 +95,5 @@ tp.IsKey = function (e, Key) {
  * @returns {boolean} Returns true if the event represents a printable character.
  */
 tp.IsPrintableKey = function (e) {
-    return e instanceof KeyboardEvent && tp.IsString(e.key) && e.key.length === 1;
+    return !!e && tp.IsString(e.key) && e.key.length === 1;
 };

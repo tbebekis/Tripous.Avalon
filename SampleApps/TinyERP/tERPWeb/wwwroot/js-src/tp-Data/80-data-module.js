@@ -200,6 +200,69 @@ tp.DataModule = class extends tp.Object {
         };
     }
     /**
+     * Normalizes a row value for server round-trips.
+     * @param {*} Value The row value.
+     * @returns {*} Returns a JSON-safe scalar value.
+     */
+    NormalizeDataJsonValue(Value) {
+        if (tp.IsPlainObject(Value))
+            return null;
+        return Value;
+    }
+    /**
+     * Returns compact JSON for a data row.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {object} Returns row state and data.
+     */
+    CreateDataRowJson(Row) {
+        var Data = [];
+        var Index;
+        if (Row instanceof tp.DataRow) {
+            for (Index = 0; Index < Row.Data.length; Index++)
+                Data.push(this.NormalizeDataJsonValue(Row.Data[Index]));
+            return {
+                State: Row.State,
+                Data: Data
+            };
+        }
+        return {
+            State: 0,
+            Data: []
+        };
+    }
+    /**
+     * Returns a compact plain object with row data only.
+     * @returns {object} Returns a compact data module packet.
+     */
+    toDataJSON() {
+        var Tables = [];
+        var Index;
+        var Table;
+        if (this.DataSet instanceof tp.DataSet) {
+            for (Index = 0; Index < this.DataSet.Tables.length; Index++) {
+                Table = this.DataSet.Tables[Index];
+                Tables.push({
+                    Name: Table.Name,
+                    KeyField: Table.KeyField,
+                    MasterField: Table.MasterField,
+                    DetailField: Table.DetailField,
+                    MasterTableName: Table.MasterTableName,
+                    AutoGenerateGuidKeys: Table.AutoGenerateGuidKeys,
+                    Rows: Table.Rows.map(function (Row) { return this.CreateDataRowJson(Row); }, this),
+                    Deleted: Table.Deleted.map(function (Row) { return this.CreateDataRowJson(Row); }, this)
+                });
+            }
+        }
+        return {
+            Name: this.Name,
+            State: this.State,
+            DataSet: {
+                Name: this.DataSet instanceof tp.DataSet ? this.DataSet.Name : "",
+                Tables: Tables
+            }
+        };
+    }
+    /**
      * Assigns values from a JsonDataModule source object.
      * @param {object|null|undefined} Source The source object.
      * @returns {void}
@@ -285,7 +348,7 @@ tp.DataModule = class extends tp.Object {
      * @returns {Promise<tp.DataModuleAction>} Returns the action.
      */
     async Commit() {
-        var Action = await this.ExecuteAction("DataModule.Commit", this.CreateParams({ DataModule: this.toJSON() }));
+        var Action = await this.ExecuteAction("DataModule.Commit", this.CreateParams({ DataModule: this.toDataJSON() }));
         Action.Result = this.AssignDataModulePacket(Action.Packet);
         return Action;
     }

@@ -271,6 +271,11 @@ tp.ComboBox = class extends tp.ListControl {
     HandleTextBoxKeyDown(e) {
         if (this.Enabled !== true || this.ReadOnly === true || e.target !== this.fTextBox)
             return;
+        if (tp.IsKey(e, tp.Keys.Escape) && this.IsOpen) {
+            tp.CancelEvent(e, true);
+            this.Close();
+            return;
+        }
         if (tp.IsKey(e, tp.Keys.Up) || tp.IsKey(e, tp.Keys.Down)) {
             tp.CancelEvent(e);
             if (e.altKey === true) {
@@ -373,8 +378,15 @@ tp.ComboBox = class extends tp.ListControl {
      * @returns {boolean} Returns true when handled.
      */
     HandleScrollerKeyDown(e) {
-        if (!(e instanceof KeyboardEvent) || this.Enabled !== true || this.ReadOnly === true)
+        if (!e || this.Enabled !== true || this.ReadOnly === true)
             return false;
+        if (tp.IsKey(e, tp.Keys.Escape)) {
+            tp.CancelEvent(e, true);
+            this.Close();
+            if (this.fTextBox)
+                this.fTextBox.focus();
+            return true;
+        }
         if (tp.IsKey(e, tp.Keys.Up)) {
             tp.CancelEvent(e);
             this.MoveDropDownSelectedIndex(-1);
