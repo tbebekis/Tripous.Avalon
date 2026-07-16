@@ -485,27 +485,13 @@ app.App = {
         var cmdToggleLogSqlStatements = new tp.Command({ Name: "Log Sql", ImageFileName: "file_extension_log.png", IsToggle: true });
         var cmdPing = new tp.Command({ Name: "App.Ping", Title: "Ping", ImageFileName: "lightning.png" });
         var cmdGeneral = new tp.Command("General");
-        var GeneralCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdClose];
-        var ToolBarCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing, cmdClose];
-
-        if (this.IsAdminUser() === true) {
-            GeneralCommands.splice(4, 0, cmdDatabaseWorkbench);
-            ToolBarCommands.splice(4, 0, cmdDatabaseWorkbench);
-        }
+        var GeneralCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdClose];
+        var ToolBarCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing, cmdClose];
 
         cmdGeneral.AddRange(GeneralCommands);
         this.MenuCommands.Add(cmdGeneral);
         this.ToolBarCommands.AddRange(ToolBarCommands);
         this.CommandsRegistered = true;
-    },
-    /**
-     * Returns true when the current user is an Admin or God user.
-     * @returns {boolean} Returns true for Admin/God users.
-     */
-    IsAdminUser: function () {
-        var Info = this.StartupInfo || {};
-        var Level = String(Info.UserLevel || "");
-        return Level.indexOf("Admin") >= 0 || Level.indexOf("God") >= 0;
     },
 
     // ● startup
