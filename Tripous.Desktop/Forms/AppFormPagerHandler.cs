@@ -42,8 +42,93 @@ public class AppFormPagerHandler
     /// The popup used as a tab drop marker.
     /// </summary>
     Popup fTabDropMarker;
+    /// <summary>
+    /// Field for the MaxAllowedTabPages property.
+    /// </summary>
+    int fMaxAllowedTabPages = -1;
 
     // ● private
+    /// <summary>
+    /// Creates a menu item.
+    /// </summary>
+    /// <param name="Header">The menu item header.</param>
+    /// <param name="Action">The menu item action.</param>
+    /// <returns>The created menu item.</returns>
+    MenuItem CreateMenuItem(string Header, Action Action)
+    {
+        MenuItem Result = new MenuItem { Header = Header };
+        Result.Click += (Sender, Args) => Action();
+        return Result;
+    }
+    /// <summary>
+    /// Creates a tab header context menu.
+    /// </summary>
+    /// <param name="TabPage">The tab page.</param>
+    /// <returns>The created context menu.</returns>
+    ContextMenu CreateTabHeaderContextMenu(TabItem TabPage)
+    {
+        ContextMenu Result = new ContextMenu();
+        Result.Items.Add(CreateMenuItem("Close", () => CloseTab(TabPage)));
+        Result.Items.Add(CreateMenuItem("Close Others", () => CloseOtherTabs(TabPage)));
+        Result.Items.Add(CreateMenuItem("Close All", CloseAllTabs));
+        Result.Items.Add(CreateMenuItem("Close All Right", () => CloseTabsRight(TabPage)));
+        return Result;
+    }
+    /// <summary>
+    /// Opens the tab header context menu.
+    /// </summary>
+    /// <param name="TabPage">The tab page.</param>
+    void OpenTabHeaderContextMenu(TabItem TabPage)
+    {
+        if (TabPage == null)
+            return;
+
+        TabPage.ContextMenu = CreateTabHeaderContextMenu(TabPage);
+        TabPage.ContextMenu.Open(TabPage);
+    }
+    /// <summary>
+    /// Closes a tab page.
+    /// </summary>
+    /// <param name="TabPage">The tab page.</param>
+    void CloseTab(TabItem TabPage)
+    {
+        AppForm Form = GetForm(TabPage);
+        if (Form != null)
+            Form.CloseForm();
+    }
+    /// <summary>
+    /// Closes all tab pages except a specified tab page.
+    /// </summary>
+    /// <param name="TabPage">The tab page to keep open.</param>
+    void CloseOtherTabs(TabItem TabPage)
+    {
+        foreach (TabItem Item in Pager.Items.Cast<TabItem>().ToList())
+        {
+            if (!ReferenceEquals(Item, TabPage))
+                CloseTab(Item);
+        }
+    }
+    /// <summary>
+    /// Closes all tab pages.
+    /// </summary>
+    void CloseAllTabs()
+    {
+        foreach (TabItem Item in Pager.Items.Cast<TabItem>().ToList())
+            CloseTab(Item);
+    }
+    /// <summary>
+    /// Closes all tab pages to the right of a specified tab page.
+    /// </summary>
+    /// <param name="TabPage">The reference tab page.</param>
+    void CloseTabsRight(TabItem TabPage)
+    {
+        int Index = Pager.Items.IndexOf(TabPage);
+        if (Index < 0)
+            return;
+
+        foreach (TabItem Item in Pager.Items.Cast<TabItem>().Skip(Index + 1).ToList())
+            CloseTab(Item);
+    }
     /// <summary>
     /// Returns the form assigned to a tab item.
     /// </summary>
@@ -248,6 +333,12 @@ public class AppFormPagerHandler
                 e.Handled = true;
             }
         }
+        else if (IsTabHeaderContextMenuVisible && e.GetCurrentPoint(null).Properties.PointerUpdateKind == PointerUpdateKind.RightButtonPressed)
+        {
+            Pager.SelectedItem = TabPage;
+            OpenTabHeaderContextMenu(TabPage);
+            e.Handled = true;
+        }
         else if (CanUserReorderTabs && e.GetCurrentPoint(null).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
         {
             fDraggedTabPage = TabPage;
@@ -368,6 +459,9 @@ public class AppFormPagerHandler
         AppForm Form = FindAppForm(Context.FormId);
         if (Form == null)
         {
+            if (MaxAllowedTabPages > 0 && Pager.Items.Count >= MaxAllowedTabPages)
+                throw new InvalidOperationException($"The maximum number of allowed tab pages has been reached: {MaxAllowedTabPages}");
+
             Context.DisplayMode = FormDisplayMode.TabItem;
             Form = Context.CreateForm();
             
@@ -416,4 +510,22 @@ public class AppFormPagerHandler
     /// Gets or sets a value indicating whether the user can reorder tabs by dragging them.
     /// </summary>
     public bool CanUserReorderTabs { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether tab header context menus are visible.
+    /// </summary>
+    public bool IsTabHeaderContextMenuVisible { get; set; }
+    /// <summary>
+    /// Gets or sets the maximum allowed tab pages. A value of -1 means unlimited.
+    /// </summary>
+    public int MaxAllowedTabPages
+    {
+        get => fMaxAllowedTabPages;
+        set
+        {
+            if (value == 0 || value < -1)
+                throw new ArgumentOutOfRangeException(nameof(value), "Value must be -1 or greater than zero.");
+
+            fMaxAllowedTabPages = value;
+        }
+    }
 }

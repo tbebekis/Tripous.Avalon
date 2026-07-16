@@ -1,0 +1,46 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Tripous.Desktop.DbConnectionExplorerControl">
+    <DockPanel>
+        <Border Name="ToolBarContainer" DockPanel.Dock="Top" Classes="ToolbarContainer">
+            <StackPanel Name="pnlToolBar" Classes="ToolBar" MinHeight="32">
+                <Button Name="btnSqlEditor" ToolTip.Tip="Interactive SQL" Click="AnyClick">
+                    <Image Source="/Images32/script_lightning.png"/>
+                </Button>
+                <Separator/>
+                <Button Name="btnInsert" ToolTip.Tip="New Connection" Click="AnyClick">
+                    <Image Source="/Images32/database_add.png"/>
+                </Button>
+                <Button Name="btnEdit" ToolTip.Tip="Edit Connection" Click="AnyClick">
+                    <Image Source="/Images32/database_edit.png"/>
+                </Button>
+                <Button Name="btnDelete" ToolTip.Tip="Delete Connection" Click="AnyClick">
+                    <Image Source="/Images32/database_delete.png"/>
+                </Button>
+                <Separator/>
+                <Button Name="btnToggleConnect" ToolTip.Tip="Connect" Click="AnyClick">
+                    <Image Name="imgToggleConnect" Source="/Images32/database_green.png"/>
+                </Button>
+                <Button Name="btnRefreshSchema" ToolTip.Tip="Refresh Schema" Click="AnyClick">
+                    <Image Source="/Images32/database_refresh.png"/>
+                </Button>
+            </StackPanel>
+        </Border>
+        <TreeView Name="tv"
+                  DoubleTapped="Tv_DoubleTapped"
+                  SelectionChanged="Tv_SelectionChanged"
+                  KeyDown="Tv_OnKeyDown">
+            <TreeView.ContextMenu>
+                <ContextMenu Name="tvMenu" Opening="TvMenu_OnOpening">
+                    <MenuItem Name="mnuExpand" Header="Expand" Click="AnyClick"/>
+                    <MenuItem Name="mnuCollapse" Header="Collapse" Click="AnyClick"/>
+                    <Separator/>
+                    <MenuItem Name="mnuShowSourceCode" Header="Show Source Code" Click="AnyClick"/>
+                    <MenuItem Name="mnuShowFieldList" Header="Show Field List" Click="AnyClick"/>
+                    <Separator/>
+                    <MenuItem Name="mnuSelectTableOrView" Header="Select Table Or View" Click="AnyClick"/>
+                </ContextMenu>
+            </TreeView.ContextMenu>
+        </TreeView>
+    </DockPanel>
+</UserControl>

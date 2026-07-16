@@ -1,0 +1,10 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:desktop="clr-namespace:Tripous.Desktop"
+             x:Class="Tripous.Desktop.DatabaseWorkbenchForm">
+    <Grid ColumnDefinitions="320,Auto,*">
+        <desktop:DbConnectionExplorerControl Name="Explorer" Grid.Column="0"/>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+        <desktop:SqlConsoleControl Name="SqlConsole" Grid.Column="2"/>
+    </Grid>
+</UserControl>

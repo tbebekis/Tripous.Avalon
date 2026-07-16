@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+             xmlns:extras="clr-namespace:Avalonia.Controls;assembly=Tripous.Avalonia.Controls"
+             x:Class="Tripous.Desktop.SqlConsoleControl">
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Classes="ToolbarContainer">
+            <StackPanel Name="pnlToolBar" Classes="ToolBar" MinHeight="32"/>
+        </Border>
+        <Grid RowDefinitions="3*,Auto,2*">
+            <AvaloniaEdit:TextEditor Name="edtSql"
+                                     Grid.Row="0"
+                                     ShowLineNumbers="True"
+                                     WordWrap="False"/>
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"/>
+            <TabControl Name="pagerResults" Grid.Row="2">
+                <TabItem Header="Log">
+                    <TextBox Name="edtLog"
+                             IsReadOnly="True"
+                             AcceptsReturn="True"
+                             TextWrapping="NoWrap"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</UserControl>

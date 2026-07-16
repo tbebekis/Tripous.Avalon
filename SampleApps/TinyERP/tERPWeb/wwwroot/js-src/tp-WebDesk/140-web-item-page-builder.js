@@ -561,14 +561,14 @@ tp.WebItemPageBuilder = class {
         Source.MasterSource = MasterSource;
         Grid = new tp.Grid({
             ElementOrSelector: Element,
-            DataSource: Source,
             AutoGenerateColumns: false,
             ToolBarVisible: false,
             GroupsVisible: false,
             FilterVisible: false,
             FooterVisible: false
         });
-        this.CreateDetailGridColumns(Grid);
+        this.CreateDetailGridColumns(Grid, DetailTable);
+        Grid.DataSource = Source;
         this.ConfigureDetailGrid(Grid);
         this.DetailSources.push(Source);
         this.DetailGrids.push(Grid);
@@ -720,15 +720,17 @@ tp.WebItemPageBuilder = class {
     /**
      * Creates columns for a detail grid.
      * @param {tp.Grid} Grid The detail grid.
+     * @param {tp.DataTable|null|undefined} Table The optional detail table.
      * @returns {void}
      */
-    CreateDetailGridColumns(Grid) {
-        var Table;
+    CreateDetailGridColumns(Grid, Table) {
         var Index;
         var Column;
-        if (!(Grid instanceof tp.Grid) || !(Grid.DataSource instanceof tp.DataSource) || !(Grid.DataSource.Table instanceof tp.DataTable))
+        if (!(Grid instanceof tp.Grid))
             return;
-        Table = Grid.DataSource.Table;
+        Table = Table instanceof tp.DataTable ? Table : Grid.DataSource instanceof tp.DataSource ? Grid.DataSource.Table : null;
+        if (!(Table instanceof tp.DataTable))
+            return;
         Grid.ClearColumns();
         for (Index = 0; Index < Table.Columns.length; Index++) {
             Column = Table.Columns[Index];
@@ -813,17 +815,32 @@ tp.WebItemPageBuilder = class {
         return Row;
     }
     /**
+     * Executes a detail grid row insert.
+     * @param {tp.Grid} Grid The detail grid.
+     * @returns {tp.DataRow|null} Returns the created row.
+     */
+    ExecuteDetailGridInsert(Grid) {
+        var Row;
+        if (!this.CanExecuteDetailGridCommand(Grid, "GridRowInsert"))
+            return null;
+        Row = this.AddDetailGridRow(Grid);
+        if (!(Row instanceof tp.DataRow) && Grid instanceof tp.Grid && !Grid.ReadOnly && Grid.Enabled && Grid.AllowUserToAddRows)
+            Row = Grid.InsertEmptyRow();
+        return Row;
+    }
+    /**
      * Handles detail grid toolbar commands.
      * @param {tp.Grid} Grid The detail grid.
      * @param {tp.ToolBarItemClickEventArgs} Args The event arguments.
      * @returns {void}
      */
     HandleDetailGridToolBarButtonClick(Grid, Args) {
+        var Row;
         if (!(Grid instanceof tp.Grid) || !Args)
             return;
         if (Args.Command === "GridRowInsert") {
-            Args.Handled = true;
-            this.AddDetailGridRow(Grid);
+            Row = this.ExecuteDetailGridInsert(Grid);
+            Args.Handled = Row instanceof tp.DataRow || this.IsDetailGridEditable() !== true;
         } else if (Args.Command === "GridRowDelete") {
             if (this.CanExecuteDetailGridCommand(Grid, "GridRowDelete") === true)
                 Args.Handled = false;
@@ -843,7 +860,7 @@ tp.WebItemPageBuilder = class {
         if (tp.IsKey(e, tp.Keys.Insert)) {
             if (this.CanExecuteDetailGridCommand(Grid, "GridRowInsert") === true) {
                 tp.CancelEvent(e);
-                this.AddDetailGridRow(Grid);
+                this.ExecuteDetailGridInsert(Grid);
             }
         } else if (tp.IsKey(e, tp.Keys.Delete)) {
             if (this.CanExecuteDetailGridCommand(Grid, "GridRowDelete") === true) {
@@ -934,7 +951,6 @@ tp.WebItemPageBuilder = class {
         if (!(Grid instanceof tp.Grid)) {
             Grid = new tp.Grid({
                 ElementOrSelector: Element,
-                DataSource: Source,
                 AutoGenerateColumns: false,
                 ToolBarVisible: false,
                 GroupsVisible: false,
@@ -943,9 +959,9 @@ tp.WebItemPageBuilder = class {
             });
         } else {
             Grid.AutoGenerateColumns = false;
-            Grid.DataSource = Source;
         }
-        this.CreateDetailGridColumns(Grid);
+        this.CreateDetailGridColumns(Grid, Source.Table);
+        Grid.DataSource = Source;
         this.ConfigureDetailGrid(Grid);
         this.DetailGrids.push(Grid);
     }

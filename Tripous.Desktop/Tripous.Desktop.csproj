@@ -41,4 +41,19 @@
     <ProjectReference Include="..\Tripous.Avalonia.Controls\Tripous.Avalonia.Controls\Tripous.Avalonia.Controls.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Forms\CommandTreeViewForm.axaml.cs">
+      <DependentUpon>CommandTreeViewForm.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Forms\DataForm.axaml.cs">
+      <DependentUpon>DataForm.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\LoginDialog.axaml.cs">
+      <DependentUpon>LoginDialog.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

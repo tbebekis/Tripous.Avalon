@@ -309,5 +309,13 @@ where P.IsActive = 1
         Kind = ConfigValueKind.Boolean;
         DefaultValue = "true";
         ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.System | ConfigScopeFlags.User);
+
+        // ● Show Warning On Exec Statements
+        Name = Config.SShowWarningOnExecStatements;
+        TitleKey = "Show Warning On Exec Statements";
+        SecurityLevel = UserLevel.Admin;
+        Kind = ConfigValueKind.Boolean;
+        DefaultValue = "true";
+        ConfigPropertyDef = DataRegistry.AddOrUpdateConfigProperty(Name, TitleKey, GroupName, SecurityLevel, Kind, DefaultValue, Scopes: ConfigScopeFlags.System);
     }
 }

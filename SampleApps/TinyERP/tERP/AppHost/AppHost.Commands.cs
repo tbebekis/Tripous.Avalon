@@ -65,6 +65,15 @@ static internal partial class AppHost
         return AppHost.ContentHandler.ShowAppForm(Context);
     }
     /// <summary>
+    /// Opens the database workbench.
+    /// </summary>
+    static object ShowDatabaseWorkbenchFunc(Command Cmd)
+    {
+        FormContext Context = FormContext.Create("DatabaseWorkbench", typeof(DatabaseWorkbenchForm).FullName, FormDisplayMode.TabItem, AppHost.MainWindow);
+        Context.Title = "Database Workbench";
+        return AppHost.ContentHandler.ShowAppForm(Context);
+    }
+    /// <summary>
     /// Changes the current user password.
     /// </summary>
     static async Task ChangePassword()
@@ -98,8 +107,10 @@ static internal partial class AppHost
         Command cmdApplicationSettings = Command.CreateAsync("Application Settings", "setting_tools.png", async (c) => { await ConfigDialog.ShowModal(AppHost.MainWindow); return 0; });
         Command cmdChangePassword = Command.CreateAsync("Change Password", "change_password.png", async (c) => { await ChangePassword(); return 0; });
         Command cmdConnectionInfo = Command.CreateAsync("ConnectionInfo", "database_edit.png", async (c) => { await ShowDbConnectionEditDialog(Db.GetDefaultConnectionInfo()); return 0; });
+        Command cmdDatabaseWorkbench = Command.Create("Database Workbench", "script_lightning.png", ShowDatabaseWorkbenchFunc);
         Command cmdRegenerateDatabase = Command.CreateAsync("Regenerate Database", "database_refresh.png", async (c) => { await RegenerateDatabase(); return 0; });
         cmdConnectionInfo.SecurityLevel = UserLevel.Admin;
+        cmdDatabaseWorkbench.SecurityLevel = UserLevel.Admin;
         cmdRegenerateDatabase.SecurityLevel = UserLevel.Admin;
         Command cmdClearLog = Command.Create("Clear Log", "bin.png", (c) => { LogBox.Clear(); return 0; });
         Command cmdToggleLog = Command.Create("Toggle Log", "error_log.png", (c) => { AppHost.MainWindow.ToggleLog(); return 0; });
@@ -109,7 +120,7 @@ static internal partial class AppHost
         
         // ● General commands  
         Command cmdGeneral = new ("General");
-        cmdGeneral.Commands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdExit }.Where(CanAccess));
+        cmdGeneral.Commands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdExit }.Where(CanAccess));
 
         // ● form commands  
         foreach (FormDef FormDef in DesktopRegistry.Forms)
@@ -138,7 +149,7 @@ static internal partial class AppHost
         AppRegistry.MenuCommands.Insert(0, cmdGeneral);
         
         // ● split commands to toolbar and menu commands
-        AppRegistry.ToolBarCommands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit }.Where(CanAccess));
+        AppRegistry.ToolBarCommands.AddRange(new Command[] { cmdDashboard, cmdAppFolder, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdDatabaseWorkbench, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdTest, cmdExit }.Where(CanAccess));
         //AppRegistry.MenuCommands.AddRange(MasterCommandGroups);
     }
 }

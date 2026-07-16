@@ -215,6 +215,10 @@ static public class Config
     /// The configuration property name used to show the DataForm FactBox pane initially.
     /// </summary>
     public const string SShowDataFormFactBoxPane = "ShowDataFormFactBoxPane";
+    /// <summary>
+    /// The configuration property name used to warn before executing non-SELECT SQL statements.
+    /// </summary>
+    public const string SShowWarningOnExecStatements = "ShowWarningOnExecStatements";
 
     // ● private fields
     static SqlStore fStore;
