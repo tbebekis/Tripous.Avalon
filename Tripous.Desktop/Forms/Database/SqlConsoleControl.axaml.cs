@@ -127,7 +127,7 @@ SQL: {Statement.SqlText.Trim()}
     {
         GroupGrid Result = new GroupGrid();
         Result.IsReadOnly = true;
-        Result.IsToolBarVisible = true;
+        Result.IsToolBarVisible = false;
         Result.IsGroupPanelVisible = false;
         Result.IsFilterPanelVisible = true;
         Result.IsTotalsSummaryVisible = false;
