@@ -459,6 +459,7 @@ app.App = {
         "folder16.png",
         "item16.png",
         "lightning.png",
+        "script_lightning.png",
         "setting_tools.png",
         "table.png",
         "table_refresh.png"
@@ -477,7 +478,16 @@ app.App = {
         var cmdApplicationSettings = new tp.Command({ Name: "Application Settings", ImageFileName: "setting_tools.png" });
         var cmdChangePassword = new tp.Command({ Name: "Change Password", ImageFileName: "change_password.png" });
         var cmdConnectionInfo = new tp.Command({ Name: "ConnectionInfo", ImageFileName: "database_edit.png" });
-        var cmdDatabaseWorkbench = new tp.Command({ Name: "Database Workbench", ImageFileName: "script_lightning.png", Form: "DatabaseWorkbench", Type: "Ui", IsSingleInstance: true });
+        var cmdDatabaseWorkbench = new tp.Command({
+            Name: "Database Workbench",
+            ImageFileName: "script_lightning.png",
+            Form: "DatabaseWorkbench",
+            Type: "Ui",
+            IsSingleInstance: true,
+            Params: {
+                JsFormClassType: "app.DatabaseWorkbenchForm"
+            }
+        });
         var cmdRegenerateDatabase = new tp.Command({ Name: "Regenerate Database", ImageFileName: "database_refresh.png" });
         var cmdClose = new tp.Command({ Name: "Close", ImageFileName: "door_out.png" });
         var cmdClearLog = new tp.Command({ Name: "Clear Log", ImageFileName: "bin.png" });
