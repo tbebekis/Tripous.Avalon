@@ -55,6 +55,7 @@ public partial class DatabaseWorkbenchForm : AppForm
             SqlConsole.ShowSqlText(Args.SqlText);
         };
         SqlConsole.ConfirmExecStatementAsync = ConfirmExecStatement;
+        SqlConsole.CloseRequested += (Sender, Args) => CloseForm();
     }
 
     // ● construction

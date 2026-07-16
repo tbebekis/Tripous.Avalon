@@ -44,19 +44,18 @@ public partial class SqlConsoleControl : UserControl
     {
         fToolBar = new ToolBar();
         fToolBar.Panel = pnlToolBar;
-        fToolBar.AddButton("arrow_left.png", "Previous SQL", () =>
+        fToolBar.AddButton("arrow_left.png", "Previous", () =>
         {
             fHistory.Prior();
             UpdateToolBar();
         });
-        fToolBar.AddButton("arrow_right.png", "Next SQL", () =>
+        fToolBar.AddButton("arrow_right.png", "Next", () =>
         {
             fHistory.Next();
             UpdateToolBar();
         });
-        fToolBar.AddSeparator();
-        fToolBar.AddButton("script_lightning.png", "Execute SQL", async () => await Execute());
-        fToolBar.AddButton("bin.png", "Clear Results", ClearResults);
+        fToolBar.AddButton("lightning.png", "Execute (F5)", async () => await Execute());
+        fToolBar.AddButton("door_out.png", "Close", () => CloseRequested?.Invoke(this, EventArgs.Empty));
         UpdateToolBar();
     }
     void UpdateToolBar()
@@ -75,14 +74,6 @@ public partial class SqlConsoleControl : UserControl
         edtLog.Text += Text + Environment.NewLine;
         edtLog.CaretIndex = edtLog.Text.Length;
         LogMessage?.Invoke(this, Text);
-    }
-    void ClearResults()
-    {
-        while (pagerResults.Items.Count > 1)
-            pagerResults.Items.RemoveAt(1);
-        edtLog.Text = string.Empty;
-        fSelectCounter = 0;
-        fStatementCounter = 0;
     }
     async Task<bool> ConfirmStatement(SqlConsoleStatementItem Statement)
     {
@@ -105,7 +96,10 @@ public partial class SqlConsoleControl : UserControl
             };
             pagerResults.Items.Add(Page);
             pagerResults.SelectedItem = Page;
-            AppendLog($"Statement {fStatementCounter}: {Table.Rows.Count} row(s).");
+            AppendLog($@"Statement {fStatementCounter} successfully executed.
+Returned rows: {Table.Rows.Count}
+SQL: {Statement.SqlText.Trim()}
+");
         }
         else
         {
@@ -115,7 +109,10 @@ public partial class SqlConsoleControl : UserControl
                 return;
             }
             int AffectedRows = await Task.Run(() => fStore.ExecSql(Statement.SqlText));
-            AppendLog($"Statement {fStatementCounter}: {AffectedRows} affected row(s).");
+            AppendLog($@"Statement {fStatementCounter} successfully executed.
+Affected rows: {AffectedRows}
+SQL: {Statement.SqlText.Trim()}
+");
         }
     }
     GroupGrid CreateResultGrid(MemTable Table)
@@ -157,9 +154,13 @@ public partial class SqlConsoleControl : UserControl
     /// <param name="ConnectionInfo">The active connection.</param>
     public void SetConnection(DbConnectionInfo ConnectionInfo)
     {
+        if (ReferenceEquals(this.ConnectionInfo, ConnectionInfo))
+            return;
+        if (this.ConnectionInfo != null && ConnectionInfo != null && this.ConnectionInfo.Name.IsSameText(ConnectionInfo.Name))
+            return;
         this.ConnectionInfo = ConnectionInfo;
         fStore = ConnectionInfo != null ? new SqlStore(ConnectionInfo) : null;
-        AppendLog(ConnectionInfo != null ? $"Connection: {ConnectionInfo.Name}" : "Connection cleared.");
+        AppendLog(ConnectionInfo != null ? $"Active connection changed to: {ConnectionInfo.Name}" : "Active connection cleared.");
     }
     /// <summary>
     /// Shows SQL text in the editor.
@@ -222,4 +223,8 @@ public partial class SqlConsoleControl : UserControl
     /// Occurs when the control writes a log message.
     /// </summary>
     public event EventHandler<string> LogMessage;
+    /// <summary>
+    /// Occurs when the user requests closing the SQL console.
+    /// </summary>
+    public event EventHandler CloseRequested;
 }

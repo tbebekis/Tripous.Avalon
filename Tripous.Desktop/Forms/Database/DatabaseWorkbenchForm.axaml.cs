@@ -28,6 +28,7 @@ public partial class DatabaseWorkbenchForm : AppForm
             SqlConsole.SetConnection(Args.ConnectionInfo);
             SqlConsole.ShowSqlText(Args.SqlText);
         };
+        SqlConsole.CloseRequested += (Sender, Args) => CloseForm();
     }
 
     // ● construction
