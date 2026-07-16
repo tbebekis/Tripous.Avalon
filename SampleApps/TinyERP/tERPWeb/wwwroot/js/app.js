@@ -445,12 +445,16 @@ app.App = {
      * @type {string[]}
      */
     CommandImageFileNames: [
+        "arrow_left.png",
         "arrow_in.png",
         "arrow_out.png",
+        "arrow_right.png",
         "bin.png",
         "change_password.png",
         "chart_bar.png",
+        "database.png",
         "database_edit.png",
+        "database_green.png",
         "database_refresh.png",
         "door_out.png",
         "error_log.png",

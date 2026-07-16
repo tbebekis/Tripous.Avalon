@@ -118,6 +118,11 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
          * @type {number}
          */
         this.SelectCounter = 0;
+        /**
+         * Bound document keydown handler.
+         * @type {Function}
+         */
+        this.fKeyDownHandler = this.FuncBind(this.HandleDocumentKeyDown);
     }
     /**
      * Notification called after field initialization.
@@ -126,6 +131,16 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
     OnFieldsInitialized() {
         super.OnFieldsInitialized();
         this.CreateControls();
+        document.addEventListener("keydown", this.fKeyDownHandler, true);
+    }
+    /**
+     * Releases resources.
+     * @returns {void}
+     */
+    DoDispose() {
+        document.removeEventListener("keydown", this.fKeyDownHandler, true);
+        this.fKeyDownHandler = null;
+        super.DoDispose();
     }
     /**
      * Creates form controls.
@@ -251,6 +266,31 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
             this.ExecuteSql();
         else if (Args.Command === "Close")
             this.Close();
+    }
+    /**
+     * Handles document key down events.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleDocumentKeyDown(e) {
+        if (!e || e.key !== "F5" || this.IsActivePage() !== true)
+            return;
+        e.preventDefault();
+        e.stopPropagation();
+        this.ExecuteSql().catch(function (ex) {
+            if (tp.LogBox)
+                tp.LogBox.AppendLine("SQL execution failed: " + tp.ExceptionText(ex));
+        });
+    }
+    /**
+     * Returns true when this workbench is the selected workspace page.
+     * @returns {boolean} Returns true when active.
+     */
+    IsActivePage() {
+        var Page = this.ParentControl;
+        var Handler = Page ? Page.AppPageHandler : null;
+        var TabControl = Handler ? Handler.TabControl : null;
+        return Page instanceof tp.TabPage && TabControl instanceof tp.TabControl && TabControl.SelectedPage === Page;
     }
     /**
      * Handles tree node clicks.
