@@ -143,6 +143,14 @@ static public partial class App
         if (!Form.JavaScriptFiles.Contains("/js/forms/command-tree-view-form.js"))
             Form.JavaScriptFiles.Add("/js/forms/command-tree-view-form.js");
 
+        Form = WebDeskRegistry.AddOrUpdateForm("DatabaseWorkbench", TitleKey: "Database Workbench", Module: string.Empty, ViewName: "/Views/WebForms/DatabaseWorkbench.cshtml", Group: "General", IsReadOnly: true, SecurityLevel: UserLevel.Admin);
+        Form.IsCustom = true;
+        Form.JsFormClassType = "app.DatabaseWorkbenchForm";
+        if (!Form.JavaScriptFiles.Contains("/js/forms/database-workbench-form.js"))
+            Form.JavaScriptFiles.Add("/js/forms/database-workbench-form.js");
+        if (!Form.CssFiles.Contains("/css/forms/database-workbench-form.css"))
+            Form.CssFiles.Add("/css/forms/database-workbench-form.css");
+
         RegisterDataModuleWebForms();
     }
     /// <summary>

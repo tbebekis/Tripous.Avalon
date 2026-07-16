@@ -477,6 +477,7 @@ app.App = {
         var cmdApplicationSettings = new tp.Command({ Name: "Application Settings", ImageFileName: "setting_tools.png" });
         var cmdChangePassword = new tp.Command({ Name: "Change Password", ImageFileName: "change_password.png" });
         var cmdConnectionInfo = new tp.Command({ Name: "ConnectionInfo", ImageFileName: "database_edit.png" });
+        var cmdDatabaseWorkbench = new tp.Command({ Name: "Database Workbench", ImageFileName: "script_lightning.png", Form: "DatabaseWorkbench", Type: "Ui", IsSingleInstance: true });
         var cmdRegenerateDatabase = new tp.Command({ Name: "Regenerate Database", ImageFileName: "database_refresh.png" });
         var cmdClose = new tp.Command({ Name: "Close", ImageFileName: "door_out.png" });
         var cmdClearLog = new tp.Command({ Name: "Clear Log", ImageFileName: "bin.png" });
@@ -484,11 +485,27 @@ app.App = {
         var cmdToggleLogSqlStatements = new tp.Command({ Name: "Log Sql", ImageFileName: "file_extension_log.png", IsToggle: true });
         var cmdPing = new tp.Command({ Name: "App.Ping", Title: "Ping", ImageFileName: "lightning.png" });
         var cmdGeneral = new tp.Command("General");
+        var GeneralCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdClose];
+        var ToolBarCommands = [cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing, cmdClose];
 
-        cmdGeneral.AddRange([cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdClose]);
+        if (this.IsAdminUser() === true) {
+            GeneralCommands.splice(4, 0, cmdDatabaseWorkbench);
+            ToolBarCommands.splice(4, 0, cmdDatabaseWorkbench);
+        }
+
+        cmdGeneral.AddRange(GeneralCommands);
         this.MenuCommands.Add(cmdGeneral);
-        this.ToolBarCommands.AddRange([cmdDashboard, cmdApplicationSettings, cmdChangePassword, cmdConnectionInfo, cmdRegenerateDatabase, cmdToggleLog, cmdClearLog, cmdToggleLogSqlStatements, cmdPing, cmdClose]);
+        this.ToolBarCommands.AddRange(ToolBarCommands);
         this.CommandsRegistered = true;
+    },
+    /**
+     * Returns true when the current user is an Admin or God user.
+     * @returns {boolean} Returns true for Admin/God users.
+     */
+    IsAdminUser: function () {
+        var Info = this.StartupInfo || {};
+        var Level = String(Info.UserLevel || "");
+        return Level.indexOf("Admin") >= 0 || Level.indexOf("God") >= 0;
     },
 
     // ● startup
@@ -1301,6 +1318,8 @@ app.App = {
         if (Command.Name === "Change Password")
             return "fa fa-key";
         if (Command.Name === "ConnectionInfo")
+            return "fa fa-database";
+        if (Command.Name === "Database Workbench")
             return "fa fa-database";
         if (Command.Name === "Regenerate Database")
             return "fa fa-rotate";

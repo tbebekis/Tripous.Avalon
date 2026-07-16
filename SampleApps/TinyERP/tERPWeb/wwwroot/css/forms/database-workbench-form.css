@@ -1,0 +1,61 @@
+.app-database-workbench {
+    display: grid;
+    grid-template-columns: 320px 5px minmax(0, 1fr);
+    height: 100%;
+    min-height: 0;
+    background: var(--tp-BackColor, #fff);
+}
+
+.app-database-workbench-explorer,
+.app-database-workbench-sql {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-database-workbench-splitter {
+    cursor: col-resize;
+    background: #d0d0d0;
+}
+
+.app-database-workbench [data-role='explorer-toolbar'],
+.app-database-workbench [data-role='sql-toolbar'] {
+    flex: 0 0 auto;
+}
+
+.app-database-workbench [data-role='explorer-tree'] {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    padding: 4px;
+}
+
+.app-database-workbench [data-role='sql-editor'] {
+    flex: 1 1 48%;
+    min-height: 150px;
+    border: 1px solid #c8c8c8;
+}
+
+.app-database-workbench-results {
+    flex: 1 1 52%;
+    min-height: 160px;
+    overflow: hidden;
+}
+
+.app-database-workbench-log {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    resize: none;
+    border: 0;
+    padding: 6px;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    white-space: pre;
+}
+
+.app-database-workbench-result-grid {
+    height: 100%;
+    min-height: 0;
+}
