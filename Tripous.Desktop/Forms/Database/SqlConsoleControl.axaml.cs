@@ -38,8 +38,16 @@ public partial class SqlConsoleControl : UserControl
     /// True while SQL text is executing.
     /// </summary>
     bool fExecuting;
+    /// <summary>
+    /// The editor highlight mode.
+    /// </summary>
+    HighlightMode fHighlightMode = HighlightMode.SQL;
 
     // ● private
+    void ApplyHighlightMode()
+    {
+        edtSql.SyntaxHighlighting = Highlighters.Find(fHighlightMode);
+    }
     void CreateToolBar()
     {
         fToolBar = new ToolBar();
@@ -144,6 +152,7 @@ SQL: {Statement.SqlText.Trim()}
                 await Execute();
             }
         };
+        ApplyHighlightMode();
         CreateToolBar();
     }
 
@@ -213,6 +222,21 @@ SQL: {Statement.SqlText.Trim()}
     /// Gets the active connection.
     /// </summary>
     public DbConnectionInfo ConnectionInfo { get; private set; }
+    /// <summary>
+    /// Gets or sets the editor highlight mode.
+    /// </summary>
+    public HighlightMode HighlightMode
+    {
+        get => fHighlightMode;
+        set
+        {
+            if (fHighlightMode != value)
+            {
+                fHighlightMode = value;
+                ApplyHighlightMode();
+            }
+        }
+    }
     /// <summary>
     /// Gets or sets the non-select statement confirmation callback.
     /// </summary>
