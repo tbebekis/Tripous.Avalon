@@ -163,6 +163,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         if (!(Element instanceof HTMLElement))
             return;
         this.ExplorerToolBar = new tp.ToolBar(Element);
+        tp.AddClass(this.ExplorerToolBar.Handle, "app-database-workbench-toolbar");
         Button = this.ExplorerToolBar.AddButton("SqlEditor", "Interactive Sql", "Interactive Sql", "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "script_lightning.png" });
         Button = this.ExplorerToolBar.AddButton("Connect", "Connect", "Connect", "", "", false);
@@ -181,6 +182,7 @@ app.DatabaseWorkbenchForm = class extends tp.WebForm {
         if (!(Element instanceof HTMLElement))
             return;
         this.SqlToolBar = new tp.ToolBar(Element);
+        tp.AddClass(this.SqlToolBar.Handle, "app-database-workbench-toolbar");
         Button = this.SqlToolBar.AddButton("Prior", "Previous", "Previous", "", "", false);
         Button.ImageUrl = app.App.GetCommandImageUrl({ ImageFileName: "arrow_left.png" });
         Button = this.SqlToolBar.AddButton("Next", "Next", "Next", "", "", false);

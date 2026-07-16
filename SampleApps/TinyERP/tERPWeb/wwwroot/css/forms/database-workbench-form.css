@@ -24,6 +24,34 @@
     flex: 0 0 auto;
 }
 
+.app-database-workbench-toolbar.tp-ToolBar {
+    box-sizing: border-box;
+    flex: 0 0 36px;
+    align-items: center;
+    min-width: 0;
+    padding: 2px;
+    border-bottom: 1px solid #cccccc;
+    background: #f0f0f0;
+}
+
+.app-database-workbench-toolbar .tp-ToolButton,
+.app-database-workbench-toolbar .tp-ButtonEx {
+    box-sizing: border-box;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    margin: 0 1px 0 0;
+    padding: 0;
+    border-color: transparent;
+    background: #ffffff;
+}
+
+.app-database-workbench-toolbar .tp-ButtonEx:hover {
+    border-color: #cccccc;
+    background: #f7f7f7;
+}
+
 .app-database-workbench [data-role='explorer-tree'] {
     flex: 1 1 auto;
     min-height: 0;
