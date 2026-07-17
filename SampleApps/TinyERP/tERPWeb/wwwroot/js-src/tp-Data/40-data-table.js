@@ -479,6 +479,20 @@ tp.DataTable = class extends tp.Object {
         this.Deleted.length = 0;
     }
     /**
+     * Returns true when this table has added, modified, or deleted rows.
+     * @returns {boolean} Returns true when this table has changes.
+     */
+    HasChanges() {
+        var Index;
+        if (this.Deleted.length > 0)
+            return true;
+        for (Index = 0; Index < this.Rows.length; Index++) {
+            if (this.Rows[Index].State !== tp.DataRowState.Unchanged)
+                return true;
+        }
+        return false;
+    }
+    /**
      * Removes all rows and clears deleted rows.
      * @returns {void}
      */

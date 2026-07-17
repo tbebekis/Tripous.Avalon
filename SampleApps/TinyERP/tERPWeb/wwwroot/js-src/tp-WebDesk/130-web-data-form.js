@@ -221,6 +221,11 @@ tp.WebDataForm = class extends tp.WebForm {
          */
         this.ListGridDoubleClickHandler = null;
         /**
+         * Window key down handler.
+         * @type {Function|null}
+         */
+        this.WindowKeyDownHandler = null;
+        /**
          * The generated item page builder.
          * @type {tp.WebItemPageBuilder|null}
          */
@@ -238,6 +243,8 @@ tp.WebDataForm = class extends tp.WebForm {
     OnFieldsInitialized() {
         super.OnFieldsInitialized();
         this.CreateControls();
+        this.WindowKeyDownHandler = (e) => this.HandleWindowKeyDown(e);
+        window.addEventListener("keydown", this.WindowKeyDownHandler, false);
     }
     /**
      * Applies explicit create params to this component.
@@ -300,6 +307,10 @@ tp.WebDataForm = class extends tp.WebForm {
         this.FactBoxTabsHost = null;
         this.FactBoxTabControl = null;
         this.ListGridDoubleClickHandler = null;
+        if (this.WindowKeyDownHandler) {
+            window.removeEventListener("keydown", this.WindowKeyDownHandler, false);
+            this.WindowKeyDownHandler = null;
+        }
         this.FactBoxes = [];
         this.DataFactBoxTableList = null;
         this.DataFactBoxGrid = null;
@@ -822,22 +833,79 @@ tp.WebDataForm = class extends tp.WebForm {
         }
     }
     /**
+     * Returns true when the current item has unsaved changes.
+     * @returns {boolean} Returns true when there are unsaved changes.
+     */
+    HasChanges() {
+        return this.Module instanceof tp.DataModule && this.Module.HasChanges();
+    }
+    /**
+     * Cancels changes in the data module.
+     * @returns {void}
+     */
+    CancelChanges() {
+        if (this.Module instanceof tp.DataModule)
+            this.Module.Cancel();
+    }
+    /**
+     * Confirms canceling unsaved item changes.
+     * @returns {Promise<boolean>} Returns true when changes may be canceled.
+     */
+    async ConfirmCancelChangesAsync() {
+        if (this.HasChanges() !== true)
+            return true;
+        return await tp.YesNoBoxAsync("Cancel changes?");
+    }
+    /**
+     * Cancels item editing after optional confirmation.
+     * @param {boolean} ReturnToList True to return to the list page after canceling.
+     * @returns {Promise<boolean>} Returns true when edit cancellation is complete.
+     */
+    async CancelEditAsync(ReturnToList) {
+        if (this.IsItemState() !== true)
+            return true;
+        if (this.HasChanges() === true) {
+            if (!await this.ConfirmCancelChangesAsync())
+                return false;
+            this.CancelChanges();
+            if (ReturnToList === true || this.FormState === tp.WebDataFormState.Insert) {
+                this.FormState = tp.WebDataFormState.List;
+                return true;
+            }
+            await this.RenderItemPageAsync();
+            await this.LoadFactBoxesAsync();
+            this.ShowItemPage();
+            this.UpdateToolBar();
+            return true;
+        }
+        this.FormState = tp.WebDataFormState.List;
+        return true;
+    }
+    /**
      * Cancels the current item operation and returns to the list page.
      * @returns {Promise<void>} Returns a Promise.
      */
     async CancelAsync() {
         if (this.IsItemState() !== true)
             return;
-        this.ClearItemPage();
-        this.FormState = tp.WebDataFormState.List;
-        this.ShowListPage();
-        this.UpdateToolBar();
+        if (await this.CancelEditAsync(false)) {
+            if (this.FormState === tp.WebDataFormState.List) {
+                this.ClearItemPage();
+                this.ShowListPage();
+                this.UpdateToolBar();
+            }
+        }
     }
     /**
      * Shows the list page, refreshing it first when needed.
      * @returns {Promise<void>} Returns a Promise.
      */
     async ListAsync() {
+        if (this.IsItemState() === true) {
+            if (!await this.CancelEditAsync(true))
+                return;
+            this.ClearItemPage();
+        }
         if (this.ListIsDirty === true)
             await this.SelectListAsync();
         else {
@@ -1498,7 +1566,7 @@ tp.WebDataForm = class extends tp.WebForm {
     HandleToolBarButtonClick(Args) {
         var Command = Args ? Args.Command : "";
         if (Command === "Home")
-            this.ShowListPage();
+            this.ListAsync();
         else if (Command === "FactBox")
             this.ToggleFactBoxPane();
         else if (Command === "List")
@@ -1519,6 +1587,18 @@ tp.WebDataForm = class extends tp.WebForm {
             this.CancelAsync();
         else if (Command === "Close")
             this.CloseForm();
+    }
+    /**
+     * Handles global keyboard shortcuts while this form is open.
+     * @param {KeyboardEvent} e The keyboard event.
+     * @returns {void}
+     */
+    HandleWindowKeyDown(e) {
+        if (!(e instanceof KeyboardEvent) || e.ctrlKey !== true || !tp.IsSameText(e.key, "s"))
+            return;
+        tp.CancelEvent(e);
+        if (this.IsItemState() === true && this.IsReadOnly !== true)
+            this.SaveAsync();
     }
     /**
      * Handles select toolbar button clicks.

@@ -195,6 +195,10 @@ app.DocumentItemPageBuilder = class extends tp.WebItemPageBuilder {
             Grid.fDocumentCalculateSource.Off("RowModified", Grid.fDocumentCalculateListener);
         Grid.fDocumentCalculateSource = Source;
         Grid.fDocumentCalculateListener = Source.On("RowModified", function (Args) {
+            if (this.Form && tp.IsFunction(this.Form.LogDocumentRowStates))
+                this.Form.LogDocumentRowStates("before edit " + (Table ? Table.Name : "") + "." + (Args && Args.Column ? Args.Column.Name : ""));
+            if (this.Form && tp.IsFunction(this.Form.LogDocumentRowStates))
+                setTimeout(() => this.Form.LogDocumentRowStates("after edit " + (Table ? Table.Name : "") + "." + (Args && Args.Column ? Args.Column.Name : "")), 0);
             if (this.Form && this.IsServerCalculatedLineColumn(Args ? Args.Column : null))
                 this.Form.ScheduleDocumentCalculate(Table ? Table.Name : "", Args && Args.Column ? Args.Column.Name : "");
         }, this);
@@ -336,6 +340,202 @@ app.DocumentDataForm = class extends tp.WebDataForm {
          * @type {string}
          */
         this.fDocumentCalculateFieldName = "";
+        /**
+         * Last logged document row states, keyed by table and row key.
+         * @type {object}
+         */
+        this.fDocumentRowStateLog = {};
+    }
+    /**
+     * Returns a stable row key for preserving row state across calculation packets.
+     * @param {tp.DataTable} Table The data table.
+     * @param {tp.DataRow} Row The data row.
+     * @returns {string} Returns the row key.
+     */
+    GetDocumentRowStateKey(Table, Row) {
+        var Value;
+        if (!(Table instanceof tp.DataTable) || !(Row instanceof tp.DataRow) || Table.KeyFieldIndex < 0)
+            return "";
+        Value = Row.GetByIndex(Table.KeyFieldIndex);
+        return tp.IsEmpty(Value) ? "" : String(Value);
+    }
+    /**
+     * Captures non-unchanged row states before a calculation packet is applied.
+     * @returns {object} Returns states by table and row key.
+     */
+    CaptureDocumentRowStates() {
+        var Result = {};
+        var TableIndex;
+        var RowIndex;
+        var Table;
+        var Row;
+        var Key;
+        var TableStates;
+        if (!(this.Module instanceof tp.DataModule) || !(this.Module.DataSet instanceof tp.DataSet))
+            return Result;
+        for (TableIndex = 0; TableIndex < this.Module.DataSet.Tables.length; TableIndex++) {
+            Table = this.Module.DataSet.Tables[TableIndex];
+            if (!(Table instanceof tp.DataTable))
+                continue;
+            for (RowIndex = 0; RowIndex < Table.Rows.length; RowIndex++) {
+                Row = Table.Rows[RowIndex];
+                if (!(Row instanceof tp.DataRow) || Row.State === tp.DataRowState.Unchanged)
+                    continue;
+                if (!Result[Table.Name])
+                    Result[Table.Name] = { ByKey: {}, ByIndex: {} };
+                TableStates = Result[Table.Name];
+                TableStates.ByIndex[String(RowIndex)] = Row.State;
+                Key = this.GetDocumentRowStateKey(Table, Row);
+                if (!tp.IsBlank(Key))
+                    TableStates.ByKey[Key] = Row.State;
+            }
+        }
+        return Result;
+    }
+    /**
+     * Restores dirty row states after a calculation packet has been applied.
+     * @param {object} States The captured states.
+     * @returns {void}
+     */
+    RestoreDocumentRowStates(States) {
+        var TableName;
+        var TableStates;
+        var Key;
+        var RowIndexText;
+        var RowIndex;
+        var Table;
+        var Row;
+        var State;
+        if (!tp.IsObject(States) || !(this.Module instanceof tp.DataModule))
+            return;
+        for (TableName in States) {
+            if (!Object.prototype.hasOwnProperty.call(States, TableName))
+                continue;
+            Table = this.Module.FindTable(TableName);
+            TableStates = States[TableName];
+            if (!(Table instanceof tp.DataTable) || !tp.IsObject(TableStates))
+                continue;
+            if (tp.IsObject(TableStates.ByKey)) {
+                for (Key in TableStates.ByKey) {
+                    if (!Object.prototype.hasOwnProperty.call(TableStates.ByKey, Key))
+                        continue;
+                    Row = Table.FindRow(Table.KeyField, Key);
+                    if (!(Row instanceof tp.DataRow))
+                        Row = Table.FindRow(Table.KeyField, tp.StrToInt(Key, Key));
+                    State = TableStates.ByKey[Key];
+                    if (Row instanceof tp.DataRow && Row.State === tp.DataRowState.Unchanged && State !== tp.DataRowState.Unchanged)
+                        Row.State = State;
+                }
+            }
+            if (tp.IsObject(TableStates.ByIndex)) {
+                for (RowIndexText in TableStates.ByIndex) {
+                    if (!Object.prototype.hasOwnProperty.call(TableStates.ByIndex, RowIndexText))
+                        continue;
+                    RowIndex = tp.StrToInt(RowIndexText, -1);
+                    Row = tp.InRange(Table.Rows, RowIndex) ? Table.Rows[RowIndex] : null;
+                    State = TableStates.ByIndex[RowIndexText];
+                    if (Row instanceof tp.DataRow && Row.State === tp.DataRowState.Unchanged && State !== tp.DataRowState.Unchanged)
+                        Row.State = State;
+                }
+            }
+        }
+    }
+    /**
+     * Returns row states for diagnostics.
+     * @param {string} TableName The table name.
+     * @returns {string} Returns row state text.
+     */
+    GetDocumentTableStateText(TableName) {
+        var Table = this.Module instanceof tp.DataModule ? this.Module.FindTable(TableName) : null;
+        var List = [];
+        var Index;
+        var Row;
+        if (!(Table instanceof tp.DataTable))
+            return "";
+        for (Index = 0; Index < Table.Rows.length; Index++) {
+            Row = Table.Rows[Index];
+            if (Row instanceof tp.DataRow)
+                List.push(String(Row.State));
+        }
+        return List.join(",");
+    }
+    /**
+     * Returns a display name for a data row state.
+     * @param {number} State The data row state.
+     * @returns {string} Returns the state name.
+     */
+    GetDataRowStateName(State) {
+        if (State === tp.DataRowState.Detached)
+            return "Detached";
+        if (State === tp.DataRowState.Unchanged)
+            return "Unchanged";
+        if (State === tp.DataRowState.Added)
+            return "Added";
+        if (State === tp.DataRowState.Deleted)
+            return "Deleted";
+        if (State === tp.DataRowState.Modified)
+            return "Modified";
+        return String(State);
+    }
+    /**
+     * Returns a diagnostic key for a document row.
+     * @param {tp.DataTable} Table The table.
+     * @param {tp.DataRow} Row The row.
+     * @param {number} Index The row index.
+     * @returns {string} Returns a diagnostic row key.
+     */
+    GetDocumentRowLogKey(Table, Row, Index) {
+        var Key = this.GetDocumentRowStateKey(Table, Row);
+        return !tp.IsBlank(Key) ? Key : "#" + String(Index);
+    }
+    /**
+     * Returns extra row diagnostic values.
+     * @param {tp.DataTable} Table The table.
+     * @param {tp.DataRow} Row The row.
+     * @returns {string} Returns extra diagnostic values.
+     */
+    GetDocumentRowLogExtra(Table, Row) {
+        if (!(Table instanceof tp.DataTable) || !(Row instanceof tp.DataRow))
+            return "";
+        if (tp.IsSameText(Table.Name, "TradeLine"))
+            return ", Quantity " + String(Row.Get("Quantity"));
+        return "";
+    }
+    /**
+     * Logs document row state transitions.
+     * @param {string} Context The diagnostic context.
+     * @returns {void}
+     */
+    LogDocumentRowStates(Context) {
+        var TableIndex;
+        var RowIndex;
+        var Table;
+        var Row;
+        var Key;
+        var LogKey;
+        var OldState;
+        var NewState;
+        if (!(this.Module instanceof tp.DataModule) || !(this.Module.DataSet instanceof tp.DataSet))
+            return;
+        if (!tp.IsObject(this.fDocumentRowStateLog))
+            this.fDocumentRowStateLog = {};
+        for (TableIndex = 0; TableIndex < this.Module.DataSet.Tables.length; TableIndex++) {
+            Table = this.Module.DataSet.Tables[TableIndex];
+            if (!(Table instanceof tp.DataTable))
+                continue;
+            for (RowIndex = 0; RowIndex < Table.Rows.length; RowIndex++) {
+                Row = Table.Rows[RowIndex];
+                if (!(Row instanceof tp.DataRow))
+                    continue;
+                Key = this.GetDocumentRowLogKey(Table, Row, RowIndex);
+                LogKey = Table.Name + ":" + Key;
+                OldState = Object.prototype.hasOwnProperty.call(this.fDocumentRowStateLog, LogKey) ? this.fDocumentRowStateLog[LogKey] : tp.DataRowState.Unchanged;
+                NewState = Row.State;
+                if (OldState !== NewState)
+                    this.UiLog("Row state " + Context + ": " + Table.Name + "[" + Key + "] " + this.GetDataRowStateName(OldState) + " -> " + this.GetDataRowStateName(NewState) + this.GetDocumentRowLogExtra(Table, Row));
+                this.fDocumentRowStateLog[LogKey] = NewState;
+            }
+        }
     }
     /**
      * Applies a data module packet returned by a server-side calculation.
@@ -347,16 +547,22 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         var Grid;
         var Source;
         var Tables;
+        var RowStates;
         if (!Packet || !Packet.DataModule || !(this.Module instanceof tp.DataModule))
             return;
+        this.LogDocumentRowStates("before calculation apply");
+        RowStates = this.CaptureDocumentRowStates();
         this.fDocumentApplyingServerPacket = true;
         try {
             Tables = Packet.DataModule.DataSet && tp.IsArray(Packet.DataModule.DataSet.Tables) ? Packet.DataModule.DataSet.Tables : null;
-            if (this.Module.DataSet instanceof tp.DataSet && tp.IsArray(Tables))
+            if (this.Module.DataSet instanceof tp.DataSet && tp.IsArray(Tables)) {
                 this.Module.DataSet.AssignRows(Tables, true);
+                this.RestoreDocumentRowStates(RowStates);
+            }
         } finally {
             this.fDocumentApplyingServerPacket = false;
         }
+        this.LogDocumentRowStates("after calculation apply");
         if (this.ItemPageBuilder instanceof app.DocumentItemPageBuilder) {
             if (this.ItemPageBuilder.DataSource instanceof tp.DataSource)
                 this.ItemPageBuilder.DataSource.Update();
@@ -388,6 +594,31 @@ app.DocumentDataForm = class extends tp.WebDataForm {
         if (!(this.ItemPageBuilder instanceof app.DocumentItemPageBuilder))
             this.ItemPageBuilder = this.CreateItemPageBuilder();
         await this.ItemPageBuilder.BuildAsync();
+    }
+    /**
+     * Returns document save diagnostic text.
+     * @returns {string} Returns diagnostic text.
+     */
+    GetDocumentSaveDiagnosticText() {
+        var Table = this.Module instanceof tp.DataModule ? this.Module.FindTable("TradeLine") : null;
+        var Row;
+        if (!(Table instanceof tp.DataTable) || Table.Rows.length === 0)
+            return "";
+        Row = Table.Rows[0];
+        if (!(Row instanceof tp.DataRow))
+            return "";
+        return "TradeLine state " + String(Row.State) + ", Quantity " + String(Row.Get("Quantity"));
+    }
+    /**
+     * Commits the current item.
+     * @returns {Promise<void>} Returns a Promise.
+     */
+    async SaveAsync() {
+        var Text = this.GetDocumentSaveDiagnosticText();
+        this.LogDocumentRowStates("before save");
+        if (!tp.IsBlank(Text))
+            this.UiLog("Saving " + Text);
+        await super.SaveAsync();
     }
 
     // ● public
@@ -438,6 +669,7 @@ app.DocumentDataForm = class extends tp.WebDataForm {
                 DataModuleJson: JSON.stringify(tp.IsFunction(this.Module.toDataJSON) ? this.Module.toDataJSON() : this.Module.toJSON())
             });
             this.ApplyDocumentCalculatePacket(Packet);
+            this.UiLog("Calculated " + (!tp.IsBlank(TableName) && !tp.IsBlank(FieldName) ? TableName + "." + FieldName : "document"));
         } catch (e) {
             if (tp.LogBox && tp.LogBox.AppendLine)
                 tp.LogBox.AppendLine("Document calculation failed: " + tp.ExceptionText(e));

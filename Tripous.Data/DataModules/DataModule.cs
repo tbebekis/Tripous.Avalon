@@ -1046,7 +1046,16 @@ public class DataModule
             throw new TripousArgumentNullException(nameof(Source));
 
         State = (DataMode)Source.State;
-        JsonApplyTableRows(tblItem, Source);
+
+        tblItem.EventsDisabled = true;
+        try
+        {
+            JsonApplyTableRows(tblItem, Source);
+        }
+        finally
+        {
+            tblItem.EventsDisabled = false;
+        }
         Commit(true);
 
         JsonDataModule Result = new(this);

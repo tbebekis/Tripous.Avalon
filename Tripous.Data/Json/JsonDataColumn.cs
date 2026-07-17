@@ -100,6 +100,12 @@ public class JsonDataColumn
         ToolTip = FieldDef != null ? FieldDef.ToolTip : string.Empty;
     }
 
+    // ● public
+    /// <summary>
+    /// Returns a string representation of this instance.
+    /// </summary>
+    public override string ToString() => !string.IsNullOrWhiteSpace(Name)? Name: base.ToString();
+    
     // ● properties
     /// <summary>
     /// The column name.

@@ -84,6 +84,11 @@ tp.DataModule = class extends tp.Object {
         this.DataSet = new tp.DataSet();
         this.LastSelectName = "";
         this.LastFilters = [];
+        /**
+         * Snapshot used for canceling item changes on the client side.
+         * @type {object|null}
+         */
+        this.CancelSnapshot = null;
         if (tp.IsObject(NameOrSource))
             this.Assign(NameOrSource);
         else if (!tp.IsBlank(NameOrSource))
@@ -126,6 +131,20 @@ tp.DataModule = class extends tp.Object {
         if (tp.IsObject(Source))
             this.Assign(Source);
         return tp.IsObject(Source) ? Source : null;
+    }
+    /**
+     * Creates a deep snapshot of this data module.
+     * @returns {object} Returns the snapshot.
+     */
+    CreateSnapshot() {
+        return JSON.parse(JSON.stringify(this.toJSON()));
+    }
+    /**
+     * Captures the current module state as the cancel snapshot.
+     * @returns {void}
+     */
+    CaptureCancelSnapshot() {
+        this.CancelSnapshot = this.CreateSnapshot();
     }
 
     // ● properties
@@ -293,6 +312,21 @@ tp.DataModule = class extends tp.Object {
             this.DataSet.Assign(Source.DataSet);
     }
     /**
+     * Returns true when this module has added, modified, or deleted rows.
+     * @returns {boolean} Returns true when this module has changes.
+     */
+    HasChanges() {
+        return this.DataSet instanceof tp.DataSet && this.DataSet.HasChanges();
+    }
+    /**
+     * Cancels current item changes by restoring the last captured snapshot.
+     * @returns {void}
+     */
+    Cancel() {
+        if (tp.IsObject(this.CancelSnapshot))
+            this.Assign(this.CancelSnapshot);
+    }
+    /**
      * Finds a table by name.
      * @param {string} TableName The table name.
      * @returns {tp.DataTable|null} Returns the table or null.
@@ -316,6 +350,7 @@ tp.DataModule = class extends tp.Object {
     async Insert() {
         var Action = await this.ExecuteAction("DataModule.Insert", this.CreateParams());
         Action.Result = this.AssignDataModulePacket(Action.Packet);
+        this.CaptureCancelSnapshot();
         return Action;
     }
     /**
@@ -326,6 +361,7 @@ tp.DataModule = class extends tp.Object {
     async Edit(Id) {
         var Action = await this.ExecuteAction("DataModule.Edit", this.CreateParams({ Id: Id }));
         Action.Result = this.AssignDataModulePacket(Action.Packet);
+        this.CaptureCancelSnapshot();
         return Action;
     }
     /**
@@ -350,6 +386,7 @@ tp.DataModule = class extends tp.Object {
     async Commit() {
         var Action = await this.ExecuteAction("DataModule.Commit", this.CreateParams({ DataModule: this.toDataJSON() }));
         Action.Result = this.AssignDataModulePacket(Action.Packet);
+        this.CaptureCancelSnapshot();
         return Action;
     }
     /**

@@ -677,7 +677,10 @@ tp.Grid = class extends tp.Control  {
                         tp.CancelEvent(e);
                         this.GridScroll(tp.IsKey(e, tp.Keys.Home));
                     } else if (tp.IsKey(e, tp.Keys.Enter)) {
-                        if (tp.HasClass(elTarget, tp.Classes.GridCell)) {
+                        if (this.Editor) {
+                            this.HideEditor(true);
+                            tp.CancelEvent(e);
+                        } else if (tp.HasClass(elTarget, tp.Classes.GridCell)) {
                             this.ShowEditor(elTarget);
                             tp.CancelEvent(e);
                         }

@@ -121,6 +121,18 @@ tp.DataSet = class extends tp.Object {
         });
     }
     /**
+     * Returns true when any table has added, modified, or deleted rows.
+     * @returns {boolean} Returns true when this data set has changes.
+     */
+    HasChanges() {
+        var Index;
+        for (Index = 0; Index < this.Tables.length; Index++) {
+            if (this.Tables[Index].HasChanges())
+                return true;
+        }
+        return false;
+    }
+    /**
      * Returns the index of a table or -1.
      * @param {number|string|tp.DataTable} Table The table index, name, or instance.
      * @returns {number} Returns the table index or -1.

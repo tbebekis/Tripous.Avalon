@@ -154,6 +154,57 @@ public class JsonDataTable
 
     // ● public
     /// <summary>
+    /// Returns a string representation of this instance.
+    /// </summary>
+    public override string ToString() => !string.IsNullOrWhiteSpace(Name)? Name: base.ToString();
+    /// <summary>
+    /// Returns the index of a column by name.
+    /// </summary>
+    public int IndexOfColumn(string ColumnName)
+    {
+        if (string.IsNullOrWhiteSpace(ColumnName) || Columns == null)
+            return -1;
+        for (int i = 0; i < Columns.Count; i++)
+        {
+            if (Columns[i] != null && ColumnName.IsSameText(Columns[i].Name))
+                return i;
+        }
+        return -1;
+    }
+    /// <summary>
+    /// Returns a row value by column name, using this JSON table for column lookup.
+    /// </summary>
+    public object GetValue(JsonDataRow Row, string ColumnName)
+    {
+        if (Row == null)
+            return null;
+        return Row.GetValue(this, ColumnName);
+    }
+    /// <summary>
+    /// Returns a row value by column name, using a <see cref="DataTable"/> for column lookup.
+    /// </summary>
+    public object GetValue(JsonDataRow Row, DataTable Table, string ColumnName)
+    {
+        DataColumn Column = null;
+        if (Row == null)
+            return null;
+        if (Table != null && !string.IsNullOrWhiteSpace(ColumnName))
+        {
+            for (int i = 0; i < Table.Columns.Count; i++)
+            {
+                if (ColumnName.IsSameText(Table.Columns[i].ColumnName))
+                {
+                    Column = Table.Columns[i];
+                    break;
+                }
+            }
+        }
+        if (Column == null)
+            return null;
+        return ConvertValue(Row.GetValue(Column.Ordinal), Column.DataType);
+    }
+
+    /// <summary>
     /// Copies rows to a data table, preserving row state.
     /// </summary>
     public void RowsTo(DataTable Table)

@@ -72,6 +72,10 @@ public class JsonDataModule
 
     // ● public
     /// <summary>
+    /// Returns a string representation of this instance.
+    /// </summary>
+    public override string ToString() => !string.IsNullOrWhiteSpace(Name)? Name: base.ToString();
+    /// <summary>
     /// Converts this instance to a JSON object.
     /// </summary>
     public JsonObject ToJObject()
